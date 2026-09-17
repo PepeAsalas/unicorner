@@ -441,6 +441,25 @@ input,textarea,select{font-size:20px}
 .msg-card div{margin:2px 0;overflow-wrap:anywhere}
 .kindtag{font:700 11px var(--lab);text-transform:uppercase;padding:3px 8px;border-radius:4px;background:#7c4dff;color:#fff}
 .kindtag.k-report{background:#ff7ac8;color:#1b1530}.kindtag.k-question{background:#ffd23f;color:#1b1530}.kindtag.k-infinite-waitlist{background:#4fd7ff;color:#1b1530}
+
+/* admin: readable system font, it's a tool not the game */
+dialog.admin,dialog.admin *{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif!important;letter-spacing:0!important;text-transform:none!important}
+dialog.admin h2{font-size:24px;font-weight:700}
+dialog.admin .tabbtn,dialog.admin button{font-weight:600!important;font-size:15px!important}
+.msg-card{font-size:15px;line-height:1.45}
+.msg-card .kindtag{font-size:11px!important;font-weight:700!important;text-transform:uppercase!important;letter-spacing:.4px!important}
+#inbox-stats{font-size:14px}
+.adm-t,.admin label,.admin .mute{font-size:14px}
+dialog.admin textarea{font-family:ui-monospace,Menlo,Consolas,monospace!important;font-size:13px!important}
+.timer.low i{background:repeating-linear-gradient(90deg,#ff4d4d 0 14px,transparent 14px 18px)!important;background-size:18px 100%!important;background-repeat:repeat-x!important;background-position:left!important}
+
+.statgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.stat{background:rgba(0,0,0,.28);border:2px solid rgba(255,255,255,.18);border-radius:8px;padding:10px 12px}
+.stat b{display:block;font-size:26px;font-weight:700}
+.stat span{font-size:13px;opacity:.75}
+.bars .barrow{display:flex;align-items:center;gap:8px;margin:4px 0;font-size:13px}
+.bars .barrow span{width:48px;opacity:.7}
+.bars .barrow i{height:12px;border-radius:3px;background:linear-gradient(90deg,#7c4dff,#ffd23f);min-width:2px}
 </style></head><body>
 <div class="scene retro2" aria-hidden="true">
 <div class="sky"><i class="cloud c1"></i><i class="cloud c2"></i><i class="cloud c3"></i><i class="cloud c4"></i></div>
@@ -582,7 +601,7 @@ function start(){document.body.classList.remove('playing');fillReport();document
  </div>`,()=>{const play=()=>{document.body.classList.remove('landing');if(played){restore(played);setMeter();end(true)}else ask()};
   document.getElementById('go').onclick=play;const g2=document.getElementById('go2');if(g2)g2.onclick=play;
   const hw=document.getElementById('how');if(hw)hw.onclick=()=>document.getElementById('steps').scrollIntoView({behavior:'smooth',block:'start'});})}
-function ask(){document.body.classList.add('playing');const q=Q[qi];let left=TIME*1000,t0,done=false;
+function ask(){document.body.classList.add('playing');if(qi===0)track('game_start');const q=Q[qi];let left=TIME*1000,t0,done=false;
  swap(`<div class="card"><div class="mute">Prompt ${qi+1} of ${Q.length} · ${q.sub}</div><div class="prompt">${q.prompt}</div>${q.by?`<div class="byline">🦄 Community question by ${q.by}</div>`:''}
  <div class="timer" id="tm"><i id="bar"></i></div>
  <form id="f" autocomplete="off"><input id="in" placeholder="Type a player" aria-label="Your answer"></form>
@@ -621,7 +640,7 @@ function reveal(ans){const q=Q[qi];const pts=ans?ans.pts:0;const before=zoneOf(s
    if(k<1)requestAnimationFrame(step);else{head.classList.add('locked');const g=document.getElementById('gauge');g.classList.add('done');if(target===N-1)g.classList.add('uni');const tn=document.getElementById('tn');if(tn){tn.style.color=COLS[target];if(target===N-1)tn.classList.add('uni-text')}setTimeout(land,380)}};
   requestAnimationFrame(step)}
 const n=nx;n.onclick=()=>{qi++;qi<Q.length?ask():end()}})}
-function end(restored){document.body.classList.remove('playing');fillReport();if(!restored){setPlayed({score,picks:results.map(r=>[Q.indexOf(r.q),r.ans?r.ans.name:null,r.pts])});submitScore(score)}setTimeout(()=>renderDist(score),restored?900:1600);const share=`Unicorner 🦄 ${score}/${MAX}\n${results.map(r=>r.pts?['🟫','🟩','🟦','🟪','🟧','🟨'][TIERS.findIndex(t=>t[0]===r.pts)]:'⬛').join('')}\n${zoneOf(score)}`;
+function end(restored){document.body.classList.remove('playing');if(!restored)track('game_finish',{score});fillReport();if(!restored){setPlayed({score,picks:results.map(r=>[Q.indexOf(r.q),r.ans?r.ans.name:null,r.pts])});submitScore(score)}setTimeout(()=>renderDist(score),restored?900:1600);const share=`Unicorner 🦄 ${score}/${MAX}\n${results.map(r=>r.pts?['🟫','🟩','🟦','🟪','🟧','🟨'][TIERS.findIndex(t=>t[0]===r.pts)]:'⬛').join('')}\n${zoneOf(score)}`;
  swap(`<div class="card"><div class="hero"><div class="sprite big-sprite bob" data-mood="${results.some(r=>r.pts===100)?'scream':score/MAX>=.44?'wow':score/MAX>=.15?'happy':'sad'}"></div><div><div class="mute">Final whistle</div><div class="tier" id="fs">0</div></div></div><div class="pts">You reached: ${zoneOf(score)}</div><div class="dist" id="dist"><div class="mute">Comparing with today's players…</div></div>
  <p class="mute" style="margin:16px 0 0">Tap to see every answer</p>${results.map((r,ri)=>{const all=[...r.q.answers].sort((a,b)=>b.pts-a.pts||a.name.localeCompare(b.name));return`<details class="res" style="--i:${ri}"><summary><span><b>${r.q.prompt}</b><br><span class="rtier" style="color:${r.ans?TCOL[r.pts]:'#ff8a7a'}">${r.ans?r.ans.name+' · '+tierName(r.pts):'Stinker'}</span></span><span class="plus">+${r.pts}</span></summary><p class="mute" style="margin:8px 0 0">${r.q.answers.length} answers</p><ul class="ans">${all.map(a=>`<li class="${a===r.ans?'you':''}" style="--tc:${TCOL[a.pts]}"><span class="an">${a.name}${a===r.ans?' ★':''}</span><span class="tchip">${tierName(a.pts)}</span></li>`).join('')}</ul><p style="margin:10px 0 0;font-size:14px" class="mute">Think we missed one? <button class="linkish" data-open="dlg-report" data-q="${ri}">Tell us</button></p></details>`}).join('')}
  <pre style="font:16px Barlow;background:rgba(0,0,0,.25);padding:12px;border-radius:8px;white-space:pre-wrap">${share}</pre>
@@ -649,8 +668,8 @@ const dbP=Promise.resolve({collection:coll});
 
 const fillReport=()=>{const el=document.getElementById('r-q');const played=(typeof getPlayed==='function'&&getPlayed())||results.length>=Q.length;el.innerHTML=played?Q.map((q,i)=>`<option value="${i}">${q.prompt}</option>`).join(''):'<option value="-1">A question from a previous day</option>'};fillReport();
 const openDlg=(id,pre)=>{const d=document.getElementById(id);const f=d.querySelector('form');f.reset();f.querySelector('.formmsg').textContent='';f.querySelector('[type=submit]').disabled=false;if(pre)Object.entries(pre).forEach(([k,v])=>{const el=f.elements[k];if(el)el.value=v});d.showModal()};
-document.addEventListener('click',e=>{const inf=e.target.closest('[data-infinite]');if(inf){openDlg('dlg-infinite');dbP.then(db=>db&&db.collection('submissions').add({kind:'infinite-click',from:document.body.classList.contains('landing')?'landing':'results',sentAt:new Date().toISOString()})).catch(()=>{})}const o=e.target.closest('[data-open]');if(o){openDlg(o.dataset.open,o.dataset.q!==undefined?{question:o.dataset.q}:null)}const c=e.target.closest('[data-close]');if(c)c.closest('dialog').close()});
-document.querySelectorAll('dialog form').forEach(f=>f.addEventListener('submit',async e=>{e.preventDefault();const msg=f.querySelector('.formmsg'),btn=f.querySelector('[type=submit]');
+document.addEventListener('click',e=>{const inf=e.target.closest('[data-infinite]');if(inf){track('infinite_click');openDlg('dlg-infinite');dbP.then(db=>db&&db.collection('submissions').add({kind:'infinite-click',from:document.body.classList.contains('landing')?'landing':'results',sentAt:new Date().toISOString()})).catch(()=>{})}const o=e.target.closest('[data-open]');if(o){openDlg(o.dataset.open,o.dataset.q!==undefined?{question:o.dataset.q}:null)}const c=e.target.closest('[data-close]');if(c)c.closest('dialog').close()});
+document.querySelectorAll('dialog form').forEach(f=>f.addEventListener('submit',async e=>{e.preventDefault();track('form_submit',{kind:f.dataset.kind});const msg=f.querySelector('.formmsg'),btn=f.querySelector('[type=submit]');
  const data=Object.fromEntries(new FormData(f));if(data._honey){f.closest('dialog').close();return}delete data._honey;data.newsletter=!!f.elements.newsletter?.checked;if(f.dataset.kind==='report')data.question=Q[+data.question]?.prompt||'earlier question';
  btn.disabled=true;msg.className='formmsg';msg.textContent='Sending…';
  try{const kind=f.dataset.kind;const labels={contact:'Contact message',report:'Problem with a question',question:'Question submission','infinite-waitlist':'Infinite mode waitlist'};
@@ -692,6 +711,16 @@ async function renderDist(mine){const el=document.getElementById('dist');if(!el)
   <rect x="${Math.min(W-62,Math.max(2,X(mine)-30))}" y="${Math.max(2,yy-36)}" width="60" height="22" rx="6" fill="#f2c230"/><text x="${Math.min(W-32,Math.max(32,X(mine)))}" y="${Math.max(2,yy-36)+15}" text-anchor="middle" class="dist-lab">You</text></g>
  </svg>`;
  const pn=document.getElementById('pctn');if(pn)countUp(pn,pct,1400)}
+
+// ---- privacy-friendly analytics (own database, no cookies)
+const SID=(()=>{try{let v=sessionStorage.getItem('uc-sid');if(!v){v=Math.random().toString(36).slice(2)+Date.now().toString(36);sessionStorage.setItem('uc-sid',v)}return v}catch{return 'anon'}})();
+const T0=Date.now();let lastBeat=0;
+function track(name,data){try{const body=JSON.stringify({name,session:SID,seconds:Math.round((Date.now()-T0)/1000),data:data||{}});
+ if(navigator.sendBeacon){const url=SB_URL+'/rest/v1/events?apikey='+encodeURIComponent(SB_KEY);navigator.sendBeacon(url,new Blob([body],{type:'application/json'}))}
+ else sb('/rest/v1/events',{method:'POST',headers:{Prefer:'return=minimal'},body}).catch(()=>{})}catch{}}
+track('view',{ref:(document.referrer||'').slice(0,120),w:window.innerWidth});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&Date.now()-lastBeat>5000){lastBeat=Date.now();track('leave')}});
+window.addEventListener('pagehide',()=>track('leave'));
 // ---- question bank
 const FAME_PTS={5:4,4:8,3:16,2:64,1:100};
 const slug=t=>norm(t).replace(/ /g,'-').slice(0,120)||('q'+Date.now());
@@ -707,7 +736,7 @@ const SEED=[{"prompt":"Named in Brazil's squad for the 2002 World Cup","subtitle
 function applyBank(){const seen=new Set();const ok=[...BANK.filter(b=>b.approved&&(b.answers||[]).length>=5),...SEED].filter(b=>{if(seen.has(b._id))return false;seen.add(b._id);return true});if(ok.length>=5){Q=todaysSet(ok).map(toGame);const names=ok.flatMap(b=>b.answers.map(a=>a.name));names.forEach(n=>{known.add(norm(n));knownLast.add(norm(n).split(' ').pop())})}fillReport()}
 
 // ---- admin
-const adminHTML=`<dialog id="dlg-admin" class="admin"><div class="admin-in"><div class="row" style="justify-content:space-between;margin:0"><h2>Admin</h2><button class="ghost" data-close>Close</button></div><div class="row" style="margin:6px 0 14px"><button id="tab-bank" class="tabbtn on">Question bank</button><button id="tab-inbox" class="tabbtn">Inbox</button></div><div id="inbox-pane" hidden><div class="row" style="margin:0 0 10px"><select id="inbox-filter" style="width:auto"><option value="">All messages</option><option value="contact">Contact</option><option value="report">Problem reports</option><option value="question">Question submissions</option><option value="infinite-waitlist">Infinite waitlist</option></select><button class="ghost" id="inbox-refresh">Refresh</button><span class="mute" id="inbox-stats"></span></div><div id="inbox-list"></div></div><div id="bank-pane">
+const adminHTML=`<dialog id="dlg-admin" class="admin"><div class="admin-in"><div class="row" style="justify-content:space-between;margin:0"><h2>Admin</h2><button class="ghost" data-close>Close</button></div><div class="row" style="margin:6px 0 14px"><button id="tab-bank" class="tabbtn on">Question bank</button><button id="tab-inbox" class="tabbtn">Inbox</button><button id="tab-stats" class="tabbtn">Stats</button></div><div id="inbox-pane" hidden><div class="row" style="margin:0 0 10px"><select id="inbox-filter" style="width:auto"><option value="">All messages</option><option value="contact">Contact</option><option value="report">Problem reports</option><option value="question">Question submissions</option><option value="infinite-waitlist">Infinite waitlist</option></select><button class="ghost" id="inbox-refresh">Refresh</button><span class="mute" id="inbox-stats"></span></div><div id="inbox-list"></div></div><div id="stats-pane" hidden><div class="row" style="margin:0 0 10px"><select id="stats-range" style="width:auto"><option value="7">Last 7 days</option><option value="30">Last 30 days</option><option value="1">Today</option></select><button class="ghost" id="stats-refresh">Refresh</button></div><div id="stats-body"></div></div><div id="bank-pane">
 <p class="mute" id="adm-stats"></p>
 <details open><summary><b>Import a batch</b></summary><p class="mute">Paste the JSON from ChatGPT. New questions arrive unapproved. Re-importing a question keeps its approval.</p>
 <textarea id="adm-json" placeholder='{"questions":[...]}'></textarea><div class="row"><button id="adm-import">Import</button><span class="formmsg" id="adm-msg"></span></div></details>
@@ -742,6 +771,31 @@ document.getElementById('adm-list').addEventListener('click',async e=>{const btn
  if(act==='del'){if(!confirm('Delete this question?'))return;const db=await dbP;await db.collection('bank').doc(b._id).delete();BANK=BANK.filter(x=>x!==b);renderAdmin();return}
  btn.disabled=true;try{await saveQ2(b)}catch{alert('Save failed')}const open=[...document.querySelectorAll('.adm-q[open] summary span:nth-child(2)')].map(x=>x.textContent);renderAdmin();document.querySelectorAll('.adm-q').forEach(d=>{if(open.includes(d.querySelector('summary span:nth-child(2)').textContent))d.open=true})});
 
+
+async function loadStats(){const el=document.getElementById('stats-body');el.innerHTML='<p class="mute">Loading…</p>';
+ const days=+document.getElementById('stats-range').value;const since=new Date(Date.now()-days*864e5).toISOString();
+ try{const rows=await sb('/rest/v1/events?select=name,session,seconds,data,created_at&created_at=gte.'+since+'&order=created_at.desc&limit=20000');
+  const sess=new Map();for(const r of rows){const k=r.session;const o=sess.get(k)||{sec:0,names:new Set()};o.sec=Math.max(o.sec,r.seconds||0);o.names.add(r.name);sess.set(k,o)}
+  const S=[...sess.values()];const n=S.length||1;
+  const cnt=nm=>rows.filter(r=>r.name===nm).length;
+  const started=S.filter(o=>o.names.has('game_start')).length,finished=S.filter(o=>o.names.has('game_finish')).length;
+  const med=(()=>{const a=S.map(o=>o.sec).sort((x,y)=>x-y);return a.length?a[Math.floor(a.length/2)]:0})();
+  const avg=Math.round(S.reduce((a,o)=>a+o.sec,0)/n);
+  const bounce=Math.round(S.filter(o=>o.sec<10&&!o.names.has('game_start')).length/n*100);
+  const scores=rows.filter(r=>r.name==='game_finish').map(r=>(r.data||{}).score).filter(v=>typeof v==='number');
+  const fmt=x=>x>=60?Math.floor(x/60)+'m '+(x%60)+'s':x+'s';
+  const byDay={};for(const r of rows){if(r.name!=='view')continue;const d=r.created_at.slice(0,10);byDay[d]=(byDay[d]||0)+1}
+  const dayRows=Object.entries(byDay).sort().slice(-14);const mx=Math.max(1,...dayRows.map(d=>d[1]));
+  el.innerHTML=`<div class="statgrid">
+   ${[['Visits',cnt('view')],['Visitors',S.length],['Games started',started],['Games finished',finished],
+      ['Finish rate',started?Math.round(finished/started*100)+'%':'—'],['Infinite clicks',cnt('infinite_click')],
+      ['Median time on site',fmt(med)],['Average time',fmt(avg)],['Bounced',bounce+'%'],
+      ['Average score',scores.length?Math.round(scores.reduce((a,b)=>a+b,0)/scores.length):'—'],['Messages sent',cnt('form_submit')]]
+     .map(([k,v])=>`<div class="stat"><b>${v}</b><span>${k}</span></div>`).join('')}</div>
+   <h3 style="margin:18px 0 6px">Visits per day</h3>
+   <div class="bars">${dayRows.map(([d,v])=>`<div class="barrow"><span>${d.slice(5)}</span><i style="width:${Math.round(v/mx*100)}%"></i><b>${v}</b></div>`).join('')||'<p class="mute">No data yet.</p>'}</div>`}
+ catch(e){el.innerHTML='<p class="msg bad">Could not load: '+esc(e.message)+'</p>'}}
+document.getElementById('stats-range').onchange=loadStats;document.getElementById('stats-refresh').onclick=loadStats;
 // ---- inbox
 async function loadInbox(){const el=document.getElementById('inbox-list'),st=document.getElementById('inbox-stats');el.innerHTML='<p class="mute">Loading…</p>';
  try{const rows=await sb('/rest/v1/submissions?select=id,kind,payload,created_at&order=created_at.desc&limit=500');
@@ -754,9 +808,9 @@ async function loadInbox(){const el=document.getElementById('inbox-list'),st=doc
    return `<div class="msg-card"><div class="row" style="margin:0 0 6px;justify-content:space-between"><span class="kindtag k-${esc(r.kind)}">${esc(label[r.kind]||r.kind)}</span><span class="mute">${when}${p.newsletter?' · wants news':''}</span></div>${fields}${p.email?`<div class="row" style="margin-top:8px"><a class="linkish" href="mailto:${esc(p.email)}?subject=Unicorner">Reply by email</a></div>`:''}</div>`}).join('')||'<p class="mute">Nothing here yet.</p>'}
  catch(e){el.innerHTML='<p class="msg bad">Could not load: '+esc(e.message)+'</p>'}}
 document.getElementById('inbox-filter').onchange=loadInbox;document.getElementById('inbox-refresh').onclick=loadInbox;
-const showTab=t=>{document.getElementById('bank-pane').hidden=t!=='bank';document.getElementById('inbox-pane').hidden=t!=='inbox';
+const showTab=t=>{document.getElementById('bank-pane').hidden=t!=='bank';document.getElementById('inbox-pane').hidden=t!=='inbox';document.getElementById('stats-pane').hidden=t!=='stats';document.getElementById('tab-stats').classList.toggle('on',t==='stats');if(t==='stats')loadStats();
  document.getElementById('tab-bank').classList.toggle('on',t==='bank');document.getElementById('tab-inbox').classList.toggle('on',t==='inbox');if(t==='inbox')loadInbox()};
-document.getElementById('tab-bank').onclick=()=>showTab('bank');document.getElementById('tab-inbox').onclick=()=>showTab('inbox');
+document.getElementById('tab-bank').onclick=()=>showTab('bank');document.getElementById('tab-inbox').onclick=()=>showTab('inbox');document.getElementById('tab-stats').onclick=()=>showTab('stats');
 // admin login: open the site with #admin
 document.body.insertAdjacentHTML('beforeend',`<dialog id="dlg-login"><form id="login-form"><h2>Admin login</h2><label for="lg-email">Email</label><input id="lg-email" type="email" required><label for="lg-pw">Password</label><input id="lg-pw" type="password" required><div class="formmsg" id="lg-msg"></div><div class="row"><button type="submit">Log in</button><button type="button" class="ghost" data-close>Cancel</button></div></form></dialog>`);
 async function openAdmin(){BANK=await loadBank();renderAdmin();document.getElementById('dlg-admin').showModal()}
