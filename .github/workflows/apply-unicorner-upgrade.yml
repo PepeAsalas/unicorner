@@ -7,6 +7,7 @@ on:
       - '.github/workflows/apply-unicorner-upgrade.yml'
       - 'scripts/apply_privacy_upgrade.py'
       - 'scripts/apply_analytics_upgrade.py'
+      - 'scripts/apply_daily_schedule.py'
 
 permissions:
   contents: write
@@ -23,15 +24,37 @@ jobs:
         run: python scripts/apply_analytics_upgrade.py
       - name: Apply privacy upgrade
         run: python scripts/apply_privacy_upgrade.py
+      - name: Apply frozen daily schedule
+        run: python scripts/apply_daily_schedule.py
+      - name: Validate scheduled games
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          expected=[f'2026-09-{day:02d}' for day in range(19,27)]
+          for day in expected:
+              p=Path('daily')/f'{day}.json'
+              d=json.loads(p.read_text(encoding='utf-8'))
+              assert d['date']==day
+              questions=d['questions']
+              assert len(questions)==5, day
+              assert sum(q['difficulty']=='easy' for q in questions)==4, day
+              assert sum(q['difficulty']=='medium' for q in questions)==1, day
+              for q in questions:
+                  assert q.get('scoring_version')==2, (day,q.get('id'))
+                  assert any(int(a['fame'])==1 for a in q['answers']), (day,q.get('id'))
+                  assert {int(a['fame']) for a in q['answers']}=={1,2,3,4,5,6}, (day,q.get('id'))
+          assert not (Path('daily')/'2026-09-18.json').exists()
+          PY
       - name: Validate JavaScript
         run: |
           python - <<'PY'
           from pathlib import Path
           import re
-          s = Path('index.html').read_text(encoding='utf-8')
-          scripts = list(re.finditer(r'<script([^>]*)>(.*?)</script>', s, re.S | re.I))
-          js = '\n;\n'.join(m.group(2) for m in scripts if 'application/json' not in m.group(1))
-          Path('/tmp/unicorner.js').write_text(js, encoding='utf-8')
+          s=Path('index.html').read_text(encoding='utf-8')
+          scripts=list(re.finditer(r'<script([^>]*)>(.*?)</script>',s,re.S|re.I))
+          js='\n;\n'.join(m.group(2) for m in scripts if 'application/json' not in m.group(1))
+          Path('/tmp/unicorner.js').write_text(js,encoding='utf-8')
           PY
           node --check /tmp/unicorner.js
       - name: Commit upgraded site
@@ -42,6 +65,6 @@ jobs:
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add index.html privacy.html
-          git commit -m 'Add privacy policy and consent records'
+          git add index.html privacy.html daily
+          git commit -m 'Apply frozen daily question schedule'
           git push
