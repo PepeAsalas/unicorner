@@ -646,11 +646,13 @@ function ask(){document.body.classList.add('playing');const q=Q[qi];if(qi===0)tr
  const tick=()=>{if(done)return;const el=left-(performance.now()-t0);bar.style.width=`${Math.max(0,el/(TIME*1000))*100}%`;document.getElementById('tm').classList.toggle('low',el<6000);if(el<=0)finish(null,'timeout');else timer=requestAnimationFrame(tick)};tick();
  function finish(ans,outcome){done=true;cancelAnimationFrame(timer);track('question_result',{question_id:q.id||slug(q.prompt),prompt:q.prompt,position:qi+1,outcome,elapsed_ms:elapsed(),answer:ans?ans.name:null,points:ans?ans.pts:0,tier:ans?tierName(ans.pts):null,set_id:dailySetId()});reveal(ans)}
  document.getElementById('skip').onclick=()=>finish(null,'skip');
- document.getElementById('f').onsubmit=e=>{e.preventDefault();const r=match(inp.value,q.answers),x=norm(inp.value);
+ document.getElementById('f').onsubmit=e=>{e.preventDefault();const typed=inp.value,r=match(typed,q.answers),x=norm(typed);
   if(r&&r!=='ambiguous'){track('answer_attempt',{question_id:q.id||slug(q.prompt),position:qi+1,outcome:'correct',elapsed_ms:elapsed(),answer:r.name,points:r.pts,tier:tierName(r.pts),set_id:dailySetId()});return finish(r,'correct')}
-  const outcome=r==='ambiguous'?'ambiguous':(known.has(x)||knownLast.has(x))?'wrong_player':'unrecognised';
-  track('answer_attempt',{question_id:q.id||slug(q.prompt),position:qi+1,outcome,elapsed_ms:elapsed(),input_length:inp.value.trim().length,set_id:dailySetId()});
-  msg.className='msg bad';msg.textContent=r==='ambiguous'?'More than one player fits. Add the first name.':(known.has(x)||knownLast.has(x))?'Real player, but not on this list.':"Didn't recognise that player.";
+  const matchedKnown=r==='ambiguous'||known.has(x)||knownLast.has(x);
+  const outcome=r==='ambiguous'?'ambiguous':matchedKnown?'wrong_player':'unrecognised';
+  track('answer_attempt',{question_id:q.id||slug(q.prompt),position:qi+1,outcome,elapsed_ms:elapsed(),input_length:typed.trim().length,set_id:dailySetId()});
+  track('rejected',{question_id:q.id||slug(q.prompt),prompt:q.prompt,input:typed,matched_known_player:matchedKnown,outcome,position:qi+1,set_id:dailySetId()});
+  msg.className='msg bad';msg.textContent=r==='ambiguous'?'More than one player fits. Add the first name.':matchedKnown?'Real player, but not on this list.':"Didn't recognise that player.";
   inp.classList.remove('shake');void inp.offsetWidth;inp.classList.add('shake');inp.select()}})}
 function reveal(ans){const q=Q[qi];const pts=ans?ans.pts:0;const before=zoneOf(score);score+=pts;results.push({q,ans,pts});const after=zoneOf(score);
  swap(`<div class="card"><div class="reveal-top"><div class="mute">${q.prompt}</div><div class="sprite mid-sprite hold" id="mascot" data-mood="${!ans?'sad':pts>=64?'wow':'happy'}"></div><div class="scream-bubble${ans?'':' stink'}" id="bubble">${ans?'AAAAAH!':'What a stinker!'}</div></div>
@@ -876,6 +878,11 @@ async function loadStats(){const el=document.getElementById('stats-body');el.inn
   const retainedD1=eligibleNew.filter(([v,r])=>allVisitorDays.has(v+'|'+addDay(r.game_day))).length;
   const d1=eligibleNew.length?Math.round(retainedD1/eligibleNew.length*100)+'%':'—';
 
+  const rejectedRows=rows.filter(r=>r.name==='rejected');
+  const rejectedByQuestion=new Map();
+  for(const r of rejectedRows){const d=r.data||{},prompt=d.prompt||'Unknown question',raw=typeof d.input==='string'?d.input:'';if(!raw)continue;let qg=rejectedByQuestion.get(prompt);if(!qg){qg={total:0,items:new Map()};rejectedByQuestion.set(prompt,qg)}qg.total++;const key=raw.trim().toLocaleLowerCase();let item=qg.items.get(key);if(!item){item={label:raw,count:0,known:false};qg.items.set(key,item)}item.count++;item.known=item.known||!!d.matched_known_player}
+  const rejectedHtml=[...rejectedByQuestion.entries()].sort((a,b)=>b[1].total-a[1].total||a[0].localeCompare(b[0])).map(([prompt,g])=>{const items=[...g.items.values()].sort((a,b)=>b.count-a.count||a.label.localeCompare(b.label)).slice(0,12);return `<details class="msg-card" style="margin:8px 0"><summary><b>${esc(prompt)}</b> <span class="mute">· ${g.total} rejected</span></summary><div style="margin-top:8px">${items.map(i=>`<div style="display:flex;justify-content:space-between;gap:12px;padding:4px 0;border-bottom:1px solid var(--line)"><span>${esc(i.label)}${i.known?' <span class="mute">· known player</span>':''}</span><b>${i.count}</b></div>`).join('')}</div></details>`}).join('');
+
   const byDay={};for(const r of rows){if(r.name!=='view')continue;const d=r.game_day||r.created_at.slice(0,10);byDay[d]=(byDay[d]||0)+1}
   const dayRows=Object.entries(byDay).sort().slice(-14);const mx=Math.max(1,...dayRows.map(d=>d[1]));
   el.innerHTML=`<div class="statgrid">
@@ -886,6 +893,9 @@ async function loadStats(){const el=document.getElementById('stats-body');el.inn
       ['Average score',scores.length?Math.round(scores.reduce((a,b)=>a+b,0)/scores.length):'—'],['Messages sent',cnt('form_submit')]]
      .map(([k,v])=>`<div class="stat"><b>${v}</b><span>${k}</span></div>`).join('')}</div>
    <p class="mute" style="font-size:12px;margin:10px 0 0">Visitor metrics use the anonymous random <code>uc-visitor</code> browser ID. Older events without this ID are excluded.</p>
+   <h3 style="margin:18px 0 6px">Rejected answers</h3>
+   <p class="mute" style="font-size:12px;margin:0 0 8px">Most common refused inputs in this date range, grouped by question. “Known player” means the input matched a player name already known to the game.</p>
+   <div>${rejectedHtml||'<p class="mute">No rejected answers yet.</p>'}</div>
    <h3 style="margin:18px 0 6px">Visits per day</h3>
    <div class="bars">${dayRows.map(([d,v])=>`<div class="barrow"><span>${d.slice(5)}</span><i style="width:${Math.round(v/mx*100)}%"></i><b>${v}</b></div>`).join('')||'<p class="mute">No data yet.</p>'}</div>`}
  catch(e){el.innerHTML='<p class="msg bad">Could not load: '+esc(e.message)+'</p>'}}
