@@ -51,11 +51,14 @@ rep(
     'question privacy notice'
 )
 
-rep(
-    "const data=Object.fromEntries(new FormData(f));if(data._honey){f.closest('dialog').close();return}delete data._honey;data.newsletter=!!f.elements.newsletter?.checked;if(f.dataset.kind==='report')data.question=Q[+data.question]?.prompt||'earlier question';",
-    "const data=Object.fromEntries(new FormData(f));if(data._honey){f.closest('dialog').close();return}delete data._honey;data.newsletter=!!f.elements.newsletter?.checked;data.privacyNoticeVersion='2026-09-18';if(data.newsletter)data.newsletterConsentAt=new Date().toISOString();if(f.dataset.kind==='report')data.question=Q[+data.question]?.prompt||'earlier question';",
-    'newsletter consent audit trail'
-)
+if "data.privacyNoticeVersion='2026-09-18'" in s:
+    print('already newsletter consent audit trail')
+else:
+    rep(
+        "const data=Object.fromEntries(new FormData(f));if(data._honey){f.closest('dialog').close();return}delete data._honey;data.newsletter=!!f.elements.newsletter?.checked;if(f.dataset.kind==='report')data.question=Q[+data.question]?.prompt||'earlier question';",
+        "const data=Object.fromEntries(new FormData(f));if(data._honey){f.closest('dialog').close();return}delete data._honey;data.newsletter=!!f.elements.newsletter?.checked;data.privacyNoticeVersion='2026-09-18';if(data.newsletter)data.newsletterConsentAt=new Date().toISOString();if(f.dataset.kind==='report')data.question=Q[+data.question]?.prompt||'earlier question';",
+        'newsletter consent audit trail'
+    )
 
 if changed:
     p.write_text(s, encoding='utf-8')
