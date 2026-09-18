@@ -8,6 +8,7 @@ on:
       - 'scripts/apply_privacy_upgrade.py'
       - 'scripts/apply_analytics_upgrade.py'
       - 'scripts/apply_visitor_retention.py'
+      - 'scripts/apply_report_upgrade.py'
       - 'scripts/apply_daily_schedule.py'
       - 'scripts/schedule_payload/**'
       - 'scripts/schedule_extras.json'
@@ -29,6 +30,8 @@ jobs:
         run: python scripts/apply_privacy_upgrade.py
       - name: Apply visitor retention analytics
         run: python scripts/apply_visitor_retention.py
+      - name: Apply fast problem reporting
+        run: python scripts/apply_report_upgrade.py
       - name: Apply frozen daily schedule
         run: python scripts/apply_daily_schedule.py
       - name: Validate scheduled games
@@ -72,6 +75,24 @@ jobs:
           assert "['Day-1 retention',d1]" in s
           assert "['Avg days played / visitor'" in s
           PY
+      - name: Validate fast problem reporting
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('index.html').read_text(encoding='utf-8')
+          assert 'class="linkish report-quick"' in s
+          assert 'name="what_happened"' in s
+          for option in [
+              'An answer I knew was rejected',
+              'An answer is wrong',
+              'The question was confusing',
+              'Something looked broken',
+              'Other',
+          ]:
+              assert option in s
+          assert 'data.questionId=' in s
+          assert 'data.score=Number.isFinite(score)?score:null' in s
+          PY
       - name: Validate JavaScript
         run: |
           python - <<'PY'
@@ -92,5 +113,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add index.html privacy.html daily
-          git commit -m 'Add persistent visitor retention analytics'
+          git commit -m 'Speed up problem reporting'
           git push
