@@ -35,13 +35,20 @@ rep(
     'question progress',
 )
 
-# Keep played-day state aligned with the Amsterdam game day and derive a browser streak
-# from the existing per-day localStorage records. No new personal identifier is needed.
-rep(
-    "const DAYKEY='unicorner-played-'+new Date().toISOString().slice(0,10);",
-    "const DAYKEY='unicorner-played-'+amsterdamDay();",
-    'Amsterdam played key',
-)
+# Keep played-day state aligned with the Amsterdam game day without referencing
+# amsterdamDay before that const is initialized later in the script.
+safe_daykey = "const DAYKEY='unicorner-played-'+new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());"
+if "const DAYKEY='unicorner-played-'+amsterdamDay();" in s:
+    s = s.replace("const DAYKEY='unicorner-played-'+amsterdamDay();", safe_daykey, 1)
+    changed = True
+    print('repaired startup-safe Amsterdam played key')
+else:
+    rep(
+        "const DAYKEY='unicorner-played-'+new Date().toISOString().slice(0,10);",
+        safe_daykey,
+        'Amsterdam played key',
+    )
+
 rep(
     "const setPlayed=v=>{try{localStorage.setItem(DAYKEY,JSON.stringify(v))}catch{}};",
     "const setPlayed=v=>{try{localStorage.setItem(DAYKEY,JSON.stringify(v))}catch{}};\nconst previousGameDay=d=>{const [y,m,dd]=d.split('-').map(Number);return new Date(Date.UTC(y,m-1,dd)-864e5).toISOString().slice(0,10)};\nconst currentStreak=()=>{try{let d=amsterdamDay(),n=0;while(localStorage.getItem('unicorner-played-'+d)){n++;d=previousGameDay(d)}return n}catch{return getPlayed()?1:0}};",
