@@ -585,7 +585,7 @@ function countUp(el,to,ms=700,prefix=''){const t0=performance.now();const f=t=>{
 function pos(sc){const f=Math.min(1,sc/MAX),n=ZONES.length-1;if(f>=ZONES[n][0])return 100;let i=0;while(f>=ZONES[i+1][0])i++;return(i+(f-ZONES[i][0])/(ZONES[i+1][0]-ZONES[i][0]))/n*100}
 function setMeter(){const h=pos(score)+'%';document.getElementById('fill').style.width=h;document.getElementById('runner').style.left=h;const z=zoneOf(score);document.querySelectorAll('#zones .zone').forEach((el,i)=>{const f=ZONES[i][0];el.classList.toggle('done',score/MAX>=f);el.classList.toggle('now',ZONES[i][1]===z)})}
 
-const DAYKEY='unicorner-played-'+amsterdamDay();
+const DAYKEY='unicorner-played-'+new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
 const getPlayed=()=>{try{return JSON.parse(localStorage.getItem(DAYKEY))}catch{return null}};
 const setPlayed=v=>{try{localStorage.setItem(DAYKEY,JSON.stringify(v))}catch{}};
 const previousGameDay=d=>{const [y,m,dd]=d.split('-').map(Number);return new Date(Date.UTC(y,m-1,dd)-864e5).toISOString().slice(0,10)};
