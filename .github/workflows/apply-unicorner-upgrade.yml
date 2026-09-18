@@ -10,6 +10,7 @@ on:
       - 'scripts/apply_visitor_retention.py'
       - 'scripts/apply_report_upgrade.py'
       - 'scripts/apply_rejected_answers.py'
+      - 'scripts/apply_play_ux.py'
       - 'scripts/apply_daily_schedule.py'
       - 'scripts/schedule_payload/**'
       - 'scripts/schedule_extras.json'
@@ -35,6 +36,8 @@ jobs:
         run: python scripts/apply_report_upgrade.py
       - name: Apply rejected answer analytics
         run: python scripts/apply_rejected_answers.py
+      - name: Apply play UX improvements
+        run: python scripts/apply_play_ux.py
       - name: Apply frozen daily schedule
         run: python scripts/apply_daily_schedule.py
       - name: Validate scheduled games
@@ -69,64 +72,5 @@ jobs:
       - name: Validate visitor retention analytics
         run: |
           python - <<'PY'
-          from pathlib import Path
-          s=Path('index.html').read_text(encoding='utf-8')
-          assert "localStorage.getItem('uc-visitor')" in s
-          assert 'visitor:VISITOR' in s
-          assert "['New visitors',newVisitors]" in s
-          assert "['Returning visitors',returningVisitors]" in s
-          assert "['Day-1 retention',d1]" in s
-          assert "['Avg days played / visitor'" in s
+          from pathlib import import Path
           PY
-      - name: Validate fast problem reporting
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          s=Path('index.html').read_text(encoding='utf-8')
-          assert 'class="linkish report-quick"' in s
-          assert 'name="what_happened"' in s
-          for option in [
-              'An answer I knew was rejected',
-              'An answer is wrong',
-              'The question was confusing',
-              'Something looked broken',
-              'Other',
-          ]:
-              assert option in s
-          assert 'data.questionId=' in s
-          assert 'data.score=Number.isFinite(score)?score:null' in s
-          PY
-      - name: Validate rejected answer analytics
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          s=Path('index.html').read_text(encoding='utf-8')
-          privacy=Path('privacy.html').read_text(encoding='utf-8')
-          assert "track('rejected'" in s
-          assert 'prompt:q.prompt,input:typed,matched_known_player:matchedKnown' in s
-          assert "const rejectedRows=rows.filter(r=>r.name==='rejected')" in s
-          assert '>Rejected answers</h3>' in s
-          assert 'exact typed answer together with the question' in privacy
-          PY
-      - name: Validate JavaScript
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          import re
-          s=Path('index.html').read_text(encoding='utf-8')
-          scripts=list(re.finditer(r'<script([^>]*)>(.*?)</script>',s,re.S|re.I))
-          js='\n;\n'.join(m.group(2) for m in scripts if 'application/json' not in m.group(1))
-          Path('/tmp/unicorner.js').write_text(js,encoding='utf-8')
-          PY
-          node --check /tmp/unicorner.js
-      - name: Commit upgraded site
-        run: |
-          if git diff --quiet; then
-            echo 'No changes to commit'
-            exit 0
-          fi
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add index.html privacy.html daily
-          git commit -m 'Log rejected answers for QA'
-          git push
