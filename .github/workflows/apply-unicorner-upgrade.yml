@@ -8,6 +8,8 @@ on:
       - 'scripts/apply_privacy_upgrade.py'
       - 'scripts/apply_analytics_upgrade.py'
       - 'scripts/apply_daily_schedule.py'
+      - 'scripts/schedule_payload/**'
+      - 'scripts/schedule_extras.json'
 
 permissions:
   contents: write
@@ -30,8 +32,10 @@ jobs:
         run: |
           python - <<'PY'
           import json
+          from collections import Counter
           from pathlib import Path
-          expected=[f'2026-09-{day:02d}' for day in range(19,27)]
+          expected=[f'2026-09-{day:02d}' for day in range(18,27)]
+          seen=set()
           for day in expected:
               p=Path('daily')/f'{day}.json'
               d=json.loads(p.read_text(encoding='utf-8'))
@@ -40,11 +44,18 @@ jobs:
               assert len(questions)==5, day
               assert sum(q['difficulty']=='easy' for q in questions)==4, day
               assert sum(q['difficulty']=='medium' for q in questions)==1, day
+              families=[]
               for q in questions:
-                  assert q.get('scoring_version')==2, (day,q.get('id'))
-                  assert any(int(a['fame'])==1 for a in q['answers']), (day,q.get('id'))
-                  assert {int(a['fame']) for a in q['answers']}=={1,2,3,4,5,6}, (day,q.get('id'))
-          assert not (Path('daily')/'2026-09-18.json').exists()
+                  qid=q.get('id') or q.get('_id')
+                  assert qid not in seen, (day,'repeat',qid)
+                  seen.add(qid)
+                  assert q.get('scoring_version')==2, (day,qid)
+                  assert q.get('format_family'), (day,qid,'missing format family')
+                  families.append(q['format_family'])
+                  assert any(int(a['fame'])==1 for a in q['answers']), (day,qid)
+                  assert {int(a['fame']) for a in q['answers']}=={1,2,3,4,5,6}, (day,qid)
+              assert max(Counter(families).values())<=2, (day,Counter(families))
+          assert len(seen)==45
           PY
       - name: Validate JavaScript
         run: |
@@ -66,5 +77,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add index.html privacy.html daily
-          git commit -m 'Apply frozen daily question schedule'
+          git commit -m 'Rebalance daily question formats'
           git push
