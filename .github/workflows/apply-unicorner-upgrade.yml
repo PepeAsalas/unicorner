@@ -9,6 +9,7 @@ on:
       - 'scripts/apply_analytics_upgrade.py'
       - 'scripts/apply_visitor_retention.py'
       - 'scripts/apply_report_upgrade.py'
+      - 'scripts/apply_rejected_answers.py'
       - 'scripts/apply_daily_schedule.py'
       - 'scripts/schedule_payload/**'
       - 'scripts/schedule_extras.json'
@@ -32,6 +33,8 @@ jobs:
         run: python scripts/apply_visitor_retention.py
       - name: Apply fast problem reporting
         run: python scripts/apply_report_upgrade.py
+      - name: Apply rejected answer analytics
+        run: python scripts/apply_rejected_answers.py
       - name: Apply frozen daily schedule
         run: python scripts/apply_daily_schedule.py
       - name: Validate scheduled games
@@ -93,6 +96,18 @@ jobs:
           assert 'data.questionId=' in s
           assert 'data.score=Number.isFinite(score)?score:null' in s
           PY
+      - name: Validate rejected answer analytics
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('index.html').read_text(encoding='utf-8')
+          privacy=Path('privacy.html').read_text(encoding='utf-8')
+          assert "track('rejected'" in s
+          assert 'prompt:q.prompt,input:typed,matched_known_player:matchedKnown' in s
+          assert "const rejectedRows=rows.filter(r=>r.name==='rejected')" in s
+          assert '>Rejected answers</h3>' in s
+          assert 'exact typed answer together with the question' in privacy
+          PY
       - name: Validate JavaScript
         run: |
           python - <<'PY'
@@ -113,5 +128,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add index.html privacy.html daily
-          git commit -m 'Speed up problem reporting'
+          git commit -m 'Log rejected answers for QA'
           git push
