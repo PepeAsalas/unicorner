@@ -120,7 +120,9 @@ jobs:
           assert '${qi+1} of ${Q.length}' in s
           assert 'id="share-result"' in s
           assert "navigator.share({title:'Unicorner',text:share})" in s
-          assert "const DAYKEY='unicorner-played-'+amsterdamDay();" in s
+          safe_daykey="const DAYKEY='unicorner-played-'+new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());"
+          assert safe_daykey in s
+          assert "const DAYKEY='unicorner-played-'+amsterdamDay();" not in s
           assert 'const currentStreak=()=>{' in s
           assert '<span>Streak</span>' in s
           PY
@@ -144,5 +146,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add index.html privacy.html daily
-          git commit -m 'Improve play progress sharing and streak UX'
+          git commit -m 'Fix startup crash in play UX'
           git push
