@@ -39,7 +39,7 @@ jobs:
         run: python scripts/apply_rejected_answers.py
       - name: Apply play UX improvements
         run: python scripts/apply_play_ux.py
-      - name: Apply friendlier scoring
+      - name: Apply five-tier scoring
         run: python scripts/apply_friendlier_scoring.py
       - name: Apply frozen daily schedule
         run: python scripts/apply_daily_schedule.py
@@ -129,16 +129,19 @@ jobs:
           assert 'const currentStreak=()=>{' in s
           assert '<span>Streak</span>' in s
           PY
-      - name: Validate friendlier scoring
+      - name: Validate five-tier scoring
         run: |
           python - <<'PY'
           from pathlib import Path
           s=Path('index.html').read_text(encoding='utf-8')
           assert "const TIME=30;" in s
-          assert "const TIERS=[[10,'Tap-in'],[20,'Finish'],[40,'Header'],[60,'Banger'],[80,'Worldie'],[100,'Screamer']];" in s
-          assert "FAME_PTS_V2={6:10,5:20,4:40,3:60,2:80,1:100}" in s
-          assert 'Tap-in · 10' in s
-          assert 'Header · 40' in s
+          assert "const TIERS=[[20,'Tap-in'],[40,'Finish'],[60,'Banger'],[80,'Worldie'],[100,'Screamer']];" in s
+          assert "FAME_PTS_V2={6:20,5:40,4:60,3:60,2:80,1:100}" in s
+          assert 'Tap-in · 20' in s
+          assert 'Banger · 60' in s
+          assert 'The five tiers' in s
+          assert "'Header'" not in s
+          assert 'Header ·' not in s
           PY
       - name: Validate JavaScript
         run: |
@@ -158,7 +161,7 @@ jobs:
             exit 0
           fi
           git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git config user.email '418982418+github-actions[bot]@users.noreply.github.com'
           git add index.html privacy.html daily
-          git commit -m 'Apply friendlier scoring ladder'
+          git commit -m 'Switch Unicorner to five scoring tiers'
           git push
