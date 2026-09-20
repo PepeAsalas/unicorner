@@ -12,6 +12,7 @@ on:
       - 'scripts/apply_rejected_answers.py'
       - 'scripts/apply_play_ux.py'
       - 'scripts/apply_friendlier_scoring.py'
+      - 'scripts/fix_five_tier_centering.py'
       - 'scripts/apply_daily_schedule.py'
       - 'scripts/schedule_payload/**'
       - 'scripts/schedule_extras.json'
@@ -41,6 +42,8 @@ jobs:
         run: python scripts/apply_play_ux.py
       - name: Apply five-tier scoring
         run: python scripts/apply_friendlier_scoring.py
+      - name: Center five-tier graph
+        run: python scripts/fix_five_tier_centering.py
       - name: Apply frozen daily schedule
         run: python scripts/apply_daily_schedule.py
       - name: Validate scheduled games
@@ -143,6 +146,14 @@ jobs:
           assert "'Header'" not in s
           assert 'Header ·' not in s
           PY
+      - name: Validate five-tier centering
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('index.html').read_text(encoding='utf-8')
+          assert '/* five-tier centering fix */' in s
+          assert 'grid-template-columns:repeat(5,minmax(0,1fr))!important;' in s
+          PY
       - name: Validate JavaScript
         run: |
           python - <<'PY'
@@ -163,5 +174,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '418982418+github-actions[bot]@users.noreply.github.com'
           git add index.html privacy.html daily
-          git commit -m 'Switch Unicorner to five scoring tiers'
+          git commit -m 'Center five-tier scoring graph'
           git push
