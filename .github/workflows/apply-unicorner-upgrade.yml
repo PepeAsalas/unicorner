@@ -11,6 +11,7 @@ on:
       - 'scripts/apply_report_upgrade.py'
       - 'scripts/apply_rejected_answers.py'
       - 'scripts/apply_play_ux.py'
+      - 'scripts/apply_friendlier_scoring.py'
       - 'scripts/apply_daily_schedule.py'
       - 'scripts/schedule_payload/**'
       - 'scripts/schedule_extras.json'
@@ -38,6 +39,8 @@ jobs:
         run: python scripts/apply_rejected_answers.py
       - name: Apply play UX improvements
         run: python scripts/apply_play_ux.py
+      - name: Apply friendlier scoring
+        run: python scripts/apply_friendlier_scoring.py
       - name: Apply frozen daily schedule
         run: python scripts/apply_daily_schedule.py
       - name: Validate scheduled games
@@ -126,6 +129,17 @@ jobs:
           assert 'const currentStreak=()=>{' in s
           assert '<span>Streak</span>' in s
           PY
+      - name: Validate friendlier scoring
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('index.html').read_text(encoding='utf-8')
+          assert "const TIME=30;" in s
+          assert "const TIERS=[[10,'Tap-in'],[20,'Finish'],[40,'Header'],[60,'Banger'],[80,'Worldie'],[100,'Screamer']];" in s
+          assert "FAME_PTS_V2={6:10,5:20,4:40,3:60,2:80,1:100}" in s
+          assert 'Tap-in · 10' in s
+          assert 'Header · 40' in s
+          PY
       - name: Validate JavaScript
         run: |
           python - <<'PY'
@@ -146,5 +160,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add index.html privacy.html daily
-          git commit -m 'Fix startup crash in play UX'
+          git commit -m 'Apply friendlier scoring ladder'
           git push
