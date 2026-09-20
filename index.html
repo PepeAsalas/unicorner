@@ -116,8 +116,9 @@ button{box-shadow:none;transition:transform .15s,box-shadow .2s}button:hover{tra
 .ghead.locked em::before{content:'';position:absolute;inset:-4px;border-radius:50%;border:3px solid var(--hc);animation:ring .8s ease-out forwards}
 @keyframes ring{to{transform:scale(2.6);opacity:0}}
 .ghead.locked span{animation:lock .45s cubic-bezier(.34,1.6,.5,1)}@keyframes lock{40%{transform:translateX(-50%) scale(1.25)}}
-.gpts{display:grid;grid-template-columns:repeat(6,1fr);margin-top:10px}
-.gpts span{text-align:center;font:600 12px Barlow,sans-serif;color:rgba(255,255,255,.35);transition:color .25s}
+.gpts{position:relative;height:18px;margin-top:10px}
+.gpts span{position:absolute;top:0;transform:translateX(-50%);font:600 12px Barlow,sans-serif;color:rgba(255,255,255,.35);transition:color .25s}
+.gpts span:last-child{transform:translateX(-100%)}
 .gpts span.lit{color:var(--ink)}
 .gauge.empty .gbar{opacity:.5}
 .uni-text{background:linear-gradient(90deg,#ff7ac8,#b48cff,#4fd7ff,#f2c230,#ff7ac8);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent!important;animation:wipe .9s cubic-bezier(.65,0,.25,1) both,rainbow 3s linear infinite}
@@ -675,7 +676,7 @@ function ask(){document.body.classList.add('playing');const q=Q[qi];if(qi===0)tr
   inp.classList.remove('shake');void inp.offsetWidth;inp.classList.add('shake');inp.select()}})}
 function reveal(ans){const q=Q[qi];const pts=ans?ans.pts:0;const before=zoneOf(score);score+=pts;results.push({q,ans,pts});const after=zoneOf(score);
  swap(`<div class="card"><div class="reveal-top"><div class="mute">${q.prompt}</div><div class="sprite mid-sprite hold" id="mascot" data-mood="${!ans?'sad':pts>=64?'wow':'happy'}"></div><div class="scream-bubble${ans?'':' stink'}" id="bubble">${ans?'AAAAAH!':'What a stinker!'}</div></div>
- <div class="gauge" id="gauge"><div class="gbar"><div class="gfill" id="gfill"></div>${TIERS.slice(1).map((t,i)=>`<i class="gdiv" style="left:${(i+1)/TIERS.length*100}%"></i>`).join('')}<div class="ghead hold" id="ghead"><span id="glabel">Tap-in</span><em></em></div></div><div class="gpts">${TIERS.map((t,i)=>`<span data-i="${i}">${t[0]}</span>`).join('')}</div></div>
+ <div class="gauge" id="gauge"><div class="gbar"><div class="gfill" id="gfill"></div>${TIERS.slice(0,-1).map(t=>`<i class="gdiv" style="left:${t[0]}%"></i>`).join('')}<div class="ghead hold" id="ghead"><span id="glabel">Tap-in</span><em></em></div></div><div class="gpts">${TIERS.map((t,i)=>`<span data-i="${i}" style="left:${t[0]}%">${t[0]}</span>`).join('')}</div></div>
  ${ans?`<div class="tier hold" id="tn">${tierName(pts)}</div><div class="pts hold" id="pl">${ans.name} · <span id="pc">+0</span> points</div>`:`<div class="tier wipe" style="color:var(--mute)">Missed</div><div class="pts">No answer · +0</div>`}
  <p class="mute">Level: <b style="color:var(--ink)">${after}</b>${after!==before?`<br><span class="promo hold" id="promo">Promoted to ${after}</span>`:''}</p>
  
@@ -690,11 +691,11 @@ function reveal(ans){const q=Q[qi];const pts=ans?ans.pts:0;const before=zoneOf(s
  const fill=document.getElementById('gfill'),head=document.getElementById('ghead'),lab=document.getElementById('glabel'),segs=[...document.querySelectorAll('#gauge .gpts span')];const COLS=['#cfd8e6','#7fe0a8','#b48cff','#ff7ac8','#f2c230'];
  if(target<0){document.getElementById('gauge').classList.add('empty');setTimeout(land,500)}else{
   // one continuous charge: fast at first, easing into the result
-  document.getElementById('gfill').style.setProperty('--gw',document.querySelector('.gbar').offsetWidth+'px');const N=TIERS.length,end=(target+.5)/N,dur=700+target*430,t0=performance.now()+350;let shown=-1;
+  document.getElementById('gfill').style.setProperty('--gw',document.querySelector('.gbar').offsetWidth+'px');const N=TIERS.length,end=pts/100,dur=700+target*430,t0=performance.now()+350;let shown=-1;
   head.classList.remove('hold');
   const step=now=>{const k=Math.max(0,Math.min(1,(now-t0)/dur));const e=1-Math.pow(1-k,3.2);const x=end*e;
    fill.style.width=x*100+'%';head.style.left=x*100+'%';
-   const i=Math.min(N-1,Math.floor(x*N));if(i!==shown){shown=i;lab.textContent=TIERS[i][1];head.style.setProperty('--hc',COLS[i]);segs.forEach((sg,j)=>sg.classList.toggle('lit',j<=i));head.classList.remove('tick');void head.offsetWidth;head.classList.add('tick')}
+   let i=TIERS.findIndex(t=>x*100<=t[0]);if(i<0)i=N-1;if(i!==shown){shown=i;lab.textContent=TIERS[i][1];head.style.setProperty('--hc',COLS[i]);segs.forEach((sg,j)=>sg.classList.toggle('lit',j<=i));head.classList.remove('tick');void head.offsetWidth;head.classList.add('tick')}
    if(k<1)requestAnimationFrame(step);else{head.classList.add('locked');const g=document.getElementById('gauge');g.classList.add('done');if(target===N-1)g.classList.add('uni');const tn=document.getElementById('tn');if(tn){tn.style.color=COLS[target];if(target===N-1)tn.classList.add('uni-text')}setTimeout(land,380)}};
   requestAnimationFrame(step)}
 const n=nx;n.onclick=()=>{qi++;qi<Q.length?ask():end()}})}
