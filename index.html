@@ -494,6 +494,19 @@ ul.ans li .tchip{font-size:12px!important}
 .q-progress{display:inline-flex;align-items:baseline;gap:9px;margin:0 0 8px;padding:7px 10px;border:2px solid var(--gold);border-radius:7px;background:#000;color:var(--gold);font-family:var(--px,"Pixelify Sans",monospace);text-transform:uppercase;letter-spacing:.04em;box-shadow:0 3px 0 #000}
 .q-progress span{font-size:11px}.q-progress b{font-size:20px;color:#fff;line-height:1}.q-sub{font-size:13px;margin-bottom:3px}
 .played-home-stats{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}.played-home-stat{min-width:120px;padding:9px 11px;border:2px solid rgba(255,255,255,.22);border-radius:7px;background:rgba(0,0,0,.28)}.played-home-stat span{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute)}.played-home-stat b{display:block;margin-top:2px;font:800 28px "Barlow Condensed",sans-serif;color:#fff}.played-home-stat small{font-size:14px;color:var(--mute);margin-left:3px}
+
+/* five-tier centering fix */
+.lp-tiers .tier-row{
+  display:grid!important;
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  justify-content:center!important;
+  align-items:end!important;
+  width:100%!important;
+}
+@media (max-width:560px){
+  .lp-tiers .tier-row{gap:8px!important}
+}
+
 </style></head><body>
 <div class="scene retro2" aria-hidden="true">
 <div class="sky"><i class="cloud c1"></i><i class="cloud c2"></i><i class="cloud c3"></i><i class="cloud c4"></i></div>
@@ -674,7 +687,7 @@ function reveal(ans){const q=Q[qi];const pts=ans?ans.pts:0;const before=zoneOf(s
   setTimeout(()=>{if(pl){pl.classList.remove('hold');pl.classList.add('wipe');countUp(document.getElementById('pc'),pts,900,'+')}},350);
   setTimeout(()=>{setMeter();if(after!==before){const m=document.querySelector('.meter');m.classList.remove('flash');void m.offsetWidth;m.classList.add('flash');const pr=document.getElementById('promo');if(pr){pr.classList.remove('hold')}}},900);
   setTimeout(()=>{nx.style.visibility='visible';nx.focus()},after!==before?1400:1100)};
- const fill=document.getElementById('gfill'),head=document.getElementById('ghead'),lab=document.getElementById('glabel'),segs=[...document.querySelectorAll('#gauge .gpts span')];const COLS=['#cfd8e6','#7fe0a8','#4fd7ff','#b48cff','#ff7ac8','#f2c230'];
+ const fill=document.getElementById('gfill'),head=document.getElementById('ghead'),lab=document.getElementById('glabel'),segs=[...document.querySelectorAll('#gauge .gpts span')];const COLS=['#cfd8e6','#7fe0a8','#b48cff','#ff7ac8','#f2c230'];
  if(target<0){document.getElementById('gauge').classList.add('empty');setTimeout(land,500)}else{
   // one continuous charge: fast at first, easing into the result
   document.getElementById('gfill').style.setProperty('--gw',document.querySelector('.gbar').offsetWidth+'px');const N=TIERS.length,end=(target+.5)/N,dur=700+target*430,t0=performance.now()+350;let shown=-1;
