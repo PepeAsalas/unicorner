@@ -56,6 +56,29 @@ s = s.replace('Tap-in · 10', 'Tap-in · 20')
 s = re.sub(r'Header · (?:16|40)', 'Banger · 60', s)
 s = s.replace('COLS[5]', 'COLS[4]')
 
+# Result rarity gauge: score values are real positions on a 0-100 bar.
+# 20/40/60/80 sit on their exact marks and Screamer/100 reaches the right edge.
+rep(
+    ".gpts{display:grid;grid-template-columns:repeat(6,1fr);margin-top:10px}\n.gpts span{text-align:center;font:600 12px Barlow,sans-serif;color:rgba(255,255,255,.35);transition:color .25s}",
+    ".gpts{position:relative;height:18px;margin-top:10px}\n.gpts span{position:absolute;top:0;transform:translateX(-50%);font:600 12px Barlow,sans-serif;color:rgba(255,255,255,.35);transition:color .25s}\n.gpts span:last-child{transform:translateX(-100%)}",
+    'five tier gauge labels',
+)
+rep(
+    "<div class=\"gbar\"><div class=\"gfill\" id=\"gfill\"></div>${TIERS.slice(1).map((t,i)=>`<i class=\"gdiv\" style=\"left:${(i+1)/TIERS.length*100}%\"></i>`).join('')}<div class=\"ghead hold\" id=\"ghead\"><span id=\"glabel\">Tap-in</span><em></em></div></div><div class=\"gpts\">${TIERS.map((t,i)=>`<span data-i=\"${i}\">${t[0]}</span>`).join('')}</div>",
+    "<div class=\"gbar\"><div class=\"gfill\" id=\"gfill\"></div>${TIERS.slice(0,-1).map(t=>`<i class=\"gdiv\" style=\"left:${t[0]}%\"></i>`).join('')}<div class=\"ghead hold\" id=\"ghead\"><span id=\"glabel\">Tap-in</span><em></em></div></div><div class=\"gpts\">${TIERS.map((t,i)=>`<span data-i=\"${i}\" style=\"left:${t[0]}%\">${t[0]}</span>`).join('')}</div>",
+    'five tier gauge marks',
+)
+rep(
+    "document.getElementById('gfill').style.setProperty('--gw',document.querySelector('.gbar').offsetWidth+'px');const N=TIERS.length,end=(target+.5)/N,dur=700+target*430,t0=performance.now()+350;let shown=-1;",
+    "document.getElementById('gfill').style.setProperty('--gw',document.querySelector('.gbar').offsetWidth+'px');const N=TIERS.length,end=pts/100,dur=700+target*430,t0=performance.now()+350;let shown=-1;",
+    'five tier gauge endpoint',
+)
+rep(
+    "const i=Math.min(N-1,Math.floor(x*N));if(i!==shown){shown=i;lab.textContent=TIERS[i][1];head.style.setProperty('--hc',COLS[i]);segs.forEach((sg,j)=>sg.classList.toggle('lit',j<=i));head.classList.remove('tick');void head.offsetWidth;head.classList.add('tick')}",
+    "let i=TIERS.findIndex(t=>x*100<=t[0]);if(i<0)i=N-1;if(i!==shown){shown=i;lab.textContent=TIERS[i][1];head.style.setProperty('--hc',COLS[i]);segs.forEach((sg,j)=>sg.classList.toggle('lit',j<=i));head.classList.remove('tick');void head.offsetWidth;head.classList.add('tick')}",
+    'five tier gauge active label',
+)
+
 # Anyone who already played today is rescored from their saved answer names using
 # the current ladder, rather than keeping stale 6-tier point values.
 old_restore = "function restore(p){results=p.picks.map(([i,name,pts])=>({q:Q[i],ans:name?Q[i].answers.find(a=>a.name===name)||null:null,pts}));score=p.score;qi=Q.length}"
