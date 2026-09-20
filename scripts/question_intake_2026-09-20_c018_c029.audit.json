@@ -1,0 +1,40 @@
+{
+  "batch": "2026-09-20-user-batch-c018-c029",
+  "notes": "Future inventory only. Does not alter the frozen Sep 18-26 schedule. Uses the current five-level scoring scale: fame 5 = Tap-in 20, 4 = Finish 40, 3 = Banger 60, 2 = Worldie 80, 1 = Screamer 100.",
+  "scoring_version": 3,
+  "status": {
+    "c018": "approved",
+    "c019": "approved",
+    "c020": "approved",
+    "c021": "approved",
+    "c022": "approved",
+    "c023": "approved",
+    "c024": "approved",
+    "c025": "approved",
+    "c026": "hold",
+    "c027": "approved",
+    "c028": "approved",
+    "c029": "approved"
+  },
+  "format_family": {
+    "c018": "player_club_history",
+    "c019": "competition_participation",
+    "c020": "cup_winner",
+    "c021": "player_club_history",
+    "c022": "promotion_history",
+    "c023": "club_season_appearance",
+    "c024": "national_scorer",
+    "c025": "manager_season_players",
+    "c026": "scoring_award",
+    "c027": "club_season_appearance",
+    "c028": "cup_final_scorer",
+    "c029": "club_season_appearance"
+  },
+  "audit_notes": {
+    "c022": "Spot-checked 2026-27 promotions against the Premier League: Coventry City, Hull City and Ipswich Town are the promoted trio.",
+    "c023": "Spot-checked Álvaro Sanz and Pierre-Emerick Aubameyang; both made competitive Barcelona first-team appearances in 2022-23.",
+    "c024": "Spot-checked Phil Foden; he scored against Wales at the 2022 World Cup, so he is valid.",
+    "c026": "HOLD: only 10 unique Champions League top scorers in the exact range and almost no rarity tail. Repair before scheduling, ideally to a top-three scorer format.",
+    "c029": "Spot-checked deep-tail Michael Lang and Julio Villalba; both made competitive Gladbach appearances in 2020-21."
+  }
+}
