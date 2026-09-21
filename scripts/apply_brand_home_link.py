@@ -18,6 +18,13 @@ if css_marker not in s:
         raise SystemExit('Could not find closing style tag')
     s = s.replace('</style>', css + '</style>', 1)
 
+center_marker = '/* landing card centering */'
+if center_marker not in s:
+    css = '''\n/* landing card centering */\n.landing-wrap .card{margin-left:auto!important;margin-right:auto!important;width:100%;text-align:center}\n.landing-wrap .lp-grid{justify-items:center}\n.landing-wrap .lp-step{width:100%;text-align:center}\n.landing-wrap .lp-ico{justify-content:center}\n.landing-wrap .lp-example,.landing-wrap .lp-tiers{text-align:center}\n.landing-wrap .lp-answers{justify-items:stretch}\n.landing-wrap .lp-ans{text-align:center;align-items:center}\n.landing-wrap .lp-tiers .tier-row{justify-items:center!important}\n.landing-wrap .lp-tiers .tier-chip{text-align:center;justify-self:center}\n.landing-wrap .played-home-stats{justify-content:center}\n.landing-wrap .played-home-stat{text-align:center}\n'''
+    if '</style>' not in s:
+        raise SystemExit('Could not find closing style tag')
+    s = s.replace('</style>', css + '</style>', 1)
+
 js_marker = '/* brand home navigation */'
 if js_marker not in s:
     boot = "(async()=>{[BANK,DAILY_SCHEDULE]=await Promise.all([loadBank(),loadDailySchedule()]);applyBank();start();paint();setMeter()})();"
@@ -27,4 +34,4 @@ if js_marker not in s:
     s = s.replace(boot, js + boot, 1)
 
 p.write_text(s, encoding='utf-8')
-print('Brand home navigation applied')
+print('Brand home navigation and landing card centering applied')
