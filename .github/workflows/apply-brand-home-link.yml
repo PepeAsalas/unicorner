@@ -1,0 +1,48 @@
+name: Apply brand home link
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/apply-brand-home-link.yml'
+      - 'scripts/apply_brand_home_link.py'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Apply brand home navigation
+        run: python scripts/apply_brand_home_link.py
+      - name: Validate behavior
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('index.html').read_text(encoding='utf-8')
+          assert 'id="brand-home"' in s
+          assert "document.body.classList.contains('playing')" in s
+          assert "track('home_click',{from:'brand'" in s
+          assert "brandHome.addEventListener('click',goBrandHome)" in s
+          scripts=list(re.finditer(r'<script([^>]*)>(.*?)</script>',s,re.S|re.I))
+          js='\n;\n'.join(m.group(2) for m in scripts if 'application/json' not in m.group(1))
+          Path('/tmp/unicorner.js').write_text(js,encoding='utf-8')
+          PY
+          node --check /tmp/unicorner.js
+      - name: Commit site change
+        run: |
+          if git diff --quiet; then
+            echo 'No changes to commit'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '418982418+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'Make brand logo return home outside games'
+          git push
