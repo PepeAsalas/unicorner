@@ -190,13 +190,6 @@ body.landing .meter{display:none}
 .tier-bar{width:100%;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,var(--c),color-mix(in srgb,var(--c) 40%,transparent));transform-origin:bottom;animation:grow .9s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--i)*110ms + 300ms)}
 @keyframes grow{from{transform:scaleY(0)}}
 .tier-chip b{font-size:15px;color:var(--c)}.tier-chip span{font-size:12px;color:var(--mute)}
-.sticker-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}
-.sticker{display:flex;flex-direction:column;align-items:center;gap:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:8px 6px}
-.sticker-photo{width:100%;aspect-ratio:3/4;border-radius:6px;background:color-mix(in srgb,var(--c) 35%,#0c0c18);display:flex;align-items:center;justify-content:center;overflow:hidden}
-.sticker-photo svg{width:82%;height:82%}
-.sticker-label{font-size:12px;color:var(--c);text-align:center}
-.sticker-cta{display:block;margin:16px auto 0}
-@media (max-width:560px){.sticker-row{gap:6px}.sticker{padding:5px 3px}.sticker-label{font-size:10px}}
 .lp-final{text-align:center;padding:20px 0 6px}.lp-final .lp-meta{margin-top:14px}
 
 .reveal-top{position:relative}
@@ -339,11 +332,6 @@ input:focus-visible{border-color:var(--gold)!important}
 .ladder span{background:#000;border:2px solid #fff;color:#fff}
 .tier-bar{border-radius:0!important;border:3px solid #000;background:var(--c)!important;box-shadow:inset 0 -6px 0 rgba(0,0,0,.25)}
 .tier-chip b{-webkit-text-stroke:0;text-shadow:2px 2px 0 #000}
-/* sticker album */
-.sticker{border-radius:0!important;border:3px solid #000!important;background:#0c0c18!important;box-shadow:0 3px 0 #000}
-.sticker-photo{border-radius:0!important;border:2px solid #000}
-.sticker-photo svg{image-rendering:pixelated}
-.sticker-label{-webkit-text-stroke:0;text-shadow:1px 1px 0 #000;font-weight:700}
 /* pixel speech bubbles */
 .scream-bubble{font-family:var(--px)!important;border:3px solid #000;border-radius:0}
 /* end screen */
@@ -571,39 +559,6 @@ body.playing .brand-home{cursor:default}
 const D=JSON.parse(document.getElementById('data').textContent);let Q=D.questions;const TIME=30;
 const TIERS=[[20,'Tap-in'],[40,'Finish'],[60,'Banger'],[80,'Worldie'],[100,'Screamer']];
 const TCOL={20:'#cfd8e6',40:'#7fe0a8',60:'#b48cff',80:'#ff7ac8',100:'#ffd23f'};const tierName=p=>TIERS.find(t=>t[0]===p)[1];
-const BUST_STYLES=[
- {skin:'#cf9a6b',hair:'#1a1210',cut:'mohawk',beard:'full',beardColor:'#1a1210'},
- {skin:'#f0c9a0',hair:'#2a1a12',accent:'#a8622f',cut:'mohawk',beard:'light',beardColor:'#7a4a2e'},
- {skin:'#c98a5b',hair:'#241812',accent:'#8a5a30',cut:'swept',beard:'stubble',beardColor:'#7a5a42'},
- {skin:'#6b4226',hair:'#141414',cut:'beanie',beard:'mustache',beardColor:'#141414'},
- {skin:'#4a2e1a',hair:'#141414',accent:'#d9a441',cut:'mohawk',beard:'stubble',beardColor:'#2e1c10'}
-];
-function bustSVG(i,kit){const st=BUST_STYLES[i],{skin,hair,cut,beard,beardColor}=st,accent=st.accent||hair;
- const r=(x,y,w,h,f)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${f}"/>`;
- const row=(y,w,f,h=1)=>r(12-w/2,y,w,h,f);let s='';
- if(cut==='mohawk'){
-  s+=row(2,8,skin)+row(3,10,skin)+row(4,12,skin)+row(5,12,skin);
-  s+=row(0,2,hair)+row(1,4,hair)+row(2,6,hair)+row(3,6,hair)+row(4,8,hair)+row(5,8,hair);
-  if(st.accent)s+=row(0,2,accent)+row(1,4,accent)
- }else if(cut==='swept'){
-  s+=row(1,8,hair)+row(2,10,hair)+row(3,12,hair)+row(4,12,hair)+row(5,12,hair);
-  s+=row(2,6,accent,2);
- }else if(cut==='beanie'){
-  s+=row(0,14,hair)+row(1,16,hair,5)+row(6,14,hair);
-  s+=r(1,9,2,8,hair)+r(21,9,2,8,hair);
- }
- s+=row(6,8,skin)+row(7,12,skin)+row(8,14,skin,7)+row(15,12,skin)+row(16,10,skin)+row(17,8,skin);
- if(cut!=='beanie')s+=r(3,10,2,4,skin)+r(19,10,2,4,skin);
- s+=r(9,10,2,1,hair)+r(13,10,2,1,hair);
- s+=r(9,11,2,1,'#1a1030')+r(13,11,2,1,'#1a1030');
- if(beard==='full')s+=row(15,6,beardColor)+row(16,4,beardColor)+row(17,2,beardColor);
- else if(beard==='light')s+=row(15,4,beardColor)+row(16,2,beardColor);
- else if(beard==='stubble')s+=row(16,6,beardColor)+row(17,4,beardColor);
- else if(beard==='mustache')s+=row(14,4,beardColor)+row(16,6,beardColor)+row(17,4,beardColor);
- s+=row(18,6,skin,3);
- s+=row(21,14,'#fff');
- s+=row(22,16,kit)+row(23,20,kit,7);
- return `<svg viewBox="0 0 24 30" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">${s}</svg>`}
 const MAX=Q.length*100;
 const ZONES=[[0,'Sunday league'],[.06,'Non-league'],[.15,'Second tier'],[.28,'Top flight'],[.44,'Champions League'],[.62,'World Cup final'],[.8,"Ballon d'Or"]];
 const SHORT=['Sunday','Non-league','2nd tier','Top flight','UCL','WC final',"Ballon d'Or"];
@@ -698,13 +653,6 @@ function start(){document.body.classList.remove('playing');fillReport();document
   <div class="tier-row">${TIERS.map((t,i)=>`<div class="tier-chip" style="--c:${COLS[i]};--i:${i}"><div class="tier-bar" style="height:${22+i*14}px"></div><b>${t[1]}</b><span>${t[0]} pts</span></div>`).join('')}</div>
  </section>
 
- <section class="card lp-stickers">
-  <h2 class="lp-h2">Collect today's Screamers</h2>
-  <p class="lp-meta">Five prompts. One sticker each. Rarer answers, shinier stickers.</p>
-  <div class="sticker-row">${TIERS.map((t,i)=>`<div class="sticker" style="--c:${COLS[i]}"><div class="sticker-photo">${bustSVG(i,COLS[i])}</div><div class="sticker-label">${t[1]}</div></div>`).join('')}</div>
-  <button class="cta sticker-cta" id="go3">${played?'See today’s stickers':'Open today’s pack'}</button>
- </section>
-
  <section class="lp-final">
   <div class="sprite lp-sprite-sm bob" data-mood="happy"></div>
   ${played?`<h2 class="lp-h2">Can't wait until tomorrow?</h2><button class="cta" data-infinite>∞ Try Infinite mode</button>`:`<h2 class="lp-h2">Today's five prompts are waiting</h2><button class="cta" id="go2">Kick off</button>`}
@@ -712,7 +660,6 @@ function start(){document.body.classList.remove('playing');fillReport();document
  </section>
  </div>`,()=>{const play=()=>{document.body.classList.remove('landing');if(played){restore(played);setMeter();end(true)}else ask()};
   document.getElementById('go').onclick=play;const g2=document.getElementById('go2');if(g2)g2.onclick=play;
-  const g3=document.getElementById('go3');if(g3)g3.onclick=play;
   const hw=document.getElementById('how');if(hw)hw.onclick=()=>document.getElementById('steps').scrollIntoView({behavior:'smooth',block:'start'});})}
 function ask(){document.body.classList.add('playing');const q=Q[qi];if(qi===0)track('game_start',{question_count:Q.length,set_id:dailySetId()});track('question_view',{question_id:q.id||slug(q.prompt),prompt:q.prompt,position:qi+1,question_count:Q.length,difficulty:q.difficulty||'unknown',answer_count:q.answers.length,set_id:dailySetId()});let left=TIME*1000,t0,done=false;
  swap(`<div class="card"><div class="q-progress" aria-label="Question ${qi+1} of ${Q.length}"><span>Question</span><b>${qi+1} of ${Q.length}</b></div><div class="mute q-sub">${q.sub}</div><div class="prompt">${q.prompt}</div>${q.by?`<div class="byline">🦄 Community question by ${q.by}</div>`:''}
