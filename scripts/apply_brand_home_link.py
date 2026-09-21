@@ -25,6 +25,13 @@ if center_marker not in s:
         raise SystemExit('Could not find closing style tag')
     s = s.replace('</style>', css + '</style>', 1)
 
+wide_tiers_marker = '/* wider landing tier bars */'
+if wide_tiers_marker not in s:
+    css = '''\n/* wider landing tier bars */\n.landing-wrap .lp-tiers .tier-bar{width:70%!important;min-width:54px!important;max-width:78px!important;margin-left:auto!important;margin-right:auto!important}\n'''
+    if '</style>' not in s:
+        raise SystemExit('Could not find closing style tag')
+    s = s.replace('</style>', css + '</style>', 1)
+
 js_marker = '/* brand home navigation */'
 if js_marker not in s:
     boot = "(async()=>{[BANK,DAILY_SCHEDULE]=await Promise.all([loadBank(),loadDailySchedule()]);applyBank();start();paint();setMeter()})();"
@@ -34,4 +41,4 @@ if js_marker not in s:
     s = s.replace(boot, js + boot, 1)
 
 p.write_text(s, encoding='utf-8')
-print('Brand home navigation and landing card centering applied')
+print('Brand home navigation, landing card centering, and wider tier bars applied')
