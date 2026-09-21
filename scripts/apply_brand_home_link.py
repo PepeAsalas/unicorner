@@ -32,6 +32,13 @@ if wide_tiers_marker not in s:
         raise SystemExit('Could not find closing style tag')
     s = s.replace('</style>', css + '</style>', 1)
 
+step_number_marker = '/* landing step number badges */'
+if step_number_marker not in s:
+    css = '''\n/* landing step number badges */\n.landing-wrap .lp-step{padding-top:58px!important}\n.landing-wrap .lp-step .lp-num{top:12px!important;right:12px!important;z-index:3!important;min-width:38px!important;height:38px!important;padding:1px 8px 0!important;display:flex!important;align-items:center!important;justify-content:center!important;background:#0c0c18!important;border:2px solid #fff!important;border-radius:6px!important;box-shadow:0 3px 0 #000!important;color:var(--gold)!important;font-size:30px!important;line-height:1!important;opacity:1!important}\n.landing-wrap .lp-step .lp-ico{position:relative;z-index:1}\n'''
+    if '</style>' not in s:
+        raise SystemExit('Could not find closing style tag')
+    s = s.replace('</style>', css + '</style>', 1)
+
 js_marker = '/* brand home navigation */'
 if js_marker not in s:
     boot = "(async()=>{[BANK,DAILY_SCHEDULE]=await Promise.all([loadBank(),loadDailySchedule()]);applyBank();start();paint();setMeter()})();"
@@ -41,4 +48,4 @@ if js_marker not in s:
     s = s.replace(boot, js + boot, 1)
 
 p.write_text(s, encoding='utf-8')
-print('Brand home navigation, landing card centering, and wider tier bars applied')
+print('Brand home navigation and landing layout fixes applied')
