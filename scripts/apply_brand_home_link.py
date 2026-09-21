@@ -39,6 +39,13 @@ if step_number_marker not in s:
         raise SystemExit('Could not find closing style tag')
     s = s.replace('</style>', css + '</style>', 1)
 
+step_number_center_marker = '/* landing step number centering fix */'
+if step_number_center_marker not in s:
+    css = '''\n/* landing step number centering fix */\n.landing-wrap .lp-step .lp-num{width:40px!important;min-width:40px!important;height:40px!important;padding:0!important;display:grid!important;place-items:center!important;text-align:center!important;line-height:40px!important;font-family:var(--lab)!important;font-size:26px!important;letter-spacing:0!important;text-indent:0!important}\n.landing-wrap .lp-step .lp-num{padding-top:2px!important}\n'''
+    if '</style>' not in s:
+        raise SystemExit('Could not find closing style tag')
+    s = s.replace('</style>', css + '</style>', 1)
+
 js_marker = '/* brand home navigation */'
 if js_marker not in s:
     boot = "(async()=>{[BANK,DAILY_SCHEDULE]=await Promise.all([loadBank(),loadDailySchedule()]);applyBank();start();paint();setMeter()})();"
