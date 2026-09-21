@@ -571,19 +571,20 @@ body.playing .brand-home{cursor:default}
 const D=JSON.parse(document.getElementById('data').textContent);let Q=D.questions;const TIME=30;
 const TIERS=[[20,'Tap-in'],[40,'Finish'],[60,'Banger'],[80,'Worldie'],[100,'Screamer']];
 const TCOL={20:'#cfd8e6',40:'#7fe0a8',60:'#b48cff',80:'#ff7ac8',100:'#ffd23f'};const tierName=p=>TIERS.find(t=>t[0]===p)[1];
-function bustSVG(i,kit){const skins=['#f0c9a0','#c98a5b','#e0ab7a','#8a5a3c','#f2d3ab'],hairs=['#3b2a1e','#141414','#e8c15a','#141414','#2a1a12'],skin=skins[i],hair=hairs[i];
+const BUST_STYLES=[{skin:'#e0ab7a',hair:'#141414',cut:'mohawk'},{skin:'#f0c9a0',hair:'#d4af6a',cut:'mohawk'},{skin:'#c98a5b',hair:'#2a1a12',cut:'crop-beard'},{skin:'#8a5a3c',hair:'#141414',cut:'afro'},{skin:'#5a3825',hair:'#141414',cut:'undercut-dye'}];
+function bustSVG(i,kit){const{skin,hair,cut}=BUST_STYLES[i];
  const r=(x,y,w,h,f)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${f}"/>`;let s='';
- s+=r(4,0,12,4,hair);
- if(i===1)s+=r(2,2,3,4,hair)+r(15,2,3,4,hair);
- if(i===2)s+=r(6,0,1,1,'#fff5c2')+r(9,0,1,1,'#fff5c2')+r(12,0,1,1,'#fff5c2');
- if(i===4)s+=r(15,2,3,3,hair);
+ if(cut==='mohawk')s+=r(4,0,12,4,skin)+r(8,0,4,5,hair);
+ else if(cut==='afro')s+=r(6,0,8,1,hair)+r(3,1,14,1,hair)+r(2,2,16,3,hair);
+ else if(cut==='crop-beard')s+=r(5,0,10,3,hair);
+ else if(cut==='undercut-dye')s+=r(4,0,12,4,hair)+r(4,1,3,2,'#ffd23f');
  s+=r(5,3,10,6,skin);
- if(i===3)s+=r(4,2,12,1,'#ffd23f');
+ if(cut==='mohawk')s+=r(9,3,2,1,hair);
  s+=r(7,6,1,1,'#1a1030')+r(12,6,1,1,'#1a1030');
+ if(cut==='crop-beard')s+=r(6,8,8,1,hair);
  s+=r(8,9,4,2,skin);
  s+=r(6,11,8,1,'#fff');
  s+=r(4,12,12,12,kit);
- if(i===4)s+=r(9,0,2,1,'#ffd23f');
  return `<svg viewBox="0 0 20 24" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">${s}</svg>`}
 const MAX=Q.length*100;
 const ZONES=[[0,'Sunday league'],[.06,'Non-league'],[.15,'Second tier'],[.28,'Top flight'],[.44,'Champions League'],[.62,'World Cup final'],[.8,"Ballon d'Or"]];
