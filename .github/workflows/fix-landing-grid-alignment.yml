@@ -1,0 +1,43 @@
+name: Fix landing grid alignment
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/fix-landing-grid-alignment.yml'
+      - 'scripts/fix_landing_grid_alignment.py'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Apply landing alignment fix
+        run: python scripts/fix_landing_grid_alignment.py
+      - name: Validate landing grid CSS
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('index.html').read_text(encoding='utf-8')
+          assert '/* landing grid alignment fix */' in s
+          assert 'grid-template-columns:repeat(3,minmax(0,1fr))!important' in s
+          assert '.landing-wrap .fake-input{min-width:0!important;width:100%!important;max-width:100%!important}' in s
+          assert '.landing-wrap>section{width:100%;max-width:100%' in s
+          PY
+      - name: Commit site change
+        run: |
+          if git diff --quiet; then
+            echo 'No changes to commit'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '418982418+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'Fix landing card grid alignment'
+          git push
