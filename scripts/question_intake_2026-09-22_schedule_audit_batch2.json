@@ -1,0 +1,35 @@
+{
+ "audit": "2026-09-22-schedule-batch2",
+ "summary": "Small follow-up batch: scheduled Sep 27-29 from the remaining approved/non-hold pending pool, keeping the same rules as the Sep23-26 reorg -- unique format per day, one club-answer question per day, no repeated club within a day.",
+ "days": {
+  "2026-09-27": [
+   "c001 club_career (Balotelli, club-answer)",
+   "u059 scoring_ranking (Bundesliga top-3)",
+   "u058 tournament_appearance (Portugal)",
+   "u066 manager_players (Roma/Mourinho)",
+   "u020 club_league_threshold (PSG, medium)"
+  ],
+  "2026-09-28": [
+   "c019 competition_participation (CL group stage, club-answer)",
+   "u051 club_competition_appearance (Tottenham)",
+   "u060 paid_signing (Bayern)",
+   "c013 club_season_appearance (Man Utd 2022-23)",
+   "u067 national_scorer (Germany, medium)"
+  ],
+  "2026-09-29": [
+   "c006 competition_stage (CL semi-finalists, club-answer)",
+   "c028 cup_final_scorer",
+   "c025 manager_season_players (Sporting/Amorim)",
+   "u068 title_squad (Feyenoord)",
+   "u070 club_competition_appearance (Newcastle)"
+  ]
+ },
+ "known_gap": "Only 2 medium-difficulty questions remained in the whole pool (u020, u067) -- both used here (Sep27, Sep28). Sep 29 is 5x easy with no medium; there simply is not a 3rd medium question available anywhere in the current bank. Same applies to any further batches until new medium-difficulty content is written.",
+ "minor_repeat": "club_competition_appearance used twice (u051 Tottenham Sep28, u070 Newcastle Sep29), adjacent days but different clubs -- same pattern already accepted in the Sep23-26 reorg for tournament_scorer/national_scorer.",
+ "remaining_pool_after_this_batch": 30,
+ "content_gaps_still_open": [
+  "no retro-era questions anywhere in the bank",
+  "only one manager-as-answer question exists total (u033, already scheduled Sep 24)",
+  "no more medium-difficulty questions available -- next batches will be easy-only unless new medium content is written"
+ ]
+}
