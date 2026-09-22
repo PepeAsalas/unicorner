@@ -1,5 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Unicorner · How deep is your ball knowledge?</title><meta name="description" content="The daily football trivia game where the obvious answer scores least. Name the player nobody else thinks of."><link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦄</text></svg>">
+<title>Unicorner · How deep is your ball knowledge?</title><meta name="description" content="The daily football trivia game where the obvious answer scores least. Find the answer nobody else thinks of."><link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦄</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Barlow:wght@400;500;600&family=Jersey+10&family=Pixelify+Sans:wght@400;500;700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0f3d2a;--bg2:#12472f;--ink:#f3f7f1;--mute:#a9c5b4;--line:rgba(255,255,255,.18);--chalk:#ffffff;--gold:#f2c230;--bad:#ff8a7a;--panel:rgba(0,0,0,.22)}
@@ -581,7 +581,7 @@ body.playing .brand-home{cursor:default}
 <dialog id="dlg-report"><form data-kind="report"><h2>Problem with a question?</h2><p class="mute">Think we missed a valid answer, or got one wrong? Tell us and we'll check it.</p>
 <label for="r-what">What happened?</label><select id="r-what" name="what_happened" required><option value="">Choose one</option><option>An answer I knew was rejected</option><option>An answer is wrong</option><option>The question was confusing</option><option>Something looked broken</option><option>Other</option></select>
 <label for="r-q">Which question</label><select id="r-q" name="question"></select>
-<label for="r-player">Player <span class="opt">(if an answer is missing or wrong)</span></label><input id="r-player" name="player" maxlength="100">
+<label for="r-player">Answer <span class="opt">(if an answer is missing or wrong)</span></label><input id="r-player" name="player" maxlength="100">
 <label for="r-msg">What's the problem</label><textarea id="r-msg" name="message" required maxlength="2000" placeholder="e.g. He played 12 games for Arsenal in 2014 on loan."></textarea>
 <label for="r-email">Email <span class="opt">(optional, if you'd like a reply)</span></label><input id="r-email" name="email" type="email" maxlength="120">
 <p class="hint mute privacy-note">We use this information to review the report and reply if requested. <a href="privacy.html">Privacy policy</a>.</p>
@@ -609,14 +609,24 @@ const zoneOf=s=>[...ZONES].reverse().find(([f])=>s/MAX>=f)[1];
 const norm=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ø/g,'o').replace(/ı/g,'i').replace(/[^a-zA-Z0-9 ]/g,' ').toLowerCase().replace(/\s+/g,' ').trim();
 function lev(a,b){const m=[...Array(b.length+1).keys()];for(let i=1;i<=a.length;i++){let p=m[0];m[0]=i;for(let j=1;j<=b.length;j++){const t=m[j];m[j]=Math.min(m[j]+1,m[j-1]+1,p+(a[i-1]===b[j-1]?0:1));p=t}}return m[b.length]}
 const tol=s=>s.length<5?0:s.length<9?1:2;
-function match(input,answers){const x=norm(input);if(!x)return null;
+const PERSON_ANSWER_TYPES=new Set(['player','person','manager','coach','referee']);
+const ANSWER_TYPE_LABELS={player:'player',person:'person',manager:'manager',coach:'coach',referee:'referee',club:'club',country:'country',stadium:'stadium',city:'city',competition:'competition',league:'league',team:'team'};
+const answerType=q=>String(q?.answer_type||'player').toLowerCase();
+const isPersonAnswerType=t=>PERSON_ANSWER_TYPES.has(String(t||'player').toLowerCase());
+const answerLabel=q=>ANSWER_TYPE_LABELS[answerType(q)]||'answer';
+const answerPlaceholder=q=>`Type a ${answerLabel(q)}`;
+function match(input,answers,type='player'){const x=norm(input);if(!x)return null;const person=isPersonAnswerType(type);
  const keys=answers.map(a=>{const n=norm(a.name),parts=n.split(' ');const al=(a.aliases||[]).map(a=>a.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim()).filter(v=>v.length>=2);return{a,n,al,last:parts.length>1?parts.slice(1).join(' '):n,lastWord:parts[parts.length-1]}});
  const uniq=arr=>[...new Set(arr.map(k=>k.a))];
  let hit=uniq(keys.filter(k=>k.n===x||k.al.includes(x)));if(hit.length===1)return hit[0];if(hit.length>1)return'ambiguous';
- hit=uniq(keys.filter(k=>k.last===x||k.lastWord===x));if(hit.length===1)return hit[0];if(hit.length>1)return'ambiguous';
+ // Only person-like answers get surname/tail matching. Clubs, countries, stadiums, etc. must use the full name or an explicit alias.
+ if(person){hit=uniq(keys.filter(k=>k.last===x||k.lastWord===x));if(hit.length===1)return hit[0];if(hit.length>1)return'ambiguous'}
  const t=v=>v.length<6?0:v.length<9?1:2;
- hit=uniq(keys.filter(k=>lev(k.n,x)<=t(k.n)||(k.last!==k.n&&k.last.length>=6&&lev(k.last,x)<=t(k.last))||k.al.some(v=>v.length>=6&&lev(v,x)<=t(v))));if(hit.length===1)return hit[0];if(hit.length>1)return'ambiguous';
+ hit=uniq(keys.filter(k=>lev(k.n,x)<=t(k.n)||k.al.some(v=>v.length>=6&&lev(v,x)<=t(v))));if(hit.length===1)return hit[0];if(hit.length>1)return'ambiguous';
+ if(person){hit=uniq(keys.filter(k=>k.last!==k.n&&k.last.length>=6&&lev(k.last,x)<=t(k.last)));if(hit.length===1)return hit[0];if(hit.length>1)return'ambiguous'}
  return null}
+function registerKnownQuestion(q){const person=isPersonAnswerType(q?.answer_type||'player');for(const a of q?.answers||[]){for(const raw of [a.name,...(a.aliases||[])]){if(raw)known.add(norm(raw))}if(person&&a.name)knownLast.add(norm(a.name).split(' ').pop())}}
+
 let known=new Set(D.names.map(norm));let knownLast=new Set(D.names.map(n=>norm(n).split(' ').pop()));
 let qi=0,score=0,results=[],timer=null;
 
@@ -661,7 +671,7 @@ function start(){document.body.classList.remove('playing');fillReport();document
   <div class="lp-copy">
    <div class="pills"><span class="lp-date">Daily game · ${today}</span></div>
    <h1 class="lp-title">How deep is your <span class="uni-word">ball knowledge</span>?</h1>
-   <p class="lp-sub">Name the player nobody else thinks of.</p>
+   <p class="lp-sub">Find the answer nobody else thinks of.</p>
    ${played?`<div class="played-box"><div class="mute">You've played today</div><div class="played-home-stats"><div class="played-home-stat"><span>Score</span><b>${played.score}<small>/${MAX}</small></b></div><div class="played-home-stat"><span>Streak</span><b>🔥 ${currentStreak()}<small>day${currentStreak()===1?'':'s'}</small></b></div></div><div class="mute">${zoneOf(played.score)} · next game in <b style="color:var(--ink)">${untilMidnight()}</b></div></div>
    <p class="inf-pitch">Want more? Play as many rounds as you like, whenever you like.</p>
    <div class="row"><button class="cta" data-infinite>∞ Unlock Infinite mode</button><button class="ghost" id="go">See today's results</button></div>`
@@ -684,7 +694,7 @@ function start(){document.body.classList.remove('playing');fillReport();document
  <section class="lp-steps" id="steps">
   <h2 class="lp-h2">How it works</h2>
   <div class="lp-grid">
-   <div class="card lp-step"><div class="lp-num">1</div><div class="lp-ico"><div class="fake-input">Vermae<span class="caret"></span></div></div><h3>Name one player</h3><p>${TIME} seconds. One player.</p></div>
+   <div class="card lp-step"><div class="lp-num">1</div><div class="lp-ico"><div class="fake-input">Vermae<span class="caret"></span></div></div><h3>Name one answer</h3><p>${TIME} seconds. One answer.</p></div>
    <div class="card lp-step"><div class="lp-num">2</div><div class="lp-ico"><div class="mini-gauge"><i></i></div></div><h3>Rarer scores more</h3><p>The more obscure, the more points.</p></div>
    <div class="card lp-step"><div class="lp-num">3</div><div class="lp-ico lp-climb">${['Sunday','Top flight',"Ballon d'Or"].map((z,i)=>`<span style="--i:${i}">${z}</span>`).join('')}</div><h3>Climb and share</h3><p>Climb to the Ballon d'Or. Brag.</p></div>
   </div>
@@ -703,23 +713,23 @@ function start(){document.body.classList.remove('playing');fillReport();document
  </div>`,()=>{const play=()=>{document.body.classList.remove('landing');if(played){restore(played);setMeter();end(true)}else ask()};
   document.getElementById('go').onclick=play;const g2=document.getElementById('go2');if(g2)g2.onclick=play;
   const hw=document.getElementById('how');if(hw)hw.onclick=()=>document.getElementById('steps').scrollIntoView({behavior:'smooth',block:'start'});})}
-function ask(){document.body.classList.add('playing');const q=Q[qi];if(qi===0)track('game_start',{question_count:Q.length,set_id:dailySetId()});track('question_view',{question_id:q.id||slug(q.prompt),prompt:q.prompt,position:qi+1,question_count:Q.length,difficulty:q.difficulty||'unknown',answer_count:q.answers.length,set_id:dailySetId()});let left=TIME*1000,t0,done=false;
+function ask(){document.body.classList.add('playing');const q=Q[qi];if(qi===0)track('game_start',{question_count:Q.length,set_id:dailySetId()});track('question_view',{question_id:q.id||slug(q.prompt),prompt:q.prompt,position:qi+1,question_count:Q.length,difficulty:q.difficulty||'unknown',answer_type:q.answer_type||'player',answer_count:q.answers.length,set_id:dailySetId()});let left=TIME*1000,t0,done=false;
  swap(`<div class="card"><div class="q-progress" aria-label="Question ${qi+1} of ${Q.length}"><span>Question</span><b>${qi+1} of ${Q.length}</b></div><div class="mute q-sub">${q.sub}</div><div class="prompt">${q.prompt}</div>${q.by?`<div class="byline">🦄 Community question by ${q.by}</div>`:''}
  <div class="timer" id="tm"><i id="bar"></i></div>
- <form id="f" autocomplete="off"><div class="answer-row"><input id="in" placeholder="Type a player" aria-label="Your answer"><button type="submit" class="cta submitbtn">Submit</button></div></form>
+ <form id="f" autocomplete="off"><div class="answer-row"><input id="in" placeholder="${answerPlaceholder(q)}" aria-label="Your ${answerLabel(q)} answer"><button type="submit" class="cta submitbtn">Submit</button></div></form>
  <div class="msg" id="msg"></div><div class="skiprow"><button class="skipbtn" id="skip">Skip this one</button></div></div>`,()=>{t0=performance.now();
  const inp=document.getElementById('in'),msg=document.getElementById('msg'),bar=document.getElementById('bar');inp.focus();
  const elapsed=()=>Math.max(0,Math.round(performance.now()-t0));
  const tick=()=>{if(done)return;const el=left-(performance.now()-t0);bar.style.width=`${Math.max(0,el/(TIME*1000))*100}%`;document.getElementById('tm').classList.toggle('low',el<6000);if(el<=0)finish(null,'timeout');else timer=requestAnimationFrame(tick)};tick();
  function finish(ans,outcome){if(done)return false;done=true;cancelAnimationFrame(timer);const form=document.getElementById('f'),skip=document.getElementById('skip');if(form)form.querySelectorAll('input,button').forEach(el=>el.disabled=true);if(skip)skip.disabled=true;track('question_result',{question_id:q.id||slug(q.prompt),prompt:q.prompt,position:qi+1,outcome,elapsed_ms:elapsed(),answer:ans?ans.name:null,points:ans?ans.pts:0,tier:ans?tierName(ans.pts):null,set_id:dailySetId()});reveal(ans);return true}
  document.getElementById('skip').onclick=()=>finish(null,'skip');
- document.getElementById('f').onsubmit=e=>{e.preventDefault();if(done)return;const typed=inp.value,r=match(typed,q.answers),x=norm(typed);
+ document.getElementById('f').onsubmit=e=>{e.preventDefault();if(done)return;const typed=inp.value,r=match(typed,q.answers,q.answer_type),x=norm(typed);
   if(r&&r!=='ambiguous'){track('answer_attempt',{question_id:q.id||slug(q.prompt),position:qi+1,outcome:'correct',elapsed_ms:elapsed(),answer:r.name,points:r.pts,tier:tierName(r.pts),set_id:dailySetId()});return finish(r,'correct')}
-  const matchedKnown=r==='ambiguous'||known.has(x)||knownLast.has(x);
+  const matchedKnown=r==='ambiguous'||known.has(x)||(isPersonAnswerType(q.answer_type)&&knownLast.has(x));
   const outcome=r==='ambiguous'?'ambiguous':matchedKnown?'wrong_player':'unrecognised';
   track('answer_attempt',{question_id:q.id||slug(q.prompt),position:qi+1,outcome,elapsed_ms:elapsed(),input_length:typed.trim().length,set_id:dailySetId()});
   track('rejected',{question_id:q.id||slug(q.prompt),prompt:q.prompt,input:typed,matched_known_player:matchedKnown,outcome,position:qi+1,set_id:dailySetId()});
-  msg.className='msg bad';msg.textContent=r==='ambiguous'?'More than one player fits. Add the first name.':matchedKnown?'Real player, but not on this list.':"Didn't recognise that player.";
+  msg.className='msg bad';msg.textContent=r==='ambiguous'?(isPersonAnswerType(q.answer_type)?'More than one person fits. Add more of the name.':'More than one answer fits. Be more specific.'):matchedKnown?`Recognised ${answerLabel(q)}, but not on this list.`:`Didn't recognise that ${answerLabel(q)}.`;
   inp.classList.remove('shake');void inp.offsetWidth;inp.classList.add('shake');inp.select()}})}
 function reveal(ans){if(results[qi])return;const q=Q[qi];const pts=ans?ans.pts:0;const before=zoneOf(score);score+=pts;results[qi]={q,ans,pts};const after=zoneOf(score);
  swap(`<div class="card"><div class="reveal-top"><div class="mute">${q.prompt}</div><div class="sprite mid-sprite hold" id="mascot" data-mood="${!ans?'sad':pts>=64?'wow':'happy'}"></div><div class="scream-bubble${ans?'':' stink'}" id="bubble">${ans?'AAAAAH!':'What a stinker!'}</div></div>
@@ -839,7 +849,7 @@ window.addEventListener('pagehide',()=>track('leave',{reason:'pagehide'}));
 const FAME_PTS_V1={5:20,4:40,3:60,2:80,1:100},FAME_PTS_V2={6:20,5:40,4:60,3:60,2:80,1:100};
 const famePoints=(q,f)=>((q?.scoring_version||1)>=2?FAME_PTS_V2:FAME_PTS_V1)[f]||60;
 const slug=t=>norm(t).replace(/ /g,'-').slice(0,120)||('q'+Date.now());
-const toGame=b=>({id:b._id,prompt:b.prompt,sub:b.subtitle||'',by:b.by||'',clash:b.clash_note||'',difficulty:b.difficulty||'unknown',scoring_version:b.scoring_version||1,answers:(b.answers||[]).map(a=>({name:a.name,aliases:a.aliases||[],detail:a.detail||'',pts:famePoints(b,a.fame)}))});
+const toGame=b=>({id:b._id,prompt:b.prompt,sub:b.subtitle||'',by:b.by||'',clash:b.clash_note||'',difficulty:b.difficulty||'unknown',answer_type:String(b.answer_type||'player').toLowerCase(),scoring_version:b.scoring_version||1,answers:(b.answers||[]).map(a=>({name:a.name,aliases:a.aliases||[],detail:a.detail||'',pts:famePoints(b,a.fame)}))});
 function hashStr(t){let h=2166136261;for(const c of t){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
 function gameDayNumber(){const [y,m,d]=amsterdamDay().split('-').map(Number);return Math.floor(Date.UTC(y,m-1,d)/864e5)}
 function todaysSet(bank){const day=gameDayNumber();const srt=l=>[...l].sort((a,b)=>hashStr(a._id)-hashStr(b._id)||a._id.localeCompare(b._id));
@@ -867,12 +877,12 @@ function applyBank(){
  const scheduled=scheduledSet();
  if(scheduled){
    Q=scheduled.map(toGame);
-   scheduled.flatMap(b=>b.answers||[]).forEach(a=>{known.add(norm(a.name));knownLast.add(norm(a.name).split(' ').pop())});
+   scheduled.forEach(registerKnownQuestion);
    fillReport();return
  }
  const seen=new Set(),allowLegacySeed=amsterdamDay()<'2026-09-19';
  const ok=[...BANK.filter(b=>b.approved&&(b.answers||[]).length>=5),...(allowLegacySeed?SEED:[])].filter(b=>{if(seen.has(b._id))return false;seen.add(b._id);return true});
- if(ok.length>=5){Q=todaysSet(ok).map(toGame);const names=ok.flatMap(b=>b.answers.map(a=>a.name));names.forEach(n=>{known.add(norm(n));knownLast.add(norm(n).split(' ').pop())})}
+ if(ok.length>=5){Q=todaysSet(ok).map(toGame);ok.forEach(registerKnownQuestion)}
  fillReport()
 }
 
@@ -901,6 +911,7 @@ document.getElementById('adm-import').onclick=async()=>{const msg=document.getEl
  const db=await dbP;if(!db){msg.className='formmsg msg bad';msg.textContent='Database not available here.';return}
  let added=0,updated=0,warn=[];msg.textContent='Importing…';
  for(const q of qs){if(!q.prompt||!Array.isArray(q.answers)){warn.push('skipped one without prompt/answers');continue}
+  if(!q.answer_type)warn.push(`\"${q.prompt.slice(0,40)}…\" missing answer_type; defaults to player`);
   const id=slug(q.prompt);const ex=BANK.find(b=>b._id===id);const rec={...q,_id:id,approved:ex?!!ex.approved:false,importedAt:new Date().toISOString()};delete rec.id;
   if(q.answer_count&&q.answer_count!==q.answers.length)warn.push(`"${q.prompt.slice(0,40)}…" says ${q.answer_count} answers but has ${q.answers.length}`);
   try{await saveQ2(rec);ex?Object.assign(ex,rec)&&updated++:(BANK.push(rec),added++)}catch(e){warn.push('write failed: '+(e.code||e.message))}}
