@@ -53,6 +53,37 @@ if step_number_small_marker not in s:
         raise SystemExit('Could not find closing style tag')
     s = s.replace('</style>', css + '</style>', 1)
 
+# Prevent the timeout and a last-millisecond submit from resolving the same question twice.
+if 'if(done)return false;done=true;cancelAnimationFrame(timer)' not in s:
+    old_finish = " function finish(ans,outcome){done=true;cancelAnimationFrame(timer);track('question_result',{question_id:q.id||slug(q.prompt),prompt:q.prompt,position:qi+1,outcome,elapsed_ms:elapsed(),answer:ans?ans.name:null,points:ans?ans.pts:0,tier:ans?tierName(ans.pts):null,set_id:dailySetId()});reveal(ans)}"
+    new_finish = " function finish(ans,outcome){if(done)return false;done=true;cancelAnimationFrame(timer);const form=document.getElementById('f'),skip=document.getElementById('skip');if(form)form.querySelectorAll('input,button').forEach(el=>el.disabled=true);if(skip)skip.disabled=true;track('question_result',{question_id:q.id||slug(q.prompt),prompt:q.prompt,position:qi+1,outcome,elapsed_ms:elapsed(),answer:ans?ans.name:null,points:ans?ans.pts:0,tier:ans?tierName(ans.pts):null,set_id:dailySetId()});reveal(ans);return true}"
+    if old_finish not in s:
+        raise SystemExit('Could not find question finish function')
+    s = s.replace(old_finish, new_finish, 1)
+
+if "document.getElementById('f').onsubmit=e=>{e.preventDefault();if(done)return;" not in s:
+    old_submit = "document.getElementById('f').onsubmit=e=>{e.preventDefault();const typed=inp.value"
+    new_submit = "document.getElementById('f').onsubmit=e=>{e.preventDefault();if(done)return;const typed=inp.value"
+    if old_submit not in s:
+        raise SystemExit('Could not find answer submit handler')
+    s = s.replace(old_submit, new_submit, 1)
+
+# Store the result by question position instead of blindly appending.
+if 'results[qi]={q,ans,pts}' not in s:
+    old_reveal = "function reveal(ans){const q=Q[qi];const pts=ans?ans.pts:0;const before=zoneOf(score);score+=pts;results.push({q,ans,pts});const after=zoneOf(score);"
+    new_reveal = "function reveal(ans){if(results[qi])return;const q=Q[qi];const pts=ans?ans.pts:0;const before=zoneOf(score);score+=pts;results[qi]={q,ans,pts};const after=zoneOf(score);"
+    if old_reveal not in s:
+        raise SystemExit('Could not find reveal result insertion')
+    s = s.replace(old_reveal, new_reveal, 1)
+
+# Repair any previously saved duplicate result rows when a completed game is restored.
+if 'const savedPicks=Array.isArray(p.picks)?p.picks:[]' not in s:
+    old_restore_start = "function restore(p){results=p.picks.map(([i,name])=>{const q=Q[i],ans=name?q?.answers.find(a=>a.name===name)||null:null;return{q,ans,pts:ans?ans.pts:0}});"
+    new_restore_start = "function restore(p){const savedPicks=Array.isArray(p.picks)?p.picks:[],byPos=new Map();savedPicks.forEach(([i,name])=>{if(Number.isInteger(i)&&i>=0&&i<Q.length&&!byPos.has(i))byPos.set(i,name||null)});results=Q.map((q,i)=>{const name=byPos.get(i)||null,ans=name?q?.answers.find(a=>a.name===name)||null:null;return{q,ans,pts:ans?ans.pts:0}});"
+    if old_restore_start not in s:
+        raise SystemExit('Could not find restore function')
+    s = s.replace(old_restore_start, new_restore_start, 1)
+
 js_marker = '/* brand home navigation */'
 if js_marker not in s:
     boot = "(async()=>{[BANK,DAILY_SCHEDULE]=await Promise.all([loadBank(),loadDailySchedule()]);applyBank();start();paint();setMeter()})();"
@@ -62,4 +93,4 @@ if js_marker not in s:
     s = s.replace(boot, js + boot, 1)
 
 p.write_text(s, encoding='utf-8')
-print('Brand home navigation and landing layout fixes applied')
+print('Brand home navigation, landing layout fixes, and one-shot question resolution applied')
