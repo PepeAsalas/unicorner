@@ -652,7 +652,7 @@ const setPlayed=v=>{try{localStorage.setItem(DAYKEY,JSON.stringify(v))}catch{}};
 const previousGameDay=d=>{const [y,m,dd]=d.split('-').map(Number);return new Date(Date.UTC(y,m-1,dd)-864e5).toISOString().slice(0,10)};
 const currentStreak=()=>{try{let d=amsterdamDay(),n=0;while(localStorage.getItem('unicorner-played-'+d)){n++;d=previousGameDay(d)}return n}catch{return getPlayed()?1:0}};
 const untilMidnight=()=>{const n=new Date(),m=new Date(n);m.setHours(24,0,0,0);const d=m-n,h=Math.floor(d/36e5),mi=Math.floor(d%36e5/6e4);return`${h}h ${mi}m`};
-function restore(p){results=p.picks.map(([i,name])=>{const q=Q[i],ans=name?q?.answers.find(a=>a.name===name)||null:null;return{q,ans,pts:ans?ans.pts:0}});score=results.reduce((n,r)=>n+r.pts,0);qi=Q.length;if(score!==p.score)setPlayed({...p,score,picks:results.map((r,i)=>[i,r.ans?.name||null,r.pts])})}
+function restore(p){const savedPicks=Array.isArray(p.picks)?p.picks:[],byPos=new Map();savedPicks.forEach(([i,name])=>{if(Number.isInteger(i)&&i>=0&&i<Q.length&&!byPos.has(i))byPos.set(i,name||null)});results=Q.map((q,i)=>{const name=byPos.get(i)||null,ans=name?q?.answers.find(a=>a.name===name)||null:null;return{q,ans,pts:ans?ans.pts:0}});score=results.reduce((n,r)=>n+r.pts,0);qi=Q.length;if(score!==p.score)setPlayed({...p,score,picks:results.map((r,i)=>[i,r.ans?.name||null,r.pts])})}
 function start(){document.body.classList.remove('playing');fillReport();document.body.classList.add('landing');const played=getPlayed();
  const today=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
  const COLS=['#cfd8e6','#7fe0a8','#b48cff','#ff7ac8','#f2c230'];
@@ -711,9 +711,9 @@ function ask(){document.body.classList.add('playing');const q=Q[qi];if(qi===0)tr
  const inp=document.getElementById('in'),msg=document.getElementById('msg'),bar=document.getElementById('bar');inp.focus();
  const elapsed=()=>Math.max(0,Math.round(performance.now()-t0));
  const tick=()=>{if(done)return;const el=left-(performance.now()-t0);bar.style.width=`${Math.max(0,el/(TIME*1000))*100}%`;document.getElementById('tm').classList.toggle('low',el<6000);if(el<=0)finish(null,'timeout');else timer=requestAnimationFrame(tick)};tick();
- function finish(ans,outcome){done=true;cancelAnimationFrame(timer);track('question_result',{question_id:q.id||slug(q.prompt),prompt:q.prompt,position:qi+1,outcome,elapsed_ms:elapsed(),answer:ans?ans.name:null,points:ans?ans.pts:0,tier:ans?tierName(ans.pts):null,set_id:dailySetId()});reveal(ans)}
+ function finish(ans,outcome){if(done)return false;done=true;cancelAnimationFrame(timer);const form=document.getElementById('f'),skip=document.getElementById('skip');if(form)form.querySelectorAll('input,button').forEach(el=>el.disabled=true);if(skip)skip.disabled=true;track('question_result',{question_id:q.id||slug(q.prompt),prompt:q.prompt,position:qi+1,outcome,elapsed_ms:elapsed(),answer:ans?ans.name:null,points:ans?ans.pts:0,tier:ans?tierName(ans.pts):null,set_id:dailySetId()});reveal(ans);return true}
  document.getElementById('skip').onclick=()=>finish(null,'skip');
- document.getElementById('f').onsubmit=e=>{e.preventDefault();const typed=inp.value,r=match(typed,q.answers),x=norm(typed);
+ document.getElementById('f').onsubmit=e=>{e.preventDefault();if(done)return;const typed=inp.value,r=match(typed,q.answers),x=norm(typed);
   if(r&&r!=='ambiguous'){track('answer_attempt',{question_id:q.id||slug(q.prompt),position:qi+1,outcome:'correct',elapsed_ms:elapsed(),answer:r.name,points:r.pts,tier:tierName(r.pts),set_id:dailySetId()});return finish(r,'correct')}
   const matchedKnown=r==='ambiguous'||known.has(x)||knownLast.has(x);
   const outcome=r==='ambiguous'?'ambiguous':matchedKnown?'wrong_player':'unrecognised';
@@ -721,7 +721,7 @@ function ask(){document.body.classList.add('playing');const q=Q[qi];if(qi===0)tr
   track('rejected',{question_id:q.id||slug(q.prompt),prompt:q.prompt,input:typed,matched_known_player:matchedKnown,outcome,position:qi+1,set_id:dailySetId()});
   msg.className='msg bad';msg.textContent=r==='ambiguous'?'More than one player fits. Add the first name.':matchedKnown?'Real player, but not on this list.':"Didn't recognise that player.";
   inp.classList.remove('shake');void inp.offsetWidth;inp.classList.add('shake');inp.select()}})}
-function reveal(ans){const q=Q[qi];const pts=ans?ans.pts:0;const before=zoneOf(score);score+=pts;results.push({q,ans,pts});const after=zoneOf(score);
+function reveal(ans){if(results[qi])return;const q=Q[qi];const pts=ans?ans.pts:0;const before=zoneOf(score);score+=pts;results[qi]={q,ans,pts};const after=zoneOf(score);
  swap(`<div class="card"><div class="reveal-top"><div class="mute">${q.prompt}</div><div class="sprite mid-sprite hold" id="mascot" data-mood="${!ans?'sad':pts>=64?'wow':'happy'}"></div><div class="scream-bubble${ans?'':' stink'}" id="bubble">${ans?'AAAAAH!':'What a stinker!'}</div></div>
  <div class="gauge" id="gauge"><div class="gbar"><div class="gfill" id="gfill"></div>${TIERS.slice(0,-1).map(t=>`<i class="gdiv" style="left:${t[0]}%"></i>`).join('')}<div class="ghead hold" id="ghead"><span id="glabel">Tap-in</span><em></em></div></div><div class="gpts">${TIERS.map((t,i)=>`<span data-i="${i}" style="left:${t[0]}%">${t[0]}</span>`).join('')}</div></div>
  ${ans?`<div class="tier hold" id="tn">${tierName(pts)}</div><div class="pts hold" id="pl">${ans.name} · <span id="pc">+0</span> points</div>`:`<div class="tier wipe" style="color:var(--mute)">Missed</div><div class="pts">No answer · +0</div>`}
