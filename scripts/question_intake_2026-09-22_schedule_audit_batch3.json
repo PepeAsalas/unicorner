@@ -1,0 +1,10 @@
+{
+ "audit": "2026-09-22-schedule-batch3",
+ "summary": "Full batch: scheduled Sep 30 - Oct 11 (12 days) using the entire remaining approved pool (60 questions: 33 from the earlier u/c pool + 27 from the new n-batch answer-type questions and r-batch retro questions the user added).",
+ "method": "Unique format_family per day (hard rule) except club_season_appearance, which has 16 items across only 12 days so a few days deliberately carry two (different clubs/eras each time, never the same club twice in one day). One club-answer or new-answer-type question aimed for per day where the pool allowed. Checked for same-subject clashes on adjacent days and fixed the two found (Man United landing on 3 consecutive days originally; a Juventus/Juventus adjacency) by swapping placements.",
+ "answer_type_coverage": "n002 (country), n003 (stadium, Sep30), n005 (manager), n006/shared_club_history (club), n007/n008/n009/n010 (player, novel structures: shared teammate, teammate-with-appearance-threshold, squad number, final-squad position) are all now scheduled across the window.",
+ "retro_coverage": "19 of the 20 retro questions (r001-r020, minus r009 already used Sep29) are now scheduled, spread across the whole window rather than bunched together.",
+ "medium_difficulty": "All 4 remaining medium questions (n003, n007, n008, n010) used, spread out: Sep30, Oct3, Oct6, Oct9. Every other day is 5x easy -- no more medium-difficulty inventory exists anywhere in the bank after this.",
+ "pool_status": "Unscheduled approved pool is now EMPTY (0 remaining). Any further daily schedule needs new question batches written from scratch.",
+ "accepted_minor_repeats": "Zlatan Ibrahimovic is the subject of two questions 7 days apart (Oct4 shared-club, Oct11 career-clubs) and AC Milan appears twice 7 days apart (Oct4, Oct11) -- not adjacent, different structures, judged acceptable spacing."
+}
