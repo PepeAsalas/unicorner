@@ -1,0 +1,27 @@
+{
+ "audit": "2026-09-22-schedule-reorg",
+ "summary": "Rebuilt Sep 23-26 to fix structural repetition flagged by players (e.g. two club_league_threshold questions on Sep 22). Sep 18-22 left untouched (already played/live).",
+ "before": "club_league_threshold used 4x (e007,e008,e010,u020) and club_league_window used 3x (u001,u003,u004) across the 20 Sep23-26 slots — 7/20 questions were near-identical \"X+ appearances/matches for [club] since [date]\" templates with only the club swapped.",
+ "after": "Every format_family across Sep23-26 is now unique except tournament_scorer (u062 Sep23 + u052 Sep24, different countries) and national_scorer (u048 Sep25 + u009 Sep26, different countries) — both intentional, spaced, different-subject repeats, not adjacent duplicates.",
+ "answer_type_mix": "Added one club-answer question per day (c003 Sep23, c009 Sep24, c022 Sep25, c020 Sep26) pulled from the c-batch club-career/competition inventory, which was sitting entirely unscheduled before this reorg. u033 (Sep24) remains the only manager-answer question in the whole bank.",
+ "displaced": "e007, e008, e010, u020, u004, u003 moved back to pending — see question_intake_2026-09-22_displaced.json. Still approved/usable, just not on Sep23-26 anymore.",
+ "consumed_from_pending": [
+  "c003 -> 2026-09-23",
+  "u062 -> 2026-09-23",
+  "c009 -> 2026-09-24",
+  "u052 -> 2026-09-24",
+  "c022 -> 2026-09-25",
+  "c020 -> 2026-09-26"
+ ],
+ "scoring_fix": "c003/c009/c022/c020/u062 use the 5-level fame scale (max fame 5) so scoring_version was set to 1 (routes through FAME_PTS_V1) instead of the 3 in their raw source files -- scoring_version 3 has no dedicated table in index.html and would have incorrectly routed through FAME_PTS_V2 (6-level table), making the Tap-in tier unreachable. u052 already used the legacy 6-level fame scale so it kept scoring_version 2.",
+ "hold_status_confirmed": {
+  "u054": "Still HOLD -- answers only cover 2014-15 Sevilla Europa League squad, missing 2014 and 2016 winners, all marked needs_recheck. Not answer-complete.",
+  "u064": "Still HOLD -- only 5 unique Ligue 1 top-scorer winners in range, no rarity tail. Needs a rewrite, not usable as-is.",
+  "u069": "Still HOLD -- only 10 unique Serie A top-scorer winners, and duplicates the existing Serie A scoring_ranking format already in the schedule.",
+  "c026": "Still HOLD -- only 10 unique Champions League top scorers, no rarity tail."
+ },
+ "content_gaps_flagged": [
+  "No retro/legends-era content anywhere in the bank (scheduled or pending) -- earliest year referenced by any question is 2010, most are 2018+. Players have asked for at least one retro question; needs a fresh researched batch (90s/2000s era), not something to reuse from existing inventory.",
+  "Only one manager-answer question exists in the entire bank (u033, Managed a Premier League match in 2024-25). Everything else with \"manager\" in the format name (manager_players, manager_season_players) asks for a PLAYER who played under a manager, not the manager. More manager-as-answer questions would need fresh research."
+ ]
+}
