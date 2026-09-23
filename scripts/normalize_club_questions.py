@@ -1,18 +1,46 @@
 from pathlib import Path
 import json
+import re
 
-# Legacy format families whose ANSWERS are clubs rather than players.
-CLUB_ANSWER_FAMILIES = {
-    'club_career',
-    'player_club_history',
-    'shared_club_history',
-    'league_participation',
-    'competition_participation',
-    'competition_winner',
-    'cup_winner',
-    'promotion_history',
-    'competition_stage',
+# Legacy format families where the expected answer is not a player. New questions
+# should always provide answer_type explicitly; these mappings keep older/frozen
+# inventory safe and correctly labelled too.
+FAMILY_ANSWER_TYPES = {
+    # clubs
+    'club_career': 'club',
+    'player_club_history': 'club',
+    'shared_club_history': 'club',
+    'league_participation': 'club',
+    'competition_participation': 'club',
+    'competition_winner': 'club',
+    'cup_winner': 'club',
+    'promotion_history': 'club',
+    'competition_stage': 'club',
+    # managers
+    'manager': 'manager',
+    'club_manager_history': 'manager',
+    'competition_winning_manager': 'manager',
+    # countries
+    'tournament_participant_country': 'country',
+    'tournament_semifinal_country': 'country',
+    # stadiums
+    'competition_final_stadium': 'stadium',
 }
+
+TYPE_LABELS = {
+    'club': 'club',
+    'country': 'country',
+    'stadium': 'stadium',
+    'manager': 'manager',
+    'coach': 'coach',
+    'referee': 'referee',
+    'city': 'city',
+    'competition': 'competition',
+    'league': 'league',
+    'team': 'team',
+}
+
+PERSON_TYPES = {'manager', 'coach', 'referee'}
 
 # Editorial wording for known legacy/frozen questions. These keep the meaning
 # unchanged while making the expected answer type unmistakable to players.
@@ -25,6 +53,7 @@ PROMPT_OVERRIDES = {
     'c006': 'Name a club that reached a Champions League semi-final, 2015-16 to 2024-25',
     'r003': 'Name a club that won the Champions League, 1995–2012',
     'r013': 'Name a club that won the Premier League or LaLiga, 1995–2012',
+    'u033': 'Name a manager who managed a Premier League match in 2024-25',
 }
 
 
@@ -32,34 +61,72 @@ def qid_of(q):
     return q.get('id') or q.get('_id') or ''
 
 
-def club_prompt(prompt):
+def type_is_explicit(prompt, answer_type):
+    """True when the opening 'Name a ...' phrase already makes the type clear."""
+    label = TYPE_LABELS.get(answer_type, answer_type)
+    text = (prompt or '').strip().lower()
+    if not text.startswith(('name a ', 'name an ')):
+        return False
+    # Allow useful modifiers: "Name a permanent Chelsea manager ...".
+    opening = text[:60]
+    return re.search(rf'\b{re.escape(label)}\b', opening) is not None
+
+
+def explicit_prompt(prompt, answer_type):
     prompt = (prompt or '').strip()
-    if prompt.lower().startswith('name a club'):
+    if not prompt or answer_type not in TYPE_LABELS:
         return prompt
+    if type_is_explicit(prompt, answer_type):
+        return prompt
+
+    label = TYPE_LABELS[answer_type]
     lower = prompt.lower()
-    for verb in ('played ', 'won ', 'reached ', 'finished ', 'has ', 'was '):
-        if lower.startswith(verb):
-            return 'Name a club that ' + prompt[0].lower() + prompt[1:]
-    if lower.startswith('promoted '):
+    connector = 'who' if answer_type in PERSON_TYPES else 'that'
+
+    # Keep the original football criterion intact; just make the requested
+    # answer type explicit. A few common noun/participle forms read better
+    # without "that/who".
+    if answer_type == 'club' and lower.startswith('promoted '):
         return 'Name a club ' + prompt[0].lower() + prompt[1:]
-    # Safe fallback: preserve the original wording verbatim while making the
-    # expected answer type explicit.
-    return 'Name a club: ' + prompt
+
+    verb_starts = (
+        'played ', 'won ', 'reached ', 'finished ', 'has ', 'was ', 'were ',
+        'hosted ', 'managed ', 'coached ', 'refereed ', 'signed ', 'scored ',
+        'qualified ', 'appeared ', 'featured ', 'competed ', 'left ', 'joined ',
+    )
+    if lower.startswith(verb_starts):
+        return f'Name a {label} {connector} ' + prompt[0].lower() + prompt[1:]
+
+    # Safe fallback: preserve the complete original criterion verbatim.
+    return f'Name a {label}: ' + prompt
 
 
 def normalize_question(q):
     changed = False
     qid = qid_of(q)
-    family = q.get('format_family')
+    family = str(q.get('format_family') or '').lower()
     answer_type = str(q.get('answer_type') or '').lower()
 
-    if not answer_type and (family in CLUB_ANSWER_FAMILIES or str(q.get('prompt', '')).lower().startswith('name a club')):
-        q['answer_type'] = 'club'
-        answer_type = 'club'
+    inferred = FAMILY_ANSWER_TYPES.get(family)
+    if not answer_type and inferred:
+        q['answer_type'] = inferred
+        answer_type = inferred
         changed = True
 
-    if answer_type == 'club':
-        wanted = PROMPT_OVERRIDES.get(qid, club_prompt(q.get('prompt', '')))
+    # Also recover obvious typed prompts in legacy data that predate answer_type.
+    if not answer_type:
+        prompt_lower = str(q.get('prompt', '')).lower()
+        for candidate in TYPE_LABELS:
+            if type_is_explicit(prompt_lower, candidate):
+                q['answer_type'] = candidate
+                answer_type = candidate
+                changed = True
+                break
+
+    # Player remains the backwards-compatible default and keeps the game's
+    # natural player-question wording. Every other supported type is explicit.
+    if answer_type in TYPE_LABELS:
+        wanted = PROMPT_OVERRIDES.get(qid, explicit_prompt(q.get('prompt', ''), answer_type))
         if q.get('prompt') != wanted:
             q['prompt'] = wanted
             changed = True
@@ -87,4 +154,4 @@ for path in sorted(Path('scripts').glob('question_intake_*.json')):
     if normalize_file(path):
         changed_files.append(str(path))
 
-print('Normalized club questions:', ', '.join(changed_files) if changed_files else 'no changes')
+print('Normalized typed questions:', ', '.join(changed_files) if changed_files else 'no changes')
