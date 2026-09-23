@@ -721,6 +721,23 @@ body.results-view .meter{display:none!important}
  .lp-final-played[data-home-infinite]{padding:18px 14px!important;margin-bottom:18px!important}
  .lp-final-played[data-home-infinite] .lp-h2{font-size:27px!important;margin-bottom:14px!important}
 }
+
+/* centered landing hero refinement */
+.landing-wrap .lp-home-hero{display:block!important;margin-top:22px!important;padding:20px 6px 10px!important;text-align:center!important}
+.lp-home-title-row{display:grid;grid-template-columns:minmax(0,470px) 220px;align-items:center;justify-content:center;gap:18px;width:100%;margin:0 auto}
+.lp-home-title-row .lp-title{margin:0!important;text-align:left!important;font-size:clamp(58px,7.8vw,78px)!important;line-height:.92!important}
+.lp-home-title-row .lp-art{order:initial!important;height:190px!important;display:grid!important;place-items:center!important}
+.lp-home-title-row .lp-sprite{width:225px!important;height:188px!important;max-width:100%!important}
+.landing-wrap .lp-home-hero>.lp-sub{max-width:none!important;margin:2px auto 0!important;text-align:center!important;font-size:20px!important}
+@media (max-width:560px){
+ .landing-wrap .lp-home-hero{margin-top:10px!important;padding:12px 0 8px!important}
+ .lp-home-title-row{grid-template-columns:minmax(0,1fr) 142px!important;gap:8px!important;max-width:100%!important}
+ .lp-home-title-row .lp-title{font-size:clamp(42px,11.8vw,51px)!important;line-height:.91!important;text-align:center!important}
+ .lp-home-title-row .lp-art{height:132px!important;place-items:center!important}
+ .lp-home-title-row .lp-sprite{width:154px!important;height:128px!important}
+ .landing-wrap .lp-home-hero>.lp-sub{margin-top:3px!important;font-size:17px!important;line-height:1.2!important}
+ .lp-home-daily{margin-bottom:14px!important}
+}
 </style></head><body>
 <div class="scene retro2" aria-hidden="true">
 <div class="sky"><i class="cloud c1"></i><i class="cloud c2"></i><i class="cloud c3"></i><i class="cloud c4"></i></div>
@@ -835,11 +852,11 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
  const COLS=['#cfd8e6','#7fe0a8','#b48cff','#ff7ac8','#f2c230'];
  swap(`<div class="landing-wrap">
  <section class="lp-hero lp-home-hero">
-  <div class="lp-copy">
+  <div class="lp-home-title-row">
    <h1 class="lp-title">How deep is your <span class="uni-word">ball knowledge</span>?</h1>
-   <p class="lp-sub">Find the answer nobody else thinks of.</p>
+   <div class="lp-art"><div class="lp-halo"></div><div class="sprite lp-sprite bob" data-mood="wow"></div></div>
   </div>
-  <div class="lp-art"><div class="lp-halo"></div><div class="sprite lp-sprite bob" data-mood="wow"></div></div>
+  <p class="lp-sub">Find the answer nobody else thinks of.</p>
  </section>
 
  <section class="card lp-home-daily">
@@ -857,10 +874,10 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
    <p class="lp-meta">5 prompts · about 3 minutes · free, no sign-up</p>`}
  </section>
 
- <section class="lp-final lp-final-played" data-home-infinite>
+ ${played?`<section class="lp-final lp-final-played" data-home-infinite>
   <h2 class="lp-h2">Can't wait until tomorrow?</h2>
   <button class="cta lp-infinite-cta" data-infinite>∞ Try Infinite mode</button>
- </section>
+ </section>`:''}
 
  <section class="lp-steps" id="steps">
   <h2 class="lp-h2">How it works</h2>
