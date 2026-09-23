@@ -26,7 +26,11 @@ jobs:
           python-version: '3.x'
       - name: Apply landing and game UI changes
         run: |
-          python scripts/apply_brand_home_link.py
+          if grep -q '/\* result screen social loop \*/' index.html; then
+            echo 'Brand/tier fixes are already baked into the current social results layout'
+          else
+            python scripts/apply_brand_home_link.py
+          fi
           python scripts/normalize_tier_labels.py
           python scripts/refine_landing_podium.py
           python scripts/widen_desktop_layout.py
@@ -70,6 +74,7 @@ jobs:
           assert 'Nearly had it' in s
           assert 'Unicorner progress' in s
           assert 'Challenge a mate while the result is fresh.' in s
+          assert "misses.length===1?'1 answer':misses.length+' answers'" in s
           result_share=s.find('id="share-result"')
           result_highlights=s.find('Your match highlights')
           assert result_share >= 0 and result_highlights >= 0 and result_share < result_highlights
@@ -90,5 +95,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '418982418+github-actions[bot]@users.noreply.github.com'
           git add index.html
-          git commit -m 'Restructure results around achievement and sharing'
+          git commit -m 'Refine social-first results screen'
           git push
