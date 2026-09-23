@@ -568,6 +568,15 @@ body.playing .brand-home{cursor:default}
 @keyframes screamerTierPulse{0%,100%{filter:brightness(1);box-shadow:0 0 0 2px #fff0a6,0 0 0 4px rgba(255,209,90,.28),0 0 12px rgba(255,209,90,.5),inset 0 0 7px rgba(255,255,255,.35)}50%{filter:brightness(1.2);box-shadow:0 0 0 2px #fff8d3,0 0 0 6px rgba(255,209,90,.45),0 0 26px rgba(255,209,90,.9),inset 0 0 11px rgba(255,255,255,.55)}}
 @media (max-width:640px){.landing-wrap .lp-example .lp-answers{padding:0}.landing-wrap .lp-example .podium-mid,.landing-wrap .lp-example .podium-top,.landing-wrap .lp-example .podium-low{transform:none}}
 @media (prefers-reduced-motion:reduce){.landing-wrap .lp-example .podium-top,.landing-wrap .lp-tiers .tier-col:last-child .tier-bar{animation:none!important}}
+
+/* aligned landing podium */
+@media (min-width:641px){
+  .landing-wrap .lp-example .lp-answers{align-items:end!important;gap:16px!important;padding:28px 0 12px!important}
+  .landing-wrap .lp-example .lp-ans{box-sizing:border-box!important;display:flex!important;flex-direction:column!important;justify-content:center!important;transform:none!important}
+  .landing-wrap .lp-example .podium-low{height:96px!important}
+  .landing-wrap .lp-example .podium-mid{height:116px!important}
+  .landing-wrap .lp-example .podium-top{height:140px!important;transform:none!important}
+}
 </style></head><body>
 <div class="scene retro2" aria-hidden="true">
 <div class="sky"><i class="cloud c1"></i><i class="cloud c2"></i><i class="cloud c3"></i><i class="cloud c4"></i></div>
