@@ -129,19 +129,28 @@ if 'class="lp-ans uni podium-top"' not in s:
     if answer_count != 1:
         raise SystemExit('Could not find landing example answers')
 
-old_reveal_label = "m.textContent=tier[1].toUpperCase();"
-new_reveal_label = "m.textContent=tier[1]==='Screamer'?'SCREAMER!!!':tier[1].toUpperCase();"
-if old_reveal_label in s:
-    s = s.replace(old_reveal_label, new_reveal_label, 1)
-elif new_reveal_label not in s:
-    raise SystemExit('Could not find tier reveal label')
+# A 100-point hit should read as the emphatic display form in the live reveal.
+old_reveal_tier = '<div class="tier hold" id="tn">${tierName(pts)}</div>'
+new_reveal_tier = '<div class="tier hold" id="tn">${pts===100?"SCREAMER!!!":tierName(pts)}</div>'
+if old_reveal_tier in s:
+    s = s.replace(old_reveal_tier, new_reveal_tier, 1)
+elif new_reveal_tier not in s:
+    raise SystemExit('Could not find live tier reveal label')
 
-result_line = "let tier=skipped?(duplicate?'DUPLICATE':'SKIPPED'):(TIERS.filter(t=>pts>=t[0]).pop()||TIERS[0])[1].toUpperCase();"
-screamer_result = "if(tier==='SCREAMER')tier='SCREAMER!!!';"
-if result_line in s and screamer_result not in s:
-    s = s.replace(result_line, result_line + "\n " + screamer_result, 1)
-elif screamer_result not in s:
-    raise SystemExit('Could not find results tier label')
+old_gauge_label = 'lab.textContent=TIERS[i][1];'
+new_gauge_label = "lab.textContent=(i===N-1&&target===N-1)?'SCREAMER!!!':TIERS[i][1];"
+if old_gauge_label in s:
+    s = s.replace(old_gauge_label, new_gauge_label, 1)
+elif new_gauge_label not in s:
+    raise SystemExit('Could not find rarity gauge label')
+
+# The player's own Screamer row in the final results gets the same emphatic treatment.
+old_result_label = "${r.ans?r.ans.name+' · '+tierName(r.pts):'Stinker'}"
+new_result_label = "${r.ans?r.ans.name+' · '+(r.pts===100?'SCREAMER!!!':tierName(r.pts)):'Stinker'}"
+if old_result_label in s:
+    s = s.replace(old_result_label, new_result_label, 1)
+elif new_result_label not in s:
+    raise SystemExit('Could not find final result tier label')
 
 for old in ("Fin" + "ish", "Ban" + "ger", "Wor" + "ldie"):
     if old in s:
