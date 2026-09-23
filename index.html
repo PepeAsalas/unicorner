@@ -713,22 +713,22 @@ function start(){document.body.classList.remove('playing');fillReport();document
   <div class="lp-art"><div class="lp-halo"></div><div class="sprite lp-sprite bob" data-mood="wow"></div></div>
  </section>
 
- <section class="lp-example card">
-  <div class="lp-label">For example</div>
-  <div class="lp-prompt">Played for both Barcelona and Arsenal</div>
-  <div class="lp-answers">
-   <div class="lp-ans podium-mid" style="--c:${COLS[2]}"><b>Héctor Bellerín</b><span>Volley · 60</span><i>Decent</i></div>
-   <div class="lp-ans uni podium-top" style="--c:${COLS[4]}"><b>Thomas Vermaelen</b><span>Screamer · 100</span><i>Ball knowledge</i></div>
-   <div class="lp-ans podium-low" style="--c:${COLS[0]}"><b>Alexis Sánchez</b><span>Tap-in · 20</span><i>Obvious</i></div>
-  </div>
- </section>
-
  <section class="lp-steps" id="steps">
   <h2 class="lp-h2">How it works</h2>
   <div class="lp-grid">
    <div class="card lp-step"><div class="lp-num">1</div><div class="lp-ico"><div class="fake-input">Vermae<span class="caret"></span></div></div><h3>Name one answer</h3><p>${TIME} seconds. One answer.</p></div>
    <div class="card lp-step"><div class="lp-num">2</div><div class="lp-ico"><div class="mini-gauge"><i></i></div></div><h3>Rarer scores more</h3><p>The more obscure, the more points.</p></div>
    <div class="card lp-step"><div class="lp-num">3</div><div class="lp-ico lp-climb">${['Sunday','Top flight',"Ballon d'Or"].map((z,i)=>`<span style="--i:${i}">${z}</span>`).join('')}</div><h3>Climb and share</h3><p>Climb to the Ballon d'Or. Brag.</p></div>
+  </div>
+ </section>
+
+<section class="lp-example card">
+  <div class="lp-label">For example</div>
+  <div class="lp-prompt">Played for both Barcelona and Arsenal</div>
+  <div class="lp-answers">
+   <div class="lp-ans podium-mid" style="--c:${COLS[2]}"><b>Héctor Bellerín</b><span>Volley · 60</span><i>Decent</i></div>
+   <div class="lp-ans uni podium-top" style="--c:${COLS[4]}"><b>Thomas Vermaelen</b><span>Screamer · 100</span><i>Ball knowledge</i></div>
+   <div class="lp-ans podium-low" style="--c:${COLS[0]}"><b>Alexis Sánchez</b><span>Tap-in · 20</span><i>Obvious</i></div>
   </div>
  </section>
 
