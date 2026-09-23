@@ -40,7 +40,7 @@ jobs:
           assert '<b>Alexis Sánchez</b><span>Tap-in · 20</span>' in s
           assert 'screamerTierPulse' in s
           assert 'SCREAMER!!!' in s
-          for old in ('finish','banger','worldie'):
+          for old in ('fin'+'ish','ban'+'ger','wor'+'ldie'):
               assert not re.search(rf'\b{old}\b', s, re.I)
           scripts=list(re.finditer(r'<script([^>]*)>(.*?)</script>',s,re.S|re.I))
           js='\n;\n'.join(m.group(2) for m in scripts if 'application/json' not in m.group(1))
