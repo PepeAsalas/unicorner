@@ -4,92 +4,73 @@ import re
 p = Path('index.html')
 s = p.read_text(encoding='utf-8')
 
-css_marker = '/* expandable played results card */'
+css_marker = '/* played result launch card */'
 if css_marker not in s:
     css = '''
-/* expandable played results card */
-.played-results-box{padding:0!important;overflow:hidden}
-.played-results-summary{display:block!important;list-style:none!important;padding:16px 18px!important;color:var(--ink)!important;cursor:pointer}
-.played-results-summary::-webkit-details-marker{display:none}
-.played-results-summary::marker{content:''}
-.played-results-toggle{margin-top:14px;padding-top:10px;border-top:2px solid rgba(255,255,255,.24);display:flex;align-items:center;justify-content:space-between;gap:12px;color:#fff;font-family:var(--lab);font-size:14px;text-transform:uppercase;letter-spacing:.4px}
-.played-results-toggle .played-results-arrow{font-size:22px;line-height:1;transition:transform .2s ease;transform-origin:center}
-.played-results-box[open] .played-results-arrow{transform:rotate(180deg)}
-.played-results-body{padding:0 18px 16px;border-top:2px solid rgba(255,255,255,.18)}
-.played-results-hint{margin:14px 0 4px!important}
-.played-results-body .res{animation:none!important}
-@media (max-width:640px){.played-results-summary{padding:14px!important}.played-results-body{padding:0 14px 14px}.played-results-toggle{font-size:13px}}
+/* played result launch card */
+.played-result-card{position:relative;overflow:hidden;padding:18px!important;text-align:left!important;background:linear-gradient(145deg,#2a176f 0%,#181046 58%,#0d1739 100%)!important;border:3px solid #fff!important;border-radius:10px!important;box-shadow:0 0 0 3px #000,8px 8px 0 rgba(0,0,0,.35)!important}
+.played-result-card:before{content:'';position:absolute;left:0;right:0;top:0;height:5px;background:linear-gradient(90deg,#7fe0a8,#b48cff,#ff7ac8,#f2c230)}
+.played-result-kicker{margin:2px 0 12px;color:var(--gold);font-family:var(--lab);font-size:13px;font-weight:700;letter-spacing:.6px;text-transform:uppercase}
+.played-result-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,.85fr);gap:12px}
+.played-result-score,.played-result-streak{min-width:0;padding:14px;border:2px solid rgba(255,255,255,.2);border-radius:8px;background:rgba(5,8,28,.42)}
+.played-result-score>span,.played-result-streak>span{display:block;color:#d6ccff;font-family:var(--lab);font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+.played-result-score>b{display:block;margin-top:2px;color:#fff;font-family:var(--px);font-size:54px;line-height:.95;letter-spacing:.5px}
+.played-result-score>b small{margin-left:4px;color:#d6ccff;font-size:20px}
+.played-result-score>em{display:block;margin-top:8px;color:var(--gold);font-family:var(--lab);font-size:14px;font-style:normal;font-weight:700}
+.played-result-streak{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.played-result-streak>b{display:flex;align-items:center;gap:7px;margin-top:5px;color:#fff;font-family:var(--px);font-size:40px;line-height:1}
+.played-result-streak>b i{font-family:system-ui,sans-serif;font-size:27px;font-style:normal}
+.played-result-streak>small{margin-top:5px;color:#d6ccff;font-family:var(--lab);font-size:12px;text-transform:uppercase}
+.played-result-cta{width:100%;margin-top:13px!important;padding:13px 16px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:14px!important;background:var(--gold)!important;color:#16102f!important;border:2px solid #fff!important;box-shadow:0 3px 0 #000!important;text-align:left!important}
+.played-result-cta>span{font-family:var(--px);font-size:20px;line-height:1}
+.played-result-cta>small{font-family:var(--lab);font-size:12px;font-weight:700;text-transform:uppercase;white-space:nowrap}
+.played-result-next{margin-top:10px;color:#d6ccff;font-size:13px;text-align:center}.played-result-next b{color:#fff}
+@media (max-width:560px){.played-result-card{padding:15px!important}.played-result-grid{grid-template-columns:minmax(0,1fr) 108px;gap:9px}.played-result-score,.played-result-streak{padding:12px}.played-result-score>b{font-size:46px}.played-result-score>b small{font-size:17px}.played-result-streak>b{font-size:34px}.played-result-cta{display:block!important;text-align:center!important}.played-result-cta>small{display:block;margin-top:4px;white-space:normal}}
 '''
     if '</style>' not in s:
         raise SystemExit('Could not find closing style tag')
     s = s.replace('</style>', css + '</style>', 1)
 
-back_css_marker = '/* played results back home */'
-if back_css_marker not in s:
-    css = '''
-/* played results back home */
-.played-results-home{margin:14px 0 2px!important;display:inline-flex!important;align-items:center!important;gap:7px!important}
-@media (max-width:640px){.played-results-home{width:100%;justify-content:center}}
-'''
-    if '</style>' not in s:
-        raise SystemExit('Could not find closing style tag for back-home control')
-    s = s.replace('</style>', css + '</style>', 1)
+# The landing page is now only a launch point for the full results screen.
+helper_pattern = re.compile(r'\nfunction landingResultsMarkup\(p\)\{.*?\n\}\n(?=function start\(\))', re.S)
+s = helper_pattern.sub('\n', s, count=1)
 
-helper_marker = 'function landingResultsMarkup(p)'
-if helper_marker not in s:
-    helper = '''
-function landingResultsMarkup(p){
- const picks=Array.isArray(p?.picks)?p.picks:[],byPos=new Map();
- picks.forEach(row=>{const i=Number(row?.[0]),name=row?.[1]||null;if(Number.isInteger(i)&&i>=0&&i<Q.length&&!byPos.has(i))byPos.set(i,name)});
- return Q.map((q,ri)=>{const savedName=byPos.get(ri)||null,ans=savedName?q.answers.find(a=>a.name===savedName)||null:null,pts=ans?ans.pts:0,all=[...q.answers].sort((a,b)=>b.pts-a.pts||a.name.localeCompare(b.name));return`<details class="res landing-res" style="--i:${ri}"><summary><span><b>${q.prompt}</b><br><span class="rtier" style="color:${ans?TCOL[pts]:'#ff8a7a'}">${ans?ans.name+' · '+(pts===100?'SCREAMER!!!':tierName(pts)):'Stinker'}</span></span><span class="plus">+${pts}</span></summary><p class="mute" style="margin:8px 0 0">${q.answers.length} answers</p><ul class="ans">${all.map(a=>`<li class="${a===ans?'you':''}" style="--tc:${TCOL[a.pts]}"><span class="an">${a.name}${a===ans?' ★':''}</span><span class="tchip">${tierName(a.pts)}</span></li>`).join('')}</ul></details>`}).join('');
-}
-'''
-    anchor = "function start(){document.body.classList.remove('playing');"
-    if anchor not in s:
-        raise SystemExit('Could not find landing start function')
-    s = s.replace(anchor, helper + anchor, 1)
-
-if 'class="played-box played-results-box"' not in s:
-    pattern = re.compile(r'''\$\{played\?`<div class="played-box">.*?<button class="ghost" id="go">See today's results</button></div>`\s*:''', re.S)
-    replacement = '''${played?`<details class="played-box played-results-box">
-    <summary class="played-results-summary">
-      <div class="mute">You've played today</div>
-      <div class="played-home-stats"><div class="played-home-stat"><span>Score</span><b>${played.score}<small>/${MAX}</small></b></div><div class="played-home-stat"><span>Streak</span><b>🔥 ${currentStreak()}<small>day${currentStreak()===1?'':'s'}</small></b></div></div>
-      <div class="mute">${zoneOf(played.score)} · next game in <b style="color:var(--ink)">${untilMidnight()}</b></div>
-      <div class="played-results-toggle"><span>Today's results</span><span class="played-results-arrow" aria-hidden="true">⌄</span></div>
-    </summary>
-    <div class="played-results-body"><button type="button" class="ghost played-results-home">← Back to home</button><p class="mute played-results-hint">Tap a question to see every answer</p>${landingResultsMarkup(played)}</div>
-   </details>
+new_markup = '''${played?`<div class="played-box played-result-card">
+    <div class="played-result-kicker">Today's final whistle</div>
+    <div class="played-result-grid">
+      <div class="played-result-score"><span>Score</span><b>${played.score}<small>/${MAX}</small></b><em>${zoneOf(played.score)}</em></div>
+      <div class="played-result-streak"><span>Streak</span><b><i>🔥</i>${currentStreak()}</b><small>day${currentStreak()===1?'':'s'}</small></div>
+    </div>
+    <button type="button" class="cta played-result-cta" id="go"><span>View today's result</span><small>Score, rank & answers →</small></button>
+    <div class="played-result-next">Next daily game in <b>${untilMidnight()}</b></div>
+   </div>
    <p class="inf-pitch">Want more? Play as many rounds as you like, whenever you like.</p>
    <div class="row"><button class="cta" data-infinite>∞ Unlock Infinite mode</button></div>`
    :'''
-    s, count = pattern.subn(replacement, s, count=1)
-    if count != 1:
-        raise SystemExit('Could not replace played landing summary/results button')
 
-if 'class="ghost played-results-home"' not in s:
-    old_body = '<div class="played-results-body"><p class="mute played-results-hint">Tap a question to see every answer</p>'
-    new_body = '<div class="played-results-body"><button type="button" class="ghost played-results-home">← Back to home</button><p class="mute played-results-hint">Tap a question to see every answer</p>'
-    if old_body not in s:
-        raise SystemExit('Could not add Back to home to expanded results')
-    s = s.replace(old_body, new_body, 1)
+if 'class="played-box played-result-card"' not in s:
+    old_details = re.compile(r'''\$\{played\?`<details class="played-box played-results-box">.*?<div class="row"><button class="cta" data-infinite>∞ Unlock Infinite mode</button></div>`\s*:''', re.S)
+    s, count = old_details.subn(new_markup, s, count=1)
+    if count != 1:
+        old_simple = re.compile(r'''\$\{played\?`<div class="played-box">.*?<button class="ghost" id="go">See today's results</button></div>`\s*:''', re.S)
+        s, count = old_simple.subn(new_markup, s, count=1)
+    if count != 1:
+        raise SystemExit('Could not replace played landing summary with result launch card')
 
 old_handler = "  document.getElementById('go').onclick=play;const g2=document.getElementById('go2');if(g2)g2.onclick=play;"
 new_handler = "  const go=document.getElementById('go');if(go)go.onclick=play;const g2=document.getElementById('go2');if(g2)g2.onclick=play;"
 if old_handler in s:
     s = s.replace(old_handler, new_handler, 1)
 elif new_handler not in s:
-    raise SystemExit('Could not make landing play button handler optional')
+    raise SystemExit('Could not make landing results button handler optional')
 
-back_handler_marker = "const backHome=document.querySelector('.played-results-home');"
-if back_handler_marker not in s:
-    handler = new_handler + "\n  const backHome=document.querySelector('.played-results-home');if(backHome)backHome.onclick=e=>{e.preventDefault();e.stopPropagation();const box=backHome.closest('.played-results-box');if(box)box.open=false;window.scrollTo({top:0,behavior:'smooth'})};"
-    if new_handler not in s:
-        raise SystemExit('Could not attach Back to home behavior')
-    s = s.replace(new_handler, handler, 1)
+# Remove the old in-card expansion-only handler if it is still present.
+s = re.sub(r"\n\s*const backHome=document\.querySelector\('\.played-results-home'\);if\(backHome\)backHome\.onclick=.*?\};", '', s, count=1)
 
-if "See today's results" in s:
-    raise SystemExit('Separate played results button still remains')
+if '<details class="played-box played-results-box">' in s:
+    raise SystemExit('Played result still expands on the landing page')
+if 'class="played-box played-result-card"' not in s or 'id="go"' not in s:
+    raise SystemExit('Played result launch card is missing')
 
 p.write_text(s, encoding='utf-8')
-print('Played results card includes a top Back to home control')
+print('Played summary redesigned as a direct launch card for the full results screen')
