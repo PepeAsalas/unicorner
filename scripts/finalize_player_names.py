@@ -20,16 +20,17 @@ print('parts:', len(parts), 'base64 chars:', len(encoded), 'packed bytes:', len(
 
 dec = lzma.LZMADecompressor()
 out_chunks = []
-error = None
 pos = 0
-step = 4096
+step = 64
+error = None
 while pos < len(packed):
     chunk = packed[pos:pos+step]
     try:
         out_chunks.append(dec.decompress(chunk))
     except lzma.LZMAError as exc:
         error = exc
-        print('XZ error at packed byte', pos, 'of', len(packed), 'output bytes so far', sum(map(len,out_chunks)))
+        print('XZ error at packed byte window', pos, 'to', pos+len(chunk)-1, 'of', len(packed), 'output bytes so far', sum(map(len,out_chunks)))
+        print('suspect packed hex:', packed[pos:pos+len(chunk)].hex())
         break
     pos += len(chunk)
 
