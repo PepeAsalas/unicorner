@@ -1,4 +1,4 @@
-name: Normalize club questions
+name: Normalize typed questions
 
 on:
   workflow_dispatch:
@@ -20,25 +20,43 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.x'
-      - name: Normalize club questions
+      - name: Normalize typed questions
         run: python scripts/normalize_club_questions.py
-      - name: Validate club question wording and types
+      - name: Validate explicit non-player wording and types
         run: |
           python - <<'PY'
           from pathlib import Path
-          import json
+          import json, re
+
+          labels = {
+              'club':'club','country':'country','stadium':'stadium','manager':'manager',
+              'coach':'coach','referee':'referee','city':'city','competition':'competition',
+              'league':'league','team':'team'
+          }
+
+          def explicit(prompt, answer_type):
+              text = (prompt or '').strip().lower()
+              if not text.startswith(('name a ', 'name an ')):
+                  return False
+              return re.search(rf'\b{re.escape(labels[answer_type])}\b', text[:60]) is not None
 
           files = list(Path('daily').glob('*.json')) + list(Path('scripts').glob('question_intake_*.json'))
           for path in files:
               data = json.loads(path.read_text(encoding='utf-8'))
               for q in data.get('questions', []):
-                  if q.get('answer_type') == 'club':
-                      assert q.get('prompt', '').lower().startswith('name a club'), (path, q.get('id'), q.get('prompt'))
+                  answer_type = str(q.get('answer_type') or '').lower()
+                  if answer_type in labels:
+                      assert explicit(q.get('prompt'), answer_type), (path, q.get('id'), answer_type, q.get('prompt'))
 
           today = json.loads(Path('daily/2026-09-23.json').read_text(encoding='utf-8'))
           c003 = next(q for q in today['questions'] if (q.get('id') or q.get('_id')) == 'c003')
           assert c003['answer_type'] == 'club'
           assert c003['prompt'].startswith('Name a club')
+
+          tomorrow = json.loads(Path('daily/2026-09-24.json').read_text(encoding='utf-8'))
+          u033 = next(q for q in tomorrow['questions'] if (q.get('id') or q.get('_id')) == 'u033')
+          assert u033['answer_type'] == 'manager'
+          assert explicit(u033['prompt'], 'manager')
           PY
       - name: Commit normalized questions
         run: |
@@ -49,5 +67,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '418982418+github-actions[bot]@users.noreply.github.com'
           git add daily/*.json scripts/question_intake_*.json
-          git commit -m 'Clarify club-answer questions'
+          git commit -m 'Clarify non-player answer types'
           git push
