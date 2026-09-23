@@ -178,9 +178,10 @@ body.landing .meter{display:none}
 .lp-ico{height:64px;display:flex;align-items:center}
 .fake-input{font:600 18px Barlow,sans-serif;padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.3);min-width:150px}
 .caret{display:inline-block;width:2px;height:18px;background:var(--gold);vertical-align:-3px;margin-left:2px;animation:blink 1s steps(1) infinite}@keyframes blink{50%{opacity:0}}
-.mini-gauge{width:170px;height:12px;border-radius:8px;background:rgba(255,255,255,.1);overflow:hidden}
-.mini-gauge i{display:block;height:100%;width:0;background:linear-gradient(90deg,#cfd8e6,#7fe0a8,#4fd7ff,#b48cff,#ff7ac8,#f2c230);background-size:170px 100%;animation:charge 3.2s cubic-bezier(.3,.1,.2,1) infinite}
-@keyframes charge{0%{width:0}60%,85%{width:100%}100%{width:100%;opacity:0}}
+.mini-bars{display:flex;align-items:flex-end;gap:7px;height:56px}
+.mini-bars i{display:block;width:12px;border-radius:3px 3px 1px 1px;background:var(--c);height:var(--h);transform-origin:bottom;animation:grow .5s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--i)*130ms + 150ms)}
+.mini-bars i.screamer{animation:barBounce .85s cubic-bezier(.34,1.56,.64,1) both;animation-delay:calc(4*130ms + 150ms)}
+@keyframes barBounce{0%{transform:scaleY(0)}55%{transform:scaleY(1.22)}75%{transform:scaleY(.9)}100%{transform:scaleY(1)}}
 .lp-climb{gap:6px;align-items:flex-end}
 .lp-climb span{white-space:nowrap;font-size:12px;font-weight:600;padding:4px 8px;border-radius:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);margin-bottom:calc(var(--i)*14px);animation:lit 3s ease-in-out infinite;animation-delay:calc(var(--i)*.5s)}
 @keyframes lit{20%,40%{background:var(--gold);color:#1b1530;border-color:var(--gold)}}
@@ -391,7 +392,7 @@ pre{font-family:var(--px)!important;background:#000!important;border:2px solid #
 .lp-step p{color:#fff!important;font-size:18px!important}
 .lp-tiers{background:linear-gradient(180deg,#139a8a,#0b6b60)!important}
 .lp-num{color:rgba(255,255,255,.35)!important}
-.fake-input,.mini-gauge{background:#140c38!important}
+.fake-input{background:#140c38!important}
 input,textarea,select{background:#140c38!important}
 .timer{background:#140c38}
 .timer i{transition:none;background:repeating-linear-gradient(90deg,var(--gold) 0 14px,transparent 14px 18px);background-size:18px 100%;background-repeat:repeat-x;background-position:left}
@@ -535,7 +536,7 @@ body.playing .brand-home{cursor:default}
 .landing-wrap .lp-step{min-width:0;overflow:hidden;box-sizing:border-box}
 .landing-wrap .lp-ico{min-width:0;width:100%}
 .landing-wrap .fake-input{min-width:0!important;width:100%!important;max-width:100%!important}
-.landing-wrap .mini-gauge{width:100%!important;max-width:170px}
+.landing-wrap .mini-bars{width:100%!important;max-width:170px;justify-content:center}
 .landing-wrap .lp-climb{min-width:0;max-width:100%}
 @media (max-width:640px){
   .landing-wrap .lp-grid{grid-template-columns:1fr!important}
@@ -920,7 +921,7 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
   <h2 class="lp-h2">How it works</h2>
   <div class="lp-grid">
    <div class="card lp-step"><div class="lp-num">1</div><div class="lp-ico"><div class="fake-input">Vermae<span class="caret"></span></div></div><h3>Name one answer</h3><p>${TIME} seconds. One answer.</p></div>
-   <div class="card lp-step"><div class="lp-num">2</div><div class="lp-ico"><div class="mini-gauge"><i></i></div></div><h3>Rarer scores more</h3><p>The more obscure, the more points.</p></div>
+   <div class="card lp-step"><div class="lp-num">2</div><div class="lp-ico"><div class="mini-bars">${TIERS.map((t,i)=>`<i class="${i===TIERS.length-1?'screamer':''}" style="--h:${Math.max(6,Math.round(t[0]/100*52))}px;--c:${COLS[i]};--i:${i}"></i>`).join('')}</div></div><h3>Rarer scores more</h3><p>The more obscure, the more points.</p></div>
    <div class="card lp-step"><div class="lp-num">3</div><div class="lp-ico lp-climb">${['Sunday','Top flight',"Ballon d'Or"].map((z,i)=>`<span style="--i:${i}">${z}</span>`).join('')}</div><h3>Climb and share</h3><p>Climb to the Ballon d'Or. Brag.</p></div>
   </div>
  </section>
