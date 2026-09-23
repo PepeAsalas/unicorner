@@ -1,6 +1,7 @@
 from pathlib import Path
 import re
 
+# Presentation-only result screen changes. Scoring, matching, timers and question flow stay untouched.
 p = Path('index.html')
 s = p.read_text(encoding='utf-8')
 
