@@ -9,6 +9,7 @@ on:
       - 'scripts/normalize_tier_labels.py'
       - 'scripts/refine_landing_podium.py'
       - 'scripts/widen_desktop_layout.py'
+      - 'scripts/reorder_landing_sections.py'
 
 permissions:
   contents: write
@@ -27,6 +28,7 @@ jobs:
           python scripts/normalize_tier_labels.py
           python scripts/refine_landing_podium.py
           python scripts/widen_desktop_layout.py
+          python scripts/reorder_landing_sections.py
       - name: Validate behavior
         run: |
           python - <<'PY'
@@ -51,6 +53,9 @@ jobs:
           assert '.landing-wrap .lp-example .podium-top{height:140px!important;transform:none!important}' in s
           assert '/* wider desktop layout */' in s
           assert '.wrap{max-width:736px!important}' in s
+          steps_pos=s.find('<section class="lp-steps" id="steps">')
+          example_pos=s.find('<section class="lp-example card">')
+          assert steps_pos >= 0 and example_pos >= 0 and steps_pos < example_pos
           for old in ('fin'+'ish','ban'+'ger','wor'+'ldie'):
               assert not re.search(rf'\b{old}\b', s, re.I)
           scripts=list(re.finditer(r'<script([^>]*)>(.*?)</script>',s,re.S|re.I))
@@ -67,5 +72,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '418982418+github-actions[bot]@users.noreply.github.com'
           git add index.html
-          git commit -m 'Widen desktop layout'
+          git commit -m 'Move How it works above example'
           git push
