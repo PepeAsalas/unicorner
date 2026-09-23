@@ -15,5 +15,17 @@ if marker not in s:
         raise SystemExit('Could not find closing style tag')
     s = s.replace('</style>', css + '</style>', 1)
 
+extra_marker = '/* desktop layout extra 5 percent */'
+if extra_marker not in s:
+    css = '''
+/* desktop layout extra 5 percent */
+@media (min-width:700px){
+  .wrap{max-width:773px!important}
+}
+'''
+    if '</style>' not in s:
+        raise SystemExit('Could not find closing style tag')
+    s = s.replace('</style>', css + '</style>', 1)
+
 p.write_text(s, encoding='utf-8')
-print('Desktop layout widened to 736px')
+print('Desktop layout widened to 773px')
