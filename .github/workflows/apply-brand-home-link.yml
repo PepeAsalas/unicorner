@@ -13,6 +13,7 @@ on:
       - 'scripts/combine_played_results_card.py'
       - 'scripts/restructure_results_screen.py'
       - 'scripts/refine_completed_landing_mobile.py'
+      - 'scripts/rebuild_landing_dashboard.py'
 
 permissions:
   contents: write
@@ -39,6 +40,7 @@ jobs:
           python scripts/combine_played_results_card.py
           python scripts/restructure_results_screen.py
           python scripts/refine_completed_landing_mobile.py
+          python scripts/rebuild_landing_dashboard.py
       - name: Validate behavior
         run: |
           python - <<'PY'
@@ -79,6 +81,16 @@ jobs:
           assert '.landing-wrap .lp-tiers .tier-chip b{min-height:34px!important' in s
           played_final=s.find('class="lp-final lp-final-played"')
           assert played_final >= 0 and steps_pos >= 0 and played_final < steps_pos
+          assert '/* compact landing dashboard */' in s
+          hero_pos=s.find('class="lp-hero lp-home-hero"')
+          daily_pos=s.find('class="card lp-home-daily"')
+          infinite_pos=s.find('class="lp-final lp-final-played" data-home-infinite')
+          assert min(hero_pos,daily_pos,infinite_pos,steps_pos) >= 0
+          assert hero_pos < daily_pos < infinite_pos < steps_pos
+          assert 'class="lp-daily-actions"' in s
+          assert 'Play today\'s game' in s and 'How it works' in s
+          assert 'Today\'s final whistle' in s and 'View today\'s result' in s
+          assert '∞ Try Infinite mode' in s
           assert '/* result screen social loop */' in s
           assert 'Your match highlights' in s
           assert 'Nearly had it' in s
@@ -105,5 +117,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '418982418+github-actions[bot]@users.noreply.github.com'
           git add index.html
-          git commit -m 'Fix completed mobile tier layout and move Infinite CTA'
+          git commit -m 'Rebuild landing dashboard layout'
           git push
