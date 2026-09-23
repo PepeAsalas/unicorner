@@ -1,0 +1,50 @@
+name: Player autocomplete and tier scale
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/apply_player_autocomplete_and_tiers.py'
+      - '.github/workflows/apply-player-autocomplete-and-tiers.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Apply autocomplete and tier changes
+        run: python scripts/apply_player_autocomplete_and_tiers.py
+      - name: Validate behavior
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('index.html').read_text(encoding='utf-8')
+          assert "const TIERS=[[10,'Tap-in'],[40,'Header'],[60,'Volley'],[80,'Bicycle kick'],[100,'Screamer']];" in s
+          assert 'const FAME_PTS_V2={6:10,5:40,4:60,3:60,2:80,1:100};' in s
+          assert "fetch('/player-names.json'" in s
+          assert "answerType(q)==='player'" in s
+          assert "out.length===6" in s
+          assert "q.length<2" in s
+          assert "track('suggestion_used'" in s
+          assert "e.key==='ArrowDown'" in s and "e.key==='ArrowUp'" in s and "e.key==='Escape'" in s
+          assert '/* player autocomplete */' in s and '/* lazy player autocomplete */' in s
+          for obsolete in ('Fin'+'ish','Ban'+'ger','Wor'+'ldie'):
+              assert obsolete not in s, f'obsolete tier label still in index.html: {obsolete}'
+          PY
+      - name: Commit site change
+        run: |
+          if git diff --quiet; then
+            echo 'No changes to commit'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '418982418+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'Add player autocomplete and update tier scale'
+          git push
