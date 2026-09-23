@@ -78,6 +78,49 @@ if old_bottom in s:
 elif 'class="lp-final lp-final-unicorn"' not in s:
     raise SystemExit('Could not restore bottom unicorn for completed players')
 
+# Results are a dedicated screen: hide the global progress meter there and
+# always open the result from the top, rather than inheriting landing scroll.
+result_marker = '/* results viewport cleanup */'
+if result_marker not in s:
+    css = '''
+/* results viewport cleanup */
+body.results-view .meter{display:none!important}
+'''
+    if '</style>' not in s:
+        raise SystemExit('Could not find closing style tag for results cleanup')
+    s = s.replace('</style>', css + '</style>', 1)
+
+if "function start(){document.body.classList.remove('playing','results-view');" not in s:
+    old = "function start(){document.body.classList.remove('playing');"
+    new = "function start(){document.body.classList.remove('playing','results-view');"
+    if old not in s:
+        raise SystemExit('Could not make start() leave results view')
+    s = s.replace(old, new, 1)
+
+if "function ask(){document.body.classList.remove('results-view');document.body.classList.add('playing');" not in s:
+    old = "function ask(){document.body.classList.add('playing');"
+    new = "function ask(){document.body.classList.remove('results-view');document.body.classList.add('playing');"
+    if old not in s:
+        raise SystemExit('Could not make ask() leave results view')
+    s = s.replace(old, new, 1)
+
+if "function end(restored){\n document.body.classList.add('results-view');" not in s:
+    old = "function end(restored){\n document.body.classList.remove('playing');"
+    new = "function end(restored){\n document.body.classList.add('results-view');\n document.body.classList.remove('playing');"
+    if old not in s:
+        raise SystemExit('Could not mark result screen view')
+    s = s.replace(old, new, 1)
+
+# The result swap happens after the outgoing screen animation, so scroll once
+# the new result DOM is actually mounted. This avoids Safari preserving the
+# previous landing-page scroll position.
+if "window.scrollTo({top:0,left:0,behavior:'auto'});\n  setTimeout(()=>countUp" not in s:
+    old = " </div>`,()=>{\n  setTimeout(()=>countUp(document.getElementById('fs'),score,2000),400);"
+    new = " </div>`,()=>{\n  window.scrollTo({top:0,left:0,behavior:'auto'});\n  setTimeout(()=>countUp(document.getElementById('fs'),score,2000),400);"
+    if old not in s:
+        raise SystemExit('Could not add top scroll to result swap')
+    s = s.replace(old, new, 1)
+
 # Guard the intended structure.
 if 'class="cta lp-infinite-cta"' not in s:
     raise SystemExit('Infinite Mode CTA polish missing')
@@ -85,6 +128,10 @@ if 'class="lp-final lp-final-unicorn"' not in s:
     raise SystemExit('Bottom unicorn missing')
 if s.find('class="lp-final lp-final-played"') > s.find('<section class="lp-steps" id="steps">'):
     raise SystemExit('Completed Infinite Mode invitation is too low')
+if 'body.results-view .meter{display:none!important}' not in s:
+    raise SystemExit('Result meter is still visible')
+if "window.scrollTo({top:0,left:0,behavior:'auto'});" not in s:
+    raise SystemExit('Result screen does not reset scroll to top')
 
 p.write_text(s, encoding='utf-8')
-print('Completed landing keeps bottom unicorn and promotes shiny Infinite Mode CTA')
+print('Completed landing polished; results open at top without the progress meter')
