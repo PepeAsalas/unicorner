@@ -45,20 +45,56 @@ if css_marker not in s:
         raise SystemExit('Could not find closing style tag')
     s = s.replace('</style>', css + '</style>', 1)
 
-if 'class="lp-hero lp-home-hero"' not in s:
+# Refine the hero from the first dashboard pass: title and unicorn should read
+# as one centered unit, and both should be more prominent on mobile and desktop.
+refine_marker = '/* centered landing hero refinement */'
+if refine_marker not in s:
+    css = '''
+/* centered landing hero refinement */
+.landing-wrap .lp-home-hero{display:block!important;margin-top:22px!important;padding:20px 6px 10px!important;text-align:center!important}
+.lp-home-title-row{display:grid;grid-template-columns:minmax(0,470px) 220px;align-items:center;justify-content:center;gap:18px;width:100%;margin:0 auto}
+.lp-home-title-row .lp-title{margin:0!important;text-align:left!important;font-size:clamp(58px,7.8vw,78px)!important;line-height:.92!important}
+.lp-home-title-row .lp-art{order:initial!important;height:190px!important;display:grid!important;place-items:center!important}
+.lp-home-title-row .lp-sprite{width:225px!important;height:188px!important;max-width:100%!important}
+.landing-wrap .lp-home-hero>.lp-sub{max-width:none!important;margin:2px auto 0!important;text-align:center!important;font-size:20px!important}
+@media (max-width:560px){
+ .landing-wrap .lp-home-hero{margin-top:10px!important;padding:12px 0 8px!important}
+ .lp-home-title-row{grid-template-columns:minmax(0,1fr) 142px!important;gap:8px!important;max-width:100%!important}
+ .lp-home-title-row .lp-title{font-size:clamp(42px,11.8vw,51px)!important;line-height:.91!important;text-align:center!important}
+ .lp-home-title-row .lp-art{height:132px!important;place-items:center!important}
+ .lp-home-title-row .lp-sprite{width:154px!important;height:128px!important}
+ .landing-wrap .lp-home-hero>.lp-sub{margin-top:3px!important;font-size:17px!important;line-height:1.2!important}
+ .lp-home-daily{margin-bottom:14px!important}
+}
+'''
+    if '</style>' not in s:
+        raise SystemExit('Could not find closing style tag for centered hero')
+    s = s.replace('</style>', css + '</style>', 1)
+
+# Always normalize the hero markup so title + unicorn sit beside one another,
+# with the supporting line beneath the pair.
+hero_pattern = re.compile(
+    r' <section class="lp-hero lp-home-hero">.*?</section>\s*(?= <section class="card lp-home-daily">)',
+    re.S,
+)
+hero_replacement = ''' <section class="lp-hero lp-home-hero">
+  <div class="lp-home-title-row">
+   <h1 class="lp-title">How deep is your <span class="uni-word">ball knowledge</span>?</h1>
+   <div class="lp-art"><div class="lp-halo"></div><div class="sprite lp-sprite bob" data-mood="wow"></div></div>
+  </div>
+  <p class="lp-sub">Find the answer nobody else thinks of.</p>
+ </section>
+
+'''
+s, hero_count = hero_pattern.subn(hero_replacement, s, count=1)
+
+# First-time upgrade path if the dashboard has not been built yet.
+if hero_count != 1 and 'class="lp-hero lp-home-hero"' not in s:
     pattern = re.compile(
         r' <section class="lp-hero">.*?(?= <section class="lp-steps" id="steps">)',
         re.S,
     )
-    replacement = ''' <section class="lp-hero lp-home-hero">
-  <div class="lp-copy">
-   <h1 class="lp-title">How deep is your <span class="uni-word">ball knowledge</span>?</h1>
-   <p class="lp-sub">Find the answer nobody else thinks of.</p>
-  </div>
-  <div class="lp-art"><div class="lp-halo"></div><div class="sprite lp-sprite bob" data-mood="wow"></div></div>
- </section>
-
- <section class="card lp-home-daily">
+    replacement = hero_replacement + ''' <section class="card lp-home-daily">
   <div class="lp-home-card-head"><div class="lp-home-card-label">Daily game</div><div class="lp-home-card-date">${today}</div></div>
   ${played?`<div class="played-box played-result-card">
     <div class="played-result-kicker">Today's final whistle</div>
@@ -73,29 +109,45 @@ if 'class="lp-hero lp-home-hero"' not in s:
    <p class="lp-meta">5 prompts · about 3 minutes · free, no sign-up</p>`}
  </section>
 
- <section class="lp-final lp-final-played" data-home-infinite>
+ ${played?`<section class="lp-final lp-final-played" data-home-infinite>
   <h2 class="lp-h2">Can't wait until tomorrow?</h2>
   <button class="cta lp-infinite-cta" data-infinite>∞ Try Infinite mode</button>
- </section>
+ </section>`:''}
 
 '''
     s, count = pattern.subn(replacement, s, count=1)
     if count != 1:
         raise SystemExit('Could not rebuild the landing dashboard')
 
-# Guard the requested order and state swap.
+# Infinite Mode only makes sense after the daily game has been completed.
+unconditional_infinite = ''' <section class="lp-final lp-final-played" data-home-infinite>
+  <h2 class="lp-h2">Can't wait until tomorrow?</h2>
+  <button class="cta lp-infinite-cta" data-infinite>∞ Try Infinite mode</button>
+ </section>'''
+conditional_infinite = ''' ${played?`<section class="lp-final lp-final-played" data-home-infinite>
+  <h2 class="lp-h2">Can't wait until tomorrow?</h2>
+  <button class="cta lp-infinite-cta" data-infinite>∞ Try Infinite mode</button>
+ </section>`:''}'''
+if unconditional_infinite in s:
+    s = s.replace(unconditional_infinite, conditional_infinite, 1)
+elif '${played?`<section class="lp-final lp-final-played" data-home-infinite>' not in s:
+    raise SystemExit('Could not make Infinite Mode completed-only')
+
+# Guard the requested order and state behavior.
 hero = s.find('class="lp-hero lp-home-hero"')
 daily = s.find('class="card lp-home-daily"')
 infinite = s.find('class="lp-final lp-final-played" data-home-infinite')
 steps = s.find('<section class="lp-steps" id="steps">')
 if min(hero, daily, infinite, steps) < 0 or not hero < daily < infinite < steps:
     raise SystemExit('Landing dashboard order is incorrect')
+if 'class="lp-home-title-row"' not in s:
+    raise SystemExit('Centered title/unicorn row is missing')
 if 'class="lp-daily-actions"' not in s or 'class="played-box played-result-card"' not in s:
     raise SystemExit('Daily game state swap is missing')
 if 'id="how"' not in s or 'id="go"' not in s:
     raise SystemExit('Daily game actions are missing')
-if 'data-home-infinite' not in s or '∞ Try Infinite mode' not in s:
-    raise SystemExit('Infinite card is missing')
+if '${played?`<section class="lp-final lp-final-played" data-home-infinite>' not in s:
+    raise SystemExit('Infinite card is not limited to completed players')
 
 p.write_text(s, encoding='utf-8')
-print('Landing rebuilt as hero, daily game state card, then Infinite mode card')
+print('Landing hero centered and enlarged; Infinite Mode now appears only after completion')
