@@ -16,6 +16,7 @@ on:
       - 'scripts/rebuild_landing_dashboard.py'
       - 'scripts/replace_streak_emoji.py'
       - 'scripts/push_title_into_unicorn.py'
+      - 'scripts/add_non_game_close.py'
 
 permissions:
   contents: write
@@ -45,6 +46,7 @@ jobs:
           python scripts/rebuild_landing_dashboard.py
           python scripts/replace_streak_emoji.py
           python scripts/push_title_into_unicorn.py
+          python scripts/add_non_game_close.py
       - name: Validate behavior
         run: |
           python - <<'PY'
@@ -101,6 +103,11 @@ jobs:
           assert '/* title overlaps unicorn space */' in s
           assert 'width:calc(100% - 6px)!important' in s
           assert 'transform:translateX(12px)!important' in s
+          assert '/* quick non-game home exit */' in s
+          assert 'id="quick-home-x"' in s
+          assert 'body.results-view .quick-home-x{display:flex}' in s
+          assert 'body.playing .quick-home-x{display:none!important}' in s
+          assert "track('home_click',{from:'quick_exit'" in s
           assert '/* result screen social loop */' in s
           assert 'Your match highlights' in s
           assert 'Nearly had it' in s
@@ -127,5 +134,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '418982418+github-actions[bot]@users.noreply.github.com'
           git add index.html
-          git commit -m 'Tighten title gap without moving unicorn'
+          git commit -m 'Add quick home exit outside active games'
           git push
