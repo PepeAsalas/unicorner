@@ -33,13 +33,13 @@ function landingResultsMarkup(p){
  return Q.map((q,ri)=>{const savedName=byPos.get(ri)||null,ans=savedName?q.answers.find(a=>a.name===savedName)||null:null,pts=ans?ans.pts:0,all=[...q.answers].sort((a,b)=>b.pts-a.pts||a.name.localeCompare(b.name));return`<details class="res landing-res" style="--i:${ri}"><summary><span><b>${q.prompt}</b><br><span class="rtier" style="color:${ans?TCOL[pts]:'#ff8a7a'}">${ans?ans.name+' · '+(pts===100?'SCREAMER!!!':tierName(pts)):'Stinker'}</span></span><span class="plus">+${pts}</span></summary><p class="mute" style="margin:8px 0 0">${q.answers.length} answers</p><ul class="ans">${all.map(a=>`<li class="${a===ans?'you':''}" style="--tc:${TCOL[a.pts]}"><span class="an">${a.name}${a===ans?' ★':''}</span><span class="tchip">${tierName(a.pts)}</span></li>`).join('')}</ul></details>`}).join('');
 }
 '''
-    anchor = 'function start(){document.body.classList.remove(\'playing\');'
+    anchor = "function start(){document.body.classList.remove('playing');"
     if anchor not in s:
         raise SystemExit('Could not find landing start function')
     s = s.replace(anchor, helper + anchor, 1)
 
 if 'class="played-box played-results-box"' not in s:
-    pattern = re.compile(r'''\$\{played\?`<div class="played-box">.*?<button class="ghost" id="go">See today's results</button></div>`\s*:``''', re.S)
+    pattern = re.compile(r'''\$\{played\?`<div class="played-box">.*?<button class="ghost" id="go">See today's results</button></div>`\s*:''', re.S)
     replacement = '''${played?`<details class="played-box played-results-box">
     <summary class="played-results-summary">
       <div class="mute">You've played today</div>
@@ -51,7 +51,7 @@ if 'class="played-box played-results-box"' not in s:
    </details>
    <p class="inf-pitch">Want more? Play as many rounds as you like, whenever you like.</p>
    <div class="row"><button class="cta" data-infinite>∞ Unlock Infinite mode</button></div>`
-   :`'''
+   :'''
     s, count = pattern.subn(replacement, s, count=1)
     if count != 1:
         raise SystemExit('Could not replace played landing summary/results button')
