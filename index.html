@@ -600,6 +600,10 @@ body.playing .brand-home{cursor:default}
 .played-results-hint{margin:14px 0 4px!important}
 .played-results-body .res{animation:none!important}
 @media (max-width:640px){.played-results-summary{padding:14px!important}.played-results-body{padding:0 14px 14px}.played-results-toggle{font-size:13px}}
+
+/* played results back home */
+.played-results-home{margin:14px 0 2px!important;display:inline-flex!important;align-items:center!important;gap:7px!important}
+@media (max-width:640px){.played-results-home{width:100%;justify-content:center}}
 </style></head><body>
 <div class="scene retro2" aria-hidden="true">
 <div class="sky"><i class="cloud c1"></i><i class="cloud c2"></i><i class="cloud c3"></i><i class="cloud c4"></i></div>
@@ -730,7 +734,7 @@ function start(){document.body.classList.remove('playing');fillReport();document
       <div class="mute">${zoneOf(played.score)} · next game in <b style="color:var(--ink)">${untilMidnight()}</b></div>
       <div class="played-results-toggle"><span>Today's results</span><span class="played-results-arrow" aria-hidden="true">⌄</span></div>
     </summary>
-    <div class="played-results-body"><p class="mute played-results-hint">Tap a question to see every answer</p>${landingResultsMarkup(played)}</div>
+    <div class="played-results-body"><button type="button" class="ghost played-results-home">← Back to home</button><p class="mute played-results-hint">Tap a question to see every answer</p>${landingResultsMarkup(played)}</div>
    </details>
    <p class="inf-pitch">Want more? Play as many rounds as you like, whenever you like.</p>
    <div class="row"><button class="cta" data-infinite>∞ Unlock Infinite mode</button></div>`
@@ -771,6 +775,7 @@ function start(){document.body.classList.remove('playing');fillReport();document
  </section>
  </div>`,()=>{const play=()=>{document.body.classList.remove('landing');if(played){restore(played);setMeter();end(true)}else ask()};
   const go=document.getElementById('go');if(go)go.onclick=play;const g2=document.getElementById('go2');if(g2)g2.onclick=play;
+  const backHome=document.querySelector('.played-results-home');if(backHome)backHome.onclick=e=>{e.preventDefault();e.stopPropagation();const box=backHome.closest('.played-results-box');if(box)box.open=false;window.scrollTo({top:0,behavior:'smooth'})};
   const hw=document.getElementById('how');if(hw)hw.onclick=()=>document.getElementById('steps').scrollIntoView({behavior:'smooth',block:'start'});})}
 function ask(){document.body.classList.add('playing');const q=Q[qi];if(qi===0)track('game_start',{question_count:Q.length,set_id:dailySetId()});track('question_view',{question_id:q.id||slug(q.prompt),prompt:q.prompt,position:qi+1,question_count:Q.length,difficulty:q.difficulty||'unknown',answer_type:q.answer_type||'player',answer_count:q.answers.length,set_id:dailySetId()});let left=TIME*1000,t0,done=false;
  swap(`<div class="card"><div class="q-progress" aria-label="Question ${qi+1} of ${Q.length}"><span>Question</span><b>${qi+1} of ${Q.length}</b></div><div class="mute q-sub">${q.sub}</div><div class="prompt">${q.prompt}</div>${q.by?`<div class="byline">🦄 Community question by ${q.by}</div>`:''}
