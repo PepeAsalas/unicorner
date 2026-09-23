@@ -4,50 +4,30 @@ import json
 import lzma
 import shutil
 
+payload = Path('scripts/player_names_payload.b64')
 parts_dir = Path('scripts/player_names_payload_final')
 out = Path('player-names.json')
 
-parts = sorted(parts_dir.glob('part*.txt')) if parts_dir.exists() else []
-if not parts:
-    if out.exists():
-        print('player-names.json already finalized')
-        raise SystemExit(0)
+if payload.exists():
+    encoded = payload.read_text(encoding='utf-8').strip()
+elif parts_dir.exists():
+    parts = sorted(parts_dir.glob('part*.txt'))
+    encoded = ''.join(p.read_text(encoding='utf-8').strip() for p in parts)
+elif out.exists():
+    print('player-names.json already finalized')
+    raise SystemExit(0)
+else:
     raise SystemExit('No staged player-name payload found')
 
-encoded = ''.join(p.read_text(encoding='utf-8').strip() for p in parts)
-packed = base64.b64decode(encoded)
-print('parts:', len(parts), 'base64 chars:', len(encoded), 'packed bytes:', len(packed))
-
-dec = lzma.LZMADecompressor()
-out_chunks = []
-pos = 0
-step = 64
-error = None
-while pos < len(packed):
-    chunk = packed[pos:pos+step]
-    try:
-        out_chunks.append(dec.decompress(chunk))
-    except lzma.LZMAError as exc:
-        error = exc
-        print('XZ error at packed byte window', pos, 'to', pos+len(chunk)-1, 'of', len(packed), 'output bytes so far', sum(map(len,out_chunks)))
-        print('suspect packed hex:', packed[pos:pos+len(chunk)].hex())
-        break
-    pos += len(chunk)
-
-raw = b''.join(out_chunks)
-if error is None and not dec.eof:
-    print('XZ stream ended without EOF; output bytes:', len(raw))
-
-try:
-    data = json.loads(raw.decode('utf-8'))
-except Exception as exc:
-    print('JSON decode failed:', repr(exc))
-    print('decoded tail:', raw[-200:])
-    raise
-
-if not isinstance(data, list) or not data or not all(isinstance(x, str) and x.strip() for x in data):
-    raise SystemExit('Decoded payload is not a non-empty JSON array of names')
+raw = lzma.decompress(base64.b64decode(encoded))
+data = json.loads(raw.decode('utf-8'))
+if not isinstance(data, list) or len(data) < 20000 or not all(isinstance(x, str) and x.strip() for x in data):
+    raise SystemExit('Decoded payload is not a valid player-name array')
 
 out.write_text(json.dumps(data, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
 print(f'Wrote {len(data)} player names to {out}')
-shutil.rmtree(parts_dir)
+
+if payload.exists():
+    payload.unlink()
+if parts_dir.exists():
+    shutil.rmtree(parts_dir)
