@@ -64,10 +64,12 @@ jobs:
           steps_pos=s.find('<section class="lp-steps" id="steps">')
           example_pos=s.find('<section class="lp-example card">')
           assert steps_pos >= 0 and example_pos >= 0 and steps_pos < example_pos
-          assert '/* expandable played results card */' in s
-          assert 'class="played-box played-results-box"' in s
-          assert 'function landingResultsMarkup(p)' in s
-          assert "See today's results" not in s
+          assert '/* played result launch card */' in s
+          assert 'class="played-box played-result-card"' in s
+          assert '<details class="played-box played-results-box">' not in s
+          assert 'View today\'s result' in s
+          assert 'Score, rank & answers' in s
+          assert 'function landingResultsMarkup(p)' not in s
           assert "const go=document.getElementById('go');if(go)go.onclick=play;" in s
           assert '/* result screen social loop */' in s
           assert 'Your match highlights' in s
@@ -95,5 +97,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '418982418+github-actions[bot]@users.noreply.github.com'
           git add index.html
-          git commit -m 'Refine social-first results screen'
+          git commit -m 'Redesign played score card and link to full results'
           git push
