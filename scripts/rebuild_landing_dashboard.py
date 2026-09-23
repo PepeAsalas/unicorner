@@ -71,6 +71,26 @@ if refine_marker not in s:
         raise SystemExit('Could not find closing style tag for centered hero')
     s = s.replace('</style>', css + '</style>', 1)
 
+# Tighten the title/unicorn pair so the mascot sits immediately beside the
+# title instead of feeling detached on the right. The mascot is intentionally
+# allowed to overhang its grid cell a little so the combined lockup stays centered.
+lockup_marker = '/* tighter title unicorn lockup */'
+if lockup_marker not in s:
+    css = '''
+/* tighter title unicorn lockup */
+.lp-home-title-row{grid-template-columns:minmax(0,455px) 225px!important;gap:0!important;max-width:680px!important}
+.lp-home-title-row .lp-art{height:205px!important;transform:translateX(-18px)!important}
+.lp-home-title-row .lp-sprite{width:250px!important;height:208px!important;max-width:none!important}
+@media (max-width:560px){
+ .lp-home-title-row{grid-template-columns:minmax(0,1fr) 154px!important;gap:0!important}
+ .lp-home-title-row .lp-art{height:145px!important;transform:translateX(-14px)!important}
+ .lp-home-title-row .lp-sprite{width:180px!important;height:150px!important;max-width:none!important}
+}
+'''
+    if '</style>' not in s:
+        raise SystemExit('Could not find closing style tag for title/unicorn lockup')
+    s = s.replace('</style>', css + '</style>', 1)
+
 # Always normalize the hero markup so title + unicorn sit beside one another,
 # with the supporting line beneath the pair.
 hero_pattern = re.compile(
@@ -142,6 +162,8 @@ if min(hero, daily, infinite, steps) < 0 or not hero < daily < infinite < steps:
     raise SystemExit('Landing dashboard order is incorrect')
 if 'class="lp-home-title-row"' not in s:
     raise SystemExit('Centered title/unicorn row is missing')
+if lockup_marker not in s:
+    raise SystemExit('Tighter title/unicorn lockup is missing')
 if 'class="lp-daily-actions"' not in s or 'class="played-box played-result-card"' not in s:
     raise SystemExit('Daily game state swap is missing')
 if 'id="how"' not in s or 'id="go"' not in s:
@@ -150,4 +172,4 @@ if '${played?`<section class="lp-final lp-final-played" data-home-infinite>' not
     raise SystemExit('Infinite card is not limited to completed players')
 
 p.write_text(s, encoding='utf-8')
-print('Landing hero centered and enlarged; Infinite Mode now appears only after completion')
+print('Landing hero centered and enlarged; title and unicorn tightened into one lockup')
