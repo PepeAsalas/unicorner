@@ -15,6 +15,7 @@ on:
       - 'scripts/refine_completed_landing_mobile.py'
       - 'scripts/rebuild_landing_dashboard.py'
       - 'scripts/replace_streak_emoji.py'
+      - 'scripts/push_title_into_unicorn.py'
 
 permissions:
   contents: write
@@ -43,6 +44,7 @@ jobs:
           python scripts/refine_completed_landing_mobile.py
           python scripts/rebuild_landing_dashboard.py
           python scripts/replace_streak_emoji.py
+          python scripts/push_title_into_unicorn.py
       - name: Validate behavior
         run: |
           python - <<'PY'
@@ -96,6 +98,8 @@ jobs:
           assert '/* pixel streak flame */' in s
           assert 'class="pixel-flame"' in s
           assert '🔥' not in s
+          assert '/* title overlaps unicorn space */' in s
+          assert 'width:calc(100% + 52px)!important' in s
           assert '/* result screen social loop */' in s
           assert 'Your match highlights' in s
           assert 'Nearly had it' in s
@@ -122,5 +126,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '418982418+github-actions[bot]@users.noreply.github.com'
           git add index.html
-          git commit -m 'Replace streak emoji with pixel flame'
+          git commit -m 'Push landing title into unicorn space'
           git push
