@@ -768,7 +768,10 @@ body.results-view .meter{display:none!important}
 .result-screen .quick-home-x{display:flex;position:absolute;top:14px;right:14px;width:42px;height:42px;align-items:center;justify-content:center;z-index:20;padding:0!important;background:#0c0c18!important;color:#fff!important;border:3px solid #fff!important;border-radius:7px!important;box-shadow:0 0 0 3px #000,4px 4px 0 rgba(0,0,0,.4)!important;font-family:var(--px)!important;font-size:31px!important;line-height:1!important;cursor:pointer}
 .result-screen .quick-home-x:hover,.result-screen .quick-home-x:focus-visible{color:var(--gold)!important;border-color:var(--gold)!important;outline:none}
 body.playing .quick-home-x{display:none!important}
-@media (max-width:560px){.result-screen .quick-home-x{top:12px;right:12px;width:40px;height:40px;font-size:29px!important}}
+#dlg-infinite form{position:relative!important}
+#dlg-infinite .infinite-close-x{position:sticky;top:12px;float:right;margin:0 0 8px 12px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;z-index:40;padding:0!important;background:#0c0c18!important;color:#fff!important;border:3px solid #fff!important;border-radius:7px!important;box-shadow:0 0 0 3px #000,4px 4px 0 rgba(0,0,0,.4)!important;font-family:var(--px)!important;font-size:31px!important;line-height:1!important;cursor:pointer}
+#dlg-infinite .infinite-close-x:hover,#dlg-infinite .infinite-close-x:focus-visible{color:var(--gold)!important;border-color:var(--gold)!important;outline:none}
+@media (max-width:560px){.result-screen .quick-home-x{top:12px;right:12px;width:40px;height:40px;font-size:29px!important}#dlg-infinite .infinite-close-x{top:10px;width:40px;height:40px;font-size:29px!important}}
 </style></head><body>
 <div class="scene retro2" aria-hidden="true">
 <div class="sky"><i class="cloud c1"></i><i class="cloud c2"></i><i class="cloud c3"></i><i class="cloud c4"></i></div>
@@ -778,7 +781,7 @@ body.playing .quick-home-x{display:none!important}
 <div class="wrap"><header class="topbar"><div class="brand-home" id="brand-home" role="button" tabindex="0" aria-label="Go to home"><div class="sprite" data-mood="happy"></div><b>Unicorner</b></div><span class="tag">Beta</span></header><div class="meter" aria-label="Your progress"><div class="rail"><div class="fill" id="fill"></div><div id="zones"></div><div class="sprite runner" id="runner" data-mood="happy"></div></div></div><main id="screen"></main><footer class="site"><button data-open="dlg-submit">Submit a question</button><button data-open="dlg-report">Problem with a question</button><button data-open="dlg-contact">Contact</button><a class="coffee-link" href="https://buymeacoffee.com/unicorner" target="_blank" rel="noopener">☕ Buy me a coffee</a><a class="privacy-link" href="privacy.html">Privacy</a></footer></div>
 
 
-<dialog id="dlg-infinite"><form data-kind="infinite-waitlist"><span class="badge-feature">Coming soon</span>
+<dialog id="dlg-infinite"><form data-kind="infinite-waitlist"><button type="button" class="infinite-close-x" id="infinite-close-x" aria-label="Close Infinite Mode" title="Close">×</button><span class="badge-feature">Coming soon</span>
 <div class="inf-head"><div class="sprite inf-sprite bob" data-mood="wow"></div><div><h2>∞ Infinite mode</h2><div class="inf-price">€5 <span>one-time · yours forever</span></div></div></div>
 <ul class="inf-list"><li>Play as many rounds as you like, any time</li><li>Every past daily game in the archive</li><li>Club and league packs</li><li>Your stats and Screamer collection</li></ul>
 <p class="mute">We're building it now. Leave your email and we'll tell you the moment it launches.</p>
@@ -1265,6 +1268,8 @@ window.addEventListener('hashchange',adminRoute);setTimeout(adminRoute,600);
 
 /* quick non-game exit */
 document.addEventListener('click',e=>{
+ const infiniteClose=e.target.closest?.('#infinite-close-x');
+ if(infiniteClose){infiniteClose.closest('dialog')?.close();return;}
  const quickHomeX=e.target.closest?.('#quick-home-x');
  if(!quickHomeX)return;
  if(document.body.classList.contains('playing'))return;
