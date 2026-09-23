@@ -748,6 +748,11 @@ body.results-view .meter{display:none!important}
  .lp-home-title-row .lp-art{height:145px!important;transform:translateX(-14px)!important}
  .lp-home-title-row .lp-sprite{width:180px!important;height:150px!important;max-width:none!important}
 }
+
+/* pixel streak flame */
+.pixel-flame{position:relative;display:inline-block;width:22px;height:28px;flex:0 0 22px;background:#ff5a2e;clip-path:polygon(45% 0,64% 0,64% 18%,82% 18%,82% 36%,100% 36%,100% 82%,82% 82%,82% 100%,18% 100%,18% 82%,0 82%,0 45%,18% 45%,18% 27%,36% 27%,36% 9%,45% 9%);filter:drop-shadow(2px 2px 0 #000)}
+.pixel-flame:after{content:'';position:absolute;left:7px;bottom:4px;width:9px;height:13px;background:#ffd84d;clip-path:polygon(34% 0,67% 0,67% 25%,100% 25%,100% 100%,0 100%,0 50%,34% 50%)}
+.played-result-streak>b .pixel-flame{margin-right:2px}
 </style></head><body>
 <div class="scene retro2" aria-hidden="true">
 <div class="sky"><i class="cloud c1"></i><i class="cloud c2"></i><i class="cloud c3"></i><i class="cloud c4"></i></div>
@@ -875,7 +880,7 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
     <div class="played-result-kicker">Today's final whistle</div>
     <div class="played-result-grid">
       <div class="played-result-score"><span>Score</span><b>${played.score}<small>/${MAX}</small></b><em>${zoneOf(played.score)}</em></div>
-      <div class="played-result-streak"><span>Streak</span><b><i>🔥</i>${currentStreak()}</b><small>day${currentStreak()===1?'':'s'}</small></div>
+      <div class="played-result-streak"><span>Streak</span><b><i class="pixel-flame" aria-hidden="true"></i>${currentStreak()}</b><small>day${currentStreak()===1?'':'s'}</small></div>
     </div>
     <button type="button" class="cta played-result-cta" id="go"><span>View today's result</span><small>Score, rank & answers →</small></button>
     <div class="played-result-next">Next daily game in <b>${untilMidnight()}</b></div>
