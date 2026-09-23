@@ -1,0 +1,45 @@
+name: Finalize player names
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/finalize-player-names.yml'
+      - 'scripts/finalize_player_names.py'
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Build player-names.json
+        run: python scripts/finalize_player_names.py
+      - name: Validate output
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('player-names.json')
+          data=json.loads(p.read_text(encoding='utf-8'))
+          assert isinstance(data,list)
+          assert len(data) > 20000, len(data)
+          assert all(isinstance(x,str) and x.strip() for x in data)
+          print('player names:',len(data))
+          PY
+      - name: Commit finalized data
+        run: |
+          if git diff --quiet -- player-names.json scripts/player_names_payload_final; then
+            echo 'No changes to commit'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '418982418+github-actions[bot]@users.noreply.github.com'
+          git add -A player-names.json scripts/player_names_payload_final
+          git commit -m 'Add player names autocomplete data'
+          git push
