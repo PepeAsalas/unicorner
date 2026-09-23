@@ -667,6 +667,23 @@ body.playing .brand-home{cursor:default}
   .landing-wrap .lp-tiers .tier-chip span{line-height:1!important}
   .lp-final-played{padding:12px 0 8px!important;margin:0 0 6px!important}
 }
+
+/* completed landing retention polish */
+.lp-final-played{padding:18px 0 14px!important;margin:8px 0 12px!important;text-align:center}
+.lp-final-played .lp-h2{margin-bottom:14px!important}
+.lp-infinite-cta{position:relative!important;overflow:hidden!important;min-width:min(100%,430px)!important;padding:18px 28px!important;font-size:20px!important;border:3px solid #fff4ad!important;box-shadow:0 0 0 3px #000,0 0 0 6px rgba(255,209,90,.34),0 0 22px rgba(255,209,90,.58),0 5px 0 #000!important;animation:infiniteCtaPulse 1.8s ease-in-out infinite!important}
+.lp-infinite-cta:after{content:'';position:absolute;top:-35%;bottom:-35%;width:34%;left:-45%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.68),transparent);transform:skewX(-18deg);animation:infiniteCtaShine 2.8s ease-in-out infinite;pointer-events:none}
+.lp-final-unicorn{padding:24px 0 8px!important;margin-top:14px!important;text-align:center}
+.lp-final-unicorn .lp-sprite-sm{margin-left:auto!important;margin-right:auto!important}
+.lp-final-unicorn .lp-meta{margin-top:12px!important}
+@keyframes infiniteCtaPulse{0%,100%{filter:brightness(1);transform:scale(1)}50%{filter:brightness(1.09);transform:scale(1.018)}}
+@keyframes infiniteCtaShine{0%,56%{left:-45%;opacity:0}62%{opacity:1}82%{left:120%;opacity:.9}83%,100%{left:120%;opacity:0}}
+@media (max-width:560px){
+  .lp-final-played{padding:14px 0 12px!important;margin:4px 0 8px!important}
+  .lp-infinite-cta{width:100%!important;min-width:0!important;padding:18px 14px!important;font-size:19px!important}
+  .lp-final-unicorn{padding:22px 0 6px!important}
+}
+@media (prefers-reduced-motion:reduce){.lp-infinite-cta,.lp-infinite-cta:after{animation:none!important}}
 </style></head><body>
 <div class="scene retro2" aria-hidden="true">
 <div class="sky"><i class="cloud c1"></i><i class="cloud c2"></i><i class="cloud c3"></i><i class="cloud c4"></i></div>
@@ -801,9 +818,8 @@ function start(){document.body.classList.remove('playing');fillReport();document
  </section>
 
  ${played?`<section class="lp-final lp-final-played">
-  <div class="sprite lp-sprite-sm bob" data-mood="happy"></div>
-  <h2 class="lp-h2">Can't wait until tomorrow?</h2><button class="cta" data-infinite>∞ Try Infinite mode</button>
-  <p class="lp-meta">New game every day</p>
+  <h2 class="lp-h2">Can't wait until tomorrow?</h2>
+  <button class="cta lp-infinite-cta" data-infinite>∞ Try Infinite mode</button>
  </section>`:''}
 
  <section class="lp-steps" id="steps">
@@ -834,7 +850,10 @@ function start(){document.body.classList.remove('playing');fillReport();document
   <div class="sprite lp-sprite-sm bob" data-mood="happy"></div>
   <h2 class="lp-h2">Today's five prompts are waiting</h2><button class="cta" id="go2">Kick off</button>
   <p class="lp-meta">New game every day</p>
- </section>`:''}
+ </section>`:`<section class="lp-final lp-final-unicorn">
+  <div class="sprite lp-sprite-sm bob" data-mood="happy"></div>
+  <p class="lp-meta">New game every day</p>
+ </section>`}
  </div>`,()=>{const play=()=>{document.body.classList.remove('landing');if(played){restore(played);setMeter();end(true)}else ask()};
   const go=document.getElementById('go');if(go)go.onclick=play;const g2=document.getElementById('go2');if(g2)g2.onclick=play;
   const hw=document.getElementById('how');if(hw)hw.onclick=()=>document.getElementById('steps').scrollIntoView({behavior:'smooth',block:'start'});})}
