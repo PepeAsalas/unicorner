@@ -68,7 +68,7 @@ function end(restored){
   <div class="dist" id="dist"><div class="mute">Comparing with today's players…</div></div>
   <div class="result-share-row"><button class="cta" id="share-result">Share result</button><p class="mute result-share-note">Challenge a mate while the result is fresh.</p></div>
   ${hits.length?`<section class="result-section"><div class="result-section-head"><h2>Your match highlights</h2><p class="mute">Best answers first</p></div><div class="result-list">${hits.map(r=>resultItem(r,false)).join('')}</div></section>`:''}
-  ${misses.length?`<div class="result-nearly"><section class="result-section"><div class="result-section-head"><h2>Nearly had it</h2><p class="mute">${misses.length} ${misses.length===1?'one':'answers'} to learn for tomorrow</p></div><div class="result-list">${misses.map(r=>resultItem(r,true)).join('')}</div></section></div>`:''}
+  ${misses.length?`<div class="result-nearly"><section class="result-section"><div class="result-section-head"><h2>Nearly had it</h2><p class="mute">${misses.length===1?'1 answer':misses.length+' answers'} to learn for tomorrow</p></div><div class="result-list">${misses.map(r=>resultItem(r,true)).join('')}</div></section></div>`:''}
   <section class="result-progress"><div class="result-progress-top"><span>Unicorner progress</span><b>${score}<small>/${MAX}</small></b></div><div class="result-progress-bar"><i style="width:${Math.min(100,Math.round(score/MAX*100))}%"></i></div><p class="result-progress-goal">${nextZone?`${toNext} points from ${nextZone[1]}`:"Ballon d'Or reached"}</p><p class="result-progress-return">Return tomorrow to climb the ladder · next game in <b style="color:#fff">${untilMidnight()}</b></p></section>
   <div class="row result-home-row"><button class="ghost" id="home">Back to home</button></div>
  </div>`,()=>{
@@ -81,6 +81,9 @@ function end(restored){
     s, count = pattern.subn(new_end + '\n// ---- community forms', s, count=1)
     if count != 1:
         raise SystemExit('Could not replace existing result screen function')
+
+# Keep already-patched result screens in sync when this script runs again.
+s = s.replace("${misses.length} ${misses.length===1?'one':'answers'} to learn for tomorrow", "${misses.length===1?'1 answer':misses.length+' answers'} to learn for tomorrow")
 
 p.write_text(s, encoding='utf-8')
 print('Result screen reordered around achievement, sharing, highlights, misses, and progression')
