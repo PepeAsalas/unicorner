@@ -179,7 +179,7 @@ body.landing .meter{display:none}
 .fake-input{font:600 18px Barlow,sans-serif;padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.3);min-width:150px}
 .caret{display:inline-block;width:2px;height:18px;background:var(--gold);vertical-align:-3px;margin-left:2px;animation:blink 1s steps(1) infinite}@keyframes blink{50%{opacity:0}}
 .mini-bars{display:flex;align-items:flex-end;gap:7px;height:56px}
-.mini-bars i{display:block;width:12px;border-radius:3px 3px 1px 1px;background:var(--c);height:var(--h);transform-origin:bottom;animation:barGrow 5s cubic-bezier(.4,0,.2,1) infinite backwards;animation-delay:calc(var(--i)*130ms + 150ms)}
+.mini-bars i{display:block;width:12px;border-radius:0;border:2px solid #000;background:var(--c);height:var(--h);transform-origin:bottom;animation:barGrow 5s cubic-bezier(.4,0,.2,1) infinite backwards;animation-delay:calc(var(--i)*130ms + 150ms)}
 .mini-bars i.screamer{animation:barBounce 5s cubic-bezier(.34,1.56,.64,1) infinite backwards;animation-delay:calc(4*130ms + 150ms)}
 @keyframes barGrow{0%,4%{transform:scaleY(0)}14%,86%{transform:scaleY(1)}96%,100%{transform:scaleY(0)}}
 @keyframes barBounce{0%,4%{transform:scaleY(0)}13%{transform:scaleY(1.22)}17%{transform:scaleY(.9)}21%,86%{transform:scaleY(1)}96%,100%{transform:scaleY(0)}}
