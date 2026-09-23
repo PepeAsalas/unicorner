@@ -587,6 +587,19 @@ body.playing .brand-home{cursor:default}
 @media (min-width:700px){
   .wrap{max-width:773px!important}
 }
+
+/* expandable played results card */
+.played-results-box{padding:0!important;overflow:hidden}
+.played-results-summary{display:block!important;list-style:none!important;padding:16px 18px!important;color:var(--ink)!important;cursor:pointer}
+.played-results-summary::-webkit-details-marker{display:none}
+.played-results-summary::marker{content:''}
+.played-results-toggle{margin-top:14px;padding-top:10px;border-top:2px solid rgba(255,255,255,.24);display:flex;align-items:center;justify-content:space-between;gap:12px;color:#fff;font-family:var(--lab);font-size:14px;text-transform:uppercase;letter-spacing:.4px}
+.played-results-toggle .played-results-arrow{font-size:22px;line-height:1;transition:transform .2s ease;transform-origin:center}
+.played-results-box[open] .played-results-arrow{transform:rotate(180deg)}
+.played-results-body{padding:0 18px 16px;border-top:2px solid rgba(255,255,255,.18)}
+.played-results-hint{margin:14px 0 4px!important}
+.played-results-body .res{animation:none!important}
+@media (max-width:640px){.played-results-summary{padding:14px!important}.played-results-body{padding:0 14px 14px}.played-results-toggle{font-size:13px}}
 </style></head><body>
 <div class="scene retro2" aria-hidden="true">
 <div class="sky"><i class="cloud c1"></i><i class="cloud c2"></i><i class="cloud c3"></i><i class="cloud c4"></i></div>
@@ -695,6 +708,12 @@ const previousGameDay=d=>{const [y,m,dd]=d.split('-').map(Number);return new Dat
 const currentStreak=()=>{try{let d=amsterdamDay(),n=0;while(localStorage.getItem('unicorner-played-'+d)){n++;d=previousGameDay(d)}return n}catch{return getPlayed()?1:0}};
 const untilMidnight=()=>{const n=new Date(),m=new Date(n);m.setHours(24,0,0,0);const d=m-n,h=Math.floor(d/36e5),mi=Math.floor(d%36e5/6e4);return`${h}h ${mi}m`};
 function restore(p){const savedPicks=Array.isArray(p.picks)?p.picks:[],byPos=new Map();savedPicks.forEach(([i,name])=>{if(Number.isInteger(i)&&i>=0&&i<Q.length&&!byPos.has(i))byPos.set(i,name||null)});results=Q.map((q,i)=>{const name=byPos.get(i)||null,ans=name?q?.answers.find(a=>a.name===name)||null:null;return{q,ans,pts:ans?ans.pts:0}});score=results.reduce((n,r)=>n+r.pts,0);qi=Q.length;if(score!==p.score)setPlayed({...p,score,picks:results.map((r,i)=>[i,r.ans?.name||null,r.pts])})}
+
+function landingResultsMarkup(p){
+ const picks=Array.isArray(p?.picks)?p.picks:[],byPos=new Map();
+ picks.forEach(row=>{const i=Number(row?.[0]),name=row?.[1]||null;if(Number.isInteger(i)&&i>=0&&i<Q.length&&!byPos.has(i))byPos.set(i,name)});
+ return Q.map((q,ri)=>{const savedName=byPos.get(ri)||null,ans=savedName?q.answers.find(a=>a.name===savedName)||null:null,pts=ans?ans.pts:0,all=[...q.answers].sort((a,b)=>b.pts-a.pts||a.name.localeCompare(b.name));return`<details class="res landing-res" style="--i:${ri}"><summary><span><b>${q.prompt}</b><br><span class="rtier" style="color:${ans?TCOL[pts]:'#ff8a7a'}">${ans?ans.name+' · '+(pts===100?'SCREAMER!!!':tierName(pts)):'Stinker'}</span></span><span class="plus">+${pts}</span></summary><p class="mute" style="margin:8px 0 0">${q.answers.length} answers</p><ul class="ans">${all.map(a=>`<li class="${a===ans?'you':''}" style="--tc:${TCOL[a.pts]}"><span class="an">${a.name}${a===ans?' ★':''}</span><span class="tchip">${tierName(a.pts)}</span></li>`).join('')}</ul></details>`}).join('');
+}
 function start(){document.body.classList.remove('playing');fillReport();document.body.classList.add('landing');const played=getPlayed();
  const today=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
  const COLS=['#cfd8e6','#7fe0a8','#b48cff','#ff7ac8','#f2c230'];
@@ -704,9 +723,17 @@ function start(){document.body.classList.remove('playing');fillReport();document
    <div class="pills"><span class="lp-date">Daily game · ${today}</span></div>
    <h1 class="lp-title">How deep is your <span class="uni-word">ball knowledge</span>?</h1>
    <p class="lp-sub">Find the answer nobody else thinks of.</p>
-   ${played?`<div class="played-box"><div class="mute">You've played today</div><div class="played-home-stats"><div class="played-home-stat"><span>Score</span><b>${played.score}<small>/${MAX}</small></b></div><div class="played-home-stat"><span>Streak</span><b>🔥 ${currentStreak()}<small>day${currentStreak()===1?'':'s'}</small></b></div></div><div class="mute">${zoneOf(played.score)} · next game in <b style="color:var(--ink)">${untilMidnight()}</b></div></div>
+   ${played?`<details class="played-box played-results-box">
+    <summary class="played-results-summary">
+      <div class="mute">You've played today</div>
+      <div class="played-home-stats"><div class="played-home-stat"><span>Score</span><b>${played.score}<small>/${MAX}</small></b></div><div class="played-home-stat"><span>Streak</span><b>🔥 ${currentStreak()}<small>day${currentStreak()===1?'':'s'}</small></b></div></div>
+      <div class="mute">${zoneOf(played.score)} · next game in <b style="color:var(--ink)">${untilMidnight()}</b></div>
+      <div class="played-results-toggle"><span>Today's results</span><span class="played-results-arrow" aria-hidden="true">⌄</span></div>
+    </summary>
+    <div class="played-results-body"><p class="mute played-results-hint">Tap a question to see every answer</p>${landingResultsMarkup(played)}</div>
+   </details>
    <p class="inf-pitch">Want more? Play as many rounds as you like, whenever you like.</p>
-   <div class="row"><button class="cta" data-infinite>∞ Unlock Infinite mode</button><button class="ghost" id="go">See today's results</button></div>`
+   <div class="row"><button class="cta" data-infinite>∞ Unlock Infinite mode</button></div>`
    :`<div class="row"><button id="go" class="cta">Play today's game</button><button class="ghost" id="how">How it works</button></div>
    <p class="lp-meta">5 prompts · about 3 minutes · free, no sign-up</p>`}
   </div>
@@ -743,7 +770,7 @@ function start(){document.body.classList.remove('playing');fillReport();document
   <p class="lp-meta">New game every day</p>
  </section>
  </div>`,()=>{const play=()=>{document.body.classList.remove('landing');if(played){restore(played);setMeter();end(true)}else ask()};
-  document.getElementById('go').onclick=play;const g2=document.getElementById('go2');if(g2)g2.onclick=play;
+  const go=document.getElementById('go');if(go)go.onclick=play;const g2=document.getElementById('go2');if(g2)g2.onclick=play;
   const hw=document.getElementById('how');if(hw)hw.onclick=()=>document.getElementById('steps').scrollIntoView({behavior:'smooth',block:'start'});})}
 function ask(){document.body.classList.add('playing');const q=Q[qi];if(qi===0)track('game_start',{question_count:Q.length,set_id:dailySetId()});track('question_view',{question_id:q.id||slug(q.prompt),prompt:q.prompt,position:qi+1,question_count:Q.length,difficulty:q.difficulty||'unknown',answer_type:q.answer_type||'player',answer_count:q.answers.length,set_id:dailySetId()});let left=TIME*1000,t0,done=false;
  swap(`<div class="card"><div class="q-progress" aria-label="Question ${qi+1} of ${Q.length}"><span>Question</span><b>${qi+1} of ${Q.length}</b></div><div class="mute q-sub">${q.sub}</div><div class="prompt">${q.prompt}</div>${q.by?`<div class="byline">🦄 Community question by ${q.by}</div>`:''}
