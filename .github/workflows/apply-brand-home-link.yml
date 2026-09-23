@@ -12,6 +12,7 @@ on:
       - 'scripts/reorder_landing_sections.py'
       - 'scripts/combine_played_results_card.py'
       - 'scripts/restructure_results_screen.py'
+      - 'scripts/refine_completed_landing_mobile.py'
 
 permissions:
   contents: write
@@ -37,6 +38,7 @@ jobs:
           python scripts/reorder_landing_sections.py
           python scripts/combine_played_results_card.py
           python scripts/restructure_results_screen.py
+          python scripts/refine_completed_landing_mobile.py
       - name: Validate behavior
         run: |
           python - <<'PY'
@@ -71,6 +73,12 @@ jobs:
           assert 'Score, rank & answers' in s
           assert 'function landingResultsMarkup(p)' not in s
           assert "const go=document.getElementById('go');if(go)go.onclick=play;" in s
+          assert '/* completed landing mobile refinements */' in s
+          assert 'class="lp-final lp-final-played"' in s
+          assert 'Want more? Play as many rounds as you like, whenever you like.' not in s
+          assert '.landing-wrap .lp-tiers .tier-chip b{min-height:34px!important' in s
+          played_final=s.find('class="lp-final lp-final-played"')
+          assert played_final >= 0 and steps_pos >= 0 and played_final < steps_pos
           assert '/* result screen social loop */' in s
           assert 'Your match highlights' in s
           assert 'Nearly had it' in s
@@ -97,5 +105,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '418982418+github-actions[bot]@users.noreply.github.com'
           git add index.html
-          git commit -m 'Redesign played score card and link to full results'
+          git commit -m 'Fix completed mobile tier layout and move Infinite CTA'
           git push
