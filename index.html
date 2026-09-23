@@ -738,6 +738,16 @@ body.results-view .meter{display:none!important}
  .landing-wrap .lp-home-hero>.lp-sub{margin-top:3px!important;font-size:17px!important;line-height:1.2!important}
  .lp-home-daily{margin-bottom:14px!important}
 }
+
+/* tighter title unicorn lockup */
+.lp-home-title-row{grid-template-columns:minmax(0,455px) 225px!important;gap:0!important;max-width:680px!important}
+.lp-home-title-row .lp-art{height:205px!important;transform:translateX(-18px)!important}
+.lp-home-title-row .lp-sprite{width:250px!important;height:208px!important;max-width:none!important}
+@media (max-width:560px){
+ .lp-home-title-row{grid-template-columns:minmax(0,1fr) 154px!important;gap:0!important}
+ .lp-home-title-row .lp-art{height:145px!important;transform:translateX(-14px)!important}
+ .lp-home-title-row .lp-sprite{width:180px!important;height:150px!important;max-width:none!important}
+}
 </style></head><body>
 <div class="scene retro2" aria-hidden="true">
 <div class="sky"><i class="cloud c1"></i><i class="cloud c2"></i><i class="cloud c3"></i><i class="cloud c4"></i></div>
