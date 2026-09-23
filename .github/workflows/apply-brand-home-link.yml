@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/workflows/apply-brand-home-link.yml'
       - 'scripts/apply_brand_home_link.py'
+      - 'scripts/normalize_tier_labels.py'
 
 permissions:
   contents: write
@@ -18,8 +19,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.x'
-      - name: Apply brand home navigation
-        run: python scripts/apply_brand_home_link.py
+      - name: Apply landing and game UI changes
+        run: |
+          python scripts/apply_brand_home_link.py
+          python scripts/normalize_tier_labels.py
       - name: Validate behavior
         run: |
           python - <<'PY'
@@ -30,6 +33,15 @@ jobs:
           assert "document.body.classList.contains('playing')" in s
           assert "track('home_click',{from:'brand'" in s
           assert "brandHome.addEventListener('click',goBrandHome)" in s
+          assert "const TIERS=[[20,'Tap-in'],[40,'Header'],[60,'Volley'],[80,'Bicycle kick'],[100,'Screamer']];" in s
+          assert 'class="lp-ans uni podium-top"' in s
+          assert '<b>Héctor Bellerín</b><span>Volley · 60</span>' in s
+          assert '<b>Thomas Vermaelen</b><span>Screamer · 100</span>' in s
+          assert '<b>Alexis Sánchez</b><span>Tap-in · 20</span>' in s
+          assert 'screamerTierPulse' in s
+          assert 'SCREAMER!!!' in s
+          for old in ('finish','banger','worldie'):
+              assert not re.search(rf'\b{old}\b', s, re.I)
           scripts=list(re.finditer(r'<script([^>]*)>(.*?)</script>',s,re.S|re.I))
           js='\n;\n'.join(m.group(2) for m in scripts if 'application/json' not in m.group(1))
           Path('/tmp/unicorner.js').write_text(js,encoding='utf-8')
@@ -44,5 +56,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '418982418+github-actions[bot]@users.noreply.github.com'
           git add index.html
-          git commit -m 'Make brand logo return home outside games'
+          git commit -m 'Apply tier scale and landing podium feedback'
           git push
