@@ -14,6 +14,7 @@ on:
       - 'scripts/restructure_results_screen.py'
       - 'scripts/refine_completed_landing_mobile.py'
       - 'scripts/rebuild_landing_dashboard.py'
+      - 'scripts/replace_streak_emoji.py'
 
 permissions:
   contents: write
@@ -41,6 +42,7 @@ jobs:
           python scripts/restructure_results_screen.py
           python scripts/refine_completed_landing_mobile.py
           python scripts/rebuild_landing_dashboard.py
+          python scripts/replace_streak_emoji.py
       - name: Validate behavior
         run: |
           python - <<'PY'
@@ -91,6 +93,9 @@ jobs:
           assert 'Play today\'s game' in s and 'How it works' in s
           assert 'Today\'s final whistle' in s and 'View today\'s result' in s
           assert '∞ Try Infinite mode' in s
+          assert '/* pixel streak flame */' in s
+          assert 'class="pixel-flame"' in s
+          assert '🔥' not in s
           assert '/* result screen social loop */' in s
           assert 'Your match highlights' in s
           assert 'Nearly had it' in s
@@ -117,5 +122,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '418982418+github-actions[bot]@users.noreply.github.com'
           git add index.html
-          git commit -m 'Rebuild landing dashboard layout'
+          git commit -m 'Replace streak emoji with pixel flame'
           git push
