@@ -11,6 +11,7 @@ on:
       - 'scripts/widen_desktop_layout.py'
       - 'scripts/reorder_landing_sections.py'
       - 'scripts/combine_played_results_card.py'
+      - 'scripts/restructure_results_screen.py'
 
 permissions:
   contents: write
@@ -31,6 +32,7 @@ jobs:
           python scripts/widen_desktop_layout.py
           python scripts/reorder_landing_sections.py
           python scripts/combine_played_results_card.py
+          python scripts/restructure_results_screen.py
       - name: Validate behavior
         run: |
           python - <<'PY'
@@ -63,6 +65,15 @@ jobs:
           assert 'function landingResultsMarkup(p)' in s
           assert "See today's results" not in s
           assert "const go=document.getElementById('go');if(go)go.onclick=play;" in s
+          assert '/* result screen social loop */' in s
+          assert 'Your match highlights' in s
+          assert 'Nearly had it' in s
+          assert 'Unicorner progress' in s
+          assert 'Challenge a mate while the result is fresh.' in s
+          result_share=s.find('id="share-result"')
+          result_highlights=s.find('Your match highlights')
+          assert result_share >= 0 and result_highlights >= 0 and result_share < result_highlights
+          assert 'Better than ${pct.textContent}% of players' in s
           for old in ('fin'+'ish','ban'+'ger','wor'+'ldie'):
               assert not re.search(rf'\b{old}\b', s, re.I)
           scripts=list(re.finditer(r'<script([^>]*)>(.*?)</script>',s,re.S|re.I))
@@ -79,5 +90,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '418982418+github-actions[bot]@users.noreply.github.com'
           git add index.html
-          git commit -m 'Combine played summary and results card'
+          git commit -m 'Restructure results around achievement and sharing'
           git push
