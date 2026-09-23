@@ -7,13 +7,16 @@ css_marker = '/* quick non-game home exit */'
 css = '''
 /* quick non-game home exit */
 .result-screen{position:relative!important}
-.result-screen .quick-home-x{display:flex;position:absolute;top:14px;right:14px;width:42px;height:42px;align-items:center;justify-content:center;z-index:20;padding:0!important;background:#0c0c18!important;color:#fff!important;border:3px solid #fff!important;border-radius:7px!important;box-shadow:0 0 0 3px #000,4px 4px 0 rgba(0,0,0,.4)!important;font-family:var(--px)!important;font-size:31px!important;line-height:1!important;cursor:pointer}
+.result-screen .quick-home-x{display:flex;position:absolute;top:14px;right:14px;width:42px;height:42px;align-items:center;justify-content:center;z-index:20;padding:0!important;background:#0c0c18!important;color:#fff!important;border:3px solid #fff!important;border-radius:7px!important;box-shadow:0 0 0 3px #000,4px 4px 0 rgba(0,0,0,.4)!important;font-size:0!important;line-height:0!important;cursor:pointer}
 .result-screen .quick-home-x:hover,.result-screen .quick-home-x:focus-visible{color:var(--gold)!important;border-color:var(--gold)!important;outline:none}
 body.playing .quick-home-x{display:none!important}
 #dlg-infinite form{position:relative!important}
-#dlg-infinite .infinite-close-x{position:sticky;top:12px;float:right;margin:0 0 8px 12px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;z-index:40;padding:0!important;background:#0c0c18!important;color:#fff!important;border:3px solid #fff!important;border-radius:7px!important;box-shadow:0 0 0 3px #000,4px 4px 0 rgba(0,0,0,.4)!important;font-family:var(--px)!important;font-size:31px!important;line-height:1!important;cursor:pointer}
+#dlg-infinite .infinite-close-x{position:sticky;top:12px;float:right;margin:0 0 8px 12px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;z-index:40;padding:0!important;background:#0c0c18!important;color:#fff!important;border:3px solid #fff!important;border-radius:7px!important;box-shadow:0 0 0 3px #000,4px 4px 0 rgba(0,0,0,.4)!important;font-size:0!important;line-height:0!important;cursor:pointer}
 #dlg-infinite .infinite-close-x:hover,#dlg-infinite .infinite-close-x:focus-visible{color:var(--gold)!important;border-color:var(--gold)!important;outline:none}
-@media (max-width:560px){.result-screen .quick-home-x{top:12px;right:12px;width:40px;height:40px;font-size:29px!important}#dlg-infinite .infinite-close-x{top:10px;width:40px;height:40px;font-size:29px!important}}
+.result-screen .quick-home-x::before,.result-screen .quick-home-x::after,#dlg-infinite .infinite-close-x::before,#dlg-infinite .infinite-close-x::after{content:'';position:absolute;left:50%;top:50%;width:18px;height:4px;background:currentColor;transform-origin:center;pointer-events:none}
+.result-screen .quick-home-x::before,#dlg-infinite .infinite-close-x::before{transform:translate(-50%,-50%) rotate(45deg)}
+.result-screen .quick-home-x::after,#dlg-infinite .infinite-close-x::after{transform:translate(-50%,-50%) rotate(-45deg)}
+@media (max-width:560px){.result-screen .quick-home-x{top:12px;right:12px;width:40px;height:40px}#dlg-infinite .infinite-close-x{top:10px;width:40px;height:40px}}
 '''
 
 if css_marker not in s:
@@ -81,6 +84,7 @@ for required in (
     js_marker,
     '.result-screen .quick-home-x{display:flex;position:absolute;top:14px;right:14px',
     '#dlg-infinite .infinite-close-x{position:sticky;top:12px;float:right',
+    '.result-screen .quick-home-x::before,.result-screen .quick-home-x::after',
     "const infiniteClose=e.target.closest?.('#infinite-close-x');",
     'body.playing .quick-home-x{display:none!important}',
 ):
@@ -93,4 +97,4 @@ if s.count('id="infinite-close-x"') != 1:
     raise SystemExit('Infinite Mode close button should exist exactly once')
 
 p.write_text(s, encoding='utf-8')
-print('Placed close buttons inside Results and Infinite Mode')
+print('Placed perfectly centered close buttons inside Results and Infinite Mode')
