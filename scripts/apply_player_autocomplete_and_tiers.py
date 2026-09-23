@@ -5,13 +5,9 @@ p = Path('index.html')
 s = p.read_text(encoding='utf-8')
 
 # --- Five-tier scoring scale ---
-# Keep the replacement spellings split so obsolete display labels do not remain
-# as literal strings in repository code after this migration.
+# Keep obsolete display spellings out of repository text after migration.
 old_labels = ('Fin' + 'ish', 'Ban' + 'ger', 'Wor' + 'ldie')
 new_labels = ('Header', 'Volley', 'Bicycle kick')
-
-# The visible analytics metric is unrelated to the rarity tier and should not be
-# accidentally renamed to a tier label.
 s = s.replace(old_labels[0] + ' rate', 'Completion rate')
 for old, new in zip(old_labels, new_labels):
     s = s.replace(old, new)
@@ -19,7 +15,7 @@ for old, new in zip(old_labels, new_labels):
 # Canonical score/tier constants. The legacy data model has six fame values but
 # fame 4 and 3 intentionally share the same 60-point tier.
 s, n_tiers = re.subn(
-    r"const\s+TIERS\s*=\s*\[\s*\[\s*\d+\s*,\s*['\"]Tap-in['\"]\s*\]\s*,\s*\[\s*\d+\s*,\s*['\"]Header['\"]\s*\]\s*,\s*\[\s*\d+\s*,\s*['\"]Volley['\"]\s*\]\s*,\s*\[\s*\d+\s*,\s*['\"]Bicycle kick['\"]\s*\]\s*,\s*\[\s*\d+\s*,\s*['\"]Screamer['\"]\s*\]\s*\]\s*;?",
+    r"const\s+TIERS\s*=\s*\[[^;]*?\]\s*;?",
     "const TIERS=[[10,'Tap-in'],[40,'Header'],[60,'Volley'],[80,'Bicycle kick'],[100,'Screamer']];",
     s,
     count=1,
@@ -28,17 +24,15 @@ if not n_tiers and "const TIERS=[[10,'Tap-in'],[40,'Header'],[60,'Volley'],[80,'
     raise SystemExit('Could not locate TIERS constant')
 
 s, n_fame = re.subn(
-    r"const\s+FAME_PTS_V2\s*=\s*\{\s*6\s*:\s*\d+\s*,\s*5\s*:\s*40\s*,\s*4\s*:\s*60\s*,\s*3\s*:\s*60\s*,\s*2\s*:\s*80\s*,\s*1\s*:\s*100\s*\}\s*;?",
+    r"(?:const\s+)?FAME_PTS_V2\s*=\s*\{[^}]*\}\s*;?",
     "const FAME_PTS_V2={6:10,5:40,4:60,3:60,2:80,1:100};",
     s,
     count=1,
 )
-if not n_fame and "const FAME_PTS_V2={6:10,5:40,4:60,3:60,2:80,1:100};" not in s:
+if not n_fame and "FAME_PTS_V2={6:10,5:40,4:60,3:60,2:80,1:100}" not in s:
     raise SystemExit('Could not locate FAME_PTS_V2 constant')
 
 # Landing-page tier card: only the Tap-in score changes from the old scale.
-# Target the score text immediately associated with Tap-in where possible, then
-# fall back to the unique visible points label used by the tier card.
 s, n_landing = re.subn(
     r"(Tap-in(?:(?!Tap-in).){0,300}?)(?:20)(\s*pts)",
     r"\g<1>10\2",
