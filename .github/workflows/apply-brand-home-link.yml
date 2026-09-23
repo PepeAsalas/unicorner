@@ -99,8 +99,9 @@ jobs:
           assert 'class="pixel-flame"' in s
           assert '🔥' not in s
           assert '/* title overlaps unicorn space */' in s
-          assert 'width:calc(100% + 46px)!important' in s
-          assert 'width:calc(100% + 30px)!important' in s
+          assert 'width:calc(100% - 14px)!important' in s
+          assert 'width:calc(100% - 10px)!important' in s
+          assert 'transform:translateX(12px)!important' in s
           assert '/* result screen social loop */' in s
           assert 'Your match highlights' in s
           assert 'Nearly had it' in s
@@ -127,5 +128,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '418982418+github-actions[bot]@users.noreply.github.com'
           git add index.html
-          git commit -m 'Reduce landing title overlap slightly'
+          git commit -m 'Add gap between landing title and unicorn'
           git push
