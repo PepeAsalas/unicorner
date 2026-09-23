@@ -104,9 +104,10 @@ jobs:
           assert 'width:calc(100% - 6px)!important' in s
           assert 'transform:translateX(12px)!important' in s
           assert '/* quick non-game home exit */' in s
-          assert 'id="quick-home-x"' in s
-          assert 'body.results-view .quick-home-x{display:flex}' in s
+          assert '<div class="card result-screen"><button type="button" class="quick-home-x" id="quick-home-x"' in s
+          assert '.result-screen .quick-home-x{display:flex;position:absolute;top:14px;right:14px' in s
           assert 'body.playing .quick-home-x{display:none!important}' in s
+          assert s.count('id="quick-home-x"') == 1
           assert "track('home_click',{from:'quick_exit'" in s
           assert '/* result screen social loop */' in s
           assert 'Your match highlights' in s
@@ -134,5 +135,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '418982418+github-actions[bot]@users.noreply.github.com'
           git add index.html
-          git commit -m 'Add quick home exit outside active games'
+          git commit -m 'Position results close inside result card'
           git push
