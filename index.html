@@ -658,6 +658,15 @@ body.playing .brand-home{cursor:default}
 .played-result-cta>small{font-family:var(--lab);font-size:12px;font-weight:700;text-transform:uppercase;white-space:nowrap}
 .played-result-next{margin-top:10px;color:#d6ccff;font-size:13px;text-align:center}.played-result-next b{color:#fff}
 @media (max-width:560px){.played-result-card{padding:15px!important}.played-result-grid{grid-template-columns:minmax(0,1fr) 108px;gap:9px}.played-result-score,.played-result-streak{padding:12px}.played-result-score>b{font-size:46px}.played-result-score>b small{font-size:17px}.played-result-streak>b{font-size:34px}.played-result-cta{display:block!important;text-align:center!important}.played-result-cta>small{display:block;margin-top:4px;white-space:normal}}
+
+/* completed landing mobile refinements */
+.lp-final-played{padding:16px 0 10px!important;margin:4px 0 8px!important}
+@media (max-width:560px){
+  .landing-wrap .lp-tiers .tier-row{gap:6px!important}
+  .landing-wrap .lp-tiers .tier-chip b{min-height:34px!important;display:flex!important;align-items:center!important;justify-content:center!important;line-height:1.02!important;font-size:14px!important}
+  .landing-wrap .lp-tiers .tier-chip span{line-height:1!important}
+  .lp-final-played{padding:12px 0 8px!important;margin:0 0 6px!important}
+}
 </style></head><body>
 <div class="scene retro2" aria-hidden="true">
 <div class="sky"><i class="cloud c1"></i><i class="cloud c2"></i><i class="cloud c3"></i><i class="cloud c4"></i></div>
@@ -784,14 +793,18 @@ function start(){document.body.classList.remove('playing');fillReport();document
     </div>
     <button type="button" class="cta played-result-cta" id="go"><span>View today's result</span><small>Score, rank & answers →</small></button>
     <div class="played-result-next">Next daily game in <b>${untilMidnight()}</b></div>
-   </div>
-   <p class="inf-pitch">Want more? Play as many rounds as you like, whenever you like.</p>
-   <div class="row"><button class="cta" data-infinite>∞ Unlock Infinite mode</button></div>`
+   </div>`
    :`<div class="row"><button id="go" class="cta">Play today's game</button><button class="ghost" id="how">How it works</button></div>
    <p class="lp-meta">5 prompts · about 3 minutes · free, no sign-up</p>`}
   </div>
   <div class="lp-art"><div class="lp-halo"></div><div class="sprite lp-sprite bob" data-mood="wow"></div></div>
  </section>
+
+ ${played?`<section class="lp-final lp-final-played">
+  <div class="sprite lp-sprite-sm bob" data-mood="happy"></div>
+  <h2 class="lp-h2">Can't wait until tomorrow?</h2><button class="cta" data-infinite>∞ Try Infinite mode</button>
+  <p class="lp-meta">New game every day</p>
+ </section>`:''}
 
  <section class="lp-steps" id="steps">
   <h2 class="lp-h2">How it works</h2>
@@ -817,11 +830,11 @@ function start(){document.body.classList.remove('playing');fillReport();document
   <div class="tier-row">${TIERS.map((t,i)=>`<div class="tier-chip" style="--c:${COLS[i]};--i:${i}"><div class="tier-bar" style="height:${22+i*14}px"></div><b>${t[1]}</b><span>${t[0]} pts</span></div>`).join('')}</div>
  </section>
 
- <section class="lp-final">
+ ${!played?`<section class="lp-final">
   <div class="sprite lp-sprite-sm bob" data-mood="happy"></div>
-  ${played?`<h2 class="lp-h2">Can't wait until tomorrow?</h2><button class="cta" data-infinite>∞ Try Infinite mode</button>`:`<h2 class="lp-h2">Today's five prompts are waiting</h2><button class="cta" id="go2">Kick off</button>`}
+  <h2 class="lp-h2">Today's five prompts are waiting</h2><button class="cta" id="go2">Kick off</button>
   <p class="lp-meta">New game every day</p>
- </section>
+ </section>`:''}
  </div>`,()=>{const play=()=>{document.body.classList.remove('landing');if(played){restore(played);setMeter();end(true)}else ask()};
   const go=document.getElementById('go');if(go)go.onclick=play;const g2=document.getElementById('go2');if(g2)g2.onclick=play;
   const hw=document.getElementById('how');if(hw)hw.onclick=()=>document.getElementById('steps').scrollIntoView({behavior:'smooth',block:'start'});})}
