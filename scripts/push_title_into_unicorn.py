@@ -7,10 +7,10 @@ marker = '/* title overlaps unicorn space */'
 css = '''
 /* title overlaps unicorn space */
 .lp-home-title-row{overflow:visible!important}
-.lp-home-title-row .lp-title{position:relative!important;z-index:3!important;width:calc(100% - 14px)!important;max-width:none!important}
+.lp-home-title-row .lp-title{position:relative!important;z-index:3!important;width:calc(100% - 6px)!important;max-width:none!important}
 .lp-home-title-row .lp-art{position:relative!important;z-index:1!important;transform:translateX(12px)!important}
 @media (max-width:560px){
- .lp-home-title-row .lp-title{width:calc(100% - 10px)!important}
+ .lp-home-title-row .lp-title{width:calc(100% - 6px)!important}
  .lp-home-title-row .lp-art{transform:translateX(12px)!important}
 }
 '''
@@ -29,8 +29,10 @@ else:
     old_end += 3
     s = s[:start] + css.strip() + '\n' + block[old_end:] + s[end:]
 
-if 'width:calc(100% - 14px)!important' not in s or 'width:calc(100% - 10px)!important' not in s:
-    raise SystemExit('Title/unicorn spacing CSS was not applied')
+if 'width:calc(100% - 6px)!important' not in s:
+    raise SystemExit('Small title/unicorn gap CSS was not applied')
+if 'transform:translateX(12px)!important' not in s:
+    raise SystemExit('Unicorn position changed unexpectedly')
 
 p.write_text(s, encoding='utf-8')
-print('Title and unicorn remain close with a clear gap between them')
+print('Title gap tightened without moving the unicorn')
