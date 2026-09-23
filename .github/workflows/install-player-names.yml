@@ -1,0 +1,58 @@
+name: Install player names
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/install-player-names.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Reconstruct player names
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64, lzma, hashlib, json
+          d=Path('scripts/player_names_payload')
+          encoded=''.join((d/f'part{i}.txt').read_text(encoding='utf-8').strip() for i in range(1,4))
+          raw=lzma.decompress(base64.b64decode(encoded))
+          assert hashlib.sha256(raw).hexdigest() == '92ac5d227e6572b6fdfeb57cabb11232b77608b486e7f51e73a15a085f1b4f5b'
+          data=json.loads(raw.decode('utf-8'))
+          assert isinstance(data,list)
+          assert len(data)==29299
+          assert all(isinstance(x,str) and x.strip() for x in data)
+          Path('player-names.json').write_bytes(raw)
+          PY
+      - name: Remove staging payload
+        run: rm -rf scripts/player_names_payload
+      - name: Validate site and data
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          s=Path('index.html').read_text(encoding='utf-8')
+          assert "fetch('/player-names.json'" in s
+          data=json.loads(Path('player-names.json').read_text(encoding='utf-8'))
+          assert len(data)==29299
+          PY
+      - name: Commit player names
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '418982418+github-actions[bot]@users.noreply.github.com'
+          git add player-names.json
+          git add -A scripts/player_names_payload
+          if git diff --cached --quiet; then
+            echo 'No changes to commit'
+            exit 0
+          fi
+          git commit -m 'Add player names autocomplete data'
+          git push
