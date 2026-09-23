@@ -687,6 +687,40 @@ body.playing .brand-home{cursor:default}
 
 /* results viewport cleanup */
 body.results-view .meter{display:none!important}
+
+/* compact landing dashboard */
+.landing-wrap .lp-home-hero{margin-top:28px!important;padding:22px 8px 8px!important;display:grid!important;grid-template-columns:minmax(0,1fr) minmax(150px,.62fr)!important;align-items:center!important;gap:18px!important;text-align:left!important}
+.landing-wrap .lp-home-hero .lp-title{margin:0 0 12px!important}
+.landing-wrap .lp-home-hero .lp-sub{margin:0!important;max-width:30ch}
+.landing-wrap .lp-home-hero .lp-art{order:initial!important;height:180px!important;display:grid!important;place-items:center end!important}
+.landing-wrap .lp-home-hero .lp-sprite{width:190px!important;height:158px!important;max-width:100%!important}
+.lp-home-daily{padding:18px!important;text-align:left!important;background:linear-gradient(180deg,#1f5fd6,#163f9a)!important}
+.lp-home-card-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:12px}
+.lp-home-card-label{font-family:var(--px);font-size:27px;line-height:1;color:#fff}
+.lp-home-card-date{font-family:var(--lab);font-size:13px;color:#d6ccff;text-align:right}
+.lp-daily-actions{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:10px;margin-top:4px}
+.lp-daily-actions .cta,.lp-daily-actions .ghost{width:100%;margin:0!important;display:flex;align-items:center;justify-content:center;min-height:56px;text-align:center}
+.lp-home-daily .lp-meta{text-align:left;margin:10px 0 0!important;color:#d6ccff}
+.lp-home-daily .played-result-card{margin:0!important;width:100%!important}
+.lp-home-daily .played-result-kicker{margin-top:0}
+.lp-final-played[data-home-infinite]{margin:0 0 22px!important;padding:22px!important;text-align:center!important;background:linear-gradient(180deg,#2c1d78 0%,#1b1250 100%)!important;border:3px solid #fff!important;border-radius:10px!important;box-shadow:0 0 0 3px #000,8px 8px 0 rgba(0,0,0,.35)!important}
+.lp-final-played[data-home-infinite] .lp-h2{margin:0 0 16px!important}
+.lp-final-played[data-home-infinite] .lp-infinite-cta{width:min(100%,430px)!important}
+@media (max-width:560px){
+ .landing-wrap .lp-home-hero{margin-top:16px!important;padding:14px 2px 8px!important;grid-template-columns:minmax(0,1fr) 112px!important;gap:10px!important}
+ .landing-wrap .lp-home-hero .lp-title{font-size:clamp(36px,10.6vw,48px)!important;line-height:.94!important;margin-bottom:9px!important}
+ .landing-wrap .lp-home-hero .lp-sub{font-size:16px!important;line-height:1.25!important}
+ .landing-wrap .lp-home-hero .lp-art{height:112px!important;place-items:start end!important}
+ .landing-wrap .lp-home-hero .lp-sprite{width:124px!important;height:103px!important}
+ .lp-home-daily{padding:15px!important}
+ .lp-home-card-head{margin-bottom:10px;align-items:center}
+ .lp-home-card-label{font-size:24px}
+ .lp-home-card-date{font-size:11px;max-width:120px;line-height:1.15}
+ .lp-daily-actions{grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);gap:8px}
+ .lp-daily-actions .cta,.lp-daily-actions .ghost{min-height:52px;padding:12px 9px!important;font-size:16px!important;line-height:1.05}
+ .lp-final-played[data-home-infinite]{padding:18px 14px!important;margin-bottom:18px!important}
+ .lp-final-played[data-home-infinite] .lp-h2{font-size:27px!important;margin-bottom:14px!important}
+}
 </style></head><body>
 <div class="scene retro2" aria-hidden="true">
 <div class="sky"><i class="cloud c1"></i><i class="cloud c2"></i><i class="cloud c3"></i><i class="cloud c4"></i></div>
@@ -800,12 +834,17 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
  const today=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
  const COLS=['#cfd8e6','#7fe0a8','#b48cff','#ff7ac8','#f2c230'];
  swap(`<div class="landing-wrap">
- <section class="lp-hero">
+ <section class="lp-hero lp-home-hero">
   <div class="lp-copy">
-   <div class="pills"><span class="lp-date">Daily game · ${today}</span></div>
    <h1 class="lp-title">How deep is your <span class="uni-word">ball knowledge</span>?</h1>
    <p class="lp-sub">Find the answer nobody else thinks of.</p>
-   ${played?`<div class="played-box played-result-card">
+  </div>
+  <div class="lp-art"><div class="lp-halo"></div><div class="sprite lp-sprite bob" data-mood="wow"></div></div>
+ </section>
+
+ <section class="card lp-home-daily">
+  <div class="lp-home-card-head"><div class="lp-home-card-label">Daily game</div><div class="lp-home-card-date">${today}</div></div>
+  ${played?`<div class="played-box played-result-card">
     <div class="played-result-kicker">Today's final whistle</div>
     <div class="played-result-grid">
       <div class="played-result-score"><span>Score</span><b>${played.score}<small>/${MAX}</small></b><em>${zoneOf(played.score)}</em></div>
@@ -814,16 +853,14 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
     <button type="button" class="cta played-result-cta" id="go"><span>View today's result</span><small>Score, rank & answers →</small></button>
     <div class="played-result-next">Next daily game in <b>${untilMidnight()}</b></div>
    </div>`
-   :`<div class="row"><button id="go" class="cta">Play today's game</button><button class="ghost" id="how">How it works</button></div>
+   :`<div class="lp-daily-actions"><button id="go" class="cta">Play today's game</button><button class="ghost" id="how">How it works</button></div>
    <p class="lp-meta">5 prompts · about 3 minutes · free, no sign-up</p>`}
-  </div>
-  <div class="lp-art"><div class="lp-halo"></div><div class="sprite lp-sprite bob" data-mood="wow"></div></div>
  </section>
 
- ${played?`<section class="lp-final lp-final-played">
+ <section class="lp-final lp-final-played" data-home-infinite>
   <h2 class="lp-h2">Can't wait until tomorrow?</h2>
   <button class="cta lp-infinite-cta" data-infinite>∞ Try Infinite mode</button>
- </section>`:''}
+ </section>
 
  <section class="lp-steps" id="steps">
   <h2 class="lp-h2">How it works</h2>
