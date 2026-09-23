@@ -10,7 +10,10 @@ css = '''
 .result-screen .quick-home-x{display:flex;position:absolute;top:14px;right:14px;width:42px;height:42px;align-items:center;justify-content:center;z-index:20;padding:0!important;background:#0c0c18!important;color:#fff!important;border:3px solid #fff!important;border-radius:7px!important;box-shadow:0 0 0 3px #000,4px 4px 0 rgba(0,0,0,.4)!important;font-family:var(--px)!important;font-size:31px!important;line-height:1!important;cursor:pointer}
 .result-screen .quick-home-x:hover,.result-screen .quick-home-x:focus-visible{color:var(--gold)!important;border-color:var(--gold)!important;outline:none}
 body.playing .quick-home-x{display:none!important}
-@media (max-width:560px){.result-screen .quick-home-x{top:12px;right:12px;width:40px;height:40px;font-size:29px!important}}
+#dlg-infinite form{position:relative!important}
+#dlg-infinite .infinite-close-x{position:sticky;top:12px;float:right;margin:0 0 8px 12px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;z-index:40;padding:0!important;background:#0c0c18!important;color:#fff!important;border:3px solid #fff!important;border-radius:7px!important;box-shadow:0 0 0 3px #000,4px 4px 0 rgba(0,0,0,.4)!important;font-family:var(--px)!important;font-size:31px!important;line-height:1!important;cursor:pointer}
+#dlg-infinite .infinite-close-x:hover,#dlg-infinite .infinite-close-x:focus-visible{color:var(--gold)!important;border-color:var(--gold)!important;outline:none}
+@media (max-width:560px){.result-screen .quick-home-x{top:12px;right:12px;width:40px;height:40px;font-size:29px!important}#dlg-infinite .infinite-close-x{top:10px;width:40px;height:40px;font-size:29px!important}}
 '''
 
 if css_marker not in s:
@@ -36,11 +39,21 @@ if result_with_close not in s:
         raise SystemExit('Could not find result card')
     s = s.replace(result_open, result_with_close, 1)
 
-# The result card is rendered dynamically, so use delegated click handling.
+# Put a matching close control in the top-right of the Infinite Mode popup.
+infinite_open = '<dialog id="dlg-infinite"><form data-kind="infinite-waitlist">'
+infinite_with_close = infinite_open + '<button type="button" class="infinite-close-x" id="infinite-close-x" aria-label="Close Infinite Mode" title="Close">×</button>'
+if infinite_with_close not in s:
+    if infinite_open not in s:
+        raise SystemExit('Could not find Infinite Mode dialog')
+    s = s.replace(infinite_open, infinite_with_close, 1)
+
+# Both controls are rendered outside the static header flow, so use delegated clicks.
 js_marker = '/* quick non-game exit */'
 anchor = '/* brand home navigation */'
 js = '''/* quick non-game exit */
 document.addEventListener('click',e=>{
+ const infiniteClose=e.target.closest?.('#infinite-close-x');
+ if(infiniteClose){infiniteClose.closest('dialog')?.close();return;}
  const quickHomeX=e.target.closest?.('#quick-home-x');
  if(!quickHomeX)return;
  if(document.body.classList.contains('playing'))return;
@@ -64,8 +77,11 @@ else:
 for required in (
     css_marker,
     result_with_close,
+    infinite_with_close,
     js_marker,
     '.result-screen .quick-home-x{display:flex;position:absolute;top:14px;right:14px',
+    '#dlg-infinite .infinite-close-x{position:sticky;top:12px;float:right',
+    "const infiniteClose=e.target.closest?.('#infinite-close-x');",
     'body.playing .quick-home-x{display:none!important}',
 ):
     if required not in s:
@@ -73,6 +89,8 @@ for required in (
 
 if s.count('id="quick-home-x"') != 1:
     raise SystemExit('Quick result close button should exist exactly once')
+if s.count('id="infinite-close-x"') != 1:
+    raise SystemExit('Infinite Mode close button should exist exactly once')
 
 p.write_text(s, encoding='utf-8')
-print('Moved the quick home exit into the top-right of the result card')
+print('Placed close buttons inside Results and Infinite Mode')
