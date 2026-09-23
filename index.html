@@ -684,6 +684,9 @@ body.playing .brand-home{cursor:default}
   .lp-final-unicorn{padding:22px 0 6px!important}
 }
 @media (prefers-reduced-motion:reduce){.lp-infinite-cta,.lp-infinite-cta:after{animation:none!important}}
+
+/* results viewport cleanup */
+body.results-view .meter{display:none!important}
 </style></head><body>
 <div class="scene retro2" aria-hidden="true">
 <div class="sky"><i class="cloud c1"></i><i class="cloud c2"></i><i class="cloud c3"></i><i class="cloud c4"></i></div>
@@ -793,7 +796,7 @@ const currentStreak=()=>{try{let d=amsterdamDay(),n=0;while(localStorage.getItem
 const untilMidnight=()=>{const n=new Date(),m=new Date(n);m.setHours(24,0,0,0);const d=m-n,h=Math.floor(d/36e5),mi=Math.floor(d%36e5/6e4);return`${h}h ${mi}m`};
 function restore(p){const savedPicks=Array.isArray(p.picks)?p.picks:[],byPos=new Map();savedPicks.forEach(([i,name])=>{if(Number.isInteger(i)&&i>=0&&i<Q.length&&!byPos.has(i))byPos.set(i,name||null)});results=Q.map((q,i)=>{const name=byPos.get(i)||null,ans=name?q?.answers.find(a=>a.name===name)||null:null;return{q,ans,pts:ans?ans.pts:0}});score=results.reduce((n,r)=>n+r.pts,0);qi=Q.length;if(score!==p.score)setPlayed({...p,score,picks:results.map((r,i)=>[i,r.ans?.name||null,r.pts])})}
 
-function start(){document.body.classList.remove('playing');fillReport();document.body.classList.add('landing');const played=getPlayed();
+function start(){document.body.classList.remove('playing','results-view');fillReport();document.body.classList.add('landing');const played=getPlayed();
  const today=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
  const COLS=['#cfd8e6','#7fe0a8','#b48cff','#ff7ac8','#f2c230'];
  swap(`<div class="landing-wrap">
@@ -857,7 +860,7 @@ function start(){document.body.classList.remove('playing');fillReport();document
  </div>`,()=>{const play=()=>{document.body.classList.remove('landing');if(played){restore(played);setMeter();end(true)}else ask()};
   const go=document.getElementById('go');if(go)go.onclick=play;const g2=document.getElementById('go2');if(g2)g2.onclick=play;
   const hw=document.getElementById('how');if(hw)hw.onclick=()=>document.getElementById('steps').scrollIntoView({behavior:'smooth',block:'start'});})}
-function ask(){document.body.classList.add('playing');const q=Q[qi];if(qi===0)track('game_start',{question_count:Q.length,set_id:dailySetId()});track('question_view',{question_id:q.id||slug(q.prompt),prompt:q.prompt,position:qi+1,question_count:Q.length,difficulty:q.difficulty||'unknown',answer_type:q.answer_type||'player',answer_count:q.answers.length,set_id:dailySetId()});let left=TIME*1000,t0,done=false;
+function ask(){document.body.classList.remove('results-view');document.body.classList.add('playing');const q=Q[qi];if(qi===0)track('game_start',{question_count:Q.length,set_id:dailySetId()});track('question_view',{question_id:q.id||slug(q.prompt),prompt:q.prompt,position:qi+1,question_count:Q.length,difficulty:q.difficulty||'unknown',answer_type:q.answer_type||'player',answer_count:q.answers.length,set_id:dailySetId()});let left=TIME*1000,t0,done=false;
  swap(`<div class="card"><div class="q-progress" aria-label="Question ${qi+1} of ${Q.length}"><span>Question</span><b>${qi+1} of ${Q.length}</b></div><div class="mute q-sub">${q.sub}</div><div class="prompt">${q.prompt}</div>${q.by?`<div class="byline">🦄 Community question by ${q.by}</div>`:''}
  <div class="timer" id="tm"><i id="bar"></i></div>
  <form id="f" autocomplete="off"><div class="answer-row"><input id="in" placeholder="${answerPlaceholder(q)}" aria-label="Your ${answerLabel(q)} answer"><button type="submit" class="cta submitbtn">Submit</button></div></form>
@@ -902,6 +905,7 @@ function reveal(ans){if(results[qi])return;const q=Q[qi];const pts=ans?ans.pts:0
 const n=nx;n.onclick=()=>{qi++;qi<Q.length?ask():end()}})}
 /* result screen social loop */
 function end(restored){
+ document.body.classList.add('results-view');
  document.body.classList.remove('playing');
  if(!restored)track('game_finish',{score,question_count:Q.length,correct:results.filter(r=>r.ans).length,missed:results.filter(r=>!r.ans).length,screamers:results.filter(r=>r.pts===100).length,tiers:results.map(r=>r.pts),set_id:dailySetId()});
  fillReport();
@@ -929,6 +933,7 @@ Can you beat me?`};
   <section class="result-progress"><div class="result-progress-top"><span>Unicorner progress</span><b>${score}<small>/${MAX}</small></b></div><div class="result-progress-bar"><i style="width:${Math.min(100,Math.round(score/MAX*100))}%"></i></div><p class="result-progress-goal">${nextZone?`${toNext} points from ${nextZone[1]}`:"Ballon d'Or reached"}</p><p class="result-progress-return">Return tomorrow to climb the ladder · next game in <b style="color:#fff">${untilMidnight()}</b></p></section>
   <div class="row result-home-row"><button class="ghost" id="home">Back to home</button></div>
  </div>`,()=>{
+  window.scrollTo({top:0,left:0,behavior:'auto'});
   setTimeout(()=>countUp(document.getElementById('fs'),score,2000),400);
   document.getElementById('share-result').onclick=async e=>{const share=shareText();track('share_click',{score,set_id:dailySetId(),native_share:!!navigator.share});const copyP=navigator.clipboard?.writeText?navigator.clipboard.writeText(share).then(()=>true).catch(()=>false):Promise.resolve(false);if(navigator.share){try{await navigator.share({title:'Unicorner',text:share});const copied=await copyP;e.target.textContent=copied?'Shared + copied':'Shared';return}catch(err){const copied=await copyP;if(err?.name==='AbortError'){e.target.textContent=copied?'Copied':'Share';return}e.target.textContent=copied?'Copied':'Share failed';return}}const copied=await copyP;e.target.textContent=copied?'Copied':'Copy failed'};
   document.getElementById('home').onclick=()=>{track('home_click',{from:'results',score,set_id:dailySetId()});window.scrollTo({top:0,behavior:'smooth'});start()};
