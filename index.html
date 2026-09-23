@@ -638,6 +638,26 @@ body.playing .brand-home{cursor:default}
  .result-screen .result-item-copy small{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
  .result-progress{padding:15px}.result-home-row .ghost{width:100%}
 }
+
+/* played result launch card */
+.played-result-card{position:relative;overflow:hidden;padding:18px!important;text-align:left!important;background:linear-gradient(145deg,#2a176f 0%,#181046 58%,#0d1739 100%)!important;border:3px solid #fff!important;border-radius:10px!important;box-shadow:0 0 0 3px #000,8px 8px 0 rgba(0,0,0,.35)!important}
+.played-result-card:before{content:'';position:absolute;left:0;right:0;top:0;height:5px;background:linear-gradient(90deg,#7fe0a8,#b48cff,#ff7ac8,#f2c230)}
+.played-result-kicker{margin:2px 0 12px;color:var(--gold);font-family:var(--lab);font-size:13px;font-weight:700;letter-spacing:.6px;text-transform:uppercase}
+.played-result-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,.85fr);gap:12px}
+.played-result-score,.played-result-streak{min-width:0;padding:14px;border:2px solid rgba(255,255,255,.2);border-radius:8px;background:rgba(5,8,28,.42)}
+.played-result-score>span,.played-result-streak>span{display:block;color:#d6ccff;font-family:var(--lab);font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+.played-result-score>b{display:block;margin-top:2px;color:#fff;font-family:var(--px);font-size:54px;line-height:.95;letter-spacing:.5px}
+.played-result-score>b small{margin-left:4px;color:#d6ccff;font-size:20px}
+.played-result-score>em{display:block;margin-top:8px;color:var(--gold);font-family:var(--lab);font-size:14px;font-style:normal;font-weight:700}
+.played-result-streak{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.played-result-streak>b{display:flex;align-items:center;gap:7px;margin-top:5px;color:#fff;font-family:var(--px);font-size:40px;line-height:1}
+.played-result-streak>b i{font-family:system-ui,sans-serif;font-size:27px;font-style:normal}
+.played-result-streak>small{margin-top:5px;color:#d6ccff;font-family:var(--lab);font-size:12px;text-transform:uppercase}
+.played-result-cta{width:100%;margin-top:13px!important;padding:13px 16px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:14px!important;background:var(--gold)!important;color:#16102f!important;border:2px solid #fff!important;box-shadow:0 3px 0 #000!important;text-align:left!important}
+.played-result-cta>span{font-family:var(--px);font-size:20px;line-height:1}
+.played-result-cta>small{font-family:var(--lab);font-size:12px;font-weight:700;text-transform:uppercase;white-space:nowrap}
+.played-result-next{margin-top:10px;color:#d6ccff;font-size:13px;text-align:center}.played-result-next b{color:#fff}
+@media (max-width:560px){.played-result-card{padding:15px!important}.played-result-grid{grid-template-columns:minmax(0,1fr) 108px;gap:9px}.played-result-score,.played-result-streak{padding:12px}.played-result-score>b{font-size:46px}.played-result-score>b small{font-size:17px}.played-result-streak>b{font-size:34px}.played-result-cta{display:block!important;text-align:center!important}.played-result-cta>small{display:block;margin-top:4px;white-space:normal}}
 </style></head><body>
 <div class="scene retro2" aria-hidden="true">
 <div class="sky"><i class="cloud c1"></i><i class="cloud c2"></i><i class="cloud c3"></i><i class="cloud c4"></i></div>
@@ -747,11 +767,6 @@ const currentStreak=()=>{try{let d=amsterdamDay(),n=0;while(localStorage.getItem
 const untilMidnight=()=>{const n=new Date(),m=new Date(n);m.setHours(24,0,0,0);const d=m-n,h=Math.floor(d/36e5),mi=Math.floor(d%36e5/6e4);return`${h}h ${mi}m`};
 function restore(p){const savedPicks=Array.isArray(p.picks)?p.picks:[],byPos=new Map();savedPicks.forEach(([i,name])=>{if(Number.isInteger(i)&&i>=0&&i<Q.length&&!byPos.has(i))byPos.set(i,name||null)});results=Q.map((q,i)=>{const name=byPos.get(i)||null,ans=name?q?.answers.find(a=>a.name===name)||null:null;return{q,ans,pts:ans?ans.pts:0}});score=results.reduce((n,r)=>n+r.pts,0);qi=Q.length;if(score!==p.score)setPlayed({...p,score,picks:results.map((r,i)=>[i,r.ans?.name||null,r.pts])})}
 
-function landingResultsMarkup(p){
- const picks=Array.isArray(p?.picks)?p.picks:[],byPos=new Map();
- picks.forEach(row=>{const i=Number(row?.[0]),name=row?.[1]||null;if(Number.isInteger(i)&&i>=0&&i<Q.length&&!byPos.has(i))byPos.set(i,name)});
- return Q.map((q,ri)=>{const savedName=byPos.get(ri)||null,ans=savedName?q.answers.find(a=>a.name===savedName)||null:null,pts=ans?ans.pts:0,all=[...q.answers].sort((a,b)=>b.pts-a.pts||a.name.localeCompare(b.name));return`<details class="res landing-res" style="--i:${ri}"><summary><span><b>${q.prompt}</b><br><span class="rtier" style="color:${ans?TCOL[pts]:'#ff8a7a'}">${ans?ans.name+' · '+(pts===100?'SCREAMER!!!':tierName(pts)):'Stinker'}</span></span><span class="plus">+${pts}</span></summary><p class="mute" style="margin:8px 0 0">${q.answers.length} answers</p><ul class="ans">${all.map(a=>`<li class="${a===ans?'you':''}" style="--tc:${TCOL[a.pts]}"><span class="an">${a.name}${a===ans?' ★':''}</span><span class="tchip">${tierName(a.pts)}</span></li>`).join('')}</ul></details>`}).join('');
-}
 function start(){document.body.classList.remove('playing');fillReport();document.body.classList.add('landing');const played=getPlayed();
  const today=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
  const COLS=['#cfd8e6','#7fe0a8','#b48cff','#ff7ac8','#f2c230'];
@@ -761,15 +776,15 @@ function start(){document.body.classList.remove('playing');fillReport();document
    <div class="pills"><span class="lp-date">Daily game · ${today}</span></div>
    <h1 class="lp-title">How deep is your <span class="uni-word">ball knowledge</span>?</h1>
    <p class="lp-sub">Find the answer nobody else thinks of.</p>
-   ${played?`<details class="played-box played-results-box">
-    <summary class="played-results-summary">
-      <div class="mute">You've played today</div>
-      <div class="played-home-stats"><div class="played-home-stat"><span>Score</span><b>${played.score}<small>/${MAX}</small></b></div><div class="played-home-stat"><span>Streak</span><b>🔥 ${currentStreak()}<small>day${currentStreak()===1?'':'s'}</small></b></div></div>
-      <div class="mute">${zoneOf(played.score)} · next game in <b style="color:var(--ink)">${untilMidnight()}</b></div>
-      <div class="played-results-toggle"><span>Today's results</span><span class="played-results-arrow" aria-hidden="true">⌄</span></div>
-    </summary>
-    <div class="played-results-body"><button type="button" class="ghost played-results-home">← Back to home</button><p class="mute played-results-hint">Tap a question to see every answer</p>${landingResultsMarkup(played)}</div>
-   </details>
+   ${played?`<div class="played-box played-result-card">
+    <div class="played-result-kicker">Today's final whistle</div>
+    <div class="played-result-grid">
+      <div class="played-result-score"><span>Score</span><b>${played.score}<small>/${MAX}</small></b><em>${zoneOf(played.score)}</em></div>
+      <div class="played-result-streak"><span>Streak</span><b><i>🔥</i>${currentStreak()}</b><small>day${currentStreak()===1?'':'s'}</small></div>
+    </div>
+    <button type="button" class="cta played-result-cta" id="go"><span>View today's result</span><small>Score, rank & answers →</small></button>
+    <div class="played-result-next">Next daily game in <b>${untilMidnight()}</b></div>
+   </div>
    <p class="inf-pitch">Want more? Play as many rounds as you like, whenever you like.</p>
    <div class="row"><button class="cta" data-infinite>∞ Unlock Infinite mode</button></div>`
    :`<div class="row"><button id="go" class="cta">Play today's game</button><button class="ghost" id="how">How it works</button></div>
@@ -809,7 +824,6 @@ function start(){document.body.classList.remove('playing');fillReport();document
  </section>
  </div>`,()=>{const play=()=>{document.body.classList.remove('landing');if(played){restore(played);setMeter();end(true)}else ask()};
   const go=document.getElementById('go');if(go)go.onclick=play;const g2=document.getElementById('go2');if(g2)g2.onclick=play;
-  const backHome=document.querySelector('.played-results-home');if(backHome)backHome.onclick=e=>{e.preventDefault();e.stopPropagation();const box=backHome.closest('.played-results-box');if(box)box.open=false;window.scrollTo({top:0,behavior:'smooth'})};
   const hw=document.getElementById('how');if(hw)hw.onclick=()=>document.getElementById('steps').scrollIntoView({behavior:'smooth',block:'start'});})}
 function ask(){document.body.classList.add('playing');const q=Q[qi];if(qi===0)track('game_start',{question_count:Q.length,set_id:dailySetId()});track('question_view',{question_id:q.id||slug(q.prompt),prompt:q.prompt,position:qi+1,question_count:Q.length,difficulty:q.difficulty||'unknown',answer_type:q.answer_type||'player',answer_count:q.answers.length,set_id:dailySetId()});let left=TIME*1000,t0,done=false;
  swap(`<div class="card"><div class="q-progress" aria-label="Question ${qi+1} of ${Q.length}"><span>Question</span><b>${qi+1} of ${Q.length}</b></div><div class="mute q-sub">${q.sub}</div><div class="prompt">${q.prompt}</div>${q.by?`<div class="byline">🦄 Community question by ${q.by}</div>`:''}
