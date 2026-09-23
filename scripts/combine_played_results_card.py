@@ -24,6 +24,17 @@ if css_marker not in s:
         raise SystemExit('Could not find closing style tag')
     s = s.replace('</style>', css + '</style>', 1)
 
+back_css_marker = '/* played results back home */'
+if back_css_marker not in s:
+    css = '''
+/* played results back home */
+.played-results-home{margin:14px 0 2px!important;display:inline-flex!important;align-items:center!important;gap:7px!important}
+@media (max-width:640px){.played-results-home{width:100%;justify-content:center}}
+'''
+    if '</style>' not in s:
+        raise SystemExit('Could not find closing style tag for back-home control')
+    s = s.replace('</style>', css + '</style>', 1)
+
 helper_marker = 'function landingResultsMarkup(p)'
 if helper_marker not in s:
     helper = '''
@@ -47,7 +58,7 @@ if 'class="played-box played-results-box"' not in s:
       <div class="mute">${zoneOf(played.score)} · next game in <b style="color:var(--ink)">${untilMidnight()}</b></div>
       <div class="played-results-toggle"><span>Today's results</span><span class="played-results-arrow" aria-hidden="true">⌄</span></div>
     </summary>
-    <div class="played-results-body"><p class="mute played-results-hint">Tap a question to see every answer</p>${landingResultsMarkup(played)}</div>
+    <div class="played-results-body"><button type="button" class="ghost played-results-home">← Back to home</button><p class="mute played-results-hint">Tap a question to see every answer</p>${landingResultsMarkup(played)}</div>
    </details>
    <p class="inf-pitch">Want more? Play as many rounds as you like, whenever you like.</p>
    <div class="row"><button class="cta" data-infinite>∞ Unlock Infinite mode</button></div>`
@@ -56,6 +67,13 @@ if 'class="played-box played-results-box"' not in s:
     if count != 1:
         raise SystemExit('Could not replace played landing summary/results button')
 
+if 'class="ghost played-results-home"' not in s:
+    old_body = '<div class="played-results-body"><p class="mute played-results-hint">Tap a question to see every answer</p>'
+    new_body = '<div class="played-results-body"><button type="button" class="ghost played-results-home">← Back to home</button><p class="mute played-results-hint">Tap a question to see every answer</p>'
+    if old_body not in s:
+        raise SystemExit('Could not add Back to home to expanded results')
+    s = s.replace(old_body, new_body, 1)
+
 old_handler = "  document.getElementById('go').onclick=play;const g2=document.getElementById('go2');if(g2)g2.onclick=play;"
 new_handler = "  const go=document.getElementById('go');if(go)go.onclick=play;const g2=document.getElementById('go2');if(g2)g2.onclick=play;"
 if old_handler in s:
@@ -63,8 +81,15 @@ if old_handler in s:
 elif new_handler not in s:
     raise SystemExit('Could not make landing play button handler optional')
 
+back_handler_marker = "const backHome=document.querySelector('.played-results-home');"
+if back_handler_marker not in s:
+    handler = new_handler + "\n  const backHome=document.querySelector('.played-results-home');if(backHome)backHome.onclick=e=>{e.preventDefault();e.stopPropagation();const box=backHome.closest('.played-results-box');if(box)box.open=false;window.scrollTo({top:0,behavior:'smooth'})};"
+    if new_handler not in s:
+        raise SystemExit('Could not attach Back to home behavior')
+    s = s.replace(new_handler, handler, 1)
+
 if "See today's results" in s:
     raise SystemExit('Separate played results button still remains')
 
 p.write_text(s, encoding='utf-8')
-print('Played summary and results combined into one expandable landing card')
+print('Played results card includes a top Back to home control')
