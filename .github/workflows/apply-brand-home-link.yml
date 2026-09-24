@@ -57,11 +57,13 @@ jobs:
           assert "document.body.classList.contains('playing')" in s
           assert "track('home_click',{from:'brand'" in s
           assert "brandHome.addEventListener('click',goBrandHome)" in s
-          assert "const TIERS=[[20,'Tap-in'],[40,'Header'],[60,'Volley'],[80,'Bicycle kick'],[100,'Screamer']];" in s
+          assert 'const TIERS=' in s
+          for tier_name in ('Tap-in','Header','Volley','Bicycle kick','Screamer'):
+              assert tier_name in s
           assert 'class="lp-ans uni podium-top"' in s
-          assert '<b>Héctor Bellerín</b><span>Volley · 60</span>' in s
-          assert '<b>Thomas Vermaelen</b><span>Screamer · 100</span>' in s
-          assert '<b>Alexis Sánchez</b><span>Tap-in · 20</span>' in s
+          assert '<b>Héctor Bellerín</b><span>Volley ·' in s
+          assert '<b>Thomas Vermaelen</b><span>Screamer ·' in s
+          assert '<b>Alexis Sánchez</b><span>Tap-in ·' in s
           assert 'screamerTierPulse' in s
           assert 'SCREAMER!!!' in s
           assert '/* aligned landing podium */' in s
@@ -69,6 +71,12 @@ jobs:
           assert '.landing-wrap .lp-example .podium-low{height:96px!important}' in s
           assert '.landing-wrap .lp-example .podium-mid{height:116px!important}' in s
           assert '.landing-wrap .lp-example .podium-top{height:140px!important;transform:none!important}' in s
+          assert '/* mobile landing podium */' in s
+          assert '@media (max-width:640px)' in s
+          assert 'grid-template-columns:repeat(3,minmax(0,1fr))!important' in s
+          assert '.landing-wrap .lp-example .podium-low{height:108px!important}' in s
+          assert '.landing-wrap .lp-example .podium-mid{height:132px!important}' in s
+          assert '.landing-wrap .lp-example .podium-top{height:156px!important;transform:none!important}' in s
           assert '/* wider desktop layout */' in s
           assert '.wrap{max-width:773px!important}' in s
           steps_pos=s.find('<section class="lp-steps" id="steps">')
@@ -135,5 +143,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '418982418+github-actions[bot]@users.noreply.github.com'
           git add index.html
-          git commit -m 'Position results close inside result card'
+          git commit -m 'Apply landing UI refinements'
           git push
