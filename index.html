@@ -613,6 +613,7 @@ body.playing .brand-home{cursor:default}
 /* social-first result screen */
 .result-screen .result-share-row{margin:14px 0 24px}
 .result-screen .result-share-row .cta{width:100%;justify-content:center;font-size:20px;padding:14px 18px}
+.result-screen .result-share-row .ghost{display:block;width:auto;min-width:150px;margin:10px auto 0;justify-content:center;font-size:15px;padding:9px 20px}
 .result-screen .result-share-note{text-align:center;margin:7px 0 0;font-size:13px}
 .result-section{margin-top:22px}
 .result-section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:10px}
@@ -1064,7 +1065,7 @@ www.unicornergame.lol`};
   <div class="hero"><div class="sprite big-sprite bob" data-mood="${results.some(r=>r.pts===100)?'scream':score/MAX>=.44?'wow':score/MAX>=.15?'happy':'sad'}"></div><div><div class="mute">Final whistle</div><div class="tier" id="fs">0</div></div></div>
   <div class="pts">You reached: ${zoneOf(score)}</div>
   <div class="dist" id="dist"><div class="mute">Comparing with today's players…</div></div>
-  <div class="result-share-row"><button class="cta" id="share-result">Share result</button><p class="mute result-share-note">Challenge a mate while the result is fresh.</p></div>
+  <div class="result-share-row"><button class="cta" id="copy-result">Copy result</button><button type="button" class="ghost" id="share-result">Share</button><p class="mute result-share-note">Challenge a mate while the result is fresh.</p></div>
   ${hits.length?`<section class="result-section"><div class="result-section-head"><h2>Your match highlights</h2><p class="mute">Best answers first</p></div><div class="result-list">${hits.map(r=>resultItem(r,false)).join('')}</div></section>`:''}
   ${misses.length?`<div class="result-nearly"><section class="result-section"><div class="result-section-head"><h2>Nearly had it</h2><p class="mute">${misses.length===1?'1 answer':misses.length+' answers'} to learn for tomorrow</p></div><div class="result-list">${misses.map(r=>resultItem(r,true)).join('')}</div></section></div>`:''}
   <section class="lp-final lp-final-played" data-home-infinite><h2 class="lp-h2">Can't wait until tomorrow?</h2><button type="button" class="cta lp-infinite-cta" data-infinite>∞ Try Infinity mode</button></section>
@@ -1072,7 +1073,9 @@ www.unicornergame.lol`};
  </div>`,()=>{
   window.scrollTo({top:0,left:0,behavior:'auto'});
   setTimeout(()=>countUp(document.getElementById('fs'),score,2000),400);
-  document.getElementById('share-result').onclick=async e=>{const share=shareText();track('share_click',{score,set_id:dailySetId(),native_share:!!navigator.share});const copyP=navigator.clipboard?.writeText?navigator.clipboard.writeText(share).then(()=>true).catch(()=>false):Promise.resolve(false);if(navigator.share){try{await navigator.share({title:'Unicorner',text:share});const copied=await copyP;if(copied)showToast('Copied to clipboard!');e.target.textContent=copied?'Shared + copied':'Shared';return}catch(err){const copied=await copyP;if(copied)showToast('Copied to clipboard!');if(err?.name==='AbortError'){e.target.textContent=copied?'Copied':'Share';return}e.target.textContent=copied?'Copied':'Share failed';return}}const copied=await copyP;if(copied)showToast('Copied to clipboard!');e.target.textContent=copied?'Copied':'Copy failed'};
+  document.getElementById('copy-result').onclick=async e=>{const share=shareText();track('copy_click',{score,set_id:dailySetId()});const copied=navigator.clipboard?.writeText?await navigator.clipboard.writeText(share).then(()=>true).catch(()=>false):false;if(copied)showToast('Copied to clipboard!');e.target.textContent=copied?'Copied!':'Copy failed'};
+  const shareBtn=document.getElementById('share-result');
+  if(navigator.share){shareBtn.onclick=async e=>{const share=shareText();track('share_click',{score,set_id:dailySetId()});try{await navigator.share({title:'Unicorner',text:share})}catch{}}}else{shareBtn.remove()}
   document.getElementById('home').onclick=()=>{track('home_click',{from:'results',score,set_id:dailySetId()});window.scrollTo({top:0,behavior:'smooth'});start()};
  })}
 
