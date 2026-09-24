@@ -1055,6 +1055,7 @@ www.unicornergame.lol`};
   ${hits.length?`<section class="result-section"><div class="result-section-head"><h2>Your match highlights</h2><p class="mute">Best answers first</p></div><div class="result-list">${hits.map(r=>resultItem(r,false)).join('')}</div></section>`:''}
   ${misses.length?`<div class="result-nearly"><section class="result-section"><div class="result-section-head"><h2>Nearly had it</h2><p class="mute">${misses.length===1?'1 answer':misses.length+' answers'} to learn for tomorrow</p></div><div class="result-list">${misses.map(r=>resultItem(r,true)).join('')}</div></section></div>`:''}
   <section class="result-progress"><div class="result-progress-top"><span>Unicorner progress</span><b>${score}<small>/${MAX}</small></b></div><div class="result-progress-bar"><i style="width:${Math.min(100,Math.round(score/MAX*100))}%"></i></div><p class="result-progress-goal">${nextZone?`${toNext} points from ${nextZone[1]}`:"Ballon d'Or reached"}</p><p class="result-progress-return">Return tomorrow to climb the ladder · next game in <b style="color:#fff">${untilMidnight()}</b></p></section>
+  <section class="lp-final lp-final-played" data-home-infinite><h2 class="lp-h2">Can't wait until tomorrow?</h2><button type="button" class="cta lp-infinite-cta" data-infinite>∞ Try Infinite mode</button></section>
   <div class="row result-home-row"><button class="ghost" id="home">Back to home</button></div>
  </div>`,()=>{
   window.scrollTo({top:0,left:0,behavior:'auto'});
