@@ -819,8 +819,8 @@ body.playing .quick-home-x{display:none!important}
 <div class="wrap"><header class="topbar"><div class="brand-home" id="brand-home" role="button" tabindex="0" aria-label="Go to home"><div class="sprite" data-mood="happy"></div><b>Unicorner</b></div><span class="tag">Beta</span></header><div class="meter" aria-label="Your progress"><div class="rail"><div class="fill" id="fill"></div><div id="zones"></div><div class="sprite runner" id="runner" data-mood="happy"></div></div></div><main id="screen"></main><div class="toast" id="toast" role="status" aria-live="polite"></div><footer class="site"><button data-open="dlg-submit">Submit a question</button><button data-open="dlg-report">Problem with a question</button><button data-open="dlg-contact">Contact</button><a class="coffee-link" href="https://buymeacoffee.com/unicorner" target="_blank" rel="noopener">☕ Buy me a coffee</a><a class="privacy-link" href="privacy.html">Privacy</a></footer></div>
 
 
-<dialog id="dlg-infinite"><form data-kind="infinite-waitlist"><button type="button" class="infinite-close-x" id="infinite-close-x" aria-label="Close Infinite Mode" title="Close">×</button><span class="badge-feature">🔥 Coming soon</span>
-<div class="inf-head"><div class="sprite inf-sprite bob" data-mood="wow"></div><div><h2>∞ Infinite mode</h2></div></div>
+<dialog id="dlg-infinite"><form data-kind="infinite-waitlist"><button type="button" class="infinite-close-x" id="infinite-close-x" aria-label="Close Infinity Mode" title="Close">×</button><span class="badge-feature">🔥 Coming soon</span>
+<div class="inf-head"><div class="sprite inf-sprite bob" data-mood="wow"></div><div><h2>∞ Infinity mode</h2></div></div>
 <p class="inf-hype">Can't wait? Be first in line when it drops.</p>
 <ul class="inf-list"><li>Infinite questions — never run out, play whenever you like</li><li>Pick your own category: club, league, or era packs</li><li>Every past daily game in the archive</li><li>Your full stats and Screamer collection</li></ul>
 <p class="mute">We're building it now — drop your email and we'll ping you the second it's live.</p>
@@ -949,7 +949,7 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
 
  ${played?`<section class="lp-final lp-final-played" data-home-infinite>
   <h2 class="lp-h2">Can't wait until tomorrow?</h2>
-  <button class="cta lp-infinite-cta" data-infinite>∞ Try Infinite mode</button>
+  <button class="cta lp-infinite-cta" data-infinite>∞ Try Infinity mode</button>
  </section>`:''}
 
  <section class="lp-steps" id="steps">
@@ -1055,7 +1055,7 @@ www.unicornergame.lol`};
   <div class="result-share-row"><button class="cta" id="share-result">Share result</button><p class="mute result-share-note">Challenge a mate while the result is fresh.</p></div>
   ${hits.length?`<section class="result-section"><div class="result-section-head"><h2>Your match highlights</h2><p class="mute">Best answers first</p></div><div class="result-list">${hits.map(r=>resultItem(r,false)).join('')}</div></section>`:''}
   ${misses.length?`<div class="result-nearly"><section class="result-section"><div class="result-section-head"><h2>Nearly had it</h2><p class="mute">${misses.length===1?'1 answer':misses.length+' answers'} to learn for tomorrow</p></div><div class="result-list">${misses.map(r=>resultItem(r,true)).join('')}</div></section></div>`:''}
-  <section class="lp-final lp-final-played" data-home-infinite><h2 class="lp-h2">Can't wait until tomorrow?</h2><button type="button" class="cta lp-infinite-cta" data-infinite>∞ Try Infinite mode</button></section>
+  <section class="lp-final lp-final-played" data-home-infinite><h2 class="lp-h2">Can't wait until tomorrow?</h2><button type="button" class="cta lp-infinite-cta" data-infinite>∞ Try Infinity mode</button></section>
   <div class="row result-home-row"><button class="ghost" id="home">Back to home</button></div>
  </div>`,()=>{
   window.scrollTo({top:0,left:0,behavior:'auto'});
@@ -1092,7 +1092,7 @@ document.addEventListener('click',e=>{const inf=e.target.closest('[data-infinite
 document.querySelectorAll('dialog form').forEach(f=>f.addEventListener('submit',async e=>{e.preventDefault();track('form_submit',{kind:f.dataset.kind});const msg=f.querySelector('.formmsg'),btn=f.querySelector('[type=submit]');
  const data=Object.fromEntries(new FormData(f));if(data._honey){f.closest('dialog').close();return}delete data._honey;data.newsletter=!!f.elements.newsletter?.checked;data.privacyNoticeVersion='2026-09-18';if(data.newsletter)data.newsletterConsentAt=new Date().toISOString();if(f.dataset.kind==='report'){const qIndex=+data.question,q=Q[qIndex];data.question=q?.prompt||'earlier question';data.questionId=q?.id||q?._id||null;data.score=Number.isFinite(score)?score:null;}
  btn.disabled=true;msg.className='formmsg';msg.textContent='Sending…';
- try{const kind=f.dataset.kind;const labels={contact:'Contact message',report:'Problem with a question',question:'Question submission','infinite-waitlist':'Infinite mode waitlist'};
+ try{const kind=f.dataset.kind;const labels={contact:'Contact message',report:'Problem with a question',question:'Question submission','infinite-waitlist':'Infinity mode waitlist'};
  const mail=fetch('https://formsubmit.co/ajax/joseasalasnl@gmail.com',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({_subject:'Unicorner: '+(labels[kind]||kind),_template:'table',_captcha:'false',...(data.email?{_replyto:data.email}:{}),type:labels[kind]||kind,...Object.fromEntries(Object.entries(data).map(([k,v])=>[k,String(v)])),sent:new Date().toLocaleString('en-GB')})}).then(r=>r.ok).catch(()=>false);
  const db=await dbP;const saved=db?db.collection('submissions').add({kind,...data,sentAt:new Date().toISOString()}).then(()=>true).catch(()=>false):Promise.resolve(false);
  const [m,sv]=await Promise.all([mail,saved]);if(!m&&!sv)throw new Error('Could not reach the server');
@@ -1187,7 +1187,7 @@ function applyBank(){
 }
 
 // ---- admin
-const adminHTML=`<dialog id="dlg-admin" class="admin"><div class="admin-in"><div class="row" style="justify-content:space-between;margin:0"><h2>Admin</h2><button class="ghost" data-close>Close</button></div><div class="row" style="margin:6px 0 14px"><button id="tab-bank" class="tabbtn on">Question bank</button><button id="tab-inbox" class="tabbtn">Inbox</button><button id="tab-stats" class="tabbtn">Stats</button></div><div id="inbox-pane" hidden><div class="row" style="margin:0 0 10px"><select id="inbox-filter" style="width:auto"><option value="">All messages</option><option value="contact">Contact</option><option value="report">Problem reports</option><option value="question">Question submissions</option><option value="infinite-waitlist">Infinite waitlist</option></select><button class="ghost" id="inbox-refresh">Refresh</button><span class="mute" id="inbox-stats"></span></div><div id="inbox-list"></div></div><div id="stats-pane" hidden><div class="row" style="margin:0 0 10px"><select id="stats-range" style="width:auto"><option value="7">Last 7 days</option><option value="30">Last 30 days</option><option value="1">Today</option></select><button class="ghost" id="stats-refresh">Refresh</button></div><div id="stats-body"></div></div><div id="bank-pane">
+const adminHTML=`<dialog id="dlg-admin" class="admin"><div class="admin-in"><div class="row" style="justify-content:space-between;margin:0"><h2>Admin</h2><button class="ghost" data-close>Close</button></div><div class="row" style="margin:6px 0 14px"><button id="tab-bank" class="tabbtn on">Question bank</button><button id="tab-inbox" class="tabbtn">Inbox</button><button id="tab-stats" class="tabbtn">Stats</button></div><div id="inbox-pane" hidden><div class="row" style="margin:0 0 10px"><select id="inbox-filter" style="width:auto"><option value="">All messages</option><option value="contact">Contact</option><option value="report">Problem reports</option><option value="question">Question submissions</option><option value="infinite-waitlist">Infinity waitlist</option></select><button class="ghost" id="inbox-refresh">Refresh</button><span class="mute" id="inbox-stats"></span></div><div id="inbox-list"></div></div><div id="stats-pane" hidden><div class="row" style="margin:0 0 10px"><select id="stats-range" style="width:auto"><option value="7">Last 7 days</option><option value="30">Last 30 days</option><option value="1">Today</option></select><button class="ghost" id="stats-refresh">Refresh</button></div><div id="stats-body"></div></div><div id="bank-pane">
 <p class="mute" id="adm-stats"></p>
 <details open><summary><b>Import a batch</b></summary><p class="mute">Paste the JSON from ChatGPT. New questions arrive unapproved. Re-importing a question keeps its approval.</p>
 <textarea id="adm-json" placeholder='{"questions":[...]}'></textarea><div class="row"><button id="adm-import">Import</button><span class="formmsg" id="adm-msg"></span></div></details>
@@ -1268,7 +1268,7 @@ async function loadStats(){const el=document.getElementById('stats-body');el.inn
   el.innerHTML=`<div class="statgrid">
    ${[['Visits',cnt('view')],['Sessions',S.length],['New visitors',newVisitors],['Returning visitors',returningVisitors],
       ['Day-1 retention',d1],['Avg days played / visitor',activeVisitors.length?averageDays.toFixed(1):'—'],
-      ['Games started',started],['Games finished',finished],['Finish rate',started?Math.round(finished/started*100)+'%':'—'],['Infinite clicks',cnt('infinite_click')],
+      ['Games started',started],['Games finished',finished],['Finish rate',started?Math.round(finished/started*100)+'%':'—'],['Infinity clicks',cnt('infinite_click')],
       ['Median time on site',fmt(med)],['Average time',fmt(avg)],['Bounced',bounce+'%'],
       ['Average score',scores.length?Math.round(scores.reduce((a,b)=>a+b,0)/scores.length):'—'],['Messages sent',cnt('form_submit')]]
      .map(([k,v])=>`<div class="stat"><b>${v}</b><span>${k}</span></div>`).join('')}</div>
@@ -1287,8 +1287,8 @@ async function loadInbox(){const el=document.getElementById('inbox-list'),st=doc
  try{const rows=await sb('/rest/v1/submissions?select=id,kind,payload,created_at&order=created_at.desc&limit=500');
   const f=document.getElementById('inbox-filter').value;const clicks=rows.filter(r=>r.kind==='infinite-click').length;
   const list=rows.filter(r=>r.kind!=='infinite-click'&&(!f||r.kind===f));
-  st.textContent=`${rows.length-clicks} messages · ${clicks} Infinite mode clicks`;
-  const label={contact:'Contact',report:'Problem report',question:'Question submission','infinite-waitlist':'Infinite waitlist'};
+  st.textContent=`${rows.length-clicks} messages · ${clicks} Infinity mode clicks`;
+  const label={contact:'Contact',report:'Problem report',question:'Question submission','infinite-waitlist':'Infinity waitlist'};
   el.innerHTML=list.map(r=>{const p=r.payload||{};const when=new Date(r.created_at).toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
    const fields=Object.entries(p).filter(([k,v])=>!['sentAt','newsletter'].includes(k)&&v!=='').map(([k,v])=>`<div><b>${esc(k)}:</b> ${esc(v)}</div>`).join('');
    return `<div class="msg-card"><div class="row" style="margin:0 0 6px;justify-content:space-between"><span class="kindtag k-${esc(r.kind)}">${esc(label[r.kind]||r.kind)}</span><span class="mute">${when}${p.newsletter?' · wants news':''}</span></div>${fields}${p.email?`<div class="row" style="margin-top:8px"><a class="linkish" href="mailto:${esc(p.email)}?subject=Unicorner">Reply by email</a></div>`:''}</div>`}).join('')||'<p class="mute">Nothing here yet.</p>'}
