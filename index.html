@@ -1,6 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Unicorner · How deep is your ball knowledge?</title><meta name="description" content="The daily football trivia game where the obvious answer scores least. Find the answer nobody else thinks of."><link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦄</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Barlow:wght@400;500;600&family=Jersey+10&family=Pixelify+Sans:wght@400;500;700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Barlow:wght@400;500;600;700&family=Jersey+10&family=Pixelify+Sans:wght@400;500;700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0f3d2a;--bg2:#12472f;--ink:#f3f7f1;--mute:#a9c5b4;--line:rgba(255,255,255,.18);--chalk:#ffffff;--gold:#f2c230;--bad:#ff8a7a;--panel:rgba(0,0,0,.22)}
 @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#1a5a3d;--bg2:#1e6444}}
@@ -337,7 +337,7 @@ input:focus-visible{border-color:var(--gold)!important}
 /* pixel speech bubbles */
 .scream-bubble{font-family:var(--px)!important;border:3px solid #000;border-radius:0}
 /* clipboard copy toast */
-.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,12px);z-index:999;background:#000;color:#fff;border:3px solid #fff;border-radius:0;padding:10px 18px;font-family:var(--px);font-weight:700;letter-spacing:.3px;font-size:15px;box-shadow:0 4px 0 rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,12px);z-index:999;background:#000;color:#fff;border:3px solid #fff;border-radius:0;padding:10px 18px;font-family:var(--lab);font-weight:700;letter-spacing:.3px;font-size:15px;box-shadow:0 4px 0 rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 /* end screen */
 details.res{border-bottom:2px dashed rgba(255,255,255,.3)}
@@ -477,7 +477,7 @@ dialog.admin textarea{font-family:ui-monospace,Menlo,Consolas,monospace!importan
 .skipbtn:hover{color:#fff!important;transform:none!important}
 @media (max-width:560px){.answer-row{flex-direction:column}.submitbtn{width:100%}}
 /* small text readability */
-:root{--lab:"Jersey 10","Silkscreen",system-ui,sans-serif}
+:root{--lab:"Barlow","Barlow Condensed",system-ui,sans-serif}
 .mute,.lp-meta,.hint,.lp-label,.tag,.lp-date,.gpts span,.meter .zone span,.lp-ans i,.lp-ans span,.tier-chip span,footer.site button,.promo,.ghead span,.kindtag{font-size:16px!important}
 .lp-label,.tag,.lp-date{letter-spacing:.5px}
 .gpts span{font-size:15px!important}
@@ -807,7 +807,7 @@ body.playing .quick-home-x{display:none!important}
 }
 
 /* infinite mode CTA hype line */
-.inf-hype{font-family:var(--px);font-weight:700;color:var(--gold);margin:2px 0 12px;font-size:16px}
+.inf-hype{font-family:var(--lab);font-weight:700;color:var(--gold);margin:2px 0 12px;font-size:16px}
 
 /* gap above results-screen infinite CTA */
 .result-screen .lp-final-played[data-home-infinite]{margin-top:24px!important}
