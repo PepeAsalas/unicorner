@@ -1,0 +1,56 @@
+name: Apply mobile landing podium
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/apply-mobile-podium.yml'
+      - 'scripts/refine_landing_podium.py'
+
+permissions:
+  contents: write
+
+jobs:
+  apply-mobile-podium:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Apply mobile-only podium
+        run: python scripts/refine_landing_podium.py
+      - name: Validate mobile-only podium rules
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('index.html').read_text(encoding='utf-8')
+          assert '/* aligned landing podium */' in s
+          assert '@media (min-width:641px)' in s
+          assert '.landing-wrap .lp-example .podium-low{height:96px!important}' in s
+          assert '.landing-wrap .lp-example .podium-mid{height:116px!important}' in s
+          assert '.landing-wrap .lp-example .podium-top{height:140px!important;transform:none!important}' in s
+          assert '/* mobile landing podium */' in s
+          mobile=s.split('/* mobile landing podium */',1)[1].split('</style>',1)[0]
+          assert '@media (max-width:640px)' in mobile
+          assert 'grid-template-columns:repeat(3,minmax(0,1fr))!important' in mobile
+          assert '.landing-wrap .lp-example .podium-low{height:108px!important}' in mobile
+          assert '.landing-wrap .lp-example .podium-mid{height:132px!important}' in mobile
+          assert '.landing-wrap .lp-example .podium-top{height:156px!important;transform:none!important}' in mobile
+          scripts=list(re.finditer(r'<script([^>]*)>(.*?)</script>',s,re.S|re.I))
+          js='\n;\n'.join(m.group(2) for m in scripts if 'application/json' not in m.group(1))
+          Path('/tmp/unicorner.js').write_text(js,encoding='utf-8')
+          PY
+          node --check /tmp/unicorner.js
+      - name: Commit mobile podium
+        run: |
+          if git diff --quiet -- index.html; then
+            echo 'No index change needed'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '418982418+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'Make landing podium stepped on mobile'
+          git push
