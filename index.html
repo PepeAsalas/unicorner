@@ -235,7 +235,7 @@ dialog.admin{width:min(860px,calc(100vw - 20px));max-height:90vh}
 .dist-svg{width:100%;height:auto;display:block;margin-top:4px;overflow:visible}.dist .mute{font-size:13px}
 .dist-ax{font:500 12px Barlow,sans-serif;fill:rgba(255,255,255,.45)}
 .dist-lab{font:700 13px Barlow,sans-serif;fill:#1b1530}
-.dist-you{animation:youin .6s 1.2s both}@keyframes youin{from{opacity:0}to{opacity:1}}
+.dist-you{transform-box:fill-box;transform-origin:50% 50%;animation:youin .35s cubic-bezier(.34,1.56,.64,1) both}.dist-you-ln{transform-box:fill-box;transform-origin:50% 100%;animation:distln .4s cubic-bezier(.2,0,.1,1) both}@keyframes youin{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}@keyframes distln{from{transform:scaleY(0)}to{transform:scaleY(1)}}
 @media (prefers-reduced-motion:reduce){.quake,.screaming{animation:none!important}}
 
 .scream-bubble.stink{background:#9fd36b;color:#1b1530;top:62px;right:96px;font-size:22px}.scream-bubble.stink::after{border-left-color:#9fd36b}
@@ -267,7 +267,7 @@ dialog.admin{width:min(860px,calc(100vw - 20px));max-height:90vh}
 .dist-svg{width:100%;height:auto;display:block;margin-top:4px;overflow:visible}.dist .mute{font-size:13px}
 .dist-ax{font:500 12px Barlow,sans-serif;fill:rgba(255,255,255,.45)}
 .dist-lab{font:700 13px Barlow,sans-serif;fill:#1b1530}
-.dist-you{animation:youin .6s 1.2s both}@keyframes youin{from{opacity:0}to{opacity:1}}
+.dist-you{transform-box:fill-box;transform-origin:50% 50%;animation:youin .35s cubic-bezier(.34,1.56,.64,1) both}.dist-you-ln{transform-box:fill-box;transform-origin:50% 100%;animation:distln .4s cubic-bezier(.2,0,.1,1) both}@keyframes youin{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}@keyframes distln{from{transform:scaleY(0)}to{transform:scaleY(1)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 /* ===== 90s FOOTBALL GAME THEME ===== */
@@ -1145,8 +1145,8 @@ async function renderDist(mine){const el=document.getElementById('dist');if(!el)
   <g clip-path="url(#dclip)"><path d="${areaYou}" fill="#ffd23f" opacity=".22"/><path d="${line}" fill="none" stroke="#ffd23f" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/></g>
   <line x1="${X(0)}" x2="${X(MAX)}" y1="${H-28}" y2="${H-28}" stroke="rgba(255,255,255,.2)"/>
   ${[0,.25,.5,.75,1].map(f=>`<text x="${X(f*MAX)}" y="${H-10}" text-anchor="middle" class="dist-ax">${Math.round(f*MAX)}</text>`).join('')}
-  <line x1="${X(mine)}" x2="${X(mine)}" y1="${H-28}" y2="${H-28}" stroke="#fff" stroke-width="2"><animate attributeName="y1" from="${H-28}" to="${yy}" begin="${revealAt}s" dur=".4s" fill="freeze" calcMode="spline" keySplines=".2 0 .1 1" keyTimes="0;1"/></line>
-  <circle class="dist-you" cx="${X(mine)}" cy="${yy}" r="0" fill="#ff7ac8" stroke="#000" stroke-width="2"><animate attributeName="r" from="0" to="7" begin="${(+revealAt+.15).toFixed(2)}s" dur=".35s" fill="freeze" calcMode="spline" keySplines=".34 1.56 .64 1" keyTimes="0;1"/></circle>
+  <line x1="${X(mine)}" x2="${X(mine)}" y1="${yy}" y2="${H-28}" stroke="#fff" stroke-width="2" class="dist-you-ln" style="animation-delay:${revealAt}s"/>
+  <circle class="dist-you" cx="${X(mine)}" cy="${yy}" r="7" fill="#ff7ac8" stroke="#000" stroke-width="2" style="animation-delay:${(+revealAt+.15).toFixed(2)}s"/>
  </svg>`;
  const pn=document.getElementById('pctn');if(pn)countUp(pn,pct,1400)}
 
