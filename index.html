@@ -1260,6 +1260,8 @@ async function loadStats(){const el=document.getElementById('stats-body');el.inn
 
   const byDay={};for(const r of rows){if(r.name!=='view')continue;const d=r.game_day||r.created_at.slice(0,10);byDay[d]=(byDay[d]||0)+1}
   const dayRows=Object.entries(byDay).sort().slice(-14);const mx=Math.max(1,...dayRows.map(d=>d[1]));
+  const byDayFinish={};for(const r of rows){if(r.name!=='game_finish')continue;const d=r.game_day||r.created_at.slice(0,10);byDayFinish[d]=(byDayFinish[d]||0)+1}
+  const finishDayRows=Object.entries(byDayFinish).sort().slice(-14);const finishMx=Math.max(1,...finishDayRows.map(d=>d[1]));
   el.innerHTML=`<div class="statgrid">
    ${[['Visits',cnt('view')],['Sessions',S.length],['New visitors',newVisitors],['Returning visitors',returningVisitors],
       ['Day-1 retention',d1],['Avg days played / visitor',activeVisitors.length?averageDays.toFixed(1):'—'],
@@ -1272,7 +1274,9 @@ async function loadStats(){const el=document.getElementById('stats-body');el.inn
    <p class="mute" style="font-size:12px;margin:0 0 8px">Most common refused inputs in this date range, grouped by question. “Known player” means the input matched a player name already known to the game.</p>
    <div>${rejectedHtml||'<p class="mute">No rejected answers yet.</p>'}</div>
    <h3 style="margin:18px 0 6px">Visits per day</h3>
-   <div class="bars">${dayRows.map(([d,v])=>`<div class="barrow"><span>${d.slice(5)}</span><i style="width:${Math.round(v/mx*100)}%"></i><b>${v}</b></div>`).join('')||'<p class="mute">No data yet.</p>'}</div>`}
+   <div class="bars">${dayRows.map(([d,v])=>`<div class="barrow"><span>${d.slice(5)}</span><i style="width:${Math.round(v/mx*100)}%"></i><b>${v}</b></div>`).join('')||'<p class="mute">No data yet.</p>'}</div>
+   <h3 style="margin:18px 0 6px">Completed games per day</h3>
+   <div class="bars">${finishDayRows.map(([d,v])=>`<div class="barrow"><span>${d.slice(5)}</span><i style="width:${Math.round(v/finishMx*100)}%"></i><b>${v}</b></div>`).join('')||'<p class="mute">No data yet.</p>'}</div>`}
  catch(e){el.innerHTML='<p class="msg bad">Could not load: '+esc(e.message)+'</p>'}}
 document.getElementById('stats-range').onchange=loadStats;document.getElementById('stats-refresh').onclick=loadStats;
 // ---- inbox
