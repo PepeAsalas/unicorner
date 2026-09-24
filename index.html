@@ -1038,9 +1038,12 @@ function end(restored){
  const nextZone=ZONES.find(([f])=>score/MAX<f);
  const toNext=nextZone?Math.max(0,Math.ceil(nextZone[0]*MAX-score)):0;
  const resultItem=(r,miss=false)=>{const all=[...r.q.answers].sort((a,b)=>b.pts-a.pts||a.name.localeCompare(b.name));const label=miss?'Stinker':(r.pts===100?'SCREAMER!!!':tierName(r.pts));const color=miss?'#ff8a7a':TCOL[r.pts];return`<details class="res result-item ${miss?'result-miss':'result-hit'}"><summary><span class="result-item-copy"><small>${r.q.prompt}</small><b>${miss?'No answer':r.ans.name}</b><em style="color:${color}">${label}</em></span><span class="result-verdict ${miss?'miss':'ok'}">${miss?'✕':'✓'} <b>+${r.pts}</b></span></summary><p class="mute" style="margin:8px 0 0">${r.q.answers.length} valid answers</p><ul class="ans">${all.map(a=>`<li class="${a===r.ans?'you':''}" style="--tc:${TCOL[a.pts]}"><span class="an">${a.name}${a===r.ans?' ★':''}</span><span class="tchip">${tierName(a.pts)}</span></li>`).join('')}</ul><p style="margin:10px 0;font-size:14px" class="mute">Think we missed one? <button class="linkish" data-open="dlg-report" data-q="${r.ri}">Tell us</button></p></details>`};
- const shareText=()=>`🦄 Unicorner — ${score}/${MAX}
-${scoreGrid} Can you beat me?
-www.unicornergame.lol`;
+ const shareText=()=>{const pct=document.getElementById('pctn');const rank=pct?`
+Better than ${pct.textContent}% of players`:'';return`🦄 Unicorner — ${score}/${MAX}
+Reached: ${zoneOf(score)}${rank}
+${scoreGrid}
+Can you beat me?
+www.unicornergame.lol`};
  swap(`<div class="card result-screen"><button type="button" class="quick-home-x" id="quick-home-x" aria-label="Back to home" title="Back to home">×</button>
   <div class="hero"><div class="sprite big-sprite bob" data-mood="${results.some(r=>r.pts===100)?'scream':score/MAX>=.44?'wow':score/MAX>=.15?'happy':'sad'}"></div><div><div class="mute">Final whistle</div><div class="tier" id="fs">0</div></div></div>
   <div class="pts">You reached: ${zoneOf(score)}</div>
