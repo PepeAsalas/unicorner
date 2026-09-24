@@ -55,7 +55,7 @@ details{margin-top:8px}summary{cursor:pointer;color:var(--mute)}details.res{marg
 details.res{animation:rise .8s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--i,0)*140ms + 700ms)}
 details.res[open] ul{animation:rise .35s ease-out both}
 
-.hero{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.hero{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .sprite{image-rendering:pixelated;background-repeat:no-repeat;background-size:contain;flex:none}
 .big-sprite{width:128px;height:128px}.mid-sprite{width:72px;height:72px}
 .reveal-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
@@ -336,6 +336,9 @@ input:focus-visible{border-color:var(--gold)!important}
 .tier-chip b{-webkit-text-stroke:0;text-shadow:2px 2px 0 #000}
 /* pixel speech bubbles */
 .scream-bubble{font-family:var(--px)!important;border:3px solid #000;border-radius:0}
+/* clipboard copy toast */
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,12px);z-index:999;background:#000;color:#fff;border:3px solid #fff;border-radius:0;padding:10px 18px;font-family:var(--px);font-weight:700;letter-spacing:.3px;font-size:15px;box-shadow:0 4px 0 rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
 /* end screen */
 details.res{border-bottom:2px dashed rgba(255,255,255,.3)}
 pre{font-family:var(--px)!important;background:#000!important;border:2px solid #fff}
@@ -783,7 +786,7 @@ body.playing .quick-home-x{display:none!important}
 <div class="stand"><div class="roof"></div><div class="crowd"></div><div class="board"><div class="board-track"><span>UNICORNER</span><span class="b2">BALL KNOWLEDGE</span><span class="b3">FIND THE SCREAMER</span><span class="b4">TAP-IN · HEADER · VOLLEY · BICYCLE KICK · SCREAMER</span><span>UNICORNER</span><span class="b2">BALL KNOWLEDGE</span><span class="b3">FIND THE SCREAMER</span><span class="b4">TAP-IN · HEADER · VOLLEY · BICYCLE KICK · SCREAMER</span></div></div></div>
 <div class="pitch3d"><div class="pitch-plane"><svg viewBox="0 0 1000 1000" preserveAspectRatio="none" shape-rendering="crispEdges"><g fill="none" stroke="#fff" stroke-width="7" opacity=".8"><rect x="40" y="20" width="920" height="1200"/><rect x="250" y="20" width="500" height="210"/><rect x="380" y="20" width="240" height="80"/><path d="M400 230 A120 120 0 0 0 600 230"/><line x1="40" y1="900" x2="960" y2="900"/><circle cx="500" cy="900" r="140"/></g><rect x="494" y="150" width="12" height="12" fill="#fff"/><g><rect x="420" y="-6" width="160" height="26" fill="none" stroke="#fff" stroke-width="7"/></g></svg></div></div>
 </div>
-<div class="wrap"><header class="topbar"><div class="brand-home" id="brand-home" role="button" tabindex="0" aria-label="Go to home"><div class="sprite" data-mood="happy"></div><b>Unicorner</b></div><span class="tag">Beta</span></header><div class="meter" aria-label="Your progress"><div class="rail"><div class="fill" id="fill"></div><div id="zones"></div><div class="sprite runner" id="runner" data-mood="happy"></div></div></div><main id="screen"></main><footer class="site"><button data-open="dlg-submit">Submit a question</button><button data-open="dlg-report">Problem with a question</button><button data-open="dlg-contact">Contact</button><a class="coffee-link" href="https://buymeacoffee.com/unicorner" target="_blank" rel="noopener">☕ Buy me a coffee</a><a class="privacy-link" href="privacy.html">Privacy</a></footer></div>
+<div class="wrap"><header class="topbar"><div class="brand-home" id="brand-home" role="button" tabindex="0" aria-label="Go to home"><div class="sprite" data-mood="happy"></div><b>Unicorner</b></div><span class="tag">Beta</span></header><div class="meter" aria-label="Your progress"><div class="rail"><div class="fill" id="fill"></div><div id="zones"></div><div class="sprite runner" id="runner" data-mood="happy"></div></div></div><main id="screen"></main><div class="toast" id="toast" role="status" aria-live="polite"></div><footer class="site"><button data-open="dlg-submit">Submit a question</button><button data-open="dlg-report">Problem with a question</button><button data-open="dlg-contact">Contact</button><a class="coffee-link" href="https://buymeacoffee.com/unicorner" target="_blank" rel="noopener">☕ Buy me a coffee</a><a class="privacy-link" href="privacy.html">Privacy</a></footer></div>
 
 
 <dialog id="dlg-infinite"><form data-kind="infinite-waitlist"><button type="button" class="infinite-close-x" id="infinite-close-x" aria-label="Close Infinite Mode" title="Close">×</button><span class="badge-feature">Coming soon</span>
@@ -1028,7 +1031,7 @@ Can you beat me?`};
  </div>`,()=>{
   window.scrollTo({top:0,left:0,behavior:'auto'});
   setTimeout(()=>countUp(document.getElementById('fs'),score,2000),400);
-  document.getElementById('share-result').onclick=async e=>{const share=shareText();track('share_click',{score,set_id:dailySetId(),native_share:!!navigator.share});const copyP=navigator.clipboard?.writeText?navigator.clipboard.writeText(share).then(()=>true).catch(()=>false):Promise.resolve(false);if(navigator.share){try{await navigator.share({title:'Unicorner',text:share});const copied=await copyP;e.target.textContent=copied?'Shared + copied':'Shared';return}catch(err){const copied=await copyP;if(err?.name==='AbortError'){e.target.textContent=copied?'Copied':'Share';return}e.target.textContent=copied?'Copied':'Share failed';return}}const copied=await copyP;e.target.textContent=copied?'Copied':'Copy failed'};
+  document.getElementById('share-result').onclick=async e=>{const share=shareText();track('share_click',{score,set_id:dailySetId(),native_share:!!navigator.share});const copyP=navigator.clipboard?.writeText?navigator.clipboard.writeText(share).then(()=>true).catch(()=>false):Promise.resolve(false);if(navigator.share){try{await navigator.share({title:'Unicorner',text:share});const copied=await copyP;if(copied)showToast('Copied to clipboard!');e.target.textContent=copied?'Shared + copied':'Shared';return}catch(err){const copied=await copyP;if(copied)showToast('Copied to clipboard!');if(err?.name==='AbortError'){e.target.textContent=copied?'Copied':'Share';return}e.target.textContent=copied?'Copied':'Share failed';return}}const copied=await copyP;if(copied)showToast('Copied to clipboard!');e.target.textContent=copied?'Copied':'Copy failed'};
   document.getElementById('home').onclick=()=>{track('home_click',{from:'results',score,set_id:dailySetId()});window.scrollTo({top:0,behavior:'smooth'});start()};
  })}
 
@@ -1108,6 +1111,7 @@ const SID=(()=>{try{let v=sessionStorage.getItem('uc-sid');if(!v){v=Math.random(
 const T0=Date.now();let lastBeat=0;
 const dailySetId=()=>{try{return amsterdamDay()+':'+Q.map(q=>q.id||slug(q.prompt)).join('|')}catch{return amsterdamDay()}};
 const DEVICE={w:window.innerWidth,h:window.innerHeight,screen_w:screen.width,screen_h:screen.height,dpr:window.devicePixelRatio||1,lang:navigator.language||'',tz:Intl.DateTimeFormat().resolvedOptions().timeZone||'',touch:navigator.maxTouchPoints||0};
+let toastTimer;function showToast(msg){const t=document.getElementById('toast');if(!t)return;t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2200)}
 function track(name,data){try{const body=JSON.stringify({name,session:SID,visitor:VISITOR,seconds:Math.round((Date.now()-T0)/1000),game_day:amsterdamDay(),event_version:2,data:{...(data||{})}});fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body}).catch(()=>{})}catch{}}
 track('view',{ref:(document.referrer||'').slice(0,120),path:location.pathname,...DEVICE});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&Date.now()-lastBeat>5000){lastBeat=Date.now();track('leave',{reason:'hidden'})}});
