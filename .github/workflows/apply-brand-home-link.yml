@@ -37,7 +37,6 @@ jobs:
             python scripts/apply_brand_home_link.py
           fi
           python scripts/normalize_tier_labels.py
-          python scripts/refine_landing_podium.py
           python scripts/widen_desktop_layout.py
           python scripts/reorder_landing_sections.py
           python scripts/combine_played_results_card.py
@@ -47,6 +46,7 @@ jobs:
           python scripts/replace_streak_emoji.py
           python scripts/push_title_into_unicorn.py
           python scripts/add_non_game_close.py
+          python scripts/refine_landing_podium.py
       - name: Validate behavior
         run: |
           python - <<'PY'
