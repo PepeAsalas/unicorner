@@ -701,8 +701,8 @@ body.results-view .meter{display:none!important}
 .landing-wrap .lp-home-hero{margin-top:28px!important;padding:22px 8px 8px!important;display:grid!important;grid-template-columns:minmax(0,1fr) minmax(150px,.62fr)!important;align-items:center!important;gap:18px!important;text-align:left!important}
 .landing-wrap .lp-home-hero .lp-title{margin:0 0 12px!important}
 .landing-wrap .lp-home-hero .lp-sub{margin:0!important;max-width:30ch}
-.landing-wrap .lp-home-hero .lp-art{order:initial!important;height:180px!important;display:grid!important;place-items:center end!important}
-.landing-wrap .lp-home-hero .lp-sprite{width:190px!important;height:158px!important;max-width:100%!important}
+.landing-wrap .lp-home-hero .lp-art{order:initial!important;height:220px!important;display:grid!important;place-items:center end!important}
+.landing-wrap .lp-home-hero .lp-sprite{width:250px!important;height:208px!important;max-width:100%!important}
 .lp-home-daily{padding:18px!important;text-align:left!important;background:linear-gradient(180deg,#1f5fd6,#163f9a)!important}
 .lp-home-card-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:12px}
 .lp-home-card-label{font-family:var(--px);font-size:27px;line-height:1;color:#fff}
@@ -719,8 +719,8 @@ body.results-view .meter{display:none!important}
  .landing-wrap .lp-home-hero{margin-top:16px!important;padding:14px 2px 8px!important;grid-template-columns:minmax(0,1fr) 112px!important;gap:10px!important}
  .landing-wrap .lp-home-hero .lp-title{font-size:clamp(36px,10.6vw,48px)!important;line-height:.94!important;margin-bottom:9px!important}
  .landing-wrap .lp-home-hero .lp-sub{font-size:16px!important;line-height:1.25!important}
- .landing-wrap .lp-home-hero .lp-art{height:112px!important;place-items:start end!important}
- .landing-wrap .lp-home-hero .lp-sprite{width:124px!important;height:103px!important}
+ .landing-wrap .lp-home-hero .lp-art{height:142px!important;place-items:start end!important}
+ .landing-wrap .lp-home-hero .lp-sprite{width:168px!important;height:140px!important}
  .lp-home-daily{padding:15px!important}
  .lp-home-card-head{margin-bottom:10px;align-items:center}
  .lp-home-card-label{font-size:24px}
@@ -826,6 +826,13 @@ body.playing .quick-home-x{display:none!important}
  .lp-home-title-row .lp-art{height:175px!important}
  .lp-home-title-row .lp-sprite{width:210px!important;height:175px!important}
 }
+
+/* gap between "?" and the gradient word before it */
+.lp-qm{margin-left:.12em}
+
+/* balance the gap below the tagline against the gap above it */
+.landing-wrap .lp-hero.lp-home-hero{padding-bottom:0!important;margin-bottom:14px!important}
+@media (max-width:560px){.landing-wrap .lp-hero.lp-home-hero{margin-bottom:12px!important}}
 </style></head><body>
 <div class="scene retro2" aria-hidden="true">
 <div class="sky"><i class="cloud c1"></i><i class="cloud c2"></i><i class="cloud c3"></i><i class="cloud c4"></i></div>
@@ -942,7 +949,7 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
  swap(`<div class="landing-wrap">
  <section class="lp-hero lp-home-hero">
   <div class="lp-home-title-row">
-   <h1 class="lp-title">How deep is your <span class="uni-word">ball knowledge</span>?</h1>
+   <h1 class="lp-title">How deep is your <span class="uni-word">ball knowledge</span><span class="lp-qm">?</span></h1>
    <div class="lp-art"><div class="lp-halo"></div><div class="sprite lp-sprite bob" data-mood="wow"></div></div>
   </div>
   <p class="lp-sub">Find the answer nobody else thinks of.</p>
