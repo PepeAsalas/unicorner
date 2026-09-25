@@ -128,6 +128,13 @@ button{box-shadow:none;transition:transform .15s,box-shadow .2s}button:hover{tra
 footer.site{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:center;padding:18px 0 6px;font-size:14px}
 footer.site button{background:none;border:0;padding:4px 2px;color:var(--mute);font:500 14px Barlow,sans-serif;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(255,255,255,.25)}
 footer.site button:hover{color:var(--ink);transform:none}
+.rate-strip{flex-basis:100%;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:6px;font:500 14px Barlow,sans-serif;color:var(--mute)}
+.rate-nums{display:inline-flex;gap:6px}
+.rate-num{width:30px;height:30px;border-radius:6px;border:2px solid rgba(255,255,255,.3);background:rgba(0,0,0,.25);color:#fff;font:700 14px Barlow,sans-serif;cursor:pointer;transform:none}
+.rate-num:hover{border-color:var(--gold);color:var(--gold);transform:none}
+.rate-fb-row{display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap}
+.rate-fb-row input{border:2px solid rgba(255,255,255,.25);border-radius:6px;padding:6px 8px;font:14px Barlow,sans-serif;width:220px;max-width:55vw}
+.rate-done{color:var(--gold)}
 .linkish{background:none!important;border:0;padding:0;color:var(--gold)!important;font:600 15px Barlow,sans-serif;text-decoration:underline;text-underline-offset:3px}
 dialog{border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:0;width:min(520px,calc(100vw - 28px));background:#0e1b3d;color:var(--ink);box-shadow:0 30px 80px rgba(0,0,0,.6)}
 dialog::backdrop{background:rgba(3,8,22,.7);backdrop-filter:blur(3px)}
@@ -839,7 +846,7 @@ body.playing .quick-home-x{display:none!important}
 <div class="stand"><div class="roof"></div><div class="crowd"></div><div class="board"><div class="board-track"><span>UNICORNER</span><span class="b2">BALL KNOWLEDGE</span><span class="b3">FIND THE SCREAMER</span><span class="b4">TAP-IN · HEADER · VOLLEY · BICYCLE KICK · SCREAMER</span><span>UNICORNER</span><span class="b2">BALL KNOWLEDGE</span><span class="b3">FIND THE SCREAMER</span><span class="b4">TAP-IN · HEADER · VOLLEY · BICYCLE KICK · SCREAMER</span></div></div></div>
 <div class="pitch3d"><div class="pitch-plane"><svg viewBox="0 0 1000 1000" preserveAspectRatio="none" shape-rendering="crispEdges"><g fill="none" stroke="#fff" stroke-width="7" opacity=".8"><rect x="40" y="20" width="920" height="1200"/><rect x="250" y="20" width="500" height="210"/><rect x="380" y="20" width="240" height="80"/><path d="M400 230 A120 120 0 0 0 600 230"/><line x1="40" y1="900" x2="960" y2="900"/><circle cx="500" cy="900" r="140"/></g><g><rect x="420" y="-6" width="160" height="26" fill="none" stroke="#fff" stroke-width="7"/></g></svg></div></div>
 </div>
-<div class="wrap"><header class="topbar"><div class="brand-home" id="brand-home" role="button" tabindex="0" aria-label="Go to home"><div class="sprite" data-mood="happy"></div><b>Unicorner</b></div><span class="tag">Beta</span></header><div class="meter" aria-label="Your progress"><div class="rail"><div class="fill" id="fill"></div><div id="zones"></div><div class="sprite runner" id="runner" data-mood="happy"></div></div></div><main id="screen"></main><div class="toast" id="toast" role="status" aria-live="polite"></div><footer class="site"><button data-open="dlg-submit">Submit a question</button><button data-open="dlg-report">Problem with a question</button><button data-open="dlg-contact">Contact</button><a class="coffee-link" href="https://buymeacoffee.com/unicorner" target="_blank" rel="noopener">☕ Buy me a coffee</a><a class="privacy-link" href="privacy.html">Privacy</a></footer></div>
+<div class="wrap"><header class="topbar"><div class="brand-home" id="brand-home" role="button" tabindex="0" aria-label="Go to home"><div class="sprite" data-mood="happy"></div><b>Unicorner</b></div><span class="tag">Beta</span></header><div class="meter" aria-label="Your progress"><div class="rail"><div class="fill" id="fill"></div><div id="zones"></div><div class="sprite runner" id="runner" data-mood="happy"></div></div></div><main id="screen"></main><div class="toast" id="toast" role="status" aria-live="polite"></div><footer class="site"><button data-open="dlg-submit">Submit a question</button><button data-open="dlg-report">Problem with a question</button><button data-open="dlg-contact">Contact</button><a class="coffee-link" href="https://buymeacoffee.com/unicorner" target="_blank" rel="noopener">☕ Buy me a coffee</a><a class="privacy-link" href="privacy.html">Privacy</a><div class="rate-strip" id="rateStrip" hidden></div></footer></div>
 
 
 <dialog id="dlg-infinite"><form data-kind="infinite-waitlist"><button type="button" class="infinite-close-x" id="infinite-close-x" aria-label="Close Infinity Mode" title="Close">×</button><span class="badge-feature">🔥 Coming soon</span>
@@ -943,7 +950,7 @@ const currentStreak=()=>{try{let d=amsterdamDay(),n=0;while(localStorage.getItem
 const untilMidnight=()=>{const n=new Date(),m=new Date(n);m.setHours(24,0,0,0);const d=m-n,h=Math.floor(d/36e5),mi=Math.floor(d%36e5/6e4);return`${h}h ${mi}m`};
 function restore(p){const savedPicks=Array.isArray(p.picks)?p.picks:[],byPos=new Map();savedPicks.forEach(([i,name])=>{if(Number.isInteger(i)&&i>=0&&i<Q.length&&!byPos.has(i))byPos.set(i,name||null)});results=Q.map((q,i)=>{const name=byPos.get(i)||null,ans=name?q?.answers.find(a=>a.name===name)||null:null;return{q,ans,pts:ans?ans.pts:0}});score=results.reduce((n,r)=>n+r.pts,0);qi=Q.length;if(score!==p.score)setPlayed({...p,score,picks:results.map((r,i)=>[i,r.ans?.name||null,r.pts])})}
 
-function start(){document.body.classList.remove('playing','results-view');fillReport();document.body.classList.add('landing');const played=getPlayed();
+function start(){document.body.classList.remove('playing','results-view');fillReport();renderRateStrip();document.body.classList.add('landing');const played=getPlayed();
  const today=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
  const COLS=['#cfd8e6','#7fe0a8','#b48cff','#ff7ac8','#f2c230'];
  swap(`<div class="landing-wrap">
@@ -1060,6 +1067,7 @@ function end(restored){
  if(!restored)track('game_finish',{score,question_count:Q.length,correct:results.filter(r=>r.ans).length,missed:results.filter(r=>!r.ans).length,screamers:results.filter(r=>r.pts===100).length,tiers:results.map(r=>r.pts),set_id:dailySetId()});
  fillReport();
  if(!restored){setPlayed({score,picks:results.map(r=>[Q.indexOf(r.q),r.ans?r.ans.name:null,r.pts])});submitScore(score)}
+ renderRateStrip();
  setTimeout(()=>renderDist(score),restored?900:1600);
  const rows=results.map((r,ri)=>r?{...r,ri}:null).filter(Boolean);
  const hits=rows.filter(r=>r.ans).sort((a,b)=>b.pts-a.pts||a.ri-b.ri);
@@ -1129,6 +1137,21 @@ document.querySelectorAll('dialog form').forEach(f=>f.addEventListener('submit',
 
 // ---- score distribution
 const amsterdamDay=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+const rateKey=()=>'uc-rated-'+amsterdamDay();
+function renderRateStrip(){const el=document.getElementById('rateStrip');if(!el)return;
+ if(!getPlayed()){el.hidden=true;el.innerHTML='';return}
+ el.hidden=false;
+ let saved;try{saved=JSON.parse(localStorage.getItem(rateKey()))}catch{saved=null}
+ if(saved&&saved.rating){el.innerHTML=`<span class="rate-done">Thanks for rating today's questions — ${saved.rating}/5</span>`;return}
+ el.innerHTML=`<span>How good were today's questions?</span><span class="rate-nums">${[1,2,3,4,5].map(n=>`<button type="button" class="rate-num" data-n="${n}">${n}</button>`).join('')}</span>`;
+ el.querySelectorAll('.rate-num').forEach(b=>b.onclick=()=>submitRating(+b.dataset.n))}
+function submitRating(n){try{localStorage.setItem(rateKey(),JSON.stringify({rating:n}))}catch{}
+ track('day_rating',{rating:n});
+ const el=document.getElementById('rateStrip');
+ el.innerHTML=`<span>Thanks! ${n}/5 — anything you'd add?</span><span class="rate-fb-row"><input type="text" id="rateFbInput" maxlength="300" placeholder="Optional comment"><button type="button" class="ghost" id="rateFbSend">Send</button><button type="button" class="linkish" id="rateFbSkip">Skip</button></span>`;
+ const done=()=>{el.innerHTML=`<span class="rate-done">Thanks for rating today's questions — ${n}/5</span>`};
+ document.getElementById('rateFbSkip').onclick=done;
+ document.getElementById('rateFbSend').onclick=()=>{const v=document.getElementById('rateFbInput').value.trim();if(v)track('day_rating_feedback',{rating:n,feedback:v});done()}}
 const TODAY=amsterdamDay();
 async function submitScore(sc){try{const db=await dbP;if(db)await db.collection('daily').doc(TODAY).collection('scores').add({score:sc,at:new Date().toISOString()})}catch{}}
 async function renderDist(mine){const el=document.getElementById('dist');if(!el)return;let scores=[];
@@ -1285,6 +1308,15 @@ async function loadStats(){const el=document.getElementById('stats-body');el.inn
   for(const r of rejectedRows){const d=r.data||{},prompt=d.prompt||'Unknown question',raw=typeof d.input==='string'?d.input:'';if(!raw)continue;let qg=rejectedByQuestion.get(prompt);if(!qg){qg={total:0,items:new Map()};rejectedByQuestion.set(prompt,qg)}qg.total++;const key=raw.trim().toLocaleLowerCase();let item=qg.items.get(key);if(!item){item={label:raw,count:0,known:false};qg.items.set(key,item)}item.count++;item.known=item.known||!!d.matched_known_player}
   const rejectedHtml=[...rejectedByQuestion.entries()].sort((a,b)=>b[1].total-a[1].total||a[0].localeCompare(b[0])).map(([prompt,g])=>{const items=[...g.items.values()].sort((a,b)=>b.count-a.count||a.label.localeCompare(b.label)).slice(0,12);return `<details class="msg-card" style="margin:8px 0"><summary><b>${esc(prompt)}</b> <span class="mute">· ${g.total} rejected</span></summary><div style="margin-top:8px">${items.map(i=>`<div style="display:flex;justify-content:space-between;gap:12px;padding:4px 0;border-bottom:1px solid var(--line)"><span>${esc(i.label)}${i.known?' <span class="mute">· known player</span>':''}</span><b>${i.count}</b></div>`).join('')}</div></details>`}).join('');
 
+  const ratingRows=rows.filter(r=>r.name==='day_rating');
+  const byDayRating={};for(const r of ratingRows){const d=r.game_day||r.created_at.slice(0,10);const v=(r.data||{}).rating;if(typeof v!=='number')continue;(byDayRating[d]=byDayRating[d]||[]).push(v)}
+  const ratingDayRows=Object.entries(byDayRating).map(([d,arr])=>[d,arr.reduce((a,b)=>a+b,0)/arr.length,arr.length]).sort((a,b)=>a[0].localeCompare(b[0])).slice(-14);
+  const overallRatings=ratingRows.map(r=>(r.data||{}).rating).filter(v=>typeof v==='number');
+  const overallAvgRating=overallRatings.length?(overallRatings.reduce((a,b)=>a+b,0)/overallRatings.length).toFixed(2):'—';
+  const feedbackRows=rows.filter(r=>r.name==='day_rating_feedback');
+  const byDayFeedback={};for(const r of feedbackRows){const d=r.game_day||r.created_at.slice(0,10);const dd=r.data||{};if(typeof dd.feedback!=='string'||!dd.feedback.trim())continue;(byDayFeedback[d]=byDayFeedback[d]||[]).push(dd)}
+  const feedbackHtml=Object.entries(byDayFeedback).sort((a,b)=>b[0].localeCompare(a[0])).map(([d,items])=>`<details class="msg-card" style="margin:8px 0"><summary><b>${esc(d)}</b> <span class="mute">· ${items.length} comment${items.length===1?'':'s'}</span></summary><div style="margin-top:8px">${items.map(i=>`<div style="padding:4px 0;border-bottom:1px solid var(--line)"><b>${esc(i.rating)}/5</b> — ${esc(i.feedback)}</div>`).join('')}</div></details>`).join('');
+
   const byDay={};for(const r of rows){if(r.name!=='view')continue;const d=r.game_day||r.created_at.slice(0,10);byDay[d]=(byDay[d]||0)+1}
   const dayRows=Object.entries(byDay).sort().slice(-14);const mx=Math.max(1,...dayRows.map(d=>d[1]));
   const byDayFinish={};for(const r of rows){if(r.name!=='game_finish')continue;const d=r.game_day||r.created_at.slice(0,10);byDayFinish[d]=(byDayFinish[d]||0)+1}
@@ -1294,12 +1326,18 @@ async function loadStats(){const el=document.getElementById('stats-body');el.inn
       ['Day-1 retention',d1],['Avg days played / visitor',activeVisitors.length?averageDays.toFixed(1):'—'],
       ['Games started',started],['Games finished',finished],['Finish rate',started?Math.round(finished/started*100)+'%':'—'],['Infinity clicks',cnt('infinite_click')],
       ['Median time on site',fmt(med)],['Average time',fmt(avg)],['Bounced',bounce+'%'],
-      ['Average score',scores.length?Math.round(scores.reduce((a,b)=>a+b,0)/scores.length):'—'],['Messages sent',cnt('form_submit')]]
+      ['Average score',scores.length?Math.round(scores.reduce((a,b)=>a+b,0)/scores.length):'—'],['Messages sent',cnt('form_submit')],
+      ['Avg question rating',overallRatings.length?overallAvgRating+'/5':'—']]
      .map(([k,v])=>`<div class="stat"><b>${v}</b><span>${k}</span></div>`).join('')}</div>
    <p class="mute" style="font-size:12px;margin:10px 0 0">Visitor metrics use the anonymous random <code>uc-visitor</code> browser ID. Older events without this ID are excluded.</p>
    <h3 style="margin:18px 0 6px">Rejected answers</h3>
    <p class="mute" style="font-size:12px;margin:0 0 8px">Most common refused inputs in this date range, grouped by question. “Known player” means the input matched a player name already known to the game.</p>
    <div>${rejectedHtml||'<p class="mute">No rejected answers yet.</p>'}</div>
+   <h3 style="margin:18px 0 6px">Question ratings by day</h3>
+   <p class="mute" style="font-size:12px;margin:0 0 8px">Average of the 1-5 "how good were today's questions?" rating players leave in the footer after finishing.</p>
+   <div class="bars">${ratingDayRows.map(([d,avg,c])=>`<div class="barrow"><span>${d.slice(5)}</span><i style="width:${Math.round(avg/5*100)}%"></i><b>${avg.toFixed(1)} (${c})</b></div>`).join('')||'<p class="mute">No ratings yet.</p>'}</div>
+   <h3 style="margin:18px 0 6px">Rating comments</h3>
+   <div>${feedbackHtml||'<p class="mute">No comments yet.</p>'}</div>
    <h3 style="margin:18px 0 6px">Visits per day</h3>
    <div class="bars">${dayRows.map(([d,v])=>`<div class="barrow"><span>${d.slice(5)}</span><i style="width:${Math.round(v/mx*100)}%"></i><b>${v}</b></div>`).join('')||'<p class="mute">No data yet.</p>'}</div>
    <h3 style="margin:18px 0 6px">Completed games per day</h3>
