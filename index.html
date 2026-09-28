@@ -1396,5 +1396,5 @@ if(brandHome){
  brandHome.addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ')return;e.preventDefault();goBrandHome()});
 }
 
-(async()=>{[BANK,DAILY_SCHEDULE]=await Promise.all([loadBank(),loadDailySchedule()]);applyBank();start();paint();setMeter()})();
+(async()=>{const bankP=loadBank();DAILY_SCHEDULE=await loadDailySchedule();if(!scheduledSet())BANK=await bankP;else bankP.then(b=>BANK=b);applyBank();start();paint();setMeter()})();
 </script></body></html>
