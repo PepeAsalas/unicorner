@@ -212,10 +212,15 @@ body.landing .meter{display:none}
 @keyframes bubble{0%{opacity:0;transform:scale(.3) rotate(-8deg)}15%{opacity:1;transform:scale(1.15) rotate(-6deg)}25%,80%{opacity:1;transform:scale(1) rotate(-6deg)}100%{opacity:0;transform:scale(.9) rotate(-6deg)}}
 .quake{animation:quake .5s cubic-bezier(.36,.07,.19,.97)}
 @keyframes quake{10%,90%{transform:translate(-2px,1px)}20%,80%{transform:translate(4px,-2px)}30%,50%,70%{transform:translate(-6px,2px)}40%,60%{transform:translate(6px,-1px)}}
+.stinking{animation:stink-in .4s steps(4) both,droop .55s ease-in-out .4s 3;transform-origin:50% 100%}
+@keyframes stink-in{0%{transform:scale(1)}55%{transform:scale(.62) rotate(-5deg)}100%{transform:scale(.74) rotate(0deg)}}
+@keyframes droop{0%,100%{transform:scale(.74) rotate(-4deg)}50%{transform:scale(.74) rotate(4deg)}}
+.slump{animation:slump .65s cubic-bezier(.36,.07,.19,.97)}
+@keyframes slump{0%{transform:translateY(0) rotate(0)}30%{transform:translateY(9px) rotate(-1.2deg)}55%{transform:translateY(2px) rotate(.6deg)}100%{transform:translateY(0) rotate(0)}}
 
 .scream-bubble.stink{background:#9fd36b;color:#1b1530;top:62px;right:96px;font-size:22px}.scream-bubble.stink::after{border-left-color:#9fd36b}
 .scream-bubble.stay{animation:bubble-stay .7s cubic-bezier(.34,1.8,.5,1) forwards}
-@keyframes bubble-stay{0%{opacity:0;transform:scale(.3) rotate(4deg)}60%{opacity:1;transform:scale(1.1) rotate(4deg)}100%{opacity:1;transform:scale(1) rotate(4deg)}}
+@keyframes bubble-stay{0%{opacity:0;transform:translateY(-34px) scale(.4) rotate(8deg)}55%{opacity:1;transform:translateY(7px) scale(1.06) rotate(4deg)}75%{transform:translateY(-2px) scale(.97) rotate(4deg)}100%{opacity:1;transform:translateY(0) scale(1) rotate(4deg)}}
 .played-box{margin:0 0 16px;padding:14px 16px;border-radius:12px;background:rgba(9,18,40,.6);border:1px solid rgba(255,255,255,.15)}
 .played-score{font:800 52px "Barlow Condensed",sans-serif;line-height:1;color:var(--gold)}.played-score small{font-size:24px;color:var(--mute)}
 .infinite-btn{border-color:rgba(180,140,255,.6)!important}
@@ -247,7 +252,7 @@ dialog.admin{width:min(860px,calc(100vw - 20px));max-height:90vh}
 
 .scream-bubble.stink{background:#9fd36b;color:#1b1530;top:62px;right:96px;font-size:22px}.scream-bubble.stink::after{border-left-color:#9fd36b}
 .scream-bubble.stay{animation:bubble-stay .7s cubic-bezier(.34,1.8,.5,1) forwards}
-@keyframes bubble-stay{0%{opacity:0;transform:scale(.3) rotate(4deg)}60%{opacity:1;transform:scale(1.1) rotate(4deg)}100%{opacity:1;transform:scale(1) rotate(4deg)}}
+@keyframes bubble-stay{0%{opacity:0;transform:translateY(-34px) scale(.4) rotate(8deg)}55%{opacity:1;transform:translateY(7px) scale(1.06) rotate(4deg)}75%{transform:translateY(-2px) scale(.97) rotate(4deg)}100%{opacity:1;transform:translateY(0) scale(1) rotate(4deg)}}
 .played-box{margin:0 0 16px;padding:14px 16px;border-radius:12px;background:rgba(9,18,40,.6);border:1px solid rgba(255,255,255,.15)}
 .played-score{font:800 52px "Barlow Condensed",sans-serif;line-height:1;color:var(--gold)}.played-score small{font-size:24px;color:var(--mute)}
 .infinite-btn{border-color:rgba(180,140,255,.6)!important}
@@ -1045,8 +1050,8 @@ function reveal(ans){if(results[qi])return;const q=Q[qi];const pts=ans?ans.pts:0
  <div class="row"><button id="next">${qi<Q.length-1?'Keep going':'See full time'}</button></div></div>`,()=>{
  const spans=[...document.querySelectorAll('#lad span')];const target=ans?TIERS.findIndex(t=>t[0]===pts):-1;
  const nx=document.getElementById('next');nx.style.visibility='hidden';
- const land=()=>{const ms0=document.getElementById('mascot');if(!ans){ms0.classList.remove('hold');ms0.classList.add('land');setTimeout(()=>document.getElementById('bubble').classList.add('show','stay'),350)}const tn=document.getElementById('tn'),pl=document.getElementById('pl');
-  if(tn){tn.classList.remove('hold');tn.classList.add('wipe')}const ms=document.getElementById('mascot');ms.classList.remove('hold');if(pts===100){ms.dataset.mood='scream';ms.classList.add('screaming');document.getElementById('bubble').classList.add('show');const w=document.querySelector('.wrap');w.classList.remove('quake');void w.offsetWidth;w.classList.add('quake');paint()}else ms.classList.add(pts>=64?'jump':'land');
+ const land=()=>{const ms0=document.getElementById('mascot');if(!ans){ms0.classList.remove('hold');ms0.classList.add('stinking');const w0=document.querySelector('.wrap');w0.classList.remove('slump');void w0.offsetWidth;w0.classList.add('slump');setTimeout(()=>document.getElementById('bubble').classList.add('show','stay'),350)}const tn=document.getElementById('tn'),pl=document.getElementById('pl');
+  if(tn){tn.classList.remove('hold');tn.classList.add('wipe')}const ms=document.getElementById('mascot');ms.classList.remove('hold');if(pts===100){ms.dataset.mood='scream';ms.classList.add('screaming');document.getElementById('bubble').classList.add('show');const w=document.querySelector('.wrap');w.classList.remove('quake');void w.offsetWidth;w.classList.add('quake');paint()}else if(ans)ms.classList.add(pts>=64?'jump':'land');
   setTimeout(()=>{if(pl){pl.classList.remove('hold');pl.classList.add('wipe');countUp(document.getElementById('pc'),pts,900,'+')}},350);
   setTimeout(()=>{setMeter();if(after!==before){const m=document.querySelector('.meter');m.classList.remove('flash');void m.offsetWidth;m.classList.add('flash');const pr=document.getElementById('promo');if(pr){pr.classList.remove('hold')}}},900);
   setTimeout(()=>{nx.style.visibility='visible';nx.focus()},after!==before?1400:1100)};
