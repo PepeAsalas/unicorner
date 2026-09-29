@@ -44,6 +44,10 @@ details{margin-top:8px}summary{cursor:pointer;color:var(--mute)}details.res{marg
 
 .card{transition:opacity .32s ease,transform .32s ease}.card.out{opacity:0;transform:translateY(-6px)}
 .in>*{animation:rise .8s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--i,0)*120ms)}
+.card.slide-out{transition:none;animation:card-slide-out .3s cubic-bezier(.5,0,.3,1) forwards}
+@keyframes card-slide-out{to{transform:translateX(-46px);opacity:0}}
+.card.slide-in{animation:card-slide-in .38s cubic-bezier(.2,.8,.3,1) both}
+@keyframes card-slide-in{from{transform:translateX(46px);opacity:0}to{transform:translateX(0);opacity:1}}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}}
 .wipe{animation:wipe .9s cubic-bezier(.65,0,.25,1) both}.hold{opacity:0}@keyframes wipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
 .tier.pop{animation:none}
@@ -362,8 +366,9 @@ input:focus-visible{border-color:var(--gold)!important}
 /* pixel speech bubbles */
 .scream-bubble{font-family:var(--px)!important;border:3px solid #000;border-radius:0}
 /* clipboard copy toast */
-.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,12px);z-index:999;background:#000;color:#fff;border:3px solid #fff;border-radius:0;padding:10px 18px;font-family:var(--lab);font-weight:700;letter-spacing:.3px;font-size:15px;box-shadow:0 4px 0 rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
-.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,12px);z-index:999;background:#000;color:#fff;border:3px solid #fff;border-radius:0;padding:10px 18px;font-family:var(--lab);font-weight:700;letter-spacing:.3px;font-size:15px;box-shadow:0 4px 0 rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .25s}
+.toast.show{animation:toast-pop .5s cubic-bezier(.34,1.6,.4,1) forwards}
+@keyframes toast-pop{0%{opacity:0;transform:translate(-50%,12px) scale(.8)}55%{opacity:1;transform:translate(-50%,-4px) scale(1.05)}100%{opacity:1;transform:translate(-50%,0) scale(1)}}
 /* end screen */
 details.res{border-bottom:2px dashed rgba(255,255,255,.3)}
 pre{font-family:var(--px)!important;background:#000!important;border:2px solid #fff}
@@ -960,7 +965,11 @@ const SFX={
  100:()=>{sfxSeq([[523,.09],[659,.09],[784,.09],[1046,.09]],{type:'square',vol:.2});sfxTone(1318,.55,{type:'square',vol:.22,startAt:.36,vibrato:{rate:26,depth:40}});sfxTone(1046,.55,{type:'triangle',vol:.12,startAt:.36})},
  miss:()=>{sfxTone(300,.22,{type:'sawtooth',vol:.16,sweepTo:210});sfxTone(240,.32,{type:'sawtooth',vol:.16,startAt:.2,sweepTo:130})},
  levelup:()=>{sfxTone(220,.28,{type:'sawtooth',vol:.15,sweepTo:900});sfxTone(1318,.22,{type:'square',vol:.18,startAt:.26})},
+ buzz:()=>sfxTone(150,.28,{type:'sawtooth',vol:.18,sweepTo:90}),
+ pop:()=>{sfxTone(700,.05,{type:'triangle',vol:.16});sfxTone(1100,.12,{type:'triangle',vol:.16,startAt:.05,sweepTo:1300})},
+ whoosh:()=>sfxNoise(.32,{vol:.13}),
 };
+function sfxNoise(dur,{vol=.14,sweepFrom=3000,sweepTo=500}={}){const ac=getAC();const t0=ac.currentTime;const bufSize=ac.sampleRate*dur;const buf=ac.createBuffer(1,bufSize,ac.sampleRate);const data=buf.getChannelData(0);for(let i=0;i<bufSize;i++)data[i]=Math.random()*2-1;const src=ac.createBufferSource();src.buffer=buf;const filt=ac.createBiquadFilter();filt.type='bandpass';filt.Q.value=1.1;filt.frequency.setValueAtTime(sweepFrom,t0);filt.frequency.exponentialRampToValueAtTime(sweepTo,t0+dur);const gain=ac.createGain();gain.gain.setValueAtTime(0,t0);gain.gain.linearRampToValueAtTime(vol,t0+.02);gain.gain.exponentialRampToValueAtTime(.0001,t0+dur);src.connect(filt);filt.connect(gain);gain.connect(ac.destination);src.start(t0);src.stop(t0+dur+.02)}
 function playSfx(key){if(!soundOn())return;try{SFX[key]&&SFX[key]()}catch{}}
 
 const PAL={K:"#1a1030",W:"#ffffff",L:"#d2d6ec",G:"#ffd23f",g:"#e0a000",P:"#ff6fb5",V:"#7c4dff",v:"#5a34d2",B:"#4fc3ff",E:"#1a1030",w:"#ffffff",N:"#ff6fb5"};
@@ -983,7 +992,7 @@ const paint=()=>document.querySelectorAll('.sprite').forEach(el=>{const set=SPR[
 if(!still)setInterval(()=>{tickN++;paint()},220);
 new MutationObserver(paint).observe(document.body,{childList:true,subtree:true});
 const S=document.getElementById('screen');
-function swap(html,after){const old=S.firstElementChild;const go=()=>{S.innerHTML=html;const c=S.firstElementChild;c.classList.add('in');[...c.children].forEach((el,i)=>el.style.setProperty('--i',i));after&&after()};if(old){old.classList.add('out');setTimeout(go,320)}else go()}
+function swap(html,after,slide){const old=S.firstElementChild;const go=()=>{S.innerHTML=html;const c=S.firstElementChild;c.classList.add('in');if(slide)c.classList.add('slide-in');[...c.children].forEach((el,i)=>el.style.setProperty('--i',i));after&&after()};if(old){old.classList.add(slide?'slide-out':'out');setTimeout(go,320)}else go()}
 function countUp(el,to,ms=700,prefix=''){const t0=performance.now();const f=t=>{const k=Math.min(1,(t-t0)/ms);el.textContent=prefix+Math.round(to*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
 
 function pos(sc){const f=Math.min(1,sc/MAX),n=ZONES.length-1;if(f>=ZONES[n][0])return 100;let i=0;while(f>=ZONES[i+1][0])i++;return(i+(f-ZONES[i][0])/(ZONES[i+1][0]-ZONES[i][0]))/n*100}
@@ -1067,7 +1076,7 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
   const go=document.getElementById('go');if(go)go.onclick=play;const g2=document.getElementById('go2');if(g2)g2.onclick=play;
   const hw=document.getElementById('how');if(hw)hw.onclick=()=>document.getElementById('steps').scrollIntoView({behavior:'smooth',block:'start'});
   if(streakFlare){setTimeout(()=>{const fl=document.querySelector('.pixel-flame.flare');if(fl)fl.classList.remove('flare');const fw=document.querySelector('.flame-wrap.flare-active');if(fw)fw.classList.remove('flare-active')},760)}})}
-function ask(){document.body.classList.remove('results-view');document.body.classList.add('playing');const q=Q[qi];if(qi===0)track('game_start',{question_count:Q.length,set_id:dailySetId()});track('question_view',{question_id:q.id||slug(q.prompt),prompt:q.prompt,position:qi+1,question_count:Q.length,difficulty:q.difficulty||'unknown',answer_type:q.answer_type||'player',answer_count:q.answers.length,set_id:dailySetId()});let left=TIME*1000,t0,done=false;
+function ask(slide){document.body.classList.remove('results-view');document.body.classList.add('playing');const q=Q[qi];if(qi===0)track('game_start',{question_count:Q.length,set_id:dailySetId()});track('question_view',{question_id:q.id||slug(q.prompt),prompt:q.prompt,position:qi+1,question_count:Q.length,difficulty:q.difficulty||'unknown',answer_type:q.answer_type||'player',answer_count:q.answers.length,set_id:dailySetId()});let left=TIME*1000,t0,done=false;
  swap(`<div class="card"><div class="q-progress" aria-label="Question ${qi+1} of ${Q.length}"><span>Question</span><b>${qi+1} of ${Q.length}</b></div><div class="mute q-sub">${q.sub}</div><div class="prompt">${q.prompt}</div>${q.by?`<div class="byline">🦄 Community question by ${q.by}</div>`:''}
  <div class="timer" id="tm"><i id="bar"></i></div>
  <form id="f" autocomplete="off"><div class="answer-row"><input id="in" placeholder="${answerPlaceholder(q)}" aria-label="Your ${answerLabel(q)} answer"><button type="submit" class="cta submitbtn">Submit</button></div></form>
@@ -1084,7 +1093,7 @@ function ask(){document.body.classList.remove('results-view');document.body.clas
   track('answer_attempt',{question_id:q.id||slug(q.prompt),position:qi+1,outcome,elapsed_ms:elapsed(),input_length:typed.trim().length,set_id:dailySetId()});
   track('rejected',{question_id:q.id||slug(q.prompt),prompt:q.prompt,input:typed,matched_known_player:matchedKnown,outcome,position:qi+1,set_id:dailySetId()});
   msg.className='msg bad';msg.textContent=r==='ambiguous'?(isPersonAnswerType(q.answer_type)?'More than one person fits. Add more of the name.':'More than one answer fits. Be more specific.'):matchedKnown?`Recognised ${answerLabel(q)}, but not on this list.`:`Didn't recognise that ${answerLabel(q)}.`;
-  inp.classList.remove('shake');void inp.offsetWidth;inp.classList.add('shake');inp.select()}})}
+  playSfx('buzz');inp.classList.remove('shake');void inp.offsetWidth;inp.classList.add('shake');inp.select()}},slide)}
 function reveal(ans){if(results[qi])return;const q=Q[qi];const pts=ans?ans.pts:0;const before=zoneOf(score);score+=pts;results[qi]={q,ans,pts};const after=zoneOf(score);
  swap(`<div class="card"><div class="reveal-top"><div class="mute">${q.prompt}</div><div class="sprite mid-sprite hold" id="mascot" data-mood="${!ans?'sad':pts>=64?'wow':'happy'}"></div><div class="scream-bubble${ans?'':' stink'}" id="bubble">${ans?'AAAAAH!':'What a stinker!'}</div></div>
  <div class="gauge" id="gauge"><div class="gbar"><div class="gfill" id="gfill"></div>${TIERS.slice(0,-1).map(t=>`<i class="gdiv" style="left:${t[0]}%"></i>`).join('')}<div class="ghead hold" id="ghead"><span id="glabel">Tap-in</span><em></em></div></div><div class="gpts">${TIERS.map((t,i)=>`<span data-i="${i}" style="left:${t[0]}%">${t[0]}</span>`).join('')}</div></div>
@@ -1112,7 +1121,7 @@ function reveal(ans){if(results[qi])return;const q=Q[qi];const pts=ans?ans.pts:0
    let i=TIERS.findIndex(t=>x*100<=t[0]);if(i<0)i=N-1;if(i!==shown){shown=i;lab.textContent=(i===N-1&&target===N-1)?'SCREAMER!!!':TIERS[i][1];head.style.setProperty('--hc',COLS[i]);segs.forEach((sg,j)=>sg.classList.toggle('lit',j<=i));head.classList.remove('tick');void head.offsetWidth;head.classList.add('tick')}
    if(k<1)requestAnimationFrame(step);else{head.classList.add('locked');const g=document.getElementById('gauge');g.classList.add('done');if(target===N-1)g.classList.add('uni');const tn=document.getElementById('tn');if(tn){tn.style.color=COLS[target];if(target===N-1)tn.classList.add('uni-text')}setTimeout(land,380)}};
   requestAnimationFrame(step)}
-const n=nx;n.onclick=()=>{qi++;qi<Q.length?ask():end()}})}
+const n=nx;n.onclick=()=>{qi++;if(qi<Q.length){playSfx('whoosh');ask(true)}else end()}})}
 /* result screen social loop */
 function end(restored){
  document.body.classList.add('results-view');
@@ -1240,7 +1249,7 @@ const SID=(()=>{try{let v=sessionStorage.getItem('uc-sid');if(!v){v=Math.random(
 const T0=Date.now();let lastBeat=0;
 const dailySetId=()=>{try{return amsterdamDay()+':'+Q.map(q=>q.id||slug(q.prompt)).join('|')}catch{return amsterdamDay()}};
 const DEVICE={w:window.innerWidth,h:window.innerHeight,screen_w:screen.width,screen_h:screen.height,dpr:window.devicePixelRatio||1,lang:navigator.language||'',tz:Intl.DateTimeFormat().resolvedOptions().timeZone||'',touch:navigator.maxTouchPoints||0};
-let toastTimer;function showToast(msg){const t=document.getElementById('toast');if(!t)return;t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2200)}
+let toastTimer;function showToast(msg){const t=document.getElementById('toast');if(!t)return;playSfx('pop');t.textContent=msg;t.classList.remove('show');void t.offsetWidth;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2200)}
 function track(name,data){try{const body=JSON.stringify({name,session:SID,visitor:VISITOR,seconds:Math.round((Date.now()-T0)/1000),game_day:amsterdamDay(),event_version:2,data:{...(data||{})}});fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body}).catch(()=>{})}catch{}}
 track('view',{ref:(document.referrer||'').slice(0,120),path:location.pathname,...DEVICE});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&Date.now()-lastBeat>5000){lastBeat=Date.now();track('leave',{reason:'hidden'})}});
