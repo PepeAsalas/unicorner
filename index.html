@@ -68,15 +68,16 @@ details.res{animation:rise .8s cubic-bezier(.16,1,.3,1) both;animation-delay:cal
 details.res[open] ul{animation:rise .35s ease-out both}
 
 .hero{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-#fs{display:flex;gap:4px;align-items:center}
-.sb-digit{display:inline-flex;align-items:center;justify-content:center;width:.66em;aspect-ratio:3/4;background:#0a1430;border:3px solid #000;border-radius:6px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.08);position:relative;font-size:56px}
-.sb-digit::before,.sb-digit::after{content:'';position:absolute;width:5px;height:5px;border-radius:50%;background:#2a3a5c;left:5px}
-.sb-digit::before{top:5px}.sb-digit::after{bottom:5px}
+.hero{row-gap:10px}
+#fs{display:flex;gap:7px;align-items:center}
+.sb-digit{display:inline-flex;align-items:center;justify-content:center;width:.66em;aspect-ratio:3/4;background:#0a1430;border:4px solid #000;border-radius:8px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.08);position:relative;font-size:92px}
+.sb-digit::before,.sb-digit::after{content:'';position:absolute;width:7px;height:7px;border-radius:50%;background:#2a3a5c;left:7px}
+.sb-digit::before{top:7px}.sb-digit::after{bottom:7px}
 .sb-digit .num{font-family:var(--px);font-weight:800;color:var(--gold)!important;text-shadow:none!important;-webkit-text-stroke:0!important;display:inline-block;font-size:.62em}
 .sb-digit.flip .num{animation:sb-flip .18s steps(2)}
 @keyframes sb-flip{0%{transform:scaleY(1)}50%{transform:scaleY(0)}100%{transform:scaleY(1)}}
-@media (max-width:560px){.sb-digit{font-size:38px}}
-.motm{display:flex;align-items:center;gap:8px;margin-left:4px}
+@media (max-width:560px){.sb-digit{font-size:62px}}
+.motm{display:none;align-items:center;gap:8px;margin-left:4px}.motm:not([hidden]){display:flex}
 .motm span{font-family:var(--px);font-size:15px;color:var(--gold);letter-spacing:.02em;max-width:70px;line-height:1.1}
 .ribbon-img{width:38px;height:52px;background-repeat:no-repeat;background-size:contain;image-rendering:pixelated;flex:none;opacity:0;transform:translateY(20px) scale(.5) rotate(-6deg)}
 .ribbon-img.sway{animation:ribbon-in .6s cubic-bezier(.34,1.5,.4,1) forwards,ribbon-sway 2.4s ease-in-out .6s infinite}
