@@ -195,7 +195,16 @@ body.landing .meter{display:none}
 .lp-art{position:relative;height:260px;display:grid;place-items:center}
 .lp-halo{position:absolute;width:240px;height:240px;border-radius:50%;background:radial-gradient(closest-side,rgba(180,140,255,.45),rgba(255,122,200,.18) 60%,transparent);animation:halo 4s ease-in-out infinite}
 @keyframes halo{50%{transform:scale(1.1);opacity:.8}}
-.lp-sprite{position:relative;width:230px;height:177px}
+.lp-sprite{position:relative;width:230px;height:177px;cursor:pointer}
+.lp-sprite.mascotStartle{animation:mascotHue 1.1s linear,mascotStartleAnim .5s cubic-bezier(.36,.07,.19,.97)}
+.lp-sprite.mascotBounce{animation:mascotHue 1.1s linear -0.5s,mascotBounceAnim .6s cubic-bezier(.34,1.56,.64,1)}
+@keyframes mascotHue{0%{filter:hue-rotate(0deg) saturate(1)}50%{filter:hue-rotate(180deg) saturate(2.2)}100%{filter:hue-rotate(360deg) saturate(1)}}
+@keyframes mascotStartleAnim{0%{transform:scale(1)}20%{transform:scale(1.25) translateY(-4px)}40%{transform:scale(1.15) translate(-3px,1px)}60%{transform:scale(1.15) translate(3px,-1px)}80%{transform:scale(1.15) translate(-2px,1px)}100%{transform:scale(1)}}
+@keyframes mascotBounceAnim{0%{transform:scale(1,1) translateY(0)}25%{transform:scale(1.15,.8) translateY(0)}55%{transform:scale(.9,1.15) translateY(-26px)}75%{transform:scale(1.08,.92) translateY(0)}100%{transform:scale(1,1) translateY(0)}}
+.mascot-spark{position:absolute;width:6px;height:6px;background:#fff;left:50%;top:55%;opacity:0;box-shadow:0 0 5px 2px rgba(242,194,48,.9);pointer-events:none}
+.lp-art.mascotSparkGo .mascot-spark{animation:mascotSparkBurst .6s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes mascotSparkBurst{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(.3)}}
+@media (prefers-reduced-motion:reduce){.lp-sprite.mascotStartle,.lp-sprite.mascotBounce{animation:none!important}}
 .lp-sprite-sm{width:110px;height:85px;margin:0 auto 6px}
 .lp-label{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--mute)}
 .lp-prompt{font:800 30px "Barlow Condensed",sans-serif;margin:6px 0 16px}
@@ -1025,7 +1034,7 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
  <section class="lp-hero lp-home-hero">
   <div class="lp-home-title-row">
    <h1 class="lp-title"><span class="lp-lead">How deep is your </span><span class="uni-word">ball knowledge</span><span class="lp-qm">?</span></h1>
-   <div class="lp-art"><div class="lp-halo"></div><div class="sprite lp-sprite bob" data-mood="wow"></div></div>
+   <div class="lp-art"><div class="lp-halo"></div><div class="sprite lp-sprite bob" id="landingMascot" data-mood="wow"></div></div>
   </div>
   <p class="lp-sub">Find the answer nobody else thinks of.</p>
  </section>
@@ -1085,6 +1094,18 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
  </div>`,()=>{const play=()=>{document.body.classList.remove('landing');if(played){restore(played);setMeter();end(true)}else ask()};
   const go=document.getElementById('go');if(go)go.onclick=play;const g2=document.getElementById('go2');if(g2)g2.onclick=play;
   const hw=document.getElementById('how');if(hw)hw.onclick=()=>document.getElementById('steps').scrollIntoView({behavior:'smooth',block:'start'});
+  const lm=document.getElementById('landingMascot');
+  if(lm)lm.onclick=()=>{
+   lm.classList.remove('mascotStartle','mascotBounce');void lm.offsetWidth;
+   lm.dataset.mood='scream';paint();lm.classList.add('mascotStartle');
+   setTimeout(()=>{
+    lm.dataset.mood='wow';paint();lm.classList.remove('mascotStartle');void lm.offsetWidth;lm.classList.add('mascotBounce');
+    const art=lm.closest('.lp-art');
+    if(art){[...art.querySelectorAll('.mascot-spark')].forEach(s=>s.remove());
+     [[-30,-20],[30,-24],[-22,20],[24,22],[0,-32],[0,28]].forEach(([dx,dy])=>{const s=document.createElement('span');s.className='mascot-spark';s.style.setProperty('--dx',dx+'px');s.style.setProperty('--dy',dy+'px');art.appendChild(s)});
+     art.classList.remove('mascotSparkGo');void art.offsetWidth;art.classList.add('mascotSparkGo')}
+   },500);
+  };
   if(streakFlare){setTimeout(()=>{const fl=document.querySelector('.pixel-flame.flare');if(fl)fl.classList.remove('flare');const fw=document.querySelector('.flame-wrap.flare-active');if(fw)fw.classList.remove('flare-active')},760)}})}
 function ask(slide){document.body.classList.remove('results-view');document.body.classList.add('playing');const q=Q[qi];if(qi===0)track('game_start',{question_count:Q.length,set_id:dailySetId()});track('question_view',{question_id:q.id||slug(q.prompt),prompt:q.prompt,position:qi+1,question_count:Q.length,difficulty:q.difficulty||'unknown',answer_type:q.answer_type||'player',answer_count:q.answers.length,set_id:dailySetId()});let left=TIME*1000,t0,done=false;
  swap(`<div class="card"><div class="q-progress" aria-label="Question ${qi+1} of ${Q.length}"><span>Question</span><b>${qi+1} of ${Q.length}</b></div><div class="mute q-sub">${q.sub}</div><div class="prompt">${q.prompt}</div>${q.by?`<div class="byline">🦄 Community question by ${q.by}</div>`:''}
