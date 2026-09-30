@@ -222,12 +222,15 @@ body.landing .meter{display:none}
 .lp-climb{gap:6px;align-items:flex-end}
 .lp-climb span{white-space:nowrap;font-size:12px;font-weight:600;padding:4px 8px;border-radius:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);margin-bottom:calc(var(--i)*14px);animation:lit 3s ease-in-out infinite;animation-delay:calc(var(--i)*.5s)}
 @keyframes lit{20%,40%{background:var(--gold);color:#1b1530;border-color:var(--gold)}}
-.tier-row{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;align-items:end}
-@media (max-width:640px){.tier-row{grid-template-columns:repeat(3,1fr)}}
-.tier-chip{display:flex;flex-direction:column;align-items:center;text-align:center;gap:3px}
-.tier-bar{width:100%;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,var(--c),color-mix(in srgb,var(--c) 40%,transparent));transform-origin:bottom;animation:grow .9s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--i)*110ms + 300ms)}
-@keyframes grow{from{transform:scaleY(0)}}
-.tier-chip b{font-size:15px;color:var(--c)}.tier-chip span{font-size:12px;color:var(--mute)}
+.tier-stairs{display:flex;align-items:end;justify-content:center;gap:8px}
+.tier-stair{display:flex;flex-direction:column;align-items:center;text-align:center;gap:3px;flex:1;min-width:0;max-width:84px}
+.stair-plat{width:100%;border-radius:6px 6px 2px 2px;border:2px solid rgba(0,0,0,.5);box-shadow:inset 0 3px 0 rgba(255,255,255,.35),inset 0 -4px 0 rgba(0,0,0,.25);transform-origin:bottom;animation:stairGrow .9s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--i,0)*110ms + 300ms)}
+@keyframes stairGrow{from{transform:scaleY(0)}}
+.tier-stair b{font-size:15px;color:var(--ink)}.tier-stair span{font-size:12px;color:var(--mute)}
+.tier-stair.scream .stair-plat{box-shadow:inset 0 3px 0 rgba(255,255,255,.5),inset 0 -4px 0 rgba(0,0,0,.25),0 0 0 2px #fff0a6,0 0 18px rgba(255,209,90,.8);animation:stairGrow .9s cubic-bezier(.16,1,.3,1) calc(var(--i,0)*110ms + 300ms) both,stairGlow 1.6s ease-in-out 1.6s infinite}
+.tier-stair.scream b{color:var(--gold)}
+@keyframes stairGlow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.18)}}
+@media (prefers-reduced-motion:reduce){.stair-plat{animation:none!important}}
 .lp-final{text-align:center;padding:20px 0 6px}.lp-final .lp-meta{margin-top:14px}
 
 .reveal-top{position:relative}
@@ -378,10 +381,9 @@ input:focus-visible{border-color:var(--gold)!important}
 .meter .zone i{border-radius:0;background:#000;border:3px solid #fff;width:16px;height:16px;margin-top:-5px}
 .meter .zone.done i{background:var(--gold)}
 /* ladder + tiers */
-.ladder span,.tier-chip b{border-radius:4px}
-.ladder span{background:#000;border:2px solid #fff;color:#fff}
-.tier-bar{border-radius:0!important;border:3px solid #000;background:var(--c)!important;box-shadow:inset 0 -6px 0 rgba(0,0,0,.25)}
-.tier-chip b{-webkit-text-stroke:0;text-shadow:2px 2px 0 #000}
+.ladder span{border-radius:4px;background:#000;border:2px solid #fff;color:#fff}
+.stair-plat{border-radius:0!important;border:3px solid #000}
+.tier-stair b{-webkit-text-stroke:0;text-shadow:2px 2px 0 #000}
 /* pixel speech bubbles */
 .scream-bubble{font-family:var(--px)!important;border:3px solid #000;border-radius:0}
 /* clipboard copy toast */
@@ -529,7 +531,7 @@ dialog.admin textarea{font-family:ui-monospace,Menlo,Consolas,monospace!importan
 :root{--lab:"VT323","Silkscreen",system-ui,sans-serif}
 .linkish,.dist-lab{font-family:var(--lab)!important}
 .fake-input{font-family:var(--px)!important}
-.mute,.lp-meta,.hint,.lp-label,.tag,.lp-date,.gpts span,.meter .zone span,.lp-ans i,.lp-ans span,.tier-chip span,footer.site button,.promo,.ghead span,.kindtag{font-size:17px!important}
+.mute,.lp-meta,.hint,.lp-label,.tag,.lp-date,.gpts span,.meter .zone span,.lp-ans i,.lp-ans span,.tier-stair span,footer.site button,.promo,.ghead span,.kindtag{font-size:17px!important}
 .lp-label,.tag,.lp-date{letter-spacing:.5px}
 .gpts span{font-size:16px!important}
 .meter .zone span{font-size:15px!important}
@@ -556,15 +558,9 @@ ul.ans li .tchip{font-size:12px!important}
 .played-home-stats{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}.played-home-stat{min-width:120px;padding:9px 11px;border:2px solid rgba(255,255,255,.22);border-radius:7px;background:rgba(0,0,0,.28)}.played-home-stat span{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute)}.played-home-stat b{display:block;margin-top:2px;font:800 28px "Barlow Condensed",sans-serif;color:#fff}.played-home-stat small{font-size:14px;color:var(--mute);margin-left:3px}
 
 /* five-tier centering fix */
-.lp-tiers .tier-row{
-  display:grid!important;
-  grid-template-columns:repeat(5,minmax(0,1fr))!important;
-  justify-content:center!important;
-  align-items:end!important;
-  width:100%!important;
-}
+.lp-tiers .tier-stairs{width:100%!important}
 @media (max-width:560px){
-  .lp-tiers .tier-row{gap:8px!important}
+  .lp-tiers .tier-stairs{gap:6px!important}
 }
 
 
@@ -581,8 +577,6 @@ body.playing .brand-home{cursor:default}
 .landing-wrap .lp-example,.landing-wrap .lp-tiers{text-align:center}
 .landing-wrap .lp-answers{justify-items:stretch}
 .landing-wrap .lp-ans{text-align:center;align-items:center}
-.landing-wrap .lp-tiers .tier-row{justify-items:center!important}
-.landing-wrap .lp-tiers .tier-chip{text-align:center;justify-self:center}
 .landing-wrap .played-home-stats{justify-content:center}
 .landing-wrap .played-home-stat{text-align:center}
 
@@ -599,8 +593,6 @@ body.playing .brand-home{cursor:default}
   .landing-wrap .lp-grid{grid-template-columns:1fr!important}
 }
 
-/* wider landing tier bars */
-.landing-wrap .lp-tiers .tier-bar{width:70%!important;min-width:54px!important;max-width:78px!important;margin-left:auto!important;margin-right:auto!important}
 
 /* landing step number badges */
 .landing-wrap .lp-step{padding-top:58px!important}
@@ -620,12 +612,9 @@ body.playing .brand-home{cursor:default}
 .landing-wrap .lp-example .podium-top{transform:translateY(-12px) scale(1.07);z-index:3;border-color:var(--gold)!important;box-shadow:0 0 0 2px #fff0a6,0 0 0 5px rgba(255,209,90,.42),0 0 24px rgba(255,209,90,.72),8px 8px 0 rgba(0,0,0,.35)!important;animation:screamerPodiumPulse 1.45s ease-in-out infinite}
 .landing-wrap .lp-example .podium-low{transform:translateY(24px)}
 .landing-wrap .lp-example .podium-top:before{background:linear-gradient(90deg,#b8860b,#fff2a2,#ffd15a,#fff7c5,#b8860b)!important}
-.landing-wrap .lp-tiers .tier-col:last-child .tier-bar{border:2px solid var(--gold)!important;box-shadow:0 0 0 2px #fff0a6,0 0 0 5px rgba(255,209,90,.34),0 0 22px rgba(255,209,90,.7),inset 0 0 8px rgba(255,255,255,.45)!important;animation:screamerTierPulse 1.45s ease-in-out infinite}
-.landing-wrap .lp-tiers .tier-col:last-child .tier-chip{color:var(--gold)!important;text-shadow:0 0 7px rgba(255,209,90,.95)}
 @keyframes screamerPodiumPulse{0%,100%{filter:brightness(1);box-shadow:0 0 0 2px #fff0a6,0 0 0 4px rgba(255,209,90,.34),0 0 16px rgba(255,209,90,.55),8px 8px 0 rgba(0,0,0,.35)}50%{filter:brightness(1.16);box-shadow:0 0 0 2px #fff8d3,0 0 0 6px rgba(255,209,90,.5),0 0 30px rgba(255,209,90,.95),8px 8px 0 rgba(0,0,0,.35)}}
-@keyframes screamerTierPulse{0%,100%{filter:brightness(1);box-shadow:0 0 0 2px #fff0a6,0 0 0 4px rgba(255,209,90,.28),0 0 12px rgba(255,209,90,.5),inset 0 0 7px rgba(255,255,255,.35)}50%{filter:brightness(1.2);box-shadow:0 0 0 2px #fff8d3,0 0 0 6px rgba(255,209,90,.45),0 0 26px rgba(255,209,90,.9),inset 0 0 11px rgba(255,255,255,.55)}}
 @media (max-width:640px){.landing-wrap .lp-example .lp-answers{padding:0}.landing-wrap .lp-example .podium-mid,.landing-wrap .lp-example .podium-top,.landing-wrap .lp-example .podium-low{transform:none}}
-@media (prefers-reduced-motion:reduce){.landing-wrap .lp-example .podium-top,.landing-wrap .lp-tiers .tier-col:last-child .tier-bar{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.landing-wrap .lp-example .podium-top{animation:none!important}}
 
 /* aligned landing podium */
 @media (min-width:641px){
@@ -721,9 +710,9 @@ body.playing .brand-home{cursor:default}
 /* completed landing mobile refinements */
 .lp-final-played{padding:16px 0 10px!important;margin:4px 0 8px!important}
 @media (max-width:560px){
-  .landing-wrap .lp-tiers .tier-row{gap:6px!important}
-  .landing-wrap .lp-tiers .tier-chip b{min-height:34px!important;display:flex!important;align-items:center!important;justify-content:center!important;line-height:1.02!important;font-size:14px!important}
-  .landing-wrap .lp-tiers .tier-chip span{line-height:1!important}
+  .landing-wrap .lp-tiers .tier-stairs{gap:6px!important}
+  .landing-wrap .lp-tiers .tier-stair b{min-height:34px!important;display:flex!important;align-items:center!important;justify-content:center!important;line-height:1.02!important;font-size:14px!important}
+  .landing-wrap .lp-tiers .tier-stair span{line-height:1!important}
   .lp-final-played{padding:12px 0 8px!important;margin:0 0 6px!important}
 }
 
@@ -1082,7 +1071,7 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
 
  <section class="card lp-tiers">
   <h2 class="lp-h2">The five tiers</h2>
-  <div class="tier-row">${TIERS.map((t,i)=>`<div class="tier-chip" style="--c:${COLS[i]};--i:${i}"><div class="tier-bar" style="height:${22+i*14}px"></div><b>${t[1]}</b><span>${t[0]} pts</span></div>`).join('')}</div>
+  <div class="tier-stairs">${TIERS.map((t,i)=>`<div class="tier-stair${t[0]===100?' scream':''}" style="--i:${i}"><div class="stair-plat" style="height:${30+i*24}px;background:${COLS[i]}"></div><b>${t[1]}</b><span>${t[0]} pts</span></div>`).join('')}</div>
  </section>
 
  ${!played?`<section class="lp-final">
