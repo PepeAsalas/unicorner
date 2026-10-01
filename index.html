@@ -1046,7 +1046,9 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
  const today=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
  const COLS=['#cfd8e6','#7fe0a8','#b48cff','#ff7ac8','#f2c230'];
  const streak=currentStreak();const streakFlare=played?seenStreak(streak):false;
- const isOct1=amsterdamDay().slice(5)==='10-01';
+ const octDay=amsterdamDay().slice(5);
+ const isOct1=octDay==='10-01';
+ const isLeafWindow=octDay==='10-01'||octDay==='10-02'||octDay==='10-03';
  swap(`<div class="landing-wrap">
  <section class="lp-hero lp-home-hero">
   <div class="lp-home-title-row">
@@ -1112,7 +1114,7 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
   const go=document.getElementById('go');if(go)go.onclick=play;const g2=document.getElementById('go2');if(g2)g2.onclick=play;
   const hw=document.getElementById('how');if(hw)hw.onclick=()=>document.getElementById('steps').scrollIntoView({behavior:'smooth',block:'start'});
   const lm=document.getElementById('landingMascot');
-  if(isOct1){const art=lm&&lm.closest('.lp-art');if(art)spawnOctLeaves(art)}
+  if(isLeafWindow){const art=lm&&lm.closest('.lp-art');if(art)spawnOctLeaves(art)}
   if(lm)lm.onclick=()=>{
    lm.classList.remove('mascotStartle','mascotBounce');void lm.offsetWidth;
    lm.dataset.mood='scream';paint();lm.classList.add('mascotStartle');
