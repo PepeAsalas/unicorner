@@ -186,7 +186,7 @@ body.landing .meter{display:none}
 .lp-hero{margin-top:clamp(90px,16vh,160px);display:grid;grid-template-columns:1.3fr 1fr;align-items:center;gap:20px;padding:26px 4px 10px}
 @media (max-width:640px){.lp-hero{grid-template-columns:1fr;text-align:left}.lp-art{order:-1;height:180px}}
 .lp-date{display:inline-block;font-size:13px;font-weight:600;padding:4px 12px;border-radius:20px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:var(--mute)}
-.otd-fact{max-width:680px;margin:14px auto 0;padding:8px 14px;text-align:center;font-size:13px;line-height:1.4;color:#dfe7f5;background:rgba(8,20,14,.82);border:1px solid rgba(255,255,255,.18);border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.otd-fact{max-width:680px;margin:14px auto 0;padding:10px 16px;text-align:center;font-size:16px;line-height:1.4;color:#dfe7f5;background:rgba(8,20,14,.82);border:1px solid rgba(255,255,255,.18);border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.3)}
 .otd-fact b{color:var(--gold)}
 .otd-fact a{color:var(--gold);font-weight:700;text-decoration:none;white-space:nowrap}
 .otd-fact a:hover{text-decoration:underline}
@@ -1054,7 +1054,7 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
  const octDay=amsterdamDay().slice(5);
  const isOct1=octDay==='10-01';
  const isLeafWindow=octDay==='10-01'||octDay==='10-02'||octDay==='10-03';
- const ON_THIS_DAY={'10-02':{text:"Man City beat Man Utd 6-3 in 2022, with Haaland and Foden both scoring hat-tricks in the same derby.",url:"https://www.youtube.com/watch?v=MAiVyZ7vNU4"}};
+ const ON_THIS_DAY={'10-02':{text:"Haaland & Foden both hat-tricked as Man City thrashed Man Utd 6-3 in 2022.",url:"https://www.youtube.com/watch?v=MAiVyZ7vNU4"}};
  const onThisDay=ON_THIS_DAY[octDay];
  swap(`<div class="landing-wrap">
  ${onThisDay?`<p class="otd-fact"><b>⚽ On this day</b> — ${onThisDay.text} <a id="otdLink" href="${onThisDay.url}" target="_blank" rel="noopener">Watch ↗</a></p>`:''}
