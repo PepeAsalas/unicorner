@@ -186,6 +186,10 @@ body.landing .meter{display:none}
 .lp-hero{margin-top:clamp(90px,16vh,160px);display:grid;grid-template-columns:1.3fr 1fr;align-items:center;gap:20px;padding:26px 4px 10px}
 @media (max-width:640px){.lp-hero{grid-template-columns:1fr;text-align:left}.lp-art{order:-1;height:180px}}
 .lp-date{display:inline-block;font-size:13px;font-weight:600;padding:4px 12px;border-radius:20px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:var(--mute)}
+.otd-fact{max-width:680px;margin:14px auto 0;padding:8px 14px;text-align:center;font-size:13px;line-height:1.4;color:#dfe7f5;background:rgba(8,20,14,.82);border:1px solid rgba(255,255,255,.18);border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.otd-fact b{color:var(--gold)}
+.otd-fact a{color:var(--gold);font-weight:700;text-decoration:none;white-space:nowrap}
+.otd-fact a:hover{text-decoration:underline}
 .lp-title{font-size:clamp(44px,8vw,68px);font-weight:800;line-height:.95;margin:14px 0 12px}
 .uni-word{background:linear-gradient(90deg,#ff7ac8,#b48cff,#4fd7ff,#f2c230,#ff7ac8);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:rainbow 4s linear infinite}
 .lp-sub{font-size:20px;color:#dfe7f5;margin:0 0 18px;max-width:30ch}
@@ -1049,7 +1053,10 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
  const octDay=amsterdamDay().slice(5);
  const isOct1=octDay==='10-01';
  const isLeafWindow=octDay==='10-01'||octDay==='10-02'||octDay==='10-03';
+ const ON_THIS_DAY={'10-02':{text:"Man City beat Man Utd 6-3 in 2022, with Haaland and Foden both scoring hat-tricks in the same derby.",url:"https://www.youtube.com/watch?v=MAiVyZ7vNU4"}};
+ const onThisDay=ON_THIS_DAY[octDay];
  swap(`<div class="landing-wrap">
+ ${onThisDay?`<p class="otd-fact"><b>⚽ On this day</b> — ${onThisDay.text} <a href="${onThisDay.url}" target="_blank" rel="noopener">Watch ↗</a></p>`:''}
  <section class="lp-hero lp-home-hero">
   <div class="lp-home-title-row">
    <h1 class="lp-title"><span class="lp-lead">How deep is your </span><span class="uni-word">ball knowledge</span><span class="lp-qm">?</span></h1>
