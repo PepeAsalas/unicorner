@@ -1261,7 +1261,7 @@ const coll=p=>{
  if(p==='bank')return{get:async()=>{const rows=await sb('/rest/v1/questions?select=id,data,approved');return{docs:rows.map(r=>({id:r.id,data:()=>({...r.data,approved:r.approved})}))}},
   doc:id=>({set:async d=>{const{approved,...rest}=d;await sb('/rest/v1/questions',{method:'POST',headers:{Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify({id,data:rest,approved:!!approved,updated_at:new Date().toISOString()})})},
    delete:async()=>{await sb('/rest/v1/questions?id=eq.'+encodeURIComponent(id),{method:'DELETE',headers:{Prefer:'return=minimal'}})}})};
- if(p==='daily')return{doc:day=>({collection:()=>({add:async d=>{await sb('/rest/v1/scores',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify({score:d.score})})},
+ if(p==='daily')return{doc:day=>({collection:()=>({add:async d=>{await sb('/rest/v1/scores',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify({score:d.score,day})})},
   get:async()=>{const rows=await sb('/rest/v1/scores?select=score&day=eq.'+day+'&limit=5000');return{docs:rows.map(r=>({data:()=>r}))}}})})};
  throw new Error('unknown collection '+p)};
 const dbP=Promise.resolve({collection:coll});
