@@ -190,6 +190,7 @@ body.landing .meter{display:none}
 .otd-fact b{color:var(--gold)}
 .otd-fact a{color:var(--gold);font-weight:700;text-decoration:none;white-space:nowrap}
 .otd-fact a:hover{text-decoration:underline}
+@media (max-width:640px){.otd-fact{display:none}}
 .lp-title{font-size:clamp(44px,8vw,68px);font-weight:800;line-height:.95;margin:14px 0 12px}
 .uni-word{background:linear-gradient(90deg,#ff7ac8,#b48cff,#4fd7ff,#f2c230,#ff7ac8);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:rainbow 4s linear infinite}
 .lp-sub{font-size:20px;color:#dfe7f5;margin:0 0 18px;max-width:30ch}
@@ -1056,7 +1057,7 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
  const ON_THIS_DAY={'10-02':{text:"Man City beat Man Utd 6-3 in 2022, with Haaland and Foden both scoring hat-tricks in the same derby.",url:"https://www.youtube.com/watch?v=MAiVyZ7vNU4"}};
  const onThisDay=ON_THIS_DAY[octDay];
  swap(`<div class="landing-wrap">
- ${onThisDay?`<p class="otd-fact"><b>⚽ On this day</b> — ${onThisDay.text} <a href="${onThisDay.url}" target="_blank" rel="noopener">Watch ↗</a></p>`:''}
+ ${onThisDay?`<p class="otd-fact"><b>⚽ On this day</b> — ${onThisDay.text} <a id="otdLink" href="${onThisDay.url}" target="_blank" rel="noopener">Watch ↗</a></p>`:''}
  <section class="lp-hero lp-home-hero">
   <div class="lp-home-title-row">
    <h1 class="lp-title"><span class="lp-lead">How deep is your </span><span class="uni-word">ball knowledge</span><span class="lp-qm">?</span></h1>
@@ -1120,6 +1121,7 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
  </div>`,()=>{const play=()=>{document.body.classList.remove('landing');if(played){restore(played);setMeter();end(true)}else ask()};
   const go=document.getElementById('go');if(go)go.onclick=play;const g2=document.getElementById('go2');if(g2)g2.onclick=play;
   const hw=document.getElementById('how');if(hw)hw.onclick=()=>document.getElementById('steps').scrollIntoView({behavior:'smooth',block:'start'});
+  const otdLink=document.getElementById('otdLink');if(otdLink)otdLink.onclick=()=>track('on_this_day_click',{date:octDay,url:onThisDay.url});
   const lm=document.getElementById('landingMascot');
   if(isLeafWindow){const art=lm&&lm.closest('.lp-art');if(art)spawnOctLeaves(art)}
   if(lm)lm.onclick=()=>{
