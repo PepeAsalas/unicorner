@@ -1054,7 +1054,7 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
  const octDay=amsterdamDay().slice(5);
  const isOct1=octDay==='10-01';
  const isLeafWindow=octDay==='10-01'||octDay==='10-02'||octDay==='10-03';
- const ON_THIS_DAY={'10-02':{text:"Haaland & Foden both hat-tricked as Man City thrashed Man Utd 6-3 in 2022.",url:"https://www.youtube.com/watch?v=MAiVyZ7vNU4"}};
+ const ON_THIS_DAY={'10-02':{text:"Haaland & Foden hat-tricks: Man City 6-3 Man Utd, 2022.",url:"https://www.youtube.com/watch?v=MAiVyZ7vNU4"}};
  const onThisDay=ON_THIS_DAY[octDay];
  swap(`<div class="landing-wrap">
  ${onThisDay?`<p class="otd-fact"><b>⚽ On this day</b> — ${onThisDay.text} <a id="otdLink" href="${onThisDay.url}" target="_blank" rel="noopener">Watch ↗</a></p>`:''}
