@@ -74,6 +74,10 @@ declare uid uuid := lg_uid(); nick text := lg_clean(p_nickname);
 begin
   if char_length(nick) < 2 or char_length(nick) > 16 then raise exception 'Nickname must be 2–16 characters'; end if;
   if nick !~ '^[[:alnum:] _.''-]+$' then raise exception 'Nickname can only use letters, numbers, spaces and . _ -'; end if;
+  -- nicknames are public on the global ranking, so keep out the obvious nasties
+  if lower(regexp_replace(nick, '[^[:alnum:]]', '', 'g')) ~ '(fuck|shit|cunt|nigg|fagg|hitler|nazi|rape|whore|slut|retard|pedo|kkk)' then
+    raise exception 'Pick a different nickname';
+  end if;
   if exists (select 1 from player_profiles where lower(nickname) = lower(nick) and user_id <> uid) then
     raise exception 'That nickname is taken' using errcode = '23505';
   end if;
@@ -187,6 +191,43 @@ begin
   return json_build_object('id', l.id, 'name', l.name, 'code', l.code, 'today', t, 'week_start', wk, 'rows', rows);
 end $$;
 
+-- ── Global ranking: public (anyone can read it), only players with a nickname appear ──
+-- Ties go to whoever finished first. Week = Monday to today, Amsterdam time.
+create index if not exists player_scores_day_idx on public.player_scores (day, score desc);
+
+create or replace function public.lg_global_board()
+returns json language plpgsql stable security definer set search_path = public as $$
+declare uid uuid := auth.uid(); t date := lg_today(); wk date := date_trunc('week', lg_today())::date;
+        td json; tn int; tme json; wkj json; wn int; wme json;
+begin
+  with r as (
+    select s.user_id, p.nickname, s.score,
+           row_number() over (order by s.score desc, s.created_at) as rk
+    from player_scores s join player_profiles p on p.user_id = s.user_id
+    where s.day = t)
+  select coalesce(json_agg(json_build_object('nickname', nickname, 'score', score, 'rank', rk, 'me', user_id = uid)
+                           order by rk) filter (where rk <= 10), '[]'::json),
+         count(*),
+         (select json_build_object('rank', x.rk, 'score', x.score) from r x where x.user_id = uid)
+    into td, tn, tme from r;
+
+  with w as (
+    select s.user_id, p.nickname, sum(s.score)::int as total, count(*)::int as played, max(s.created_at) as last_at
+    from player_scores s join player_profiles p on p.user_id = s.user_id
+    where s.day between wk and t
+    group by s.user_id, p.nickname),
+  r as (select w.*, row_number() over (order by total desc, played desc, last_at) as rk from w)
+  select coalesce(json_agg(json_build_object('nickname', nickname, 'score', total, 'played', played, 'rank', rk, 'me', user_id = uid)
+                           order by rk) filter (where rk <= 10), '[]'::json),
+         count(*),
+         (select json_build_object('rank', x.rk, 'score', x.total) from r x where x.user_id = uid)
+    into wkj, wn, wme from r;
+
+  return json_build_object('today', t, 'week_start', wk,
+    'day', json_build_object('rows', td, 'players', tn, 'me', tme),
+    'week', json_build_object('rows', wkj, 'players', wn, 'me', wme));
+end $$;
+
 -- ── Permissions: only signed-in players may call the functions ────────────────
 do $$ declare f text; begin
   foreach f in array array[
@@ -198,4 +239,7 @@ do $$ declare f text; begin
     'lg_save_profile(text, boolean)', 'lg_me()', 'lg_create_league(text)', 'lg_league_preview(text)',
     'lg_join_league(text)', 'lg_leave_league(uuid)', 'lg_submit_score(date, integer)', 'lg_league_board(uuid)']
   loop execute format('grant execute on function public.%s to authenticated', f); end loop;
+  -- the global ranking is public
+  revoke all on function public.lg_global_board() from public;
+  grant execute on function public.lg_global_board() to anon, authenticated;
 end $$;
