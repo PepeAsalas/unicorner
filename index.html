@@ -1064,22 +1064,22 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
  const isOct1=octDay==='10-01';
  const isLeafWindow=octDay==='10-01'||octDay==='10-02'||octDay==='10-03';
  const ON_THIS_DAY={
-  '10-02':{text:"Haaland & Foden hat-tricks: Man City 6-3 Man Utd, 2022.",url:"https://www.youtube.com/watch?v=MAiVyZ7vNU4"},
-  '10-03':{text:"Salah's iconic solo goal: Liverpool 2-2 Man City, 2021.",url:"https://www.youtube.com/watch?v=iZ68OskGqow"},
-  '10-04':{text:"Watkins hat-trick stuns the champions: Aston Villa 7-2 Liverpool, 2020.",url:"https://www.youtube.com/watch?v=39pO-wFdv94"},
-  '10-05':{text:"Torres' 1000th goal, Kuyt's late winner: Liverpool 3-2 Man City, 2008.",url:"https://www.youtube.com/watch?v=b6De4N3JI1o"},
-  '10-06':{text:"Ferran Torres ends Italy's 37-game unbeaten run: Spain 2-1 Italy, 2021.",url:"https://www.youtube.com/watch?v=n6gp2wz1Noo"},
-  '10-07':{text:"Messi & Ronaldo both score twice: Barcelona 2-2 Real Madrid, 2012.",url:"https://www.youtube.com/watch?v=y-ckV3Gtqec"},
-  '10-08':{text:"Lamine Yamal, 16, becomes La Liga's youngest-ever scorer, 2023.",url:"https://www.youtube.com/watch?v=c2cBJdGiwhw"},
-  '10-09':{text:"Iceland become the smallest nation ever to reach a World Cup: 2-0 Kosovo, 2017.",url:"https://www.youtube.com/watch?v=iwisLZHD-WA"},
-  '10-10':{text:"Messi's hat-trick seals Argentina's World Cup spot: Ecuador 1-3 Argentina, 2017.",url:"https://www.youtube.com/watch?v=W0UsUzaYHAo"},
-  '10-11':{text:"Townsend's 25-yard debut screamer: England 4-1 Montenegro, 2013.",url:"https://www.youtube.com/watch?v=BAkOjFq1_Tc"},
-  '10-12':{text:"Salah's fastest-ever UCL hat-trick, in 6m12s: Rangers 1-7 Liverpool, 2022.",url:"https://www.youtube.com/watch?v=8TkO10UOFgQ"},
-  '10-13':{text:"Neymar's hat-trick passes Ronaldo for Brazil: Peru 2-4 Brazil, 2020.",url:"https://www.youtube.com/watch?v=9MRC8q9uMnU"},
-  '10-14':{text:"A drone-flown flag sparked a brawl, match abandoned: Serbia vs Albania, 2014.",url:"https://www.youtube.com/watch?v=MVM0ny8TYwE"},
-  '10-15':{text:"Rodrigo's 90+2 goal seals their Euro 2020 spot: Sweden 1-1 Spain, 2019.",url:"https://www.youtube.com/watch?v=6xhbYzZNayM"},
-  '10-16':{text:"Ibrahimović sparks a comeback from 4-0 down: Germany 4-4 Sweden, 2012.",url:"https://www.youtube.com/watch?v=PyTEESHXJ78"},
-  '10-17':{text:"Sterling's first senior hat-trick: Man City 5-1 Bournemouth, 2015.",url:"https://www.youtube.com/watch?v=Zk6710jTFnM"}
+  '10-02':{text:"Haaland & Foden hat-tricks: Man City 6-3 Man Utd, 2022.",url:"https://www.youtube.com/results?search_query=Man+City+6-3+Man+Utd+2022+highlights"},
+  '10-03':{text:"Salah's iconic solo goal: Liverpool 2-2 Man City, 2021.",url:"https://www.youtube.com/results?search_query=Salah+solo+goal+Liverpool+2-2+Man+City+2021"},
+  '10-04':{text:"Watkins hat-trick stuns the champions: Aston Villa 7-2 Liverpool, 2020.",url:"https://www.youtube.com/results?search_query=Aston+Villa+7-2+Liverpool+2020+highlights"},
+  '10-05':{text:"Torres hits Liverpool's 1,000th PL goal in a comeback from 2-0 down: Man City 2-3 Liverpool, 2008.",url:"https://www.youtube.com/results?search_query=Man+City+2-3+Liverpool+2008+highlights+Torres+Kuyt"},
+  '10-06':{text:"Ferran Torres ends Italy's 37-game unbeaten run: Spain 2-1 Italy, 2021.",url:"https://www.youtube.com/results?search_query=Spain+2-1+Italy+2021+Nations+League+highlights"},
+  '10-07':{text:"Messi & Ronaldo both score twice: Barcelona 2-2 Real Madrid, 2012.",url:"https://www.youtube.com/results?search_query=Barcelona+2-2+Real+Madrid+2012+highlights+Messi+Ronaldo"},
+  '10-08':{text:"Lamine Yamal, 16, becomes La Liga's youngest-ever scorer, 2023.",url:"https://www.youtube.com/results?search_query=Lamine+Yamal+first+goal+Granada+Barcelona+2023"},
+  '10-09':{text:"Iceland become the smallest nation ever to reach a World Cup: 2-0 Kosovo, 2017.",url:"https://www.youtube.com/results?search_query=Iceland+2-0+Kosovo+2017+highlights"},
+  '10-10':{text:"Messi's hat-trick seals Argentina's World Cup spot: Ecuador 1-3 Argentina, 2017.",url:"https://www.youtube.com/results?search_query=Ecuador+1-3+Argentina+2017+Messi+hat-trick"},
+  '10-11':{text:"Townsend's 25-yard debut screamer: England 4-1 Montenegro, 2013.",url:"https://www.youtube.com/results?search_query=Townsend+goal+England+4-1+Montenegro+2013"},
+  '10-12':{text:"Salah's fastest-ever UCL hat-trick, in 6m12s: Rangers 1-7 Liverpool, 2022.",url:"https://www.youtube.com/results?search_query=Rangers+1-7+Liverpool+2022+Salah+hat-trick"},
+  '10-13':{text:"Neymar's hat-trick passes Ronaldo for Brazil: Peru 2-4 Brazil, 2020.",url:"https://www.youtube.com/results?search_query=Peru+2-4+Brazil+2020+Neymar+hat-trick"},
+  '10-14':{text:"A drone-flown flag sparked a brawl, match abandoned: Serbia vs Albania, 2014.",url:"https://www.youtube.com/results?search_query=Serbia+vs+Albania+2014+drone"},
+  '10-15':{text:"Rodrigo's 90+2 goal seals their Euro 2020 spot: Sweden 1-1 Spain, 2019.",url:"https://www.youtube.com/results?search_query=Sweden+1-1+Spain+2019+Rodrigo+goal"},
+  '10-16':{text:"Ibrahimović sparks a comeback from 4-0 down: Germany 4-4 Sweden, 2012.",url:"https://www.youtube.com/results?search_query=Germany+4-4+Sweden+2012+highlights"},
+  '10-17':{text:"Sterling's first senior hat-trick: Man City 5-1 Bournemouth, 2015.",url:"https://www.youtube.com/results?search_query=Man+City+5-1+Bournemouth+2015+Sterling+hat-trick"}
  };
  const onThisDay=ON_THIS_DAY[octDay];
  swap(`<div class="landing-wrap">
