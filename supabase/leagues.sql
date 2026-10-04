@@ -59,7 +59,7 @@ $$ begin
 end $$;
 
 create or replace function public.lg_clean(t text) returns text
-language sql immutable as
+language sql immutable set search_path = public as
 $$ select regexp_replace(btrim(coalesce(t, '')), '\s+', ' ', 'g') $$;
 
 -- ── Player functions (all SECURITY DEFINER, all check the caller) ─────────────
