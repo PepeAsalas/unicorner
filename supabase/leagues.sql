@@ -40,6 +40,9 @@ create table if not exists public.player_scores (
   primary key (user_id, day)
 );
 
+-- removed by an admin (cheating): hidden everywhere, and the player can't re-submit that day
+alter table public.player_scores add column if not exists removed boolean not null default false;
+
 alter table public.player_profiles enable row level security;
 alter table public.leagues        enable row level security;
 alter table public.league_members enable row level security;
@@ -183,9 +186,9 @@ begin
   select * into l from leagues where id = p_league;
   select coalesce(json_agg(r order by r.today_score desc nulls last, r.week_total desc, r.nickname), '[]'::json) into rows from (
     select p.nickname, (m.user_id = uid) as me,
-           (select s.score from player_scores s where s.user_id = m.user_id and s.day = t) as today_score,
-           coalesce((select sum(s.score) from player_scores s where s.user_id = m.user_id and s.day between wk and t), 0) as week_total,
-           (select count(*) from player_scores s where s.user_id = m.user_id and s.day between wk and t) as week_played
+           (select s.score from player_scores s where s.user_id = m.user_id and s.day = t and not s.removed) as today_score,
+           coalesce((select sum(s.score) from player_scores s where s.user_id = m.user_id and s.day between wk and t and not s.removed), 0) as week_total,
+           (select count(*) from player_scores s where s.user_id = m.user_id and s.day between wk and t and not s.removed) as week_played
     from league_members m join player_profiles p on p.user_id = m.user_id
     where m.league_id = p_league) r;
   return json_build_object('id', l.id, 'name', l.name, 'code', l.code, 'today', t, 'week_start', wk, 'rows', rows);
@@ -198,13 +201,17 @@ create index if not exists player_scores_day_idx on public.player_scores (day, s
 create or replace function public.lg_global_board()
 returns json language plpgsql stable security definer set search_path = public as $$
 declare uid uuid := auth.uid(); t date := lg_today(); wk date := date_trunc('week', lg_today())::date;
-        td json; tn int; tme json; wkj json; wn int; wme json;
+        td json; tn int; tme json; wkj json; wn int; wme json; yj json;
 begin
+  select json_build_object('nickname', p.nickname, 'score', s.score) into yj
+    from player_scores s join player_profiles p on p.user_id = s.user_id
+    where s.day = t - 1 and not s.removed order by s.score desc, s.created_at limit 1;
+
   with r as (
     select s.user_id, p.nickname, s.score,
            row_number() over (order by s.score desc, s.created_at) as rk
     from player_scores s join player_profiles p on p.user_id = s.user_id
-    where s.day = t)
+    where s.day = t and not s.removed)
   select coalesce(json_agg(json_build_object('nickname', nickname, 'score', score, 'rank', rk, 'me', user_id = uid)
                            order by rk) filter (where rk <= 10), '[]'::json),
          count(*),
@@ -214,7 +221,7 @@ begin
   with w as (
     select s.user_id, p.nickname, sum(s.score)::int as total, count(*)::int as played, max(s.created_at) as last_at
     from player_scores s join player_profiles p on p.user_id = s.user_id
-    where s.day between wk and t
+    where s.day between wk and t and not s.removed
     group by s.user_id, p.nickname),
   r as (select w.*, row_number() over (order by total desc, played desc, last_at) as rk from w)
   select coalesce(json_agg(json_build_object('nickname', nickname, 'score', total, 'played', played, 'rank', rk, 'me', user_id = uid)
@@ -223,9 +230,56 @@ begin
          (select json_build_object('rank', x.rk, 'score', x.total) from r x where x.user_id = uid)
     into wkj, wn, wme from r;
 
-  return json_build_object('today', t, 'week_start', wk,
+  return json_build_object('today', t, 'week_start', wk, 'yesterday', yj,
     'day', json_build_object('rows', td, 'players', tn, 'me', tme),
     'week', json_build_object('rows', wkj, 'players', wn, 'me', wme));
+end $$;
+
+-- ── Admin: who is an admin, and the Players tab in the admin panel ───────────
+-- Being signed in is NOT enough to be admin (any player can sign in). Admins are listed here.
+create table if not exists public.admin_users (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  added_at timestamptz not null default now()
+);
+alter table public.admin_users enable row level security;
+revoke all on public.admin_users from anon, authenticated;
+
+create or replace function public.is_unicorner_admin() returns boolean
+language sql stable security definer set search_path = public as
+$$ select auth.uid() is not null and exists (select 1 from admin_users where user_id = auth.uid()) $$;
+
+create or replace function public.lg_admin_players(p_day date)
+returns json language plpgsql stable security definer set search_path = public as $$
+begin
+  if not is_unicorner_admin() then raise exception 'Admins only' using errcode = '42501'; end if;
+  return json_build_object('day', coalesce(p_day, lg_today()), 'rows', coalesce((
+    select json_agg(r order by r.rank) from (
+      select s.user_id, p.nickname, p.email, s.score, s.created_at, s.removed,
+             row_number() over (order by s.removed, s.score desc, s.created_at) as rank,
+             (select count(*) from league_members m where m.user_id = s.user_id) as leagues
+      from player_scores s left join player_profiles p on p.user_id = s.user_id
+      where s.day = coalesce(p_day, lg_today())) r), '[]'::json));
+end $$;
+
+create or replace function public.lg_admin_set_removed(p_user uuid, p_day date, p_removed boolean)
+returns void language plpgsql security definer set search_path = public as $$
+begin
+  if not is_unicorner_admin() then raise exception 'Admins only' using errcode = '42501'; end if;
+  update player_scores set removed = coalesce(p_removed, true) where user_id = p_user and day = p_day;
+end $$;
+
+create or replace function public.lg_admin_rename(p_user uuid, p_nickname text)
+returns void language plpgsql security definer set search_path = public as $$
+declare nick text := lg_clean(p_nickname);
+begin
+  if not is_unicorner_admin() then raise exception 'Admins only' using errcode = '42501'; end if;
+  if char_length(nick) < 2 or char_length(nick) > 16 then raise exception 'Nickname must be 2–16 characters'; end if;
+  if nick !~ '^[[:alnum:] _.''-]+$' then raise exception 'Nickname can only use letters, numbers, spaces and . _ -'; end if;
+  if exists (select 1 from player_profiles where lower(nickname) = lower(nick) and user_id <> p_user) then
+    raise exception 'That nickname is taken';
+  end if;
+  update player_profiles set nickname = nick, updated_at = now() where user_id = p_user;
+  if not found then raise exception 'Player not found'; end if;
 end $$;
 
 -- ── Permissions: only signed-in players may call the functions ────────────────
@@ -241,5 +295,12 @@ do $$ declare f text; begin
   loop execute format('grant execute on function public.%s to authenticated', f); end loop;
   -- the global ranking is public
   revoke all on function public.lg_global_board() from public;
+  -- admin functions check is_unicorner_admin() themselves; is_unicorner_admin() is also usable inside RLS policies
+  foreach f in array array['lg_admin_players(date)', 'lg_admin_set_removed(uuid, date, boolean)', 'lg_admin_rename(uuid, text)'] loop
+    execute format('revoke all on function public.%s from public, anon', f);
+    execute format('grant execute on function public.%s to authenticated', f);
+  end loop;
+  revoke all on function public.is_unicorner_admin() from public;
+  grant execute on function public.is_unicorner_admin() to anon, authenticated;
   grant execute on function public.lg_global_board() to anon, authenticated;
 end $$;

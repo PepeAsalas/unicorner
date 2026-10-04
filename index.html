@@ -535,6 +535,7 @@ dialog.admin,dialog.admin *{font-family:system-ui,-apple-system,"Segoe UI",Robot
 dialog.admin h2{font-size:24px;font-weight:700}
 dialog.admin .tabbtn,dialog.admin button{font-weight:600!important;font-size:15px!important}
 .msg-card{font-size:15px;line-height:1.45}
+.player-row.removed{opacity:.55}.player-row.removed b{text-decoration:line-through}
 .msg-card .kindtag{font-size:11px!important;font-weight:700!important;text-transform:uppercase!important;letter-spacing:.4px!important}
 #inbox-stats{font-size:14px}
 .adm-t,.admin label,.admin .mute{font-size:14px}
@@ -1384,7 +1385,7 @@ function applyBank(){
 }
 
 // ---- admin
-const adminHTML=`<dialog id="dlg-admin" class="admin"><div class="admin-in"><div class="row" style="justify-content:space-between;margin:0"><h2>Admin</h2><button class="ghost" data-close>Close</button></div><div class="row" style="margin:6px 0 14px"><button id="tab-bank" class="tabbtn on">Question bank</button><button id="tab-inbox" class="tabbtn">Inbox</button><button id="tab-stats" class="tabbtn">Stats</button></div><div id="inbox-pane" hidden><div class="row" style="margin:0 0 10px"><select id="inbox-filter" style="width:auto"><option value="">All messages</option><option value="contact">Contact</option><option value="report">Problem reports</option><option value="question">Question submissions</option><option value="infinite-waitlist">Infinity waitlist</option></select><button class="ghost" id="inbox-refresh">Refresh</button><span class="mute" id="inbox-stats"></span></div><div id="inbox-list"></div></div><div id="stats-pane" hidden><div class="row" style="margin:0 0 10px"><select id="stats-range" style="width:auto"><option value="7">Last 7 days</option><option value="30">Last 30 days</option><option value="1">Today</option></select><button class="ghost" id="stats-refresh">Refresh</button></div><div id="stats-body"></div></div><div id="bank-pane">
+const adminHTML=`<dialog id="dlg-admin" class="admin"><div class="admin-in"><div class="row" style="justify-content:space-between;margin:0"><h2>Admin</h2><button class="ghost" data-close>Close</button></div><div class="row" style="margin:6px 0 14px"><button id="tab-bank" class="tabbtn on">Question bank</button><button id="tab-inbox" class="tabbtn">Inbox</button><button id="tab-stats" class="tabbtn">Stats</button><button id="tab-players" class="tabbtn">Players</button></div><div id="players-pane" hidden><div class="row" style="margin:0 0 10px"><input type="date" id="players-day" style="width:auto"><button class="ghost" id="players-refresh">Refresh</button><span class="mute" id="players-stats"></span></div><div id="players-list"></div></div><div id="inbox-pane" hidden><div class="row" style="margin:0 0 10px"><select id="inbox-filter" style="width:auto"><option value="">All messages</option><option value="contact">Contact</option><option value="report">Problem reports</option><option value="question">Question submissions</option><option value="infinite-waitlist">Infinity waitlist</option></select><button class="ghost" id="inbox-refresh">Refresh</button><span class="mute" id="inbox-stats"></span></div><div id="inbox-list"></div></div><div id="stats-pane" hidden><div class="row" style="margin:0 0 10px"><select id="stats-range" style="width:auto"><option value="7">Last 7 days</option><option value="30">Last 30 days</option><option value="1">Today</option></select><button class="ghost" id="stats-refresh">Refresh</button></div><div id="stats-body"></div></div><div id="bank-pane">
 <p class="mute" id="adm-stats"></p>
 <details open><summary><b>Import a batch</b></summary><p class="mute">Paste the JSON from ChatGPT. New questions arrive unapproved. Re-importing a question keeps its approval.</p>
 <textarea id="adm-json" placeholder='{"questions":[...]}'></textarea><div class="row"><button id="adm-import">Import</button><span class="formmsg" id="adm-msg"></span></div></details>
@@ -1494,6 +1495,24 @@ async function loadStats(){const el=document.getElementById('stats-body');el.inn
    <div class="bars">${finishDayRows.map(([d,v])=>`<div class="barrow"><span>${d.slice(5)}</span><i style="width:${Math.round(v/finishMx*100)}%"></i><b>${v}</b></div>`).join('')||'<p class="mute">No data yet.</p>'}</div>`}
  catch(e){el.innerHTML='<p class="msg bad">Could not load: '+esc(e.message)+'</p>'}}
 document.getElementById('stats-range').onchange=loadStats;document.getElementById('stats-refresh').onclick=loadStats;
+// ---- players (global ranking moderation: remove a cheat score, rename a bad nickname)
+async function loadPlayers(){const el=document.getElementById('players-list'),st=document.getElementById('players-stats'),dayEl=document.getElementById('players-day');
+ if(!dayEl.value)dayEl.value=amsterdamDay();el.innerHTML='<p class="mute">Loading…</p>';
+ try{const r=await sb('/rest/v1/rpc/lg_admin_players',{method:'POST',body:JSON.stringify({p_day:dayEl.value})});const rows=r?.rows||[];
+  st.textContent=`${rows.filter(x=>!x.removed).length} on the ranking${rows.some(x=>x.removed)?` · ${rows.filter(x=>x.removed).length} removed`:''}`;
+  el.innerHTML=rows.map(x=>{const when=new Date(x.created_at).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+   return `<div class="msg-card player-row${x.removed?' removed':''}"><div class="row" style="margin:0;justify-content:space-between;gap:8px"><span><b>${x.removed?'✕':'#'+x.rank}</b> ${x.nickname?esc(x.nickname):'<span class="mute">(no nickname — not on the ranking)</span>'} · <b>${x.score}</b> pts</span><span class="mute">${when}</span></div>
+   <div class="mute">${esc(x.email||'')}${x.leagues?` · in ${x.leagues} league${x.leagues===1?'':'s'}`:''}</div>
+   <div class="row" style="margin:8px 0 0">${x.nickname?`<button class="ghost" data-prename="${esc(x.user_id)}" data-nick="${esc(x.nickname)}">Rename</button>`:''}<button class="ghost" data-premove="${esc(x.user_id)}" data-removed="${x.removed?1:0}">${x.removed?'Restore score':'Remove score'}</button></div></div>`}).join('')||'<p class="mute">No scores this day.</p>'}
+ catch(e){el.innerHTML=`<p class="msg bad">${esc(e.message)}${/Admins only|permission/i.test(e.message)?' — your account is not in admin_users yet.':''}</p>`}}
+document.getElementById('players-refresh').onclick=loadPlayers;document.getElementById('players-day').onchange=loadPlayers;
+document.getElementById('players-list').onclick=async e=>{const b=e.target.closest('button');if(!b)return;const day=document.getElementById('players-day').value;
+ try{if(b.dataset.prename){const n=prompt('New nickname for '+b.dataset.nick+':',b.dataset.nick);if(!n||n===b.dataset.nick)return;
+   await sb('/rest/v1/rpc/lg_admin_rename',{method:'POST',body:JSON.stringify({p_user:b.dataset.prename,p_nickname:n})})}
+  else if(b.dataset.premove){const restore=b.dataset.removed==='1';if(!restore&&!confirm('Remove this score from the ranking and leagues? They won\'t be able to re-submit for this day.'))return;
+   await sb('/rest/v1/rpc/lg_admin_set_removed',{method:'POST',body:JSON.stringify({p_user:b.dataset.premove,p_day:day,p_removed:!restore})})}
+  loadPlayers()}catch(x){alert(x.message)}};
+
 // ---- inbox
 async function loadInbox(){const el=document.getElementById('inbox-list'),st=document.getElementById('inbox-stats');el.innerHTML='<p class="mute">Loading…</p>';
  try{const rows=await sb('/rest/v1/submissions?select=id,kind,payload,created_at&order=created_at.desc&limit=500');
@@ -1506,9 +1525,9 @@ async function loadInbox(){const el=document.getElementById('inbox-list'),st=doc
    return `<div class="msg-card"><div class="row" style="margin:0 0 6px;justify-content:space-between"><span class="kindtag k-${esc(r.kind)}">${esc(label[r.kind]||r.kind)}</span><span class="mute">${when}${p.newsletter?' · wants news':''}</span></div>${fields}${p.email?`<div class="row" style="margin-top:8px"><a class="linkish" href="mailto:${esc(p.email)}?subject=Unicorner">Reply by email</a></div>`:''}</div>`}).join('')||'<p class="mute">Nothing here yet.</p>'}
  catch(e){el.innerHTML='<p class="msg bad">Could not load: '+esc(e.message)+'</p>'}}
 document.getElementById('inbox-filter').onchange=loadInbox;document.getElementById('inbox-refresh').onclick=loadInbox;
-const showTab=t=>{document.getElementById('bank-pane').hidden=t!=='bank';document.getElementById('inbox-pane').hidden=t!=='inbox';document.getElementById('stats-pane').hidden=t!=='stats';document.getElementById('tab-stats').classList.toggle('on',t==='stats');if(t==='stats')loadStats();
+const showTab=t=>{document.getElementById('players-pane').hidden=t!=='players';document.getElementById('tab-players').classList.toggle('on',t==='players');if(t==='players')loadPlayers();document.getElementById('bank-pane').hidden=t!=='bank';document.getElementById('inbox-pane').hidden=t!=='inbox';document.getElementById('stats-pane').hidden=t!=='stats';document.getElementById('tab-stats').classList.toggle('on',t==='stats');if(t==='stats')loadStats();
  document.getElementById('tab-bank').classList.toggle('on',t==='bank');document.getElementById('tab-inbox').classList.toggle('on',t==='inbox');if(t==='inbox')loadInbox()};
-document.getElementById('tab-bank').onclick=()=>showTab('bank');document.getElementById('tab-inbox').onclick=()=>showTab('inbox');document.getElementById('tab-stats').onclick=()=>showTab('stats');
+document.getElementById('tab-bank').onclick=()=>showTab('bank');document.getElementById('tab-inbox').onclick=()=>showTab('inbox');document.getElementById('tab-stats').onclick=()=>showTab('stats');document.getElementById('tab-players').onclick=()=>showTab('players');
 // admin login: open the site with #admin
 document.body.insertAdjacentHTML('beforeend',`<dialog id="dlg-login"><form id="login-form"><h2>Admin login</h2><label for="lg-email">Email</label><input id="lg-email" type="email" required><label for="lg-pw">Password</label><input id="lg-pw" type="password" required><div class="formmsg" id="lg-msg"></div><div class="row"><button type="submit">Log in</button><button type="button" class="ghost" data-close>Cancel</button></div></form></dialog>`);
 async function openAdmin(){BANK=await loadBank();renderAdmin();document.getElementById('dlg-admin').showModal()}
@@ -1558,7 +1577,7 @@ if(brandHome){
 const LG_GOOGLE=false; // switch on once the Google provider is set up in Supabase
 const LG_KEY='uc-player-session',LG_PENDING='uc-league-invite',LG_OPTOUT='uc-league-optout',LG_ACTIVE='uc-league-active',LG_INF='uc-inf-notified',LG_INTENT='uc-league-intent',LG_PSCORE='uc-league-pending-score',LG_MAX=1; // beta: one league each — more come with Infinity mode
 let sess=null;try{sess=JSON.parse(localStorage.getItem(LG_KEY)||'null')}catch{}
-let me=null,board=null,boardTab='today',emailForCode='',busy=false;
+let me=null,board=null,boardTab='today',signInEmail='',busy=false;
 const $=id=>document.getElementById(id);
 const lsGet=k=>{try{return localStorage.getItem(k)}catch{return null}};
 const lsSet=(k,v)=>{try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch{}};
@@ -1578,10 +1597,10 @@ async function pubRpc(fn){const t=sess?await token():null;
  const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+(t||SB_KEY),'Content-Type':'application/json'},body:'{}'});
  if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}
 
-// Return from Google sign-in (#access_token=…) and invite links (?league=CODE)
+// Return from the emailed sign-in link or Google (#access_token=…) and invite links (?league=CODE)
 let fresh=false,oauthError='';
 (()=>{const h=location.hash;
- if(h.includes('access_token=')){const p=new URLSearchParams(h.slice(1));saveSess({access_token:p.get('access_token'),refresh_token:p.get('refresh_token'),expires_in:p.get('expires_in')});fresh=true;history.replaceState(null,'',location.pathname+location.search);track('league_login',{method:'google'})}
+ if(h.includes('access_token=')){const p=new URLSearchParams(h.slice(1));saveSess({access_token:p.get('access_token'),refresh_token:p.get('refresh_token'),expires_in:p.get('expires_in')});fresh=true;history.replaceState(null,'',location.pathname+location.search);track('league_login',{method:p.get('provider_token')?'google':'email'})}
  else if(h.includes('error_description=')){oauthError=new URLSearchParams(h.slice(1)).get('error_description')||'Sign-in failed';history.replaceState(null,'',location.pathname+location.search)}
  const q=new URLSearchParams(location.search),c=q.get('league'),o=q.get('optout'),gi=q.get('i'),ps=q.get('s'),pd=q.get('d');
  if(gi==='g')lsSet(LG_INTENT,'global');
@@ -1607,7 +1626,6 @@ const css=`
 #dlg-league .lg-row>button{flex:1 1 auto}
 #dlg-league .lg-err{color:var(--bad);min-height:20px;margin:10px 0 0;font-size:15px}
 #dlg-league .lg-small{font-size:14px;margin-top:14px}
-#dlg-league .lg-code{letter-spacing:6px;font-size:24px!important;text-align:center}
 .lg-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 10px}
 .lg-tabs button{padding:7px 12px!important;font-size:15px!important;background:rgba(255,255,255,.08)!important;color:var(--ink)!important;border:1px solid rgba(255,255,255,.25)!important;box-shadow:none!important}
 .lg-tabs button.on{background:var(--gold)!important;color:#1b1530!important;border-color:#000!important}
@@ -1660,6 +1678,9 @@ body.playing #league-home-slot{display:none}
 .lp-global .g-board td{border-top-color:rgba(255,255,255,.22)}
 .lg-board tr.gap td{border-top:2px dashed rgba(255,255,255,.35)}
 .lp-global .g-me{outline:3px solid #fff;outline-offset:2px}
+.g-champ span{white-space:nowrap}
+.g-champ{display:inline-block;margin:2px 0 10px;padding:4px 12px;line-height:1.25;border:2px solid #000;border-radius:6px;background:#ffd23f;color:#1b1530;font-family:var(--lab);font-size:21px;box-shadow:0 3px 0 #000}
+.g-champ b{font-family:var(--px);font-weight:400;font-size:21px}
 .g-note{margin:14px 0 0;font-family:var(--lab);font-size:21px;color:#ffe0e0}
 .g-you{margin:14px 0 0;font-size:24px}
 .g-you b{color:var(--gold)}
@@ -1697,13 +1718,13 @@ function viewLogin(note){const g=lsGet(LG_INTENT)==='global';show(`${g?`<h2>🌍
  ${note?`<p>${esc(note)}</p>`:''}
  ${LG_GOOGLE?`<button type="button" class="lg-google" data-lg="google">${GOOGLE}<span>Continue with Google</span></button>
  <div class="lg-or">or use your email</div>`:''}
- <form id="lea-email-form"><label for="lea-email">Email</label><input id="lea-email" type="email" required maxlength="120" autocomplete="email" value="${esc(emailForCode)}">
+ <form id="lea-email-form"><label for="lea-email">Email</label><input id="lea-email" type="email" required maxlength="120" autocomplete="email" value="${esc(signInEmail)}">
  <label class="check"><input type="checkbox" id="lea-optout-signup" ${lsGet(LG_OPTOUT)==='1'?'checked':''}> <span>I don't want reminders or Unicorner news</span></label>
  <div class="lg-row"><button type="submit">Email me a sign-in link</button></div></form>
  <p class="lg-err" id="lea-err" role="status">${esc(oauthError)}</p>
  <p class="mute lg-small">The daily game stays free with no sign-up — this is only for the rankings and leagues. <a href="privacy.html">Privacy</a>.</p>`);oauthError=''}
-function viewCode(){show(`<h2>Check your email 📬</h2>
- <p>We sent a sign-in link to <b>${esc(emailForCode)}</b>.</p>
+function viewCheckEmail(){show(`<h2>Check your email 📬</h2>
+ <p>We sent a sign-in link to <b>${esc(signInEmail)}</b>.</p>
  <p class="mute">Open the email <b>on this device</b> and tap the link in it — you'll come straight back here, signed in. Can't see it? Check your spam folder.</p>
  <p class="mute">The link works once and expires after a while — you can always request a new one.</p>
  <div class="lg-row"><button type="button" class="ghost" data-lg="login">Use another email</button></div>`);}
@@ -1808,6 +1829,7 @@ async function renderGlobal(){const el=$('global-rank-slot');if(!el)return;let g
  const part=g[gTab],rows=part.rows||[];
  $('global-rank-slot').innerHTML=`<div class="lp-label">Global ranking${part.players?' · '+part.players+' player'+(part.players===1?'':'s'):''}</div>
   <div class="lp-prompt">${gTab==='day'?'Today\'s top players':'This week\'s top players'}</div>
+  ${g.yesterday?`<p class="g-champ">👑 Yesterday's champ: <span><b>${esc(g.yesterday.nickname)}</b> · ${g.yesterday.score}</span></p>`:''}
   ${gTabs('landing')}
   ${podium(rows)}
   ${rows.length?'':`<p class="g-note">No one's on the board yet${gTab==='day'?' today':' this week'} — be the first!</p>`}
@@ -1852,7 +1874,7 @@ document.addEventListener('click',async e=>{const b=e.target.closest('[data-lg]'
  if(a==='close')return dlg.close();
  if(a==='open')return open(b.dataset.from);
  if(a==='google'){track('league_login_start',{method:'google'});location.href=SB_URL+'/auth/v1/authorize?provider=google&redirect_to='+encodeURIComponent(location.origin+location.pathname);return}
- if(a==='login'){emailForCode='';return viewLogin()}
+ if(a==='login'){signInEmail='';return viewLogin()}
  if(a==='home')return viewHome();
  if(a==='create')return (me?.leagues?.length||0)>=LG_MAX?viewMore():viewCreate();
  if(a==='profile')return viewProfile();
@@ -1876,7 +1898,7 @@ document.addEventListener('click',async e=>{const b=e.target.closest('[data-lg]'
 
 document.addEventListener('submit',async e=>{const f=e.target;if(!f.id?.startsWith('lea-'))return;e.preventDefault();if(busy)return;busy=true;const btn=f.querySelector('[type=submit]');if(btn)btn.disabled=true;err('');
  try{
-  if(f.id==='lea-email-form'){emailForCode=$('lea-email').value.trim();const optout=$('lea-optout-signup').checked;lsSet(LG_OPTOUT,optout?'1':'0');const back=new URLSearchParams();if(optout)back.set('optout','1');const inv=lsGet(LG_PENDING);if(inv)back.set('league',inv);if(lsGet(LG_INTENT)==='global')back.set('i','g');const pl=playedToday();if(pl){back.set('s',pl.score);back.set('d',pl.day)}const to=location.origin+location.pathname+(back.toString()?'?'+back:'');await authPost('/auth/v1/otp?redirect_to='+encodeURIComponent(to),{email:emailForCode,create_user:true,data:{news_opt_out:optout}});track('league_login_start',{method:'email'});viewCode()}
+  if(f.id==='lea-email-form'){signInEmail=$('lea-email').value.trim();const optout=$('lea-optout-signup').checked;lsSet(LG_OPTOUT,optout?'1':'0');const back=new URLSearchParams();if(optout)back.set('optout','1');const inv=lsGet(LG_PENDING);if(inv)back.set('league',inv);if(lsGet(LG_INTENT)==='global')back.set('i','g');const pl=playedToday();if(pl){back.set('s',pl.score);back.set('d',pl.day)}const to=location.origin+location.pathname+(back.toString()?'?'+back:'');await authPost('/auth/v1/otp?redirect_to='+encodeURIComponent(to),{email:signInEmail,create_user:true,data:{news_opt_out:optout}});track('league_login_start',{method:'email'});viewCheckEmail()}
   else if(f.id==='lea-profile-form'){const nick=$('lea-nick').value.trim();if(/fuck|shit|cunt|nigg|fagg|hitler|nazi/i.test(nick))throw new Error('Pick a different nickname');const first=!me?.profile;await rpc('lg_save_profile',{p_nickname:nick,p_news_opt_out:first?lsGet(LG_OPTOUT)==='1':$('lea-optout').checked});await loadMe();track('league_profile',{first});busy=false;await syncScore();if(first){const pending=lsGet(LG_PENDING);if(pending)await viewJoin(pending);else if(lsGet(LG_INTENT)==='global'){lsSet(LG_INTENT,null);await viewGlobal(true)}else await viewHome()}else await viewHome();renderSlots()}
   else if(f.id==='lea-create-form'){if((me?.leagues?.length||0)>=LG_MAX){busy=false;return viewMore()}const l=await rpc('lg_create_league',{p_name:$('lea-name').value.trim()});track('league_create',{});lsSet(LG_ACTIVE,l.id);await loadMe();board=null;await viewHome();renderSlots();showToast('League created — now invite your mates!')}
  }catch(x){err(x.message);if(btn)btn.disabled=false}finally{busy=false}});
