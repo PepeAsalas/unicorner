@@ -1649,7 +1649,7 @@ function viewLogin(note){show(`<h2>🏆 Leagues</h2>
  <p class="lg-err" id="lea-err" role="status">${esc(oauthError)}</p>
  <p class="mute lg-small">The daily game stays free with no sign-up — this is only for leagues. <a href="privacy.html">Privacy</a>.</p>`);oauthError=''}
 function viewCode(){show(`<h2>Check your email</h2>
- <p class="mute">We sent a 6-digit code to <b>${esc(emailForCode)}</b>.</p>
+ <p class="mute">We sent a 6-digit code to <b>${esc(emailForCode)}</b>. Got a sign-in link instead? Just tap it on this device — that works too.</p>
  <form id="lea-code-form"><label for="lea-code">Code</label><input id="lea-code" class="lg-code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" required pattern="[0-9]{6}">
  <div class="lg-row"><button type="submit">Sign in</button><button type="button" class="ghost" data-lg="login">Use another email</button></div></form>
  <p class="lg-err" id="lea-err" role="status"></p>`);setTimeout(()=>$('lea-code')?.focus(),50)}
