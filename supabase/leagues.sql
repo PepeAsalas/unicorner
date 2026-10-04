@@ -62,6 +62,11 @@ create or replace function public.lg_clean(t text) returns text
 language sql immutable set search_path = public as
 $$ select regexp_replace(btrim(coalesce(t, '')), '\s+', ' ', 'g') $$;
 
+-- How many leagues one player may be in. Beta: 1 — more come with Infinity mode.
+create or replace function public.lg_max_leagues() returns int
+language sql immutable set search_path = public as
+$$ select 1 $$;
+
 -- ── Player functions (all SECURITY DEFINER, all check the caller) ─────────────
 create or replace function public.lg_save_profile(p_nickname text, p_news_opt_out boolean)
 returns json language plpgsql security definer set search_path = public as $$
@@ -101,7 +106,9 @@ declare uid uuid := lg_uid(); nm text := lg_clean(p_name); new_code text; new_id
 begin
   if not exists (select 1 from player_profiles where user_id = uid) then raise exception 'Pick a nickname first'; end if;
   if char_length(nm) < 2 or char_length(nm) > 30 then raise exception 'League name must be 2–30 characters'; end if;
-  if (select count(*) from league_members where user_id = uid) >= 5 then raise exception 'You can be in up to 5 leagues'; end if;
+  if (select count(*) from league_members where user_id = uid) >= lg_max_leagues() then
+    raise exception 'For now you can be in one league — more are coming with Infinity mode';
+  end if;
   if (select count(*) from leagues where owner = uid and created_at > now() - interval '1 day') >= 5 then
     raise exception 'Too many new leagues today — try again tomorrow';
   end if;
@@ -136,7 +143,9 @@ begin
   if exists (select 1 from league_members where league_id = l.id and user_id = uid) then
     return json_build_object('id', l.id, 'code', l.code, 'name', l.name);
   end if;
-  if (select count(*) from league_members where user_id = uid) >= 5 then raise exception 'You can be in up to 5 leagues'; end if;
+  if (select count(*) from league_members where user_id = uid) >= lg_max_leagues() then
+    raise exception 'For now you can be in one league — more are coming with Infinity mode';
+  end if;
   if (select count(*) from league_members where league_id = l.id) >= 50 then raise exception 'This league is full (50 players)'; end if;
   insert into league_members (league_id, user_id) values (l.id, uid);
   return json_build_object('id', l.id, 'code', l.code, 'name', l.name);
@@ -181,7 +190,7 @@ end $$;
 -- ── Permissions: only signed-in players may call the functions ────────────────
 do $$ declare f text; begin
   foreach f in array array[
-    'lg_today()', 'lg_uid()', 'lg_clean(text)',
+    'lg_today()', 'lg_uid()', 'lg_clean(text)', 'lg_max_leagues()',
     'lg_save_profile(text, boolean)', 'lg_me()', 'lg_create_league(text)', 'lg_league_preview(text)',
     'lg_join_league(text)', 'lg_leave_league(uuid)', 'lg_submit_score(date, integer)', 'lg_league_board(uuid)']
   loop execute format('revoke all on function public.%s from public, anon', f); end loop;

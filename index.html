@@ -1556,7 +1556,7 @@ if(brandHome){
    Player sessions are kept apart from the admin session (different storage, own fetch helper). */
 (()=>{
 const LG_GOOGLE=false; // switch on once the Google provider is set up in Supabase
-const LG_KEY='uc-player-session',LG_PENDING='uc-league-invite',LG_OPTOUT='uc-league-optout',LG_ACTIVE='uc-league-active';
+const LG_KEY='uc-player-session',LG_PENDING='uc-league-invite',LG_OPTOUT='uc-league-optout',LG_ACTIVE='uc-league-active',LG_INF='uc-inf-notified',LG_MAX=1; // beta: one league each — more come with Infinity mode
 let sess=null;try{sess=JSON.parse(localStorage.getItem(LG_KEY)||'null')}catch{}
 let me=null,board=null,boardTab='today',emailForCode='',busy=false;
 const $=id=>document.getElementById(id);
@@ -1635,6 +1635,7 @@ body.playing #league-home-slot{display:none}
 .lg-board th.n{text-align:right}
 .lg-board tr.me td{font-weight:400}
 .lg-board .mute{font-size:21px!important}
+#dlg-league .lg-more-h{font-size:26px;margin:26px 0 4px;padding-top:18px;border-top:1px solid rgba(255,255,255,.15)}
 `;
 document.head.insertAdjacentHTML('beforeend','<style>'+css+'</style>');
 document.body.insertAdjacentHTML('beforeend','<dialog id="dlg-league"><div class="lg-body" id="lea-body"></div></dialog>');
@@ -1690,10 +1691,33 @@ function viewCreate(){show(`<h2>Create a league</h2>
 async function viewJoin(code){show('<h2>Joining…</h2>');
  try{const p=await rpc('lg_league_preview',{p_code:code});
   if(p.already_member){lsSet(LG_PENDING,null);lsSet(LG_ACTIVE,p.id);return viewHome()}
+  if((me?.leagues?.length||0)>=LG_MAX)return viewMore({code:p.code,name:p.name});
   show(`<h2>Join “${esc(p.name)}”?</h2><p class="mute">${p.members} ${p.members===1?'player':'players'} so far. Your daily score will show on their leaderboard.</p>
   <div class="lg-row"><button type="button" data-lg="join" data-code="${esc(p.code)}">Join league</button><button type="button" class="ghost" data-lg="nojoin">Not now</button></div>
   <p class="lg-err" id="lea-err" role="status"></p>`)}
  catch(e){lsSet(LG_PENDING,null);show(`<h2>Hmm</h2><p class="lg-err" id="lea-err">${esc(e.message)}</p><div class="lg-row"><button type="button" data-lg="home">OK</button></div>`)}}
+// Beta: one league each. Wanting more = interest in Infinity mode, one tap since we already have their email.
+let moreJoin=null;
+function viewMore(join){moreJoin=join||null;const cur=me?.leagues?.[0],email=sess?.email||'',done=!!email&&lsGet(LG_INF)===email;
+ const notify=done?`<p>✓ You're on the list — we'll email <b>${esc(email)}</b> when Infinity mode is live.</p>`
+  :`<div class="lg-row"><button type="button" data-lg="notify">🔔 Yes, notify me</button></div><p class="mute lg-small">We'll email ${esc(email)} when it's live.</p>`;
+ if(join)return show(`<h2>Join “${esc(join.name)}”?</h2>
+ <p class="mute">For now you can be in one league${cur?`, and you're already in <b>${esc(cur.name)}</b>`:''}.</p>
+ <div class="lg-row"><button type="button" data-lg="switch" data-code="${esc(join.code)}">Switch to ${esc(join.name)}</button><button type="button" class="ghost" data-lg="nojoin">Stay${cur?' in '+esc(cur.name):''}</button></div>
+ <h3 class="lg-more-h">∞ Want more leagues?</h3>
+ <p class="mute">More leagues are coming with <b>Infinity mode</b>.${done?'':' Want us to tell you when it\'s live?'}</p>
+ ${notify}
+ <p class="lg-err" id="lea-err" role="status"></p>`);
+ show(`<h2>∞ More leagues are coming</h2>
+ <p class="mute">In the beta you can be in one league. More leagues unlock with <b>Infinity mode</b> — coming soon.${done?'':' Want us to tell you when it\'s live?'}</p>
+ ${notify}
+ <div class="lg-row"><button type="button" class="ghost" data-lg="home">Back</button></div>
+ <p class="lg-err" id="lea-err" role="status"></p>`)}
+async function notifyInfinity(){const email=sess?.email;if(!email)throw new Error('Please sign in again');
+ const data={email,from:'leagues',note:'Wants more leagues',newsletter:!me?.profile?.news_opt_out,privacyNoticeVersion:'2026-09-18'};
+ fetch('https://formsubmit.co/ajax/joseasalasnl@gmail.com',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({_subject:'Unicorner: Infinity mode waitlist',_template:'table',_captcha:'false',_replyto:email,type:'Infinity mode waitlist',...Object.fromEntries(Object.entries(data).map(([k,v])=>[k,String(v)])),sent:new Date().toLocaleString('en-GB')})}).catch(()=>{});
+ const db=await dbP;await db.collection('submissions').add({kind:'infinite-waitlist',...data,sentAt:new Date().toISOString()});
+ lsSet(LG_INF,email);track('league_more_notify',{});showToast('You\'re on the list! 🔔')}
 async function viewHome(){
  if(!me?.leagues?.length)return viewCreate();
  show('<h2>🏆 Your leagues</h2><p class="mute">Loading…</p>');
@@ -1704,7 +1728,7 @@ async function viewHome(){
  <div class="lg-tabs"><button type="button" data-lg="tab" data-tab="today" class="${boardTab==='today'?'on':''}">Today</button><button type="button" data-lg="tab" data-tab="week" class="${boardTab==='week'?'on':''}">This week</button></div>
  ${boardTable(board,boardTab)}
  <div class="lg-row"><button type="button" data-lg="copy" data-code="${esc(board.code)}">🔗 Copy invite link</button>${navigator.share?`<button type="button" class="ghost" data-lg="invite" data-code="${esc(board.code)}" data-name="${esc(board.name)}">Share</button>`:''}</div>
- ${me.leagues.length<5?'<div class="lg-row"><button type="button" class="ghost" data-lg="create">+ New league</button></div>':''}
+ <div class="lg-row"><button type="button" class="ghost" data-lg="create">+ New league</button></div>
  <p class="lg-err" id="lea-err" role="status"></p>
  <p class="mute lg-small"><a href="#" data-lg="profile">${esc(me.profile?.nickname||'Profile')}</a> · <a href="#" data-lg="leave" data-id="${id}">Leave this league</a> · <a href="#" data-lg="logout">Sign out</a></p>`)}
 
@@ -1754,7 +1778,7 @@ document.addEventListener('click',async e=>{const b=e.target.closest('[data-lg]'
  if(a==='google'){track('league_login_start',{method:'google'});location.href=SB_URL+'/auth/v1/authorize?provider=google&redirect_to='+encodeURIComponent(location.origin+location.pathname);return}
  if(a==='login'){emailForCode='';return viewLogin()}
  if(a==='home')return viewHome();
- if(a==='create')return viewCreate();
+ if(a==='create')return (me?.leagues?.length||0)>=LG_MAX?viewMore():viewCreate();
  if(a==='profile')return viewProfile();
  if(a==='nojoin'){lsSet(LG_PENDING,null);return me?.leagues?.length?viewHome():dlg.close()}
  if(a==='tab'){boardTab=b.dataset.tab;return viewHome()}
@@ -1765,6 +1789,10 @@ document.addEventListener('click',async e=>{const b=e.target.closest('[data-lg]'
  if(busy)return;busy=true;b.disabled=true;
  try{
   if(a==='join'){await rpc('lg_join_league',{p_code:b.dataset.code});lsSet(LG_PENDING,null);track('league_join',{});await loadMe();const l=me.leagues.find(x=>x.code===b.dataset.code);if(l)lsSet(LG_ACTIVE,l.id);board=null;await viewHome();renderSlots();showToast('You\'re in! 🏆')}
+  if(a==='notify'){await notifyInfinity();viewMore(moreJoin)}
+  if(a==='switch'){const old=me?.leagues||[];if(confirm(`Leave ${old.map(l=>'“'+l.name+'”').join(', ')||'your league'} and join this one instead?`+(old.some(l=>l.members<=1)?' Leagues with no one left are deleted.':''))){
+   for(const l of old)await rpc('lg_leave_league',{p_league:l.id});
+   await rpc('lg_join_league',{p_code:b.dataset.code});lsSet(LG_PENDING,null);track('league_switch',{});await loadMe();const l=me.leagues.find(x=>x.code===b.dataset.code);if(l)lsSet(LG_ACTIVE,l.id);board=null;await viewHome();renderSlots();showToast('You\'re in! 🏆')}}
   if(a==='leave'&&confirm('Leave this league?')){await rpc('lg_leave_league',{p_league:b.dataset.id});track('league_leave',{});lsSet(LG_ACTIVE,null);board=null;await loadMe();await viewHome();renderSlots()}
  }catch(x){err(x.message)}finally{busy=false;b.disabled=false}});
 
@@ -1772,7 +1800,7 @@ document.addEventListener('submit',async e=>{const f=e.target;if(!f.id?.startsWi
  try{
   if(f.id==='lea-email-form'){emailForCode=$('lea-email').value.trim();const optout=$('lea-optout-signup').checked;lsSet(LG_OPTOUT,optout?'1':'0');const back=new URLSearchParams();if(optout)back.set('optout','1');const inv=lsGet(LG_PENDING);if(inv)back.set('league',inv);const to=location.origin+location.pathname+(back.toString()?'?'+back:'');await authPost('/auth/v1/otp?redirect_to='+encodeURIComponent(to),{email:emailForCode,create_user:true,data:{news_opt_out:optout}});track('league_login_start',{method:'email'});viewCode()}
   else if(f.id==='lea-profile-form'){const nick=$('lea-nick').value.trim();if(/fuck|shit|cunt|nigg|fagg|hitler|nazi/i.test(nick))throw new Error('Pick a different nickname');const first=!me?.profile;await rpc('lg_save_profile',{p_nickname:nick,p_news_opt_out:first?lsGet(LG_OPTOUT)==='1':$('lea-optout').checked});await loadMe();track('league_profile',{first});busy=false;if(first){const pending=lsGet(LG_PENDING);await(pending?viewJoin(pending):viewHome())}else await viewHome();renderSlots()}
-  else if(f.id==='lea-create-form'){const l=await rpc('lg_create_league',{p_name:$('lea-name').value.trim()});track('league_create',{});lsSet(LG_ACTIVE,l.id);await loadMe();board=null;await viewHome();renderSlots();showToast('League created — now invite your mates!')}
+  else if(f.id==='lea-create-form'){if((me?.leagues?.length||0)>=LG_MAX){busy=false;return viewMore()}const l=await rpc('lg_create_league',{p_name:$('lea-name').value.trim()});track('league_create',{});lsSet(LG_ACTIVE,l.id);await loadMe();board=null;await viewHome();renderSlots();showToast('League created — now invite your mates!')}
  }catch(x){err(x.message);if(btn)btn.disabled=false}finally{busy=false}});
 
 // Re-render the cards whenever the game swaps screens, and push today's score when it appears
