@@ -1617,6 +1617,24 @@ const css=`
 .lg-card .lg-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
 .lg-card .lg-row>button{flex:1 1 auto}
 body.playing #league-home-slot{display:none}
+/* readable pixel text: Jersey 10 for headings and names, VT323 (the site's small-text font) for everything else, sized up so it stays crisp */
+#dlg-league .lg-body,.lg-card{font-size:24px;line-height:1.25}
+#dlg-league h2{font-size:36px;line-height:1.1}
+#dlg-league p,.lg-card p{font-family:var(--lab);font-size:23px;line-height:1.2}
+#dlg-league .mute,.lg-card .mute{font-size:23px!important;line-height:1.2;color:#e2dcfa}
+#dlg-league .lg-small{font-size:22px!important}
+#dlg-league label{font-family:var(--lab);font-size:23px;letter-spacing:.5px}
+#dlg-league .check{text-transform:none;letter-spacing:.3px;font-size:23px;line-height:1.15;color:#fff!important}
+#dlg-league .check input{width:22px;height:22px;margin-top:0;flex:none}
+#dlg-league input:not([type=checkbox]){font:400 24px var(--lab)}
+#dlg-league .lg-row>button,.lg-card .lg-row>button{font-size:23px!important;padding:11px 14px!important}
+#dlg-league .lg-err{font-family:var(--lab);font-size:22px}
+.lg-tabs button{font-size:22px!important;padding:5px 14px!important}
+.lg-board{font-size:26px}
+.lg-board th{font-family:var(--lab);font-size:21px;font-weight:400;letter-spacing:.5px}
+.lg-board th.n{text-align:right}
+.lg-board tr.me td{font-weight:400}
+.lg-board .mute{font-size:21px!important}
 `;
 document.head.insertAdjacentHTML('beforeend','<style>'+css+'</style>');
 document.body.insertAdjacentHTML('beforeend','<dialog id="dlg-league"><div class="lg-body" id="lea-body"></div></dialog>');
@@ -1685,7 +1703,8 @@ async function viewHome(){
  ${me.leagues.length>1?`<div class="lg-tabs">${me.leagues.map(l=>`<button type="button" data-lg="pick" data-id="${l.id}" class="${l.id===id?'on':''}">${esc(l.name)}</button>`).join('')}</div>`:''}
  <div class="lg-tabs"><button type="button" data-lg="tab" data-tab="today" class="${boardTab==='today'?'on':''}">Today</button><button type="button" data-lg="tab" data-tab="week" class="${boardTab==='week'?'on':''}">This week</button></div>
  ${boardTable(board,boardTab)}
- <div class="lg-row"><button type="button" data-lg="invite" data-code="${esc(board.code)}" data-name="${esc(board.name)}">📨 Invite mates</button>${me.leagues.length<5?'<button type="button" class="ghost" data-lg="create">New league</button>':''}</div>
+ <div class="lg-row"><button type="button" data-lg="copy" data-code="${esc(board.code)}">🔗 Copy invite link</button>${navigator.share?`<button type="button" class="ghost" data-lg="invite" data-code="${esc(board.code)}" data-name="${esc(board.name)}">Share</button>`:''}</div>
+ ${me.leagues.length<5?'<div class="lg-row"><button type="button" class="ghost" data-lg="create">+ New league</button></div>':''}
  <p class="lg-err" id="lea-err" role="status"></p>
  <p class="mute lg-small"><a href="#" data-lg="profile">${esc(me.profile?.nickname||'Profile')}</a> · <a href="#" data-lg="leave" data-id="${id}">Leave this league</a> · <a href="#" data-lg="logout">Sign out</a></p>`)}
 
@@ -1713,7 +1732,7 @@ async function renderSlots(){const rs=$('league-slot'),hs=$('league-home-slot');
  try{if(!me)await loadMe();if(me.profile&&me.leagues.length&&!board)await loadBoard()}catch{}finally{slotsBusy=false}
  if(!me)return;
  const has=me.profile&&me.leagues.length&&board;
- const html=has?`<section class="lg-card"><h2>🏆 ${esc(board.name)}</h2>${boardTable(board,'today',5)}<div class="lg-row"><button type="button" data-lg="open" data-from="card">See leagues</button><button type="button" class="ghost" data-lg="invite" data-code="${esc(board.code)}" data-name="${esc(board.name)}">📨 Invite</button></div></section>`
+ const html=has?`<section class="lg-card"><h2>🏆 ${esc(board.name)}</h2>${boardTable(board,'today',5)}<div class="lg-row"><button type="button" data-lg="open" data-from="card">See leagues</button><button type="button" class="ghost" data-lg="copy" data-code="${esc(board.code)}">🔗 Copy invite link</button></div></section>`
   :`<section class="lg-card"><h2>🏆 Leagues</h2><p class="mute">Create a league and invite your mates.</p><div class="lg-row"><button type="button" class="cta" data-lg="open" data-from="card">Create a league</button></div></section>`;
  if(rs)rs.innerHTML=html;if(hs)hs.innerHTML=has?html:''}
 
@@ -1721,6 +1740,12 @@ async function invite(code,name){const link=inviteLink(code),text=`Join my Unico
  if(navigator.share){try{await navigator.share({title:'Unicorner league',text});return}catch{}}
  const ok=navigator.clipboard?.writeText?await navigator.clipboard.writeText(text).then(()=>true).catch(()=>false):false;
  showToast(ok?'Invite link copied — paste it to your mates!':link)}
+
+async function copyLink(code,btn){const link=inviteLink(code);track('league_copy',{});
+ const ok=navigator.clipboard?.writeText?await navigator.clipboard.writeText(link).then(()=>true).catch(()=>false):false;
+ if(!ok){showToast(link);return}
+ showToast('Invite link copied — paste it to your mates!');
+ if(btn){const t=btn.textContent;btn.textContent='✓ Copied!';setTimeout(()=>{if(btn.isConnected)btn.textContent=t},2000)}}
 
 // ── Events ──
 document.addEventListener('click',async e=>{const b=e.target.closest('[data-lg]');if(!b)return;e.preventDefault();const a=b.dataset.lg;
@@ -1734,6 +1759,7 @@ document.addEventListener('click',async e=>{const b=e.target.closest('[data-lg]'
  if(a==='nojoin'){lsSet(LG_PENDING,null);return me?.leagues?.length?viewHome():dlg.close()}
  if(a==='tab'){boardTab=b.dataset.tab;return viewHome()}
  if(a==='pick'){lsSet(LG_ACTIVE,b.dataset.id);board=null;await viewHome();return renderSlots()}
+ if(a==='copy')return copyLink(b.dataset.code,b);
  if(a==='invite')return invite(b.dataset.code,b.dataset.name);
  if(a==='logout'){dropSess();dlg.close();renderSlots();return showToast('Signed out')}
  if(busy)return;busy=true;b.disabled=true;
