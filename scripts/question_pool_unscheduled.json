@@ -1,0 +1,1012 @@
+{
+ "note": "Unscheduled: each clashes in structure with the others. Mix into future days.",
+ "questions": [
+  {
+   "id": "c014",
+   "_id": "c014",
+   "prompt": "Scored for Argentina at World Cup or Copa América, 2018-2024",
+   "subtitle": "World Cup and Copa América, 2018 through 2024",
+   "difficulty": "easy",
+   "answer_type": "player",
+   "scoring_version": 1,
+   "clash_note": "Lautaro Martínez vs Lisandro Martínez",
+   "answers": [
+    {
+     "name": "Lionel Messi",
+     "aliases": [
+      "Messi",
+      "Leo Messi"
+     ],
+     "fame": 5
+    },
+    {
+     "name": "Ángel Di María",
+     "aliases": [],
+     "fame": 5
+    },
+    {
+     "name": "Sergio Agüero",
+     "aliases": [
+      "Kun Agüero",
+      "Kun"
+     ],
+     "fame": 5
+    },
+    {
+     "name": "Lautaro Martínez",
+     "aliases": [
+      "Lautaro"
+     ],
+     "fame": 5
+    },
+    {
+     "name": "Julián Álvarez",
+     "aliases": [],
+     "fame": 5
+    },
+    {
+     "name": "Paulo Dybala",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Enzo Fernández",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Alexis Mac Allister",
+     "aliases": [
+      "Mac Allister"
+     ],
+     "fame": 4
+    },
+    {
+     "name": "Rodrigo De Paul",
+     "aliases": [
+      "De Paul"
+     ],
+     "fame": 4
+    },
+    {
+     "name": "Giovani Lo Celso",
+     "aliases": [
+      "Lo Celso"
+     ],
+     "fame": 3
+    },
+    {
+     "name": "Papu Gómez",
+     "aliases": [
+      "Alejandro Gómez",
+      "Papu"
+     ],
+     "fame": 3
+    },
+    {
+     "name": "Lisandro Martínez",
+     "aliases": [
+      "Licha Martínez",
+      "Licha"
+     ],
+     "fame": 3
+    },
+    {
+     "name": "Nahuel Molina",
+     "aliases": [],
+     "fame": 2
+    },
+    {
+     "name": "Guido Rodríguez",
+     "aliases": [],
+     "fame": 2
+    },
+    {
+     "name": "Marcos Rojo",
+     "aliases": [],
+     "fame": 2
+    },
+    {
+     "name": "Gabriel Mercado",
+     "aliases": [],
+     "fame": 1
+    }
+   ],
+   "answer_count": 16,
+   "format_family": "national_scorer"
+  },
+  {
+   "id": "n010",
+   "_id": "n010",
+   "prompt": "Goalkeeper named in the winning Champions League final matchday squad, 1998 to 2025",
+   "subtitle": "Winning final matchday squads, 1998 to 2025",
+   "difficulty": "medium",
+   "answer_type": "player",
+   "scoring_version": 1,
+   "clash_note": "",
+   "answers": [
+    {
+     "name": "Iker Casillas",
+     "aliases": [
+      "Casillas"
+     ],
+     "fame": 5
+    },
+    {
+     "name": "Manuel Neuer",
+     "aliases": [
+      "Neuer"
+     ],
+     "fame": 5
+    },
+    {
+     "name": "Petr Čech",
+     "aliases": [
+      "Čech"
+     ],
+     "fame": 5
+    },
+    {
+     "name": "Edwin van der Sar",
+     "aliases": [
+      "Van der Sar"
+     ],
+     "fame": 5
+    },
+    {
+     "name": "Marc-André ter Stegen",
+     "aliases": [
+      "Ter Stegen"
+     ],
+     "fame": 5
+    },
+    {
+     "name": "Alisson",
+     "aliases": [
+      "Alisson Becker"
+     ],
+     "fame": 5
+    },
+    {
+     "name": "Thibaut Courtois",
+     "aliases": [
+      "Courtois"
+     ],
+     "fame": 5
+    },
+    {
+     "name": "Peter Schmeichel",
+     "aliases": [
+      "Schmeichel"
+     ],
+     "fame": 5
+    },
+    {
+     "name": "Gianluigi Donnarumma",
+     "aliases": [
+      "Donnarumma"
+     ],
+     "fame": 5
+    },
+    {
+     "name": "Ederson",
+     "aliases": [],
+     "fame": 5
+    },
+    {
+     "name": "Víctor Valdés",
+     "aliases": [
+      "Valdés"
+     ],
+     "fame": 4
+    },
+    {
+     "name": "Keylor Navas",
+     "aliases": [
+      "Navas"
+     ],
+     "fame": 4
+    },
+    {
+     "name": "Dida",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Júlio César",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Oliver Kahn",
+     "aliases": [
+      "Kahn"
+     ],
+     "fame": 4
+    },
+    {
+     "name": "Claudio Bravo",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Jerzy Dudek",
+     "aliases": [
+      "Dudek"
+     ],
+     "fame": 4
+    },
+    {
+     "name": "Kepa Arrizabalaga",
+     "aliases": [
+      "Kepa"
+     ],
+     "fame": 4
+    },
+    {
+     "name": "Édouard Mendy",
+     "aliases": [
+      "Mendy"
+     ],
+     "fame": 4
+    },
+    {
+     "name": "Santiago Cañizares",
+     "aliases": [
+      "Cañizares"
+     ],
+     "fame": 3
+    },
+    {
+     "name": "Bodo Illgner",
+     "aliases": [
+      "Illgner"
+     ],
+     "fame": 3
+    },
+    {
+     "name": "Christian Abbiati",
+     "aliases": [
+      "Abbiati"
+     ],
+     "fame": 3
+    },
+    {
+     "name": "Vítor Baía",
+     "aliases": [
+      "Vitor Baia"
+     ],
+     "fame": 3
+    },
+    {
+     "name": "César Sánchez",
+     "aliases": [
+      "César"
+     ],
+     "fame": 3
+    },
+    {
+     "name": "Diego López",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Simon Mignolet",
+     "aliases": [
+      "Mignolet"
+     ],
+     "fame": 3
+    },
+    {
+     "name": "Andriy Lunin",
+     "aliases": [
+      "Lunin"
+     ],
+     "fame": 3
+    },
+    {
+     "name": "Sven Ulreich",
+     "aliases": [
+      "Ulreich"
+     ],
+     "fame": 3
+    },
+    {
+     "name": "Stefan Ortega",
+     "aliases": [
+      "Ortega"
+     ],
+     "fame": 3
+    },
+    {
+     "name": "Scott Carson",
+     "aliases": [
+      "Carson"
+     ],
+     "fame": 3
+    },
+    {
+     "name": "Tomasz Kuszczak",
+     "aliases": [
+      "Kuszczak"
+     ],
+     "fame": 2
+    },
+    {
+     "name": "Francesco Toldo",
+     "aliases": [
+      "Toldo"
+     ],
+     "fame": 2
+    },
+    {
+     "name": "José Manuel Pinto",
+     "aliases": [
+      "Pinto"
+     ],
+     "fame": 2
+    },
+    {
+     "name": "Willy Caballero",
+     "aliases": [
+      "Caballero"
+     ],
+     "fame": 2
+    },
+    {
+     "name": "Nuno Espírito Santo",
+     "aliases": [
+      "Nuno"
+     ],
+     "fame": 2
+    },
+    {
+     "name": "Kiko Casilla",
+     "aliases": [
+      "Casilla"
+     ],
+     "fame": 2
+    },
+    {
+     "name": "Caoimhín Kelleher",
+     "aliases": [
+      "Kelleher"
+     ],
+     "fame": 2
+    },
+    {
+     "name": "Matvey Safonov",
+     "aliases": [
+      "Safonov"
+     ],
+     "fame": 2
+    },
+    {
+     "name": "Albert Jorquera",
+     "aliases": [
+      "Jorquera"
+     ],
+     "fame": 1
+    },
+    {
+     "name": "Željko Kalac",
+     "aliases": [
+      "Kalac"
+     ],
+     "fame": 1
+    },
+    {
+     "name": "Raimond van der Gouw",
+     "aliases": [
+      "Van der Gouw"
+     ],
+     "fame": 1
+    },
+    {
+     "name": "Bernd Dreher",
+     "aliases": [
+      "Dreher"
+     ],
+     "fame": 1
+    },
+    {
+     "name": "Oier Olazábal",
+     "aliases": [
+      "Oier"
+     ],
+     "fame": 1
+    },
+    {
+     "name": "Ross Turnbull",
+     "aliases": [
+      "Turnbull"
+     ],
+     "fame": 1
+    },
+    {
+     "name": "Tom Starke",
+     "aliases": [
+      "Starke"
+     ],
+     "fame": 1
+    },
+    {
+     "name": "Ron-Thorben Hoffmann",
+     "aliases": [
+      "Hoffmann"
+     ],
+     "fame": 1
+    },
+    {
+     "name": "Arnau Tenas",
+     "aliases": [
+      "Tenas"
+     ],
+     "fame": 1
+    }
+   ],
+   "answer_count": 47,
+   "format_family": "competition_final_matchday_squad_position"
+  },
+  {
+   "id": "r004",
+   "_id": "r004",
+   "prompt": "Played for Arsenal in the 2003-04 Invincibles season",
+   "subtitle": "Arsenal, 2003-04",
+   "difficulty": "easy",
+   "answer_type": "player",
+   "scoring_version": 1,
+   "clash_note": "",
+   "answers": [
+    {
+     "name": "Thierry Henry",
+     "aliases": [],
+     "fame": 5
+    },
+    {
+     "name": "Patrick Vieira",
+     "aliases": [],
+     "fame": 5
+    },
+    {
+     "name": "Dennis Bergkamp",
+     "aliases": [],
+     "fame": 5
+    },
+    {
+     "name": "Robert Pires",
+     "aliases": [],
+     "fame": 5
+    },
+    {
+     "name": "Ashley Cole",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Sol Campbell",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Freddie Ljungberg",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Jens Lehmann",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Kolo Touré",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Gilberto Silva",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Cesc Fàbregas",
+     "aliases": [
+      "Cesc"
+     ],
+     "fame": 4
+    },
+    {
+     "name": "Ray Parlour",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Martin Keown",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Lauren",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Sylvain Wiltord",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Nwankwo Kanu",
+     "aliases": [
+      "Kanu"
+     ],
+     "fame": 3
+    },
+    {
+     "name": "Edu",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Gaël Clichy",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "José Antonio Reyes",
+     "aliases": [
+      "Reyes"
+     ],
+     "fame": 3
+    },
+    {
+     "name": "Giovanni van Bronckhorst",
+     "aliases": [
+      "Van Bronckhorst"
+     ],
+     "fame": 3
+    },
+    {
+     "name": "Francis Jeffers",
+     "aliases": [],
+     "fame": 2
+    },
+    {
+     "name": "Pascal Cygan",
+     "aliases": [],
+     "fame": 2
+    },
+    {
+     "name": "Jérémie Aliadière",
+     "aliases": [],
+     "fame": 2
+    },
+    {
+     "name": "David Bentley",
+     "aliases": [],
+     "fame": 2
+    },
+    {
+     "name": "Justin Hoyte",
+     "aliases": [],
+     "fame": 2
+    },
+    {
+     "name": "Quincy Owusu-Abeyie",
+     "aliases": [
+      "Quincy"
+     ],
+     "fame": 2
+    },
+    {
+     "name": "Stathis Tavlaridis",
+     "aliases": [],
+     "fame": 1
+    },
+    {
+     "name": "Michal Papadopulos",
+     "aliases": [],
+     "fame": 1
+    },
+    {
+     "name": "Graham Stack",
+     "aliases": [],
+     "fame": 1
+    },
+    {
+     "name": "Frank Simek",
+     "aliases": [],
+     "fame": 1
+    },
+    {
+     "name": "John Spicer",
+     "aliases": [],
+     "fame": 1
+    },
+    {
+     "name": "Jerome Thomas",
+     "aliases": [],
+     "fame": 1
+    },
+    {
+     "name": "Ólafur Ingi Skúlason",
+     "aliases": [],
+     "fame": 1
+    },
+    {
+     "name": "Ryan Smith",
+     "aliases": [],
+     "fame": 1
+    }
+   ],
+   "answer_count": 34,
+   "format_family": "club_season_appearance",
+   "era": "retro"
+  },
+  {
+   "id": "r014",
+   "_id": "r014",
+   "prompt": "Played for Barcelona in the 2010–11 Champions League-winning season",
+   "subtitle": "2010/11 competitive first-team appearances",
+   "difficulty": "easy",
+   "answer_type": "player",
+   "scoring_version": 1,
+   "clash_note": "Gabriel Milito, not Diego Milito.",
+   "answers": [
+    {
+     "name": "Lionel Messi",
+     "aliases": [],
+     "fame": 5
+    },
+    {
+     "name": "Xavi",
+     "aliases": [
+      "Xavi Hernandez"
+     ],
+     "fame": 5
+    },
+    {
+     "name": "Andrés Iniesta",
+     "aliases": [],
+     "fame": 5
+    },
+    {
+     "name": "Carles Puyol",
+     "aliases": [],
+     "fame": 5
+    },
+    {
+     "name": "Gerard Piqué",
+     "aliases": [],
+     "fame": 5
+    },
+    {
+     "name": "Dani Alves",
+     "aliases": [],
+     "fame": 5
+    },
+    {
+     "name": "David Villa",
+     "aliases": [],
+     "fame": 5
+    },
+    {
+     "name": "Sergio Busquets",
+     "aliases": [],
+     "fame": 5
+    },
+    {
+     "name": "Zlatan Ibrahimović",
+     "aliases": [
+      "Zlatan"
+     ],
+     "fame": 5
+    },
+    {
+     "name": "Javier Mascherano",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Pedro",
+     "aliases": [
+      "Pedro Rodríguez"
+     ],
+     "fame": 4
+    },
+    {
+     "name": "Víctor Valdés",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Eric Abidal",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Thiago",
+     "aliases": [
+      "Thiago Alcântara"
+     ],
+     "fame": 4
+    },
+    {
+     "name": "Bojan",
+     "aliases": [
+      "Bojan Krkić"
+     ],
+     "fame": 4
+    },
+    {
+     "name": "Seydou Keita",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Adriano",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Maxwell",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Ibrahim Afellay",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Gabriel Milito",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Marc Bartra",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Sergi Roberto",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "José Manuel Pinto",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Jeffrén",
+     "aliases": [
+      "Jeffrén Suárez"
+     ],
+     "fame": 2
+    },
+    {
+     "name": "Martín Montoya",
+     "aliases": [],
+     "fame": 2
+    },
+    {
+     "name": "Jonathan dos Santos",
+     "aliases": [],
+     "fame": 2
+    },
+    {
+     "name": "Oriol Romeu",
+     "aliases": [],
+     "fame": 2
+    },
+    {
+     "name": "Nolito",
+     "aliases": [],
+     "fame": 2
+    },
+    {
+     "name": "Andreu Fontàs",
+     "aliases": [],
+     "fame": 1
+    },
+    {
+     "name": "Rubén Miño",
+     "aliases": [],
+     "fame": 1
+    },
+    {
+     "name": "Sergi Gómez",
+     "aliases": [],
+     "fame": 1
+    },
+    {
+     "name": "Víctor Vázquez",
+     "aliases": [],
+     "fame": 1
+    }
+   ],
+   "answer_count": 32,
+   "format_family": "club_season_appearance",
+   "era": "retro"
+  },
+  {
+   "id": "u065",
+   "_id": "u065",
+   "prompt": "Played for Aston Villa in the 2023-24 season",
+   "subtitle": "2023-24 first-team season",
+   "difficulty": "easy",
+   "answer_type": "player",
+   "scoring_version": 1,
+   "clash_note": "",
+   "answers": [
+    {
+     "name": "Ollie Watkins",
+     "aliases": [],
+     "fame": 5
+    },
+    {
+     "name": "Emiliano Martínez",
+     "aliases": [
+      "Dibu Martínez"
+     ],
+     "fame": 5
+    },
+    {
+     "name": "Douglas Luiz",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "John McGinn",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Youri Tielemans",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Moussa Diaby",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Philippe Coutinho",
+     "aliases": [
+      "Coutinho"
+     ],
+     "fame": 4
+    },
+    {
+     "name": "Leon Bailey",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Jhon Durán",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Morgan Rogers",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Pau Torres",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Lucas Digne",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Jacob Ramsey",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Ezri Konsa",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Matty Cash",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Boubacar Kamara",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Nicolò Zaniolo",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Tyrone Mings",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Clément Lenglet",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Diego Carlos",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Àlex Moreno",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Robin Olsen",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Leander Dendoncker",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Calum Chambers",
+     "aliases": [],
+     "fame": 2
+    },
+    {
+     "name": "Bertrand Traoré",
+     "aliases": [],
+     "fame": 2
+    },
+    {
+     "name": "Kaine Kesler-Hayden",
+     "aliases": [],
+     "fame": 2
+    },
+    {
+     "name": "Jaden Philogene",
+     "aliases": [],
+     "fame": 2
+    },
+    {
+     "name": "Cameron Archer",
+     "aliases": [],
+     "fame": 2
+    },
+    {
+     "name": "Omari Kellyman",
+     "aliases": [],
+     "fame": 1
+    },
+    {
+     "name": "Tim Iroegbunam",
+     "aliases": [],
+     "fame": 2
+    },
+    {
+     "name": "Tommi O'Reilly",
+     "aliases": [],
+     "fame": 1
+    },
+    {
+     "name": "Finley Munroe",
+     "aliases": [],
+     "fame": 1
+    }
+   ],
+   "answer_count": 32,
+   "format_family": "club_season_appearance"
+  }
+ ]
+}
