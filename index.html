@@ -1105,6 +1105,7 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
    :`<div class="lp-daily-actions"><button id="go" class="cta">Play today's game</button><button class="ghost" id="how">How it works</button></div>
    <p class="lp-meta">5 prompts · about 3 minutes · free, no sign-up</p>`}
  </section>
+ <div id="league-home-slot"></div>
 
  ${played?`<section class="lp-final lp-final-played" data-home-infinite>
   <h2 class="lp-h2">Can't wait until tomorrow?</h2>
@@ -1231,6 +1232,7 @@ www.unicornergame.lol`};
   <div class="pts">You reached: ${zoneOf(score)}</div>
   <div class="dist" id="dist"><div class="mute">Comparing with today's players…</div></div>
   <div class="result-share-row"><button class="cta" id="copy-result">Copy result</button><button type="button" class="ghost" id="share-result">Share</button><p class="mute result-share-note">Challenge a mate while the result is fresh.</p></div>
+  <div id="league-slot"></div>
   ${hits.length?`<section class="result-section"><div class="result-section-head"><h2>Your match highlights</h2><p class="mute">Best answers first</p></div><div class="result-list">${hits.map(r=>resultItem(r,false)).join('')}</div></section>`:''}
   ${misses.length?`<div class="result-nearly"><section class="result-section"><div class="result-section-head"><h2>Nearly had it</h2><p class="mute">${misses.length===1?'1 answer':misses.length+' answers'} to learn for tomorrow</p></div><div class="result-list">${misses.map(r=>resultItem(r,true)).join('')}</div></section></div>`:''}
   <section class="lp-final lp-final-played" data-home-infinite><h2 class="lp-h2">Can't wait until tomorrow?</h2><button type="button" class="cta lp-infinite-cta" data-infinite>∞ Try Infinity mode</button></section>
@@ -1548,4 +1550,205 @@ if(brandHome){
 }
 
 (async()=>{const bankP=loadBank();DAILY_SCHEDULE=await loadDailySchedule();if(!scheduledSet())BANK=await bankP;else bankP.then(b=>BANK=b);applyBank();start();paint();setMeter()})();
-</script></body></html>
+</script>
+<script>
+/* Leagues: optional sign-in for private friend leagues. The daily game never needs this.
+   Player sessions are kept apart from the admin session (different storage, own fetch helper). */
+(()=>{
+const LG_KEY='uc-player-session',LG_PENDING='uc-league-invite',LG_ACTIVE='uc-league-active';
+let sess=null;try{sess=JSON.parse(localStorage.getItem(LG_KEY)||'null')}catch{}
+let me=null,board=null,boardTab='today',emailForCode='',busy=false;
+const $=id=>document.getElementById(id);
+const lsGet=k=>{try{return localStorage.getItem(k)}catch{return null}};
+const lsSet=(k,v)=>{try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch{}};
+const jwtEmail=t=>{try{return JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'))).email||''}catch{return ''}};
+const saveSess=j=>{sess={access_token:j.access_token,refresh_token:j.refresh_token||sess?.refresh_token||'',exp:Date.now()+Math.max(60,(+j.expires_in||3600))*1000};sess.email=jwtEmail(sess.access_token);lsSet(LG_KEY,JSON.stringify(sess))};
+const dropSess=()=>{sess=null;me=null;board=null;lsSet(LG_KEY,null)};
+async function authPost(path,body){const r=await fetch(SB_URL+path,{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify(body)});let j={};try{j=await r.json()}catch{}if(!r.ok)throw new Error(j.msg||j.error_description||j.message||'Something went wrong — try again');return j}
+async function token(){if(!sess)return null;if(Date.now()>sess.exp-60000){try{saveSess(await authPost('/auth/v1/token?grant_type=refresh_token',{refresh_token:sess.refresh_token}))}catch{dropSess();return null}}return sess.access_token}
+async function rpc(fn,args={}){const t=await token();if(!t)throw new Error('Please sign in');
+ const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:JSON.stringify(args)});
+ const txt=await r.text();let j=null;try{j=txt?JSON.parse(txt):null}catch{}
+ if(r.status===401){dropSess();renderSlots();throw new Error('Please sign in again')}
+ if(r.status===404&&j?.code==='PGRST202')throw new Error('Leagues are not switched on yet');
+ if(!r.ok)throw new Error(j?.message||'Something went wrong — try again');return j}
+
+// Return from Google sign-in (#access_token=…) and invite links (?league=CODE)
+let fresh=false,oauthError='';
+(()=>{const h=location.hash;
+ if(h.includes('access_token=')){const p=new URLSearchParams(h.slice(1));saveSess({access_token:p.get('access_token'),refresh_token:p.get('refresh_token'),expires_in:p.get('expires_in')});fresh=true;history.replaceState(null,'',location.pathname+location.search);track('league_login',{method:'google'})}
+ else if(h.includes('error_description=')){oauthError=new URLSearchParams(h.slice(1)).get('error_description')||'Sign-in failed';history.replaceState(null,'',location.pathname+location.search)}
+ const q=new URLSearchParams(location.search),c=q.get('league');
+ if(c){lsSet(LG_PENDING,c.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,8));q.delete('league');history.replaceState(null,'',location.pathname+(q.toString()?'?'+q:''))}})();
+
+const css=`
+#dlg-league{width:min(540px,calc(100vw - 24px))}
+#dlg-league .lg-body{padding:24px;position:relative}
+#dlg-league h2{margin:0 0 6px;padding-right:44px}
+#dlg-league form{padding:0}
+#dlg-league a{color:var(--gold)}
+#dlg-league .lg-x{position:absolute;top:14px;right:14px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;padding:0;background:#0c0c18;color:#fff;border:3px solid #fff;border-radius:7px;font-size:24px;line-height:1;cursor:pointer}
+#dlg-league .lg-x:hover{color:var(--gold);border-color:var(--gold)}
+#dlg-league .lg-google{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;background:#fff;color:#1f1f1f;border:2px solid #000;margin-top:16px}
+#dlg-league .lg-google svg{width:20px;height:20px}
+#dlg-league .lg-or{display:flex;align-items:center;gap:10px;margin:18px 0 4px;color:var(--mute);font-size:14px}
+#dlg-league .lg-or:before,#dlg-league .lg-or:after{content:'';flex:1;height:1px;background:rgba(255,255,255,.18)}
+#dlg-league .lg-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+#dlg-league .lg-row>button{flex:1 1 auto}
+#dlg-league .lg-err{color:var(--bad);min-height:20px;margin:10px 0 0;font-size:15px}
+#dlg-league .lg-small{font-size:14px;margin-top:14px}
+#dlg-league .lg-code{letter-spacing:6px;font-size:24px!important;text-align:center}
+.lg-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 10px}
+.lg-tabs button{padding:7px 12px!important;font-size:15px!important;background:rgba(255,255,255,.08)!important;color:var(--ink)!important;border:1px solid rgba(255,255,255,.25)!important;box-shadow:none!important}
+.lg-tabs button.on{background:var(--gold)!important;color:#1b1530!important;border-color:#000!important}
+.lg-board{width:100%;border-collapse:collapse;margin-top:6px;font-size:17px}
+.lg-board th{text-align:left;font-weight:600;color:var(--mute);font-size:13px;padding:4px 6px;text-transform:uppercase;letter-spacing:.04em}
+.lg-board td{padding:8px 6px;border-top:1px solid rgba(255,255,255,.1)}
+.lg-board td.n{text-align:right;font-variant-numeric:tabular-nums}
+.lg-board tr.me td{color:var(--gold);font-weight:600}
+.lg-board .rk{width:28px;color:var(--mute)}
+.lg-empty{color:var(--mute);margin:12px 0}
+.lg-card{margin:6px 0 24px;padding:18px;border-radius:14px;background:rgba(9,18,40,.78);border:2px solid rgba(255,255,255,.14)}
+.lg-card h2{margin:0 0 4px;font-size:27px}
+.lg-card p{margin:0}
+.lg-card .lg-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.lg-card .lg-row>button{flex:1 1 auto}
+body.playing #league-home-slot{display:none}
+`;
+document.head.insertAdjacentHTML('beforeend','<style>'+css+'</style>');
+document.body.insertAdjacentHTML('beforeend','<dialog id="dlg-league"><div class="lg-body" id="lea-body"></div></dialog>');
+const dlg=$('dlg-league');
+const GOOGLE='<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>';
+const X='<button type="button" class="lg-x" data-lg="close" aria-label="Close">×</button>';
+const err=m=>{const e=$('lea-err');if(e)e.textContent=m||''};
+const show=html=>{$('lea-body').innerHTML=X+html;if(!dlg.open)dlg.showModal()};
+const activeId=()=>{const a=lsGet(LG_ACTIVE),l=me?.leagues||[];return(l.find(x=>x.id===a)||l[0])?.id||null};
+const inviteLink=c=>location.origin+location.pathname.replace(/index\.html$/,'')+'?league='+c;
+
+async function loadMe(){me=await rpc('lg_me');return me}
+async function loadBoard(){const id=activeId();board=id?await rpc('lg_league_board',{p_league:id}):null;return board}
+
+function boardTable(b,tab,limit){
+ if(!b||!b.rows?.length)return '<p class="lg-empty">No one here yet.</p>';
+ let rows=[...b.rows];
+ if(tab==='week')rows.sort((a,c)=>c.week_total-a.week_total||a.nickname.localeCompare(c.nickname));
+ const shown=limit?rows.slice(0,limit):rows;
+ const meRow=rows.findIndex(r=>r.me);
+ if(limit&&meRow>=limit)shown.push(rows[meRow]);
+ return `<table class="lg-board"><thead><tr><th class="rk">#</th><th>Player</th><th class="n">${tab==='week'?'This week':'Today'}</th></tr></thead><tbody>${shown.map(r=>{const i=rows.indexOf(r);const v=tab==='week'?r.week_total:r.today_score;return `<tr class="${r.me?'me':''}"><td class="rk">${tab==='today'&&r.today_score==null?'–':i+1}</td><td>${esc(r.nickname)}${r.me?' (you)':''}</td><td class="n">${v==null?'<span class="mute">not played</span>':v}</td></tr>`}).join('')}</tbody></table>`}
+
+// ── Dialog views ──
+function viewLogin(note){show(`<h2>🏆 Leagues</h2>
+ <p class="mute">Play against your mates in a private league. Sign in once and your leagues follow you on any device.</p>
+ ${note?`<p>${esc(note)}</p>`:''}
+ <button type="button" class="lg-google" data-lg="google">${GOOGLE}<span>Continue with Google</span></button>
+ <div class="lg-or">or use your email</div>
+ <form id="lea-email-form"><label for="lea-email">Email</label><input id="lea-email" type="email" required maxlength="120" autocomplete="email" value="${esc(emailForCode)}">
+ <div class="lg-row"><button type="submit">Send me a code</button></div></form>
+ <p class="lg-err" id="lea-err" role="status">${esc(oauthError)}</p>
+ <p class="mute lg-small">The daily game stays free with no sign-up — this is only for leagues. <a href="privacy.html">Privacy</a>.</p>`);oauthError=''}
+function viewCode(){show(`<h2>Check your email</h2>
+ <p class="mute">We sent a 6-digit code to <b>${esc(emailForCode)}</b>.</p>
+ <form id="lea-code-form"><label for="lea-code">Code</label><input id="lea-code" class="lg-code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" required pattern="[0-9]{6}">
+ <div class="lg-row"><button type="submit">Sign in</button><button type="button" class="ghost" data-lg="login">Use another email</button></div></form>
+ <p class="lg-err" id="lea-err" role="status"></p>`);setTimeout(()=>$('lea-code')?.focus(),50)}
+function viewProfile(){const p=me?.profile;const guess=p?.nickname||(sess?.email||'').split('@')[0].replace(/[^A-Za-z0-9 _.-]/g,'').slice(0,16);
+ show(`<h2>${p?'Your profile':'Pick a nickname'}</h2>
+ <p class="mute">This is what your mates see on the leaderboard.</p>
+ <form id="lea-profile-form"><label for="lea-nick">Nickname</label><input id="lea-nick" required minlength="2" maxlength="16" value="${esc(guess)}">
+ <label class="check"><input type="checkbox" id="lea-optout" ${p?.news_opt_out?'checked':''}> <span>I don't want reminders or Unicorner news</span></label>
+ <div class="lg-row"><button type="submit">${p?'Save':'Continue'}</button>${p?'<button type="button" class="ghost" data-lg="home">Back</button>':''}</div></form>
+ <p class="lg-err" id="lea-err" role="status"></p>
+ ${p?`<p class="mute lg-small">Signed in as ${esc(sess?.email||'')} · <a href="#" data-lg="logout">Sign out</a></p>`:''}`)}
+function viewCreate(){show(`<h2>Create a league</h2>
+ <p class="mute">Give it a name, then share the invite link with your mates.</p>
+ <form id="lea-create-form"><label for="lea-name">League name</label><input id="lea-name" required minlength="2" maxlength="30" placeholder="e.g. Sunday League Legends">
+ <div class="lg-row"><button type="submit">Create league</button>${me?.leagues?.length?'<button type="button" class="ghost" data-lg="home">Back</button>':''}</div></form>
+ <p class="lg-err" id="lea-err" role="status"></p>`)}
+async function viewJoin(code){show('<h2>Joining…</h2>');
+ try{const p=await rpc('lg_league_preview',{p_code:code});
+  if(p.already_member){lsSet(LG_PENDING,null);lsSet(LG_ACTIVE,p.id);return viewHome()}
+  show(`<h2>Join “${esc(p.name)}”?</h2><p class="mute">${p.members} ${p.members===1?'player':'players'} so far. Your daily score will show on their leaderboard.</p>
+  <div class="lg-row"><button type="button" data-lg="join" data-code="${esc(p.code)}">Join league</button><button type="button" class="ghost" data-lg="nojoin">Not now</button></div>
+  <p class="lg-err" id="lea-err" role="status"></p>`)}
+ catch(e){lsSet(LG_PENDING,null);show(`<h2>Hmm</h2><p class="lg-err" id="lea-err">${esc(e.message)}</p><div class="lg-row"><button type="button" data-lg="home">OK</button></div>`)}}
+async function viewHome(){
+ if(!me?.leagues?.length)return viewCreate();
+ show('<h2>🏆 Your leagues</h2><p class="mute">Loading…</p>');
+ try{await loadBoard()}catch(e){show(`<h2>🏆 Your leagues</h2><p class="lg-err" id="lea-err">${esc(e.message)}</p>`);return}
+ const id=activeId();
+ show(`<h2>🏆 ${esc(board.name)}</h2>
+ ${me.leagues.length>1?`<div class="lg-tabs">${me.leagues.map(l=>`<button type="button" data-lg="pick" data-id="${l.id}" class="${l.id===id?'on':''}">${esc(l.name)}</button>`).join('')}</div>`:''}
+ <div class="lg-tabs"><button type="button" data-lg="tab" data-tab="today" class="${boardTab==='today'?'on':''}">Today</button><button type="button" data-lg="tab" data-tab="week" class="${boardTab==='week'?'on':''}">This week</button></div>
+ ${boardTable(board,boardTab)}
+ <div class="lg-row"><button type="button" data-lg="invite" data-code="${esc(board.code)}" data-name="${esc(board.name)}">📨 Invite mates</button>${me.leagues.length<5?'<button type="button" class="ghost" data-lg="create">New league</button>':''}</div>
+ <p class="lg-err" id="lea-err" role="status"></p>
+ <p class="mute lg-small"><a href="#" data-lg="profile">${esc(me.profile?.nickname||'Profile')}</a> · <a href="#" data-lg="leave" data-id="${id}">Leave this league</a> · <a href="#" data-lg="logout">Sign out</a></p>`)}
+
+// Decide which view to show for the current state
+async function open(from){track('league_open',{from:from||'unknown'});
+ if(!sess)return viewLogin();
+ show('<h2>🏆 Leagues</h2><p class="mute">Loading…</p>');
+ try{await loadMe()}catch(e){if(!sess)return viewLogin();return show(`<h2>🏆 Leagues</h2><p class="lg-err" id="lea-err">${esc(e.message)}</p>`)}
+ syncScore();
+ if(!me.profile)return viewProfile();
+ const pending=lsGet(LG_PENDING);if(pending)return viewJoin(pending);
+ return viewHome()}
+window.openLeagues=open;
+
+// ── Score sync: the first finished score of the day goes to the player's leagues ──
+async function syncScore(){if(!sess)return;let p=null;try{p=getPlayed()}catch{}if(!p||typeof p.score!=='number')return;
+ const day=amsterdamDay(),k='uc-league-sent-'+day;if(lsGet(k)===(sess.email||'1'))return;
+ try{await rpc('lg_submit_score',{p_day:day,p_score:p.score});lsSet(k,sess.email||'1');board=null;renderSlots()}catch{}}
+
+// ── Cards on the results screen and the home page ──
+let slotsBusy=false;
+async function renderSlots(){const rs=$('league-slot'),hs=$('league-home-slot');if(!rs&&!hs)return;
+ if(!sess){if(rs)rs.innerHTML=`<section class="lg-card"><h2>🏆 Beat your mates</h2><p class="mute">Create a private league and see who knows ball best — today and all week.</p><div class="lg-row"><button type="button" class="cta" data-lg="open" data-from="results">Create or join a league</button></div></section>`;if(hs)hs.innerHTML='';return}
+ if(slotsBusy)return;slotsBusy=true;
+ try{if(!me)await loadMe();if(me.profile&&me.leagues.length&&!board)await loadBoard()}catch{}finally{slotsBusy=false}
+ if(!me)return;
+ const has=me.profile&&me.leagues.length&&board;
+ const html=has?`<section class="lg-card"><h2>🏆 ${esc(board.name)}</h2>${boardTable(board,'today',5)}<div class="lg-row"><button type="button" data-lg="open" data-from="card">See leagues</button><button type="button" class="ghost" data-lg="invite" data-code="${esc(board.code)}" data-name="${esc(board.name)}">📨 Invite</button></div></section>`
+  :`<section class="lg-card"><h2>🏆 Leagues</h2><p class="mute">Create a league and invite your mates.</p><div class="lg-row"><button type="button" class="cta" data-lg="open" data-from="card">Create a league</button></div></section>`;
+ if(rs)rs.innerHTML=html;if(hs)hs.innerHTML=has?html:''}
+
+async function invite(code,name){const link=inviteLink(code),text=`Join my Unicorner league “${name}” — who knows ball best? ${link}`;track('league_invite',{});
+ if(navigator.share){try{await navigator.share({title:'Unicorner league',text});return}catch{}}
+ const ok=navigator.clipboard?.writeText?await navigator.clipboard.writeText(text).then(()=>true).catch(()=>false):false;
+ showToast(ok?'Invite link copied — paste it to your mates!':link)}
+
+// ── Events ──
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-lg]');if(!b)return;e.preventDefault();const a=b.dataset.lg;
+ if(a==='close')return dlg.close();
+ if(a==='open')return open(b.dataset.from);
+ if(a==='google'){track('league_login_start',{method:'google'});location.href=SB_URL+'/auth/v1/authorize?provider=google&redirect_to='+encodeURIComponent(location.origin+location.pathname);return}
+ if(a==='login'){emailForCode='';return viewLogin()}
+ if(a==='home')return viewHome();
+ if(a==='create')return viewCreate();
+ if(a==='profile')return viewProfile();
+ if(a==='nojoin'){lsSet(LG_PENDING,null);return me?.leagues?.length?viewHome():dlg.close()}
+ if(a==='tab'){boardTab=b.dataset.tab;return viewHome()}
+ if(a==='pick'){lsSet(LG_ACTIVE,b.dataset.id);board=null;await viewHome();return renderSlots()}
+ if(a==='invite')return invite(b.dataset.code,b.dataset.name);
+ if(a==='logout'){dropSess();dlg.close();renderSlots();return showToast('Signed out')}
+ if(busy)return;busy=true;b.disabled=true;
+ try{
+  if(a==='join'){await rpc('lg_join_league',{p_code:b.dataset.code});lsSet(LG_PENDING,null);track('league_join',{});await loadMe();const l=me.leagues.find(x=>x.code===b.dataset.code);if(l)lsSet(LG_ACTIVE,l.id);board=null;await viewHome();renderSlots();showToast('You\'re in! 🏆')}
+  if(a==='leave'&&confirm('Leave this league?')){await rpc('lg_leave_league',{p_league:b.dataset.id});track('league_leave',{});lsSet(LG_ACTIVE,null);board=null;await loadMe();await viewHome();renderSlots()}
+ }catch(x){err(x.message)}finally{busy=false;b.disabled=false}});
+
+document.addEventListener('submit',async e=>{const f=e.target;if(!f.id?.startsWith('lea-'))return;e.preventDefault();if(busy)return;busy=true;const btn=f.querySelector('[type=submit]');if(btn)btn.disabled=true;err('');
+ try{
+  if(f.id==='lea-email-form'){emailForCode=$('lea-email').value.trim();await authPost('/auth/v1/otp',{email:emailForCode,create_user:true});track('league_login_start',{method:'email'});viewCode()}
+  else if(f.id==='lea-code-form'){saveSess(await authPost('/auth/v1/verify',{type:'email',email:emailForCode,token:$('lea-code').value.trim()}));track('league_login',{method:'email'});busy=false;await open('login');renderSlots()}
+  else if(f.id==='lea-profile-form'){const nick=$('lea-nick').value.trim();if(/fuck|shit|cunt|nigg|fagg|hitler|nazi/i.test(nick))throw new Error('Pick a different nickname');const first=!me?.profile;await rpc('lg_save_profile',{p_nickname:nick,p_news_opt_out:$('lea-optout').checked});await loadMe();track('league_profile',{first});busy=false;if(first){const pending=lsGet(LG_PENDING);await(pending?viewJoin(pending):viewHome())}else await viewHome();renderSlots()}
+  else if(f.id==='lea-create-form'){const l=await rpc('lg_create_league',{p_name:$('lea-name').value.trim()});track('league_create',{});lsSet(LG_ACTIVE,l.id);await loadMe();board=null;await viewHome();renderSlots();showToast('League created — now invite your mates!')}
+ }catch(x){err(x.message);if(btn)btn.disabled=false}finally{busy=false}});
+
+// Re-render the cards whenever the game swaps screens, and push today's score when it appears
+let t0;new MutationObserver(()=>{clearTimeout(t0);t0=setTimeout(()=>{renderSlots();syncScore()},120)}).observe($('screen'),{childList:true});
+setTimeout(()=>{renderSlots();syncScore();if(fresh||lsGet(LG_PENDING)||oauthError)open(fresh?'login':'invite')},400);
+})();
+</script>
+</body></html>
