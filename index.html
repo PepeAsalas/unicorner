@@ -1556,7 +1556,7 @@ if(brandHome){
    Player sessions are kept apart from the admin session (different storage, own fetch helper). */
 (()=>{
 const LG_GOOGLE=false; // switch on once the Google provider is set up in Supabase
-const LG_KEY='uc-player-session',LG_PENDING='uc-league-invite',LG_ACTIVE='uc-league-active';
+const LG_KEY='uc-player-session',LG_PENDING='uc-league-invite',LG_OPTOUT='uc-league-optout',LG_ACTIVE='uc-league-active';
 let sess=null;try{sess=JSON.parse(localStorage.getItem(LG_KEY)||'null')}catch{}
 let me=null,board=null,boardTab='today',emailForCode='',busy=false;
 const $=id=>document.getElementById(id);
@@ -1579,8 +1579,10 @@ let fresh=false,oauthError='';
 (()=>{const h=location.hash;
  if(h.includes('access_token=')){const p=new URLSearchParams(h.slice(1));saveSess({access_token:p.get('access_token'),refresh_token:p.get('refresh_token'),expires_in:p.get('expires_in')});fresh=true;history.replaceState(null,'',location.pathname+location.search);track('league_login',{method:'google'})}
  else if(h.includes('error_description=')){oauthError=new URLSearchParams(h.slice(1)).get('error_description')||'Sign-in failed';history.replaceState(null,'',location.pathname+location.search)}
- const q=new URLSearchParams(location.search),c=q.get('league');
- if(c){lsSet(LG_PENDING,c.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,8));q.delete('league');history.replaceState(null,'',location.pathname+(q.toString()?'?'+q:''))}})();
+ const q=new URLSearchParams(location.search),c=q.get('league'),o=q.get('optout');
+ if(c)lsSet(LG_PENDING,c.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,8));
+ if(o!=null)lsSet(LG_OPTOUT,o==='1'?'1':'0');
+ if(c||o!=null){q.delete('league');q.delete('optout');history.replaceState(null,'',location.pathname+(q.toString()?'?'+q:''))}})();
 
 const css=`
 #dlg-league{width:min(540px,calc(100vw - 24px))}
@@ -1645,20 +1647,20 @@ function viewLogin(note){show(`<h2>🏆 Leagues</h2>
  ${LG_GOOGLE?`<button type="button" class="lg-google" data-lg="google">${GOOGLE}<span>Continue with Google</span></button>
  <div class="lg-or">or use your email</div>`:''}
  <form id="lea-email-form"><label for="lea-email">Email</label><input id="lea-email" type="email" required maxlength="120" autocomplete="email" value="${esc(emailForCode)}">
+ <label class="check"><input type="checkbox" id="lea-optout-signup" ${lsGet(LG_OPTOUT)==='1'?'checked':''}> <span>I don't want reminders or Unicorner news</span></label>
  <div class="lg-row"><button type="submit">Email me a sign-in link</button></div></form>
  <p class="lg-err" id="lea-err" role="status">${esc(oauthError)}</p>
  <p class="mute lg-small">The daily game stays free with no sign-up — this is only for leagues. <a href="privacy.html">Privacy</a>.</p>`);oauthError=''}
 function viewCode(){show(`<h2>Check your email 📬</h2>
  <p>We sent a sign-in link to <b>${esc(emailForCode)}</b>.</p>
- <p class="mute">Open the email <b>on this device</b> and tap <b>Sign in</b> — you'll come straight back here, signed in. Can't see it? Check your spam folder.</p>
- <form id="lea-code-form"><label for="lea-code">Got a 6-digit code instead? Enter it here</label><input id="lea-code" class="lg-code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" required pattern="[0-9]{6}" placeholder="••••••">
- <div class="lg-row"><button type="submit">Sign in</button><button type="button" class="ghost" data-lg="login">Use another email</button></div></form>
- <p class="lg-err" id="lea-err" role="status"></p>`);}
+ <p class="mute">Open the email <b>on this device</b> and tap the link in it — you'll come straight back here, signed in. Can't see it? Check your spam folder.</p>
+ <p class="mute">The link works once and expires after a while — you can always request a new one.</p>
+ <div class="lg-row"><button type="button" class="ghost" data-lg="login">Use another email</button></div>`);}
 function viewProfile(){const p=me?.profile;const guess=p?.nickname||(sess?.email||'').split('@')[0].replace(/[^A-Za-z0-9 _.-]/g,'').slice(0,16);
  show(`<h2>${p?'Your profile':'Pick a nickname'}</h2>
  <p class="mute">This is what your mates see on the leaderboard.</p>
  <form id="lea-profile-form"><label for="lea-nick">Nickname</label><input id="lea-nick" required minlength="2" maxlength="16" value="${esc(guess)}">
- <label class="check"><input type="checkbox" id="lea-optout" ${p?.news_opt_out?'checked':''}> <span>I don't want reminders or Unicorner news</span></label>
+ ${p?`<label class="check"><input type="checkbox" id="lea-optout" ${p.news_opt_out?'checked':''}> <span>I don't want reminders or Unicorner news</span></label>`:''}
  <div class="lg-row"><button type="submit">${p?'Save':'Continue'}</button>${p?'<button type="button" class="ghost" data-lg="home">Back</button>':''}</div></form>
  <p class="lg-err" id="lea-err" role="status"></p>
  ${p?`<p class="mute lg-small">Signed in as ${esc(sess?.email||'')} · <a href="#" data-lg="logout">Sign out</a></p>`:''}`)}
@@ -1742,9 +1744,8 @@ document.addEventListener('click',async e=>{const b=e.target.closest('[data-lg]'
 
 document.addEventListener('submit',async e=>{const f=e.target;if(!f.id?.startsWith('lea-'))return;e.preventDefault();if(busy)return;busy=true;const btn=f.querySelector('[type=submit]');if(btn)btn.disabled=true;err('');
  try{
-  if(f.id==='lea-email-form'){emailForCode=$('lea-email').value.trim();await authPost('/auth/v1/otp',{email:emailForCode,create_user:true});track('league_login_start',{method:'email'});viewCode()}
-  else if(f.id==='lea-code-form'){saveSess(await authPost('/auth/v1/verify',{type:'email',email:emailForCode,token:$('lea-code').value.trim()}));track('league_login',{method:'email'});busy=false;await open('login');renderSlots()}
-  else if(f.id==='lea-profile-form'){const nick=$('lea-nick').value.trim();if(/fuck|shit|cunt|nigg|fagg|hitler|nazi/i.test(nick))throw new Error('Pick a different nickname');const first=!me?.profile;await rpc('lg_save_profile',{p_nickname:nick,p_news_opt_out:$('lea-optout').checked});await loadMe();track('league_profile',{first});busy=false;if(first){const pending=lsGet(LG_PENDING);await(pending?viewJoin(pending):viewHome())}else await viewHome();renderSlots()}
+  if(f.id==='lea-email-form'){emailForCode=$('lea-email').value.trim();const optout=$('lea-optout-signup').checked;lsSet(LG_OPTOUT,optout?'1':'0');const back=new URLSearchParams();if(optout)back.set('optout','1');const inv=lsGet(LG_PENDING);if(inv)back.set('league',inv);const to=location.origin+location.pathname+(back.toString()?'?'+back:'');await authPost('/auth/v1/otp?redirect_to='+encodeURIComponent(to),{email:emailForCode,create_user:true,data:{news_opt_out:optout}});track('league_login_start',{method:'email'});viewCode()}
+  else if(f.id==='lea-profile-form'){const nick=$('lea-nick').value.trim();if(/fuck|shit|cunt|nigg|fagg|hitler|nazi/i.test(nick))throw new Error('Pick a different nickname');const first=!me?.profile;await rpc('lg_save_profile',{p_nickname:nick,p_news_opt_out:first?lsGet(LG_OPTOUT)==='1':$('lea-optout').checked});await loadMe();track('league_profile',{first});busy=false;if(first){const pending=lsGet(LG_PENDING);await(pending?viewJoin(pending):viewHome())}else await viewHome();renderSlots()}
   else if(f.id==='lea-create-form'){const l=await rpc('lg_create_league',{p_name:$('lea-name').value.trim()});track('league_create',{});lsSet(LG_ACTIVE,l.id);await loadMe();board=null;await viewHome();renderSlots();showToast('League created — now invite your mates!')}
  }catch(x){err(x.message);if(btn)btn.disabled=false}finally{busy=false}});
 
