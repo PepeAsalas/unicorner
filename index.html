@@ -1555,6 +1555,7 @@ if(brandHome){
 /* Leagues: optional sign-in for private friend leagues. The daily game never needs this.
    Player sessions are kept apart from the admin session (different storage, own fetch helper). */
 (()=>{
+const LG_GOOGLE=false; // switch on once the Google provider is set up in Supabase
 const LG_KEY='uc-player-session',LG_PENDING='uc-league-invite',LG_ACTIVE='uc-league-active';
 let sess=null;try{sess=JSON.parse(localStorage.getItem(LG_KEY)||'null')}catch{}
 let me=null,board=null,boardTab='today',emailForCode='',busy=false;
@@ -1641,8 +1642,8 @@ function boardTable(b,tab,limit){
 function viewLogin(note){show(`<h2>🏆 Leagues</h2>
  <p class="mute">Play against your mates in a private league. Sign in once and your leagues follow you on any device.</p>
  ${note?`<p>${esc(note)}</p>`:''}
- <button type="button" class="lg-google" data-lg="google">${GOOGLE}<span>Continue with Google</span></button>
- <div class="lg-or">or use your email</div>
+ ${LG_GOOGLE?`<button type="button" class="lg-google" data-lg="google">${GOOGLE}<span>Continue with Google</span></button>
+ <div class="lg-or">or use your email</div>`:''}
  <form id="lea-email-form"><label for="lea-email">Email</label><input id="lea-email" type="email" required maxlength="120" autocomplete="email" value="${esc(emailForCode)}">
  <div class="lg-row"><button type="submit">Send me a code</button></div></form>
  <p class="lg-err" id="lea-err" role="status">${esc(oauthError)}</p>
