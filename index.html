@@ -2057,8 +2057,7 @@ function leagueBox(){const when=gTab==='day'?'TODAY':'THIS WEEK';
   .sort((a,b)=>(b.score??-1)-(a.score??-1)||a.nickname.localeCompare(b.nickname)).map((r,i)=>({...r,rank:r.score==null?0:i+1}));
  const meR=list.find(r=>r.me);
  const t=[`${esc(board.name.toUpperCase())} · ${list.length} PLAYER${list.length===1?'':'S'}`];
- if(meR?.rank>1){const above=list[meR.rank-2];t.push(`YOU NEED ${above.score-meR.score+1} PTS TO PASS ${esc(above.nickname.toUpperCase())}`)}
- else if(meR?.rank===1)t.push(`YOU LEAD ${when}`);
+ if(meR?.rank===1)t.push(`YOU LEAD ${when}`);
  t.push('WEEK RESETS MONDAY');
  return competeShell('LEAGUE · '+esc(board.name.toUpperCase()),list.map(r=>jbRow(r)).join(''),t.join('  •••  ')+'  •••',
   `<div class="lg-row jb-actions"><button type="button" class="cta" data-lg="copy" data-code="${esc(board.code)}">🔗 Copy invite link</button><button type="button" class="ghost" data-lg="open" data-from="card">Open league</button></div>`)}
@@ -2067,8 +2066,7 @@ async function globalBox(){let g;try{g=await loadGlobal()}catch{return competeSh
  const mine=part.me&&!rows.some(r=>r.me)?jbRow({rank:part.me.rank,score:part.me.score,nickname:me?.profile?.nickname||'',me:true},' gap'):'';
  const tick=[];
  if(g.yesterday)tick.push(`YESTERDAY'S CHAMP ${esc(g.yesterday.nickname.toUpperCase())} ${g.yesterday.score}`);
- if(part.me&&part.me.rank>1){const above=rows.find(r=>r.rank===part.me.rank-1);if(above)tick.push(`YOU NEED ${above.score-part.me.score+1} PTS TO PASS ${esc(above.nickname.toUpperCase())}`)}
- else if(part.me&&part.me.rank===1)tick.push(`YOU'RE TOP OF THE TABLE ${when}`);
+ if(part.me&&part.me.rank===1)tick.push(`YOU'RE TOP OF THE TABLE ${when}`);
  if(rows[0])tick.push(`${esc(rows[0].nickname.toUpperCase())} LEADS ${when}`);
  if(part.players)tick.push(`${part.players} PLAYER${part.players===1?'':'S'} ${when}`);tick.push('NEW GAME EVERY DAY AT MIDNIGHT');
  return competeShell('UNICORNER ★ GLOBAL',rows.length?rows.map(r=>jbRow(r)).join('')+mine:`<p class="jb-empty">NO ONE ON THE BOARD YET ${when} — BE THE FIRST!</p>`,
