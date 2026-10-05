@@ -1769,12 +1769,13 @@ if(brandHome){
    Player sessions are kept apart from the admin session (different storage, own fetch helper). */
 (()=>{
 const LG_GOOGLE=false; // switch on once the Google provider is set up in Supabase
-const LG_KEY='uc-player-session',LG_PENDING='uc-league-invite',LG_OPTOUT='uc-league-optout',LG_ACTIVE='uc-league-active',LG_INF='uc-inf-notified',LG_INTENT='uc-league-intent',LG_PSCORE='uc-league-pending-score',LG_MAX=1; // beta: one league each — more come with Infinity mode
+const LG_KEY='uc-player-session',LG_PENDING='uc-league-invite',LG_OPTOUT='uc-league-optout',LG_ACTIVE='uc-league-active',LG_INF='uc-inf-notified',LG_INTENT='uc-league-intent',LG_PSCORE='uc-league-pending-score',LG_NICK='uc-claim-nick',LG_SENT='uc-claim-sent',LG_MAX=1; // beta: one league each — more come with Infinity mode
 let sess=null;try{sess=JSON.parse(localStorage.getItem(LG_KEY)||'null')}catch{}
-let me=null,board=null,boardTab='today',signInEmail='',busy=false;
+let me=null,board=null,boardTab='today',signInEmail='',busy=false,draft={nick:'',email:''};
 const $=id=>document.getElementById(id);
 const lsGet=k=>{try{return localStorage.getItem(k)}catch{return null}};
 const lsSet=(k,v)=>{try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch{}};
+const jwtMeta=t=>{try{return JSON.parse(decodeURIComponent(escape(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'))))).user_metadata||{}}catch{return{}}};
 const jwtEmail=t=>{try{return JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'))).email||''}catch{return ''}};
 const saveSess=j=>{sess={access_token:j.access_token,refresh_token:j.refresh_token||sess?.refresh_token||'',exp:Date.now()+Math.max(60,(+j.expires_in||3600))*1000};sess.email=jwtEmail(sess.access_token);lsSet(LG_KEY,JSON.stringify(sess))};
 const dropSess=()=>{sess=null;me=null;board=null;lsSet(LG_KEY,null)};
@@ -1796,13 +1797,14 @@ let fresh=false,oauthError='';
 (()=>{const h=location.hash;
  if(h.includes('access_token=')){const p=new URLSearchParams(h.slice(1));saveSess({access_token:p.get('access_token'),refresh_token:p.get('refresh_token'),expires_in:p.get('expires_in')});fresh=true;history.replaceState(null,'',location.pathname+location.search);track('league_login',{method:p.get('provider_token')?'google':'email'})}
  else if(h.includes('error_description=')){oauthError=new URLSearchParams(h.slice(1)).get('error_description')||'Sign-in failed';history.replaceState(null,'',location.pathname+location.search)}
- const q=new URLSearchParams(location.search),c=q.get('league'),o=q.get('optout'),gi=q.get('i'),ps=q.get('s'),pd=q.get('d');
+ const q=new URLSearchParams(location.search),c=q.get('league'),o=q.get('optout'),gi=q.get('i'),ps=q.get('s'),pd=q.get('d'),pn=q.get('n');
+ if(pn)lsSet(LG_NICK,pn.trim().slice(0,16));
  if(gi==='g')lsSet(LG_INTENT,'global');
  // the email link may open in another browser that never saw today's game — carry the score across
  if(ps!=null&&/^\d{1,3}$/.test(ps)&&pd&&/^\d{4}-\d\d-\d\d$/.test(pd))lsSet(LG_PSCORE,JSON.stringify({score:+ps,day:pd}));
  if(c)lsSet(LG_PENDING,c.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,8));
  if(o!=null)lsSet(LG_OPTOUT,o==='1'?'1':'0');
- if(c||o!=null||gi||ps!=null){['league','optout','i','s','d'].forEach(k=>q.delete(k));history.replaceState(null,'',location.pathname+(q.toString()?'?'+q:''))}})();
+ if(c||o!=null||gi||ps!=null||pn){['league','optout','i','s','d','n'].forEach(k=>q.delete(k));history.replaceState(null,'',location.pathname+(q.toString()?'?'+q:''))}})();
 
 const css=`
 #dlg-league{width:min(540px,calc(100vw - 24px))}
@@ -1890,6 +1892,22 @@ const css=`
 .g-you{margin:14px 0 0;font-size:24px}
 .g-you b{color:var(--gold)}
 .g-cta{margin-top:16px}.g-cta .g-note{margin-top:8px}
+.g-claim{text-align:left}.g-claim .g-you{margin:0 0 4px;text-align:center;line-height:1.1}
+.g-sub{margin:0 0 12px;font-family:var(--lab);font-size:20px;line-height:1.15;color:#d6ccff;text-align:center}.g-sub b{color:#fff}
+.g-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g-f span{display:block;margin-bottom:4px;font-family:var(--lab);font-size:17px;letter-spacing:1px;text-transform:uppercase;color:#cfc8f5}
+.g-f input{font:400 22px var(--lab)!important;padding:9px 11px!important}
+.g-claim .cta{width:100%;margin-top:12px}
+.g-small{margin:10px 0 0;font-family:var(--lab);font-size:18px;line-height:1.15;color:#cfc8f5;text-align:center}
+.g-check{display:flex;gap:8px;line-height:1.1;align-items:center;justify-content:center;margin-top:6px;font-family:var(--lab);font-size:18px;color:#cfc8f5;text-transform:none;cursor:pointer}
+.g-check input{width:18px!important;height:18px;padding:0!important;flex:none;accent-color:var(--gold)}
+.g-err{margin:8px 0 0;font-family:var(--lab);font-size:19px;color:#ff9a9a;text-align:center}.g-err:empty{display:none}
+.g-acts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.jb-row.ghost{outline:2px dashed var(--led);outline-offset:-2px;animation:jbghost 1s steps(1) infinite}
+.jb-row.ghost.named{background:var(--led);color:#020602;text-shadow:none}
+@keyframes jbghost{50%{opacity:.5}}
+@media (prefers-reduced-motion:reduce){.jb-row.ghost{animation:none}}
+@media (max-width:560px){.g-fields{grid-template-columns:1fr}.g-claim .g-you{font-size:21px}.g-sub{font-size:18px}}
 .g-claim h2{font-size:30px!important;line-height:1.1}
 .g-preview{margin:10px 0 2px}
 #dlg-league .lg-more-h{font-size:26px;margin:26px 0 4px;padding-top:18px;border-top:1px solid rgba(255,255,255,.15)}
@@ -1933,13 +1951,13 @@ function viewCheckEmail(){show(`<h2>Check your email 📬</h2>
  <p class="mute">Open the email <b>on this device</b> and tap the link in it — you'll come straight back here, signed in. Can't see it? Check your spam folder.</p>
  <p class="mute">The link works once and expires after a while — you can always request a new one.</p>
  <div class="lg-row"><button type="button" class="ghost" data-lg="login">Use another email</button></div>`);}
-function viewProfile(){const p=me?.profile;const guess=p?.nickname||(sess?.email||'').split('@')[0].replace(/[^A-Za-z0-9 _.-]/g,'').slice(0,16);
+function viewProfile(note){const p=me?.profile;const guess=p?.nickname||pendingNick()||(sess?.email||'').split('@')[0].replace(/[^A-Za-z0-9 _.-]/g,'').slice(0,16);
  show(`<h2>${p?'Your profile':'Pick a nickname'}</h2>
  <p class="mute">This shows on the global ranking and in your leagues.</p>
  <form id="lea-profile-form"><label for="lea-nick">Nickname</label><input id="lea-nick" required minlength="2" maxlength="16" value="${esc(guess)}">
  ${p?`<label class="check"><input type="checkbox" id="lea-optout" ${p.news_opt_out?'checked':''}> <span>I don't want reminders or Unicorner news</span></label>`:''}
  <div class="lg-row"><button type="submit">${p?'Save':'Continue'}</button>${p?'<button type="button" class="ghost" data-lg="home">Back</button>':''}</div></form>
- <p class="lg-err" id="lea-err" role="status"></p>
+ <p class="lg-err" id="lea-err" role="status">${esc(note||'')}</p>
  ${p?`<p class="mute lg-small">Signed in as ${esc(sess?.email||'')} · <a href="#" data-lg="logout">Sign out</a></p>`:''}`)}
 function viewCreate(){show(`<h2>Create a league</h2>
  <p class="mute">Give it a name, then share the invite link with your mates.</p>
@@ -2003,6 +2021,20 @@ async function open(from){track('league_open',{from:from||'unknown'});
  return viewHome()}
 window.openLeagues=open;
 
+async function sendLink(email,optout,nick){lsSet(LG_OPTOUT,optout?'1':'0');const back=new URLSearchParams();if(optout)back.set('optout','1');const inv=lsGet(LG_PENDING);if(inv)back.set('league',inv);if(lsGet(LG_INTENT)==='global')back.set('i','g');const pl=playedToday();if(pl){back.set('s',pl.score);back.set('d',pl.day)}if(nick){back.set('n',nick);lsSet(LG_NICK,nick)}
+ const to=location.origin+location.pathname+(back.toString()?'?'+back:'');
+ await authPost('/auth/v1/otp?redirect_to='+encodeURIComponent(to),{email,create_user:true,data:nick?{news_opt_out:optout,nickname:nick}:{news_opt_out:optout}})}
+const BAD_NICK=/fuck|shit|cunt|nigg|fagg|hitler|nazi/i;
+const pendingNick=()=>lsGet(LG_NICK)||(sess?jwtMeta(sess.access_token).nickname:'')||'';
+// Back from the emailed link with the nickname typed on the board: save it and land on the board, no extra screens
+async function autoClaim(){const n=pendingNick();
+ try{await loadMe()}catch{return open('login')}
+ if(!me.profile){try{if(BAD_NICK.test(n))throw new Error('Pick a different nickname');await rpc('lg_save_profile',{p_nickname:n,p_news_opt_out:lsGet(LG_OPTOUT)==='1'});await loadMe();track('league_profile',{first:true,auto:true})}
+  catch(x){lsSet(LG_INTENT,'global');viewProfile(/taken/i.test(x.message)?`${n} is taken — pick another and you're on the board.`:x.message);return}}
+ lsSet(LG_NICK,null);lsSet(LG_SENT,null);lsSet(LG_INTENT,null);await syncScore();gboard=null;await renderSlots();
+ const box=document.querySelector('[data-compete]');if(box)box.scrollIntoView({behavior:'smooth',block:'center'});
+ showToast(`You're on the board, ${me.profile.nickname}! 🌍`)}
+
 // ── Score sync: the first finished score of the day goes to the player's leagues ──
 function playedToday(){const day=amsterdamDay();let p=null;try{p=getPlayed()}catch{}
  if(p&&typeof p.score==='number')return{score:p.score,day};
@@ -2026,10 +2058,23 @@ function claimCopy(pl,g){const d=g?.day,rows=d?.rows||[];
  const r=rows.filter(x=>x.score>=pl.score).length+1;
  if(r<=10||d.players<=rows.length)return{h:`${['🥇','🥈','🥉'][r-1]||'🌍'} Your ${pl.score} would be ${ord(r)} today`,p:`Out of ${d.players+1} players so far. Claim your spot before someone takes it.`,rank:r,rows};
  return{h:`🌍 Get your ${pl.score} on today's ranking`,p:`Join the ${d.players} players already on it.`,rank:null,rows}}
+function claimSent(){if(sess)return null;try{const x=JSON.parse(lsGet(LG_SENT)||'null');return x&&Date.now()-x.at<3*3600e3?x:null}catch{return null}}
+function claimBox(c,pl){const sent=claimSent();
+ if(sent)return `<div class="g-claim g-sent"><p class="g-you">📬 Check your inbox</p>
+  <p class="g-sub">Tap the link we sent to <b>${esc(sent.email)}</b> and <b>${esc(sent.nick)}</b> goes on the board with ${pl.score}.</p>
+  <div class="g-acts"><button type="button" class="ghost" data-lg="gresend">Resend link</button><button type="button" class="ghost" data-lg="gwrong">Wrong email?</button></div>
+  <p class="g-small">Nothing there? Check your spam folder.</p></div>`;
+ return `<form class="g-claim" novalidate><p class="g-you">${c.h}</p><p class="g-sub">Save your score and get on the ranking.</p>
+  <div class="g-fields"><label class="g-f"><span>Nickname</span><input name="nick" required minlength="2" maxlength="16" autocomplete="nickname" spellcheck="false" placeholder="e.g. Zizou10" value="${esc(draft.nick)}"></label>
+  ${sess?'':`<label class="g-f"><span>Email</span><input name="email" type="email" required maxlength="120" autocomplete="email" placeholder="you@email.com" value="${esc(draft.email)}"></label>`}</div>
+  <button type="submit" class="cta">Put me on the board</button>
+  ${sess?'':`<p class="g-small">We'll email you a link to confirm — no password.</p><label class="g-check"><input type="checkbox" name="optout" ${lsGet(LG_OPTOUT)==='1'?'checked':''}> <span>I don't want reminders or Unicorner news</span></label>`}
+  <p class="g-err" role="status"></p></form>`}
+const ghostName=()=>'YOU · '+(draft.nick.trim().toUpperCase()||'???');
 function gStatus(part){const pl=playedToday(),has=sess&&me?.profile;
  if(has&&part.me)return `<p class="g-you">You're <b>${ord(part.me.rank)}</b> of ${part.players} ${gTab==='day'?'today':'this week'} 🌍</p>`;
  if(has)return pl?'<p class="g-note">Your score will show here in a moment.</p>':'';
- if(pl){const c=claimCopy(pl,gboard);return `<div class="g-cta"><p class="g-you">${c.h}</p><button type="button" class="cta" data-lg="open" data-from="global">🌍 Claim my spot</button><p class="g-note">Just a nickname and your email — no password.</p></div>`}
+ if(pl)return claimBox(claimCopy(pl,gboard),pl);
  return ''}
 function gTabs(where){return `<div class="lg-tabs g-tabs"><button type="button" data-lg="gtab" data-tab="day" data-where="${where}" class="${gTab==='day'?'on':''}">Today</button><button type="button" data-lg="gtab" data-tab="week" data-where="${where}" class="${gTab==='week'?'on':''}">This week</button></div>`}
 const LEDS=[['Green','#39ff6a'],['Amber','#ffb000'],['Red','#ff4d4d'],['Cyan','#4fd7ff'],['Pink','#ff7ac8']];
@@ -2037,7 +2082,7 @@ const ledIdx=()=>Math.max(0,LEDS.findIndex(l=>l[0]===lsGet('uc-led')));
 function applyLed(){const l=LEDS[ledIdx()];document.querySelectorAll('[data-compete]').forEach(el=>{el.style.setProperty('--led',l[1]);const b=el.querySelector('.jb-led');if(b)b.setAttribute('aria-label','Change LED colour (now '+l[0]+')')})}
 // ── Compete box: the global ranking and your league on one LED board ──
 let gScope='global';
-const jbRow=(r,extra)=>`<div class="jb-row${r.rank&&r.rank<=3?' top':''}${r.rank===1?' lead':''}${r.me?' me':''}${extra||''}"><span>${r.rank?String(r.rank).padStart(2,'0'):'--'}</span><span class="nm">${r.me?'YOU · ':''}${esc(r.nickname.toUpperCase())}</span><span>${r.score??'—'}</span></div>`;
+const jbRow=(r,extra)=>`<div class="jb-row${r.rank&&r.rank<=3?' top':''}${r.rank===1?' lead':''}${r.me?' me':''}${extra||''}"><span>${r.rank?String(r.rank).padStart(2,'0'):'--'}</span><span class="nm">${(extra||'').includes('ghost')?esc(ghostName()):(r.me?'YOU · ':'')+esc(r.nickname.toUpperCase())}</span><span>${r.score??'—'}</span></div>`;
 function competeShell(title,body,ticker,status){const l=LEDS[ledIdx()];
  return `<div class="jb-lights" aria-hidden="true"><span><i></i><i></i><i></i></span><span><i></i><i></i><i></i></span></div>
   <div class="jb-frame">
@@ -2064,12 +2109,16 @@ function leagueBox(){const when=gTab==='day'?'TODAY':'THIS WEEK';
 async function globalBox(){let g;try{g=await loadGlobal()}catch{return competeShell('UNICORNER ★ GLOBAL','<p class="jb-empty">RANKING UNAVAILABLE RIGHT NOW — TRY AGAIN LATER</p>','NEW GAME EVERY DAY AT MIDNIGHT  •••','')}
  const part=g[gTab],rows=part.rows||[],when=gTab==='day'?'TODAY':'THIS WEEK';
  const mine=part.me&&!rows.some(r=>r.me)?jbRow({rank:part.me.rank,score:part.me.score,nickname:me?.profile?.nickname||'',me:true},' gap'):'';
+ const pl=playedToday(),ghost=gTab==='day'&&pl&&!part.me&&!(sess&&me?.profile)?claimCopy(pl,g):null;
+ let body=rows.map(r=>jbRow(r));
+ if(ghost){const at=ghost.rank&&ghost.rank<=rows.length+1?ghost.rank-1:-1,gr=jbRow({rank:at<0?0:ghost.rank,nickname:'',score:pl.score},' ghost'+(at<0?' gap':''));
+  if(at<0)body.push(gr);else{body=rows.map((r,i)=>jbRow(i>=at?{...r,rank:r.rank+1}:r));body.splice(at,0,gr);if(body.length>10&&at<10)body.pop()}}
  const tick=[];
  if(g.yesterday)tick.push(`YESTERDAY'S CHAMP ${esc(g.yesterday.nickname.toUpperCase())} ${g.yesterday.score}`);
  if(part.me&&part.me.rank===1)tick.push(`YOU'RE TOP OF THE TABLE ${when}`);
  if(rows[0])tick.push(`${esc(rows[0].nickname.toUpperCase())} LEADS ${when}`);
  if(part.players)tick.push(`${part.players} PLAYER${part.players===1?'':'S'} ${when}`);tick.push('NEW GAME EVERY DAY AT MIDNIGHT');
- return competeShell('UNICORNER ★ GLOBAL',rows.length?rows.map(r=>jbRow(r)).join('')+mine:`<p class="jb-empty">NO ONE ON THE BOARD YET ${when} — BE THE FIRST!</p>`,
+ return competeShell('UNICORNER ★ GLOBAL',body.length?body.join('')+mine:`<p class="jb-empty">NO ONE ON THE BOARD YET ${when} — BE THE FIRST!</p>`,
   tick.join('  •••  ')+'  •••',sess&&me?.profile&&part.me?'':gStatus(part))}
 async function renderGlobal(){if(!document.querySelector('[data-compete]'))return;applyLed();
  const html=gScope==='league'?leagueBox():await globalBox();if(html==null)return;
@@ -2133,6 +2182,8 @@ document.addEventListener('click',async e=>{const b=e.target.closest('[data-lg]'
  if(a==='gtab'){gTab=b.dataset.tab;return b.dataset.where==='dialog'?viewGlobal():renderGlobal()}
  if(a==='gscope'){gScope=b.dataset.scope;track('compete_scope',{scope:gScope});if(gScope==='league'&&sess&&me?.leagues?.length&&!board)loadBoard().then(renderGlobal).catch(()=>{});return renderGlobal()}
  if(a==='invite')return invite(b.dataset.code,b.dataset.name);
+ if(a==='gwrong'){const x=claimSent();if(x){draft.email=x.email;draft.nick=x.nick}lsSet(LG_SENT,null);await renderGlobal();document.querySelector('.g-claim [name=email]')?.focus();return}
+ if(a==='gresend'){const x=claimSent();if(!x)return renderGlobal();b.disabled=true;try{await sendLink(x.email,lsGet(LG_OPTOUT)==='1',x.nick);track('league_login_start',{method:'email',from:'board_resend'});showToast('Sent again 📬')}catch(y){showToast(y.message)}finally{b.disabled=false}return}
  if(a==='logout'){dropSess();dlg.close();renderSlots();return showToast('Signed out')}
  if(busy)return;busy=true;b.disabled=true;
  try{
@@ -2144,16 +2195,29 @@ document.addEventListener('click',async e=>{const b=e.target.closest('[data-lg]'
   if(a==='leave'&&confirm('Leave this league?')){await rpc('lg_leave_league',{p_league:b.dataset.id});track('league_leave',{});lsSet(LG_ACTIVE,null);board=null;await loadMe();await viewHome();renderSlots()}
  }catch(x){err(x.message)}finally{busy=false;b.disabled=false}});
 
+document.addEventListener('input',e=>{const i=e.target;if(!i.closest?.('.g-claim'))return;
+ if(i.name==='nick'){draft.nick=i.value;document.querySelectorAll('.jb-row.ghost .nm').forEach(n=>n.textContent=ghostName());document.querySelectorAll('.jb-row.ghost').forEach(r=>r.classList.toggle('named',!!draft.nick.trim()))}
+ if(i.name==='email')draft.email=i.value});
+document.addEventListener('submit',async e=>{const f=e.target;if(!f.classList?.contains('g-claim'))return;e.preventDefault();if(busy)return;
+ const nick=f.nick.value.trim(),email=f.email?.value.trim()||'',out=f.querySelector('.g-err'),btn=f.querySelector('[type=submit]'),say=m=>{out.textContent=m||''};
+ if(nick.length<2)return say('Pick a nickname — 2 to 16 characters'),f.nick.focus();
+ if(BAD_NICK.test(nick))return say('Pick a different nickname'),f.nick.focus();
+ if(f.email&&!f.email.checkValidity())return say('That email doesn\'t look right'),f.email.focus();
+ busy=true;btn.disabled=true;say('');
+ try{
+  if(sess){await rpc('lg_save_profile',{p_nickname:nick,p_news_opt_out:lsGet(LG_OPTOUT)==='1'});await loadMe();track('league_profile',{first:true,from:'board'});busy=false;await syncScore();draft.nick='';gboard=null;await renderGlobal();showToast(`You're on the board, ${me.profile.nickname}! 🌍`)}
+  else{lsSet(LG_INTENT,'global');await sendLink(email,!!f.optout?.checked,nick);lsSet(LG_SENT,JSON.stringify({email,nick,at:Date.now()}));track('league_login_start',{method:'email',from:'board'});busy=false;await renderGlobal()}
+ }catch(x){say(x.message);btn.disabled=false}finally{busy=false}});
 document.addEventListener('submit',async e=>{const f=e.target;if(!f.id?.startsWith('lea-'))return;e.preventDefault();if(busy)return;busy=true;const btn=f.querySelector('[type=submit]');if(btn)btn.disabled=true;err('');
  try{
-  if(f.id==='lea-email-form'){signInEmail=$('lea-email').value.trim();const optout=$('lea-optout-signup').checked;lsSet(LG_OPTOUT,optout?'1':'0');const back=new URLSearchParams();if(optout)back.set('optout','1');const inv=lsGet(LG_PENDING);if(inv)back.set('league',inv);if(lsGet(LG_INTENT)==='global')back.set('i','g');const pl=playedToday();if(pl){back.set('s',pl.score);back.set('d',pl.day)}const to=location.origin+location.pathname+(back.toString()?'?'+back:'');await authPost('/auth/v1/otp?redirect_to='+encodeURIComponent(to),{email:signInEmail,create_user:true,data:{news_opt_out:optout}});track('league_login_start',{method:'email'});viewCheckEmail()}
-  else if(f.id==='lea-profile-form'){const nick=$('lea-nick').value.trim();if(/fuck|shit|cunt|nigg|fagg|hitler|nazi/i.test(nick))throw new Error('Pick a different nickname');const first=!me?.profile;await rpc('lg_save_profile',{p_nickname:nick,p_news_opt_out:first?lsGet(LG_OPTOUT)==='1':$('lea-optout').checked});await loadMe();track('league_profile',{first});busy=false;await syncScore();if(first){const pending=lsGet(LG_PENDING);if(pending)await viewJoin(pending);else if(lsGet(LG_INTENT)==='global'){lsSet(LG_INTENT,null);await viewGlobal(true)}else await viewHome()}else await viewHome();renderSlots()}
+  if(f.id==='lea-email-form'){signInEmail=$('lea-email').value.trim();await sendLink(signInEmail,$('lea-optout-signup').checked);track('league_login_start',{method:'email'});viewCheckEmail()}
+  else if(f.id==='lea-profile-form'){const nick=$('lea-nick').value.trim();if(/fuck|shit|cunt|nigg|fagg|hitler|nazi/i.test(nick))throw new Error('Pick a different nickname');const first=!me?.profile;await rpc('lg_save_profile',{p_nickname:nick,p_news_opt_out:first?lsGet(LG_OPTOUT)==='1':$('lea-optout').checked});await loadMe();lsSet(LG_NICK,null);lsSet(LG_SENT,null);track('league_profile',{first});busy=false;await syncScore();if(first){const pending=lsGet(LG_PENDING);if(pending)await viewJoin(pending);else if(lsGet(LG_INTENT)==='global'){lsSet(LG_INTENT,null);await viewGlobal(true)}else await viewHome()}else await viewHome();renderSlots()}
   else if(f.id==='lea-create-form'){if((me?.leagues?.length||0)>=LG_MAX){busy=false;return viewMore()}const l=await rpc('lg_create_league',{p_name:$('lea-name').value.trim()});track('league_create',{});lsSet(LG_ACTIVE,l.id);await loadMe();board=null;await viewHome();renderSlots();showToast('League created — now invite your mates!')}
  }catch(x){err(x.message);if(btn)btn.disabled=false}finally{busy=false}});
 
 // Re-render the cards whenever the game swaps screens, and push today's score when it appears
 let t0;new MutationObserver(()=>{clearTimeout(t0);t0=setTimeout(()=>{renderSlots();syncScore()},120)}).observe($('screen'),{childList:true});
-setTimeout(()=>{renderSlots();syncScore();if(fresh||lsGet(LG_PENDING)||oauthError)open(fresh?'login':'invite')},400);
+setTimeout(()=>{renderSlots();syncScore();if(fresh&&!lsGet(LG_PENDING)&&pendingNick())autoClaim();else if(fresh||lsGet(LG_PENDING)||oauthError)open(fresh?'login':'invite')},400);
 })();
 </script>
 <script>
