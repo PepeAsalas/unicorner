@@ -1122,15 +1122,7 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
   </div>
  </section>
 
-<section class="lp-example card lp-global" id="global-rank-slot">
-  <div class="lp-label">Global ranking</div>
-  <div class="lp-prompt">Today's top players</div>
-  <div class="lp-answers">
-   <div class="lp-ans podium-mid" style="--c:${COLS[2]}"><b>???</b><span>— pts</span><i>🥈 2nd</i></div>
-   <div class="lp-ans uni podium-top" style="--c:${COLS[4]}"><b>???</b><span>— pts</span><i>🥇 1st</i></div>
-   <div class="lp-ans podium-low" style="--c:${COLS[0]}"><b>???</b><span>— pts</span><i>🥉 3rd</i></div>
-  </div>
- </section>
+<section class="jb" id="global-rank-slot"><div class="jb-frame"><div class="jb-screen"><p class="jb-empty">GLOBAL RANKING · LOADING…</p></div></div></section>
 
  <section class="card lp-tiers">
   <h2 class="lp-h2">The five tiers</h2>
@@ -1660,34 +1652,44 @@ body.playing #league-home-slot{display:none}
 .lg-board th.n{text-align:right}
 .lg-board tr.me td{font-weight:400}
 .lg-board .mute{font-size:21px!important}
-.lp-global .g-tabs{justify-content:center;margin:4px 0 0}
-.landing-wrap .lp-global .lp-ans b{font-size:22px!important;line-height:1.05!important;overflow-wrap:anywhere}
-.landing-wrap .lp-global .lp-ans span{font-size:19px!important;line-height:1.2!important}
-.landing-wrap .lp-global .lp-ans i{font-size:18px!important;font-family:var(--lab)}
-@media (max-width:640px){
-  .landing-wrap .lp-global .lp-ans b{font-size:19px!important}
-  .landing-wrap .lp-global .lp-ans span{font-size:17px!important}
-  .landing-wrap .lp-global .lp-ans i{font-size:17px!important}
-  .landing-wrap .lp-global .lp-ans b.l{font-size:15px!important}
-  .landing-wrap .lp-global .lp-ans b.xl{font-size:13px!important}
-  .landing-wrap .lp-global .podium-low{height:118px!important}
-  .landing-wrap .lp-global .podium-mid{height:138px!important}
-  .landing-wrap .lp-global .podium-top{height:160px!important}
-}
-.lp-global .g-board{max-width:420px;margin:14px auto 0;text-align:left}
-.lp-global .g-board td{border-top-color:rgba(255,255,255,.22)}
 .lg-board tr.gap td{border-top:2px dashed rgba(255,255,255,.35)}
-.lp-global .g-me{outline:3px solid #fff;outline-offset:2px}
-.g-champ span{white-space:nowrap}
-.g-champ{display:inline-block;margin:2px 0 10px;padding:4px 12px;line-height:1.25;border:2px solid #000;border-radius:6px;background:#ffd23f;color:#1b1530;font-family:var(--lab);font-size:21px;box-shadow:0 3px 0 #000}
-.g-champ b{font-family:var(--px);font-weight:400;font-size:21px}
+/* global ranking: stadium jumbotron (LED colour is the player's pick) */
+.jb{--led:#39ff6a;--led-dim:color-mix(in srgb,var(--led) 35%,#000);margin:6px 0 26px;display:flex;flex-direction:column;align-items:center;font-family:var(--lab);color:var(--led)}
+.jb-lights{display:flex;justify-content:space-between;width:80%;max-width:480px}
+.jb-lights span{display:grid;grid-template-columns:repeat(3,16px);gap:4px;padding:5px;background:#3a3a3a;border:3px solid #000}
+.jb-lights i{height:12px;background:#fffbe0;box-shadow:0 0 10px #fffbe0}
+.jb-frame{width:100%;box-sizing:border-box;padding:10px;background:#6b6b6b;border:4px solid #000;box-shadow:inset 0 0 0 4px #8d8d8d,8px 8px 0 rgba(0,0,0,.35)}
+.jb-screen{padding:14px;background:#020602;border:3px solid #000;background-image:radial-gradient(color-mix(in srgb,var(--led) 9%,transparent) 1px,transparent 1.5px);background-size:5px 5px}
+.jb-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.jb-title{font-size:24px;letter-spacing:3px}
+.jb-tabs{display:flex;gap:6px}
+.jb-tabs button{padding:3px 12px!important;border-radius:0!important;font-family:var(--lab)!important;font-size:20px!important;background:#020602!important;color:var(--led)!important;border:2px solid var(--led-dim)!important;box-shadow:none!important;text-decoration:none!important;transform:none!important}
+.jb-tabs button.on{background:var(--led)!important;color:#020602!important;border-color:var(--led)!important}
+.jb-rule{height:2px;background:var(--led);opacity:.4;margin:10px 0 6px}
+.jb-row{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:8px;align-items:center;padding:2px 8px;font-size:28px;line-height:1.15}
+.jb-row .nm{letter-spacing:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.jb-row.top{font-size:34px}
+.jb-row.lead{text-shadow:0 0 12px var(--led)}
+.jb-row.me{background:var(--led);color:#020602;text-shadow:none}
+.jb-row.gap{margin-top:6px;box-shadow:0 -4px 0 -2px var(--led-dim)}
+.jb-empty{margin:0;font-size:26px;text-align:center;padding:22px 8px;letter-spacing:1px}
+.jb-ticker{margin-top:10px;overflow:hidden;background:#020602;border:3px solid #000;padding:6px 0}
+.jb-tick{display:flex;width:max-content;animation:jb-tick 24s linear infinite;font-size:22px;white-space:nowrap}
+.jb-tick span{padding-right:60px}
+@keyframes jb-tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.jb-tick{animation:none}}
+.jb-led{margin-top:14px!important;display:inline-flex!important;align-items:center;gap:10px;padding:8px 16px!important;background:#1b1b1b!important;color:#fff!important;font-size:20px!important}
+.jb-led i{width:16px;height:16px;border-radius:50%;border:2px solid #000;background:var(--led);box-shadow:0 0 10px var(--led)}
+.jb-status{width:100%;box-sizing:border-box;margin-top:14px;padding:14px 16px;border:3px solid #000;border-radius:8px;background:#0c0c18;color:#fff;text-align:center;box-shadow:0 0 0 3px #fff}
+.jb-status .g-you,.jb-status .g-note,.jb-status .g-cta{margin-top:0}
+.jb-status .g-cta .g-you{margin:0 0 10px}
+@media (max-width:560px){.jb-row{font-size:24px;grid-template-columns:36px minmax(0,1fr) auto;padding:2px 6px}.jb-row.top{font-size:28px}.jb-title{font-size:21px}.jb-screen{padding:12px 10px}}
 .g-note{margin:14px 0 0;font-family:var(--lab);font-size:21px;color:#ffe0e0}
 .g-you{margin:14px 0 0;font-size:24px}
 .g-you b{color:var(--gold)}
 .g-cta{margin-top:16px}.g-cta .g-note{margin-top:8px}
 .g-claim h2{font-size:30px!important;line-height:1.1}
 .g-preview{margin:10px 0 2px}
-.lp-global .g-cta .g-you{margin:0 0 10px}
 .g-line{margin:2px 0 10px;font-family:var(--lab);font-size:21px}
 .g-line a{color:var(--gold)}
 #dlg-league .lg-more-h{font-size:26px;margin:26px 0 4px;padding-top:18px;border-top:1px solid rgba(255,255,255,.15)}
@@ -1836,20 +1838,31 @@ function gStatus(part){const pl=playedToday(),has=sess&&me?.profile;
  if(has)return `<p class="g-note">${pl?'Your score will show here in a moment.':'Play today\'s game to get on the board.'}</p>`;
  if(pl){const c=claimCopy(pl,gboard);return `<div class="g-cta"><p class="g-you">${c.h}</p><button type="button" class="cta" data-lg="open" data-from="global">🌍 Claim my spot</button><p class="g-note">Just a nickname and your email — no password.</p></div>`}
  return `<p class="g-note">Play today's game, then add a nickname to get on the board.</p>`}
-function podium(rows){const at=n=>rows.find(r=>r.rank===n);
- const card=(r,cls,col,medal)=>`<div class="lp-ans ${cls}${r?.me?' g-me':''}" style="--c:${col}"><b class="${r&&r.nickname.length>12?'xl':r&&r.nickname.length>9?'l':''}">${r?esc(r.nickname):'???'}</b><span>${r?r.score+' pts':'— pts'}</span><i>${medal}</i></div>`;
- return `<div class="lp-answers">${card(at(2),'podium-mid','#b48cff','🥈 2nd')}${card(at(1),'uni podium-top','#f2c230','🥇 1st')}${card(at(3),'podium-low','#cfd8e6','🥉 3rd')}</div>`}
 function gTabs(where){return `<div class="lg-tabs g-tabs"><button type="button" data-lg="gtab" data-tab="day" data-where="${where}" class="${gTab==='day'?'on':''}">Today</button><button type="button" data-lg="gtab" data-tab="week" data-where="${where}" class="${gTab==='week'?'on':''}">This week</button></div>`}
-async function renderGlobal(){const el=$('global-rank-slot');if(!el)return;let g;try{g=await loadGlobal()}catch{return}if(!$('global-rank-slot'))return;
- const part=g[gTab],rows=part.rows||[];
- $('global-rank-slot').innerHTML=`<div class="lp-label">Global ranking${part.players?' · '+part.players+' player'+(part.players===1?'':'s'):''}</div>
-  <div class="lp-prompt">${gTab==='day'?'Today\'s top players':'This week\'s top players'}</div>
-  ${g.yesterday?`<p class="g-champ">👑 Yesterday's champ: <span><b>${esc(g.yesterday.nickname)}</b> · ${g.yesterday.score}</span></p>`:''}
-  ${gTabs('landing')}
-  ${podium(rows)}
-  ${rows.length?'':`<p class="g-note">No one's on the board yet${gTab==='day'?' today':' this week'} — be the first!</p>`}
-  ${gList(rows,part.me,4)}
-  ${gStatus(part)}`}
+const LEDS=[['Green','#39ff6a'],['Amber','#ffb000'],['Red','#ff4d4d'],['Cyan','#4fd7ff'],['Pink','#ff7ac8']];
+const ledIdx=()=>Math.max(0,LEDS.findIndex(l=>l[0]===lsGet('uc-led')));
+function applyLed(){const el=$('global-rank-slot');if(!el)return;const l=LEDS[ledIdx()];el.style.setProperty('--led',l[1]);const b=el.querySelector('.jb-led b');if(b)b.textContent=l[0]}
+async function renderGlobal(){const el=$('global-rank-slot');if(!el)return;applyLed();let g;try{g=await loadGlobal()}catch{return}if(!$('global-rank-slot'))return;
+ const part=g[gTab],rows=part.rows||[],when=gTab==='day'?'TODAY':'THIS WEEK';
+ const row=(r,extra)=>`<div class="jb-row${r.rank<=3?' top':''}${r.rank===1?' lead':''}${r.me?' me':''}${extra||''}"><span>${String(r.rank).padStart(2,'0')}</span><span class="nm">${r.me?'YOU · ':''}${esc(r.nickname.toUpperCase())}</span><span>${r.score}</span></div>`;
+ const mine=part.me&&!rows.some(r=>r.me)?row({rank:part.me.rank,score:part.me.score,nickname:me?.profile?.nickname||'',me:true},' gap'):'';
+ const tick=[];
+ if(g.yesterday)tick.push(`YESTERDAY'S CHAMP ${esc(g.yesterday.nickname.toUpperCase())} ${g.yesterday.score}`);
+ if(part.me&&part.me.rank>1){const above=rows.find(r=>r.rank===part.me.rank-1);if(above)tick.push(`YOU NEED ${above.score-part.me.score+1} PTS TO PASS ${esc(above.nickname.toUpperCase())}`)}
+ else if(part.me&&part.me.rank===1)tick.push(`YOU'RE TOP OF THE TABLE ${when}`);
+ if(rows[0])tick.push(`${esc(rows[0].nickname.toUpperCase())} LEADS ${when}`);
+ if(part.players)tick.push(`${part.players} PLAYER${part.players===1?'':'S'} ${when}`);tick.push('NEW GAME EVERY DAY AT MIDNIGHT');
+ const t=tick.join('  •••  ')+'  •••';
+ const l=LEDS[ledIdx()];
+ $('global-rank-slot').innerHTML=`<div class="jb-lights" aria-hidden="true"><span><i></i><i></i><i></i></span><span><i></i><i></i><i></i></span></div>
+  <div class="jb-frame"><div class="jb-screen">
+   <div class="jb-head"><span class="jb-title">UNICORNER ★ GLOBAL</span><div class="jb-tabs"><button type="button" data-lg="gtab" data-tab="day" data-where="landing" class="${gTab==='day'?'on':''}">Today</button><button type="button" data-lg="gtab" data-tab="week" data-where="landing" class="${gTab==='week'?'on':''}">Week</button></div></div>
+   <div class="jb-rule"></div>
+   ${rows.length?rows.map(r=>row(r)).join('')+mine:`<p class="jb-empty">NO ONE ON THE BOARD YET ${when} — BE THE FIRST!</p>`}
+  </div>
+  <div class="jb-ticker" aria-label="${t.replace(/"/g,'')}"><div class="jb-tick" aria-hidden="true"><span>${t}</span><span>${t}</span></div></div></div>
+  <button type="button" class="jb-led" data-lg="led" aria-label="Change LED colour"><i></i>LED colour: <b>${l[0]}</b></button>
+  <div class="jb-status">${gStatus(part)}</div>`}
 async function viewGlobal(fresh){show('<h2>🌍 Global ranking</h2><p class="mute">Loading…</p>');
  let g;try{g=await loadGlobal(fresh)}catch(e){return show('<h2>🌍 Global ranking</h2><p class="lg-err" id="lea-err">Couldn\'t load the ranking — try again.</p>')}
  const part=g[gTab],rows=part.rows||[];
@@ -1898,6 +1911,7 @@ document.addEventListener('click',async e=>{const b=e.target.closest('[data-lg]'
  if(a==='pick'){lsSet(LG_ACTIVE,b.dataset.id);board=null;await viewHome();return renderSlots()}
  if(a==='copy')return copyLink(b.dataset.code,b);
  if(a==='global')return viewGlobal(true);
+ if(a==='led'){const n=(ledIdx()+1)%LEDS.length;lsSet('uc-led',LEDS[n][0]);track('led_colour',{colour:LEDS[n][0]});return applyLed()}
  if(a==='gtab'){gTab=b.dataset.tab;return b.dataset.where==='dialog'?viewGlobal():renderGlobal()}
  if(a==='invite')return invite(b.dataset.code,b.dataset.name);
  if(a==='logout'){dropSess();dlg.close();renderSlots();return showToast('Signed out')}
