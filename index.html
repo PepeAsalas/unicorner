@@ -1904,7 +1904,7 @@ const css=`
 .g-err{margin:8px 0 0;font-family:var(--lab);font-size:19px;color:#ff9a9a;text-align:center}.g-err:empty{display:none}
 .g-acts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
 .jb-row.ghost{outline:2px dashed var(--led);outline-offset:-2px;animation:jbghost 1s steps(1) infinite}
-.jb-row.ghost.named{background:var(--led);color:#020602;text-shadow:none}
+.jb-row.ghost.named{background:var(--led);color:#020602;text-shadow:none;outline:0;animation:none}
 @keyframes jbghost{50%{opacity:.5}}
 @media (prefers-reduced-motion:reduce){.jb-row.ghost{animation:none}}
 @media (max-width:560px){.g-fields{grid-template-columns:1fr}.g-claim .g-you{font-size:21px}.g-sub{font-size:18px}}
@@ -2111,7 +2111,7 @@ async function globalBox(){let g;try{g=await loadGlobal()}catch{return competeSh
  const mine=part.me&&!rows.some(r=>r.me)?jbRow({rank:part.me.rank,score:part.me.score,nickname:me?.profile?.nickname||'',me:true},' gap'):'';
  const pl=playedToday(),ghost=gTab==='day'&&pl&&!part.me&&!(sess&&me?.profile)?claimCopy(pl,g):null;
  let body=rows.map(r=>jbRow(r));
- if(ghost){const at=ghost.rank&&ghost.rank<=rows.length+1?ghost.rank-1:-1,gr=jbRow({rank:at<0?0:ghost.rank,nickname:'',score:pl.score},' ghost'+(at<0?' gap':''));
+ if(ghost){const at=ghost.rank&&ghost.rank<=rows.length+1?ghost.rank-1:-1,gr=jbRow({rank:at<0?0:ghost.rank,nickname:'',score:pl.score},' ghost'+(draft.nick.trim()?' named':'')+(at<0?' gap':''));
   if(at<0)body.push(gr);else{body=rows.map((r,i)=>jbRow(i>=at?{...r,rank:r.rank+1}:r));body.splice(at,0,gr);if(body.length>10&&at<10)body.pop()}}
  const tick=[];
  if(g.yesterday)tick.push(`YESTERDAY'S CHAMP ${esc(g.yesterday.nickname.toUpperCase())} ${g.yesterday.score}`);
