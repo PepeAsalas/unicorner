@@ -1678,8 +1678,9 @@ body.playing #league-home-slot{display:none}
 .jb-tick span{padding-right:60px}
 @keyframes jb-tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.jb-tick{animation:none}}
-.jb-led{margin-top:14px!important;display:inline-flex!important;align-items:center;gap:10px;padding:8px 16px!important;background:#1b1b1b!important;color:#fff!important;font-size:20px!important}
-.jb-led i{width:16px;height:16px;border-radius:50%;border:2px solid #000;background:var(--led);box-shadow:0 0 10px var(--led)}
+.jb-tabs .jb-led{display:inline-flex!important;align-items:center;justify-content:center;width:32px;height:32px;padding:0!important;margin-left:4px;border-radius:50%!important;border:2px solid var(--led-dim)!important;background:#020602!important}
+.jb-tabs .jb-led:hover{border-color:var(--led)!important}
+.jb-led i{width:12px;height:12px;border-radius:50%;background:var(--led);box-shadow:0 0 8px var(--led)}
 .jb-status{width:100%;box-sizing:border-box;margin-top:14px;padding:14px 16px;border:3px solid #000;border-radius:8px;background:#0c0c18;color:#fff;text-align:center;box-shadow:0 0 0 3px #fff}
 .jb-status .g-you,.jb-status .g-note,.jb-status .g-cta{margin-top:0}
 .jb-status .g-cta .g-you{margin:0 0 10px}
@@ -1841,7 +1842,7 @@ function gStatus(part){const pl=playedToday(),has=sess&&me?.profile;
 function gTabs(where){return `<div class="lg-tabs g-tabs"><button type="button" data-lg="gtab" data-tab="day" data-where="${where}" class="${gTab==='day'?'on':''}">Today</button><button type="button" data-lg="gtab" data-tab="week" data-where="${where}" class="${gTab==='week'?'on':''}">This week</button></div>`}
 const LEDS=[['Green','#39ff6a'],['Amber','#ffb000'],['Red','#ff4d4d'],['Cyan','#4fd7ff'],['Pink','#ff7ac8']];
 const ledIdx=()=>Math.max(0,LEDS.findIndex(l=>l[0]===lsGet('uc-led')));
-function applyLed(){const el=$('global-rank-slot');if(!el)return;const l=LEDS[ledIdx()];el.style.setProperty('--led',l[1]);const b=el.querySelector('.jb-led b');if(b)b.textContent=l[0]}
+function applyLed(){const el=$('global-rank-slot');if(!el)return;const l=LEDS[ledIdx()];el.style.setProperty('--led',l[1]);const b=el.querySelector('.jb-led');if(b)b.setAttribute('aria-label','Change LED colour (now '+l[0]+')')}
 async function renderGlobal(){const el=$('global-rank-slot');if(!el)return;applyLed();let g;try{g=await loadGlobal()}catch{return}if(!$('global-rank-slot'))return;
  const part=g[gTab],rows=part.rows||[],when=gTab==='day'?'TODAY':'THIS WEEK';
  const row=(r,extra)=>`<div class="jb-row${r.rank<=3?' top':''}${r.rank===1?' lead':''}${r.me?' me':''}${extra||''}"><span>${String(r.rank).padStart(2,'0')}</span><span class="nm">${r.me?'YOU · ':''}${esc(r.nickname.toUpperCase())}</span><span>${r.score}</span></div>`;
@@ -1856,13 +1857,12 @@ async function renderGlobal(){const el=$('global-rank-slot');if(!el)return;apply
  const l=LEDS[ledIdx()];
  $('global-rank-slot').innerHTML=`<div class="jb-lights" aria-hidden="true"><span><i></i><i></i><i></i></span><span><i></i><i></i><i></i></span></div>
   <div class="jb-frame"><div class="jb-screen">
-   <div class="jb-head"><span class="jb-title">UNICORNER ★ GLOBAL</span><div class="jb-tabs"><button type="button" data-lg="gtab" data-tab="day" data-where="landing" class="${gTab==='day'?'on':''}">Today</button><button type="button" data-lg="gtab" data-tab="week" data-where="landing" class="${gTab==='week'?'on':''}">Week</button></div></div>
+   <div class="jb-head"><span class="jb-title">UNICORNER ★ GLOBAL</span><div class="jb-tabs"><button type="button" data-lg="gtab" data-tab="day" data-where="landing" class="${gTab==='day'?'on':''}">Today</button><button type="button" data-lg="gtab" data-tab="week" data-where="landing" class="${gTab==='week'?'on':''}">Week</button><button type="button" class="jb-led" data-lg="led" title="Change LED colour" aria-label="Change LED colour (now ${l[0]})"><i></i></button></div></div>
    <div class="jb-rule"></div>
    ${rows.length?rows.map(r=>row(r)).join('')+mine:`<p class="jb-empty">NO ONE ON THE BOARD YET ${when} — BE THE FIRST!</p>`}
   </div>
   <div class="jb-ticker" aria-label="${t.replace(/"/g,'')}"><div class="jb-tick" aria-hidden="true"><span>${t}</span><span>${t}</span></div></div></div>
-  <button type="button" class="jb-led" data-lg="led" aria-label="Change LED colour"><i></i>LED colour: <b>${l[0]}</b></button>
-  <div class="jb-status">${gStatus(part)}</div>`}
+  ${sess&&me?.profile&&part.me?'':`<div class="jb-status">${gStatus(part)}</div>`}`}
 async function viewGlobal(fresh){show('<h2>🌍 Global ranking</h2><p class="mute">Loading…</p>');
  let g;try{g=await loadGlobal(fresh)}catch(e){return show('<h2>🌍 Global ranking</h2><p class="lg-err" id="lea-err">Couldn\'t load the ranking — try again.</p>')}
  const part=g[gTab],rows=part.rows||[];
