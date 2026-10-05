@@ -917,13 +917,67 @@ body.playing .quick-home-x{display:none!important}
 /* balance the gap below the tagline against the gap above it */
 .landing-wrap .lp-hero.lp-home-hero{padding-bottom:0!important;margin-bottom:14px!important}
 @media (max-width:560px){.landing-wrap .lp-hero.lp-home-hero{margin-bottom:12px!important}}
+
+/* ── home: matchday ticket + streak (2026-10 redesign) ── */
+.tk{margin:4px 0 20px;border:3px solid #000;border-radius:10px;overflow:hidden;box-shadow:0 0 0 3px #fff,8px 8px 0 rgba(0,0,0,.35);background:#fff8e6;color:#1b1530}
+.tk-main{display:grid;grid-template-columns:84px minmax(0,1fr)}
+.tk-stub{background:var(--gold);border-right:3px dashed #1b1530;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 4px;text-align:center;font-family:var(--lab);font-size:19px;text-transform:uppercase;line-height:1}
+.tk-stub b{font-family:var(--px);font-weight:400;font-size:52px;line-height:.9;margin:2px 0}
+.tk-body{padding:14px 16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.tk-meta{display:flex;justify-content:space-between;gap:8px;font-family:var(--lab);font-size:18px;color:#5b5470;text-transform:uppercase;letter-spacing:.5px}
+.tk .tk-play{width:100%;padding:16px 12px!important;background:#2fbf71!important;color:#04210f!important;font-size:26px!important;box-shadow:0 5px 0 #000!important}
+.tk-done .tk-play{background:var(--gold)!important;color:#1b1530!important;font-size:22px!important}
+.tk-live{margin:0;display:flex;align-items:center;gap:8px;font-family:var(--lab);font-size:19px;color:#1b1530}
+.tk-live b{font-weight:700}
+.tk-dot{flex:none;width:10px;height:10px;border-radius:50%;background:#e3262f;box-shadow:0 0 0 3px rgba(227,38,47,.25);animation:tk-pulse 1.6s ease-in-out infinite}
+@keyframes tk-pulse{50%{box-shadow:0 0 0 6px rgba(227,38,47,0)}}
+.tk-score{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.tk-score b{font-family:var(--px);font-weight:400;font-size:58px;line-height:.9}
+.tk-score span{font-family:var(--lab);font-size:20px}
+.tk-streak{display:flex;align-items:center;gap:12px;padding:10px 14px;background:#1b1530;color:#e2dcfa;border-top:3px dashed #fff8e6;font-family:var(--lab);font-size:19px;line-height:1.15}
+.tk-streak .pixel-flame{flex:0 0 18px;width:18px;height:24px}
+.tk-streak .pixel-flame.off{filter:grayscale(1) brightness(.75);opacity:.6}
+.tk-streak-txt{flex:1 1 auto;min-width:0}
+.tk-streak-txt b{color:var(--gold);font-weight:700}
+.tk-week{flex:none;display:flex;gap:3px}
+.tk-week i{width:11px;height:11px;border:2px solid #5b54b0;box-sizing:border-box}
+.tk-week i.on{background:#ff7a1a;border-color:#000}
+.tk-week i.now{border-color:var(--gold);outline:1px dashed var(--gold);outline-offset:1px}
+.tk-week i.now.on{background:var(--gold)}
+.tk-streak.rs{margin:10px 0 14px;border:3px solid #000;border-radius:8px}
+@media (max-width:420px){.tk-main{grid-template-columns:70px minmax(0,1fr)}.tk-stub b{font-size:44px}.tk .tk-play{font-size:23px!important}.tk-week i{width:9px;height:9px}}
+.lp2-how{margin:0 0 22px;text-align:left}
+.lp2-how .lp-h2{margin:0 0 10px}
+.lp2-steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.lp2-steps li{display:flex;gap:12px;align-items:flex-start;font-size:21px;line-height:1.15;text-align:left}
+.lp2-steps li>b{flex:none;width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;border:2px solid #000;border-radius:6px;font-weight:400;font-size:22px}
+.lp2-steps li:nth-child(1)>b{background:#2563d9}.lp2-steps li:nth-child(2)>b{background:#7c4dff}.lp2-steps li:nth-child(3)>b{background:#e0458f}
+.lp2-tiers{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.lp2-tiers em{font-style:normal;padding:1px 7px;border:2px solid #000;color:#1b1530;font-family:var(--lab);font-size:17px}
+.inf-strip{width:100%;display:flex!important;align-items:center;gap:12px;margin:0 0 22px;padding:10px 14px!important;border:3px solid #000!important;border-radius:10px!important;background:linear-gradient(90deg,#7c4dff,#e0458f)!important;color:#fff!important;box-shadow:0 4px 0 #000!important;text-transform:none!important;text-align:left;cursor:pointer}
+.inf-ico{flex:none;width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:2px solid #000;border-radius:50%;background:var(--gold);color:#1b1530;font-size:28px;line-height:1}
+.inf-txt{display:flex;flex-direction:column;flex:1 1 auto;min-width:0}
+.inf-txt b{font-family:var(--px);font-weight:400;font-size:22px;line-height:1}
+.inf-txt small{font-family:var(--lab);font-size:17px;font-weight:400}
+.inf-cta{flex:none;padding:3px 8px;border:2px solid #000;border-radius:4px;background:#fff;color:#1b1530;font-family:var(--lab);font-size:17px;text-transform:uppercase}
+.result-screen .inf-strip{margin:18px 0 12px}
+.jb-scope{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-bottom:8px}
+.jb-scope button{padding:7px 4px!important;border:3px solid #000!important;border-radius:4px!important;background:#020602!important;color:var(--led)!important;font-family:var(--lab)!important;font-size:21px!important;box-shadow:none!important;text-decoration:none!important;transform:none!important}
+.jb-scope button.on{background:var(--led)!important;color:#020602!important}
+.jb-actions{justify-content:center}
+.result-screen .jb{margin:18px 0 8px}
+/* SEO block: quieter, still visible */
+.seo-info{background:#0f0b2e!important;border-width:2px!important;box-shadow:none!important}
+.seo-info .lp-h2{font-size:26px!important}
+.seo-info p{font-family:var(--lab);font-size:18px!important;line-height:1.25!important;color:#d6d0f5}
+.seo-faq summary{font-family:var(--px)!important;font-weight:400!important;font-size:19px!important}
 </style></head><body>
 <div class="scene retro2" aria-hidden="true">
 <div class="sky"><i class="cloud c1"></i><i class="cloud c2"></i><i class="cloud c3"></i><i class="cloud c4"></i></div>
 <div class="stand"><div class="roof"></div><div class="crowd"></div><div class="board"><div class="board-track"><span>UNICORNER</span><span class="b2">BALL KNOWLEDGE</span><span class="b3">FIND THE SCREAMER</span><span class="b4">TAP-IN · HEADER · VOLLEY · BICYCLE KICK · SCREAMER</span><span>UNICORNER</span><span class="b2">BALL KNOWLEDGE</span><span class="b3">FIND THE SCREAMER</span><span class="b4">TAP-IN · HEADER · VOLLEY · BICYCLE KICK · SCREAMER</span></div></div></div>
 <div class="pitch3d"><div class="pitch-plane"><svg viewBox="0 0 1000 1000" preserveAspectRatio="none" shape-rendering="crispEdges"><g fill="none" stroke="#fff" stroke-width="7" opacity=".8"><rect x="40" y="20" width="920" height="1200"/><rect x="250" y="20" width="500" height="210"/><rect x="380" y="20" width="240" height="80"/><path d="M400 230 A120 120 0 0 0 600 230"/><line x1="40" y1="900" x2="960" y2="900"/><circle cx="500" cy="900" r="140"/></g><g><rect x="420" y="-6" width="160" height="26" fill="none" stroke="#fff" stroke-width="7"/></g></svg></div></div>
 </div>
-<div class="wrap"><header class="topbar"><div class="brand-home" id="brand-home" role="button" tabindex="0" aria-label="Go to home"><div class="sprite" data-mood="happy"></div><b>Unicorner</b></div><span class="tag">Beta</span><button type="button" class="sound-toggle" id="soundToggle" aria-label="Toggle sound effects" title="Sound effects">🔊</button></header><div class="meter" aria-label="Your progress"><div class="rail"><div class="fill" id="fill"></div><div id="zones"></div><div class="sprite runner" id="runner" data-mood="happy"></div></div></div><main id="screen"></main><div class="toast" id="toast" role="status" aria-live="polite"></div><section class="card seo-info" aria-labelledby="seo-info-h2"><h2 class="lp-h2" id="seo-info-h2">A free daily football trivia game</h2><p>Unicorner is a free online football trivia game for fans who know more than the obvious answers. Every day, you get five football questions and 25 seconds to name one valid player, club, country, manager or stadium. Popular answers score fewer points, while rare answers can earn a Screamer. Play the new daily football quiz, test your ball knowledge and challenge your friends to beat your score. No download or sign-up required.</p><div class="seo-faq"><details><summary>Is Unicorner free?</summary><p>Yes. The daily football quiz is completely free to play.</p></details><details><summary>When is there a new game?</summary><p>Five new football trivia questions are released every day.</p></details><details><summary>How does scoring work?</summary><p>Correct but obvious answers score fewer points. The rarest valid answers score the most.</p></details></div></section><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is Unicorner free?","acceptedAnswer":{"@type":"Answer","text":"Yes. The daily football quiz is completely free to play."}},{"@type":"Question","name":"When is there a new game?","acceptedAnswer":{"@type":"Answer","text":"Five new football trivia questions are released every day."}},{"@type":"Question","name":"How does scoring work?","acceptedAnswer":{"@type":"Answer","text":"Correct but obvious answers score fewer points. The rarest valid answers score the most."}}]}</script><footer class="site"><button data-open="dlg-submit">Submit a question</button><button data-open="dlg-report">Problem with a question</button><button data-open="dlg-contact">Contact</button><a class="coffee-link" href="https://buymeacoffee.com/unicorner" target="_blank" rel="noopener">☕ Buy me a coffee</a><a class="tiktok-link" href="https://www.tiktok.com/@unicornergame" target="_blank" rel="noopener">🎵 TikTok</a><a class="privacy-link" href="privacy.html">Privacy</a><div class="rate-strip" id="rateStrip" hidden></div></footer></div>
+<div class="wrap"><header class="topbar"><div class="brand-home" id="brand-home" role="button" tabindex="0" aria-label="Go to home"><div class="sprite" data-mood="happy"></div><b>Unicorner</b></div><span class="tag">Beta</span><button type="button" class="sound-toggle" id="soundToggle" aria-label="Toggle sound effects" title="Sound effects">🔊</button></header><div class="meter" aria-label="Your progress"><div class="rail"><div class="fill" id="fill"></div><div id="zones"></div><div class="sprite runner" id="runner" data-mood="happy"></div></div></div><main id="screen"></main><div class="toast" id="toast" role="status" aria-live="polite"></div><section class="card seo-info" aria-labelledby="seo-info-h2"><h2 class="lp-h2" id="seo-info-h2">A free daily football trivia game</h2><p>Unicorner is a free online football trivia game for fans who know more than the obvious answers. Every day, you get five football questions and 30 seconds to name one valid player, club, country, manager or stadium. Popular answers score fewer points, while rare answers can earn a Screamer. Play the new daily football quiz, test your ball knowledge and challenge your friends to beat your score. No download or sign-up required.</p><div class="seo-faq"><details><summary>Is Unicorner free?</summary><p>Yes. The daily football quiz is completely free to play.</p></details><details><summary>When is there a new game?</summary><p>Five new football trivia questions are released every day.</p></details><details><summary>How does scoring work?</summary><p>Correct but obvious answers score fewer points. The rarest valid answers score the most.</p></details></div></section><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is Unicorner free?","acceptedAnswer":{"@type":"Answer","text":"Yes. The daily football quiz is completely free to play."}},{"@type":"Question","name":"When is there a new game?","acceptedAnswer":{"@type":"Answer","text":"Five new football trivia questions are released every day."}},{"@type":"Question","name":"How does scoring work?","acceptedAnswer":{"@type":"Answer","text":"Correct but obvious answers score fewer points. The rarest valid answers score the most."}}]}</script><footer class="site"><button data-open="dlg-submit">Submit a question</button><button data-open="dlg-report">Problem with a question</button><button data-open="dlg-contact">Contact</button><a class="coffee-link" href="https://buymeacoffee.com/unicorner" target="_blank" rel="noopener">☕ Buy me a coffee</a><a class="tiktok-link" href="https://www.tiktok.com/@unicornergame" target="_blank" rel="noopener">🎵 TikTok</a><a class="privacy-link" href="privacy.html">Privacy</a><div class="rate-strip" id="rateStrip" hidden></div></footer></div>
 
 
 <dialog id="dlg-infinite"><form data-kind="infinite-waitlist"><button type="button" class="infinite-close-x" id="infinite-close-x" aria-label="Close Infinity Mode" title="Close">×</button><span class="badge-feature">🔥 Coming soon</span>
@@ -1050,6 +1104,23 @@ const getPlayed=()=>{try{return JSON.parse(localStorage.getItem(DAYKEY))}catch{r
 const setPlayed=v=>{try{localStorage.setItem(DAYKEY,JSON.stringify(v))}catch{}};
 const previousGameDay=d=>{const [y,m,dd]=d.split('-').map(Number);return new Date(Date.UTC(y,m-1,dd)-864e5).toISOString().slice(0,10)};
 const currentStreak=()=>{try{let d=amsterdamDay(),n=0;while(localStorage.getItem('unicorner-played-'+d)){n++;d=previousGameDay(d)}return n}catch{return getPlayed()?1:0}};
+// Streak as the ticket shows it: consecutive days up to today, or up to yesterday if today isn't played yet
+const playedOn=d=>{try{return!!localStorage.getItem('unicorner-played-'+d)}catch{return false}};
+const streakInfo=()=>{const today=amsterdamDay(),pt=playedOn(today);let d=pt?today:previousGameDay(today),n=0;while(playedOn(d)){n++;d=previousGameDay(d)}
+ let ever=pt;try{ever=ever||Object.keys(localStorage).some(k=>k.startsWith('unicorner-played-'))}catch{}
+ const week=[];let w=today;for(let i=0;i<7;i++){week.unshift({day:w,played:playedOn(w),today:w===today});w=previousGameDay(w)}
+ return{count:n,playedToday:pt,ever,week}};
+const streakBoxes=info=>`<span class="tk-week" aria-hidden="true">${info.week.map(d=>`<i class="${d.played?'on':''}${d.today?' now':''}" title="${new Date(d.day+'T12:00:00Z').toLocaleDateString('en-GB',{weekday:'long',timeZone:'UTC'})}"></i>`).join('')}</span>`;
+const streakLine=info=>{const n=info.count;
+ if(info.playedToday)return n>1?`<b>${n}-day streak!</b> Back tomorrow to make it ${n+1}`:`<b>Streak started!</b> Come back tomorrow to make it 2`;
+ if(n>0)return `<b>${n}-day streak</b> — play today to make it ${n+1}`;
+ if(info.ever)return 'Your streak ended — start a new one today';
+ return 'Start a streak today — play every day to keep the flame lit'};
+const streakStrip=(info,cls)=>`<div class="tk-streak ${cls||''}${info.count?' lit':''}"><i class="pixel-flame${info.count?' flicker':' off'}" aria-hidden="true"></i><span class="tk-streak-txt">${streakLine(info)}</span>${streakBoxes(info)}</div>`;
+// "37 fans played today · top score 480" on the ticket
+async function liveLine(){const day=amsterdamDay(),h={apikey:SB_KEY,Authorization:'Bearer '+SB_KEY};
+ const [c,t]=await Promise.all([fetch(SB_URL+'/rest/v1/scores?select=score&day=eq.'+day,{method:'HEAD',headers:{...h,Prefer:'count=exact'}}),fetch(SB_URL+'/rest/v1/scores?select=score&day=eq.'+day+'&order=score.desc&limit=1',{headers:h})]);
+ const n=+((c.headers.get('content-range')||'').split('/')[1]||0);let top=0;try{top=(await t.json())[0]?.score||0}catch{}return{n,top}}
 const seenStreak=n=>{try{const s=+(localStorage.getItem('unicorner-streak-seen')||0);if(n!==s)localStorage.setItem('unicorner-streak-seen',n);return n>s}catch{return false}};
 const untilMidnight=()=>{const n=new Date(),m=new Date(n);m.setHours(24,0,0,0);const d=m-n,h=Math.floor(d/36e5),mi=Math.floor(d%36e5/6e4);return`${h}h ${mi}m`};
 function restore(p){const savedPicks=Array.isArray(p.picks)?p.picks:[],byPos=new Map();savedPicks.forEach(([i,name])=>{if(Number.isInteger(i)&&i>=0&&i<Q.length&&!byPos.has(i))byPos.set(i,name||null)});results=Q.map((q,i)=>{const name=byPos.get(i)||null,ans=name?q?.answers.find(a=>a.name===name)||null:null;return{q,ans,pts:ans?ans.pts:0}});score=results.reduce((n,r)=>n+r.pts,0);qi=Q.length;if(score!==p.score)setPlayed({...p,score,picks:results.map((r,i)=>[i,r.ans?.name||null,r.pts])})}
@@ -1083,6 +1154,9 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
   '10-17':{text:"Sterling's first senior hat-trick: Man City 5-1 Bournemouth, 2015.",url:"https://www.youtube.com/results?search_query=Man+City+5-1+Bournemouth+2015+Sterling+hat-trick"}
  };
  const onThisDay=ON_THIS_DAY[octDay];
+ const sInfo=streakInfo(),competeFirst=!!played||sInfo.ever; // regulars see the board first, newcomers the rules
+ const tkDate=new Date(amsterdamDay()+'T12:00:00Z').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',timeZone:'UTC'}).replace(',','').split(' ');
+ const compete='<section class="jb" id="global-rank-slot" data-compete><div class="jb-frame"><div class="jb-screen"><p class="jb-empty">GLOBAL RANKING · LOADING…</p></div></div></section>';
  swap(`<div class="landing-wrap">
  ${onThisDay?`<p class="otd-fact"><b>⚽ On this day</b> — ${onThisDay.text} <a id="otdLink" href="${onThisDay.url}" target="_blank" rel="noopener">Watch ↗</a></p>`:''}
  <section class="lp-hero lp-home-hero">
@@ -1092,54 +1166,38 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
   </div>
  </section>
 
- <section class="card lp-home-daily">
-  <div class="lp-home-card-head"><div class="lp-home-card-label">Daily game</div><div class="lp-home-card-date">${today}</div></div>
-  ${played?`<div class="played-box played-result-card">
-    <div class="played-result-kicker">Today's final whistle</div>
-    <div class="played-result-grid">
-      <div class="played-result-score"><span>Score</span><b>${played.score}<small>/${MAX}</small></b><em>${zoneOf(played.score)}</em></div>
-      <div class="played-result-streak"><span>Streak</span><b><span class="flame-wrap${streakFlare?' flare-active':''}"><i class="pixel-flame flicker${streakFlare?' flare':''}" aria-hidden="true"></i><span class="flame-ring"></span></span><span class="${streakFlare?'streak-bump':''}">${streak}</span></b><small>day${streak===1?'':'s'}</small></div>
-    </div>
-    <button type="button" class="cta played-result-cta" id="go"><span>View today's result</span><small>Score, rank & answers →</small></button>
-    <div class="played-result-next">Next daily game in <b>${untilMidnight()}</b></div>
-   </div>`
-   :`<div class="lp-daily-actions"><button id="go" class="cta">Play today's game</button><button class="ghost" id="how">How it works</button></div>
-   <p class="lp-meta">5 prompts · about 3 minutes · free, no sign-up</p>`}
- </section>
- <div id="league-home-slot"></div>
-
- ${played?`<section class="lp-final lp-final-played" data-home-infinite>
-  <h2 class="lp-h2">Can't wait until tomorrow?</h2>
-  <button class="cta lp-infinite-cta" data-infinite>∞ Try Infinity mode</button>
- </section>`:''}
-
- <section class="lp-steps" id="steps">
-  <h2 class="lp-h2">How it works</h2>
-  <div class="lp-grid">
-   <div class="card lp-step"><div class="lp-num">1</div><div class="lp-ico"><div class="fake-input">Vermae<span class="caret"></span></div></div><h3>Name one answer</h3><p>${TIME} seconds. One answer.</p></div>
-   <div class="card lp-step"><div class="lp-num">2</div><div class="lp-ico"><div class="mini-bars">${TIERS.map((t,i)=>`<i class="${i===TIERS.length-1?'screamer':''}" style="--h:${Math.max(6,Math.round(t[0]/100*52))}px;--c:${COLS[i]};--i:${i}"></i>`).join('')}</div></div><h3>Rarer scores more</h3><p>The more obscure, the more points.</p></div>
-   <div class="card lp-step"><div class="lp-num">3</div><div class="lp-ico lp-climb">${['Sunday','Top flight',"Ballon d'Or"].map((z,i)=>`<span style="--i:${i}">${z}</span>`).join('')}</div><h3>Climb and share</h3><p>Climb to the Ballon d'Or. Brag.</p></div>
+ <section class="tk${played?' tk-done':''}" aria-label="Today's game">
+  <div class="tk-main">
+   <div class="tk-stub" aria-hidden="true"><span>${tkDate[0]}</span><b>${tkDate[1]}</b><span>${tkDate[2]}</span></div>
+   <div class="tk-body">
+    <div class="tk-meta"><span>${played?'Your result':'Matchday ticket'}</span><span>${played?'Played ✓':Q.length+' prompts · 3 min'}</span></div>
+    ${played?`<div class="tk-score"><b>${played.score}</b><span>/${MAX} · ${zoneOf(played.score)}</span></div>
+    <button type="button" class="cta tk-play" id="go">View today's result</button>
+    <p class="tk-live">Next game in <b>${untilMidnight()}</b></p>`
+    :`<button type="button" class="cta tk-play" id="go">Play today's game</button>
+    <p class="tk-live" id="tkLive"><i class="tk-dot"></i><span>Today's game is live · free, no sign-up</span></p>`}
+   </div>
   </div>
+  ${streakStrip(sInfo)}
  </section>
 
-<section class="jb" id="global-rank-slot"><div class="jb-frame"><div class="jb-screen"><p class="jb-empty">GLOBAL RANKING · LOADING…</p></div></div></section>
+ ${competeFirst?compete:''}
 
- <section class="card lp-tiers">
-  <h2 class="lp-h2">The five tiers</h2>
-  <div class="tier-stairs">${TIERS.map((t,i)=>`<div class="tier-stair${t[0]===100?' scream':''}" style="--i:${i}"><div class="stair-plat" style="height:${30+i*24}px;background:${COLS[i]}"></div><b>${t[1]}</b><span>${t[0]} pts</span></div>`).join('')}</div>
+ <section class="card lp2-how" id="steps">
+  <h2 class="lp-h2">How to play</h2>
+  <ol class="lp2-steps">
+   <li><b>1</b><span>${Q.length} football prompts. Name one valid answer each — ${TIME} seconds per prompt.</span></li>
+   <li><b>2</b><span>The rarer your answer, the more it scores:<span class="lp2-tiers">${TIERS.map((t,i)=>`<em style="background:${COLS[i]}">${t[1]} ${t[0]}</em>`).join('')}</span></span></li>
+   <li><b>3</b><span>Climb from Sunday league to the Ballon d'Or, then share it with your mates.</span></li>
+  </ol>
  </section>
 
- ${!played?`<section class="lp-final">
-  <div class="sprite lp-sprite-sm bob" data-mood="happy"></div>
-  <h2 class="lp-h2">Today's five prompts are waiting</h2><button class="cta" id="go2">Kick off</button>
-  <p class="lp-meta">New game every day</p>
- </section>`:`<section class="lp-final lp-final-unicorn">
-  <div class="sprite lp-sprite-sm bob" data-mood="happy"></div>
-  <p class="lp-meta">New game every day</p>
- </section>`}
+ ${competeFirst?'':compete}
+
+ <button type="button" class="inf-strip" data-infinite><span class="inf-ico" aria-hidden="true">∞</span><span class="inf-txt"><b>Infinity mode</b><small>Unlimited questions · coming soon</small></span><span class="inf-cta">Notify me</span></button>
  </div>`,()=>{const play=()=>{document.body.classList.remove('landing');if(played){restore(played);setMeter();end(true)}else ask()};
-  const go=document.getElementById('go');if(go)go.onclick=play;const g2=document.getElementById('go2');if(g2)g2.onclick=play;
-  const hw=document.getElementById('how');if(hw)hw.onclick=()=>document.getElementById('steps').scrollIntoView({behavior:'smooth',block:'start'});
+  const go=document.getElementById('go');if(go)go.onclick=play;
+  if(!played)liveLine().then(({n,top})=>{const el=document.querySelector('#tkLive span');if(el&&n)el.innerHTML=`<b>${n} fan${n===1?'':'s'}</b> played today · top score <b>${top}</b>`;else if(el)el.textContent='Be the first to play today'}).catch(()=>{});
   const otdLink=document.getElementById('otdLink');if(otdLink)otdLink.onclick=()=>track('on_this_day_click',{date:octDay,url:onThisDay.url});
   const lm=document.getElementById('landingMascot');
   if(isLeafWindow){const art=lm&&lm.closest('.lp-art');if(art)spawnOctLeaves(art)}
@@ -1223,12 +1281,13 @@ www.unicornergame.lol`};
  swap(`<div class="card result-screen"><button type="button" class="quick-home-x" id="quick-home-x" aria-label="Back to home" title="Back to home">×</button>
   <div class="hero"><div class="sprite big-sprite bob" data-mood="${results.some(r=>r.pts===100)?'scream':score/MAX>=.44?'wow':score/MAX>=.15?'happy':'sad'}"></div><div><div class="mute">Final whistle</div><div class="tier" id="fs">0</div></div><div class="motm" id="motm" hidden><div class="ribbon-img" id="ribbonImg"></div><span>Man of the Match</span></div></div>
   <div class="pts">You reached: ${zoneOf(score)}</div>
+  ${streakStrip(streakInfo(),'rs')}
   <div class="dist" id="dist"><div class="mute">Comparing with today's players…</div></div>
-  <div class="result-share-row"><button class="cta" id="copy-result">Copy result</button><button type="button" class="ghost" id="share-result">Share</button><p class="mute result-share-note">Challenge a mate while the result is fresh.</p></div>
-  <div id="league-slot"></div>
+  <div class="result-share-row"><button class="cta" id="copy-result">Copy result</button><button type="button" class="ghost" id="share-result">Share</button></div>
+  <section class="jb" id="compete-results" data-compete><div class="jb-frame"><div class="jb-screen"><p class="jb-empty">GLOBAL RANKING · LOADING…</p></div></div></section>
   ${hits.length?`<section class="result-section"><div class="result-section-head"><h2>Your match highlights</h2><p class="mute">Best answers first</p></div><div class="result-list">${hits.map(r=>resultItem(r,false)).join('')}</div></section>`:''}
   ${misses.length?`<div class="result-nearly"><section class="result-section"><div class="result-section-head"><h2>Nearly had it</h2><p class="mute">${misses.length===1?'1 answer':misses.length+' answers'} to learn for tomorrow</p></div><div class="result-list">${misses.map(r=>resultItem(r,true)).join('')}</div></section></div>`:''}
-  <section class="lp-final lp-final-played" data-home-infinite><h2 class="lp-h2">Can't wait until tomorrow?</h2><button type="button" class="cta lp-infinite-cta" data-infinite>∞ Try Infinity mode</button></section>
+  <button type="button" class="inf-strip" data-infinite><span class="inf-ico" aria-hidden="true">∞</span><span class="inf-txt"><b>Can't wait until tomorrow?</b><small>Infinity mode · coming soon</small></span><span class="inf-cta">Notify me</span></button>
   <div class="row result-home-row"><button class="ghost" id="home">Back to home</button></div>
  </div>`,()=>{
   window.scrollTo({top:0,left:0,behavior:'auto'});
@@ -1633,7 +1692,6 @@ const css=`
 .lg-card p{margin:0}
 .lg-card .lg-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
 .lg-card .lg-row>button{flex:1 1 auto}
-body.playing #league-home-slot{display:none}
 /* readable pixel text: Jersey 10 for headings and names, VT323 (the site's small-text font) for everything else, sized up so it stays crisp */
 #dlg-league .lg-body,.lg-card{font-size:24px;line-height:1.25}
 #dlg-league h2{font-size:36px;line-height:1.1}
@@ -1825,42 +1883,56 @@ function claimCopy(pl,g){const d=g?.day,rows=d?.rows||[];
  const r=rows.filter(x=>x.score>=pl.score).length+1;
  if(r<=10||d.players<=rows.length)return{h:`${['🥇','🥈','🥉'][r-1]||'🌍'} Your ${pl.score} would be ${ord(r)} today`,p:`Out of ${d.players+1} players so far. Claim your spot before someone takes it.`,rank:r,rows};
  return{h:`🌍 Get your ${pl.score} on today's ranking`,p:`Join the ${d.players} players already on it.`,rank:null,rows}}
-function claimPreview(c,score){if(!c.rank)return '';const arr=c.rows.slice(0,10);arr.splice(c.rank-1,0,{nickname:'You?',score,me:true});
- const pick=arr.map((r,i)=>({...r,rank:i+1})).filter(r=>r.rank<=3||r.me);
- return `<table class="lg-board g-board g-preview"><tbody>${pick.map((r,i)=>`<tr class="${r.me?'me':''}${i&&r.rank-pick[i-1].rank>1?' gap':''}"><td class="rk">${r.rank}</td><td>${r.me?'You?':esc(r.nickname)}</td><td class="n">${r.score}</td></tr>`).join('')}</tbody></table>`}
-async function claimCard(pl,leagueBtn,btnLabel){let c;try{c=claimCopy(pl,await loadGlobal())}catch{c={h:'🌍 Get on the ranking',p:'Add a nickname to show up on today\'s global ranking.',rank:null,rows:[]}}
- return `<section class="lg-card g-claim"><h2>${c.h}</h2><p class="mute">${c.p}</p>${claimPreview(c,pl.score)}
- <div class="lg-row"><button type="button" class="cta" data-lg="open" data-from="global">${btnLabel||'🌍 Claim my spot'}</button>${leagueBtn?'<button type="button" class="ghost" data-lg="open" data-from="results">Create a league</button>':''}</div>
- <p class="mute lg-small">Just a nickname and your email — no password.</p></section>`}
 function gStatus(part){const pl=playedToday(),has=sess&&me?.profile;
  if(has&&part.me)return `<p class="g-you">You're <b>${ord(part.me.rank)}</b> of ${part.players} ${gTab==='day'?'today':'this week'} 🌍</p>`;
- if(has)return `<p class="g-note">${pl?'Your score will show here in a moment.':'Play today\'s game to get on the board.'}</p>`;
+ if(has)return pl?'<p class="g-note">Your score will show here in a moment.</p>':'';
  if(pl){const c=claimCopy(pl,gboard);return `<div class="g-cta"><p class="g-you">${c.h}</p><button type="button" class="cta" data-lg="open" data-from="global">🌍 Claim my spot</button><p class="g-note">Just a nickname and your email — no password.</p></div>`}
- return `<p class="g-note">Play today's game, then add a nickname to get on the board.</p>`}
+ return ''}
 function gTabs(where){return `<div class="lg-tabs g-tabs"><button type="button" data-lg="gtab" data-tab="day" data-where="${where}" class="${gTab==='day'?'on':''}">Today</button><button type="button" data-lg="gtab" data-tab="week" data-where="${where}" class="${gTab==='week'?'on':''}">This week</button></div>`}
 const LEDS=[['Green','#39ff6a'],['Amber','#ffb000'],['Red','#ff4d4d'],['Cyan','#4fd7ff'],['Pink','#ff7ac8']];
 const ledIdx=()=>Math.max(0,LEDS.findIndex(l=>l[0]===lsGet('uc-led')));
-function applyLed(){const el=$('global-rank-slot');if(!el)return;const l=LEDS[ledIdx()];el.style.setProperty('--led',l[1]);const b=el.querySelector('.jb-led');if(b)b.setAttribute('aria-label','Change LED colour (now '+l[0]+')')}
-async function renderGlobal(){const el=$('global-rank-slot');if(!el)return;applyLed();let g;try{g=await loadGlobal()}catch{return}if(!$('global-rank-slot'))return;
+function applyLed(){const l=LEDS[ledIdx()];document.querySelectorAll('[data-compete]').forEach(el=>{el.style.setProperty('--led',l[1]);const b=el.querySelector('.jb-led');if(b)b.setAttribute('aria-label','Change LED colour (now '+l[0]+')')})}
+// ── Compete box: the global ranking and your league on one LED board ──
+let gScope='global';
+const jbRow=(r,extra)=>`<div class="jb-row${r.rank&&r.rank<=3?' top':''}${r.rank===1?' lead':''}${r.me?' me':''}${extra||''}"><span>${r.rank?String(r.rank).padStart(2,'0'):'--'}</span><span class="nm">${r.me?'YOU · ':''}${esc(r.nickname.toUpperCase())}</span><span>${r.score??'—'}</span></div>`;
+function competeShell(title,body,ticker,status){const l=LEDS[ledIdx()];
+ return `<div class="jb-lights" aria-hidden="true"><span><i></i><i></i><i></i></span><span><i></i><i></i><i></i></span></div>
+  <div class="jb-frame">
+   <div class="jb-scope" role="tablist"><button type="button" role="tab" data-lg="gscope" data-scope="global" class="${gScope==='global'?'on':''}">Global</button><button type="button" role="tab" data-lg="gscope" data-scope="league" class="${gScope==='league'?'on':''}">My league</button></div>
+   <div class="jb-screen">
+   <div class="jb-head"><span class="jb-title">${title}</span><div class="jb-tabs"><button type="button" data-lg="gtab" data-tab="day" data-where="landing" class="${gTab==='day'?'on':''}">Today</button><button type="button" data-lg="gtab" data-tab="week" data-where="landing" class="${gTab==='week'?'on':''}">Week</button><button type="button" class="jb-led" data-lg="led" title="Change LED colour" aria-label="Change LED colour (now ${l[0]})"><i></i></button></div></div>
+   <div class="jb-rule"></div>
+   ${body}
+  </div>
+  <div class="jb-ticker" aria-label="${ticker.replace(/"/g,'')}"><div class="jb-tick" aria-hidden="true"><span>${ticker}</span><span>${ticker}</span></div></div></div>
+  ${status?`<div class="jb-status">${status}</div>`:''}`}
+function leagueBox(){const when=gTab==='day'?'TODAY':'THIS WEEK';
+ const create=`<div class="g-cta"><p class="g-you">Beat your mates</p><p class="g-note">Make a private league, send the link, see who knows ball best — today and all week.</p><button type="button" class="cta" data-lg="open" data-from="card">Create a league</button></div>`;
+ if(!sess||!me?.leagues?.length)return competeShell('MY LEAGUE','<p class="jb-empty">NO LEAGUE YET — MAKE ONE, SEND THE LINK, SEE WHO KNOWS BALL BEST.</p>','PRIVATE LEAGUES · INVITE YOUR MATES  •••',create);
+ if(!board)return competeShell('MY LEAGUE','<p class="jb-empty">LOADING…</p>','  •••','');
+ const list=[...board.rows].map(r=>({nickname:r.nickname,me:r.me,score:gTab==='day'?r.today_score:r.week_total}))
+  .sort((a,b)=>(b.score??-1)-(a.score??-1)||a.nickname.localeCompare(b.nickname)).map((r,i)=>({...r,rank:r.score==null?0:i+1}));
+ const meR=list.find(r=>r.me);
+ const t=[`${esc(board.name.toUpperCase())} · ${list.length} PLAYER${list.length===1?'':'S'}`];
+ if(meR?.rank>1){const above=list[meR.rank-2];t.push(`YOU NEED ${above.score-meR.score+1} PTS TO PASS ${esc(above.nickname.toUpperCase())}`)}
+ else if(meR?.rank===1)t.push(`YOU LEAD ${when}`);
+ t.push('WEEK RESETS MONDAY');
+ return competeShell('LEAGUE · '+esc(board.name.toUpperCase()),list.map(r=>jbRow(r)).join(''),t.join('  •••  ')+'  •••',
+  `<div class="lg-row jb-actions"><button type="button" class="cta" data-lg="copy" data-code="${esc(board.code)}">🔗 Copy invite link</button><button type="button" class="ghost" data-lg="open" data-from="card">Open league</button></div>`)}
+async function globalBox(){let g;try{g=await loadGlobal()}catch{return competeShell('UNICORNER ★ GLOBAL','<p class="jb-empty">RANKING UNAVAILABLE RIGHT NOW — TRY AGAIN LATER</p>','NEW GAME EVERY DAY AT MIDNIGHT  •••','')}
  const part=g[gTab],rows=part.rows||[],when=gTab==='day'?'TODAY':'THIS WEEK';
- const row=(r,extra)=>`<div class="jb-row${r.rank<=3?' top':''}${r.rank===1?' lead':''}${r.me?' me':''}${extra||''}"><span>${String(r.rank).padStart(2,'0')}</span><span class="nm">${r.me?'YOU · ':''}${esc(r.nickname.toUpperCase())}</span><span>${r.score}</span></div>`;
- const mine=part.me&&!rows.some(r=>r.me)?row({rank:part.me.rank,score:part.me.score,nickname:me?.profile?.nickname||'',me:true},' gap'):'';
+ const mine=part.me&&!rows.some(r=>r.me)?jbRow({rank:part.me.rank,score:part.me.score,nickname:me?.profile?.nickname||'',me:true},' gap'):'';
  const tick=[];
  if(g.yesterday)tick.push(`YESTERDAY'S CHAMP ${esc(g.yesterday.nickname.toUpperCase())} ${g.yesterday.score}`);
  if(part.me&&part.me.rank>1){const above=rows.find(r=>r.rank===part.me.rank-1);if(above)tick.push(`YOU NEED ${above.score-part.me.score+1} PTS TO PASS ${esc(above.nickname.toUpperCase())}`)}
  else if(part.me&&part.me.rank===1)tick.push(`YOU'RE TOP OF THE TABLE ${when}`);
  if(rows[0])tick.push(`${esc(rows[0].nickname.toUpperCase())} LEADS ${when}`);
  if(part.players)tick.push(`${part.players} PLAYER${part.players===1?'':'S'} ${when}`);tick.push('NEW GAME EVERY DAY AT MIDNIGHT');
- const t=tick.join('  •••  ')+'  •••';
- const l=LEDS[ledIdx()];
- $('global-rank-slot').innerHTML=`<div class="jb-lights" aria-hidden="true"><span><i></i><i></i><i></i></span><span><i></i><i></i><i></i></span></div>
-  <div class="jb-frame"><div class="jb-screen">
-   <div class="jb-head"><span class="jb-title">UNICORNER ★ GLOBAL</span><div class="jb-tabs"><button type="button" data-lg="gtab" data-tab="day" data-where="landing" class="${gTab==='day'?'on':''}">Today</button><button type="button" data-lg="gtab" data-tab="week" data-where="landing" class="${gTab==='week'?'on':''}">Week</button><button type="button" class="jb-led" data-lg="led" title="Change LED colour" aria-label="Change LED colour (now ${l[0]})"><i></i></button></div></div>
-   <div class="jb-rule"></div>
-   ${rows.length?rows.map(r=>row(r)).join('')+mine:`<p class="jb-empty">NO ONE ON THE BOARD YET ${when} — BE THE FIRST!</p>`}
-  </div>
-  <div class="jb-ticker" aria-label="${t.replace(/"/g,'')}"><div class="jb-tick" aria-hidden="true"><span>${t}</span><span>${t}</span></div></div></div>
-  ${sess&&me?.profile&&part.me?'':`<div class="jb-status">${gStatus(part)}</div>`}`}
+ return competeShell('UNICORNER ★ GLOBAL',rows.length?rows.map(r=>jbRow(r)).join('')+mine:`<p class="jb-empty">NO ONE ON THE BOARD YET ${when} — BE THE FIRST!</p>`,
+  tick.join('  •••  ')+'  •••',sess&&me?.profile&&part.me?'':gStatus(part))}
+async function renderGlobal(){if(!document.querySelector('[data-compete]'))return;applyLed();
+ const html=gScope==='league'?leagueBox():await globalBox();if(html==null)return;
+ document.querySelectorAll('[data-compete]').forEach(el=>{el.innerHTML=html});applyLed()}
 async function viewGlobal(fresh){show('<h2>🌍 Global ranking</h2><p class="mute">Loading…</p>');
  let g;try{g=await loadGlobal(fresh)}catch(e){return show('<h2>🌍 Global ranking</h2><p class="lg-err" id="lea-err">Couldn\'t load the ranking — try again.</p>')}
  const part=g[gTab],rows=part.rows||[];
@@ -1872,16 +1944,9 @@ async function viewGlobal(fresh){show('<h2>🌍 Global ranking</h2><p class="mut
 
 // ── Cards on the results screen and the home page ──
 let slotsBusy=false;
-async function renderSlots(){const rs=$('league-slot'),hs=$('league-home-slot');if(!rs&&!hs)return;
- renderGlobal();
- if(!sess){if(hs)hs.innerHTML='';if(rs){const pl=playedToday();const html=pl?await claimCard(pl,true):`<section class="lg-card"><h2>🌍 Get on the ranking</h2><p class="mute">Add a nickname to show up on today's global ranking — and challenge your mates in a private league.</p><div class="lg-row"><button type="button" class="cta" data-lg="open" data-from="global">Add my nickname</button><button type="button" class="ghost" data-lg="open" data-from="results">Create a league</button></div></section>`;if($('league-slot')&&!sess)$('league-slot').innerHTML=html}return}
- if(slotsBusy)return;slotsBusy=true;
- try{if(!me)await loadMe();if(me.profile&&me.leagues.length&&!board)await loadBoard()}catch{}finally{slotsBusy=false}
- if(!me)return;
- const has=me.profile&&me.leagues.length&&board;
- const html=has?`<section class="lg-card"><h2>🏆 ${esc(board.name)}</h2>${boardTable(board,'today',5)}<div class="lg-row"><button type="button" data-lg="open" data-from="card">See leagues</button><button type="button" class="ghost" data-lg="copy" data-code="${esc(board.code)}">🔗 Copy invite link</button></div></section>`
-  :`<section class="lg-card"><h2>🏆 Leagues</h2><p class="mute">Create a league and invite your mates.</p><div class="lg-row"><button type="button" class="cta" data-lg="open" data-from="card">Create a league</button></div></section>`;
- const pl0=playedToday();if(rs)rs.innerHTML=me.profile?html:pl0?await claimCard(pl0,false,'🌍 Pick my nickname'):`<section class="lg-card"><h2>🌍 Get on the ranking</h2><p class="mute">Pick a nickname to show up on the global ranking.</p><div class="lg-row"><button type="button" class="cta" data-lg="open" data-from="global">Pick a nickname</button></div></section>`;if(hs)hs.innerHTML=has?html:''}
+async function renderSlots(){
+ if(sess&&!slotsBusy){slotsBusy=true;try{if(!me)await loadMe();if(me?.profile&&me.leagues.length&&!board)await loadBoard()}catch{}finally{slotsBusy=false}}
+ renderGlobal()}
 
 async function invite(code,name){const link=inviteLink(code),text=`Join my Unicorner league “${name}” — who knows ball best? ${link}`;track('league_invite',{});
  if(navigator.share){try{await navigator.share({title:'Unicorner league',text});return}catch{}}
@@ -1910,6 +1975,7 @@ document.addEventListener('click',async e=>{const b=e.target.closest('[data-lg]'
  if(a==='global')return viewGlobal(true);
  if(a==='led'){const n=(ledIdx()+1)%LEDS.length;lsSet('uc-led',LEDS[n][0]);track('led_colour',{colour:LEDS[n][0]});return applyLed()}
  if(a==='gtab'){gTab=b.dataset.tab;return b.dataset.where==='dialog'?viewGlobal():renderGlobal()}
+ if(a==='gscope'){gScope=b.dataset.scope;track('compete_scope',{scope:gScope});if(gScope==='league'&&sess&&me?.leagues?.length&&!board)loadBoard().then(renderGlobal).catch(()=>{});return renderGlobal()}
  if(a==='invite')return invite(b.dataset.code,b.dataset.name);
  if(a==='logout'){dropSess();dlg.close();renderSlots();return showToast('Signed out')}
  if(busy)return;busy=true;b.disabled=true;
