@@ -1898,7 +1898,7 @@ const jbRow=(r,extra)=>`<div class="jb-row${r.rank&&r.rank<=3?' top':''}${r.rank
 function competeShell(title,body,ticker,status){const l=LEDS[ledIdx()];
  return `<div class="jb-lights" aria-hidden="true"><span><i></i><i></i><i></i></span><span><i></i><i></i><i></i></span></div>
   <div class="jb-frame">
-   <div class="jb-scope" role="tablist"><button type="button" role="tab" data-lg="gscope" data-scope="global" class="${gScope==='global'?'on':''}">Global</button><button type="button" role="tab" data-lg="gscope" data-scope="league" class="${gScope==='league'?'on':''}">My league</button></div>
+   <div class="jb-scope" role="tablist"><button type="button" role="tab" data-lg="gscope" data-scope="global" class="${gScope==='global'?'on':''}">Global</button><button type="button" role="tab" data-lg="gscope" data-scope="league" class="${gScope==='league'?'on':''}">Leagues</button></div>
    <div class="jb-screen">
    <div class="jb-head"><span class="jb-title">${title}</span><div class="jb-tabs"><button type="button" data-lg="gtab" data-tab="day" data-where="landing" class="${gTab==='day'?'on':''}">Today</button><button type="button" data-lg="gtab" data-tab="week" data-where="landing" class="${gTab==='week'?'on':''}">Week</button><button type="button" class="jb-led" data-lg="led" title="Change LED colour" aria-label="Change LED colour (now ${l[0]})"><i></i></button></div></div>
    <div class="jb-rule"></div>
