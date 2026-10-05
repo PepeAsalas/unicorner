@@ -1483,7 +1483,21 @@ function submitRating(n){try{localStorage.setItem(rateKey(),JSON.stringify({rati
  document.getElementById('rateFbSkip').onclick=done;
  document.getElementById('rateFbSend').onclick=()=>{const v=document.getElementById('rateFbInput').value.trim();if(v)track('day_rating_feedback',{rating:n,feedback:v});done()}}
 const TODAY=amsterdamDay();
-async function submitScore(sc){try{const db=await dbP;if(db)await db.collection('daily').doc(TODAY).collection('scores').add({score:sc,at:new Date().toISOString()})}catch{}}
+// Saving today's score: retry a few times; if it still fails keep it and resend on the next visit,
+// and log the failure so lost scores show up in the stats instead of vanishing silently.
+const SCORE_Q='uc-score-queue';
+const readQ=()=>{try{return JSON.parse(localStorage.getItem(SCORE_Q)||'[]')}catch{return[]}};
+const writeQ=q=>{try{q.length?localStorage.setItem(SCORE_Q,JSON.stringify(q)):localStorage.removeItem(SCORE_Q)}catch{}};
+async function postScore(day,score){const db=await dbP;if(!db)throw new Error('no database');await db.collection('daily').doc(day).collection('scores').add({score,at:new Date().toISOString()})}
+async function submitScore(sc){let err=null;
+ for(const wait of [0,1500,4000]){if(wait)await new Promise(r=>setTimeout(r,wait));try{await postScore(TODAY,sc);if(err)track('score_save_recovered',{day:TODAY,error:String(err.message||err).slice(0,160)});return true}catch(e){err=e}}
+ const q=readQ();if(!q.some(x=>x.day===TODAY))q.push({day:TODAY,score:sc,at:Date.now()});writeQ(q);
+ track('score_save_failed',{day:TODAY,score:sc,status:err?.code||null,error:String(err?.message||err).slice(0,160),hour:new Date().getHours()});return false}
+async function flushScoreQueue(){const q=readQ();if(!q.length)return;const keep=[];
+ for(const x of q){if(Date.now()-x.at>3*864e5){track('score_save_dropped',{day:x.day});continue}
+  try{await postScore(x.day,x.score);track('score_save_resent',{day:x.day,late_min:Math.round((Date.now()-x.at)/6e4)})}catch(e){keep.push(x)}}
+ writeQ(keep)}
+setTimeout(()=>{flushScoreQueue().catch(()=>{})},3000);
 async function renderDist(mine){const el=document.getElementById('dist');if(!el)return;let scores=[];
  try{const db=await dbP;if(db){const snap=await db.collection('daily').doc(TODAY).collection('scores').get();scores=snap.docs.map(d=>+d.data().score).filter(v=>!isNaN(v))}}catch{}
  if(!document.getElementById('dist'))return;
