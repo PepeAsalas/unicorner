@@ -1685,6 +1685,9 @@ body.playing #league-home-slot{display:none}
 .g-you{margin:14px 0 0;font-size:24px}
 .g-you b{color:var(--gold)}
 .g-cta{margin-top:16px}.g-cta .g-note{margin-top:8px}
+.g-claim h2{font-size:30px!important;line-height:1.1}
+.g-preview{margin:10px 0 2px}
+.lp-global .g-cta .g-you{margin:0 0 10px}
 .g-line{margin:2px 0 10px;font-family:var(--lab);font-size:21px}
 .g-line a{color:var(--gold)}
 #dlg-league .lg-more-h{font-size:26px;margin:26px 0 4px;padding-top:18px;border-top:1px solid rgba(255,255,255,.15)}
@@ -1816,10 +1819,22 @@ function gList(rows,mine,from){const list=rows.filter(r=>r.rank>=from);
  const extra=mine&&!rows.some(r=>r.me)?`<tr class="me gap"><td class="rk">${mine.rank}</td><td>You</td><td class="n">${mine.score}</td></tr>`:'';
  if(!list.length&&!extra)return '';
  return `<table class="lg-board g-board"><tbody>${list.map(r=>`<tr class="${r.me?'me':''}"><td class="rk">${r.rank}</td><td>${esc(r.nickname)}${r.me?' (you)':''}</td><td class="n">${r.score}</td></tr>`).join('')}${extra}</tbody></table>`}
+function claimCopy(pl,g){const d=g?.day,rows=d?.rows||[];
+ if(!d||!d.players)return{h:`👑 Your ${pl.score} would be 1st today`,p:'Nobody\'s on today\'s ranking yet — claim the top spot.',rank:1,rows};
+ const r=rows.filter(x=>x.score>=pl.score).length+1;
+ if(r<=10||d.players<=rows.length)return{h:`${['🥇','🥈','🥉'][r-1]||'🌍'} Your ${pl.score} would be ${ord(r)} today`,p:`Out of ${d.players+1} players so far. Claim your spot before someone takes it.`,rank:r,rows};
+ return{h:`🌍 Get your ${pl.score} on today's ranking`,p:`Join the ${d.players} players already on it.`,rank:null,rows}}
+function claimPreview(c,score){if(!c.rank)return '';const arr=c.rows.slice(0,10);arr.splice(c.rank-1,0,{nickname:'You?',score,me:true});
+ const pick=arr.map((r,i)=>({...r,rank:i+1})).filter(r=>r.rank<=3||r.me);
+ return `<table class="lg-board g-board g-preview"><tbody>${pick.map((r,i)=>`<tr class="${r.me?'me':''}${i&&r.rank-pick[i-1].rank>1?' gap':''}"><td class="rk">${r.rank}</td><td>${r.me?'You?':esc(r.nickname)}</td><td class="n">${r.score}</td></tr>`).join('')}</tbody></table>`}
+async function claimCard(pl,leagueBtn,btnLabel){let c;try{c=claimCopy(pl,await loadGlobal())}catch{c={h:'🌍 Get on the ranking',p:'Add a nickname to show up on today\'s global ranking.',rank:null,rows:[]}}
+ return `<section class="lg-card g-claim"><h2>${c.h}</h2><p class="mute">${c.p}</p>${claimPreview(c,pl.score)}
+ <div class="lg-row"><button type="button" class="cta" data-lg="open" data-from="global">${btnLabel||'🌍 Claim my spot'}</button>${leagueBtn?'<button type="button" class="ghost" data-lg="open" data-from="results">Create a league</button>':''}</div>
+ <p class="mute lg-small">Just a nickname and your email — no password.</p></section>`}
 function gStatus(part){const pl=playedToday(),has=sess&&me?.profile;
  if(has&&part.me)return `<p class="g-you">You're <b>${ord(part.me.rank)}</b> of ${part.players} ${gTab==='day'?'today':'this week'} 🌍</p>`;
  if(has)return `<p class="g-note">${pl?'Your score will show here in a moment.':'Play today\'s game to get on the board.'}</p>`;
- if(pl)return `<div class="g-cta"><button type="button" class="cta" data-lg="open" data-from="global">🌍 Add my nickname</button><p class="g-note">Get your ${pl.score} pts on the board — just your email, no password.</p></div>`;
+ if(pl){const c=claimCopy(pl,gboard);return `<div class="g-cta"><p class="g-you">${c.h}</p><button type="button" class="cta" data-lg="open" data-from="global">🌍 Claim my spot</button><p class="g-note">Just a nickname and your email — no password.</p></div>`}
  return `<p class="g-note">Play today's game, then add a nickname to get on the board.</p>`}
 function podium(rows){const at=n=>rows.find(r=>r.rank===n);
  const card=(r,cls,col,medal)=>`<div class="lp-ans ${cls}${r?.me?' g-me':''}" style="--c:${col}"><b class="${r&&r.nickname.length>12?'xl':r&&r.nickname.length>9?'l':''}">${r?esc(r.nickname):'???'}</b><span>${r?r.score+' pts':'— pts'}</span><i>${medal}</i></div>`;
@@ -1848,7 +1863,7 @@ async function viewGlobal(fresh){show('<h2>🌍 Global ranking</h2><p class="mut
 let slotsBusy=false;
 async function renderSlots(){const rs=$('league-slot'),hs=$('league-home-slot');if(!rs&&!hs)return;
  renderGlobal();
- if(!sess){if(rs)rs.innerHTML=`<section class="lg-card"><h2>🌍 Get on the ranking</h2><p class="mute">Add a nickname to show up on today's global ranking — and challenge your mates in a private league.</p><div class="lg-row"><button type="button" class="cta" data-lg="open" data-from="global">Add my nickname</button><button type="button" class="ghost" data-lg="open" data-from="results">Create a league</button></div></section>`;if(hs)hs.innerHTML='';return}
+ if(!sess){if(hs)hs.innerHTML='';if(rs){const pl=playedToday();const html=pl?await claimCard(pl,true):`<section class="lg-card"><h2>🌍 Get on the ranking</h2><p class="mute">Add a nickname to show up on today's global ranking — and challenge your mates in a private league.</p><div class="lg-row"><button type="button" class="cta" data-lg="open" data-from="global">Add my nickname</button><button type="button" class="ghost" data-lg="open" data-from="results">Create a league</button></div></section>`;if($('league-slot')&&!sess)$('league-slot').innerHTML=html}return}
  if(slotsBusy)return;slotsBusy=true;
  try{if(!me)await loadMe();if(me.profile&&me.leagues.length&&!board)await loadBoard()}catch{}finally{slotsBusy=false}
  if(!me)return;
@@ -1856,7 +1871,7 @@ async function renderSlots(){const rs=$('league-slot'),hs=$('league-home-slot');
  const has=me.profile&&me.leagues.length&&board;
  const html=has?`<section class="lg-card"><h2>🏆 ${esc(board.name)}</h2>${boardTable(board,'today',5)}<div class="lg-row"><button type="button" data-lg="open" data-from="card">See leagues</button><button type="button" class="ghost" data-lg="copy" data-code="${esc(board.code)}">🔗 Copy invite link</button></div></section>`
   :`<section class="lg-card"><h2>🏆 Leagues</h2><p class="mute">Create a league and invite your mates.</p><div class="lg-row"><button type="button" class="cta" data-lg="open" data-from="card">Create a league</button></div></section>`;
- if(rs)rs.innerHTML=me.profile?html.replace('</h2>','</h2>'+gline):`<section class="lg-card"><h2>🌍 Get on the ranking</h2><p class="mute">Pick a nickname to show up on the global ranking.</p><div class="lg-row"><button type="button" class="cta" data-lg="open" data-from="global">Pick a nickname</button></div></section>`;if(hs)hs.innerHTML=has?html:''}
+ const pl0=playedToday();if(rs)rs.innerHTML=me.profile?html.replace('</h2>','</h2>'+gline):pl0?await claimCard(pl0,false,'🌍 Pick my nickname'):`<section class="lg-card"><h2>🌍 Get on the ranking</h2><p class="mute">Pick a nickname to show up on the global ranking.</p><div class="lg-row"><button type="button" class="cta" data-lg="open" data-from="global">Pick a nickname</button></div></section>`;if(hs)hs.innerHTML=has?html:''}
 
 async function invite(code,name){const link=inviteLink(code),text=`Join my Unicorner league “${name}” — who knows ball best? ${link}`;track('league_invite',{});
  if(navigator.share){try{await navigator.share({title:'Unicorner league',text});return}catch{}}
