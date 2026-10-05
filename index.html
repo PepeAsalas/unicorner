@@ -926,6 +926,12 @@ body.playing .quick-home-x{display:none!important}
 .tk-body{padding:14px 16px;display:flex;flex-direction:column;gap:12px;min-width:0}
 .tk-meta{display:flex;justify-content:space-between;gap:8px;font-family:var(--lab);font-size:18px;color:#5b5470;text-transform:uppercase;letter-spacing:.5px}
 .tk .tk-play{width:100%;padding:16px 12px!important;background:#2fbf71!important;color:#04210f!important;font-size:26px!important;box-shadow:0 5px 0 #000!important}
+.tk-actions{display:flex;gap:10px;flex-wrap:wrap}
+.tk-actions .tk-play{flex:3 1 220px;width:auto}
+.tk .tk-how{flex:1 1 120px;padding:12px 10px!important;font-size:20px!important;background:#1b1530!important;color:#fff!important;border-color:#000!important;box-shadow:0 5px 0 #000!important}
+@media (max-width:520px){.tk .tk-how{padding:7px 10px!important;font-size:18px!important;box-shadow:0 3px 0 #000!important}}
+.lp2-how.flash{animation:how-flash 1.2s ease-out}
+@keyframes how-flash{0%,30%{box-shadow:0 0 0 4px var(--gold),0 0 24px 6px rgba(255,210,63,.6)}100%{box-shadow:0 0 0 0 transparent}}
 .tk-done .tk-play{background:var(--gold)!important;color:#1b1530!important;font-size:22px!important}
 .tk-live{margin:0;display:flex;align-items:center;gap:8px;font-family:var(--lab);font-size:19px;color:#1b1530}
 .tk-live b{font-weight:700}
@@ -1281,7 +1287,7 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
     ${played?`<div class="tk-score"><b>${played.score}</b><span>/${MAX} · ${zoneOf(played.score)}</span></div>
     <button type="button" class="cta tk-play" id="go">View today's result</button>
     <p class="tk-live">Next game in <b>${untilMidnight()}</b></p>`
-    :`<button type="button" class="cta tk-play" id="go">Play today's game</button>
+    :`<div class="tk-actions"><button type="button" class="cta tk-play" id="go">Play today's game</button><button type="button" class="ghost tk-how" id="how">How to play</button></div>
     <p class="tk-live" id="tkLive"><i class="tk-dot"></i><span>Today's game is live · free, no sign-up</span></p>`}
    </div>
   </div>
@@ -1304,6 +1310,7 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
  <button type="button" class="inf-strip" data-infinite><span class="inf-ico" aria-hidden="true">∞</span><span class="inf-txt"><b>Infinity mode</b><small>Unlimited questions · coming soon</small></span><span class="inf-cta">Notify me</span></button>
  </div>`,()=>{const play=()=>{document.body.classList.remove('landing');if(played){restore(played);setMeter();end(true)}else ask()};
   const go=document.getElementById('go');if(go)go.onclick=play;
+  const hw=document.getElementById('how');if(hw)hw.onclick=()=>{track('how_click',{from:'ticket'});const st=document.getElementById('steps');st.scrollIntoView({behavior:'smooth',block:'center'});st.classList.remove('flash');void st.offsetWidth;st.classList.add('flash')};
   if(!played)liveLine().then(({n,top})=>{const el=document.querySelector('#tkLive span');if(el&&n)el.innerHTML=`<b>${n} fan${n===1?'':'s'}</b> played today · top score <b>${top}</b>`;else if(el)el.textContent='Be the first to play today'}).catch(()=>{});
   const otdLink=document.getElementById('otdLink');if(otdLink)otdLink.onclick=()=>track('on_this_day_click',{date:octDay,url:onThisDay.url});
   const lm=document.getElementById('landingMascot');
