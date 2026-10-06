@@ -2040,19 +2040,28 @@ function playedToday(){const day=amsterdamDay();let p=null;try{p=getPlayed()}cat
  if(p&&typeof p.score==='number')return{score:p.score,day};
  try{const c=JSON.parse(lsGet(LG_PSCORE)||'null');if(c&&c.day===day&&typeof c.score==='number')return c}catch{}
  return null}
+// The answers go along with the score, so the results can be shown on the player's other devices
+function localPicks(day){try{const r=JSON.parse(localStorage.getItem('unicorner-played-'+day)||'null');return r&&!r.remote&&Array.isArray(r.picks)&&r.picks.length?r.picks:null}catch{return null}}
+let picksTried=false;
 async function syncScore(){if(!sess)return;const p=playedToday();if(!p)return;
- const k='uc-league-sent-'+p.day;if(lsGet(k)===(sess.email||'1'))return;
- try{await rpc('lg_submit_score',{p_day:p.day,p_score:p.score});lsSet(k,sess.email||'1');board=null;gboard=null;renderSlots()}catch{}}
+ const who=sess.email||'1',k='uc-league-sent-'+p.day,kp='uc-league-picks-'+p.day,picks=localPicks(p.day),sent=lsGet(k)===who;
+ if(sent&&(!picks||lsGet(kp)===who||picksTried))return;
+ try{try{picksTried=true;await rpc('lg_submit_score',{p_day:p.day,p_score:p.score,p_picks:picks});if(picks)lsSet(kp,who)}
+  catch(e){if(sent)return;await rpc('lg_submit_score',{p_day:p.day,p_score:p.score})}
+  lsSet(k,who);board=null;gboard=null;renderSlots()}catch{}}
 
 // ── Global ranking (public). Only players with a nickname appear. ──
 let gboard=null,gAt=0,gTab='day',gBusy=null;
 async function loadGlobal(force){if(!force&&gboard&&Date.now()-gAt<60000)return gboard;
  if(!gBusy)gBusy=pubRpc('lg_global_board').then(g=>{if(!g?.day||!g?.week)throw new Error('Ranking unavailable');gboard=g;gAt=Date.now();adoptRemote(g);return g}).finally(()=>gBusy=null);return gBusy}
 // Played on another device while signed in: the board knows today's score, so this device counts today as played too
+let picksFetched=false;
 function adoptRemote(g){const sc=g?.day?.me?.score;if(!sess||typeof sc!=='number'||g.today!==amsterdamDay())return;
- const loc=getPlayed();if(loc&&loc.score===sc)return; // the ranking keeps the first score of the day, so that one wins
- setPlayed({score:sc,picks:[],remote:true});track('played_elsewhere',{score:sc,local:loc?loc.score:null});
- if(document.body.classList.contains('landing')&&typeof start==='function')start()}
+ const loc=getPlayed(),redraw=()=>{if(document.body.classList.contains('landing')&&typeof start==='function')start()};
+ if(loc&&loc.score===sc&&!loc.remote)return; // the ranking keeps the first score of the day, so that one wins
+ if(!loc||loc.score!==sc){setPlayed({score:sc,picks:[],remote:true});track('played_elsewhere',{score:sc,local:loc?loc.score:null});redraw()}
+ if(picksFetched)return;picksFetched=true;
+ rpc('lg_my_day',{p_day:g.today}).then(d=>{if(d&&d.score===sc&&Array.isArray(d.picks)&&d.picks.length&&getPlayed()?.remote){setPlayed({score:sc,picks:d.picks,synced:true});track('results_synced',{});redraw()}}).catch(()=>{})}
 // Before a signed-in player starts a game, make sure they haven't already played today on another device
 window.ucCheckRemote=async()=>{if(!sess||getPlayed())return false;try{await Promise.race([loadGlobal(),new Promise(r=>setTimeout(r,2500))])}catch{}return !!getPlayed()};
 const ord=n=>n+(n%100>=11&&n%100<=13?'th':['th','st','nd','rd'][n%10]||'th');

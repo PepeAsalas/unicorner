@@ -304,3 +304,32 @@ do $$ declare f text; begin
   grant execute on function public.is_unicorner_admin() to anon, authenticated;
   grant execute on function public.lg_global_board() to anon, authenticated;
 end $$;
+
+-- ── Answers travel with the score, so a signed-in player can see today's results on any device ──
+alter table public.player_scores add column if not exists picks jsonb;
+
+drop function if exists public.lg_submit_score(date, integer);
+create or replace function public.lg_submit_score(p_day date, p_score integer, p_picks jsonb default null)
+returns void language plpgsql security definer set search_path = public as $$
+declare uid uuid := lg_uid();
+begin
+  if p_day is null or p_day < lg_today() - 1 or p_day > lg_today() then raise exception 'Score is for the wrong day'; end if;
+  if p_score is null or p_score < 0 or p_score > 500 then raise exception 'Invalid score'; end if;
+  if p_picks is not null and (jsonb_typeof(p_picks) <> 'array' or jsonb_array_length(p_picks) > 10 or length(p_picks::text) > 4000) then
+    raise exception 'Invalid answers';
+  end if;
+  insert into player_scores (user_id, day, score, picks) values (uid, p_day, p_score, p_picks)
+  on conflict (user_id, day) do update set picks = excluded.picks
+    where player_scores.picks is null and player_scores.score = excluded.score;  -- first score still counts; answers only fill in for that same score
+end $$;
+
+create or replace function public.lg_my_day(p_day date)
+returns json language sql stable security definer set search_path = public as $$
+  select json_build_object('score', s.score, 'picks', s.picks)
+  from player_scores s where s.user_id = lg_uid() and s.day = p_day;
+$$;
+
+revoke all on function public.lg_submit_score(date, integer, jsonb) from public, anon;
+grant execute on function public.lg_submit_score(date, integer, jsonb) to authenticated;
+revoke all on function public.lg_my_day(date) from public, anon;
+grant execute on function public.lg_my_day(date) to authenticated;
