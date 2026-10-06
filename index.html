@@ -196,10 +196,12 @@ body.landing .meter{display:none}
 .lp-hero{margin-top:clamp(90px,16vh,160px);display:grid;grid-template-columns:1.3fr 1fr;align-items:center;gap:20px;padding:26px 4px 10px}
 @media (max-width:640px){.lp-hero{grid-template-columns:1fr;text-align:left}.lp-art{order:-1;height:180px}}
 .lp-date{display:inline-block;font-size:13px;font-weight:600;padding:4px 12px;border-radius:20px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:var(--mute)}
-.otd-fact{max-width:680px;margin:14px auto 0;padding:10px 16px;text-align:center;font-size:20px;line-height:1.5;letter-spacing:.3px;color:#dfe7f5;background:rgba(8,20,14,.82);border:1px solid rgba(255,255,255,.18);border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.3);font-family:var(--px);font-weight:400}
-.otd-fact b{color:var(--gold);font-weight:400}
-.otd-fact a{color:var(--gold);font-weight:400;text-decoration:underline;text-underline-offset:2px;white-space:nowrap}
-.otd-fact a:hover{text-decoration:none}
+.otd-fact{--led:#39ff6a;display:flex;align-items:stretch;width:max-content;max-width:min(1100px,calc(100vw - 32px));margin:10px 0 0 50%;transform:translateX(-50%);padding:0;overflow:hidden;white-space:nowrap;font:400 16px var(--lab);line-height:1.2;letter-spacing:1px;background:#05070d;border:3px solid #000;border-radius:6px;box-shadow:0 0 0 2px #fff}
+.otd-fact>*{display:flex;align-items:center}
+.otd-fact b{flex:none;padding:6px 10px;background:var(--gold);color:#1b1530;font-size:15px;font-weight:400;text-transform:uppercase}
+.otd-fact span{display:block;align-self:center;min-width:0;overflow:hidden;text-overflow:ellipsis;padding:6px 12px;color:var(--led);text-shadow:0 0 6px color-mix(in srgb,var(--led) 50%,transparent)}
+.otd-fact a{flex:none;gap:6px;padding:6px 12px;background:var(--led);color:#020602;font-size:15px;text-transform:uppercase;text-decoration:none}
+.otd-fact a:hover{filter:brightness(1.12)}
 @media (max-width:640px){.otd-fact{display:none}}
 .lp-title{font-size:clamp(44px,8vw,68px);font-weight:800;line-height:.95;margin:14px 0 12px}
 .uni-word{background:linear-gradient(90deg,#ff7ac8,#b48cff,#4fd7ff,#f2c230,#ff7ac8);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:rainbow 4s linear infinite}
@@ -1286,7 +1288,7 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
  const tkDate=new Date(amsterdamDay()+'T12:00:00Z').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',timeZone:'UTC'}).replace(',','').split(' ');
  const compete='<section class="jb" id="global-rank-slot" data-compete><div class="jb-frame"><div class="jb-screen"><p class="jb-empty">GLOBAL RANKING · LOADING…</p></div></div></section>';
  swap(`<div class="landing-wrap">
- ${onThisDay?`<p class="otd-fact"><b>⚽ On this day</b> — ${onThisDay.text} <a id="otdLink" href="${onThisDay.url}" target="_blank" rel="noopener">Watch ↗</a></p>`:''}
+ ${onThisDay?`<p class="otd-fact"><b>On this day</b><span title="${onThisDay.text.replace(/"/g,'&quot;')}">${onThisDay.text}</span><a id="otdLink" href="${onThisDay.url}" target="_blank" rel="noopener"><svg viewBox="0 0 7 8" width="9" height="11" aria-hidden="true" shape-rendering="crispEdges"><path d="M0 0h2v1h2v1h2v1h1v2H6v1H4v1H2v1H0z" fill="currentColor"/></svg>Watch</a></p>`:''}
  <section class="lp-hero lp-home-hero">
   <div class="lp-home-title-row">
    <h1 class="lp-title"><span class="lp-lead">How deep is your </span><span class="uni-word">ball knowledge</span><span class="lp-qm">?</span></h1>
@@ -2095,7 +2097,7 @@ function gStatus(part){const pl=playedToday(),has=sess&&me?.profile;
 function gTabs(where){return `<div class="lg-tabs g-tabs"><button type="button" data-lg="gtab" data-tab="day" data-where="${where}" class="${gTab==='day'?'on':''}">Today</button><button type="button" data-lg="gtab" data-tab="week" data-where="${where}" class="${gTab==='week'?'on':''}">This week</button></div>`}
 const LEDS=[['Green','#39ff6a'],['Amber','#ffb000'],['Red','#ff4d4d'],['Cyan','#4fd7ff'],['Pink','#ff7ac8']];
 const ledIdx=()=>Math.max(0,LEDS.findIndex(l=>l[0]===lsGet('uc-led')));
-function applyLed(){const l=LEDS[ledIdx()];document.querySelectorAll('[data-compete]').forEach(el=>{el.style.setProperty('--led',l[1]);const b=el.querySelector('.jb-led');if(b)b.setAttribute('aria-label','Change LED colour (now '+l[0]+')')})}
+function applyLed(){const l=LEDS[ledIdx()];document.querySelectorAll('.otd-fact').forEach(el=>el.style.setProperty('--led',l[1]));document.querySelectorAll('[data-compete]').forEach(el=>{el.style.setProperty('--led',l[1]);const b=el.querySelector('.jb-led');if(b)b.setAttribute('aria-label','Change LED colour (now '+l[0]+')')})}
 // ── Compete box: the global ranking and your league on one LED board ──
 let gScope='global';
 const jbRow=(r,extra)=>`<div class="jb-row${r.rank&&r.rank<=3?' top':''}${r.rank===1?' lead':''}${r.me?' me':''}${extra||''}"><span>${r.rank?String(r.rank).padStart(2,'0'):'--'}</span><span class="nm">${(extra||'').includes('ghost')?esc(ghostName()):(r.me?'YOU · ':'')+esc(r.nickname.toUpperCase())}</span><span>${r.score??'—'}</span></div>`;
