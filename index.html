@@ -1251,7 +1251,7 @@ async function liveLine(){const day=amsterdamDay(),h={apikey:SB_KEY,Authorizatio
  const n=+((c.headers.get('content-range')||'').split('/')[1]||0);let top=0;try{top=(await t.json())[0]?.score||0}catch{}return{n,top}}
 const seenStreak=n=>{try{const s=+(localStorage.getItem('unicorner-streak-seen')||0);if(n!==s)localStorage.setItem('unicorner-streak-seen',n);return n>s}catch{return false}};
 const untilMidnight=()=>{const n=new Date(),m=new Date(n);m.setHours(24,0,0,0);const d=m-n,h=Math.floor(d/36e5),mi=Math.floor(d%36e5/6e4);return`${h}h ${mi}m`};
-function restore(p){const savedPicks=Array.isArray(p.picks)?p.picks:[],byPos=new Map();savedPicks.forEach(([i,name])=>{if(Number.isInteger(i)&&i>=0&&i<Q.length&&!byPos.has(i))byPos.set(i,name||null)});results=Q.map((q,i)=>{const name=byPos.get(i)||null,ans=name?q?.answers.find(a=>a.name===name)||null:null;return{q,ans,pts:ans?ans.pts:0}});score=results.reduce((n,r)=>n+r.pts,0);qi=Q.length;if(score!==p.score)setPlayed({...p,score,picks:results.map((r,i)=>[i,r.ans?.name||null,r.pts])})}
+function restore(p){if(p.remote){score=p.score;results=[];qi=Q.length;return}const savedPicks=Array.isArray(p.picks)?p.picks:[],byPos=new Map();savedPicks.forEach(([i,name])=>{if(Number.isInteger(i)&&i>=0&&i<Q.length&&!byPos.has(i))byPos.set(i,name||null)});results=Q.map((q,i)=>{const name=byPos.get(i)||null,ans=name?q?.answers.find(a=>a.name===name)||null:null;return{q,ans,pts:ans?ans.pts:0}});score=results.reduce((n,r)=>n+r.pts,0);qi=Q.length;if(score!==p.score)setPlayed({...p,score,picks:results.map((r,i)=>[i,r.ans?.name||null,r.pts])})}
 
 function spawnOctLeaves(art){const a=pixelLeaf('#f2851c','#ffcf8a'),b=pixelLeaf('#e0a000','#ffe9a6');
  [...art.querySelectorAll('.oct-leaf')].forEach(s=>s.remove());
@@ -1300,8 +1300,8 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
    <div class="tk-body">
     <div class="tk-meta"><span>${played?'Your result':'Matchday ticket'}</span><span>${played?'Played ✓':Q.length+' prompts · 3 min'}</span></div>
     ${played?`<div class="tk-score"><b>${played.score}</b><span>/${MAX} · ${zoneOf(played.score)}</span></div>
-    <button type="button" class="cta tk-play" id="go">View today's result</button>
-    <p class="tk-live">Next game in <b>${untilMidnight()}</b></p>`
+    ${played.remote?`<p class="tk-live">Played on another device ✓ · next game in <b>${untilMidnight()}</b></p>`:`<button type="button" class="cta tk-play" id="go">View today's result</button>
+    <p class="tk-live">Next game in <b>${untilMidnight()}</b></p>`}`
     :`<div class="tk-actions"><button type="button" class="cta tk-play" id="go">Play today's game</button><button type="button" class="ghost tk-how" id="how">How to play</button></div>
     <p class="tk-live" id="tkLive"><i class="tk-dot"></i><span>Today's game is live · free, no sign-up</span></p>`}
    </div>
@@ -2047,7 +2047,11 @@ async function syncScore(){if(!sess)return;const p=playedToday();if(!p)return;
 // ── Global ranking (public). Only players with a nickname appear. ──
 let gboard=null,gAt=0,gTab='day',gBusy=null;
 async function loadGlobal(force){if(!force&&gboard&&Date.now()-gAt<60000)return gboard;
- if(!gBusy)gBusy=pubRpc('lg_global_board').then(g=>{if(!g?.day||!g?.week)throw new Error('Ranking unavailable');gboard=g;gAt=Date.now();return g}).finally(()=>gBusy=null);return gBusy}
+ if(!gBusy)gBusy=pubRpc('lg_global_board').then(g=>{if(!g?.day||!g?.week)throw new Error('Ranking unavailable');gboard=g;gAt=Date.now();adoptRemote(g);return g}).finally(()=>gBusy=null);return gBusy}
+// Played on another device while signed in: the board knows today's score, so this device counts today as played too
+function adoptRemote(g){const sc=g?.day?.me?.score;if(!sess||typeof sc!=='number'||g.today!==amsterdamDay()||getPlayed())return;
+ setPlayed({score:sc,picks:[],remote:true});track('played_elsewhere',{score:sc});
+ if(document.body.classList.contains('landing')&&typeof start==='function')start()}
 const ord=n=>n+(n%100>=11&&n%100<=13?'th':['th','st','nd','rd'][n%10]||'th');
 function gList(rows,mine,from){const list=rows.filter(r=>r.rank>=from);
  const extra=mine&&!rows.some(r=>r.me)?`<tr class="me gap"><td class="rk">${mine.rank}</td><td>You</td><td class="n">${mine.score}</td></tr>`:'';
