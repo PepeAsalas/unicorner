@@ -1323,7 +1323,7 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
  ${competeFirst?'':compete}
 
  <button type="button" class="inf-strip" data-infinite><span class="inf-ico" aria-hidden="true">∞</span><span class="inf-txt"><b>Infinity mode</b><small>Unlimited questions · coming soon</small></span><span class="inf-cta">Notify me</span></button>
- </div>`,()=>{const play=()=>{document.body.classList.remove('landing');if(played){restore(played);setMeter();end(true)}else ask()};
+ </div>`,()=>{const play=async()=>{if(!played&&window.ucCheckRemote&&await window.ucCheckRemote())return start();document.body.classList.remove('landing');if(played){restore(played);setMeter();end(true)}else ask()};
   const go=document.getElementById('go');if(go)go.onclick=play;
   const hw=document.getElementById('how');if(hw)hw.onclick=()=>{track('how_click',{from:'ticket'});const st=document.getElementById('steps');st.scrollIntoView({behavior:'smooth',block:'center'});st.classList.remove('flash');void st.offsetWidth;st.classList.add('flash')};
   if(!played)liveLine().then(({n,top})=>{const el=document.querySelector('#tkLive span');if(el&&n)el.innerHTML=`<b>${n} fan${n===1?'':'s'}</b> played today · top score <b>${top}</b>`;else if(el)el.textContent='Be the first to play today'}).catch(()=>{});
@@ -2049,9 +2049,12 @@ let gboard=null,gAt=0,gTab='day',gBusy=null;
 async function loadGlobal(force){if(!force&&gboard&&Date.now()-gAt<60000)return gboard;
  if(!gBusy)gBusy=pubRpc('lg_global_board').then(g=>{if(!g?.day||!g?.week)throw new Error('Ranking unavailable');gboard=g;gAt=Date.now();adoptRemote(g);return g}).finally(()=>gBusy=null);return gBusy}
 // Played on another device while signed in: the board knows today's score, so this device counts today as played too
-function adoptRemote(g){const sc=g?.day?.me?.score;if(!sess||typeof sc!=='number'||g.today!==amsterdamDay()||getPlayed())return;
- setPlayed({score:sc,picks:[],remote:true});track('played_elsewhere',{score:sc});
+function adoptRemote(g){const sc=g?.day?.me?.score;if(!sess||typeof sc!=='number'||g.today!==amsterdamDay())return;
+ const loc=getPlayed();if(loc&&loc.score===sc)return; // the ranking keeps the first score of the day, so that one wins
+ setPlayed({score:sc,picks:[],remote:true});track('played_elsewhere',{score:sc,local:loc?loc.score:null});
  if(document.body.classList.contains('landing')&&typeof start==='function')start()}
+// Before a signed-in player starts a game, make sure they haven't already played today on another device
+window.ucCheckRemote=async()=>{if(!sess||getPlayed())return false;try{await Promise.race([loadGlobal(),new Promise(r=>setTimeout(r,2500))])}catch{}return !!getPlayed()};
 const ord=n=>n+(n%100>=11&&n%100<=13?'th':['th','st','nd','rd'][n%10]||'th');
 function gList(rows,mine,from){const list=rows.filter(r=>r.rank>=from);
  const extra=mine&&!rows.some(r=>r.me)?`<tr class="me gap"><td class="rk">${mine.rank}</td><td>You</td><td class="n">${mine.score}</td></tr>`:'';
