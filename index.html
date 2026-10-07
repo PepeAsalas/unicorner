@@ -1798,18 +1798,20 @@ async function pubRpc(fn){const t=sess?await token():null;
  if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}
 
 // Return from the emailed sign-in link or Google (#access_token=…) and invite links (?league=CODE)
-let fresh=false,oauthError='';
+let fresh=false,oauthError='',linkVerify=null;
 (()=>{const h=location.hash;
  if(h.includes('access_token=')){const p=new URLSearchParams(h.slice(1));saveSess({access_token:p.get('access_token'),refresh_token:p.get('refresh_token'),expires_in:p.get('expires_in')});fresh=true;history.replaceState(null,'',location.pathname+location.search);track('league_login',{method:p.get('provider_token')?'google':'email'})}
  else if(h.includes('error_description=')){oauthError=new URLSearchParams(h.slice(1)).get('error_description')||'Sign-in failed';history.replaceState(null,'',location.pathname+location.search)}
- const q=new URLSearchParams(location.search),c=q.get('league'),o=q.get('optout'),gi=q.get('i'),ps=q.get('s'),pd=q.get('d'),pn=q.get('n');
+ const q=new URLSearchParams(location.search),c=q.get('league'),o=q.get('optout'),gi=q.get('i'),ps=q.get('s'),pd=q.get('d'),pn=q.get('n'),th=q.get('token_hash');
+ // the emailed link points at this site (?token_hash=…), so finish the sign-in here instead of bouncing through supabase.co
+ if(th)linkVerify=authPost('/auth/v1/verify',{token_hash:th,type:q.get('type')||'email'}).then(j=>{saveSess(j);fresh=true;track('league_login',{method:'email_link'})}).catch(()=>{oauthError='That sign-in link has expired or was already used — ask for a new one below.'});
  if(pn)lsSet(LG_NICK,pn.trim().slice(0,16));
  if(gi==='g')lsSet(LG_INTENT,'global');
  // the email link may open in another browser that never saw today's game — carry the score across
  if(ps!=null&&/^\d{1,3}$/.test(ps)&&pd&&/^\d{4}-\d\d-\d\d$/.test(pd))lsSet(LG_PSCORE,JSON.stringify({score:+ps,day:pd}));
  if(c)lsSet(LG_PENDING,c.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,8));
  if(o!=null)lsSet(LG_OPTOUT,o==='1'?'1':'0');
- if(c||o!=null||gi||ps!=null||pn){['league','optout','i','s','d','n'].forEach(k=>q.delete(k));history.replaceState(null,'',location.pathname+(q.toString()?'?'+q:''))}})();
+ if(c||o!=null||gi||ps!=null||pn||th||q.has('l')){['league','optout','i','s','d','n','token_hash','type','l'].forEach(k=>q.delete(k));history.replaceState(null,'',location.pathname+(q.toString()?'?'+q:''))}})();
 
 const css=`
 #dlg-league{width:min(540px,calc(100vw - 24px))}
@@ -2026,7 +2028,7 @@ async function open(from){track('league_open',{from:from||'unknown'});
  return viewHome()}
 window.openLeagues=open;
 
-async function sendLink(email,optout,nick){lsSet(LG_OPTOUT,optout?'1':'0');const back=new URLSearchParams();if(optout)back.set('optout','1');const inv=lsGet(LG_PENDING);if(inv)back.set('league',inv);if(lsGet(LG_INTENT)==='global')back.set('i','g');const pl=playedToday();if(pl){back.set('s',pl.score);back.set('d',pl.day)}if(nick){back.set('n',nick);lsSet(LG_NICK,nick)}
+async function sendLink(email,optout,nick){lsSet(LG_OPTOUT,optout?'1':'0');const back=new URLSearchParams({l:'1'});if(optout)back.set('optout','1');const inv=lsGet(LG_PENDING);if(inv)back.set('league',inv);if(lsGet(LG_INTENT)==='global')back.set('i','g');const pl=playedToday();if(pl){back.set('s',pl.score);back.set('d',pl.day)}if(nick){back.set('n',nick);lsSet(LG_NICK,nick)}
  const to=location.origin+location.pathname+(back.toString()?'?'+back:'');
  await authPost('/auth/v1/otp?redirect_to='+encodeURIComponent(to),{email,create_user:true,data:nick?{news_opt_out:optout,nickname:nick}:{news_opt_out:optout}})}
 const BAD_NICK=/fuck|shit|cunt|nigg|fagg|hitler|nazi/i;
@@ -2238,7 +2240,7 @@ document.addEventListener('submit',async e=>{const f=e.target;if(!f.id?.startsWi
 
 // Re-render the cards whenever the game swaps screens, and push today's score when it appears
 let t0;new MutationObserver(()=>{clearTimeout(t0);t0=setTimeout(()=>{renderSlots();syncScore()},120)}).observe($('screen'),{childList:true});
-setTimeout(()=>{renderSlots();syncScore();if(fresh&&!lsGet(LG_PENDING)&&pendingNick())autoClaim();else if(fresh||lsGet(LG_PENDING)||oauthError)open(fresh?'login':'invite')},400);
+setTimeout(async()=>{if(linkVerify)await linkVerify;renderSlots();syncScore();if(fresh&&!lsGet(LG_PENDING)&&pendingNick())autoClaim();else if(fresh||lsGet(LG_PENDING)||oauthError)open(fresh?'login':'invite')},400);
 })();
 </script>
 <script>
