@@ -1157,13 +1157,109 @@ const ES=LANG==='es',L=(en,es)=>ES?es:en,LOC=ES?'es-ES':'en-GB';document.documen
 const TIER_ES={'Tap-in':'Empujarla','Header':'Remate','Volley':'Volea','Bicycle kick':'Chilena','Screamer':'Qué chicharro'};
 const ZONE_ES={'Sunday league':'Pachanga','Non-league':'Tercera RFEF','Second tier':'Segunda División','Top flight':'Primera División','Champions League':'Champions League','World Cup final':'Final del Mundial',"Ballon d'Or":'Balón de Oro'};
 const an=a=>ES&&a?.name_es||a?.name,tl=n=>ES&&TIER_ES[n]||n,zl=n=>ES&&ZONE_ES[n]||n,qt=(q,k)=>ES&&q[k+'_es']||q[k];
+// Spanish for fixed text anywhere on the page (static HTML, pop-ups, toasts, server messages).
+// Keys are the English text exactly as shown (spaces collapsed). Text with numbers or names in it is translated in the code with L().
+const ES_TEXT={
+// top bar, labels for screen readers
+'Go to home':'Ir al inicio','Pick your stadium':'Elige tu estadio','Toggle sound effects':'Activar o quitar el sonido','Sound effects':'Sonido','Your progress':'Tu progreso','Back to home':'Volver al inicio',"Score distribution of today's players":'Distribución de puntuaciones de hoy','Close':'Cerrar','Close Infinity Mode':'Cerrar Modo Infinito','Change LED colour':'Cambiar el color del LED',
+// advertising boards
+'BALL KNOWLEDGE':'CULTURA FUTBOLERA','FIND THE SCREAMER':'BUSCA EL CHICHARRO','TAP-IN · HEADER · VOLLEY · BICYCLE KICK · SCREAMER':'EMPUJARLA · REMATE · VOLEA · CHILENA · QUÉ CHICHARRO',
+// On this day
+'On this day':'Tal día como hoy','Watch':'Ver',
+"Haaland & Foden hat-tricks: Man City 6-3 Man Utd, 2022.":"Hat-tricks de Haaland y Foden: Man City 6-3 Man United, 2022.",
+"Salah's iconic solo goal: Liverpool 2-2 Man City, 2021.":"El golazo en solitario de Salah: Liverpool 2-2 Man City, 2021.",
+"Watkins hat-trick stuns the champions: Aston Villa 7-2 Liverpool, 2020.":"Hat-trick de Watkins ante el campeón: Aston Villa 7-2 Liverpool, 2020.",
+"Torres hits Liverpool's 1,000th PL goal in a comeback from 2-0 down: Man City 2-3 Liverpool, 2008.":"Torres marca el gol 1.000 del Liverpool en la Premier en una remontada desde el 2-0: Man City 2-3 Liverpool, 2008.",
+"Ferran Torres ends Italy's 37-game unbeaten run: Spain 2-1 Italy, 2021.":"Ferran Torres acaba con 37 partidos sin perder de Italia: España 2-1 Italia, 2021.",
+"Messi & Ronaldo both score twice: Barcelona 2-2 Real Madrid, 2012.":"Doblete de Messi y doblete de Cristiano: Barcelona 2-2 Real Madrid, 2012.",
+"Lamine Yamal, 16, becomes La Liga's youngest-ever scorer, 2023.":"Lamine Yamal, con 16 años, se convierte en el goleador más joven de LaLiga, 2023.",
+"Iceland become the smallest nation ever to reach a World Cup: 2-0 Kosovo, 2017.":"Islandia, el país más pequeño en clasificarse para un Mundial: 2-0 a Kosovo, 2017.",
+"Messi's hat-trick seals Argentina's World Cup spot: Ecuador 1-3 Argentina, 2017.":"Hat-trick de Messi para clasificar a Argentina al Mundial: Ecuador 1-3 Argentina, 2017.",
+"Townsend's 25-yard debut screamer: England 4-1 Montenegro, 2013.":"El chicharro de Townsend desde 25 metros en su debut: Inglaterra 4-1 Montenegro, 2013.",
+"Salah's fastest-ever UCL hat-trick, in 6m12s: Rangers 1-7 Liverpool, 2022.":"El hat-trick más rápido de la Champions, de Salah en 6m12s: Rangers 1-7 Liverpool, 2022.",
+"Neymar's hat-trick passes Ronaldo for Brazil: Peru 2-4 Brazil, 2020.":"Hat-trick de Neymar para superar a Ronaldo con Brasil: Perú 2-4 Brasil, 2020.",
+"A drone-flown flag sparked a brawl, match abandoned: Serbia vs Albania, 2014.":"Una bandera colgada de un dron provoca una pelea y se suspende el partido: Serbia-Albania, 2014.",
+"Rodrigo's 90+2 goal seals their Euro 2020 spot: Sweden 1-1 Spain, 2019.":"El gol de Rodrigo en el 92 da el billete para la Euro 2020: Suecia 1-1 España, 2019.",
+"Ibrahimović sparks a comeback from 4-0 down: Germany 4-4 Sweden, 2012.":"Ibrahimović lidera la remontada desde el 4-0: Alemania 4-4 Suecia, 2012.",
+"Sterling's first senior hat-trick: Man City 5-1 Bournemouth, 2015.":"Primer hat-trick de Sterling como profesional: Man City 5-1 Bournemouth, 2015.",
+// text block lower on the home page
+'A free daily football trivia game':'Un juego diario de trivia de fútbol, gratis',
+'Unicorner is a free online football trivia game for fans who know more than the obvious answers. Every day, you get five football questions and 30 seconds to name one valid player, club, country, manager or stadium. Popular answers score fewer points, while rare answers can earn a Screamer. Play the new daily football quiz, test your ball knowledge and challenge your friends to beat your score. No download or sign-up required.':'Unicorner es un juego gratis de trivia de fútbol para quien sabe más que las respuestas obvias. Cada día tienes cinco preguntas de fútbol y 30 segundos para nombrar un jugador, club, país, entrenador o estadio válido. Las respuestas populares dan menos puntos y las raras pueden ser un Qué chicharro. Juega el partido de hoy, pon a prueba tu cultura futbolera y reta a tus amigos a superarte. Sin descargas ni registro.',
+'Is Unicorner free?':'¿Unicorner es gratis?','Yes. The daily football quiz is completely free to play.':'Sí. El juego diario es totalmente gratis.',
+'When is there a new game?':'¿Cuándo hay partido nuevo?','Five new football trivia questions are released every day.':'Cada día salen cinco preguntas nuevas de fútbol.',
+'How does scoring work?':'¿Cómo se puntúa?','Correct but obvious answers score fewer points. The rarest valid answers score the most.':'Las respuestas correctas pero obvias dan menos puntos. Las respuestas válidas más raras dan más.',
+// footer
+'Submit a question':'Envía una pregunta','Problem with a question':'Problema con una pregunta','Contact':'Contacto','☕ Buy me a coffee':'☕ Invítame a un café','Privacy':'Privacidad',
+// Infinity mode window
+'🔥 Coming soon':'🔥 Muy pronto','∞ Infinity mode':'∞ Modo Infinito',"Can't wait? Be first in line when it drops.":'¿No puedes esperar? Sé el primero cuando salga.',
+'Infinite questions — never run out, play whenever you like':'Preguntas infinitas — juega cuando quieras, sin parar','Pick your own category: club, league, or era packs':'Elige tu categoría: por club, liga o época','Every past daily game in the archive':'Todos los partidos anteriores en el archivo','Your full stats and Screamer collection':'Todas tus estadísticas y tu colección de chicharros',
+"We're building it now — drop your email and we'll ping you the second it's live.":'Lo estamos construyendo — deja tu email y te avisamos en cuanto salga.',
+"We're building it now — one tap and you're on the list.":'Lo estamos construyendo — un toque y estás en la lista.',
+'Also send me Unicorner news and new features.':'Mándame también novedades de Unicorner.','How we use your information:':'Cómo usamos tus datos:','Privacy policy':'Política de privacidad',
+'🔥 Notify me first':'🔥 Avísame el primero','🔥 Notify me':'🔥 Avísame','Maybe later':'Quizá luego',"✓ You're on the list":'✓ Ya estás en la lista',
+"✓ You're already on the list — we'll email":'✓ Ya estás en la lista — te escribiremos a',"the moment it's live.":'en cuanto salga.',"We'll email":'Te escribiremos a',
+// contact / report / submit forms
+'Contact us':'Contáctanos','Ideas, feedback, or just want to say hi.':'Ideas, sugerencias o solo saludar.','Name':'Nombre','Message':'Mensaje','We use this information to reply to you.':'Usamos estos datos para responderte.','Send':'Enviar','Cancel':'Cancelar',
+'Problem with a question?':'¿Problema con una pregunta?',"Think we missed a valid answer, or got one wrong? Tell us and we'll check it.":'¿Falta una respuesta válida o hay una mal? Cuéntanoslo y lo revisamos.',
+'What happened?':'¿Qué ha pasado?','Choose one':'Elige una','An answer I knew was rejected':'No me aceptó una respuesta correcta','An answer is wrong':'Una respuesta está mal','The question was confusing':'La pregunta era confusa','Something looked broken':'Algo no funcionaba bien','Other':'Otro',
+'Which question':'Qué pregunta','Answer':'Respuesta','(if an answer is missing or wrong)':'(si falta una respuesta o está mal)',"What's the problem":'¿Cuál es el problema?',"(optional, if you'd like a reply)":'(opcional, si quieres respuesta)',
+'We use this information to review the report and reply if requested.':'Usamos estos datos para revisar el aviso y responderte si lo pides.','Send report':'Enviar aviso',
+'e.g. He played 12 games for Arsenal in 2014 on loan.':'p. ej. Jugó 12 partidos cedido en el Arsenal en 2014.',
+'🦄 You could be featured':'🦄 Tu pregunta puede salir en el juego','Submit your own question':'Envía tu propia pregunta',
+'Got a great prompt with a list of answers from the obvious to the obscure? Send it in. If we pick it, it goes live with your name under it.':'¿Tienes una buena pregunta con respuestas de las obvias a las rarísimas? Mándala. Si la elegimos, sale en el juego con tu nombre.',
+'Your question':'Tu pregunta','Some answers you know':'Algunas respuestas que sepas','(optional)':'(opcional)','Display name':'Nombre que se mostrará',
+'So we can let you know if your question is featured.':'Para avisarte si tu pregunta sale.','Send me Unicorner news, new features and early access. Unsubscribe anytime.':'Mándame novedades de Unicorner y acceso anticipado. Puedes darte de baja cuando quieras.',
+'We use your email to manage your submission. Marketing is only sent if you tick the box above.':'Usamos tu email para gestionar tu propuesta. Solo te mandamos novedades si marcas la casilla de arriba.','Submit question':'Enviar pregunta',
+'e.g. Played under Pep Guardiola at two different clubs':'p. ej. Jugó con Pep Guardiola en dos clubes distintos','An easy one, a medium one, and your best Unicorner':'Una fácil, una media y tu mejor rareza','How your credit will appear':'Cómo aparecerá tu nombre',
+'Sending…':'Enviando…',"You're on the list. We'll email you when it launches.":'Ya estás en la lista. Te escribiremos cuando salga.',"Thanks! We'll review it, and let you know if it gets featured.":'¡Gracias! La revisaremos y te avisaremos si sale.','Thanks, got it.':'Gracias, recibido.',
+// rankings and leagues
+'Global':'Global','Leagues':'Ligas','Today':'Hoy','Week':'Semana','This week':'Esta semana','Loading…':'Cargando…','GLOBAL RANKING · LOADING…':'RANKING GLOBAL · CARGANDO…',
+'Something went wrong — try again':'Algo ha fallado — inténtalo de nuevo','Please sign in':'Inicia sesión','Please sign in again':'Vuelve a iniciar sesión','Leagues are not switched on yet':'Las ligas aún no están activadas','Session expired — log in again':'La sesión ha caducado — vuelve a entrar','Could not reach the server':'No se pudo conectar con el servidor',
+'That sign-in link has expired or was already used — ask for a new one below.':'Ese enlace ha caducado o ya se usó — pide uno nuevo abajo.',
+'🌍 Get on the ranking':'🌍 Entra en el ranking','Add a nickname and your score shows on the global ranking. Just your email — no password.':'Elige un apodo y tu puntuación saldrá en el ranking global. Solo tu email — sin contraseña.',
+'🏆 Leagues':'🏆 Ligas','Play against your mates in a private league. Sign in once and your leagues follow you on any device.':'Juega contra tus amigos en una liga privada. Inicia sesión una vez y tus ligas te siguen en cualquier dispositivo.',
+'Continue with Google':'Continuar con Google','or use your email':'o usa tu email',"I don't want reminders or Unicorner news":'No quiero recordatorios ni novedades de Unicorner','Email me a sign-in link':'Envíame un enlace de acceso',
+'The daily game stays free with no sign-up — this is only for the rankings and leagues.':'El juego diario sigue siendo gratis y sin registro — esto es solo para el ranking y las ligas.',
+'Check your email 📬':'Revisa tu email 📬','We sent a sign-in link to':'Te hemos enviado un enlace de acceso a',
+'⚠️':'⚠️','Not in your inbox? Check your spam folder.':'¿No está en tu bandeja de entrada? Mira en spam.','Not there? Check your spam folder.':'¿No está? Mira en spam.',"It's from":'Es de',
+'(hello@auth.unicornergame.lol). Found it in spam? Tap':'(hello@auth.unicornergame.lol). ¿Está en spam? Pulsa','"Not spam"':'"No es spam"','so the next one lands in your inbox.':'para que el próximo llegue a tu bandeja de entrada.',
+"Tap the link in the email and you'll come straight back here, signed in.":'Pulsa el enlace del email y volverás aquí con la sesión iniciada.','The link works once and expires after a while — you can always request a new one.':'El enlace sirve una vez y caduca al rato — siempre puedes pedir otro.',
+'Use another email':'Usar otro email','Your profile':'Tu perfil','Pick a nickname':'Elige un apodo','This shows on the global ranking and in your leagues.':'Sale en el ranking global y en tus ligas.','Nickname':'Apodo','Save':'Guardar','Continue':'Continuar','Back':'Atrás',
+'Create a league':'Crea una liga','Give it a name, then share the invite link with your mates.':'Ponle nombre y comparte el enlace con tus amigos.','League name':'Nombre de la liga','e.g. Sunday League Legends':'p. ej. Leyendas de la Pachanga','Create league':'Crear liga',
+'Joining…':'Uniéndote…','Hmm':'Vaya','Join league':'Unirme','Not now':'Ahora no',
+'∞ Want more leagues?':'∞ ¿Quieres más ligas?','More leagues are coming with':'Más ligas llegarán con el','Infinity mode':'Modo Infinito',". Want us to tell you when it's live?":'. ¿Te avisamos cuando salga?',
+'∞ More leagues are coming':'∞ Pronto habrá más ligas','In the beta you can be in one league. More leagues unlock with':'En la beta puedes estar en una liga. Habrá más ligas con el','— coming soon.':'— muy pronto.',"— coming soon. Want us to tell you when it's live?":'— muy pronto. ¿Te avisamos cuando salga?',
+'🏆 Your leagues':'🏆 Tus ligas','🔗 Copy invite link':'🔗 Copiar enlace de invitación','Share':'Compartir','+ New league':'+ Nueva liga','Profile':'Perfil','Leave this league':'Salir de esta liga','Sign out':'Cerrar sesión',
+'Pick a different nickname':'Elige otro apodo','No one here yet.':'Aún no hay nadie.','📬 Check your inbox':'📬 Revisa tu bandeja de entrada','Resend link':'Reenviar enlace','Wrong email?':'¿Email equivocado?',
+'Save your score and get on the ranking.':'Guarda tu puntuación y entra en el ranking.','Email':'Email','you@email.com':'tu@email.com','e.g. Zizou10':'p. ej. Zizou10','Put me on the board':'Méteme en el ranking',
+"We'll email you a link to confirm — no password.":'Te mandamos un enlace para confirmar — sin contraseña.',
+'Beat your mates':'Gana a tus amigos','Make a private league, send the link, see who knows ball best — today and all week.':'Crea una liga privada, manda el enlace y a ver quién sabe más — hoy y toda la semana.','Open league':'Abrir liga',
+'🌍 Global ranking':'🌍 Ranking global',"Couldn't load the ranking — try again.":'No se pudo cargar el ranking — inténtalo de nuevo.','Your score will show here in a moment.':'Tu puntuación saldrá aquí en un momento.',
+"Play today's game to get on the board.":'Juega el partido de hoy para entrar en el ranking.','No one here yet — be the first!':'Aún no hay nadie — ¡sé el primero!','My league':'Mi liga','Create a league with mates':'Crea una liga con tus amigos',
+'Invite link copied — paste it to your mates!':'Enlace copiado — ¡pégaselo a tus amigos!','✓ Copied!':'✓ ¡Copiado!',"You're on the list! 🔔":'¡Ya estás en la lista! 🔔','Signed out':'Sesión cerrada',"You're in! 🏆":'¡Ya estás dentro! 🏆',
+'League created — now invite your mates!':'Liga creada — ¡ahora invita a tus amigos!','Pick a nickname — 2 to 16 characters':'Elige un apodo — de 2 a 16 caracteres',"That email doesn't look right":'Ese email no parece correcto','Sent again 📬 Check spam too':'Enviado otra vez 📬 Mira también en spam',
+// messages from the server
+'That nickname is taken':'Ese apodo ya está cogido','That league link is not valid':'Ese enlace de liga no es válido','You are not in this league':'No estás en esta liga','Score is for the wrong day':'La puntuación es de otro día','Invalid score':'Puntuación no válida',
+'For now you can be in one league — more are coming with Infinity mode':'De momento puedes estar en una liga — habrá más con el Modo Infinito','League name must be 2–30 characters':'El nombre de la liga debe tener de 2 a 30 caracteres',
+'Nickname can only use letters, numbers, spaces and . _ -':'El apodo solo puede tener letras, números, espacios y . _ -','Nickname must be 2–16 characters':'El apodo debe tener de 2 a 16 caracteres','Pick a nickname first':'Primero elige un apodo',
+'This league is full (50 players)':'Esta liga está llena (50 jugadores)','Admin login':'Acceso admin','Password':'Contraseña','Log in':'Entrar','Too many new leagues today — try again tomorrow':'Demasiadas ligas nuevas hoy — inténtalo mañana',
+};
+// Translate fixed English text wherever it appears, now and whenever the page changes (pop-ups, toasts, the ranking box).
+if(ES){const T=new Map(Object.entries(ES_TEXT)),key=s=>s.replace(/\s+/g,' ').trim();
+ const fix=s=>{const k=key(s);const v=k&&T.get(k);return v?s.replace(/\S[\s\S]*\S|\S/,v):null};
+ const walk=n=>{if(n.nodeType===3){const v=fix(n.nodeValue);if(v&&v!==n.nodeValue)n.nodeValue=v;return}
+  if(n.nodeType!==1||/^(SCRIPT|STYLE)$/.test(n.tagName)||n.id==='dlg-admin')return;
+  for(const a of ['placeholder','title','aria-label']){const x=n.getAttribute(a);if(x){const v=fix(x);if(v&&v!==x)n.setAttribute(a,v)}}
+  for(const c of n.childNodes)walk(c)};
+ walk(document.body);
+ new MutationObserver(ms=>{for(const m of ms){if(m.type==='childList')m.addedNodes.forEach(walk);else walk(m.target)}}).observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['placeholder','title','aria-label']})}
 const TIERS=[[10,'Tap-in'],[25,'Header'],[40,'Volley'],[70,'Bicycle kick'],[100,'Screamer']];
 const TCOL={10:'#cfd8e6',25:'#7fe0a8',40:'#b48cff',70:'#ff7ac8',100:'#ffd23f'};const tierName=p=>TIERS.find(t=>t[0]===p)[1];
 const MAX=Q.length*100;
 const ZONES=[[0,'Sunday league'],[.06,'Non-league'],[.15,'Second tier'],[.28,'Top flight'],[.44,'Champions League'],[.62,'World Cup final'],[.8,"Ballon d'Or"]];
 const SHORT=ES?['Pachanga','3ª RFEF','2ª Div.','1ª Div.','UCL','Mundial','Balón de Oro']:['Sunday','Non-league','2nd tier','Top flight','UCL','WC final',"Ballon d'Or"];
 (()=>{const b=document.getElementById('langToggle');if(!b)return;const to=ES?'en':'es';b.textContent=to.toUpperCase();b.title=b.ariaLabel=ES?'Switch to English':'Cambiar a español';
- b.onclick=()=>{track('lang_switch',{to});const u=new URL(location.href);u.searchParams.set('lang',to);location.href=u.toString()}})();
+ b.onclick=()=>{track('lang_switch',{to});try{if(document.body.classList.contains('results-view'))sessionStorage.setItem('uc-reopen','results')}catch{}const u=new URL(location.href);u.searchParams.set('lang',to);location.href=u.toString()}})();
 document.getElementById('zones').innerHTML=ZONES.map(([f,n],i)=>`<div class="zone" style="left:${i/(ZONES.length-1)*100}%"><i></i><span class="full">${zl(n)}</span><span class="short">${SHORT[i]}</span></div>`).join('');
 const zoneOf=s=>[...ZONES].reverse().find(([f])=>s/MAX>=f)[1];
 const norm=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ø/g,'o').replace(/ı/g,'i').replace(/[^a-zA-Z0-9 ]/g,' ').toLowerCase().replace(/\s+/g,' ').trim();
@@ -1346,6 +1442,7 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
  <button type="button" class="inf-strip" data-infinite><span class="inf-ico" aria-hidden="true">∞</span><span class="inf-txt"><b>${L('Infinity mode','Modo Infinito')}</b><small>${L('Unlimited questions · coming soon','Preguntas ilimitadas · muy pronto')}</small></span><span class="inf-cta">${L('Notify me','Avísame')}</span></button>
  </div>`,()=>{const play=async()=>{if(!played&&window.ucCheckRemote&&await window.ucCheckRemote())return start();document.body.classList.remove('landing');if(played){restore(played);setMeter();end(true)}else ask()};
   const go=document.getElementById('go');if(go)go.onclick=play;
+  try{if(sessionStorage.getItem('uc-reopen')==='results'){sessionStorage.removeItem('uc-reopen');if(played&&go)setTimeout(()=>go.click(),0)}}catch{}
   const hw=document.getElementById('how');if(hw)hw.onclick=()=>{track('how_click',{from:'ticket'});const st=document.getElementById('steps');st.scrollIntoView({behavior:'smooth',block:'center'});st.classList.remove('flash');void st.offsetWidth;st.classList.add('flash')};
   if(!played)liveLine().then(({n,top})=>{const el=document.querySelector('#tkLive span');if(el&&n)el.innerHTML=ES?`<b>${n} aficionado${n===1?'':'s'}</b> ${n===1?'ha':'han'} jugado hoy · récord <b>${top}</b>`:`<b>${n} fan${n===1?'':'s'}</b> played today · top score <b>${top}</b>`;else if(el)el.textContent=L('Be the first to play today','Sé el primero en jugar hoy')}).catch(()=>{});
   const otdLink=document.getElementById('otdLink');if(otdLink)otdLink.onclick=()=>track('on_this_day_click',{date:octDay,url:onThisDay.url});
@@ -1470,7 +1567,7 @@ const coll=p=>{
  throw new Error('unknown collection '+p)};
 const dbP=Promise.resolve({collection:coll});
 
-const fillReport=()=>{const el=document.getElementById('r-q');const played=(typeof getPlayed==='function'&&getPlayed())||results.length>=Q.length;el.innerHTML=played?Q.map((q,i)=>`<option value="${i}">${q.prompt}</option>`).join(''):'<option value="-1">A question from a previous day</option>'};fillReport();
+const fillReport=()=>{const el=document.getElementById('r-q');const played=(typeof getPlayed==='function'&&getPlayed())||results.length>=Q.length;el.innerHTML=played?Q.map((q,i)=>`<option value="${i}">${qt(q,'prompt')}</option>`).join(''):`<option value="-1">${L('A question from a previous day','Una pregunta de un día anterior')}</option>`};fillReport();
 const openDlg=(id,pre)=>{const d=document.getElementById(id);const f=d.querySelector('form');f.reset();f.querySelector('.formmsg').textContent='';f.querySelector('[type=submit]').disabled=false;if(pre)Object.entries(pre).forEach(([k,v])=>{const el=f.elements[k];if(el)el.value=v});d.showModal()};
 document.addEventListener('click',e=>{const inf=e.target.closest('[data-infinite]');if(inf){const from=document.body.classList.contains('landing')?'landing':'results';track('infinite_click',{from,set_id:dailySetId()});openDlg('dlg-infinite');dbP.then(db=>db&&db.collection('submissions').add({kind:'infinite-click',from,sentAt:new Date().toISOString()})).catch(()=>{})}const o=e.target.closest('[data-open]');if(o){if(o.classList.contains('report-quick')){e.preventDefault();e.stopPropagation()}track('dialog_open',{dialog:o.dataset.open,question_index:o.dataset.q!==undefined?+o.dataset.q:null});openDlg(o.dataset.open,o.dataset.q!==undefined?{question:o.dataset.q}:null)}const c=e.target.closest('[data-close]');if(c)c.closest('dialog').close()});
 document.querySelectorAll('dialog form').forEach(f=>f.addEventListener('submit',async e=>{e.preventDefault();track('form_submit',{kind:f.dataset.kind});const msg=f.querySelector('.formmsg'),btn=f.querySelector('[type=submit]');
@@ -1957,7 +2054,7 @@ function boardTable(b,tab,limit){
  const shown=limit?rows.slice(0,limit):rows;
  const meRow=rows.findIndex(r=>r.me);
  if(limit&&meRow>=limit)shown.push(rows[meRow]);
- return `<table class="lg-board"><thead><tr><th class="rk">#</th><th>Player</th><th class="n">${tab==='week'?'This week':'Today'}</th></tr></thead><tbody>${shown.map(r=>{const i=rows.indexOf(r);const v=tab==='week'?r.week_total:r.today_score;return `<tr class="${r.me?'me':''}"><td class="rk">${tab==='today'&&r.today_score==null?'–':i+1}</td><td>${esc(r.nickname)}${r.me?' (you)':''}</td><td class="n">${v==null?'<span class="mute">not played</span>':v}</td></tr>`}).join('')}</tbody></table>`}
+ return `<table class="lg-board"><thead><tr><th class="rk">#</th><th>${L('Player','Jugador')}</th><th class="n">${tab==='week'?L('This week','Esta semana'):L('Today','Hoy')}</th></tr></thead><tbody>${shown.map(r=>{const i=rows.indexOf(r);const v=tab==='week'?r.week_total:r.today_score;return `<tr class="${r.me?'me':''}"><td class="rk">${tab==='today'&&r.today_score==null?'–':i+1}</td><td>${esc(r.nickname)}${r.me?L(' (you)',' (tú)'):''}</td><td class="n">${v==null?`<span class="mute">${L('not played','sin jugar')}</span>`:v}</td></tr>`}).join('')}</tbody></table>`}
 
 // ── Dialog views ──
 function viewLogin(note){const g=lsGet(LG_INTENT)==='global';show(`${g?`<h2>🌍 Get on the ranking</h2>
@@ -1984,7 +2081,7 @@ function viewProfile(note){const p=me?.profile;const guess=p?.nickname||pendingN
  ${p?`<label class="check"><input type="checkbox" id="lea-optout" ${p.news_opt_out?'checked':''}> <span>I don't want reminders or Unicorner news</span></label>`:''}
  <div class="lg-row"><button type="submit">${p?'Save':'Continue'}</button>${p?'<button type="button" class="ghost" data-lg="home">Back</button>':''}</div></form>
  <p class="lg-err" id="lea-err" role="status">${esc(note||'')}</p>
- ${p?`<p class="mute lg-small">Signed in as ${esc(sess?.email||'')} · <a href="#" data-lg="logout">Sign out</a></p>`:''}`)}
+ ${p?`<p class="mute lg-small">${L('Signed in as','Sesión iniciada como')} ${esc(sess?.email||'')} · <a href="#" data-lg="logout">${L('Sign out','Cerrar sesión')}</a></p>`:''}`)}
 function viewCreate(){show(`<h2>Create a league</h2>
  <p class="mute">Give it a name, then share the invite link with your mates.</p>
  <form id="lea-create-form"><label for="lea-name">League name</label><input id="lea-name" required minlength="2" maxlength="30" placeholder="e.g. Sunday League Legends">
@@ -1994,18 +2091,18 @@ async function viewJoin(code){show('<h2>Joining…</h2>');
  try{const p=await rpc('lg_league_preview',{p_code:code});
   if(p.already_member){lsSet(LG_PENDING,null);lsSet(LG_ACTIVE,p.id);return viewHome()}
   if((me?.leagues?.length||0)>=LG_MAX)return viewMore({code:p.code,name:p.name});
-  show(`<h2>Join “${esc(p.name)}”?</h2><p class="mute">${p.members} ${p.members===1?'player':'players'} so far. Your daily score will show on their leaderboard.</p>
+  show(`<h2>${L('Join','¿Unirte a')} “${esc(p.name)}”?</h2><p class="mute">${ES?`${p.members} ${p.members===1?'jugador':'jugadores'} por ahora. Tu puntuación diaria saldrá en su clasificación.`:`${p.members} ${p.members===1?'player':'players'} so far. Your daily score will show on their leaderboard.`}</p>
   <div class="lg-row"><button type="button" data-lg="join" data-code="${esc(p.code)}">Join league</button><button type="button" class="ghost" data-lg="nojoin">Not now</button></div>
   <p class="lg-err" id="lea-err" role="status"></p>`)}
  catch(e){lsSet(LG_PENDING,null);show(`<h2>Hmm</h2><p class="lg-err" id="lea-err">${esc(e.message)}</p><div class="lg-row"><button type="button" data-lg="home">OK</button></div>`)}}
 // Beta: one league each. Wanting more = interest in Infinity mode, one tap since we already have their email.
 let moreJoin=null;
 function viewMore(join){moreJoin=join||null;const cur=me?.leagues?.[0],email=sess?.email||'',done=!!email&&lsGet(LG_INF)===email;
- const notify=done?`<p>✓ You're on the list — we'll email <b>${esc(email)}</b> when Infinity mode is live.</p>`
-  :`<div class="lg-row"><button type="button" data-lg="notify">🔔 Yes, notify me</button></div><p class="mute lg-small">We'll email ${esc(email)} when it's live.</p>`;
- if(join)return show(`<h2>Join “${esc(join.name)}”?</h2>
- <p class="mute">For now you can be in one league${cur?`, and you're already in <b>${esc(cur.name)}</b>`:''}.</p>
- <div class="lg-row"><button type="button" data-lg="switch" data-code="${esc(join.code)}">Switch to ${esc(join.name)}</button><button type="button" class="ghost" data-lg="nojoin">Stay${cur?' in '+esc(cur.name):''}</button></div>
+ const notify=done?(ES?`<p>✓ Ya estás en la lista — te escribiremos a <b>${esc(email)}</b> cuando salga el Modo Infinito.</p>`:`<p>✓ You're on the list — we'll email <b>${esc(email)}</b> when Infinity mode is live.</p>`)
+  :`<div class="lg-row"><button type="button" data-lg="notify">${L('🔔 Yes, notify me','🔔 Sí, avísame')}</button></div><p class="mute lg-small">${ES?`Te escribiremos a ${esc(email)} cuando salga.`:`We'll email ${esc(email)} when it's live.`}</p>`;
+ if(join)return show(`<h2>${L('Join','¿Unirte a')} “${esc(join.name)}”?</h2>
+ <p class="mute">${L('For now you can be in one league','De momento puedes estar en una liga')}${cur?L(`, and you're already in <b>${esc(cur.name)}</b>`,`, y ya estás en <b>${esc(cur.name)}</b>`):''}.</p>
+ <div class="lg-row"><button type="button" data-lg="switch" data-code="${esc(join.code)}">${L('Switch to','Cambiarme a')} ${esc(join.name)}</button><button type="button" class="ghost" data-lg="nojoin">${L('Stay','Quedarme')}${cur?L(' in ',' en ')+esc(cur.name):''}</button></div>
  <h3 class="lg-more-h">∞ Want more leagues?</h3>
  <p class="mute">More leagues are coming with <b>Infinity mode</b>.${done?'':' Want us to tell you when it\'s live?'}</p>
  ${notify}
@@ -2056,10 +2153,10 @@ const pendingNick=()=>lsGet(LG_NICK)||(sess?jwtMeta(sess.access_token).nickname:
 async function autoClaim(){const n=pendingNick();
  try{await loadMe()}catch{return open('login')}
  if(!me.profile){try{if(BAD_NICK.test(n))throw new Error('Pick a different nickname');await rpc('lg_save_profile',{p_nickname:n,p_news_opt_out:lsGet(LG_OPTOUT)==='1'});await loadMe();track('league_profile',{first:true,auto:true})}
-  catch(x){lsSet(LG_INTENT,'global');viewProfile(/taken/i.test(x.message)?`${n} is taken — pick another and you're on the board.`:x.message);return}}
+  catch(x){lsSet(LG_INTENT,'global');viewProfile(/taken/i.test(x.message)?L(`${n} is taken — pick another and you're on the board.`,`${n} ya está cogido — elige otro y entras en el ranking.`):x.message);return}}
  lsSet(LG_NICK,null);lsSet(LG_SENT,null);lsSet(LG_INTENT,null);await syncScore();gboard=null;await renderSlots();
  const box=document.querySelector('[data-compete]');if(box)box.scrollIntoView({behavior:'smooth',block:'center'});
- showToast(`You're on the board, ${me.profile.nickname}! 🌍`)}
+ showToast(L(`You're on the board, ${me.profile.nickname}! 🌍`,`¡Ya estás en el ranking, ${me.profile.nickname}! 🌍`))}
 
 // ── Score sync: the first finished score of the day goes to the player's leagues ──
 function playedToday(){const day=amsterdamDay();let p=null;try{p=getPlayed()}catch{}
@@ -2090,20 +2187,20 @@ function adoptRemote(g){const sc=g?.day?.me?.score;if(!sess||typeof sc!=='number
  rpc('lg_my_day',{p_day:g.today}).then(d=>{if(d&&d.score===sc&&Array.isArray(d.picks)&&d.picks.length&&getPlayed()?.remote){setPlayed({score:sc,picks:d.picks,synced:true});track('results_synced',{});redraw()}}).catch(()=>{})}
 // Before a signed-in player starts a game, make sure they haven't already played today on another device
 window.ucCheckRemote=async()=>{if(!sess||getPlayed())return false;try{await Promise.race([loadGlobal(),new Promise(r=>setTimeout(r,2500))])}catch{}return !!getPlayed()};
-const ord=n=>n+(n%100>=11&&n%100<=13?'th':['th','st','nd','rd'][n%10]||'th');
+const ord=n=>ES?n+'º':n+(n%100>=11&&n%100<=13?'th':['th','st','nd','rd'][n%10]||'th');
 function gList(rows,mine,from){const list=rows.filter(r=>r.rank>=from);
  const extra=mine&&!rows.some(r=>r.me)?`<tr class="me gap"><td class="rk">${mine.rank}</td><td>You</td><td class="n">${mine.score}</td></tr>`:'';
  if(!list.length&&!extra)return '';
- return `<table class="lg-board g-board"><tbody>${list.map(r=>`<tr class="${r.me?'me':''}"><td class="rk">${r.rank}</td><td>${esc(r.nickname)}${r.me?' (you)':''}</td><td class="n">${r.score}</td></tr>`).join('')}${extra}</tbody></table>`}
+ return `<table class="lg-board g-board"><tbody>${list.map(r=>`<tr class="${r.me?'me':''}"><td class="rk">${r.rank}</td><td>${esc(r.nickname)}${r.me?L(' (you)',' (tú)'):''}</td><td class="n">${r.score}</td></tr>`).join('')}${extra}</tbody></table>`}
 function claimCopy(pl,g){const d=g?.day,rows=d?.rows||[];
- if(!d||!d.players)return{h:`👑 Your ${pl.score} would be 1st today`,p:'Nobody\'s on today\'s ranking yet — claim the top spot.',rank:1,rows};
+ if(!d||!d.players)return{h:L(`👑 Your ${pl.score} would be 1st today`,`👑 Tus ${pl.score} serían el 1º de hoy`),p:L('Nobody\'s on today\'s ranking yet — claim the top spot.','Aún no hay nadie en el ranking de hoy — quédate el primer puesto.'),rank:1,rows};
  const r=rows.filter(x=>x.score>=pl.score).length+1;
- if(r<=10||d.players<=rows.length)return{h:`${['🥇','🥈','🥉'][r-1]||'🌍'} Your ${pl.score} would be ${ord(r)} today`,p:`Out of ${d.players+1} players so far. Claim your spot before someone takes it.`,rank:r,rows};
- return{h:`🌍 Get your ${pl.score} on today's ranking`,p:`Join the ${d.players} players already on it.`,rank:null,rows}}
+ if(r<=10||d.players<=rows.length)return{h:`${['🥇','🥈','🥉'][r-1]||'🌍'} `+L(`Your ${pl.score} would be ${ord(r)} today`,`Tus ${pl.score} serían el ${ord(r)} de hoy`),p:L(`Out of ${d.players+1} players so far. Claim your spot before someone takes it.`,`De ${d.players+1} jugadores por ahora. Quédate tu puesto antes de que te lo quiten.`),rank:r,rows};
+ return{h:L(`🌍 Get your ${pl.score} on today's ranking`,`🌍 Pon tus ${pl.score} en el ranking de hoy`),p:L(`Join the ${d.players} players already on it.`,`Únete a los ${d.players} jugadores que ya están.`),rank:null,rows}}
 function claimSent(){if(sess)return null;try{const x=JSON.parse(lsGet(LG_SENT)||'null');return x&&Date.now()-x.at<3*3600e3?x:null}catch{return null}}
 function claimBox(c,pl){const sent=claimSent();
  if(sent)return `<div class="g-claim g-sent"><p class="g-you">📬 Check your inbox</p>
-  <p class="g-sub">Tap the link we sent to <b>${esc(sent.email)}</b> and <b>${esc(sent.nick)}</b> goes on the board with ${pl.score}.</p>
+  <p class="g-sub">${ES?`Pulsa el enlace que hemos enviado a <b>${esc(sent.email)}</b> y <b>${esc(sent.nick)}</b> entra en el ranking con ${pl.score}.`:`Tap the link we sent to <b>${esc(sent.email)}</b> and <b>${esc(sent.nick)}</b> goes on the board with ${pl.score}.`}</p>
   <p class="g-spam">⚠️ <b>Not there? Check your spam folder.</b> It's from <b>Unicorner</b> (hello@auth.unicornergame.lol). Found it in spam? Tap <b>"Not spam"</b> so the next one lands in your inbox.</p>
   <div class="g-acts"><button type="button" class="ghost" data-lg="gresend">Resend link</button><button type="button" class="ghost" data-lg="gwrong">Wrong email?</button></div></div>`;
  return `<form class="g-claim" novalidate><p class="g-you">${c.h}</p><p class="g-sub">Save your score and get on the ranking.</p>
@@ -2112,18 +2209,18 @@ function claimBox(c,pl){const sent=claimSent();
   <button type="submit" class="cta">Put me on the board</button>
   ${sess?'':`<p class="g-small">We'll email you a link to confirm — no password.</p><label class="g-check"><input type="checkbox" name="optout" ${lsGet(LG_OPTOUT)==='1'?'checked':''}> <span>I don't want reminders or Unicorner news</span></label>`}
   <p class="g-err" role="status"></p></form>`}
-const ghostName=()=>'YOU · '+(draft.nick.trim().toUpperCase()||'???');
+const ghostName=()=>L('YOU · ','TÚ · ')+(draft.nick.trim().toUpperCase()||'???');
 function gStatus(part){const pl=playedToday(),has=sess&&me?.profile;
- if(has&&part.me)return `<p class="g-you">You're <b>${ord(part.me.rank)}</b> of ${part.players} today 🌍</p>`;
+ if(has&&part.me)return `<p class="g-you">${L("You're",'Eres el')} <b>${ord(part.me.rank)}</b> ${L('of','de')} ${part.players} ${L('today','hoy')} 🌍</p>`;
  if(has)return pl?'<p class="g-note">Your score will show here in a moment.</p>':'';
  if(pl)return claimBox(claimCopy(pl,gboard),pl);
  return ''}
 const LEDS=[['Green','#39ff6a'],['Amber','#ffb000'],['Red','#ff4d4d'],['Cyan','#4fd7ff'],['Pink','#ff7ac8']];
 const ledIdx=()=>Math.max(0,LEDS.findIndex(l=>l[0]===lsGet('uc-led')));
-function applyLed(){const l=LEDS[ledIdx()];document.querySelectorAll('.otd-fact').forEach(el=>el.style.setProperty('--led',l[1]));document.querySelectorAll('[data-compete]').forEach(el=>{el.style.setProperty('--led',l[1]);const b=el.querySelector('.jb-led');if(b)b.setAttribute('aria-label','Change LED colour (now '+l[0]+')')})}
+function applyLed(){const l=LEDS[ledIdx()];document.querySelectorAll('.otd-fact').forEach(el=>el.style.setProperty('--led',l[1]));document.querySelectorAll('[data-compete]').forEach(el=>{el.style.setProperty('--led',l[1]);const b=el.querySelector('.jb-led');if(b)b.setAttribute('aria-label',L('Change LED colour (now '+l[0]+')','Cambiar el color del LED'))})}
 // ── Compete box: the global ranking and your league on one LED board ──
 let gScope='global';
-const jbRow=(r,extra)=>`<div class="jb-row${r.rank&&r.rank<=3?' top':''}${r.rank===1?' lead':''}${r.me?' me':''}${extra||''}"><span>${r.rank?String(r.rank).padStart(2,'0'):'--'}</span><span class="nm">${(extra||'').includes('ghost')?esc(ghostName()):(r.me?'YOU · ':'')+esc(r.nickname.toUpperCase())}</span><span>${r.score??'—'}</span></div>`;
+const jbRow=(r,extra)=>`<div class="jb-row${r.rank&&r.rank<=3?' top':''}${r.rank===1?' lead':''}${r.me?' me':''}${extra||''}"><span>${r.rank?String(r.rank).padStart(2,'0'):'--'}</span><span class="nm">${(extra||'').includes('ghost')?esc(ghostName()):(r.me?L('YOU · ','TÚ · '):'')+esc(r.nickname.toUpperCase())}</span><span>${r.score??'—'}</span></div>`;
 function competeShell(title,body,ticker,status){const l=LEDS[ledIdx()];
  return `<div class="jb-lights" aria-hidden="true"><span><i></i><i></i><i></i></span><span><i></i><i></i><i></i></span></div>
   <div class="jb-frame">
@@ -2135,31 +2232,31 @@ function competeShell(title,body,ticker,status){const l=LEDS[ledIdx()];
   </div>
   <div class="jb-ticker" aria-label="${ticker.replace(/"/g,'')}"><div class="jb-tick" aria-hidden="true"><span>${ticker}</span><span>${ticker}</span></div></div></div>
   ${status?`<div class="jb-status">${status}</div>`:''}`}
-function leagueBox(){const when=gTab==='day'?'TODAY':'THIS WEEK';
+function leagueBox(){const when=gTab==='day'?L('TODAY','HOY'):L('THIS WEEK','ESTA SEMANA');
  const create=`<div class="g-cta"><p class="g-you">Beat your mates</p><p class="g-note">Make a private league, send the link, see who knows ball best — today and all week.</p><button type="button" class="cta" data-lg="open" data-from="card">Create a league</button></div>`;
- if(!sess||!me?.leagues?.length)return competeShell('MY LEAGUE','<p class="jb-empty">NO LEAGUE YET — MAKE ONE, SEND THE LINK, SEE WHO KNOWS BALL BEST.</p>','PRIVATE LEAGUES · INVITE YOUR MATES  •••',create);
- if(!board)return competeShell('MY LEAGUE','<p class="jb-empty">LOADING…</p>','  •••','');
+ if(!sess||!me?.leagues?.length)return competeShell(L('MY LEAGUE','MI LIGA'),`<p class="jb-empty">${L('NO LEAGUE YET — MAKE ONE, SEND THE LINK, SEE WHO KNOWS BALL BEST.','AÚN NO TIENES LIGA — CREA UNA, MANDA EL ENLACE Y A VER QUIÉN SABE MÁS.')}</p>`,L('PRIVATE LEAGUES · INVITE YOUR MATES  •••','LIGAS PRIVADAS · INVITA A TUS AMIGOS  •••'),create);
+ if(!board)return competeShell(L('MY LEAGUE','MI LIGA'),`<p class="jb-empty">${L('LOADING…','CARGANDO…')}</p>`,'  •••','');
  const list=[...board.rows].map(r=>({nickname:r.nickname,me:r.me,score:gTab==='day'?r.today_score:r.week_total}))
   .sort((a,b)=>(b.score??-1)-(a.score??-1)||a.nickname.localeCompare(b.nickname)).map((r,i)=>({...r,rank:r.score==null?0:i+1}));
  const meR=list.find(r=>r.me);
- const t=[`${esc(board.name.toUpperCase())} · ${list.length} PLAYER${list.length===1?'':'S'}`];
- if(meR?.rank===1)t.push(`YOU LEAD ${when}`);
- t.push('WEEK RESETS MONDAY');
- return competeShell('LEAGUE · '+esc(board.name.toUpperCase()),list.map(r=>jbRow(r)).join(''),t.join('  •••  ')+'  •••',
+ const t=[`${esc(board.name.toUpperCase())} · ${list.length} `+(ES?(list.length===1?'JUGADOR':'JUGADORES'):`PLAYER${list.length===1?'':'S'}`)];
+ if(meR?.rank===1)t.push(L(`YOU LEAD ${when}`,`VAS PRIMERO ${when}`));
+ t.push(L('WEEK RESETS MONDAY','LA SEMANA EMPIEZA EL LUNES'));
+ return competeShell(L('LEAGUE · ','LIGA · ')+esc(board.name.toUpperCase()),list.map(r=>jbRow(r)).join(''),t.join('  •••  ')+'  •••',
   `<div class="lg-row jb-actions"><button type="button" class="cta" data-lg="copy" data-code="${esc(board.code)}">🔗 Copy invite link</button><button type="button" class="ghost" data-lg="open" data-from="card">Open league</button></div>`)}
-async function globalBox(){let g;try{g=await loadGlobal()}catch{return competeShell('UNICORNER ★ GLOBAL','<p class="jb-empty">RANKING UNAVAILABLE RIGHT NOW — TRY AGAIN LATER</p>','NEW GAME EVERY DAY AT MIDNIGHT  •••','')}
- const part=g.day,rows=part.rows||[],when='TODAY';
+async function globalBox(){let g;try{g=await loadGlobal()}catch{return competeShell('UNICORNER ★ GLOBAL',`<p class="jb-empty">${L('RANKING UNAVAILABLE RIGHT NOW — TRY AGAIN LATER','RANKING NO DISPONIBLE AHORA — INTÉNTALO MÁS TARDE')}</p>`,L('NEW GAME EVERY DAY AT MIDNIGHT  •••','PARTIDO NUEVO CADA DÍA A MEDIANOCHE  •••'),'')}
+ const part=g.day,rows=part.rows||[],when=L('TODAY','HOY');
  const mine=part.me&&!rows.some(r=>r.me)?jbRow({rank:part.me.rank,score:part.me.score,nickname:me?.profile?.nickname||'',me:true},' gap'):'';
  const pl=playedToday(),ghost=pl&&!part.me&&!(sess&&me?.profile)?claimCopy(pl,g):null;
  let body=rows.map(r=>jbRow(r));
  if(ghost){const at=ghost.rank&&ghost.rank<=rows.length+1?ghost.rank-1:-1,gr=jbRow({rank:at<0?0:ghost.rank,nickname:'',score:pl.score},' ghost'+(draft.nick.trim()?' named':'')+(at<0?' gap':''));
   if(at<0)body.push(gr);else{body=rows.map((r,i)=>jbRow(i>=at?{...r,rank:r.rank+1}:r));body.splice(at,0,gr);if(body.length>10&&at<10)body.pop()}}
  const tick=[];
- if(g.yesterday)tick.push(`YESTERDAY'S CHAMP ${esc(g.yesterday.nickname.toUpperCase())} ${g.yesterday.score}`);
- if(part.me&&part.me.rank===1)tick.push(`YOU'RE TOP OF THE TABLE ${when}`);
- if(rows[0])tick.push(`${esc(rows[0].nickname.toUpperCase())} LEADS ${when}`);
- if(part.players)tick.push(`${part.players} PLAYER${part.players===1?'':'S'} ${when}`);tick.push('NEW GAME EVERY DAY AT MIDNIGHT');
- return competeShell('UNICORNER ★ GLOBAL',body.length?body.join('')+mine:`<p class="jb-empty">NO ONE ON THE BOARD YET ${when} — BE THE FIRST!</p>`,
+ if(g.yesterday)tick.push(`${L("YESTERDAY'S CHAMP",'CAMPEÓN DE AYER')} ${esc(g.yesterday.nickname.toUpperCase())} ${g.yesterday.score}`);
+ if(part.me&&part.me.rank===1)tick.push(L(`YOU'RE TOP OF THE TABLE ${when}`,`VAS PRIMERO ${when}`));
+ if(rows[0])tick.push(`${esc(rows[0].nickname.toUpperCase())} ${L('LEADS','LIDERA')} ${when}`);
+ if(part.players)tick.push(`${part.players} `+(ES?(part.players===1?'JUGADOR':'JUGADORES'):`PLAYER${part.players===1?'':'S'}`)+` ${when}`);tick.push(L('NEW GAME EVERY DAY AT MIDNIGHT','PARTIDO NUEVO CADA DÍA A MEDIANOCHE'));
+ return competeShell('UNICORNER ★ GLOBAL',body.length?body.join('')+mine:`<p class="jb-empty">${L(`NO ONE ON THE BOARD YET ${when} — BE THE FIRST!`,`NADIE EN EL RANKING ${when} — ¡SÉ EL PRIMERO!`)}</p>`,
   tick.join('  •••  ')+'  •••',sess&&me?.profile&&part.me?'':gStatus(part))}
 async function renderGlobal(){if(!document.querySelector('[data-compete]'))return;applyLed();
  const html=gScope==='league'?leagueBox():await globalBox();if(html==null)return;
@@ -2169,7 +2266,7 @@ async function viewGlobal(fresh){show('<h2>🌍 Global ranking</h2><p class="mut
  const part=g.day,rows=part.rows||[];
  show(`<h2>🌍 Global ranking</h2>
  ${rows.length?gList(rows,part.me,1):'<p class="lg-empty">No one here yet — be the first!</p>'}
- ${part.me?`<p class="g-you">You're <b>${ord(part.me.rank)}</b> of ${part.players} today.</p>`:`<p class="mute">${playedToday()?'Your score will show here in a moment.':'Play today\'s game to get on the board.'}</p>`}
+ ${part.me?`<p class="g-you">${L("You're",'Eres el')} <b>${ord(part.me.rank)}</b> ${L('of','de')} ${part.players} ${L('today','hoy')}.</p>`:`<p class="mute">${playedToday()?'Your score will show here in a moment.':'Play today\'s game to get on the board.'}</p>`}
  <div class="lg-row"><button type="button" class="ghost" data-lg="home">${me?.leagues?.length?'My league':'Create a league with mates'}</button></div>`)}
 
 // ── Cards on the results screen and the home page ──
@@ -2178,7 +2275,7 @@ async function renderSlots(){
  if(sess&&!slotsBusy){slotsBusy=true;try{if(!me)await loadMe();if(me?.profile&&me.leagues.length&&!board)await loadBoard()}catch{}finally{slotsBusy=false}}
  renderGlobal()}
 
-async function invite(code,name){const link=inviteLink(code),text=`Join my Unicorner league “${name}” — who knows ball best? ${link}`;track('league_invite',{});
+async function invite(code,name){const link=inviteLink(code),text=L(`Join my Unicorner league “${name}” — who knows ball best? ${link}`,`Únete a mi liga de Unicorner “${name}” — ¿quién sabe más de fútbol? ${link}`);track('league_invite',{});
  if(navigator.share){try{await navigator.share({title:'Unicorner league',text});return}catch{}}
  const ok=navigator.clipboard?.writeText?await navigator.clipboard.writeText(text).then(()=>true).catch(()=>false):false;
  showToast(ok?'Invite link copied — paste it to your mates!':link)}
@@ -2229,10 +2326,10 @@ document.addEventListener('click',async e=>{const b=e.target.closest('[data-lg]'
  try{
   if(a==='join'){await rpc('lg_join_league',{p_code:b.dataset.code});lsSet(LG_PENDING,null);track('league_join',{});await loadMe();const l=me.leagues.find(x=>x.code===b.dataset.code);if(l)lsSet(LG_ACTIVE,l.id);board=null;await viewHome();renderSlots();showToast('You\'re in! 🏆')}
   if(a==='notify'){await notifyInfinity();viewMore(moreJoin)}
-  if(a==='switch'){const old=me?.leagues||[];if(confirm(`Leave ${old.map(l=>'“'+l.name+'”').join(', ')||'your league'} and join this one instead?`+(old.some(l=>l.members<=1)?' Leagues with no one left are deleted.':''))){
+  if(a==='switch'){const old=me?.leagues||[],names=old.map(l=>'“'+l.name+'”').join(', ');if(confirm(ES?`¿Salir de ${names||'tu liga'} y unirte a esta?`+(old.some(l=>l.members<=1)?' Las ligas que se quedan sin nadie se borran.':''):`Leave ${names||'your league'} and join this one instead?`+(old.some(l=>l.members<=1)?' Leagues with no one left are deleted.':''))){
    for(const l of old)await rpc('lg_leave_league',{p_league:l.id});
    await rpc('lg_join_league',{p_code:b.dataset.code});lsSet(LG_PENDING,null);track('league_switch',{});await loadMe();const l=me.leagues.find(x=>x.code===b.dataset.code);if(l)lsSet(LG_ACTIVE,l.id);board=null;await viewHome();renderSlots();showToast('You\'re in! 🏆')}}
-  if(a==='leave'&&confirm('Leave this league?')){await rpc('lg_leave_league',{p_league:b.dataset.id});track('league_leave',{});lsSet(LG_ACTIVE,null);board=null;await loadMe();await viewHome();renderSlots()}
+  if(a==='leave'&&confirm(L('Leave this league?','¿Salir de esta liga?'))){await rpc('lg_leave_league',{p_league:b.dataset.id});track('league_leave',{});lsSet(LG_ACTIVE,null);board=null;await loadMe();await viewHome();renderSlots()}
  }catch(x){err(x.message)}finally{busy=false;b.disabled=false}});
 
 document.addEventListener('input',e=>{const i=e.target;if(!i.closest?.('.g-claim'))return;
@@ -2245,7 +2342,7 @@ document.addEventListener('submit',async e=>{const f=e.target;if(!f.classList?.c
  if(f.email&&!f.email.checkValidity())return say('That email doesn\'t look right'),f.email.focus();
  busy=true;btn.disabled=true;say('');
  try{
-  if(sess){await rpc('lg_save_profile',{p_nickname:nick,p_news_opt_out:lsGet(LG_OPTOUT)==='1'});await loadMe();track('league_profile',{first:true,from:'board'});busy=false;await syncScore();draft.nick='';gboard=null;await renderGlobal();showToast(`You're on the board, ${me.profile.nickname}! 🌍`)}
+  if(sess){await rpc('lg_save_profile',{p_nickname:nick,p_news_opt_out:lsGet(LG_OPTOUT)==='1'});await loadMe();track('league_profile',{first:true,from:'board'});busy=false;await syncScore();draft.nick='';gboard=null;await renderGlobal();showToast(L(`You're on the board, ${me.profile.nickname}! 🌍`,`¡Ya estás en el ranking, ${me.profile.nickname}! 🌍`))}
   else{lsSet(LG_INTENT,'global');await sendLink(email,!!f.optout?.checked,nick);lsSet(LG_SENT,JSON.stringify({email,nick,at:Date.now()}));track('league_login_start',{method:'email',from:'board'});busy=false;await renderGlobal()}
  }catch(x){say(x.message);btn.disabled=false}finally{busy=false}});
 document.addEventListener('submit',async e=>{const f=e.target;if(!f.id?.startsWith('lea-'))return;e.preventDefault();if(busy)return;busy=true;const btn=f.querySelector('[type=submit]');if(btn)btn.disabled=true;err('');
