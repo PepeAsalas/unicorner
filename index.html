@@ -2098,11 +2098,10 @@ function claimBox(c,pl){const sent=claimSent();
   <p class="g-err" role="status"></p></form>`}
 const ghostName=()=>'YOU · '+(draft.nick.trim().toUpperCase()||'???');
 function gStatus(part){const pl=playedToday(),has=sess&&me?.profile;
- if(has&&part.me)return `<p class="g-you">You're <b>${ord(part.me.rank)}</b> of ${part.players} ${gTab==='day'?'today':'this week'} 🌍</p>`;
+ if(has&&part.me)return `<p class="g-you">You're <b>${ord(part.me.rank)}</b> of ${part.players} today 🌍</p>`;
  if(has)return pl?'<p class="g-note">Your score will show here in a moment.</p>':'';
  if(pl)return claimBox(claimCopy(pl,gboard),pl);
  return ''}
-function gTabs(where){return `<div class="lg-tabs g-tabs"><button type="button" data-lg="gtab" data-tab="day" data-where="${where}" class="${gTab==='day'?'on':''}">Today</button><button type="button" data-lg="gtab" data-tab="week" data-where="${where}" class="${gTab==='week'?'on':''}">This week</button></div>`}
 const LEDS=[['Green','#39ff6a'],['Amber','#ffb000'],['Red','#ff4d4d'],['Cyan','#4fd7ff'],['Pink','#ff7ac8']];
 const ledIdx=()=>Math.max(0,LEDS.findIndex(l=>l[0]===lsGet('uc-led')));
 function applyLed(){const l=LEDS[ledIdx()];document.querySelectorAll('.otd-fact').forEach(el=>el.style.setProperty('--led',l[1]));document.querySelectorAll('[data-compete]').forEach(el=>{el.style.setProperty('--led',l[1]);const b=el.querySelector('.jb-led');if(b)b.setAttribute('aria-label','Change LED colour (now '+l[0]+')')})}
@@ -2114,7 +2113,7 @@ function competeShell(title,body,ticker,status){const l=LEDS[ledIdx()];
   <div class="jb-frame">
    <div class="jb-scope" role="tablist"><button type="button" role="tab" data-lg="gscope" data-scope="global" class="${gScope==='global'?'on':''}">Global</button><button type="button" role="tab" data-lg="gscope" data-scope="league" class="${gScope==='league'?'on':''}">Leagues</button></div>
    <div class="jb-screen">
-   <div class="jb-head"><span class="jb-title">${title}</span><div class="jb-tabs"><button type="button" data-lg="gtab" data-tab="day" data-where="landing" class="${gTab==='day'?'on':''}">Today</button><button type="button" data-lg="gtab" data-tab="week" data-where="landing" class="${gTab==='week'?'on':''}">Week</button><button type="button" class="jb-led" data-lg="led" title="Change LED colour" aria-label="Change LED colour (now ${l[0]})"><i></i></button></div></div>
+   <div class="jb-head"><span class="jb-title">${title}</span><div class="jb-tabs">${gScope==='league'?`<button type="button" data-lg="gtab" data-tab="day" data-where="landing" class="${gTab==='day'?'on':''}">Today</button><button type="button" data-lg="gtab" data-tab="week" data-where="landing" class="${gTab==='week'?'on':''}">Week</button>`:''}<button type="button" class="jb-led" data-lg="led" title="Change LED colour" aria-label="Change LED colour (now ${l[0]})"><i></i></button></div></div>
    <div class="jb-rule"></div>
    ${body}
   </div>
@@ -2133,9 +2132,9 @@ function leagueBox(){const when=gTab==='day'?'TODAY':'THIS WEEK';
  return competeShell('LEAGUE · '+esc(board.name.toUpperCase()),list.map(r=>jbRow(r)).join(''),t.join('  •••  ')+'  •••',
   `<div class="lg-row jb-actions"><button type="button" class="cta" data-lg="copy" data-code="${esc(board.code)}">🔗 Copy invite link</button><button type="button" class="ghost" data-lg="open" data-from="card">Open league</button></div>`)}
 async function globalBox(){let g;try{g=await loadGlobal()}catch{return competeShell('UNICORNER ★ GLOBAL','<p class="jb-empty">RANKING UNAVAILABLE RIGHT NOW — TRY AGAIN LATER</p>','NEW GAME EVERY DAY AT MIDNIGHT  •••','')}
- const part=g[gTab],rows=part.rows||[],when=gTab==='day'?'TODAY':'THIS WEEK';
+ const part=g.day,rows=part.rows||[],when='TODAY';
  const mine=part.me&&!rows.some(r=>r.me)?jbRow({rank:part.me.rank,score:part.me.score,nickname:me?.profile?.nickname||'',me:true},' gap'):'';
- const pl=playedToday(),ghost=gTab==='day'&&pl&&!part.me&&!(sess&&me?.profile)?claimCopy(pl,g):null;
+ const pl=playedToday(),ghost=pl&&!part.me&&!(sess&&me?.profile)?claimCopy(pl,g):null;
  let body=rows.map(r=>jbRow(r));
  if(ghost){const at=ghost.rank&&ghost.rank<=rows.length+1?ghost.rank-1:-1,gr=jbRow({rank:at<0?0:ghost.rank,nickname:'',score:pl.score},' ghost'+(draft.nick.trim()?' named':'')+(at<0?' gap':''));
   if(at<0)body.push(gr);else{body=rows.map((r,i)=>jbRow(i>=at?{...r,rank:r.rank+1}:r));body.splice(at,0,gr);if(body.length>10&&at<10)body.pop()}}
@@ -2151,11 +2150,10 @@ async function renderGlobal(){if(!document.querySelector('[data-compete]'))retur
  document.querySelectorAll('[data-compete]').forEach(el=>{el.innerHTML=html});applyLed()}
 async function viewGlobal(fresh){show('<h2>🌍 Global ranking</h2><p class="mute">Loading…</p>');
  let g;try{g=await loadGlobal(fresh)}catch(e){return show('<h2>🌍 Global ranking</h2><p class="lg-err" id="lea-err">Couldn\'t load the ranking — try again.</p>')}
- const part=g[gTab],rows=part.rows||[];
+ const part=g.day,rows=part.rows||[];
  show(`<h2>🌍 Global ranking</h2>
- ${gTabs('dialog')}
  ${rows.length?gList(rows,part.me,1):'<p class="lg-empty">No one here yet — be the first!</p>'}
- ${part.me?`<p class="g-you">You're <b>${ord(part.me.rank)}</b> of ${part.players} ${gTab==='day'?'today':'this week'}.</p>`:`<p class="mute">${playedToday()?'Your score will show here in a moment.':'Play today\'s game to get on the board.'}</p>`}
+ ${part.me?`<p class="g-you">You're <b>${ord(part.me.rank)}</b> of ${part.players} today.</p>`:`<p class="mute">${playedToday()?'Your score will show here in a moment.':'Play today\'s game to get on the board.'}</p>`}
  <div class="lg-row"><button type="button" class="ghost" data-lg="home">${me?.leagues?.length?'My league':'Create a league with mates'}</button></div>`)}
 
 // ── Cards on the results screen and the home page ──
@@ -2205,7 +2203,7 @@ document.addEventListener('click',async e=>{const b=e.target.closest('[data-lg]'
  if(a==='copy')return copyLink(b.dataset.code,b);
  if(a==='global')return viewGlobal(true);
  if(a==='led'){const n=(ledIdx()+1)%LEDS.length;lsSet('uc-led',LEDS[n][0]);track('led_colour',{colour:LEDS[n][0]});return applyLed()}
- if(a==='gtab'){gTab=b.dataset.tab;return b.dataset.where==='dialog'?viewGlobal():renderGlobal()}
+ if(a==='gtab'){gTab=b.dataset.tab;return renderGlobal()}
  if(a==='gscope'){gScope=b.dataset.scope;track('compete_scope',{scope:gScope});if(gScope==='league'&&sess&&me?.leagues?.length&&!board)loadBoard().then(renderGlobal).catch(()=>{});return renderGlobal()}
  if(a==='invite')return invite(b.dataset.code,b.dataset.name);
  if(a==='gwrong'){const x=claimSent();if(x){draft.email=x.email;draft.nick=x.nick}lsSet(LG_SENT,null);await renderGlobal();document.querySelector('.g-claim [name=email]')?.focus();return}
