@@ -1417,7 +1417,7 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
    <div class="tk-body">
     <div class="tk-meta"><span>${played?L('Your result','Tu resultado'):L('Matchday ticket','Entrada del partido')}</span><span>${played?L('Played ✓','Jugado ✓'):Q.length+L(' prompts · 3 min',' preguntas · 3 min')}</span></div>
     ${played?`<div class="tk-score"><b>${played.score}</b><span>/${MAX} · ${zl(zoneOf(played.score))}</span></div>
-    ${played.remote?`<p class="tk-live">${L('Played on another device ✓ · next game in','Jugado en otro dispositivo ✓ · próximo partido en')} <b>${untilMidnight()}</b></p>`:`<button type="button" class="cta tk-play" id="go">${L("View today's result",'Ver el resultado de hoy')}</button>
+    ${played.remote?`<p class="tk-live">${L('Played on another device ✓ · next game in','Jugado en otro dispositivo ✓ · próximo partido en')} <b>${untilMidnight()}</b></p>`:`<button type="button" class="cta tk-play" id="go">${L("View today's result",'Resultados de hoy')}</button>
     <p class="tk-live">${L('Next game in','Próximo partido en')} <b>${untilMidnight()}</b></p>`}`
     :`<div class="tk-actions"><button type="button" class="cta tk-play" id="go">${L("Play today's game",'Jugar el partido de hoy')}</button><button type="button" class="ghost tk-how" id="how">${L('How to play','Cómo se juega')}</button></div>
     <p class="tk-live" id="tkLive"><i class="tk-dot"></i><span>${L("Today's game is live · free, no sign-up",'El partido de hoy ya está en juego · gratis, sin registro')}</span></p>`}
