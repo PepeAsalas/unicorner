@@ -93,6 +93,7 @@ SUBS = {
  "Any season, 1992–2025": "Cualquier temporada, 1992–2025",
  "1982–2022, including shared": "1982–2022, incluidos los compartidos",
  "All 10 venues": "Las 10 sedes",
+ "All 10 host stadiums in Germany": "Los 10 estadios sede, en Alemania",
  "Finals 2000–2025": "Finales 2000–2025",
  "2010/11 competitive first-team appearances": "Partidos oficiales con el primer equipo en 2010/11",
  "1930–2026, including co-hosts": "1930–2026, incluidos los coorganizadores",
