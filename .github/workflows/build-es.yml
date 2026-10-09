@@ -1,0 +1,32 @@
+name: Build Spanish page
+
+# Keeps es/index.html (unicornergame.lol/es/) in step with index.html.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'scripts/build_es.py'
+      - '.github/workflows/build-es.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - run: python scripts/build_es.py
+      - name: Commit if changed
+        run: |
+          git add es/index.html
+          if git diff --cached --quiet; then echo "es/index.html is up to date"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Rebuild Spanish page from index.html"
+          git push
