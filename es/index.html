@@ -1256,7 +1256,7 @@ const ES_TEXT={
 'That sign-in link has expired or was already used — ask for a new one below.':'Ese enlace ha caducado o ya se usó — pide uno nuevo abajo.',
 '🌍 Get on the ranking':'🌍 Entra en el ranking','Add a nickname and your score shows on the global ranking. Just your email — no password.':'Elige un apodo y tu puntuación saldrá en el ranking global. Solo tu email — sin contraseña.',
 '🏆 Leagues':'🏆 Ligas','Play against your mates in a private league. Sign in once and your leagues follow you on any device.':'Juega contra tus amigos en una liga privada. Inicia sesión una vez y tus ligas te siguen en cualquier dispositivo.',
-'Continue with Google':'Continuar con Google','or use your email':'o usa tu email',"I don't want reminders or Unicorner news":'No quiero recordatorios ni novedades de Unicorner','Email me a sign-in link':'Envíame un enlace de acceso',
+'Continue with Google':'Continuar con Google','or use your email':'o usa tu email',"I don't want reminders or Unicorner news":'No quiero recordatorios ni novedades de Unicorner','Email me a sign-in link':'Envíame un enlace de acceso','🔥 Join the Infinity mode waitlist — unlimited questions, coming soon':'🔥 Apúntame a la lista del Modo Infinito — preguntas ilimitadas, muy pronto',
 'The daily game stays free with no sign-up — this is only for the rankings and leagues.':'El juego diario sigue siendo gratis y sin registro — esto es solo para el ranking y las ligas.',
 'Check your email 📬':'Revisa tu email 📬','We sent a sign-in link to':'Te hemos enviado un enlace de acceso a',
 '⚠️':'⚠️','Not in your inbox? Check your spam folder.':'¿No está en tu bandeja de entrada? Mira en spam.','Not there? Check your spam folder.':'¿No está? Mira en spam.',"It's from":'Es de',
@@ -2062,6 +2062,9 @@ const css=`
 .g-err{margin:8px 0 0;font-family:var(--lab);font-size:19px;color:#ff9a9a;text-align:center}.g-err:empty{display:none}
 .g-spam{margin:12px 0 0;padding:10px 12px;border:2px solid #000;border-radius:6px;background:#ffd23f;color:#1b1530;font-family:var(--lab);font-size:18px;line-height:1.2;text-align:left;text-transform:none}.g-spam b{color:#1b1530}
 #dlg-league .g-spam{font-size:20px;margin:14px 0}
+.g-claim .g-inf,#dlg-league .check.lg-inf{margin-top:8px!important;padding:8px 10px;border:2px solid #000;border-radius:8px;background:linear-gradient(90deg,#f2c230,#ffe98a 50%,#f2c230);color:#1b1530!important;box-shadow:0 0 14px rgba(255,210,63,.5);text-align:left;justify-content:flex-start;cursor:pointer}
+.g-claim .g-inf span,#dlg-league .check.lg-inf span{color:#1b1530!important;font-weight:700}
+.g-claim .g-inf input,#dlg-league .check.lg-inf input{accent-color:#1b1530}
 .g-acts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
 .jb-row.ghost{outline:2px dashed var(--led);outline-offset:-2px;animation:jbghost 1s steps(1) infinite}
 .jb-row.ghost.named{background:var(--led);color:#020602;text-shadow:none;outline:0;animation:none}
@@ -2103,6 +2106,7 @@ function viewLogin(note){const g=lsGet(LG_INTENT)==='global';show(`${g?`<h2>🌍
  <div class="lg-or">or use your email</div>`:''}
  <form id="lea-email-form"><label for="lea-email">Email</label><input id="lea-email" type="email" required maxlength="120" autocomplete="email" value="${esc(signInEmail)}">
  <label class="check"><input type="checkbox" id="lea-optout-signup" ${lsGet(LG_OPTOUT)==='1'?'checked':''}> <span>I don't want reminders or Unicorner news</span></label>
+ <label class="check lg-inf"><input type="checkbox" id="lea-infwait"> <span>🔥 Join the Infinity mode waitlist — unlimited questions, coming soon</span></label>
  <div class="lg-row"><button type="submit">Email me a sign-in link</button></div></form>
  <p class="lg-err" id="lea-err" role="status">${esc(oauthError)}</p>
  <p class="mute lg-small">The daily game stays free with no sign-up — this is only for the rankings and leagues. <a href="privacy.html">Privacy</a>.</p>`);oauthError=''}
@@ -2150,6 +2154,9 @@ function viewMore(join){moreJoin=join||null;const cur=me?.leagues?.[0],email=ses
  ${notify}
  <div class="lg-row"><button type="button" class="ghost" data-lg="home">Back</button></div>
  <p class="lg-err" id="lea-err" role="status"></p>`)}
+function joinWaitlist(email,from){if(!email||lsGet(LG_INF)===email)return;
+ dbP.then(db=>db&&db.collection('submissions').add({kind:'infinite-waitlist',email,from,note:'Ticked the waitlist box when signing up',newsletter:lsGet(LG_OPTOUT)!=='1',privacyNoticeVersion:'2026-09-18',sentAt:new Date().toISOString()})).catch(()=>{});
+ lsSet(LG_INF,email);track('infinite_waitlist',{from})}
 async function notifyInfinity(){const email=sess?.email;if(!email)throw new Error('Please sign in again');
  const data={email,from:'leagues',note:'Wants more leagues',newsletter:!me?.profile?.news_opt_out,privacyNoticeVersion:'2026-09-18'};
  fetch('https://formsubmit.co/ajax/joseasalasnl@gmail.com',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({_subject:'Unicorner: Infinity mode waitlist',_template:'table',_captcha:'false',_replyto:email,type:'Infinity mode waitlist',...Object.fromEntries(Object.entries(data).map(([k,v])=>[k,String(v)])),sent:new Date().toLocaleString('en-GB')})}).catch(()=>{});
@@ -2245,7 +2252,7 @@ function claimBox(c,pl){const sent=claimSent();
   <div class="g-fields"><label class="g-f"><span>Nickname</span><input name="nick" required minlength="2" maxlength="16" autocomplete="nickname" spellcheck="false" placeholder="e.g. Zizou10" value="${esc(draft.nick)}"></label>
   ${sess?'':`<label class="g-f"><span>Email</span><input name="email" type="email" required maxlength="120" autocomplete="email" placeholder="you@email.com" value="${esc(draft.email)}"></label>`}</div>
   <button type="submit" class="cta">Put me on the board</button>
-  ${sess?'':`<p class="g-small">We'll email you a link to confirm — no password.</p><label class="g-check"><input type="checkbox" name="optout" ${lsGet(LG_OPTOUT)==='1'?'checked':''}> <span>I don't want reminders or Unicorner news</span></label>`}
+  ${sess?'':`<p class="g-small">We'll email you a link to confirm — no password.</p><label class="g-check"><input type="checkbox" name="optout" ${lsGet(LG_OPTOUT)==='1'?'checked':''}> <span>I don't want reminders or Unicorner news</span></label><label class="g-check g-inf"><input type="checkbox" name="infwait"> <span>🔥 Join the Infinity mode waitlist — unlimited questions, coming soon</span></label>`}
   <p class="g-err" role="status"></p></form>`}
 const ghostName=()=>L('YOU · ','TÚ · ')+(draft.nick.trim().toUpperCase()||'???');
 function gStatus(part){const pl=playedToday(),has=sess&&me?.profile;
@@ -2381,11 +2388,11 @@ document.addEventListener('submit',async e=>{const f=e.target;if(!f.classList?.c
  busy=true;btn.disabled=true;say('');
  try{
   if(sess){await rpc('lg_save_profile',{p_nickname:nick,p_news_opt_out:lsGet(LG_OPTOUT)==='1'});await loadMe();track('league_profile',{first:true,from:'board'});busy=false;await syncScore();draft.nick='';gboard=null;await renderGlobal();showToast(L(`You're on the board, ${me.profile.nickname}! 🌍`,`¡Ya estás en el ranking, ${me.profile.nickname}! 🌍`))}
-  else{lsSet(LG_INTENT,'global');await sendLink(email,!!f.optout?.checked,nick);lsSet(LG_SENT,JSON.stringify({email,nick,at:Date.now()}));track('league_login_start',{method:'email',from:'board'});busy=false;await renderGlobal()}
+  else{lsSet(LG_INTENT,'global');await sendLink(email,!!f.optout?.checked,nick);if(f.infwait?.checked)joinWaitlist(email,'ranking_signup');lsSet(LG_SENT,JSON.stringify({email,nick,at:Date.now()}));track('league_login_start',{method:'email',from:'board'});busy=false;await renderGlobal()}
  }catch(x){say(x.message);btn.disabled=false}finally{busy=false}});
 document.addEventListener('submit',async e=>{const f=e.target;if(!f.id?.startsWith('lea-'))return;e.preventDefault();if(busy)return;busy=true;const btn=f.querySelector('[type=submit]');if(btn)btn.disabled=true;err('');
  try{
-  if(f.id==='lea-email-form'){signInEmail=$('lea-email').value.trim();await sendLink(signInEmail,$('lea-optout-signup').checked);track('league_login_start',{method:'email'});viewCheckEmail()}
+  if(f.id==='lea-email-form'){signInEmail=$('lea-email').value.trim();await sendLink(signInEmail,$('lea-optout-signup').checked);if($('lea-infwait')?.checked)joinWaitlist(signInEmail,'league_signup');track('league_login_start',{method:'email'});viewCheckEmail()}
   else if(f.id==='lea-profile-form'){const nick=$('lea-nick').value.trim();if(/fuck|shit|cunt|nigg|fagg|hitler|nazi/i.test(nick))throw new Error('Pick a different nickname');const first=!me?.profile;await rpc('lg_save_profile',{p_nickname:nick,p_news_opt_out:first?lsGet(LG_OPTOUT)==='1':$('lea-optout').checked});await loadMe();lsSet(LG_NICK,null);lsSet(LG_SENT,null);track('league_profile',{first});busy=false;await syncScore();if(first){const pending=lsGet(LG_PENDING);if(pending)await viewJoin(pending);else if(lsGet(LG_INTENT)==='global'){lsSet(LG_INTENT,null);await viewGlobal(true)}else await viewHome()}else await viewHome();renderSlots()}
   else if(f.id==='lea-create-form'){if((me?.leagues?.length||0)>=LG_MAX){busy=false;return viewMore()}const l=await rpc('lg_create_league',{p_name:$('lea-name').value.trim()});track('league_create',{});lsSet(LG_ACTIVE,l.id);await loadMe();board=null;await viewHome();renderSlots();showToast('League created — now invite your mates!')}
  }catch(x){err(x.message);if(btn)btn.disabled=false}finally{busy=false}});
