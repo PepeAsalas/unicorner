@@ -588,6 +588,14 @@ ul.ans li .tchip{font-size:12px!important}
 /* footer: dark 'stadium tunnel' band with the ad-board stripe on top, full width down to the page bottom */
 footer.site{position:relative;margin-top:30px!important;margin-bottom:-40px!important;padding:26px 0 64px!important;background:#1b1530;box-shadow:0 0 0 100vmax #1b1530;clip-path:inset(0 -100vmax)}
 html,body{overflow-x:clip}
+/* home page: the about text + FAQ sit in the same dark band, above the footer links (stripe moves to its top) */
+body:not(.playing):not(.results-view) .seo-info{position:relative;margin:30px 0 0!important;padding:30px 0 4px!important;background:#1b1530!important;border:0!important;border-radius:0!important;box-shadow:0 0 0 100vmax #1b1530!important;clip-path:inset(0 -100vmax -40px)!important}
+body:not(.playing):not(.results-view) .seo-info::before{content:'';position:absolute;left:-100vmax;right:-100vmax;top:0;height:8px;background:repeating-linear-gradient(90deg,#d7262e 0 120px,#1f5fd6 120px 240px,#ffd23f 240px 360px,#7c4dff 360px 480px);border-bottom:3px solid #000}
+.seo-info .lp-h2{font-size:22px!important}.seo-info p{font-size:15px!important;line-height:1.5!important;color:#bdb4e8!important}
+.seo-faq{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px}.seo-faq details{border-color:rgba(255,255,255,.12)!important}.seo-faq summary{font-size:15px!important;color:#e2dcfa!important}
+@media (max-width:640px){.seo-faq{grid-template-columns:1fr}}
+body:not(.playing):not(.results-view) footer.site{margin-top:0!important;border-top:1px solid rgba(255,255,255,.12)}
+body:not(.playing):not(.results-view) footer.site::before{display:none}
 footer.site::before{content:'';position:absolute;left:-100vmax;right:-100vmax;top:0;height:8px;background:repeating-linear-gradient(90deg,#d7262e 0 120px,#1f5fd6 120px 240px,#ffd23f 240px 360px,#7c4dff 360px 480px);border-bottom:3px solid #000}
 html[lang=es] .lp-home-title-row .lp-title{line-height:1.1!important;font-size:clamp(60px,7.2vw,88px)!important;padding-top:.08em}
 html[lang=es] .lp-title .es-end{white-space:nowrap}html[lang=es] .lp-title .lp-qm{margin-left:0}
