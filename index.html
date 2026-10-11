@@ -994,7 +994,7 @@ body.playing .quick-home-x{display:none!important}
 .tk-week i.on{background:#ff7a1a;border-color:#000}
 .tk-week i.now{border-color:var(--gold);outline:1px dashed var(--gold);outline-offset:1px}
 .tk-week i.now.on{background:var(--gold)}
-.relay-rail{margin-top:18px;opacity:.85}.relay-rail:empty{display:none}
+.relay-rail{opacity:.85}
 /* the question's rule (subtitle) sits under it in a dashed box so it isn't missed */
 .card .q-sub{display:block;background:#120b38;color:#fff!important;font-family:var(--lab);font-size:19px!important;line-height:1.2;padding:8px 12px;border:2px dashed #ffd23f;border-radius:8px;margin:12px 0 4px}.card .q-sub:empty{display:none}
 .tk-streak.rs{margin:10px 0 14px;border:3px solid #000;border-radius:8px}
@@ -1489,7 +1489,7 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
  ${competeFirst?'':compete}
 
  <button type="button" class="inf-strip" data-infinite><span class="inf-ico" aria-hidden="true">∞</span><span class="inf-txt"><b>${L('Infinity mode','Modo Infinito')}</b><small>${L('Unlimited questions · coming soon','Preguntas ilimitadas · muy pronto')}</small></span><span class="inf-cta">${L('Notify me','Avísame')}</span></button>
- </div>`,()=>{const play=async()=>{if(!played&&window.ucCheckRemote&&await window.ucCheckRemote())return start();document.body.classList.remove('landing');if(played){restore(played);setMeter();end(true)}else ask()};
+ </div>`,()=>{const play=async()=>{if(!played&&window.ucCheckRemote&&await window.ucCheckRemote())return start();document.body.classList.remove('landing');if(played){try{restore(played);setMeter();end(true)}catch(x){track('results_view_error',{message:String(x&&x.message||x).slice(0,200)});start()}}else ask()};
   const go=document.getElementById('go');if(go)go.onclick=play;
   try{if(sessionStorage.getItem('uc-reopen')==='results'){sessionStorage.removeItem('uc-reopen');if(played&&go)setTimeout(()=>go.click(),0)}}catch{}
   const hw=document.getElementById('how');if(hw)hw.onclick=()=>{track('how_click',{from:'ticket'});const st=document.getElementById('steps');st.scrollIntoView({behavior:'smooth',block:'center'});st.classList.remove('flash');void st.offsetWidth;st.classList.add('flash')};
@@ -1596,11 +1596,11 @@ www.unicornergame.lol`};
   document.getElementById('home').onclick=()=>{track('home_click',{from:'results',score,set_id:dailySetId()});window.scrollTo({top:0,behavior:'smooth'});start()};
  })}
 
-// relaydle rail: only on the results screen; their script loads once, the first time results show, and if it fails nothing shows
-let relayP=null;
-function relayRail(el){if(!el)return;
- relayP=relayP||new Promise((ok,no)=>{const s=document.createElement('script');s.src='https://relaydle.com/w.js';s.async=true;s.onload=ok;s.onerror=no;document.head.appendChild(s)}).catch(()=>{});
- relayP.then(()=>{try{if(el.isConnected&&window.relaydle?.render)window.relaydle.render(el,{site:'unicornergame',placement:'win_card'})}catch{}})}
+// relaydle rail: only on the results screen, inside its own frame so its script and styles can't touch the game; if it fails nothing shows
+function relayRail(el){if(!el)return;try{const f=document.createElement('iframe');f.title='relaydle';f.setAttribute('scrolling','no');f.style.cssText='display:block;width:100%;height:0;border:0;background:transparent';
+ f.srcdoc=`<!doctype html><html><head><meta charset="utf-8"><base target="_blank"><style>html,body{margin:0;background:transparent;overflow:hidden}</style></head><body><div id="r"></div><script src="https://relaydle.com/w.js"><\/script><script>try{relaydle.render(document.getElementById('r'),{site:'unicornergame',placement:'win_card'})}catch(e){}var h=-1;function s(){var n=document.getElementById('r').offsetHeight;if(n!==h){h=n;parent.postMessage({relaydleH:n},'*')}}setInterval(s,500);s()<\/script></body></html>`;
+ el.appendChild(f)}catch{}}
+addEventListener('message',e=>{const f=document.querySelector('#relay-rail iframe');if(!f||e.source!==f.contentWindow||typeof e.data?.relaydleH!=='number')return;const h=Math.min(Math.max(0,e.data.relaydleH),600);f.style.height=h+'px';f.style.marginTop=h?'18px':'0'});
 
 // ---- community forms
 // ---- Supabase backend
