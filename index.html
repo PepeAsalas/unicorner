@@ -995,6 +995,8 @@ body.playing .quick-home-x{display:none!important}
 .tk-week i.now{border-color:var(--gold);outline:1px dashed var(--gold);outline-offset:1px}
 .tk-week i.now.on{background:var(--gold)}
 .relay-rail{margin-top:18px;opacity:.85}.relay-rail:empty{display:none}
+/* the question's rule (subtitle) sits under it in a dashed box so it isn't missed */
+.card .q-sub{display:block;background:#120b38;color:#fff!important;font-family:var(--lab);font-size:19px!important;line-height:1.2;padding:8px 12px;border:2px dashed #ffd23f;border-radius:8px;margin:12px 0 4px}.card .q-sub:empty{display:none}
 .tk-streak.rs{margin:10px 0 14px;border:3px solid #000;border-radius:8px}
 .tk-back{margin:0;padding:0 14px 10px;background:#1b1530;text-align:center}
 .tk-back button,.g-back{background:none!important;border:0!important;box-shadow:none!important;padding:2px 0!important;color:#cfc8f5!important;font:400 18px var(--lab)!important;text-decoration:underline;text-underline-offset:3px;cursor:pointer;text-transform:none!important;letter-spacing:0!important}
@@ -1508,7 +1510,7 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
   };
   if(streakFlare){setTimeout(()=>{const fl=document.querySelector('.pixel-flame.flare');if(fl)fl.classList.remove('flare');const fw=document.querySelector('.flame-wrap.flare-active');if(fw)fw.classList.remove('flare-active')},760)}})}
 function ask(slide){document.body.classList.remove('results-view');document.body.classList.add('playing');const q=Q[qi];if(qi===0)track('game_start',{question_count:Q.length,set_id:dailySetId()});track('question_view',{question_id:q.id||slug(q.prompt),prompt:q.prompt,position:qi+1,question_count:Q.length,difficulty:q.difficulty||'unknown',answer_type:q.answer_type||'player',answer_count:q.answers.length,set_id:dailySetId()});let left=TIME*1000,t0,done=false;
- swap(`<div class="card"><div class="q-progress" aria-label="${L('Question','Pregunta')} ${qi+1} ${L('of','de')} ${Q.length}"><span>${L('Question','Pregunta')}</span><b>${qi+1} ${L('of','de')} ${Q.length}</b></div><div class="mute q-sub">${qt(q,'sub')}</div><div class="prompt">${qt(q,'prompt')}</div>${q.by?`<div class="byline">🦄 ${L('Community question by','Pregunta de la comunidad por')} ${q.by}</div>`:''}
+ swap(`<div class="card"><div class="q-progress" aria-label="${L('Question','Pregunta')} ${qi+1} ${L('of','de')} ${Q.length}"><span>${L('Question','Pregunta')}</span><b>${qi+1} ${L('of','de')} ${Q.length}</b></div><div class="prompt">${qt(q,'prompt')}</div><div class="mute q-sub">${qt(q,'sub')}</div>${q.by?`<div class="byline">🦄 ${L('Community question by','Pregunta de la comunidad por')} ${q.by}</div>`:''}
  <div class="timer" id="tm"><i id="bar"></i></div>
  <form id="f" autocomplete="off"><div class="answer-row"><input id="in" placeholder="${answerPlaceholder(q)}" aria-label="${L(`Your ${answerLabel(q)} answer`,'Tu respuesta')}"><button type="submit" class="cta submitbtn">${L('Submit','Enviar')}</button></div></form>
  <div class="msg" id="msg"></div><div class="skiprow"><button class="skipbtn" id="skip">${L('Skip this one','Saltar esta')}</button></div></div>`,()=>{t0=performance.now();
