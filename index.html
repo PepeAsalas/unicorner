@@ -1065,7 +1065,16 @@ body.inf-mode .seo-info,body.inf-mode footer{display:none}
 @keyframes inf-shim{to{background-position:200% 0}}
 .inf-load{text-align:center;padding:40px 18px!important}.inf-load .inf-big{animation:inf-shim 1s linear infinite,inf-spin 1.2s ease-in-out infinite}
 @keyframes inf-spin{50%{transform:scaleX(-1)}}
-.inf-wall{text-align:center}
+.inf-wall,.inf-intro{text-align:center}
+.inf-intro h2{font-family:var(--px);font-size:clamp(44px,9vw,64px);line-height:.9;margin:8px 0 10px;color:#fff}
+.inf-intro p{max-width:44ch;margin:0 auto 12px;line-height:1.5}
+.inf-rules{list-style:none;padding:0;margin:14px auto 18px;max-width:420px;display:grid;gap:8px;text-align:left}
+.inf-rules li{display:flex;align-items:center;gap:12px;padding:9px 12px;border:2px solid #2d2580;border-radius:8px;background:#0f0a33;line-height:1.3}
+.inf-rules b{flex:none;width:30px;text-align:center;font-family:var(--px);font-size:24px;color:#5ef0ff}
+.inf-intro .cta{width:100%;max-width:420px}
+.skiprow .inf-exit{margin-right:auto}
+.inf-intro .row,.inf-wall .row{justify-content:center}
+@media (max-width:480px){body.inf-mode .topbar .tag{display:none}}
 .inf-wall h2{font-family:var(--px);font-size:clamp(48px,10vw,72px);line-height:.9;margin:8px 0 10px;color:#fff}
 .inf-wall p{max-width:44ch;margin:0 auto 12px;line-height:1.5}
 .inf-run b{font-family:var(--px);font-size:34px;color:#5ef0ff}
@@ -1624,7 +1633,14 @@ const infDone=()=>{try{return localStorage.getItem(infKey())!==null}catch{return
 function startInfinity(){if(INF)return;const qs=INF_PROMPTS.map(t=>SEED.find(b=>b.prompt===t)).filter(Boolean).map((b,i)=>toGame({...b,_id:'inf-'+i,prompt_es:INF_ES[b.prompt]?.[0],subtitle_es:INF_ES[b.prompt]?.[1]}));
  INF={Q,qi,score,results};document.body.classList.add('inf-mode');document.body.classList.remove('landing');window.scrollTo({top:0});
  if(infDone()||qs.length<5)return infWall(true);
- Q=qs;qi=0;score=0;results=[];lvlLast=-1;setMeter();track('infinity_start',{});ask()}
+ Q=qs;qi=0;score=0;results=[];lvlLast=-1;setMeter();infIntro()}
+function infIntro(){swap(`<div class="card inf-intro"><div class="inf-big">∞</div><h2>${L('Infinity mode','Modo Infinito')}</h2>
+  <p>${L("The same game you know, without the daily limit. Questions keep coming for as long as you want to play.",'El mismo juego de siempre, sin límite diario. Las preguntas siguen llegando mientras quieras jugar.')}</p>
+  <ul class="inf-rules"><li><b>∞</b>${L('Endless questions, no waiting until tomorrow','Preguntas sin fin, sin esperar a mañana')}</li><li><b>30</b>${L('30 seconds each, same rules as the daily game','30 segundos cada una, mismas reglas que el juego diario')}</li><li><b>★</b>${L('The rarer your answer, the more it scores','Cuanto más rara tu respuesta, más puntos')}</li><li><b>✓</b>${L('Just for you: no ranking, play at your own pace','Solo para ti: sin ranking, a tu ritmo')}</li></ul>
+  <button type="button" class="cta" id="inf-go">${L('To infinity and beyond 🚀','Hasta el infinito y más allá 🚀')}</button>
+  <div class="row"><button type="button" class="ghost" data-inf-exit>${L('Back to home','Volver al inicio')}</button></div></div>`,()=>{track('infinity_intro',{});document.getElementById('inf-go').onclick=()=>{track('infinity_start',{});ask()}})}
+// leave Infinity from any of its screens
+document.addEventListener('click',e=>{const x=e.target.closest('[data-inf-exit]');if(!x||!INF)return;track('infinity_exit',{at:document.body.classList.contains('playing')?'question '+(qi+1):'intro'});window.scrollTo({top:0});start()});
 function infEnd(){try{localStorage.setItem(infKey(),String(score))}catch{}track('infinity_finish',{score});
  swap(`<div class="card inf-load"><div class="inf-big">∞</div><p>${L('Loading question 6…','Cargando la pregunta 6…')}</p></div>`,()=>setTimeout(()=>infWall(false),1200))}
 function infWall(again){document.body.classList.remove('playing');const email=(window.ucSignedEmail&&window.ucSignedEmail())||'';
@@ -1642,7 +1658,7 @@ function ask(slide){calmDown();document.body.classList.remove('results-view');do
  swap(`<div class="card"><div class="q-progress" aria-label="${L('Question','Pregunta')} ${qi+1} ${L('of','de')} ${Q.length}"><span>${L('Question','Pregunta')}</span><b>${qi+1} ${L('of','de')} ${Q.length}</b></div><div class="prompt">${qt(q,'prompt')}</div><div class="mute q-sub">${qt(q,'sub')}</div>${q.by?`<div class="byline">🦄 ${L('Community question by','Pregunta de la comunidad por')} ${q.by}</div>`:''}
  <div class="timer" id="tm"><i id="bar"></i></div>
  <form id="f" autocomplete="off"><div class="answer-row"><input id="in" placeholder="${answerPlaceholder(q)}" aria-label="${L(`Your ${answerLabel(q)} answer`,'Tu respuesta')}"><button type="submit" class="cta submitbtn">${L('Submit','Enviar')}</button></div></form>
- <div class="msg" id="msg"></div><div class="skiprow"><button class="skipbtn" id="skip">${L('Skip this one','Saltar esta')}</button></div></div>`,()=>{t0=performance.now();
+ <div class="msg" id="msg"></div><div class="skiprow">${INF?`<button type="button" class="skipbtn inf-exit" data-inf-exit>← ${L('Home','Inicio')}</button>`:''}<button class="skipbtn" id="skip">${L('Skip this one','Saltar esta')}</button></div></div>`,()=>{t0=performance.now();
  const inp=document.getElementById('in'),msg=document.getElementById('msg'),bar=document.getElementById('bar');inp.focus();
  const elapsed=()=>Math.max(0,Math.round(performance.now()-t0));
  // last 5 seconds: the card trembles, a countdown beats like a heart and the screen edges glow red
@@ -1666,7 +1682,7 @@ function reveal(ans){if(results[qi])return;const q=Q[qi];const pts=ans?ans.pts:0
  ${ans?`<div class="tier hold" id="tn">${pts===100?L("SCREAMER!!!",'¡QUÉ CHICHARRO!'):tl(tierName(pts))}</div><div class="pts hold" id="pl">${an(ans)} · <span id="pc">+0</span> ${L('points','puntos')}</div>`:`<div class="tier wipe" style="color:var(--mute)">${L('Missed','Fallada')}</div><div class="pts">${L('No answer','Sin respuesta')} · +0</div>`}
  <p class="mute">${L('Level:','Nivel:')} <b style="color:var(--ink)">${zl(after)}</b>${after!==before?`<br><span class="promo-row" id="promoRow"><span class="promo hold" id="promo">${L('Promoted to','Asciendes a')} ${zl(after)}</span></span>`:''}</p>
  
- <div class="row"><button id="next">${qi<Q.length-1||INF?L('Keep going','Siguiente'):L('See full time','Ver el final')}</button></div></div>`,()=>{
+ <div class="row">${INF?`<button type="button" class="ghost inf-exit" data-inf-exit>← ${L('Home','Inicio')}</button>`:''}<button id="next">${qi<Q.length-1||INF?L('Keep going','Siguiente'):L('See full time','Ver el final')}</button></div></div>`,()=>{
  const spans=[...document.querySelectorAll('#lad span')];const target=ans?TIERS.findIndex(t=>t[0]===pts):-1;
  const nx=document.getElementById('next');nx.style.visibility='hidden';
  const land=()=>{playSfx(ans?pts:'miss');const ms0=document.getElementById('mascot');if(!ans){ms0.classList.remove('hold');ms0.classList.add('stinking');const w0=document.querySelector('.wrap');w0.classList.remove('slump');void w0.offsetWidth;w0.classList.add('slump');setTimeout(()=>document.getElementById('bubble').classList.add('show','stay'),350)}const tn=document.getElementById('tn'),pl=document.getElementById('pl');
