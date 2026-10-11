@@ -996,6 +996,10 @@ body.playing .quick-home-x{display:none!important}
 .tk-week i.now{border-color:var(--gold);outline:1px dashed var(--gold);outline-offset:1px}
 .tk-week i.now.on{background:var(--gold)}
 .tk-streak.rs{margin:10px 0 14px;border:3px solid #000;border-radius:8px}
+.tk-back{margin:0;padding:0 14px 10px;background:#1b1530;text-align:center}
+.tk-back button,.g-back{background:none!important;border:0!important;box-shadow:none!important;padding:2px 0!important;color:#cfc8f5!important;font:400 18px var(--lab)!important;text-decoration:underline;text-underline-offset:3px;cursor:pointer;text-transform:none!important;letter-spacing:0!important}
+.tk-back button:hover,.g-back:hover{color:#fff!important}
+.g-back{display:block;margin:-6px auto 12px!important}
 @media (max-width:420px){.tk-main{grid-template-columns:70px minmax(0,1fr)}.tk-stub b{font-size:44px}.tk .tk-play{font-size:23px!important}.tk-week i{width:9px;height:9px}}
 .lp2-how{margin:0 0 22px;text-align:left}
 .lp2-how .lp-h2{margin:0 0 10px}
@@ -1387,6 +1391,7 @@ const setPlayed=v=>{try{localStorage.setItem(DAYKEY,JSON.stringify(v))}catch{}};
 const previousGameDay=d=>{const [y,m,dd]=d.split('-').map(Number);return new Date(Date.UTC(y,m-1,dd)-864e5).toISOString().slice(0,10)};
 const currentStreak=()=>{try{let d=amsterdamDay(),n=0;while(localStorage.getItem('unicorner-played-'+d)){n++;d=previousGameDay(d)}return n}catch{return getPlayed()?1:0}};
 // Streak as the ticket shows it: consecutive days up to today, or up to yesterday if today isn't played yet
+const signedOut=()=>{try{return!localStorage.getItem('uc-player-session')}catch{return true}};
 const playedOn=d=>{try{return!!localStorage.getItem('unicorner-played-'+d)}catch{return false}};
 const streakInfo=()=>{const today=amsterdamDay(),pt=playedOn(today);let d=pt?today:previousGameDay(today),n=0;while(playedOn(d)){n++;d=previousGameDay(d)}
  let ever=pt;try{ever=ever||Object.keys(localStorage).some(k=>k.startsWith('unicorner-played-'))}catch{}
@@ -1465,6 +1470,7 @@ function start(){document.body.classList.remove('playing','results-view');fillRe
    </div>
   </div>
   ${streakStrip(sInfo)}
+  ${signedOut()?`<p class="tk-back"><button type="button" data-lg="back">${L('Played on another device? Sign in to bring your streak back','¿Has jugado en otro dispositivo? Entra y recupera tu racha')} →</button></p>`:''}
  </section>
 
  ${competeFirst?compete:''}
@@ -1930,7 +1936,7 @@ if(brandHome){
 const LG_GOOGLE=false; // switch on once the Google provider is set up in Supabase
 const LG_KEY='uc-player-session',LG_PENDING='uc-league-invite',LG_OPTOUT='uc-league-optout',LG_ACTIVE='uc-league-active',LG_INF='uc-inf-notified',LG_INTENT='uc-league-intent',LG_PSCORE='uc-league-pending-score',LG_NICK='uc-claim-nick',LG_SENT='uc-claim-sent',LG_MAX=1; // beta: one league each — more come with Infinity mode
 let sess=null;try{sess=JSON.parse(localStorage.getItem(LG_KEY)||'null')}catch{}
-let me=null,board=null,boardTab='today',signInEmail='',busy=false,draft={nick:'',email:''};
+let me=null,board=null,boardTab='today',signInEmail='',backMode=false,busy=false,draft={nick:'',email:''};
 const $=id=>document.getElementById(id);
 const lsGet=k=>{try{return localStorage.getItem(k)}catch{return null}};
 const lsSet=(k,v)=>{try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch{}};
@@ -2101,15 +2107,16 @@ function boardTable(b,tab,limit){
  return `<table class="lg-board"><thead><tr><th class="rk">#</th><th>${L('Player','Jugador')}</th><th class="n">${tab==='week'?L('This week','Esta semana'):L('Today','Hoy')}</th></tr></thead><tbody>${shown.map(r=>{const i=rows.indexOf(r);const v=tab==='week'?r.week_total:r.today_score;return `<tr class="${r.me?'me':''}"><td class="rk">${tab==='today'&&r.today_score==null?'–':i+1}</td><td>${esc(r.nickname)}${r.me?L(' (you)',' (tú)'):''}</td><td class="n">${v==null?`<span class="mute">${L('not played','sin jugar')}</span>`:v}</td></tr>`}).join('')}</tbody></table>`}
 
 // ── Dialog views ──
-function viewLogin(note){const g=lsGet(LG_INTENT)==='global';show(`${g?`<h2>🌍 Get on the ranking</h2>
+function viewLogin(note){const g=lsGet(LG_INTENT)==='global';show(`${backMode?`<h2>👋 ${L('Welcome back','Hola de nuevo')}</h2>
+ <p class="mute">${L("Type the email you signed up with. We'll send you a link and your nickname and streak come back with you.",'Escribe el email con el que te registraste. Te mandamos un enlace y vuelven tu nombre y tu racha.')}</p>`:g?`<h2>🌍 Get on the ranking</h2>
  <p class="mute">Add a nickname and your score shows on the global ranking. Just your email — no password.</p>`:`<h2>🏆 Leagues</h2>
  <p class="mute">Play against your mates in a private league. Sign in once and your leagues follow you on any device.</p>`}
  ${note?`<p>${esc(note)}</p>`:''}
  ${LG_GOOGLE?`<button type="button" class="lg-google" data-lg="google">${GOOGLE}<span>Continue with Google</span></button>
  <div class="lg-or">or use your email</div>`:''}
  <form id="lea-email-form"><label for="lea-email">Email</label><input id="lea-email" type="email" required maxlength="120" autocomplete="email" value="${esc(signInEmail)}">
- <label class="check"><input type="checkbox" id="lea-optout-signup" ${lsGet(LG_OPTOUT)==='1'?'checked':''}> <span>I don't want reminders or Unicorner news</span></label>
- <label class="check lg-inf"><input type="checkbox" id="lea-infwait"> <span>🔥 Join the Infinity mode waitlist — unlimited questions, coming soon</span></label>
+ ${backMode?'':`<label class="check"><input type="checkbox" id="lea-optout-signup" ${lsGet(LG_OPTOUT)==='1'?'checked':''}> <span>I don't want reminders or Unicorner news</span></label>
+ <label class="check lg-inf"><input type="checkbox" id="lea-infwait"> <span>🔥 Join the Infinity mode waitlist — unlimited questions, coming soon</span></label>`}
  <div class="lg-row"><button type="submit">Email me a sign-in link</button></div></form>
  <p class="lg-err" id="lea-err" role="status">${esc(oauthError)}</p>
  <p class="mute lg-small">The daily game stays free with no sign-up — this is only for the rankings and leagues. <a href="privacy.html">Privacy</a>.</p>`);oauthError=''}
@@ -2180,8 +2187,8 @@ async function viewHome(){
  <p class="mute lg-small"><a href="#" data-lg="profile">${esc(me.profile?.nickname||'Profile')}</a> · <a href="#" data-lg="leave" data-id="${id}">Leave this league</a> · <a href="#" data-lg="logout">Sign out</a></p>`)}
 
 // Decide which view to show for the current state
-async function open(from){track('league_open',{from:from||'unknown'});
- if(from==='global')lsSet(LG_INTENT,'global');else if(from&&from!=='login'&&from!=='invite')lsSet(LG_INTENT,null);
+async function open(from){track('league_open',{from:from||'unknown'});backMode=from==='back';
+ if(from==='global'||from==='back')lsSet(LG_INTENT,'global');else if(from&&from!=='login'&&from!=='invite')lsSet(LG_INTENT,null);
  if(!sess)return viewLogin();
  show('<h2>🏆 Leagues</h2><p class="mute">Loading…</p>');
  try{await loadMe()}catch(e){if(!sess)return viewLogin();return show(`<h2>🏆 Leagues</h2><p class="lg-err" id="lea-err">${esc(e.message)}</p>`)}
@@ -2233,6 +2240,15 @@ function adoptRemote(g){const sc=g?.day?.me?.score;if(!sess||typeof sc!=='number
  if(!loc||loc.score!==sc){setPlayed({score:sc,picks:[],remote:true});track('played_elsewhere',{score:sc,local:loc?loc.score:null});redraw()}
  if(picksFetched)return;picksFetched=true;
  rpc('lg_my_day',{p_day:g.today}).then(d=>{if(d&&d.score===sc&&Array.isArray(d.picks)&&d.picks.length&&getPlayed()?.remote){setPlayed({score:sc,picks:d.picks,synced:true});track('results_synced',{});redraw()}}).catch(()=>{})}
+// The streak follows the account: send the days this device has played, get back every day played on any device
+async function syncDays(){if(!sess)return;
+ let mine=[];try{mine=Object.keys(localStorage).filter(k=>/^unicorner-played-\d{4}-\d{2}-\d{2}$/.test(k)).map(k=>k.slice(17)).sort().slice(-800)}catch{}
+ let r;try{r=await rpc('lg_sync_days',{p_days:mine})}catch{return}
+ const today=amsterdamDay(),before=streakInfo().count;let added=0;
+ for(const d of r?.days||[]){if(typeof d!=='string'||d>=today||playedOn(d))continue;try{localStorage.setItem('unicorner-played-'+d,'{"remote":true}');added++}catch{}}
+ if(!added)return;const n=streakInfo().count;track('streak_restored',{days:added,streak:n});
+ if(document.body.classList.contains('landing')&&typeof start==='function')start();
+ if(n>before)showToast(L(`🔥 Your ${n}-day streak is back!`,`🔥 ¡Tu racha de ${n} días ha vuelto!`))}
 // Before a signed-in player starts a game, make sure they haven't already played today on another device
 window.ucCheckRemote=async()=>{if(!sess||getPlayed())return false;try{await Promise.race([loadGlobal(),new Promise(r=>setTimeout(r,2500))])}catch{}return !!getPlayed()};
 const ord=n=>ES?n+'º':n+(n%100>=11&&n%100<=13?'th':['th','st','nd','rd'][n%10]||'th');
@@ -2252,6 +2268,7 @@ function claimBox(c,pl){const sent=claimSent();
   <p class="g-spam">⚠️ <b>Not there? Check your spam folder.</b> It's from <b>Unicorner</b> (hello@auth.unicornergame.lol). Found it in spam? Tap <b>"Not spam"</b> so the next one lands in your inbox.</p>
   <div class="g-acts"><button type="button" class="ghost" data-lg="gresend">Resend link</button><button type="button" class="ghost" data-lg="gwrong">Wrong email?</button></div></div>`;
  return `<form class="g-claim" novalidate><p class="g-you">${c.h}</p><p class="g-sub">Save your score and get on the ranking.</p>
+  ${sess?'':`<button type="button" class="g-back" data-lg="back">${L('Already on the board? Sign in with your email','¿Ya estás en el ranking? Entra con tu email')}</button>`}
   <div class="g-fields"><label class="g-f"><span>Nickname</span><input name="nick" required minlength="2" maxlength="16" autocomplete="nickname" spellcheck="false" placeholder="e.g. Zizou10" value="${esc(draft.nick)}"></label>
   ${sess?'':`<label class="g-f"><span>Email</span><input name="email" type="email" required maxlength="120" autocomplete="email" placeholder="you@email.com" value="${esc(draft.email)}"></label>`}</div>
   <button type="submit" class="cta">Put me on the board</button>
@@ -2353,6 +2370,7 @@ document.addEventListener('submit',e=>{if(e.target.closest('#dlg-infinite')&&ses
 document.addEventListener('click',async e=>{const b=e.target.closest('[data-lg]');if(!b)return;e.preventDefault();const a=b.dataset.lg;
  if(a==='close')return dlg.close();
  if(a==='open')return open(b.dataset.from);
+ if(a==='back'){signInEmail=draft.email||'';return open('back')}
  if(a==='google'){track('league_login_start',{method:'google'});location.href=SB_URL+'/auth/v1/authorize?provider=google&redirect_to='+encodeURIComponent(location.origin+location.pathname);return}
  if(a==='login'){signInEmail='';return viewLogin()}
  if(a==='home')return viewHome();
@@ -2395,14 +2413,14 @@ document.addEventListener('submit',async e=>{const f=e.target;if(!f.classList?.c
  }catch(x){say(x.message);btn.disabled=false}finally{busy=false}});
 document.addEventListener('submit',async e=>{const f=e.target;if(!f.id?.startsWith('lea-'))return;e.preventDefault();if(busy)return;busy=true;const btn=f.querySelector('[type=submit]');if(btn)btn.disabled=true;err('');
  try{
-  if(f.id==='lea-email-form'){signInEmail=$('lea-email').value.trim();await sendLink(signInEmail,$('lea-optout-signup').checked);if($('lea-infwait')?.checked)joinWaitlist(signInEmail,'league_signup');track('league_login_start',{method:'email'});viewCheckEmail()}
+  if(f.id==='lea-email-form'){signInEmail=$('lea-email').value.trim();await sendLink(signInEmail,$('lea-optout-signup')?$('lea-optout-signup').checked:lsGet(LG_OPTOUT)==='1');if($('lea-infwait')?.checked)joinWaitlist(signInEmail,'league_signup');track('league_login_start',{method:'email'});viewCheckEmail()}
   else if(f.id==='lea-profile-form'){const nick=$('lea-nick').value.trim();if(/fuck|shit|cunt|nigg|fagg|hitler|nazi/i.test(nick))throw new Error('Pick a different nickname');const first=!me?.profile;await rpc('lg_save_profile',{p_nickname:nick,p_news_opt_out:first?lsGet(LG_OPTOUT)==='1':$('lea-optout').checked});await loadMe();lsSet(LG_NICK,null);lsSet(LG_SENT,null);track('league_profile',{first});busy=false;await syncScore();if(first){const pending=lsGet(LG_PENDING);if(pending)await viewJoin(pending);else if(lsGet(LG_INTENT)==='global'){lsSet(LG_INTENT,null);await viewGlobal(true)}else await viewHome()}else await viewHome();renderSlots()}
   else if(f.id==='lea-create-form'){if((me?.leagues?.length||0)>=LG_MAX){busy=false;return viewMore()}const l=await rpc('lg_create_league',{p_name:$('lea-name').value.trim()});track('league_create',{});lsSet(LG_ACTIVE,l.id);await loadMe();board=null;await viewHome();renderSlots();showToast('League created — now invite your mates!')}
  }catch(x){err(x.message);if(btn)btn.disabled=false}finally{busy=false}});
 
 // Re-render the cards whenever the game swaps screens, and push today's score when it appears
 let t0;new MutationObserver(()=>{clearTimeout(t0);t0=setTimeout(()=>{renderSlots();syncScore()},120)}).observe($('screen'),{childList:true});
-setTimeout(async()=>{if(linkVerify)await linkVerify;renderSlots();syncScore();if(fresh&&!lsGet(LG_PENDING)&&pendingNick())autoClaim();else if(fresh||lsGet(LG_PENDING)||oauthError)open(fresh?'login':'invite')},400);
+setTimeout(async()=>{if(linkVerify)await linkVerify;renderSlots();syncScore();syncDays();if(fresh&&!lsGet(LG_PENDING)&&pendingNick())autoClaim();else if(fresh||lsGet(LG_PENDING)||oauthError)open(fresh?'login':'invite')},400);
 })();
 </script>
 <script>

@@ -333,3 +333,28 @@ revoke all on function public.lg_submit_score(date, integer, jsonb) from public,
 grant execute on function public.lg_submit_score(date, integer, jsonb) to authenticated;
 revoke all on function public.lg_my_day(date) from public, anon;
 grant execute on function public.lg_my_day(date) to authenticated;
+
+-- ── Streaks follow the account: a device sends the days it has played and gets back every day played on any device ──
+create table if not exists public.player_days (
+  user_id uuid not null references auth.users(id) on delete cascade,
+  day     date not null,
+  primary key (user_id, day)
+);
+alter table public.player_days enable row level security;
+revoke all on public.player_days from anon, authenticated;
+
+create or replace function public.lg_sync_days(p_days date[] default '{}')
+returns json language plpgsql security definer set search_path = public as $$
+declare uid uuid := lg_uid();
+begin
+  if coalesce(array_length(p_days, 1), 0) > 800 then raise exception 'Too many days'; end if;
+  insert into player_days (user_id, day)
+    select uid, d from unnest(coalesce(p_days, '{}')) d where d between lg_today() - 800 and lg_today()
+  on conflict do nothing;
+  return json_build_object('days', coalesce((select json_agg(x.day order by x.day) from (
+    select day from player_days where user_id = uid
+    union select day from player_scores where user_id = uid and not removed) x), '[]'::json));
+end $$;
+
+revoke all on function public.lg_sync_days(date[]) from public, anon;
+grant execute on function public.lg_sync_days(date[]) to authenticated;
