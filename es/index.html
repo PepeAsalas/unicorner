@@ -2500,4 +2500,71 @@ new MutationObserver(()=>setTimeout(celebrate,50)).observe(document.getElementBy
 apply();dot();
 })();
 </script>
+<style id="polish-css">
+/* ── Motion polish: one motion language for the whole site (screens, intro, buttons, reveals, count-ups); all rules hang off html.polish ── */
+html.polish{--pz-pop:cubic-bezier(.2,1.45,.4,1);--pz-out:cubic-bezier(.2,.8,.2,1);interpolate-size:allow-keywords}
+
+/* 1. Screens: every card rises and settles, then its parts follow in reading order */
+html.polish .pz-pre{translate:0 26px;scale:.96}
+html.polish .pz-pre>*{opacity:0;translate:0 14px}
+html.polish .pz-run{transition:translate .5s var(--pz-pop),scale .5s var(--pz-pop)}
+html.polish .pz-run>*{transition:opacity .38s var(--pz-out),translate .5s var(--pz-pop);transition-delay:calc(70ms + var(--i,0)*55ms)}
+html.polish #screen>.card.out{translate:0 -12px;scale:.97;filter:blur(3px);transition:opacity .28s var(--pz-out),translate .28s var(--pz-out),scale .28s var(--pz-out),filter .28s}
+
+/* 2. Landing intro + scroll reveals: same rise, staggered by --d */
+html.polish .pz-hide{opacity:0;translate:0 22px}
+html.polish .pz-show{transition:opacity .45s var(--pz-out),translate .6s var(--pz-pop);transition-delay:var(--d,0ms)}
+html.polish .topbar.pz-hide{translate:0 -30px}
+
+/* 3. Buttons feel physical: lift on hover, sink on press, gold focus ring */
+html.polish :is(.cta,.ghost,.skipbtn,.tk-how,.rate-num,.jb-scope button){transition:translate .14s var(--pz-out),box-shadow .14s var(--pz-out),filter .14s}
+@media (hover:hover){html.polish :is(.cta,.ghost):not(:disabled):hover{translate:0 -3px;filter:brightness(1.07)}}
+html.polish :is(button,a,input,summary):focus-visible{outline:3px solid #ffd23f!important;outline-offset:3px}
+
+/* 4. Answer box: glows while you type, shakes on a wrong answer */
+html.polish #in{transition:box-shadow .25s var(--pz-out),border-color .25s}
+html.polish #in:focus{box-shadow:0 0 0 3px rgba(255,210,63,.35),0 0 26px rgba(255,210,63,.35)!important}
+html.polish .answer-row.pz-nope{animation:pz-nope .42s steps(6)}
+@keyframes pz-nope{20%{translate:-8px 0}40%{translate:7px 0}60%{translate:-5px 0}80%{translate:3px 0}}
+html.polish #msg.bad{animation:pz-msg .3s var(--pz-pop)}
+@keyframes pz-msg{from{opacity:0;translate:0 -6px}}
+
+/* 5. Results: answer lists open smoothly instead of snapping */
+html.polish details::details-content{height:0;overflow:clip;transition:height .35s var(--pz-out),content-visibility .35s allow-discrete}
+html.polish details[open]::details-content{height:auto}
+html.polish .result-item summary{transition:background .2s}
+@media (hover:hover){html.polish .result-item summary:hover{background:rgba(255,255,255,.05)}}
+
+/* 6. Numbers count up instead of appearing */
+html.polish .pz-count{font-variant-numeric:tabular-nums}
+
+@media (prefers-reduced-motion:reduce){html.polish *{transition:none!important}html.polish .pz-pre,html.polish .pz-pre>*,html.polish .pz-hide{opacity:1;translate:none;scale:none}}
+
+</style>
+<script>
+(()=>{const root=document.documentElement;root.classList.add('polish');
+ const on=()=>root.classList.contains('polish');
+ const frame2=f=>requestAnimationFrame(()=>requestAnimationFrame(f));
+ // 1. every new screen card enters the same way
+ const screen=document.getElementById('screen');
+ new MutationObserver(ms=>{if(!on())return;for(const m of ms)for(const n of m.addedNodes){if(!(n instanceof HTMLElement)||!n.classList.contains('card'))continue;
+  [...n.children].forEach((c,i)=>{if(!c.style.getPropertyValue('--i'))c.style.setProperty('--i',i)});
+  n.classList.add('pz-pre');frame2(()=>{n.classList.add('pz-run');n.classList.remove('pz-pre');setTimeout(()=>n.classList.remove('pz-run'),1400)});
+  setTimeout(()=>{countUps(n);reveals()},60)}}).observe(screen,{childList:true});
+ // 2. landing intro, in reading order
+ const introSel=['.topbar','.lp-title','.lp-art','.otd-fact','.tk','.tk-streak','.tk-back'];
+ function intro(){if(!on())return;let d=0;introSel.forEach(sel=>document.querySelectorAll(sel).forEach(el=>{if(el.getBoundingClientRect().top>innerHeight)return;el.classList.remove('pz-show');el.classList.add('pz-hide');el.style.setProperty('--d',d+'ms');d+=110}));
+  frame2(()=>document.querySelectorAll('.pz-hide').forEach(el=>{if(el.dataset.pzScroll)return;el.classList.add('pz-show');el.classList.remove('pz-hide')}));setTimeout(()=>countUps(document),300)}
+ // scroll reveals: only for blocks that start below the fold, so the page is complete without them
+ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const el=e.target;el.classList.add('pz-show');el.classList.remove('pz-hide');io.unobserve(el)}}),{rootMargin:'0px 0px -8% 0px'});
+ function reveals(){if(!on())return;document.querySelectorAll('.lp2-how,.jb,.inf-strip,.result-share-row,.result-section,.result-nearly,.dist,.seo-info,footer .wrap>*,.site-footer>*').forEach(el=>{if(el.dataset.pzScroll||el.getBoundingClientRect().top<innerHeight*.9)return;el.dataset.pzScroll=1;el.style.setProperty('--d','0ms');el.classList.add('pz-hide');io.observe(el)})}
+ // 6. count-ups
+ function countUps(scope){if(!on())return;scope.querySelectorAll('.tk-score b').forEach(el=>{if(el.dataset.pzCounted)return;const to=parseInt(el.textContent,10);if(!(to>0))return;el.dataset.pzCounted=1;el.classList.add('pz-count');const t0=performance.now(),dur=900;
+  const step=now=>{const k=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-k,3);el.textContent=Math.round(to*e);if(k<1)requestAnimationFrame(step)};el.textContent='0';requestAnimationFrame(step)})}
+ // 4. wrong answer shake
+ document.addEventListener('submit',e=>{if(e.target.id!=='f')return;setTimeout(()=>{const msg=document.getElementById('msg'),row=document.querySelector('.answer-row');if(!on()||!row||!msg||!msg.classList.contains('bad'))return;row.classList.remove('pz-nope');void row.offsetWidth;row.classList.add('pz-nope')},20)},true);
+ const boot=()=>setTimeout(()=>{intro();setTimeout(reveals,900)},150);
+ if(document.readyState==='complete')boot();else addEventListener('load',boot,{once:true});
+})();
+</script>
 </body></html>
