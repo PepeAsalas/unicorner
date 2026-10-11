@@ -1416,7 +1416,7 @@ async function liveLine(){const day=amsterdamDay(),h={apikey:SB_KEY,Authorizatio
  const n=+((c.headers.get('content-range')||'').split('/')[1]||0);let top=0;try{top=(await t.json())[0]?.score||0}catch{}return{n,top}}
 const seenStreak=n=>{try{const s=+(localStorage.getItem('unicorner-streak-seen')||0);if(n!==s)localStorage.setItem('unicorner-streak-seen',n);return n>s}catch{return false}};
 const untilMidnight=()=>{const n=new Date(),m=new Date(n);m.setHours(24,0,0,0);const d=m-n,h=Math.floor(d/36e5),mi=Math.floor(d%36e5/6e4);return`${h}h ${mi}m`};
-function restore(p){if(p.remote){score=p.score;results=[];qi=Q.length;return}const savedPicks=Array.isArray(p.picks)?p.picks:[],byPos=new Map();savedPicks.forEach(([i,name])=>{if(Number.isInteger(i)&&i>=0&&i<Q.length&&!byPos.has(i))byPos.set(i,name||null)});results=Q.map((q,i)=>{const name=byPos.get(i)||null,ans=name?q?.answers.find(a=>a.name===name)||null:null;return{q,ans,pts:ans?ans.pts:0}});score=results.reduce((n,r)=>n+r.pts,0);qi=Q.length;if(score!==p.score)setPlayed({...p,score,picks:results.map((r,i)=>[i,r.ans?.name||null,r.pts])})}
+function restore(p){if(p.remote){score=p.score;results=[];qi=Q.length;return}const savedPicks=Array.isArray(p.picks)?p.picks:[],byPos=new Map();savedPicks.forEach(pk=>{if(!Array.isArray(pk))return;const [i,name]=pk;if(Number.isInteger(i)&&i>=0&&i<Q.length&&!byPos.has(i))byPos.set(i,name||null)});results=Q.map((q,i)=>{const name=byPos.get(i)||null,ans=name?q?.answers.find(a=>a.name===name)||null:null;return{q,ans,pts:ans?ans.pts:0}});score=results.reduce((n,r)=>n+r.pts,0);qi=Q.length;if(score!==p.score)setPlayed({...p,score,picks:results.map((r,i)=>[i,r.ans?.name||null,r.pts])})}
 
 function spawnOctLeaves(art){const a=pixelLeaf('#f2851c','#ffcf8a'),b=pixelLeaf('#e0a000','#ffe9a6');
  [...art.querySelectorAll('.oct-leaf')].forEach(s=>s.remove());
@@ -1561,7 +1561,7 @@ function end(restored){
  document.body.classList.remove('playing');
  if(!restored)track('game_finish',{score,question_count:Q.length,correct:results.filter(r=>r.ans).length,missed:results.filter(r=>!r.ans).length,screamers:results.filter(r=>r.pts===100).length,tiers:results.map(r=>r.pts),set_id:dailySetId()});
  fillReport();
- if(!restored){setPlayed({score,picks:results.map(r=>[Q.indexOf(r.q),r.ans?r.ans.name:null,r.pts])});submitScore(score)}
+ if(!restored){setPlayed({score,picks:results.filter(Boolean).map(r=>[Q.indexOf(r.q),r.ans?r.ans.name:null,r.pts])});submitScore(score)}
  renderRateStrip();
  setTimeout(()=>renderDist(score),restored?900:1600);
  const rows=results.map((r,ri)=>r?{...r,ri}:null).filter(Boolean);
