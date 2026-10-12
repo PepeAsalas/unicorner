@@ -1519,12 +1519,15 @@ if(ES){const T=new Map(Object.entries(ES_TEXT)),key=s=>s.replace(/\s+/g,' ').tri
  walk(document.body);
  new MutationObserver(ms=>{for(const m of ms){if(m.type==='childList')m.addedNodes.forEach(walk);else walk(m.target)}}).observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['placeholder','title','aria-label']})}
 // Points per level. From PTS_FROM on: 10 · 30 · 60 · 85 · 100 (before that day: 10 · 25 · 40 · 70 · 100, so a day's ranking never mixes the two)
-const PTS_FROM='2026-10-13',PTS_OLD=[10,25,40,70,100],PTS_NEW=[10,30,60,85,100];
+const PTS_FROM='2026-10-12',PTS_OLD=[10,25,40,70,100],PTS_NEW=[10,30,60,85,100];
 const PTS=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())>=PTS_FROM?PTS_NEW:PTS_OLD;
 const TIER_NAMES=['Tap-in','Header','Volley','Bicycle kick','Screamer'],TIER_COLS=['#cfd8e6','#7fe0a8','#b48cff','#ff7ac8','#ffd23f'];
 const TIERS=PTS.map((p,i)=>[p,TIER_NAMES[i]]);
 // a level from its points, on either scale (saved games keep the points they were played with)
 const tierIdx=p=>{let i=PTS.indexOf(p);if(i<0)i=PTS_OLD.indexOf(p);if(i<0)i=PTS_NEW.indexOf(p);return i};
+// a saved game's score on the new scale (old games are re-scored from their answers)
+const newPts=p=>{const i=tierIdx(p);return p>0&&i>=0?PTS_NEW[i]:0};
+const newScoreOf=(r,day)=>{const picks=Array.isArray(r?.picks)?r.picks.filter(Array.isArray):[];if(picks.length)return picks.reduce((a,x)=>a+newPts(x[2]),0);const sc=+r?.score||0;return day&&day<PTS_FROM?Math.min(500,Math.round(sc*1.17)):sc};
 const TCOL={};[...PTS_OLD,...PTS_NEW].forEach(p=>TCOL[p]=TIER_COLS[tierIdx(p)]);const tierName=p=>TIER_NAMES[Math.max(0,tierIdx(p))];
 const MAX=Q.length*100;
 const ZONES=[[0,'Sunday league'],[.06,'Non-league'],[.15,'Second tier'],[.28,'Top flight'],[.44,'Champions League'],[.62,'World Cup final'],[.8,"Ballon d'Or"]];
@@ -1610,9 +1613,9 @@ const KITS=[
  {id:'candy',en:'Candy',es:'Chuche',req:['games',5],pal:{W:'#ffb3d9',L:'#f28cc0',P:'#ffffff',V:'#ff6fb5',B:'#ffffff',w:'#ffb3d9',N:'#ff3b8a'}},
  {id:'sash',en:'The sash',es:'La banda',req:['scr',6],pal:{P:'#ff3b30',V:'#1a1030',B:'#ff3b30'},pat:kPat((x,y)=>x+y>=29&&x+y<=33?'#ff3b30':'#ffffff')},
  {id:'keeper',en:'Goalkeeper',es:'Portero',req:['games',8],pal:{W:'#7dff3b',L:'#56cc22',P:'#1a1030',V:'#3a2a5c',B:'#1a1030',w:'#7dff3b',N:'#1a1030'}},
- {id:'halves',en:'Halves',es:'Mitades',req:['best',200],pal:{P:'#ffd23f',V:'#1a1030',B:'#ffd23f'},pat:kPat((x,y)=>x<16?'#2b2b2b':'#ffffff')},
+ {id:'halves',en:'Halves',es:'Mitades',req:['best',235],pal:{P:'#ffd23f',V:'#1a1030',B:'#ffd23f'},pat:kPat((x,y)=>x<16?'#2b2b2b':'#ffffff')},
  {id:'night',en:'Night match',es:'Partido nocturno',req:['streak',7],pal:{W:'#4a4f86',L:'#353a6b',P:'#39ff6a',V:'#4fd7ff',B:'#39ff6a',w:'#4a4f86',N:'#39ff6a'}},
- {id:'pin',en:'Pinstripes',es:'Raya diplomática',req:['best',250],pal:{P:'#ffffff',V:'#1a2a6c',B:'#ffffff'},pat:kPat((x,y)=>x%3===0?'#c9d1e0':'#1a2a6c')},
+ {id:'pin',en:'Pinstripes',es:'Raya diplomática',req:['best',295],pal:{P:'#ffffff',V:'#1a2a6c',B:'#ffffff'},pat:kPat((x,y)=>x%3===0?'#c9d1e0':'#1a2a6c')},
  {id:'fire',en:'Fire mane',es:'Crin de fuego',req:['scr',10],pal:{P:'#ff3b30',V:'#ff8a1f',B:'#ffd23f'}},
  {id:'quarters',en:'Quarters',es:'Cuartos',req:['games',12],pal:{P:'#2f6bff',V:'#ffffff',B:'#2f6bff'},pat:kPat((x,y)=>(x<17)!==(y<15)?'#2f6bff':'#ffffff')},
  {id:'checks',en:'Checkers',es:'Cuadros',req:['streak',10],pal:{P:'#1a3d8f',V:'#ff3b30',B:'#ffffff'},pat:kPat((x,y)=>((x>>1)+(y>>1))%2?'#ff3b30':'#ffffff')},
@@ -1626,9 +1629,9 @@ const KITS=[
  {id:'shadow',en:'Infinity',es:'Infinito',req:['inf',1],pal:{W:'#2b1a5c',L:'#1d1145',P:'#5ef0ff',V:'#b06bff',B:'#5ef0ff',G:'#5ef0ff',g:'#2ab8d0',E:'#5ef0ff',w:'#2b1a5c',N:'#b06bff'}},
  {id:'galaxy',en:'Galaxy',es:'Galaxia',req:['level',4],pal:{P:'#b06bff',V:'#5ef0ff',B:'#ff7ac8',G:'#ffffff',g:'#9fd8ff',E:'#ffffff',N:'#ff7ac8'},pat:kPat((x,y)=>(x*7+y*13)%23===0?'#ffffff':(x*5+y*3)%17===0?'#9fd8ff':y<14?'#241552':'#170c3f')},
  {id:'ocean',en:'Ocean',es:'Océano',req:['games',40],pal:{P:'#ffffff',V:'#4fd7ff',B:'#ffffff',N:'#ff7ac8'},pat:kPat((x,y)=>{const w=Math.sin(x*.7+y*.4)+y*.12;return w>2.3?'#0a3d8f':w>1.6?'#1e6bd6':w>.9?'#4fa8ff':'#9fe0ff'})},
- {id:'sunset',en:'Sunset',es:'Atardecer',req:['best',450],pal:{P:'#7c4dff',V:'#ff6fb5',B:'#ffd23f',N:'#7c4dff'},pat:kPat((x,y)=>['#ffd23f','#ffb84d','#ff8a5c','#ff6f91','#d65fb5','#9b5fd6'][Math.min(5,Math.max(0,Math.floor((y-3)/4)))])},
+ {id:'sunset',en:'Sunset',es:'Atardecer',req:['best',485],pal:{P:'#7c4dff',V:'#ff6fb5',B:'#ffd23f',N:'#7c4dff'},pat:kPat((x,y)=>['#ffd23f','#ffb84d','#ff8a5c','#ff6f91','#d65fb5','#9b5fd6'][Math.min(5,Math.max(0,Math.floor((y-3)/4)))])},
  {id:'camo',en:'Camo',es:'Camuflaje',req:['games',50],pal:{P:'#3d5a1f',V:'#6b7d3a',B:'#3d5a1f',N:'#6b7d3a'},pat:kPat((x,y)=>{const n=Math.sin(x*1.7+y*.9)+Math.sin(x*.6-y*1.3);return n>.9?'#3d5a1f':n>-.2?'#6b7d3a':'#a3a86b'})},
- {id:'lava',en:'Lava',es:'Lava',req:['best',480],pal:{P:'#ff3b30',V:'#ffd23f',B:'#ff8a1f',G:'#ffd23f',g:'#ff3b30',E:'#ffd23f',N:'#ff3b30'},pat:kPat((x,y)=>{const n=Math.sin(x*1.3+y*.7)*Math.cos(y*1.1-x*.4);return n>.55?'#ffd23f':n>.3?'#ff6a1f':'#2a1410'})},
+ {id:'lava',en:'Lava',es:'Lava',req:['best',500],pal:{P:'#ff3b30',V:'#ffd23f',B:'#ff8a1f',G:'#ffd23f',g:'#ff3b30',E:'#ffd23f',N:'#ff3b30'},pat:kPat((x,y)=>{const n=Math.sin(x*1.3+y*.7)*Math.cos(y*1.1-x*.4);return n>.55?'#ffd23f':n>.3?'#ff6a1f':'#2a1410'})},
  {id:'chrome',en:'Chrome',es:'Cromo',req:['level',5],pal:{P:'#ffffff',V:'#8a93a6',B:'#c9d1e0',G:'#ffffff',g:'#8a93a6',N:'#8a93a6'},pat:kPat((x,y)=>['#f4f6fb','#d6dbe6','#b8bfce','#e8ecf4','#9aa3b5','#ccd2de'][(x+y)%6])},
  {id:'rainbow',en:'Rainbow',es:'Arcoíris',req:['streak',21],pal:{P:'#ffffff',V:'#ffffff',B:'#ffffff'},pat:kPat((x,y)=>KRAIN[Math.floor(x/3)%6])},
  {id:'tiedye',en:'Tie-dye',es:'Tie-dye',req:['streak',30],pal:{P:'#ffffff',V:'#ffffff',B:'#ffffff'},pat:kPat((x,y)=>['#ff7ac8','#ffd23f','#7dff9a','#4fd7ff','#b388ff'][Math.floor(Math.sin(Math.hypot(x-16,y-14)*.6)*2.5+2.5)%5])},
@@ -1686,6 +1689,9 @@ function lvlBurst(host,x,y){if(matchMedia('(prefers-reduced-motion: reduce)').ma
 
 const DAYKEY='unicorner-played-'+new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
 const getPlayed=()=>{try{return JSON.parse(localStorage.getItem(DAYKEY))}catch{return null}};
+// today's game was first scored 10·25·40·70·100; anyone who played it before the switch gets their answers re-scored
+(()=>{if(PTS!==PTS_NEW)return;try{const r=getPlayed();if(!r||!Array.isArray(r.picks)||!r.picks.some(x=>Array.isArray(x)&&[25,40,70].includes(x[2])))return;
+ const picks=r.picks.map(x=>Array.isArray(x)?[x[0],x[1],newPts(x[2])]:x);localStorage.setItem(DAYKEY,JSON.stringify({...r,picks,score:picks.reduce((a,x)=>a+(Array.isArray(x)?x[2]:0),0)}))}catch{}})();
 const setPlayed=v=>{try{localStorage.setItem(DAYKEY,JSON.stringify(v))}catch{}};
 const previousGameDay=d=>{const [y,m,dd]=d.split('-').map(Number);return new Date(Date.UTC(y,m-1,dd)-864e5).toISOString().slice(0,10)};
 const currentStreak=()=>{try{let d=amsterdamDay(),n=0;while(localStorage.getItem('unicorner-played-'+d)){n++;d=previousGameDay(d)}return n}catch{return getPlayed()?1:0}};
@@ -2896,12 +2902,14 @@ const unlocked=k=>{const t=LIST.find(x=>x[0]===k);return!!t&&bestStreak()>=t[2]}
 // Kit goals come from the games already saved on this device
 function kitStats(){const st={games:0,scr:0,best:0,scr1:0,allfive:0,level:0,inf:0,streak:bestStreak()};
  try{for(const k of Object.keys(localStorage)){if(/^uc-inf-\d{4}-/.test(k))st.inf=1;if(!k.startsWith('unicorner-played-'))continue;let r=null;try{r=JSON.parse(localStorage.getItem(k))}catch{}st.games++;if(!r)continue;
-  const sc=+r.score||0;st.best=Math.max(st.best,sc);const picks=Array.isArray(r.picks)?r.picks.filter(Array.isArray):[];const n=picks.filter(x=>x[2]===100).length;st.scr+=n;st.scr1=Math.max(st.scr1,n);
+  const sc=newScoreOf(r,k.slice(17));st.best=Math.max(st.best,sc);const picks=Array.isArray(r.picks)?r.picks.filter(Array.isArray):[];const n=picks.filter(x=>x[2]===100).length;st.scr+=n;st.scr1=Math.max(st.scr1,n);
   if(picks.length===5&&picks.every(x=>x[2]>0))st.allfive=1}}catch{}
  st.level=ZONES.reduce((a,z,i)=>st.best/MAX>=z[0]?i:a,0);return st}
-const kitHas=(kit,st)=>!kit.req||(st[kit.req[0]]||0)>=kit.req[1];
-const kitGoal=([t,n])=>t==='games'?L(`Play ${n} games`,`Juega ${n} partidos`):t==='streak'?L(`${n}-day streak`,`Racha de ${n} días`):t==='scr'?L(`Find ${n} Screamers`,`Consigue ${n} chicharros`):t==='scr1'?L(`${n} Screamers in one game`,`${n} chicharros en un partido`):t==='best'?L(`Score ${n}+ in a game`,`Haz ${n}+ puntos en un partido`):t==='level'?L(`Reach ${zl(ZONES[n][1])}`,`Llega a ${zl(ZONES[n][1])}`):t==='inf'?L('Try Infinity mode','Prueba el Modo Infinito'):L('Get all 5 right in one game','Acierta las 5 en un partido');
-const kitWhy=k=>{if(!k.req)return L('Free for everyone','Gratis para todos');const[t,n]=k.req;return t==='games'?L(`You played ${n} games`,`Jugaste ${n} partidos`):t==='streak'?L(`You hit a ${n}-day streak`,`Llegaste a una racha de ${n} días`):t==='scr'?L(`You found ${n} Screamers`,`Conseguiste ${n} chicharros`):t==='scr1'?L(`You got ${n} Screamers in one game`,`Hiciste ${n} chicharros en un partido`):t==='best'?L(`You scored ${n}+ in a game`,`Hiciste ${n}+ puntos en un partido`):t==='level'?L(`You reached ${zl(ZONES[n][1])}`,`Llegaste a ${zl(ZONES[n][1])}`):t==='inf'?L('You tried Infinity mode','Probaste el Modo Infinito'):L('You got all 5 right in one game','Acertaste las 5 en un partido')};
+// a kit stays yours once you've earned it, even if its target changes later
+const kitEarned=id=>{try{const d=JSON.parse(localStorage.getItem('uc-kit-done')||'[]');return Array.isArray(d)&&d.includes(id)}catch{return false}};
+const kitHas=(kit,st)=>!kit.req||(st[kit.req[0]]||0)>=kit.req[1]||kitEarned(kit.id);
+const kitGoal=([t,n])=>t==='games'?L(`Play ${n} games`,`Juega ${n} partidos`):t==='streak'?L(`${n}-day streak`,`Racha de ${n} días`):t==='scr'?L(`Find ${n} Screamers`,`Consigue ${n} chicharros`):t==='scr1'?L(`${n} Screamers in one game`,`${n} chicharros en un partido`):t==='best'?(n>=500?L('Score a perfect 500','Haz un 500 perfecto'):L(`Score ${n}+ in a game`,`Haz ${n}+ puntos en un partido`)):t==='level'?L(`Reach ${zl(ZONES[n][1])}`,`Llega a ${zl(ZONES[n][1])}`):t==='inf'?L('Try Infinity mode','Prueba el Modo Infinito'):L('Get all 5 right in one game','Acierta las 5 en un partido');
+const kitWhy=k=>{if(!k.req)return L('Free for everyone','Gratis para todos');const[t,n]=k.req;return t==='games'?L(`You played ${n} games`,`Jugaste ${n} partidos`):t==='streak'?L(`You hit a ${n}-day streak`,`Llegaste a una racha de ${n} días`):t==='scr'?L(`You found ${n} Screamers`,`Conseguiste ${n} chicharros`):t==='scr1'?L(`You got ${n} Screamers in one game`,`Hiciste ${n} chicharros en un partido`):t==='best'?(n>=500?L('You scored a perfect 500','Hiciste un 500 perfecto'):L(`You scored ${n}+ in a game`,`Hiciste ${n}+ puntos en un partido`)):t==='level'?L(`You reached ${zl(ZONES[n][1])}`,`Llegaste a ${zl(ZONES[n][1])}`):t==='inf'?L('You tried Infinity mode','Probaste el Modo Infinito'):L('You got all 5 right in one game','Acertaste las 5 en un partido')};
 const kitPv=k=>`<span class="kit-pv"><i style="background-image:${sprite('happy',0,false,k).replace(/"/g,"'")}"></i></span>`;
 function wearKit(k){UC_KIT=k.id==='classic'?null:k;ls('uc-kit',UC_KIT?k.id:null);buildSprites();paint();window.ucLookSync?.()}
 window.ucLook=()=>{const st=kitStats();return{kit:UC_KIT?.id||'classic',kits:KITS.filter(k=>k.req&&kitHas(k,st)).map(k=>k.id),streak:st.streak,games:st.games}};
