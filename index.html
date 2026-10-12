@@ -902,6 +902,10 @@ body.results-view .meter{display:none!important}
 
 /* quick non-game home exit */
 .result-screen{position:relative!important}
+/* results: square edges everywhere, pixel corners and a black outline on the page itself */
+.result-screen,.result-screen details.result-item,.result-nearly,.result-screen .dist,.result-screen .tk-streak.rs,.result-screen .jb-status,.result-screen .cta,.result-screen button,.result-screen .sb-digit,.result-screen .quick-home-x,.result-screen input,.result-screen .st-unlock,.result-screen .st-sw,.result-screen .ans li,.result-screen .tchip{border-radius:0!important}
+.result-screen{--st:8px;border:0!important;box-shadow:none!important;clip-path:polygon(0 var(--st),var(--st) var(--st),var(--st) 0,calc(100% - var(--st)) 0,calc(100% - var(--st)) var(--st),100% var(--st),100% calc(100% - var(--st)),calc(100% - var(--st)) calc(100% - var(--st)),calc(100% - var(--st)) 100%,var(--st) 100%,var(--st) calc(100% - var(--st)),0 calc(100% - var(--st)))}
+#screen:has(>.result-screen){filter:drop-shadow(3px 0 0 #000) drop-shadow(-3px 0 0 #000) drop-shadow(0 3px 0 #000) drop-shadow(0 -3px 0 #000) drop-shadow(8px 8px 0 rgba(0,0,0,.35))}
 .result-screen .quick-home-x{display:flex;position:absolute;top:14px;right:14px;width:42px;height:42px;align-items:center;justify-content:center;z-index:20;padding:0!important;background:#0c0c18!important;color:#fff!important;border:3px solid #fff!important;border-radius:7px!important;box-shadow:0 0 0 3px #000,4px 4px 0 rgba(0,0,0,.4)!important;font-size:0!important;line-height:0!important;cursor:pointer}
 .result-screen .quick-home-x:hover,.result-screen .quick-home-x:focus-visible{color:var(--gold)!important;border-color:var(--gold)!important;outline:none}
 body.playing .quick-home-x{display:none!important}
