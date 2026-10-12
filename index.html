@@ -1518,8 +1518,14 @@ if(ES){const T=new Map(Object.entries(ES_TEXT)),key=s=>s.replace(/\s+/g,' ').tri
   for(const c of n.childNodes)walk(c)};
  walk(document.body);
  new MutationObserver(ms=>{for(const m of ms){if(m.type==='childList')m.addedNodes.forEach(walk);else walk(m.target)}}).observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['placeholder','title','aria-label']})}
-const TIERS=[[10,'Tap-in'],[25,'Header'],[40,'Volley'],[70,'Bicycle kick'],[100,'Screamer']];
-const TCOL={10:'#cfd8e6',25:'#7fe0a8',40:'#b48cff',70:'#ff7ac8',100:'#ffd23f'};const tierName=p=>TIERS.find(t=>t[0]===p)[1];
+// Points per level. From PTS_FROM on: 10 · 30 · 60 · 85 · 100 (before that day: 10 · 25 · 40 · 70 · 100, so a day's ranking never mixes the two)
+const PTS_FROM='2026-10-13',PTS_OLD=[10,25,40,70,100],PTS_NEW=[10,30,60,85,100];
+const PTS=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())>=PTS_FROM?PTS_NEW:PTS_OLD;
+const TIER_NAMES=['Tap-in','Header','Volley','Bicycle kick','Screamer'],TIER_COLS=['#cfd8e6','#7fe0a8','#b48cff','#ff7ac8','#ffd23f'];
+const TIERS=PTS.map((p,i)=>[p,TIER_NAMES[i]]);
+// a level from its points, on either scale (saved games keep the points they were played with)
+const tierIdx=p=>{let i=PTS.indexOf(p);if(i<0)i=PTS_OLD.indexOf(p);if(i<0)i=PTS_NEW.indexOf(p);return i};
+const TCOL={};[...PTS_OLD,...PTS_NEW].forEach(p=>TCOL[p]=TIER_COLS[tierIdx(p)]);const tierName=p=>TIER_NAMES[Math.max(0,tierIdx(p))];
 const MAX=Q.length*100;
 const ZONES=[[0,'Sunday league'],[.06,'Non-league'],[.15,'Second tier'],[.28,'Top flight'],[.44,'Champions League'],[.62,'World Cup final'],[.8,"Ballon d'Or"]];
 const SHORT=ES?['Pachanga','3ª RFEF','2ª Div.','1ª Div.','UCL','Mundial','Balón de Oro']:['Sunday','Non-league','2nd tier','Top flight','UCL','WC final',"Ballon d'Or"];
@@ -1588,7 +1594,7 @@ const SFX={
  whistle:()=>{sfxTone(2200,.16,{type:'square',vol:.1,vibrato:{rate:32,depth:110}});sfxTone(2200,.55,{type:'square',vol:.1,startAt:.22,vibrato:{rate:32,depth:110}})},
 };
 function sfxNoise(dur,{vol=.14,sweepFrom=3000,sweepTo=500}={}){const ac=getAC();const t0=ac.currentTime;const bufSize=ac.sampleRate*dur;const buf=ac.createBuffer(1,bufSize,ac.sampleRate);const data=buf.getChannelData(0);for(let i=0;i<bufSize;i++)data[i]=Math.random()*2-1;const src=ac.createBufferSource();src.buffer=buf;const filt=ac.createBiquadFilter();filt.type='bandpass';filt.Q.value=1.1;filt.frequency.setValueAtTime(sweepFrom,t0);filt.frequency.exponentialRampToValueAtTime(sweepTo,t0+dur);const gain=ac.createGain();gain.gain.setValueAtTime(0,t0);gain.gain.linearRampToValueAtTime(vol,t0+.02);gain.gain.exponentialRampToValueAtTime(.0001,t0+dur);src.connect(filt);filt.connect(gain);gain.connect(ac.destination);src.start(t0);src.stop(t0+dur+.02)}
-function playSfx(key){if(!soundOn())return;try{SFX[key]&&SFX[key]()}catch{}}
+function playSfx(key){if(!soundOn())return;if(typeof key==='number'&&!SFX[key]&&tierIdx(key)>=0)key=PTS_OLD[tierIdx(key)];try{SFX[key]&&SFX[key]()}catch{}}
 
 const PAL={K:"#1a1030",W:"#ffffff",L:"#d2d6ec",G:"#ffd23f",g:"#e0a000",P:"#ff6fb5",V:"#7c4dff",v:"#5a34d2",B:"#4fc3ff",E:"#1a1030",w:"#ffffff",N:"#ff6fb5"};
 
@@ -1863,7 +1869,7 @@ function reveal(ans){if(results[qi])return;const q=Q[qi];const pts=ans?ans.pts:0
  <p class="mute">${L('Level:','Nivel:')} <b style="color:var(--ink)">${zl(after)}</b>${after!==before?`<br><span class="promo-row" id="promoRow"><span class="promo hold" id="promo">${L('Promoted to','Asciendes a')} ${zl(after)}</span></span>`:''}</p>
  
  <div class="row">${INF?`<button type="button" class="ghost inf-exit" data-inf-exit>← ${L('Home','Inicio')}</button>`:''}<button id="next">${qi<Q.length-1||INF?L('Keep going','Siguiente'):L('See full time','Ver el final')}</button></div></div>`,()=>{
- const spans=[...document.querySelectorAll('#lad span')];const target=ans?TIERS.findIndex(t=>t[0]===pts):-1;
+ const spans=[...document.querySelectorAll('#lad span')];const target=ans?tierIdx(pts):-1;
  const nx=document.getElementById('next');nx.style.visibility='hidden';
  const land=()=>{playSfx(ans?pts:'miss');const ms0=document.getElementById('mascot');if(!ans){ms0.classList.remove('hold');ms0.classList.add('stinking');const w0=document.querySelector('.wrap');w0.classList.remove('slump');void w0.offsetWidth;w0.classList.add('slump');setTimeout(()=>document.getElementById('bubble').classList.add('show','stay'),350)}const tn=document.getElementById('tn'),pl=document.getElementById('pl');
   if(tn){tn.classList.remove('hold');tn.classList.add('wipe')}const ms=document.getElementById('mascot');ms.classList.remove('hold');if(pts===100){ms.dataset.mood='scream';ms.classList.add('screaming');document.getElementById('bubble').classList.add('show');const w=document.querySelector('.wrap');w.classList.remove('quake');void w.offsetWidth;w.classList.add('quake');
@@ -1896,7 +1902,7 @@ function end(restored){
  const rows=results.map((r,ri)=>r?{...r,ri}:null).filter(Boolean);
  const hits=rows.filter(r=>r.ans).sort((a,b)=>b.pts-a.pts||a.ri-b.ri);
  const misses=rows.filter(r=>!r.ans);
- const scoreGrid=rows.map(r=>r.pts?['⬜','🟩','🟪','🟥','🟨'][TIERS.findIndex(t=>t[0]===r.pts)]:'💩').join('');
+ const scoreGrid=rows.map(r=>r.pts?['⬜','🟩','🟪','🟥','🟨'][tierIdx(r.pts)]:'💩').join('');
  const resultItem=(r,miss=false)=>{const all=[...r.q.answers].sort((a,b)=>b.pts-a.pts||a.name.localeCompare(b.name));const label=miss?L('Stinker','Fallo'):(r.pts===100?L('SCREAMER!!!','¡QUÉ CHICHARRO!'):tl(tierName(r.pts)));const color=miss?'#ff8a7a':TCOL[r.pts];return`<details class="res result-item ${miss?'result-miss':'result-hit'}"><summary><span class="result-item-copy"><small>${qt(r.q,'prompt')}</small><b>${miss?L('No answer','Sin respuesta'):an(r.ans)}</b><em style="color:${color}">${label}</em></span><span class="result-verdict ${miss?'miss':'ok'}">${miss?'✕':'✓'} <b>+${r.pts}</b></span></summary><p class="mute" style="margin:8px 0 0">${r.q.answers.length} ${L('valid answers','respuestas válidas')}</p><ul class="ans">${all.map(a=>`<li class="${a===r.ans?'you':''}" style="--tc:${TCOL[a.pts]}"><span class="an">${an(a)}${a===r.ans?' ★':''}</span><span class="tchip">${tl(tierName(a.pts))}</span></li>`).join('')}</ul><p style="margin:10px 0;font-size:14px" class="mute">${L('Think we missed one?','¿Falta alguna?')} <button class="linkish" data-open="dlg-report" data-q="${r.ri}">${L('Tell us','Avísanos')}</button></p></details>`};
  const shareText=()=>{const pct=document.getElementById('pctn');const rank=pct?`
 ${ES?`Mejor que el ${pct.textContent}% de los jugadores`:`Better than ${pct.textContent}% of players`}`:'';return`🦄 Unicorner — ${score}/${MAX}${rank}
@@ -2043,8 +2049,8 @@ track('view',{ref:(document.referrer||'').slice(0,120),path:location.pathname,..
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&Date.now()-lastBeat>5000){lastBeat=Date.now();track('leave',{reason:'hidden'})}});
 window.addEventListener('pagehide',()=>track('leave',{reason:'pagehide'}));
 // ---- question bank
-const FAME_PTS_V1={5:10,4:25,3:40,2:70,1:100},FAME_PTS_V2={6:10,5:25,4:40,3:40,2:70,1:100};
-const famePoints=(q,f)=>((q?.scoring_version||1)>=2?FAME_PTS_V2:FAME_PTS_V1)[f]||70;
+const FAME_PTS_V1={6:PTS[0],5:PTS[0],4:PTS[1],3:PTS[2],2:PTS[3],1:PTS[4]},FAME_PTS_V2={6:PTS[0],5:PTS[1],4:PTS[2],3:PTS[2],2:PTS[3],1:PTS[4]};
+const famePoints=(q,f)=>((q?.scoring_version||1)>=2?FAME_PTS_V2:FAME_PTS_V1)[f]||PTS[3];
 const slug=t=>norm(t).replace(/ /g,'-').slice(0,120)||('q'+Date.now());
 const toGame=b=>({id:b._id,prompt:b.prompt,sub:b.subtitle||'',prompt_es:b.prompt_es||'',sub_es:b.subtitle_es||'',by:b.by||'',clash:b.clash_note||'',difficulty:b.difficulty||'unknown',answer_type:String(b.answer_type||'player').toLowerCase(),scoring_version:b.scoring_version||1,answers:(b.answers||[]).map(a=>({name:a.name,name_es:a.name_es||'',aliases:a.aliases||[],detail:a.detail||'',pts:famePoints(b,a.fame)}))});
 function hashStr(t){let h=2166136261;for(const c of t){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
@@ -2933,7 +2939,7 @@ dlg.addEventListener('click',e=>{const b=e.target.closest('[data-st]');if(!b){if
   ls('uc-bg',k==='classic'?null:k);apply();track('stadium_pick',{bg:k});pkSame=true;openPicker()}});
 // Kit unlocks get a card pack on the results screen. Each kit has an answer level (same names and colours as scoring).
 const KLV={stripes:0,hoops:0,ref:0,candy:0,keeper:0,sash:1,halves:1,night:1,pin:1,quarters:1,fire:1,shadow:1,checks:2,hat3:2,dots:2,toxic:2,ice:2,perfect:2,leopard:3,zebra:3,galaxy:3,ocean:3,sunset:3,camo:3,lava:3,chrome:4,rainbow:4,tiedye:4,gold:4};
-const KLC=[10,25,40,70,100].map(p=>TCOL[p]),KLN=TIERS.map(t=>t[1]);window.ucKitInfo={KLV,KLC,KLN};
+const KLC=TIER_COLS.slice(),KLN=TIERS.map(t=>t[1]);window.ucKitInfo={KLV,KLC,KLN};
 const kitsNow=()=>{const st=kitStats();return KITS.filter(k=>k.req&&kitHas(k,st)).map(k=>k.id)};
 let kitDone=null;try{kitDone=JSON.parse(ls('uc-kit-done')||'null')}catch{}
 // first visit with this feature: count what's already unlocked as seen, so nobody gets a pile of packs at once
