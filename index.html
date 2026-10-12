@@ -909,6 +909,13 @@ body.results-view .meter{display:none!important}
 .tk-wrap::before,.ucw-o::before,.inf-strip::before,.rs-frame::before{z-index:-1;background:#000}
 .tk-wrap::after,.ucw-o::after,.inf-strip::after,.rs-frame::after{z-index:-2;background:rgba(0,0,0,.35);transform:translate(8px,8px)}
 .rs-frame::before,.rs-frame::after{clip-path:polygon(0 11px,11px 11px,11px 0,calc(100% - 11px) 0,calc(100% - 11px) 11px,100% 11px,100% calc(100% - 11px),calc(100% - 11px) calc(100% - 11px),calc(100% - 11px) 100%,11px 100%,11px calc(100% - 11px),0 calc(100% - 11px))}
+/* question screen: square edges, pixel corners and the same black outline, drawn around #screen (it holds only the question card) */
+body.playing #screen>.card:not(.result-screen){border:0!important;border-radius:0!important;box-shadow:none!important;clip-path:polygon(0 8px,8px 8px,8px 0,calc(100% - 8px) 0,calc(100% - 8px) 8px,100% 8px,100% calc(100% - 8px),calc(100% - 8px) calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,8px calc(100% - 8px),0 calc(100% - 8px))}
+body.playing #screen>.card:not(.result-screen) *,body.playing .meter.lvl,body.playing .meter.lvl *{border-radius:0!important}
+body.playing #screen:not(:has(.rs-frame)){position:relative;isolation:isolate}
+body.playing #screen:not(:has(.rs-frame))::before,body.playing #screen:not(:has(.rs-frame))::after{content:"";position:absolute;inset:-3px;pointer-events:none;clip-path:polygon(0 11px,11px 11px,11px 0,calc(100% - 11px) 0,calc(100% - 11px) 11px,100% 11px,100% calc(100% - 11px),calc(100% - 11px) calc(100% - 11px),calc(100% - 11px) 100%,11px 100%,11px calc(100% - 11px),0 calc(100% - 11px))}
+body.playing #screen:not(:has(.rs-frame))::before{z-index:-1;background:#000}
+body.playing #screen:not(:has(.rs-frame))::after{z-index:-2;background:rgba(0,0,0,.35);transform:translate(8px,8px)}
 
 /* results: square edges everywhere, pixel corners and a black outline on the page itself */
 .result-screen,.result-screen details.result-item,.result-nearly,.result-screen .dist,.result-screen .tk-streak.rs,.result-screen .jb-status,.result-screen .cta,.result-screen button,.result-screen .sb-digit,.result-screen .quick-home-x,.result-screen input,.result-screen .st-unlock,.result-screen .st-sw,.result-screen .ans li,.result-screen .tchip{border-radius:0!important}
