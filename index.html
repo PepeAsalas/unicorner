@@ -2630,7 +2630,7 @@ function ucwPod(top){if(!top.length)return'';const ord=[1,0,2].filter(i=>top[i])
 const ucwRow=(r,extra='')=>`<div class="ucw-r${r.me?' me':''}${r.ghost?' ghost'+(draft.nick.trim()?' named':''):''}${extra}"${cardAttr(r)}><span>${r.rank||'–'}</span>${uni(r)}<span class="ucw-n">${nmOf(r)}</span><span class="ucw-s">${r.score??'—'}</span></div>`;
 function ucwList(list,mine){const top=list.filter(r=>r.rank&&r.rank<=3).slice(0,3),rest=list.filter(r=>!top.includes(r));
  return ucwPod(top)+`<div class="ucw-grid"><div class="ucw-r h"><span>${L('Pos','Pos')}</span><span></span><span>${L('Player','Jugador')}</span><span class="ucw-s">Pts</span></div>${rest.map(r=>ucwRow(r)).join('')}${mine||''}</div>`}
-function champStrip(y){if(!y?.nickname)return'';const beat=Math.max(0,(+y.players||1)-1),n=`<b>${esc(y.nickname)}</b>`;
+function champStrip(y){if(!y?.nickname)return'';const beat=(+y.players||1)>1?+y.players:0,n=`<b>${esc(y.nickname)}</b>`;
  const line=beat?L(`${n} beat ${beat} player${beat===1?'':'s'} with ${y.score}`,`${n} ganó a ${beat} jugador${beat===1?'':'es'} con ${y.score}`):L(`${n} won with ${y.score}`,`${n} ganó con ${y.score}`);
  return`<div class="ucw-champ"${cardAttr({...y,rank:0})}>${uni(y)}<span><small>${L("Yesterday's WINNER",'El GANADOR de ayer')}</small>${line}</span><i class="ucw-star" aria-hidden="true">★</i></div>`}
 function competeShell(title,body,foot,status){const tab=gScope==='league'?'league':gTab==='week'?'week':'today';

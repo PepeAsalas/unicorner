@@ -410,7 +410,13 @@ declare uid uuid := auth.uid(); t date := lg_today(); wk date := date_trunc('wee
         td json; tn int; tme json; wkj json; wn int; wme json; yj json;
 begin
   select json_build_object('nickname', p.nickname, 'score', s.score, 'kit', p.kit, 'kits', p.kits, 'streak', p.best_streak, 'games', p.games,
-           'players', (select count(*) from player_scores s2 join player_profiles p2 on p2.user_id = s2.user_id where s2.day = t - 1 and not s2.removed)) into yj
+           'players', greatest(
+             -- everyone who finished yesterday's game, signed up or not (anonymous players are only in the events log)
+             (select count(distinct coalesce(e.visitor, e.session)) from events e
+               where e.name = 'game_finish' and e.game_day::text = to_char(t - 1, 'YYYY-MM-DD')
+                 and e.created_at >= (t - 2)::timestamptz and e.created_at < (t + 1)::timestamptz
+                 and coalesce(e.data->>'mode', '') <> 'infinity'),
+             (select count(*) from player_scores s2 join player_profiles p2 on p2.user_id = s2.user_id where s2.day = t - 1 and not s2.removed))) into yj
     from player_scores s join player_profiles p on p.user_id = s.user_id
     where s.day = t - 1 and not s.removed order by s.score desc, s.created_at limit 1;
 
