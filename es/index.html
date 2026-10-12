@@ -2710,7 +2710,7 @@ function bestStreak(){let days=[];try{days=Object.keys(localStorage).filter(k=>k
 const unlocked=k=>{const t=LIST.find(x=>x[0]===k);return!!t&&bestStreak()>=t[2]};
 // Kit goals come from the games already saved on this device
 function kitStats(){const st={games:0,scr:0,best:0,scr1:0,allfive:0,level:0,inf:0,streak:bestStreak()};
- try{for(const k of Object.keys(localStorage)){if(k.startsWith('uc-inf-'))st.inf=1;if(!k.startsWith('unicorner-played-'))continue;let r=null;try{r=JSON.parse(localStorage.getItem(k))}catch{}st.games++;if(!r)continue;
+ try{for(const k of Object.keys(localStorage)){if(/^uc-inf-\d{4}-/.test(k))st.inf=1;if(!k.startsWith('unicorner-played-'))continue;let r=null;try{r=JSON.parse(localStorage.getItem(k))}catch{}st.games++;if(!r)continue;
   const sc=+r.score||0;st.best=Math.max(st.best,sc);const picks=Array.isArray(r.picks)?r.picks.filter(Array.isArray):[];const n=picks.filter(x=>x[2]===100).length;st.scr+=n;st.scr1=Math.max(st.scr1,n);
   if(picks.length===5&&picks.every(x=>x[2]>0))st.allfive=1}}catch{}
  st.level=ZONES.reduce((a,z,i)=>st.best/MAX>=z[0]?i:a,0);return st}
