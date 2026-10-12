@@ -902,10 +902,17 @@ body.results-view .meter{display:none!important}
 
 /* quick non-game home exit */
 .result-screen{position:relative!important}
+/* pixel frame: a black outline and a hard shadow with stepped corners around a clipped card. Drawn with two pseudo-elements, not filters, so scrolling stays smooth */
+.tk-wrap,.ucw-o,.inf-strip,.rs-frame{position:relative;isolation:isolate}
+.tk-wrap::before,.ucw-o::before,.inf-strip::before,.rs-frame::before,.tk-wrap::after,.ucw-o::after,.inf-strip::after,.rs-frame::after{content:"";position:absolute;inset:-3px;pointer-events:none;clip-path:polygon(0 9px,9px 9px,9px 0,calc(100% - 9px) 0,calc(100% - 9px) 9px,100% 9px,100% calc(100% - 9px),calc(100% - 9px) calc(100% - 9px),calc(100% - 9px) 100%,9px 100%,9px calc(100% - 9px),0 calc(100% - 9px))}
+.tk-wrap::before,.ucw-o::before,.inf-strip::before,.rs-frame::before{z-index:-1;background:#000}
+.tk-wrap::after,.ucw-o::after,.inf-strip::after,.rs-frame::after{z-index:-2;background:rgba(0,0,0,.35);transform:translate(8px,8px)}
+.rs-frame::before,.rs-frame::after{clip-path:polygon(0 11px,11px 11px,11px 0,calc(100% - 11px) 0,calc(100% - 11px) 11px,100% 11px,100% calc(100% - 11px),calc(100% - 11px) calc(100% - 11px),calc(100% - 11px) 100%,11px 100%,11px calc(100% - 11px),0 calc(100% - 11px))}
+
 /* results: square edges everywhere, pixel corners and a black outline on the page itself */
 .result-screen,.result-screen details.result-item,.result-nearly,.result-screen .dist,.result-screen .tk-streak.rs,.result-screen .jb-status,.result-screen .cta,.result-screen button,.result-screen .sb-digit,.result-screen .quick-home-x,.result-screen input,.result-screen .st-unlock,.result-screen .st-sw,.result-screen .ans li,.result-screen .tchip{border-radius:0!important}
 .result-screen{--st:8px;border:0!important;box-shadow:none!important;clip-path:polygon(0 var(--st),var(--st) var(--st),var(--st) 0,calc(100% - var(--st)) 0,calc(100% - var(--st)) var(--st),100% var(--st),100% calc(100% - var(--st)),calc(100% - var(--st)) calc(100% - var(--st)),calc(100% - var(--st)) 100%,var(--st) 100%,var(--st) calc(100% - var(--st)),0 calc(100% - var(--st)))}
-#screen:has(>.result-screen){filter:drop-shadow(3px 0 0 #000) drop-shadow(-3px 0 0 #000) drop-shadow(0 3px 0 #000) drop-shadow(0 -3px 0 #000) drop-shadow(8px 8px 0 rgba(0,0,0,.35))}
+
 .result-screen .quick-home-x{display:flex;position:absolute;top:14px;right:14px;width:42px;height:42px;align-items:center;justify-content:center;z-index:20;padding:0!important;background:#0c0c18!important;color:#fff!important;border:3px solid #fff!important;border-radius:7px!important;box-shadow:0 0 0 3px #000,4px 4px 0 rgba(0,0,0,.4)!important;font-size:0!important;line-height:0!important;cursor:pointer}
 .result-screen .quick-home-x:hover,.result-screen .quick-home-x:focus-visible{color:var(--gold)!important;border-color:var(--gold)!important;outline:none}
 body.playing .quick-home-x{display:none!important}
@@ -970,7 +977,7 @@ body.playing .quick-home-x{display:none!important}
 
 /* ── home: matchday ticket + streak (2026-10 redesign) ── */
 /* ticket: cream paper with stepped pixel corners; the outline and drop shadow sit on the wrapper so the corner cut keeps them */
-.tk-wrap{margin:4px 0 20px;filter:drop-shadow(3px 0 0 #000) drop-shadow(-3px 0 0 #000) drop-shadow(0 3px 0 #000) drop-shadow(0 -3px 0 #000) drop-shadow(8px 8px 0 rgba(0,0,0,.35))}
+.tk-wrap{margin:4px 0 20px}
 .tk{--st:6px;margin:0;overflow:hidden;background:#f3ead2;color:#1b1530;clip-path:polygon(0 var(--st),var(--st) var(--st),var(--st) 0,calc(100% - var(--st)) 0,calc(100% - var(--st)) var(--st),100% var(--st),100% calc(100% - var(--st)),calc(100% - var(--st)) calc(100% - var(--st)),calc(100% - var(--st)) 100%,var(--st) 100%,var(--st) calc(100% - var(--st)),0 calc(100% - var(--st)))}
 .tk .tk-play,.tk .tk-how{border-radius:0!important}
 .tk-main{display:grid;grid-template-columns:84px minmax(0,1fr)}
@@ -1133,7 +1140,7 @@ body.inf-mode .seo-info,body.inf-mode footer{display:none}
 .lp2-tiers{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
 .lp2-tiers em{font-style:normal;padding:1px 7px;border:2px solid #000;color:#1b1530;font-family:var(--lab);font-size:17px}
 /* Infinity strip: a space arcade screen with pixel corners, drifting stars and a ringed ∞ planet */
-.inf-strip{display:block!important;width:100%;margin:0 0 22px;padding:0!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;color:#fff!important;text-transform:none!important;text-align:left;cursor:pointer;filter:drop-shadow(3px 0 0 #000) drop-shadow(-3px 0 0 #000) drop-shadow(0 3px 0 #000) drop-shadow(0 -3px 0 #000) drop-shadow(8px 8px 0 rgba(0,0,0,.35))}
+.inf-strip{display:block!important;width:100%;margin:0 0 22px;padding:0!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;color:#fff!important;text-transform:none!important;text-align:left;cursor:pointer}
 .inf-in{--st:6px;position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;padding:14px 16px;background:radial-gradient(ellipse at 80% 120%,#7c4dff 0,transparent 55%),#0b0630;clip-path:polygon(0 var(--st),var(--st) var(--st),var(--st) 0,calc(100% - var(--st)) 0,calc(100% - var(--st)) var(--st),100% var(--st),100% calc(100% - var(--st)),calc(100% - var(--st)) calc(100% - var(--st)),calc(100% - var(--st)) 100%,var(--st) 100%,var(--st) calc(100% - var(--st)),0 calc(100% - var(--st)))}
 .inf-stars{position:absolute;inset:0;background-image:radial-gradient(#fff 1px,transparent 1.5px),radial-gradient(#9fd8ff 1px,transparent 1.5px),radial-gradient(#ffd23f 1.2px,transparent 1.7px);background-size:37px 31px,53px 41px,89px 67px;background-position:0 0,17px 11px,40px 23px;animation:inf-stars 20s linear infinite;opacity:.9}
 @keyframes inf-stars{to{background-position:-370px 0,-266px 11px,-178px 23px}}
@@ -1621,7 +1628,9 @@ const paint=()=>document.querySelectorAll('.sprite').forEach(el=>{const set=SPR[
 if(!still)setInterval(()=>{tickN++;paint()},220);
 new MutationObserver(paint).observe(document.body,{childList:true,subtree:true});
 const S=document.getElementById('screen');
-function swap(html,after,slide){const old=S.firstElementChild;const go=()=>{S.innerHTML=html;const c=S.firstElementChild;c.classList.add('in');if(slide)c.classList.add('slide-in');[...c.children].forEach((el,i)=>el.style.setProperty('--i',i));after&&after()};if(old){old.classList.add(slide?'slide-out':'out');setTimeout(go,320)}else go()}
+// the results card sits inside a frame; the card itself gets the in/out animations
+const swapCard=()=>{const c=S.firstElementChild;return c&&c.classList.contains('rs-frame')?c.firstElementChild:c};
+function swap(html,after,slide){const old=swapCard();const go=()=>{S.innerHTML=html;const c=swapCard();c.classList.add('in');if(slide)c.classList.add('slide-in');[...c.children].forEach((el,i)=>el.style.setProperty('--i',i));after&&after()};if(old){old.classList.add(slide?'slide-out':'out');setTimeout(go,320)}else go()}
 function countUp(el,to,ms=700,prefix=''){const t0=performance.now();const f=t=>{const k=Math.min(1,(t-t0)/ms);el.textContent=prefix+Math.round(to*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
 function flipScoreTo(el,to,ms=2000){const digits=String(to).length;el.innerHTML=Array.from({length:digits},()=>'<span class="sb-digit"><span class="num">0</span></span>').join('');const tiles=[...el.querySelectorAll('.sb-digit')];let prev=tiles.map(()=>'0');const t0=performance.now();const step=now=>{const k=Math.min(1,(now-t0)/ms);const val=Math.round(to*(1-Math.pow(1-k,3)));const str=String(val).padStart(digits,'0');str.split('').forEach((d,i)=>{if(d!==prev[i]){prev[i]=d;const tile=tiles[i];tile.classList.remove('flip');void tile.offsetWidth;tile.classList.add('flip');tile.querySelector('.num').textContent=d}});if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
 
@@ -1863,7 +1872,7 @@ ${ES?`Mejor que el ${pct.textContent}% de los jugadores`:`Better than ${pct.text
 ${scoreGrid}
 ${L('Can you beat me?','¿Me superas?')}
 www.unicornergame.lol`};
- swap(`<div class="card result-screen"><button type="button" class="quick-home-x" id="quick-home-x" aria-label="Back to home" title="Back to home">×</button>
+ swap(`<div class="rs-frame"><div class="card result-screen"><button type="button" class="quick-home-x" id="quick-home-x" aria-label="Back to home" title="Back to home">×</button>
   <div class="hero"><div class="sprite big-sprite bob" data-mood="${results.some(r=>r.pts===100)?'scream':score/MAX>=.44?'wow':score/MAX>=.15?'happy':'sad'}"></div><div><div class="mute">${L('Final whistle','Pitido final')}</div><div class="tier" id="fs">0</div></div><div class="motm" id="motm" hidden><div class="ribbon-img" id="ribbonImg"></div><span>${L('Man of the Match','Jugador del partido')}</span></div></div>
   <div class="pts">${L('You reached:','Has llegado a:')} ${zl(zoneOf(score))}</div>
   ${spicyResult()}
@@ -1876,7 +1885,7 @@ www.unicornergame.lol`};
   <button type="button" class="inf-strip" data-infinite><span class="inf-in"><i class="inf-stars" aria-hidden="true"></i><span class="inf-ico" aria-hidden="true">∞</span><span class="inf-txt"><b>${L("Can't wait until tomorrow?",'¿No puedes esperar a mañana?')}</b><small>${L('Try Infinity mode','Prueba el Modo Infinito')}</small></span><span class="inf-cta">${L('Press start','Pulsa start')}</span></span></button>
   <div class="row result-home-row"><button class="ghost" id="home">${L('Back to home','Volver al inicio')}</button></div>
   <div class="relay-rail" id="relay-rail"></div>
- </div>`,()=>{
+ </div></div>`,()=>{
   relayRail(document.getElementById('relay-rail'));
   window.scrollTo({top:0,left:0,behavior:'auto'});
   setTimeout(()=>flipScoreTo(document.getElementById('fs'),score,2000),400);
@@ -2386,7 +2395,7 @@ const css=`
 @keyframes jbghost{50%{opacity:.5}}
 @media (prefers-reduced-motion:reduce){.jb-row.ghost{animation:none}}
 /* Ranking window: an early-90s football manager window. Podium for 1st to 3rd, then 4th to 10th, everyone's unicorn in their kit */
-.ucw-o{width:100%;filter:drop-shadow(3px 0 0 #000) drop-shadow(-3px 0 0 #000) drop-shadow(0 3px 0 #000) drop-shadow(0 -3px 0 #000) drop-shadow(8px 8px 0 rgba(0,0,0,.35))}
+.ucw-o{width:100%}
 .ucw{--w0:#f3ead2;--wl:#fffbea;--wd:#b8ac8a;--st:6px;width:100%;box-sizing:border-box;padding:4px;background:var(--w0);color:#1b1530;box-shadow:inset 2px 2px 0 var(--wl),inset -2px -2px 0 var(--wd);clip-path:polygon(0 var(--st),var(--st) var(--st),var(--st) 0,calc(100% - var(--st)) 0,calc(100% - var(--st)) var(--st),100% var(--st),100% calc(100% - var(--st)),calc(100% - var(--st)) calc(100% - var(--st)),calc(100% - var(--st)) 100%,var(--st) 100%,var(--st) calc(100% - var(--st)),0 calc(100% - var(--st)));font:400 10px/1.5 "Press Start 2P",var(--lab);text-align:left;letter-spacing:0;text-shadow:none}
 .ucw-bar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 7px;background:#1b2a6b;color:#fffbea;font-size:10px;overflow:hidden;white-space:nowrap}
 .ucw-bar span{overflow:hidden;text-overflow:ellipsis}
@@ -2943,7 +2952,7 @@ html.polish .pz-pre{translate:0 26px;scale:.96}
 html.polish .pz-pre>*{opacity:0;translate:0 14px}
 html.polish .pz-run{transition:translate .5s var(--pz-pop),scale .5s var(--pz-pop)}
 html.polish .pz-run>*{transition:opacity .38s var(--pz-out),translate .5s var(--pz-pop);transition-delay:calc(70ms + var(--i,0)*55ms)}
-html.polish #screen>.card.out{translate:0 -12px;scale:.97;filter:blur(3px);transition:opacity .28s var(--pz-out),translate .28s var(--pz-out),scale .28s var(--pz-out),filter .28s}
+html.polish #screen>.card.out,html.polish #screen>.rs-frame>.card.out{translate:0 -12px;scale:.97;filter:blur(3px);transition:opacity .28s var(--pz-out),translate .28s var(--pz-out),scale .28s var(--pz-out),filter .28s}
 
 /* 2. Landing intro + scroll reveals: same rise, staggered by --d */
 html.polish .pz-hide{opacity:0;translate:0 22px}
