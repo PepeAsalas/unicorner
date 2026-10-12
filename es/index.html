@@ -914,6 +914,12 @@ body.results-view .meter{display:none!important}
 .tk-wrap::after,.ucw-o::after,.inf-strip::after,.rs-frame::after{z-index:-2;background:rgba(0,0,0,.35);transform:translate(8px,8px)}
 .ucw-o::before,.ucw-o::after{clip-path:polygon(0 7px,7px 7px,7px 0,calc(100% - 7px) 0,calc(100% - 7px) 7px,100% 7px,100% calc(100% - 7px),calc(100% - 7px) calc(100% - 7px),calc(100% - 7px) 100%,7px 100%,7px calc(100% - 7px),0 calc(100% - 7px))}
 .rs-frame::before,.rs-frame::after{clip-path:polygon(0 11px,11px 11px,11px 0,calc(100% - 11px) 0,calc(100% - 11px) 11px,100% 11px,100% calc(100% - 11px),calc(100% - 11px) calc(100% - 11px),calc(100% - 11px) 100%,11px 100%,11px calc(100% - 11px),0 calc(100% - 11px))}
+/* plain square corners for the ranking and the results page; the ticket, Infinity strip and question screen keep their pixel corners */
+.ucw{clip-path:none!important}.ucw-o::before,.ucw-o::after{clip-path:none!important}
+.result-screen{clip-path:none!important}.rs-frame::before,.rs-frame::after{clip-path:none!important}
+/* hovering the Infinity strip lifts it without the default button shadow */
+.inf-strip:hover,.inf-strip:active{box-shadow:none!important}
+
 /* question screen: square edges, pixel corners and the same black outline, drawn around #screen (it holds only the question card) */
 body.playing #screen>.card:not(.result-screen){border:0!important;border-radius:0!important;box-shadow:none!important;clip-path:polygon(0 8px,8px 8px,8px 0,calc(100% - 8px) 0,calc(100% - 8px) 8px,100% 8px,100% calc(100% - 8px),calc(100% - 8px) calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,8px calc(100% - 8px),0 calc(100% - 8px))}
 body.playing #screen>.card:not(.result-screen) *,body.playing .meter.lvl,body.playing .meter.lvl *{border-radius:0!important}
