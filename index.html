@@ -902,6 +902,7 @@ body.results-view .meter{display:none!important}
 
 /* quick non-game home exit */
 .result-screen{position:relative!important}
+.off-view,.off-view *,.off-view::before,.off-view::after{animation-play-state:paused!important}
 /* pixel frame: a black outline and a hard shadow with stepped corners around a clipped card. Drawn with two pseudo-elements, not filters, so scrolling stays smooth */
 .tk-wrap,.ucw-o,.inf-strip,.rs-frame{position:relative;isolation:isolate}
 .tk-wrap::before,.ucw-o::before,.inf-strip::before,.rs-frame::before,.tk-wrap::after,.ucw-o::after,.inf-strip::after,.rs-frame::after{content:"";position:absolute;inset:-3px;pointer-events:none;clip-path:polygon(0 9px,9px 9px,9px 0,calc(100% - 9px) 0,calc(100% - 9px) 9px,100% 9px,100% calc(100% - 9px),calc(100% - 9px) calc(100% - 9px),calc(100% - 9px) 100%,9px 100%,9px calc(100% - 9px),0 calc(100% - 9px))}
@@ -2740,7 +2741,9 @@ async function syncLook(){if(!sess||!me?.profile||lookBusy)return;const l=myLook
 window.ucLookSync=()=>{renderGlobal();syncLook()};
 async function renderGlobal(){if(!document.querySelector('[data-compete]'))return;applyLed();
  const html=gScope==='league'?leagueBox():await globalBox();if(html==null)return;
- document.querySelectorAll('[data-compete]').forEach(el=>{el.innerHTML=html});applyLed()}
+ // only touch the page when the board actually changed
+ document.querySelectorAll('[data-compete]').forEach(el=>{if(boardHtml.get(el)===html)return;boardHtml.set(el,html);el.innerHTML=html});applyLed()}
+const boardHtml=new WeakMap();
 async function viewGlobal(fresh){show('<h2>🌍 Global ranking</h2><p class="mute">Loading…</p>');
  let g;try{g=await loadGlobal(fresh)}catch(e){return show('<h2>🌍 Global ranking</h2><p class="lg-err" id="lea-err">Couldn\'t load the ranking — try again.</p>')}
  const part=g.day,rows=part.rows||[];
@@ -3009,5 +3012,13 @@ html.polish .pz-count{font-variant-numeric:tabular-nums}
  const boot=()=>setTimeout(()=>{intro();setTimeout(reveals,900)},150);
  if(document.readyState==='complete')boot();else addEventListener('load',boot,{once:true});
 })();
+</script>
+
+<script>
+/* Animations inside cards that are scrolled out of view are paused until they come back */
+(()=>{if(!('IntersectionObserver' in window))return;const SEL='.inf-strip,[data-compete],.tk-wrap,.lp2-how,.result-section,.result-nearly,.dist';
+ const io=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('off-view',!e.isIntersecting)),{rootMargin:'100px 0px'});
+ const seen=new WeakSet(),scan=()=>document.querySelectorAll(SEL).forEach(el=>{if(seen.has(el))return;seen.add(el);io.observe(el)});
+ const scr=document.getElementById('screen');if(scr)new MutationObserver(()=>setTimeout(scan,60)).observe(scr,{childList:true});scan()})();
 </script>
 </body></html>
