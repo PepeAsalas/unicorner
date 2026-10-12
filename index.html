@@ -965,7 +965,10 @@ body.playing .quick-home-x{display:none!important}
 @media (max-width:560px){.landing-wrap .lp-hero.lp-home-hero{margin-bottom:12px!important}}
 
 /* ── home: matchday ticket + streak (2026-10 redesign) ── */
-.tk{margin:4px 0 20px;border:3px solid #000;border-radius:10px;overflow:hidden;box-shadow:0 0 0 3px #fff,8px 8px 0 rgba(0,0,0,.35);background:#fff8e6;color:#1b1530}
+/* ticket: cream paper with stepped pixel corners; the outline and drop shadow sit on the wrapper so the corner cut keeps them */
+.tk-wrap{margin:4px 0 20px;filter:drop-shadow(3px 0 0 #000) drop-shadow(-3px 0 0 #000) drop-shadow(0 3px 0 #000) drop-shadow(0 -3px 0 #000) drop-shadow(8px 8px 0 rgba(0,0,0,.35))}
+.tk{--st:6px;margin:0;overflow:hidden;background:#f3ead2;color:#1b1530;clip-path:polygon(0 var(--st),var(--st) var(--st),var(--st) 0,calc(100% - var(--st)) 0,calc(100% - var(--st)) var(--st),100% var(--st),100% calc(100% - var(--st)),calc(100% - var(--st)) calc(100% - var(--st)),calc(100% - var(--st)) 100%,var(--st) 100%,var(--st) calc(100% - var(--st)),0 calc(100% - var(--st)))}
+.tk .tk-play,.tk .tk-how{border-radius:0!important}
 .tk-main{display:grid;grid-template-columns:84px minmax(0,1fr)}
 .tk-stub{background:var(--gold);border-right:3px dashed #1b1530;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 4px;text-align:center;font-family:var(--lab);font-size:19px;text-transform:uppercase;line-height:1}
 .tk-stub b{font-family:var(--px);font-weight:400;font-size:52px;line-height:.9;margin:2px 0}
@@ -1694,7 +1697,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
   </div>
  </section>
 
- <section class="tk${played?' tk-done':''}" aria-label="${L("Today's game",'El partido de hoy')}">
+ <div class="tk-wrap"><section class="tk${played?' tk-done':''}" aria-label="${L("Today's game",'El partido de hoy')}">
   <div class="tk-main">
    <div class="tk-stub" aria-hidden="true"><span>${tkDate[0]}</span><b>${tkDate[1]}</b><span>${tkDate[2]}</span></div>
    <div class="tk-body">
@@ -1708,7 +1711,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
   </div>
   ${streakStrip(sInfo)}
   ${signedOut()?`<p class="tk-back"><button type="button" data-lg="back">${L('Played on another device? Sign in to bring your streak back','¿Has jugado en otro dispositivo? Entra y recupera tu racha')} →</button></p>`:''}
- </section>
+ </section></div>
 
  ${competeFirst?compete:''}
 
