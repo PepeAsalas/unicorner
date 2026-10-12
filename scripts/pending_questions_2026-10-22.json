@@ -1,0 +1,125 @@
+{
+ "note": "New questions waiting for ChatGPT answer lists (prompt in chatgpt_answers_2026-10-22.md). Each goes into the day shown.",
+ "questions": [
+  {
+   "key": "N2",
+   "day": "2026-10-22",
+   "prompt": "Name a player who has captained England",
+   "subtitle": "Senior men's matches, 2000 to 2025",
+   "prompt_es": "Nombra un jugador que haya sido capitán de Inglaterra",
+   "subtitle_es": "Partidos de la selección absoluta, de 2000 a 2025",
+   "difficulty": "easy",
+   "answer_type": "player"
+  },
+  {
+   "key": "N1",
+   "day": "2026-10-23",
+   "prompt": "Name a club that has played in a Champions League final",
+   "subtitle": "Finals from 1992-93 to 2024-25",
+   "prompt_es": "Nombra un club que haya jugado una final de la Champions League",
+   "subtitle_es": "Finales de la 1992-93 a la 2024-25",
+   "difficulty": "easy",
+   "answer_type": "club"
+  },
+  {
+   "key": "N4",
+   "day": "2026-10-23",
+   "prompt": "Name an Asian country that has played at a men's World Cup",
+   "subtitle": "AFC members, 1930 to 2026",
+   "prompt_es": "Nombra una selección asiática que haya jugado un Mundial masculino",
+   "subtitle_es": "Miembros de la AFC, de 1930 a 2026",
+   "difficulty": "easy",
+   "answer_type": "country"
+  },
+  {
+   "key": "N6",
+   "day": "2026-10-24",
+   "prompt": "Name a player sold for €80m or more",
+   "subtitle": "Single transfer fee including add-ons, up to summer 2026",
+   "prompt_es": "Nombra un jugador traspasado por 80 millones de euros o más",
+   "subtitle_es": "Un solo traspaso con variables, hasta el verano de 2026",
+   "difficulty": "easy",
+   "answer_type": "player"
+  },
+  {
+   "key": "N7",
+   "day": "2026-10-24",
+   "prompt": "Name a club relegated from the Premier League",
+   "subtitle": "2015-16 to 2024-25",
+   "prompt_es": "Nombra un club que haya descendido de la Premier League",
+   "subtitle_es": "De la 2015-16 a la 2024-25",
+   "difficulty": "easy",
+   "answer_type": "club"
+  },
+  {
+   "key": "N8",
+   "day": "2026-10-25",
+   "prompt": "Name a player who scored in El Clásico",
+   "subtitle": "Real Madrid v Barcelona, all competitions, 2010–2025",
+   "prompt_es": "Nombra un jugador que haya marcado en un Clásico",
+   "subtitle_es": "Real Madrid–Barcelona, todas las competiciones, 2010–2025",
+   "difficulty": "easy",
+   "answer_type": "player"
+  },
+  {
+   "key": "N9",
+   "day": "2026-10-26",
+   "prompt": "Name a Brazilian who has played in the Premier League",
+   "subtitle": "50+ Premier League appearances, 1992-93 to 2024-25",
+   "prompt_es": "Nombra un brasileño que haya jugado en la Premier League",
+   "subtitle_es": "50 o más partidos de Premier, de la 1992-93 a la 2024-25",
+   "difficulty": "easy",
+   "answer_type": "player"
+  },
+  {
+   "key": "N10",
+   "day": "2026-10-27",
+   "prompt": "Name a club that played in Serie A in 2024-25",
+   "subtitle": "The 20 clubs of that season",
+   "prompt_es": "Nombra un club que jugó en la Serie A 2024-25",
+   "subtitle_es": "Los 20 clubes de esa temporada",
+   "difficulty": "easy",
+   "answer_type": "club"
+  },
+  {
+   "key": "N11",
+   "day": "2026-10-27",
+   "prompt": "Name a player who played in the 2014 World Cup final",
+   "subtitle": "Germany v Argentina, starters and substitutes used",
+   "prompt_es": "Nombra un jugador que jugó la final del Mundial 2014",
+   "subtitle_es": "Alemania–Argentina, titulares y suplentes que salieron",
+   "difficulty": "easy",
+   "answer_type": "player"
+  },
+  {
+   "key": "N12",
+   "day": "2026-10-28",
+   "prompt": "Name a club that played in the Bundesliga",
+   "subtitle": "2015-16 to 2024-25",
+   "prompt_es": "Nombra un club que haya jugado en la Bundesliga",
+   "subtitle_es": "De la 2015-16 a la 2024-25",
+   "difficulty": "easy",
+   "answer_type": "club"
+  },
+  {
+   "key": "N13",
+   "day": "2026-10-28",
+   "prompt": "Name a country that has won Olympic gold in men's football",
+   "subtitle": "Olympic Games, 1900 to 2024",
+   "prompt_es": "Nombra una selección que haya ganado el oro olímpico en fútbol masculino",
+   "subtitle_es": "Juegos Olímpicos, de 1900 a 2024",
+   "difficulty": "easy",
+   "answer_type": "country"
+  },
+  {
+   "key": "N3",
+   "day": "2026-10-28",
+   "prompt": "Name an African player who has won the Premier League",
+   "subtitle": "At least one league game in a title-winning season, 1992-93 to 2024-25",
+   "prompt_es": "Nombra un jugador africano que haya ganado la Premier League",
+   "subtitle_es": "Al menos un partido de liga en la temporada del título, de la 1992-93 a la 2024-25",
+   "difficulty": "medium",
+   "answer_type": "player"
+  }
+ ]
+}
