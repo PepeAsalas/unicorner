@@ -1084,6 +1084,11 @@ body.inf-mode .seo-info,body.inf-mode footer{display:none}
 .inf-msg{min-height:1em;color:#ff9a9a;margin:0!important;font-size:14px}
 .inf-ok{color:#39ff6a;font-size:16px;text-align:center}
 @media (prefers-reduced-motion:reduce){body.inf-mode .scene .sky,.inf-big,.inf-load .inf-big{animation:none}}
+/* spicy day note (ticket + results) */
+.spicy{display:flex;flex-direction:column;gap:3px;margin:8px 0 10px;padding:9px 12px;border:2px solid #000;border-radius:8px;background:linear-gradient(90deg,#ff5a3c,#ff9a3c);color:#1b0a05;box-shadow:0 3px 0 #000;line-height:1.3;text-align:left}
+.spicy b{font-family:var(--px);font-size:24px;line-height:1;color:#fff;-webkit-text-stroke:1px #000;paint-order:stroke fill;text-shadow:0 2px 0 #000;letter-spacing:.5px}
+.spicy span{font-family:var(--lab);font-size:15px;color:#1b0a05}
+.spicy.rs{margin:10px 0 4px}
 .tk-streak.rs{margin:10px 0 14px;border:3px solid #000;border-radius:8px}
 .tk-back{margin:0;padding:0 14px 10px;background:#1b1530;text-align:center}
 .tk-back button,.g-back{background:none!important;border:0!important;box-shadow:none!important;padding:2px 0!important;color:#cfc8f5!important;font:400 18px var(--lab)!important;text-decoration:underline;text-underline-offset:3px;cursor:pointer;text-transform:none!important;letter-spacing:0!important}
@@ -1576,6 +1581,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
    <div class="tk-stub" aria-hidden="true"><span>${tkDate[0]}</span><b>${tkDate[1]}</b><span>${tkDate[2]}</span></div>
    <div class="tk-body">
     <div class="tk-meta"><span>${played?L('Your result','Tu resultado'):L('Matchday ticket','Entrada del partido')}</span><span>${played?L('Played ✓','Jugado ✓'):Q.length+L(' prompts · 3 min',' preguntas · 3 min')}</span></div>
+    ${spicyTicket(!!played)}
     ${played?`<div class="tk-score"><b>${played.score}</b><span>/${MAX} · ${zl(zoneOf(played.score))}</span></div>
     ${played.remote?`<p class="tk-live">${L('Played on another device ✓ · next game in','Jugado en otro dispositivo ✓ · próximo partido en')} <b>${untilMidnight()}</b></p>`:`<button type="button" class="cta tk-play" id="go">${L("View today's result",'Resultados de hoy')}</button>
     <p class="tk-live">${L('Next game in','Próximo partido en')} <b>${untilMidnight()}</b></p>`}`
@@ -1726,6 +1732,7 @@ www.unicornergame.lol`};
  swap(`<div class="card result-screen"><button type="button" class="quick-home-x" id="quick-home-x" aria-label="Back to home" title="Back to home">×</button>
   <div class="hero"><div class="sprite big-sprite bob" data-mood="${results.some(r=>r.pts===100)?'scream':score/MAX>=.44?'wow':score/MAX>=.15?'happy':'sad'}"></div><div><div class="mute">${L('Final whistle','Pitido final')}</div><div class="tier" id="fs">0</div></div><div class="motm" id="motm" hidden><div class="ribbon-img" id="ribbonImg"></div><span>${L('Man of the Match','Jugador del partido')}</span></div></div>
   <div class="pts">${L('You reached:','Has llegado a:')} ${zl(zoneOf(score))}</div>
+  ${spicyTicket(true).replace('class="spicy"','class="spicy rs"')}
   ${streakStrip(streakInfo(),'rs')}
   <div class="dist" id="dist"><div class="mute">${L("Comparing with today's players…",'Comparando con los jugadores de hoy…')}</div></div>
   <div class="result-share-row"><button class="cta" id="copy-result">${L('Copy result','Copiar resultado')}</button><button type="button" class="ghost" id="share-result">${L('Share','Compartir')}</button></div>
@@ -1874,12 +1881,17 @@ function todaysSet(bank){const day=gameDayNumber();const srt=l=>[...l].sort((a,b
  const pick=(l,i)=>l[((i%l.length)+l.length)%l.length];return[pick(E,day*4),pick(E,day*4+1),pick(M,day),pick(E,day*4+2),pick(E,day*4+3)]}
 let BANK=[];
 let DAILY_SCHEDULE=null;
+// A hard day can be flagged with "spicy": true in its daily/YYYY-MM-DD.json: the ticket and results then say so, so a low score doesn't put people off
+let DAILY_SPICY=false;
+const spicyName=()=>{const d=new Date(amsterdamDay()+'T12:00:00Z').getUTCDay();return ES?['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'][d]+' picante':'Spicy '+['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][d]};
+const spicyTicket=played=>DAILY_SPICY?`<p class="spicy"><b>🌶️ ${spicyName()}</b><span>${played?L("Today's set was a tough one for everyone. Tomorrow might be easier… or not 👀",'Hoy las preguntas han sido duras para todos. ¿Mañana más fáciles? Puede que sí… o puede que no 👀'):L("Today's set is a tough one. Even one good answer is a win.",'Las preguntas de hoy son duras. Una buena respuesta ya es una victoria.')}</span></p>`:'';
 async function loadDailySchedule(){
   const day=amsterdamDay();
   try{
     const r=await fetch(`daily/${day}.json`,{cache:'no-store'});
     if(!r.ok)return null;
     const j=await r.json();
+    DAILY_SPICY=j?.date===day&&!!j.spicy;
     return j?.date===day&&Array.isArray(j.questions)?j.questions:null
   }catch{return null}
 }
