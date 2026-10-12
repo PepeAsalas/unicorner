@@ -1274,6 +1274,24 @@ body.inf-mode .seo-info,body.inf-mode footer{display:none}
 .kit-pv{display:grid;place-items:center;height:76px;background:radial-gradient(ellipse at 50% 90%,#2f8f3a 0 30%,transparent 31%),linear-gradient(#5ea2ff 0 60%,#3fae3c 60%);border-bottom:2px solid #000}
 .kit-pv i{display:block;width:74px;height:62px;background-size:contain;background-repeat:no-repeat;background-position:center;image-rendering:pixelated}
 #dlg-stadium .kit-tile.locked .kit-pv i{filter:brightness(.82) saturate(.85)}
+/* Kit and stadium picker as a locker room: wooden wall, every kit and stadium in a metal locker with a name tag */
+#dlg-stadium{border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;overflow:auto;max-height:calc(100dvh - 20px);padding:0 11px 11px 0!important}
+#dlg-stadium .st-body{background:#3a2a1c;color:#fffbea;border:3px solid #000;box-shadow:8px 8px 0 rgba(0,0,0,.4);background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.15) 0 2px,transparent 2px 46px)}
+#dlg-stadium h2{color:#ffd23f!important;font:400 15px/1.4 "Press Start 2P",var(--lab)!important;text-transform:uppercase;padding-right:52px;margin:4px 0 12px!important}
+#dlg-stadium .st-sub{color:#e7dcbc!important}#dlg-stadium .st-sub b{color:#ffd23f!important}
+#dlg-stadium .lg-x{background:#f3ead2!important;color:#1b1530!important;border:3px solid #000!important;border-radius:0!important}
+#dlg-stadium .pk-tabs button{border-radius:0!important;background:#5a4430!important;color:#fffbea!important;border:3px solid #000!important;box-shadow:0 4px 0 #000!important}
+#dlg-stadium .pk-tabs button[aria-selected="true"]{background:#ffd23f!important;color:#1b1530!important}
+#dlg-stadium .st-tile{position:relative;border-radius:0!important;background:#8a9ab0!important;color:#fffbea!important;border:3px solid #000!important;box-shadow:inset 0 0 0 3px #6b7a90,4px 4px 0 rgba(0,0,0,.45)!important;padding:14px 8px 8px!important}
+#dlg-stadium .st-tile::before{content:"";position:absolute;top:5px;left:50%;width:34px;height:4px;margin-left:-17px;background:repeating-linear-gradient(90deg,#000 0 3px,transparent 3px 6px)}
+#dlg-stadium .st-tile .kit-pv,#dlg-stadium .st-tile .st-sw{border:3px solid #000!important}
+#dlg-stadium .st-name{color:#fffbea!important;text-shadow:0 2px 0 #000;margin-top:6px}
+#dlg-stadium .st-need{color:#1b1530!important;background:#f3ead2;border:2px solid #000;padding:2px 4px;margin-top:4px}
+#dlg-stadium .kit-tile:not(.locked) .st-need{color:#1f8a4c!important}
+#dlg-stadium .st-tile.on{background:#ffd23f!important;box-shadow:inset 0 0 0 3px #c98f12,4px 4px 0 rgba(0,0,0,.45)!important;border-color:#000!important}
+#dlg-stadium .st-tile.on .st-name{color:#1b1530!important;text-shadow:none}
+#dlg-stadium .kit-lock{border-radius:0!important;background:#1b1530!important}
+@media (max-width:480px){#dlg-stadium h2{font-size:13px!important}}
 .kit-lock{position:absolute;top:5px;right:5px;font-style:normal;font-size:13px;line-height:1;padding:3px 4px;background:#0c0c18;border:2px solid #000;border-radius:5px}
 .kit-tile.gold:not(.locked) .kit-pv i{animation:kit-gold-pv 1.4s ease-in-out infinite}
 @keyframes kit-gold-pv{50%{filter:drop-shadow(0 0 7px #ffd23f) drop-shadow(0 0 2px #fff3a0) brightness(1.12)}}
