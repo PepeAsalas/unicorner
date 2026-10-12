@@ -1225,14 +1225,11 @@ body.inf-mode .seo-info,body.inf-mode footer{display:none}
 #dlg-stadium .kit-grid{grid-template-columns:repeat(3,minmax(0,1fr));max-height:min(60vh,520px);overflow-y:auto;padding:4px 4px 6px}
 @media (max-width:480px){#dlg-stadium .kit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .kit-tile{position:relative}
-#dlg-stadium .kit-msg{margin:0 0 10px;padding:9px 12px;border:2px solid #000;border-radius:8px;background:var(--gold);color:#1b1530;font-family:var(--lab);font-size:17px;line-height:1.3;animation:kit-msg .35s cubic-bezier(.2,1.6,.4,1)}
-#dlg-stadium .kit-msg b{color:#1b1530}
-@keyframes kit-msg{from{transform:scale(.92);opacity:0}}
 #dlg-stadium .kit-tile:not(.locked) .st-need{color:#9dffb0;font-size:14px;line-height:1.2}
 .kit-pv{display:grid;place-items:center;height:76px;background:radial-gradient(ellipse at 50% 90%,#2f8f3a 0 30%,transparent 31%),linear-gradient(#5ea2ff 0 60%,#3fae3c 60%);border-bottom:2px solid #000}
 .kit-pv i{display:block;width:74px;height:62px;background-size:contain;background-repeat:no-repeat;background-position:center;image-rendering:pixelated}
-#dlg-stadium .kit-tile.locked .kit-pv{filter:grayscale(1) brightness(.45)}
-.kit-lock{position:absolute;top:24px;left:50%;translate:-50% 0;font-style:normal;font-size:22px}
+#dlg-stadium .kit-tile.locked .kit-pv i{filter:brightness(.82) saturate(.85)}
+.kit-lock{position:absolute;top:5px;right:5px;font-style:normal;font-size:13px;line-height:1;padding:3px 4px;background:#0c0c18;border:2px solid #000;border-radius:5px}
 .kit-tile.gold:not(.locked) .kit-pv i{animation:kit-gold-pv 1.4s ease-in-out infinite}
 @keyframes kit-gold-pv{50%{filter:drop-shadow(0 0 7px #ffd23f) drop-shadow(0 0 2px #fff3a0) brightness(1.12)}}
 /* the Golden unicorn glows wherever it appears */
@@ -2682,7 +2679,7 @@ const kitGoal=([t,n])=>t==='games'?L(`Play ${n} games`,`Juega ${n} partidos`):t=
 const kitWhy=k=>{if(!k.req)return L('Free for everyone','Gratis para todos');const[t,n]=k.req;return t==='games'?L(`You played ${n} games`,`Jugaste ${n} partidos`):t==='streak'?L(`You hit a ${n}-day streak`,`Llegaste a una racha de ${n} días`):t==='scr'?L(`You found ${n} Screamers`,`Conseguiste ${n} chicharros`):t==='scr1'?L(`You got ${n} Screamers in one game`,`Hiciste ${n} chicharros en un partido`):t==='best'?L(`You scored ${n}+ in a game`,`Hiciste ${n}+ puntos en un partido`):t==='level'?L(`You reached ${zl(ZONES[n][1])}`,`Llegaste a ${zl(ZONES[n][1])}`):t==='inf'?L('You tried Infinity mode','Probaste el Modo Infinito'):L('You got all 5 right in one game','Acertaste las 5 en un partido')};
 const kitPv=k=>`<span class="kit-pv"><i style="background-image:${sprite('happy',0,false,k).replace(/"/g,"'")}"></i></span>`;
 function wearKit(k){UC_KIT=k.id==='classic'?null:k;ls('uc-kit',UC_KIT?k.id:null);buildSprites();paint()}
-let pTab='kits',kitMsg='';
+let pTab='kits',pkSame=false;
 function apply(){const q=new URLSearchParams(location.search).get('bg');const k=q||ls('uc-bg')||'classic';
  if(k!=='classic'&&!q&&!unlocked(k)){ls('uc-bg',null);delete scene.dataset.bg;return}
  if(k==='classic')delete scene.dataset.bg;else scene.dataset.bg=k}
@@ -2690,30 +2687,30 @@ const sw=k=>{const c=SKY[k];return `<span class="st-sw" style="--sky:${c[0]};--c
 function dot(){const best=bestStreak(),top=Math.max(0,...LIST.filter(t=>best>=t[2]).map(t=>t[2])),st=kitStats(),kits=KITS.filter(k=>kitHas(k,st)).length;btn.classList.toggle('has-new',top>+(ls('uc-bg-seen')||0)||kits>+(ls('uc-kit-seen')||1))}
 document.body.insertAdjacentHTML('beforeend','<dialog id="dlg-stadium"><div class="st-body" id="st-body"></div></dialog>');
 const dlg=document.getElementById('dlg-stadium');
-function openPicker(){const best=bestStreak(),cur=scene.dataset.bg||'classic',next=LIST.find(t=>t[2]>best);
+function openPicker(){const g0=document.querySelector('#st-body .st-grid'),y0=pkSame&&g0?g0.scrollTop:0,d0=pkSame?dlg.scrollTop:0;pkSame=false;const best=bestStreak(),cur=scene.dataset.bg||'classic',next=LIST.find(t=>t[2]>best);
  const st=kitStats(),have=KITS.filter(k=>kitHas(k,st)).length;ls('uc-kit-seen',have);
  ls('uc-bg-seen',Math.max(0,...LIST.filter(t=>best>=t[2]).map(t=>t[2])));dot();
- const tabs=`<div class="pk-tabs" role="tablist"><button type="button" role="tab" data-st="tab" data-t="kits" aria-selected="${pTab==='kits'}">👕 ${L('Kits','Equipaciones')}</button><button type="button" role="tab" data-st="tab" data-t="stadiums" aria-selected="${pTab==='stadiums'}">🏟️ ${L('Stadiums','Estadios')}</button></div>`;
+ const tabs=`<div class="pk-tabs" role="tablist"><button type="button" role="tab" data-st="tab" data-t="kits" aria-selected="${pTab==='kits'}">${L('Kits','Equipaciones')}</button><button type="button" role="tab" data-st="tab" data-t="stadiums" aria-selected="${pTab==='stadiums'}">${L('Stadiums','Estadios')}</button></div>`;
  const close=`<button type="button" class="lg-x" data-st="close" aria-label="Close" style="position:absolute;top:14px;right:14px;width:38px;height:38px;padding:0;background:#0c0c18;color:#fff;border:3px solid #fff;border-radius:7px;font-size:24px;line-height:1;cursor:pointer">×</button>`;
  if(pTab==='kits'){const curK=UC_KIT?.id||'classic';
-  document.getElementById('st-body').innerHTML=`${close}<h2>👕 ${L('Pick your kit','Elige tu equipación')}</h2>${tabs}
-  ${kitMsg?`<p class="kit-msg" role="status">${kitMsg}</p>`:''}<p class="st-sub">${L(`${have} of ${KITS.length} unlocked. Play, find Screamers and keep your streak to unlock more.`,`${have} de ${KITS.length} desbloqueadas. Juega, consigue chicharros y mantén la racha para desbloquear más.`)}</p>
+  document.getElementById('st-body').innerHTML=`${close}<h2>${L('Pick your kit','Elige tu equipación')}</h2>${tabs}
+  <p class="st-sub">${L(`${have} of ${KITS.length} unlocked. Play, find Screamers and keep your streak to unlock more.`,`${have} de ${KITS.length} desbloqueadas. Juega, consigue chicharros y mantén la racha para desbloquear más.`)}</p>
   <div class="st-grid kit-grid">${KITS.map(k=>{const lock=!kitHas(k,st),on=k.id===curK,n=L(k.en,k.es);return `<button type="button" class="st-tile kit-tile${on?' on':''}${lock?' locked':''}${k.gold?' gold':''}" data-st="kit" data-k="${k.id}" ${lock?'aria-disabled="true"':''} aria-label="${n}${lock?', '+kitGoal(k.req):on?L(', in use',', en uso'):''}">${kitPv(k)}${lock?'<i class="kit-lock">🔒</i>':''}<span class="st-name">${n}</span><span class="st-need">${lock?kitGoal(k.req):(on?L('✓ In use · ','✓ En uso · '):'')+kitWhy(k)}</span></button>`}).join('')}</div>`}
  else{
  document.getElementById('st-body').innerHTML=`${close}
-  <h2>🏟️ ${L('Pick your stadium','Elige tu estadio')}</h2>${tabs}
+  <h2>${L('Pick your stadium','Elige tu estadio')}</h2>${tabs}
   <p class="st-sub">${ES?(best?`Mejor racha: <b style="color:var(--gold)">${best} día${best===1?'':'s'}</b>`:'Juega hoy para desbloquear tu primer estadio')+(next?` · siguiente: ${next[1]} a los ${next[2]} días`:' · ¡todos los estadios desbloqueados!'):(best?`Best streak: <b style="color:var(--gold)">${best} day${best===1?'':'s'}</b>`:'Play today to unlock your first stadium')+(next?` · next: ${next[1]} at ${next[2]} days`:' · every stadium unlocked!')}</p>
   <div class="st-grid">${LIST.map(([k,n,need])=>{const lock=best<need,on=k===cur;return `<button type="button" class="st-tile${on?' on':''}${lock?' locked':''}" data-st="pick" data-k="${k}" ${lock?'aria-disabled="true"':''} aria-label="${n}${lock?L(`, unlocks at a ${need}-day streak`,`, se desbloquea con una racha de ${need} días`):on?L(', in use',', en uso'):''}">${sw(k).replace('</span>',lock?'<i>🔒</i></span>':'</span>')}<span class="st-name">${n}</span><span class="st-need">${lock?`🔥 ${need} ${L('days','días')}`:on?L('✓ In use','✓ En uso'):need?L('Unlocked','Desbloqueado'):L('Default','Por defecto')}</span></button>`}).join('')}</div>`;}
- if(!dlg.open)dlg.showModal();track('stadium_open',{best})}
-btn.onclick=()=>{pTab='kits';kitMsg='';openPicker()};
+ if(!dlg.open)dlg.showModal();const g1=document.querySelector('#st-body .st-grid');if(g1)g1.scrollTop=y0;dlg.scrollTop=d0;track('stadium_open',{best})}
+btn.onclick=()=>{pTab='kits';openPicker()};
 if(UC_KIT&&!kitHas(UC_KIT,kitStats()))wearKit(KITS[0]);
 dlg.addEventListener('click',e=>{const b=e.target.closest('[data-st]');if(!b){if(e.target===dlg)dlg.close();return}
  if(b.dataset.st==='close')return dlg.close();
  if(b.dataset.st==='tab'){pTab=b.dataset.t;track('picker_tab',{tab:pTab});return openPicker()}
- if(b.dataset.st==='kit'){const k=KITS.find(x=>x.id===b.dataset.k);if(!k)return;if(!kitHas(k,kitStats())){kitMsg=`🔒 <b>${L(k.en,k.es)}</b> · ${kitGoal(k.req)}`;return openPicker()}
-  wearKit(k);track('kit_pick',{kit:k.id});kitMsg=`👕 <b>${L(k.en,k.es)}</b> · ${k.req?L('You unlocked this when: ','La desbloqueaste cuando: ')+kitWhy(k).replace(/^You /,'you ').replace(/^(Jugaste|Llegaste|Conseguiste|Hiciste|Probaste|Acertaste)/,m=>m.toLowerCase()):kitWhy(k)}`;return openPicker()}
+ if(b.dataset.st==='kit'){const k=KITS.find(x=>x.id===b.dataset.k);if(!k)return;if(!kitHas(k,kitStats())){b.animate([{translate:'0'},{translate:'-4px'},{translate:'4px'},{translate:'0'}],{duration:260});return}
+  wearKit(k);track('kit_pick',{kit:k.id});pkSame=true;return openPicker()}
  if(b.dataset.st==='pick'){const k=b.dataset.k;if(!unlocked(k)){showToast(L('Keep your streak going to unlock this one 🔥','Mantén tu racha para desbloquear este 🔥'));return}
-  ls('uc-bg',k==='classic'?null:k);apply();track('stadium_pick',{bg:k});openPicker()}});
+  ls('uc-bg',k==='classic'?null:k);apply();track('stadium_pick',{bg:k});pkSame=true;openPicker()}});
 // results: celebrate a new unlock and switch to it straight away
 function celebrate(){const rs=document.querySelector('.result-screen');if(!rs||rs.dataset.stDone)return;rs.dataset.stDone='1';
  const best=bestStreak(),done=+(ls('uc-bg-celebrated')||0),fresh=LIST.filter(t=>t[2]>done&&best>=t[2]&&t[2]>0).pop();if(!fresh)return;
