@@ -3039,7 +3039,7 @@ html.polish #msg.bad{animation:pz-msg .3s var(--pz-pop)}
 html.polish details::details-content{height:0;overflow:clip;transition:height .35s var(--pz-out),content-visibility .35s allow-discrete}
 html.polish details[open]::details-content{height:auto}
 html.polish .result-item summary{transition:background .2s}
-@media (hover:hover){html.polish .result-item summary:hover{background:rgba(255,255,255,.05)}}
+@media (hover:hover){html.polish .result-screen details.result-item:hover{background-image:linear-gradient(rgba(255,255,255,.05),rgba(255,255,255,.05))!important}}
 
 /* 6. Numbers count up instead of appearing */
 html.polish .pz-count{font-variant-numeric:tabular-nums}
