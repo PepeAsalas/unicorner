@@ -1084,11 +1084,14 @@ body.inf-mode .seo-info,body.inf-mode footer{display:none}
 .inf-msg{min-height:1em;color:#ff9a9a;margin:0!important;font-size:14px}
 .inf-ok{color:#39ff6a;font-size:16px;text-align:center}
 @media (prefers-reduced-motion:reduce){body.inf-mode .scene .sky,.inf-big,.inf-load .inf-big{animation:none}}
-/* spicy day note (ticket + results) */
-.spicy{display:flex;flex-direction:column;gap:3px;margin:8px 0 10px;padding:9px 12px;border:2px solid #000;border-radius:8px;background:linear-gradient(90deg,#ff5a3c,#ff9a3c);color:#1b0a05;box-shadow:0 3px 0 #000;line-height:1.3;text-align:left}
-.spicy b{font-family:var(--px);font-size:24px;line-height:1;color:#fff;-webkit-text-stroke:1px #000;paint-order:stroke fill;text-shadow:0 2px 0 #000;letter-spacing:.5px}
-.spicy span{font-family:var(--lab);font-size:15px;color:#1b0a05}
-.spicy.rs{margin:10px 0 4px}
+/* spicy day note on the results screen: pulsing red line with a pixel chili */
+.spicy{margin:10px 0 4px;text-align:center}
+.spicy-h{display:inline-flex;align-items:center;gap:10px;font-family:var(--px);font-size:34px;line-height:1;color:#ff3b30;text-transform:uppercase;letter-spacing:1px;text-shadow:0 3px 0 #000,0 0 14px rgba(255,59,48,.6);animation:spicy-pulse 1.2s ease-in-out infinite}
+.spicy-h .chili{width:22px;height:27px;image-rendering:pixelated;filter:drop-shadow(0 2px 0 #000)}
+.spicy-h .chili:last-child{transform:scaleX(-1)}
+.spicy small{display:block;margin-top:6px;font-family:var(--lab);font-size:15px;color:#d6ccff;line-height:1.35}
+@keyframes spicy-pulse{50%{color:#ff7a5c;text-shadow:0 3px 0 #000,0 0 26px rgba(255,59,48,.95);transform:scale(1.04)}}
+@media (prefers-reduced-motion:reduce){.spicy-h{animation:none}}
 .tk-streak.rs{margin:10px 0 14px;border:3px solid #000;border-radius:8px}
 .tk-back{margin:0;padding:0 14px 10px;background:#1b1530;text-align:center}
 .tk-back button,.g-back{background:none!important;border:0!important;box-shadow:none!important;padding:2px 0!important;color:#cfc8f5!important;font:400 18px var(--lab)!important;text-decoration:underline;text-underline-offset:3px;cursor:pointer;text-transform:none!important;letter-spacing:0!important}
@@ -1581,7 +1584,6 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
    <div class="tk-stub" aria-hidden="true"><span>${tkDate[0]}</span><b>${tkDate[1]}</b><span>${tkDate[2]}</span></div>
    <div class="tk-body">
     <div class="tk-meta"><span>${played?L('Your result','Tu resultado'):L('Matchday ticket','Entrada del partido')}</span><span>${played?L('Played ✓','Jugado ✓'):Q.length+L(' prompts · 3 min',' preguntas · 3 min')}</span></div>
-    ${spicyTicket(!!played)}
     ${played?`<div class="tk-score"><b>${played.score}</b><span>/${MAX} · ${zl(zoneOf(played.score))}</span></div>
     ${played.remote?`<p class="tk-live">${L('Played on another device ✓ · next game in','Jugado en otro dispositivo ✓ · próximo partido en')} <b>${untilMidnight()}</b></p>`:`<button type="button" class="cta tk-play" id="go">${L("View today's result",'Resultados de hoy')}</button>
     <p class="tk-live">${L('Next game in','Próximo partido en')} <b>${untilMidnight()}</b></p>`}`
@@ -1732,7 +1734,7 @@ www.unicornergame.lol`};
  swap(`<div class="card result-screen"><button type="button" class="quick-home-x" id="quick-home-x" aria-label="Back to home" title="Back to home">×</button>
   <div class="hero"><div class="sprite big-sprite bob" data-mood="${results.some(r=>r.pts===100)?'scream':score/MAX>=.44?'wow':score/MAX>=.15?'happy':'sad'}"></div><div><div class="mute">${L('Final whistle','Pitido final')}</div><div class="tier" id="fs">0</div></div><div class="motm" id="motm" hidden><div class="ribbon-img" id="ribbonImg"></div><span>${L('Man of the Match','Jugador del partido')}</span></div></div>
   <div class="pts">${L('You reached:','Has llegado a:')} ${zl(zoneOf(score))}</div>
-  ${spicyTicket(true).replace('class="spicy"','class="spicy rs"')}
+  ${spicyResult()}
   ${streakStrip(streakInfo(),'rs')}
   <div class="dist" id="dist"><div class="mute">${L("Comparing with today's players…",'Comparando con los jugadores de hoy…')}</div></div>
   <div class="result-share-row"><button class="cta" id="copy-result">${L('Copy result','Copiar resultado')}</button><button type="button" class="ghost" id="share-result">${L('Share','Compartir')}</button></div>
@@ -1884,7 +1886,8 @@ let DAILY_SCHEDULE=null;
 // A hard day can be flagged with "spicy": true in its daily/YYYY-MM-DD.json: the ticket and results then say so, so a low score doesn't put people off
 let DAILY_SPICY=false;
 const spicyName=()=>{const d=new Date(amsterdamDay()+'T12:00:00Z').getUTCDay();return ES?['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'][d]+' picante':'Spicy '+['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][d]};
-const spicyTicket=played=>DAILY_SPICY?`<p class="spicy"><b>🌶️ ${spicyName()}</b><span>${played?L("Today's set was a tough one for everyone. Tomorrow might be easier… or not 👀",'Hoy las preguntas han sido duras para todos. ¿Mañana más fáciles? Puede que sí… o puede que no 👀'):L("Today's set is a tough one. Even one good answer is a win.",'Las preguntas de hoy son duras. Una buena respuesta ya es una victoria.')}</span></p>`:'';
+const CHILI=`<svg class="chili" viewBox="0 0 10 12" shape-rendering="crispEdges" aria-hidden="true"><rect x="5" y="0" width="1" height="2" fill="#2f8a3a"/><rect x="4" y="1" width="4" height="1" fill="#3fae3c"/><rect x="3" y="2" width="5" height="1" fill="#000"/><rect x="2" y="3" width="1" height="5" fill="#000"/><rect x="8" y="3" width="1" height="4" fill="#000"/><rect x="3" y="3" width="5" height="4" fill="#ff3b30"/><rect x="4" y="3" width="1" height="2" fill="#ff9a8a"/><rect x="3" y="7" width="5" height="1" fill="#ff3b30"/><rect x="7" y="7" width="1" height="1" fill="#000"/><rect x="3" y="8" width="4" height="1" fill="#e0261b"/><rect x="2" y="8" width="1" height="1" fill="#000"/><rect x="7" y="8" width="1" height="1" fill="#000"/><rect x="3" y="9" width="3" height="1" fill="#e0261b"/><rect x="6" y="9" width="1" height="1" fill="#000"/><rect x="2" y="9" width="1" height="2" fill="#000"/><rect x="3" y="10" width="2" height="1" fill="#b81d14"/><rect x="5" y="10" width="1" height="1" fill="#000"/><rect x="3" y="11" width="2" height="1" fill="#000"/></svg>`;
+const spicyResult=()=>DAILY_SPICY?`<p class="spicy"><span class="spicy-h">${CHILI}${spicyName()}${CHILI}</span><small>${L("Today's set was a tough one for everyone. Tomorrow might be easier… or not 👀",'Hoy las preguntas han sido duras para todos. ¿Mañana más fáciles? Puede que sí… o puede que no 👀')}</small></p>`:'';
 async function loadDailySchedule(){
   const day=amsterdamDay();
   try{
