@@ -72,7 +72,7 @@ details{margin-top:8px}summary{cursor:pointer;color:var(--mute)}details.res{marg
 .card.slide-in{animation:card-slide-in .38s cubic-bezier(.2,.8,.3,1) both}
 @keyframes card-slide-in{from{transform:translateX(46px);opacity:0}to{transform:translateX(0);opacity:1}}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}}
-.wipe{animation:wipe .9s cubic-bezier(.65,0,.25,1) both}.hold{opacity:0}@keyframes wipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.wipe{animation:wipe .9s cubic-bezier(.65,0,.25,1) both}.hold{opacity:0}@keyframes wipe{from{clip-path:inset(-8px 100% -8px -8px)}to{clip-path:inset(-8px -8px -8px -8px)}}
 .tier.pop{animation:none}
 .timer.low i{animation:pulse .5s ease-in-out infinite alternate}@keyframes pulse{to{opacity:.55}}
 .meter .fill::after{content:'';position:absolute;top:-7px;left:50%;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:var(--chalk);box-shadow:0 0 0 4px rgba(255,255,255,.18)}
@@ -164,6 +164,8 @@ button{box-shadow:none;transition:transform .15s,box-shadow .2s}button:hover{tra
 .ghead em{position:absolute;left:0;top:0;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:#fff;box-shadow:0 0 0 4px var(--hc),0 0 18px var(--hc);transition:box-shadow .2s}
 .ghead span{position:absolute;bottom:22px;left:0;transform:translateX(-50%);white-space:nowrap;font:700 14px Barlow,sans-serif;background:var(--hc);color:#0a1430;padding:4px 10px;border-radius:7px;transition:background .2s}
 .ghead span::after{content:'';position:absolute;left:50%;bottom:-5px;margin-left:-5px;border:5px solid transparent;border-bottom:0;border-top-color:var(--hc);transition:border-color .2s}
+.ghead.at-end span{left:auto;right:-14px;transform:none}.ghead.at-end span::after{left:auto;right:9px}
+.ghead.at-start span{left:-14px;transform:none}.ghead.at-start span::after{left:9px}
 .ghead.tick span{animation:tick .2s ease-out}@keyframes tick{from{transform:translateX(-50%) scale(1.15)}}
 .ghead.locked em::before{content:'';position:absolute;inset:-4px;border-radius:50%;border:3px solid var(--hc);animation:ring .8s ease-out forwards}
 @keyframes ring{to{transform:scale(2.6);opacity:0}}
@@ -1891,7 +1893,7 @@ function reveal(ans){if(results[qi])return;const q=Q[qi];const pts=ans?ans.pts:0
   document.getElementById('gfill').style.setProperty('--gw',document.querySelector('.gbar').offsetWidth+'px');const N=TIERS.length,end=pts/100,dur=700+target*430,t0=performance.now()+350;let shown=-1;
   head.classList.remove('hold');
   const step=now=>{const k=Math.max(0,Math.min(1,(now-t0)/dur));const e=1-Math.pow(1-k,3.2);const x=end*e;
-   fill.style.width=x*100+'%';head.style.left=x*100+'%';
+   fill.style.width=x*100+'%';head.style.left=x*100+'%';head.classList.toggle('at-end',x>.82);head.classList.toggle('at-start',x<.12);
    let i=TIERS.findIndex(t=>x*100<=t[0]);if(i<0)i=N-1;if(i!==shown){shown=i;lab.textContent=(i===N-1&&target===N-1)?L('SCREAMER!!!','¡QUÉ CHICHARRO!'):tl(TIERS[i][1]);head.style.setProperty('--hc',COLS[i]);segs.forEach((sg,j)=>sg.classList.toggle('lit',j<=i));head.classList.remove('tick');void head.offsetWidth;head.classList.add('tick')}
    if(k<1)requestAnimationFrame(step);else{head.classList.add('locked');const g=document.getElementById('gauge');g.classList.add('done');if(target===N-1)g.classList.add('uni');const tn=document.getElementById('tn');if(tn){tn.style.color=COLS[target];if(target===N-1)tn.classList.add('uni-text')}setTimeout(land,380)}};
   requestAnimationFrame(step)}
@@ -2662,12 +2664,13 @@ async function syncScore(){if(!sess)return;const p=playedToday();if(!p)return;
  if(sent&&(!picks||lsGet(kp)===who||picksTried))return;
  try{try{picksTried=true;await rpc('lg_submit_score',{p_day:p.day,p_score:p.score,p_picks:picks});if(picks)lsSet(kp,who)}
   catch(e){if(sent)return;await rpc('lg_submit_score',{p_day:p.day,p_score:p.score})}
-  lsSet(k,who);board=null;gboard=null;renderSlots()}catch{}}
+  lsSet(k,who);board=null;gboard=null;try{await loadGlobal(true)}catch{}renderSlots()}catch{}}
 
 // ── Global ranking (public). Only players with a nickname appear. ──
 let gboard=null,gAt=0,gTab='day',gBusy=null;
 async function loadGlobal(force){if(!force&&gboard&&Date.now()-gAt<60000)return gboard;
- if(!gBusy)gBusy=pubRpc('lg_global_board').then(g=>{if(!g?.day||!g?.week)throw new Error('Ranking unavailable');gboard=g;gAt=Date.now();adoptRemote(g);return g}).finally(()=>gBusy=null);return gBusy}
+ if(!gBusy||force){const id=++gSeq;const req=pubRpc('lg_global_board').then(g=>{if(!g?.day||!g?.week)throw new Error('Ranking unavailable');if(id===gSeq){gboard=g;gAt=Date.now();adoptRemote(g)}return id===gSeq?g:gboard||g}).finally(()=>{if(gBusy===req)gBusy=null});gBusy=req}return gBusy}
+let gSeq=0;
 // Played on another device while signed in: the board knows today's score, so this device counts today as played too
 let picksFetched=false;
 function adoptRemote(g){const sc=g?.day?.me?.score;if(!sess||typeof sc!=='number'||g.today!==amsterdamDay())return;
@@ -3001,6 +3004,10 @@ html.polish .pz-pre>*{opacity:0;translate:0 14px}
 html.polish .pz-run{transition:translate .5s var(--pz-pop),scale .5s var(--pz-pop)}
 html.polish .pz-run>*{transition:opacity .38s var(--pz-out),translate .5s var(--pz-pop);transition-delay:calc(70ms + var(--i,0)*55ms)}
 html.polish #screen>.card.out,html.polish #screen>.rs-frame>.card.out{translate:0 -12px;scale:.97;filter:blur(3px);transition:opacity .28s var(--pz-out),translate .28s var(--pz-out),scale .28s var(--pz-out),filter .28s}
+html.polish body.playing #screen>.card.pz-pre,html.polish #screen>.rs-frame>.card.pz-pre{translate:none!important;scale:none!important}
+html.polish body.playing #screen>.card.out,html.polish #screen>.rs-frame>.card.out{translate:none!important;scale:none!important;filter:none!important}
+body.playing #screen::before,body.playing #screen::after,.rs-frame::before,.rs-frame::after{transition:opacity .28s}
+body.playing #screen:has(>.card.out)::before,body.playing #screen:has(>.card.out)::after,.rs-frame:has(>.card.out)::before,.rs-frame:has(>.card.out)::after{opacity:0}
 
 /* 2. Landing intro + scroll reveals: same rise, staggered by --d */
 html.polish .pz-hide{opacity:0;translate:0 22px}
