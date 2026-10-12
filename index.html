@@ -1128,12 +1128,21 @@ body.inf-mode .seo-info,body.inf-mode footer{display:none}
 .lp2-steps li:nth-child(1)>b{background:#2563d9}.lp2-steps li:nth-child(2)>b{background:#7c4dff}.lp2-steps li:nth-child(3)>b{background:#e0458f}
 .lp2-tiers{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
 .lp2-tiers em{font-style:normal;padding:1px 7px;border:2px solid #000;color:#1b1530;font-family:var(--lab);font-size:17px}
-.inf-strip{width:100%;display:flex!important;align-items:center;gap:12px;margin:0 0 22px;padding:10px 14px!important;border:3px solid #000!important;border-radius:10px!important;background:linear-gradient(90deg,#7c4dff,#e0458f)!important;color:#fff!important;box-shadow:0 4px 0 #000!important;text-transform:none!important;text-align:left;cursor:pointer}
-.inf-ico{flex:none;width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:2px solid #000;border-radius:50%;background:var(--gold);color:#1b1530;font-size:28px;line-height:1}
-.inf-txt{display:flex;flex-direction:column;flex:1 1 auto;min-width:0}
-.inf-txt b{font-family:var(--px);font-weight:400;font-size:22px;line-height:1}
-.inf-txt small{font-family:var(--lab);font-size:17px;font-weight:400}
-.inf-cta{flex:none;padding:3px 8px;border:2px solid #000;border-radius:4px;background:#fff;color:#1b1530;font-family:var(--lab);font-size:17px;text-transform:uppercase}
+/* Infinity strip: a space arcade screen with pixel corners, drifting stars and a ringed ∞ planet */
+.inf-strip{display:block!important;width:100%;margin:0 0 22px;padding:0!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;color:#fff!important;text-transform:none!important;text-align:left;cursor:pointer;filter:drop-shadow(3px 0 0 #000) drop-shadow(-3px 0 0 #000) drop-shadow(0 3px 0 #000) drop-shadow(0 -3px 0 #000) drop-shadow(8px 8px 0 rgba(0,0,0,.35))}
+.inf-in{--st:6px;position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;padding:14px 16px;background:radial-gradient(ellipse at 80% 120%,#7c4dff 0,transparent 55%),#0b0630;clip-path:polygon(0 var(--st),var(--st) var(--st),var(--st) 0,calc(100% - var(--st)) 0,calc(100% - var(--st)) var(--st),100% var(--st),100% calc(100% - var(--st)),calc(100% - var(--st)) calc(100% - var(--st)),calc(100% - var(--st)) 100%,var(--st) 100%,var(--st) calc(100% - var(--st)),0 calc(100% - var(--st)))}
+.inf-stars{position:absolute;inset:0;background-image:radial-gradient(#fff 1px,transparent 1.5px),radial-gradient(#9fd8ff 1px,transparent 1.5px),radial-gradient(#ffd23f 1.2px,transparent 1.7px);background-size:37px 31px,53px 41px,89px 67px;background-position:0 0,17px 11px,40px 23px;animation:inf-stars 20s linear infinite;opacity:.9}
+@keyframes inf-stars{to{background-position:-370px 0,-266px 11px,-178px 23px}}
+.inf-ico{position:relative;flex:none;width:52px;height:52px;display:grid;place-items:center;border:3px solid #000;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe98a,#ffd23f 45%,#c98f12);color:#1b1530;font:400 30px/1 var(--px);box-shadow:0 0 0 4px rgba(124,77,255,.6)}
+.inf-ico::after{content:"";position:absolute;left:-12px;right:-12px;top:50%;height:8px;margin-top:-4px;border:2px solid #ff7ac8;border-radius:50%;transform:rotate(-18deg)}
+.inf-txt{position:relative;display:flex;flex-direction:column;flex:1 1 auto;min-width:0}
+.inf-txt b{font-family:var(--px);font-weight:400;font-size:26px;line-height:1}
+.inf-txt small{font-family:var(--lab);font-size:17px;font-weight:400;color:#cfc8f5}
+.inf-cta{position:relative;flex:none;padding:8px 10px;border:3px solid #ffd23f;color:#ffd23f;font:400 11px/1.2 "Press Start 2P",var(--lab);text-transform:uppercase;animation:inf-blink 1s steps(1) infinite}
+@keyframes inf-blink{50%{color:#fff;border-color:#fff}}
+.inf-strip:focus-visible{outline:3px solid #ffd23f;outline-offset:4px}
+@media (max-width:420px){.inf-in{gap:10px;padding:12px}.inf-ico{width:42px;height:42px;font-size:24px}.inf-txt b{font-size:22px}.inf-cta{font-size:9px;padding:6px 7px}}
+@media (prefers-reduced-motion:reduce){.inf-stars,.inf-cta{animation:none}}
 .result-screen .inf-strip{margin:18px 0 12px}
 .jb-scope{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-bottom:8px}
 .jb-scope button{padding:7px 4px!important;border:3px solid #000!important;border-radius:4px!important;background:#020602!important;color:var(--led)!important;font-family:var(--lab)!important;font-size:21px!important;box-shadow:none!important;text-decoration:none!important;transform:none!important}
@@ -1727,7 +1736,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
 
  ${competeFirst?'':compete}
 
- <button type="button" class="inf-strip" data-infinite><span class="inf-ico" aria-hidden="true">∞</span><span class="inf-txt"><b>${L('Infinity mode','Modo Infinito')}</b><small>${L('Unlimited questions','Preguntas ilimitadas')}</small></span><span class="inf-cta">${L('Play ∞','Jugar ∞')}</span></button>
+ <button type="button" class="inf-strip" data-infinite><span class="inf-in"><i class="inf-stars" aria-hidden="true"></i><span class="inf-ico" aria-hidden="true">∞</span><span class="inf-txt"><b>${L('Infinity mode','Modo Infinito')}</b><small>${L('Unlimited questions, out in space','Preguntas ilimitadas, en el espacio')}</small></span><span class="inf-cta">${L('Press start','Pulsa start')}</span></span></button>
  </div>`,()=>{const play=async()=>{if(!played&&window.ucCheckRemote&&await window.ucCheckRemote())return start();document.body.classList.remove('landing');if(played){try{restore(played);setMeter();end(true)}catch(x){track('results_view_error',{message:String(x&&x.message||x).slice(0,200),stack:String(x&&x.stack||'').slice(0,600),score:played.score,picks:played.picks});start()}}else ask()};
   const go=document.getElementById('go');if(go)go.onclick=play;
   try{if(sessionStorage.getItem('uc-reopen')==='results'){sessionStorage.removeItem('uc-reopen');if(played&&go)setTimeout(()=>go.click(),0)}}catch{}
@@ -1860,7 +1869,7 @@ www.unicornergame.lol`};
   <section class="jb" id="compete-results" data-compete><div class="jb-frame"><div class="jb-screen"><p class="jb-empty">GLOBAL RANKING · LOADING…</p></div></div></section>
   ${hits.length?`<section class="result-section"><div class="result-section-head"><h2>${L('Your match highlights','Lo mejor de tu partido')}</h2><p class="mute">${L('Best answers first','Primero las mejores respuestas')}</p></div><div class="result-list">${hits.map(r=>resultItem(r,false)).join('')}</div></section>`:''}
   ${misses.length?`<div class="result-nearly"><section class="result-section"><div class="result-section-head"><h2>${L('Nearly had it','Casi')}</h2><p class="mute">${ES?(misses.length===1?'1 respuesta':misses.length+' respuestas')+' para aprender para mañana':(misses.length===1?'1 answer':misses.length+' answers')+' to learn for tomorrow'}</p></div><div class="result-list">${misses.map(r=>resultItem(r,true)).join('')}</div></section></div>`:''}
-  <button type="button" class="inf-strip" data-infinite><span class="inf-ico" aria-hidden="true">∞</span><span class="inf-txt"><b>${L("Can't wait until tomorrow?",'¿No puedes esperar a mañana?')}</b><small>${L('Try Infinity mode','Prueba el Modo Infinito')}</small></span><span class="inf-cta">${L('Play ∞','Jugar ∞')}</span></button>
+  <button type="button" class="inf-strip" data-infinite><span class="inf-in"><i class="inf-stars" aria-hidden="true"></i><span class="inf-ico" aria-hidden="true">∞</span><span class="inf-txt"><b>${L("Can't wait until tomorrow?",'¿No puedes esperar a mañana?')}</b><small>${L('Try Infinity mode','Prueba el Modo Infinito')}</small></span><span class="inf-cta">${L('Press start','Pulsa start')}</span></span></button>
   <div class="row result-home-row"><button class="ghost" id="home">${L('Back to home','Volver al inicio')}</button></div>
   <div class="relay-rail" id="relay-rail"></div>
  </div>`,()=>{
