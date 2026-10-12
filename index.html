@@ -1232,6 +1232,44 @@ body.inf-mode .seo-info,body.inf-mode footer{display:none}
 .kit-lock{position:absolute;top:5px;right:5px;font-style:normal;font-size:13px;line-height:1;padding:3px 4px;background:#0c0c18;border:2px solid #000;border-radius:5px}
 .kit-tile.gold:not(.locked) .kit-pv i{animation:kit-gold-pv 1.4s ease-in-out infinite}
 @keyframes kit-gold-pv{50%{filter:drop-shadow(0 0 7px #ffd23f) drop-shadow(0 0 2px #fff3a0) brightness(1.12)}}
+/* kit unlock: card pack on the results screen; beams climb the five answer levels and stop on the kit's level */
+.kp{position:fixed;inset:0;z-index:9000;display:grid;place-items:center;padding:16px;background:rgba(5,3,15,.88);animation:kp-in .3s ease}
+@keyframes kp-in{from{opacity:0}}
+.kp-box{width:min(360px,100%)}
+.kp-stage{position:relative;height:min(440px,72vh);border:3px solid #fff;outline:3px solid #000;border-radius:12px;overflow:hidden;background:#05030f;isolation:isolate;--tc:#cfd8e6}
+.kp-glow{position:absolute;left:50%;bottom:-120px;width:420px;height:420px;margin-left:-210px;border-radius:50%;background:radial-gradient(var(--tc),transparent 65%);opacity:0;z-index:0;transition:opacity .4s}
+.kp-beam{position:absolute;bottom:0;width:60px;height:520px;z-index:1;opacity:0;transform-origin:bottom center;filter:blur(2px);background:linear-gradient(transparent,var(--tc))}
+.kp-title{position:absolute;left:0;right:0;top:16px;text-align:center;z-index:6;font-family:var(--px);font-size:44px;line-height:.9;color:var(--tc);-webkit-text-stroke:2px #000;paint-order:stroke fill;text-shadow:0 4px 0 #000;opacity:0}
+.kp-title small{display:block;font-size:28px;color:#fff;margin-bottom:4px}
+.kp-card{position:absolute;left:50%;top:calc(50% - 116px);width:160px;height:214px;margin-left:-80px;z-index:4;perspective:700px}
+.kp-in{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.3,1.4,.5,1)}
+.kp-f,.kp-b{position:absolute;inset:0;backface-visibility:hidden;border:4px solid #000;border-radius:12px;overflow:hidden}
+.kp-b{background:repeating-linear-gradient(45deg,#2b2370 0 12px,#1d1556 12px 24px);display:grid;place-items:center;font-family:var(--lab);font-size:70px;color:var(--gold);transition:box-shadow .25s}
+.kp-f{transform:rotateY(180deg);background:linear-gradient(#5ea2ff 0 58%,#3fae3c 58%);display:flex;flex-direction:column;box-shadow:inset 0 0 0 4px var(--tc)}
+.kp-art{flex:1;margin:24px 12px 0;background-size:contain;background-repeat:no-repeat;background-position:center;image-rendering:pixelated}
+.kp-nm{background:#0c0c18;color:#fff;font-family:var(--px);font-size:22px;text-align:center;padding:6px 4px;border-top:3px solid var(--tc)}
+.kp-card.flip .kp-in{transform:rotateY(180deg)}
+.kp-rar{position:absolute;top:-12px;left:50%;translate:-50% 0;z-index:3;font-family:var(--lab);font-size:15px;white-space:nowrap;padding:2px 8px;border:2px solid #000;border-radius:5px;color:#14102e;background:var(--tc);opacity:0;transition:opacity .3s}
+.kp-card.flip .kp-rar{opacity:1}
+.kp-card.scr .kp-rar{animation:kp-rar .9s ease-in-out infinite}
+@keyframes kp-rar{50%{scale:1.12;box-shadow:0 0 14px var(--tc)}}
+.kp-card.gold{animation:kp-gold 1.2s ease-in-out infinite}@keyframes kp-gold{50%{filter:drop-shadow(0 0 14px #ffd23f) drop-shadow(0 0 3px #fff3a0)}}
+.kp-meter{position:absolute;left:50%;top:calc(50% + 112px);translate:-50% 0;z-index:6;display:flex;gap:4px;opacity:0;transition:opacity .3s}
+.kp-meter i{width:26px;height:8px;border:2px solid #000;border-radius:2px;background:#2a2450}
+.kp-meter i.on{background:var(--c)}
+.kp-why{position:absolute;left:12px;right:12px;bottom:10px;z-index:6;text-align:center;font-family:var(--lab);font-size:16px;line-height:1.3;color:#fff;background:rgba(0,0,0,.6);border:2px solid #000;border-radius:8px;padding:7px 8px;opacity:0}
+.kp-why b{color:var(--tc)}
+.kp-show{animation:kp-pop .6s cubic-bezier(.2,1.6,.4,1) forwards}
+@keyframes kp-pop{from{opacity:0;transform:scale(2) rotate(-6deg)}to{opacity:1;transform:none}}
+.kp-fade{animation:kp-fade .5s ease forwards}@keyframes kp-fade{to{opacity:1}}
+.kp-p{position:absolute;pointer-events:none;z-index:5}
+.kp-btns{display:flex;gap:10px;margin-top:14px;opacity:0;transition:opacity .4s}
+.kp-btns.on{opacity:1}
+.kp-btns button{flex:1;font-family:var(--lab)!important;font-size:22px!important;padding:11px 10px!important;border:3px solid #000!important;border-radius:8px!important;box-shadow:0 4px 0 #000!important;cursor:pointer;background:#0c0c18!important;color:#fff!important;text-transform:none!important}
+.kp-btns button.go{background:var(--gold)!important;color:#1b1530!important}
+.kp-btns button:active{translate:0 2px;box-shadow:0 2px 0 #000}
+.kp-btns button:focus-visible{outline:3px solid #fff;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.kp *{animation:none!important;transition:none!important}}
 /* the Golden unicorn glows wherever it appears */
 @property --kg{syntax:'<length>';inherits:true;initial-value:2px}
 body.kit-gold{animation:kit-gold 1.4s ease-in-out infinite}
@@ -2711,8 +2749,44 @@ dlg.addEventListener('click',e=>{const b=e.target.closest('[data-st]');if(!b){if
   wearKit(k);track('kit_pick',{kit:k.id});pkSame=true;return openPicker()}
  if(b.dataset.st==='pick'){const k=b.dataset.k;if(!unlocked(k)){showToast(L('Keep your streak going to unlock this one 🔥','Mantén tu racha para desbloquear este 🔥'));return}
   ls('uc-bg',k==='classic'?null:k);apply();track('stadium_pick',{bg:k});pkSame=true;openPicker()}});
+// Kit unlocks get a card pack on the results screen. Each kit has an answer level (same names and colours as scoring).
+const KLV={stripes:0,hoops:0,ref:0,candy:0,keeper:0,sash:1,halves:1,night:1,pin:1,quarters:1,fire:1,shadow:1,checks:2,hat3:2,dots:2,toxic:2,ice:2,perfect:2,leopard:3,zebra:3,galaxy:3,ocean:3,sunset:3,camo:3,lava:3,chrome:4,rainbow:4,tiedye:4,gold:4};
+const KLC=[10,25,40,70,100].map(p=>TCOL[p]),KLN=TIERS.map(t=>t[1]);
+const kitsNow=()=>{const st=kitStats();return KITS.filter(k=>k.req&&kitHas(k,st)).map(k=>k.id)};
+let kitDone=null;try{kitDone=JSON.parse(ls('uc-kit-done')||'null')}catch{}
+// first visit with this feature: count what's already unlocked as seen, so nobody gets a pile of packs at once
+if(!Array.isArray(kitDone)){kitDone=kitsNow();ls('uc-kit-done',JSON.stringify(kitDone))}
+function kitPack(queue){const k=queue.shift();if(!k)return;const t=KLV[k.id]??0,rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const ov=document.createElement('div');ov.className='kp';ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-label',L('New kit unlocked','Nueva equipación desbloqueada'));
+ const n=L(k.en,k.es),lab=t===4?L('SCREAMER!!!','¡QUÉ CHICHARRO!'):tl(KLN[t]).toUpperCase();
+ ov.innerHTML=`<div class="kp-box"><div class="kp-stage"><div class="kp-glow"></div>${[0,1,2,3,4].map(i=>`<i class="kp-beam" style="left:calc(50% - 30px + ${(i-2)*30}px)"></i>`).join('')}
+ <div class="kp-title"><small>${L('NEW KIT!','¡NUEVA EQUIPACIÓN!')}</small>${n.toUpperCase()}</div>
+ <div class="kp-card${t===4?' scr':''}"><span class="kp-rar">${lab}</span><div class="kp-in"><div class="kp-b">∞</div><div class="kp-f"><i class="kp-art" style="background-image:${sprite('happy',0,false,k).replace(/"/g,"'")}"></i><div class="kp-nm">${n}</div></div></div></div>
+ <div class="kp-meter">${KLC.map(c=>`<i style="--c:${c}"></i>`).join('')}</div>
+ <div class="kp-why">${k.req[0]==='level'?kitWhy(k).replace(zl(ZONES[k.req[1]][1]),'<b>$&</b>'):kitWhy(k).replace(/\d+\+?/,'<b>$&</b>')}</div></div>
+ <div class="kp-btns"><button type="button" class="go" data-kp="wear">${L('Wear it','Ponérmela')}</button><button type="button" data-kp="later">${queue.length?L(`Next (${queue.length})`,`Siguiente (${queue.length})`):L('Later','Luego')}</button></div></div>`;
+ document.body.appendChild(ov);
+ const S=ov.querySelector('.kp-stage'),cd=ov.querySelector('.kp-card'),beams=[...ov.querySelectorAll('.kp-beam')],bars=[...ov.querySelectorAll('.kp-meter i')],glow=ov.querySelector('.kp-glow'),back=ov.querySelector('.kp-b'),timers=[],at=(ms,f)=>timers.push(setTimeout(f,rm?0:ms));
+ const burst=(x,y,n,cols,d=120)=>{if(rm)return;for(let i=0;i<n;i++){const p=document.createElement('i');p.className='kp-p';const z=4+Math.random()*6;p.style.cssText=`left:${x}px;top:${y}px;width:${z}px;height:${z}px;background:${cols[i%cols.length]}`;S.appendChild(p);const a=Math.random()*6.283,r=d*(.4+Math.random());p.animate([{transform:'none',opacity:1},{transform:`translate(${Math.cos(a)*r}px,${Math.sin(a)*r+30}px)`,opacity:0}],{duration:900+Math.random()*700,easing:'cubic-bezier(.1,.8,.3,1)'}).onfinish=()=>p.remove()}};
+ const mid=()=>[S.clientWidth/2,S.clientHeight/2];
+ if(!rm)cd.animate([{transform:'translateY(320px) scale(.4) rotate(-20deg)',opacity:0},{transform:'none',opacity:1}],{duration:700,easing:'cubic-bezier(.2,1.3,.4,1)'});
+ at(700,()=>{ov.querySelector('.kp-meter').style.opacity=1;glow.style.opacity=.55;beams.forEach((b,i)=>b.animate([{opacity:0,transform:`rotate(${(i-2)*14}deg) scaleY(.2)`},{opacity:.85,transform:`rotate(${(i-2)*14}deg) scaleY(1)`}],{duration:rm?1:600,delay:rm?0:i*70,fill:'forwards'}))});
+ for(let i=0;i<=t;i++)at(900+i*420,()=>{const c=KLC[i];S.style.setProperty('--tc',c);bars[i].classList.add('on');back.style.boxShadow=`0 0 ${10+i*6}px ${2+i*2}px ${c}`;if(!rm)cd.animate([{transform:'none'},{transform:`scale(${1.04+i*.01}) rotate(${i%2?2:-2}deg)`},{transform:'none'}],{duration:260});const[x,y]=mid();burst(x,y+110,6+i*3,[c],50)});
+ at(1500+t*420,()=>{const c=KLC[t],[x,y]=mid();cd.classList.add('flip');glow.style.opacity=t===4?1:.8;burst(x,y,30+t*12,[c,'#fff',c],110+t*15);
+  if(t===4){burst(x,y,40,['#ffd23f','#fff3a0'],180);if(!rm)S.animate([{translate:'0 0'},{translate:'-4px 2px'},{translate:'4px -2px'},{translate:'0 0'}],{duration:280,iterations:2})}
+  ov.querySelector('.kp-title').classList.add('kp-show');if(k.gold)cd.classList.add('gold');
+  at(400,()=>{ov.querySelector('.kp-why').classList.add('kp-fade');ov.querySelector('.kp-btns').classList.add('on');ov.querySelector('[data-kp=wear]').focus({preventScroll:true})})});
+ const done=wear=>{timers.forEach(clearTimeout);document.removeEventListener('keydown',esc);ov.remove();if(wear){wearKit(k);track('kit_wear_from_pack',{kit:k.id})}if(queue.length)setTimeout(()=>kitPack(queue),250)};
+ const esc=e=>{if(e.key==='Escape')done(false)};document.addEventListener('keydown',esc);
+ ov.addEventListener('click',e=>{const b=e.target.closest('[data-kp]');if(b)done(b.dataset.kp==='wear')});
+ track('kit_unlock',{kit:k.id,level:t})}
+function kitCelebrate(){const fresh=kitsNow().filter(id=>!kitDone.includes(id));if(!fresh.length)return;
+ kitDone=kitDone.concat(fresh);ls('uc-kit-done',JSON.stringify(kitDone));
+ // best first, at most three packs in a row
+ const q=fresh.map(id=>KITS.find(k=>k.id===id)).sort((a,b)=>(KLV[b.id]??0)-(KLV[a.id]??0)||KITS.indexOf(b)-KITS.indexOf(a)).slice(0,3);
+ setTimeout(()=>kitPack(q),1600)}
 // results: celebrate a new unlock and switch to it straight away
-function celebrate(){const rs=document.querySelector('.result-screen');if(!rs||rs.dataset.stDone)return;rs.dataset.stDone='1';
+function celebrate(){const rs=document.querySelector('.result-screen');if(!rs||rs.dataset.stDone)return;rs.dataset.stDone='1';kitCelebrate();
  const best=bestStreak(),done=+(ls('uc-bg-celebrated')||0),fresh=LIST.filter(t=>t[2]>done&&best>=t[2]&&t[2]>0).pop();if(!fresh)return;
  ls('uc-bg-celebrated',fresh[2]);ls('uc-bg',fresh[0]);apply();dot();track('stadium_unlock',{bg:fresh[0],best});
  const at=rs.querySelector('.tk-streak.rs')||rs.querySelector('.pts');
