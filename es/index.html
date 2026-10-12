@@ -23,7 +23,7 @@
 <link rel="alternate" hreflang="en" href="https://unicornergame.lol/">
 <link rel="alternate" hreflang="es" href="https://unicornergame.lol/es/">
 <link rel="alternate" hreflang="x-default" href="https://unicornergame.lol/"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png"><link rel="icon" href="/favicon-192.png" sizes="192x192" type="image/png"><link rel="apple-touch-icon" href="/favicon-180.png">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Barlow:wght@400;500;600;700&family=Jersey+10&family=Pixelify+Sans:wght@400;500;700&family=Silkscreen:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Barlow:wght@400;500;600;700&family=Jersey+10&family=Pixelify+Sans:wght@400;500;700&family=Silkscreen:wght@400;700&family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0f3d2a;--bg2:#12472f;--ink:#f3f7f1;--mute:#a9c5b4;--line:rgba(255,255,255,.18);--chalk:#ffffff;--gold:#f2c230;--bad:#ff8a7a;--panel:rgba(0,0,0,.22)}
 @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#1a5a3d;--bg2:#1e6444}}
@@ -2353,6 +2353,65 @@ const css=`
 .jb-row.ghost.named{background:var(--led);color:#020602;text-shadow:none;outline:0;animation:none}
 @keyframes jbghost{50%{opacity:.5}}
 @media (prefers-reduced-motion:reduce){.jb-row.ghost{animation:none}}
+/* Ranking window: an early-90s football manager window. Podium for 1st to 3rd, then 4th to 10th, everyone's unicorn in their kit */
+.ucw{--w0:#c0c0c0;--wl:#fff;--wd:#808080;width:100%;max-width:460px;box-sizing:border-box;padding:4px;background:var(--w0);color:#000;border:3px solid #000;box-shadow:inset 2px 2px 0 var(--wl),inset -2px -2px 0 var(--wd),8px 8px 0 rgba(0,0,0,.35);font:400 10px/1.5 "Press Start 2P",var(--lab);text-align:left;letter-spacing:0;text-shadow:none}
+.ucw-bar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 7px;background:linear-gradient(90deg,#000080,#1084d0);color:#fff;font-size:10px;overflow:hidden;white-space:nowrap}
+.ucw-bar span{overflow:hidden;text-overflow:ellipsis}
+.ucw-bar i{font-style:normal;flex:none;background:var(--w0);color:#000;padding:0 5px;box-shadow:inset 1px 1px 0 var(--wl),inset -1px -1px 0 var(--wd)}
+.ucw-tabs{display:flex;gap:4px;padding:6px 6px 0}
+.ucw .ucw-tabs button,.ucw .ucw-mini{font:400 9px/1 "Press Start 2P",var(--lab)!important;color:#000!important;background:var(--w0)!important;padding:6px 10px 5px!important;border:0!important;border-radius:0!important;box-shadow:inset 1px 1px 0 var(--wl),inset -1px -1px 0 var(--wd)!important;text-transform:none!important;letter-spacing:0!important;min-height:0!important;transform:none!important;cursor:pointer}
+.ucw .ucw-tabs button.on{background:#e8e8e8!important;position:relative;top:1px}
+.ucw .ucw-mini{padding:3px 6px!important;font-size:8px!important}.ucw .ucw-mini.on{background:#000080!important;color:#fff!important}
+.ucw-champ{margin:6px 4px 0;display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:8px;align-items:center;padding:5px 8px;background:#ffffe1;box-shadow:inset 1px 1px 0 var(--wd),inset -1px -1px 0 var(--wl);cursor:pointer}
+.ucw-champ span{min-width:0;overflow-wrap:anywhere;font-size:9px;line-height:1.6}
+.ucw-champ small{display:block;font-size:8px;color:#000080}
+.ucw-champ .ucw-u{width:44px;height:37px}
+.ucw-star{font-style:normal;font-size:20px;color:#c98f12}
+.ucw-u{display:block;background-size:contain;background-repeat:no-repeat;background-position:center bottom;image-rendering:pixelated}
+.ucw-u.gold{animation:kit-gold-pv 1.4s ease-in-out infinite}
+.ucw-pod{margin:6px 4px 0;padding:10px 6px 0;background:#008080;box-shadow:inset 2px 2px 0 var(--wd),inset -2px -2px 0 var(--wl)}
+.ucw-trio{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:6px;align-items:end}
+.ucw-trio>div{display:flex;flex-direction:column;align-items:center;min-width:0;cursor:pointer}
+.ucw-trio .ucw-u{width:84%;aspect-ratio:36/30}.ucw-trio .p1 .ucw-u{width:96%}
+.ucw-pn{max-width:100%;color:#fff;font-size:8px;line-height:1.4;margin:2px 0;text-align:center;overflow-wrap:anywhere}
+.ucw-blk{width:100%;background:var(--w0);box-shadow:inset 2px 2px 0 var(--wl),inset -2px -2px 0 var(--wd);text-align:center;padding-top:5px;font-size:8px;color:#000080}
+.ucw-blk b{display:block;font-weight:400;font-size:15px;color:#000080;margin-bottom:3px}
+.ucw-trio .p1 .ucw-blk{height:66px}.ucw-trio .p2 .ucw-blk{height:54px}.ucw-trio .p3 .ucw-blk{height:46px}
+.ucw-trio .ghost .ucw-blk{outline:2px dashed #ffd23f;outline-offset:-2px}
+.ucw-grid{margin:6px 4px 0;background:#fff;box-shadow:inset 2px 2px 0 var(--wd),inset -2px -2px 0 var(--wl);padding:2px}
+.ucw-r{display:grid;grid-template-columns:30px 34px minmax(0,1fr) auto;gap:6px;align-items:center;padding:3px 5px;font-size:10px;font-variant-numeric:tabular-nums;cursor:pointer}
+.ucw-r:nth-child(odd):not(.h){background:#e8e8f8}
+.ucw-r.h{cursor:default;background:var(--w0);box-shadow:inset 1px 1px 0 var(--wl),inset -1px -1px 0 var(--wd);font-size:8px}
+.ucw-r .ucw-u{width:32px;height:27px}
+.ucw-n{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ucw-s{text-align:right}
+.ucw-r.me,.ucw-r.ghost.named{background:#000080!important;color:#fff}
+.ucw-r.ghost{outline:2px dashed #000080;outline-offset:-2px}
+.ucw-r.gap{margin-top:4px;border-top:2px dashed var(--wd)}
+.ucw-r:not(.h):hover,.ucw-trio>div:hover .ucw-blk,.ucw-champ:hover{filter:brightness(.94)}
+.ucw [data-lg=card]:focus-visible{outline:2px solid #000;outline-offset:1px}
+.ucw-empty{margin:0;padding:18px 10px;text-align:center;font-size:9px;line-height:1.8}
+.ucw-st{margin:6px 4px 2px;padding:4px 6px;box-shadow:inset 1px 1px 0 var(--wd),inset -1px -1px 0 var(--wl);font-size:8px;line-height:1.8}
+@media (max-width:400px){.ucw{font-size:9px}.ucw-r{grid-template-columns:24px 30px minmax(0,1fr) auto;gap:5px;font-size:9px}.ucw-r .ucw-u{width:28px;height:24px}.ucw .ucw-tabs button{padding:6px 7px 5px!important}}
+@media (prefers-reduced-motion:reduce){.ucw-u.gold{animation:none}}
+/* Player card */
+dialog.pcd{width:min(320px,calc(100vw - 32px));padding:0;border:4px solid #000;outline:3px solid var(--tc);border-radius:12px;background:#0c0c18;color:#fff;overflow:hidden;box-shadow:0 0 26px color-mix(in srgb,var(--tc) 55%,transparent)}
+dialog.pcd::backdrop{background:rgba(5,3,15,.8)}
+.pcd-art{position:relative;background:linear-gradient(#5ea2ff 0 58%,#3fae3c 58%);padding:26px 30px 8px}
+.pcd-u{display:block;width:100%;aspect-ratio:36/30;background-size:contain;background-repeat:no-repeat;image-rendering:pixelated}
+.pcd-u.gold{animation:kit-gold-pv 1.4s ease-in-out infinite}
+.pcd-lv{position:absolute;top:8px;left:8px;font:400 17px var(--lab);padding:0 7px;border:2px solid #000;border-radius:5px;color:#14102e;background:var(--tc)}
+dialog.pcd .pcd-x{position:absolute;top:6px;right:6px;width:32px;height:32px;padding:0!important;font-size:22px!important;line-height:1!important;background:#0c0c18!important;color:#fff!important;border:2px solid #fff!important;border-radius:6px!important}
+.pcd-b{padding:10px 12px 14px;display:grid;gap:7px;font-family:var(--lab)}
+.pcd-nm{font-family:var(--px,var(--lab));font-size:30px;line-height:.95;overflow-wrap:anywhere}
+.pcd-kit{font-size:20px;color:var(--tc);line-height:1}
+.pcd-st{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;text-align:center}
+.pcd-st div{background:#1d1556;border:2px solid #000;border-radius:6px;padding:5px 2px;font-size:16px;color:#cfc8f5;line-height:1}
+.pcd-st b{display:block;font-family:var(--px,var(--lab));font-size:26px;color:#fff;font-weight:400}
+.pcd-shelf{display:flex;flex-wrap:wrap;gap:3px}
+.pcd-shelf i{width:24px;height:20px;background-size:contain;background-repeat:no-repeat;image-rendering:pixelated}
+.pcd-shelf i.no{opacity:.18;filter:grayscale(1)}
+
 @media (max-width:560px){.g-fields{grid-template-columns:1fr}.g-claim .g-you{font-size:21px}.g-sub{font-size:18px}}
 .g-claim h2{font-size:30px!important;line-height:1.1}
 .g-preview{margin:10px 0 2px}
@@ -2558,46 +2617,69 @@ function gStatus(part){const pl=playedToday(),has=sess&&me?.profile;
 const LEDS=[['Green','#39ff6a'],['Amber','#ffb000'],['Red','#ff4d4d'],['Cyan','#4fd7ff'],['Pink','#ff7ac8']];
 const ledIdx=()=>Math.max(0,LEDS.findIndex(l=>l[0]===lsGet('uc-led')));
 function applyLed(){const l=LEDS[ledIdx()];document.querySelectorAll('.otd-fact').forEach(el=>el.style.setProperty('--led',l[1]));document.querySelectorAll('[data-compete]').forEach(el=>{el.style.setProperty('--led',l[1]);const b=el.querySelector('.jb-led');if(b)b.setAttribute('aria-label',L('Change LED colour (now '+l[0]+')','Cambiar el color del LED'))})}
-// ── Compete box: the global ranking and your league on one LED board ──
+// ── Compete box: the global ranking and your league in one window, with each player's unicorn in their kit ──
 let gScope='global';
-const jbRow=(r,extra)=>`<div class="jb-row${r.rank&&r.rank<=3?' top':''}${r.rank===1?' lead':''}${r.me?' me':''}${extra||''}"><span>${r.rank?String(r.rank).padStart(2,'0'):'--'}</span><span class="nm">${(extra||'').includes('ghost')?esc(ghostName()):(r.me?L('YOU · ','TÚ · '):'')+esc(r.nickname.toUpperCase())}</span><span>${r.score??'—'}</span></div>`;
-function competeShell(title,body,ticker,status){const l=LEDS[ledIdx()];
- return `<div class="jb-lights" aria-hidden="true"><span><i></i><i></i><i></i></span><span><i></i><i></i><i></i></span></div>
-  <div class="jb-frame">
-   <div class="jb-scope" role="tablist"><button type="button" role="tab" data-lg="gscope" data-scope="global" class="${gScope==='global'?'on':''}">Global</button><button type="button" role="tab" data-lg="gscope" data-scope="league" class="${gScope==='league'?'on':''}">Leagues</button></div>
-   <div class="jb-screen">
-   <div class="jb-head"><span class="jb-title">${title}</span><div class="jb-tabs">${gScope==='league'?`<button type="button" data-lg="gtab" data-tab="day" data-where="landing" class="${gTab==='day'?'on':''}">Today</button><button type="button" data-lg="gtab" data-tab="week" data-where="landing" class="${gTab==='week'?'on':''}">Week</button>`:''}<button type="button" class="jb-led" data-lg="led" title="Change LED colour" aria-label="Change LED colour (now ${l[0]})"><i></i></button></div></div>
-   <div class="jb-rule"></div>
-   ${body}
-  </div>
-  <div class="jb-ticker" aria-label="${ticker.replace(/"/g,'')}"><div class="jb-tick" aria-hidden="true"><span>${ticker}</span><span>${ticker}</span></div></div></div>
+const myLook=()=>{try{return window.ucLook?.()||null}catch{return null}};
+const kitOf=r=>{const id=r.me||r.ghost?myLook()?.kit:r.kit;return KITS.find(k=>k.id===id)||KITS[0]};
+const uniBg=k=>sprite('happy',0,false,k.id==='classic'?null:k).replace(/"/g,"'");
+const uni=(r,cls='')=>{const k=kitOf(r);return`<i class="ucw-u${k.gold?' gold':''}${cls}" style="background-image:${uniBg(k)}" aria-hidden="true"></i>`};
+// rows keep their data here so a click can open that player's card
+let cardRows=[];
+const cardAttr=r=>{if(r.ghost)return'';const i=cardRows.push(r)-1;return` data-lg="card" data-i="${i}" role="button" tabindex="0" aria-label="${esc(L('Open the card of ','Ver la ficha de ')+(r.me?L('you','ti'):r.nickname))}"`};
+const nmOf=r=>r.ghost?esc(ghostName()):r.me?L('YOU','TÚ'):esc(r.nickname.toUpperCase());
+function ucwPod(top){if(!top.length)return'';const ord=[1,0,2].filter(i=>top[i]);
+ return`<div class="ucw-pod"><div class="ucw-trio">${ord.map(i=>{const r=top[i];return`<div class="p${i+1}${r.ghost?' ghost'+(draft.nick.trim()?' named':''):''}"${cardAttr(r)}>${uni(r)}<span class="ucw-pn">${nmOf(r)}</span><div class="ucw-blk"><b>${i+1}</b><span>${r.score??'—'} ${L('pts','pts')}</span></div></div>`}).join('')}</div></div>`}
+const ucwRow=(r,extra='')=>`<div class="ucw-r${r.me?' me':''}${r.ghost?' ghost'+(draft.nick.trim()?' named':''):''}${extra}"${cardAttr(r)}><span>${r.rank||'–'}</span>${uni(r)}<span class="ucw-n">${nmOf(r)}</span><span class="ucw-s">${r.score??'—'}</span></div>`;
+function ucwList(list,mine){const top=list.filter(r=>r.rank&&r.rank<=3).slice(0,3),rest=list.filter(r=>!top.includes(r));
+ return ucwPod(top)+`<div class="ucw-grid"><div class="ucw-r h"><span>${L('Pos','Pos')}</span><span></span><span>${L('Player','Jugador')}</span><span class="ucw-s">Pts</span></div>${rest.map(r=>ucwRow(r)).join('')}${mine||''}</div>`}
+function champStrip(y){if(!y?.nickname)return'';const beat=Math.max(0,(+y.players||1)-1),n=`<b>${esc(y.nickname)}</b>`;
+ const line=beat?L(`${n} beat ${beat} player${beat===1?'':'s'} with ${y.score}`,`${n} ganó a ${beat} jugador${beat===1?'':'es'} con ${y.score}`):L(`${n} won with ${y.score}`,`${n} ganó con ${y.score}`);
+ return`<div class="ucw-champ"${cardAttr({...y,rank:0})}>${uni(y)}<span><small>${L("Yesterday's WINNER",'El GANADOR de ayer')}</small>${line}</span><i class="ucw-star" aria-hidden="true">★</i></div>`}
+function competeShell(title,body,foot,status){const tab=gScope==='league'?'league':gTab==='week'?'week':'today';
+ const tb=(k,t)=>`<button type="button" role="tab" data-lg="wtab" data-t="${k}" aria-selected="${tab===k}" class="${tab===k?'on':''}">${t}</button>`;
+ return `<div class="ucw"><div class="ucw-bar"><span>${title}</span><i aria-hidden="true">x</i></div>
+  <div class="ucw-tabs" role="tablist">${tb('today',L('Today','Hoy'))}${tb('week',L('Week','Semana'))}${tb('league',L('League','Liga'))}</div>
+  ${body}<div class="ucw-st">${foot}</div></div>
   ${status?`<div class="jb-status">${status}</div>`:''}`}
-function leagueBox(){const when=gTab==='day'?L('TODAY','HOY'):L('THIS WEEK','ESTA SEMANA');
- const create=`<div class="g-cta"><p class="g-you">Beat your mates</p><p class="g-note">Make a private league, send the link, see who knows ball best — today and all week.</p><button type="button" class="cta" data-lg="open" data-from="card">Create a league</button></div>`;
- if(!sess||!me?.leagues?.length)return competeShell(L('MY LEAGUE','MI LIGA'),`<p class="jb-empty">${L('NO LEAGUE YET — MAKE ONE, SEND THE LINK, SEE WHO KNOWS BALL BEST.','AÚN NO TIENES LIGA — CREA UNA, MANDA EL ENLACE Y A VER QUIÉN SABE MÁS.')}</p>`,L('PRIVATE LEAGUES · INVITE YOUR MATES  •••','LIGAS PRIVADAS · INVITA A TUS AMIGOS  •••'),create);
- if(!board)return competeShell(L('MY LEAGUE','MI LIGA'),`<p class="jb-empty">${L('LOADING…','CARGANDO…')}</p>`,'  •••','');
- const list=[...board.rows].map(r=>({nickname:r.nickname,me:r.me,score:gTab==='day'?r.today_score:r.week_total}))
+const ucwEmpty=t=>`<div class="ucw-grid"><p class="ucw-empty">${t}</p></div>`;
+const clickHint=()=>L('Click a player for their stats','Toca un jugador para ver su ficha');
+function leagueBox(){cardRows=[];const create=`<div class="g-cta"><p class="g-you">Beat your mates</p><p class="g-note">Make a private league, send the link, see who knows ball best — today and all week.</p><button type="button" class="cta" data-lg="open" data-from="card">Create a league</button></div>`;
+ if(!sess||!me?.leagues?.length)return competeShell(L('MY LEAGUE','MI LIGA'),ucwEmpty(L('No league yet. Make one, send the link and see who knows ball best.','Aún no tienes liga. Crea una, manda el enlace y a ver quién sabe más.')),L('Private leagues with your mates','Ligas privadas con tus amigos'),create);
+ if(!board)return competeShell(L('MY LEAGUE','MI LIGA'),ucwEmpty(L('Loading…','Cargando…')),'','');
+ const list=[...board.rows].map(r=>({...r,score:gTab==='day'?r.today_score:r.week_total}))
   .sort((a,b)=>(b.score??-1)-(a.score??-1)||a.nickname.localeCompare(b.nickname)).map((r,i)=>({...r,rank:r.score==null?0:i+1}));
- const meR=list.find(r=>r.me);
- const t=[`${esc(board.name.toUpperCase())} · ${list.length} `+(ES?(list.length===1?'JUGADOR':'JUGADORES'):`PLAYER${list.length===1?'':'S'}`)];
- if(meR?.rank===1)t.push(L(`YOU LEAD ${when}`,`VAS PRIMERO ${when}`));
- t.push(L('WEEK RESETS MONDAY','LA SEMANA EMPIEZA EL LUNES'));
- return competeShell(L('LEAGUE · ','LIGA · ')+esc(board.name.toUpperCase()),list.map(r=>jbRow(r)).join(''),t.join('  •••  ')+'  •••',
+ const sw=`<button type="button" class="ucw-mini${gTab==='day'?' on':''}" data-lg="gtab" data-tab="day">${L('Today','Hoy')}</button><button type="button" class="ucw-mini${gTab==='week'?' on':''}" data-lg="gtab" data-tab="week">${L('Week','Semana')}</button>`;
+ return competeShell(esc(board.name.toUpperCase()),ucwList(list),sw+' · '+L('Week resets Monday','La semana empieza el lunes'),
   `<div class="lg-row jb-actions"><button type="button" class="cta" data-lg="copy" data-code="${esc(board.code)}">🔗 Copy invite link</button><button type="button" class="ghost" data-lg="open" data-from="card">Open league</button></div>`)}
-async function globalBox(){let g;try{g=await loadGlobal()}catch{return competeShell('UNICORNER ★ GLOBAL',`<p class="jb-empty">${L('RANKING UNAVAILABLE RIGHT NOW — TRY AGAIN LATER','RANKING NO DISPONIBLE AHORA — INTÉNTALO MÁS TARDE')}</p>`,L('NEW GAME EVERY DAY AT MIDNIGHT  •••','PARTIDO NUEVO CADA DÍA A MEDIANOCHE  •••'),'')}
- const part=g.day,rows=part.rows||[],when=L('TODAY','HOY');
- const mine=part.me&&!rows.some(r=>r.me)?jbRow({rank:part.me.rank,score:part.me.score,nickname:me?.profile?.nickname||'',me:true},' gap'):'';
- const pl=playedToday(),ghost=pl&&!part.me&&!(sess&&me?.profile)?claimCopy(pl,g):null;
- let body=rows.map(r=>jbRow(r));
- if(ghost){const at=ghost.rank&&ghost.rank<=rows.length+1?ghost.rank-1:-1,gr=jbRow({rank:at<0?0:ghost.rank,nickname:'',score:pl.score},' ghost'+(draft.nick.trim()?' named':'')+(at<0?' gap':''));
-  if(at<0)body.push(gr);else{body=rows.map((r,i)=>jbRow(i>=at?{...r,rank:r.rank+1}:r));body.splice(at,0,gr);if(body.length>10&&at<10)body.pop()}}
- const tick=[];
- if(g.yesterday)tick.push(`${L("YESTERDAY'S CHAMP",'CAMPEÓN DE AYER')} ${esc(g.yesterday.nickname.toUpperCase())} ${g.yesterday.score}`);
- if(part.me&&part.me.rank===1)tick.push(L(`YOU'RE TOP OF THE TABLE ${when}`,`VAS PRIMERO ${when}`));
- if(rows[0])tick.push(`${esc(rows[0].nickname.toUpperCase())} ${L('LEADS','LIDERA')} ${when}`);
- if(part.players)tick.push(`${part.players} `+(ES?(part.players===1?'JUGADOR':'JUGADORES'):`PLAYER${part.players===1?'':'S'}`)+` ${when}`);tick.push(L('NEW GAME EVERY DAY AT MIDNIGHT','PARTIDO NUEVO CADA DÍA A MEDIANOCHE'));
- return competeShell('UNICORNER ★ GLOBAL',body.length?body.join('')+mine:`<p class="jb-empty">${L(`NO ONE ON THE BOARD YET ${when} — BE THE FIRST!`,`NADIE EN EL RANKING ${when} — ¡SÉ EL PRIMERO!`)}</p>`,
-  tick.join('  •••  ')+'  •••',sess&&me?.profile&&part.me?'':gStatus(part))}
+async function globalBox(){cardRows=[];let g;try{g=await loadGlobal()}catch{return competeShell('UNICORNER LEAGUE',ucwEmpty(L('Ranking unavailable right now. Try again later.','Ranking no disponible ahora. Inténtalo más tarde.')),L('New game every day at midnight','Partido nuevo cada día a medianoche'),'')}
+ cardRows=[];const wk=gTab==='week',part=wk?g.week:g.day,rows=(part.rows||[]).map(r=>({...r}));
+ const mine=part.me&&!rows.some(r=>r.me)?ucwRow({rank:part.me.rank,score:part.me.score,nickname:me?.profile?.nickname||'',me:true,kits:myLook()?.kits,streak:myLook()?.streak,games:myLook()?.games},' gap'):'';
+ const pl=!wk&&playedToday(),ghost=pl&&!part.me&&!(sess&&me?.profile)?claimCopy(pl,g):null;
+ let list=rows;
+ if(ghost){const gr={ghost:true,score:pl.score},at=ghost.rank&&ghost.rank<=rows.length+1?ghost.rank-1:-1;
+  if(at<0)list=rows.concat({...gr,rank:0});else{list=rows.map((r,i)=>i>=at?{...r,rank:r.rank+1}:r);list.splice(at,0,{...gr,rank:ghost.rank});list=list.slice(0,10)}}
+ const champ=!wk?champStrip(g.yesterday):'';
+ const body=list.length?champ+ucwList(list,mine):champ+ucwEmpty(wk?L('No scores this week yet. Be the first!','Aún no hay puntos esta semana. ¡Sé el primero!'):L('No one on the board yet today. Be the first!','Nadie en el ranking hoy. ¡Sé el primero!'));
+ return competeShell('UNICORNER LEAGUE',body,wk?L('Week resets Monday · ','La semana empieza el lunes · ')+clickHint():clickHint(),sess&&me?.profile&&part.me?'':wk?'':gStatus(part))}
+// A player's card: their unicorn, the kit's level, their stats and every kit they own
+function playerCard(r){const k=kitOf(r),info=window.ucKitInfo||{},t=info.KLV?.[k.id]??0,col=k.id==='classic'?'#cfd8e6':info.KLC?.[t]||'#ffd23f';
+ const lv=k.id==='classic'?L('Starter','Inicial'):(t===4?L('SCREAMER','QUÉ CHICHARRO'):tl(info.KLN?.[t]||'Tap-in').toUpperCase());
+ const own=new Set(r.me?myLook()?.kits||[]:r.kits||[]),all=KITS.filter(x=>x.req),n=all.filter(x=>own.has(x.id)).length;
+ const st=r.me?myLook():r,games=+st?.games||0,streak=+st?.streak||0;
+ let d=document.getElementById('dlg-player');if(!d){document.body.insertAdjacentHTML('beforeend','<dialog id="dlg-player" class="pcd" aria-label="Player card"></dialog>');d=document.getElementById('dlg-player');
+  d.addEventListener('click',e=>{if(e.target===d||e.target.closest('[data-pc-x]'))d.close()})}
+ d.style.setProperty('--tc',col);
+ d.innerHTML=`<div class="pcd-art"><span class="pcd-lv">${lv}</span><button type="button" class="pcd-x" data-pc-x aria-label="${L('Close','Cerrar')}">×</button><i class="pcd-u${k.gold?' gold':''}" style="background-image:${uniBg(k)}"></i></div>
+ <div class="pcd-b"><div class="pcd-nm">${r.me?esc(me?.profile?.nickname||L('You','Tú')):esc(r.nickname)}</div><div class="pcd-kit">${L('Wearing','Lleva')}: ${esc(L(k.en,k.es))}</div>
+ <div class="pcd-st"><div><b>${n}/${all.length}</b>${L('kits','equip.')}</div><div><b>${streak}</b>${L('best streak','mejor racha')}</div><div><b>${games}</b>${L('games','partidos')}</div></div>
+ <div class="pcd-shelf" aria-label="${n} ${L('kits owned','equipaciones')}">${all.map(x=>`<i class="${own.has(x.id)?'':'no'}" title="${esc(L(x.en,x.es))}" style="background-image:${uniBg(x)}"></i>`).join('')}</div></div>`;
+ if(!d.open)d.showModal();track('player_card',{me:!!r.me})}
+// Send this player's kit and kit count to their account so everyone sees their unicorn on the boards
+let lookBusy=false;
+async function syncLook(){if(!sess||!me?.profile||lookBusy)return;const l=myLook();if(!l)return;
+ const key=(sess.email||'1')+JSON.stringify(l);if(lsGet('uc-look-sent')===key)return;lookBusy=true;
+ try{await rpc('lg_set_look',{p_kit:l.kit,p_kits:l.kits,p_streak:l.streak,p_games:l.games});lsSet('uc-look-sent',key);gboard=null;renderGlobal()}catch{}finally{lookBusy=false}}
+window.ucLookSync=()=>{renderGlobal();syncLook()};
 async function renderGlobal(){if(!document.querySelector('[data-compete]'))return;applyLed();
  const html=gScope==='league'?leagueBox():await globalBox();if(html==null)return;
  document.querySelectorAll('[data-compete]').forEach(el=>{el.innerHTML=html});applyLed()}
@@ -2612,7 +2694,7 @@ async function viewGlobal(fresh){show('<h2>🌍 Global ranking</h2><p class="mut
 // ── Cards on the results screen and the home page ──
 let slotsBusy=false;
 async function renderSlots(){
- if(sess&&!slotsBusy){slotsBusy=true;try{if(!me)await loadMe();if(me?.profile&&me.leagues.length&&!board)await loadBoard()}catch{}finally{slotsBusy=false}}
+ if(sess&&!slotsBusy){slotsBusy=true;try{if(!me)await loadMe();if(me?.profile&&me.leagues.length&&!board)await loadBoard()}catch{}finally{slotsBusy=false}syncLook()}
  renderGlobal()}
 
 async function invite(code,name){const link=inviteLink(code),text=L(`Join my Unicorner league “${name}” — who knows ball best? ${link}`,`Únete a mi liga de Unicorner “${name}” — ¿quién sabe más de fútbol? ${link}`);track('league_invite',{});
@@ -2658,6 +2740,8 @@ document.addEventListener('click',async e=>{const b=e.target.closest('[data-lg]'
  if(a==='global')return viewGlobal(true);
  if(a==='led'){const n=(ledIdx()+1)%LEDS.length;lsSet('uc-led',LEDS[n][0]);track('led_colour',{colour:LEDS[n][0]});return applyLed()}
  if(a==='gtab'){gTab=b.dataset.tab;return renderGlobal()}
+ if(a==='wtab'){const t=b.dataset.t;if(t==='league'){gScope='league';track('compete_scope',{scope:'league'});if(sess&&me?.leagues?.length&&!board)loadBoard().then(renderGlobal).catch(()=>{})}else{gScope='global';gTab=t==='week'?'week':'day'}return renderGlobal()}
+ if(a==='card'){const r=cardRows[+b.dataset.i];if(r)playerCard(r);return}
  if(a==='gscope'){gScope=b.dataset.scope;track('compete_scope',{scope:gScope});if(gScope==='league'&&sess&&me?.leagues?.length&&!board)loadBoard().then(renderGlobal).catch(()=>{});return renderGlobal()}
  if(a==='invite')return invite(b.dataset.code,b.dataset.name);
  if(a==='gwrong'){const x=claimSent();if(x){draft.email=x.email;draft.nick=x.nick}lsSet(LG_SENT,null);await renderGlobal();document.querySelector('.g-claim [name=email]')?.focus();return}
@@ -2673,8 +2757,9 @@ document.addEventListener('click',async e=>{const b=e.target.closest('[data-lg]'
   if(a==='leave'&&confirm(L('Leave this league?','¿Salir de esta liga?'))){await rpc('lg_leave_league',{p_league:b.dataset.id});track('league_leave',{});lsSet(LG_ACTIVE,null);board=null;await loadMe();await viewHome();renderSlots()}
  }catch(x){err(x.message)}finally{busy=false;b.disabled=false}});
 
+document.addEventListener('keydown',e=>{const b=e.target.closest?.('[data-lg=card]');if(b&&(e.key==='Enter'||e.key===' ')){e.preventDefault();b.click()}});
 document.addEventListener('input',e=>{const i=e.target;if(!i.closest?.('.g-claim'))return;
- if(i.name==='nick'){draft.nick=i.value;document.querySelectorAll('.jb-row.ghost .nm').forEach(n=>n.textContent=ghostName());document.querySelectorAll('.jb-row.ghost').forEach(r=>r.classList.toggle('named',!!draft.nick.trim()))}
+ if(i.name==='nick'){draft.nick=i.value;document.querySelectorAll('.ucw .ghost .ucw-n,.ucw .ghost .ucw-pn').forEach(n=>n.textContent=ghostName());document.querySelectorAll('.ucw .ghost').forEach(r=>r.classList.toggle('named',!!draft.nick.trim()))}
  if(i.name==='email')draft.email=i.value});
 document.addEventListener('submit',async e=>{const f=e.target;if(!f.classList?.contains('g-claim'))return;e.preventDefault();if(busy)return;
  const nick=f.nick.value.trim(),email=f.email?.value.trim()||'',out=f.querySelector('.g-err'),btn=f.querySelector('[type=submit]'),say=m=>{out.textContent=m||''};
@@ -2683,7 +2768,7 @@ document.addEventListener('submit',async e=>{const f=e.target;if(!f.classList?.c
  if(f.email&&!f.email.checkValidity())return say('That email doesn\'t look right'),f.email.focus();
  busy=true;btn.disabled=true;say('');
  try{
-  if(sess){await rpc('lg_save_profile',{p_nickname:nick,p_news_opt_out:lsGet(LG_OPTOUT)==='1'});await loadMe();track('league_profile',{first:true,from:'board'});busy=false;await syncScore();draft.nick='';gboard=null;await renderGlobal();showToast(L(`You're on the board, ${me.profile.nickname}! 🌍`,`¡Ya estás en el ranking, ${me.profile.nickname}! 🌍`))}
+  if(sess){await rpc('lg_save_profile',{p_nickname:nick,p_news_opt_out:lsGet(LG_OPTOUT)==='1'});await loadMe();track('league_profile',{first:true,from:'board'});busy=false;syncLook();await syncScore();draft.nick='';gboard=null;await renderGlobal();showToast(L(`You're on the board, ${me.profile.nickname}! 🌍`,`¡Ya estás en el ranking, ${me.profile.nickname}! 🌍`))}
   else{lsSet(LG_INTENT,'global');await sendLink(email,!!f.optout?.checked,nick);if(f.infwait?.checked)joinWaitlist(email,'ranking_signup');lsSet(LG_SENT,JSON.stringify({email,nick,at:Date.now()}));track('league_login_start',{method:'email',from:'board'});busy=false;await renderGlobal()}
  }catch(x){say(x.message);btn.disabled=false}finally{busy=false}});
 document.addEventListener('submit',async e=>{const f=e.target;if(!f.id?.startsWith('lea-'))return;e.preventDefault();if(busy)return;busy=true;const btn=f.querySelector('[type=submit]');if(btn)btn.disabled=true;err('');
@@ -2720,7 +2805,8 @@ const kitHas=(kit,st)=>!kit.req||(st[kit.req[0]]||0)>=kit.req[1];
 const kitGoal=([t,n])=>t==='games'?L(`Play ${n} games`,`Juega ${n} partidos`):t==='streak'?L(`${n}-day streak`,`Racha de ${n} días`):t==='scr'?L(`Find ${n} Screamers`,`Consigue ${n} chicharros`):t==='scr1'?L(`${n} Screamers in one game`,`${n} chicharros en un partido`):t==='best'?L(`Score ${n}+ in a game`,`Haz ${n}+ puntos en un partido`):t==='level'?L(`Reach ${zl(ZONES[n][1])}`,`Llega a ${zl(ZONES[n][1])}`):t==='inf'?L('Try Infinity mode','Prueba el Modo Infinito'):L('Get all 5 right in one game','Acierta las 5 en un partido');
 const kitWhy=k=>{if(!k.req)return L('Free for everyone','Gratis para todos');const[t,n]=k.req;return t==='games'?L(`You played ${n} games`,`Jugaste ${n} partidos`):t==='streak'?L(`You hit a ${n}-day streak`,`Llegaste a una racha de ${n} días`):t==='scr'?L(`You found ${n} Screamers`,`Conseguiste ${n} chicharros`):t==='scr1'?L(`You got ${n} Screamers in one game`,`Hiciste ${n} chicharros en un partido`):t==='best'?L(`You scored ${n}+ in a game`,`Hiciste ${n}+ puntos en un partido`):t==='level'?L(`You reached ${zl(ZONES[n][1])}`,`Llegaste a ${zl(ZONES[n][1])}`):t==='inf'?L('You tried Infinity mode','Probaste el Modo Infinito'):L('You got all 5 right in one game','Acertaste las 5 en un partido')};
 const kitPv=k=>`<span class="kit-pv"><i style="background-image:${sprite('happy',0,false,k).replace(/"/g,"'")}"></i></span>`;
-function wearKit(k){UC_KIT=k.id==='classic'?null:k;ls('uc-kit',UC_KIT?k.id:null);buildSprites();paint()}
+function wearKit(k){UC_KIT=k.id==='classic'?null:k;ls('uc-kit',UC_KIT?k.id:null);buildSprites();paint();window.ucLookSync?.()}
+window.ucLook=()=>{const st=kitStats();return{kit:UC_KIT?.id||'classic',kits:KITS.filter(k=>k.req&&kitHas(k,st)).map(k=>k.id),streak:st.streak,games:st.games}};
 let pTab='kits',pkSame=false;
 function apply(){const q=new URLSearchParams(location.search).get('bg');const k=q||ls('uc-bg')||'classic';
  if(k!=='classic'&&!q&&!unlocked(k)){ls('uc-bg',null);delete scene.dataset.bg;return}
@@ -2755,7 +2841,7 @@ dlg.addEventListener('click',e=>{const b=e.target.closest('[data-st]');if(!b){if
   ls('uc-bg',k==='classic'?null:k);apply();track('stadium_pick',{bg:k});pkSame=true;openPicker()}});
 // Kit unlocks get a card pack on the results screen. Each kit has an answer level (same names and colours as scoring).
 const KLV={stripes:0,hoops:0,ref:0,candy:0,keeper:0,sash:1,halves:1,night:1,pin:1,quarters:1,fire:1,shadow:1,checks:2,hat3:2,dots:2,toxic:2,ice:2,perfect:2,leopard:3,zebra:3,galaxy:3,ocean:3,sunset:3,camo:3,lava:3,chrome:4,rainbow:4,tiedye:4,gold:4};
-const KLC=[10,25,40,70,100].map(p=>TCOL[p]),KLN=TIERS.map(t=>t[1]);
+const KLC=[10,25,40,70,100].map(p=>TCOL[p]),KLN=TIERS.map(t=>t[1]);window.ucKitInfo={KLV,KLC,KLN};
 const kitsNow=()=>{const st=kitStats();return KITS.filter(k=>k.req&&kitHas(k,st)).map(k=>k.id)};
 let kitDone=null;try{kitDone=JSON.parse(ls('uc-kit-done')||'null')}catch{}
 // first visit with this feature: count what's already unlocked as seen, so nobody gets a pile of packs at once
