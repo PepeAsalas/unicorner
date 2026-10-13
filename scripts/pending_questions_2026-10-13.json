@@ -1,0 +1,95 @@
+{
+ "note": "New batch (stat questions). Waiting for answers from ChatGPT: scripts/chatgpt_answers_2026-10-13.md",
+ "questions": [
+  {
+   "key": "S1",
+   "prompt": "Name a Spanish club with \"Real\" in its full name",
+   "subtitle": "Has played in LaLiga or the Segunda División; \"Reial\" counts",
+   "prompt_es": "Nombra un club español con «Real» en su nombre oficial",
+   "subtitle_es": "Ha jugado en Primera o Segunda División; «Reial» también vale",
+   "difficulty": "medium",
+   "answer_type": "club"
+  },
+  {
+   "key": "S2",
+   "prompt": "Name a player with 100+ caps for Spain",
+   "subtitle": "Men's team, as of 1 October 2026",
+   "prompt_es": "Nombra un jugador con 100 o más partidos con España",
+   "subtitle_es": "Selección masculina, a 1 de octubre de 2026",
+   "difficulty": "easy",
+   "answer_type": "player"
+  },
+  {
+   "key": "S3",
+   "prompt": "Name a player with 100+ caps for England",
+   "subtitle": "Men's team, as of 1 October 2026",
+   "prompt_es": "Nombra un jugador con 100 o más partidos con Inglaterra",
+   "subtitle_es": "Selección masculina, a 1 de octubre de 2026",
+   "difficulty": "easy",
+   "answer_type": "player"
+  },
+  {
+   "key": "S4",
+   "prompt": "Name a player with 100+ caps for Argentina",
+   "subtitle": "Men's team, as of 1 October 2026",
+   "prompt_es": "Nombra un jugador con 100 o más partidos con Argentina",
+   "subtitle_es": "Selección masculina, a 1 de octubre de 2026",
+   "difficulty": "medium",
+   "answer_type": "player"
+  },
+  {
+   "key": "S5",
+   "prompt": "Name a player with 100+ caps for Germany",
+   "subtitle": "Men's team, including West Germany, as of 1 October 2026",
+   "prompt_es": "Nombra un jugador con 100 o más partidos con Alemania",
+   "subtitle_es": "Selección masculina, incluida la RFA, a 1 de octubre de 2026",
+   "difficulty": "medium",
+   "answer_type": "player"
+  },
+  {
+   "key": "S6",
+   "prompt": "Name a player with 25+ goals for Spain",
+   "subtitle": "Men's team, as of 1 October 2026",
+   "prompt_es": "Nombra un jugador con 25 o más goles con España",
+   "subtitle_es": "Selección masculina, a 1 de octubre de 2026",
+   "difficulty": "medium",
+   "answer_type": "player"
+  },
+  {
+   "key": "S7",
+   "prompt": "Name a player with 100+ Premier League goals",
+   "subtitle": "As of 1 October 2026",
+   "prompt_es": "Nombra un jugador con 100 o más goles en la Premier League",
+   "subtitle_es": "A 1 de octubre de 2026",
+   "difficulty": "easy",
+   "answer_type": "player"
+  },
+  {
+   "key": "S8",
+   "prompt": "Name a player with 50+ Premier League assists",
+   "subtitle": "Official Premier League stats, as of 1 October 2026",
+   "prompt_es": "Nombra un jugador con 50 o más asistencias en la Premier League",
+   "subtitle_es": "Estadísticas oficiales de la Premier League, a 1 de octubre de 2026",
+   "difficulty": "medium",
+   "answer_type": "player"
+  },
+  {
+   "key": "S9",
+   "prompt": "Name a player with 200+ LaLiga goals",
+   "subtitle": "All-time, as of 1 October 2026",
+   "prompt_es": "Nombra un jugador con 200 o más goles en LaLiga",
+   "subtitle_es": "Toda la historia, a 1 de octubre de 2026",
+   "difficulty": "medium",
+   "answer_type": "player"
+  },
+  {
+   "key": "S10",
+   "prompt": "Name a player with 50+ Champions League goals",
+   "subtitle": "Since 1992-93, qualifiers not included, as of 1 October 2026",
+   "prompt_es": "Nombra un jugador con 50 o más goles en la Champions League",
+   "subtitle_es": "Desde 1992-93, sin contar las previas, a 1 de octubre de 2026",
+   "difficulty": "easy",
+   "answer_type": "player"
+  }
+ ]
+}
