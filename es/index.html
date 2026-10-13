@@ -2370,8 +2370,8 @@ async function rpc(fn,args={}){const t=await token();if(!t)throw new Error('Plea
  if(r.status===404&&j?.code==='PGRST202')throw new Error('Leagues are not switched on yet');
  if(!r.ok)throw new Error(j?.message||'Something went wrong — try again');return j}
 
-async function pubRpc(fn){const t=sess?await token():null;
- const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+(t||SB_KEY),'Content-Type':'application/json'},body:'{}'});
+async function pubRpc(fn,args={}){const t=sess?await token():null;
+ const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+(t||SB_KEY),'Content-Type':'application/json'},body:JSON.stringify(args)});
  if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}
 
 // Return from the emailed sign-in link or Google (#access_token=…) and invite links (?league=CODE)
@@ -2534,6 +2534,27 @@ const css=`
 .ucw-r.ghost{outline:2px dashed #d12a2a;outline-offset:-2px}
 .ucw-r.gap{margin-top:4px;border-top:2px dashed var(--wd)}
 .ucw-r:not(.h):hover,.ucw-trio>div:hover .ucw-blk,.ucw-champ:hover{filter:brightness(.94)}
+/* full table dialog, same window as the ranking */
+dialog.ftd{width:min(760px,calc(100vw - 20px));max-width:none;padding:0!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;outline:0!important;overflow:visible}
+dialog.ftd::backdrop{background:rgba(5,3,15,.75)}
+.ucw.ftw{display:flex!important;flex-direction:column;height:min(88dvh,880px)}
+.ftw>*{flex:none}
+.ftd .ft-x{font:400 10px "Press Start 2P",var(--lab)!important;background:var(--w0)!important;color:#1b1530!important;padding:2px 7px!important;border:0!important;border-radius:0!important;box-shadow:inset 1px 1px 0 var(--wl),inset -1px -1px 0 var(--wd)!important;min-height:0!important}
+.ft-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:6px 4px 0}
+@media (max-width:520px){.ft-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.ft-stats div{background:#fffbea;box-shadow:inset 1px 1px 0 var(--wd),inset -1px -1px 0 var(--wl);padding:6px 4px;text-align:center;font-size:8px;color:#5b5470}
+.ft-stats b{display:block;font:400 26px/1 var(--px);color:#1b1530;margin-bottom:3px}
+.ft-dist{display:flex;align-items:flex-end;gap:2px;height:42px;margin:6px 4px 0;padding:4px 6px;background:#fffbea;box-shadow:inset 1px 1px 0 var(--wd),inset -1px -1px 0 var(--wl)}
+.ft-dist i{flex:1;background:var(--wd)}.ft-dist i.mine{background:#d12a2a}
+.ft-tools{display:flex;gap:6px;margin:6px 4px 0;align-items:center}
+.ft-tools input{flex:1 1 auto;min-width:0;font:400 20px var(--lab)!important;padding:5px 8px!important;border:0!important;border-radius:0!important;background:#fff!important;color:#1b1530!important;box-shadow:inset 2px 2px 0 #808080,inset -2px -2px 0 #fffbea!important}
+.ucw .ucw-more,.ftd .ucw-more{font:400 9px/1.2 "Press Start 2P",var(--lab)!important;background:#1b2a6b!important;color:#fffbea!important;border:2px solid #000!important;border-radius:0!important;padding:7px 9px!important;box-shadow:2px 2px 0 #000!important;white-space:nowrap;cursor:pointer;min-height:0!important;text-transform:none!important}
+.ftd .ft-scroll{flex:1 1 auto;min-height:0;overflow:auto;margin:6px 4px 0}
+.ftd .ft-scroll .ucw-r.h{position:sticky;top:0;z-index:2}
+.ftd .ucw-r.ft-top1{background:#ffd23f!important}.ftd .ucw-r.ft-top2{background:#dfe5ee!important}.ftd .ucw-r.ft-top3{background:#f0b07a!important}
+.ftd .ucw-r.me{background:#d12a2a!important;color:#fffbea}
+.ft-me{display:none;margin:6px 4px 2px;background:#fffbea}.ft-me.show{display:block}
+.ucw-st:has(.ucw-more){display:flex;justify-content:space-between;align-items:center;gap:8px}
 .ucw [data-lg=card]:focus-visible{outline:2px solid #000;outline-offset:1px}
 .ucw-empty{margin:0;padding:18px 10px;text-align:center;font-size:9px;line-height:1.8}
 .ucw-st{margin:6px 4px 2px;padding:4px 6px;box-shadow:inset 1px 1px 0 var(--wd),inset -1px -1px 0 var(--wl);font-size:8px;line-height:1.8}
@@ -2822,7 +2843,47 @@ async function globalBox(){cardRows=[];let g;try{g=await loadGlobal()}catch{retu
   if(at<0)list=rows.concat({...gr,rank:0});else{list=rows.map((r,i)=>i>=at?{...r,rank:r.rank+1}:r);list.splice(at,0,{...gr,rank:ghost.rank});list=list.slice(0,10)}}
  const champ=!wk?champStrip(g.yesterday):'';
  const body=list.length?champ+ucwList(list,mine):champ+ucwEmpty(wk?L('No scores this week yet. Be the first!','Aún no hay puntos esta semana. ¡Sé el primero!'):L('No one on the board yet today. Be the first!','Nadie en el ranking hoy. ¡Sé el primero!'));
- return competeShell('UNICORNER LEAGUE',body,wk?L('Week resets Monday · ','La semana empieza el lunes · ')+clickHint():clickHint(),sess&&me?.profile&&part.me?'':wk?'':gStatus(part))}
+ const fullBtn=part.players?`<span>${part.players} ${wk?L('players this week','jugadores esta semana'):L('players today','jugadores hoy')}</span><button type="button" class="ucw-more" data-lg="full" data-scope="${wk?'week':'day'}">${L('See full table','Ver tabla completa')} ▸</button>`:clickHint();
+ return competeShell('UNICORNER LEAGUE',body,fullBtn,sess&&me?.profile&&part.me?'':wk?'':gStatus(part))}
+// ── Full table: everyone on today's or this week's ranking, with search, your place and a pinned "you" row ──
+let fullScope='day',fullData={},fullRows=[];
+async function openFull(scope){fullScope=scope||'day';let d=document.getElementById('dlg-full');
+ if(!d){document.body.insertAdjacentHTML('beforeend',`<dialog id="dlg-full" class="ftd" aria-labelledby="ft-t"><div class="ucw ftw">
+  <div class="ucw-bar"><span id="ft-t">${L('Full table','Tabla completa')}</span><button type="button" class="ft-x" data-ft="close" aria-label="${L('Close','Cerrar')}">x</button></div>
+  <div class="ucw-tabs" role="tablist" id="ft-tabs"></div><div class="ft-stats" id="ft-stats"></div><div class="ft-dist" id="ft-dist" aria-hidden="true"></div>
+  <div class="ft-tools"><input id="ft-q" type="search" autocomplete="off" placeholder="${L('Search a player','Busca un jugador')}" aria-label="${L('Search a player','Busca un jugador')}"><button type="button" class="ucw-more" data-ft="jump">${L('Jump to me','Ir a mí')}</button></div>
+  <div class="ft-scroll ucw-grid" id="ft-scroll"></div><div class="ft-me" id="ft-me"></div></div></dialog>`);
+  d=document.getElementById('dlg-full');
+  d.addEventListener('click',e=>{const b=e.target.closest('[data-ft]');if(e.target===d||b?.dataset.ft==='close')return d.close();
+   if(b?.dataset.ft==='jump'){document.getElementById('ft-q').value='';drawFull();return jumpFull()}
+   if(b?.dataset.ft==='tab'){fullScope=b.dataset.s;loadFull();return}
+   if(b?.dataset.ft==='me')return jumpFull();
+   const row=e.target.closest('[data-fi]');if(row){const r=fullRows[+row.dataset.fi];if(r)playerCard(r)}});
+  d.addEventListener('keydown',e=>{const row=e.target.closest?.('[data-fi]');if(row&&(e.key==='Enter'||e.key===' ')){e.preventDefault();row.click()}});
+  document.getElementById('ft-q').addEventListener('input',drawFull);
+  document.getElementById('ft-scroll').addEventListener('scroll',pinFull,{passive:true})}
+ if(!d.open)d.showModal();track('full_table_open',{scope:fullScope});await loadFull();jumpFull()}
+async function loadFull(){const sc=fullScope;drawFull(true);
+ try{if(!fullData[sc]||Date.now()-fullData[sc].at>60000){const g=await pubRpc('lg_full_board',{p_scope:sc});fullData[sc]={rows:g?.rows||[],at:Date.now()}}}catch{fullData[sc]={rows:null,at:0}}
+ if(sc===fullScope)drawFull()}
+function drawFull(loading){const wk=fullScope==='week',rows=fullData[fullScope]?.rows,me=rows?.find(r=>r.me);
+ document.getElementById('ft-tabs').innerHTML=[['day',L('Today','Hoy')],['week',L('Week','Semana')]].map(([k,t])=>`<button type="button" role="tab" data-ft="tab" data-s="${k}" aria-selected="${fullScope===k}" class="${fullScope===k?'on':''}">${t}</button>`).join('');
+ const sc=document.getElementById('ft-scroll');
+ if(loading&&!rows){sc.innerHTML=`<p class="ucw-empty">${L('Loading…','Cargando…')}</p>`;return}
+ if(!rows){sc.innerHTML=`<p class="ucw-empty">${L('Ranking unavailable right now. Try again later.','Ranking no disponible ahora. Inténtalo más tarde.')}</p>`;document.getElementById('ft-stats').innerHTML='';document.getElementById('ft-dist').innerHTML='';document.getElementById('ft-me').innerHTML='';return}
+ const n=rows.length,avg=n?Math.round(rows.reduce((a,r)=>a+(+r.score||0),0)/n):0,top=me?Math.max(1,Math.round(me.rank/n*100)):null;
+ document.getElementById('ft-stats').innerHTML=`<div><b>${n}</b>${L('players','jugadores')}</div><div><b>${me?ord(me.rank):'–'}</b>${L('your place','tu puesto')}</div><div><b>${top?L('Top ','Top ')+top+'%':'–'}</b>${L('of everyone','de todos')}</div><div><b>${avg}</b>${L('average','media')}</div>`;
+ const mx=Math.max(1,...rows.map(r=>+r.score||0)),B=12,bk=Array(B).fill(0);rows.forEach(r=>bk[Math.min(B-1,Math.floor((+r.score||0)/mx*B))]++);const mb=me?Math.min(B-1,Math.floor(me.score/mx*B)):-1,bm=Math.max(1,...bk);
+ document.getElementById('ft-dist').innerHTML=bk.map((v,i)=>`<i class="${i===mb?'mine':''}" style="height:${Math.max(4,Math.round(v/bm*100))}%"></i>`).join('');
+ const q=document.getElementById('ft-q').value.trim().toLowerCase();fullRows=rows;
+ const list=rows.map((r,i)=>[r,i]).filter(([r])=>!q||String(r.nickname).toLowerCase().includes(q));
+ const rowH=(r,i,extra='')=>`<div class="ucw-r${r.me?' me':''}${r.rank<=3?' ft-top'+r.rank:''}${extra}" data-fi="${i}" role="button" tabindex="0"><span>${r.rank}</span>${uni(r)}<span class="ucw-n">${r.me?L('YOU','TÚ')+' · ':''}${esc(String(r.nickname).toUpperCase())}</span><span class="ucw-s">${r.score}</span></div>`;
+ sc.innerHTML=`<div class="ucw-r h"><span>${L('Pos','Pos')}</span><span></span><span>${L('Player','Jugador')}</span><span class="ucw-s">Pts</span></div>`+(n?list.length?list.map(([r,i])=>rowH(r,i)).join(''):`<p class="ucw-empty">${L(`Nobody called "${esc(q)}" is on the table.`,`Nadie llamado "${esc(q)}" está en la tabla.`)}</p>`:`<p class="ucw-empty">${wk?L('No scores this week yet.','Aún no hay puntos esta semana.'):L('No one on the board yet today.','Nadie en el ranking hoy.')}</p>`);
+ document.getElementById('ft-me').innerHTML=me?rowH(me,rows.indexOf(me)).replace('data-fi=','data-ft="me" data-x='):'';
+ document.querySelector('#dlg-full [data-ft=jump]').hidden=!me;pinFull()}
+function pinFull(){const sc=document.getElementById('ft-scroll'),m=sc?.querySelector('.ucw-r.me'),pin=document.getElementById('ft-me');if(!pin)return;
+ if(!m){pin.classList.remove('show');return}const a=sc.getBoundingClientRect(),r=m.getBoundingClientRect();pin.classList.toggle('show',r.bottom<a.top+28||r.top>a.bottom-4)}
+function jumpFull(){const m=document.querySelector('#ft-scroll .ucw-r.me');if(m)m.scrollIntoView({block:'center'});pinFull()}
 // A player's card: their unicorn, the kit's level, their stats and every kit they own
 function playerCard(r){const k=kitOf(r),info=window.ucKitInfo||{},t=info.KLV?.[k.id]??0,col=k.id==='classic'?'#cfd8e6':info.KLC?.[t]||'#ffd23f';
  const lv=k.id==='classic'?L('Starter','Inicial'):(t===5?L('MYTHIC','MÍTICO'):t===4?L('SCREAMER','QUÉ CHICHARRO'):tl(info.KLN?.[t]||'Tap-in').toUpperCase());
@@ -2908,6 +2969,7 @@ document.addEventListener('click',async e=>{const b=e.target.closest('[data-lg]'
  if(a==='gtab'){gTab=b.dataset.tab;return renderGlobal()}
  if(a==='wtab'){const t=b.dataset.t;if(t==='league'){gScope='league';track('compete_scope',{scope:'league'});if(sess&&me?.leagues?.length&&!board)loadBoard().then(renderGlobal).catch(()=>{})}else{gScope='global';gTab=t==='week'?'week':'day'}return renderGlobal()}
  if(a==='card'){const r=cardRows[+b.dataset.i];if(r)playerCard(r);return}
+ if(a==='full')return openFull(b.dataset.scope);
  if(a==='gscope'){gScope=b.dataset.scope;track('compete_scope',{scope:gScope});if(gScope==='league'&&sess&&me?.leagues?.length&&!board)loadBoard().then(renderGlobal).catch(()=>{});return renderGlobal()}
  if(a==='invite')return invite(b.dataset.code,b.dataset.name);
  if(a==='gwrong'){const x=claimSent();if(x){draft.email=x.email;draft.nick=x.nick}lsSet(LG_SENT,null);await renderGlobal();document.querySelector('.g-claim [name=email]')?.focus();return}
