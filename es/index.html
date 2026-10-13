@@ -1148,7 +1148,7 @@ body.inf-mode .seo-info,body.inf-mode footer{display:none}
 .man-s p{margin:0;font-size:19px;line-height:1.15;color:#1b1530}
 .man-fig{display:flex;align-items:center;justify-content:center;gap:6px;height:56px;margin:0 0 8px;background:#e7dcbc;border:2px dashed #8a7a50;color:#1b1530}
 .man-clk{font:400 20px "Press Start 2P",var(--lab)}
-.man-bar{width:16px;border:2px solid #000;align-self:center}
+.man-bar{width:16px;border:2px solid #000;align-self:flex-end;margin-bottom:8px}
 .man-fig i{width:40px;height:40px;display:block}.man-fig i svg{width:100%;height:100%;display:block}
 .man-t{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px}.man-t em{font-style:normal;font-size:15px;padding:0 4px;border:2px solid #000;color:#1b1530}
 .man-pg{margin:0;text-align:center;font:400 9px "Press Start 2P",var(--lab);color:#8a7a50}
@@ -1843,7 +1843,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
   <div class="man-hd"><h2>${L('Instruction booklet','Manual de instrucciones')}<span class="man-sr"> · ${L('How to play','Cómo se juega')}</span></h2><span>${L('Page 3','Página 3')}</span></div>
   <ol class="man-grid">
    <li class="man-s"><div class="man-fig" aria-hidden="true"><span class="man-clk">0:${TIME}</span></div><h3>1. ${L('The prompts','Las preguntas')}</h3><p>${ES?`${Q.length} preguntas de fútbol. Escribe una respuesta válida en cada una antes de que se acabe el tiempo.`:`${Q.length} football prompts. Name one valid answer for each before the clock runs out.`}</p></li>
-   <li class="man-s"><div class="man-fig" aria-hidden="true">${TIERS.map((t,i)=>`<span class="man-bar" style="height:${10+i*8}px;background:${COLS[i]}"></span>`).join('')}</div><h3>2. ${L('Scoring','Puntuación')}</h3><p>${L('The rarer your answer, the more it scores.','Cuanto más rara sea tu respuesta, más puntos.')}</p><span class="man-t">${TIERS.map((t,i)=>`<em style="background:${COLS[i]}">${tl(t[1])} ${t[0]}</em>`).join('')}</span></li>
+   <li class="man-s"><div class="man-fig" aria-hidden="true">${TIERS.map((t,i)=>`<span class="man-bar" style="height:${Math.round(6+t[0]*.34)}px;background:${COLS[i]}"></span>`).join('')}</div><h3>2. ${L('Scoring','Puntuación')}</h3><p>${L('The rarer your answer, the more it scores.','Cuanto más rara sea tu respuesta, más puntos.')}</p><span class="man-t">${TIERS.map((t,i)=>`<em style="background:${COLS[i]}">${tl(t[1])} ${t[0]}</em>`).join('')}</span></li>
    <li class="man-s"><div class="man-fig" aria-hidden="true"><i>${lvlSvg(LVL_ART[0])}</i>→<i>${lvlSvg(LVL_ART[3])}</i>→<i>${lvlSvg(LVL_ART[6])}</i></div><h3>3. ${L('Levels','Niveles')}</h3><p>${L("Climb from Sunday league to the Ballon d'Or, then share it with your mates.",'Sube de la Pachanga al Balón de Oro y compártelo con tus amigos.')}</p></li>
   </ol>
   <p class="man-pg" aria-hidden="true">- 3 -</p>
