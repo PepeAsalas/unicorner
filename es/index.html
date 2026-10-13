@@ -2567,7 +2567,7 @@ const show=html=>{$('lea-body').innerHTML=X+html;if(!dlg.open)dlg.showModal()};
 const activeId=()=>{const a=lsGet(LG_ACTIVE),l=me?.leagues||[];return(l.find(x=>x.id===a)||l[0])?.id||null};
 const inviteLink=c=>location.origin+location.pathname.replace(/index\.html$/,'')+'?league='+c;
 
-async function loadMe(){me=await rpc('lg_me');return me}
+async function loadMe(){me=await rpc('lg_me');try{window.ucAdoptLook?.(me?.profile)}catch{}return me}
 async function loadBoard(){const id=activeId();board=id?await rpc('lg_league_board',{p_league:id}):null;return board}
 
 function boardTable(b,tab,limit){
@@ -2818,8 +2818,10 @@ function playerCard(r){const k=kitOf(r),info=window.ucKitInfo||{},t=info.KLV?.[k
 // Send this player's kit and kit count to their account so everyone sees their unicorn on the boards
 let lookBusy=false;
 async function syncLook(){if(!sess||!me?.profile||lookBusy)return;const l=myLook();if(!l)return;
- const key=(sess.email||'1')+JSON.stringify(l);if(lsGet('uc-look-sent')===key)return;lookBusy=true;
- try{await rpc('lg_set_look',{p_kit:l.kit,p_kits:l.kits,p_streak:l.streak,p_games:l.games});lsSet('uc-look-sent',key);gboard=null;renderGlobal()}catch{}finally{lookBusy=false}}
+ const key=(sess.email||'1')+JSON.stringify(l)+(lsGet('uc-kit-dirty')||'');if(lsGet('uc-look-sent')===key)return;lookBusy=true;
+ // the kit only goes up when it was picked on this device; otherwise the account's kit stays and this device follows it
+ const dirty=lsGet('uc-kit-dirty')==='1';
+ try{await rpc('lg_set_look',{p_kit:dirty?l.kit:null,p_kits:l.kits,p_streak:l.streak,p_games:l.games});lsSet('uc-look-sent',key);if(dirty)lsSet('uc-kit-dirty',null);gboard=null;renderGlobal()}catch{}finally{lookBusy=false}}
 window.ucLookSync=()=>{renderGlobal();syncLook()};
 async function renderGlobal(){if(!document.querySelector('[data-compete]'))return;applyLed();
  const html=gScope==='league'?leagueBox():await globalBox();if(html==null)return;
@@ -2955,7 +2957,7 @@ function kitProg(k,st){if(!k.req)return null;const[t,n]=k.req;if(t==='allfive'||
  const label=t==='level'?L('Now: ','Ahora: ')+zl(ZONES[have][1]):`${have} / ${n} ${u}`;return{have,n,frac:n?have/n:0,left:n-have,label}}
 const progBar=pr=>`<span class="kit-bar" aria-hidden="true"><i style="width:${Math.round(pr.frac*100)}%"></i></span><span class="kit-prog">${pr.label}</span>`;
 const kitPv=k=>`<span class="kit-pv"><i style="background-image:${sprite('happy',0,false,k).replace(/"/g,"'")}"></i></span>`;
-function wearKit(k){UC_KIT=k.id==='classic'?null:k;ls('uc-kit',UC_KIT?k.id:null);buildSprites();paint();window.ucLookSync?.()}
+function wearKit(k,fromAccount){UC_KIT=k.id==='classic'?null:k;ls('uc-kit',UC_KIT?k.id:null);buildSprites();paint();if(fromAccount)return;ls('uc-kit-dirty','1');window.ucLookSync?.()}
 window.ucLook=()=>{const st=kitStats();return{kit:UC_KIT?.id||'classic',kits:KITS.filter(k=>k.req&&kitHas(k,st)).map(k=>k.id),streak:st.streak,games:st.games}};
 let pTab='kits',pkSame=false;
 function apply(){const q=new URLSearchParams(location.search).get('bg');const k=q||ls('uc-bg')||'classic';
@@ -2983,7 +2985,7 @@ function openPicker(){const g0=document.querySelector('#st-body .st-grid'),y0=pk
   <div class="st-grid">${LIST.map(([k,n,need])=>{const lock=best<need,on=k===cur;return `<button type="button" class="st-tile${on?' on':''}${lock?' locked':''}" data-st="pick" data-k="${k}" ${lock?'aria-disabled="true"':''} aria-label="${n}${lock?L(`, unlocks at a ${need}-day streak`,`, se desbloquea con una racha de ${need} días`):on?L(', in use',', en uso'):''}">${sw(k).replace('</span>',lock?'<i>🔒</i></span>':'</span>')}<span class="st-name">${n}</span><span class="st-need">${lock?`🔥 ${need} ${L('days','días')}`:on?L('✓ In use','✓ En uso'):need?L('Unlocked','Desbloqueado'):L('Default','Por defecto')}</span></button>`}).join('')}</div>`;}
  if(!dlg.open)dlg.showModal();const g1=document.querySelector('#st-body .st-grid');if(g1)g1.scrollTop=y0;dlg.scrollTop=d0;track('stadium_open',{best})}
 btn.onclick=()=>{pTab='kits';openPicker()};
-if(UC_KIT&&!kitHas(UC_KIT,kitStats()))wearKit(KITS[0]);
+if(UC_KIT&&!kitHas(UC_KIT,kitStats()))wearKit(KITS[0],true);
 dlg.addEventListener('click',e=>{const b=e.target.closest('[data-st]');if(!b){if(e.target===dlg)dlg.close();return}
  if(b.dataset.st==='close')return dlg.close();
  if(b.dataset.st==='tab'){pTab=b.dataset.t;track('picker_tab',{tab:pTab});return openPicker()}
@@ -3022,6 +3024,11 @@ function kitPack(queue){const k=queue.shift();if(!k)return;const t=KLV[k.id]??0,
  const esc=e=>{if(e.key==='Escape')done(false)};document.addEventListener('keydown',esc);
  ov.addEventListener('click',e=>{const b=e.target.closest('[data-kp]');if(b)done(b.dataset.kp==='wear')});
  track('kit_unlock',{kit:k.id,level:t})}
+// signed in on another device: kits unlocked there count here too, and this device wears the account's kit
+window.ucAdoptLook=p=>{if(!p)return;const acct=(Array.isArray(p.kits)?p.kits:[]).filter(id=>KITS.some(k=>k.id===id));
+ const add=acct.filter(id=>!kitDone.includes(id));if(add.length){kitDone=kitDone.concat(add);ls('uc-kit-done',JSON.stringify(kitDone));dot()}
+ if(ls('uc-kit-dirty')==='1'||!('kit' in p))return;const id=p.kit||'classic';if((UC_KIT?.id||'classic')===id)return;
+ const k=KITS.find(x=>x.id===id);if(k&&kitHas(k,kitStats()))wearKit(k,true)};
 function kitCelebrate(){const fresh=kitsNow().filter(id=>!kitDone.includes(id));if(!fresh.length)return;
  kitDone=kitDone.concat(fresh);ls('uc-kit-done',JSON.stringify(kitDone));
  // best first, at most three packs in a row
