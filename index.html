@@ -2113,8 +2113,20 @@ const T0=Date.now();let lastBeat=0;
 const dailySetId=()=>{try{return amsterdamDay()+':'+Q.map(q=>q.id||slug(q.prompt)).join('|')}catch{return amsterdamDay()}};
 const DEVICE={w:window.innerWidth,h:window.innerHeight,screen_w:screen.width,screen_h:screen.height,dpr:window.devicePixelRatio||1,lang:navigator.language||'',tz:Intl.DateTimeFormat().resolvedOptions().timeZone||'',touch:navigator.maxTouchPoints||0};
 let toastTimer;function showToast(msg){const t=document.getElementById('toast');if(!t)return;playSfx('pop');t.textContent=msg;t.classList.remove('show');void t.offsetWidth;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2200)}
-function track(name,data){try{if(document.body.classList.contains('inf-mode'))data={...(data||{}),mode:'infinity'};let language=null;try{language=LANG}catch{}const body=JSON.stringify({name,session:SID,visitor:VISITOR,seconds:Math.round((Date.now()-T0)/1000),game_day:amsterdamDay(),event_version:2,data:{language,browser_language:(navigator.language||'').slice(0,12),...(data||{})}});fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body}).catch(()=>{})}catch{}}
-track('view',{ref:(document.referrer||'').slice(0,120),path:location.pathname,...DEVICE});
+// Where visitors come from: ?utm_source=… on tagged links (tiktok, reddit, instagram…), else the referring site. Remembered on the device, so a later visit or a finish still counts for the platform that brought them
+const SRC=(()=>{const clean=v=>String(v||'').toLowerCase().replace(/[^a-z0-9._-]/g,'').slice(0,40);
+ const MAP=[[/tiktok/,'tiktok'],[/reddit|redd\.it/,'reddit'],[/instagram/,'instagram'],[/facebook|fb\.(com|me)/,'facebook'],[/^t\.co$|twitter|^x\.com$/,'x'],[/linkedin|lnkd/,'linkedin'],[/youtube|youtu\.be/,'youtube'],[/whatsapp/,'whatsapp'],[/chatgpt|openai/,'chatgpt'],[/perplexity/,'perplexity'],[/google\./,'google'],[/bing\./,'bing'],[/duckduckgo/,'duckduckgo']];
+ const name=v=>v?(MAP.find(([r])=>r.test(v))||[0,v])[1]:'';
+ let p=null,utm='',ref='';try{p=new URLSearchParams(location.search);utm=name(clean(p.get('utm_source')))}catch{}
+ try{const h=new URL(document.referrer).hostname.replace(/^(www|m|l|lm|out)\./,'');if(h&&!/(^|\.)unicornergame\.lol$/.test(h))ref=name(clean(h))}catch{}
+ const now=utm||ref;let first='',last='',sess='';
+ try{first=localStorage.getItem('uc-src-first')||'';if(!first&&now){first=now;localStorage.setItem('uc-src-first',now)}if(now)localStorage.setItem('uc-src',now);last=localStorage.getItem('uc-src')||''}catch{last=now}
+ try{sess=sessionStorage.getItem('uc-src-s')||'';if(!sess||now){sess=now||last||'direct';sessionStorage.setItem('uc-src-s',sess)}}catch{sess=now||last||'direct'}
+ // tidy the address bar so a shared link doesn't carry our tag
+ if(p&&p.has('utm_source'))try{for(const k of ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'])p.delete(k);const q=p.toString();history.replaceState(history.state,'',location.pathname+(q?'?'+q:'')+location.hash)}catch{}
+ return{src:sess,src_first:first||sess,src_how:utm?'tag':ref?'referrer':'none'}})();
+function track(name,data){try{if(document.body.classList.contains('inf-mode'))data={...(data||{}),mode:'infinity'};let language=null;try{language=LANG}catch{}const body=JSON.stringify({name,session:SID,visitor:VISITOR,seconds:Math.round((Date.now()-T0)/1000),game_day:amsterdamDay(),event_version:2,data:{language,browser_language:(navigator.language||'').slice(0,12),src:SRC.src,src_first:SRC.src_first,...(data||{})}});fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body}).catch(()=>{})}catch{}}
+track('view',{ref:(document.referrer||'').slice(0,120),path:location.pathname,src_how:SRC.src_how,...DEVICE});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&Date.now()-lastBeat>5000){lastBeat=Date.now();track('leave',{reason:'hidden'})}});
 window.addEventListener('pagehide',()=>track('leave',{reason:'pagehide'}));
 // ---- question bank
@@ -2248,6 +2260,23 @@ async function loadStats(){const el=document.getElementById('stats-body');el.inn
   const byDayFeedback={};for(const r of feedbackRows){const d=r.game_day||r.created_at.slice(0,10);const dd=r.data||{};if(typeof dd.feedback!=='string'||!dd.feedback.trim())continue;(byDayFeedback[d]=byDayFeedback[d]||[]).push(dd)}
   const feedbackHtml=Object.entries(byDayFeedback).sort((a,b)=>b[0].localeCompare(a[0])).map(([d,items])=>`<details class="msg-card" style="margin:8px 0"><summary><b>${esc(d)}</b> <span class="mute">· ${items.length} comment${items.length===1?'':'s'}</span></summary><div style="margin-top:8px">${items.map(i=>`<div style="padding:4px 0;border-bottom:1px solid var(--line)"><b>${esc(i.rating)}/5</b> — ${esc(i.feedback)}</div>`).join('')}</div></details>`).join('');
 
+  // Sources and countries: players = distinct visitor IDs per game day; Infinity games are left out
+  const srcOf=r=>(r.data||{}).src||'unknown',ccOf=r=>(r.data||{}).country||'??';
+  const uniq=(list,key)=>{const m=new Map();for(const r of list){const k=key(r),id=(r.visitor||r.session)+'|'+(r.game_day||'');if(!m.has(k))m.set(k,new Set());m.get(k).add(id)}return m};
+  const viewRows=rows.filter(r=>r.name==='view'),finRows=rows.filter(r=>r.name==='game_finish'&&!(r.data||{}).mode);
+  const visBy=uniq(viewRows,srcOf),startBy=uniq(rows.filter(r=>r.name==='game_start'&&!(r.data||{}).mode),srcOf),finBy=uniq(finRows,srcOf);
+  const srcRows=[...new Set([...visBy.keys(),...finBy.keys()])].map(k=>[k,visBy.get(k)?.size||0,startBy.get(k)?.size||0,finBy.get(k)?.size||0]).sort((a,b)=>b[3]-a[3]||b[1]-a[1]);
+  const ccFin=uniq(finRows,ccOf),ccVis=uniq(viewRows,ccOf);
+  const ccRows=[...new Set([...ccVis.keys(),...ccFin.keys()])].map(k=>[k,ccVis.get(k)?.size||0,ccFin.get(k)?.size||0]).sort((a,b)=>b[2]-a[2]||b[1]-a[1]).slice(0,20);
+  const combo=[...uniq(finRows,r=>srcOf(r)+'|'+ccOf(r)).entries()].map(([k,v])=>[...k.split('|'),v.size]).sort((a,b)=>b[2]-a[2]).slice(0,12);
+  const ccName=c=>{if(c==='??')return'Unknown';try{return new Intl.DisplayNames(['en'],{type:'region'}).of(c)}catch{return c}};
+  const tbl=(head,body)=>`<table style="width:100%;border-collapse:collapse;font-size:14px;margin:6px 0 14px"><tr>${head.map((h,i)=>`<th style="text-align:${i?'right':'left'};padding:4px 6px;border-bottom:1px solid var(--line)">${h}</th>`).join('')}</tr>${body.map(r=>`<tr>${r.map((v,i)=>`<td style="text-align:${i?'right':'left'};padding:4px 6px">${esc(String(v))}</td>`).join('')}</tr>`).join('')||'<tr><td class="mute" style="padding:4px 6px">No data yet</td></tr>'}</table>`;
+  const sourcesHtml=`<h3 style="margin:18px 0 6px">Where players come from</h3>
+   ${combo.length?`<p style="margin:4px 0 10px">${combo.slice(0,3).map(([s,c,n])=>`<b>${n}</b> player${n===1?'':'s'} from <b>${esc(ccName(c))}</b> finished after arriving through <b>${esc(s)}</b>`).join('<br>')}</p>`:''}
+   ${tbl(['Source','Visitors','Started','Finished'],srcRows)}
+   ${tbl(['Country','Visitors','Finished'],ccRows.map(([c,v,f])=>[ccName(c)+(c==='??'?'':' ('+c+')'),v,f]))}
+   ${tbl(['Source · country','Finished'],combo.map(([s,c,n])=>[s+' · '+ccName(c),n]))}
+   <p class="mute" style="font-size:12px;margin:-6px 0 0">Source: the <code>utm_source</code> tag on the link they came from, else the referring site, remembered on their device ("direct" = neither). Country: estimated by the server from their connection, so VPNs can change it; only the 2-letter code is saved. Counts are distinct players per game day; Infinity games are left out.</p>`;
   const byDay={};for(const r of rows){if(r.name!=='view')continue;const d=r.game_day||r.created_at.slice(0,10);byDay[d]=(byDay[d]||0)+1}
   const dayRows=Object.entries(byDay).sort().slice(-14);const mx=Math.max(1,...dayRows.map(d=>d[1]));
   const byDayFinish={};for(const r of rows){if(r.name!=='game_finish')continue;const d=r.game_day||r.created_at.slice(0,10);byDayFinish[d]=(byDayFinish[d]||0)+1}
@@ -2261,6 +2290,7 @@ async function loadStats(){const el=document.getElementById('stats-body');el.inn
       ['Avg question rating',overallRatings.length?overallAvgRating+'/5':'—']]
      .map(([k,v])=>`<div class="stat"><b>${v}</b><span>${k}</span></div>`).join('')}</div>
    <p class="mute" style="font-size:12px;margin:10px 0 0">Visitor metrics use the anonymous random <code>uc-visitor</code> browser ID. Older events without this ID are excluded.</p>
+   ${sourcesHtml}
    <h3 style="margin:18px 0 6px">Rejected answers</h3>
    <p class="mute" style="font-size:12px;margin:0 0 8px">Most common refused inputs in this date range, grouped by question. “Known player” means the input matched a player name already known to the game.</p>
    <div>${rejectedHtml||'<p class="mute">No rejected answers yet.</p>'}</div>
