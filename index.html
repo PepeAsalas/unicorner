@@ -3074,7 +3074,9 @@ function openPicker(){const g0=document.querySelector('#st-body .st-grid'),y0=pk
   ${(()=>{const fav=kitFavs().filter(id=>{const k=KITS.find(x=>x.id===id);return k&&kitHas(k,st)});
    const cell=k=>{const lock=!kitHas(k,st),on=k.id===curK,n=L(k.en,k.es);const tile=`<button type="button" class="st-tile kit-tile${on?' on':''}${lock?' locked':''}${k.gold?' gold':''}${k.myth?' myth':''}${KLV[k.id]!=null&&KLV[k.id]<5?' tiered':''}" style="--tc:${KLV[k.id]!=null?KLC[KLV[k.id]]:'#8a9ab0'}" data-st="kit" data-k="${k.id}" ${lock?'aria-disabled="true"':''} aria-label="${n}${lock?', '+kitGoal(k.req):on?L(', in use',', en uso'):''}">${kitPv(k)}${lock?'<i class="kit-lock">🔒</i>':''}<span class="st-name">${n}</span><span class="st-need">${lock?kitGoal(k.req):(on?L('✓ In use · ','✓ En uso · '):'')+kitWhy(k)}</span>${lock&&kitProg(k,st)?progBar(kitProg(k,st)):''}</button>`;const isFav=fav.includes(k.id);
     return `<div class="kit-cell">${tile}${lock?'':`<button type="button" class="kit-fav${isFav?' on':''}" data-st="fav" data-k="${k.id}" aria-pressed="${isFav}" aria-label="${isFav?L('Remove from favourites','Quitar de favoritas'):L('Add to favourites','Añadir a favoritas')}" title="${isFav?L('Remove from favourites','Quitar de favoritas'):L('Add to favourites','Añadir a favoritas')}">★</button>`}</div>`};
-   const favKits=fav.map(id=>KITS.find(x=>x.id===id)),rest=KITS.filter(k=>!fav.includes(k.id));
+   // sorted by rarity: Classic, then Tap-in up to Mythic (kits of the same level keep their usual order)
+   const rank=k=>KLV[k.id]==null?-1:KLV[k.id],byRarity=(a,b)=>rank(a)-rank(b)||KITS.indexOf(a)-KITS.indexOf(b);
+   const favKits=fav.map(id=>KITS.find(x=>x.id===id)).sort(byRarity),rest=KITS.filter(k=>!fav.includes(k.id)).sort(byRarity);
    return `<div class="st-grid kit-grid">${favKits.length?`<p class="kit-sec">★ ${L('Favourites','Favoritas')}</p>${favKits.map(cell).join('')}<p class="kit-sec">${L('All kits','Todas')}</p>`:''}${rest.map(cell).join('')}</div>`})()}`}
  else{
  document.getElementById('st-body').innerHTML=`${close}
