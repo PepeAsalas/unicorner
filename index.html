@@ -2909,6 +2909,9 @@ async function syncLook(){if(!sess||!me?.profile||lookBusy)return;const l=myLook
  const dirty=lsGet('uc-kit-dirty')==='1';
  try{await rpc('lg_set_look',{p_kit:dirty?l.kit:null,p_kits:l.kits,p_streak:l.streak,p_games:l.games});lsSet('uc-look-sent',key);if(dirty)lsSet('uc-kit-dirty',null);gboard=null;renderGlobal()}catch{}finally{lookBusy=false}}
 window.ucLookSync=()=>{renderGlobal();syncLook()};
+// favourite kits go to the account so every device shows the same ones
+window.ucFavSync=async()=>{if(!sess||!me?.profile)return;let f=[];try{f=JSON.parse(lsGet('uc-kit-fav')||'[]')}catch{}
+ try{await rpc('lg_set_favs',{p_favs:Array.isArray(f)?f:[]});lsSet('uc-fav-dirty',null)}catch{}};
 async function renderGlobal(){if(!document.querySelector('[data-compete]'))return;applyLed();
  const html=gScope==='league'?leagueBox():await globalBox();if(html==null)return;
  // only touch the page when the board actually changed
@@ -3084,7 +3087,7 @@ if(UC_KIT&&!kitHas(UC_KIT,kitStats()))wearKit(KITS[0],true);
 dlg.addEventListener('click',e=>{const b=e.target.closest('[data-st]');if(!b){if(e.target===dlg)dlg.close();return}
  if(b.dataset.st==='close')return dlg.close();
  if(b.dataset.st==='tab'){pTab=b.dataset.t;track('picker_tab',{tab:pTab});return openPicker()}
- if(b.dataset.st==='fav'){const id=b.dataset.k,f=kitFavs(),on=f.includes(id);ls('uc-kit-fav',JSON.stringify(on?f.filter(x=>x!==id):f.concat(id)));track('kit_fav',{kit:id,on:!on});pkSame=true;return openPicker()}
+ if(b.dataset.st==='fav'){const id=b.dataset.k,f=kitFavs(),on=f.includes(id);ls('uc-kit-fav',JSON.stringify(on?f.filter(x=>x!==id):f.concat(id)));ls('uc-fav-dirty','1');window.ucFavSync?.();track('kit_fav',{kit:id,on:!on});pkSame=true;return openPicker()}
  if(b.dataset.st==='kit'){const k=KITS.find(x=>x.id===b.dataset.k);if(!k)return;if(!kitHas(k,kitStats())){b.animate([{translate:'0'},{translate:'-4px'},{translate:'4px'},{translate:'0'}],{duration:260});return}
   wearKit(k);track('kit_pick',{kit:k.id});pkSame=true;return openPicker()}
  if(b.dataset.st==='pick'){const k=b.dataset.k;if(!unlocked(k)){showToast(L('Keep your streak going to unlock this one 🔥','Mantén tu racha para desbloquear este 🔥'));return}
@@ -3121,7 +3124,9 @@ function kitPack(queue){const k=queue.shift();if(!k)return;const t=KLV[k.id]??0,
  ov.addEventListener('click',e=>{const b=e.target.closest('[data-kp]');if(b)done(b.dataset.kp==='wear')});
  track('kit_unlock',{kit:k.id,level:t})}
 // signed in on another device: kits unlocked there count here too, and this device wears the account's kit
-window.ucAdoptLook=p=>{if(!p)return;if(typeof p.wins==='number'){ls('uc-wins',p.wins);}const acct=(Array.isArray(p.kits)?p.kits:[]).filter(id=>KITS.some(k=>k.id===id));
+window.ucAdoptLook=p=>{if(!p)return;
+ // favourites: this device's changes win until they're saved; otherwise the account's list is used (an empty account takes this device's list)
+ if(Array.isArray(p.favs)){const local=kitFavs();if(ls('uc-fav-dirty')==='1'||(!p.favs.length&&local.length)){ls('uc-fav-dirty','1');window.ucFavSync?.()}else ls('uc-kit-fav',JSON.stringify(p.favs.filter(id=>KITS.some(k=>k.id===id))))}if(typeof p.wins==='number'){ls('uc-wins',p.wins);}const acct=(Array.isArray(p.kits)?p.kits:[]).filter(id=>KITS.some(k=>k.id===id));
  const add=acct.filter(id=>!kitDone.includes(id));if(add.length){kitDone=kitDone.concat(add);ls('uc-kit-done',JSON.stringify(kitDone));dot()}
  if(ls('uc-kit-dirty')==='1'||!('kit' in p))return;const id=p.kit||'classic';if((UC_KIT?.id||'classic')===id)return;
  const k=KITS.find(x=>x.id===id);if(k&&kitHas(k,kitStats()))wearKit(k,true)};
