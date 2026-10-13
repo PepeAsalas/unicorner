@@ -1,0 +1,36 @@
+# Unicorner
+
+> Unicorner is a free daily football (soccer) trivia game in the browser, at https://unicornergame.lol. Every day there are five football questions with 30 seconds each, and the twist is that obvious answers score least: the rarer your valid answer, the more points it is worth. No download and no sign-up needed to play. Available in English and Spanish.
+
+## How it works
+
+- A new game every day, the same five questions for everyone.
+- Each question asks you to name one valid player, club, country, manager or stadium, for example "Name a country that has won the World Cup".
+- You have 30 seconds per question.
+- Scoring depends on how rare your answer is. The most obvious answers are a Tap-in (10 points), then Header (30), Volley (60), Bicycle kick (85), and the rarest valid answers are a Screamer (100 points).
+- The highest possible score is 500.
+- At the end you get your score and can share it, Wordle-style.
+
+## Features
+
+- Global leaderboard: a ranking for each day's game and a weekly ranking that resets every Monday; yesterday's winner is shown at the top. Signing in with an email and picking a nickname puts you on it.
+- Private leagues: create a league, send the link to friends, and compare daily and weekly scores.
+- Kits: 40 outfits for your pixel-art unicorn, unlocked by playing (games played, streaks, Screamers, high scores). The rarest, the Cosmic GOAT, is only for players who win a day.
+- Streaks for playing on consecutive days.
+- Infinity mode: endless practice with the same rules and no ranking (a short trial run is available now; the full version is coming soon).
+- Retro pixel-art, arcade style.
+
+## Good to know
+
+- Free to play. No app to install; works on phone and desktop browsers.
+- Often described as a "football Wordle" or a daily football quiz for people with real ball knowledge.
+- Spanish version: https://unicornergame.lol/es/ (in Spanish the Screamer is called "Qué chicharro").
+
+## Links
+
+- Play (English): https://unicornergame.lol/
+- Play (Spanish): https://unicornergame.lol/es/
+- Privacy: https://unicornergame.lol/privacy.html
+- TikTok: https://www.tiktok.com/@unicornergame.lol
+- Reddit: https://www.reddit.com/r/Unicorner_Game/
+- LinkedIn: https://www.linkedin.com/company/unicorner-football-game

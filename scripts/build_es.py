@@ -23,7 +23,13 @@ FAQ = [
     ('¿Unicorner es gratis?', 'Sí. El juego diario es totalmente gratis.'),
     ('¿Cuándo hay partido nuevo?', 'Cada día salen cinco preguntas nuevas de fútbol.'),
     ('¿Cómo se puntúa?', 'Las respuestas correctas pero obvias dan menos puntos. Las respuestas válidas más raras dan más.'),
-    ('¿Unicorner está en español?', 'Sí. Pulsa el botón ES/EN de arriba para cambiar de idioma, o entra en unicornergame.lol/es/. Las preguntas, el ranking y las ligas son los mismos en los dos idiomas, y puedes volver al inglés cuando quieras.'),
+    ('¿Unicorner está en español?', 'Sí. Juega en español en unicornergame.lol/es/ o pulsa el botón ES/EN de arriba. Las preguntas, el ranking y las ligas son los mismos en los dos idiomas, y puedes volver al inglés cuando quieras.'),
+    ('¿Hay un Wordle de fútbol?', 'Sí. Unicorner es un juego diario de fútbol al estilo Wordle: un partido nuevo cada día, las mismas cinco preguntas para todos y una puntuación que puedes compartir. En lugar de adivinar una palabra, nombras jugadores, clubes o países, y cuanto más rara sea tu respuesta, más puntúa.'),
+    ('¿Puedo jugar con amigos?', 'Sí. Crea una liga privada, manda el enlace a tus amigos y comparad vuestras puntuaciones del día y de la semana. Para las ligas hace falta entrar gratis con tu email; para el juego diario, no.'),
+    ('¿Hay una clasificación?', 'Sí. Hay un ranking mundial de cada partido diario y otro semanal que se reinicia cada lunes, y arriba aparece el ganador de ayer. Para salir en él, entra y elige un apodo.'),
+    ('¿Cuál es la puntuación máxima?', '500. Cada una de las cinco preguntas vale hasta 100 puntos: 10 por las respuestas más obvias (Empujarla), luego 30, 60 y 85, y 100 por las respuestas válidas más raras (Qué chicharro).'),
+    ('¿Qué es el Modo Infinito?', 'El Modo Infinito es práctica sin fin con las mismas reglas que el juego diario: 30 segundos por pregunta y las respuestas más raras puntúan más, pero sin ranking. Ya puedes probar una ronda corta; la versión infinita completa llega pronto.'),
+    ('¿Qué son las equipaciones?', 'Las equipaciones son trajes para tu unicornio pixelado. Hay 40 que se desbloquean jugando: por partidos jugados, rachas, chicharros y puntuaciones altas. La más rara, el GOAT cósmico, es solo para quien gana un día. Si has entrado con tu cuenta, tu equipación sale en la clasificación.'),
 ]
 
 # Visible about/FAQ text, so the Spanish words are in the page itself and not only added by the script
@@ -34,8 +40,19 @@ TEXT = {
     '<summary>Is Unicorner free?</summary><p>Yes. The daily football quiz is completely free to play.</p>': f'<summary>{FAQ[0][0]}</summary><p>{FAQ[0][1]}</p>',
     '<summary>When is there a new game?</summary><p>Five new football trivia questions are released every day.</p>': f'<summary>{FAQ[1][0]}</summary><p>{FAQ[1][1]}</p>',
     '<summary>How does scoring work?</summary><p>Correct but obvious answers score fewer points. The rarest valid answers score the most.</p>': f'<summary>{FAQ[2][0]}</summary><p>{FAQ[2][1]}</p>',
-    '<summary>Is Unicorner available in Spanish?</summary><p>Yes. Tap the ES button at the top to play in Spanish, or open unicornergame.lol/?lang=es. The questions, ranking and leagues are the same in both languages, and you can switch back any time.</p>': f'<summary>{FAQ[3][0]}</summary><p>{FAQ[3][1]}</p>',
+    '<summary>Is Unicorner available in Spanish?</summary><p>Yes. Play in Spanish at unicornergame.lol/es/, or tap the ES button at the top. The questions, ranking and leagues are the same in both languages, and you can switch back any time.</p>': f'<summary>{FAQ[3][0]}</summary><p>{FAQ[3][1]}</p>',
 }
+# The newer FAQ entries: English text as it is in index.html, matched to FAQ[4:] above
+FAQ_EN_NEW = [
+    ('Is there a football Wordle?', 'Yes. Unicorner is a daily football game in the spirit of Wordle: one new game a day, the same five questions for everyone, and a score you can share. Instead of guessing a word, you name players, clubs or countries, and the rarer your answer, the more it scores.'),
+    ('Can I play with friends?', 'Yes. Create a private league, send the link to your friends and compare your daily and weekly scores. Leagues need a free sign-in with your email; the daily game itself does not.'),
+    ('Is there a leaderboard?', "Yes. There is a global ranking for each day's game and a weekly ranking that resets every Monday, and yesterday's winner is shown at the top. To appear on it, sign in and pick a nickname."),
+    ('What is the highest score?', '500. Each of the five questions is worth up to 100 points: 10 for the most obvious answers (a Tap-in), then 30, 60 and 85, and 100 for the rarest valid answers (a Screamer).'),
+    ('What is Infinity mode?', 'Infinity mode is endless practice with the same rules as the daily game: 30 seconds per question and rarer answers score more, but there is no ranking. You can try a short run now; the full endless version is coming soon.'),
+    ('What are kits?', 'Kits are outfits for your pixel unicorn. There are 40 to unlock by playing, through games played, streaks, Screamers and big scores. The rarest, the Cosmic GOAT, is only for players who win a day. If you are signed in, your kit shows on the leaderboard.'),
+]
+for (q, a), (qe, ae) in zip(FAQ_EN_NEW, FAQ[4:]):
+    TEXT[f'<summary>{q}</summary><p>{a}</p>'] = f'<summary>{qe}</summary><p>{ae}</p>'
 
 
 def build():
