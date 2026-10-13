@@ -1323,7 +1323,18 @@ body.inf-mode .seo-info,body.inf-mode footer{display:none}
 #dlg-stadium .kit-tile.on{outline:4px solid #fffbea;outline-offset:-1px}
 #dlg-stadium .kit-tile.on:not(.tiered){background:#8a9ab0!important;box-shadow:inset 0 0 0 3px #6b7a90,4px 4px 0 rgba(0,0,0,.45)!important}
 #dlg-stadium .kit-tile.tiered:not(.locked) .st-name{color:#1b1530!important;text-shadow:none!important}
-#dlg-stadium .kit-tile.on:not(.tiered) .st-name{color:#fffbea!important;text-shadow:0 2px 0 #000}:lang(es) #dlg-stadium .kit-tile.on::after{content:"PUESTA"}
+#dlg-stadium .kit-tile.on:not(.tiered) .st-name{color:#fffbea!important;text-shadow:0 2px 0 #000}
+/* mythic kit: glow that cycles pink, cyan, gold; its locker has a spinning rainbow edge */
+@keyframes kit-myth-glow{0%,100%{filter:drop-shadow(0 0 6px #ff7ac8) drop-shadow(0 0 2px #fff)}33%{filter:drop-shadow(0 0 9px #4fd7ff) drop-shadow(0 0 2px #fff)}66%{filter:drop-shadow(0 0 9px #ffd23f) drop-shadow(0 0 2px #fff)}}
+body.kit-myth .sprite,.ucw-u.myth,.pcd-u.myth,.kit-tile.myth:not(.locked) .kit-pv i,.kp-card.myth{animation:kit-myth-glow 2s ease-in-out infinite}
+@property --mh{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes kit-myth-spin{to{--mh:360deg}}
+#dlg-stadium .kit-tile.myth{background:#0b0630!important;background-image:radial-gradient(#fff 1px,transparent 1.5px),radial-gradient(#ffd23f 1px,transparent 1.5px)!important;background-size:31px 29px,47px 43px!important;box-shadow:4px 4px 0 rgba(0,0,0,.45)!important;outline:4px solid transparent;outline-offset:-4px}
+#dlg-stadium .kit-tile.myth::before{background:linear-gradient(90deg,#ff7ac8,#ffd23f,#7dff9a,#4fd7ff,#b388ff)}
+#dlg-stadium .kit-tile.myth{border-image:conic-gradient(from var(--mh),#ff7ac8,#ffd23f,#7dff9a,#4fd7ff,#b388ff,#ff7ac8) 1!important;animation:kit-myth-spin 3s linear infinite}
+#dlg-stadium .kit-tile.myth .st-name{color:#fffbea!important;text-shadow:0 2px 0 #000!important}
+#dlg-stadium .kit-tile.myth.locked .kit-pv{filter:grayscale(.3) brightness(.8)}
+@media (prefers-reduced-motion:reduce){body.kit-myth .sprite,.ucw-u.myth,.pcd-u.myth,.kit-tile.myth .kit-pv i,.kp-card.myth,#dlg-stadium .kit-tile.myth{animation:none}}:lang(es) #dlg-stadium .kit-tile.on::after{content:"PUESTA"}
 #dlg-stadium .kit-bar{display:block;margin-top:5px;height:12px;background:#1b1530;border:2px solid #000;position:relative}
 #dlg-stadium .kit-bar i{position:absolute;left:0;top:0;bottom:0;background:repeating-linear-gradient(90deg,#ffd23f 0 8px,#c98f12 8px 10px)}
 #dlg-stadium .kit-prog{display:block;margin-top:3px;font:400 14px var(--lab);color:#fffbea;text-shadow:0 1px 0 #000;line-height:1.1}
@@ -1457,7 +1468,7 @@ const D=JSON.parse(document.getElementById('data').textContent);let Q=D.question
 // Language: ?lang=es|en, then the saved choice, then the browser's language. English stays the default.
 const LANG=(()=>{try{const u=new URLSearchParams(location.search).get('lang');if(u==='es'||u==='en'){localStorage.setItem('uc-lang',u);return u}if(/^\/es(\/|$)/.test(location.pathname)){localStorage.setItem('uc-lang','es');return 'es'}const s=localStorage.getItem('uc-lang');if(s==='es'||s==='en')return s}catch{}return /^es\b/i.test(navigator.language||'')?'es':'en'})();
 const ES=LANG==='es',L=(en,es)=>ES?es:en,LOC=ES?'es-ES':'en-GB';document.documentElement.lang=LANG;
-const TIER_ES={'Tap-in':'Empujarla','Header':'Remate','Volley':'Volea','Bicycle kick':'Chilena','Screamer':'Qué chicharro'};
+const TIER_ES={'Tap-in':'Empujarla','Header':'Remate','Volley':'Volea','Bicycle kick':'Chilena','Screamer':'Qué chicharro','Mythic':'Mítico'};
 const ZONE_ES={'Sunday league':'Pachanga','Non-league':'Tercera RFEF','Second tier':'Segunda División','Top flight':'Primera División','Champions League':'Champions League','World Cup final':'Final del Mundial',"Ballon d'Or":'Balón de Oro'};
 const an=a=>ES&&a?.name_es||a?.name,tl=n=>ES&&TIER_ES[n]||n,zl=n=>ES&&ZONE_ES[n]||n,qt=(q,k)=>ES&&q[k+'_es']||q[k];
 // Spanish for fixed text anywhere on the page (static HTML, pop-ups, toasts, server messages).
@@ -1674,6 +1685,16 @@ const KITS=[
  {id:'rainbow',en:'Rainbow',es:'Arcoíris',req:['streak',21],pal:{P:'#ffffff',V:'#ffffff',B:'#ffffff'},pat:kPat((x,y)=>KRAIN[Math.floor(x/3)%6])},
  {id:'tiedye',en:'Tie-dye',es:'Tie-dye',req:['streak',30],pal:{P:'#ffffff',V:'#ffffff',B:'#ffffff'},pat:kPat((x,y)=>['#ff7ac8','#ffd23f','#7dff9a','#4fd7ff','#b388ff'][Math.floor(Math.sin(Math.hypot(x-16,y-14)*.6)*2.5+2.5)%5])},
  {id:'gold',en:'Golden unicorn',es:'Unicornio dorado',req:['level',6],gold:true,pal:{W:'#ffe27a',L:'#e0b030',P:'#ffffff',V:'#ff8a1f',B:'#fff3a0',G:'#ffffff',g:'#c98f12',N:'#ff8a1f'}},
+ {id:'mud',en:'Mud bath',es:'Barro',req:['games',2],pal:{P:'#5a3a1c',V:'#8a5a2b',B:'#5a3a1c'},pat:kPat((x,y)=>((x*7+y*11)%13<3||(x+y*3)%17===0)?'#7a4f22':'#ffffff')},
+ {id:'bee',en:'Bumblebee',es:'Abejorro',req:['streak',5],pal:{P:'#1a1030',V:'#ffd23f',B:'#1a1030',N:'#1a1030'},pat:kPat((x,y)=>y%4<2?'#ffd23f':'#1a1030')},
+ {id:'tartan',en:'Tartan',es:'Escocés',req:['games',15],pal:{P:'#1a3d1f',V:'#d12a2a',B:'#1a3d1f'},pat:kPat((x,y)=>{const a=x%6<2,b=y%6<2;return a&&b?'#7a1010':a||b?'#d12a2a':(x+y)%2?'#1a3d1f':'#2a5a2f'})},
+ {id:'retro',en:'Retro 70s',es:'Años 70',req:['streak',14],pal:{P:'#5a3a1c',V:'#ff8a1f',B:'#ffd23f',N:'#5a3a1c'},pat:kPat((x,y)=>['#fff3d0','#ffd23f','#ff8a1f','#c0501c','#5a3a1c'][Math.floor(x/3)%5])},
+ {id:'straw',en:'Strawberry',es:'Fresa',req:['allfive',3],pal:{P:'#2fbf71',V:'#1f8a4c',B:'#2fbf71',N:'#2fbf71'},pat:kPat((x,y)=>(x%4===1&&y%3===1)||(x%4===3&&y%3===2)?'#ffe98a':'#e3262f')},
+ {id:'aurora',en:'Aurora',es:'Aurora',req:['big',2],pal:{P:'#7dff9a',V:'#b388ff',B:'#4fd7ff',G:'#ffffff',N:'#7dff9a'},pat:kPat((x,y)=>{const w=Math.sin(x*.5)*2+y;return w<8?'#0b1a3a':w<13?'#1f6b5a':w<18?'#7dff9a':w<23?'#4fd7ff':'#b388ff'})},
+ {id:'matrix',en:'Matrix',es:'Matrix',req:['scr',40],pal:{W:'#06140a',L:'#030a05',P:'#39ff6a',V:'#1f8a3a',B:'#39ff6a',w:'#06140a',N:'#39ff6a',E:'#39ff6a',G:'#39ff6a',g:'#1f8a3a'},pat:kPat((x,y)=>((x*13+y*7)%11<2)?'#39ff6a':(x%3===0&&(y+x)%5<2)?'#1f8a3a':'#06140a')},
+ {id:'glitch',en:'Glitch',es:'Glitch',req:['scr1',4],pal:{P:'#ff3b8a',V:'#4fd7ff',B:'#ffd23f'},pat:kPat((x,y)=>{const r=(x*31+y*17)%23;return r<3?'#ff3b8a':r<5?'#4fd7ff':r<6?'#ffd23f':(y%5===0&&x>12)?'#7c4dff':'#f2f2f2'})},
+ {id:'royal',en:'Royal',es:'Real',req:['streak',60],pal:{W:'#4a1f8a',L:'#3a1670',P:'#ffd23f',V:'#ffffff',B:'#ffd23f',w:'#4a1f8a',N:'#ffd23f',G:'#ffd23f',g:'#c98f12'},pat:kPat((x,y)=>(x+y)%6===0?'#ffd23f':(x-y+60)%6===0?'#7c4dff':'#4a1f8a')},
+ {id:'goat',en:'Cosmic GOAT',es:'GOAT cósmico',req:['win',1],myth:true,pal:{P:'#ffffff',V:'#ffd23f',B:'#ff7ac8',G:'#ffffff',g:'#ffd23f',E:'#4fd7ff',N:'#ff7ac8'},pat:kPat((x,y)=>['#ff7ac8','#ffb0e0','#ffd23f','#fff3a0','#7dff9a','#b0ffd0','#4fd7ff','#b0ecff','#b388ff','#e0d0ff'][(x+y*2)%10])},
 ];
 let UC_KIT=(()=>{try{return KITS.find(k=>k.id===localStorage.getItem('uc-kit'))||null}catch{return null}})();
 const kitColor=(c,x,y,kit)=>{if(!kit||(x>=27&&y>=21))return PAL[c];if(kit.pat&&(c==='W'||c==='L'))return kit.pat(x,y,c==='L');return kit.pal[c]||PAL[c]};
@@ -1692,7 +1713,7 @@ function spriteDraw(mood,f,blink,kit){const px=[];FRAMES[f].forEach((r,y)=>[...r
   R(34,2+j,1,3,'#fff27a');R(35,6-j,1,2,'#fff27a');R(33,0,1,1,'#fff27a')}
  try{const S=6,cv=document.createElement('canvas');cv.width=36*S;cv.height=30*S;const g=cv.getContext('2d');for(const[x,y,w,h,c]of px){g.fillStyle=c;g.fillRect(x*S,y*S,w*S,h*S)}return`url("${cv.toDataURL('image/png')}")`}
  catch{const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 30" shape-rendering="crispEdges">${px.map(([x,y,w,h,c])=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${c}"/>`).join('')}</svg>`;return`url("data:image/svg+xml,${encodeURIComponent(svg)}")`}}
-const SPR={};const buildSprites=()=>{for(const m of ['happy','wow','sad','scream'])SPR[m]=[sprite(m,0),sprite(m,1),sprite(m,0,true)];document.body.classList.toggle('kit-gold',!!UC_KIT?.gold)};buildSprites();
+const SPR={};const buildSprites=()=>{for(const m of ['happy','wow','sad','scream'])SPR[m]=[sprite(m,0),sprite(m,1),sprite(m,0,true)];document.body.classList.toggle('kit-gold',!!UC_KIT?.gold);document.body.classList.toggle('kit-myth',!!UC_KIT?.myth)};buildSprites();
 function ribbonSvg(){const R=(x,y,w,h,c)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${c}"/>`;const gold='#f2c230',hi='#fff27a',dark='#a37200',red='#c0392b',reddark='#8a2418';let px='';px+=R(4,0,4,1,gold)+R(2,1,8,1,gold)+R(1,2,10,1,gold)+R(0,3,12,5,gold)+R(1,8,10,1,gold)+R(2,9,8,1,gold)+R(4,10,4,1,gold);px+=R(4,3,4,4,hi)+R(5,2,2,1,hi)+R(5,7,2,1,dark);px+=R(2,11,3,2,red)+R(1,13,3,2,red)+R(0,15,2,2,reddark);px+=R(7,11,3,2,red)+R(8,13,3,2,red)+R(10,15,2,2,reddark);return`url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 17" shape-rendering="crispEdges">${px}</svg>`)}")`}
 function pixelLeaf(fill,hi){const K='#1a1030',R=(x,y,w,h,c)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${c}"/>`;
  const o=R(2,-1,1,1,K)+R(1,0,1,1,K)+R(3,-1,1,1,K)+R(4,0,1,1,K)+R(0,1,1,1,K)+R(5,1,1,1,K)+R(0,3,1,1,K)+R(-1,2,1,1,K)+R(6,2,1,1,K)+R(1,4,1,1,K)+R(7,3,1,1,K)+R(2,5,1,1,K)+R(7,4,1,1,K)+R(3,6,1,1,K)+R(7,5,1,1,K)+R(4,7,1,1,K)+R(6,7,1,1,K)+R(7,6,1,1,K)+R(5,9,1,1,K)+R(6,8,1,1,K)+R(4,8,1,1,K);
@@ -2763,7 +2784,7 @@ let gScope='global';
 const myLook=()=>{try{return window.ucLook?.()||null}catch{return null}};
 const kitOf=r=>{const id=r.me||r.ghost?myLook()?.kit:r.kit;return KITS.find(k=>k.id===id)||KITS[0]};
 const uniBg=k=>sprite('happy',0,false,k.id==='classic'?null:k).replace(/"/g,"'");
-const uni=(r,cls='')=>{const k=kitOf(r);return`<i class="ucw-u${k.gold?' gold':''}${cls}" style="background-image:${uniBg(k)}" aria-hidden="true"></i>`};
+const uni=(r,cls='')=>{const k=kitOf(r);return`<i class="ucw-u${k.gold?' gold':''}${k.myth?' myth':''}${cls}" style="background-image:${uniBg(k)}" aria-hidden="true"></i>`};
 // rows keep their data here so a click can open that player's card
 let cardRows=[];
 const cardAttr=r=>{if(r.ghost)return'';const i=cardRows.push(r)-1;return` data-lg="card" data-i="${i}" role="button" tabindex="0" aria-label="${esc(L('Open the card of ','Ver la ficha de ')+(r.me?L('you','ti'):r.nickname))}"`};
@@ -2804,13 +2825,13 @@ async function globalBox(){cardRows=[];let g;try{g=await loadGlobal()}catch{retu
  return competeShell('UNICORNER LEAGUE',body,wk?L('Week resets Monday · ','La semana empieza el lunes · ')+clickHint():clickHint(),sess&&me?.profile&&part.me?'':wk?'':gStatus(part))}
 // A player's card: their unicorn, the kit's level, their stats and every kit they own
 function playerCard(r){const k=kitOf(r),info=window.ucKitInfo||{},t=info.KLV?.[k.id]??0,col=k.id==='classic'?'#cfd8e6':info.KLC?.[t]||'#ffd23f';
- const lv=k.id==='classic'?L('Starter','Inicial'):(t===4?L('SCREAMER','QUÉ CHICHARRO'):tl(info.KLN?.[t]||'Tap-in').toUpperCase());
+ const lv=k.id==='classic'?L('Starter','Inicial'):(t===5?L('MYTHIC','MÍTICO'):t===4?L('SCREAMER','QUÉ CHICHARRO'):tl(info.KLN?.[t]||'Tap-in').toUpperCase());
  const own=new Set(r.me?myLook()?.kits||[]:r.kits||[]),all=KITS.filter(x=>x.req),n=all.filter(x=>own.has(x.id)).length;
  const st=r.me?myLook():r,games=+st?.games||0,streak=+st?.streak||0;
  let d=document.getElementById('dlg-player');if(!d){document.body.insertAdjacentHTML('beforeend','<dialog id="dlg-player" class="pcd" aria-label="Player card"></dialog>');d=document.getElementById('dlg-player');
   d.addEventListener('click',e=>{if(e.target===d||e.target.closest('[data-pc-x]'))d.close()})}
  d.style.setProperty('--tc',col);
- d.innerHTML=`<div class="pcd-art"><span class="pcd-lv">${lv}</span><button type="button" class="pcd-x" data-pc-x aria-label="${L('Close','Cerrar')}">×</button><i class="pcd-u${k.gold?' gold':''}" style="background-image:${uniBg(k)}"></i></div>
+ d.innerHTML=`<div class="pcd-art"><span class="pcd-lv">${lv}</span><button type="button" class="pcd-x" data-pc-x aria-label="${L('Close','Cerrar')}">×</button><i class="pcd-u${k.gold?' gold':''}${k.myth?' myth':''}" style="background-image:${uniBg(k)}"></i></div>
  <div class="pcd-b"><div class="pcd-nm">${r.me?esc(me?.profile?.nickname||L('You','Tú')):esc(r.nickname)}</div><div class="pcd-kit">${L('Wearing','Lleva')}: ${esc(L(k.en,k.es))}</div>
  <div class="pcd-st"><div><b>${n}/${all.length}</b>${L('kits','equip.')}</div><div><b>${streak}</b>${L('best streak','mejor racha')}</div><div><b>${games}</b>${L('games','partidos')}</div></div>
  <div class="pcd-shelf" aria-label="${n} ${L('kits owned','equipaciones')}">${all.map(x=>`<i class="${own.has(x.id)?'':'no'}" title="${esc(L(x.en,x.es))}" style="background-image:${uniBg(x)}"></i>`).join('')}</div></div>`;
@@ -2941,19 +2962,21 @@ function bestStreak(){let days=[];try{days=Object.keys(localStorage).filter(k=>k
  best=Math.max(best,+(ls('uc-best-streak')||0));ls('uc-best-streak',best);return best}
 const unlocked=k=>{const t=LIST.find(x=>x[0]===k);return!!t&&bestStreak()>=t[2]};
 // Kit goals come from the games already saved on this device
-function kitStats(){const st={games:0,scr:0,best:0,scr1:0,allfive:0,level:0,inf:0,streak:bestStreak()};
+// 'big' games for the Aurora kit: 430+ on the new points
+const BIG_SCORE=430;
+function kitStats(){const st={games:0,scr:0,best:0,scr1:0,allfive:0,big:0,level:0,inf:0,win:+(ls('uc-wins')||0),streak:bestStreak()};
  try{for(const k of Object.keys(localStorage)){if(/^uc-inf-\d{4}-/.test(k))st.inf=1;if(!k.startsWith('unicorner-played-'))continue;let r=null;try{r=JSON.parse(localStorage.getItem(k))}catch{}st.games++;if(!r)continue;
   const sc=newScoreOf(r,k.slice(17));st.best=Math.max(st.best,sc);const picks=Array.isArray(r.picks)?r.picks.filter(Array.isArray):[];const n=picks.filter(x=>x[2]===100).length;st.scr+=n;st.scr1=Math.max(st.scr1,n);
-  if(picks.length===5&&picks.every(x=>x[2]>0))st.allfive=1}}catch{}
+  if(sc>=BIG_SCORE)st.big++;if(picks.length===5&&picks.every(x=>x[2]>0))st.allfive++}}catch{}
  st.level=ZONES.reduce((a,z,i)=>st.best/MAX>=z[0]?i:a,0);return st}
 // a kit stays yours once you've earned it, even if its target changes later
 const kitEarned=id=>{try{const d=JSON.parse(localStorage.getItem('uc-kit-done')||'[]');return Array.isArray(d)&&d.includes(id)}catch{return false}};
 const kitHas=(kit,st)=>!kit.req||(st[kit.req[0]]||0)>=kit.req[1]||kitEarned(kit.id);
-const kitGoal=([t,n])=>t==='games'?L(`Play ${n} games`,`Juega ${n} partidos`):t==='streak'?L(`${n}-day streak`,`Racha de ${n} días`):t==='scr'?L(`Find ${n} Screamers`,`Consigue ${n} chicharros`):t==='scr1'?L(`${n} Screamers in one game`,`${n} chicharros en un partido`):t==='best'?(n>=500?L('Score a perfect 500','Haz un 500 perfecto'):L(`Score ${n}+ in a game`,`Haz ${n}+ puntos en un partido`)):t==='level'?L(`Reach ${zl(ZONES[n][1])}`,`Llega a ${zl(ZONES[n][1])}`):t==='inf'?L('Try Infinity mode','Prueba el Modo Infinito'):L('Get all 5 right in one game','Acierta las 5 en un partido');
-const kitWhy=k=>{if(!k.req)return L('Free for everyone','Gratis para todos');const[t,n]=k.req;return t==='games'?L(`You played ${n} games`,`Jugaste ${n} partidos`):t==='streak'?L(`You hit a ${n}-day streak`,`Llegaste a una racha de ${n} días`):t==='scr'?L(`You found ${n} Screamers`,`Conseguiste ${n} chicharros`):t==='scr1'?L(`You got ${n} Screamers in one game`,`Hiciste ${n} chicharros en un partido`):t==='best'?(n>=500?L('You scored a perfect 500','Hiciste un 500 perfecto'):L(`You scored ${n}+ in a game`,`Hiciste ${n}+ puntos en un partido`)):t==='level'?L(`You reached ${zl(ZONES[n][1])}`,`Llegaste a ${zl(ZONES[n][1])}`):t==='inf'?L('You tried Infinity mode','Probaste el Modo Infinito'):L('You got all 5 right in one game','Acertaste las 5 en un partido')};
+const kitGoal=([t,n])=>t==='win'?L('Finish 1st on the ranking for a day','Termina 1º en el ranking de un día'):t==='big'?L(`Score ${BIG_SCORE}+ in ${n} games`,`Haz ${BIG_SCORE}+ puntos en ${n} partidos`):t==='allfive'&&n>1?L(`Get all 5 right in ${n} games`,`Acierta las 5 en ${n} partidos`):t==='games'?L(`Play ${n} games`,`Juega ${n} partidos`):t==='streak'?L(`${n}-day streak`,`Racha de ${n} días`):t==='scr'?L(`Find ${n} Screamers`,`Consigue ${n} chicharros`):t==='scr1'?L(`${n} Screamers in one game`,`${n} chicharros en un partido`):t==='best'?(n>=500?L('Score a perfect 500','Haz un 500 perfecto'):L(`Score ${n}+ in a game`,`Haz ${n}+ puntos en un partido`)):t==='level'?L(`Reach ${zl(ZONES[n][1])}`,`Llega a ${zl(ZONES[n][1])}`):t==='inf'?L('Try Infinity mode','Prueba el Modo Infinito'):L('Get all 5 right in one game','Acierta las 5 en un partido');
+const kitWhy=k=>{if(!k.req)return L('Free for everyone','Gratis para todos');const[t,n]=k.req;return t==='win'?L('You finished 1st for a day','Terminaste 1º un día'):t==='big'?L(`You scored ${BIG_SCORE}+ in ${n} games`,`Hiciste ${BIG_SCORE}+ puntos en ${n} partidos`):t==='allfive'&&n>1?L(`You got all 5 right in ${n} games`,`Acertaste las 5 en ${n} partidos`):t==='games'?L(`You played ${n} games`,`Jugaste ${n} partidos`):t==='streak'?L(`You hit a ${n}-day streak`,`Llegaste a una racha de ${n} días`):t==='scr'?L(`You found ${n} Screamers`,`Conseguiste ${n} chicharros`):t==='scr1'?L(`You got ${n} Screamers in one game`,`Hiciste ${n} chicharros en un partido`):t==='best'?(n>=500?L('You scored a perfect 500','Hiciste un 500 perfecto'):L(`You scored ${n}+ in a game`,`Hiciste ${n}+ puntos en un partido`)):t==='level'?L(`You reached ${zl(ZONES[n][1])}`,`Llegaste a ${zl(ZONES[n][1])}`):t==='inf'?L('You tried Infinity mode','Probaste el Modo Infinito'):L('You got all 5 right in one game','Acertaste las 5 en un partido')};
 // how far a locked kit is: {have,n,frac,label} for kits with a number to reach, null for yes/no kits
-function kitProg(k,st){if(!k.req)return null;const[t,n]=k.req;if(t==='allfive'||t==='inf')return null;const have=Math.min(st[t]||0,n);
- const u={games:L('games','partidos'),streak:L('day streak','días de racha'),scr:L('Screamers','chicharros'),scr1:L('Screamers in one game','chicharros en un partido'),best:L('points','puntos')}[t];
+function kitProg(k,st){if(!k.req)return null;const[t,n]=k.req;if((t==='allfive'&&n<2)||t==='inf'||t==='win')return null;const have=Math.min(st[t]||0,n);
+ const u={games:L('games','partidos'),streak:L('day streak','días de racha'),scr:L('Screamers','chicharros'),scr1:L('Screamers in one game','chicharros en un partido'),best:L('points','puntos'),allfive:L('perfect games','partidos perfectos'),big:L(`games of ${BIG_SCORE}+`,`partidos de ${BIG_SCORE}+`)}[t];
  const label=t==='level'?L('Now: ','Ahora: ')+zl(ZONES[have][1]):`${have} / ${n} ${u}`;return{have,n,frac:n?have/n:0,left:n-have,label}}
 const progBar=pr=>`<span class="kit-bar" aria-hidden="true"><i style="width:${Math.round(pr.frac*100)}%"></i></span><span class="kit-prog">${pr.label}</span>`;
 const kitPv=k=>`<span class="kit-pv"><i style="background-image:${sprite('happy',0,false,k).replace(/"/g,"'")}"></i></span>`;
@@ -2977,7 +3000,7 @@ function openPicker(){const g0=document.querySelector('#st-body .st-grid'),y0=pk
   <p class="st-sub">${L(`${have} of ${KITS.length} unlocked. Play, find Screamers and keep your streak to unlock more.`,`${have} de ${KITS.length} desbloqueadas. Juega, consigue chicharros y mantén la racha para desbloquear más.`)}</p>
   ${(()=>{const nx=KITS.filter(k=>!kitHas(k,st)).map(k=>[k,kitProg(k,st)]).filter(([,p])=>p&&p.left>0).sort((a,b)=>(a[0].req[0]==='level')-(b[0].req[0]==='level')||b[1].frac-a[1].frac)[0];if(!nx)return'';const[k,pr]=nx;
    return`<div class="kit-next"><h3>${L('Next up','Lo próximo')}</h3><div class="kit-next-row">${kitPv(k)}<span><b>${L(k.en,k.es)}</b><small>${kitGoal(k.req)}</small><span class="kit-bar"><i style="width:${Math.round(pr.frac*100)}%"></i></span><small>${pr.label}${k.req[0]==='level'?'':' · '+L(`${pr.left} to go`,`faltan ${pr.left}`)}</small></span></div></div>`})()}
-  <div class="st-grid kit-grid">${KITS.map(k=>{const lock=!kitHas(k,st),on=k.id===curK,n=L(k.en,k.es);return `<button type="button" class="st-tile kit-tile${on?' on':''}${lock?' locked':''}${k.gold?' gold':''}${KLV[k.id]!=null?' tiered':''}" style="--tc:${KLV[k.id]!=null?KLC[KLV[k.id]]:'#8a9ab0'}" data-st="kit" data-k="${k.id}" ${lock?'aria-disabled="true"':''} aria-label="${n}${lock?', '+kitGoal(k.req):on?L(', in use',', en uso'):''}">${kitPv(k)}${lock?'<i class="kit-lock">🔒</i>':''}<span class="st-name">${n}</span><span class="st-need">${lock?kitGoal(k.req):(on?L('✓ In use · ','✓ En uso · '):'')+kitWhy(k)}</span>${lock&&kitProg(k,st)?progBar(kitProg(k,st)):''}</button>`}).join('')}</div>`}
+  <div class="st-grid kit-grid">${KITS.map(k=>{const lock=!kitHas(k,st),on=k.id===curK,n=L(k.en,k.es);return `<button type="button" class="st-tile kit-tile${on?' on':''}${lock?' locked':''}${k.gold?' gold':''}${k.myth?' myth':''}${KLV[k.id]!=null&&KLV[k.id]<5?' tiered':''}" style="--tc:${KLV[k.id]!=null?KLC[KLV[k.id]]:'#8a9ab0'}" data-st="kit" data-k="${k.id}" ${lock?'aria-disabled="true"':''} aria-label="${n}${lock?', '+kitGoal(k.req):on?L(', in use',', en uso'):''}">${kitPv(k)}${lock?'<i class="kit-lock">🔒</i>':''}<span class="st-name">${n}</span><span class="st-need">${lock?kitGoal(k.req):(on?L('✓ In use · ','✓ En uso · '):'')+kitWhy(k)}</span>${lock&&kitProg(k,st)?progBar(kitProg(k,st)):''}</button>`}).join('')}</div>`}
  else{
  document.getElementById('st-body').innerHTML=`${close}
   <h2>${L('Pick your stadium','Elige tu estadio')}</h2>${tabs}
@@ -2994,18 +3017,18 @@ dlg.addEventListener('click',e=>{const b=e.target.closest('[data-st]');if(!b){if
  if(b.dataset.st==='pick'){const k=b.dataset.k;if(!unlocked(k)){showToast(L('Keep your streak going to unlock this one 🔥','Mantén tu racha para desbloquear este 🔥'));return}
   ls('uc-bg',k==='classic'?null:k);apply();track('stadium_pick',{bg:k});pkSame=true;openPicker()}});
 // Kit unlocks get a card pack on the results screen. Each kit has an answer level (same names and colours as scoring).
-const KLV={stripes:0,hoops:0,ref:0,candy:0,keeper:0,sash:1,halves:1,night:1,pin:1,quarters:1,fire:1,shadow:1,checks:2,hat3:2,dots:2,toxic:2,ice:2,perfect:2,leopard:3,zebra:3,galaxy:3,ocean:3,sunset:3,camo:3,lava:3,chrome:4,rainbow:4,tiedye:4,gold:4};
-const KLC=TIER_COLS.slice(),KLN=TIERS.map(t=>t[1]);window.ucKitInfo={KLV,KLC,KLN};
+const KLV={stripes:0,hoops:0,ref:0,candy:0,keeper:0,sash:1,halves:1,night:1,pin:1,quarters:1,fire:1,shadow:1,checks:2,hat3:2,dots:2,toxic:2,ice:2,perfect:2,leopard:3,zebra:3,galaxy:3,ocean:3,sunset:3,camo:3,lava:3,chrome:4,rainbow:4,tiedye:4,gold:4,mud:0,bee:0,tartan:1,retro:1,straw:2,aurora:3,matrix:3,glitch:3,royal:4,goat:5};
+const KLC=TIER_COLS.concat('#ff7ac8'),KLN=TIERS.map(t=>t[1]).concat('Mythic');window.ucKitInfo={KLV,KLC,KLN};
 const kitsNow=()=>{const st=kitStats();return KITS.filter(k=>k.req&&kitHas(k,st)).map(k=>k.id)};
 let kitDone=null;try{kitDone=JSON.parse(ls('uc-kit-done')||'null')}catch{}
 // first visit with this feature: count what's already unlocked as seen, so nobody gets a pile of packs at once
 if(!Array.isArray(kitDone)){kitDone=kitsNow();ls('uc-kit-done',JSON.stringify(kitDone))}
 function kitPack(queue){const k=queue.shift();if(!k)return;const t=KLV[k.id]??0,rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
  const ov=document.createElement('div');ov.className='kp';ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-label',L('New kit unlocked','Nueva equipación desbloqueada'));
- const n=L(k.en,k.es),lab=t===4?L('SCREAMER!!!','¡QUÉ CHICHARRO!'):tl(KLN[t]).toUpperCase();
+ const n=L(k.en,k.es),lab=t===5?L('MYTHIC!!!','¡MÍTICO!'):t===4?L('SCREAMER!!!','¡QUÉ CHICHARRO!'):tl(KLN[t]).toUpperCase();
  ov.innerHTML=`<div class="kp-box"><div class="kp-stage"><div class="kp-glow"></div>${[0,1,2,3,4].map(i=>`<i class="kp-beam" style="left:calc(50% - 30px + ${(i-2)*30}px)"></i>`).join('')}
  <div class="kp-title"><small>${L('NEW KIT!','¡NUEVA EQUIPACIÓN!')}</small>${n.toUpperCase()}</div>
- <div class="kp-card${t===4?' scr':''}"><span class="kp-rar">${lab}</span><div class="kp-in"><div class="kp-b">∞</div><div class="kp-f"><i class="kp-art" style="background-image:${sprite('happy',0,false,k).replace(/"/g,"'")}"></i><div class="kp-nm">${n}</div></div></div></div>
+ <div class="kp-card${t>=4?' scr':''}"><span class="kp-rar">${lab}</span><div class="kp-in"><div class="kp-b">∞</div><div class="kp-f"><i class="kp-art" style="background-image:${sprite('happy',0,false,k).replace(/"/g,"'")}"></i><div class="kp-nm">${n}</div></div></div></div>
  <div class="kp-meter">${KLC.map(c=>`<i style="--c:${c}"></i>`).join('')}</div>
  <div class="kp-why">${k.req[0]==='level'?kitWhy(k).replace(zl(ZONES[k.req[1]][1]),'<b>$&</b>'):kitWhy(k).replace(/\d+\+?/,'<b>$&</b>')}</div></div>
  <div class="kp-btns"><button type="button" class="go" data-kp="wear">${L('Wear it','Ponérmela')}</button><button type="button" data-kp="later">${queue.length?L(`Next (${queue.length})`,`Siguiente (${queue.length})`):L('Later','Luego')}</button></div></div>`;
@@ -3016,16 +3039,16 @@ function kitPack(queue){const k=queue.shift();if(!k)return;const t=KLV[k.id]??0,
  if(!rm)cd.animate([{transform:'translateY(320px) scale(.4) rotate(-20deg)',opacity:0},{transform:'none',opacity:1}],{duration:700,easing:'cubic-bezier(.2,1.3,.4,1)'});
  at(700,()=>{ov.querySelector('.kp-meter').style.opacity=1;glow.style.opacity=.55;beams.forEach((b,i)=>b.animate([{opacity:0,transform:`rotate(${(i-2)*14}deg) scaleY(.2)`},{opacity:.85,transform:`rotate(${(i-2)*14}deg) scaleY(1)`}],{duration:rm?1:600,delay:rm?0:i*70,fill:'forwards'}))});
  for(let i=0;i<=t;i++)at(900+i*420,()=>{const c=KLC[i];S.style.setProperty('--tc',c);bars[i].classList.add('on');back.style.boxShadow=`0 0 ${10+i*6}px ${2+i*2}px ${c}`;if(!rm)cd.animate([{transform:'none'},{transform:`scale(${1.04+i*.01}) rotate(${i%2?2:-2}deg)`},{transform:'none'}],{duration:260});const[x,y]=mid();burst(x,y+110,6+i*3,[c],50)});
- at(1500+t*420,()=>{const c=KLC[t],[x,y]=mid();cd.classList.add('flip');glow.style.opacity=t===4?1:.8;burst(x,y,30+t*12,[c,'#fff',c],110+t*15);
-  if(t===4){burst(x,y,40,['#ffd23f','#fff3a0'],180);if(!rm)S.animate([{translate:'0 0'},{translate:'-4px 2px'},{translate:'4px -2px'},{translate:'0 0'}],{duration:280,iterations:2})}
-  ov.querySelector('.kp-title').classList.add('kp-show');if(k.gold)cd.classList.add('gold');
+ at(1500+t*420,()=>{const c=KLC[t],[x,y]=mid();cd.classList.add('flip');glow.style.opacity=t>=4?1:.8;burst(x,y,30+t*12,[c,'#fff',c],110+t*15);
+  if(t>=4){burst(x,y,40,['#ffd23f','#fff3a0'],180);if(!rm)S.animate([{translate:'0 0'},{translate:'-4px 2px'},{translate:'4px -2px'},{translate:'0 0'}],{duration:280,iterations:2})}
+  ov.querySelector('.kp-title').classList.add('kp-show');if(k.gold)cd.classList.add('gold');if(k.myth)cd.classList.add('myth');
   at(400,()=>{ov.querySelector('.kp-why').classList.add('kp-fade');ov.querySelector('.kp-btns').classList.add('on');ov.querySelector('[data-kp=wear]').focus({preventScroll:true})})});
  const done=wear=>{timers.forEach(clearTimeout);document.removeEventListener('keydown',esc);ov.remove();if(wear){wearKit(k);track('kit_wear_from_pack',{kit:k.id})}if(queue.length)setTimeout(()=>kitPack(queue),250)};
  const esc=e=>{if(e.key==='Escape')done(false)};document.addEventListener('keydown',esc);
  ov.addEventListener('click',e=>{const b=e.target.closest('[data-kp]');if(b)done(b.dataset.kp==='wear')});
  track('kit_unlock',{kit:k.id,level:t})}
 // signed in on another device: kits unlocked there count here too, and this device wears the account's kit
-window.ucAdoptLook=p=>{if(!p)return;const acct=(Array.isArray(p.kits)?p.kits:[]).filter(id=>KITS.some(k=>k.id===id));
+window.ucAdoptLook=p=>{if(!p)return;if(typeof p.wins==='number'){ls('uc-wins',p.wins);}const acct=(Array.isArray(p.kits)?p.kits:[]).filter(id=>KITS.some(k=>k.id===id));
  const add=acct.filter(id=>!kitDone.includes(id));if(add.length){kitDone=kitDone.concat(add);ls('uc-kit-done',JSON.stringify(kitDone));dot()}
  if(ls('uc-kit-dirty')==='1'||!('kit' in p))return;const id=p.kit||'classic';if((UC_KIT?.id||'classic')===id)return;
  const k=KITS.find(x=>x.id===id);if(k&&kitHas(k,kitStats()))wearKit(k,true)};
