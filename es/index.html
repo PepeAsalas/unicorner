@@ -73,6 +73,10 @@ details{margin-top:8px}summary{cursor:pointer;color:var(--mute)}details.res{marg
 @keyframes card-slide-out{to{transform:translateX(-46px);opacity:0}}
 .card.slide-in{animation:card-slide-in .38s cubic-bezier(.2,.8,.3,1) both}
 @keyframes card-slide-in{from{transform:translateX(46px);opacity:0}to{transform:translateX(0);opacity:1}}
+.flipout>*{transition:opacity .14s ease-in,transform .14s ease-in;opacity:0!important;transform:translateY(14px)}
+.flipin>*{animation:flip-in .28s cubic-bezier(.2,.8,.3,1) calc(var(--i,0)*45ms) both}
+@keyframes flip-in{from{opacity:0;transform:perspective(520px) rotateX(-85deg)}}
+@media (prefers-reduced-motion:reduce){.flipin>*{animation:none}.flipout>*{transition:none}}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}}
 .wipe{animation:wipe .9s cubic-bezier(.65,0,.25,1) both}.hold{opacity:0}@keyframes wipe{from{clip-path:inset(-8px 100% -8px -8px)}to{clip-path:inset(-8px -8px -8px -8px)}}
 .tier.pop{animation:none}
@@ -1735,7 +1739,8 @@ new MutationObserver(paint).observe(document.body,{childList:true,subtree:true})
 const S=document.getElementById('screen');
 // the results card sits inside a frame; the card itself gets the in/out animations
 const swapCard=()=>{const c=S.firstElementChild;return c&&c.classList.contains('rs-frame')?c.firstElementChild:c};
-function swap(html,after,slide){const old=swapCard();const go=()=>{S.innerHTML=html;const c=swapCard();c.classList.add('in');if(slide)c.classList.add('slide-in');[...c.children].forEach((el,i)=>el.style.setProperty('--i',i));after&&after()};if(old){old.classList.add(slide?'slide-out':'out');setTimeout(go,320)}else go()}
+// Screen changes keep the card and its frame in place: the old lines drop away, then the new ones flip down one after another like a stadium scoreboard
+function swap(html,after){const old=swapCard();const go=()=>{S.innerHTML=html;const c=swapCard();if(c){c.classList.add('flipin');[...c.children].forEach((el,i)=>el.style.setProperty('--i',i));setTimeout(()=>c.classList.remove('flipin'),300+c.children.length*45+80)}after&&after()};if(old){old.classList.add('flipout');setTimeout(go,150)}else go()}
 function countUp(el,to,ms=700,prefix=''){const t0=performance.now();const f=t=>{const k=Math.min(1,(t-t0)/ms);el.textContent=prefix+Math.round(to*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
 function flipScoreTo(el,to,ms=2000){const digits=String(to).length;el.innerHTML=Array.from({length:digits},()=>'<span class="sb-digit"><span class="num">0</span></span>').join('');const tiles=[...el.querySelectorAll('.sb-digit')];let prev=tiles.map(()=>'0');const t0=performance.now();const step=now=>{const k=Math.min(1,(now-t0)/ms);const val=Math.round(to*(1-Math.pow(1-k,3)));const str=String(val).padStart(digits,'0');str.split('').forEach((d,i)=>{if(d!==prev[i]){prev[i]=d;const tile=tiles[i];tile.classList.remove('flip');void tile.offsetWidth;tile.classList.add('flip');tile.querySelector('.num').textContent=d}});if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
 
@@ -3231,6 +3236,7 @@ html.polish .pz-count{font-variant-numeric:tabular-nums}
  // 1. every new screen card enters the same way
  const screen=document.getElementById('screen');
  new MutationObserver(ms=>{if(!on())return;for(const m of ms)for(const n of m.addedNodes){if(!(n instanceof HTMLElement)||!n.classList.contains('card'))continue;
+  if(n.classList.contains('flipin')||n.querySelector(':scope>.card.flipin')){setTimeout(()=>{countUps(n);reveals()},60);continue}
   [...n.children].forEach((c,i)=>{if(!c.style.getPropertyValue('--i'))c.style.setProperty('--i',i)});
   n.classList.add('pz-pre');frame2(()=>{n.classList.add('pz-run');n.classList.remove('pz-pre');setTimeout(()=>n.classList.remove('pz-run'),1400)});
   setTimeout(()=>{countUps(n);reveals()},60)}}).observe(screen,{childList:true});
