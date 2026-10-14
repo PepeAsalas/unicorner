@@ -1786,7 +1786,7 @@ const DAYKEY='unicorner-played-'+new Intl.DateTimeFormat('en-CA',{timeZone:'Euro
 const getPlayed=()=>{try{return JSON.parse(localStorage.getItem(DAYKEY))}catch{return null}};
 // today's game was first scored 10·25·40·70·100; anyone who played it before the switch gets their answers re-scored
 (()=>{if(PTS!==PTS_NEW)return;try{const r=getPlayed();if(!r||!Array.isArray(r.picks)||!r.picks.some(x=>Array.isArray(x)&&[25,40,70].includes(x[2])))return;
- const picks=r.picks.map(x=>Array.isArray(x)?[x[0],x[1],newPts(x[2])]:x);localStorage.setItem(DAYKEY,JSON.stringify({...r,picks,score:picks.reduce((a,x)=>a+(Array.isArray(x)?x[2]:0),0)}))}catch{}})();
+ const picks=r.picks.map(x=>Array.isArray(x)?[x[0],x[1],newPts(x[2]),...x.slice(3)]:x);localStorage.setItem(DAYKEY,JSON.stringify({...r,picks,score:picks.reduce((a,x)=>a+(Array.isArray(x)?x[2]:0),0)}))}catch{}})();
 const setPlayed=v=>{try{localStorage.setItem(DAYKEY,JSON.stringify(v))}catch{}};
 const previousGameDay=d=>{const [y,m,dd]=d.split('-').map(Number);return new Date(Date.UTC(y,m-1,dd)-864e5).toISOString().slice(0,10)};
 const currentStreak=()=>{try{let d=amsterdamDay(),n=0;while(localStorage.getItem('unicorner-played-'+d)){n++;d=previousGameDay(d)}return n}catch{return getPlayed()?1:0}};
@@ -1814,7 +1814,7 @@ async function liveLine(){const day=amsterdamDay(),h={apikey:SB_KEY,Authorizatio
  const n=+((c.headers.get('content-range')||'').split('/')[1]||0);let top=0;try{top=(await t.json())[0]?.score||0}catch{}return{n,top}}
 const seenStreak=n=>{try{const s=+(localStorage.getItem('unicorner-streak-seen')||0);if(n!==s)localStorage.setItem('unicorner-streak-seen',n);return n>s}catch{return false}};
 const untilMidnight=()=>{const n=new Date(),m=new Date(n);m.setHours(24,0,0,0);const d=m-n,h=Math.floor(d/36e5),mi=Math.floor(d%36e5/6e4);return`${h}h ${mi}m`};
-function restore(p){if(p.remote){score=p.score;results=[];qi=Q.length;return}const savedPicks=Array.isArray(p.picks)?p.picks:[],byPos=new Map();savedPicks.forEach(pk=>{if(!Array.isArray(pk))return;const [i,name]=pk;if(Number.isInteger(i)&&i>=0&&i<Q.length&&!byPos.has(i))byPos.set(i,name||null)});results=Q.map((q,i)=>{const name=byPos.get(i)||null,ans=name?q?.answers.find(a=>a.name===name)||null:null;return{q,ans,pts:ans?ans.pts:0}});score=results.reduce((n,r)=>n+r.pts,0);qi=Q.length;if(score!==p.score)setPlayed({...p,score,picks:results.map((r,i)=>[i,r.ans?.name||null,r.pts])})}
+function restore(p){if(p.remote){score=p.score;results=[];qi=Q.length;return}const savedPicks=Array.isArray(p.picks)?p.picks:[],byPos=new Map();savedPicks.forEach(pk=>{if(!Array.isArray(pk))return;const [i,name]=pk;if(Number.isInteger(i)&&i>=0&&i<Q.length&&!byPos.has(i))byPos.set(i,name||null)});results=Q.map((q,i)=>{const name=byPos.get(i)||null,ans=name?q?.answers.find(a=>a.name===name)||null:null;return{q,ans,pts:ans?ans.pts:0}});score=results.reduce((n,r)=>n+r.pts,0);qi=Q.length;if(score!==p.score)setPlayed({...p,score,picks:results.map((r,i)=>[i,r.ans?.name||null,r.pts,r.q?.id||null])})}
 
 function spawnOctLeaves(art){const a=pixelLeaf('#f2851c','#ffcf8a'),b=pixelLeaf('#e0a000','#ffe9a6');
  [...art.querySelectorAll('.oct-leaf')].forEach(s=>s.remove());
@@ -1888,7 +1888,8 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
  ${competeFirst?'':compete}
 
  <button type="button" class="inf-strip" data-infinite><span class="inf-in"><i class="inf-stars" aria-hidden="true"></i><span class="inf-ico" aria-hidden="true">∞</span><span class="inf-txt"><b>${L('Infinity mode','Modo Infinito')}</b><small>${L('Unlimited questions, out in space','Preguntas ilimitadas, en el espacio')}</small></span><span class="inf-cta">${L('Press start','Pulsa start')}</span></span></button>
- </div>`,()=>{const play=async()=>{if(!played&&window.ucCheckRemote&&await window.ucCheckRemote())return start();document.body.classList.remove('landing');if(played){try{restore(played);setMeter();end(true)}catch(x){track('results_view_error',{message:String(x&&x.message||x).slice(0,200),stack:String(x&&x.stack||'').slice(0,600),score:played.score,picks:played.picks});start()}}else ask()};
+ <div id="uc-awards" hidden></div>
+ </div>`,()=>{window.ucAwards?.();const play=async()=>{if(!played&&window.ucCheckRemote&&await window.ucCheckRemote())return start();document.body.classList.remove('landing');if(played){try{restore(played);setMeter();end(true)}catch(x){track('results_view_error',{message:String(x&&x.message||x).slice(0,200),stack:String(x&&x.stack||'').slice(0,600),score:played.score,picks:played.picks});start()}}else ask()};
   const go=document.getElementById('go');if(go)go.onclick=play;
   try{if(sessionStorage.getItem('uc-reopen')==='results'){sessionStorage.removeItem('uc-reopen');if(played&&go)setTimeout(()=>go.click(),0)}}catch{}
   const hw=document.getElementById('how');if(hw)hw.onclick=()=>{track('how_click',{from:'ticket'});const st=document.getElementById('steps');st.scrollIntoView({behavior:'smooth',block:'center'});st.classList.remove('flash');void st.offsetWidth;st.classList.add('flash')};
@@ -2000,14 +2001,14 @@ function end(restored){
  document.body.classList.remove('playing');
  if(!restored)track('game_finish',{score,question_count:Q.length,correct:results.filter(r=>r.ans).length,missed:results.filter(r=>!r.ans).length,screamers:results.filter(r=>r.pts===100).length,tiers:results.map(r=>r.pts),set_id:dailySetId()});
  fillReport();
- if(!restored){setPlayed({score,picks:results.filter(Boolean).map(r=>[Q.indexOf(r.q),r.ans?r.ans.name:null,r.pts])});submitScore(score)}
+ if(!restored){setPlayed({score,picks:results.filter(Boolean).map(r=>[Q.indexOf(r.q),r.ans?r.ans.name:null,r.pts,r.q.id||null])});submitScore(score)}
  renderRateStrip();
  setTimeout(()=>renderDist(score),restored?900:1600);
  const rows=results.map((r,ri)=>r?{...r,ri}:null).filter(Boolean);
  const hits=rows.filter(r=>r.ans).sort((a,b)=>b.pts-a.pts||a.ri-b.ri);
  const misses=rows.filter(r=>!r.ans);
  const scoreGrid=rows.map(r=>r.pts?['⬜','🟩','🟪','🟥','🟨'][tierIdx(r.pts)]:'💩').join('');
- const resultItem=(r,miss=false)=>{const all=[...r.q.answers].sort((a,b)=>b.pts-a.pts||a.name.localeCompare(b.name));const label=miss?L('Stinker','Fallo'):(r.pts===100?L('SCREAMER!!!','¡QUÉ CHICHARRO!'):tl(tierName(r.pts)));const color=miss?'#ff8a7a':TCOL[r.pts];return`<details class="res result-item ${miss?'result-miss':'result-hit'}"><summary><span class="result-item-copy"><small>${qt(r.q,'prompt')}</small><b>${miss?L('No answer','Sin respuesta'):an(r.ans)}</b><em style="color:${color}">${label}</em></span><span class="result-verdict ${miss?'miss':'ok'}">${miss?'✕':'✓'} <b>+${r.pts}</b></span></summary><p class="mute" style="margin:8px 0 0">${r.q.answers.length} ${L('valid answers','respuestas válidas')}</p><ul class="ans">${all.map(a=>`<li class="${a===r.ans?'you':''}" style="--tc:${TCOL[a.pts]}"><span class="an">${an(a)}${a===r.ans?' ★':''}</span><span class="tchip">${tl(tierName(a.pts))}</span></li>`).join('')}</ul><p style="margin:10px 0;font-size:14px" class="mute">${L('Think we missed one?','¿Falta alguna?')} <button class="linkish" data-open="dlg-report" data-q="${r.ri}">${L('Tell us','Avísanos')}</button></p></details>`};
+ const resultItem=(r,miss=false)=>{const all=[...r.q.answers].sort((a,b)=>b.pts-a.pts||a.name.localeCompare(b.name));const label=miss?L('Stinker','Fallo'):(r.pts===100?L('SCREAMER!!!','¡QUÉ CHICHARRO!'):tl(tierName(r.pts)));const color=miss?'#ff8a7a':TCOL[r.pts];return`<details class="res result-item ${miss?'result-miss':'result-hit'}" data-ri="${r.ri}"><summary><span class="result-item-copy"><small>${qt(r.q,'prompt')}</small><b>${miss?L('No answer','Sin respuesta'):an(r.ans)}</b><em style="color:${color}">${label}</em></span><span class="result-verdict ${miss?'miss':'ok'}">${miss?'✕':'✓'} <b>+${r.pts}</b></span></summary><p class="mute" style="margin:8px 0 0">${r.q.answers.length} ${L('valid answers','respuestas válidas')}</p><ul class="ans">${all.map(a=>`<li class="${a===r.ans?'you':''}" style="--tc:${TCOL[a.pts]}"><span class="an">${an(a)}${a===r.ans?' ★':''}</span><span class="tchip">${tl(tierName(a.pts))}</span></li>`).join('')}</ul><p style="margin:10px 0;font-size:14px" class="mute">${L('Think we missed one?','¿Falta alguna?')} <button class="linkish" data-open="dlg-report" data-q="${r.ri}">${L('Tell us','Avísanos')}</button></p></details>`};
  const shareText=()=>{const pct=document.getElementById('pctn');const rank=pct?`
 ${ES?`Mejor que el ${pct.textContent}% de los jugadores`:`Better than ${pct.textContent}% of players`}`:'';return`🦄 Unicorner — ${score}/${MAX}${rank}
 ${scoreGrid}
@@ -2028,6 +2029,7 @@ www.unicornergame.lol`};
   <div class="relay-rail" id="relay-rail"></div>
  </div></div>`,()=>{
   relayRail(document.getElementById('relay-rail'));
+  window.ucCrowdShare?.();
   window.scrollTo({top:0,left:0,behavior:'auto'});
   setTimeout(()=>flipScoreTo(document.getElementById('fs'),score,2000),400);
   document.getElementById('copy-result').onclick=async e=>{const share=shareText();track('copy_click',{score,set_id:dailySetId()});const copied=navigator.clipboard?.writeText?await navigator.clipboard.writeText(share).then(()=>true).catch(()=>false):false;if(copied)showToast(L('Copied to clipboard!','¡Copiado!'));e.target.textContent=copied?L('Copied!','¡Copiado!'):L('Copy failed','No se pudo copiar')};
@@ -2751,7 +2753,7 @@ function viewMore(join){moreJoin=join||null;const cur=me?.leagues?.[0],email=ses
 function joinWaitlist(email,from,note){if(!email||lsGet(LG_INF)===email)return;
  dbP.then(db=>db&&db.collection('submissions').add({kind:'infinite-waitlist',email,from,note:note||'Ticked the waitlist box when signing up',newsletter:lsGet(LG_OPTOUT)!=='1',privacyNoticeVersion:'2026-09-18',sentAt:new Date().toISOString()})).catch(()=>{});
  lsSet(LG_INF,email);track('infinite_waitlist',{from})}
-window.ucJoinWaitlist=joinWaitlist;window.ucSignedEmail=()=>sess?.email||'';
+window.ucJoinWaitlist=joinWaitlist;window.ucSignedEmail=()=>sess?.email||'';window.ucRpc=rpc;window.ucPubRpc=pubRpc;window.ucSignedIn=()=>!!sess;
 async function notifyInfinity(){const email=sess?.email;if(!email)throw new Error('Please sign in again');
  const data={email,from:'leagues',note:'Wants more leagues',newsletter:!me?.profile?.news_opt_out,privacyNoticeVersion:'2026-09-18'};
  fetch('https://formsubmit.co/ajax/joseasalasnl@gmail.com',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({_subject:'Unicorner: Infinity mode waitlist',_template:'table',_captcha:'false',_replyto:email,type:'Infinity mode waitlist',...Object.fromEntries(Object.entries(data).map(([k,v])=>[k,String(v)])),sent:new Date().toLocaleString('en-GB')})}).catch(()=>{});
@@ -3130,7 +3132,7 @@ const dlg=document.getElementById('dlg-stadium');
 function openPicker(){const g0=document.querySelector('#st-body .st-grid'),y0=pkSame&&g0?g0.scrollTop:0,d0=pkSame?dlg.scrollTop:0;pkSame=false;const best=bestStreak(),cur=scene.dataset.bg||'classic',next=LIST.find(t=>t[2]>best);
  const st=kitStats(),have=KITS.filter(k=>kitHas(k,st)).length,total=KITS.filter(k=>!k.crew||kitHas(k,st)).length;ls('uc-kit-seen',have);
  ls('uc-bg-seen',Math.max(0,...LIST.filter(t=>best>=t[2]).map(t=>t[2])));dot();
- const tabs=`<div class="pk-tabs" role="tablist"><button type="button" role="tab" data-st="tab" data-t="kits" aria-selected="${pTab==='kits'}">${L('Kits','Equipaciones')}</button><button type="button" role="tab" data-st="tab" data-t="stadiums" aria-selected="${pTab==='stadiums'}">${L('Stadiums','Estadios')}</button></div>`;
+ const tabs=`<div class="pk-tabs" role="tablist"><button type="button" role="tab" data-st="tab" data-t="kits" aria-selected="${pTab==='kits'}">${L('Kits','Equipaciones')}</button><button type="button" role="tab" data-st="tab" data-t="stadiums" aria-selected="${pTab==='stadiums'}">${L('Stadiums','Estadios')}</button><button type="button" role="tab" data-st="tab" data-t="trophies" aria-selected="${pTab==='trophies'}">${L('Trophies','Trofeos')}</button></div>`;
  const close=`<button type="button" class="lg-x" data-st="close" aria-label="Close" style="position:absolute;top:14px;right:14px;width:38px;height:38px;padding:0;background:#0c0c18;color:#fff;border:3px solid #fff;border-radius:7px;font-size:24px;line-height:1;cursor:pointer">×</button>`;
  if(pTab==='kits'){const curK=UC_KIT?.id||'classic';
   document.getElementById('st-body').innerHTML=`${close}<h2>${L('Pick your kit','Elige tu equipación')}</h2>${tabs}
@@ -3144,6 +3146,7 @@ function openPicker(){const g0=document.querySelector('#st-body .st-grid'),y0=pk
    const rank=k=>KLV[k.id]==null?-1:KLV[k.id],byRarity=(a,b)=>rank(a)-rank(b)||KITS.indexOf(a)-KITS.indexOf(b);
    const favKits=fav.map(id=>KITS.find(x=>x.id===id)).sort(byRarity),rest=KITS.filter(k=>!fav.includes(k.id)&&(!k.crew||kitHas(k,st))).sort(byRarity);
    return `<div class="st-grid kit-grid">${favKits.length?`<p class="kit-sec">★ ${L('Favourites','Favoritas')}</p>${favKits.map(cell).join('')}<p class="kit-sec">${L('All kits','Todas')}</p>`:''}${rest.map(cell).join('')}</div>`})()}`}
+ else if(pTab==='trophies'){document.getElementById('st-body').innerHTML=`${close}<h2>${L('Trophy cabinet','Vitrina de trofeos')}</h2>${tabs}<div id="tr-cab"></div>`;window.ucTrophyCab?.(document.getElementById('tr-cab'))}
  else{
  document.getElementById('st-body').innerHTML=`${close}
   <h2>${L('Pick your stadium','Elige tu estadio')}</h2>${tabs}
@@ -3151,6 +3154,7 @@ function openPicker(){const g0=document.querySelector('#st-body .st-grid'),y0=pk
   <div class="st-grid">${LIST.map(([k,n,need])=>{const lock=best<need,on=k===cur;return `<button type="button" class="st-tile${on?' on':''}${lock?' locked':''}" data-st="pick" data-k="${k}" ${lock?'aria-disabled="true"':''} aria-label="${n}${lock?L(`, unlocks at a ${need}-day streak`,`, se desbloquea con una racha de ${need} días`):on?L(', in use',', en uso'):''}">${sw(k).replace('</span>',lock?'<i>🔒</i></span>':'</span>')}<span class="st-name">${n}</span><span class="st-need">${lock?`🔥 ${need} ${L('days','días')}`:on?L('✓ In use','✓ En uso'):need?L('Unlocked','Desbloqueado'):L('Default','Por defecto')}</span></button>`}).join('')}</div>`;}
  if(!dlg.open)dlg.showModal();const g1=document.querySelector('#st-body .st-grid');if(g1)g1.scrollTop=y0;dlg.scrollTop=d0;track('stadium_open',{best})}
 btn.onclick=()=>{pTab='kits';openPicker()};
+window.ucOpenTrophies=()=>{pTab='trophies';openPicker()};
 if(UC_KIT&&!kitHas(UC_KIT,kitStats()))wearKit(KITS[0],true);
 dlg.addEventListener('click',e=>{const b=e.target.closest('[data-st]');if(!b){if(e.target===dlg)dlg.close();return}
  if(b.dataset.st==='close')return dlg.close();
@@ -3211,6 +3215,130 @@ function celebrate(){const rs=document.querySelector('.result-screen');if(!rs||r
  at.insertAdjacentHTML('afterend',`<div class="st-unlock" role="status">${sw(fresh[0])}<div><small>${L('NEW STADIUM UNLOCKED!','¡NUEVO ESTADIO DESBLOQUEADO!')}</small><b>${fresh[1]}</b><small>${L('Your background just changed — swap any time with the 🏟️ button up top.','Tu fondo acaba de cambiar — cámbialo cuando quieras con el botón 🏟️ de arriba.')}</small></div></div>`)}
 new MutationObserver(()=>setTimeout(celebrate,50)).observe(document.getElementById('screen'),{childList:true});
 apply();dot();
+})();
+</script>
+<script>
+// ── What everyone answered (your answer only) + weekly trophies (locker cabinet, last week's awards on the landing page) ──
+(()=>{
+const st=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,String(v))}catch{return null}};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+document.head.insertAdjacentHTML('beforeend',`<style>
+.crowd-pct{display:inline-block;margin-left:6px;padding:1px 5px;background:rgba(255,255,255,.1);color:#fff;letter-spacing:0;text-transform:none}
+.ans li .crowd-you{font:700 11px var(--lab);background:#140c38;color:#fff;padding:2px 5px;border-radius:3px}
+.tr-ico{display:inline-block;flex:none;background-size:100% 100%;image-rendering:pixelated}
+.tr-cab{background:#5a3518;border:4px solid #000;box-shadow:inset 0 0 0 4px #7a4a22,6px 6px 0 rgba(0,0,0,.35);padding:14px 10px 10px;margin-top:12px}
+.tr-cab .ttl{font:12px "Press Start 2P",monospace;color:#ffe2a8;text-align:center;margin-bottom:12px;text-shadow:2px 2px 0 #000;line-height:1.4}
+.tr-shelf{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:8px 2px 0;border-bottom:8px solid #8a5a2a;box-shadow:0 4px 0 #3a2008;margin-bottom:16px;background:linear-gradient(#2a1608,#3e220c)}
+#tr-cab .tr-slot{display:grid!important;justify-items:center;align-content:end;gap:4px;min-height:96px;margin:0!important;padding:0 0 6px!important;text-align:center;background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;color:inherit;cursor:pointer;font:inherit;min-width:0;width:auto!important}
+.tr-slot .tr-ico{width:48px;height:48px}
+.tr-slot.lock .tr-ico{filter:brightness(0) opacity(.45)}
+.tr-slot .w{font:10px var(--lab);color:#ffe2a8;line-height:1.1}
+.tr-slot .n{font:8px "Press Start 2P",monospace;background:#ffd23f;color:#1a1030;padding:3px 4px 2px}
+.tr-slot.lock .w{color:#a08060}.tr-slot.lock .n{background:#6a4a2a;color:#d8b888}
+#tr-cab .tr-slot[aria-pressed="true"]{outline:3px solid #ffd23f!important;outline-offset:-3px}
+.tr-tip{font:11px var(--lab);color:#ffe2a8;background:#2a1608;border:2px solid #000;padding:9px 10px;line-height:1.45}
+.tr-tip b{color:#ffd23f;font-weight:400}
+.tr-cta{display:block;width:100%;margin-top:10px}
+.aw{margin:0 0 22px;background:linear-gradient(#3a228a,#251660);border:4px solid #fff;box-shadow:0 0 0 4px #000,8px 8px 0 rgba(0,0,0,.4);padding:14px 14px 16px;display:grid;gap:12px;color:#fff;text-align:left}
+.aw-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.aw-h h3{margin:0;font-family:var(--px);font-weight:400;font-size:32px;line-height:.9}
+.aw-h small{display:block;margin-top:4px;font:11px var(--lab);color:#d6ccff}
+.aw-new{flex:none;font:8px "Press Start 2P",monospace;background:#ff7ac8;color:#1a1030;padding:5px 6px;border:3px solid #000;transform:rotate(4deg)}
+.aw-pod{display:grid;grid-template-columns:1fr 1.15fr 1fr;align-items:end;gap:4px}
+.aw-pod>div{display:grid;justify-items:center;gap:2px;min-width:0}
+.aw-pod .spr{width:80px;height:67px;background-size:100% 100%;image-rendering:pixelated}
+.aw-pod b{font-family:var(--px);font-weight:400;font-size:18px;line-height:1;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.aw-pod small{font:10px var(--lab);color:#d6ccff}
+.aw-pod i{width:100%;display:grid;place-items:center;font:normal 15px "Press Start 2P",monospace;color:#1a1030;border:3px solid #000;border-bottom:0}
+.aw-pod .g i{height:58px;background:#ffd23f}.aw-pod .s i{height:42px;background:#cfd8e6}.aw-pod .bz i{height:30px;background:#e09a62}
+.aw-me{display:grid;gap:8px;background:#140c38;border:3px solid #ffd23f;padding:10px 12px}
+.aw-me .k{font:8px "Press Start 2P",monospace;color:#ffd23f}
+.aw-row{display:flex;gap:10px;align-items:center}
+.aw-row .tr-ico{width:40px;height:40px}
+.aw-row b{display:block;font-family:var(--px);font-weight:400;font-size:24px;line-height:.95}
+.aw-row span span{display:block;font:11px var(--lab);color:#d6ccff;line-height:1.3}
+.aw-note{font:12px var(--lab);color:#d6ccff;line-height:1.35}
+</style>`);
+
+/* ---------- 3. how many players gave your answer ---------- */
+const crowdText=(n,k)=>{if(k<=1)return n<=1?L('First to say it','El primero en decirla'):L('Only you said this','Solo tú dijiste esta');
+ if(n<20)return ES?`${k} de ${n} jugadores`:`${k} of ${n} players`;const p=k/n*100;const s=p<1?'<1':String(Math.round(p));return ES?`el ${s}% de los jugadores`:`${s}% of players`};
+const crowdShort=(n,k)=>{if(k<=1||n<20)return crowdText(n,k);const p=k/n*100;return(p<1?'<1':Math.round(p))+'%'};
+window.ucCrowdShare=async()=>{try{const p=getPlayed();if(!p||p.remote||!Array.isArray(p.picks))return;
+ const mine=p.picks.filter(x=>Array.isArray(x)&&x[1]&&Q[x[0]]).map(x=>({i:x[0],q:Q[x[0]].id||null,a:x[1]})).filter(x=>x.q);if(!mine.length)return;
+ const rows=await window.ucPubRpc('uc_pick_share',{p_day:amsterdamDay(),p_picks:mine.map(({q,a})=>({q,a}))});if(!Array.isArray(rows))return;
+ mine.forEach((m,j)=>{const r=rows.find(x=>x.q===m.q)||rows[j];if(!r||!r.n)return;const n=+r.n,k=Math.max(1,+r.k);
+  const it=document.querySelector(`details.result-item[data-ri="${m.i}"]`);if(!it||it.querySelector('.crowd-pct'))return;
+  const em=it.querySelector('.result-item-copy em');if(em)em.insertAdjacentHTML('beforeend',`<span class="crowd-pct">${esc(crowdText(n,k))}</span>`);
+  const you=it.querySelector('.ans li.you');if(you)you.insertAdjacentHTML('beforeend',`<span class="crowd-you">${esc(crowdShort(n,k))}</span>`)});
+ track('crowd_share_shown',{n:mine.length})}catch{}};
+
+/* ---------- 5. trophies ---------- */
+function bmp(rows,pal){const w=rows[0].length+2,h=rows.length+2,c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d');const on=(x,y)=>rows[y]&&rows[y][x]&&rows[y][x]!=='.';
+ g.fillStyle='#000';for(let y=-1;y<=rows.length;y++)for(let x=-1;x<=rows[0].length;x++)if(!on(x,y)&&[[1,0],[-1,0],[0,1],[0,-1]].some(([a,b])=>on(x+a,y+b)))g.fillRect(x+1,y+1,1,1);
+ rows.forEach((r,y)=>[...r].forEach((ch,x)=>{if(ch!=='.'){g.fillStyle=pal[ch];g.fillRect(x+1,y+1,1,1)}}));return`url('${c.toDataURL()}')`}
+const G={Y:'#ffd23f',h:'#fff6c0',D:'#c08a10'};
+const ART={
+ champion:[['..YYYYYYYYYY..','YYYhhYYYYYYDYY','Y.YhYYYYYYYD.Y','Y.YhYYYYYYYD.Y','.YYYYYYYYYYDY.','...YYYYYYYDD..','....YYYYYDD...','.....YYYDD....','......YD......','......YD......','....YYYYDD....','...DDDDDDDD...','...DDDDDDDD...'],G],
+ boot:[['YYYY.........','YhhY.........','YYYY.........','YYYYY........','YYYYYYY......','YYYYYYYYYY...','YKYKYKYYYYYY.','YhYYYYYYYYYYY','DDDDDDDDDDDDD','.S..S...S..S.'],{...G,S:'#9aa3b5',K:'#7a5408'}],
+ deepcut:[['...X...','...X...','..XhX..','..XXX..','..hXX..','.XXXX..','.XhXXX.','.XXXXX.','XhXXXXX','XXXXXXX','PPPPPPP'],{X:'#ff7ac8',h:'#ffffff',P:'#b48cff'}],
+ clean:[['.W.W.W.....','.W.W.W.W...','.WWWWWW.W..','.WWWWWWWW..','WWWWWWWWW..','WWWWhWWW...','.WWWWWWW...','..WWWWW....','..RRRRR....','..RRRRR....'],{W:'#e8ecf4',h:'#ffffff',R:'#5ef0ff'}],
+ ever:[['.R.....R...','RRRRRRRRRRR','RRRRRRRRRRR','WWWWWWWWWWW','WWKKKKKKWWW','WWWWWWKKWWW','WWWWWKKWWWW','WWWWKKWWWWW','WWWWKKWWWWW','WWWWKKWWWWW','WWWWWWWWWWW'],{R:'#ff5a5a',W:'#f3ead2',K:'#1a1030'}],
+ top10:[['RR.....BB','.RR...BB.','..RR.BB..','...RBB...','..YYYYY..','.YYhYYYY.','YYhYYYYYY','YYYYDYYYY','YYYDDDYYY','YYYYDYYYY','.YYYYYYY.','..YYYYY..'],{...G,R:'#ff5a5a',B:'#4f7bff'}],
+ improve:[['....X....','...XhX...','..XXXXX..','.XXXXXXX.','XXXXXXXXX','...XXX...','...XXX...','...XXX...','...XXX...','...XXX...'],{X:'#7fe0a8',h:'#ffffff'}]};
+const ICO={};const ico=k=>(ICO[k]=ICO[k]||bmp(...ART[k]));
+const icoHtml=(k,css='')=>`<span class="tr-ico" style="background-image:${ico(k)};${css}" aria-hidden="true"></span>`;
+const TR=()=>[['champion',L('Champion','Campeón'),L('Most points in the week.','Más puntos de la semana.')],
+ ['boot',L('Golden Boot','Bota de Oro'),L('Most Screamers in the week.','Más chicharros de la semana.')],
+ ['deepcut',L('Deep Cut','Joya escondida'),L('Rarest correct answers of the week (8+ correct).','Las respuestas correctas más raras de la semana (8+ aciertos).')],
+ ['clean',L('Clean Sheet','Portería a cero'),L('No misses all week, 5+ days played.','Ningún fallo en la semana, jugando 5+ días.')],
+ ['ever',L('Ever-present','Siempre presente'),L('Played all 7 days.','Jugaste los 7 días.')],
+ ['top10','Top 10',L('Finished the week in the top 10.','Terminaste la semana en el top 10.')],
+ ['improve',L('Most Improved','Mayor progreso'),L('Biggest jump on your week before (4+ days in both).','La mayor subida respecto a tu semana anterior (4+ días en ambas).')]];
+const trName=k=>(TR().find(x=>x[0]===k)||[k,k])[1];
+const wk=n=>L('WK ','SEM ')+n;
+const why=(k,d)=>{d=d||{};switch(k){
+ case'champion':return ES?`${d.total} puntos, el mejor de ${d.players}`:`${d.total} points, best of ${d.players}`;
+ case'boot':return ES?`${d.screamers} chicharros, más que nadie`:`${d.screamers} Screamer${d.screamers===1?'':'s'}, more than anyone`;
+ case'deepcut':return ES?`de media, solo el ${d.share}% dijo lo mismo que tú`:`on average only ${d.share}% said what you said`;
+ case'clean':return ES?`${d.days} días sin un fallo`:`${d.days} days without a miss`;
+ case'ever':return ES?'7 de 7 días':'7 out of 7 days';
+ case'top10':return ES?`${d.rank}º de ${d.players}`:`finished ${d.rank}${['th','st','nd','rd'][(d.rank%100>10&&d.rank%100<14)?0:Math.min(d.rank%10,4)%4]||'th'} of ${d.players}`;
+ case'improve':return ES?`+${d.up} puntos respecto a la semana anterior`:`+${d.up} points on the week before`;}return''};
+const ord=n=>ES?n+'º':n+(['th','st','nd','rd'][(n%100>10&&n%100<14)?0:(n%10<4?n%10:0)]);
+let cabCache=null,cabAt=0;
+window.ucTrophyCab=async el=>{if(!el)return;const signed=!!window.ucSignedIn?.();
+ const draw=(data,sel)=>{const list=TR(),won={};(data?.trophies||[]).forEach(t=>{(won[t.trophy]=won[t.trophy]||[]).push(t)});
+  const slot=([k,n])=>{const w=won[k];return`<button type="button" class="tr-slot${w?'':' lock'}" data-tr="${k}" aria-pressed="${sel===k}">${icoHtml(k)}<span class="w">${n}</span><span class="n">${w?(w.length>1?'×'+w.length:wk(w[0].week_no)):L('LOCKED','FALTA')}</span></button>`};
+  const pick=list.find(x=>x[0]===sel),pw=sel&&won[sel];
+  const w=data?.week;const tip=pick?`<b>${pick[1].toUpperCase()}</b><br>${pick[2]}${pw?'<br>'+pw.slice(0,4).map(t=>`${wk(t.week_no)}: ${esc(why(t.trophy,t.detail))}`).join('<br>'):''}`
+   :signed&&w?`<b>${L('THIS WEEK SO FAR','ESTA SEMANA')}</b><br>${w.total} ${L('pts','pts')} · ${ord(w.rank)} ${L('of','de')} ${w.players}<br>${w.screamers} ${L('Screamers','chicharros')} · ${w.days}/7 ${L('days','días')}<br>${L('Trophies are handed out on Monday. Tap a trophy to see how to win it.','Los trofeos se entregan el lunes. Toca un trofeo para ver cómo ganarlo.')}`
+   :`<b>${L('WIN TROPHIES EVERY WEEK','GANA TROFEOS CADA SEMANA')}</b><br>${L('Get a nickname to take part. Trophies are handed out every Monday for the week before. Tap a trophy to see how to win it.','Elige un apodo para participar. Los trofeos se entregan cada lunes por la semana anterior. Toca un trofeo para ver cómo ganarlo.')}`;
+  el.innerHTML=`<div class="tr-cab">
+   <div class="tr-shelf">${list.slice(0,4).map(slot).join('')}</div><div class="tr-shelf">${list.slice(4).map(slot).join('')}</div>
+   <div class="tr-tip" aria-live="polite">${tip}</div></div>${signed?'':`<button type="button" class="cta tr-cta" data-tr-join>${L('Get a nickname','Elige tu apodo')}</button>`}`;
+  el.onclick=e=>{const b=e.target.closest('[data-tr]');if(b){track('trophy_tap',{trophy:b.dataset.tr});draw(data,sel===b.dataset.tr?null:b.dataset.tr);return}
+   if(e.target.closest('[data-tr-join]')){document.getElementById('dlg-stadium')?.close();document.querySelector('[data-lg="open"]')?.click()}}};
+ if(!signed){draw(null);return}
+ if(cabCache&&Date.now()-cabAt<60000){draw(cabCache);return}
+ el.innerHTML=`<p class="st-sub">${L('Opening the cabinet…','Abriendo la vitrina…')}</p>`;
+ try{cabCache=await window.ucRpc('lg_my_trophies');cabAt=Date.now();draw(cabCache);track('trophies_open',{won:(cabCache?.trophies||[]).length})}catch{draw(null)}};
+
+window.ucAwards=async()=>{const el=document.getElementById('uc-awards');if(!el||!window.ucPubRpc)return;
+ let a;try{a=await window.ucPubRpc('lg_awards')}catch{return}
+ if(!document.body.contains(el)||!a||!Array.isArray(a.podium)||!a.podium.length)return;
+ const signed=!!window.ucSignedIn?.(),mine=Array.isArray(a.mine)?a.mine:[],isNew=st('uc-aw-seen')!==String(a.week);
+ const spr=(p,mood)=>{const k=KITS.find(x=>x.id===(p.kit||'classic'))||null;return sprite(mood,0,false,k).replace(/"/g,"'")};
+ const P=a.podium,cell=(p,c,r)=>p?`<div class="${c}"><span class="spr" style="background-image:${spr(p,r===1?'scream':'wow')}"></span><b>${esc(p.nickname)}</b><small>${p.total} ${L('pts','pts')}</small><i>${r}</i></div>`:'<div></div>';
+ el.innerHTML=`<section class="aw" aria-label="${L("Last week's awards",'Premios de la semana pasada')}"><div class="aw-h"><div><h3>${L("Last week's awards",'Premios de la semana pasada')}</h3><small>${wk(a.week_no)} · ${a.players} ${L('players','jugadores')}</small></div>${isNew?'<span class="aw-new">NEW</span>':''}</div>
+  <div class="aw-pod">${cell(P[1],'s',2)}${cell(P[0],'g',1)}${cell(P[2],'bz',3)}</div>
+  ${mine.length?`<div class="aw-me"><div class="k">${L('YOU WON','HAS GANADO')}</div>${mine.map(t=>`<div class="aw-row">${icoHtml(t.trophy)}<span><b>${esc(trName(t.trophy))}</b><span>${esc(why(t.trophy,t.detail))}</span></span></div>`).join('')}</div>`
+   :`<p class="aw-note">${signed?L('No trophy for you last week. A new week has started.','La semana pasada no hubo trofeo para ti. Ya ha empezado una nueva semana.'):L('Get a nickname to win trophies every week.','Elige un apodo para ganar trofeos cada semana.')}</p>`}
+  <button type="button" class="cta" data-aw="cab">${L('Open the trophy cabinet','Abrir la vitrina de trofeos')}</button></section>`;
+ el.hidden=false;st('uc-aw-seen',a.week);
+ el.onclick=e=>{if(e.target.closest('[data-aw="cab"]')){track('awards_cabinet_click',{won:mine.length});window.ucOpenTrophies?.()}};
+ track('awards_view',{week:a.week,won:mine.length,signed})};
+window.ucAwards();
 })();
 </script>
 <style id="polish-css">
