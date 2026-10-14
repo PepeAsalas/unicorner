@@ -75,6 +75,14 @@ details{margin-top:8px}summary{cursor:pointer;color:var(--mute)}details.res{marg
 .flipin>*{animation:flip-in .28s cubic-bezier(.2,.8,.3,1) calc(var(--i,0)*45ms) both}
 @keyframes flip-in{from{opacity:0;transform:perspective(520px) rotateX(-85deg)}}
 @media (prefers-reduced-motion:reduce){.flipin>*{animation:none}.flipout>*{transition:none}}
+.glab{position:absolute;left:0;bottom:calc(100% + 14px);z-index:3;white-space:nowrap;font-family:var(--lab);font-weight:700;font-size:17px;line-height:1;background:var(--hc,#cfd8e6);color:#0a1430;padding:4px 10px 3px;border:2px solid #000;border-radius:4px;--ax:50%}
+.glab::before{content:'';position:absolute;left:var(--ax);bottom:-9px;margin-left:-7px;border:7px solid transparent;border-bottom:0;border-top-color:#000}
+.glab::after{content:'';position:absolute;left:var(--ax);bottom:-5px;margin-left:-5px;border:5px solid transparent;border-bottom:0;border-top-color:var(--hc,#cfd8e6)}
+.glab.tick{animation:glab-tick .2s steps(2)}
+.glab.blink{animation:glab-blink .5s steps(2) 3}
+@keyframes glab-tick{50%{filter:brightness(1.35)}}
+@keyframes glab-blink{50%{filter:brightness(1.7)}}
+@media (prefers-reduced-motion:reduce){.glab.tick,.glab.blink{animation:none}}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}}
 .wipe{animation:wipe .9s cubic-bezier(.65,0,.25,1) both}.hold{opacity:0}@keyframes wipe{from{clip-path:inset(-8px 100% -8px -8px)}to{clip-path:inset(-8px -8px -8px -8px)}}
 .tier.pop{animation:none}
@@ -1938,7 +1946,7 @@ function ask(slide){calmDown();document.body.classList.remove('results-view');do
   playSfx('buzz');inp.classList.remove('shake');void inp.offsetWidth;inp.classList.add('shake');inp.select()}},slide)}
 function reveal(ans){if(results[qi])return;const q=Q[qi];const pts=ans?ans.pts:0;const before=zoneOf(score);score+=pts;results[qi]={q,ans,pts};const after=zoneOf(score);
  swap(`<div class="card"><div class="reveal-top"><div class="mute">${qt(q,'prompt')}</div><div class="sprite mid-sprite hold" id="mascot" data-mood="${!ans?'sad':pts>=64?'wow':'happy'}"></div><div class="scream-bubble${ans?'':' stink'}" id="bubble">${ans?'AAAAAH!':L('What a stinker!','¡Qué fallo!')}</div></div>
- <div class="gauge" id="gauge"><div class="gbar"><div class="gfill" id="gfill"></div>${TIERS.slice(0,-1).map(t=>`<i class="gdiv" style="left:${t[0]}%"></i>`).join('')}<div class="ghead hold" id="ghead"><span id="glabel">${tl('Tap-in')}</span><em></em></div></div><div class="gpts">${TIERS.map((t,i)=>`<span data-i="${i}" style="left:${t[0]}%">${t[0]}</span>`).join('')}</div></div>
+ <div class="gauge" id="gauge"><div class="gbar"><div class="gfill" id="gfill"></div>${TIERS.slice(0,-1).map(t=>`<i class="gdiv" style="left:${t[0]}%"></i>`).join('')}<div class="ghead hold" id="ghead"><em></em></div><span class="glab hold" id="glabel">${tl('Tap-in')}</span></div><div class="gpts">${TIERS.map((t,i)=>`<span data-i="${i}" style="left:${t[0]}%">${t[0]}</span>`).join('')}</div></div>
  ${ans?`<div class="tier hold" id="tn">${pts===100?L("SCREAMER!!!",'¡QUÉ CHICHARRO!'):tl(tierName(pts))}</div><div class="pts hold" id="pl">${an(ans)} · <span id="pc">+0</span> ${L('points','puntos')}</div>`:`<div class="tier wipe" style="color:var(--mute)">${L('Missed','Fallada')}</div><div class="pts">${L('No answer','Sin respuesta')} · +0</div>`}
  <p class="mute">${L('Level:','Nivel:')} <b style="color:var(--ink)">${zl(after)}</b>${after!==before?`<br><span class="promo-row" id="promoRow"><span class="promo hold" id="promo">${L('Promoted to','Asciendes a')} ${zl(after)}</span></span>`:''}</p>
  
@@ -1957,11 +1965,14 @@ function reveal(ans){if(results[qi])return;const q=Q[qi];const pts=ans?ans.pts:0
  if(target<0){document.getElementById('gauge').classList.add('empty');setTimeout(land,500)}else{
   // one continuous charge: fast at first, easing into the result
   document.getElementById('gfill').style.setProperty('--gw',document.querySelector('.gbar').offsetWidth+'px');const N=TIERS.length,end=pts/100,dur=700+target*430,t0=performance.now()+350;let shown=-1;
-  head.classList.remove('hold');
+  head.classList.remove('hold');lab.classList.remove('hold');const W=document.querySelector('.gbar').offsetWidth;
+  // the label glides with the marker but stays inside the bar; its arrow slides along to keep pointing at the marker
+  const place=x=>{const tw=lab.offsetWidth,mx=x*W,l=Math.max(-6,Math.min(W-tw+6,mx-tw/2));lab.style.left=l+'px';lab.style.setProperty('--ax',(mx-l)+'px')};
   const step=now=>{const k=Math.max(0,Math.min(1,(now-t0)/dur));const e=1-Math.pow(1-k,3.2);const x=end*e;
-   fill.style.width=x*100+'%';head.style.left=x*100+'%';head.classList.toggle('at-end',x>.82);head.classList.toggle('at-start',x<.12);
-   let i=TIERS.findIndex(t=>x*100<=t[0]);if(i<0)i=N-1;if(i!==shown){shown=i;lab.textContent=(i===N-1&&target===N-1)?L('SCREAMER!!!','¡QUÉ CHICHARRO!'):tl(TIERS[i][1]);head.style.setProperty('--hc',COLS[i]);segs.forEach((sg,j)=>sg.classList.toggle('lit',j<=i));head.classList.remove('tick');void head.offsetWidth;head.classList.add('tick')}
-   if(k<1)requestAnimationFrame(step);else{head.classList.add('locked');const g=document.getElementById('gauge');g.classList.add('done');if(target===N-1)g.classList.add('uni');const tn=document.getElementById('tn');if(tn){tn.style.color=COLS[target];if(target===N-1)tn.classList.add('uni-text')}setTimeout(land,380)}};
+   fill.style.width=x*100+'%';head.style.left=x*100+'%';
+   let i=TIERS.findIndex(t=>x*100<=t[0]);if(i<0)i=N-1;if(i===N-1&&k<1)i=N-2;if(i!==shown){shown=i;lab.textContent=tl(TIERS[i][1]);head.style.setProperty('--hc',COLS[i]);lab.style.setProperty('--hc',COLS[i]);segs.forEach((sg,j)=>sg.classList.toggle('lit',j<=i));lab.classList.remove('tick');void lab.offsetWidth;lab.classList.add('tick')}
+   place(x);
+   if(k<1)requestAnimationFrame(step);else{head.classList.add('locked');head.style.setProperty('--hc',COLS[target]);lab.style.setProperty('--hc',COLS[target]);lab.textContent=target===N-1?L('SCREAMER!!!','¡QUÉ CHICHARRO!'):tl(TIERS[target][1]);segs.forEach((sg,j)=>sg.classList.toggle('lit',j<=target));place(end);lab.classList.remove('tick');lab.classList.add('blink');const g=document.getElementById('gauge');g.classList.add('done');if(target===N-1)g.classList.add('uni');const tn=document.getElementById('tn');if(tn){tn.style.color=COLS[target];if(target===N-1)tn.classList.add('uni-text')}setTimeout(land,380)}};
   requestAnimationFrame(step)}
 const n=nx;n.onclick=()=>{qi++;if(qi<Q.length){playSfx('whoosh');ask(true)}else if(INF)infEnd();else end()}})}
 /* result screen social loop */
