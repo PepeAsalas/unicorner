@@ -1845,6 +1845,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
   '10-17':{text:"Sterling's first senior hat-trick: Man City 5-1 Bournemouth, 2015.",url:"https://www.youtube.com/results?search_query=Man+City+5-1+Bournemouth+2015+Sterling+hat-trick"}
  };
  const onThisDay=ON_THIS_DAY[octDay];
+ const infStrip=`<button type="button" class="inf-strip" data-infinite><span class="inf-in"><i class="inf-stars" aria-hidden="true"></i><span class="inf-ico" aria-hidden="true">∞</span><span class="inf-txt"><b>${L('Infinity mode','Modo Infinito')}</b><small>${L('Unlimited questions, out in space','Preguntas ilimitadas, en el espacio')}</small></span><span class="inf-cta">${L('Press start','Pulsa start')}</span></span></button>`;
  const sInfo=streakInfo(),competeFirst=!!played||sInfo.ever; // regulars see the board first, newcomers the rules
  const tkDate=new Date(amsterdamDay()+'T12:00:00Z').toLocaleDateString(LOC,{weekday:'short',day:'numeric',month:'short',timeZone:'UTC'}).replace(/[,.]/g,'').split(' ');
  const compete='<section class="jb" id="global-rank-slot" data-compete><div class="jb-frame"><div class="jb-screen"><p class="jb-empty">GLOBAL RANKING · LOADING…</p></div></div></section>';
@@ -1873,6 +1874,8 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
   ${signedOut()?`<p class="tk-back"><button type="button" data-lg="back">${L('Played on another device? Sign in to bring your streak back','¿Has jugado en otro dispositivo? Entra y recupera tu racha')} →</button></p>`:''}
  </section></div>
 
+ ${played?infStrip:''}
+
  ${competeFirst?compete:''}
 
  <section class="card lp2-how man" id="steps">
@@ -1887,7 +1890,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
 
  ${competeFirst?'':compete}
 
- <button type="button" class="inf-strip" data-infinite><span class="inf-in"><i class="inf-stars" aria-hidden="true"></i><span class="inf-ico" aria-hidden="true">∞</span><span class="inf-txt"><b>${L('Infinity mode','Modo Infinito')}</b><small>${L('Unlimited questions, out in space','Preguntas ilimitadas, en el espacio')}</small></span><span class="inf-cta">${L('Press start','Pulsa start')}</span></span></button>
+ ${played?'':infStrip}
  <div id="uc-awards" hidden></div>
  </div>`,()=>{window.ucAwards?.();const play=async()=>{if(!played&&window.ucCheckRemote&&await window.ucCheckRemote())return start();document.body.classList.remove('landing');if(played){try{restore(played);setMeter();end(true)}catch(x){track('results_view_error',{message:String(x&&x.message||x).slice(0,200),stack:String(x&&x.stack||'').slice(0,600),score:played.score,picks:played.picks});start()}}else ask()};
   const go=document.getElementById('go');if(go)go.onclick=play;
