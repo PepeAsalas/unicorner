@@ -3389,6 +3389,215 @@
    "prompt_es": "Fichado por el Chelsea en el verano de 2023 o 2024",
    "subtitle_es": "Fichajes del primer equipo masculino",
    "displaced_from": "2026-10-27"
+  },
+  {
+   "id": "u004",
+   "_id": "u004",
+   "prompt": "Played a Serie A match for Juventus, 2020-21 to 2021-22",
+   "subtitle": "League appearances, 2020-21 to 2021-22",
+   "difficulty": "easy",
+   "answer_type": "player",
+   "scoring_version": 2,
+   "clash_note": "",
+   "answers": [
+    {
+     "name": "Wojciech Szczęsny",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Gianluigi Buffon",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Danilo",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Matthijs de Ligt",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Giorgio Chiellini",
+     "aliases": [],
+     "fame": 5
+    },
+    {
+     "name": "Leonardo Bonucci",
+     "aliases": [],
+     "fame": 5
+    },
+    {
+     "name": "Alex Sandro",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Juan Cuadrado",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Merih Demiral",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Gianluca Frabotta",
+     "aliases": [],
+     "fame": 1
+    },
+    {
+     "name": "Radu Drăgușin",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Alessandro Di Pardo",
+     "aliases": [],
+     "fame": 1
+    },
+    {
+     "name": "Rodrigo Bentancur",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Adrien Rabiot",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Arthur",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Weston McKennie",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Aaron Ramsey",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Federico Bernardeschi",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Dejan Kulusevski",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Federico Chiesa",
+     "aliases": [],
+     "fame": 6
+    },
+    {
+     "name": "Nicolò Fagioli",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Manolo Portanova",
+     "aliases": [],
+     "fame": 2
+    },
+    {
+     "name": "Cristiano Ronaldo",
+     "aliases": [
+      "CR7"
+     ],
+     "fame": 6
+    },
+    {
+     "name": "Álvaro Morata",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Paulo Dybala",
+     "aliases": [],
+     "fame": 6
+    },
+    {
+     "name": "Douglas Costa",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Mattia Perin",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Mattia De Sciglio",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Daniele Rugani",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Luca Pellegrini",
+     "aliases": [],
+     "fame": 2
+    },
+    {
+     "name": "Manuel Locatelli",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Denis Zakaria",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Moise Kean",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Kaio Jorge",
+     "aliases": [],
+     "fame": 2
+    },
+    {
+     "name": "Dušan Vlahović",
+     "aliases": [],
+     "fame": 5
+    },
+    {
+     "name": "Fabio Miretti",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Matías Soulé",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Marley Aké",
+     "aliases": [],
+     "fame": 1
+    }
+   ],
+   "answer_count": 38,
+   "format_family": "club_league_window",
+   "prompt_es": "Jugó un partido de Serie A con la Juventus entre 2020-21 y 2021-22",
+   "subtitle_es": "Partidos de liga, de 2020-21 a 2021-22",
+   "displaced_from": "2026-10-18"
   }
  ]
 }
