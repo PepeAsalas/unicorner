@@ -123,6 +123,47 @@ begin
     select p_week, user_id, 'deepcut', jsonb_build_object('share', round(share * 100, 1), 'answers', cnt)
     from shares where share = (select min(share) from shares);
 
+  -- Man of the Match: best single-day score of the week
+  insert into weekly_awards (week, user_id, trophy, detail)
+    select p_week, s.user_id, 'motm', jsonb_build_object('score', s.score, 'day', s.day)
+    from player_scores s join wk on wk.user_id = s.user_id
+    where s.day between p_week and we and not s.removed and s.score > 0
+      and s.score = (select max(s2.score) from player_scores s2 join wk w2 on w2.user_id = s2.user_id where s2.day between p_week and we and not s2.removed)
+    on conflict do nothing;
+  -- Hat-trick: three or more Screamers in a single day
+  insert into weekly_awards (week, user_id, trophy, detail)
+    select p_week, h.user_id, 'hattrick', jsonb_build_object('days', count(*), 'best', max(h.n))
+    from (select s.user_id, s.day, (select count(*) from jsonb_array_elements(coalesce(s.picks, '[]'::jsonb)) x
+                                     where jsonb_typeof(x) = 'array' and x->>2 = '100') n
+            from player_scores s join wk on wk.user_id = s.user_id
+           where s.day between p_week and we and not s.removed) h
+    where h.n >= 3 group by h.user_id;
+  -- Mr Reliable: steadiest scores over 5+ days, among players averaging at least the weekly average
+  insert into weekly_awards (week, user_id, trophy, detail)
+    with st as (
+      select s.user_id, stddev_pop(s.score) sd, avg(s.score) av, count(*) d
+      from player_scores s join wk on wk.user_id = s.user_id
+      where s.day between p_week and we and not s.removed group by s.user_id having count(*) >= 5),
+    ok as (select * from st where av >= (select avg(av) from st) and av > 0)
+    select p_week, user_id, 'reliable', jsonb_build_object('days', d, 'avg', round(av), 'spread', round(sd))
+    from ok where sd = (select min(sd) from ok);
+  -- Wooden Spoon: lowest weekly total with 5+ days played
+  insert into weekly_awards (week, user_id, trophy, detail)
+    select p_week, user_id, 'spoon', jsonb_build_object('total', total, 'days', days)
+    from wk where days >= 5 and total = (select min(total) from wk where days >= 5)
+      and (select count(*) from wk where days >= 5) >= 3;
+  -- Iron Man: a streak of 30+ days still going this week (once per player, ever)
+  insert into weekly_awards (week, user_id, trophy, detail)
+    with d as (
+      select user_id, day from player_days where day <= we
+      union select user_id, day from player_scores where day <= we and not removed),
+    isl as (select user_id, day, day - (row_number() over (partition by user_id order by day))::int as g from d),
+    runs as (select user_id, min(day) s, max(day) e, count(*) n from isl group by user_id, g)
+    select distinct p_week, r.user_id, 'ironman', jsonb_build_object('days', 30)
+    from runs r join player_profiles p on p.user_id = r.user_id
+    where r.n >= 30 and r.e >= p_week and r.s + 29 <= we
+      and not exists (select 1 from weekly_awards a where a.user_id = r.user_id and a.trophy = 'ironman' and a.week < p_week);
+
   insert into weekly_awards_done (week, computed_at, final) values (p_week, now(), t >= we + 2)
   on conflict (week) do update set computed_at = now(), final = excluded.final;
 end $$;

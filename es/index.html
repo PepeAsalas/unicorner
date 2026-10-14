@@ -3304,7 +3304,12 @@ const ART={
  clean:[['.W.W.W.....','.W.W.W.W...','.WWWWWW.W..','.WWWWWWWW..','WWWWWWWWW..','WWWWhWWW...','.WWWWWWW...','..WWWWW....','..RRRRR....','..RRRRR....'],{W:'#e8ecf4',h:'#ffffff',R:'#5ef0ff'}],
  ever:[['.R.....R...','RRRRRRRRRRR','RRRRRRRRRRR','WWWWWWWWWWW','WWKKKKKKWWW','WWWWWWKKWWW','WWWWWKKWWWW','WWWWKKWWWWW','WWWWKKWWWWW','WWWWKKWWWWW','WWWWWWWWWWW'],{R:'#ff5a5a',W:'#f3ead2',K:'#1a1030'}],
  top10:[['RR.....BB','.RR...BB.','..RR.BB..','...RBB...','..YYYYY..','.YYhYYYY.','YYhYYYYYY','YYYYDYYYY','YYYDDDYYY','YYYYDYYYY','.YYYYYYY.','..YYYYY..'],{...G,R:'#ff5a5a',B:'#4f7bff'}],
- improve:[['....X....','...XhX...','..XXXXX..','.XXXXXXX.','XXXXXXXXX','...XXX...','...XXX...','...XXX...','...XXX...','...XXX...'],{X:'#7fe0a8',h:'#ffffff'}]};
+ improve:[['....X....','...XhX...','..XXXXX..','.XXXXXXX.','XXXXXXXXX','...XXX...','...XXX...','...XXX...','...XXX...','...XXX...'],{X:'#7fe0a8',h:'#ffffff'}],
+ motm:[['...RRRRR...','..RRWWWRR..','.RRWYYYWRR.','.RWYYhYYWR.','.RWYYYYYWR.','.RRWYYYWRR.','..RRWWWRR..','...RRRRR...','...RR.RR...','..RR...RR..','..R.....R..'],{R:'#ff5a5a',W:'#ffffff',Y:'#ffd23f',h:'#fff6c0'}],
+ hattrick:[['....wwww....','...wkkkkw...','...wkwwkw...','...wkkkkw...','....wwww....','............','.wwww..wwww.','wkkkkwwkkkkw','wkwwkwwkwwkw','wkkkkwwkkkkw','.wwww..wwww.'],{w:'#ffffff',k:'#1a1030'}],
+ reliable:[['....SSS....','....S.S....','....SSS....','SSSSSSSSSSS','.....S.....','.....S.....','S....S....S','SS...S...SS','.SSSSSSSSS.','...SSSSS...'],{S:'#9fd8ff'}],
+ ironman:[['.....S.....','....SS.....','....SSS....','...SSwS....','...SwwSS...','..SSwwwS...','..SwwMwwS..','.SSwMMMwSS.','.SwwMMMwwS.','.SSwwwwwSS.','..SSSSSSS..'],{S:'#9fd8ff',w:'#ffffff',M:'#fff6c0'}],
+ spoon:[['.......TTT.','......TTTTT','......TTtTT','.......TTT.','......T....','.....T.....','....T......','...T.......','..T........','.T.........','T..........'],{T:'#c08850',t:'#8a5a2a'}]};
 const ICO={};const ico=k=>(ICO[k]=ICO[k]||bmp(...ART[k]));
 const icoHtml=(k,css='')=>`<span class="tr-ico" style="background-image:${ico(k)};${css}" aria-hidden="true"></span>`;
 const TR=()=>[['champion',L('Champion','Campeón'),L('Most points in the week.','Más puntos de la semana.')],
@@ -3313,7 +3318,12 @@ const TR=()=>[['champion',L('Champion','Campeón'),L('Most points in the week.',
  ['clean',L('Clean Sheet','Portería a cero'),L('No misses all week, 5+ days played.','Ningún fallo en la semana, jugando 5+ días.')],
  ['ever',L('Ever-present','Siempre presente'),L('Played all 7 days.','Jugaste los 7 días.')],
  ['top10','Top 10',L('Finished the week in the top 10.','Terminaste la semana en el top 10.')],
- ['improve',L('Most Improved','Mayor progreso'),L('Biggest jump on your week before (4+ days in both).','La mayor subida respecto a tu semana anterior (4+ días en ambas).')]];
+ ['improve',L('Most Improved','Mayor progreso'),L('Biggest jump on your week before (4+ days in both).','La mayor subida respecto a tu semana anterior (4+ días en ambas).')],
+ ['motm',L('Man of the Match','Jugador del partido'),L('Best single-day score of the week.','La mejor puntuación de un solo día en la semana.')],
+ ['hattrick','Hat-trick',L('Three Screamers in a single day.','Tres chicharros en un mismo día.')],
+ ['reliable',L('Mr Reliable','Don Fiable'),L('Steadiest scores over 5+ days (averaging at least the weekly average).','Las puntuaciones más regulares en 5+ días (con una media igual o mayor que la de la semana).')],
+ ['ironman',L('Iron Man','Hombre de hierro'),L('Reach a 30-day streak. Won once, kept forever.','Llega a una racha de 30 días. Se gana una vez y es para siempre.')],
+ ['spoon',L('Wooden Spoon','Farolillo rojo'),L('Lowest total of the week with 5+ days played. Just for fun.','El total más bajo de la semana jugando 5+ días. Solo por diversión.')]];
 const trName=k=>(TR().find(x=>x[0]===k)||[k,k])[1];
 const wk=n=>L('WK ','SEM ')+n;
 const why=(k,d)=>{d=d||{};switch(k){
@@ -3323,7 +3333,12 @@ const why=(k,d)=>{d=d||{};switch(k){
  case'clean':return ES?`${d.days} días sin un fallo`:`${d.days} days without a miss`;
  case'ever':return ES?'7 de 7 días':'7 out of 7 days';
  case'top10':return ES?`${d.rank}º de ${d.players}`:`finished ${d.rank}${['th','st','nd','rd'][(d.rank%100>10&&d.rank%100<14)?0:Math.min(d.rank%10,4)%4]||'th'} of ${d.players}`;
- case'improve':return ES?`+${d.up} puntos respecto a la semana anterior`:`+${d.up} points on the week before`;}return''};
+ case'improve':return ES?`+${d.up} puntos respecto a la semana anterior`:`+${d.up} points on the week before`;
+ case'motm':return ES?`${d.score} puntos en un solo día`:`${d.score} points in a single day`;
+ case'hattrick':return ES?`${d.best} chicharros en un día`:`${d.best} Screamers in one day`;
+ case'reliable':return ES?`media de ${d.avg}, la más regular`:`averaged ${d.avg}, the steadiest of all`;
+ case'ironman':return ES?'30 días seguidos':'30 days in a row';
+ case'spoon':return ES?`${d.total} puntos en ${d.days} días`:`${d.total} points over ${d.days} days`;}return''};
 const ord=n=>ES?n+'º':n+(['th','st','nd','rd'][(n%100>10&&n%100<14)?0:(n%10<4?n%10:0)]);
 let cabCache=null,cabAt=0;
 window.ucTrophyCab=async el=>{if(!el)return;const signed=!!window.ucSignedIn?.();
@@ -3334,7 +3349,7 @@ window.ucTrophyCab=async el=>{if(!el)return;const signed=!!window.ucSignedIn?.()
    :signed&&w?`<b>${L('THIS WEEK SO FAR','ESTA SEMANA')}</b><br>${w.total} ${L('pts','pts')} · ${ord(w.rank)} ${L('of','de')} ${w.players}<br>${w.screamers} ${L('Screamers','chicharros')} · ${w.days}/7 ${L('days','días')}<br>${L('Trophies are handed out on Monday. Tap a trophy to see how to win it.','Los trofeos se entregan el lunes. Toca un trofeo para ver cómo ganarlo.')}`
    :`<b>${L('WIN TROPHIES EVERY WEEK','GANA TROFEOS CADA SEMANA')}</b><br>${L('Get a nickname to take part. Trophies are handed out every Monday for the week before. Tap a trophy to see how to win it.','Elige un apodo para participar. Los trofeos se entregan cada lunes por la semana anterior. Toca un trofeo para ver cómo ganarlo.')}`;
   el.innerHTML=`<div class="tr-cab">
-   <div class="tr-shelf">${list.slice(0,4).map(slot).join('')}</div><div class="tr-shelf">${list.slice(4).map(slot).join('')}</div>
+   ${[0,4,8].map(i=>`<div class="tr-shelf">${list.slice(i,i+4).map(slot).join('')}</div>`).join('')}
    <div class="tr-tip" aria-live="polite">${tip}</div></div>${signed?'':`<button type="button" class="cta tr-cta" data-tr-join>${L('Get a nickname','Elige tu apodo')}</button>`}`;
   el.onclick=e=>{const b=e.target.closest('[data-tr]');if(b){track('trophy_tap',{trophy:b.dataset.tr});draw(data,sel===b.dataset.tr?null:b.dataset.tr);return}
    if(e.target.closest('[data-tr-join]')){document.getElementById('dlg-stadium')?.close();document.querySelector('[data-lg="open"]')?.click()}}};
@@ -3344,11 +3359,11 @@ window.ucTrophyCab=async el=>{if(!el)return;const signed=!!window.ucSignedIn?.()
  try{cabCache=await window.ucRpc('lg_my_trophies');cabAt=Date.now();draw(cabCache);track('trophies_open',{won:(cabCache?.trophies||[]).length})}catch{draw(null)}};
 
 /* badges next to names (up to 3 trophy icons) and the mini cabinet on the player card */
-const ORDER=['champion','boot','deepcut','clean','ever','top10','improve'],TMAP=new Map();let tBusy=null,tTimer=0;
+const ORDER=['champion','ironman','boot','hattrick','motm','deepcut','clean','reliable','ever','top10','improve','spoon'],TMAP=new Map();let tBusy=null,tTimer=0;
 function tFill(){document.querySelectorAll('[data-tn]').forEach(el=>{const m=TMAP.get(el.dataset.tn);if(m===undefined||el.dataset.tf==='1')return;el.dataset.tf='1';
   const ks=ORDER.filter(k=>m&&m[k]);if(!ks.length)return;
   if(el.classList.contains('pcd-tr')){const total=ks.reduce((a,k)=>a+m[k],0);el.innerHTML=`<h4>${L('TROPHIES','TROFEOS')} · ${total}</h4><div>${ks.map(k=>`<span title="${esc(trName(k))}">${icoHtml(k)}<b>×${m[k]}</b></span>`).join('')}</div>`;el.hidden=false}
-  else{el.innerHTML=ks.slice(0,3).map(k=>`<i class="tr-ico" style="background-image:${ico(k)}" title="${esc(trName(k))}${m[k]>1?' ×'+m[k]:''}"></i>`).join('');el.setAttribute('aria-label',ks.map(k=>trName(k)).join(', '))}})}
+  else{el.innerHTML=ks.filter(k=>k!=='spoon').slice(0,3).map(k=>`<i class="tr-ico" style="background-image:${ico(k)}" title="${esc(trName(k))}${m[k]>1?' ×'+m[k]:''}"></i>`).join('');el.setAttribute('aria-label',ks.map(k=>trName(k)).join(', '))}})}
 async function tLoad(){const want=[...new Set([...document.querySelectorAll('[data-tn]')].map(e=>e.dataset.tn))].filter(n=>!TMAP.has(n));
   if(!want.length){tFill();return}if(tBusy||!window.ucPubRpc)return;
   tBusy=window.ucPubRpc('lg_trophy_map',{p_names:want.slice(0,300)}).then(m=>{want.forEach(n=>TMAP.set(n,(m&&m[n])||null));tFill()}).catch(()=>{want.forEach(n=>TMAP.set(n,null))}).finally(()=>{tBusy=null;if(document.querySelector('[data-tn]:not([data-tf])'))tLater()})}
