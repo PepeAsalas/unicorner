@@ -2884,7 +2884,8 @@ const uni=(r,cls='')=>{const k=kitOf(r);return`<i class="ucw-u${k.gold?' gold':'
 let cardRows=[];
 const cardAttr=r=>{if(r.ghost)return'';const i=cardRows.push(r)-1;return` data-lg="card" data-i="${i}" role="button" tabindex="0" aria-label="${esc(L('Open the card of ','Ver la ficha de ')+(r.me?L('you','ti'):r.nickname))}"`};
 const crewTag=r=>kitOf(r).crew?'<i class="crew-tag">CREW</i>':'';
-const nmOf=r=>(r.ghost?esc(ghostName()):r.me?L('YOU','TÚ'):esc(r.nickname.toUpperCase()))+crewTag(r);
+const trTag=r=>{const n=r.ghost?'':(r.nickname||(r.me?me?.profile?.nickname:''))||'';return n?`<span class="bdg" data-tn="${esc(String(n).toLowerCase())}"></span>`:''};
+const nmOf=r=>(r.ghost?esc(ghostName()):r.me?L('YOU','TÚ'):esc(r.nickname.toUpperCase()))+crewTag(r)+trTag(r);
 function ucwPod(top){if(!top.length)return'';const ord=[1,0,2].filter(i=>top[i]);
  return`<div class="ucw-pod"><div class="ucw-trio">${ord.map(i=>{const r=top[i];return`<div class="p${i+1}${r.ghost?' ghost'+(draft.nick.trim()?' named':''):''}"${cardAttr(r)}>${uni(r)}<span class="ucw-pn">${nmOf(r)}</span><div class="ucw-blk"><b>${i+1}</b><span>${r.score??'—'} ${L('pts','pts')}</span></div></div>`}).join('')}</div></div>`}
 const ucwRow=(r,extra='')=>`<div class="ucw-r${r.me?' me':''}${r.ghost?' ghost'+(draft.nick.trim()?' named':''):''}${extra}"${cardAttr(r)}><span>${r.rank||'–'}</span>${uni(r)}<span class="ucw-n">${nmOf(r)}</span><span class="ucw-s">${r.score??'—'}</span></div>`;
@@ -2952,7 +2953,7 @@ function drawFull(loading){const wk=fullScope==='week',rows=fullData[fullScope]?
  document.getElementById('ft-dist').innerHTML=bk.map((v,i)=>`<i class="${i===mb?'mine':''}" style="height:${Math.max(4,Math.round(v/bm*100))}%"></i>`).join('');
  const q=document.getElementById('ft-q').value.trim().toLowerCase();fullRows=rows;
  const list=rows.map((r,i)=>[r,i]).filter(([r])=>!q||String(r.nickname).toLowerCase().includes(q));
- const rowH=(r,i,extra='')=>`<div class="ucw-r${r.me?' me':''}${r.rank<=3?' ft-top'+r.rank:''}${extra}" data-fi="${i}" role="button" tabindex="0"><span>${r.rank}</span>${uni(r)}<span class="ucw-n">${r.me?L('YOU','TÚ')+' · ':''}${esc(String(r.nickname).toUpperCase())}${crewTag(r)}</span><span class="ucw-s">${r.score}</span></div>`;
+ const rowH=(r,i,extra='')=>`<div class="ucw-r${r.me?' me':''}${r.rank<=3?' ft-top'+r.rank:''}${extra}" data-fi="${i}" role="button" tabindex="0"><span>${r.rank}</span>${uni(r)}<span class="ucw-n">${r.me?L('YOU','TÚ')+' · ':''}${esc(String(r.nickname).toUpperCase())}${crewTag(r)}${trTag(r)}</span><span class="ucw-s">${r.score}</span></div>`;
  sc.innerHTML=`<div class="ucw-r h"><span>${L('Pos','Pos')}</span><span></span><span>${L('Player','Jugador')}</span><span class="ucw-s">Pts</span></div>`+(n?list.length?list.map(([r,i])=>rowH(r,i)).join(''):`<p class="ucw-empty">${L(`Nobody called "${esc(q)}" is on the table.`,`Nadie llamado "${esc(q)}" está en la tabla.`)}</p>`:`<p class="ucw-empty">${wk?L('No scores this week yet.','Aún no hay puntos esta semana.'):L('No one on the board yet today.','Nadie en el ranking hoy.')}</p>`);
  document.getElementById('ft-me').innerHTML=me?rowH(me,rows.indexOf(me)).replace('data-fi=','data-ft="me" data-x='):'';
  document.querySelector('#dlg-full [data-ft=jump]').hidden=!me;pinFull()}
@@ -2970,6 +2971,7 @@ function playerCard(r){const k=kitOf(r),info=window.ucKitInfo||{},t=info.KLV?.[k
  d.innerHTML=`<div class="pcd-art"><span class="pcd-lv">${lv}</span><button type="button" class="pcd-x" data-pc-x aria-label="${L('Close','Cerrar')}">×</button><i class="pcd-u${k.gold?' gold':''}${k.myth?' myth':''}" style="background-image:${uniBg(k)}"></i></div>
  <div class="pcd-b"><div class="pcd-nm">${r.me?esc(me?.profile?.nickname||L('You','Tú')):esc(r.nickname)}</div><div class="pcd-kit">${L('Wearing','Lleva')}: ${esc(L(k.en,k.es))}${k.crew?` <i class="crew-tag">${L('UNICORNER CREW','EQUIPO UNICORNER')}</i>`:''}</div>
  <div class="pcd-st"><div><b>${n}/${all.length}</b>${L('kits','equip.')}</div><div><b>${streak}</b>${L('best streak','mejor racha')}</div><div><b>${games}</b>${L('games','partidos')}</div></div>
+ ${(()=>{const nk=(r.me?me?.profile?.nickname:r.nickname)||'';return nk&&!r.ghost?`<div class="pcd-tr" data-tn="${esc(String(nk).toLowerCase())}" hidden></div>`:''})()}
  <div class="pcd-shelf" aria-label="${n} ${L('kits owned','equipaciones')}">${all.map(x=>`<i class="${own.has(x.id)?'':'no'}" title="${esc(L(x.en,x.es))}" style="background-image:${uniBg(x)}"></i>`).join('')}</div></div>`;
  if(!d.open)d.showModal();track('player_card',{me:!!r.me})}
 // Send this player's kit and kit count to their account so everyone sees their unicorn on the boards
@@ -3245,6 +3247,14 @@ document.head.insertAdjacentHTML('beforeend',`<style>
 .aw{margin:0 0 22px;background:repeating-linear-gradient(transparent 0 23px,rgba(27,42,107,.13) 23px 24px),#f3ead2;color:#1a1030;border:3px solid #000;box-shadow:8px 8px 0 rgba(0,0,0,.35);padding:0 0 14px;display:grid;gap:12px;text-align:left}
 .aw>*:not(.aw-h){margin:0 12px}
 .aw{position:relative}
+.bdg{display:inline-flex;gap:2px;margin-left:5px;vertical-align:middle}.bdg:empty{display:none}
+.bdg .tr-ico{width:16px;height:16px}
+.pcd-tr{margin:12px 0 4px;background:#5a3518;border:3px solid #000;box-shadow:inset 0 0 0 3px #7a4a22;padding:8px 8px 0}
+.pcd-tr h4{margin:0 0 4px;font:9px "Press Start 2P",monospace;color:#ffe2a8;text-align:center}
+.pcd-tr div{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:4px 0;border-bottom:6px solid #8a5a2a}
+.pcd-tr span{display:grid;justify-items:center}
+.pcd-tr .tr-ico{width:36px;height:36px}
+.pcd-tr b{font:7px "Press Start 2P",monospace;color:#ffe2a8;margin-top:3px}
 .aw-h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:2px 10px;background:#1b2a6b;color:#fff;padding:9px 12px 8px}
 .aw-h h3{margin:0;font-family:var(--px);font-weight:400;font-size:27px;line-height:1}
 .aw-h small{font:13px var(--lab);color:#c9d3ff;white-space:nowrap}
@@ -3333,6 +3343,18 @@ window.ucTrophyCab=async el=>{if(!el)return;const signed=!!window.ucSignedIn?.()
  el.innerHTML=`<p class="st-sub">${L('Opening the cabinet…','Abriendo la vitrina…')}</p>`;
  try{cabCache=await window.ucRpc('lg_my_trophies');cabAt=Date.now();draw(cabCache);track('trophies_open',{won:(cabCache?.trophies||[]).length})}catch{draw(null)}};
 
+/* badges next to names (up to 3 trophy icons) and the mini cabinet on the player card */
+const ORDER=['champion','boot','deepcut','clean','ever','top10','improve'],TMAP=new Map();let tBusy=null,tTimer=0;
+function tFill(){document.querySelectorAll('[data-tn]').forEach(el=>{const m=TMAP.get(el.dataset.tn);if(m===undefined||el.dataset.tf==='1')return;el.dataset.tf='1';
+  const ks=ORDER.filter(k=>m&&m[k]);if(!ks.length)return;
+  if(el.classList.contains('pcd-tr')){const total=ks.reduce((a,k)=>a+m[k],0);el.innerHTML=`<h4>${L('TROPHIES','TROFEOS')} · ${total}</h4><div>${ks.map(k=>`<span title="${esc(trName(k))}">${icoHtml(k)}<b>×${m[k]}</b></span>`).join('')}</div>`;el.hidden=false}
+  else{el.innerHTML=ks.slice(0,3).map(k=>`<i class="tr-ico" style="background-image:${ico(k)}" title="${esc(trName(k))}${m[k]>1?' ×'+m[k]:''}"></i>`).join('');el.setAttribute('aria-label',ks.map(k=>trName(k)).join(', '))}})}
+async function tLoad(){const want=[...new Set([...document.querySelectorAll('[data-tn]')].map(e=>e.dataset.tn))].filter(n=>!TMAP.has(n));
+  if(!want.length){tFill();return}if(tBusy||!window.ucPubRpc)return;
+  tBusy=window.ucPubRpc('lg_trophy_map',{p_names:want.slice(0,300)}).then(m=>{want.forEach(n=>TMAP.set(n,(m&&m[n])||null));tFill()}).catch(()=>{want.forEach(n=>TMAP.set(n,null))}).finally(()=>{tBusy=null;if(document.querySelector('[data-tn]:not([data-tf])'))tLater()})}
+const tLater=()=>{clearTimeout(tTimer);tTimer=setTimeout(tLoad,120)};
+new MutationObserver(ms=>{for(const m of ms)for(const n of m.addedNodes)if(n.nodeType===1&&(n.matches?.('[data-tn]')||n.querySelector?.('[data-tn]'))){tLater();return}}).observe(document.body,{childList:true,subtree:true});
+tLater();
 window.ucAwards=async()=>{const el=document.getElementById('uc-awards');if(!el||!window.ucPubRpc)return;
  let a;try{a=await window.ucPubRpc('lg_awards')}catch{return}
  if(!document.body.contains(el)||!a||!Array.isArray(a.podium)||!a.podium.length)return;

@@ -175,3 +175,16 @@ begin
 end $$;
 revoke all on function public.lg_my_trophies() from public, anon;
 grant execute on function public.lg_my_trophies() to authenticated;
+
+-- 3. Trophy badges next to names: how many of each trophy the given players have won (public, read-only).
+create or replace function public.lg_trophy_map(p_names text[])
+returns json language sql stable security definer set search_path = public as $$
+  select coalesce(json_object_agg(x.nick, x.t), '{}'::json) from (
+    select lower(p.nickname) as nick, json_object_agg(a.trophy, a.n) as t
+    from (select user_id, trophy, count(*)::int n from weekly_awards group by user_id, trophy) a
+    join player_profiles p on p.user_id = a.user_id
+    where lower(p.nickname) in (select lower(x) from unnest(p_names[1:300]) x)
+    group by lower(p.nickname)) x
+$$;
+revoke all on function public.lg_trophy_map(text[]) from public;
+grant execute on function public.lg_trophy_map(text[]) to anon, authenticated;
