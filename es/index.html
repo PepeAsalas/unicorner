@@ -85,6 +85,9 @@ details{margin-top:8px}summary{cursor:pointer;color:var(--mute)}details.res{marg
 @keyframes glab-tick{50%{filter:brightness(1.35)}}
 @keyframes glab-blink{50%{filter:brightness(1.7)}}
 @media (prefers-reduced-motion:reduce){.glab.tick,.glab.blink{animation:none}}
+/* crew kit: cyan frame in the locker, small CREW tag next to the name */
+#dlg-stadium .kit-tile.crew{border-color:#5ef0ff!important;box-shadow:0 0 0 2px #000,0 0 14px rgba(94,240,255,.45)!important}
+.crew-tag{display:inline-block;font-style:normal;font-family:"Press Start 2P",monospace;font-size:7px;line-height:1;letter-spacing:.5px;color:#5ef0ff;background:#1a1030;border:2px solid #5ef0ff;padding:2px 3px 1px;margin-left:6px;vertical-align:2px}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}}
 .wipe{animation:wipe .9s cubic-bezier(.65,0,.25,1) both}.hold{opacity:0}@keyframes wipe{from{clip-path:inset(-8px 100% -8px -8px)}to{clip-path:inset(-8px -8px -8px -8px)}}
 .tier.pop{animation:none}
@@ -1678,6 +1681,14 @@ const PAL={K:"#1a1030",W:"#ffffff",L:"#d2d6ec",G:"#ffd23f",g:"#e0a000",P:"#ff6fb
 const kDk=(h,a=.78)=>{const n=parseInt(h.slice(1),16),f=v=>Math.round(v*a).toString(16).padStart(2,'0');return'#'+f(n>>16)+f(n>>8&255)+f(n&255)};
 const kPat=fn=>(x,y,dark)=>{const c=fn(x,y);return dark?kDk(c):c};
 const KRAIN=['#ff4d4d','#ff8a1f','#ffd23f','#39ff6a','#4fd7ff','#7c4dff'];
+// Crew kit (Boardroom): navy suit, gold tie, silver mane and sunglasses. Only the people on the crew list get it; the server decides who.
+// Sprite map: body x 8-22 / y 13-20, legs y 21-25, neck front x 19-23 / y 9-12, head y <= 11
+const kHead=(x,y)=>y<=11||(y===12&&x>=24);
+const kSuit=o=>kPat((x,y)=>{if(kHead(x,y))return '#ffffff';if(y>=21)return o.legs||o.jacket;
+ if(x>=20&&y<=18)return x===21&&y>=13?o.tie:(x===21&&y===12?kDk(o.tie,.8):o.shirt);
+ if(x===19&&y<=18)return o.lapel||kDk(o.jacket,.6);if(o.pocket&&(x===14||x===15)&&y===15)return o.pocket;return o.jacket});
+// add-ons are drawn on top of the finished sprite: the sunglasses' frame and far lens stick out past the face
+const kShades=f=>{const K='#111111',G='#8fa6d6',R=[],r=(x,y,w,h,c)=>R.push([x,y,w,h,c]);r(19,6,15,1,K);r(24,7,5,2,K);r(25,9,3,1,K);r(29,7,2,1,K);r(31,7,4,2,K);r(32,9,2,1,K);r(25,7,2,1,G);r(32,7,1,1,G);return R};
 const KITS=[
  {id:'classic',en:'Classic',es:'Clásico',req:null,pal:{}},
  {id:'stripes',en:'Home stripes',es:'Rayas',req:['games',3],pal:{P:'#1a1030',V:'#ff3b30',B:'#ffffff'},pat:kPat((x,y)=>x%4<2?'#ff3b30':'#ffffff')},
@@ -1718,6 +1729,7 @@ const KITS=[
  {id:'matrix',en:'Matrix',es:'Matrix',req:['scr',40],pal:{W:'#06140a',L:'#030a05',P:'#39ff6a',V:'#1f8a3a',B:'#39ff6a',w:'#06140a',N:'#39ff6a',E:'#39ff6a',G:'#39ff6a',g:'#1f8a3a'},pat:kPat((x,y)=>((x*13+y*7)%11<2)?'#39ff6a':(x%3===0&&(y+x)%5<2)?'#1f8a3a':'#06140a')},
  {id:'glitch',en:'Glitch',es:'Glitch',req:['scr1',4],pal:{P:'#ff3b8a',V:'#4fd7ff',B:'#ffd23f'},pat:kPat((x,y)=>{const r=(x*31+y*17)%23;return r<3?'#ff3b8a':r<5?'#4fd7ff':r<6?'#ffd23f':(y%5===0&&x>12)?'#7c4dff':'#f2f2f2'})},
  {id:'royal',en:'Royal',es:'Real',req:['streak',60],pal:{W:'#4a1f8a',L:'#3a1670',P:'#ffd23f',V:'#ffffff',B:'#ffd23f',w:'#4a1f8a',N:'#ffd23f',G:'#ffd23f',g:'#c98f12'},pat:kPat((x,y)=>(x+y)%6===0?'#ffd23f':(x-y+60)%6===0?'#7c4dff':'#4a1f8a')},
+ {id:'boardroom',en:'Boardroom',es:'Junta directiva',req:['crew',1],crew:true,pal:{P:'#c9ced8',V:'#9aa3b5',B:'#e6e9f0',N:'#9aa3b5',g:'#111111'},pat:kSuit({jacket:'#1b2a6b',shirt:'#ffffff',tie:'#ffd23f',pocket:'#ffd23f'}),addon:kShades},
  {id:'goat',en:'Cosmic GOAT',es:'GOAT cósmico',req:['win',1],myth:true,pal:{P:'#ffffff',V:'#ffd23f',B:'#ff7ac8',G:'#ffffff',g:'#ffd23f',E:'#4fd7ff',N:'#ff7ac8'},pat:kPat((x,y)=>['#ff7ac8','#ffb0e0','#ffd23f','#fff3a0','#7dff9a','#b0ffd0','#4fd7ff','#b0ecff','#b388ff','#e0d0ff'][(x+y*2)%10])},
 ];
 let UC_KIT=(()=>{try{return KITS.find(k=>k.id===localStorage.getItem('uc-kit'))||null}catch{return null}})();
@@ -1735,6 +1747,7 @@ function spriteDraw(mood,f,blink,kit){const px=[];FRAMES[f].forEach((r,y)=>[...r
   R(24,5,5,5,'#1a1030');R(25,6,3,3,'#ffffff');R(26,7,1,1,'#1a1030');
   R(27,10,7,4+j,'#1a1030');R(28,11,5,2+j,'#7a1030');R(29,12+j,3,1,'#ff6fb5');R(28,10,1,1,'#fff');R(32,10,1,1,'#fff');
   R(34,2+j,1,3,'#fff27a');R(35,6-j,1,2,'#fff27a');R(33,0,1,1,'#fff27a')}
+ if(kit&&kit.addon)for(const p of kit.addon(f))px.push(p);
  try{const S=6,cv=document.createElement('canvas');cv.width=36*S;cv.height=30*S;const g=cv.getContext('2d');for(const[x,y,w,h,c]of px){g.fillStyle=c;g.fillRect(x*S,y*S,w*S,h*S)}return`url("${cv.toDataURL('image/png')}")`}
  catch{const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 30" shape-rendering="crispEdges">${px.map(([x,y,w,h,c])=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${c}"/>`).join('')}</svg>`;return`url("data:image/svg+xml,${encodeURIComponent(svg)}")`}}
 const SPR={};const buildSprites=()=>{for(const m of ['happy','wow','sad','scream'])SPR[m]=[sprite(m,0),sprite(m,1),sprite(m,0,true)];document.body.classList.toggle('kit-gold',!!UC_KIT?.gold);document.body.classList.toggle('kit-myth',!!UC_KIT?.myth)};buildSprites();
@@ -2667,7 +2680,7 @@ const show=html=>{$('lea-body').innerHTML=X+html;if(!dlg.open)dlg.showModal()};
 const activeId=()=>{const a=lsGet(LG_ACTIVE),l=me?.leagues||[];return(l.find(x=>x.id===a)||l[0])?.id||null};
 const inviteLink=c=>location.origin+location.pathname.replace(/index\.html$/,'')+'?league='+c;
 
-async function loadMe(){me=await rpc('lg_me');try{window.ucAdoptLook?.(me?.profile)}catch{}return me}
+async function loadMe(){me=await rpc('lg_me');try{window.ucAdoptLook?.(me?.profile?{...me.profile,crew:!!me.crew}:{crew:!!me?.crew})}catch{}return me}
 async function loadBoard(){const id=activeId();board=id?await rpc('lg_league_board',{p_league:id}):null;return board}
 
 function boardTable(b,tab,limit){
@@ -2867,7 +2880,8 @@ const uni=(r,cls='')=>{const k=kitOf(r);return`<i class="ucw-u${k.gold?' gold':'
 // rows keep their data here so a click can open that player's card
 let cardRows=[];
 const cardAttr=r=>{if(r.ghost)return'';const i=cardRows.push(r)-1;return` data-lg="card" data-i="${i}" role="button" tabindex="0" aria-label="${esc(L('Open the card of ','Ver la ficha de ')+(r.me?L('you','ti'):r.nickname))}"`};
-const nmOf=r=>r.ghost?esc(ghostName()):r.me?L('YOU','TÚ'):esc(r.nickname.toUpperCase());
+const crewTag=r=>kitOf(r).crew?'<i class="crew-tag">CREW</i>':'';
+const nmOf=r=>(r.ghost?esc(ghostName()):r.me?L('YOU','TÚ'):esc(r.nickname.toUpperCase()))+crewTag(r);
 function ucwPod(top){if(!top.length)return'';const ord=[1,0,2].filter(i=>top[i]);
  return`<div class="ucw-pod"><div class="ucw-trio">${ord.map(i=>{const r=top[i];return`<div class="p${i+1}${r.ghost?' ghost'+(draft.nick.trim()?' named':''):''}"${cardAttr(r)}>${uni(r)}<span class="ucw-pn">${nmOf(r)}</span><div class="ucw-blk"><b>${i+1}</b><span>${r.score??'—'} ${L('pts','pts')}</span></div></div>`}).join('')}</div></div>`}
 const ucwRow=(r,extra='')=>`<div class="ucw-r${r.me?' me':''}${r.ghost?' ghost'+(draft.nick.trim()?' named':''):''}${extra}"${cardAttr(r)}><span>${r.rank||'–'}</span>${uni(r)}<span class="ucw-n">${nmOf(r)}</span><span class="ucw-s">${r.score??'—'}</span></div>`;
@@ -2935,7 +2949,7 @@ function drawFull(loading){const wk=fullScope==='week',rows=fullData[fullScope]?
  document.getElementById('ft-dist').innerHTML=bk.map((v,i)=>`<i class="${i===mb?'mine':''}" style="height:${Math.max(4,Math.round(v/bm*100))}%"></i>`).join('');
  const q=document.getElementById('ft-q').value.trim().toLowerCase();fullRows=rows;
  const list=rows.map((r,i)=>[r,i]).filter(([r])=>!q||String(r.nickname).toLowerCase().includes(q));
- const rowH=(r,i,extra='')=>`<div class="ucw-r${r.me?' me':''}${r.rank<=3?' ft-top'+r.rank:''}${extra}" data-fi="${i}" role="button" tabindex="0"><span>${r.rank}</span>${uni(r)}<span class="ucw-n">${r.me?L('YOU','TÚ')+' · ':''}${esc(String(r.nickname).toUpperCase())}</span><span class="ucw-s">${r.score}</span></div>`;
+ const rowH=(r,i,extra='')=>`<div class="ucw-r${r.me?' me':''}${r.rank<=3?' ft-top'+r.rank:''}${extra}" data-fi="${i}" role="button" tabindex="0"><span>${r.rank}</span>${uni(r)}<span class="ucw-n">${r.me?L('YOU','TÚ')+' · ':''}${esc(String(r.nickname).toUpperCase())}${crewTag(r)}</span><span class="ucw-s">${r.score}</span></div>`;
  sc.innerHTML=`<div class="ucw-r h"><span>${L('Pos','Pos')}</span><span></span><span>${L('Player','Jugador')}</span><span class="ucw-s">Pts</span></div>`+(n?list.length?list.map(([r,i])=>rowH(r,i)).join(''):`<p class="ucw-empty">${L(`Nobody called "${esc(q)}" is on the table.`,`Nadie llamado "${esc(q)}" está en la tabla.`)}</p>`:`<p class="ucw-empty">${wk?L('No scores this week yet.','Aún no hay puntos esta semana.'):L('No one on the board yet today.','Nadie en el ranking hoy.')}</p>`);
  document.getElementById('ft-me').innerHTML=me?rowH(me,rows.indexOf(me)).replace('data-fi=','data-ft="me" data-x='):'';
  document.querySelector('#dlg-full [data-ft=jump]').hidden=!me;pinFull()}
@@ -2951,7 +2965,7 @@ function playerCard(r){const k=kitOf(r),info=window.ucKitInfo||{},t=info.KLV?.[k
   d.addEventListener('click',e=>{if(e.target===d||e.target.closest('[data-pc-x]'))d.close()})}
  d.style.setProperty('--tc',col);
  d.innerHTML=`<div class="pcd-art"><span class="pcd-lv">${lv}</span><button type="button" class="pcd-x" data-pc-x aria-label="${L('Close','Cerrar')}">×</button><i class="pcd-u${k.gold?' gold':''}${k.myth?' myth':''}" style="background-image:${uniBg(k)}"></i></div>
- <div class="pcd-b"><div class="pcd-nm">${r.me?esc(me?.profile?.nickname||L('You','Tú')):esc(r.nickname)}</div><div class="pcd-kit">${L('Wearing','Lleva')}: ${esc(L(k.en,k.es))}</div>
+ <div class="pcd-b"><div class="pcd-nm">${r.me?esc(me?.profile?.nickname||L('You','Tú')):esc(r.nickname)}</div><div class="pcd-kit">${L('Wearing','Lleva')}: ${esc(L(k.en,k.es))}${k.crew?` <i class="crew-tag">${L('UNICORNER CREW','EQUIPO UNICORNER')}</i>`:''}</div>
  <div class="pcd-st"><div><b>${n}/${all.length}</b>${L('kits','equip.')}</div><div><b>${streak}</b>${L('best streak','mejor racha')}</div><div><b>${games}</b>${L('games','partidos')}</div></div>
  <div class="pcd-shelf" aria-label="${n} ${L('kits owned','equipaciones')}">${all.map(x=>`<i class="${own.has(x.id)?'':'no'}" title="${esc(L(x.en,x.es))}" style="background-image:${uniBg(x)}"></i>`).join('')}</div></div>`;
  if(!d.open)d.showModal();track('player_card',{me:!!r.me})}
@@ -3087,7 +3101,7 @@ const unlocked=k=>{const t=LIST.find(x=>x[0]===k);return!!t&&bestStreak()>=t[2]}
 // Kit goals come from the games already saved on this device
 // 'big' games for the Aurora kit: 430+ on the new points
 const BIG_SCORE=430;
-function kitStats(){const st={games:0,scr:0,best:0,scr1:0,allfive:0,big:0,level:0,inf:0,win:+(ls('uc-wins')||0),streak:bestStreak()};
+function kitStats(){const st={games:0,scr:0,best:0,scr1:0,allfive:0,big:0,level:0,inf:0,win:+(ls('uc-wins')||0),crew:+(ls('uc-crew')||0),streak:bestStreak()};
  try{for(const k of Object.keys(localStorage)){if(/^uc-inf-\d{4}-/.test(k))st.inf=1;if(!k.startsWith('unicorner-played-'))continue;let r=null;try{r=JSON.parse(localStorage.getItem(k))}catch{}st.games++;if(!r)continue;
   const sc=newScoreOf(r,k.slice(17));st.best=Math.max(st.best,sc);const picks=Array.isArray(r.picks)?r.picks.filter(Array.isArray):[];const n=picks.filter(x=>x[2]===100).length;st.scr+=n;st.scr1=Math.max(st.scr1,n);
   if(sc>=BIG_SCORE)st.big++;if(picks.length===5&&picks.every(x=>x[2]>0))st.allfive++}}catch{}
@@ -3095,10 +3109,10 @@ function kitStats(){const st={games:0,scr:0,best:0,scr1:0,allfive:0,big:0,level:
 // a kit stays yours once you've earned it, even if its target changes later
 const kitEarned=id=>{try{const d=JSON.parse(localStorage.getItem('uc-kit-done')||'[]');return Array.isArray(d)&&d.includes(id)}catch{return false}};
 const kitHas=(kit,st)=>!kit.req||(st[kit.req[0]]||0)>=kit.req[1]||kitEarned(kit.id);
-const kitGoal=([t,n])=>t==='win'?L('Finish 1st on the ranking for a day','Termina 1º en el ranking de un día'):t==='big'?L(`Score ${BIG_SCORE}+ in ${n} games`,`Haz ${BIG_SCORE}+ puntos en ${n} partidos`):t==='allfive'&&n>1?L(`Get all 5 right in ${n} games`,`Acierta las 5 en ${n} partidos`):t==='games'?L(`Play ${n} games`,`Juega ${n} partidos`):t==='streak'?L(`${n}-day streak`,`Racha de ${n} días`):t==='scr'?L(`Find ${n} Screamers`,`Consigue ${n} chicharros`):t==='scr1'?L(`${n} Screamers in one game`,`${n} chicharros en un partido`):t==='best'?(n>=500?L('Score a perfect 500','Haz un 500 perfecto'):L(`Score ${n}+ in a game`,`Haz ${n}+ puntos en un partido`)):t==='level'?L(`Reach ${zl(ZONES[n][1])}`,`Llega a ${zl(ZONES[n][1])}`):t==='inf'?L('Try Infinity mode','Prueba el Modo Infinito'):L('Get all 5 right in one game','Acierta las 5 en un partido');
-const kitWhy=k=>{if(!k.req)return L('Free for everyone','Gratis para todos');const[t,n]=k.req;return t==='win'?L('You finished 1st for a day','Terminaste 1º un día'):t==='big'?L(`You scored ${BIG_SCORE}+ in ${n} games`,`Hiciste ${BIG_SCORE}+ puntos en ${n} partidos`):t==='allfive'&&n>1?L(`You got all 5 right in ${n} games`,`Acertaste las 5 en ${n} partidos`):t==='games'?L(`You played ${n} games`,`Jugaste ${n} partidos`):t==='streak'?L(`You hit a ${n}-day streak`,`Llegaste a una racha de ${n} días`):t==='scr'?L(`You found ${n} Screamers`,`Conseguiste ${n} chicharros`):t==='scr1'?L(`You got ${n} Screamers in one game`,`Hiciste ${n} chicharros en un partido`):t==='best'?(n>=500?L('You scored a perfect 500','Hiciste un 500 perfecto'):L(`You scored ${n}+ in a game`,`Hiciste ${n}+ puntos en un partido`)):t==='level'?L(`You reached ${zl(ZONES[n][1])}`,`Llegaste a ${zl(ZONES[n][1])}`):t==='inf'?L('You tried Infinity mode','Probaste el Modo Infinito'):L('You got all 5 right in one game','Acertaste las 5 en un partido')};
+const kitGoal=([t,n])=>t==='crew'?L('Unicorner crew only','Solo para el equipo de Unicorner'):t==='win'?L('Finish 1st on the ranking for a day','Termina 1º en el ranking de un día'):t==='big'?L(`Score ${BIG_SCORE}+ in ${n} games`,`Haz ${BIG_SCORE}+ puntos en ${n} partidos`):t==='allfive'&&n>1?L(`Get all 5 right in ${n} games`,`Acierta las 5 en ${n} partidos`):t==='games'?L(`Play ${n} games`,`Juega ${n} partidos`):t==='streak'?L(`${n}-day streak`,`Racha de ${n} días`):t==='scr'?L(`Find ${n} Screamers`,`Consigue ${n} chicharros`):t==='scr1'?L(`${n} Screamers in one game`,`${n} chicharros en un partido`):t==='best'?(n>=500?L('Score a perfect 500','Haz un 500 perfecto'):L(`Score ${n}+ in a game`,`Haz ${n}+ puntos en un partido`)):t==='level'?L(`Reach ${zl(ZONES[n][1])}`,`Llega a ${zl(ZONES[n][1])}`):t==='inf'?L('Try Infinity mode','Prueba el Modo Infinito'):L('Get all 5 right in one game','Acierta las 5 en un partido');
+const kitWhy=k=>{if(!k.req)return L('Free for everyone','Gratis para todos');const[t,n]=k.req;return t==='crew'?L('Thanks for helping build Unicorner','Gracias por ayudar a crear Unicorner'):t==='win'?L('You finished 1st for a day','Terminaste 1º un día'):t==='big'?L(`You scored ${BIG_SCORE}+ in ${n} games`,`Hiciste ${BIG_SCORE}+ puntos en ${n} partidos`):t==='allfive'&&n>1?L(`You got all 5 right in ${n} games`,`Acertaste las 5 en ${n} partidos`):t==='games'?L(`You played ${n} games`,`Jugaste ${n} partidos`):t==='streak'?L(`You hit a ${n}-day streak`,`Llegaste a una racha de ${n} días`):t==='scr'?L(`You found ${n} Screamers`,`Conseguiste ${n} chicharros`):t==='scr1'?L(`You got ${n} Screamers in one game`,`Hiciste ${n} chicharros en un partido`):t==='best'?(n>=500?L('You scored a perfect 500','Hiciste un 500 perfecto'):L(`You scored ${n}+ in a game`,`Hiciste ${n}+ puntos en un partido`)):t==='level'?L(`You reached ${zl(ZONES[n][1])}`,`Llegaste a ${zl(ZONES[n][1])}`):t==='inf'?L('You tried Infinity mode','Probaste el Modo Infinito'):L('You got all 5 right in one game','Acertaste las 5 en un partido')};
 // how far a locked kit is: {have,n,frac,label} for kits with a number to reach, null for yes/no kits
-function kitProg(k,st){if(!k.req)return null;const[t,n]=k.req;if((t==='allfive'&&n<2)||t==='inf'||t==='win')return null;const have=Math.min(st[t]||0,n);
+function kitProg(k,st){if(!k.req)return null;const[t,n]=k.req;if((t==='allfive'&&n<2)||t==='inf'||t==='win'||t==='crew')return null;const have=Math.min(st[t]||0,n);
  const u={games:L('games','partidos'),streak:L('day streak','días de racha'),scr:L('Screamers','chicharros'),scr1:L('Screamers in one game','chicharros en un partido'),best:L('points','puntos'),allfive:L('perfect games','partidos perfectos'),big:L(`games of ${BIG_SCORE}+`,`partidos de ${BIG_SCORE}+`)}[t];
  const label=t==='level'?L('Now: ','Ahora: ')+zl(ZONES[have][1]):`${have} / ${n} ${u}`;return{have,n,frac:n?have/n:0,left:n-have,label}}
 const progBar=pr=>`<span class="kit-bar" aria-hidden="true"><i style="width:${Math.round(pr.frac*100)}%"></i></span><span class="kit-prog">${pr.label}</span>`;
@@ -3116,21 +3130,21 @@ function dot(){const best=bestStreak(),top=Math.max(0,...LIST.filter(t=>best>=t[
 document.body.insertAdjacentHTML('beforeend','<dialog id="dlg-stadium"><div class="st-body" id="st-body"></div></dialog>');
 const dlg=document.getElementById('dlg-stadium');
 function openPicker(){const g0=document.querySelector('#st-body .st-grid'),y0=pkSame&&g0?g0.scrollTop:0,d0=pkSame?dlg.scrollTop:0;pkSame=false;const best=bestStreak(),cur=scene.dataset.bg||'classic',next=LIST.find(t=>t[2]>best);
- const st=kitStats(),have=KITS.filter(k=>kitHas(k,st)).length;ls('uc-kit-seen',have);
+ const st=kitStats(),have=KITS.filter(k=>kitHas(k,st)).length,total=KITS.filter(k=>!k.crew||kitHas(k,st)).length;ls('uc-kit-seen',have);
  ls('uc-bg-seen',Math.max(0,...LIST.filter(t=>best>=t[2]).map(t=>t[2])));dot();
  const tabs=`<div class="pk-tabs" role="tablist"><button type="button" role="tab" data-st="tab" data-t="kits" aria-selected="${pTab==='kits'}">${L('Kits','Equipaciones')}</button><button type="button" role="tab" data-st="tab" data-t="stadiums" aria-selected="${pTab==='stadiums'}">${L('Stadiums','Estadios')}</button></div>`;
  const close=`<button type="button" class="lg-x" data-st="close" aria-label="Close" style="position:absolute;top:14px;right:14px;width:38px;height:38px;padding:0;background:#0c0c18;color:#fff;border:3px solid #fff;border-radius:7px;font-size:24px;line-height:1;cursor:pointer">×</button>`;
  if(pTab==='kits'){const curK=UC_KIT?.id||'classic';
   document.getElementById('st-body').innerHTML=`${close}<h2>${L('Pick your kit','Elige tu equipación')}</h2>${tabs}
-  <p class="st-sub">${L(`${have} of ${KITS.length} unlocked. Play, find Screamers and keep your streak to unlock more.`,`${have} de ${KITS.length} desbloqueadas. Juega, consigue chicharros y mantén la racha para desbloquear más.`)}</p>
+  <p class="st-sub">${L(`${have} of ${total} unlocked. Play, find Screamers and keep your streak to unlock more.`,`${have} de ${total} desbloqueadas. Juega, consigue chicharros y mantén la racha para desbloquear más.`)}</p>
   ${(()=>{const nx=KITS.filter(k=>!kitHas(k,st)).map(k=>[k,kitProg(k,st)]).filter(([,p])=>p&&p.left>0).sort((a,b)=>(a[0].req[0]==='level')-(b[0].req[0]==='level')||b[1].frac-a[1].frac)[0];if(!nx)return'';const[k,pr]=nx;
    return`<div class="kit-next"><h3>${L('Next up','Lo próximo')}</h3><div class="kit-next-row">${kitPv(k)}<span><b>${L(k.en,k.es)}</b><small>${kitGoal(k.req)}</small><span class="kit-bar"><i style="width:${Math.round(pr.frac*100)}%"></i></span><small>${pr.label}${k.req[0]==='level'?'':' · '+L(`${pr.left} to go`,`faltan ${pr.left}`)}</small></span></div></div>`})()}
   ${(()=>{const fav=kitFavs().filter(id=>{const k=KITS.find(x=>x.id===id);return k&&kitHas(k,st)});
-   const cell=k=>{const lock=!kitHas(k,st),on=k.id===curK,n=L(k.en,k.es);const tile=`<button type="button" class="st-tile kit-tile${on?' on':''}${lock?' locked':''}${k.gold?' gold':''}${k.myth?' myth':''}${KLV[k.id]!=null&&KLV[k.id]<5?' tiered':''}" style="--tc:${KLV[k.id]!=null?KLC[KLV[k.id]]:'#8a9ab0'}" data-st="kit" data-k="${k.id}" ${lock?'aria-disabled="true"':''} aria-label="${n}${lock?', '+kitGoal(k.req):on?L(', in use',', en uso'):''}">${kitPv(k)}${lock?'<i class="kit-lock">🔒</i>':''}<span class="st-name">${n}</span><span class="st-need">${lock?kitGoal(k.req):(on?L('✓ In use · ','✓ En uso · '):'')+kitWhy(k)}</span>${lock&&kitProg(k,st)?progBar(kitProg(k,st)):''}</button>`;const isFav=fav.includes(k.id);
+   const cell=k=>{const lock=!kitHas(k,st),on=k.id===curK,n=L(k.en,k.es);const tile=`<button type="button" class="st-tile kit-tile${on?' on':''}${lock?' locked':''}${k.gold?' gold':''}${k.myth?' myth':''}${k.crew?' crew':''}${KLV[k.id]!=null&&KLV[k.id]<5?' tiered':''}" style="--tc:${k.crew?'#5ef0ff':KLV[k.id]!=null?KLC[KLV[k.id]]:'#8a9ab0'}" data-st="kit" data-k="${k.id}" ${lock?'aria-disabled="true"':''} aria-label="${n}${lock?', '+kitGoal(k.req):on?L(', in use',', en uso'):''}">${kitPv(k)}${lock?'<i class="kit-lock">🔒</i>':''}<span class="st-name">${n}</span><span class="st-need">${lock?kitGoal(k.req):(on?L('✓ In use · ','✓ En uso · '):'')+kitWhy(k)}</span>${lock&&kitProg(k,st)?progBar(kitProg(k,st)):''}</button>`;const isFav=fav.includes(k.id);
     return `<div class="kit-cell">${tile}${lock?'':`<button type="button" class="kit-fav${isFav?' on':''}" data-st="fav" data-k="${k.id}" aria-pressed="${isFav}" aria-label="${isFav?L('Remove from favourites','Quitar de favoritas'):L('Add to favourites','Añadir a favoritas')}" title="${isFav?L('Remove from favourites','Quitar de favoritas'):L('Add to favourites','Añadir a favoritas')}">★</button>`}</div>`};
    // sorted by rarity: Classic, then Tap-in up to Mythic (kits of the same level keep their usual order)
    const rank=k=>KLV[k.id]==null?-1:KLV[k.id],byRarity=(a,b)=>rank(a)-rank(b)||KITS.indexOf(a)-KITS.indexOf(b);
-   const favKits=fav.map(id=>KITS.find(x=>x.id===id)).sort(byRarity),rest=KITS.filter(k=>!fav.includes(k.id)).sort(byRarity);
+   const favKits=fav.map(id=>KITS.find(x=>x.id===id)).sort(byRarity),rest=KITS.filter(k=>!fav.includes(k.id)&&(!k.crew||kitHas(k,st))).sort(byRarity);
    return `<div class="st-grid kit-grid">${favKits.length?`<p class="kit-sec">★ ${L('Favourites','Favoritas')}</p>${favKits.map(cell).join('')}<p class="kit-sec">${L('All kits','Todas')}</p>`:''}${rest.map(cell).join('')}</div>`})()}`}
  else{
  document.getElementById('st-body').innerHTML=`${close}
@@ -3182,7 +3196,7 @@ function kitPack(queue){const k=queue.shift();if(!k)return;const t=KLV[k.id]??0,
 // signed in on another device: kits unlocked there count here too, and this device wears the account's kit
 window.ucAdoptLook=p=>{if(!p)return;
  // favourites: this device's changes win until they're saved; otherwise the account's list is used (an empty account takes this device's list)
- if(Array.isArray(p.favs)){const local=kitFavs();if(ls('uc-fav-dirty')==='1'||(!p.favs.length&&local.length)){ls('uc-fav-dirty','1');window.ucFavSync?.()}else ls('uc-kit-fav',JSON.stringify(p.favs.filter(id=>KITS.some(k=>k.id===id))))}if(typeof p.wins==='number'){ls('uc-wins',p.wins);}const acct=(Array.isArray(p.kits)?p.kits:[]).filter(id=>KITS.some(k=>k.id===id));
+ if(Array.isArray(p.favs)){const local=kitFavs();if(ls('uc-fav-dirty')==='1'||(!p.favs.length&&local.length)){ls('uc-fav-dirty','1');window.ucFavSync?.()}else ls('uc-kit-fav',JSON.stringify(p.favs.filter(id=>KITS.some(k=>k.id===id))))}if(typeof p.wins==='number'){ls('uc-wins',p.wins);}if(typeof p.crew==='boolean'){ls('uc-crew',p.crew?'1':null);if(!p.crew&&UC_KIT?.crew)wearKit(KITS[0],true)}const acct=(Array.isArray(p.kits)?p.kits:[]).filter(id=>KITS.some(k=>k.id===id));
  const add=acct.filter(id=>!kitDone.includes(id));if(add.length){kitDone=kitDone.concat(add);ls('uc-kit-done',JSON.stringify(kitDone));dot()}
  if(ls('uc-kit-dirty')==='1'||!('kit' in p))return;const id=p.kit||'classic';if((UC_KIT?.id||'classic')===id)return;
  const k=KITS.find(x=>x.id===id);if(k&&kitHas(k,kitStats()))wearKit(k,true)};
