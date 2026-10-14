@@ -455,6 +455,12 @@ input:focus-visible{border-color:var(--gold)!important}
 .stair-plat{border-radius:0!important;border:3px solid #000}
 /* pixel speech bubbles */
 .scream-bubble{font-family:var(--px)!important;border:3px solid #000;border-radius:0}
+/* miss bubble: cream pixel bubble with a black outline, level beside the unicorn and pointing at it, no tilt */
+.scream-bubble.stink{background:#f3ead2!important;color:#1a1030;border:0!important;border-radius:0!important;top:54px;right:98px;font-size:28px;line-height:1;letter-spacing:0;padding:7px 12px 3px;box-shadow:0 0 0 3px #000,4px 4px 0 3px #000}
+.scream-bubble.stink::after{right:-9px;top:10px;width:9px;height:9px;border:0!important;background:#f3ead2;box-shadow:0 -3px 0 #000,0 3px 0 #000,3px 0 0 #000}
+.scream-bubble.stink.show,.scream-bubble.stink.stay{animation:stink-pop .24s steps(3) forwards}
+@keyframes stink-pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.scream-bubble.stink.show,.scream-bubble.stink.stay{animation:none;opacity:1}}
 /* clipboard copy toast */
 .toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,12px);z-index:999;background:#000;color:#fff;border:3px solid #fff;border-radius:0;padding:10px 18px;font-family:var(--lab);font-weight:700;letter-spacing:.3px;font-size:15px;box-shadow:0 4px 0 rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .25s}
 .toast.show{animation:toast-pop .5s cubic-bezier(.34,1.6,.4,1) forwards}
