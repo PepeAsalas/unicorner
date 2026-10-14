@@ -1,0 +1,244 @@
+{
+ "note": "Questions removed in the owner's review. Do not schedule these again.",
+ "questions": [
+  {
+   "id": "r019",
+   "_id": "r019",
+   "prompt": "Won the European Golden Shoe, 2000–2012",
+   "subtitle": "Awards 2000–2012 inclusive",
+   "difficulty": "easy",
+   "answer_type": "player",
+   "scoring_version": 1,
+   "clash_note": "Cristiano Ronaldo only; Ronaldo Nazário's 1996/97 win is outside this range.",
+   "answers": [
+    {
+     "name": "Lionel Messi",
+     "aliases": [],
+     "fame": 5
+    },
+    {
+     "name": "Cristiano Ronaldo",
+     "aliases": [
+      "CR7"
+     ],
+     "fame": 5
+    },
+    {
+     "name": "Thierry Henry",
+     "aliases": [],
+     "fame": 5
+    },
+    {
+     "name": "Francesco Totti",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Diego Forlán",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Henrik Larsson",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Luca Toni",
+     "aliases": [],
+     "fame": 4
+    },
+    {
+     "name": "Roy Makaay",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Mário Jardel",
+     "aliases": [
+      "Jardel"
+     ],
+     "fame": 2
+    },
+    {
+     "name": "Kevin Phillips",
+     "aliases": [],
+     "fame": 1
+    }
+   ],
+   "answer_count": 10,
+   "format_family": "award",
+   "era": "retro",
+   "prompt_es": "Ganó la Bota de Oro europea entre 2000 y 2012",
+   "subtitle_es": "Premios de 2000 a 2012, ambos incluidos",
+   "removed_in_review": "2026-10-17"
+  },
+  {
+   "id": "g005",
+   "_id": "g005",
+   "prompt": "Name an Argentine who played for Barcelona",
+   "subtitle": "Competitive first-team games, 1990–2025",
+   "difficulty": "easy",
+   "answer_type": "player",
+   "format_family": "club_nationality",
+   "scoring_version": 1,
+   "clash_note": "Juan Antonio Pizzi and Thiago Motta are excluded because they represented Spain and Italy respectively at senior level. Mauro Icardi played only in Barcelona's youth system.",
+   "answer_count": 10,
+   "answers": [
+    {
+     "name": "Lionel Messi",
+     "aliases": [
+      "Leo Messi",
+      "Messi"
+     ],
+     "fame": 5
+    },
+    {
+     "name": "Sergio Agüero",
+     "aliases": [
+      "Sergio Aguero",
+      "Kun Agüero",
+      "Kun Aguero"
+     ],
+     "fame": 5
+    },
+    {
+     "name": "Juan Román Riquelme",
+     "aliases": [
+      "Juan Roman Riquelme",
+      "Riquelme"
+     ],
+     "fame": 4
+    },
+    {
+     "name": "Javier Mascherano",
+     "aliases": [
+      "Masche"
+     ],
+     "fame": 4
+    },
+    {
+     "name": "Javier Saviola",
+     "aliases": [
+      "El Conejo"
+     ],
+     "fame": 3
+    },
+    {
+     "name": "Gabriel Milito",
+     "aliases": [
+      "Gabi Milito"
+     ],
+     "fame": 3
+    },
+    {
+     "name": "Juan Pablo Sorín",
+     "aliases": [
+      "Juan Pablo Sorin",
+      "Sorín",
+      "Sorin"
+     ],
+     "fame": 2
+    },
+    {
+     "name": "Mauricio Pellegrino",
+     "aliases": [],
+     "fame": 1
+    },
+    {
+     "name": "Roberto Bonano",
+     "aliases": [
+      "Tito Bonano"
+     ],
+     "fame": 1
+    },
+    {
+     "name": "Maxi López",
+     "aliases": [
+      "Maxi Lopez",
+      "Maximiliano López"
+     ],
+     "fame": 1
+    }
+   ],
+   "prompt_es": "Nombra un argentino que haya jugado en el Barcelona",
+   "subtitle_es": "Partidos oficiales con el primer equipo, 1990–2025",
+   "removed_in_review": "2026-10-18"
+  },
+  {
+   "prompt": "Name a club Antonio Conte has managed",
+   "subtitle": "Club head coach, up to 2025-26",
+   "prompt_es": "Nombra un club que haya entrenado Antonio Conte",
+   "subtitle_es": "Primer entrenador de clubes, hasta la 2025-26",
+   "difficulty": "medium",
+   "answer_type": "club",
+   "format_family": "manager_club_history",
+   "clash_note": "The Italy national team is not a club.",
+   "answers": [
+    {
+     "name": "Juventus",
+     "aliases": [
+      "Juve"
+     ],
+     "fame": 5
+    },
+    {
+     "name": "Chelsea",
+     "aliases": [],
+     "fame": 5
+    },
+    {
+     "name": "Inter",
+     "aliases": [
+      "Inter Milan",
+      "Internazionale",
+      "Inter de Milán"
+     ],
+     "fame": 4,
+     "name_es": "Inter de Milán"
+    },
+    {
+     "name": "Tottenham",
+     "aliases": [
+      "Spurs",
+      "Tottenham Hotspur"
+     ],
+     "fame": 4
+    },
+    {
+     "name": "Napoli",
+     "aliases": [
+      "Nápoles"
+     ],
+     "fame": 4,
+     "name_es": "Nápoles"
+    },
+    {
+     "name": "Atalanta",
+     "aliases": [],
+     "fame": 3
+    },
+    {
+     "name": "Siena",
+     "aliases": [],
+     "fame": 2
+    },
+    {
+     "name": "Bari",
+     "aliases": [],
+     "fame": 2
+    },
+    {
+     "name": "Arezzo",
+     "aliases": [],
+     "fame": 1
+    }
+   ],
+   "id": "w014",
+   "_id": "w014",
+   "scoring_version": 1,
+   "answer_count": 9,
+   "removed_in_review": "2026-10-27"
+  }
+ ]
+}
