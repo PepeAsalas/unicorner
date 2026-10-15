@@ -3531,5 +3531,11 @@ html.polish .pz-count{font-variant-numeric:tabular-nums}
  body.landing:not(.inf-mode) .retro2 .pitch3d{top:calc(max(28%,calc(11% + 120px)) + 180px)}
  body.landing:not(.inf-mode) .retro2 .c1{top:13px}body.landing:not(.inf-mode) .retro2 .c2{top:28px}body.landing:not(.inf-mode) .retro2 .c3{top:20px}body.landing:not(.inf-mode) .retro2 .c4{top:37px}
 }
+/* touch screens (iPhone Safari): the gold title flickered and vanished. Animating a five-layer filter on gradient-clipped text
+   that wraps over two lines makes Safari drop the text on some repaints, so the glow stays steady here and each line gets its own gradient */
+@media (hover:none){
+ .lp-title .uni-word{animation:goldShimmer 3.2s linear infinite!important;filter:drop-shadow(3px 3px 0 #000) drop-shadow(-1px -1px 0 #000) drop-shadow(1px -1px 0 #000) drop-shadow(-1px 1px 0 #000) drop-shadow(0 0 10px rgba(242,194,48,.45))!important}
+ .lp-title .uni-word,.lp-title .lp-lead{-webkit-box-decoration-break:clone;box-decoration-break:clone}
+}
 </style>
 </body></html>
