@@ -1895,9 +1895,9 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
  </section>
 
  </div>`,()=>{window.ucAwards?.();const play=async()=>{if(!played&&window.ucCheckRemote&&await window.ucCheckRemote())return start();document.body.classList.remove('landing');if(played){try{restore(played);setMeter();end(true)}catch(x){track('results_view_error',{message:String(x&&x.message||x).slice(0,200),stack:String(x&&x.stack||'').slice(0,600),score:played.score,picks:played.picks});start()}}else ask()};
-  const go=document.getElementById('go');if(go)go.onclick=play;
+  const go=document.getElementById('go');if(go)go.onclick=()=>{if(!played&&window.ucHowToNeeded?.())return window.ucHowTo(play,'first');play()};
   try{if(sessionStorage.getItem('uc-reopen')==='results'){sessionStorage.removeItem('uc-reopen');if(played&&go)setTimeout(()=>go.click(),0)}}catch{}
-  const hw=document.getElementById('how');if(hw)hw.onclick=()=>{track('how_click',{from:'ticket'});const st=document.getElementById('steps');st.scrollIntoView({behavior:'smooth',block:'center'});st.classList.remove('flash');void st.offsetWidth;st.classList.add('flash')};
+  const hw=document.getElementById('how');if(hw)hw.onclick=()=>{track('how_click',{from:'ticket'});if(window.ucHowTo)return window.ucHowTo(played?null:play,'button');const st=document.getElementById('steps');st.scrollIntoView({behavior:'smooth',block:'center'});st.classList.remove('flash');void st.offsetWidth;st.classList.add('flash')};
   if(!played)liveLine().then(({n,top})=>{const el=document.querySelector('#tkLive span');if(el&&n)el.innerHTML=ES?`<b>${n} aficionado${n===1?'':'s'}</b> ${n===1?'ha':'han'} jugado hoy · récord <b>${top}</b>`:`<b>${n} fan${n===1?'':'s'}</b> played today · top score <b>${top}</b>`;else if(el)el.textContent=L('Be the first to play today','Sé el primero en jugar hoy')}).catch(()=>{});
   const otdLink=document.getElementById('otdLink');if(otdLink)otdLink.onclick=()=>track('on_this_day_click',{date:octDay,url:onThisDay.url});
   const lm=document.getElementById('landingMascot');
@@ -3162,6 +3162,29 @@ document.head.insertAdjacentHTML('beforeend',`<style>
 .aw{margin:0 0 22px;background:repeating-linear-gradient(transparent 0 23px,rgba(27,42,107,.13) 23px 24px),#f3ead2;color:#1a1030;border:3px solid #000;box-shadow:8px 8px 0 rgba(0,0,0,.35);padding:0 0 14px;display:grid;gap:12px;text-align:left}
 .aw>*:not(.aw-h){margin:0 12px}
 .aw{position:relative}
+.ht-back{position:fixed;inset:0;background:rgba(10,6,30,.82);z-index:9000;display:grid;place-items:center;padding:16px;overflow:auto}
+.ht{width:min(420px,100%);background:#f3ead2;color:#1b1530;border:3px solid #000;box-shadow:8px 8px 0 rgba(0,0,0,.45);position:relative;animation:ht-in .22s ease-out both}
+@keyframes ht-in{from{opacity:0;transform:translateY(14px) scale(.97)}}
+.ht .ht-x{background:#000!important;color:#fff!important;border:2px solid #fff!important;border-radius:0!important;box-shadow:none!important;font:400 10px "Press Start 2P",monospace!important;padding:6px 8px!important;min-height:0!important;width:auto!important;margin:0!important;cursor:pointer}
+.ht-pg{padding:16px 16px 6px}
+.ht-pg .man-s{padding:14px;box-shadow:4px 4px 0 #1b1530}
+.ht-pg .man-fig{height:96px}
+.ht-pg .man-s h3{font-size:14px!important;margin-bottom:10px!important}
+.ht-pg .man-s p{font-size:22px;line-height:1.15}
+.ht-ex{margin-top:12px;display:grid;gap:6px}
+.ht-ex .q{font:400 10px/1.5 "Press Start 2P",monospace;color:#5a5070}
+.ht-ex .r{display:flex;align-items:center;gap:8px;border:2px solid #1b1530;background:#fff;padding:6px 8px;font:22px "Jersey 10",sans-serif}
+.ht-ex .r b{flex:1;font-weight:400}
+.ht-ex .r i{font-style:normal;font:400 9px "Press Start 2P",monospace;padding:3px 5px;border:2px solid #000}
+.ht-ex .r span{font:400 13px "Press Start 2P",monospace}
+.ht-ex .r.top{background:#ffd23f}
+.ht-ex small{font-size:17px;color:#5a5070;line-height:1.1}
+.ht-pgn{text-align:center;font:400 9px "Press Start 2P",monospace;color:#8a7a50;margin-top:10px}
+.ht-ft{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px 16px}
+.ht-dots{display:flex;gap:6px}.ht-dots i{width:12px;height:12px;border:2px solid #1b1530;background:#fffbea}.ht-dots i.on{background:#d12a2a}
+.ht .ht-next{flex:none;background:#ffd23f!important;color:#1b1530!important;border:3px solid #000!important;border-radius:0!important;box-shadow:4px 4px 0 #000!important;font:400 12px "Press Start 2P",monospace!important;padding:14px 16px!important;width:auto!important;margin:0!important;text-transform:uppercase;cursor:pointer}
+.ht .ht-prev{background:none!important;border:0!important;box-shadow:none!important;font:400 9px "Press Start 2P",monospace!important;color:#5a5070!important;padding:6px 0!important;width:auto!important;margin:0!important;min-height:0!important;cursor:pointer}
+.ht .ht-prev[hidden]{display:block!important;visibility:hidden}
 .var-msg{padding:0!important;background:none!important;color:inherit!important}
 .var-box{display:flex;text-align:left;border:3px solid #000;box-shadow:4px 4px 0 rgba(0,0,0,.35);animation:var-in .18s steps(3) both}
 .var-tag{flex:none;display:grid;place-items:center;padding:0 10px;background:#37003c;color:#fff;font:16px "Press Start 2P",monospace;letter-spacing:1px;border-right:3px solid #00ff85}
@@ -3297,6 +3320,30 @@ async function tLoad(){const want=[...new Set([...document.querySelectorAll('[da
 const tLater=()=>{clearTimeout(tTimer);tTimer=setTimeout(tLoad,120)};
 new MutationObserver(ms=>{for(const m of ms)for(const n of m.addedNodes)if(n.nodeType===1&&(n.matches?.('[data-tn]')||n.querySelector?.('[data-tn]'))){tLater();return}}).observe(document.body,{childList:true,subtree:true});
 tLater();
+/* first-time how-to-play walkthrough: the instruction booklet pages one at a time */
+window.ucHowToNeeded=()=>{try{if(localStorage.getItem('uc-howto-seen'))return false;if(window.ucSignedIn?.())return false;for(let i=0;i<localStorage.length;i++)if(/^unicorner-played-/.test(localStorage.key(i)))return false;return true}catch{return false}};
+window.ucHowTo=(onDone,from)=>{const src=[...document.querySelectorAll('#steps .man-s')];if(!src.length){onDone&&onDone();return}
+ try{localStorage.setItem('uc-howto-seen','1')}catch{}
+ const ex=`<div class="ht-ex"><div class="q">${L('EXAMPLE · NAME A CLUB RONALDINHO PLAYED FOR','EJEMPLO · NOMBRA UN CLUB DE RONALDINHO')}</div>
+  <div class="r"><b>Barcelona</b><i style="background:#cfd8e6">${L('TAP-IN','EMPUJARLA')}</i><span>10</span></div>
+  <div class="r"><b>AC Milan</b><i style="background:#7fe0a8">${L('HEADER','REMATE')}</i><span>30</span></div>
+  <div class="r top"><b>Querétaro</b><i style="background:#ffd23f">${L('SCREAMER','CHICHARRO')}</i><span>100</span></div>
+  <small>${L('Everyone says Barcelona, so it scores little. Find the answer nobody else thinks of.','Todo el mundo dice Barcelona, así que da pocos puntos. Busca la que nadie más piensa.')}</small></div>`;
+ const n=src.length;let i=0;const prevFocus=document.activeElement;
+ document.body.insertAdjacentHTML('beforeend',`<div class="ht-back" id="ht"><div class="ht" role="dialog" aria-modal="true" aria-labelledby="ht-h"><div class="man-hd"><h2 id="ht-h">${L('How to play','Cómo se juega')}</h2><button type="button" class="ht-x" data-ht="skip">${L('SKIP ×','SALTAR ×')}</button></div>
+  <div class="ht-pg" id="ht-pg" aria-live="polite"></div><div class="ht-pgn" id="ht-n"></div>
+  <div class="ht-ft"><button type="button" class="ht-prev" data-ht="prev">◀ ${L('BACK','ATRÁS')}</button><span class="ht-dots">${src.map(()=>'<i></i>').join('')}</span><button type="button" class="ht-next" data-ht="next"></button></div></div></div>`);
+ const root=document.getElementById('ht');
+ const draw=()=>{const st=src[i].cloneNode(true);if(i===1){st.querySelector('.man-t')?.remove();st.querySelector('p')?.insertAdjacentHTML('afterend',ex)}
+  const pg=document.getElementById('ht-pg');pg.innerHTML='';pg.appendChild(st);document.getElementById('ht-n').textContent=`- ${i+1} ${L('of','de')} ${n} -`;
+  root.querySelectorAll('.ht-dots i').forEach((d,k)=>d.classList.toggle('on',k===i));root.querySelector('[data-ht="prev"]').hidden=i===0;
+  const nx=root.querySelector('[data-ht="next"]');nx.textContent=i<n-1?L('NEXT ▶','SIGUIENTE ▶'):(onDone?L("LET'S PLAY ▶",'¡A JUGAR! ▶'):L('GOT IT ▶','ENTENDIDO ▶'));nx.focus()};
+ const close=(how)=>{document.removeEventListener('keydown',key);root.remove();track('howto_done',{from,how,step:i+1});if(onDone&&(how==='done'||from==='first'))onDone();else prevFocus?.focus?.()};
+ const key=e=>{if(e.key==='Escape')close('skip');else if(e.key==='ArrowRight'&&i<n-1){i++;draw()}else if(e.key==='ArrowLeft'&&i>0){i--;draw()}};
+ document.addEventListener('keydown',key);
+ root.addEventListener('click',e=>{if(e.target===root)return close('outside');const b=e.target.closest('[data-ht]');if(!b)return;const a=b.dataset.ht;
+  if(a==='skip')close('skip');else if(a==='prev'&&i>0){i--;draw()}else if(a==='next'){if(i<n-1){i++;draw();track('howto_step',{step:i+1})}else close('done')}});
+ track('howto_open',{from});draw()};
 window.ucAwards=async()=>{const el=document.getElementById('uc-awards');if(!el||!window.ucPubRpc)return;
  let a;try{a=await window.ucPubRpc('lg_awards')}catch{return}
  if(!document.body.contains(el)||!a||!Array.isArray(a.podium)||!a.podium.length)return;
