@@ -1632,6 +1632,10 @@ const varWhy=t=>ES&&t.why_es?t.why_es:t.why,varEsc=s=>String(s??'').replace(/[&<
 function varCheck(el,t){const box=d=>`<div class="var-box"><span class="var-tag">VAR</span><span class="var-body"><b>${d?`${L('CHECK COMPLETE','REVISIÓN COMPLETA')} · <em>${L('NO GOAL','NO ES GOL')}</em>`:L('CHECKING…','REVISANDO…')}</b>${d?`<span>${varEsc(varWhy(t))}</span>`:''}</span></div>`;
  el.className='msg var-msg';el.innerHTML=box(false);clearTimeout(el._var);const now=()=>{if(el.isConnected)el.innerHTML=box(true)};
  if(matchMedia('(prefers-reduced-motion: reduce)').matches)now();else el._var=setTimeout(now,650)}
+// near misses match strictly (full name, a listed spelling, or a person's surname) so a typo of a different answer never gets the wrong reason
+function trapMatch(input,q){const x=norm(input);if(!x)return null;const person=isPersonAnswerType(q.answer_type);
+ const hit=q.traps.filter(tr=>{const n=norm(tr.name),parts=n.split(' ');return n===x||(tr.aliases||[]).some(a=>norm(a)===x)||(person&&parts.length>1&&(parts.slice(1).join(' ')===x||parts[parts.length-1]===x))});
+ return hit.length===1?hit[0]:null}
 function match(input,answers,type='player'){const x=norm(input);if(!x)return null;const person=isPersonAnswerType(type);
  const keys=answers.map(a=>{const n=norm(a.name),parts=n.split(' ');const al=(a.aliases||[]).map(a=>a.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim()).filter(v=>v.length>=2);return{a,n,al,last:parts.length>1?parts.slice(1).join(' '):n,lastWord:parts[parts.length-1]}});
  const uniq=arr=>[...new Set(arr.map(k=>k.a))];
@@ -1957,7 +1961,7 @@ function ask(slide){calmDown();document.body.classList.remove('results-view');do
  document.getElementById('skip').onclick=()=>finish(null,'skip');
  document.getElementById('f').onsubmit=e=>{e.preventDefault();if(done)return;const typed=inp.value,r=match(typed,q.answers,q.answer_type),x=norm(typed);
   if(r&&r!=='ambiguous'){track('answer_attempt',{question_id:q.id||slug(q.prompt),position:qi+1,outcome:'correct',elapsed_ms:elapsed(),answer:r.name,points:r.pts,tier:tierName(r.pts),set_id:dailySetId()});return finish(r,'correct')}
-  const trap=!r&&q.traps?.length?match(typed,q.traps,q.answer_type):null;
+  const trap=!r&&q.traps?.length?trapMatch(typed,q):null;
   if(trap&&trap!=='ambiguous'){track('answer_attempt',{question_id:q.id||slug(q.prompt),position:qi+1,outcome:'trap',elapsed_ms:elapsed(),input_length:typed.trim().length,set_id:dailySetId()});
    track('rejected',{question_id:q.id||slug(q.prompt),prompt:q.prompt,input:typed,matched_known_player:true,outcome:'trap',trap:trap.name,position:qi+1,set_id:dailySetId()});
    varCheck(msg,trap);playSfx('buzz');inp.classList.remove('shake');void inp.offsetWidth;inp.classList.add('shake');inp.select();return}
