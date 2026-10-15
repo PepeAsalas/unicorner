@@ -3527,6 +3527,11 @@ html.polish .pz-count{font-variant-numeric:tabular-nums}
  .man-grid{grid-template-columns:none!important;grid-auto-flow:column;grid-auto-columns:84%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
  .man-grid::-webkit-scrollbar{display:none}
  .man-s{scroll-snap-align:center}
+ /* home page: the stadium sits lower so the title and unicorn have clear sky behind them */
+ body.landing:not(.inf-mode) .retro2 .sky{height:calc(11% + 180px)}
+ body.landing:not(.inf-mode) .retro2 .stand{top:calc(11% + 180px)}
+ body.landing:not(.inf-mode) .retro2 .pitch3d{top:calc(max(28%,calc(11% + 120px)) + 180px)}
+ body.landing:not(.inf-mode) .retro2 .c1{top:13px}body.landing:not(.inf-mode) .retro2 .c2{top:28px}body.landing:not(.inf-mode) .retro2 .c3{top:20px}body.landing:not(.inf-mode) .retro2 .c4{top:37px}
 }
 </style>
 </body></html>
