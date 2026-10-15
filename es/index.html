@@ -2027,15 +2027,16 @@ function reveal(ans){if(results[qi])return;const q=Q[qi];const pts=ans?ans.pts:0
   const W=bar.clientWidth,H=bar.clientHeight,dpr=Math.min(2,window.devicePixelRatio||1),paint=ucTrail(UC_KIT);
   cv.width=W*dpr;cv.height=H*dpr;const g=cv.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);g.imageSmoothingEnabled=false;
   // the effects layer covers the gauge and the space above it; bar coordinates are offset by (ox,oy)
-  const gr=fx.getBoundingClientRect(),br=bar.getBoundingClientRect(),FW=Math.round(gr.width),FH=Math.round(br.bottom-gr.top)+30;fx.style.height=FH+'px';fx.width=FW*dpr;fx.height=FH*dpr;
-  const f2=fx.getContext('2d');f2.setTransform(dpr,0,0,dpr,0,0);const ox=br.left-gr.left+bar.clientLeft,oy=br.top-gr.top+bar.clientTop;
+  // measured from layout, not on-screen boxes: the card is still sliding in at this point
+  const FW=gauge.clientWidth+60,FH=150+bar.offsetTop+bar.offsetHeight+30;fx.style.height=FH+'px';fx.width=FW*dpr;fx.height=FH*dpr;
+  const f2=fx.getContext('2d');f2.setTransform(dpr,0,0,dpr,0,0);const ox=30+bar.offsetLeft+bar.clientLeft,oy=150+bar.offsetTop+bar.clientTop;
   const uh=Math.round(H/.44),uw=Math.round(uh*1.2);uni.style.width=uw+'px';uni.style.height=uh+'px';
   lab.classList.remove('hold');uni.classList.remove('hold');
   const place=x=>{const tw=lab.offsetWidth,mx=x*W,l=Math.max(-6,Math.min(W-tw+6,mx-tw/2));lab.style.left=l+'px';lab.style.setProperty('--ax',(mx-l)+'px')};
   // Screamer: the unicorn runs a slightly shorter track so it finishes on the bar, the trail still fills all of it. No pause at 100. The unicorn hits the end still running and carries that speed into a loop-the-loop, then dashes off
   const R=Math.round(uh*.6),v0=(W-uw*.86)*end/1.5/(dur/1000),w0=v0/R,LT=.95,al=Math.max(0,2*(Math.PI*2-w0*LT)/(LT*LT)),v1=R*(w0+al*LT);
   const path=b=>{if(b<LT){const e=w0*b+.5*al*b*b;return[R*Math.sin(e),-R+R*Math.cos(e),-e*180/Math.PI]}const m=b-LT;return[v1*m+450*m*m,-m*30,-6]};
-  const RB=['#ff4d4d','#ff9a3c','#ffd23f','#7fe0a8','#4fd7ff','#b07cff','#ffffff'];
+  const RB=['#ff4d4d','#ff9a3c','#ffd23f','#7fe0a8','#4fd7ff','#b07cff','#ffffff'];let tagDone=false;const FW_=[[.8,-72,LT+.25],[.32,-98,LT+.5],[.58,-60,LT+.75],[.9,-95,LT+1],[.14,-68,LT+1.25],[.7,-104,LT+1.5]];
   const step=now=>{if(!cv.isConnected)return;const k=Math.max(0,Math.min(1,(now-t0)/dur));const e=scr?(2*k-.5*k*k)/1.5:1-Math.pow(1-k,3.2);const x=end*e,t=still?1:now/1000;
    g.clearRect(0,0,W,H);if(x>0){g.save();g.beginPath();g.rect(0,0,Math.round(W*x),H);g.clip();paint(g,Math.round(W*x),0,H,t);g.restore()}
    if(k<1){let i=TIERS.findIndex(tt=>x*100<=tt[0]);if(i<0)i=N-1;if(i===N-1)i=N-2;if(i!==shown){shown=i;lab.textContent=tl(TIERS[i][1]);lab.style.setProperty('--hc',COLS[i]);segs.forEach((sg,j)=>sg.classList.toggle('lit',j<=i));lab.classList.remove('tick');void lab.offsetWidth;lab.classList.add('tick')}place(x)}
@@ -2049,6 +2050,21 @@ function reveal(ans){if(results[qi])return;const q=Q[qi];const pts=ans?ans.pts:0
     // burst from the end of the bar, then a rainbow streak behind the flying unicorn
     if(a<1.2)for(let i=0;i<28;i++){const ang=((i*137.5)%360)*Math.PI/180,d=a*(50+(i*29%60));f2.globalAlpha=1-a/1.2;f2.fillStyle=RB[i%5];f2.fillRect(Math.round((ox+W+Math.cos(ang)*d)/3)*3,Math.round((oy+H/2+Math.sin(ang)*d*.6+a*a*40)/3)*3,4,4)}
     for(let i=0;i<40;i++){const b=a-i*.025;if(b<0)break;const pp=path(b);f2.globalAlpha=Math.max(0,1-i/40)*Math.max(0,1-Math.max(0,a-LT-.4)/.6);f2.fillStyle=RB[i%7];f2.fillRect(Math.round((ox+cx+pp[0]-Math.cos(pp[2]*Math.PI/180)*uw*.35)/3)*3,Math.round((oy+uy+uh*.55+pp[1])/3)*3,6,6)}f2.globalAlpha=1}
+   if(fly){
+    // bar flash, a shine sweeping along the full trail, and a little shake as it hits 100
+    if(a<.3){g.fillStyle=`rgba(255,255,255,${((1-a/.3)*.8).toFixed(2)})`;g.fillRect(0,0,W,H)}
+    if(a>.1&&a<.8){const sx=(a-.1)/.7*(W+60)-30;g.fillStyle='rgba(255,255,255,.55)';for(let yy=0;yy<H;yy+=3)g.fillRect(Math.round(sx-yy*.6),yy,12,3)}
+    bar.style.transform=a<.35?`translate(${Math.round(Math.sin(a*90)*3)}px,${Math.round(Math.cos(a*70)*2)}px)`:'';
+    // shockwave ring from the end of the bar
+    if(a<.45)for(let i=0;i<22;i++){const an=i/22*Math.PI*2,r=10+a*170;f2.globalAlpha=1-a/.45;f2.fillStyle=i%2?'#ffd23f':'#ffffff';f2.fillRect(Math.round((ox+W+Math.cos(an)*r)/3)*3,Math.round((oy+H/2+Math.sin(an)*r*.55)/3)*3,5,5)}
+    // pixel fireworks popping above the bar once the unicorn takes off
+    FW_.forEach(([bx,by,bt],bi)=>{const ag=a-bt,cx0=ox+W*bx,cy0=oy+by;
+     if(ag>-.25&&ag<0){const r=1+ag/.25;f2.globalAlpha=1;f2.fillStyle='#fff6c0';for(let j=0;j<4;j++)f2.fillRect(Math.round(cx0/3)*3,Math.round((oy+H/2+(cy0-oy-H/2)*r+j*6)/3)*3,3,4)}
+     if(ag>=0&&ag<1){if(ag<.08){f2.globalAlpha=1;f2.fillStyle='#ffffff';f2.fillRect(Math.round(cx0-6),Math.round(cy0-6),12,12)}
+      for(let i=0;i<26;i++){const an=i/26*Math.PI*2,sp=85+(i%3)*30;f2.globalAlpha=Math.max(0,1-ag*ag);f2.fillStyle=RB[(i+bi)%7];const sz=ag<.5?6:4;f2.fillRect(Math.round((cx0+Math.cos(an)*sp*ag)/3)*3,Math.round((cy0+Math.sin(an)*sp*ag*.8+60*ag*ag)/3)*3,sz,sz)}}});
+    f2.globalAlpha=1;
+    // once the unicorn has gone, the tag glides over to the end of the bar
+    if(a>LT+.45&&!tagDone){const m=Math.min(1,(a-LT-.45)/.45);place(.6+.4*(1-Math.pow(1-m,3)));if(m>=1)tagDone=true}}
    uni.style.opacity=op;uni.style.transform=`translate(${Math.round(cx-uw/2+px)}px,${Math.round(uy+py)}px) rotate(${Math.round(rot)}deg)${fly?` scale(${(1+Math.min(.15,a*.3)).toFixed(3)})`:''}`;
    requestAnimationFrame(step)};
   requestAnimationFrame(step)}
