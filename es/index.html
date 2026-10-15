@@ -2832,13 +2832,14 @@ function claimCopy(pl,g){const d=g?.day,rows=d?.rows||[];
  const r=rows.filter(x=>x.score>=pl.score).length+1;
  if(r<=10||d.players<=rows.length)return{h:`${['🥇','🥈','🥉'][r-1]||'🌍'} `+L(`Your ${pl.score} would be ${ord(r)} today`,`Tus ${pl.score} serían el ${ord(r)} de hoy`),p:L(`Out of ${d.players+1} players so far. Claim your spot before someone takes it.`,`De ${d.players+1} jugadores por ahora. Quédate tu puesto antes de que te lo quiten.`),rank:r,rows};
  return{h:L(`🌍 Get your ${pl.score} on today's ranking`,`🌍 Pon tus ${pl.score} en el ranking de hoy`),p:L(`Join the ${d.players} players already on it.`,`Únete a los ${d.players} jugadores que ya están.`),rank:null,rows}}
+let claimOpen=false;const claimPhone=()=>matchMedia('(max-width:600px)').matches;
 function claimSent(){if(sess)return null;try{const x=JSON.parse(lsGet(LG_SENT)||'null');return x&&Date.now()-x.at<3*3600e3?x:null}catch{return null}}
 function claimBox(c,pl){const sent=claimSent();
  if(sent)return `<div class="g-claim g-sent"><p class="g-you">📬 Check your inbox</p>
   <p class="g-sub">${ES?`Pulsa el enlace que hemos enviado a <b>${esc(sent.email)}</b> y <b>${esc(sent.nick)}</b> entra en el ranking con ${pl.score}.`:`Tap the link we sent to <b>${esc(sent.email)}</b> and <b>${esc(sent.nick)}</b> goes on the board with ${pl.score}.`}</p>
   <p class="g-spam">⚠️ <b>Not there? Check your spam folder.</b> It's from <b>Unicorner</b> (hello@auth.unicornergame.lol). Found it in spam? Tap <b>"Not spam"</b> so the next one lands in your inbox.</p>
   <div class="g-acts"><button type="button" class="ghost" data-lg="gresend">Resend link</button><button type="button" class="ghost" data-lg="gwrong">Wrong email?</button></div></div>`;
- return `<form class="g-claim" novalidate><p class="g-you">${c.h}</p><p class="g-sub">Save your score and get on the ranking.</p>
+ return `<form class="g-claim${claimOpen||draft.nick.trim()?' open':''}" novalidate><p class="g-you">${c.h}</p><p class="g-sub">Save your score and get on the ranking.</p>
   ${sess?'':`<button type="button" class="g-back" data-lg="back">${L('Already on the board? Sign in with your email','¿Ya estás en el ranking? Entra con tu email')}</button>`}
   <div class="g-fields"><label class="g-f"><span>Nickname</span><input name="nick" required minlength="2" maxlength="16" autocomplete="nickname" spellcheck="false" placeholder="e.g. Zizou10" value="${esc(draft.nick)}"></label>
   ${sess?'':`<label class="g-f"><span>Email</span><input name="email" type="email" required maxlength="120" autocomplete="email" placeholder="you@email.com" value="${esc(draft.email)}"></label>`}</div>
@@ -3050,6 +3051,8 @@ document.addEventListener('input',e=>{const i=e.target;if(!i.closest?.('.g-claim
  if(i.name==='nick'){draft.nick=i.value;document.querySelectorAll('.ucw .ghost .ucw-n,.ucw .ghost .ucw-pn').forEach(n=>n.textContent=ghostName());document.querySelectorAll('.ucw .ghost').forEach(r=>r.classList.toggle('named',!!draft.nick.trim()))}
  if(i.name==='email')draft.email=i.value});
 document.addEventListener('submit',async e=>{const f=e.target;if(!f.classList?.contains('g-claim'))return;e.preventDefault();if(busy)return;
+ // on a phone the form starts folded to one button; the first tap opens it
+ if(!f.classList.contains('open')&&claimPhone()){claimOpen=true;f.classList.add('open');f.nick?.focus();return}
  const nick=f.nick.value.trim(),email=f.email?.value.trim()||'',out=f.querySelector('.g-err'),btn=f.querySelector('[type=submit]'),say=m=>{out.textContent=m||''};
  if(nick.length<2)return say('Pick a nickname — 2 to 16 characters'),f.nick.focus();
  if(BAD_NICK.test(nick))return say('Pick a different nickname'),f.nick.focus();
@@ -3506,4 +3509,24 @@ html.polish .pz-count{font-variant-numeric:tabular-nums}
  const seen=new WeakSet(),scan=()=>document.querySelectorAll(SEL).forEach(el=>{if(seen.has(el))return;seen.add(el);io.observe(el)});
  const scr=document.getElementById('screen');if(scr)new MutationObserver(()=>setTimeout(scan,60)).observe(scr,{childList:true});scan()})();
 </script>
+<style>
+/* phone: give the cards room to breathe on the pitch, like on desktop */
+@media (max-width:600px){
+ .wrap{padding-left:18px!important;padding-right:18px!important}
+ .landing-wrap>section,.landing-wrap>.tk-wrap,.landing-wrap>div{margin-bottom:26px!important}
+ .topbar .tag{display:none!important}
+ /* league: the top 7 on the board, bigger rows; the full table is one tap away */
+ .ucw-r{font-size:12px!important;padding:5px 6px!important}
+ .ucw-r .ucw-u{width:32px!important;height:27px!important}
+ .ucw-r.h{font-size:9px!important}
+ .ucw-grid>.ucw-r:not(.h):not(.me):not(.ghost):nth-child(n+6){display:none}
+ /* claim form folds to a single button until tapped */
+ .g-claim:not(.open) .g-fields,.g-claim:not(.open) .g-small,.g-claim:not(.open) .g-check{display:none!important}
+ .g-fields{grid-template-columns:1fr!important}
+ /* instruction booklet: swipe through the pages side by side instead of stacking them */
+ .man-grid{grid-template-columns:none!important;grid-auto-flow:column;grid-auto-columns:84%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+ .man-grid::-webkit-scrollbar{display:none}
+ .man-s{scroll-snap-align:center}
+}
+</style>
 </body></html>
