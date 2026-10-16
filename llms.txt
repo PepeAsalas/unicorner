@@ -9,13 +9,16 @@
 - You have 30 seconds per question.
 - Scoring depends on how rare your answer is. The most obvious answers are a Tap-in (10 points), then Header (30), Volley (60), Bicycle kick (85), and the rarest valid answers are a Screamer (100 points).
 - The highest possible score is 500.
+- If you type a common near miss (for example a player who joined a season too late), a "VAR check" explains why it does not count, and you can try again while the clock runs.
 - At the end you get your score and can share it, Wordle-style.
+- New players get a short how-to-play walkthrough the first time they visit.
 
 ## Features
 
 - Global leaderboard: a ranking for each day's game and a weekly ranking that resets every Monday; yesterday's winner is shown at the top. Signing in with an email and picking a nickname puts you on it.
 - Private leagues: create a league, send the link to friends, and compare daily and weekly scores.
 - Kits: 40 outfits for your pixel-art unicorn, unlocked by playing (games played, streaks, Screamers, high scores). The rarest, the Cosmic GOAT, is only for players who win a day.
+- Weekly trophies: every Monday at midnight the past week is wrapped up and trophies are handed out, such as Champion (most points), Golden Boot (most Screamers), Ever-present (played all seven days) and Hat-trick (three Screamers in one game). They live in a trophy cabinet and show as badges next to names on the leaderboard.
 - Streaks for playing on consecutive days.
 - Infinity mode: endless practice with the same rules and no ranking (a short trial run is available now; the full version is coming soon).
 - Retro pixel-art, arcade style.
@@ -25,6 +28,18 @@
 - Free to play. No app to install; works on phone and desktop browsers.
 - Often described as a "football Wordle" or a daily football quiz for people with real ball knowledge.
 - Spanish version: https://unicornergame.lol/es/ (in Spanish the Screamer is called "Qué chicharro").
+
+## Quick answers
+
+- What is Unicorner? A free daily football trivia game where the rarest valid answer scores the most.
+- What is a Screamer? The rarest valid answer to a question, worth 100 points.
+- Is it like Wordle? Yes: one game a day, the same questions for everyone, and a shareable score. You name players, clubs or countries instead of guessing a word.
+- Do I need an account? No. Signing in is only needed for the leaderboard, private leagues and trophies.
+- Is there an app? No, it runs in any phone or desktop browser.
+
+## En español
+
+Unicorner es un juego diario y gratis de trivia de fútbol en https://unicornergame.lol/es/. Cada día hay cinco preguntas de fútbol con 30 segundos cada una, y la respuesta obvia puntúa menos: cuanto más rara sea tu respuesta válida, más puntos vale. La respuesta más rara es un "Qué chicharro" (100 puntos). Hay ranking diario y semanal, ligas privadas con amigos, trofeos semanales y equipaciones para tu unicornio.
 
 ## Links
 

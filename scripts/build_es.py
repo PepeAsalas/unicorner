@@ -30,6 +30,9 @@ FAQ = [
     ('¿Cuál es la puntuación máxima?', '500. Cada una de las cinco preguntas vale hasta 100 puntos: 10 por las respuestas más obvias (Empujarla), luego 30, 60 y 85, y 100 por las respuestas válidas más raras (Qué chicharro).'),
     ('¿Qué es el Modo Infinito?', 'El Modo Infinito es práctica sin fin con las mismas reglas que el juego diario: 30 segundos por pregunta y las respuestas más raras puntúan más, pero sin ranking. Ya puedes probar una ronda corta; la versión infinita completa llega pronto.'),
     ('¿Qué son las equipaciones?', 'Las equipaciones son trajes para tu unicornio pixelado. Hay 40 que se desbloquean jugando: por partidos jugados, rachas, chicharros y puntuaciones altas. La más rara, el GOAT cósmico, es solo para quien gana un día. Si has entrado con tu cuenta, tu equipación sale en la clasificación.'),
+    ('¿Qué es un Qué chicharro?', 'Qué chicharro es la respuesta válida más rara de una pregunta y vale los 100 puntos. Todas las respuestas correctas cuentan, pero cuanto más obvia, menos puntos: Empujarla vale 10, luego Remate 30, Volea 60 y Chilena 85.'),
+    ('¿Por qué no me ha contado la respuesta?', 'La respuesta tiene que encajar exactamente con la pregunta. Si escribes un fallo típico, como un jugador que llegó una temporada tarde o que jugó en el otro club, salta un VAR que te explica por qué no cuenta, y puedes volver a intentarlo mientras quede tiempo.'),
+    ('¿Qué son los trofeos semanales?', 'Cada lunes a medianoche se cierra la semana y se reparten trofeos: Campeón para quien más puntos suma, la Bota de Oro para quien más chicharros mete, Siempre presente por jugar los siete días, Hat-trick por tres chicharros en un partido, y más. Van a tu vitrina de trofeos y salen como insignias junto a tu nombre en el ranking. Para ganarlos necesitas un apodo.'),
 ]
 
 # Visible about/FAQ text, so the Spanish words are in the page itself and not only added by the script
@@ -50,6 +53,9 @@ FAQ_EN_NEW = [
     ('What is the highest score?', '500. Each of the five questions is worth up to 100 points: 10 for the most obvious answers (a Tap-in), then 30, 60 and 85, and 100 for the rarest valid answers (a Screamer).'),
     ('What is Infinity mode?', 'Infinity mode is endless practice with the same rules as the daily game: 30 seconds per question and rarer answers score more, but there is no ranking. You can try a short run now; the full endless version is coming soon.'),
     ('What are kits?', 'Kits are outfits for your pixel unicorn. There are 40 to unlock by playing, through games played, streaks, Screamers and big scores. The rarest, the Cosmic GOAT, is only for players who win a day. If you are signed in, your kit shows on the leaderboard.'),
+    ('What is a Screamer?', 'A Screamer is the rarest valid answer to a question, worth the full 100 points. Every correct answer counts, but the more obvious it is, the fewer points it scores: a Tap-in is 10, then a Header 30, a Volley 60 and a Bicycle kick 85.'),
+    ("Why didn't my answer count?", 'Your answer has to fit the question exactly. If you type a common near miss, such as a player who joined a season too late or played for the other club, a VAR check pops up and explains why it does not count, and you can try again while the clock is still running.'),
+    ('What are the weekly trophies?', 'Every Monday at midnight the past week is wrapped up and trophies are handed out: Champion for the most points, the Golden Boot for the most Screamers, Ever-present for playing all seven days, a Hat-trick for three Screamers in one game, and more. They go in your trophy cabinet and show as badges next to your name on the leaderboard. You need a nickname to win them.'),
 ]
 for (q, a), (qe, ae) in zip(FAQ_EN_NEW, FAQ[4:]):
     TEXT[f'<summary>{q}</summary><p>{a}</p>'] = f'<summary>{qe}</summary><p>{ae}</p>'
