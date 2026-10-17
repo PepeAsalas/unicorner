@@ -1814,6 +1814,8 @@ function setMeter(){const z=zoneOf(score),i=ZONES.findIndex(x=>x[1]===z),top=i==
 function lvlBurst(host,x,y){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const C=['#ffd23f','#fff','#39ff6a','#ff7ac8','#4fd7ff'];for(let k=0;k<26;k++){const s=document.createElement('i');s.className='lvl-spark';s.style.cssText=`left:${x}px;top:${y}px;background:${C[k%C.length]}`;host.appendChild(s);const a=Math.random()*6.283,d=40+Math.random()*80;s.animate([{transform:'translate(0,0)',opacity:1},{transform:`translate(${Math.cos(a)*d}px,${Math.sin(a)*d}px)`,opacity:0}],{duration:700+Math.random()*500,easing:'cubic-bezier(.1,.8,.3,1)'}).onfinish=()=>s.remove()}}
 
 const DAYKEY='unicorner-played-'+new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+// a tab left open past midnight still holds yesterday's game: reload so it never passes yesterday's score off as today's
+{const chk=()=>{if(!DAYKEY.endsWith(amsterdamDay())&&!document.body.classList.contains('playing'))location.reload()};document.addEventListener('visibilitychange',()=>{if(!document.hidden)chk()});addEventListener('focus',chk);setInterval(chk,60000)}
 const getPlayed=()=>{try{return JSON.parse(localStorage.getItem(DAYKEY))}catch{return null}};
 // today's game was first scored 10·25·40·70·100; anyone who played it before the switch gets their answers re-scored
 (()=>{if(PTS!==PTS_NEW)return;try{const r=getPlayed();if(!r||!Array.isArray(r.picks)||!r.picks.some(x=>Array.isArray(x)&&[25,40,70].includes(x[2])))return;
@@ -2784,7 +2786,7 @@ async function autoClaim(){const n=pendingNick();
  showToast(L(`You're on the board, ${me.profile.nickname}! 🌍`,`¡Ya estás en el ranking, ${me.profile.nickname}! 🌍`))}
 
 // ── Score sync: the first finished score of the day goes to the player's leagues ──
-function playedToday(){const day=amsterdamDay();let p=null;try{p=getPlayed()}catch{}
+function playedToday(){const day=amsterdamDay();let p=null;try{if(DAYKEY.endsWith(day))p=getPlayed()}catch{}
  if(p&&typeof p.score==='number')return{score:p.score,day};
  try{const c=JSON.parse(lsGet(LG_PSCORE)||'null');if(c&&c.day===day&&typeof c.score==='number')return c}catch{}
  return null}
