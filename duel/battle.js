@@ -49,23 +49,21 @@ function px(s,x,y,size,col,{align='center',out=true,font='disp'}={}){g.font=`${s
  if(out){g.fillStyle='#06041a';const o=Math.max(2,Math.round(size*.06));for(const[dx,dy]of[[-o,0],[o,0],[0,-o],[0,o],[o,o],[-o,o],[0,o*2],[o,o*2]])g.fillText(s,x+dx,y+dy)}g.fillStyle=col;g.fillText(s,x,y)}
 function wrap(s,max,size){g.font=`${size}px "Jersey 10",monospace`;const w=s.split(' '),L=[];let l='';for(const x of w){const t=l?l+' '+x:x;if(g.measureText(t).width>max&&l){L.push(l);l=x}else l=t}L.push(l);return L}
 /* night arena: a bowl of stands, floodlight towers, the big screen, a lit pitch */
-const CROWD=['#ff6fb5','#ffd23f','#4fc3ff','#ffffff','#7c4dff','#ff3b30','#39ff6a','#ff8a1f'];
-function arena(t,label){const sky=g.createLinearGradient(0,0,0,330);sky.addColorStop(0,'#05031a');sky.addColorStop(1,'#1d1458');g.fillStyle=sky;g.fillRect(0,0,W,H);
- for(let i=0;i<40;i++)sq(g,rnd(i)*W,rnd(i+9)*140,rnd(i+3)>.8?3:2,'rgba(255,255,255,.6)');
- // floodlight towers with glow
- for(const x of[40,W-40]){const gl=g.createRadialGradient(x,90,4,x,90,140);gl.addColorStop(0,'rgba(255,248,210,.55)');gl.addColorStop(1,'rgba(255,248,210,0)');g.fillStyle=gl;g.fillRect(x-150,-60,300,300);
-  g.fillStyle='#2b2357';g.fillRect(x-4,100,8,160);g.fillStyle='#06041a';g.fillRect(x-26,70,52,34);for(let r=0;r<2;r++)for(let c=0;c<4;c++){g.fillStyle='#fff7d6';g.fillRect(x-22+c*12,74+r*14,9,10)}}
- // big screen
- g.fillStyle='#06041a';g.fillRect(150,104,240,74);g.fillStyle='#120c38';g.fillRect(156,110,228,62);g.fillStyle='#2b2357';g.fillRect(262,178,16,40);
+function arena(t,label){g.fillStyle='#0b0a24';g.fillRect(0,0,W,H);for(let i=0;i<30;i++)sq(g,rnd(i)*W,rnd(i+7)*120,2,'rgba(255,255,255,.5)');
+ // city skyline, windows flick on and off
+ for(let i=0;i<14;i++){const w=30+rnd(i)*40,h=120+rnd(i+1)*180,x=i*40-10;g.fillStyle=i%2?'#1d1a3a':'#26224a';g.fillRect(x,330-h,w,h);
+  for(let j=0;j<24;j++)if(rnd(i*30+j+Math.floor(t/3))>.55){g.fillStyle=rnd(j)>.5?'#ffd23f':'#4fd7ff';g.fillRect(x+4+(j%3)*10,338-h+Math.floor(j/3)*16,5,7)}}
+ // radio mast with a blinking light
+ g.fillStyle='#ff6fb5';g.fillRect(470,70,6,120);g.fillRect(462,62,22,8);if(Math.floor(t*2)%2){g.fillStyle='#ff3b30';g.fillRect(469,52,8,8)}
+ // rooftop sign
+ g.fillStyle='#06041a';g.fillRect(150,104,240,74);g.fillStyle='#120c38';g.fillRect(156,110,228,62);g.fillStyle='#2b2357';g.fillRect(190,178,8,60);g.fillRect(342,178,8,60);
  px(label,W/2,156,44,'#ffd23f',{out:false});
- // bowl: tiers of crowd curving down to the pitch
- const bounce=Math.floor(t*6);for(let r=0;r<14;r++){const y=200+r*11,curve=r*3.2;g.fillStyle=r%4===3?'#3a2c9a':'#16103e';g.fillRect(0,y,W,11);
-  for(let c=0;c<56;c++){const s=r*56+c,x=c*10+((r%2)*5),yy=y+2+Math.pow((x-W/2)/(W/2),2)*-curve+curve;if(rnd(s*.7)>.88)continue;g.fillStyle=CROWD[Math.floor(rnd(s)*CROWD.length)];g.fillRect(x,yy+(rnd(s+bounce*.37)>.85?-2:0),6,7)}}
- g.fillStyle='#ff6fb5';g.fillRect(0,354,W,8);g.fillStyle='#06041a';g.fillRect(0,362,W,4);
- // pitch with a spotlight ring
- for(let i=0;i<11;i++){g.fillStyle=i%2?'#2a7f28':'#2f8a2c';g.fillRect(0,366+i*40,W,40)}
- const sp=g.createRadialGradient(W/2,430,30,W/2,430,300);sp.addColorStop(0,'rgba(255,255,230,.18)');sp.addColorStop(1,'rgba(0,0,30,.35)');g.fillStyle=sp;g.fillRect(0,366,W,H-366);
- g.strokeStyle='rgba(255,255,255,.6)';g.lineWidth=3;g.beginPath();g.ellipse(W/2,450,200,60,0,0,Math.PI*2);g.stroke();g.fillStyle='rgba(255,255,255,.6)';g.fillRect(W/2-1,390,3,120)}
+ // railing and the roof edge
+ g.fillStyle='#9aa3b5';g.fillRect(0,326,W,10);for(let x=0;x<W;x+=30)g.fillRect(x,300,4,30);g.fillRect(0,300,W,4);
+ // pitch in perspective: stripes get taller towards the camera
+ const top=336,hw=W*1.05;let y=top;for(let i=0;i<18;i++){const h=8+i*5.2,t0=(y-top)/(H-top),t1=(y+h-top)/(H-top),w0=hw+(W*1.6-hw)*t0,w1=hw+(W*1.6-hw)*t1;
+  g.fillStyle=i%2?'#2f8a8a':'#349595';g.beginPath();g.moveTo(W/2-w0/2,y);g.lineTo(W/2+w0/2,y);g.lineTo(W/2+w1/2,y+h);g.lineTo(W/2-w1/2,y+h);g.fill();y+=h}
+ g.strokeStyle='rgba(255,255,255,.75)';g.lineWidth=3;g.beginPath();g.moveTo(0,top+2);g.lineTo(W,top+2);g.stroke();g.beginPath();g.moveTo(W/2,top);g.lineTo(W/2,H);g.stroke();g.beginPath();g.ellipse(W/2,top+150,150,48,0,0,Math.PI*2);g.stroke()}
 function hpBar(x,y,w,hp,shown,name,right){g.fillStyle='#06041a';g.fillRect(x-4,y-4,w+8,72);g.fillStyle='#1a1240';g.fillRect(x,y,w,64);
  px(name,right?x+w-12:x+12,y+30,30,'#f3ead2',{align:right?'right':'left',out:false});px(Math.round(shown)+' HP',right?x+12:x+w-12,y+30,24,'#ffd23f',{align:right?'left':'right',out:false,font:'mono'});
  g.fillStyle='#06041a';g.fillRect(x+10,y+40,w-20,16);const f=hp/300,col=f>.5?'#39d353':f>.2?'#ffb000':'#ff4d4d';
@@ -93,7 +91,7 @@ function frame(now){if(!cv.isConnected)return;let t=paused?pausedAt:(now-t0)/100
  // move names
  if(inR&&lt>1.75&&lt<2.4&&!blk)for(const k of[0,1]){const m=k?op:yo;if(!m[1])continue;px(ATK[(k?P2:P1).atk].name.toUpperCase()+'!',pos[k][0],515,26,'#ffffff')}
  if(t>=INTRO&&ri<N){const s=eob(seg(lt,0,.3));g.save();g.translate(W/2,600);g.scale(s,s);g.fillStyle='#06041a';g.fillRect(-250,-62,500,128);g.fillStyle='#2a1f78';g.fillRect(-244,-56,488,116);g.strokeStyle='#f3ead2';g.lineWidth=4;g.strokeRect(-238,-50,476,104);g.restore();
-  if(s>.6){const L=wrap(q,440,32);L.forEach((l,i)=>px(l,W/2,606-(L.length-1)*16+i*32,32,'#ffffff'))}
+  if(s>.6){let z=32,L=wrap(q,440,z);if(L.length>2){z=26;L=wrap(q,450,z)}L.forEach((l,i)=>px(l,W/2,612-(L.length-1)*z/2+i*z,z,'#ffffff'))}
   // 15 second clock, sped up for the mock-up
   const left=Math.max(0,Math.ceil(15*(1-seg(lt,0,1.6))));g.fillStyle='#06041a';g.fillRect(W/2-34,522,68,34);g.fillStyle=left<=5?'#ff4d4d':'#ffd23f';g.fillRect(W/2-30,526,60,26);px(String(left),W/2,548,30,'#06041a',{out:false});
   for(const k of[0,1]){const a=k?op:yo,x=k?W-138:138,y=706;if(lt<.6)continue;const rev=lt>1.6;g.fillStyle='#06041a';g.fillRect(x-124,y-30,248,72);g.fillStyle='#120c38';g.fillRect(x-118,y-24,236,60);
