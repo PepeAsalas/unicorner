@@ -80,6 +80,11 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
   <div class="link" id="w-link"></div>
   <div class="row"><button id="copy2" class="ghost">Copy link</button><button id="refresh">Check again</button></div>
  </section>
+ <section id="s-view" class="card" hidden>
+  <h2 id="v-title">ROUND 1 IS IN</h2>
+  <p id="v-msg">You've both played. See how it went.</p>
+  <button id="v-go">View your duel</button>
+ </section>
  <section id="s-battle" hidden>
   <div class="cab"><canvas id="bc" width="540" height="780" aria-label="Duel battle replay"></canvas></div>
   <div class="card fb" id="fb" hidden><p><b>How was the duel?</b> It's new, so tell us.</p>
@@ -207,7 +212,7 @@ async function battle(){const slot=D.me||1,me=D.players.find(p=>p.slot===slot),r
  $('next').hidden=true;$('rematch').hidden=!over;let rec=null;if(over&&D.me)try{const r=await rpc('duel_record',{p_token:TOKEN});if(r)rec=[r.w,r.d,r.l]}catch{}
  $('fb').hidden=true;if(over&&D.me){const res=hp[0]===hp[1]?'draw':hp[slot-1]>hp[2-slot]?'win':'loss';if(!ls('uc-duel-end-'+code)){ls('uc-duel-end-'+code,'1');track('duel_end',{code,result:res,questions:n})}fbFor=code}
  const opts={hp:hpAfter(A,B,s0),q0:s0,title:roundName(s0),final:over,rec,intro:s0===0?'vs':s0===15?'sd':null,next:n<15?'NO KO YET':'STILL LEVEL'};
- show('s-battle');const go=()=>{$('next').hidden=true;startBattle($('bc'),R,{name:D.me?'YOU':me.name,kit:me.kit,rec:me.rec},{name:rv.name,kit:rv.kit,rec:rv.rec},()=>{if(!over&&D.me){$('next').hidden=false;$('next').textContent=n<15?'Play round '+roundNo(n):'Sudden death'}if(over&&D.me&&!ls('uc-duel-fb-'+code))$('fb').hidden=false},opts)};go();$('replay').onclick=go}
+ const go=()=>{show('s-battle');$('next').hidden=true;startBattle($('bc'),R,{name:D.me?'YOU':me.name,kit:me.kit,rec:me.rec},{name:rv.name,kit:rv.kit,rec:rv.rec},()=>{if(!over&&D.me){$('next').hidden=false;$('next').textContent=n<15?'Play round '+roundNo(n):'Sudden death'}if(over&&D.me&&!ls('uc-duel-fb-'+code))$('fb').hidden=false},opts)};$('v-title').textContent=over?'THE DUEL IS OVER':roundName(s0)+' IS IN';$('v-msg').textContent=over?'Full time. See who won.':"You've both played. See how it went.";$('v-go').onclick=go;show('s-view');$('replay').onclick=go}
 $('next').onclick=()=>play();
 // feedback on the finished duel, shown once the battle ends
 let fbFor=null,fbRate=null;
