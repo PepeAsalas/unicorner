@@ -756,6 +756,7 @@ body.playing .brand-home{cursor:default}
 @media (max-width:640px){.played-results-home{width:100%;justify-content:center}}
 
 /* social-first result screen */
+.pcd-du{text-align:center;margin:8px 0 2px;font-size:15px}.pcd-du b{font-size:18px;margin:0 4px}.pcd-du small{opacity:.7}
 .duel-strip{display:flex;align-items:center;gap:6px;margin:-12px 0 22px;padding:6px 10px 6px 6px;background:linear-gradient(#f7efdc,#eadcb9);border:3px solid #06041a;box-shadow:4px 4px 0 rgba(0,0,0,.4);color:#06041a;text-decoration:none}
 .duel-spr{display:block;width:40px;height:34px;background:center/contain no-repeat;image-rendering:pixelated}.duel-flip{transform:scaleX(-1)}
 .duel-vs{font:400 18px 'Jersey 10',monospace;background:#ffd23f;border:2px solid #06041a;padding:0 4px;line-height:1.1}
@@ -2968,7 +2969,9 @@ function playerCard(r){const k=kitOf(r),info=window.ucKitInfo||{},t=info.KLV?.[k
  <div class="pcd-st"><div><b>${n}/${all.length}</b>${L('kits','equip.')}</div><div><b>${streak}</b>${L('best streak','mejor racha')}</div><div><b>${games}</b>${L('games','partidos')}</div></div>
  ${(()=>{const nk=(r.me?me?.profile?.nickname:r.nickname)||'';return nk&&!r.ghost?`<div class="pcd-tr" data-tn="${esc(String(nk).toLowerCase())}" hidden></div>`:''})()}
  <div class="pcd-shelf" aria-label="${n} ${L('kits owned','equipaciones')}">${all.map(x=>`<i class="${own.has(x.id)?'':'no'}" title="${esc(L(x.en,x.es))}" style="background-image:${uniBg(x)}"></i>`).join('')}</div></div>`;
- if(!d.open)d.showModal();track('player_card',{me:!!r.me})}
+ if(!d.open)d.showModal();track('player_card',{me:!!r.me});duelRec(d,(r.me?me?.profile?.nickname:r.nickname)||'')}
+// 1v1 duel record (wins-draws-losses) under the stats, only once they've finished a duel
+function duelRec(d,nick){if(!nick||ES)return;fetch(SB_URL+'/rest/v1/rpc/duel_record_nick',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({p_nick:nick})}).then(x=>x.ok?x.json():null).then(j=>{if(!j||!(j.w+j.d+j.l)||!d.open)return;const st=d.querySelector('.pcd-st');if(!st||d.querySelector('.pcd-du'))return;st.insertAdjacentHTML('afterend',`<div class="pcd-du">⚔️ 1v1 duels <b>${j.w}-${j.d}-${j.l}</b> <small>W-D-L</small></div>`)}).catch(()=>{})}
 // Send this player's kit and kit count to their account so everyone sees their unicorn on the boards
 let lookBusy=false;
 async function syncLook(){if(!sess||!me?.profile||lookBusy)return;const l=myLook();if(!l)return;

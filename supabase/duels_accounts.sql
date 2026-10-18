@@ -114,3 +114,10 @@ grant execute on function public.duel_record(text) to anon, authenticated;
 grant execute on function public.duel_create(text, text, text, jsonb) to anon, authenticated;
 grant execute on function public.duel_join(text, text, text, text) to anon, authenticated;
 grant execute on function public.duel_get(text, text) to anon, authenticated;
+
+-- a leaderboard player's duel record, by nickname (shown on their player card)
+create or replace function public.duel_record_nick(p_nick text)
+returns jsonb language sql stable security definer set search_path = public as $$
+  select duel_record_k(user_id, null) from player_profiles where lower(nickname) = lower(trim(p_nick))
+$$;
+grant execute on function public.duel_record_nick(text) to anon, authenticated;
