@@ -42,17 +42,30 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 .tier{font-family:var(--disp);font-size:46px;text-align:center}
 .cab{position:relative;aspect-ratio:9/13;width:100%;border:4px solid var(--cream);box-shadow:0 0 0 4px var(--ink);overflow:hidden;background:var(--ink)}
 .cab canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
-.small{font-size:18px}.fb{margin-top:14px;display:grid;gap:10px}.fb textarea{font:inherit;font-size:18px;width:100%;box-sizing:border-box;padding:8px;border:3px solid var(--ink);background:var(--cream);color:var(--ink)}.fb [data-fb].on{background:var(--gold);color:var(--ink)}.rec{color:var(--gold)}
+.small{font-size:18px}
+.ib{display:grid;gap:10px;margin:14px 0}.ib-row{display:flex;align-items:center;gap:10px;background:#120c38;padding:10px 12px;border:3px solid var(--ink)}
+.ib-row b{flex:1;font-family:var(--disp);font-size:26px;font-weight:400;color:#fff;line-height:1}.ib-row small{display:block;font-family:var(--mono);font-size:17px;color:var(--muted)}
+.ib-st{font-family:var(--mono);font-size:17px;padding:2px 8px;color:var(--ink);white-space:nowrap}.ib-row button{width:auto;font-size:20px;padding:6px 12px}
+.ib-off{display:flex;gap:10px;align-items:center;margin:4px 0 14px}.ib-off input{width:22px;height:22px}
+#s-inbox button+button{margin-top:12px}.fb{margin-top:14px;display:grid;gap:10px}.fb textarea{font:inherit;font-size:18px;width:100%;box-sizing:border-box;padding:8px;border:3px solid var(--ink);background:var(--cream);color:var(--ink)}.fb [data-fb].on{background:var(--gold);color:var(--ink)}.rec{color:var(--gold)}
 [hidden]{display:none!important}
 </style></head><body>
 <main>
  <header><h1>UNICORNER DUEL</h1><p>Rounds of five questions until someone is KO'd. The rarer answer hits harder.</p></header>
  <section id="s-home" class="card" hidden>
-  <h2>CHALLENGE A MATE</h2>
+  <h2 id="h-title">CHALLENGE A MATE</h2>
   <label for="nm">Your name<input id="nm" maxlength="16" autocomplete="nickname" placeholder="e.g. Pepo"></label>
   <button id="create">Create duel</button>
   <p class="small">You get a link to send. You both start on 300 HP and play rounds of five questions, 15 seconds each, then watch the battle. Keep going until someone is KO'd.</p>
   <p class="small rec" id="rec1" hidden></p>
+  <button class="ghost" id="to-inbox" hidden style="margin-top:12px">My duels</button>
+ </section>
+ <section id="s-inbox" class="card" hidden>
+  <h2>MY DUELS</h2>
+  <div id="ib-list" class="ib"></div>
+  <label class="ib-off"><input type="checkbox" id="ib-allow"> Let other players challenge me</label>
+  <button id="ib-new">New duel by link</button>
+  <button class="ghost" onclick="location.href='/'">← Back to Unicorner</button>
  </section>
  <section id="s-join" class="card" hidden>
   <div class="vs"><div class="pl" id="j-p1"></div><b>VS</b><div class="pl"><i id="j-me"></i>YOU</div></div>
@@ -150,7 +163,7 @@ const roundStart=n=>n<=15?n-5:n-1; // first question of the round that ends at n
 function hpAfter(a,b,n){let h=[300,300];for(let i=0;i<n&&h[0]&&h[1];i++){const x=a[i]||[null,0],y=b[i]||[null,0];if(x[0]&&x[0]===y[0])continue;h=[Math.max(0,h[0]-y[1]),Math.max(0,h[1]-x[1])]}return h}
 const roundName=n=>n<15?'ROUND '+roundNo(n):'SUDDEN DEATH';
 // ── flow ──
-const code=new URLSearchParams(location.search).get('d');
+const QS=new URLSearchParams(location.search),code=QS.get('d'),VSN=QS.get('vs'),INBOX=QS.has('inbox');
 const link=c=>location.origin+location.pathname+'?d='+c;
 async function copy(c){try{await navigator.clipboard.writeText(link(c))}catch{}}
 let D=null,Q=[];
@@ -159,11 +172,18 @@ async function boot(){$('nm').value=$('nm2').value=ls('uc-nick')||ls('uc-duel-na
  if(ls('uc-nick'))for(const id of['nm','nm2']){const l=$(id).closest('label');if(l&&!l.dataset.nick){l.dataset.nick=1;l.hidden=true;const p=document.createElement('p');p.className='small';p.textContent='Playing as '+ls('uc-nick');l.after(p)}}
  track('duel_view',{code:code||null});
  userToken().then(t=>{if(t)rpc('duel_claim',{p_token:TOKEN}).catch(()=>{})});
- if(!code){if(!playedToday())return gate();record('rec1');show('s-home');return}
+ if(INBOX)return inbox();
+ if(VSN&&!code){if(!await userToken())return fail('Sign in on Unicorner (the league login) to challenge players.');if(!playedToday())return gate();
+  $('h-title').textContent=`CHALLENGE ${VSN.toUpperCase().slice(0,16)}`;$('create').textContent='Send challenge';$('create').dataset.vs=VSN;
+  document.querySelector('#s-home .small').textContent=`${VSN} gets it in their duel inbox. You both start on 300 HP and play rounds of five questions until someone is KO'd.`;show('s-home');return}
+ if(!code){if(!playedToday())return gate();record('rec1');if(await userToken())$('to-inbox').hidden=false;show('s-home');return}
  try{D=await rpc('duel_get',{p_code:code,p_token:TOKEN})}catch(e){return fail('Could not reach the server. Try again in a moment.')}
  if(!D)return fail('That duel link does not exist.');
  const me=D.players.find(p=>p.slot===D.me),p1=D.players.find(p=>p.slot===1);
 
+ if(!me&&D.challenge&&!D.for_me)return fail(`This challenge is for ${D.for_nick||'another player'}. Signed in as them? Open it from their duel inbox.`);
+ if(!me&&D.declined)return fail('This challenge was declined.');
+ if(!me&&D.expired)return fail('This challenge expired (challenges last 3 days).');
  if(!me){if(D.players.length>=2)return fail('This duel already has two players.');
   if(!playedToday())return gate(p1.name);
   $('j-p1').innerHTML=`<i style="background-image:${spBg(p1.kit)}"></i>${esc(p1.name)}<small>${p1.picks.length||p1.played?'has played round 1':'is waiting'}</small>`;$('j-me').style.backgroundImage=spBg(KIT);$('j-title').textContent=`${p1.name.toUpperCase()} CHALLENGED YOU`;show('s-join');return}
@@ -175,15 +195,28 @@ async function boot(){$('nm').value=$('nm2').value=ls('uc-nick')||ls('uc-duel-na
  ready()}
 function ready(){const me=D.players.find(p=>p.slot===D.me),n=me.picks.length;$('r-link').textContent=link(code);
  $('r-title').textContent=n?(n<15?roundName(n)+' · NO KO YET':'LEVEL AFTER 15 · SUDDEN DEATH'):me.slot===1?'YOUR DUEL IS READY':'READY WHEN YOU ARE';
- $('go').textContent=n<15?'Play round '+roundNo(n):'Sudden death: 1 question';show('s-ready')}
+ $('go').textContent=n<15?'Play round '+roundNo(n):'Sudden death: 1 question';
+ const ch=D.challenge&&me.slot===1&&!D.players.find(p=>p.slot===2);$('r-link').hidden=$('copy').hidden=!!ch;$('r-link').previousElementSibling.textContent=ch?`Challenge sent to ${D.for_nick}. It's in their duel inbox; play your round now.`:'Send this link to your mate:';if(ch&&!n)$('r-title').textContent='CHALLENGE SENT';show('s-ready')}
 function gate(who){if(code)ls('uc-duel-pending',code);if(who){$('g-title').textContent=`${who.toUpperCase()} CHALLENGED YOU`;$('g-msg').textContent=`Play today's five questions first, then come back for your duel. Your link is saved: you'll find it on your results screen.`}
  track('duel_gate',{code:code||null});show('s-gate')}
 $('g-go').onclick=()=>{location.href='/'};
+// ── inbox: every duel you're in, like a chess app: your turn, their turn, finished ──
+const IB={challenge:['NEW CHALLENGE','#ffd23f','Accept'],sent:['WAITING TO ACCEPT','#c9bff5','View'],your_turn:['YOUR TURN','#39d353','Play'],their_turn:['THEIR TURN','#c9bff5','View'],
+ won:['YOU WON','#39d353','View'],lost:['YOU LOST','#ff6b6b','View'],draw:['DRAW','#4fc3ff','View'],declined:['DECLINED','#8a80b8',''],expired:['EXPIRED','#8a80b8','']};
+async function inbox(){if(!await userToken())return fail('Sign in on Unicorner (the league login) to see your duels.');let r;try{r=await rpc('duel_inbox',{})}catch{return fail('Could not load your duels. Try again in a moment.')}
+ track('duel_inbox',{n:r.items.length});$('ib-allow').checked=!r.off;
+ $('ib-list').innerHTML=r.items.length?r.items.map(x=>{const[l,c,b]=IB[x.state]||[x.state,'#ccc',''];return`<div class="ib-row"><b>${esc(x.opp)}<small>${new Date(x.at).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}${x.played?' · '+x.played+' questions played':''}</small></b><span class="ib-st" style="background:${c}">${l}</span>${b?`<button data-go="${x.code}">${b}</button>`:''}${x.state==='challenge'?`<button class="ghost" data-no="${x.code}">No</button>`:''}</div>`}).join('')
+  :'<p>No duels yet. Tap a player on the leaderboard to challenge them, or send a duel link to a mate.</p>';
+ for(const b of document.querySelectorAll('[data-go]'))b.onclick=()=>{location.href='duel.html?d='+b.dataset.go};
+ for(const b of document.querySelectorAll('[data-no]'))b.onclick=async()=>{b.disabled=true;try{await rpc('duel_decline',{p_code:b.dataset.no})}catch{}inbox()};
+ show('s-inbox')}
+$('ib-allow').onchange=e=>rpc('duel_challenges_set',{p_off:!e.target.checked}).catch(()=>{});
+$('ib-new').onclick=()=>{location.href='duel.html'};$('to-inbox').onclick=()=>{location.href='duel.html?inbox'};
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 $('create').onclick=async e=>{const n=$('nm').value.trim();if(!n)return $('nm').focus();ls('uc-duel-name',n);e.target.disabled=true;e.target.textContent='Creating…';
- try{const qset=await pickQs();const c=await rpc('duel_create',{p_token:TOKEN,p_name:n,p_kit:KIT,p_qset:qset});track('duel_create',{code:c});location.href='duel.html?d='+c}catch(err){e.target.disabled=false;e.target.textContent='Create duel';fail('Could not create the duel: '+err.message)}};
+ try{const qset=await pickQs();const vs=e.target.dataset.vs;const c=vs?await rpc('duel_challenge',{p_token:TOKEN,p_name:n,p_kit:KIT,p_qset:qset,p_nick:vs}):await rpc('duel_create',{p_token:TOKEN,p_name:n,p_kit:KIT,p_qset:qset});track(vs?'duel_challenge':'duel_create',{code:c});location.href='duel.html?d='+c}catch(err){e.target.disabled=false;e.target.textContent='Create duel';fail('Could not create the duel: '+err.message)}};
 $('join').onclick=async e=>{const n=$('nm2').value.trim();if(!n)return $('nm2').focus();ls('uc-duel-name',n);e.target.disabled=true;
- try{await rpc('duel_join',{p_code:code,p_token:TOKEN,p_name:n,p_kit:KIT});ls('uc-duel-pending','');track('duel_join',{code});play()}catch(err){fail(/duel yourself/.test(err.message)?"That's your own duel. Send the link to a mate.":err.message==='duel is full'?'This duel already has two players.':'Could not join: '+err.message)}};
+ try{await rpc('duel_join',{p_code:code,p_token:TOKEN,p_name:n,p_kit:KIT});ls('uc-duel-pending','');track('duel_join',{code});play()}catch(err){fail(/someone else|declined|expired/.test(err.message)?'Could not join: '+err.message+'.':/duel yourself/.test(err.message)?"That's your own duel. Send the link to a mate.":err.message==='duel is full'?'This duel already has two players.':'Could not join: '+err.message)}};
 $('copy').onclick=async e=>{await copy(code);e.target.textContent='Copied ✓'};$('copy2').onclick=async e=>{await copy(code);e.target.textContent='Copied ✓'};
 $('go').onclick=()=>play();$('refresh').onclick=()=>location.reload();
 $('rematch').onclick=()=>{location.href='duel.html'};
@@ -206,7 +239,7 @@ function lock(r){if(locked)return;locked=true;clearInterval(timer);$('q-in').dis
  setTimeout(()=>{qi++;if(qi<size)ask();else finish()},1100)}
 async function finish(){try{await rpc('duel_submit',{p_code:code,p_token:TOKEN,p_picks:picks});track('duel_round',{code,played:base+size,score:picks.reduce((t,p)=>t+(p[1]||0),0)})}catch(e){if(!/already played|is over/.test(e.message))return fail('Could not save your answers: '+e.message)}
  D=await rpc('duel_get',{p_code:code,p_token:TOKEN});const me=D.players.find(p=>p.slot===D.me);D.shared>=me.picks.length?battle():waiting()}
-function waiting(){const me=D.players.find(p=>p.slot===D.me),rv=D.players.find(p=>p.slot!==D.me);const n=me.picks.length,s0=roundStart(n),dmg=me.picks.slice(s0).reduce((t,p)=>t+(p[1]||0),0);$('w-score').textContent=`${roundName(s0)} done: you threw ${dmg} damage.`;$('w-rival').textContent=rv?rv.name:'your mate';$('w-link').textContent=link(code);show('s-wait');
+function waiting(){const me=D.players.find(p=>p.slot===D.me),rv=D.players.find(p=>p.slot!==D.me);const n=me.picks.length,s0=roundStart(n),dmg=me.picks.slice(s0).reduce((t,p)=>t+(p[1]||0),0);$('w-score').textContent=`${roundName(s0)} done: you threw ${dmg} damage.`;$('w-rival').textContent=rv?rv.name:'your mate';$('w-link').textContent=link(code);$('w-link').hidden=$('copy2').hidden=!!D.challenge;show('s-wait');
  clearInterval(window._poll);window._poll=setInterval(async()=>{try{const d=await rpc('duel_get',{p_code:code,p_token:TOKEN});if(d&&d.shared>=n){clearInterval(window._poll);D=d;battle()}}catch{}},10000)}
 // ── the battle: shown from your side (you on the left) ──
 async function battle(){const slot=D.me||1,me=D.players.find(p=>p.slot===slot),rv=D.players.find(p=>p.slot!==slot);
