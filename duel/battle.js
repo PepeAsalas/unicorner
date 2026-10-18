@@ -35,7 +35,7 @@ const ATK={
 const ORDER=['classic','fire','galaxy','ice','zebra','gold','matrix','lava','ref','keeper'];
 /* ── the duel ── */
 let cv,g;
-let P1,P2,R,N,HP,TOTAL,onEnd=null,ended=false;
+let P1,P2,R,N,HP,TOTAL,onEnd=null,ended=false,O={};
 const R_DEMO=[
  ['PLAYED FOR ENGLAND AT EURO 2024',['ANTHONY GORDON','SCREAMER',100],['HARRY KANE','TAP-IN',10]],
  ['PLAYED FOR ARGENTINA AT THE 2022 WORLD CUP',['RODRIGO DE PAUL','TAP-IN',10],['RODRIGO DE PAUL','TAP-IN',10]],
@@ -44,7 +44,7 @@ const R_DEMO=[
  ['PLAYED FOR INTER IN A TITLE SEASON, 2020-21 OR 2023-24',['TAJON BUCHANAN','SCREAMER',100],['LAUTARO MARTINEZ','TAP-IN',10]],
 ];
 const RD=4.4,INTRO=1.6;
-function setup(){N=R.length;HP=[[300,300]];for(let i=0;i<N;i++){const[a,b]=HP[i],[,y,o]=R[i];const blk=!!y[0]&&y[0]===o[0];HP.push([Math.max(0,a-(blk?0:o[2])),Math.max(0,b-(blk?0:y[2]))])}TOTAL=INTRO+RD*N+3}
+function setup(){N=R.length;HP=[(O.hp||[300,300]).slice()];for(let i=0;i<N;i++){const[a,b]=HP[i],[,y,o]=R[i];const blk=!!y[0]&&y[0]===o[0];HP.push([Math.max(0,a-(blk?0:o[2])),Math.max(0,b-(blk?0:y[2]))])}TOTAL=INTRO+RD*N+3}
 function px(s,x,y,size,col,{align='center',out=true,font='disp'}={}){g.font=`${size}px ${font==='disp'?'"Jersey 10","Pixelify Sans"':'VT323'},monospace`;g.textAlign=align;g.textBaseline='alphabetic';
  if(out){g.fillStyle='#06041a';const o=Math.max(2,Math.round(size*.06));for(const[dx,dy]of[[-o,0],[o,0],[0,-o],[0,o],[o,o],[-o,o],[0,o*2],[o,o*2]])g.fillText(s,x+dx,y+dy)}g.fillStyle=col;g.fillText(s,x,y)}
 function wrap(s,max,size){g.font=`${size}px "Jersey 10",monospace`;const w=s.split(' '),L=[];let l='';for(const x of w){const t=l?l+' '+x:x;if(g.measureText(t).width>max&&l){L.push(l);l=x}else l=t}L.push(l);return L}
@@ -76,11 +76,11 @@ function frame(now){if(!cv.isConnected)return;let t=paused?pausedAt:(now-t0)/100
  const [q,yo,op]=R[Math.min(ri,N-1)],blk=inR&&!!yo[0]&&yo[0]===op[0];
  const HIT=2.3,hit=inR&&lt>HIT&&lt<HIT+.5;let shake=hit&&!blk?7*(1-(lt-HIT)/.5)*(yo[1]==='SCREAMER'||op[1]==='SCREAMER'?2:1):0;
  g.translate(shake?(rnd(t*91)-.5)*shake*2:0,shake?(rnd(t*37)-.5)*shake*2:0);
- arena(t,t<INTRO?'DUEL':ri<N?'ROUND '+(ri+1):'FULL TIME');
+ arena(t,t<INTRO?(O.title||'DUEL'):ri<N?'Q'+((O.q0||0)+ri+1):(O.final?'FULL TIME':'HALF TIME'));
  const prev=HP[Math.min(ri,N)],next=HP[Math.min(ri+1,N)];let hp=prev,shown=prev;
  if(t<INTRO)hp=shown=HP[0];else if(ri>=N)hp=shown=HP[N];else if(lt>HIT){const k=eo(seg(lt,HIT,HIT+.4)),k2=eo(seg(lt,HIT+.5,HIT+1.2));hp=prev.map((v,i)=>v+(next[i]-v)*k);shown=prev.map((v,i)=>v+(next[i]-v)*k2)}
  hpBar(18,20,240,hp[0],shown[0],P1.name.toUpperCase().slice(0,12),false);hpBar(282,20,240,hp[1],shown[1],P2.name.toUpperCase().slice(0,12),true);
- if(t<INTRO)px('DUEL',W/2,300,110*eob(seg(t,.1,.5)),'#ffd23f');
+ if(t<INTRO){const T=O.title||'DUEL';px(T,W/2,300,(T.length>8?70:110)*eob(seg(t,.1,.5)),'#ffd23f')}
  const ko=[ri>=N&&HP[N][0]<=0,ri>=N&&HP[N][1]<=0],pos=[[150,420],[390,420]];
  // attacks fly between them
  if(inR&&lt>1.9&&lt<3.4&&!blk){for(const k of[0,1]){const mine=k?op:yo;if(!mine[1])continue;const P=k?P2:P1,[sx,sy]=pos[k],[tx,ty]=pos[1-k];g.save();ATK[P.atk].f(g,seg(lt,1.9,3.3),sx+(k?-50:50),sy,tx,ty,1);g.restore()}}
@@ -94,14 +94,14 @@ function frame(now){if(!cv.isConnected)return;let t=paused?pausedAt:(now-t0)/100
  if(inR&&lt>1.75&&lt<2.4&&!blk)for(const k of[0,1]){const m=k?op:yo;if(!m[1])continue;px(ATK[(k?P2:P1).atk].name.toUpperCase()+'!',pos[k][0],515,26,'#ffffff')}
  if(t>=INTRO&&ri<N){const s=eob(seg(lt,0,.3));g.save();g.translate(W/2,600);g.scale(s,s);g.fillStyle='#06041a';g.fillRect(-250,-62,500,128);g.fillStyle='#2a1f78';g.fillRect(-244,-56,488,116);g.strokeStyle='#f3ead2';g.lineWidth=4;g.strokeRect(-238,-50,476,104);g.restore();
   if(s>.6){const L=wrap(q,440,32);L.forEach((l,i)=>px(l,W/2,606-(L.length-1)*16+i*32,32,'#ffffff'))}
-  // 25 second clock, sped up for the mock-up
-  const left=Math.max(0,Math.ceil(25*(1-seg(lt,0,1.6))));g.fillStyle='#06041a';g.fillRect(W/2-34,522,68,34);g.fillStyle=left<=5?'#ff4d4d':'#ffd23f';g.fillRect(W/2-30,526,60,26);px(String(left),W/2,548,30,'#06041a',{out:false});
+  // 15 second clock, sped up for the mock-up
+  const left=Math.max(0,Math.ceil(15*(1-seg(lt,0,1.6))));g.fillStyle='#06041a';g.fillRect(W/2-34,522,68,34);g.fillStyle=left<=5?'#ff4d4d':'#ffd23f';g.fillRect(W/2-30,526,60,26);px(String(left),W/2,548,30,'#06041a',{out:false});
   for(const k of[0,1]){const a=k?op:yo,x=k?W-138:138,y=706;if(lt<.6)continue;const rev=lt>1.6;g.fillStyle='#06041a';g.fillRect(x-124,y-30,248,72);g.fillStyle='#120c38';g.fillRect(x-118,y-24,236,60);
    g.strokeStyle=rev?(a[1]?TC[a[1]]:'#ff4d4d'):'#7a62d8';g.lineWidth=4;g.strokeRect(x-116,y-22,232,56);
    if(!rev)px('LOCKED IN',x,y+16,28,'#7a62d8',{out:false});else{px(a[0],x,y+12,a[0].length>13?24:30,'#ffffff');const lab=a[1]?a[1]+' '+a[2]:'VAR: NO GOAL';g.font='20px VT323,monospace';const w=g.measureText(lab).width+16;g.fillStyle=a[1]?TC[a[1]]:'#ff4d4d';g.fillRect(x-w/2,y+44,w,24);px(lab,x,y+62,20,'#06041a',{out:false,font:'mono'})}}}
  if(ri>=N){const a=t-INTRO-RD*N,s=eob(seg(a,0,.35));g.save();g.translate(W/2,630);g.scale(s,s);g.fillStyle='#06041a';g.fillRect(-230,-70,460,150);g.fillStyle='#ffd23f';g.fillRect(-222,-62,444,134);g.restore();
-  if(s>.5){const a0=HP[N][0],b0=HP[N][1],res=a0===b0?'DRAW':a0>b0?(P1.name==='YOU'?'YOU WIN':P1.name+' WINS'):P2.name+' WINS';px(res.toUpperCase(),W/2,625,res.length>11?48:66,'#06041a',{out:false});px((a0<=0||b0<=0?'KO · ':'ON POINTS · ')+Math.round(a0)+' – '+Math.round(b0)+' HP',W/2,668,26,'#06041a',{out:false,font:'mono'})}}
+  if(s>.5){const a0=HP[N][0],b0=HP[N][1],res=!O.final?(O.next||'NO KO YET'):a0===b0?'DRAW':a0>b0?(P1.name==='YOU'?'YOU WIN':P1.name+' WINS'):P2.name+' WINS';px(res.toUpperCase(),W/2,625,res.length>11?48:66,'#06041a',{out:false});px((!O.final?'':a0<=0||b0<=0?'KO · ':'ON POINTS · ')+Math.round(a0)+' – '+Math.round(b0)+' HP',W/2,668,26,'#06041a',{out:false,font:'mono'})}}
  requestAnimationFrame(frame)}
 
-window.startBattle=(canvas,rounds,p1,p2,done)=>{cv=canvas;g=cv.getContext('2d');g.imageSmoothingEnabled=false;R=rounds;P1=p1;P2=p2;onEnd=done;ended=false;setup();t0=performance.now();paused=false;
+window.startBattle=(canvas,rounds,p1,p2,done,opts={})=>{O=opts;cv=canvas;g=cv.getContext('2d');g.imageSmoothingEnabled=false;R=rounds;P1=p1;P2=p2;onEnd=done;ended=false;setup();t0=performance.now();paused=false;
  [P1,P2].forEach(p=>{if(!ATK[p.kit||'classic'])p.atk='classic';else p.atk=p.kit||'classic'});requestAnimationFrame(frame)};
