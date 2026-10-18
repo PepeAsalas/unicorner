@@ -44,7 +44,7 @@ const R_DEMO=[
  ['PLAYED FOR INTER IN A TITLE SEASON, 2020-21 OR 2023-24',['TAJON BUCHANAN','SCREAMER',100],['LAUTARO MARTINEZ','TAP-IN',10]],
 ];
 const RD=4.4,INTRO=1.6;
-function setup(){N=R.length;HP=[(O.hp||[300,300]).slice()];for(let i=0;i<N;i++){const[a,b]=HP[i],[,y,o]=R[i];const blk=!!y[0]&&y[0]===o[0];HP.push([Math.max(0,a-(blk?0:o[2])),Math.max(0,b-(blk?0:y[2]))])}TOTAL=INTRO+RD*N+3}
+function setup(){N=R.length;HP=[(O.hp||[300,300]).slice()];for(let i=0;i<N;i++){const[a,b]=HP[i],[,y,o]=R[i];const blk=!!y[0]&&y[0]===o[0];HP.push([Math.max(0,a-(blk?0:o[2])),Math.max(0,b-(blk?0:y[2]))]);if(!HP[i+1][0]||!HP[i+1][1]){N=i+1;R=R.slice(0,N);break}}TOTAL=INTRO+RD*N+3}
 function px(s,x,y,size,col,{align='center',out=true,font='disp'}={}){g.font=`${size}px ${font==='disp'?'"Jersey 10","Pixelify Sans"':'VT323'},monospace`;g.textAlign=align;g.textBaseline='alphabetic';
  if(out){g.fillStyle='#06041a';const o=Math.max(2,Math.round(size*.06));for(const[dx,dy]of[[-o,0],[o,0],[0,-o],[0,o],[o,o],[-o,o],[0,o*2],[o,o*2]])g.fillText(s,x+dx,y+dy)}g.fillStyle=col;g.fillText(s,x,y)}
 function wrap(s,max,size){g.font=`${size}px "Jersey 10",monospace`;const w=s.split(' '),L=[];let l='';for(const x of w){const t=l?l+' '+x:x;if(g.measureText(t).width>max&&l){L.push(l);l=x}else l=t}L.push(l);return L}
@@ -96,7 +96,7 @@ function frame(now){if(!cv.isConnected)return;let t=paused?pausedAt:(now-t0)/100
   const left=Math.max(0,Math.ceil(15*(1-seg(lt,0,1.6))));g.fillStyle='#06041a';g.fillRect(W/2-34,522,68,34);g.fillStyle=left<=5?'#ff4d4d':'#ffd23f';g.fillRect(W/2-30,526,60,26);px(String(left),W/2,548,30,'#06041a',{out:false});
   for(const k of[0,1]){const a=k?op:yo,x=k?W-138:138,y=706;if(lt<.6)continue;const rev=lt>1.6;g.fillStyle='#06041a';g.fillRect(x-124,y-30,248,72);g.fillStyle='#120c38';g.fillRect(x-118,y-24,236,60);
    g.strokeStyle=rev?(a[1]?TC[a[1]]:'#ff4d4d'):'#7a62d8';g.lineWidth=4;g.strokeRect(x-116,y-22,232,56);
-   if(!rev)px('LOCKED IN',x,y+16,28,'#7a62d8',{out:false});else{px(a[0],x,y+12,a[0].length>13?24:30,'#ffffff');const lab=a[1]?a[1]+' '+a[2]:'VAR: NO GOAL';g.font='20px VT323,monospace';const w=g.measureText(lab).width+16;g.fillStyle=a[1]?TC[a[1]]:'#ff4d4d';g.fillRect(x-w/2,y+44,w,24);px(lab,x,y+62,20,'#06041a',{out:false,font:'mono'})}}}
+   if(!rev)px('LOCKED IN',x,y+16,28,'#7a62d8',{out:false});else{px(a[0],x,y+12,a[0].length>18?18:a[0].length>13?24:30,'#ffffff');const lab=a[1]?a[1]+' '+a[2]:'VAR: NO GOAL';g.font='20px VT323,monospace';const w=g.measureText(lab).width+16;g.fillStyle=a[1]?TC[a[1]]:'#ff4d4d';g.fillRect(x-w/2,y+44,w,24);px(lab,x,y+62,20,'#06041a',{out:false,font:'mono'})}}}
  if(ri>=N){const a=t-INTRO-RD*N,s=eob(seg(a,0,.35));g.save();g.translate(W/2,630);g.scale(s,s);g.fillStyle='#06041a';g.fillRect(-230,-70,460,150);g.fillStyle='#ffd23f';g.fillRect(-222,-62,444,134);g.restore();
   if(s>.5){const a0=HP[N][0],b0=HP[N][1],res=!O.final?(O.next||'NO KO YET'):a0===b0?'DRAW':a0>b0?(P1.name==='YOU'?'YOU WIN':P1.name+' WINS'):P2.name+' WINS';px(res.toUpperCase(),W/2,625,res.length>11?48:66,'#06041a',{out:false});px((!O.final?'':a0<=0||b0<=0?'KO · ':'ON POINTS · ')+Math.round(a0)+' – '+Math.round(b0)+' HP',W/2,668,26,'#06041a',{out:false,font:'mono'})}}
  requestAnimationFrame(TICK)}

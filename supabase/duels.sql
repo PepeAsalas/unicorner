@@ -1,6 +1,6 @@
 -- Unicorner duels (1 v 1, challenge a friend by link). NOT LIVE YET: nothing on the site calls these until duel.html ships.
 -- Paste this whole file into Supabase -> SQL Editor -> New query -> Run. Safe to run more than once.
--- It only adds two new tables and six functions; nothing existing is touched.
+-- It only adds two new tables and seven functions; nothing existing is touched.
 --
 -- How a duel works: player 1 creates it (all 20 possible questions are fixed at that moment) and gets a code to share.
 -- Player 2 opens the link and joins. Both start on 300 HP and play rounds of five on their own time; a round's
@@ -33,12 +33,13 @@ alter table public.duels enable row level security;
 alter table public.duel_players enable row level security;
 -- no policies: the tables are only reached through the functions below
 
--- HP after the first n questions. Same answer on a question = block (no damage either way).
+-- HP after the first n questions (or up to the KO). Same answer on a question = block (no damage either way).
 create or replace function public.duel_hp(a jsonb, b jsonb, n int)
 returns int[] language plpgsql immutable as $$
 declare ha int := 300; hb int := 300; i int; x jsonb; y jsonb;
 begin
   for i in 0 .. n - 1 loop
+    exit when ha = 0 or hb = 0;           -- a KO ends the duel on that question
     x := a->i; y := b->i;
     if not coalesce(x->>0 = y->>0, false) then
       ha := greatest(0, ha - coalesce((y->>1)::int, 0));
@@ -136,11 +137,31 @@ begin
       from duel_players where duel_id = v_id));
 end $$;
 
+-- your record on this device across finished duels: wins, draws, losses
+create or replace function public.duel_record(p_token text)
+returns jsonb language plpgsql security definer set search_path = public as $$
+declare r record; v_w int := 0; v_d int := 0; v_l int := 0; n int; h int[]; mine int; theirs int;
+begin
+  for r in select a.picks pa, b.picks pb, me.slot from duel_players me
+             join duel_players a on a.duel_id = me.duel_id and a.slot = 1
+             join duel_players b on b.duel_id = me.duel_id and b.slot = 2
+            where me.token_hash = md5(coalesce(p_token, '')) loop
+    n := least(jsonb_array_length(r.pa), jsonb_array_length(r.pb));
+    h := duel_hp(r.pa, r.pb, n);
+    continue when not duel_over(h, n);
+    mine := h[r.slot]; theirs := h[3 - r.slot];
+    if mine > theirs then v_w := v_w + 1; elsif mine = theirs then v_d := v_d + 1; else v_l := v_l + 1; end if;
+  end loop;
+  return jsonb_build_object('w', v_w, 'd', v_d, 'l', v_l);
+end $$;
+
 revoke all on function public.duel_create(text, text, text, jsonb) from public;
 revoke all on function public.duel_join(text, text, text, text) from public;
 revoke all on function public.duel_submit(text, text, jsonb) from public;
 revoke all on function public.duel_get(text, text) from public;
+revoke all on function public.duel_record(text) from public;
 grant execute on function public.duel_create(text, text, text, jsonb) to anon, authenticated;
 grant execute on function public.duel_join(text, text, text, text) to anon, authenticated;
 grant execute on function public.duel_submit(text, text, jsonb) to anon, authenticated;
 grant execute on function public.duel_get(text, text) to anon, authenticated;
+grant execute on function public.duel_record(text) to anon, authenticated;

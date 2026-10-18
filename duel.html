@@ -40,7 +40,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 .tier{font-family:var(--disp);font-size:46px;text-align:center}
 .cab{position:relative;aspect-ratio:9/13;width:100%;border:4px solid var(--cream);box-shadow:0 0 0 4px var(--ink);overflow:hidden;background:var(--ink)}
 .cab canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
-.small{font-size:18px}
+.small{font-size:18px}.rec{color:var(--gold)}
 [hidden]{display:none!important}
 </style></head><body>
 <main>
@@ -50,6 +50,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
   <label for="nm">Your name<input id="nm" maxlength="16" autocomplete="nickname" placeholder="e.g. Pepo"></label>
   <button id="create">Create duel</button>
   <p class="small">You get a link to send. You both start on 300 HP and play rounds of five questions, 15 seconds each, then watch the battle. Keep going until someone is KO'd.</p>
+  <p class="small rec" id="rec1" hidden></p>
  </section>
  <section id="s-join" class="card" hidden>
   <div class="vs"><div class="pl" id="j-p1"></div><b>VS</b><div class="pl"><i id="j-me"></i>YOU</div></div>
@@ -80,6 +81,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
  <section id="s-battle" hidden>
   <div class="cab"><canvas id="bc" width="540" height="780" aria-label="Duel battle replay"></canvas></div>
   <div class="row" style="margin-top:14px"><button id="replay" class="ghost">Replay</button><button id="next" hidden>Play round 2</button><button id="rematch">Rematch</button></div>
+  <p class="small rec" id="rec2" hidden style="text-align:center;margin-top:10px"></p>
  </section>
  <section id="s-err" class="card" hidden><h2>OOPS</h2><p id="e-msg"></p><button onclick="location.href='duel.html'">Start a new duel</button></section>
 </main>
@@ -120,7 +122,7 @@ async function pickQs(){const ids=Object.keys(await bank());for(let i=ids.length
 // rounds: 5 questions while under 15, then sudden death one at a time. Same rules as duel_hp/duel_over in the SQL.
 const roundSize=n=>n<15?5:1,roundNo=n=>n<15?Math.floor(n/5)+1:4+(n-15);
 const roundStart=n=>n<=15?n-5:n-1; // first question of the round that ends at n
-function hpAfter(a,b,n){let h=[300,300];for(let i=0;i<n;i++){const x=a[i]||[null,0],y=b[i]||[null,0];if(x[0]&&x[0]===y[0])continue;h=[Math.max(0,h[0]-y[1]),Math.max(0,h[1]-x[1])]}return h}
+function hpAfter(a,b,n){let h=[300,300];for(let i=0;i<n&&h[0]&&h[1];i++){const x=a[i]||[null,0],y=b[i]||[null,0];if(x[0]&&x[0]===y[0])continue;h=[Math.max(0,h[0]-y[1]),Math.max(0,h[1]-x[1])]}return h}
 const roundName=n=>n<15?'ROUND '+roundNo(n):'SUDDEN DEATH';
 // ── flow ──
 const code=new URLSearchParams(location.search).get('d');
@@ -128,7 +130,7 @@ const link=c=>location.origin+location.pathname+'?d='+c;
 async function copy(c){try{await navigator.clipboard.writeText(link(c))}catch{}}
 let D=null,Q=[];
 async function boot(){$('nm').value=$('nm2').value=ls('uc-duel-name')||'';
- if(!code){show('s-home');return}
+ if(!code){record('rec1');show('s-home');return}
  try{D=await rpc('duel_get',{p_code:code,p_token:TOKEN})}catch(e){return fail('Could not reach the server. Try again in a moment.')}
  if(!D)return fail('That duel link does not exist.');
  const me=D.players.find(p=>p.slot===D.me),p1=D.players.find(p=>p.slot===1);
@@ -179,10 +181,12 @@ async function battle(){const slot=D.me||1,me=D.players.find(p=>p.slot===slot),r
  const row=p=>[p[0]?p[0].toUpperCase():'NO ANSWER',p[0]?TIER[p[1]]:null,p[1]];
  const R=Q.map((q,i)=>[q.prompt.toUpperCase(),row(A[s0+i]||[null,0]),row(B[s0+i]||[null,0])]);
  const hp=hpAfter(A,B,n),over=D.over;ls('uc-duel-seen-'+code,n);
- $('next').hidden=true;$('rematch').hidden=!over;
+ $('next').hidden=true;$('rematch').hidden=!over;$('rec2').hidden=true;if(over&&D.me)record('rec2');
  const opts={hp:hpAfter(A,B,s0),q0:s0,title:roundName(s0),final:over,next:n<15?'NO KO YET':'STILL LEVEL'};
  show('s-battle');const go=()=>{$('next').hidden=true;startBattle($('bc'),R,{name:D.me?'YOU':me.name,kit:me.kit},{name:rv.name,kit:rv.kit},()=>{if(!over&&D.me){$('next').hidden=false;$('next').textContent=n<15?'Play round '+roundNo(n):'Sudden death'}},opts)};go();$('replay').onclick=go}
 $('next').onclick=()=>play();
+// your record across all duels on this device: wins-draws-losses
+async function record(id){try{const r=await rpc('duel_record',{p_token:TOKEN});if(!r||r.w+r.d+r.l===0)return;$(id).textContent=`Your duel record: ${r.w}-${r.d}-${r.l} (W-D-L)`;$(id).hidden=false}catch{}}
 document.fonts.ready.then(boot);
 </script>
 </body></html>
