@@ -167,6 +167,10 @@ revoke all on function public.duel_submit(text, text, jsonb) from public;
 revoke all on function public.duel_get(text, text) from public;
 revoke all on function public.duel_record(text) from public;
 revoke all on function public.duel_record_h(text) from public;
+-- Supabase grants new functions to anon/authenticated by default, so take those away too: internal helpers only
+revoke all on function public.duel_record_h(text) from anon, authenticated;
+revoke all on function public.duel_hp(jsonb, jsonb, int) from public, anon, authenticated;
+revoke all on function public.duel_over(int[], int) from public, anon, authenticated;
 grant execute on function public.duel_create(text, text, text, jsonb) to anon, authenticated;
 grant execute on function public.duel_join(text, text, text, text) to anon, authenticated;
 grant execute on function public.duel_submit(text, text, jsonb) to anon, authenticated;
