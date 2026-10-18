@@ -116,7 +116,11 @@ const playedToday=()=>!!ls('unicorner-played-'+DAY);
 // usage events, into the same table as the game's
 const VISITOR=ls('uc-visitor'),SID=Math.random().toString(36).slice(2);
 function track(name,data){try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,session:SID,visitor:VISITOR,seconds:0,game_day:DAY,event_version:2,data:{language:'en',page:'duel',...(data||{})}})}).catch(()=>{})}catch{}}
-const rpc=async(fn,args)=>{const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify(args)});const t=await r.text();if(!r.ok){let m=t;try{m=JSON.parse(t).message||t}catch{}throw new Error(m)}return t?JSON.parse(t):null};
+// signed-in players (the game's league login, same browser) send their login, so duel records follow their account
+async function userToken(){let x;try{x=JSON.parse(localStorage.getItem('uc-player-session'))}catch{}if(!x?.access_token)return null;
+ if(Date.now()>(x.exp||0)-60000){try{const r=await fetch(SB_URL+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:x.refresh_token})});const j=await r.json();if(!r.ok||!j.access_token)return null;
+  x={...x,access_token:j.access_token,refresh_token:j.refresh_token||x.refresh_token,exp:Date.now()+Math.max(60,(+j.expires_in||3600))*1000};localStorage.setItem('uc-player-session',JSON.stringify(x))}catch{return null}}return x.access_token}
+const rpc=async(fn,args)=>{const ut=await userToken();const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+(ut||SB_KEY),'Content-Type':'application/json'},body:JSON.stringify(args)});const t=await r.text();if(!r.ok){let m=t;try{m=JSON.parse(t).message||t}catch{}throw new Error(m)}return t?JSON.parse(t):null};
 const show=id=>{for(const s of document.querySelectorAll('main>section'))s.hidden=s.id!==id;scrollTo(0,0)};
 const fail=m=>{$('e-msg').textContent=m;show('s-err')};
 const spBg=(kit,mood='happy')=>{const k=KITS.find(x=>x.id===kit);return spriteDraw(mood,0,false,k&&k.id!=='classic'?k:null).replace(/"/g,"'")};
@@ -154,6 +158,7 @@ async function boot(){$('nm').value=$('nm2').value=ls('uc-nick')||ls('uc-duel-na
  // signed-in players already have a leaderboard nickname: use it, don't ask again
  if(ls('uc-nick'))for(const id of['nm','nm2']){const l=$(id).closest('label');if(l&&!l.dataset.nick){l.dataset.nick=1;l.hidden=true;const p=document.createElement('p');p.className='small';p.textContent='Playing as '+ls('uc-nick');l.after(p)}}
  track('duel_view',{code:code||null});
+ userToken().then(t=>{if(t)rpc('duel_claim',{p_token:TOKEN}).catch(()=>{})});
  if(!code){if(!playedToday())return gate();record('rec1');show('s-home');return}
  try{D=await rpc('duel_get',{p_code:code,p_token:TOKEN})}catch(e){return fail('Could not reach the server. Try again in a moment.')}
  if(!D)return fail('That duel link does not exist.');
@@ -178,7 +183,7 @@ const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&g
 $('create').onclick=async e=>{const n=$('nm').value.trim();if(!n)return $('nm').focus();ls('uc-duel-name',n);e.target.disabled=true;e.target.textContent='Creating…';
  try{const qset=await pickQs();const c=await rpc('duel_create',{p_token:TOKEN,p_name:n,p_kit:KIT,p_qset:qset});track('duel_create',{code:c});location.href='duel.html?d='+c}catch(err){e.target.disabled=false;e.target.textContent='Create duel';fail('Could not create the duel: '+err.message)}};
 $('join').onclick=async e=>{const n=$('nm2').value.trim();if(!n)return $('nm2').focus();ls('uc-duel-name',n);e.target.disabled=true;
- try{await rpc('duel_join',{p_code:code,p_token:TOKEN,p_name:n,p_kit:KIT});ls('uc-duel-pending','');track('duel_join',{code});play()}catch(err){fail(err.message==='duel is full'?'This duel already has two players.':'Could not join: '+err.message)}};
+ try{await rpc('duel_join',{p_code:code,p_token:TOKEN,p_name:n,p_kit:KIT});ls('uc-duel-pending','');track('duel_join',{code});play()}catch(err){fail(/duel yourself/.test(err.message)?"That's your own duel. Send the link to a mate.":err.message==='duel is full'?'This duel already has two players.':'Could not join: '+err.message)}};
 $('copy').onclick=async e=>{await copy(code);e.target.textContent='Copied ✓'};$('copy2').onclick=async e=>{await copy(code);e.target.textContent='Copied ✓'};
 $('go').onclick=()=>play();$('refresh').onclick=()=>location.reload();
 $('rematch').onclick=()=>{location.href='duel.html'};
