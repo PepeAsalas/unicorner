@@ -35,7 +35,7 @@ const ATK={
 const ORDER=['classic','fire','galaxy','ice','zebra','gold','matrix','lava','ref','keeper'];
 /* ── the duel ── */
 let cv,g;
-let P1,P2,R,N,HP,TOTAL,onEnd=null,ended=false,O={};
+let P1,P2,R,N,HP,TOTAL,onEnd=null,ended=false,O={},RUN=0,TICK=null;
 const R_DEMO=[
  ['PLAYED FOR ENGLAND AT EURO 2024',['ANTHONY GORDON','SCREAMER',100],['HARRY KANE','TAP-IN',10]],
  ['PLAYED FOR ARGENTINA AT THE 2022 WORLD CUP',['RODRIGO DE PAUL','TAP-IN',10],['RODRIGO DE PAUL','TAP-IN',10]],
@@ -57,7 +57,7 @@ function arena(t,label){g.fillStyle='#0b0a24';g.fillRect(0,0,W,H);for(let i=0;i<
  g.fillStyle='#ff6fb5';g.fillRect(470,70,6,120);g.fillRect(462,62,22,8);if(Math.floor(t*2)%2){g.fillStyle='#ff3b30';g.fillRect(469,52,8,8)}
  // rooftop sign
  g.fillStyle='#06041a';g.fillRect(150,104,240,74);g.fillStyle='#120c38';g.fillRect(156,110,228,62);g.fillStyle='#2b2357';g.fillRect(190,178,8,60);g.fillRect(342,178,8,60);
- px(label,W/2,156,44,'#ffd23f',{out:false});
+ px(label,W/2,156,label.length>9?34:44,'#ffd23f',{out:false});
  // railing and the roof edge
  g.fillStyle='#9aa3b5';g.fillRect(0,326,W,10);for(let x=0;x<W;x+=30)g.fillRect(x,300,4,30);g.fillRect(0,300,W,4);
  // pitch in perspective: stripes get taller towards the camera
@@ -78,7 +78,7 @@ function frame(now){if(!cv.isConnected)return;let t=paused?pausedAt:(now-t0)/100
  const prev=HP[Math.min(ri,N)],next=HP[Math.min(ri+1,N)];let hp=prev,shown=prev;
  if(t<INTRO)hp=shown=HP[0];else if(ri>=N)hp=shown=HP[N];else if(lt>HIT){const k=eo(seg(lt,HIT,HIT+.4)),k2=eo(seg(lt,HIT+.5,HIT+1.2));hp=prev.map((v,i)=>v+(next[i]-v)*k);shown=prev.map((v,i)=>v+(next[i]-v)*k2)}
  hpBar(18,20,240,hp[0],shown[0],P1.name.toUpperCase().slice(0,12),false);hpBar(282,20,240,hp[1],shown[1],P2.name.toUpperCase().slice(0,12),true);
- if(t<INTRO){const T=O.title||'DUEL';px(T,W/2,300,(T.length>8?70:110)*eob(seg(t,.1,.5)),'#ffd23f')}
+ if(t<INTRO){const T=O.title||'DUEL';px(T,W/2,300,(T.length>10?54:T.length>8?70:110)*eob(seg(t,.1,.5)),'#ffd23f')}
  const ko=[ri>=N&&HP[N][0]<=0,ri>=N&&HP[N][1]<=0],pos=[[150,420],[390,420]];
  // attacks fly between them
  if(inR&&lt>1.9&&lt<3.4&&!blk){for(const k of[0,1]){const mine=k?op:yo;if(!mine[1])continue;const P=k?P2:P1,[sx,sy]=pos[k],[tx,ty]=pos[1-k];g.save();ATK[P.atk].f(g,seg(lt,1.9,3.3),sx+(k?-50:50),sy,tx,ty,1);g.restore()}}
@@ -99,7 +99,7 @@ function frame(now){if(!cv.isConnected)return;let t=paused?pausedAt:(now-t0)/100
    if(!rev)px('LOCKED IN',x,y+16,28,'#7a62d8',{out:false});else{px(a[0],x,y+12,a[0].length>13?24:30,'#ffffff');const lab=a[1]?a[1]+' '+a[2]:'VAR: NO GOAL';g.font='20px VT323,monospace';const w=g.measureText(lab).width+16;g.fillStyle=a[1]?TC[a[1]]:'#ff4d4d';g.fillRect(x-w/2,y+44,w,24);px(lab,x,y+62,20,'#06041a',{out:false,font:'mono'})}}}
  if(ri>=N){const a=t-INTRO-RD*N,s=eob(seg(a,0,.35));g.save();g.translate(W/2,630);g.scale(s,s);g.fillStyle='#06041a';g.fillRect(-230,-70,460,150);g.fillStyle='#ffd23f';g.fillRect(-222,-62,444,134);g.restore();
   if(s>.5){const a0=HP[N][0],b0=HP[N][1],res=!O.final?(O.next||'NO KO YET'):a0===b0?'DRAW':a0>b0?(P1.name==='YOU'?'YOU WIN':P1.name+' WINS'):P2.name+' WINS';px(res.toUpperCase(),W/2,625,res.length>11?48:66,'#06041a',{out:false});px((!O.final?'':a0<=0||b0<=0?'KO · ':'ON POINTS · ')+Math.round(a0)+' – '+Math.round(b0)+' HP',W/2,668,26,'#06041a',{out:false,font:'mono'})}}
- requestAnimationFrame(frame)}
+ requestAnimationFrame(TICK)}
 
 window.startBattle=(canvas,rounds,p1,p2,done,opts={})=>{O=opts;cv=canvas;g=cv.getContext('2d');g.imageSmoothingEnabled=false;R=rounds;P1=p1;P2=p2;onEnd=done;ended=false;setup();t0=performance.now();paused=false;
- [P1,P2].forEach(p=>{if(!ATK[p.kit||'classic'])p.atk='classic';else p.atk=p.kit||'classic'});requestAnimationFrame(frame)};
+ [P1,P2].forEach(p=>{if(!ATK[p.kit||'classic'])p.atk='classic';else p.atk=p.kit||'classic'});const my=++RUN;TICK=n=>{if(my===RUN)frame(n)};requestAnimationFrame(TICK)};
