@@ -81,7 +81,6 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
  <section id="s-battle" hidden>
   <div class="cab"><canvas id="bc" width="540" height="780" aria-label="Duel battle replay"></canvas></div>
   <div class="row" style="margin-top:14px"><button id="replay" class="ghost">Replay</button><button id="next" hidden>Play round 2</button><button id="rematch">Rematch</button></div>
-  <p class="small rec" id="rec2" hidden style="text-align:center;margin-top:10px"></p>
  </section>
  <section id="s-err" class="card" hidden><h2>OOPS</h2><p id="e-msg"></p><button onclick="location.href='duel.html'">Start a new duel</button></section>
 </main>
@@ -181,8 +180,8 @@ async function battle(){const slot=D.me||1,me=D.players.find(p=>p.slot===slot),r
  const row=p=>[p[0]?p[0].toUpperCase():'NO ANSWER',p[0]?TIER[p[1]]:null,p[1]];
  const R=Q.map((q,i)=>[q.prompt.toUpperCase(),row(A[s0+i]||[null,0]),row(B[s0+i]||[null,0])]);
  const hp=hpAfter(A,B,n),over=D.over;ls('uc-duel-seen-'+code,n);
- $('next').hidden=true;$('rematch').hidden=!over;$('rec2').hidden=true;if(over&&D.me)record('rec2');
- const opts={hp:hpAfter(A,B,s0),q0:s0,title:roundName(s0),final:over,next:n<15?'NO KO YET':'STILL LEVEL'};
+ $('next').hidden=true;$('rematch').hidden=!over;let rec=null;if(over&&D.me)try{const r=await rpc('duel_record',{p_token:TOKEN});if(r)rec=[r.w,r.d,r.l]}catch{}
+ const opts={hp:hpAfter(A,B,s0),q0:s0,title:roundName(s0),final:over,rec,next:n<15?'NO KO YET':'STILL LEVEL'};
  show('s-battle');const go=()=>{$('next').hidden=true;startBattle($('bc'),R,{name:D.me?'YOU':me.name,kit:me.kit},{name:rv.name,kit:rv.kit},()=>{if(!over&&D.me){$('next').hidden=false;$('next').textContent=n<15?'Play round '+roundNo(n):'Sudden death'}},opts)};go();$('replay').onclick=go}
 $('next').onclick=()=>play();
 // your record across all duels on this device: wins-draws-losses
