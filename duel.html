@@ -181,8 +181,8 @@ async function battle(){const slot=D.me||1,me=D.players.find(p=>p.slot===slot),r
  const R=Q.map((q,i)=>[q.prompt.toUpperCase(),row(A[s0+i]||[null,0]),row(B[s0+i]||[null,0])]);
  const hp=hpAfter(A,B,n),over=D.over;ls('uc-duel-seen-'+code,n);
  $('next').hidden=true;$('rematch').hidden=!over;let rec=null;if(over&&D.me)try{const r=await rpc('duel_record',{p_token:TOKEN});if(r)rec=[r.w,r.d,r.l]}catch{}
- const opts={hp:hpAfter(A,B,s0),q0:s0,title:roundName(s0),final:over,rec,next:n<15?'NO KO YET':'STILL LEVEL'};
- show('s-battle');const go=()=>{$('next').hidden=true;startBattle($('bc'),R,{name:D.me?'YOU':me.name,kit:me.kit},{name:rv.name,kit:rv.kit},()=>{if(!over&&D.me){$('next').hidden=false;$('next').textContent=n<15?'Play round '+roundNo(n):'Sudden death'}},opts)};go();$('replay').onclick=go}
+ const opts={hp:hpAfter(A,B,s0),q0:s0,title:roundName(s0),final:over,rec,intro:s0===0?'vs':s0===15?'sd':null,next:n<15?'NO KO YET':'STILL LEVEL'};
+ show('s-battle');const go=()=>{$('next').hidden=true;startBattle($('bc'),R,{name:D.me?'YOU':me.name,kit:me.kit,rec:me.rec},{name:rv.name,kit:rv.kit,rec:rv.rec},()=>{if(!over&&D.me){$('next').hidden=false;$('next').textContent=n<15?'Play round '+roundNo(n):'Sudden death'}},opts)};go();$('replay').onclick=go}
 $('next').onclick=()=>play();
 // your record across all duels on this device: wins-draws-losses
 async function record(id){try{const r=await rpc('duel_record',{p_token:TOKEN});if(!r||r.w+r.d+r.l===0)return;$(id).textContent=`Your duel record: ${r.w}-${r.d}-${r.l} (W-D-L)`;$(id).hidden=false}catch{}}

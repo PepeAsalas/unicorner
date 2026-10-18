@@ -1,6 +1,6 @@
 -- Unicorner duels (1 v 1, challenge a friend by link). NOT LIVE YET: nothing on the site calls these until duel.html ships.
 -- Paste this whole file into Supabase -> SQL Editor -> New query -> Run. Safe to run more than once.
--- It only adds two new tables and seven functions; nothing existing is touched.
+-- It only adds two new tables and eight functions; nothing existing is touched.
 --
 -- How a duel works: player 1 creates it (all 20 possible questions are fixed at that moment) and gets a code to share.
 -- Player 2 opens the link and joins. Both start on 300 HP and play rounds of five on their own time; a round's
@@ -129,7 +129,7 @@ begin
     'code', upper(p_code), 'qset', v_q, 'me', v_me, 'shared', v_shared,
     'hp', to_jsonb(v_hp), 'over', b is not null and duel_over(v_hp, v_shared),
     'players', (select coalesce(jsonb_agg(jsonb_build_object(
-        'slot', slot, 'name', name, 'kit', kit, 'played', jsonb_array_length(picks),
+        'slot', slot, 'name', name, 'kit', kit, 'played', jsonb_array_length(picks), 'rec', duel_record_h(token_hash),
         -- your own answers always; the rival's only for rounds you have both played
         'picks', case when slot = v_me then picks
                       else (select coalesce(jsonb_agg(e order by i), '[]') from jsonb_array_elements(picks) with ordinality t(e, i) where i <= v_shared) end
@@ -137,15 +137,15 @@ begin
       from duel_players where duel_id = v_id));
 end $$;
 
--- your record on this device across finished duels: wins, draws, losses
-create or replace function public.duel_record(p_token text)
-returns jsonb language plpgsql security definer set search_path = public as $$
+-- a player's record across finished duels (wins, draws, losses), by the hash of their device token
+create or replace function public.duel_record_h(p_hash text)
+returns jsonb language plpgsql stable security definer set search_path = public as $$
 declare r record; v_w int := 0; v_d int := 0; v_l int := 0; n int; h int[]; mine int; theirs int;
 begin
   for r in select a.picks pa, b.picks pb, me.slot from duel_players me
              join duel_players a on a.duel_id = me.duel_id and a.slot = 1
              join duel_players b on b.duel_id = me.duel_id and b.slot = 2
-            where me.token_hash = md5(coalesce(p_token, '')) loop
+            where me.token_hash = p_hash loop
     n := least(jsonb_array_length(r.pa), jsonb_array_length(r.pb));
     h := duel_hp(r.pa, r.pb, n);
     continue when not duel_over(h, n);
@@ -155,11 +155,18 @@ begin
   return jsonb_build_object('w', v_w, 'd', v_d, 'l', v_l);
 end $$;
 
+-- your own record on this device
+create or replace function public.duel_record(p_token text)
+returns jsonb language sql stable security definer set search_path = public as $$
+  select duel_record_h(md5(coalesce(p_token, '')))
+$$;
+
 revoke all on function public.duel_create(text, text, text, jsonb) from public;
 revoke all on function public.duel_join(text, text, text, text) from public;
 revoke all on function public.duel_submit(text, text, jsonb) from public;
 revoke all on function public.duel_get(text, text) from public;
 revoke all on function public.duel_record(text) from public;
+revoke all on function public.duel_record_h(text) from public;
 grant execute on function public.duel_create(text, text, text, jsonb) to anon, authenticated;
 grant execute on function public.duel_join(text, text, text, text) to anon, authenticated;
 grant execute on function public.duel_submit(text, text, jsonb) to anon, authenticated;
