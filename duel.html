@@ -35,6 +35,8 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 .qtext{font-family:var(--disp);font-size:40px;line-height:.95;color:#fff;text-shadow:2px 2px 0 var(--ink)}
 .qsub{font-family:var(--mono);font-size:20px;color:var(--muted)}
 .bar{height:12px;background:var(--ink)}.bar i{display:block;height:100%;background:var(--gold);transition:width .25s linear}
+.go{background:#39d353!important;margin-top:12px}
+#q-skip{margin-top:18px}
 .msg{min-height:28px;font-family:var(--mono);font-size:22px}
 .msg.ok{color:var(--green)}.msg.bad{color:var(--red)}
 .tier{font-family:var(--disp);font-size:46px;text-align:center}
@@ -68,7 +70,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
   <div class="qhead"><span class="chip" id="q-n">Q1 OF 5</span><span class="clock" id="q-clock">15</span></div>
   <div class="bar"><i id="q-bar" style="width:100%"></i></div>
   <div class="qtext" id="q-text"></div><div class="qsub" id="q-sub"></div>
-  <form id="q-form" autocomplete="off"><input id="q-in" placeholder="Type your answer" autocapitalize="words" spellcheck="false"></form>
+  <form id="q-form" autocomplete="off"><input id="q-in" placeholder="Type your answer" autocapitalize="words" spellcheck="false" enterkeyhint="send"><button type="submit" id="q-go" class="go">Enter ⏎</button></form>
   <div class="msg" id="q-msg" aria-live="polite"></div>
   <button id="q-skip" class="ghost">Skip</button>
  </section>
@@ -179,7 +181,7 @@ let qi=0,picks=[],timer=null,left=SECS,locked=false;
 let base=0,size=5;
 async function play(){try{D=await rpc('duel_get',{p_code:code,p_token:TOKEN});base=D.players.find(p=>p.slot===D.me).picks.length;size=roundSize(base);Q=await Promise.all(D.qset.slice(base,base+size).map(loadQ))}catch{return fail('Could not load the questions.')}
  qi=0;picks=[];show('s-play');ask()}
-function ask(){const q=Q[qi];locked=false;left=SECS;$('q-n').textContent=size>1?`${roundName(base)} · Q${qi+1} OF 5`:'SUDDEN DEATH';$('q-text').textContent=q.prompt;$('q-sub').textContent=q.sub;$('q-in').value='';$('q-in').disabled=false;$('q-msg').textContent='';$('q-msg').className='msg';$('q-skip').hidden=false;
+function ask(){const q=Q[qi];locked=false;left=SECS;$('q-n').textContent=size>1?`${roundName(base)} · Q${qi+1} OF 5`:'SUDDEN DEATH';$('q-text').textContent=q.prompt;$('q-sub').textContent=q.sub;$('q-in').value='';$('q-in').disabled=false;$('q-msg').textContent='';$('q-msg').className='msg';$('q-skip').hidden=false;$('q-go').hidden=false;
  $('q-in').placeholder=PERSON.has(q.type)?'Type a '+(q.type==='player'?'player':q.type):'Type a '+q.type;tick();clearInterval(timer);timer=setInterval(()=>{left--;tick();if(left<=0)lock(null)},1000);setTimeout(()=>$('q-in').focus(),50)}
 function tick(){$('q-clock').textContent=Math.max(0,left);$('q-clock').classList.toggle('low',left<=5);$('q-bar').style.width=Math.max(0,left/SECS*100)+'%'}
 $('q-form').onsubmit=e=>{e.preventDefault();if(locked)return;const r=match($('q-in').value,Q[qi].answers,Q[qi].type);
@@ -188,7 +190,7 @@ $('q-form').onsubmit=e=>{e.preventDefault();if(locked)return;const r=match($('q-
  if(picks.slice(0,qi).some(p=>p&&p[0]===r.name)){$('q-msg').className='msg bad';return}
  lock(r)};
 $('q-skip').onclick=()=>lock(null);
-function lock(r){if(locked)return;locked=true;clearInterval(timer);$('q-in').disabled=true;$('q-skip').hidden=true;
+function lock(r){if(locked)return;locked=true;clearInterval(timer);$('q-in').disabled=true;$('q-skip').hidden=true;$('q-go').hidden=true;
  picks[qi]=r?[r.name,r.pts]:[null,0];$('q-msg').className='msg '+(r?'ok':'bad');$('q-msg').innerHTML=r?`<span style="color:${TCOL[r.pts]}">${TIER[r.pts]} +${r.pts}</span> · ${esc(r.name)}`:(left<=0?'Time up!':'Skipped');
  setTimeout(()=>{qi++;if(qi<size)ask();else finish()},1100)}
 async function finish(){try{await rpc('duel_submit',{p_code:code,p_token:TOKEN,p_picks:picks});track('duel_round',{code,played:base+size,score:picks.reduce((t,p)=>t+(p[1]||0),0)})}catch(e){if(!/already played|is over/.test(e.message))return fail('Could not save your answers: '+e.message)}
