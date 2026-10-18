@@ -62,7 +62,7 @@ begin
   if length(coalesce(p_token, '')) < 16 then raise exception 'bad token'; end if;
   if jsonb_typeof(p_qset) <> 'array' or jsonb_array_length(p_qset) <> 20 then raise exception 'need 20 questions'; end if;
   loop
-    v_code := upper(substr(translate(encode(gen_random_bytes(6), 'base64'), '+/=0O1I', 'XYZABCD'), 1, 6));
+    v_code := upper(substr(md5(random()::text || clock_timestamp()::text), 1, 6));  -- no pgcrypto needed
     begin
       insert into duels (code, qset) values (v_code, p_qset) returning id into v_id;
       exit;

@@ -2675,7 +2675,7 @@ const show=html=>{$('lea-body').innerHTML=X+html;if(!dlg.open)dlg.showModal()};
 const activeId=()=>{const a=lsGet(LG_ACTIVE),l=me?.leagues||[];return(l.find(x=>x.id===a)||l[0])?.id||null};
 const inviteLink=c=>location.origin+location.pathname.replace(/index\.html$/,'')+'?league='+c;
 
-async function loadMe(){me=await rpc('lg_me');try{window.ucAdoptLook?.(me?.profile?{...me.profile,crew:!!me.crew}:{crew:!!me?.crew})}catch{}return me}
+async function loadMe(){me=await rpc('lg_me');try{if(me?.nickname)localStorage.setItem('uc-nick',me.nickname)}catch{}try{window.ucAdoptLook?.(me?.profile?{...me.profile,crew:!!me.crew}:{crew:!!me?.crew})}catch{}return me}
 async function loadBoard(){const id=activeId();board=id?await rpc('lg_league_board',{p_league:id}):null;return board}
 
 function boardTable(b,tab,limit){

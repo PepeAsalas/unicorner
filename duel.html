@@ -142,7 +142,9 @@ const code=new URLSearchParams(location.search).get('d');
 const link=c=>location.origin+location.pathname+'?d='+c;
 async function copy(c){try{await navigator.clipboard.writeText(link(c))}catch{}}
 let D=null,Q=[];
-async function boot(){$('nm').value=$('nm2').value=ls('uc-duel-name')||'';
+async function boot(){$('nm').value=$('nm2').value=ls('uc-nick')||ls('uc-duel-name')||'';
+ // signed-in players already have a leaderboard nickname: use it, don't ask again
+ if(ls('uc-nick'))for(const id of['nm','nm2']){const l=$(id).closest('label');if(l&&!l.dataset.nick){l.dataset.nick=1;l.hidden=true;const p=document.createElement('p');p.className='small';p.textContent='Playing as '+ls('uc-nick');l.after(p)}}
  track('duel_view',{code:code||null});
  if(!code){if(!playedToday())return gate();record('rec1');show('s-home');return}
  try{D=await rpc('duel_get',{p_code:code,p_token:TOKEN})}catch(e){return fail('Could not reach the server. Try again in a moment.')}
