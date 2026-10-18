@@ -78,6 +78,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
   <p>Send this link to your mate:</p>
   <div class="link" id="r-link"></div>
   <div class="row"><button id="copy" class="ghost">Copy link</button><button id="go">Play round 1</button></div>
+  <button class="ghost" style="margin-top:14px" onclick="location.href='/'">← Back to Unicorner</button>
  </section>
  <section id="s-play" class="card" hidden>
   <div class="qhead"><span class="chip" id="q-n">Q1 OF 5</span><span class="clock" id="q-clock">15</span></div>
@@ -92,11 +93,13 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
   <p>Waiting for <b id="w-rival">your mate</b> to play. Send them the link:</p>
   <div class="link" id="w-link"></div>
   <div class="row"><button id="copy2" class="ghost">Copy link</button><button id="refresh">Check again</button></div>
+  <button class="ghost" style="margin-top:14px" onclick="location.href='/'">← Back to Unicorner</button>
  </section>
  <section id="s-view" class="card" hidden>
   <h2 id="v-title">ROUND 1 IS IN</h2>
   <p id="v-msg">You've both played. See how it went.</p>
   <button id="v-go">View your duel</button>
+  <button class="ghost" style="margin-top:14px" onclick="location.href='/'">← Back to Unicorner</button>
  </section>
  <section id="s-battle" hidden>
   <div class="cab"><canvas id="bc" width="540" height="780" aria-label="Duel battle replay"></canvas></div>
@@ -111,7 +114,8 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
   <p id="g-msg">Duels open once you've played today's five questions. It only takes a couple of minutes.</p>
   <button id="g-go">Play today's game</button>
  </section>
- <section id="s-err" class="card" hidden><h2>OOPS</h2><p id="e-msg"></p><button onclick="location.href='duel.html'">Start a new duel</button></section>
+ <section id="s-err" class="card" hidden><h2>OOPS</h2><p id="e-msg"></p><button onclick="location.href='duel.html'">Start a new duel</button>
+  <button class="ghost" style="margin-top:14px" onclick="location.href='/'">← Back to Unicorner</button></section>
 </main>
 <script src="duel/sprites.js"></script>
 <script src="duel/battle.js"></script>
