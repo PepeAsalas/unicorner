@@ -2,6 +2,7 @@
 <title>Unicorner Duel</title>
 <meta name="robots" content="noindex">
 <link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://yujhjepukzdahsppntua.supabase.co" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Pixelify+Sans:wght@500;700&family=VT323&display=swap">
 <style>
 /* 1v1 duel by link. Not linked from the site yet: reachable only at /duel.html */
@@ -185,6 +186,8 @@ async function boot(){$('nm').value=$('nm2').value=ls('uc-nick')||ls('uc-duel-na
  if(!D)return fail('That duel link does not exist.');
  const me=D.players.find(p=>p.slot===D.me),p1=D.players.find(p=>p.slot===1);
 
+ // a saved challenge link that can no longer be played shouldn't keep saying "your duel is waiting"
+ if(!me&&(D.declined||D.expired||(D.challenge&&!D.for_me)||D.players.length>=2)&&ls('uc-duel-pending')===code)ls('uc-duel-pending','');
  if(!me&&D.challenge&&!D.for_me)return fail(`This challenge is for ${D.for_nick||'another player'}. Signed in as them? Open it from their duel inbox.`);
  if(!me&&D.declined)return fail('This challenge was declined.');
  if(!me&&D.expired)return fail('This challenge expired (challenges last 3 days).');
