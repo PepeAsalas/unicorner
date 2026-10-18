@@ -40,7 +40,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 .tier{font-family:var(--disp);font-size:46px;text-align:center}
 .cab{position:relative;aspect-ratio:9/13;width:100%;border:4px solid var(--cream);box-shadow:0 0 0 4px var(--ink);overflow:hidden;background:var(--ink)}
 .cab canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
-.small{font-size:18px}.rec{color:var(--gold)}
+.small{font-size:18px}.fb{margin-top:14px;display:grid;gap:10px}.fb textarea{font:inherit;font-size:18px;width:100%;box-sizing:border-box;padding:8px;border:3px solid var(--ink);background:var(--cream);color:var(--ink)}.fb [data-fb].on{background:var(--gold);color:var(--ink)}.rec{color:var(--gold)}
 [hidden]{display:none!important}
 </style></head><body>
 <main>
@@ -80,7 +80,15 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
  </section>
  <section id="s-battle" hidden>
   <div class="cab"><canvas id="bc" width="540" height="780" aria-label="Duel battle replay"></canvas></div>
+  <div class="card fb" id="fb" hidden><p><b>How was the duel?</b> It's new, so tell us.</p>
+   <div class="row"><button class="ghost" data-fb="up">👍 Loved it</button><button class="ghost" data-fb="down">👎 Meh</button></div>
+   <textarea id="fb-t" maxlength="500" rows="2" placeholder="Anything to change? (optional)"></textarea><button id="fb-send" hidden>Send</button><p class="small" id="fb-ok" hidden>Thanks! 🦄</p></div>
   <div class="row" style="margin-top:14px"><button id="replay" class="ghost">Replay</button><button id="next" hidden>Play round 2</button><button id="rematch">Rematch</button></div>
+ </section>
+ <section id="s-gate" class="card" hidden>
+  <h2 id="g-title">PLAY TODAY'S GAME FIRST</h2>
+  <p id="g-msg">Duels open once you've played today's five questions. It only takes a couple of minutes.</p>
+  <button id="g-go">Play today's game</button>
  </section>
  <section id="s-err" class="card" hidden><h2>OOPS</h2><p id="e-msg"></p><button onclick="location.href='duel.html'">Start a new duel</button></section>
 </main>
@@ -94,6 +102,12 @@ const TIER={10:'TAP-IN',30:'HEADER',60:'VOLLEY',85:'BICYCLE KICK',100:'SCREAMER'
 const ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch{return null}};
 const TOKEN=(()=>{let t=ls('uc-duel-token');if(!t||t.length<16){t=[...crypto.getRandomValues(new Uint8Array(16))].map(b=>b.toString(16).padStart(2,'0')).join('');ls('uc-duel-token',t)}return t})();
 const KIT=ls('uc-kit')||'classic';
+// only people who have played today's daily game can start or accept a duel (the same key the game saves)
+const DAY=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+const playedToday=()=>!!ls('unicorner-played-'+DAY);
+// usage events, into the same table as the game's
+const VISITOR=ls('uc-visitor'),SID=Math.random().toString(36).slice(2);
+function track(name,data){try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,session:SID,visitor:VISITOR,seconds:0,game_day:DAY,event_version:2,data:{language:'en',page:'duel',...(data||{})}})}).catch(()=>{})}catch{}}
 const rpc=async(fn,args)=>{const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify(args)});const t=await r.text();if(!r.ok){let m=t;try{m=JSON.parse(t).message||t}catch{}throw new Error(m)}return t?JSON.parse(t):null};
 const show=id=>{for(const s of document.querySelectorAll('main>section'))s.hidden=s.id!==id;scrollTo(0,0)};
 const fail=m=>{$('e-msg').textContent=m;show('s-err')};
@@ -129,13 +143,16 @@ const link=c=>location.origin+location.pathname+'?d='+c;
 async function copy(c){try{await navigator.clipboard.writeText(link(c))}catch{}}
 let D=null,Q=[];
 async function boot(){$('nm').value=$('nm2').value=ls('uc-duel-name')||'';
- if(!code){record('rec1');show('s-home');return}
+ track('duel_view',{code:code||null});
+ if(!code){if(!playedToday())return gate();record('rec1');show('s-home');return}
  try{D=await rpc('duel_get',{p_code:code,p_token:TOKEN})}catch(e){return fail('Could not reach the server. Try again in a moment.')}
  if(!D)return fail('That duel link does not exist.');
  const me=D.players.find(p=>p.slot===D.me),p1=D.players.find(p=>p.slot===1);
 
  if(!me){if(D.players.length>=2)return fail('This duel already has two players.');
+  if(!playedToday())return gate(p1.name);
   $('j-p1').innerHTML=`<i style="background-image:${spBg(p1.kit)}"></i>${esc(p1.name)}<small>${p1.picks.length||p1.played?'has played round 1':'is waiting'}</small>`;$('j-me').style.backgroundImage=spBg(KIT);$('j-title').textContent=`${p1.name.toUpperCase()} CHALLENGED YOU`;show('s-join');return}
+ if(ls('uc-duel-pending')===code)ls('uc-duel-pending','');
  const rv=D.players.find(p=>p.slot!==D.me),mine=me.picks.length;
  if(D.over)return battle();
  if(rv&&mine>(rv.played||0)||(!rv&&mine>0))return waiting();
@@ -144,11 +161,14 @@ async function boot(){$('nm').value=$('nm2').value=ls('uc-duel-name')||'';
 function ready(){const me=D.players.find(p=>p.slot===D.me),n=me.picks.length;$('r-link').textContent=link(code);
  $('r-title').textContent=n?(n<15?roundName(n)+' · NO KO YET':'LEVEL AFTER 15 · SUDDEN DEATH'):me.slot===1?'YOUR DUEL IS READY':'READY WHEN YOU ARE';
  $('go').textContent=n<15?'Play round '+roundNo(n):'Sudden death: 1 question';show('s-ready')}
+function gate(who){if(code)ls('uc-duel-pending',code);if(who){$('g-title').textContent=`${who.toUpperCase()} CHALLENGED YOU`;$('g-msg').textContent=`Play today's five questions first, then come back for your duel. Your link is saved: you'll find it on your results screen.`}
+ track('duel_gate',{code:code||null});show('s-gate')}
+$('g-go').onclick=()=>{location.href='/'};
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 $('create').onclick=async e=>{const n=$('nm').value.trim();if(!n)return $('nm').focus();ls('uc-duel-name',n);e.target.disabled=true;e.target.textContent='Creating…';
- try{const qset=await pickQs();const c=await rpc('duel_create',{p_token:TOKEN,p_name:n,p_kit:KIT,p_qset:qset});location.href='duel.html?d='+c}catch(err){e.target.disabled=false;e.target.textContent='Create duel';fail('Could not create the duel: '+err.message)}};
+ try{const qset=await pickQs();const c=await rpc('duel_create',{p_token:TOKEN,p_name:n,p_kit:KIT,p_qset:qset});track('duel_create',{code:c});location.href='duel.html?d='+c}catch(err){e.target.disabled=false;e.target.textContent='Create duel';fail('Could not create the duel: '+err.message)}};
 $('join').onclick=async e=>{const n=$('nm2').value.trim();if(!n)return $('nm2').focus();ls('uc-duel-name',n);e.target.disabled=true;
- try{await rpc('duel_join',{p_code:code,p_token:TOKEN,p_name:n,p_kit:KIT});play()}catch(err){fail(err.message==='duel is full'?'This duel already has two players.':'Could not join: '+err.message)}};
+ try{await rpc('duel_join',{p_code:code,p_token:TOKEN,p_name:n,p_kit:KIT});ls('uc-duel-pending','');track('duel_join',{code});play()}catch(err){fail(err.message==='duel is full'?'This duel already has two players.':'Could not join: '+err.message)}};
 $('copy').onclick=async e=>{await copy(code);e.target.textContent='Copied ✓'};$('copy2').onclick=async e=>{await copy(code);e.target.textContent='Copied ✓'};
 $('go').onclick=()=>play();$('refresh').onclick=()=>location.reload();
 $('rematch').onclick=()=>{location.href='duel.html'};
@@ -169,7 +189,7 @@ $('q-skip').onclick=()=>lock(null);
 function lock(r){if(locked)return;locked=true;clearInterval(timer);$('q-in').disabled=true;$('q-skip').hidden=true;
  picks[qi]=r?[r.name,r.pts]:[null,0];$('q-msg').className='msg '+(r?'ok':'bad');$('q-msg').innerHTML=r?`<span style="color:${TCOL[r.pts]}">${TIER[r.pts]} +${r.pts}</span> · ${esc(r.name)}`:(left<=0?'Time up!':'Skipped');
  setTimeout(()=>{qi++;if(qi<size)ask();else finish()},1100)}
-async function finish(){try{await rpc('duel_submit',{p_code:code,p_token:TOKEN,p_picks:picks})}catch(e){if(!/already played|is over/.test(e.message))return fail('Could not save your answers: '+e.message)}
+async function finish(){try{await rpc('duel_submit',{p_code:code,p_token:TOKEN,p_picks:picks});track('duel_round',{code,played:base+size,score:picks.reduce((t,p)=>t+(p[1]||0),0)})}catch(e){if(!/already played|is over/.test(e.message))return fail('Could not save your answers: '+e.message)}
  D=await rpc('duel_get',{p_code:code,p_token:TOKEN});const me=D.players.find(p=>p.slot===D.me);D.shared>=me.picks.length?battle():waiting()}
 function waiting(){const me=D.players.find(p=>p.slot===D.me),rv=D.players.find(p=>p.slot!==D.me);const n=me.picks.length,s0=roundStart(n),dmg=me.picks.slice(s0).reduce((t,p)=>t+(p[1]||0),0);$('w-score').textContent=`${roundName(s0)} done: you threw ${dmg} damage.`;$('w-rival').textContent=rv?rv.name:'your mate';$('w-link').textContent=link(code);show('s-wait');
  clearInterval(window._poll);window._poll=setInterval(async()=>{try{const d=await rpc('duel_get',{p_code:code,p_token:TOKEN});if(d&&d.shared>=n){clearInterval(window._poll);D=d;battle()}}catch{}},10000)}
@@ -181,9 +201,14 @@ async function battle(){const slot=D.me||1,me=D.players.find(p=>p.slot===slot),r
  const R=Q.map((q,i)=>[q.prompt.toUpperCase(),row(A[s0+i]||[null,0]),row(B[s0+i]||[null,0])]);
  const hp=hpAfter(A,B,n),over=D.over;ls('uc-duel-seen-'+code,n);
  $('next').hidden=true;$('rematch').hidden=!over;let rec=null;if(over&&D.me)try{const r=await rpc('duel_record',{p_token:TOKEN});if(r)rec=[r.w,r.d,r.l]}catch{}
+ $('fb').hidden=true;if(over&&D.me){const res=hp[0]===hp[1]?'draw':hp[slot-1]>hp[2-slot]?'win':'loss';if(!ls('uc-duel-end-'+code)){ls('uc-duel-end-'+code,'1');track('duel_end',{code,result:res,questions:n})}fbFor=code}
  const opts={hp:hpAfter(A,B,s0),q0:s0,title:roundName(s0),final:over,rec,intro:s0===0?'vs':s0===15?'sd':null,next:n<15?'NO KO YET':'STILL LEVEL'};
- show('s-battle');const go=()=>{$('next').hidden=true;startBattle($('bc'),R,{name:D.me?'YOU':me.name,kit:me.kit,rec:me.rec},{name:rv.name,kit:rv.kit,rec:rv.rec},()=>{if(!over&&D.me){$('next').hidden=false;$('next').textContent=n<15?'Play round '+roundNo(n):'Sudden death'}},opts)};go();$('replay').onclick=go}
+ show('s-battle');const go=()=>{$('next').hidden=true;startBattle($('bc'),R,{name:D.me?'YOU':me.name,kit:me.kit,rec:me.rec},{name:rv.name,kit:rv.kit,rec:rv.rec},()=>{if(!over&&D.me){$('next').hidden=false;$('next').textContent=n<15?'Play round '+roundNo(n):'Sudden death'}if(over&&D.me&&!ls('uc-duel-fb-'+code))$('fb').hidden=false},opts)};go();$('replay').onclick=go}
 $('next').onclick=()=>play();
+// feedback on the finished duel, shown once the battle ends
+let fbFor=null,fbRate=null;
+for(const b of document.querySelectorAll('[data-fb]'))b.onclick=()=>{fbRate=b.dataset.fb;for(const x of document.querySelectorAll('[data-fb]'))x.classList.toggle('on',x===b);$('fb-send').hidden=false;track('duel_feedback',{code:fbFor,rating:fbRate})};
+$('fb-send').onclick=()=>{const t=$('fb-t').value.trim();if(t)track('duel_feedback_text',{code:fbFor,rating:fbRate,text:t.slice(0,500)});ls('uc-duel-fb-'+fbFor,'1');$('fb-send').hidden=true;$('fb-t').hidden=true;$('fb-ok').hidden=false};
 // your record across all duels on this device: wins-draws-losses
 async function record(id){try{const r=await rpc('duel_record',{p_token:TOKEN});if(!r||r.w+r.d+r.l===0)return;$(id).textContent=`Your duel record: ${r.w}-${r.d}-${r.l} (W-D-L)`;$(id).hidden=false}catch{}}
 document.fonts.ready.then(boot);

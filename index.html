@@ -754,6 +754,11 @@ body.playing .brand-home{cursor:default}
 @media (max-width:640px){.played-results-home{width:100%;justify-content:center}}
 
 /* social-first result screen */
+.duel-strip{display:flex;align-items:center;gap:6px;margin:-12px 0 22px;padding:6px 10px 6px 6px;background:linear-gradient(#f7efdc,#eadcb9);border:3px solid #06041a;box-shadow:4px 4px 0 rgba(0,0,0,.4);color:#06041a;text-decoration:none}
+.duel-spr{display:block;width:40px;height:34px;background:center/contain no-repeat;image-rendering:pixelated}.duel-flip{transform:scaleX(-1)}
+.duel-vs{font:400 18px 'Jersey 10',monospace;background:#ffd23f;border:2px solid #06041a;padding:0 4px;line-height:1.1}
+.duel-txt{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.15;margin-left:4px}.duel-txt b{font-size:16px}.duel-txt small{font-size:13px;color:#5a4a2a}
+.duel-go{font-weight:800;font-size:14px;background:#ffd23f;border:2px solid #06041a;padding:6px 10px;white-space:nowrap}
 .result-screen .result-share-row{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;margin:14px 0 24px}
 .result-screen .result-share-row .cta{flex:2 1 0;justify-content:center;font-size:20px;padding:14px 18px}
 .result-screen .result-share-row .ghost{flex:1 1 0;justify-content:center;font-size:15px;padding:14px 10px;min-width:0;background:#c9a8ff!important;color:#1b1030!important;border-color:#000!important}
@@ -2095,6 +2100,7 @@ www.unicornergame.lol`};
   ${streakStrip(streakInfo(),'rs')}
   <div class="dist" id="dist"><div class="mute">${L("Comparing with today's players…",'Comparando con los jugadores de hoy…')}</div></div>
   <div class="result-share-row"><button class="cta" id="copy-result">${L('Copy result','Copiar resultado')}</button><button type="button" class="ghost" id="share-result">${L('Share','Compartir')}</button></div>
+  ${duelStrip()}
   <section class="jb" id="compete-results" data-compete><div class="jb-frame"><div class="jb-screen"><p class="jb-empty">GLOBAL RANKING · LOADING…</p></div></div></section>
   ${hits.length?`<section class="result-section"><div class="result-section-head"><h2>${L('Your match highlights','Lo mejor de tu partido')}</h2><p class="mute">${L('Best answers first','Primero las mejores respuestas')}</p></div><div class="result-list">${hits.map(r=>resultItem(r,false)).join('')}</div></section>`:''}
   ${misses.length?`<div class="result-nearly"><section class="result-section"><div class="result-section-head"><h2>${L('Nearly had it','Casi')}</h2><p class="mute">${ES?(misses.length===1?'1 respuesta':misses.length+' respuestas')+' para aprender para mañana':(misses.length===1?'1 answer':misses.length+' answers')+' to learn for tomorrow'}</p></div><div class="result-list">${misses.map(r=>resultItem(r,true)).join('')}</div></section></div>`:''}
@@ -2106,6 +2112,7 @@ www.unicornergame.lol`};
   window.ucCrowdShare?.();
   window.scrollTo({top:0,left:0,behavior:'auto'});
   setTimeout(()=>flipScoreTo(document.getElementById('fs'),score,2000),400);
+  document.getElementById('duel-strip')?.addEventListener('click',()=>track('duel_card_click',{pending:!!duelPending()}));
   document.getElementById('copy-result').onclick=async e=>{const share=shareText();track('copy_click',{score,set_id:dailySetId()});const copied=navigator.clipboard?.writeText?await navigator.clipboard.writeText(share).then(()=>true).catch(()=>false):false;if(copied)showToast(L('Copied to clipboard!','¡Copiado!'));e.target.textContent=copied?L('Copied!','¡Copiado!'):L('Copy failed','No se pudo copiar')};
   const shareBtn=document.getElementById('share-result');
   if(navigator.share){shareBtn.onclick=async e=>{const share=shareText();track('share_click',{score,set_id:dailySetId()});try{await navigator.share({title:'Unicorner',text:share})}catch{}}}else{shareBtn.remove()}
@@ -2236,6 +2243,11 @@ const SRC=(()=>{const clean=v=>String(v||'').toLowerCase().replace(/[^a-z0-9._-]
  // tidy the address bar so a shared link doesn't carry our tag
  if(p&&p.has('utm_source'))try{for(const k of ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'])p.delete(k);const q=p.toString();history.replaceState(history.state,'',location.pathname+(q?'?'+q:'')+location.hash)}catch{}
  return{src:sess,src_first:first||sess,src_how:utm?'tag':ref?'referrer':'none'}})();
+// 1v1 duels (English only for now): a slim strip on the results screen once today's game is done
+const duelPending=()=>{try{return localStorage.getItem('uc-duel-pending')}catch{return null}};
+function duelStrip(){if(ES||document.body.classList.contains('inf-mode'))return'';const code=duelPending(),kit=(()=>{try{return KITS.find(k=>k.id===localStorage.getItem('uc-kit'))}catch{return null}})();
+ const spr=(m,f,k)=>`<i class="duel-spr" style="background-image:${spriteDraw(m,f,false,k&&k.id!=='classic'?k:null).replace(/"/g,"'")}"></i>`;
+ return`<a class="duel-strip" id="duel-strip" href="/duel.html${code?'?d='+encodeURIComponent(code):''}">${spr('wow',0,kit)}<b class="duel-vs">VS</b><span class="duel-flip">${spr('wow',1,KITS.find(k=>k.id==='galaxy'))}</span><span class="duel-txt"><b>${code?'Your duel is waiting':'New: 1v1 duels'}</b><small>${code?'Back to your duel':'Challenge a mate'}</small></span><span class="duel-go">${code?'GO':'PLAY'} →</span></a>`}
 function track(name,data){try{if(document.body.classList.contains('inf-mode'))data={...(data||{}),mode:'infinity'};let language=null;try{language=LANG}catch{}const body=JSON.stringify({name,session:SID,visitor:VISITOR,seconds:Math.round((Date.now()-T0)/1000),game_day:amsterdamDay(),event_version:2,data:{language,browser_language:(navigator.language||'').slice(0,12),src:SRC.src,src_first:SRC.src_first,...(data||{})}});fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body}).catch(()=>{})}catch{}}
 track('view',{ref:(document.referrer||'').slice(0,120),path:location.pathname,src_how:SRC.src_how,...DEVICE});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&Date.now()-lastBeat>5000){lastBeat=Date.now();track('leave',{reason:'hidden'})}});
