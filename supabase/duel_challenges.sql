@@ -174,3 +174,11 @@ grant execute on function public.duel_challenges_set(boolean) to authenticated;
 grant execute on function public.duel_inbox() to anon, authenticated;
 grant execute on function public.duel_join(text, text, text, text) to anon, authenticated;
 grant execute on function public.duel_get(text, text) to anon, authenticated;
+
+-- Supabase grants new functions to anon by default; these need a signed-in player
+revoke all on function public.duel_challenge(text, text, text, jsonb, text) from public, anon;
+revoke all on function public.duel_decline(text) from public, anon;
+revoke all on function public.duel_challenges_set(boolean) from public, anon;
+grant execute on function public.duel_challenge(text, text, text, jsonb, text) to authenticated;
+grant execute on function public.duel_decline(text) to authenticated;
+grant execute on function public.duel_challenges_set(boolean) to authenticated;
