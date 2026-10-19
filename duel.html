@@ -49,6 +49,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 .ib-st{font-family:var(--mono);font-size:17px;padding:2px 8px;color:var(--ink);white-space:nowrap}.ib-row button{width:auto;font-size:20px;padding:6px 12px}
 .ib-off{display:flex;gap:10px;align-items:center;margin:4px 0 14px}.ib-off input{width:22px;height:22px}
 #s-inbox button+button{margin-top:12px}.fb{margin-top:14px;display:grid;gap:10px}.fb textarea{font:inherit;font-size:18px;width:100%;box-sizing:border-box;padding:8px;border:3px solid var(--ink);background:var(--cream);color:var(--ink)}.fb [data-fb].on{background:var(--gold);color:var(--ink)}.rec{color:var(--gold)}
+.ib-tabs{display:flex;gap:8px;margin-top:10px}.ib-tabs button{flex:1;white-space:nowrap;font-size:18px;padding:6px;margin:0!important;background:transparent;color:var(--muted)}.ib-tabs button.on{background:var(--gold);color:var(--ink)}.ib-row{flex-wrap:wrap}.ib-row b{flex:1 1 100%;min-width:0}.ib-row .ib-st{margin-right:auto}.ib-row .ib-x{background:transparent;color:var(--muted);padding:4px 8px;border-color:var(--muted)}
 [hidden]{display:none!important}
 </style></head><body>
 <main>
@@ -63,6 +64,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
  </section>
  <section id="s-inbox" class="card" hidden>
   <h2>MY DUELS</h2>
+  <div class="ib-tabs"><button id="ib-t0" class="on">Active</button><button id="ib-t1">Archive</button></div>
   <div id="ib-list" class="ib"></div>
   <label class="ib-off"><input type="checkbox" id="ib-allow"> Let other players challenge me</label>
   <button id="ib-new">New duel by link</button>
@@ -116,7 +118,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
   <button id="g-go">Play today's game</button>
   <button class="ghost" id="g-inbox" hidden style="margin-top:12px" onclick="location.href='duel.html?inbox'">My duels</button>
  </section>
- <section id="s-err" class="card" hidden><h2>OOPS</h2><p id="e-msg"></p><button onclick="location.href='duel.html'">Start a new duel</button>
+ <section id="s-err" class="card" hidden><h2 id="e-t">OOPS</h2><p id="e-msg"></p><button onclick="location.href='duel.html'">Start a new duel</button>
   <button class="ghost" style="margin-top:14px" onclick="location.href='/'">← Back to Unicorner</button></section>
 </main>
 <script src="duel/sprites.js"></script>
@@ -141,7 +143,7 @@ async function userToken(){let x;try{x=JSON.parse(localStorage.getItem('uc-playe
   x={...x,access_token:j.access_token,refresh_token:j.refresh_token||x.refresh_token,exp:Date.now()+Math.max(60,(+j.expires_in||3600))*1000};localStorage.setItem('uc-player-session',JSON.stringify(x))}catch{return null}}return x.access_token}
 const rpc=async(fn,args)=>{const ut=await userToken();const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+(ut||SB_KEY),'Content-Type':'application/json'},body:JSON.stringify(args)});const t=await r.text();if(!r.ok){let m=t;try{m=JSON.parse(t).message||t}catch{}throw new Error(m)}return t?JSON.parse(t):null};
 const show=id=>{for(const s of document.querySelectorAll('main>section'))s.hidden=s.id!==id;scrollTo(0,0)};
-const fail=m=>{$('e-msg').textContent=m;show('s-err')};
+const fail=(m,t)=>{$('e-msg').textContent=m;$('e-t').textContent=t||'OOPS';show('s-err')};
 const spBg=(kit,mood='happy')=>{const k=KITS.find(x=>x.id===kit);return spriteDraw(mood,0,false,k&&k.id!=='classic'?k:null).replace(/"/g,"'")};
 // answer matching: the same rules as the daily game
 const norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/ø/g,'o').replace(/ı/g,'i').replace(/[^a-zA-Z0-9 ]/g,' ').toLowerCase().replace(/\s+/g,' ').trim();
@@ -197,6 +199,7 @@ async function boot(){$('nm').value=$('nm2').value=ls('uc-nick')||ls('uc-duel-na
   $('j-p1').innerHTML=`<i style="background-image:${spBg(p1.kit)}"></i>${esc(p1.name)}<small>${p1.picks.length||p1.played?'has played round 1':'is waiting'}</small>`;$('j-me').style.backgroundImage=spBg(KIT);$('j-title').textContent=`${p1.name.toUpperCase()} CHALLENGED YOU`;show('s-join');return}
  if(ls('uc-duel-pending')===code)ls('uc-duel-pending','');
  const rv=D.players.find(p=>p.slot!==D.me),mine=me.picks.length;
+ if(D.surrendered)return fail(D.surrendered===D.me?'You gave up this duel.':`${rv?rv.name:'Your rival'} gave up. You win!`,D.surrendered===D.me?'GAVE UP':'YOU WIN');
  if(D.over)return battle();
  if(rv&&mine>(rv.played||0)||(!rv&&mine>0))return waiting();
  if(D.shared>0&&+ls('uc-duel-seen-'+code)<D.shared)return battle();
@@ -209,15 +212,21 @@ function gate(who){if(code)ls('uc-duel-pending',code);if(who){$('g-title').textC
  track('duel_gate',{code:code||null});show('s-gate')}
 $('g-go').onclick=()=>{location.href='/'};
 // ── inbox: every duel you're in, like a chess app: your turn, their turn, finished ──
-const IB={challenge:['NEW CHALLENGE','#ffd23f','Accept'],sent:['WAITING TO ACCEPT','#c9bff5','View'],your_turn:['YOUR TURN','#39d353','Play'],their_turn:['THEIR TURN','#c9bff5','View'],
+const IB={challenge:['NEW CHALLENGE','#ffd23f','Accept'],sent:['SENT · WAITING','#c9bff5','View'],your_turn:['YOUR TURN','#39d353','Play'],their_turn:['THEIR TURN','#c9bff5','View'],
  won:['YOU WON','#39d353','View'],lost:['YOU LOST','#ff6b6b','View'],draw:['DRAW','#4fc3ff','View'],declined:['DECLINED','#8a80b8',''],expired:['EXPIRED','#8a80b8','']};
-async function inbox(){if(!await userToken())return fail('Sign in on Unicorner (the league login) to see your duels.');let r;try{r=await rpc('duel_inbox',{})}catch{return fail('Could not load your duels. Try again in a moment.')}
- track('duel_inbox',{n:r.items.length});$('ib-allow').checked=!r.off;
- $('ib-list').innerHTML=r.items.length?r.items.map(x=>{const[l,c,b]=IB[x.state]||[x.state,'#ccc',''];return`<div class="ib-row"><b>${esc(x.opp)}<small>${new Date(x.at).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}${x.played?' · '+x.played+' questions played':''}</small></b><span class="ib-st" style="background:${c}">${l}</span>${b?`<button data-go="${x.code}">${b}</button>`:''}${x.state==='challenge'?`<button class="ghost" data-no="${x.code}">No</button>`:''}</div>`}).join('')
-  :'<p>No duels yet. Tap a player on the leaderboard to challenge them, or send a duel link to a mate.</p>';
+const DONE=new Set(['won','lost','draw','declined','expired']);let IBR=null,IBT=0;
+async function inbox(){if(!await userToken())return fail('Sign in on Unicorner (the league login) to see your duels.');try{IBR=await rpc('duel_inbox',{})}catch{return fail('Could not load your duels. Try again in a moment.')}
+ track('duel_inbox',{n:IBR.items.length});$('ib-allow').checked=!IBR.off;ibDraw();show('s-inbox')}
+function ibDraw(){const all=IBR.items,act=all.filter(x=>!DONE.has(x.state)),arc=all.filter(x=>DONE.has(x.state)),list=IBT?arc:act;
+ $('ib-t0').textContent='Active'+(act.length?' ('+act.length+')':'');$('ib-t1').textContent='Archive'+(arc.length?' ('+arc.length+')':'');$('ib-t0').classList.toggle('on',!IBT);$('ib-t1').classList.toggle('on',!!IBT);
+ $('ib-list').innerHTML=list.length?list.map(x=>{const[l,c,b]=IB[x.state]||[x.state,'#ccc',''];const gu=x.gave_up==='you'?' · you gave up':x.gave_up==='them'?' · they gave up':'';return`<div class="ib-row"><b>${esc(x.opp)}<small>${new Date(x.at).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}${x.played?' · '+x.played+' questions played':''}${gu}</small></b><span class="ib-st" style="background:${c}">${l}</span>${b?`<button data-go="${x.code}">${b}</button>`:''}${x.state==='challenge'?`<button class="ghost" data-no="${x.code}">No</button>`:`<button class="ib-x" data-rm="${x.code}" data-st="${x.state}" aria-label="Remove">✕</button>`}</div>`}).join('')
+  :IBT?'<p>Finished duels land here.</p>':all.length?'<p>No duels going right now.</p>':'<p>No duels yet. Tap a player on the leaderboard to challenge them, or send a duel link to a mate.</p>';
  for(const b of document.querySelectorAll('[data-go]'))b.onclick=()=>{location.href='duel.html?d='+b.dataset.go};
  for(const b of document.querySelectorAll('[data-no]'))b.onclick=async()=>{b.disabled=true;try{await rpc('duel_decline',{p_code:b.dataset.no})}catch{}inbox()};
- show('s-inbox')}
+ for(const b of document.querySelectorAll('[data-rm]'))b.onclick=async()=>{const st=b.dataset.st,live=st==='your_turn'||st==='their_turn';
+  if(!confirm(live?'Give up this duel? It counts as a loss.':st==='sent'?'Remove this duel? Your mate can still open the link.':'Remove this duel from your list?'))return;
+  b.disabled=true;try{await rpc('duel_remove',{p_code:b.dataset.rm});track('duel_remove',{state:st})}catch{}inbox()}}
+$('ib-t0').onclick=()=>{IBT=0;ibDraw()};$('ib-t1').onclick=()=>{IBT=1;ibDraw()};
 $('ib-allow').onchange=e=>rpc('duel_challenges_set',{p_off:!e.target.checked}).catch(()=>{});
 $('ib-new').onclick=()=>{location.href='duel.html'};$('to-inbox').onclick=()=>{location.href='duel.html?inbox'};
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
