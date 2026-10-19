@@ -204,7 +204,7 @@ async function boot(){$('nm').value=$('nm2').value=ls('uc-nick')||ls('uc-duel-na
   $('j-p1').innerHTML=`<i style="background-image:${spBg(p1.kit)}"></i>${esc(p1.name)}<small>${p1.picks.length||p1.played?'has played round 1':'is waiting'}</small>`;$('j-me').style.backgroundImage=spBg(KIT);$('j-title').textContent=`${p1.name.toUpperCase()} CHALLENGED YOU`;show('s-join');return}
  if(ls('uc-duel-pending')===code)ls('uc-duel-pending','');
  const rv=D.players.find(p=>p.slot!==D.me),mine=me.picks.length;
- if(D.surrendered)return fail(D.surrendered===D.me?'You gave up this duel.':`${rv?rv.name:'Your rival'} gave up. You win!`,D.surrendered===D.me?'GAVE UP':'YOU WIN');
+ if(D.surrendered){rpc('duel_seen',{p_code:code,p_token:TOKEN}).catch(()=>{});return fail(D.surrendered===D.me?'You gave up this duel.':`${rv?rv.name:'Your rival'} gave up. You win!`,D.surrendered===D.me?'GAVE UP':'YOU WIN');}
  if(D.over)return battle();
  if(rv&&mine>(rv.played||0)||(!rv&&mine>0))return waiting();
  if(D.shared>0&&+ls('uc-duel-seen-'+code)<D.shared)return battle();
@@ -219,12 +219,12 @@ $('g-go').onclick=()=>{location.href='/'};
 // ── inbox: every duel you're in, like a chess app: your turn, their turn, finished ──
 const IB={challenge:['NEW CHALLENGE','#ffd23f','Accept'],sent:['SENT · WAITING','#c9bff5','View'],your_turn:['YOUR TURN','#39d353','Play'],their_turn:['THEIR TURN','#c9bff5','View'],
  won:['YOU WON','#39d353','View'],lost:['YOU LOST','#ff6b6b','View'],draw:['DRAW','#4fc3ff','View'],declined:['DECLINED','#8a80b8',''],expired:['EXPIRED','#8a80b8','']};
-const DONE=new Set(['won','lost','draw','declined','expired']);let IBR=null,IBT=0;
+const DONE=new Set(['won','lost','draw','declined','expired']),done=x=>DONE.has(x.state)&&!x.fresh;/* a finished duel stays in Active until you've watched the result */let IBR=null,IBT=0;
 async function inbox(){if(!await userToken())return fail('Sign in on Unicorner (the league login) to see your duels.');try{IBR=await rpc('duel_inbox',{})}catch{return fail('Could not load your duels. Try again in a moment.')}
  track('duel_inbox',{n:IBR.items.length});$('ib-allow').checked=!IBR.off;ibDraw();show('s-inbox')}
-function ibDraw(){const all=IBR.items,act=all.filter(x=>!DONE.has(x.state)),arc=all.filter(x=>DONE.has(x.state)),list=IBT?arc:act;
+function ibDraw(){const all=IBR.items,act=all.filter(x=>!done(x)),arc=all.filter(done),list=IBT?arc:act;
  $('ib-t0').textContent='Active'+(act.length?' ('+act.length+')':'');$('ib-t1').textContent='Archive'+(arc.length?' ('+arc.length+')':'');$('ib-t0').classList.toggle('on',!IBT);$('ib-t1').classList.toggle('on',!!IBT);
- $('ib-list').innerHTML=list.length?list.map(x=>{const[l,c,b]=IB[x.state]||[x.state,'#ccc',''];const gu=x.gave_up==='you'?' · you gave up':x.gave_up==='them'?' · they gave up':'';return`<div class="ib-row"><b>${esc(x.opp)}<small>${new Date(x.at).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}${x.played?' · '+x.played+' questions played':''}${gu}</small></b><span class="ib-st" style="background:${c}">${l}</span>${b?`<button data-go="${x.code}">${b}</button>`:''}${x.state==='challenge'?`<button class="ghost" data-no="${x.code}">No</button>`:`<button class="ib-x" data-rm="${x.code}" data-st="${x.state}" aria-label="Remove">✕</button>`}</div>`}).join('')
+ $('ib-list').innerHTML=list.length?list.map(x=>{let[l,c,b]=IB[x.state]||[x.state,'#ccc',''];if(x.fresh){l='RESULT IN';c='#ffd23f';b='Watch'}const gu=x.gave_up==='you'?' · you gave up':x.gave_up==='them'?' · they gave up':'';return`<div class="ib-row"><b>${esc(x.opp)}<small>${new Date(x.at).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}${x.played?' · '+x.played+' questions played':''}${gu}</small></b><span class="ib-st" style="background:${c}">${l}</span>${b?`<button data-go="${x.code}">${b}</button>`:''}${x.state==='challenge'?`<button class="ghost" data-no="${x.code}">No</button>`:`<button class="ib-x" data-rm="${x.code}" data-st="${x.state}" aria-label="Remove">✕</button>`}</div>`}).join('')
   :IBT?'<p>Finished duels land here.</p>':all.length?'<p>No duels going right now.</p>':'<p>No duels yet. Tap a player on the leaderboard to challenge them, or send a duel link to a mate.</p>';
  for(const b of document.querySelectorAll('[data-go]'))b.onclick=()=>{location.href='duel.html?d='+b.dataset.go};
  for(const b of document.querySelectorAll('[data-no]'))b.onclick=async()=>{b.disabled=true;try{await rpc('duel_decline',{p_code:b.dataset.no})}catch{}inbox()};
@@ -269,7 +269,7 @@ async function battle(){const slot=D.me||1,me=D.players.find(p=>p.slot===slot),r
  try{Q=await Promise.all(D.qset.slice(s0,n).map(loadQ))}catch{return fail('Could not load the questions.')}
  const row=p=>[p[0]?p[0].toUpperCase():'NO ANSWER',p[0]?TIER[p[1]]:null,p[1]];
  const R=Q.map((q,i)=>[q.prompt.toUpperCase(),row(A[s0+i]||[null,0]),row(B[s0+i]||[null,0])]);
- const hp=hpAfter(A,B,n),over=D.over;ls('uc-duel-seen-'+code,n);
+ const hp=hpAfter(A,B,n),over=D.over;ls('uc-duel-seen-'+code,n);if(over)rpc('duel_seen',{p_code:code,p_token:TOKEN}).catch(()=>{});   // watched the end: off to the archive
  $('next').hidden=true;$('rematch').hidden=!over;let rec=null;if(over&&D.me)try{const r=await rpc('duel_record',{p_token:TOKEN});if(r)rec=[r.w,r.d,r.l]}catch{}
  $('fb').hidden=true;if(over&&D.me){const res=hp[0]===hp[1]?'draw':hp[slot-1]>hp[2-slot]?'win':'loss';if(!ls('uc-duel-end-'+code)){ls('uc-duel-end-'+code,'1');track('duel_end',{code,result:res,questions:n})}fbFor=code}
  const opts={hp:hpAfter(A,B,s0),q0:s0,title:roundName(s0),final:over,rec,intro:s0===0?'vs':s0===15?'sd':null,next:n<15?'NO KO YET':'STILL LEVEL'};
