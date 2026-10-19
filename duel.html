@@ -114,6 +114,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
   <h2 id="g-title">PLAY TODAY'S GAME FIRST</h2>
   <p id="g-msg">Duels open once you've played today's five questions. It only takes a couple of minutes.</p>
   <button id="g-go">Play today's game</button>
+  <button class="ghost" id="g-inbox" hidden style="margin-top:12px" onclick="location.href='duel.html?inbox'">My duels</button>
  </section>
  <section id="s-err" class="card" hidden><h2>OOPS</h2><p id="e-msg"></p><button onclick="location.href='duel.html'">Start a new duel</button>
   <button class="ghost" style="margin-top:14px" onclick="location.href='/'">← Back to Unicorner</button></section>
@@ -181,7 +182,7 @@ async function boot(){$('nm').value=$('nm2').value=ls('uc-nick')||ls('uc-duel-na
  if(VSN&&!code){if(!await userToken())return fail('Sign in on Unicorner (the league login) to challenge players.');if(!playedToday())return gate();
   $('h-title').textContent=`CHALLENGE ${VSN.toUpperCase().slice(0,16)}`;$('create').textContent='Send challenge';$('create').dataset.vs=VSN;
   document.querySelector('#s-home .small').textContent=`${VSN} gets it in their duel inbox. You both start on 300 HP and play rounds of five questions until someone is KO'd.`;show('s-home');return}
- if(!code){if(!playedToday())return gate();record('rec1');if(await userToken())$('to-inbox').hidden=false;show('s-home');return}
+ if(!code){if(!playedToday()){if(await userToken())$('g-inbox').hidden=false;return gate()}record('rec1');if(await userToken())$('to-inbox').hidden=false;show('s-home');return}
  try{D=await rpc('duel_get',{p_code:code,p_token:TOKEN})}catch(e){return fail('Could not reach the server. Try again in a moment.')}
  if(!D)return fail('That duel link does not exist.');
  const me=D.players.find(p=>p.slot===D.me),p1=D.players.find(p=>p.slot===1);

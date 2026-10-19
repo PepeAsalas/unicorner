@@ -94,7 +94,6 @@ begin
       st := case when r.declined_at is not null then 'declined'
                  when r.created_at < now() - interval '3 days' then 'expired'
                  when ms = 1 then 'sent' else 'challenge' end;
-      if ms = 1 and r.challenged_user is null then continue; end if;   -- link duel nobody joined yet: not inbox material
     else
       n := least(jsonb_array_length(r.pa), jsonb_array_length(r.pb));
       h := duel_hp(r.pa, r.pb, n);
