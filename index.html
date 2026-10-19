@@ -1958,7 +1958,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
  </section>
 
  </div>`,()=>{window.ucAwards?.();const play=async()=>{if(!played&&window.ucCheckRemote&&await window.ucCheckRemote())return start();document.body.classList.remove('landing');if(played){try{restore(played);setMeter();end(true)}catch(x){track('results_view_error',{message:String(x&&x.message||x).slice(0,200),stack:String(x&&x.stack||'').slice(0,600),score:played.score,picks:played.picks});start()}}else ask()};
-  if(document.readyState==='loading')addEventListener('DOMContentLoaded',lpDuels,{once:true});else lpDuels();
+  {const lpd=()=>lpDuels(!!played);if(document.readyState==='loading')addEventListener('DOMContentLoaded',lpd,{once:true});else lpd()}
   const go=document.getElementById('go');if(go)go.onclick=()=>{if(!played&&window.ucHowToNeeded?.())return window.ucHowTo(play,'first');play()};
   try{if(sessionStorage.getItem('uc-reopen')==='results'){sessionStorage.removeItem('uc-reopen');if(played&&go)setTimeout(()=>go.click(),0)}}catch{}
   const hw=document.getElementById('how');if(hw)hw.onclick=()=>{track('how_click',{from:'ticket'});if(window.ucHowTo)return window.ucHowTo(played?null:play,'button');const st=document.getElementById('steps');st.scrollIntoView({behavior:'smooth',block:'center'});st.classList.remove('flash');void st.offsetWidth;st.classList.add('flash')};
@@ -2283,14 +2283,19 @@ function duelStrip(){if(ES||document.body.classList.contains('inf-mode'))return'
  return`<a class="duel-strip" id="duel-strip" href="/duel.html${code?'?d='+encodeURIComponent(code):''}">${spr('wow',0,kit)}<b class="duel-vs">VS</b><span class="duel-flip">${spr('wow',1,KITS.find(k=>k.id==='galaxy'))}</span><span class="duel-txt"><b>${code?'Your duel is waiting':'New: 1v1 duels'}</b><small>${code?'Back to your duel':'Challenge a mate'}</small></span><span class="duel-go">${code?'GO':'PLAY'} →</span></a>`}
 // signed in: the strip points at the duel inbox and says how many duels are waiting on you
 // home screen: a strip under the ticket when a signed-in player has duels waiting on them
-async function lpDuels(){try{const el=document.getElementById('lp-duel');if(!el||ES||!window.ucSignedIn?.())return;const t=await window.ucToken();if(!t)return;
- const r=await fetch(SB_URL+'/rest/v1/rpc/duel_inbox',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:'{}'});if(!r.ok)return;const j=await r.json();
- const its=(j.items||[]).filter(x=>x.state==='your_turn'||x.state==='challenge'),n=its.length;if(!n||!el.isConnected)return;
+async function lpDuels(pl){try{const el=document.getElementById('lp-duel');if(!el||ES)return;
+ const signed=!!window.ucSignedIn?.();let its=[];
+ if(signed){const t=await window.ucToken();if(t){const r=await fetch(SB_URL+'/rest/v1/rpc/duel_inbox',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:'{}'});if(r.ok)its=((await r.json()).items||[]).filter(x=>x.state==='your_turn'||x.state==='challenge')}}
+ const n=its.length,code=duelPending();if(!el.isConnected||(!n&&!pl&&!code))return;   // before today's game: only when something is waiting
  const ch=its.filter(x=>x.state==='challenge').length,kit=(()=>{try{return KITS.find(k=>k.id===localStorage.getItem('uc-kit'))}catch{return null}})();
  const spr=(m,f,k)=>`<i class="duel-spr" style="background-image:${spriteDraw(m,f,false,k&&k.id!=='classic'?k:null).replace(/"/g,"'")}"></i>`;
- const who=n===1?esc(its[0].opp):'';
- el.innerHTML=`${spr('wow',0,kit)}<b class="duel-vs">VS</b><span class="duel-flip">${spr('wow',1,KITS.find(k=>k.id==='galaxy'))}</span><span class="duel-txt"><b><i class="lp-duel-n">${n}</i> duel${n>1?'s':''} waiting</b><small>${n===1?(ch?who+' challenged you':'Your turn vs '+who):ch?ch+' new challenge'+(ch>1?'s':'')+' · your turn':'Your turn · open your duels'}</small></span><span class="duel-go">GO →</span>`;
- el.hidden=false;el.onclick=()=>track('duel_home_click',{n})}catch{}}
+ const who=n===1?esc(its[0].opp):'';let txt,go,href;
+ if(n){txt=`<b><i class="lp-duel-n">${n}</i> duel${n>1?'s':''} waiting</b><small>${n===1?(ch?who+' challenged you':'Your turn vs '+who):ch?ch+' new challenge'+(ch>1?'s':'')+' · your turn':'Your turn · open your duels'}</small>`;go='GO →';href='/duel.html?inbox'}
+ else if(code){txt='<b>Your duel is waiting</b><small>Back to your duel</small>';go='GO →';href='/duel.html?d='+encodeURIComponent(code)}
+ else if(signed){txt='<b>1v1 duels</b><small>My duels · challenge a mate</small>';go='OPEN →';href='/duel.html?inbox'}
+ else{txt='<b>1v1 duels</b><small>Challenge a mate</small>';go='PLAY →';href='/duel.html'}
+ el.href=href;el.innerHTML=`${spr('wow',0,kit)}<b class="duel-vs">VS</b><span class="duel-flip">${spr('wow',1,KITS.find(k=>k.id==='galaxy'))}</span><span class="duel-txt">${txt}</span><span class="duel-go">${go}</span>`;
+ el.hidden=false;el.onclick=()=>track('duel_home_click',{n,played:!!pl})}catch{}}
 async function duelInboxStrip(){const el=document.getElementById('duel-strip');if(!el||duelPending()||!window.ucSignedIn?.())return;try{const t=await window.ucToken();if(!t)return;
  const r=await fetch(SB_URL+'/rest/v1/rpc/duel_inbox',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:'{}'});if(!r.ok)return;const j=await r.json();
  const n=(j.items||[]).filter(x=>x.state==='your_turn'||x.state==='challenge').length;el.href='/duel.html?inbox';
