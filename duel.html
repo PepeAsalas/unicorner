@@ -50,9 +50,11 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 .ib-off{display:flex;gap:10px;align-items:center;margin:4px 0 14px}.ib-off input{width:22px;height:22px}
 #s-inbox button+button{margin-top:12px}.fb{margin-top:14px;display:grid;gap:10px}.fb textarea{font:inherit;font-size:18px;width:100%;box-sizing:border-box;padding:8px;border:3px solid var(--ink);background:var(--cream);color:var(--ink)}.fb [data-fb].on{background:var(--gold);color:var(--ink)}.rec{color:var(--gold)}
 .ib-tabs{display:flex;gap:8px;margin-top:10px}.ib-tabs button{flex:1;white-space:nowrap;font-size:18px;padding:6px;margin:0!important;background:transparent;color:var(--muted)}.ib-tabs button.on{background:var(--gold);color:var(--ink)}.ib-row{flex-wrap:wrap}.ib-row b{flex:1 1 100%;min-width:0}.ib-row .ib-st{margin-right:auto}.ib-row .ib-x{background:transparent;color:var(--muted);padding:4px 8px;border-color:var(--muted)}
+.x-exit{position:fixed;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));z-index:50;width:44px;height:44px;display:grid;place-items:center;font:700 22px/1 system-ui,sans-serif;color:var(--ink);background:var(--cream);border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);text-decoration:none}.x-exit:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}header{padding-right:52px}body.playing .x-exit{display:none}
 [hidden]{display:none!important}
 </style></head><body>
 <main>
+ <a class="x-exit" id="x-exit" href="/" aria-label="Close duels, back to Unicorner" title="Back to Unicorner">✕</a>
  <header><h1>UNICORNER DUEL</h1><p>Rounds of five questions until someone is KO'd. The rarer answer hits harder.</p></header>
  <section id="s-home" class="card" hidden>
   <h2 id="h-title">CHALLENGE A MATE</h2>
@@ -81,7 +83,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
   <p>Send this link to your mate:</p>
   <div class="link" id="r-link"></div>
   <div class="row"><button id="copy" class="ghost">Copy link</button><button id="go">Play round 1</button></div>
-  <button class="ghost" style="margin-top:14px" onclick="location.href='/'">← Back to Unicorner</button>
+  <button class="ghost back" style="margin-top:14px">← Back to Unicorner</button>
  </section>
  <section id="s-play" class="card" hidden>
   <div class="qhead"><span class="chip" id="q-n">Q1 OF 5</span><span class="clock" id="q-clock">15</span></div>
@@ -96,13 +98,13 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
   <p>Waiting for <b id="w-rival">your mate</b> to play. Send them the link:</p>
   <div class="link" id="w-link"></div>
   <div class="row"><button id="copy2" class="ghost">Copy link</button><button id="refresh">Check again</button></div>
-  <button class="ghost" style="margin-top:14px" onclick="location.href='/'">← Back to Unicorner</button>
+  <button class="ghost back" style="margin-top:14px">← Back to Unicorner</button>
  </section>
  <section id="s-view" class="card" hidden>
   <h2 id="v-title">ROUND 1 IS IN</h2>
   <p id="v-msg">You've both played. See how it went.</p>
   <button id="v-go">View your duel</button>
-  <button class="ghost" style="margin-top:14px" onclick="location.href='/'">← Back to Unicorner</button>
+  <button class="ghost back" style="margin-top:14px">← Back to Unicorner</button>
  </section>
  <section id="s-battle" hidden>
   <div class="cab"><canvas id="bc" width="540" height="780" aria-label="Duel battle replay"></canvas></div>
@@ -110,7 +112,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
    <div class="row"><button class="ghost" data-fb="up">👍 Loved it</button><button class="ghost" data-fb="down">👎 Meh</button></div>
    <textarea id="fb-t" maxlength="500" rows="2" placeholder="Anything to change? (optional)"></textarea><button id="fb-send" hidden>Send</button><p class="small" id="fb-ok" hidden>Thanks! 🦄</p></div>
   <div class="row" style="margin-top:14px"><button id="replay" class="ghost">Replay</button><button id="next" hidden>Play round 2</button><button id="rematch">Rematch</button></div>
-  <button class="ghost" style="margin-top:14px" onclick="location.href='/'">← Back to Unicorner</button>
+  <button class="ghost back" style="margin-top:14px">← Back to Unicorner</button>
  </section>
  <section id="s-gate" class="card" hidden>
   <h2 id="g-title">PLAY TODAY'S GAME FIRST</h2>
@@ -119,7 +121,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
   <button class="ghost" id="g-inbox" hidden style="margin-top:12px" onclick="location.href='duel.html?inbox'">My duels</button>
  </section>
  <section id="s-err" class="card" hidden><h2 id="e-t">OOPS</h2><p id="e-msg"></p><button onclick="location.href='duel.html'">Start a new duel</button>
-  <button class="ghost" style="margin-top:14px" onclick="location.href='/'">← Back to Unicorner</button></section>
+  <button class="ghost back" style="margin-top:14px">← Back to Unicorner</button></section>
 </main>
 <script src="duel/sprites.js"></script>
 <script src="duel/battle.js"></script>
@@ -142,7 +144,10 @@ async function userToken(){let x;try{x=JSON.parse(localStorage.getItem('uc-playe
  if(Date.now()>(x.exp||0)-60000){try{const r=await fetch(SB_URL+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:x.refresh_token})});const j=await r.json();if(!r.ok||!j.access_token)return null;
   x={...x,access_token:j.access_token,refresh_token:j.refresh_token||x.refresh_token,exp:Date.now()+Math.max(60,(+j.expires_in||3600))*1000};localStorage.setItem('uc-player-session',JSON.stringify(x))}catch{return null}}return x.access_token}
 const rpc=async(fn,args)=>{const ut=await userToken();const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+(ut||SB_KEY),'Content-Type':'application/json'},body:JSON.stringify(args)});const t=await r.text();if(!r.ok){let m=t;try{m=JSON.parse(t).message||t}catch{}throw new Error(m)}return t?JSON.parse(t):null};
-const show=id=>{for(const s of document.querySelectorAll('main>section'))s.hidden=s.id!==id;scrollTo(0,0)};
+const show=id=>{for(const s of document.querySelectorAll('main>section'))s.hidden=s.id!==id;document.body.classList.toggle('playing',id==='s-play');scrollTo(0,0)};
+// back buttons inside a duel go to your duel list when you're signed in (that's where people want to be), else home
+for(const b of document.querySelectorAll('.back'))b.onclick=()=>{location.href='/'};
+userToken().then(t=>{if(!t)return;for(const b of document.querySelectorAll('.back')){b.textContent='← My duels';b.onclick=()=>{location.href='duel.html?inbox'}}}).catch(()=>{});
 const fail=(m,t)=>{$('e-msg').textContent=m;$('e-t').textContent=t||'OOPS';show('s-err')};
 const spBg=(kit,mood='happy')=>{const k=KITS.find(x=>x.id===kit);return spriteDraw(mood,0,false,k&&k.id!=='classic'?k:null).replace(/"/g,"'")};
 // answer matching: the same rules as the daily game
