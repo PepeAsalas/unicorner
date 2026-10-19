@@ -17,6 +17,8 @@
 
 - Global leaderboard: a ranking for each day's game and a weekly ranking that resets every Monday; yesterday's winner is shown at the top. Signing in with an email and picking a nickname puts you on it.
 - Private leagues: create a league, send the link to friends, and compare daily and weekly scores.
+- 1v1 duels: challenge a friend (by link, or from the leaderboard) to rounds of five questions; rarer answers hit harder until someone is knocked out. Each player keeps a win-draw-loss record.
+- Also known as soccer trivia: Unicorner is a daily soccer trivia game playable worldwide in English and Spanish.
 - Kits: 40 outfits for your pixel-art unicorn, unlocked by playing (games played, streaks, Screamers, high scores). The rarest, the Cosmic GOAT, is only for players who win a day.
 - Weekly trophies: every Monday at midnight the past week is wrapped up and trophies are handed out, such as Champion (most points), Golden Boot (most Screamers), Ever-present (played all seven days) and Hat-trick (three Screamers in one game). They live in a trophy cabinet and show as badges next to names on the leaderboard.
 - Streaks for playing on consecutive days.
