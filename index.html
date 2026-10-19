@@ -772,6 +772,7 @@ body.playing .brand-home{cursor:default}
 .pcd-ch{display:block;margin:12px auto 2px;text-align:center;font-weight:800;background:#ffd23f;color:#06041a;border:3px solid #06041a;padding:10px;text-decoration:none;box-shadow:0 4px 0 #06041a}
 .pcd-du{text-align:center;margin:8px 0 2px;font-size:15px}.pcd-du b{font-size:18px;margin:0 4px}.pcd-du small{opacity:.7}
 .duel-strip{display:flex;align-items:center;gap:6px;margin:-12px 0 22px;padding:6px 10px 6px 6px;background:linear-gradient(#f7efdc,#eadcb9);border:3px solid #06041a;box-shadow:4px 4px 0 rgba(0,0,0,.4);color:#06041a;text-decoration:none}
+.lp-duel{margin:12px 0 0}.lp-duel[hidden]{display:none}.lp-duel-n{font-style:normal;display:inline-block;min-width:1.3em;padding:0 4px;margin-right:4px;background:#e3262f;color:#fff;border:2px solid #06041a;text-align:center}
 .duel-spr{display:block;width:40px;height:34px;background:center/contain no-repeat;image-rendering:pixelated}.duel-flip{transform:scaleX(-1)}
 .duel-vs{font:400 18px 'Jersey 10',monospace;background:#ffd23f;border:2px solid #06041a;padding:0 4px;line-height:1.1}
 .duel-txt{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.15;margin-left:4px}.duel-txt b{font-size:16px}.duel-txt small{font-size:13px;color:#5a4a2a}
@@ -1938,6 +1939,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
   ${streakStrip(sInfo)}
   ${signedOut()?`<p class="tk-back"><button type="button" data-lg="back">${L('Played on another device? Sign in to bring your streak back','¿Has jugado en otro dispositivo? Entra y recupera tu racha')} →</button></p>`:''}
  </section></div>
+ <a class="duel-strip lp-duel" id="lp-duel" href="/duel.html?inbox" hidden></a>
 
  ${played?infStrip:''}
 
@@ -1956,6 +1958,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
  </section>
 
  </div>`,()=>{window.ucAwards?.();const play=async()=>{if(!played&&window.ucCheckRemote&&await window.ucCheckRemote())return start();document.body.classList.remove('landing');if(played){try{restore(played);setMeter();end(true)}catch(x){track('results_view_error',{message:String(x&&x.message||x).slice(0,200),stack:String(x&&x.stack||'').slice(0,600),score:played.score,picks:played.picks});start()}}else ask()};
+  if(document.readyState==='loading')addEventListener('DOMContentLoaded',lpDuels,{once:true});else lpDuels();
   const go=document.getElementById('go');if(go)go.onclick=()=>{if(!played&&window.ucHowToNeeded?.())return window.ucHowTo(play,'first');play()};
   try{if(sessionStorage.getItem('uc-reopen')==='results'){sessionStorage.removeItem('uc-reopen');if(played&&go)setTimeout(()=>go.click(),0)}}catch{}
   const hw=document.getElementById('how');if(hw)hw.onclick=()=>{track('how_click',{from:'ticket'});if(window.ucHowTo)return window.ucHowTo(played?null:play,'button');const st=document.getElementById('steps');st.scrollIntoView({behavior:'smooth',block:'center'});st.classList.remove('flash');void st.offsetWidth;st.classList.add('flash')};
@@ -2279,7 +2282,16 @@ function duelStrip(){if(ES||document.body.classList.contains('inf-mode'))return'
  const spr=(m,f,k)=>`<i class="duel-spr" style="background-image:${spriteDraw(m,f,false,k&&k.id!=='classic'?k:null).replace(/"/g,"'")}"></i>`;
  return`<a class="duel-strip" id="duel-strip" href="/duel.html${code?'?d='+encodeURIComponent(code):''}">${spr('wow',0,kit)}<b class="duel-vs">VS</b><span class="duel-flip">${spr('wow',1,KITS.find(k=>k.id==='galaxy'))}</span><span class="duel-txt"><b>${code?'Your duel is waiting':'New: 1v1 duels'}</b><small>${code?'Back to your duel':'Challenge a mate'}</small></span><span class="duel-go">${code?'GO':'PLAY'} →</span></a>`}
 // signed in: the strip points at the duel inbox and says how many duels are waiting on you
-async function duelInboxStrip(){const el=document.getElementById('duel-strip');if(!el||duelPending()||!sess)return;try{const t=await token();if(!t)return;
+// home screen: a strip under the ticket when a signed-in player has duels waiting on them
+async function lpDuels(){try{const el=document.getElementById('lp-duel');if(!el||ES||!window.ucSignedIn?.())return;const t=await window.ucToken();if(!t)return;
+ const r=await fetch(SB_URL+'/rest/v1/rpc/duel_inbox',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:'{}'});if(!r.ok)return;const j=await r.json();
+ const its=(j.items||[]).filter(x=>x.state==='your_turn'||x.state==='challenge'),n=its.length;if(!n||!el.isConnected)return;
+ const ch=its.filter(x=>x.state==='challenge').length,kit=(()=>{try{return KITS.find(k=>k.id===localStorage.getItem('uc-kit'))}catch{return null}})();
+ const spr=(m,f,k)=>`<i class="duel-spr" style="background-image:${spriteDraw(m,f,false,k&&k.id!=='classic'?k:null).replace(/"/g,"'")}"></i>`;
+ const who=n===1?esc(its[0].opp):'';
+ el.innerHTML=`${spr('wow',0,kit)}<b class="duel-vs">VS</b><span class="duel-flip">${spr('wow',1,KITS.find(k=>k.id==='galaxy'))}</span><span class="duel-txt"><b><i class="lp-duel-n">${n}</i> duel${n>1?'s':''} waiting</b><small>${n===1?(ch?who+' challenged you':'Your turn vs '+who):ch?ch+' new challenge'+(ch>1?'s':'')+' · your turn':'Your turn · open your duels'}</small></span><span class="duel-go">GO →</span>`;
+ el.hidden=false;el.onclick=()=>track('duel_home_click',{n})}catch{}}
+async function duelInboxStrip(){const el=document.getElementById('duel-strip');if(!el||duelPending()||!window.ucSignedIn?.())return;try{const t=await window.ucToken();if(!t)return;
  const r=await fetch(SB_URL+'/rest/v1/rpc/duel_inbox',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:'{}'});if(!r.ok)return;const j=await r.json();
  const n=(j.items||[]).filter(x=>x.state==='your_turn'||x.state==='challenge').length;el.href='/duel.html?inbox';
  el.querySelector('.duel-txt').innerHTML=n?`<b>${n} duel${n>1?'s':''} waiting for you</b><small>Your turn · open your duels</small>`:`<b>1v1 duels</b><small>Challenge a mate · My duels</small>`;el.querySelector('.duel-go').textContent=n?'GO →':'OPEN →'}catch{}}
@@ -2783,7 +2795,7 @@ function viewMore(join){moreJoin=join||null;const cur=me?.leagues?.[0],email=ses
 function joinWaitlist(email,from,note){if(!email||lsGet(LG_INF)===email)return;
  dbP.then(db=>db&&db.collection('submissions').add({kind:'infinite-waitlist',email,from,note:note||'Ticked the waitlist box when signing up',newsletter:lsGet(LG_OPTOUT)!=='1',privacyNoticeVersion:'2026-09-18',sentAt:new Date().toISOString()})).catch(()=>{});
  lsSet(LG_INF,email);track('infinite_waitlist',{from})}
-window.ucJoinWaitlist=joinWaitlist;window.ucSignedEmail=()=>sess?.email||'';window.ucRpc=rpc;window.ucPubRpc=pubRpc;window.ucSignedIn=()=>!!sess;
+window.ucJoinWaitlist=joinWaitlist;window.ucSignedEmail=()=>sess?.email||'';window.ucRpc=rpc;window.ucPubRpc=pubRpc;window.ucSignedIn=()=>!!sess;window.ucToken=()=>token();
 async function notifyInfinity(){const email=sess?.email;if(!email)throw new Error('Please sign in again');
  const data={email,from:'leagues',note:'Wants more leagues',newsletter:!me?.profile?.news_opt_out,privacyNoticeVersion:'2026-09-18'};
  fetch('https://formsubmit.co/ajax/joseasalasnl@gmail.com',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({_subject:'Unicorner: Infinity mode waitlist',_template:'table',_captcha:'false',_replyto:email,type:'Infinity mode waitlist',...Object.fromEntries(Object.entries(data).map(([k,v])=>[k,String(v)])),sent:new Date().toLocaleString('en-GB')})}).catch(()=>{});
