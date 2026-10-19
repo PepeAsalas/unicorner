@@ -3023,7 +3023,7 @@ function playerCard(r){const k=kitOf(r),info=window.ucKitInfo||{},t=info.KLV?.[k
  if(!d.open)d.showModal();track('player_card',{me:!!r.me});duelRec(d,(r.me?me?.profile?.nickname:r.nickname)||'');
  if(!ES&&sess&&!r.me&&!r.ghost&&r.nickname){const b=document.createElement('a');b.className='pcd-ch';b.href='/duel.html?vs='+encodeURIComponent(r.nickname);b.textContent='⚔️ Challenge to a duel';b.onclick=()=>track('duel_card_challenge',{});d.querySelector('.pcd-b')?.appendChild(b)}}
 // 1v1 duel record (wins-draws-losses) under the stats, only once they've finished a duel
-function duelRec(d,nick){if(!nick||ES)return;fetch(SB_URL+'/rest/v1/rpc/duel_record_nick',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({p_nick:nick})}).then(x=>x.ok?x.json():null).then(j=>{if(!j||!(j.w+j.d+j.l)||!d.open)return;const st=d.querySelector('.pcd-st');if(!st||d.querySelector('.pcd-du'))return;st.insertAdjacentHTML('afterend',`<div class="pcd-du">⚔️ 1v1 duels <b>${j.w}-${j.d}-${j.l}</b> <small>W-D-L</small></div>`)}).catch(()=>{})}
+function duelRec(d,nick){if(!nick||ES)return;fetch(SB_URL+'/rest/v1/rpc/duel_record_nick',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({p_nick:nick})}).then(x=>x.ok?x.json():null).then(j=>{if(!j||!(j.w+j.d+j.l)||!d.open)return;const st=d.querySelector('.pcd-st');if(!st||d.querySelector('.pcd-du'))return;st.insertAdjacentHTML('beforeend',`<div class="pcd-du" title="Wins-draws-losses"><b>${j.w}-${j.d}-${j.l}</b>⚔️ duels</div>`)}).catch(()=>{})}
 // Send this player's kit and kit count to their account so everyone sees their unicorn on the boards
 let lookBusy=false;
 async function syncLook(){if(!sess||!me?.profile||lookBusy)return;const l=myLook();if(!l)return;
@@ -3342,6 +3342,18 @@ document.head.insertAdjacentHTML('beforeend',`<style>
 .pcd-tr span{display:grid;justify-items:center}
 .pcd-tr .tr-ico{width:36px;height:36px}
 .pcd-tr b{font:7px "Press Start 2P",monospace;color:#ffe2a8;margin-top:3px}
+/* compact player card: everything fits on a phone without scrolling */
+.pcd-art{padding:14px 74px 4px!important}
+.pcd-b{gap:6px!important}
+.pcd-st:has(>div:nth-child(4)){grid-template-columns:repeat(4,1fr)}.pcd-st:has(>div:nth-child(4)) b{font-size:22px}
+.pcd-tr{display:flex;align-items:center;gap:8px;margin:4px 0 0;padding:5px 8px}
+.pcd-tr h4{margin:0;flex:none;font-size:8px;line-height:1.4;writing-mode:horizontal-tb}
+.pcd-tr div{flex:1;justify-content:flex-start;gap:6px 9px;padding:0;border:0}
+.pcd-tr span{position:relative}
+.pcd-tr .tr-ico{width:24px;height:24px}
+.pcd-tr b{position:absolute;right:-7px;bottom:-4px;margin:0;font-size:6px;padding:1px 2px;background:#000;border-radius:3px;line-height:1}
+.pcd-shelf{gap:2px}.pcd-shelf i{width:19px;height:16px}
+.pcd-ch{margin:8px auto 0!important;padding:8px!important;font-size:18px;white-space:nowrap}.pcd-st .pcd-du{margin:0;font-size:16px}.pcd-st .pcd-du b{margin:0;white-space:nowrap}
 .aw-h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:2px 10px;background:#1b2a6b;color:#fff;padding:9px 12px 8px}
 .aw-h h3{margin:0;font-family:var(--px);font-weight:400;font-size:27px;line-height:1}
 .aw-h small{font:13px var(--lab);color:#c9d3ff;white-space:nowrap}
@@ -3449,7 +3461,7 @@ window.ucTrophyCab=async el=>{if(!el)return;const signed=!!window.ucSignedIn?.()
 const ORDER=['champion','ironman','boot','hattrick','motm','deepcut','clean','reliable','ever','top10','improve','spoon'],TMAP=new Map();let tBusy=null,tTimer=0;
 function tFill(){document.querySelectorAll('[data-tn]').forEach(el=>{const m=TMAP.get(el.dataset.tn);if(m===undefined||el.dataset.tf==='1')return;el.dataset.tf='1';
   const ks=ORDER.filter(k=>m&&m[k]);if(!ks.length)return;
-  if(el.classList.contains('pcd-tr')){const total=ks.reduce((a,k)=>a+m[k],0);el.innerHTML=`<h4>${L('TROPHIES','TROFEOS')} · ${total}</h4><div>${ks.map(k=>`<span title="${esc(trName(k))}">${icoHtml(k)}<b>×${m[k]}</b></span>`).join('')}</div>`;el.hidden=false}
+  if(el.classList.contains('pcd-tr')){const total=ks.reduce((a,k)=>a+m[k],0);el.innerHTML=`<h4 title="${L('Trophies','Trofeos')}">🏆<br>${total}</h4><div>${ks.map(k=>`<span title="${esc(trName(k))}">${icoHtml(k)}<b>×${m[k]}</b></span>`).join('')}</div>`;el.hidden=false}
   else{el.innerHTML=ks.filter(k=>k!=='spoon').slice(0,3).map(k=>`<i class="tr-ico" style="background-image:${ico(k)}" title="${esc(trName(k))}${m[k]>1?' ×'+m[k]:''}"></i>`).join('');el.setAttribute('aria-label',ks.map(k=>trName(k)).join(', '))}})}
 async function tLoad(){const want=[...new Set([...document.querySelectorAll('[data-tn]')].map(e=>e.dataset.tn))].filter(n=>!TMAP.has(n));
   if(!want.length){tFill();return}if(tBusy||!window.ucPubRpc)return;
