@@ -51,6 +51,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 #s-inbox button+button{margin-top:12px}.fb{margin-top:14px;display:grid;gap:10px}.fb textarea{font:inherit;font-size:18px;width:100%;box-sizing:border-box;padding:8px;border:3px solid var(--ink);background:var(--cream);color:var(--ink)}.fb [data-fb].on{background:var(--gold);color:var(--ink)}.rec{color:var(--gold)}
 .ib-tabs{display:flex;gap:8px;margin-top:10px}.ib-tabs button{flex:1;white-space:nowrap;font-size:18px;padding:6px;margin:0!important;background:transparent;color:var(--muted)}.ib-tabs button.on{background:var(--gold);color:var(--ink)}.ib-row{flex-wrap:wrap}.ib-row b{flex:1 1 100%;min-width:0}.ib-row .ib-st{margin-right:auto}.ib-row .ib-x{background:transparent;color:var(--muted);padding:4px 8px;border-color:var(--muted)}
 .x-exit{position:fixed;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));z-index:50;width:44px;height:44px;display:grid;place-items:center;font:700 22px/1 system-ui,sans-serif;color:var(--ink);background:var(--cream);border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);text-decoration:none}.x-exit:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}header{padding-right:52px}body.playing .x-exit{display:none}
+.clock{font-family:var(--mono);font-size:18px;color:var(--gold);margin:0}.clock.hot{color:#fff;background:var(--red);padding:4px 8px;animation:clk 1s steps(2) infinite}@keyframes clk{50%{opacity:.75}}.ib-row small.hot{color:#ff8a8a}
 [hidden]{display:none!important}
 </style></head><body>
 <main>
@@ -80,6 +81,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
  </section>
  <section id="s-ready" class="card" hidden>
   <h2 id="r-title">YOUR DUEL IS READY</h2>
+  <p class="clock" id="r-clock" hidden></p>
   <p>Send this link to your mate:</p>
   <div class="link" id="r-link"></div>
   <div class="row"><button id="copy" class="ghost">Copy link</button><button id="go">Play round 1</button></div>
@@ -94,7 +96,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
   <button id="q-skip" class="ghost">Skip</button>
  </section>
  <section id="s-wait" class="card" hidden>
-  <h2>YOU'RE DONE</h2><p id="w-score"></p>
+  <h2>YOU'RE DONE</h2><p id="w-score"></p><p class="clock" id="w-clock" hidden></p>
   <p>Waiting for <b id="w-rival">your mate</b> to play. Send them the link:</p>
   <div class="link" id="w-link"></div>
   <div class="row"><button id="copy2" class="ghost">Copy link</button><button id="refresh">Check again</button></div>
@@ -198,18 +200,19 @@ async function boot(){$('nm').value=$('nm2').value=ls('uc-nick')||ls('uc-duel-na
  if(!me&&(D.declined||D.expired||(D.challenge&&!D.for_me)||D.players.length>=2)&&ls('uc-duel-pending')===code)ls('uc-duel-pending','');
  if(!me&&D.challenge&&!D.for_me)return fail(`This challenge is for ${D.for_nick||'another player'}. Signed in as them? Open it from their duel inbox.`);
  if(!me&&D.declined)return fail('This challenge was declined.');
- if(!me&&D.expired)return fail('This challenge expired (challenges last 3 days).');
+ if(!me&&D.expired)return fail('This challenge expired (duels must be accepted within 24 hours).');
  if(!me){if(D.players.length>=2)return fail('This duel already has two players.');
   if(!playedToday())return gate(p1.name);
   $('j-p1').innerHTML=`<i style="background-image:${spBg(p1.kit)}"></i>${esc(p1.name)}<small>${p1.picks.length||p1.played?'has played round 1':'is waiting'}</small>`;$('j-me').style.backgroundImage=spBg(KIT);$('j-title').textContent=`${p1.name.toUpperCase()} CHALLENGED YOU`;show('s-join');return}
  if(ls('uc-duel-pending')===code)ls('uc-duel-pending','');
  const rv=D.players.find(p=>p.slot!==D.me),mine=me.picks.length;
  if(D.surrendered){rpc('duel_seen',{p_code:code,p_token:TOKEN}).catch(()=>{});return fail(D.surrendered===D.me?'You gave up this duel.':`${rv?rv.name:'Your rival'} gave up. You win!`,D.surrendered===D.me?'GAVE UP':'YOU WIN');}
+ if(D.outcome?.how==='timeout'){rpc('duel_seen',{p_code:code,p_token:TOKEN}).catch(()=>{});const l=D.outcome.loser;return fail(l===0?'Neither of you played in time, so the duel ended on HP: it\'s a draw.':l===D.me?'Time\'s up: you didn\'t play your round within 24 hours, so you lose this duel.':`Time's up: ${rv?rv.name:'your rival'} didn't play within 24 hours. You win!`,l===0?'DRAW':l===D.me?'OUT OF TIME':'YOU WIN')}
  if(D.over)return battle();
  if(rv&&mine>(rv.played||0)||(!rv&&mine>0))return waiting();
  if(D.shared>0&&+ls('uc-duel-seen-'+code)<D.shared)return battle();
  ready()}
-function ready(){const me=D.players.find(p=>p.slot===D.me),n=me.picks.length;$('r-link').textContent=link(code);
+function ready(){const me=D.players.find(p=>p.slot===D.me),n=me.picks.length;clock($('r-clock'),true);$('r-link').textContent=link(code);
  $('r-title').textContent=n?(n<15?roundName(n)+' · NO KO YET':'LEVEL AFTER 15 · SUDDEN DEATH'):me.slot===1?'YOUR DUEL IS READY':'READY WHEN YOU ARE';
  $('go').textContent=n<15?'Play round '+roundNo(n):'Sudden death: 1 question';
  const ch=D.challenge&&me.slot===1&&!D.players.find(p=>p.slot===2);$('r-link').hidden=$('copy').hidden=!!ch;$('r-link').previousElementSibling.textContent=ch?`Challenge sent to ${D.for_nick}. It's in their duel inbox; play your round now.`:'Send this link to your mate:';if(ch&&!n)$('r-title').textContent='CHALLENGE SENT';show('s-ready')}
@@ -219,12 +222,15 @@ $('g-go').onclick=()=>{location.href='/'};
 // ── inbox: every duel you're in, like a chess app: your turn, their turn, finished ──
 const IB={challenge:['NEW CHALLENGE','#ffd23f','Accept'],sent:['SENT · WAITING','#c9bff5','View'],your_turn:['YOUR TURN','#39d353','Play'],their_turn:['THEIR TURN','#c9bff5','View'],
  won:['YOU WON','#39d353','View'],lost:['YOU LOST','#ff6b6b','View'],draw:['DRAW','#4fc3ff','View'],declined:['DECLINED','#8a80b8',''],expired:['EXPIRED','#8a80b8','']};
+// 24-hour turn clock
+const tLeft=t=>{const ms=new Date(t)-Date.now();if(!(ms>0))return null;const h=Math.floor(ms/3600000),m=Math.floor(ms%3600000/60000);return h?`${h}h ${m}m`:`${m}m`};const hot=t=>new Date(t)-Date.now()<4*3600000;
+function clock(el,mine){const t=D?.deadline,l=t&&tLeft(t);el.hidden=!l;if(!l)return;el.classList.toggle('hot',hot(t));el.textContent=mine?(hot(t)?`⏰ ${l} left to play this round or you lose!`:`⏰ You have ${l} to play this round`):`⏰ They have ${l} to play, or they lose`}
 const DONE=new Set(['won','lost','draw','declined','expired']),done=x=>DONE.has(x.state)&&!x.fresh;/* a finished duel stays in Active until you've watched the result */let IBR=null,IBT=0;
 async function inbox(){if(!await userToken())return fail('Sign in on Unicorner (the league login) to see your duels.');try{IBR=await rpc('duel_inbox',{})}catch{return fail('Could not load your duels. Try again in a moment.')}
  track('duel_inbox',{n:IBR.items.length});$('ib-allow').checked=!IBR.off;ibDraw();show('s-inbox')}
 function ibDraw(){const all=IBR.items,act=all.filter(x=>!done(x)),arc=all.filter(done),list=IBT?arc:act;
  $('ib-t0').textContent='Active'+(act.length?' ('+act.length+')':'');$('ib-t1').textContent='Archive'+(arc.length?' ('+arc.length+')':'');$('ib-t0').classList.toggle('on',!IBT);$('ib-t1').classList.toggle('on',!!IBT);
- $('ib-list').innerHTML=list.length?list.map(x=>{let[l,c,b]=IB[x.state]||[x.state,'#ccc',''];if(x.fresh){l='RESULT IN';c='#ffd23f';b='Watch'}const gu=x.gave_up==='you'?' · you gave up':x.gave_up==='them'?' · they gave up':'';return`<div class="ib-row"><b>${esc(x.opp)}<small>${new Date(x.at).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}${x.played?' · '+x.played+' questions played':''}${gu}</small></b><span class="ib-st" style="background:${c}">${l}</span>${b?`<button data-go="${x.code}">${b}</button>`:''}${x.state==='challenge'?`<button class="ghost" data-no="${x.code}">No</button>`:`<button class="ib-x" data-rm="${x.code}" data-st="${x.state}" aria-label="Remove">✕</button>`}</div>`}).join('')
+ $('ib-list').innerHTML=list.length?list.map(x=>{let[l,c,b]=IB[x.state]||[x.state,'#ccc',''];if(x.fresh){l='RESULT IN';c='#ffd23f';b='Watch'}const gu=x.how==='timeout'?(x.state==='draw'?' · out of time':x.state==='lost'?' · you ran out of time':' · they ran out of time'):x.gave_up==='you'?' · you gave up':x.gave_up==='them'?' · they gave up':'';const tl=x.deadline&&tLeft(x.deadline),urgent=tl&&x.state==='your_turn'&&hot(x.deadline);const clk=tl?`<small class="${urgent?'hot':''}">⏰ ${tl} left${x.state==='your_turn'?(urgent?' · play or you lose!':' to play'):' for them'}</small>`:'';return`<div class="ib-row"><b>${esc(x.opp)}<small>${new Date(x.at).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}${x.played?' · '+x.played+' questions played':''}${gu}</small>${clk}</b><span class="ib-st" style="background:${c}">${l}</span>${b?`<button data-go="${x.code}">${b}</button>`:''}${x.state==='challenge'?`<button class="ghost" data-no="${x.code}">No</button>`:`<button class="ib-x" data-rm="${x.code}" data-st="${x.state}" aria-label="Remove">✕</button>`}</div>`}).join('')
   :IBT?'<p>Finished duels land here.</p>':all.length?'<p>No duels going right now.</p>':'<p>No duels yet. Tap a player on the leaderboard to challenge them, or send a duel link to a mate.</p>';
  for(const b of document.querySelectorAll('[data-go]'))b.onclick=()=>{location.href='duel.html?d='+b.dataset.go};
  for(const b of document.querySelectorAll('[data-no]'))b.onclick=async()=>{b.disabled=true;try{await rpc('duel_decline',{p_code:b.dataset.no})}catch{}inbox()};
@@ -261,7 +267,7 @@ function lock(r){if(locked)return;locked=true;clearInterval(timer);$('q-in').dis
  setTimeout(()=>{qi++;if(qi<size)ask();else finish()},1100)}
 async function finish(){try{await rpc('duel_submit',{p_code:code,p_token:TOKEN,p_picks:picks});track('duel_round',{code,played:base+size,score:picks.reduce((t,p)=>t+(p[1]||0),0)})}catch(e){if(!/already played|is over/.test(e.message))return fail('Could not save your answers: '+e.message)}
  D=await rpc('duel_get',{p_code:code,p_token:TOKEN});const me=D.players.find(p=>p.slot===D.me);D.shared>=me.picks.length?battle():waiting()}
-function waiting(){const me=D.players.find(p=>p.slot===D.me),rv=D.players.find(p=>p.slot!==D.me);const n=me.picks.length,s0=roundStart(n),dmg=me.picks.slice(s0).reduce((t,p)=>t+(p[1]||0),0);$('w-score').textContent=`${roundName(s0)} done: you threw ${dmg} damage.`;$('w-rival').textContent=rv?rv.name:'your mate';$('w-link').textContent=link(code);$('w-link').hidden=$('copy2').hidden=!!D.challenge;show('s-wait');
+function waiting(){clock($('w-clock'),false);const me=D.players.find(p=>p.slot===D.me),rv=D.players.find(p=>p.slot!==D.me);const n=me.picks.length,s0=roundStart(n),dmg=me.picks.slice(s0).reduce((t,p)=>t+(p[1]||0),0);$('w-score').textContent=`${roundName(s0)} done: you threw ${dmg} damage.`;$('w-rival').textContent=rv?rv.name:'your mate';$('w-link').textContent=link(code);$('w-link').hidden=$('copy2').hidden=!!D.challenge;show('s-wait');
  clearInterval(window._poll);window._poll=setInterval(async()=>{try{const d=await rpc('duel_get',{p_code:code,p_token:TOKEN});if(d&&d.shared>=n){clearInterval(window._poll);D=d;battle()}}catch{}},10000)}
 // ── the battle: shown from your side (you on the left) ──
 async function battle(){const slot=D.me||1,me=D.players.find(p=>p.slot===slot),rv=D.players.find(p=>p.slot!==slot);

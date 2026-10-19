@@ -772,7 +772,7 @@ body.playing .brand-home{cursor:default}
 .pcd-ch{display:block;margin:12px auto 2px;text-align:center;font-weight:800;background:#ffd23f;color:#06041a;border:3px solid #06041a;padding:10px;text-decoration:none;box-shadow:0 4px 0 #06041a}
 .pcd-du{text-align:center;margin:8px 0 2px;font-size:15px}.pcd-du b{font-size:18px;margin:0 4px}.pcd-du small{opacity:.7}
 .duel-strip{display:flex;align-items:center;gap:6px;margin:-12px 0 22px;padding:6px 10px 6px 6px;background:linear-gradient(#f7efdc,#eadcb9);border:3px solid #06041a;box-shadow:4px 4px 0 rgba(0,0,0,.4);color:#06041a;text-decoration:none}
-.lp-duel{margin:0 0 26px!important}.lp-duel[hidden]{display:none}.lp-duel-n{font-style:normal;display:inline-block;min-width:1.3em;padding:0 4px;margin-right:4px;background:#e3262f;color:#fff;border:2px solid #06041a;text-align:center}
+.lp-duel{margin:0 0 26px!important}.lp-duel[hidden]{display:none}.lp-duel.hot{background:linear-gradient(#ffe1dc,#ffc2b8);animation:lpdhot 1.2s ease-in-out infinite}@keyframes lpdhot{50%{box-shadow:4px 4px 0 rgba(0,0,0,.4),0 0 0 3px #e3262f}}.lp-duel-n{font-style:normal;display:inline-block;min-width:1.3em;padding:0 4px;margin-right:4px;background:#e3262f;color:#fff;border:2px solid #06041a;text-align:center}
 .duel-spr{display:block;width:40px;height:34px;background:center/contain no-repeat;image-rendering:pixelated}.duel-flip{transform:scaleX(-1)}
 .duel-vs{font:400 18px 'Jersey 10',monospace;background:#ffd23f;border:2px solid #06041a;padding:0 4px;line-height:1.1}
 .duel-txt{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.15;margin-left:4px}.duel-txt b{font-size:16px}.duel-txt small{font-size:13px;color:#5a4a2a}
@@ -2290,7 +2290,9 @@ async function lpDuels(pl){try{const el=document.getElementById('lp-duel');if(!e
  const ch=its.filter(x=>x.state==='challenge').length,fr=its.filter(x=>x.fresh).length,kit=(()=>{try{return KITS.find(k=>k.id===localStorage.getItem('uc-kit'))}catch{return null}})();
  const spr=(m,f,k)=>`<i class="duel-spr" style="background-image:${spriteDraw(m,f,false,k&&k.id!=='classic'?k:null).replace(/"/g,"'")}"></i>`;
  const who=n===1?esc(its[0].opp):'';let txt,go,href;
- if(n){txt=`<b><i class="lp-duel-n">${n}</i> duel${n>1?'s':''} waiting</b><small>${n===1?(ch?who+' challenged you':fr?'Duel over vs '+who+' · watch the end':'Your turn vs '+who):ch?ch+' new challenge'+(ch>1?'s':'')+' · your turn':fr?fr+' result'+(fr>1?'s':'')+' in · watch the end':'Your turn · open your duels'}</small>`;go='GO →';href='/duel.html?inbox'}
+ const urg=its.filter(x=>x.state==='your_turn'&&x.deadline&&new Date(x.deadline)-Date.now()<4*3600000).sort((a,b)=>new Date(a.deadline)-new Date(b.deadline))[0];el.classList.toggle('hot',!!urg);
+ if(urg){const ms=Math.max(0,new Date(urg.deadline)-Date.now()),h=Math.floor(ms/3600000),m=Math.floor(ms%3600000/60000);txt=`<b>⏰ ${h?h+'h '+m+'m':m+'m'} left vs ${esc(urg.opp)}</b><small>Play your round or you lose the duel!</small>`;go='PLAY →';href='/duel.html?d='+encodeURIComponent(urg.code)}
+ else if(n){txt=`<b><i class="lp-duel-n">${n}</i> duel${n>1?'s':''} waiting</b><small>${n===1?(ch?who+' challenged you':fr?'Duel over vs '+who+' · watch the end':'Your turn vs '+who):ch?ch+' new challenge'+(ch>1?'s':'')+' · your turn':fr?fr+' result'+(fr>1?'s':'')+' in · watch the end':'Your turn · open your duels'}</small>`;go='GO →';href='/duel.html?inbox'}
  else if(code){txt='<b>Your duel is waiting</b><small>Back to your duel</small>';go='GO →';href='/duel.html?d='+encodeURIComponent(code)}
  else if(signed){txt='<b>1v1 duels</b><small>My duels · challenge a mate</small>';go='OPEN →';href='/duel.html?inbox'}
  else{txt='<b>1v1 duels</b><small>Challenge a mate</small>';go='PLAY →';href='/duel.html'}
@@ -2298,8 +2300,8 @@ async function lpDuels(pl){try{const el=document.getElementById('lp-duel');if(!e
  el.hidden=false;el.onclick=()=>track('duel_home_click',{n,played:!!pl})}catch{}}
 async function duelInboxStrip(){const el=document.getElementById('duel-strip');if(!el||duelPending()||!window.ucSignedIn?.())return;try{const t=await window.ucToken();if(!t)return;
  const r=await fetch(SB_URL+'/rest/v1/rpc/duel_inbox',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:'{}'});if(!r.ok)return;const j=await r.json();
- const n=(j.items||[]).filter(x=>x.state==='your_turn'||x.state==='challenge'||x.fresh).length;el.href='/duel.html?inbox';
- el.querySelector('.duel-txt').innerHTML=n?`<b>${n} duel${n>1?'s':''} waiting for you</b><small>Your turn · open your duels</small>`:`<b>1v1 duels</b><small>Challenge a mate · My duels</small>`;el.querySelector('.duel-go').textContent=n?'GO →':'OPEN →'}catch{}}
+ const n=(j.items||[]).filter(x=>x.state==='your_turn'||x.state==='challenge'||x.fresh).length,urg=(j.items||[]).some(x=>x.state==='your_turn'&&x.deadline&&new Date(x.deadline)-Date.now()<4*3600000);el.href='/duel.html?inbox';
+ el.querySelector('.duel-txt').innerHTML=n?`<b>${urg?'⏰ ':''}${n} duel${n>1?'s':''} waiting for you</b><small>${urg?'Under 4 hours left · play or you lose!':'Your turn · open your duels'}</small>`:`<b>1v1 duels</b><small>Challenge a mate · My duels</small>`;el.querySelector('.duel-go').textContent=n?'GO →':'OPEN →'}catch{}}
 function track(name,data){try{if(document.body.classList.contains('inf-mode'))data={...(data||{}),mode:'infinity'};let language=null;try{language=LANG}catch{}const body=JSON.stringify({name,session:SID,visitor:VISITOR,seconds:Math.round((Date.now()-T0)/1000),game_day:amsterdamDay(),event_version:2,data:{language,browser_language:(navigator.language||'').slice(0,12),src:SRC.src,src_first:SRC.src_first,...(data||{})}});fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body}).catch(()=>{})}catch{}}
 track('view',{ref:(document.referrer||'').slice(0,120),path:location.pathname,src_how:SRC.src_how,...DEVICE});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&Date.now()-lastBeat>5000){lastBeat=Date.now();track('leave',{reason:'hidden'})}});
