@@ -75,5 +75,6 @@ function spriteDraw(mood,f,blink,kit){const px=[];FRAMES[f].forEach((r,y)=>[...r
  if(mood==='angry')for(const[x,y]of[[24,5],[25,5],[26,6],[27,6]])R(x,y,1,1,'#1a1030');
  if(kit&&kit.addon)for(const p of kit.addon(f))px.push(p);
  if(mood==='flash')for(const p of px)p[4]='#ffffff';
+ if(mood==='juggle')for(let i=px.length-1;i>=0;i--){const[x,y,w]=px[i];if(x>=27&&y>=21&&w===1)px.splice(i,1)}
  try{const S=6,cv=document.createElement('canvas');cv.width=36*S;cv.height=30*S;const g=cv.getContext('2d');for(const[x,y,w,h,c]of px){g.fillStyle=c;g.fillRect(x*S,y*S,w*S,h*S)}return`url("${cv.toDataURL('image/png')}")`}
  catch{const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 30" shape-rendering="crispEdges">${px.map(([x,y,w,h,c])=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${c}"/>`).join('')}</svg>`;return`url("data:image/svg+xml,${encodeURIComponent(svg)}")`}}

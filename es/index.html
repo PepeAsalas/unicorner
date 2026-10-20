@@ -1789,6 +1789,7 @@ function spriteDraw(mood,f,blink,kit){const px=[];FRAMES[f].forEach((r,y)=>[...r
  if(mood==='angry')for(const[x,y]of[[24,5],[25,5],[26,6],[27,6]])R(x,y,1,1,'#1a1030');
  if(kit&&kit.addon)for(const p of kit.addon(f))px.push(p);
  if(mood==='flash')for(const p of px)p[4]='#ffffff';
+ if(mood==='juggle')for(let i=px.length-1;i>=0;i--){const[x,y,w]=px[i];if(x>=27&&y>=21&&w===1)px.splice(i,1)}
  try{const S=6,cv=document.createElement('canvas');cv.width=36*S;cv.height=30*S;const g=cv.getContext('2d');for(const[x,y,w,h,c]of px){g.fillStyle=c;g.fillRect(x*S,y*S,w*S,h*S)}return`url("${cv.toDataURL('image/png')}")`}
  catch{const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 30" shape-rendering="crispEdges">${px.map(([x,y,w,h,c])=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${c}"/>`).join('')}</svg>`;return`url("data:image/svg+xml,${encodeURIComponent(svg)}")`}}
 const SPR={};const buildSprites=()=>{for(const m of ['happy','wow','sad','scream'])SPR[m]=[sprite(m,0),sprite(m,1),sprite(m,0,true)];document.body.classList.toggle('kit-gold',!!UC_KIT?.gold);document.body.classList.toggle('kit-myth',!!UC_KIT?.myth)};buildSprites();
@@ -1926,8 +1927,8 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
    <div class="tk-body">
     <div class="tk-meta"><span>${played?L('Your result','Tu resultado'):L('Matchday ticket','Entrada del partido')}</span><span>${played?L('Played ✓','Jugado ✓'):Q.length+L(' prompts · 3 min',' preguntas · 3 min')}</span></div>
     ${played?`<div class="tk-score"><b>${played.score}</b><span>/${MAX} · ${zl(zoneOf(played.score))}</span></div>
-    ${played.remote?`<p class="tk-live">${L('Played on another device ✓ · next game in','Jugado en otro dispositivo ✓ · próximo partido en')} <b>${untilMidnight()}</b></p>`:`<button type="button" class="cta tk-play" id="go">${L("View today's result",'Resultados de hoy')}</button>
-    <p class="tk-live">${L('Next game in','Próximo partido en')} <b>${untilMidnight()}</b></p>`}`
+    ${played.remote?`<p class="tk-live">${L('Played on another device ✓ · next game in','Jugado en otro dispositivo ✓ · próximo partido en')} <b class="flapclock" data-flap>${untilMidnight()}</b></p>`:`<button type="button" class="cta tk-play" id="go">${L("View today's result",'Resultados de hoy')}</button>
+    <p class="tk-live">${L('Next game in','Próximo partido en')} <b class="flapclock" data-flap>${untilMidnight()}</b></p>`}`
     :`<div class="tk-actions"><button type="button" class="cta tk-play" id="go">${L("Play today's game",'Jugar el partido de hoy')}</button><button type="button" class="ghost tk-how" id="how">${L('How to play','Cómo se juega')}</button></div>
     <p class="tk-live" id="tkLive"><i class="tk-dot"></i><span>${L("Today's game is live · free, no sign-up",'El partido de hoy ya está en juego · gratis, sin registro')}</span></p>`}
    </div>
@@ -1955,14 +1956,14 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
 
  </div>`,()=>{window.ucAwards?.();const play=async()=>{if(!played&&window.ucCheckRemote&&await window.ucCheckRemote())return start();document.body.classList.remove('landing');if(played){try{restore(played);setMeter();end(true)}catch(x){track('results_view_error',{message:String(x&&x.message||x).slice(0,200),stack:String(x&&x.stack||'').slice(0,600),score:played.score,picks:played.picks});start()}}else ask()};
   {const lpd=()=>lpDuels(!!played);if(document.readyState==='loading')addEventListener('DOMContentLoaded',lpd,{once:true});else lpd()}
-  const go=document.getElementById('go');if(go)go.onclick=()=>{if(!played&&window.ucHowToNeeded?.())return window.ucHowTo(play,'first');play()};
+  const go=document.getElementById('go');if(go)go.onclick=()=>{if(!played&&window.ucHowToNeeded?.())return window.ucHowTo(play,'first');if(!played&&window.ucTear)return window.ucTear(play);play()};
   try{if(sessionStorage.getItem('uc-reopen')==='results'){sessionStorage.removeItem('uc-reopen');if(played&&go)setTimeout(()=>go.click(),0)}}catch{}
   const hw=document.getElementById('how');if(hw)hw.onclick=()=>{track('how_click',{from:'ticket'});if(window.ucHowTo)return window.ucHowTo(played?null:play,'button');const st=document.getElementById('steps');st.scrollIntoView({behavior:'smooth',block:'center'});st.classList.remove('flash');void st.offsetWidth;st.classList.add('flash')};
   if(!played)liveLine().then(({n,top})=>{const el=document.querySelector('#tkLive span');if(el&&n)el.innerHTML=ES?`<b>${n} aficionado${n===1?'':'s'}</b> ${n===1?'ha':'han'} jugado hoy · récord <b>${top}</b>`:`<b>${n} fan${n===1?'':'s'}</b> played today · top score <b>${top}</b>`;else if(el)el.textContent=L('Be the first to play today','Sé el primero en jugar hoy')}).catch(()=>{});
   const otdLink=document.getElementById('otdLink');if(otdLink)otdLink.onclick=()=>track('on_this_day_click',{date:octDay,url:onThisDay.url});
   const lm=document.getElementById('landingMascot');
   if(isLeafWindow){const art=lm&&lm.closest('.lp-art');if(art)spawnOctLeaves(art)}
-  if(lm)lm.onclick=()=>{
+  if(lm)lm.onclick=()=>{if(window.ucTrick)return window.ucTrick(lm);
    lm.classList.remove('mascotStartle','mascotBounce');void lm.offsetWidth;
    lm.dataset.mood='scream';paint();lm.classList.add('mascotStartle');
    setTimeout(()=>{
@@ -1973,7 +1974,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
      art.classList.remove('mascotSparkGo');void art.offsetWidth;art.classList.add('mascotSparkGo')}
    },500);
   };
-  if(streakFlare){setTimeout(()=>{const fl=document.querySelector('.pixel-flame.flare');if(fl)fl.classList.remove('flare');const fw=document.querySelector('.flame-wrap.flare-active');if(fw)fw.classList.remove('flare-active')},760)}})}
+  if(streakFlare)setTimeout(()=>window.ucFlameFlare?.(document.querySelector('.tk-streak.lit .pixel-flame')),700)})}
 // out of time: the ref shows a red card and TIME! slams down over the screen
 function timeUp(){playSfx('whistle');const o=document.createElement('div');o.className='time-up';o.setAttribute('aria-hidden','true');o.innerHTML=`<i class="tu-card"></i><b>${L('TIME!','¡TIEMPO!')}</b>`;document.body.appendChild(o);setTimeout(()=>o.remove(),1900)}
 function calmDown(){document.body.classList.remove('panic-on');document.querySelectorAll('.card.panic').forEach(c=>c.classList.remove('panic'));document.getElementById('panic-n')?.remove()}
@@ -2111,6 +2112,7 @@ function end(restored){
  if(!restored){setPlayed({score,picks:results.filter(Boolean).map(r=>[Q.indexOf(r.q),r.ans?r.ans.name:null,r.pts,r.q.id||null])});submitScore(score)}
  renderRateStrip();
  setTimeout(()=>renderDist(score),restored?900:1600);
+ if(!restored)setTimeout(()=>{const f=document.querySelector('.tk-streak.rs.lit .pixel-flame');if(f&&window.ucFlameFlare){seenStreak(streakInfo().count);window.ucFlameFlare(f)}},900);
  const rows=results.map((r,ri)=>r?{...r,ri}:null).filter(Boolean);
  const hits=rows.filter(r=>r.ans).sort((a,b)=>b.pts-a.pts||a.ri-b.ri);
  const misses=rows.filter(r=>!r.ans);
@@ -3634,6 +3636,76 @@ html.polish .pz-count{font-variant-numeric:tabular-nums}
  document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('.kit-tile[data-k]');if(!b||b.classList.contains('locked')||RM())return;const id=b.dataset.k;
   requestAnimationFrame(()=>document.querySelectorAll(`.kit-tile.on[data-k="${id}"]`).forEach(t=>{const pv=t.firstElementChild;if(!pv||!pv.animate)return;
    pv.animate([{transform:'none'},{transform:'scaleX(.06) translateY(-4px)',offset:.45,easing:'cubic-bezier(.23,1,.32,1)'},{transform:'none'}],{duration:320,easing:'ease-in'})}))});
+})();
+</script>
+<style>
+/* departure board for the countdown to the next game */
+.flapclock{display:inline-flex;gap:2px;align-items:center;vertical-align:middle;perspective:300px}
+.flapclock i{font-style:normal;display:inline-grid;place-items:center;width:.95em;height:1.3em;background:#1b1b22;color:#f6f1de;border-radius:3px;font-family:var(--px);font-weight:400;font-size:1.15em;line-height:1;position:relative;box-shadow:inset 0 -2px 0 rgba(0,0,0,.45)}
+.flapclock i::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:#000}
+.flapclock s{text-decoration:none;font-family:var(--px);font-size:1.15em;padding:0 1px}
+/* leaderboard climb badge */
+.ucw-r.climbing{position:relative;z-index:2}
+.climb-up{position:absolute;right:-6px;top:-9px;font:400 9px/1 var(--lab);font-style:normal;background:#39d353;color:#06041a;border:2px solid #06041a;padding:3px 5px;pointer-events:none}
+.uc-spark{position:fixed;width:5px;height:5px;pointer-events:none;z-index:50}
+</style>
+<script>
+/* Motion, round two: ticket tear, unicorn tricks, streak flame flare, leaderboard climb, departure-board countdown */
+(()=>{const RM=()=>matchMedia('(prefers-reduced-motion: reduce)').matches,OUT='cubic-bezier(.23,1,.32,1)',IO='cubic-bezier(.77,0,.175,1)';
+ const wait=ms=>new Promise(r=>setTimeout(r,ms));
+ // 1. ticket tear: the stub rips off along the perforation and tumbles away, the ticket lifts, KICK-OFF! slams down
+ window.ucTear=cb=>{const tk=document.querySelector('.tk'),stub=tk&&tk.querySelector('.tk-stub'),wrap=document.querySelector('.tk-wrap');if(!stub||RM()||!stub.animate)return cb();
+  const r=stub.getBoundingClientRect(),c=stub.cloneNode(true);c.style.cssText=`position:fixed;left:${r.left}px;top:${r.top}px;width:${r.width}px;height:${r.height}px;margin:0;box-sizing:border-box;z-index:9998;transform-origin:100% 0;border-right:0;clip-path:polygon(0 0,100% 0,92% 6%,100% 12%,92% 18%,100% 24%,92% 30%,100% 36%,92% 42%,100% 48%,92% 54%,100% 60%,92% 66%,100% 72%,92% 78%,100% 84%,92% 90%,100% 96%,100% 100%,0 100%)`;
+  document.body.appendChild(c);stub.style.visibility='hidden';
+  c.animate([{transform:'none'},{transform:'rotate(-8deg) translate(-4px,6px)',offset:.22},{transform:`rotate(-34deg) translate(-50px,${innerHeight-r.top+60}px)`}],{duration:700,easing:'cubic-bezier(.45,0,.8,.4)',fill:'forwards'});
+  if(wrap)wrap.animate([{transform:'none'},{transform:'translateX(5px)'},{transform:'none'}],{duration:140});
+  const st=document.createElement('div');st.textContent=document.documentElement.lang==='es'?'¡A JUGAR!':'KICK-OFF!';st.style.cssText='position:fixed;left:50%;top:42%;translate:-50% -50%;z-index:9999;font:400 clamp(56px,16vw,96px)/1 var(--px);color:#ffd23f;text-shadow:4px 0 0 #1a1030,-4px 0 0 #1a1030,0 4px 0 #1a1030,0 -4px 0 #1a1030,6px 7px 0 #1a1030;white-space:nowrap;pointer-events:none;opacity:0';
+  setTimeout(()=>{if(wrap)wrap.animate([{transform:'none',opacity:1},{transform:'translateY(-28px) scale(.97)',opacity:0}],{duration:220,easing:OUT,fill:'forwards'})},220);
+  setTimeout(()=>{document.body.appendChild(st);st.animate([{opacity:0,transform:'scale(1.8)'},{opacity:1,transform:'scale(1)',offset:.3},{opacity:1,transform:'scale(1)',offset:.75},{opacity:0,transform:'scale(1)'}],{duration:900,easing:OUT,fill:'forwards'});
+   document.body.animate([{transform:'none'},{transform:'translate(-3px,2px)'},{transform:'translate(2px,-1px)'},{transform:'none'}],{duration:120,delay:60})},380);
+  let done=false;const go=()=>{if(done)return;done=true;cb()};setTimeout(go,720);setTimeout(()=>{c.remove();st.remove()},1400)};
+ // 2. tap the home unicorn: keepy-uppies, backflip, spin, a big neigh, one after the other
+ let ti=0,busy=false;const TR=['juggle','flip','spin','neigh'];
+ const pop=(art,txt,x,y)=>{const b=document.createElement('span');b.textContent=txt;b.style.cssText=`position:absolute;left:${x}px;top:${y}px;z-index:3;translate:-50% -50%;font:400 26px/1 var(--px);color:#ffd23f;text-shadow:3px 0 0 #1a1030,-3px 0 0 #1a1030,0 3px 0 #1a1030,0 -3px 0 #1a1030;pointer-events:none;white-space:nowrap`;art.appendChild(b);
+  b.animate([{opacity:0,transform:'scale(.7)'},{opacity:1,transform:'scale(1.15)',offset:.25},{opacity:1,transform:'scale(1)',offset:.8},{opacity:0,transform:'translateY(-10px)'}],{duration:800,easing:OUT,fill:'forwards'}).finished.then(()=>b.remove())};
+ window.ucTrick=async lm=>{if(busy)return;const art=lm.closest('.lp-art')||lm.parentElement,mood0=lm.dataset.mood,set=m=>{lm.dataset.mood=m;typeof paint==='function'&&paint()};
+  const t=TR[ti++%TR.length];track('mascot_trick',{trick:t});
+  if(RM()||!lm.animate){set(t==='neigh'?'scream':'wow');setTimeout(()=>set(mood0),900);return}
+  busy=true;const w=lm.clientWidth,c=w/36,x0=lm.offsetLeft,y0=lm.offsetTop;
+  try{
+   if(t==='juggle'){set('juggle');const bl=document.createElement('canvas');bl.width=6;bl.height=6;const g=bl.getContext('2d');FRAMES[0].forEach((row,y)=>[...row].forEach((ch,x)=>{if(ch==='.'||x<28||y<22)return;g.fillStyle=PAL[ch];g.fillRect(x-28,y-22,1,1)}));
+    bl.style.cssText=`position:absolute;left:${x0+28*c}px;top:${y0+22*c}px;width:${6*c}px;height:${6*c}px;image-rendering:pixelated;z-index:2;pointer-events:none`;art.appendChild(bl);
+    for(let k=0;k<4;k++){lm.animate([{transform:'none'},{transform:`translateY(${c}px)`},{transform:'none'}],{duration:160});
+     await bl.animate([{transform:'translateY(0)',easing:'cubic-bezier(.2,.7,.4,1)'},{transform:`translateY(${-(14+k*2)*c}px) rotate(90deg)`,easing:'cubic-bezier(.6,0,.8,.3)'},{transform:'translateY(0) rotate(180deg)'}],{duration:420}).finished;
+     pop(art,String(k+1),x0+33*c,y0-2*c)}
+    bl.remove()}
+   if(t==='flip'){set('wow');await lm.animate([{transform:'none'},{transform:`translateY(${2*c}px) scale(1.06,.9)`,offset:.12},{transform:`translateY(${-14*c}px) rotate(-180deg)`,offset:.5},{transform:`translateY(${-2*c}px) rotate(-345deg)`,offset:.86},{transform:`translateY(${c}px) rotate(-360deg) scale(1.05,.92)`,offset:.94},{transform:'rotate(-360deg)'}],{duration:950,easing:'cubic-bezier(.3,0,.3,1)'}).finished;pop(art,document.documentElement.lang==='es'?'¡OLÉ!':'OLÉ!',x0+w/2,y0-2*c)}
+   if(t==='spin'){set('wow');await lm.animate([{transform:'none'},{transform:`translateY(${-5*c}px) scaleX(-1)`},{transform:`translateY(${-7*c}px) scaleX(1)`},{transform:`translateY(${-5*c}px) scaleX(-1)`},{transform:'scaleX(1)'}],{duration:850,easing:IO}).finished}
+   if(t==='neigh'){set('scream');lm.style.transformOrigin='40% 95%';pop(art,document.documentElement.lang==='es'?'¡IIIIH!':'NEIGH!',x0+w*.72,y0+5*c);await lm.animate([{transform:'none'},{transform:'rotate(-16deg)',offset:.25},{transform:'rotate(-13deg)',offset:.5},{transform:'rotate(-16deg)',offset:.7},{transform:'none'}],{duration:1100,easing:OUT}).finished;lm.style.transformOrigin=''}
+  }finally{set(mood0);busy=false}};
+ // 3. streak flame: flares, throws sparks and the streak number pops when it goes up
+ window.ucFlameFlare=f=>{if(!f||RM()||!f.animate)return;f.animate([{transform:'scale(1)'},{transform:'scale(1.6)',offset:.35},{transform:'scale(.9)',offset:.7},{transform:'scale(1)'}],{duration:700,easing:'cubic-bezier(.34,1.4,.5,1)'});
+  const r=f.getBoundingClientRect(),C=['#ffd84d','#ff9a1f','#ff5a2e','#fff3a0'];
+  for(let i=0;i<14;i++){const sp=document.createElement('i');sp.className='uc-spark';sp.style.left=(r.left+r.width/2)+'px';sp.style.top=(r.top+r.height*.3)+'px';sp.style.background=C[i%4];document.body.appendChild(sp);
+   const a=-Math.PI/2+(Math.random()-.5)*2.2,d=26+Math.random()*44;sp.animate([{transform:'translate(0,0)',opacity:1},{transform:`translate(${Math.cos(a)*d}px,${Math.sin(a)*d}px)`,opacity:0}],{duration:600+Math.random()*300,delay:120,easing:OUT}).finished.then(()=>sp.remove(),()=>sp.remove())}
+  const b=f.parentElement&&f.parentElement.querySelector('.tk-streak-txt b');if(b){b.style.display='inline-block';b.animate([{transform:'translateY(60%)',opacity:0},{transform:'scale(1.15)',opacity:1,offset:.6},{transform:'none',opacity:1}],{duration:320,delay:200,easing:OUT,fill:'backwards'})}};
+ // 4. leaderboard climb: when you move up the week or league table, your row rises past the others
+ const weekId=()=>{const d=new Date(amsterdamDay()+'T12:00:00Z');return Math.floor((d/864e5+3)/7)};
+ function climb(){document.querySelectorAll('.ucw').forEach(w=>{const tab=w.querySelector('.ucw-tabs button.on')?.dataset.t;if(!tab||tab==='today')return;const me=w.querySelector('.ucw-grid .ucw-r.me');if(!me||me.dataset.climbed)return;me.dataset.climbed=1;
+  const rank=parseInt(me.firstElementChild?.textContent,10);if(!(rank>0))return;const key='uc-climb-'+tab,id=tab==='week'?weekId():'all';let old=null;try{old=JSON.parse(localStorage.getItem(key)||'null')}catch{}
+  try{localStorage.setItem(key,JSON.stringify({r:rank,id}))}catch{}if(!old||old.id!==id||!(rank<old.r)||RM()||!me.animate)return;
+  const rows=[...me.parentElement.querySelectorAll('.ucw-r:not(.h)')],i=rows.indexOf(me),below=rows.slice(i+1,i+1+(old.r-rank)),h=me.offsetHeight+2,d=Math.max(1,below.length);
+  me.classList.add('climbing');me.animate([{transform:`translateY(${d*h}px)`},{transform:'none'}],{duration:450,delay:500,easing:IO,fill:'backwards'});below.forEach(b=>b.animate([{transform:`translateY(${-h}px)`},{transform:'none'}],{duration:450,delay:500,easing:IO,fill:'backwards'}));
+  const tag=document.createElement('i');tag.className='climb-up';tag.textContent='▲ '+(old.r-rank);me.appendChild(tag);tag.animate([{opacity:0,transform:'scale(.6)'},{opacity:1,transform:'scale(1.15)',offset:.6},{opacity:1,transform:'none'}],{duration:220,delay:950,easing:OUT,fill:'backwards'});
+  setTimeout(()=>{me.classList.remove('climbing')},1300)})}
+ let ct=null;new MutationObserver(()=>{clearTimeout(ct);ct=setTimeout(climb,80)}).observe(document.body,{childList:true,subtree:true});
+ // 5. departure board: the countdown to tomorrow's game flips like a station board, only the digits that change
+ const left=()=>{const p=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Amsterdam',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).map(x=>[x.type,+x.value]));return Math.max(0,86400-(p.hour*3600+p.minute*60+p.second))};
+ function flaps(){const els=document.querySelectorAll('[data-flap]');if(!els.length)return;const s=left(),str=[Math.floor(s/3600),Math.floor(s%3600/60),s%60].map(n=>String(n).padStart(2,'0')).join(':');
+  els.forEach(el=>{if(el.dataset.flap!=='on'){el.dataset.flap='on';el.setAttribute('aria-label',str);el.innerHTML=[...str].map(ch=>ch===':'?'<s>:</s>':`<i>${ch}</i>`).join('');return}
+   el.setAttribute('aria-label',str);const cells=el.querySelectorAll('i');[...str.replace(/:/g,'')].forEach((ch,k)=>{const c=cells[k];if(!c||c.textContent===ch)return;if(RM()||!c.animate){c.textContent=ch;return}
+    c.animate([{transform:'rotateX(0)'},{transform:'rotateX(-90deg)'}],{duration:110,easing:'cubic-bezier(.5,0,1,1)'}).finished.then(()=>{c.textContent=ch;c.animate([{transform:'rotateX(90deg)'},{transform:'none'}],{duration:130,easing:OUT})})})})}
+ setInterval(flaps,1000);setTimeout(flaps,50);new MutationObserver(()=>{if(document.querySelector('[data-flap]:not([data-flap="on"])'))flaps()}).observe(document.body,{childList:true,subtree:true});
 })();
 </script>
 <script>
