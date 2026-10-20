@@ -178,7 +178,10 @@ function track(name,data){try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keep
 async function userToken(){let x;try{x=JSON.parse(localStorage.getItem('uc-player-session'))}catch{}if(!x?.access_token)return null;
  if(Date.now()>(x.exp||0)-60000){try{const r=await fetch(SB_URL+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:x.refresh_token})});const j=await r.json();if(!r.ok||!j.access_token)return null;
   x={...x,access_token:j.access_token,refresh_token:j.refresh_token||x.refresh_token,exp:Date.now()+Math.max(60,(+j.expires_in||3600))*1000};localStorage.setItem('uc-player-session',JSON.stringify(x))}catch{return null}}return x.access_token}
-const rpc=async(fn,args)=>{const ut=await userToken();const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+(ut||SB_KEY),'Content-Type':'application/json'},body:JSON.stringify(args)});const t=await r.text();if(!r.ok){let m=t;try{m=JSON.parse(t).message||t}catch{}throw new Error(m)}return t?JSON.parse(t):null};
+// a stale league login (expired or revoked token) must not break the duel: on 401 retry signed out, and drop the dead session
+const rpc=async(fn,args)=>{const ut=await userToken();const go=tok=>fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+(tok||SB_KEY),'Content-Type':'application/json'},body:JSON.stringify(args)});
+ let r=await go(ut);if(ut&&(r.status===401||r.status===403)){track('duel_token_retry',{fn,status:r.status});r=await go(null)}
+ const t=await r.text();if(!r.ok){let m=t;try{m=JSON.parse(t).message||t}catch{}throw new Error(m||('HTTP '+r.status))}return t?JSON.parse(t):null};
 let curScr=null;const SCR_RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const show=(id,dir)=>{for(const s of document.querySelectorAll('main>section'))s.hidden=s.id!==id;document.body.classList.toggle('playing',id==='s-play');scrollTo(0,0);
  const el=document.getElementById(id);if(el&&curScr!==id&&el.animate){if(!dir)try{dir=sessionStorage.getItem('uc-duel-dir');sessionStorage.removeItem('uc-duel-dir')}catch{}
@@ -243,7 +246,7 @@ async function boot(){if(!ls('uc-duel-intro'))openIntro('first');$('nm').value=$
   $('h-title').textContent=`CHALLENGE ${VSN.toUpperCase().slice(0,16)}`;$('create').textContent='Send challenge';$('create').dataset.vs=VSN;
   document.querySelector('#s-home .small').textContent=`${VSN} gets it in their duel inbox. You both start on 300 HP and play rounds of five questions until someone is KO'd.`;show('s-home');return}
  if(!code){if(!playedToday()){if(await userToken())$('g-inbox').hidden=false;return gate()}record('rec1');if(await userToken())$('to-inbox').hidden=false;show('s-home');return}
- try{D=await rpc('duel_get',{p_code:code,p_token:TOKEN})}catch(e){return fail('Could not reach the server. Try again in a moment.')}
+ try{D=await rpc('duel_get',{p_code:code,p_token:TOKEN})}catch(e){track('duel_load_error',{message:String(e&&e.message||e).slice(0,160)});return fail(navigator.onLine===false?'You seem to be offline. Check your connection and try again.':'Could not load this duel. Try again in a moment.'+(e&&e.message?' ('+String(e.message).slice(0,80)+')':''))}
  if(!D)return fail('That duel link does not exist.');
  const me=D.players.find(p=>p.slot===D.me),p1=D.players.find(p=>p.slot===1);
 
