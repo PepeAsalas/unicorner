@@ -2921,7 +2921,7 @@ function claimBox(c,pl){const sent=claimSent();
   <p class="g-err" role="status"></p></form>`}
 const ghostName=()=>L('YOU · ','TÚ · ')+(draft.nick.trim().toUpperCase()||'???');
 // today's score came from your account (played on another device): it's already on the board, never offer to add it again
-const remoteMine=()=>{try{return !!getPlayed()?.remote}catch{return false}};
+const remoteMine=()=>{try{const p=getPlayed();return !!(p&&(p.remote||p.synced))}catch{return false}};
 const knownNick=()=>(me?.profile?.nickname||lsGet('uc-nick')||'').toLowerCase();
 function gStatus(part){const pl=playedToday(),has=sess&&me?.profile;
  if(!has&&pl&&(remoteMine()||part._mine||(sess&&!me)))return sess?'':`<p class="g-note">${L('Your score is on the board from your other device.','Tu puntuación ya está en el ranking desde tu otro dispositivo.')} <button type="button" class="linkish" data-lg="open" data-from="board">${L('Sign in to see your place','Inicia sesión para ver tu puesto')}</button></p>`;
