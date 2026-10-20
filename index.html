@@ -2479,7 +2479,15 @@ const jwtEmail=t=>{try{return JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').
 const saveSess=j=>{sess={access_token:j.access_token,refresh_token:j.refresh_token||sess?.refresh_token||'',exp:Date.now()+Math.max(60,(+j.expires_in||3600))*1000};sess.email=jwtEmail(sess.access_token);lsSet(LG_KEY,JSON.stringify(sess))};
 const dropSess=()=>{sess=null;me=null;board=null;lsSet(LG_KEY,null)};
 async function authPost(path,body){const r=await fetch(SB_URL+path,{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify(body)});let j={};try{j=await r.json()}catch{}if(!r.ok)throw new Error(j.msg||j.error_description||j.message||'Something went wrong — try again');return j}
-async function token(){if(!sess)return null;if(Date.now()>sess.exp-60000){try{saveSess(await authPost('/auth/v1/token?grant_type=refresh_token',{refresh_token:sess.refresh_token}))}catch{dropSess();return null}}return sess.access_token}
+// renew the login once for everyone asking at the same time; a network blip or another page (the duel page) having renewed it first must not sign the player out
+let refreshing=null;
+async function token(){if(!sess)return null;if(Date.now()>sess.exp-60000){
+ if(!refreshing)refreshing=(async()=>{try{saveSess(await authPost('/auth/v1/token?grant_type=refresh_token',{refresh_token:sess.refresh_token}));return true}
+  catch(e){try{const st=JSON.parse(localStorage.getItem(LG_KEY)||'null');if(st?.access_token&&st.refresh_token!==sess.refresh_token&&st.exp>Date.now()+60000){sess=st;return true}}catch{}
+   if(e instanceof TypeError)return false;track('login_expired',{});dropSess();return false}
+  finally{setTimeout(()=>{refreshing=null},0)}})();
+ if(!await refreshing||!sess)return null}
+ return sess.access_token}
 async function rpc(fn,args={}){const t=await token();if(!t)throw new Error('Please sign in');
  const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:JSON.stringify(args)});
  const txt=await r.text();let j=null;try{j=txt?JSON.parse(txt):null}catch{}
@@ -2910,7 +2918,11 @@ function claimBox(c,pl){const sent=claimSent();
   ${sess?'':`<p class="g-small">We'll email you a link to confirm — no password.</p><label class="g-check"><input type="checkbox" name="optout" ${lsGet(LG_OPTOUT)==='1'?'checked':''}> <span>I don't want reminders or Unicorner news</span></label><label class="g-check g-inf"><input type="checkbox" name="infwait"> <span>🔥 Join the Infinity mode waitlist — unlimited questions, coming soon</span></label>`}
   <p class="g-err" role="status"></p></form>`}
 const ghostName=()=>L('YOU · ','TÚ · ')+(draft.nick.trim().toUpperCase()||'???');
+// today's score came from your account (played on another device): it's already on the board, never offer to add it again
+const remoteMine=()=>{try{return !!getPlayed()?.remote}catch{return false}};
+const knownNick=()=>(me?.profile?.nickname||lsGet('uc-nick')||'').toLowerCase();
 function gStatus(part){const pl=playedToday(),has=sess&&me?.profile;
+ if(!has&&pl&&(remoteMine()||part._mine||(sess&&!me)))return sess?'':`<p class="g-note">${L('Your score is on the board from your other device.','Tu puntuación ya está en el ranking desde tu otro dispositivo.')} <button type="button" class="linkish" data-lg="open" data-from="board">${L('Sign in to see your place','Inicia sesión para ver tu puesto')}</button></p>`;
  if(has&&part.me)return `<p class="g-you">${L("You're",'Eres el')} <b>${ord(part.me.rank)}</b> ${L('of','de')} ${part.players} ${L('today','hoy')} 🌍</p>`;
  if(has)return pl?'<p class="g-note">Your score will show here in a moment.</p>':'';
  if(pl)return claimBox(claimCopy(pl,gboard),pl);
@@ -2956,8 +2968,9 @@ function leagueBox(){cardRows=[];const create=`<div class="g-cta"><p class="g-yo
   `<div class="lg-row jb-actions"><button type="button" class="cta" data-lg="copy" data-code="${esc(board.code)}">🔗 Copy invite link</button><button type="button" class="ghost" data-lg="open" data-from="card">Open league</button></div>`)}
 async function globalBox(){cardRows=[];let g;try{g=await loadGlobal()}catch{return competeShell('UNICORNER LEAGUE',ucwEmpty(L('Ranking unavailable right now. Try again later.','Ranking no disponible ahora. Inténtalo más tarde.')),L('New game every day at midnight','Partido nuevo cada día a medianoche'),'')}
  cardRows=[];const wk=gTab==='week',part=wk?g.week:g.day,rows=(part.rows||[]).map(r=>({...r}));
+ if(!part.me&&!rows.some(r=>r.me)){const n=knownNick();const r=n&&rows.find(x=>String(x.nickname||'').toLowerCase()===n);if(r){r.me=true;part._mine=true}}
  const mine=part.me&&!rows.some(r=>r.me)?ucwRow({rank:part.me.rank,score:part.me.score,nickname:me?.profile?.nickname||'',me:true,kits:myLook()?.kits,streak:myLook()?.streak,games:myLook()?.games},' gap'):'';
- const pl=!wk&&playedToday(),ghost=pl&&!part.me&&!(sess&&me?.profile)?claimCopy(pl,g):null;
+ const pl=!wk&&playedToday(),ghost=pl&&!part.me&&!rows.some(r=>r.me)&&!remoteMine()&&!(sess&&(me?.profile||!me))?claimCopy(pl,g):null;
  let list=rows;
  if(ghost){const gr={ghost:true,score:pl.score},at=ghost.rank&&ghost.rank<=rows.length+1?ghost.rank-1:-1;
   if(at<0)list=rows.concat({...gr,rank:0});else{list=rows.map((r,i)=>i>=at?{...r,rank:r.rank+1}:r);list.splice(at,0,{...gr,rank:ghost.rank});list=list.slice(0,10)}}
