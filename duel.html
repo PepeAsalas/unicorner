@@ -104,7 +104,20 @@ dialog.intro[open]{animation:dlgin 220ms cubic-bezier(.23,1,.32,1)}
 .sp-link{width:auto;align-self:flex-start;background:none;box-shadow:none;padding:0;font:400 13px var(--mono);color:var(--ink);text-decoration:underline;text-underline-offset:3px;letter-spacing:0}
 .sp-link:active{transform:none;box-shadow:none}
 [hidden]{display:none!important}
-</style></head><body>
+/* waiting: your unicorn nods off until the rival plays */
+.w-uni{position:relative;width:144px;height:120px;margin:4px auto 0}
+.w-uni i{position:absolute;inset:0;background:center/contain no-repeat;image-rendering:pixelated;transform:rotate(4deg);transform-origin:40% 95%;animation:wbr 1.6s steps(2) infinite}
+.w-uni b{position:absolute;left:120px;top:8px;font:400 22px/1 var(--disp);color:var(--cream);opacity:0;animation:wz 2.4s linear infinite}
+.w-uni b:nth-of-type(2){animation-delay:.8s;font-size:26px}.w-uni b:nth-of-type(3){animation-delay:1.6s;font-size:30px}
+@keyframes wbr{50%{translate:0 3px}}@keyframes wz{0%{opacity:0;transform:translate(0,0)}15%{opacity:1}70%{opacity:1}100%{opacity:0;transform:translate(26px,-60px)}}
+@media (prefers-reduced-motion:reduce){.w-uni i,.w-uni b{animation:none}.w-uni b{opacity:1}.w-uni b:nth-of-type(2){transform:translate(12px,-22px)}.w-uni b:nth-of-type(3){transform:translate(24px,-46px)}}
+/* question feedback: the clock thumps in the last five seconds */
+.clock.thump{animation:thump .2s cubic-bezier(.23,1,.32,1)}@keyframes thump{from{scale:1.25}}
+</style></head><body><script>/* arrived from Unicorner on the gallop: the gold curtain it pulled across slides away */
+(()=>{let on=false;try{on=sessionStorage.getItem('uc-gallop')==='1';sessionStorage.removeItem('uc-gallop')}catch{}if(!on||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ const c=document.createElement('div');c.style.cssText='position:fixed;inset:0;z-index:10000;background:#ffd23f;pointer-events:none';document.body.appendChild(c);
+ const off=()=>{if(!c.animate)return c.remove();c.animate([{clipPath:'inset(0 0 0 0)'},{clipPath:'inset(0 0 0 100%)'}],{duration:300,easing:'cubic-bezier(.23,1,.32,1)',fill:'forwards'}).finished.then(()=>c.remove(),()=>c.remove())};
+ if(document.readyState==='loading')addEventListener('DOMContentLoaded',()=>setTimeout(off,60),{once:true});else setTimeout(off,60);setTimeout(()=>c.isConnected&&c.remove(),3000)})();</script>
 <div class="stadium" aria-hidden="true"><i class="st-crowd"></i><i class="st-pitch"></i></div>
 <aside class="side side-l" id="side-l" hidden aria-label="Duel season"></aside>
 <aside class="side side-r" id="side-r" hidden aria-label="Your duels"></aside>
@@ -151,7 +164,7 @@ dialog.intro[open]{animation:dlgin 220ms cubic-bezier(.23,1,.32,1)}
   <button id="q-skip" class="ghost">Skip</button>
  </section>
  <section id="s-wait" class="card" hidden>
-  <h2>YOU'RE DONE</h2><p id="w-score"></p><p class="clock" id="w-clock" hidden></p>
+  <h2>YOU'RE DONE</h2><div class="w-uni" aria-hidden="true"><i id="w-uni"></i><b>z</b><b>z</b><b>Z</b></div><p id="w-score"></p><p class="clock" id="w-clock" hidden></p>
   <p>Waiting for <b id="w-rival">your mate</b> to play. Send them the link:</p>
   <div class="link" id="w-link"></div>
   <div class="row"><button id="copy2" class="ghost">Copy link</button><button id="refresh">Check again</button></div>
@@ -355,21 +368,24 @@ async function play(){try{D=await rpc('duel_get',{p_code:code,p_token:TOKEN})}ca
  base=mine.picks.length;size=roundSize(base);if(base>=D.qset.length)return fail('No questions left to play in this duel.');
  try{Q=await Promise.all(D.qset.slice(base,base+size).map(loadQ))}catch(e){track('duel_load_fail',{code,step:'bank',err:String(e.message).slice(0,200)});return fail('Could not load the questions ('+e.message+'). Refresh the page and try again.')}
  qi=0;picks=[];show('s-play');ask()}
-function ask(){const q=Q[qi];locked=false;left=SECS;$('q-n').textContent=size>1?`${roundName(base)} · Q${qi+1} OF 5`:'SUDDEN DEATH';$('q-text').textContent=q.prompt;$('q-sub').textContent=q.sub;$('q-in').value='';$('q-in').disabled=false;$('q-msg').textContent='';$('q-msg').className='msg';$('q-skip').hidden=false;$('q-go').hidden=false;
+function ask(){const q=Q[qi];locked=false;left=SECS;for(const el of[$('q-text'),$('q-sub')]){el.getAnimations().forEach(a=>a.cancel());if(qi&&!SCR_RM&&el.animate)el.animate([{opacity:0,transform:'translateX(24px)'},{opacity:1,transform:'none'}],{duration:220,easing:EASE})}$('q-n').textContent=size>1?`${roundName(base)} · Q${qi+1} OF 5`:'SUDDEN DEATH';$('q-text').textContent=q.prompt;$('q-sub').textContent=q.sub;$('q-in').value='';$('q-in').disabled=false;$('q-msg').textContent='';$('q-msg').className='msg';$('q-skip').hidden=false;$('q-go').hidden=false;
  $('q-in').placeholder=PERSON.has(q.type)?'Type a '+(q.type==='player'?'player':q.type):'Type a '+q.type;tick();clearInterval(timer);timer=setInterval(()=>{left--;tick();if(left<=0)lock(null)},1000);setTimeout(()=>$('q-in').focus(),50)}
-function tick(){$('q-clock').textContent=Math.max(0,left);$('q-clock').classList.toggle('low',left<=5);$('q-bar').style.width=Math.max(0,left/SECS*100)+'%'}
+function tick(){const c=$('q-clock');c.textContent=Math.max(0,left);c.classList.toggle('low',left<=5);if(left<=5&&left>0&&!SCR_RM){c.classList.remove('thump');void c.offsetWidth;c.classList.add('thump')}$('q-bar').style.width=Math.max(0,left/SECS*100)+'%'}
 $('q-form').onsubmit=e=>{e.preventDefault();if(locked)return;const r=match($('q-in').value,Q[qi].answers,Q[qi].type);
- if(r==='ambiguous'){$('q-msg').className='msg bad';$('q-msg').textContent='More than one fits. Add more of the name.';return}
- if(!r){$('q-msg').className='msg bad';$('q-msg').textContent='Not on the list. Try another.';$('q-in').select();return}
+ if(r==='ambiguous'){nope();$('q-msg').className='msg bad';$('q-msg').textContent='More than one fits. Add more of the name.';return}
+ if(!r){nope();$('q-msg').className='msg bad';$('q-msg').textContent='Not on the list. Try another.';$('q-in').select();return}
  if(picks.slice(0,qi).some(p=>p&&p[0]===r.name)){$('q-msg').className='msg bad';return}
  lock(r)};
 $('q-skip').onclick=()=>lock(null);
+function nope(){const f=$('q-in');if(SCR_RM||!f.animate)return;f.animate([{transform:'none'},{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(-4px)'},{transform:'translateX(4px)'},{transform:'none'}],{duration:280,easing:'ease-in-out'})}
 function lock(r){if(locked)return;locked=true;clearInterval(timer);$('q-in').disabled=true;$('q-skip').hidden=true;$('q-go').hidden=true;
- picks[qi]=r?[r.name,r.pts]:[null,0];$('q-msg').className='msg '+(r?'ok':'bad');$('q-msg').innerHTML=r?`<span style="color:${TCOL[r.pts]}">${TIER[r.pts]} +${r.pts}</span> · ${esc(r.name)}`:(left<=0?'Time up!':'Skipped');
- setTimeout(()=>{qi++;if(qi<size)ask();else finish()},1100)}
+ picks[qi]=r?[r.name,r.pts]:[null,0];$('q-msg').className='msg '+(r?'ok':'bad');$('q-msg').innerHTML=r?`<span style="color:${TCOL[r.pts]}">${TIER[r.pts]} +${r.pts}</span> · ${esc(r.name)}`:(left<=0?'Time up!':'Skipped');if(r&&!SCR_RM&&$('q-msg').animate)$('q-msg').animate([{opacity:0,transform:'scale(.9)'},{opacity:1,transform:'scale(1.06)',offset:.6},{opacity:1,transform:'none'}],{duration:240,easing:EASE});
+ setTimeout(()=>{qi++;if(qi<size)nextQ();else finish()},1100)}
+const EASE='cubic-bezier(.23,1,.32,1)';
+function nextQ(){const el=$('q-text');if(SCR_RM||!el.animate)return ask();el.animate([{opacity:1,transform:'none'},{opacity:0,transform:'translateX(-24px)'}],{duration:140,easing:EASE,fill:'forwards'}).finished.then(ask,ask)}
 async function finish(){try{await rpc('duel_submit',{p_code:code,p_token:TOKEN,p_picks:picks});track('duel_round',{code,played:base+size,score:picks.reduce((t,p)=>t+(p[1]||0),0)})}catch(e){if(!/already played|is over/.test(e.message))return fail('Could not save your answers: '+e.message)}
  D=await rpc('duel_get',{p_code:code,p_token:TOKEN});const me=D.players.find(p=>p.slot===D.me);D.shared>=me.picks.length?battle():waiting()}
-function waiting(){clock($('w-clock'),false);const me=D.players.find(p=>p.slot===D.me),rv=D.players.find(p=>p.slot!==D.me);const n=me.picks.length,s0=roundStart(n),dmg=me.picks.slice(s0).reduce((t,p)=>t+(p[1]||0),0);$('w-score').textContent=`${roundName(s0)} done: you threw ${dmg} damage.`;$('w-rival').textContent=rv?rv.name:'your mate';$('w-link').textContent=link(code);$('w-link').hidden=$('copy2').hidden=!!D.challenge;show('s-wait');
+function waiting(){clock($('w-clock'),false);const me=D.players.find(p=>p.slot===D.me),rv=D.players.find(p=>p.slot!==D.me);const n=me.picks.length,s0=roundStart(n),dmg=me.picks.slice(s0).reduce((t,p)=>t+(p[1]||0),0);$('w-score').textContent=`${roundName(s0)} done: you threw ${dmg} damage.`;$('w-rival').textContent=rv?rv.name:'your mate';$('w-link').textContent=link(code);$('w-link').hidden=$('copy2').hidden=!!D.challenge;$('w-uni').style.backgroundImage=spriteDraw('sleep',0,false,KITS.find(k=>k.id===KIT)||null);show('s-wait');
  clearInterval(window._poll);window._poll=setInterval(async()=>{try{const d=await rpc('duel_get',{p_code:code,p_token:TOKEN});if(d&&d.shared>=n){clearInterval(window._poll);D=d;battle()}}catch{}},10000)}
 // ── the battle: shown from your side (you on the left) ──
 async function battle(){const slot=D.me||1,me=D.players.find(p=>p.slot===slot),rv=D.players.find(p=>p.slot!==slot);

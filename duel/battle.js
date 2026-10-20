@@ -2,11 +2,18 @@
 
 const W=540,H=780,RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const K=id=>KITS.find(k=>k.id===id)||null;const IMG={};
-const sp=(m,f,kit)=>{f=((f%2)+2)%2||0;const k=m+f+kit;if(!IMG[k]){const i=new Image();i.src=spriteDraw(m,f,false,K(kit)).slice(5,-2);IMG[k]=i}return IMG[k]};
+const sp=(m,f,kit)=>{f=f===2?2:((f%2)+2)%2||0;const k=m+f+kit;if(!IMG[k]){const i=new Image();i.src=spriteDraw(m,f,false,K(kit)).slice(5,-2);IMG[k]=i}return IMG[k]};
 const cl=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)),seg=(t,a,b)=>cl((t-a)/(b-a)),eo=x=>1-Math.pow(1-x,3),eob=x=>{const c=1.9;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)};
 const rnd=s=>{let x=Math.sin(s*127.1+311.7)*43758.5453;return x-Math.floor(x)};
 const TC={'TAP-IN':'#cfd8e6','HEADER':'#7fe0a8','VOLLEY':'#b48cff','BICYCLE KICK':'#ff7ac8','SCREAMER':'#ffd23f'};
 const sq=(g,x,y,s,c)=>{g.fillStyle=c;g.fillRect(Math.round(x-s/2),Math.round(y-s/2),s,s)};
+const eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+/* a unicorn at (x,y) (sprite centre), turned about a pivot cell: hind hooves (14,28) for rearing, the middle (18,15) for flips */
+function uniDraw(img,x,y,flip,u){const ox=(u.px-18)*5,oy=(u.py-15)*5;g.save();g.translate(x,y);if(flip)g.scale(-1,1);g.translate(ox,oy);g.rotate(u.rot);g.scale(u.sx,u.sy);g.translate(-ox,-oy);g.drawImage(img,-90,-75,180,150);g.restore()}
+function hornAt(x,y,flip,u){const ox=(u.px-18)*5,oy=(u.py-15)*5,lx=(29-18)*5-ox,ly=(0-15)*5-oy,c=Math.cos(u.rot),s=Math.sin(u.rot),hx=ox+(lx*c-ly*s)*u.sx,hy=oy+(lx*s+ly*c)*u.sy;return[x+(flip?-hx:hx),y+hy]}
+function star(x,y){sq(g,x,y-7,5,'#fff27a');sq(g,x,y+7,5,'#fff27a');sq(g,x-7,y,5,'#fff27a');sq(g,x+7,y,5,'#fff27a');sq(g,x,y,7,'#ffffff')}
+function confetti(x,y,e,kit){if(e<0||e>2.4)return;const k=K(kit),P=k&&k.pal||{},C=[P.P||'#ff6fb5',P.V||'#7c4dff',P.B||'#4fc3ff','#ffd23f','#f3ead2'];g.globalAlpha=1-seg(e,1.8,2.4);
+ for(let i=0;i<44;i++){const vx=(rnd(i)-.5)*360,vy=-(160+rnd(i+50)*260),px=x+vx*e,py=y+vy*e+300*e*e;if(py>500)continue;g.fillStyle=C[i%5];g.fillRect(Math.round(px),Math.round(py),(Math.floor(e*11+i)%2)*5+5,5)}g.globalAlpha=1}
 /* ── kit attacks: a = 0..1 progress, from attacker (sx,sy) to target (tx,ty), z = scale ── */
 const ATK={
  classic:{name:'Rainbow Beam',d:'A wavy rainbow trail fires straight through.',f(g,a,sx,sy,tx,ty,z){const C=['#ff5a5a','#ff9a1f','#ffd23f','#39d353','#4fc3ff','#b48cff'],e=eo(cl(a/.5)),x1=sx+(tx-sx)*e,fade=1-seg(a,.7,1);g.globalAlpha=fade;
@@ -94,7 +101,7 @@ function resultCard(a){const k=eob(seg(a,0,.35));if(k<=0)return;g.globalAlpha=.5
 function frame(now){if(!cv.isConnected)return;let r=paused?pausedAt:(now-t0)/1000;if(RM)r=TOTAL-.1;if(r>=TOTAL-.05){r=TOTAL-.05;if(!ended){ended=true;onEnd&&onEnd()}}
  const t=warp(r);g.setTransform(1,0,0,1,0,0);const ri=Math.min(N,Math.floor(Math.max(0,t-INTRO)/RD)),lt=t-INTRO-ri*RD,inR=t>=INTRO&&ri<N,end=t-INTRO-RD*N;
  const [q,yo,op]=R[Math.min(ri,N-1)],blk=inR&&!!yo[0]&&yo[0]===op[0];
- const hit=inR&&lt>HIT&&lt<HIT+.5;let shake=hit&&!blk?7*(1-(lt-HIT)/.5)*(yo[1]==='SCREAMER'||op[1]==='SCREAMER'?2:1):0;
+ const hit=inR&&lt>HIT&&lt<HIT+.5;let shake=hit&&!blk?7*(1-(lt-HIT)/.5)*(yo[1]==='SCREAMER'||op[1]==='SCREAMER'?2:1):0;if(O.intro==='vs'&&t>1.38&&t<1.52)shake=9*(1-seg(t,1.38,1.52));
  g.translate(shake?(rnd(t*91)-.5)*shake*2:0,shake?(rnd(t*37)-.5)*shake*2:0);
  arena(t,t<INTRO?(O.title||'DUEL'):ri<N?'Q'+((O.q0||0)+ri+1):(O.final?'FULL TIME':'HALF TIME'));
  if(KO&&end>.8)for(let i=0;i<5;i++){const c=['#ffd23f','#ff6fb5','#4fd7ff','#39ff6a','#ffffff'][i];fw(70+i*100,90+rnd(i)*90,((end-.8-i*.35)%2.2)/1.1,c)}
@@ -109,14 +116,40 @@ function frame(now){if(!cv.isConnected)return;let r=paused?pausedAt:(now-t0)/100
  const ko=[ri>=N&&HP[N][0]<=0,ri>=N&&HP[N][1]<=0],pos=[[150,420],[390,420]];
  // attacks fly between them
  if(inR&&lt>A0&&lt<A1&&!blk){for(const k of[0,1]){const mine=k?op:yo;if(!mine[1])continue;const P=k?P2:P1,[sx,sy]=pos[k],[tx,ty]=pos[1-k];g.save();ATK[P.atk].f(g,seg(lt,A0,A1-.1),sx+(k?-50:50),sy,tx,ty,1);g.restore()}}
- for(const k of[0,1]){const P=k?P2:P1,mine=k?op:yo,their=k?yo:op,took=blk?0:their[2];let mood='happy';if(inR&&lt>LAND[k])mood=!mine[1]?'sad':mine[1]==='SCREAMER'?'scream':'wow';if(ko[k])mood='sad';if(ri>=N&&!ko[k])mood='wow';
+ const res=O.final&&ri>=N?(HP[N][0]===HP[N][1]?-1:HP[N][0]>HP[N][1]?0:1):-1;
+ for(const k of[0,1]){const P=k?P2:P1,mine=k?op:yo,their=k?yo:op,took=blk?0:their[2];let mood='happy';if(inR&&lt>LAND[k])mood=!mine[1]?'sad':mine[1]==='SCREAMER'?'scream':'wow';if(ri>=N&&!ko[k])mood=res>=0&&res!==k?'sad':'wow';
   const f=Math.floor(t*4+k)%2,bob=-Math.abs(Math.sin(t*3+k))*4,rec=inR&&lt>HIT&&lt<HIT+.4&&took>0?(k?1:-1)*22*Math.sin(seg(lt,HIT,HIT+.4)*Math.PI):0;
-  if(ko[k]&&KO){// knocked off the roof
-   const kt=seg(end,.05,1.6),dir=k?1:-1;g.save();g.translate(pos[k][0]+dir*kt*320,pos[k][1]-Math.sin(kt*Math.PI)*260);if(k)g.scale(-1,1);g.rotate(kt*12);g.scale(1-kt*.4,1-kt*.4);g.drawImage(sp('sad',0,P.kit),-90,-75,180,150);g.restore();continue}
-  const jump=ri>=N&&KO&&!ko[k]&&end>1?Math.abs(Math.sin(end*7))*40:0;
-  const x=pos[k][0]+rec,y=ko[k]?470:pos[k][1]+bob-jump;g.fillStyle='rgba(0,0,0,.3)';g.fillRect(x-60,488,120,10);
+  let u={rot:0,sx:1,sy:1,px:14,py:28},fr=f,dx=0,dy=0,horn=false;
+  // blink now and then while nothing is happening
+  if(mood==='happy'&&((t+k*1.3)%3.2)<.13)mood='sleep';
+  // your answer lands: crouch, rear up with the horn glinting, lunge as the attack leaves
+  if(inR&&!blk&&mine[1]&&lt>A0-.45&&lt<A0+.6){if(mood!=='scream')mood='angry';
+   if(lt<A0-.3){const c=eo(seg(lt,A0-.45,A0-.3));u.sy=1-.1*c;u.sx=1+.06*c}
+   else if(lt<A0){u.rot=-.32*eo(seg(lt,A0-.3,A0));horn=true}
+   else if(lt<A0+.12){const c=eo(seg(lt,A0,A0+.12));u.rot=-.32+.4*c;dx=28*c;horn=true}
+   else{const c=eio(seg(lt,A0+.12,A0+.6));u.rot=.08*(1-c);dx=28*(1-c)}}
+  // their answer lands on you: two white flashes, rocked back, hurt squint, a bead of sweat
+  const hurt=inR&&took>0&&lt>HIT&&lt<HIT+.9;
+  if(hurt){mood='hurt';const c=Math.sin(seg(lt,HIT,HIT+.6)*Math.PI);u.rot=-.14*c;const fl=lt-HIT;if(fl<.07||(fl>.14&&fl<.21))mood='flash'}
+  if(ko[k]&&KO){// knocked out: wobble, flip onto its back, legs kicking in the air, stars going round
+   const fl=seg(end,.05,.4);u={rot:Math.PI*eio(fl),sx:1,sy:1,px:18,py:15};mood='ko';
+   const cx=pos[k][0],cy=pos[k][1]-Math.sin(fl*Math.PI)*60+fl*8;if(end<.05)u.rot=Math.sin(t*14)*.08;
+   if(end>.4&&end<.52){u.sx=1.12;u.sy=.88}fr=end>.4&&end<2.4?Math.floor(end*7)%2:0;
+   if(end>.4&&end<1)for(let i=0;i<6;i++){const a=seg(end,.4+i*.03,.9+i*.03);g.globalAlpha=1-a;sq(g,cx+(i<3?-1:1)*(70+a*50)+(i%3)*8,486-a*14,8+a*10,'#f3ead2');g.globalAlpha=1}
+   uniDraw(sp(mood,fr,P.kit),cx,cy,k,u);
+   for(let i=0;i<3;i++){const an=t*7+i*2.1;star(cx+(end<.4?(k?-40:40):(k?45:-45))+Math.cos(an)*42,(end<.4?cy-80:cy+40)+Math.sin(an)*12)}
+   continue}
+  if(ko[k]){uniDraw(sp('ko',0,P.kit),pos[k][0],470,k,{rot:.5,sx:1,sy:1,px:18,py:15});continue}
+  // the winner: three bouncy hops with squash and stretch, confetti in their kit's colours, then rears up with the horn shining
+  if(res===k&&end>.2){mood='joy';const e=end-.2;
+   if(e<1.35){const h=e%.45;if(h<.08){u.sy=.88;u.sx=1.08}else if(h<.38){const v=(h-.08)/.3;dy=-Math.sin(v*Math.PI)*46;if(v<.5){u.sy=1.08;u.sx=.95}fr=2}else{u.sy=.9;u.sx=1.06}}
+   else{u.rot=-.26*eo(seg(e,1.35,1.6));horn=true}
+   confetti(pos[k][0],pos[k][1]-120,e,P.kit)}
+  const x=pos[k][0]+rec+(k?-dx:dx),y=pos[k][1]+(res===k&&end>.2?0:bob)+dy;g.fillStyle='rgba(0,0,0,.3)';g.fillRect(pos[k][0]+rec-60,488,120,10);
   if(dz[k]&&inR)for(let i=0;i<3;i++){const a=(t*1.2+i/3)%1;g.globalAlpha=1-a;sq(g,x+(k?-55:55)+i*(k?-10:10),350+a*40,6,'#4fc3ff');g.globalAlpha=1}
-  g.save();g.translate(x,y);if(k)g.scale(-1,1);if(ko[k])g.rotate(.5);g.globalAlpha=inR&&lt>HIT&&lt<HIT+.35&&took>0&&Math.floor(lt*20)%2?.35:1;g.drawImage(sp(mood,f,P.kit),-90,-75,180,150);g.restore()}
+  if(hurt){const a=seg(lt,HIT+.05,HIT+.8);g.globalAlpha=1-a;sq(g,x+(k?-28:28),y-70+a*30,7,'#9fd8ff');g.globalAlpha=1}
+  uniDraw(sp(mood,fr,P.kit),x,y,k,u);
+  if(horn&&Math.floor(t*14)%3){const[hx,hy]=hornAt(x,y,k,u);star(hx,hy)}}
  if(blk&&lt>A0+.1&&lt<A1){const s=eob(seg(lt,A0+.1,A0+.35));g.save();g.translate(W/2,420);g.scale(s,s);g.fillStyle='#06041a';g.fillRect(-90,-38,180,64);g.fillStyle='#4fc3ff';g.fillRect(-84,-32,168,52);g.restore();if(s>.3)px('BLOCK!',W/2,430,46,'#06041a',{out:false})}
  if(inR&&lt>HIT&&lt<HIT+1.5&&!blk){for(const k of[0,1]){const dealt=(k?yo:op)[2];if(!dealt)continue;const a=lt-HIT,sc=(k?yo:op)[1]==='SCREAMER';if(sc){const z=1+.12*Math.sin(a*18)*(1-seg(a,0,.8));g.save();g.translate(Math.min(W-170,Math.max(170,pos[k][0])),300-a*40);g.scale(z,z);px('-'+dealt+' CRIT!',0,0,50,'#ffd23f');g.restore()}else px('-'+dealt,pos[k][0],330-a*40,44,'#ffffff')}}
  crit(lt,inR,blk,yo,op,pos);
