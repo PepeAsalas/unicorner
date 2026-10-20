@@ -3026,10 +3026,10 @@ function playerCard(r){const k=kitOf(r),info=window.ucKitInfo||{},t=info.KLV?.[k
  if(!ES&&sess&&!r.me&&!r.ghost&&r.nickname){const b=document.createElement('a');b.className='pcd-ch';b.href='/duel.html?vs='+encodeURIComponent(r.nickname);b.textContent='⚔️ Challenge to a duel';b.onclick=()=>track('duel_card_challenge',{});d.querySelector('.pcd-b')?.appendChild(b)}}
 // duel rating line + season titles on the player card (English site only, like duels)
 const ELO_MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const eloTier=(r,g)=>g<8?`Placement ${g}/8`:r<900?'Sunday League':r<1000?'Non-League':r<1100?'Championship':r<1200?'Premier League':r<1400?'Champions League':"Ballon d'Or";
+const eloTier=(r,g)=>g<5?`Placement ${g}/5`:r<900?'Sunday League':r<1000?'Non-League':r<1100?'Championship':r<1200?'Premier League':r<1400?'Champions League':"Ballon d'Or";
 function duelElo(d,nick){if(!nick||ES)return;fetch(SB_URL+'/rest/v1/rpc/duel_elo_nick',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({p_nick:nick})}).then(x=>x.ok?x.json():null).then(j=>{if(!j||!j.g||!d.open||d.querySelector('.pcd-elo'))return;const st=d.querySelector('.pcd-st');if(!st)return;
  const ti=(j.titles||[]).map(t=>{const[y,m]=t.season.split('-');return`<i class="pcd-ti" title="Duel season ${ELO_MON[+m-1]} ${y}: ${['1st','2nd','3rd'][t.place-1]}">${['🥇','🥈','🥉'][t.place-1]} ${ELO_MON[+m-1]} ${y.slice(2)}</i>`}).join('');
- st.insertAdjacentHTML('afterend',`<div class="pcd-elo">⚔️ <b>${esc(eloTier(j.r,j.g))}</b>${j.g>=8?' · '+j.r:''}${ti?`<span>${ti}</span>`:''}</div>`)}).catch(()=>{})}
+ st.insertAdjacentHTML('afterend',`<div class="pcd-elo">⚔️ <b>${esc(eloTier(j.r,j.g))}</b>${j.g>=5?' · '+j.r:''}${ti?`<span>${ti}</span>`:''}</div>`)}).catch(()=>{})}
 // 1v1 duel record (wins-draws-losses) under the stats, only once they've finished a duel
 function duelRec(d,nick){if(!nick||ES)return;fetch(SB_URL+'/rest/v1/rpc/duel_record_nick',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({p_nick:nick})}).then(x=>x.ok?x.json():null).then(j=>{if(!j||!(j.w+j.d+j.l)||!d.open)return;const st=d.querySelector('.pcd-st');if(!st||d.querySelector('.pcd-du'))return;st.insertAdjacentHTML('beforeend',`<div class="pcd-du" title="Wins-draws-losses"><b>${j.w}-${j.d}-${j.l}</b>⚔️ duels</div>`)}).catch(()=>{})}
 // Send this player's kit and kit count to their account so everyone sees their unicorn on the boards

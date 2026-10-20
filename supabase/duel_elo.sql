@@ -1,6 +1,6 @@
 -- Duel rating (Elo) + monthly seasons.
 -- Rated: finished duels where both players are signed in (different accounts). Link duels against anonymous players don't count.
---   * start at 1000; K = 40 for your first 8 rated duels (placement), then 20
+--   * start at 1000; K = 40 for your first 5 rated duels (placement), then 20
 --   * margin of victory: points x 0.8 (a squeaker) up to x1.5 (a KO with most of your HP left); give-up / timeout = x0.8
 --   * same opponent again within 7 days counts half as much each time (1, 1/2, 1/4...), so farming a mate earns little
 --   * seasons are calendar months (Amsterdam time): at each new month every rating is pulled halfway back to 1000;
@@ -58,8 +58,8 @@ begin
     recent := coalesce((select jsonb_agg(t) from jsonb_array_elements_text(coalesce(PR->pk, '[]')) t where t::timestamptz > x.ended - interval '7 days'), '[]');
     f := power(0.5, jsonb_array_length(recent));
     PR := PR || jsonb_build_object(pk, recent || to_jsonb(x.ended::text));
-    kk := case when (pa->>'g')::int < 8 then 40 else 20 end;
-    kb2 := case when (pb->>'g')::int < 8 then 40 else 20 end;
+    kk := case when (pa->>'g')::int < 5 then 40 else 20 end;
+    kb2 := case when (pb->>'g')::int < 5 then 40 else 20 end;
     da := kk * m * f * (sa - ea);
     db := kb2 * m * f * ((1 - sa) - (1 - ea));
     P := jsonb_set(P, array[ka], pa || jsonb_build_object('r', ra + da, 'g', (pa->>'g')::int + 1, 'sg', (pa->>'sg')::int + 1));
@@ -108,7 +108,7 @@ begin
   for s in select jsonb_object_keys(st->'past') loop
     select pos into rk from (
       select key, row_number() over (order by (value->>'r')::numeric desc) pos
-        from jsonb_each(st->'past'->s) where (value->>'sg')::int >= 3 and (value->>'g')::int >= 8) t
+        from jsonb_each(st->'past'->s) where (value->>'sg')::int >= 3 and (value->>'g')::int >= 5) t
      where key = v::text;
     if rk is not null and rk <= 3 then titles := titles || jsonb_build_object('season', s, 'place', rk); end if;
   end loop;
@@ -125,7 +125,7 @@ begin
   with t as (
     select key::uuid uid, (value->>'r')::numeric r, (value->>'g')::int g, (value->>'sg')::int sg,
            row_number() over (order by (value->>'r')::numeric desc) pos
-      from jsonb_each(st->'p') where (value->>'sg')::int >= 1 and (value->>'g')::int >= 8)
+      from jsonb_each(st->'p') where (value->>'sg')::int >= 1 and (value->>'g')::int >= 5)
   select coalesce(jsonb_agg(jsonb_build_object('pos', pos, 'nick', p.nickname, 'r', round(t.r), 'sg', t.sg) order by pos) filter (where pos <= 10), '[]'),
          (select jsonb_build_object('pos', pos, 'r', round(r)) from t where uid = auth.uid())
     into top, me
@@ -134,7 +134,7 @@ begin
   select coalesce(jsonb_agg(jsonb_build_object('pos', pos, 'nick', nick, 'r', r) order by pos), '[]') into podium from (
     select row_number() over (order by (value->>'r')::numeric desc) pos, p.nickname nick, round((value->>'r')::numeric) r
       from jsonb_each(coalesce(st->'past'->prev, '{}')) e left join player_profiles p on p.user_id = e.key::uuid
-     where (value->>'sg')::int >= 3 and (value->>'g')::int >= 8) z where pos <= 3;
+     where (value->>'sg')::int >= 3 and (value->>'g')::int >= 5) z where pos <= 3;
   return jsonb_build_object('season', st->>'cur',
     'ends', (date_trunc('month', now() at time zone 'Europe/Amsterdam') + interval '1 month') at time zone 'Europe/Amsterdam',
     'top', top, 'me', me, 'mine', case when auth.uid() is not null and (st->'p') ? auth.uid()::text

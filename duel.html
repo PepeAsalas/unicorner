@@ -233,7 +233,7 @@ async function season(){let z;try{z=await rpc('duel_season',{})}catch{return}if(
  const days=Math.max(0,Math.ceil((new Date(z.ends)-Date.now())/864e5)),mine=z.mine;
  $('sz-sum').innerHTML=`<b>${MON[+m-1].toUpperCase()} SEASON</b> · ends in ${days} day${days===1?'':'s'}${mine?` · <i>${esc(duelRating(mine))}</i>`:''} ▾`;
  const top=z.top.length?`<ol>${z.top.map(t=>`<li class="${z.me&&t.pos===z.me.pos?'me':''}"><b>${t.pos}</b><span>${esc(t.nick||'?')}</span>${t.r}</li>`).join('')}</ol>`:'<p>No one has finished placement this season yet.</p>';
- const me=z.me&&z.me.pos>10?`<p>You: ${ordN(z.me.pos)} · ${z.me.r}</p>`:mine&&mine.g<8?`<p>Play ${8-mine.g} more rated duel${8-mine.g===1?'':'s'} to get your rating.</p>`:'';
+ const me=z.me&&z.me.pos>10?`<p>You: ${ordN(z.me.pos)} · ${z.me.r}</p>`:mine&&mine.g<5?`<p>Play ${5-mine.g} more rated duel${5-mine.g===1?'':'s'} to get your rating.</p>`:'';
  const pod=z.last.podium.length?`<p>Last season: ${z.last.podium.map(p=>['🥇','🥈','🥉'][p.pos-1]+' '+esc(p.nick||'?')).join('  ')}</p>`:'';
  $('sz-body').innerHTML=top+me+pod+'<p>Rated: duels between signed-in players. Ratings ease halfway back to 1000 at the start of each month; the top 3 earn a season medal.</p>';$('sz').hidden=false}
 const ordN=n=>{const t=['th','st','nd','rd'],v=n%100;return n+(t[(v-20)%10]||t[v]||t[0])};

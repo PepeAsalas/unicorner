@@ -89,7 +89,7 @@ function resultCard(a){const k=eob(seg(a,0,.35));if(k<=0)return;g.globalAlpha=.5
   g.save();g.translate(x,574);if(i===ch&&flip<1)g.scale(1,Math.abs(Math.cos(flip*Math.PI))||.05);px(String(show),0,28,80,'#ffffff',{out:false});g.restore();px(['W','D','L'][i],x,650,26,'#06041a',{out:false,font:'mono'})}
  // rating change for this duel: counts up from the old number to the new one
  const E=O.elo;if(E&&a>1.5){const k2=seg(a,1.5,2.3),now=Math.round(E.b+(E.a-E.b)*k2),d=E.a-E.b;
-  px(`${duelTier(now,E.g)}${E.g<8?'':' · '+now}`,W/2,688,24,'#06041a',{out:false,font:'mono'});
+  px(`${duelTier(now,E.g)}${E.g<5?'':' · '+now}`,W/2,688,24,'#06041a',{out:false,font:'mono'});
   if(k2>=1)px(d===0?'±0':(d>0?'+':'')+d+(d>0?' ▲':' ▼'),W/2,712,24,d>0?'#1f9a3a':d<0?'#d12a2a':'#5a4a2a',{out:false,font:'mono'})}}
 function frame(now){if(!cv.isConnected)return;let r=paused?pausedAt:(now-t0)/1000;if(RM)r=TOTAL-.1;if(r>=TOTAL-.05){r=TOTAL-.05;if(!ended){ended=true;onEnd&&onEnd()}}
  const t=warp(r);g.setTransform(1,0,0,1,0,0);const ri=Math.min(N,Math.floor(Math.max(0,t-INTRO)/RD)),lt=t-INTRO-ri*RD,inR=t>=INTRO&&ri<N,end=t-INTRO-RD*N;
@@ -149,9 +149,9 @@ function crit(lt,inR,blk,yo,op,pos){if(!inR||blk||lt<HIT||lt>HIT+.9)return;const
  if(yo[1]==='SCREAMER'||op[1]==='SCREAMER'){const f=.35*(1-seg(a,0,.18));if(f>0){g.globalAlpha=f;g.fillStyle='#ffe27a';g.fillRect(0,0,W,H);g.globalAlpha=1}}}
 // round 1 opens with a VS card, sudden death with the lights going out
 const VS=[{bg:'#3a2240',edge:'#9a6a8c'},{bg:'#1f2c48',edge:'#6b84b3'}];
-// duel rating tiers (shared with duel.html): 8 placement duels, then a league name for the number
-function duelTier(r,g){if(g<8)return'PLACEMENT '+g+'/8';return r<900?'SUNDAY LEAGUE':r<1000?'NON-LEAGUE':r<1100?'CHAMPIONSHIP':r<1200?'PREMIER LEAGUE':r<1400?'CHAMPIONS LEAGUE':"BALLON D'OR"}
-function duelRating(e){return e.g<8?duelTier(e.r,e.g):duelTier(e.r,e.g)+' '+e.r}
+// duel rating tiers (shared with duel.html): 5 placement duels, then a league name for the number
+function duelTier(r,g){if(g<5)return'PLACEMENT '+g+'/5';return r<900?'SUNDAY LEAGUE':r<1000?'NON-LEAGUE':r<1100?'CHAMPIONSHIP':r<1200?'PREMIER LEAGUE':r<1400?'CHAMPIONS LEAGUE':"BALLON D'OR"}
+function duelRating(e){return e.g<5?duelTier(e.r,e.g):duelTier(e.r,e.g)+' '+e.r}
 function introFX(t){if(!O.intro||t>=INTRO)return;const out=1-seg(t,INTRO-.35,INTRO);
  if(O.intro==='vs'){g.globalAlpha=.9*out;g.fillStyle='#06041a';g.fillRect(0,0,W,H);g.globalAlpha=out;
   for(const k of[0,1]){const P=k?P2:P1,c=VS[k],e=eo(seg(t,.1+k*.15,.7+k*.15)),dir=k?1:-1,y=k?420:120,h=230,off=dir*(1-e)*W;
