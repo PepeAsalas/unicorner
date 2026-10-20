@@ -53,11 +53,40 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 .x-exit{position:fixed;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));z-index:50;width:44px;height:44px;display:grid;place-items:center;font:700 22px/1 system-ui,sans-serif;color:var(--ink);background:var(--cream);border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);text-decoration:none}.x-exit:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}header{padding-right:52px}body.playing .x-exit{display:none}
 .clock{font-family:var(--mono);font-size:18px;color:var(--gold);margin:0}.clock.hot{color:#fff;background:var(--red);padding:4px 8px;animation:clk 1s steps(2) infinite}@keyframes clk{50%{opacity:.75}}.ib-row small.hot{color:#ff8a8a}
 .sz{background:#120c38;border:3px solid var(--ink);padding:8px 10px;margin-top:10px}.sz summary{cursor:pointer;font-family:var(--mono);font-size:17px;color:var(--cream);list-style:none}.sz summary::-webkit-details-marker{display:none}.sz summary b{color:var(--gold);font-weight:400}.sz summary i{font-style:normal;color:#9fe7ff}.sz ol{margin:8px 0 0;padding:0;list-style:none;font-family:var(--mono);font-size:16px}.sz li{display:flex;gap:8px;padding:3px 0;border-top:1px solid #2a1f78}.sz li span{flex:1}.sz li.me{color:var(--gold)}.sz p{font-family:var(--mono);font-size:15px;color:var(--muted);margin:8px 0 0}
+header{display:flex;align-items:center;flex-wrap:wrap;gap:4px 12px;min-height:44px}header h1{margin:0;font-size:clamp(30px,9vw,38px);line-height:1;white-space:nowrap;min-width:0;overflow:hidden}
+.how-link{width:auto;font-family:var(--ui);font-size:15px;letter-spacing:0;padding:4px 8px;background:transparent;color:var(--muted);box-shadow:none;text-decoration:underline;text-underline-offset:3px}
+/* one press feel for every button: it drops into its own shadow */
+button{transition:transform 100ms cubic-bezier(.23,1,.32,1),box-shadow 100ms cubic-bezier(.23,1,.32,1)}
+button:active{transform:translateY(3px);box-shadow:0 0 0 3px var(--ink),0 3px 0 3px var(--ink)}
+.how-link:active,.ib-tabs button:active{transform:none;box-shadow:none}
+/* first-time intro booklet (same build as the daily "How to play") */
+dialog.intro{width:min(360px,calc(100vw - 28px));max-height:calc(100dvh - 24px);overflow:auto;padding:0;border:4px solid var(--ink);box-shadow:6px 6px 0 var(--ink);background:#f3ead2;color:var(--ink)}
+dialog.intro::backdrop{background:rgba(6,4,26,.82)}
+dialog.intro[open]{animation:dlgin 220ms cubic-bezier(.23,1,.32,1)}
+@keyframes dlgin{from{opacity:0;transform:scale(.96)}}
+.in-h{display:flex;align-items:center;justify-content:space-between;background:#d12a2a;color:#fff;padding:10px 12px;border-bottom:4px solid var(--ink);font-family:var(--mono);font-size:15px}
+.in-skip{width:auto;font-family:var(--mono);font-size:13px;letter-spacing:0;padding:6px 8px;background:var(--ink);color:#fff;box-shadow:none;border:2px solid #fff;min-height:36px}
+.in-b{padding:16px}
+.in-card{border:3px solid var(--ink);background:#fffaf0;padding:14px;min-height:300px;box-sizing:border-box}
+.in-step{display:grid;gap:12px;animation:stepin 240ms cubic-bezier(.23,1,.32,1) both}
+@keyframes stepin{from{opacity:0;transform:translateX(14px)}}
+.in-art{background:#e9dfc4;border:2px dashed #8a7a55;padding:12px 8px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;min-height:84px}
+.in-art i{width:72px;height:60px;background-size:contain;background-repeat:no-repeat;image-rendering:pixelated}
+.in-art .vs{font-family:var(--disp);font-size:44px;color:#d12a2a}
+.in-chip{font-family:var(--mono);font-size:13px;padding:3px 6px;border:2px solid var(--ink)}
+.in-hp{width:100%;display:grid;gap:8px;font-family:var(--mono);font-size:13px}.in-hp div{display:flex;align-items:center;gap:8px}.in-hp span{flex:1;height:14px;border:2px solid var(--ink);background:#fff}.in-hp span i{display:block;height:100%}
+.in-tag{font-family:var(--mono);font-size:14px;color:#d12a2a}
+.in-step p{margin:0;font-size:21px;line-height:1.3;color:var(--ink)}
+.in-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px}
+.in-dots{display:flex;gap:6px}.in-dots i{width:12px;height:12px;border:2px solid var(--ink);background:#fffaf0}.in-dots i.on{background:#d12a2a}
+#in-n{font-family:var(--mono);font-size:13px;color:#8a7a55;white-space:nowrap}
+#in-next{width:auto;font-size:24px;padding:8px 14px;white-space:nowrap}
+@media (prefers-reduced-motion:reduce){dialog.intro[open],.in-step{animation:none}}
 [hidden]{display:none!important}
 </style></head><body>
 <main>
  <a class="x-exit" id="x-exit" href="/" aria-label="Close duels, back to Unicorner" title="Back to Unicorner">✕</a>
- <header><h1>UNICORNER DUEL</h1><p>Rounds of five questions until someone is KO'd. The rarer answer hits harder.</p></header>
+ <header><h1>UNICORNER DUEL</h1><button type="button" class="how-link" id="how-open">? How duels work</button></header>
  <section id="s-home" class="card" hidden>
   <h2 id="h-title">CHALLENGE A MATE</h2>
   <label for="nm">Your name<input id="nm" maxlength="16" autocomplete="nickname" placeholder="e.g. Pepo"></label>
@@ -72,7 +101,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
   <div class="ib-tabs"><button id="ib-t0" class="on">Active</button><button id="ib-t1">Archive</button></div>
   <div id="ib-list" class="ib"></div>
   <label class="ib-off"><input type="checkbox" id="ib-allow"> Let other players challenge me</label>
-  <button id="ib-new">New duel by link</button>
+  <button id="ib-new">+ New duel</button>
   <button class="ghost" onclick="location.href='/'">← Back to Unicorner</button>
  </section>
  <section id="s-join" class="card" hidden>
@@ -127,6 +156,8 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
  <section id="s-err" class="card" hidden><h2 id="e-t">OOPS</h2><p id="e-msg"></p><button onclick="location.href='duel.html'">Start a new duel</button>
   <button class="ghost back" style="margin-top:14px">← Back to Unicorner</button></section>
 </main>
+<dialog id="dlg-intro" class="intro" aria-labelledby="in-t"><div class="in-h"><span id="in-t">⚔️ HOW DUELS WORK</span><button type="button" class="in-skip" id="in-skip">SKIP ×</button></div>
+ <div class="in-b"><div class="in-card" id="in-card"></div><div class="in-nav"><span class="in-dots" id="in-dots" role="img"></span><button type="button" id="in-next">NEXT ▶</button></div></div></dialog>
 <script src="duel/sprites.js"></script>
 <script src="duel/battle.js"></script>
 <script>
@@ -148,10 +179,16 @@ async function userToken(){let x;try{x=JSON.parse(localStorage.getItem('uc-playe
  if(Date.now()>(x.exp||0)-60000){try{const r=await fetch(SB_URL+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:x.refresh_token})});const j=await r.json();if(!r.ok||!j.access_token)return null;
   x={...x,access_token:j.access_token,refresh_token:j.refresh_token||x.refresh_token,exp:Date.now()+Math.max(60,(+j.expires_in||3600))*1000};localStorage.setItem('uc-player-session',JSON.stringify(x))}catch{return null}}return x.access_token}
 const rpc=async(fn,args)=>{const ut=await userToken();const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+(ut||SB_KEY),'Content-Type':'application/json'},body:JSON.stringify(args)});const t=await r.text();if(!r.ok){let m=t;try{m=JSON.parse(t).message||t}catch{}throw new Error(m)}return t?JSON.parse(t):null};
-const show=id=>{for(const s of document.querySelectorAll('main>section'))s.hidden=s.id!==id;document.body.classList.toggle('playing',id==='s-play');scrollTo(0,0)};
+let curScr=null;const SCR_RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const show=(id,dir)=>{for(const s of document.querySelectorAll('main>section'))s.hidden=s.id!==id;document.body.classList.toggle('playing',id==='s-play');scrollTo(0,0);
+ const el=document.getElementById(id);if(el&&curScr!==id&&el.animate){if(!dir)try{dir=sessionStorage.getItem('uc-duel-dir');sessionStorage.removeItem('uc-duel-dir')}catch{}
+  el.animate(SCR_RM?[{opacity:0},{opacity:1}]:[{opacity:0,transform:`translateX(${dir==='back'?-24:24}px)`},{opacity:1,transform:'none'}],{duration:SCR_RM?160:240,easing:'cubic-bezier(.32,.72,0,1)'})}
+ curScr=id};
+// leaving a duel for the list: the list should slide in from the left, like going back
+const goBack=u=>{try{sessionStorage.setItem('uc-duel-dir','back')}catch{}location.href=u};
 // back buttons inside a duel go to your duel list when you're signed in (that's where people want to be), else home
-for(const b of document.querySelectorAll('.back'))b.onclick=()=>{location.href='/'};
-userToken().then(t=>{if(!t)return;for(const b of document.querySelectorAll('.back')){b.textContent='← My duels';b.onclick=()=>{location.href='duel.html?inbox'}}}).catch(()=>{});
+for(const b of document.querySelectorAll('.back'))b.onclick=()=>goBack('/');
+userToken().then(t=>{if(!t)return;for(const b of document.querySelectorAll('.back')){b.textContent='← My duels';b.onclick=()=>goBack('duel.html?inbox')}}).catch(()=>{});
 const fail=(m,t)=>{$('e-msg').textContent=m;$('e-t').textContent=t||'OOPS';show('s-err')};
 const spBg=(kit,mood='happy')=>{const k=KITS.find(x=>x.id===kit);return spriteDraw(mood,0,false,k&&k.id!=='classic'?k:null).replace(/"/g,"'")};
 // answer matching: the same rules as the daily game
@@ -184,7 +221,19 @@ const QS=new URLSearchParams(location.search),code=QS.get('d'),VSN=QS.get('vs'),
 const link=c=>location.origin+location.pathname+'?d='+c;
 async function copy(c){try{await navigator.clipboard.writeText(link(c))}catch{}}
 let D=null,Q=[];
-async function boot(){$('nm').value=$('nm2').value=ls('uc-nick')||ls('uc-duel-name')||'';
+// first-time intro: four steps, shown once, reopened from "How duels work"
+const DUEL_INTRO=[
+ ()=>`<div class="in-art"><i style="background-image:${spBg(KIT)}"></i><b class="vs">VS</b><i style="background-image:${spBg('galaxy')};transform:scaleX(-1)"></i></div><span class="in-tag">1. ROUNDS OF FIVE</span><p>You and your rival answer the same 5 questions, 15 seconds each. Play your round whenever you like, within 24 hours.</p>`,
+ ()=>`<div class="in-art"><span class="in-chip" style="background:#c9d1e0">TAP-IN 10</span><span class="in-chip" style="background:#7dd8a8">HEADER 30</span><span class="in-chip" style="background:#b48cff">VOLLEY 60</span><span class="in-chip" style="background:#ff7ac8">BICYCLE 85</span><span class="in-chip" style="background:#ffd23f">SCREAMER 100</span></div><span class="in-tag">2. RARER HITS HARDER</span><p>Your answer is your attack: a Screamer does 100 damage. Same answer as your rival? Blocked, nobody gets hurt.</p>`,
+ ()=>`<div class="in-art"><div class="in-hp"><div>YOU <span><i style="width:78%;background:#39d353"></i></span> 234</div><div>RIVAL <span><i style="width:12%;background:#e3262f"></i></span> 36</div></div></div><span class="in-tag">3. KNOCK THEM OUT</span><p>Both start on 300 HP. First to 0 loses. Still level after 15 questions? Sudden death, one question at a time.</p>`,
+ ()=>`<div class="in-art" style="flex-direction:column;gap:4px"><span class="in-chip" style="background:linear-gradient(90deg,#ff5a5a,#ffd23f,#39d353,#4fc3ff,#b48cff)">BALLON D'OR</span><span class="in-chip" style="background:#c6a8ff">CHAMPIONS LEAGUE</span><span class="in-chip" style="background:#ffd23f">PREMIER LEAGUE</span><span class="in-chip" style="background:#d9e0ee">CHAMPIONSHIP</span></div><span class="in-tag">4. CLIMB THE LADDER</span><p>Signed in? Your duels are rated. Play 5 to get your league; a new season starts every month.</p>`];
+let inStep=0;
+function introDraw(){$('in-card').innerHTML=`<div class="in-step">${DUEL_INTRO[inStep]()}</div>`;$('in-dots').innerHTML=DUEL_INTRO.map((_,i)=>`<i class="${i===inStep?'on':''}"></i>`).join('');$('in-dots').setAttribute('aria-label',`Step ${inStep+1} of ${DUEL_INTRO.length}`);$('in-next').textContent=inStep===DUEL_INTRO.length-1?"LET'S DUEL ▶":'NEXT ▶'}
+function openIntro(from){inStep=0;introDraw();const d=$('dlg-intro');if(!d.open)d.showModal();try{$('in-next').focus({focusVisible:false})}catch{}track('duel_intro_open',{from})}
+function closeIntro(how){ls('uc-duel-intro','1');$('dlg-intro').close();track('duel_intro_done',{how,step:inStep+1})}
+$('in-next').onclick=()=>{if(inStep<DUEL_INTRO.length-1){inStep++;introDraw()}else closeIntro('done')};$('in-skip').onclick=()=>closeIntro('skip');
+$('dlg-intro').addEventListener('cancel',()=>ls('uc-duel-intro','1'));$('how-open').onclick=()=>openIntro('link');
+async function boot(){if(!ls('uc-duel-intro'))openIntro('first');$('nm').value=$('nm2').value=ls('uc-nick')||ls('uc-duel-name')||'';
  // signed-in players already have a leaderboard nickname: use it, don't ask again
  if(ls('uc-nick'))for(const id of['nm','nm2']){const l=$(id).closest('label');if(l&&!l.dataset.nick){l.dataset.nick=1;l.hidden=true;const p=document.createElement('p');p.className='small';p.textContent='Playing as '+ls('uc-nick');l.after(p)}}
  track('duel_view',{code:code||null});
