@@ -233,7 +233,7 @@ function match(input,answers,type){const x=norm(input);if(!x)return null;const p
  return null}
 // questions come from duel/bank.json: a duel stores 20 ids in play order (15 for three rounds + 5 for sudden death)
 let BANK=null;
-async function bank(){if(!BANK)BANK=fetch('duel/bank.json',{cache:'no-cache'}).then(r=>r.json()).then(a=>Object.fromEntries(a.map(q=>[q.id,q])));return BANK}
+async function bank(){if(!BANK)BANK=fetch('duel/bank.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error('question bank HTTP '+r.status);return r.json()}).then(a=>Object.fromEntries(a.map(q=>[q.id,q]))).catch(e=>{BANK=null;throw e});return BANK}
 async function loadQ(id){const q=(await bank())[id];if(!q)throw new Error('question missing');
  return{prompt:q.prompt,sub:'',type:String(q.answer_type||'player').toLowerCase(),answers:q.answers.map(a=>({name:a.name,aliases:a.aliases||[],pts:FAME_V2[a.fame]||60}))}}
 async function pickQs(){const ids=Object.keys(await bank());for(let i=ids.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[ids[i],ids[j]]=[ids[j],ids[i]]}
@@ -350,7 +350,10 @@ $('rematch').onclick=()=>{location.href='duel.html'};
 // ── play the five ──
 let qi=0,picks=[],timer=null,left=SECS,locked=false;
 let base=0,size=5;
-async function play(){try{D=await rpc('duel_get',{p_code:code,p_token:TOKEN});base=D.players.find(p=>p.slot===D.me).picks.length;size=roundSize(base);Q=await Promise.all(D.qset.slice(base,base+size).map(loadQ))}catch{return fail('Could not load the questions.')}
+async function play(){try{D=await rpc('duel_get',{p_code:code,p_token:TOKEN})}catch(e){track('duel_load_fail',{code,step:'get',err:String(e.message).slice(0,200)});return fail('Could not load this duel: '+e.message)}
+ const mine=D&&D.players.find(p=>p.slot===D.me);if(!mine){track('duel_load_fail',{code,step:'me',signed:!!(await userToken())});return fail(await userToken()?"You're not a player in this duel on this account.":'Your Unicorner login has expired. Open the game, sign in again, then come back.')}
+ base=mine.picks.length;size=roundSize(base);if(base>=D.qset.length)return fail('No questions left to play in this duel.');
+ try{Q=await Promise.all(D.qset.slice(base,base+size).map(loadQ))}catch(e){track('duel_load_fail',{code,step:'bank',err:String(e.message).slice(0,200)});return fail('Could not load the questions ('+e.message+'). Refresh the page and try again.')}
  qi=0;picks=[];show('s-play');ask()}
 function ask(){const q=Q[qi];locked=false;left=SECS;$('q-n').textContent=size>1?`${roundName(base)} · Q${qi+1} OF 5`:'SUDDEN DEATH';$('q-text').textContent=q.prompt;$('q-sub').textContent=q.sub;$('q-in').value='';$('q-in').disabled=false;$('q-msg').textContent='';$('q-msg').className='msg';$('q-skip').hidden=false;$('q-go').hidden=false;
  $('q-in').placeholder=PERSON.has(q.type)?'Type a '+(q.type==='player'?'player':q.type):'Type a '+q.type;tick();clearInterval(timer);timer=setInterval(()=>{left--;tick();if(left<=0)lock(null)},1000);setTimeout(()=>$('q-in').focus(),50)}
@@ -371,7 +374,7 @@ function waiting(){clock($('w-clock'),false);const me=D.players.find(p=>p.slot==
 // ── the battle: shown from your side (you on the left) ──
 async function battle(){const slot=D.me||1,me=D.players.find(p=>p.slot===slot),rv=D.players.find(p=>p.slot!==slot);
  const n=D.shared,s0=roundStart(n),A=me.picks,B=rv.picks;
- try{Q=await Promise.all(D.qset.slice(s0,n).map(loadQ))}catch{return fail('Could not load the questions.')}
+ try{Q=await Promise.all(D.qset.slice(s0,n).map(loadQ))}catch(e){track('duel_load_fail',{code,step:'bank2',err:String(e.message).slice(0,200)});return fail('Could not load the questions ('+e.message+'). Refresh the page and try again.')}
  const row=p=>[p[0]?p[0].toUpperCase():'NO ANSWER',p[0]?TIER[p[1]]:null,p[1]];
  const R=Q.map((q,i)=>[q.prompt.toUpperCase(),row(A[s0+i]||[null,0]),row(B[s0+i]||[null,0])]);
  const hp=hpAfter(A,B,n),over=D.over;ls('uc-duel-seen-'+code,n);if(over)rpc('duel_seen',{p_code:code,p_token:TOKEN}).catch(()=>{});   // watched the end: off to the archive
