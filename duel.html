@@ -50,7 +50,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 .ib-off{display:flex;gap:10px;align-items:center;margin:4px 0 14px}.ib-off input{width:22px;height:22px}
 #s-inbox button+button{margin-top:12px}.fb{margin-top:14px;display:grid;gap:10px}.fb textarea{font:inherit;font-size:18px;width:100%;box-sizing:border-box;padding:8px;border:3px solid var(--ink);background:var(--cream);color:var(--ink)}.fb [data-fb].on{background:var(--gold);color:var(--ink)}.rec{color:var(--gold)}
 .ib-tabs{display:flex;gap:8px;margin-top:10px}.ib-tabs button{flex:1;white-space:nowrap;font-size:18px;padding:6px;margin:0!important;background:transparent;color:var(--muted)}.ib-tabs button.on{background:var(--gold);color:var(--ink)}.ib-row{flex-wrap:wrap}.ib-row b{flex:1 1 100%;min-width:0}.ib-row .ib-st{margin-right:auto}.ib-row .ib-x{background:transparent;color:var(--muted);padding:4px 8px;border-color:var(--muted)}
-.x-exit{position:fixed;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));z-index:50;width:44px;height:44px;display:grid;place-items:center;font:700 22px/1 system-ui,sans-serif;color:var(--ink);background:var(--cream);border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);text-decoration:none}.x-exit:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}header{padding-right:52px}body.playing .x-exit{display:none}
+.x-exit{position:fixed;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));z-index:50;width:44px;height:44px;display:grid;place-items:center;font:700 22px/1 system-ui,sans-serif;color:var(--ink);background:var(--cream);border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);text-decoration:none}.x-exit:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}header{padding-right:52px}body.playing .x-exit{display:none}body.playing .side{visibility:hidden}
 .clock{font-family:var(--mono);font-size:18px;color:var(--gold);margin:0}.clock.hot{color:#fff;background:var(--red);padding:4px 8px;animation:clk 1s steps(2) infinite}@keyframes clk{50%{opacity:.75}}.ib-row small.hot{color:#ff8a8a}
 .sz{background:#120c38;border:3px solid var(--ink);padding:8px 10px;margin-top:10px}.sz summary{cursor:pointer;font-family:var(--mono);font-size:17px;color:var(--cream);list-style:none}.sz summary::-webkit-details-marker{display:none}.sz summary b{color:var(--gold);font-weight:400}.sz summary i{font-style:normal;color:#9fe7ff}.sz ol{margin:8px 0 0;padding:0;list-style:none;font-family:var(--mono);font-size:16px}.sz li{display:flex;gap:8px;padding:3px 0;border-top:1px solid #2a1f78}.sz li span{flex:1}.sz li.me{color:var(--gold)}.sz p{font-family:var(--mono);font-size:15px;color:var(--muted);margin:8px 0 0}
 header{display:flex;align-items:center;flex-wrap:wrap;gap:4px 12px;min-height:44px}header h1{margin:0;font-size:clamp(30px,9vw,38px);line-height:1;white-space:nowrap;min-width:0;overflow:hidden}
@@ -82,8 +82,32 @@ dialog.intro[open]{animation:dlgin 220ms cubic-bezier(.23,1,.32,1)}
 #in-n{font-family:var(--mono);font-size:13px;color:#8a7a55;white-space:nowrap}
 #in-next{width:auto;font-size:24px;padding:8px 14px;white-space:nowrap}
 @media (prefers-reduced-motion:reduce){dialog.intro[open],.in-step{animation:none}}
+/* wide screens: a floodlit stadium behind the duel and side panels in the empty space (phones stay as they are) */
+.stadium{display:none}
+@media (min-width:1200px){
+ .stadium{display:block;position:fixed;inset:0;z-index:0;background:linear-gradient(#0a0624,#1a1050 55%);pointer-events:none}
+ .stadium::after{content:'';position:absolute;inset:0;background:rgba(6,4,26,.35)}
+ .st-crowd{position:absolute;left:0;right:0;top:36%;height:26%;border-top:6px solid #06041a;opacity:.55;background:radial-gradient(circle,#ff7ac8 2px,transparent 2.5px) 0 0/16px 14px,radial-gradient(circle,#ffd23f 2px,transparent 2.5px) 8px 7px/16px 14px,radial-gradient(circle,#9fe7ff 2px,transparent 2.5px) 4px 3px/24px 14px,#1d1452}
+ .st-pitch{position:absolute;left:0;right:0;top:62%;bottom:0;border-top:5px solid rgba(255,255,255,.4);background:repeating-linear-gradient(90deg,#235f27 0 80px,#276b2c 80px 160px)}
+ main{position:relative;z-index:1}
+ .side{position:fixed;z-index:1;top:96px;width:300px;display:flex;flex-direction:column;gap:18px}
+ .side-l{right:calc(50% + 300px)}.side-r{left:calc(50% + 300px)}
+}
+@media (max-width:1199px){.side{display:none!important}}
+.sp-panel{background:#f3ead2;color:var(--ink);border:4px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:14px;display:flex;flex-direction:column;gap:10px;font-family:var(--ui)}
+.sp-panel.dark{background:var(--ink);color:var(--cream);box-shadow:6px 6px 0 var(--panel2)}
+.sp-lbl{font-family:var(--mono);font-size:13px}
+.sp-row{display:flex;gap:8px;align-items:baseline;padding:5px 4px;border-top:2px solid #d8caa0;font-size:17px}.sp-row b{font-family:var(--disp);font-weight:400;font-size:22px}.sp-row span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.sp-row.me{background:var(--gold)}
+.sp-big{display:flex;align-items:baseline;justify-content:space-between;gap:8px}.sp-big b{font-family:var(--disp);font-weight:400;font-size:28px;line-height:1}.sp-big strong{font-family:var(--disp);font-weight:400;font-size:42px;line-height:1;color:var(--gold)}
+.sp-wdl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:3px solid var(--ink);text-align:center}.sp-wdl div{padding:6px;border-right:3px solid var(--ink)}.sp-wdl div:last-child{border-right:0}.sp-wdl b{display:block;font-family:var(--disp);font-weight:400;font-size:36px;line-height:1}
+.sp-last{display:flex;gap:6px}.sp-last i{width:28px;height:28px;border:2px solid var(--ink);display:grid;place-items:center;font:400 13px var(--mono);font-style:normal}
+.sp-link{width:auto;align-self:flex-start;background:none;box-shadow:none;padding:0;font:400 13px var(--mono);color:var(--ink);text-decoration:underline;text-underline-offset:3px;letter-spacing:0}
+.sp-link:active{transform:none;box-shadow:none}
 [hidden]{display:none!important}
 </style></head><body>
+<div class="stadium" aria-hidden="true"><i class="st-crowd"></i><i class="st-pitch"></i></div>
+<aside class="side side-l" id="side-l" hidden aria-label="Duel season"></aside>
+<aside class="side side-r" id="side-r" hidden aria-label="Your duels"></aside>
 <main>
  <a class="x-exit" id="x-exit" href="/" aria-label="Close duels, back to Unicorner" title="Back to Unicorner">✕</a>
  <header><h1>UNICORNER DUEL</h1><button type="button" class="how-link" id="how-open">? How duels work</button></header>
@@ -236,7 +260,7 @@ function openIntro(from){inStep=0;introDraw();const d=$('dlg-intro');if(!d.open)
 function closeIntro(how){ls('uc-duel-intro','1');$('dlg-intro').close();track('duel_intro_done',{how,step:inStep+1})}
 $('in-next').onclick=()=>{if(inStep<DUEL_INTRO.length-1){inStep++;introDraw()}else closeIntro('done')};$('in-skip').onclick=()=>closeIntro('skip');
 $('dlg-intro').addEventListener('cancel',()=>ls('uc-duel-intro','1'));$('how-open').onclick=()=>openIntro('link');
-async function boot(){if(!ls('uc-duel-intro'))openIntro('first');$('nm').value=$('nm2').value=ls('uc-nick')||ls('uc-duel-name')||'';
+async function boot(){if(!ls('uc-duel-intro'))openIntro('first');sides();$('nm').value=$('nm2').value=ls('uc-nick')||ls('uc-duel-name')||'';
  // signed-in players already have a leaderboard nickname: use it, don't ask again
  if(ls('uc-nick'))for(const id of['nm','nm2']){const l=$(id).closest('label');if(l&&!l.dataset.nick){l.dataset.nick=1;l.hidden=true;const p=document.createElement('p');p.className='small';p.textContent='Playing as '+ls('uc-nick');l.after(p)}}
  track('duel_view',{code:code||null});
@@ -281,6 +305,18 @@ const tLeft=t=>{const ms=new Date(t)-Date.now();if(!(ms>0))return null;const h=M
 function clock(el,mine){const t=D?.deadline,l=t&&tLeft(t);el.hidden=!l;if(!l)return;el.classList.toggle('hot',hot(t));el.textContent=mine?(hot(t)?`⏰ ${l} left to play this round or you lose!`:`⏰ You have ${l} to play this round`):`⏰ They have ${l} to play, or they lose`}
 const DONE=new Set(['won','lost','draw','declined','expired']),done=x=>DONE.has(x.state)&&!x.fresh;/* a finished duel stays in Active until you've watched the result */let IBR=null,IBT=0;
 // the month's duel season, folded above the inbox: your tier + the top 10 + last month's podium
+async function sides(){if(!matchMedia('(min-width:1200px)').matches)return;
+ const signed=!!(await userToken().catch(()=>null));
+ const [z,rec,ib]=await Promise.all([rpc('duel_season',{}).catch(()=>null),rpc('duel_record',{p_token:TOKEN}).catch(()=>null),signed?rpc('duel_inbox',{}).catch(()=>null):null]);
+ const MON=['January','February','March','April','May','June','July','August','September','October','November','December'];let L='';
+ if(z){const[y,m]=z.season.split('-'),days=Math.max(0,Math.ceil((new Date(z.ends)-Date.now())/864e5)),top=(z.top||[]).slice(0,5);
+  L+=`<div class="sp-panel"><span class="sp-lbl">${MON[+m-1].toUpperCase()} SEASON · ${days} DAY${days===1?'':'S'} LEFT</span>${top.length?top.map(t=>`<div class="sp-row${z.me&&z.me.pos===t.pos?' me':''}"><b>${t.pos}</b><span>${esc(t.nick||'?')}</span><b>${t.r}</b></div>`).join(''):'<span style="font-size:15px">No one has finished placement yet. Play 5 rated duels to get on the table.</span>'}<span class="sp-lbl" style="color:#5a4a2a">TOP 3 GET A SEASON MEDAL</span></div>`;
+  const mi=z.mine;if(mi){const T=[900,1000,1100,1200,1400],N=['Non-League','Championship','Premier League','Champions League',"Ballon d'Or"],nx=T.findIndex(t=>mi.r<t);
+   L+=`<div class="sp-panel dark"><span class="sp-lbl" style="color:#9fe7ff">YOUR RATING</span>${mi.g<5?`<div class="sp-big"><b>${esc(duelTier(mi.r,mi.g))}</b></div><span style="font-size:15px;color:#c9bff5">Play ${5-mi.g} more rated duel${5-mi.g===1?'':'s'} to get your league</span>`:`<div class="sp-big"><b>${esc(duelTier(mi.r,mi.g))}</b><strong>${mi.r}</strong></div>${nx>=0?`<span style="font-size:15px;color:#c9bff5">${T[nx]-mi.r} to ${N[nx]}</span>`:''}`}</div>`}}
+ let R='';if(rec&&rec.w+rec.d+rec.l>0){const last=((ib&&ib.items)||[]).filter(x=>x.state==='won'||x.state==='lost'||x.state==='draw').slice(0,5);
+  R+=`<div class="sp-panel"><span class="sp-lbl">YOUR RECORD</span><div class="sp-wdl"><div><b style="color:#1f9a3a">${rec.w}</b><span class="sp-lbl">WON</span></div><div><b>${rec.d}</b><span class="sp-lbl">DRAW</span></div><div><b style="color:#d12a2a">${rec.l}</b><span class="sp-lbl">LOST</span></div></div>${last.length?`<span class="sp-lbl">LAST RESULTS</span><div class="sp-last">${last.map(x=>`<i title="${esc(x.opp)}" style="background:${x.state==='won'?'#39d353':x.state==='lost'?'#ff6b6b':'#4fc3ff'}">${x.state==='won'?'W':x.state==='lost'?'L':'D'}</i>`).join('')}</div>`:''}</div>`}
+ R+=`<div class="sp-panel"><span class="sp-lbl" style="color:#d12a2a">HOW DUELS WORK</span><span style="font-size:16px;line-height:1.35">5 questions a round, 15 s each · rarer answer = bigger hit · 300 HP, first to 0 loses · 24 h per turn</span><button type="button" class="sp-link" id="sp-how">READ THE BOOKLET ▸</button></div>`;
+ if(L){$('side-l').innerHTML=L;$('side-l').hidden=false}$('side-r').innerHTML=R;$('side-r').hidden=false;$('sp-how').onclick=()=>openIntro('side')}
 async function season(){let z;try{z=await rpc('duel_season',{})}catch{return}if(!z)return;const[y,m]=z.season.split('-'),MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
  const days=Math.max(0,Math.ceil((new Date(z.ends)-Date.now())/864e5)),mine=z.mine;
  $('sz-sum').innerHTML=`<b>${MON[+m-1].toUpperCase()} SEASON</b> · ends in ${days} day${days===1?'':'s'}${mine?` · <i>${esc(duelRating(mine))}</i>`:''} ▾`;
