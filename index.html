@@ -3020,8 +3020,14 @@ function playerCard(r){const k=kitOf(r),info=window.ucKitInfo||{},t=info.KLV?.[k
  <div class="pcd-st"><div><b>${n}/${all.length}</b>${L('kits','equip.')}</div><div><b>${streak}</b>${L('best streak','mejor racha')}</div><div><b>${games}</b>${L('games','partidos')}</div></div>
  ${(()=>{const nk=(r.me?me?.profile?.nickname:r.nickname)||'';return nk&&!r.ghost?`<div class="pcd-tr" data-tn="${esc(String(nk).toLowerCase())}" hidden></div>`:''})()}
  <div class="pcd-shelf" aria-label="${n} ${L('kits owned','equipaciones')}">${all.map(x=>`<i class="${own.has(x.id)?'':'no'}" title="${esc(L(x.en,x.es))}" style="background-image:${uniBg(x)}"></i>`).join('')}</div></div>`;
- if(!d.open)d.showModal();track('player_card',{me:!!r.me});duelRec(d,(r.me?me?.profile?.nickname:r.nickname)||'');
+ if(!d.open)d.showModal();track('player_card',{me:!!r.me});duelRec(d,(r.me?me?.profile?.nickname:r.nickname)||'');duelElo(d,(r.me?me?.profile?.nickname:r.nickname)||'');
  if(!ES&&sess&&!r.me&&!r.ghost&&r.nickname){const b=document.createElement('a');b.className='pcd-ch';b.href='/duel.html?vs='+encodeURIComponent(r.nickname);b.textContent='⚔️ Challenge to a duel';b.onclick=()=>track('duel_card_challenge',{});d.querySelector('.pcd-b')?.appendChild(b)}}
+// duel rating line + season titles on the player card (English site only, like duels)
+const ELO_MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const eloTier=(r,g)=>g<8?`Placement ${g}/8`:r<900?'Sunday League':r<1000?'Non-League':r<1100?'Championship':r<1200?'Premier League':r<1400?'Champions League':"Ballon d'Or";
+function duelElo(d,nick){if(!nick||ES)return;fetch(SB_URL+'/rest/v1/rpc/duel_elo_nick',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({p_nick:nick})}).then(x=>x.ok?x.json():null).then(j=>{if(!j||!j.g||!d.open||d.querySelector('.pcd-elo'))return;const st=d.querySelector('.pcd-st');if(!st)return;
+ const ti=(j.titles||[]).map(t=>{const[y,m]=t.season.split('-');return`<i class="pcd-ti" title="Duel season ${ELO_MON[+m-1]} ${y}: ${['1st','2nd','3rd'][t.place-1]}">${['🥇','🥈','🥉'][t.place-1]} ${ELO_MON[+m-1]} ${y.slice(2)}</i>`}).join('');
+ st.insertAdjacentHTML('afterend',`<div class="pcd-elo">⚔️ <b>${esc(eloTier(j.r,j.g))}</b>${j.g>=8?' · '+j.r:''}${ti?`<span>${ti}</span>`:''}</div>`)}).catch(()=>{})}
 // 1v1 duel record (wins-draws-losses) under the stats, only once they've finished a duel
 function duelRec(d,nick){if(!nick||ES)return;fetch(SB_URL+'/rest/v1/rpc/duel_record_nick',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({p_nick:nick})}).then(x=>x.ok?x.json():null).then(j=>{if(!j||!(j.w+j.d+j.l)||!d.open)return;const st=d.querySelector('.pcd-st');if(!st||d.querySelector('.pcd-du'))return;st.insertAdjacentHTML('beforeend',`<div class="pcd-du" title="Wins-draws-losses"><b>${j.w}-${j.d}-${j.l}</b>⚔️ duels</div>`)}).catch(()=>{})}
 // Send this player's kit and kit count to their account so everyone sees their unicorn on the boards
@@ -3346,14 +3352,14 @@ document.head.insertAdjacentHTML('beforeend',`<style>
 .pcd-art{padding:14px 74px 4px!important}
 .pcd-b{gap:6px!important}
 .pcd-st:has(>div:nth-child(4)){grid-template-columns:repeat(4,1fr)}.pcd-st:has(>div:nth-child(4)) b{font-size:22px}
-.pcd-tr{display:flex;align-items:center;gap:8px;margin:4px 0 0;padding:5px 8px}
+.pcd-tr{display:flex;align-items:center;gap:8px;margin:4px 0 0;padding:5px 8px}.pcd-tr[hidden]{display:none}
 .pcd-tr h4{margin:0;flex:none;font-size:8px;line-height:1.4;writing-mode:horizontal-tb}
 .pcd-tr div{flex:1;justify-content:flex-start;gap:6px 9px;padding:0;border:0}
 .pcd-tr span{position:relative}
 .pcd-tr .tr-ico{width:24px;height:24px}
 .pcd-tr b{position:absolute;right:-7px;bottom:-4px;margin:0;font-size:6px;padding:1px 2px;background:#000;border-radius:3px;line-height:1}
 .pcd-shelf{gap:2px}.pcd-shelf i{width:19px;height:16px}
-.pcd-ch{margin:8px auto 0!important;padding:8px!important;font-size:18px;white-space:nowrap}.pcd-st .pcd-du{margin:0;font-size:16px}.pcd-st .pcd-du b{margin:0;white-space:nowrap}
+.pcd-ch{margin:8px auto 0!important;padding:8px!important;font-size:18px;white-space:nowrap}.pcd-st .pcd-du{margin:0;font-size:16px}.pcd-st .pcd-du b{margin:0;white-space:nowrap}.pcd-elo{text-align:center;font-size:16px;color:#cfc8f5;line-height:1.3}.pcd-elo b{color:#9fe7ff;font-weight:400}.pcd-elo span{display:flex;justify-content:center;flex-wrap:wrap;gap:4px;margin-top:3px}.pcd-ti{font-style:normal;font-size:13px;background:#2a1f78;border:2px solid #000;padding:0 5px}
 .aw-h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:2px 10px;background:#1b2a6b;color:#fff;padding:9px 12px 8px}
 .aw-h h3{margin:0;font-family:var(--px);font-weight:400;font-size:27px;line-height:1}
 .aw-h small{font:13px var(--lab);color:#c9d3ff;white-space:nowrap}

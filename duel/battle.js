@@ -86,7 +86,11 @@ function resultCard(a){const k=eob(seg(a,0,.35));if(k<=0)return;g.globalAlpha=.5
  px((a0<=0||b0<=0?'KO · ':'ON POINTS · ')+Math.round(a0)+' – '+Math.round(b0)+' HP',W/2,468,26,'#06041a',{out:false,font:'mono'});
  const R2=O.rec;if(!R2||a<.9)return;px('YOUR DUEL RECORD',W/2,515,26,'#5a4a2a',{out:false,font:'mono'});const ch=res==='WIN'?0:res==='DRAW'?1:2;
  for(let i=0;i<3;i++){const x=W/2-110+i*110,flip=i===ch?seg(a,1.3,1.7):1,show=i===ch&&flip<.5?R2[i]-1:R2[i];g.fillStyle='#06041a';g.fillRect(x-40,528,80,92);g.fillStyle=i===ch&&flip>=.5?(['#39d353','#4fc3ff','#ff6b6b'][i]):'#2a1f78';g.fillRect(x-34,534,68,80);
-  g.save();g.translate(x,574);if(i===ch&&flip<1)g.scale(1,Math.abs(Math.cos(flip*Math.PI))||.05);px(String(show),0,28,80,'#ffffff',{out:false});g.restore();px(['W','D','L'][i],x,650,26,'#06041a',{out:false,font:'mono'})}}
+  g.save();g.translate(x,574);if(i===ch&&flip<1)g.scale(1,Math.abs(Math.cos(flip*Math.PI))||.05);px(String(show),0,28,80,'#ffffff',{out:false});g.restore();px(['W','D','L'][i],x,650,26,'#06041a',{out:false,font:'mono'})}
+ // rating change for this duel: counts up from the old number to the new one
+ const E=O.elo;if(E&&a>1.5){const k2=seg(a,1.5,2.3),now=Math.round(E.b+(E.a-E.b)*k2),d=E.a-E.b;
+  px(`${duelTier(now,E.g)}${E.g<8?'':' · '+now}`,W/2,688,24,'#06041a',{out:false,font:'mono'});
+  if(k2>=1)px(d===0?'±0':(d>0?'+':'')+d+(d>0?' ▲':' ▼'),W/2,712,24,d>0?'#1f9a3a':d<0?'#d12a2a':'#5a4a2a',{out:false,font:'mono'})}}
 function frame(now){if(!cv.isConnected)return;let r=paused?pausedAt:(now-t0)/1000;if(RM)r=TOTAL-.1;if(r>=TOTAL-.05){r=TOTAL-.05;if(!ended){ended=true;onEnd&&onEnd()}}
  const t=warp(r);g.setTransform(1,0,0,1,0,0);const ri=Math.min(N,Math.floor(Math.max(0,t-INTRO)/RD)),lt=t-INTRO-ri*RD,inR=t>=INTRO&&ri<N,end=t-INTRO-RD*N;
  const [q,yo,op]=R[Math.min(ri,N-1)],blk=inR&&!!yo[0]&&yo[0]===op[0];
@@ -145,6 +149,9 @@ function crit(lt,inR,blk,yo,op,pos){if(!inR||blk||lt<HIT||lt>HIT+.9)return;const
  if(yo[1]==='SCREAMER'||op[1]==='SCREAMER'){const f=.35*(1-seg(a,0,.18));if(f>0){g.globalAlpha=f;g.fillStyle='#ffe27a';g.fillRect(0,0,W,H);g.globalAlpha=1}}}
 // round 1 opens with a VS card, sudden death with the lights going out
 const VS=[{bg:'#3a2240',edge:'#9a6a8c'},{bg:'#1f2c48',edge:'#6b84b3'}];
+// duel rating tiers (shared with duel.html): 8 placement duels, then a league name for the number
+function duelTier(r,g){if(g<8)return'PLACEMENT '+g+'/8';return r<900?'SUNDAY LEAGUE':r<1000?'NON-LEAGUE':r<1100?'CHAMPIONSHIP':r<1200?'PREMIER LEAGUE':r<1400?'CHAMPIONS LEAGUE':"BALLON D'OR"}
+function duelRating(e){return e.g<8?duelTier(e.r,e.g):duelTier(e.r,e.g)+' '+e.r}
 function introFX(t){if(!O.intro||t>=INTRO)return;const out=1-seg(t,INTRO-.35,INTRO);
  if(O.intro==='vs'){g.globalAlpha=.9*out;g.fillStyle='#06041a';g.fillRect(0,0,W,H);g.globalAlpha=out;
   for(const k of[0,1]){const P=k?P2:P1,c=VS[k],e=eo(seg(t,.1+k*.15,.7+k*.15)),dir=k?1:-1,y=k?420:120,h=230,off=dir*(1-e)*W;
@@ -154,6 +161,7 @@ function introFX(t){if(!O.intro||t>=INTRO)return;const out=1-seg(t,INTRO-.35,INT
    g.save();g.translate(ux,y+h/2+6);if(k)g.scale(-1,1);g.drawImage(sp('wow',Math.floor(t*4+k)%2,P.kit),-110,-92,220,184);g.restore();
    const tx=k?170:W-170;px(P.name.toUpperCase().slice(0,12),tx,y+h/2-6,P.name.length>9?32:P.name.length>6?40:56,'#f3ead2');
    const r=P.rec;if(r){px(`${r.w}-${r.d}-${r.l}`,tx,y+h/2+40,34,'#ffd23f',{font:'mono'});px('W-D-L',tx,y+h/2+68,20,'#c9bff5',{font:'mono',out:false})}
+   if(P.elo)px(duelRating(P.elo),tx,y+h/2+96,20,'#9fe7ff',{font:'mono',out:false})
    g.restore()}
   const v=seg(t,1.2,1.4);if(v>0){const sc=(v<1?3-2*v:1+.05*Math.sin(t*10));g.save();g.translate(W/2,395);g.scale(sc,sc);g.fillStyle='#06041a';g.fillRect(-62,-44,124,88);g.fillStyle='#ffd23f';g.fillRect(-56,-38,112,76);px('VS',0,28,84,'#06041a',{out:false});g.restore()}
   if(t>2.3)px('FIGHT!',W/2,720,70*eob(seg(t,2.3,2.6)),'#ffd23f');g.globalAlpha=1}

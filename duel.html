@@ -52,6 +52,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 .ib-tabs{display:flex;gap:8px;margin-top:10px}.ib-tabs button{flex:1;white-space:nowrap;font-size:18px;padding:6px;margin:0!important;background:transparent;color:var(--muted)}.ib-tabs button.on{background:var(--gold);color:var(--ink)}.ib-row{flex-wrap:wrap}.ib-row b{flex:1 1 100%;min-width:0}.ib-row .ib-st{margin-right:auto}.ib-row .ib-x{background:transparent;color:var(--muted);padding:4px 8px;border-color:var(--muted)}
 .x-exit{position:fixed;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));z-index:50;width:44px;height:44px;display:grid;place-items:center;font:700 22px/1 system-ui,sans-serif;color:var(--ink);background:var(--cream);border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);text-decoration:none}.x-exit:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}header{padding-right:52px}body.playing .x-exit{display:none}
 .clock{font-family:var(--mono);font-size:18px;color:var(--gold);margin:0}.clock.hot{color:#fff;background:var(--red);padding:4px 8px;animation:clk 1s steps(2) infinite}@keyframes clk{50%{opacity:.75}}.ib-row small.hot{color:#ff8a8a}
+.sz{background:#120c38;border:3px solid var(--ink);padding:8px 10px;margin-top:10px}.sz summary{cursor:pointer;font-family:var(--mono);font-size:17px;color:var(--cream);list-style:none}.sz summary::-webkit-details-marker{display:none}.sz summary b{color:var(--gold);font-weight:400}.sz summary i{font-style:normal;color:#9fe7ff}.sz ol{margin:8px 0 0;padding:0;list-style:none;font-family:var(--mono);font-size:16px}.sz li{display:flex;gap:8px;padding:3px 0;border-top:1px solid #2a1f78}.sz li span{flex:1}.sz li.me{color:var(--gold)}.sz p{font-family:var(--mono);font-size:15px;color:var(--muted);margin:8px 0 0}
 [hidden]{display:none!important}
 </style></head><body>
 <main>
@@ -67,6 +68,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
  </section>
  <section id="s-inbox" class="card" hidden>
   <h2>MY DUELS</h2>
+  <details class="sz" id="sz" hidden><summary id="sz-sum"></summary><div id="sz-body"></div></details>
   <div class="ib-tabs"><button id="ib-t0" class="on">Active</button><button id="ib-t1">Archive</button></div>
   <div id="ib-list" class="ib"></div>
   <label class="ib-off"><input type="checkbox" id="ib-allow"> Let other players challenge me</label>
@@ -226,7 +228,16 @@ const IB={challenge:['NEW CHALLENGE','#ffd23f','Accept'],sent:['SENT · WAITING'
 const tLeft=t=>{const ms=new Date(t)-Date.now();if(!(ms>0))return null;const h=Math.floor(ms/3600000),m=Math.floor(ms%3600000/60000);return h?`${h}h ${m}m`:`${m}m`};const hot=t=>new Date(t)-Date.now()<4*3600000;
 function clock(el,mine){const t=D?.deadline,l=t&&tLeft(t);el.hidden=!l;if(!l)return;el.classList.toggle('hot',hot(t));el.textContent=mine?(hot(t)?`⏰ ${l} left to play this round or you lose!`:`⏰ You have ${l} to play this round`):`⏰ They have ${l} to play, or they lose`}
 const DONE=new Set(['won','lost','draw','declined','expired']),done=x=>DONE.has(x.state)&&!x.fresh;/* a finished duel stays in Active until you've watched the result */let IBR=null,IBT=0;
-async function inbox(){if(!await userToken())return fail('Sign in on Unicorner (the league login) to see your duels.');try{IBR=await rpc('duel_inbox',{})}catch{return fail('Could not load your duels. Try again in a moment.')}
+// the month's duel season, folded above the inbox: your tier + the top 10 + last month's podium
+async function season(){let z;try{z=await rpc('duel_season',{})}catch{return}if(!z)return;const[y,m]=z.season.split('-'),MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+ const days=Math.max(0,Math.ceil((new Date(z.ends)-Date.now())/864e5)),mine=z.mine;
+ $('sz-sum').innerHTML=`<b>${MON[+m-1].toUpperCase()} SEASON</b> · ends in ${days} day${days===1?'':'s'}${mine?` · <i>${esc(duelRating(mine))}</i>`:''} ▾`;
+ const top=z.top.length?`<ol>${z.top.map(t=>`<li class="${z.me&&t.pos===z.me.pos?'me':''}"><b>${t.pos}</b><span>${esc(t.nick||'?')}</span>${t.r}</li>`).join('')}</ol>`:'<p>No one has finished placement this season yet.</p>';
+ const me=z.me&&z.me.pos>10?`<p>You: ${ordN(z.me.pos)} · ${z.me.r}</p>`:mine&&mine.g<8?`<p>Play ${8-mine.g} more rated duel${8-mine.g===1?'':'s'} to get your rating.</p>`:'';
+ const pod=z.last.podium.length?`<p>Last season: ${z.last.podium.map(p=>['🥇','🥈','🥉'][p.pos-1]+' '+esc(p.nick||'?')).join('  ')}</p>`:'';
+ $('sz-body').innerHTML=top+me+pod+'<p>Rated: duels between signed-in players. Ratings ease halfway back to 1000 at the start of each month; the top 3 earn a season medal.</p>';$('sz').hidden=false}
+const ordN=n=>{const t=['th','st','nd','rd'],v=n%100;return n+(t[(v-20)%10]||t[v]||t[0])};
+async function inbox(){season();if(!await userToken())return fail('Sign in on Unicorner (the league login) to see your duels.');try{IBR=await rpc('duel_inbox',{})}catch{return fail('Could not load your duels. Try again in a moment.')}
  track('duel_inbox',{n:IBR.items.length});$('ib-allow').checked=!IBR.off;ibDraw();show('s-inbox')}
 function ibDraw(){const all=IBR.items,act=all.filter(x=>!done(x)),arc=all.filter(done),list=IBT?arc:act;
  $('ib-t0').textContent='Active'+(act.length?' ('+act.length+')':'');$('ib-t1').textContent='Archive'+(arc.length?' ('+arc.length+')':'');$('ib-t0').classList.toggle('on',!IBT);$('ib-t1').classList.toggle('on',!!IBT);
@@ -276,10 +287,11 @@ async function battle(){const slot=D.me||1,me=D.players.find(p=>p.slot===slot),r
  const row=p=>[p[0]?p[0].toUpperCase():'NO ANSWER',p[0]?TIER[p[1]]:null,p[1]];
  const R=Q.map((q,i)=>[q.prompt.toUpperCase(),row(A[s0+i]||[null,0]),row(B[s0+i]||[null,0])]);
  const hp=hpAfter(A,B,n),over=D.over;ls('uc-duel-seen-'+code,n);if(over)rpc('duel_seen',{p_code:code,p_token:TOKEN}).catch(()=>{});   // watched the end: off to the archive
- $('next').hidden=true;$('rematch').hidden=!over;let rec=null;if(over&&D.me)try{const r=await rpc('duel_record',{p_token:TOKEN});if(r)rec=[r.w,r.d,r.l]}catch{}
+ $('next').hidden=true;$('rematch').hidden=!over;let rec=null,elo=null;try{elo=await rpc('duel_elo_duel',{p_code:code})}catch{}
+ const dl=elo&&elo.delta,myE=elo&&(dl?{r:dl['b'+slot],g:Math.max(0,dl['g'+slot]-1)}:elo['p'+slot]),rvE=elo&&(dl?{r:dl['b'+(3-slot)],g:Math.max(0,dl['g'+(3-slot)]-1)}:elo['p'+(3-slot)]);if(over&&D.me)try{const r=await rpc('duel_record',{p_token:TOKEN});if(r)rec=[r.w,r.d,r.l]}catch{}
  $('fb').hidden=true;if(over&&D.me){const res=hp[0]===hp[1]?'draw':hp[slot-1]>hp[2-slot]?'win':'loss';if(!ls('uc-duel-end-'+code)){ls('uc-duel-end-'+code,'1');track('duel_end',{code,result:res,questions:n})}fbFor=code}
- const opts={hp:hpAfter(A,B,s0),q0:s0,title:roundName(s0),final:over,rec,intro:s0===0?'vs':s0===15?'sd':null,next:n<15?'NO KO YET':'STILL LEVEL'};
- const go=()=>{show('s-battle');$('next').hidden=true;startBattle($('bc'),R,{name:D.me?'YOU':me.name,kit:me.kit,rec:me.rec},{name:rv.name,kit:rv.kit,rec:rv.rec},()=>{if(!over&&D.me){$('next').hidden=false;$('next').textContent=n<15?'Play round '+roundNo(n):'Sudden death'}if(over&&D.me&&!ls('uc-duel-fb-'+code))$('fb').hidden=false},opts)};$('v-title').textContent=over?'THE DUEL IS OVER':roundName(s0)+' IS IN';$('v-msg').textContent=over?'Full time. See who won.':"You've both played. See how it went.";$('v-go').onclick=go;show('s-view');$('replay').onclick=go}
+ const opts={hp:hpAfter(A,B,s0),q0:s0,title:roundName(s0),final:over,rec,intro:s0===0?'vs':s0===15?'sd':null,next:n<15?'NO KO YET':'STILL LEVEL',elo:over&&D.me&&dl?{b:dl['b'+slot],a:dl['a'+slot],g:dl['g'+slot]}:null};
+ const go=()=>{show('s-battle');$('next').hidden=true;startBattle($('bc'),R,{name:D.me?'YOU':me.name,kit:me.kit,rec:me.rec,elo:myE},{name:rv.name,kit:rv.kit,rec:rv.rec,elo:rvE},()=>{if(!over&&D.me){$('next').hidden=false;$('next').textContent=n<15?'Play round '+roundNo(n):'Sudden death'}if(over&&D.me&&!ls('uc-duel-fb-'+code))$('fb').hidden=false},opts)};$('v-title').textContent=over?'THE DUEL IS OVER':roundName(s0)+' IS IN';$('v-msg').textContent=over?'Full time. See who won.':"You've both played. See how it went.";$('v-go').onclick=go;show('s-view');$('replay').onclick=go}
 $('next').onclick=()=>play();
 // feedback on the finished duel, shown once the battle ends
 let fbFor=null,fbRate=null;
