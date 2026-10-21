@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hunter Douglas City</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="scene"></canvas>
+  <div id="labels"></div>
+
+  <header class="topbar">
+    <div class="brandmark">
+      <img src="assets/img/hd-logo.png" alt="Hunter Douglas Architectural">
+    </div>
+    <div class="intro" id="intro">
+      <h1 id="title"></h1>
+      <p id="subtitle"></p>
+    </div>
+  </header>
+
+  <nav class="legend" aria-label="Brands">
+    <span class="dot derako"></span>Derako
+    <span class="dot heartfelt"></span>HeartFelt
+    <span class="dot luxalon"></span>Luxalon
+  </nav>
+
+  <button class="back" id="back" type="button" aria-label="Back to city">
+    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    City
+  </button>
+
+  <aside class="panel" id="panel" aria-live="polite"></aside>
+
+  <div class="lightbox" id="lightbox"><img alt=""></div>
+
+  <p class="hint">Click a building · ← → to move · Esc to go back</p>
+
+  <script src="vendor/three.min.js"></script>
+  <script src="content.js"></script>
+  <script src="city.js"></script>
+</body>
+</html>

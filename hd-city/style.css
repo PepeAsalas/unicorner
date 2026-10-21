@@ -1,0 +1,198 @@
+:root {
+  /* Brand palette from the Hunter Douglas template */
+  --hf-dark: #334E22;  --hf-mid: #4C653D;  --hf-light: #D6E5CD;
+  --dk-dark: #483C2C;  --dk-mid: #6A5C48;  --dk-light: #E1D5C2;
+  --lx-dark: #303A54;  --lx-mid: #57617A;  --lx-light: #E1EAF8;
+  --grey: #76777A;
+  --ink: #1F2328;
+  --paper: #FFFFFF;
+  --sky: #EEF3EA;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --head: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --body: "Roboto", "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; }
+body {
+  background: var(--sky);
+  color: var(--ink);
+  font-family: var(--body);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+#scene { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+
+/* ---------- Top bar ---------- */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0;
+  display: flex; align-items: flex-start; justify-content: space-between;
+  padding: 28px 36px; pointer-events: none;
+}
+.brandmark img { height: 34px; display: block; }
+.intro { text-align: right; transition: opacity 250ms ease, transform 250ms var(--ease-out); }
+.intro h1 { font-family: var(--head); font-weight: 700; font-size: 28px; margin: 0; color: var(--hf-dark); letter-spacing: -0.01em; }
+.intro p { margin: 6px 0 0; color: var(--grey); font-size: 15px; }
+body.focused .intro { opacity: 0; transform: translateY(-6px); }
+
+.legend {
+  position: fixed; left: 36px; bottom: 28px;
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--head); font-weight: 600; font-size: 13px; color: var(--ink);
+  background: rgba(255,255,255,0.8); backdrop-filter: blur(8px);
+  padding: 10px 14px; border-radius: 999px;
+}
+.legend .dot { width: 10px; height: 10px; border-radius: 50%; margin-left: 6px; }
+.legend .dot:first-child { margin-left: 0; }
+.dot.derako { background: var(--dk-dark); }
+.dot.heartfelt { background: var(--hf-dark); }
+.dot.luxalon { background: var(--lx-dark); }
+
+.hint {
+  position: fixed; right: 36px; bottom: 28px; margin: 0;
+  font-size: 13px; color: var(--grey);
+  transition: opacity 250ms ease;
+}
+body.focused .hint { opacity: 0; }
+
+/* ---------- Building labels ---------- */
+#labels { position: fixed; inset: 0; pointer-events: none; }
+.tag {
+  position: absolute; left: 0; top: 0;
+  pointer-events: auto; cursor: pointer;
+  font-family: var(--head); font-weight: 600; font-size: 14px;
+  color: var(--paper); background: var(--hf-dark);
+  padding: 8px 14px; border-radius: 999px; white-space: nowrap;
+  box-shadow: 0 6px 18px rgba(31,35,40,0.18);
+  border: 0;
+  transition: opacity 200ms ease, scale 160ms var(--ease-out), background-color 200ms ease;
+  will-change: transform;
+}
+.tag::after {
+  content: ""; position: absolute; left: 50%; bottom: -5px; width: 10px; height: 10px;
+  background: inherit; transform: translateX(-50%) rotate(45deg); border-radius: 2px;
+}
+.tag:active { scale: 0.97; }
+@media (hover: hover) and (pointer: fine) {
+  .tag:hover, .tag.hover { scale: 1.06; background: var(--hf-mid); }
+}
+.tag .num { opacity: 0.6; margin-right: 6px; font-weight: 500; }
+body.focused .tag { opacity: 0; pointer-events: none; }
+
+/* ---------- Back button ---------- */
+.back {
+  position: fixed; top: 26px; left: 50%;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--head); font-weight: 600; font-size: 14px;
+  color: var(--ink); background: var(--paper);
+  border: 0; border-radius: 999px; padding: 10px 16px 10px 12px; cursor: pointer;
+  box-shadow: 0 4px 14px rgba(31,35,40,0.12);
+  opacity: 0; pointer-events: none;
+  transform: translate(-50%, -8px);
+  transition: opacity 200ms ease, transform 200ms var(--ease-out);
+}
+body.focused .back { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
+.back:active { transform: translate(-50%, 0) scale(0.97); }
+
+/* ---------- Sector panel ---------- */
+.panel {
+  position: fixed; top: 16px; right: 16px; bottom: 16px;
+  width: min(560px, 46vw);
+  background: var(--paper);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(31,35,40,0.18);
+  overflow-y: auto; overscroll-behavior: contain;
+  transform: translateX(calc(100% + 24px));
+  transition: transform 500ms var(--ease-drawer);
+}
+body.focused .panel { transform: translateX(0); }
+
+.panel .hero {
+  height: 220px; position: relative; overflow: hidden;
+  border-radius: 20px 20px 0 0;
+}
+.panel .hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.panel .hero .eyebrow {
+  position: absolute; left: 28px; bottom: 18px;
+  font-family: var(--head); font-weight: 600; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--paper); background: rgba(31,35,40,0.45); backdrop-filter: blur(6px);
+  padding: 6px 10px; border-radius: 999px;
+}
+.panel .body { padding: 28px 28px 32px; }
+.panel h2 { font-family: var(--head); font-weight: 700; font-size: 40px; letter-spacing: -0.02em; margin: 0 0 8px; color: var(--hf-dark); }
+.panel .lead { font-size: 17px; line-height: 1.5; margin: 0 0 18px; color: var(--ink); }
+.points { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 28px; padding: 0; list-style: none; }
+.points li {
+  font-family: var(--head); font-weight: 500; font-size: 13px;
+  background: var(--sky); color: var(--hf-dark); padding: 7px 12px; border-radius: 999px;
+}
+.panel h3 { font-family: var(--head); font-weight: 600; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grey); margin: 0 0 14px; }
+
+.projects { display: grid; gap: 14px; }
+.project {
+  display: grid; grid-template-columns: 150px 1fr; gap: 0;
+  border-radius: 14px; overflow: hidden; background: var(--c-light);
+}
+.project .ph { aspect-ratio: 4/3; height: 100%; background: var(--c-light); cursor: zoom-in; }
+.project .ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.project .ph.empty {
+  cursor: default;
+  /* vertical slats, like the template backgrounds */
+  background: repeating-linear-gradient(90deg, var(--c-light) 0 14px, rgba(255,255,255,0.7) 14px 15px);
+  display: grid; place-items: center;
+  font-family: var(--head); font-weight: 500; font-size: 12px; color: var(--c-mid);
+}
+.project .meta { padding: 16px 18px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+.project .badge {
+  align-self: flex-start;
+  font-family: var(--head); font-weight: 700; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--paper); background: var(--c-dark); padding: 5px 9px; border-radius: 6px; margin-bottom: 4px;
+}
+.project .t { font-family: var(--head); font-weight: 600; font-size: 16px; color: var(--c-dark); }
+.project .p { font-size: 14px; color: var(--c-mid); }
+.project.derako    { --c-dark: var(--dk-dark); --c-mid: var(--dk-mid); --c-light: var(--dk-light); }
+.project.heartfelt { --c-dark: var(--hf-dark); --c-mid: var(--hf-mid); --c-light: var(--hf-light); }
+.project.luxalon   { --c-dark: var(--lx-dark); --c-mid: var(--lx-mid); --c-light: var(--lx-light); }
+
+.empty-note { font-size: 14px; color: var(--grey); padding: 18px; border: 1px dashed #C9CCC6; border-radius: 14px; margin: 0; }
+
+/* Stagger the panel contents in when it opens */
+.panel .stagger > * { opacity: 0; transform: translateY(8px); }
+body.focused .panel .stagger > * {
+  opacity: 1; transform: none;
+  transition: opacity 300ms ease-out, transform 300ms var(--ease-out);
+  transition-delay: calc(150ms + var(--i, 0) * 50ms);
+}
+
+/* ---------- Lightbox ---------- */
+.lightbox {
+  position: fixed; inset: 0; display: grid; place-items: center;
+  background: rgba(20,22,25,0.82); cursor: zoom-out;
+  opacity: 0; pointer-events: none; transition: opacity 200ms ease;
+}
+.lightbox img { max-width: 92vw; max-height: 88vh; border-radius: 10px; transform: scale(0.96); transition: transform 250ms var(--ease-out); }
+.lightbox.open { opacity: 1; pointer-events: auto; }
+.lightbox.open img { transform: scale(1); }
+
+/* ---------- Small screens: panel becomes a bottom sheet ---------- */
+@media (max-width: 760px) {
+  .topbar { padding: 18px 16px; }
+  .intro h1 { font-size: 18px; }
+  .intro p, .hint { display: none; }
+  .legend { left: 16px; bottom: 16px; }
+  .panel { top: auto; left: 8px; right: 8px; bottom: 8px; width: auto; height: 64vh; transform: translateY(calc(100% + 16px)); }
+  .project { grid-template-columns: 110px 1fr; }
+  .panel h2 { font-size: 30px; }
+  .panel .hero { height: 140px; }
+  .back { left: auto; right: 16px; transform: translate(0, -8px); }
+  body.focused .back { transform: none; }
+  .back:active { transform: scale(0.97); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel, .back, .intro, .tag, .panel .stagger > * { transition-property: opacity !important; }
+}
