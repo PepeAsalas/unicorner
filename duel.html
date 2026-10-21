@@ -338,7 +338,7 @@ async function season(){let z;try{z=await rpc('duel_season',{})}catch{return}if(
  const pod=z.last.podium.length?`<p>Last season: ${z.last.podium.map(p=>['🥇','🥈','🥉'][p.pos-1]+' '+esc(p.nick||'?')).join('  ')}</p>`:'';
  $('sz-body').innerHTML=top+me+pod+'<p>Rated: duels between signed-in players. Ratings ease halfway back to 1000 at the start of each month; the top 3 earn a season medal.</p>';$('sz').hidden=false}
 const ordN=n=>{const t=['th','st','nd','rd'],v=n%100;return n+(t[(v-20)%10]||t[v]||t[0])};
-async function inbox(){season();if(!await userToken())return fail('Sign in on Unicorner (the league login) to see your duels.');try{IBR=await rpc('duel_inbox',{})}catch{return fail('Could not load your duels. Try again in a moment.')}
+async function inbox(){season();if(!await userToken())return fail('Sign in on Unicorner (the league login) to see your duels.');try{IBR=(await rpc('duel_inbox',{}))||{items:[]}}catch{return fail('Could not load your duels. Try again in a moment.')}
  track('duel_inbox',{n:IBR.items.length});$('ib-allow').checked=!IBR.off;ibDraw();show('s-inbox')}
 function ibDraw(){const all=IBR.items,act=all.filter(x=>!done(x)),arc=all.filter(done),list=IBT?arc:act;
  $('ib-t0').textContent='Active'+(act.length?' ('+act.length+')':'');$('ib-t1').textContent='Archive'+(arc.length?' ('+arc.length+')':'');$('ib-t0').classList.toggle('on',!IBT);$('ib-t1').classList.toggle('on',!!IBT);
