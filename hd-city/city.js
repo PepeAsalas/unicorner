@@ -165,17 +165,25 @@
       }
       box(12, 1.6, 0.4, P.white, 0, 5.8, 5.1, g);
     },
-    transport(g) {            // station with curved roof
-      box(17, 5, 10, P.glass, 0, 0, 0, g);
-      for (let i = 0; i < 9; i++) {
-        const a = (i / 8) * Math.PI;
-        const r = box(17.6, 0.6, 2.2, P.lx, 0, 0, 0, g);
-        r.position.set(0, 5 + Math.sin(a) * 3, -Math.cos(a) * 5.5);
-        r.rotation.x = a - Math.PI / 2;
+    transport(g) {            // airport: terminal with a wave roof, control tower, runway
+      // runway along x at the front of the plot
+      box(19.6, 0.12, 4.2, "#6E747B", 0, 0, 5.4, g);
+      for (let x = -8; x <= 8; x += 2.4) box(1.2, 0.14, 0.25, P.line, x, 0, 5.4, g);
+      [-1, 1].forEach((s) => box(0.25, 0.14, 3.4, P.line, s * 9.2, 0, 5.4, g));     // thresholds
+      box(2, 0.13, 3, "#8C9298", 2, 0, 1.6, g);                                      // taxiway
+      // terminal
+      box(14, 3.6, 5.5, P.glass, -1, 0, -3.6, g);
+      for (let i = 0; i < 8; i++) {
+        const x = -7.5 + i * 2, h = 4 + Math.sin(i / 7 * Math.PI) * 1.4;
+        box(2.05, 0.5, 6.3, i % 2 ? P.white : P.lxLight, x + 0.5, h - 0.4, -3.6, g);
       }
-      box(0.8, 6.9, 0.8, P.lx, 7.5, 0, 6.5, g);                 // sign post
-      box(2.6, 1.6, 0.4, P.white, 7.5, 6.9, 6.5, g);
-      box(2.6, 0.4, 0.42, P.orange, 7.5, 7.5, 6.5, g);
+      box(1.6, 1.6, 2.4, P.white, -5, 0, -0.2, g);                                   // jet bridges
+      box(1.6, 1.6, 2.4, P.white, 2, 0, -0.2, g);
+      // control tower
+      box(1.4, 11, 1.4, P.white, 7.6, 0, -5.6, g);
+      box(3, 1.6, 3, P.glassDark, 7.6, 11, -5.6, g);
+      box(3.4, 0.4, 3.4, P.lx, 7.6, 12.6, -5.6, g);
+      box(0.2, 1.4, 0.2, P.orange, 7.6, 13, -5.6, g);
     },
     leisure(g) {              // hotel/cinema with stepped volumes
       box(14, 6, 12, P.peach, 0, 0, 0, g);
@@ -206,18 +214,80 @@
     const holder = new THREE.Group();
     holder.position.set(px * step, 0.1, pz * step);
     box(BLOCK, 0.3, BLOCK, P.pad, 0, 0, 0, holder);           // pavement
-    box(BLOCK - 4, 0.32, 3, P.lawn, 0, 0, BLOCK / 2 - 2.2, holder);   // strip of lawn
+    if (sector.id !== "transport") box(BLOCK - 4, 0.32, 3, P.lawn, 0, 0, BLOCK / 2 - 2.2, holder);   // strip of lawn
     g.position.y = 0.3;
     holder.add(g);
     // a couple of trees per plot
-    tree(-BLOCK / 2 + 1.5, BLOCK / 2 - 1.5, 0.7, holder);
-    tree(BLOCK / 2 - 1.5, BLOCK / 2 - 1.5, 0.6, holder);
+    if (sector.id !== "transport") {
+      tree(-BLOCK / 2 + 1.5, BLOCK / 2 - 1.5, 0.7, holder);
+      tree(BLOCK / 2 - 1.5, BLOCK / 2 - 1.5, 0.6, holder);
+    }
     city.add(holder);
     const bbox = new THREE.Box3().setFromObject(g);
     const height = bbox.max.y;
     g.traverse((o) => (o.userData.index = i));
     return { sector, group: g, holder, height: height + 0.3, lift: 0, hover: 0 };
   });
+
+  // ---------- Planes: one landing, one taking off, on the airport runway ----------
+  function plane(color) {
+    const p = new THREE.Group();
+    box(4.2, 0.8, 0.8, P.white, 0, 0, 0, p);                // fuselage (nose towards -x)
+    box(0.9, 0.55, 0.62, color, -2.3, 0.08, 0, p);           // nose
+    box(1.3, 0.12, 5, P.white, 0.1, 0.25, 0, p);             // wings
+    box(0.7, 1.2, 0.12, color, 1.8, 0.6, 0, p);              // tail fin
+    box(0.6, 0.1, 1.8, P.white, 1.8, 0.5, 0, p);             // tailplane
+    [-1, 1].forEach((s) => box(0.8, 0.35, 0.35, P.hq, -0.2, -0.15, s * 1.2, p));   // engines
+    p.traverse((o) => { if (o.isMesh) o.receiveShadow = false; });
+    return p;
+  }
+  const airport = buildings.find((b) => b.sector.id === "transport");
+  const planes = airport ? [plane(P.orange), plane(P.lx)] : [];
+  planes.forEach((p) => airport.holder.add(p));
+  // Each plane loops: approach → land → taxi to its gate → wait → taxi back → take off → climb away.
+  // The two loops are half a cycle apart, so the runway is never shared.
+  const CYCLE = 22, RZ = 5.4, Y0 = 0.75;
+  const smooth = (u) => u * u * (3 - 2 * u);
+  const route = (gx) => [
+    [0.00, 95, Y0 + 89 * 0.3, RZ],
+    [0.25, 6, Y0, RZ],                 // touchdown
+    [0.37, -7, Y0, RZ],                // roll-out
+    [0.41, -7, Y0, 3.2],
+    [0.45, gx, Y0, 1.7],               // at the gate
+    [0.55, gx, Y0, 1.7],
+    [0.59, gx + 2, Y0, 3.2],
+    [0.62, 8, Y0, 3.2],
+    [0.64, 8, Y0, RZ],                 // lined up
+    [0.74, -4, Y0, RZ],                // take-off roll, lift-off
+    [1.00, -95, Y0 + 91 * 0.32, RZ]
+  ];
+  const routes = [route(-5), route(2)];
+  function along(keys, u) {
+    let i = 0;
+    while (i < keys.length - 2 && u > keys[i + 1][0]) i++;
+    const [u0, x0, y0, z0] = keys[i], [u1, x1, y1, z1] = keys[i + 1];
+    let k = Math.min(1, Math.max(0, (u - u0) / (u1 - u0)));
+    const air = i === 0 || i === keys.length - 2;
+    if (!air) k = smooth(k);                          // ground moves ease in and out
+    else if (i === keys.length - 2) k = k * k * 0.4 + k * 0.6;   // accelerate away
+    return [x0 + (x1 - x0) * k, y0 + (y1 - y0) * k, z0 + (z1 - z0) * k];
+  }
+  function updatePlanes(t) {
+    planes.forEach((p, i) => {
+      const keys = routes[i];
+      const u = (t / CYCLE + i * 0.5) % 1;
+      const [x, y, z] = along(keys, u);
+      // Heading and pitch from the direction of travel (look back if parked)
+      let dx = 0, dy = 0, dz = 0;
+      for (let d = 0.002; d < 0.3 && Math.hypot(dx, dz) < 1e-4; d += 0.004) {
+        const a = along(keys, (u - d + 1) % 1);
+        dx = x - a[0]; dy = y - a[1]; dz = z - a[2];
+      }
+      p.position.set(x, y + 0.3, z);
+      p.rotation.set(0, Math.atan2(dz, -dx), Math.atan2(dy, Math.hypot(dx, dz)) * -1, "YXZ");
+      p.visible = Math.abs(x) < 85;
+    });
+  }
 
   // ---------- Decoy buildings (plain, white, not clickable) ----------
 
@@ -372,59 +442,127 @@
     });
   }
 
+  const CHEV_L = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M7.5 2.5L4 6l3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const CHEV_R = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 2.5L8 6 4.5 9.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const PHOTOS = '<svg viewBox="0 0 12 12" aria-hidden="true"><rect x="1.5" y="3" width="7.5" height="6.5" rx="1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M3.5 1.5h6.5a.5.5 0 0 1 .5.5v6" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>';
+  let filter = { brand: "all", q: "" };
+
+  function projectCard(sector, p, pi) {
+    const theme = themeOf(p.brand);
+    const imgs = (p.images || []).filter(Boolean);
+    const sub = [p.location, p.year].filter(Boolean).join(" · ");
+    const prod = p.product || (THEMES[theme].name || "");
+    return `
+      <article class="project ${theme}" data-project="${pi}" tabindex="0" aria-label="${esc(projectName(p) || "Project")}">
+        <div class="ph ${imgs.length ? "" : "empty"}">
+          ${imgs.length ? `<img data-src-check loading="lazy" src="${esc(imgPath(sector.id, imgs[0]))}" alt="">` : "<span>Add photo</span>"}
+          ${imgs.length > 1 ? `<span class="count">${PHOTOS}${imgs.length}</span>` : ""}
+        </div>
+        <div class="meta">
+          <span class="t">${p.title ? esc(p.title) : `<span class="todo">${esc(p.product || "Project name to add")}</span>`}</span>
+          ${sub ? `<span class="p">${esc(sub)}</span>` : ""}
+          ${prod && p.title ? `<span class="prod"><span class="dot"></span>${esc(prod)}</span>` : ""}
+        </div>
+      </article>`;
+  }
+
+  function renderProjects(sector) {
+    const grid = panel.querySelector(".projects");
+    if (!grid) return;
+    const q = filter.q.trim().toLowerCase();
+    const list = (sector.projects || []).map((p, pi) => [p, pi]).filter(([p]) =>
+      (filter.brand === "all" || themeOf(p.brand) === filter.brand) &&
+      (!q || [p.title, p.location, p.product, p.text, ...Object.values(p.details || {})].join(" ").toLowerCase().includes(q)));
+    grid.innerHTML = list.length
+      ? list.map(([p, pi]) => projectCard(sector, p, pi)).join("")
+      : (sector.projects || []).length
+        ? `<p class="no-results">No projects match. <button class="more-btn" type="button" data-clear>Clear filters</button></p>`
+        : `<p class="empty-note">No projects yet. Add them in <code>content.js</code>.</p>`;
+    panel.querySelector(".proj-title .count").textContent = list.length === (sector.projects || []).length ? list.length : `${list.length} of ${(sector.projects || []).length}`;
+    panel.querySelectorAll(".filters button").forEach((b) => b.classList.toggle("on", b.dataset.brand === filter.brand));
+    guardImages(grid);
+  }
+
   function renderPanel(sector) {
-    const projects = (sector.projects || []).length
-      ? sector.projects.map((p, pi) => {
-          const theme = themeOf(p.brand);
-          const brand = THEMES[theme];
-          const imgs = (p.images || []).filter(Boolean);
-          const sub = [p.title ? p.product : "", p.location, p.year].filter(Boolean).join(" · ");
-          return `
-          <article class="project ${theme}" data-project="${pi}" tabindex="0">
-            <div class="ph ${imgs.length ? "" : "empty"}">
-              ${imgs.length ? `<img data-src-check src="${esc(imgPath(sector.id, imgs[0]))}" alt="">` : "<span>Add photo</span>"}
-              ${imgs.length > 1 ? `<span class="count">${imgs.length}</span>` : ""}
-            </div>
-            <div class="meta">
-              ${brand.logo ? `<button class="brandbtn" type="button" data-brand="${theme}" aria-label="${esc(brand.name)} material slides"><img src="${esc(brand.logo)}" alt="${esc(brand.name)}"></button>` : ""}
-              <span class="t">${projectName(p) ? esc(projectName(p)) : '<span class="todo">Project name to add</span>'}</span>
-              ${sub ? `<span class="p">${esc(sub)}</span>` : ""}
-              <span class="more">View project ${ARROW}</span>
-            </div>
-          </article>`;
-        }).join("")
-      : `<p class="empty-note">No projects yet. Add them in <code>content.js</code>.</p>`;
+    filter = { brand: "all", q: "" };
+    const n = buildings.length;
+    const prev = buildings[(active - 1 + n) % n].sector, next = buildings[(active + 1) % n].sector;
+    const projects = sector.projects || [];
+    // Brand filters only when the sector mixes brands
+    const counts = {};
+    projects.forEach((p) => { const t = themeOf(p.brand); counts[t] = (counts[t] || 0) + 1; });
+    const order = ["derako", "heartfelt", "luxalon", "general"].filter((t) => counts[t]);
+    const filters = order.length > 1
+      ? `<div class="filters" role="group" aria-label="Filter by brand">
+          <button type="button" data-brand="all" class="on">All <span class="n">${projects.length}</span></button>
+          ${order.map((t) => `<button type="button" class="${t}" data-brand="${t}"><span class="dot"></span>${t === "general" ? "Other" : esc(THEMES[t].name)} <span class="n">${counts[t]}</span></button>`).join("")}
+        </div>` : "";
+    const search = projects.length > 6 ? `<input class="search" type="search" placeholder="Search projects" aria-label="Search projects">` : "";
     const hero = sector.hero
       ? `<img data-src-check src="${esc(imgPath(sector.id, sector.hero))}" alt="">`
       : `<div class="hero-empty"></div>`;
     const points = sector.points || [];
+    const long = (sector.intro || "").length > 170;
     panel.innerHTML = `
-      <div class="hero">${hero}</div>
+      <div class="hero">${hero}
+        <nav class="sector-nav" aria-label="Sectors">
+          <button type="button" data-nav="-1">${CHEV_L}${esc(prev.name)}</button>
+          <button type="button" data-nav="1">${esc(next.name)}${CHEV_R}</button>
+        </nav>
+      </div>
       <div class="body stagger">
-        <p class="kicker" style="--i:0">Sector ${pad(active + 1)}</p>
+        <p class="kicker" style="--i:0">Sector ${pad(active + 1)} / ${pad(n)}</p>
         <h2 style="--i:0">${esc(sector.name)}</h2>
-        <p class="lead" style="--i:1">${esc(sector.intro)}</p>
+        <p class="lead ${long ? "clamp" : ""}" style="--i:1">${esc(sector.intro)}</p>
+        ${long ? `<button class="more-btn" type="button" data-more style="--i:1">Read more</button>` : ""}
         ${points.length ? `<ol class="points" style="--i:2">${points.map((p, k) => `<li><span class="n">${pad(k + 1)}</span>${esc(p.title || p)}</li>`).join("")}</ol>` : ""}
         <button class="present" type="button" style="--i:3" data-present>
           <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z" fill="currentColor"/></svg>
           Present ${esc(sector.name)}
-          <span>${(sector.projects || []).length + 3} slides</span>
+          <span>${projects.length + 3} slides</span>
         </button>
-        <h3 style="--i:4">Projects</h3>
-        <div class="projects" style="--i:5">${projects}</div>
+        <div class="proj-head" style="--i:4">
+          <div class="proj-title"><h3>Projects</h3><span class="count"></span></div>
+          ${filters || search ? `<div class="proj-tools">${filters}${search}</div>` : ""}
+        </div>
+        <div class="projects" style="--i:5"></div>
       </div>`;
     guardImages(panel);
+    renderProjects(sector);
     panel.scrollTop = 0;
+    panel.classList.remove("scrolled");
   }
 
+  panel.addEventListener("scroll", () => panel.classList.toggle("scrolled", panel.scrollTop > 8), { passive: true });
+  panel.addEventListener("input", (e) => {
+    if (!e.target.matches(".search")) return;
+    filter.q = e.target.value;
+    renderProjects(buildings[active].sector);
+  });
   panel.addEventListener("click", (e) => {
-    const bb = e.target.closest(".brandbtn");
-    if (bb) { e.stopPropagation(); return openMaterial(bb.dataset.brand); }
-    if (e.target.closest("[data-present]")) return presentSector(buildings[active].sector);
+    const sector = buildings[active] && buildings[active].sector;
+    const nav = e.target.closest("[data-nav]");
+    if (nav) return focus((active + +nav.dataset.nav + buildings.length) % buildings.length);
+    const f = e.target.closest(".filters button");
+    if (f) { filter.brand = f.dataset.brand; return renderProjects(sector); }
+    if (e.target.closest("[data-clear]")) {
+      filter = { brand: "all", q: "" };
+      const s = panel.querySelector(".search"); if (s) s.value = "";
+      return renderProjects(sector);
+    }
+    const more = e.target.closest("[data-more]");
+    if (more) {
+      const lead = panel.querySelector(".lead");
+      const open = lead.classList.toggle("clamp");
+      more.textContent = open ? "Read more" : "Show less";
+      return;
+    }
+    if (e.target.closest("[data-present]")) return presentSector(sector);
     const card = e.target.closest(".project[data-project]");
-    if (card) openProject(buildings[active].sector, +card.dataset.project);
+    if (card) openProject(sector, +card.dataset.project);
   });
   panel.addEventListener("keydown", (e) => {
+    if (e.target.matches(".search")) { e.stopPropagation(); return; }   // typing shouldn't switch sectors
     const card = e.target.closest(".project[data-project]");
     if (card && e.key === "Enter") { e.stopPropagation(); openProject(buildings[active].sector, +card.dataset.project); }
   });
@@ -608,6 +746,7 @@
 
   window.addEventListener("keydown", (e) => {
     if (window.Deck.handleKey(e)) return;     // slides are on top
+    if (e.target.matches && e.target.matches("input, textarea")) return;
     if (e.target.closest && e.target.closest("button, [tabindex]") && (e.key === " " || e.key === "Enter")) return;
     const n = buildings.length;
     if (e.key === "Escape" || e.key === "Home") overview();
@@ -694,6 +833,8 @@
       if (car.horizontal) car.c.position.set(car.t, 0.1, car.lane);
       else car.c.position.set(car.lane, 0.1, car.t);
     });
+
+    if (planes.length) updatePlanes(reduceMotion ? 6 : now / 1000);
 
     // Labels follow buildings on screen
     spots.forEach((b) => {
