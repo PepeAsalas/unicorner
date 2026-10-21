@@ -18,6 +18,10 @@
    details   rows on the info slide — rename, add or remove freely.
    Empty fields ("") are shown as "to add" placeholders.
 
+   MATERIAL PRODUCTS
+   name, acoustic, fire, voc (the three key figures), specs (list),
+   drawing / finishes / certificates (images)
+
    SLIDES  (topics and materials)
    Each slide is one line { layout: "...", ... }. Copy a line to add a slide.
    Layouts follow the Hunter Douglas template:
@@ -28,6 +32,7 @@
      "text"        title, subtitle, text, bullets
      "photo-info"  image, caption                  (large photo + caption)
      "photo"       image                           (large photo)
+     "figures"     title, subtitle, figures: [{ value, label }], image   (big numbers)
      "thanks"      title
    ========================================================================== */
 
@@ -46,43 +51,18 @@ window.HD_CONTENT = {
     image: "cover.jpg"
   },
 
-  /* ---------- Agenda ----------
-     "Sectors" is the 3D city. The other items open their own slides.
-     Photos for a topic go in assets/img/<topic id>/  e.g. assets/img/fire/   */
+  /* ---------- Agenda & landmark buildings ----------
+     "Sectors" is the 3D city. These open their own slides, from the agenda
+     menu or by clicking their landmark building in the city.
+     Photos go in assets/img/<topic id>/  e.g. assets/img/about/   */
   topics: [
-    {
-      id: "acoustics",
-      title: "Acoustics",
-      slides: [
-        { layout: "section", title: "Acoustics", subtitle: "" },
-        { layout: "text-photo", title: "Acoustics", subtitle: "", text: "", bullets: [], image: "" }
-      ]
-    },
-
-    {
-      id: "fire",
-      title: "Reaction to fire",
-      slides: [
-        { layout: "section", title: "Reaction to fire", subtitle: "" },
-        { layout: "text-photo", title: "Reaction to fire", subtitle: "", figure: "", label: "", text: "", bullets: [], image: "" }
-      ]
-    },
-
-    {
-      id: "sustainability",
-      title: "Sustainability and the Environment",
-      slides: [
-        { layout: "section", title: "Sustainability and the Environment", subtitle: "" },
-        { layout: "text-photo", title: "Sustainability", subtitle: "", text: "", bullets: [], image: "" }
-      ]
-    },
-
     {
       id: "special-projects",
       title: "Special Projects",
       slides: [
         { layout: "section", title: "Special Projects", subtitle: "" },
-        { layout: "photo-info", image: "", caption: "" }
+        { layout: "photo-info", image: "organic-ceiling.jpg", caption: "" },
+        { layout: "photo-info", image: "star-frame.jpg", caption: "" }
       ]
     },
 
@@ -90,9 +70,12 @@ window.HD_CONTENT = {
       id: "about",
       title: "About Hunter Douglas",
       slides: [
-        { layout: "section", title: "About Hunter Douglas", subtitle: "" },
-        { layout: "text-photo", title: "About Hunter Douglas", subtitle: "", text: "", bullets: [], image: "" },
-        { layout: "text", title: "Our Team", subtitle: "", text: "", bullets: [] }
+        { layout: "section", title: "About Hunter Douglas", subtitle: "A world of innovation" },
+        { layout: "figures", title: "A world of innovation", subtitle: "Hunter Douglas worldwide", figures: [{"value": "132", "label": "Companies"}, {"value": "47", "label": "Manufacturing operations"}, {"value": "86", "label": "Assembly operations"}, {"value": "100", "label": "Countries"}, {"value": "23,500", "label": "Employees worldwide"}], image: "world-of-innovation.jpg" },
+        { layout: "text-photo", title: "Search for products on NBS", subtitle: "NBS Source", text: "Need an NBS specification? We are an accredited manufacturer on NBS Source, where you can download a specification, or you can get in touch with us directly.", bullets: [], image: "nbs-source.jpg" },
+        { layout: "text-photo", title: "Samples available on request", subtitle: "", text: "Should you need any samples, we have a wide range of samples and colours readily available.", bullets: ["A5 wood finishes", "Linear individual panels", "Topline samples", "Grill elements dowel", "Different perforations", "Brochures"], image: "samples.jpg" },
+        { layout: "text", title: "Our team", subtitle: "", text: "", bullets: [] },
+        { layout: "thanks", title: "Designed to work for you" }
       ]
     }
   ],
@@ -582,34 +565,118 @@ window.HD_CONTENT = {
     }
   ],
 
-  /* ---------- Material slides (open by clicking a brand logo) ----------
-     Photos go in assets/img/materials/derako/  (or heartfelt / luxalon)   */
+  /* ---------- Material pages (open by clicking a brand logo or a project's product) ----------
+     Order: cover → product spec pages → reaction to fire → acoustics → sustainability.
+     Photos go in assets/img/materials/derako/  (or heartfelt / luxalon).
+     Shared images are in assets/img/materials/shared/  (written as "../shared/name.jpg").  */
   materials: {
-    derako: [
-        { layout: "cover", title: "Derako", subtitle: "Natural wood ceilings & walls", image: "" },
-        { layout: "text-photo", title: "Product range", subtitle: "Natural wood ceilings & walls", text: "", bullets: ["Derako Wood Grill", "Derako Wood Linear"], image: "" },
-        { layout: "text-photo", title: "Reaction to fire", subtitle: "Fire classification", figure: "", label: "Euroclass", text: "", bullets: [], image: "" },
-        { layout: "text-photo", title: "Acoustic performance", subtitle: "Sound absorption", figure: "", label: "αw / absorption class", text: "", bullets: [], image: "" },
-        { layout: "text-photo", title: "Sustainability", subtitle: "Environmental data", figure: "", label: "", text: "", bullets: [], image: "" },
-        { layout: "photo-info", image: "", caption: "" }
-    ],
+    derako: {
+      name: "Derako",
+      tagline: "Natural wood ceilings & walls",
+      intro: "",
+      cover: "../../commercial/derako-boardroom.jpg",
 
-    heartfelt: [
-        { layout: "cover", title: "HeartFelt", subtitle: "Acoustic felt ceilings & walls", image: "" },
-        { layout: "text-photo", title: "Product range", subtitle: "Acoustic felt ceilings & walls", text: "", bullets: ["HeartFelt Linear", "HeartFelt Baffle", "HeartFelt Pyramid"], image: "" },
-        { layout: "text-photo", title: "Reaction to fire", subtitle: "Fire classification", figure: "", label: "Euroclass", text: "", bullets: [], image: "" },
-        { layout: "text-photo", title: "Acoustic performance", subtitle: "Sound absorption", figure: "", label: "αw / absorption class", text: "", bullets: [], image: "" },
-        { layout: "text-photo", title: "Sustainability", subtitle: "Environmental data", figure: "", label: "", text: "", bullets: [], image: "" },
-        { layout: "photo-info", image: "", caption: "" }
-    ],
+      // One spec page per product. A project's "product" opens the matching page.
+      products: [
+        { name: "Derako Wood Grill", acoustic: "Up to Class A", fire: "B-s2,d0", voc: "A+", drawing: "wood-grill-drawing.jpg", finishes: "wood-grill-finishes.jpg", certificates: "wood-grill-certificates.jpg",
+          specs: ["Sound absorption (αw) up to Class A with acoustical pad", "Sustainability: C2C, FSC, PEFC", "Reaction to fire B-s2,d0 (B-s1,d0 on request)", "Fully demountable system", "Slat height 40 to 140 mm, thickness 15 to 35 mm (40 mm on request)", "Lengths 590 to 3500 mm (depending on wood species)", "Joint width 25 to 140 mm", "VOC emission class A+"] },
+        { name: "Derako Wood Linear", acoustic: "Up to Class C", fire: "B-s2,d0", voc: "A+", drawing: "wood-linear-drawing.jpg", finishes: "wood-linear-finishes.jpg", certificates: "wood-linear-certificates.jpg",
+          specs: ["Sound absorption (αw) up to Class C", "Sustainability: C2C, FSC, PEFC", "Reaction to fire B-s2,d0 (B-s1,d0 on request)", "Panel width 63 to 184 mm (standard 92 and 116 mm)", "Thickness 15 to 18 mm", "Lengths 590 to 3500 mm (depending on wood species)", "Various modules and joint widths", "VOC emission class A+"] }
+      ],
 
-    luxalon: [
-        { layout: "cover", title: "Luxalon", subtitle: "Metal ceilings & façades", image: "" },
-        { layout: "text-photo", title: "Product range", subtitle: "Metal ceilings & façades", text: "", bullets: ["Luxalon 70U", "Luxalon V100", "Luxalon Cell", "Luxalon Wide panel", "Luxalon Combiline"], image: "" },
-        { layout: "text-photo", title: "Reaction to fire", subtitle: "Fire classification", figure: "", label: "Euroclass", text: "", bullets: [], image: "" },
-        { layout: "text-photo", title: "Acoustic performance", subtitle: "Sound absorption", figure: "", label: "αw / absorption class", text: "", bullets: [], image: "" },
-        { layout: "text-photo", title: "Sustainability", subtitle: "Environmental data", figure: "", label: "", text: "", bullets: [], image: "" },
-        { layout: "photo-info", image: "", caption: "" }
-    ]
+      fire: [
+        { layout: "section", title: "Reaction to fire", subtitle: "" },
+        { layout: "text-photo", title: "Fire protection", subtitle: "Building materials and construction parts", text: "We have to make a distinction between building materials and construction parts.", bullets: ["EN 13501-1: materials are classified according to their reaction to fire", "EN 13501-2: construction parts are classified for their resistance to fire"], image: "../shared/fire-wood.jpg" },
+        { layout: "text-photo", title: "Fire classification", subtitle: "Equivalent to Class 0", figure: "B-s2,d0", label: "Euroclass · EN 13501-1", text: "The EN 13501-1 standard provides a European fire classification system for construction products, assessing their reaction to fire through tests measuring ignitability, flame spread, heat, smoke and flaming droplet production. Products get a Euroclass rating from A1 to F, a smoke class (s1, s2, s3) and a flaming droplet class (d0, d1, d2).", bullets: ["B = little or no contribution to the cause of fire", "s2 = limited development of smoke", "d0 = no production of burning droplets", "B-s1,d0 available on request"], image: "../shared/fire-wood.jpg" },
+        { layout: "text-photo", title: "Fire testing", subtitle: "", text: "For all construction products, the consideration is a fire initiated in a room, which may grow and eventually reach flash-over.", bullets: ["Phase I: ignition / initiation", "Phase II: fire growth until flash-over", "Phase III: past flash-over, fully developed fire", "Phase IV: fire runs out"], image: "../shared/fire-development-curve.jpg" }
+      ],
+
+      acoustics: [
+        { layout: "text-photo", title: "Acoustic performance", subtitle: "Sound absorption", figure: "Up to Class A", label: "αw · Wood Grill with acoustical pad", text: "", bullets: ["Derako Wood Grill: up to Class A with acoustical pad", "Derako Wood Linear: up to Class C"], image: "wood-grill-drawing.jpg" }
+      ],
+
+      sustainability: [
+        { layout: "section", title: "Sustainability", subtitle: "and the Environment" },
+        { layout: "text-photo", title: "Circular economy", subtitle: "", text: "Our current linear economy is not sustainable and leads to waste, environmental damage and shortages of critical raw materials. We need to convert to a circular economy based on designing out waste and pollution, keeping products and materials in use, and regenerating natural systems.", bullets: [], image: "../shared/circular-economy.jpg" },
+        { layout: "text-photo", title: "Cradle to Cradle Certified®", subtitle: "Silver", text: "Hunter Douglas has always been a pioneer in sustainability, with more than 80% of its products Cradle to Cradle Certified® at Silver level. Cradle to Cradle is an approach towards the circular economy: materials flow safely in closed loops, so the quality of raw materials is kept over several life cycles. Products are re-assessed every 2 years.", bullets: ["Material health", "Material reutilization: input & end of life", "Energy use", "Water stewardship", "Social fairness"], image: "../shared/cradle-to-cradle.jpg" },
+        { layout: "photo-info", image: "../shared/c2c-process.jpg", caption: "Cradle to Cradle Certified® process" },
+        { layout: "text-photo", title: "FSC® or PEFC certification", subtitle: "The mark of responsible forestry", text: "FSC (Forest Stewardship Council) is an international non-governmental organisation, established in 1993, promoting responsible forest management through certified standards and clear labelling of forest products. PEFC (Programme for the Endorsement of Forest Certification) has similar standards and was set up for small family and community forest owners. Both let you source wood from socially and environmentally responsible forestry.", bullets: [], image: "../shared/fsc-pefc.jpg" },
+        { layout: "text-photo", title: "BREEAM", subtitle: "Green building certification", figure: "A+", label: "BREEAM rating · solid and veneered wood", text: "BREEAM is one of the most respected green building certification systems worldwide, assessing the sustainability of a building across 9 categories. Both our solid and veneered wood options achieve an A+ rating.", bullets: [], image: "" }
+      ]
+    },
+
+    heartfelt: {
+      name: "HeartFelt",
+      tagline: "Acoustic felt ceilings & walls",
+      intro: "",
+      cover: "../../commercial/heartfelt-meeting-room.jpg",
+
+      // One spec page per product. A project's "product" opens the matching page.
+      products: [
+        { name: "HeartFelt Linear", acoustic: "Class A", fire: "B-s1,d0", voc: "A+", drawing: "linear-drawing.jpg", finishes: "linear-finishes.jpg", certificates: "linear-certificates.jpg",
+          specs: ["Non-woven thermoformed PES fibres", "Heights of 55, 64, 80 and 105 mm, 40 mm wide", "Modulations from 50 to 200 mm in steps of 10 mm", "Up to 0.95 αw with acoustical pad (Class A)", "Easy to install, low risk of damage", "Easy to maintain: dirt and dust resistant", "Reaction to fire B-s1,d0"] },
+        { name: "HeartFelt Origami Pyramid", acoustic: "Class A", fire: "B-s1,d0", voc: "A+", drawing: "origami-pyramid-drawing.jpg", finishes: "origami-pyramid-finishes.jpg", certificates: "origami-pyramid-certificates.jpg",
+          specs: ["Non-woven thermoformed PES fibres", "Tile size 600 x 600 mm", "Up to 0.95 αw with acoustical pad (Class A)", "Easy to install, low risk of damage", "Easy to maintain: dirt and dust resistant", "Reaction to fire B-s1,d0"] },
+        { name: "HeartFelt Baffle", acoustic: "Class A", fire: "B-s1,d0", voc: "A+", drawing: "baffle-drawing.jpg", finishes: "baffle-finishes.jpg", certificates: "baffle-certificates.jpg",
+          specs: ["Non-woven thermoformed PES fibres", "Up to 0.95 αw with acoustical pad (Class A)", "Easy to install, low risk of damage", "Easy to maintain: dirt and dust resistant", "Reaction to fire B-s1,d0"] }
+      ],
+
+      fire: [
+        { layout: "section", title: "Reaction to fire", subtitle: "" },
+        { layout: "text-photo", title: "Fire protection", subtitle: "Building materials and construction parts", text: "We have to make a distinction between building materials and construction parts.", bullets: ["EN 13501-1: materials are classified according to their reaction to fire", "EN 13501-2: construction parts are classified for their resistance to fire"], image: "../shared/fire-wood.jpg" },
+        { layout: "text-photo", title: "Fire classification", subtitle: "", figure: "B-s1,d0", label: "Euroclass · EN 13501-1", text: "The EN 13501-1 standard provides a European fire classification system for construction products, assessing their reaction to fire through tests measuring ignitability, flame spread, heat, smoke and flaming droplet production. Products get a Euroclass rating from A1 to F, a smoke class (s1, s2, s3) and a flaming droplet class (d0, d1, d2).", bullets: ["B = little or no contribution to the cause of fire", "s1 = very limited development of smoke", "d0 = no production of burning droplets"], image: "../shared/fire-wood.jpg" },
+        { layout: "text-photo", title: "Fire testing", subtitle: "", text: "For all construction products, the consideration is a fire initiated in a room, which may grow and eventually reach flash-over.", bullets: ["Phase I: ignition / initiation", "Phase II: fire growth until flash-over", "Phase III: past flash-over, fully developed fire", "Phase IV: fire runs out"], image: "../shared/fire-development-curve.jpg" }
+      ],
+
+      acoustics: [
+        { layout: "text-photo", title: "Acoustic performance", subtitle: "Sound absorption", figure: "0.95 αw", label: "Class A · with acoustical pad", text: "", bullets: ["HeartFelt Linear: up to 0.95 αw (Class A)", "HeartFelt Origami Pyramid: up to 0.95 αw (Class A)", "HeartFelt Baffle: up to 0.95 αw (Class A)"], image: "linear-drawing.jpg" }
+      ],
+
+      sustainability: [
+        { layout: "section", title: "Sustainability", subtitle: "and the Environment" },
+        { layout: "text-photo", title: "Circular economy", subtitle: "", text: "Our current linear economy is not sustainable and leads to waste, environmental damage and shortages of critical raw materials. We need to convert to a circular economy based on designing out waste and pollution, keeping products and materials in use, and regenerating natural systems.", bullets: [], image: "../shared/circular-economy.jpg" },
+        { layout: "text-photo", title: "Cradle to Cradle Certified®", subtitle: "Silver", text: "Hunter Douglas has always been a pioneer in sustainability, with more than 80% of its products Cradle to Cradle Certified® at Silver level. Cradle to Cradle is an approach towards the circular economy: materials flow safely in closed loops, so the quality of raw materials is kept over several life cycles. Products are re-assessed every 2 years.", bullets: ["Material health", "Material reutilization: input & end of life", "Energy use", "Water stewardship", "Social fairness"], image: "../shared/cradle-to-cradle.jpg" },
+        { layout: "photo-info", image: "../shared/c2c-process.jpg", caption: "Cradle to Cradle Certified® process" }
+      ]
+    },
+
+    luxalon: {
+      name: "Luxalon",
+      tagline: "Metal ceilings & façades",
+      intro: "",
+      cover: "../../exterior/wroclaw-airport.jpg",
+
+      // One spec page per product. A project's "product" opens the matching page.
+      products: [
+        { name: "Luxalon 70U", acoustic: "", fire: "", voc: "", drawing: "", finishes: "", certificates: "",
+          specs: [] },
+        { name: "Luxalon V100", acoustic: "", fire: "", voc: "", drawing: "", finishes: "", certificates: "",
+          specs: [] },
+        { name: "Luxalon Cell50E", acoustic: "", fire: "", voc: "", drawing: "", finishes: "", certificates: "",
+          specs: [] },
+        { name: "Luxalon Wide panel", acoustic: "", fire: "", voc: "", drawing: "", finishes: "", certificates: "",
+          specs: [] },
+        { name: "Luxalon Combiline", acoustic: "", fire: "", voc: "", drawing: "", finishes: "", certificates: "",
+          specs: [] }
+      ],
+
+      fire: [
+        { layout: "section", title: "Reaction to fire", subtitle: "" },
+        { layout: "text-photo", title: "Fire protection", subtitle: "Building materials and construction parts", text: "We have to make a distinction between building materials and construction parts.", bullets: ["EN 13501-1: materials are classified according to their reaction to fire", "EN 13501-2: construction parts are classified for their resistance to fire"], image: "../shared/fire-wood.jpg" },
+        { layout: "text-photo", title: "Fire classification", subtitle: "", figure: "", label: "Euroclass · EN 13501-1", text: "", bullets: [], image: "../shared/fire-wood.jpg" },
+        { layout: "text-photo", title: "Fire testing", subtitle: "", text: "For all construction products, the consideration is a fire initiated in a room, which may grow and eventually reach flash-over.", bullets: ["Phase I: ignition / initiation", "Phase II: fire growth until flash-over", "Phase III: past flash-over, fully developed fire", "Phase IV: fire runs out"], image: "../shared/fire-development-curve.jpg" }
+      ],
+
+      acoustics: [
+        { layout: "text-photo", title: "Acoustic performance", subtitle: "Sound absorption", figure: "", label: "αw", text: "", bullets: [], image: "" }
+      ],
+
+      sustainability: [
+        { layout: "section", title: "Sustainability", subtitle: "and the Environment" },
+        { layout: "text-photo", title: "Circular economy", subtitle: "", text: "Our current linear economy is not sustainable and leads to waste, environmental damage and shortages of critical raw materials. We need to convert to a circular economy based on designing out waste and pollution, keeping products and materials in use, and regenerating natural systems.", bullets: [], image: "../shared/circular-economy.jpg" },
+        { layout: "text-photo", title: "Cradle to Cradle Certified®", subtitle: "Silver", text: "Hunter Douglas has always been a pioneer in sustainability, with more than 80% of its products Cradle to Cradle Certified® at Silver level. Cradle to Cradle is an approach towards the circular economy: materials flow safely in closed loops, so the quality of raw materials is kept over several life cycles. Products are re-assessed every 2 years.", bullets: ["Material health", "Material reutilization: input & end of life", "Energy use", "Water stewardship", "Social fairness"], image: "../shared/cradle-to-cradle.jpg" },
+        { layout: "photo-info", image: "../shared/c2c-process.jpg", caption: "Cradle to Cradle Certified® process" }
+      ]
+    }
   }
 };

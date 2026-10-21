@@ -187,3 +187,43 @@
 @media (prefers-reduced-motion: reduce) {
   .slide, .deck { transition-duration: 0ms !important; }
 }
+
+/* Product spec page */
+.s-kicker { margin: 0 0 0.4cqw; font-family: var(--head); font-weight: 600; font-size: 0.85cqw; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); }
+.s-keys { position: absolute; left: 7%; top: 21%; width: 42%; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.s-keys div { padding: 1cqw 0 1cqw 1.2cqw; border-left: 1px solid var(--line); display: flex; flex-direction: column; gap: 0.35cqw; }
+.s-keys div:first-child { border-left: 0; padding-left: 0; }
+.s-keys strong { font-family: var(--head); font-weight: 700; font-size: 1.9cqw; letter-spacing: -0.02em; color: var(--dark); line-height: 1.05; }
+.s-keys .empty strong { color: var(--light); }
+.s-keys span { font-family: var(--head); font-weight: 500; font-size: 0.75cqw; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); }
+.s-body.spec { top: 39%; width: 42%; bottom: 20%; }
+.s-bullets.compact li { padding: 0.45cqw 0 0.45cqw 1.4cqw; font-size: 1cqw; }
+.s-bullets.compact li::before { top: 1cqw; width: 0.45cqw; height: 0.45cqw; }
+.s-photo.drawing { left: 51%; top: 8%; width: 33%; height: 76%; background: #fff; }
+.s-photo.drawing img { object-fit: contain; padding: 1cqw; }
+.s-photo.finishes { left: 85.5%; top: 8%; width: 11%; height: 76%; background: #fff; }
+.s-photo.finishes img { object-fit: contain; }
+.s-certs { position: absolute; left: 7%; bottom: 10.5%; height: 6.5%; width: 42%; }
+.s-certs img { height: 100%; width: auto; max-width: 100%; object-fit: contain; object-position: left center; mix-blend-mode: multiply; }
+
+/* Big numbers */
+.s-figs { position: absolute; left: 7%; top: 27%; width: 46%; display: grid; grid-template-columns: 1fr 1fr; gap: 0 3cqw; }
+.s-figs div { padding: 1.1cqw 0; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 0.3cqw; }
+.t-general .s-figs div { border-color: #E6E1D9; }
+.s-figs strong { font-family: var(--head); font-weight: 700; font-size: 3.2cqw; letter-spacing: -0.03em; color: var(--dark); line-height: 1; }
+.s-figs div:nth-child(odd) strong { color: var(--hd-orange); }
+.s-figs span { font-family: var(--head); font-weight: 500; font-size: 0.9cqw; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); }
+
+/* Index of a material page (cover list) */
+.s-index { list-style: none; margin: 0; padding: 0; }
+.s-index li { border-top: 1px solid var(--line); }
+.s-index li:last-child { border-bottom: 1px solid var(--line); }
+.s-index button {
+  width: 100%; display: flex; align-items: baseline; gap: 1.2cqw; padding: 0.8cqw 0;
+  border: 0; background: none; cursor: pointer; text-align: left;
+  font-family: var(--head); font-weight: 500; font-size: 1.3cqw; color: var(--ink);
+  transition: padding-left 200ms var(--ease-out), color 150ms ease;
+}
+.s-index .n { font-size: 0.85cqw; font-weight: 600; color: var(--mid); font-variant-numeric: tabular-nums; width: 1.6cqw; flex: none; }
+.s-index .grp { margin-left: auto; font-size: 0.8cqw; font-weight: 500; color: var(--mid); text-transform: uppercase; letter-spacing: 0.08em; }
+@media (hover: hover) and (pointer: fine) { .s-index button:hover { padding-left: 0.6cqw; color: var(--dark); } }

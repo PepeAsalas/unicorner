@@ -15,7 +15,8 @@
   const themeOf = (t) => (THEMES[String(t || "").toLowerCase()] ? String(t).toLowerCase() : "general");
 
   // "photo.jpg" → "assets/img/<folder>/photo.jpg"; full paths are left alone
-  const imgPath = (folder, f) => (!f ? "" : f.includes("/") ? f : `assets/img/${folder}/${f}`);
+  // "../shared/x.jpg" is relative to that folder; "assets/..." paths are used as they are
+  const imgPath = (folder, f) => (!f ? "" : /^(assets\/|https?:)/.test(f) ? f : `assets/img/${folder}/${f}`);
 
   const ARROW = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
@@ -79,7 +80,23 @@
       ${photo(s.image, f, "info")}
       <p class="s-caption">${s.captionHtml || (s.caption ? esc(s.caption) : '<span class="s-todo">Add caption</span>')}</p>
       ${footer(n)}`,
-    photo: (s, t, f, n) => `${photo(s.image, f, "full")}${footer(n)}`
+    photo: (s, t, f, n) => `${photo(s.image, f, "full")}${footer(n)}`,
+    // Product spec page: key figures, specs, drawing, finishes, certificates
+    spec: (s, t, f, n) => `
+      <div class="s-head"><p class="s-kicker">${esc(s.brand || "")}</p><h2 class="s-title">${todo(s.title, "Product")}</h2></div>
+      <div class="s-keys">${[["Sound absorption", s.acoustic], ["Reaction to fire", s.fire], ["VOC emission", s.voc]].map(([l, v]) =>
+        `<div class="${v ? "" : "empty"}"><strong>${v ? esc(v) : "—"}</strong><span>${l}</span></div>`).join("")}</div>
+      <div class="s-body spec">${(s.specs || []).length ? `<ul class="s-bullets compact">${s.specs.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : '<p class="s-text"><span class="s-todo">Add product specifications</span></p>'}</div>
+      ${photo(s.drawing, f, "drawing")}
+      ${s.finishes ? photo(s.finishes, f, "finishes") : ""}
+      ${s.certificates ? `<div class="s-certs"><img data-src-check src="${esc(imgPath(f, s.certificates))}" alt="Certificates"></div>` : ""}
+      ${footer(n)}`,
+    // Big numbers (e.g. "132 companies")
+    figures: (s, t, f, n) => `
+      <div class="s-head"><h2 class="s-title">${todo(s.title, "Title")}</h2>${s.subtitle ? `<p class="s-subtitle">${esc(s.subtitle)}</p>` : ""}</div>
+      <div class="s-figs">${(s.figures || []).map((x) => `<div><strong>${esc(x.value)}</strong><span>${esc(x.label)}</span></div>`).join("")}</div>
+      ${photo(s.image, f, "side")}
+      ${footer(n)}`
   };
   // the slatted background layouts
   const SLATS = new Set(["cover", "section", "thanks"]);
@@ -169,6 +186,7 @@
     if (e.target.closest(".deck-bar .prev")) return prev();
     if (e.target.closest(".deck-bar .next")) return next();
     const act = e.target.closest("[data-action]");
+    if (act && act.dataset.action === "goto") return show(+act.dataset.arg);
     if (act && Deck.onAction) Deck.onAction(act.dataset.action, act.dataset.arg);
   });
 

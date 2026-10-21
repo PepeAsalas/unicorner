@@ -14,11 +14,14 @@
   <div id="labels"></div>
 
   <header class="topbar">
-    <div class="brandmark">
+    <div class="brandmark" title="Cover">
       <img src="assets/logos/hunter-douglas.png" alt="Hunter Douglas Architectural">
     </div>
     <nav class="intro" id="intro" aria-label="Agenda">
-      <button class="intro-btn" id="intro-btn" type="button">Agenda</button>
+      <button class="intro-btn" id="intro-btn" type="button" aria-expanded="false" aria-controls="agenda">
+        Agenda
+        <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
       <ol class="agenda" id="agenda"></ol>
     </nav>
   </header>
@@ -38,7 +41,7 @@
   <aside class="panel" id="panel" aria-live="polite"></aside>
 
 
-  <p class="hint">Click a building or a material · ← → to move · Esc to go back</p>
+  <p class="hint">Click a building · ← → to move · Esc to go back</p>
 
   <script src="vendor/three.min.js"></script>
   <script src="content.js"></script>

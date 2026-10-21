@@ -63,11 +63,12 @@
 
   // Palette: white architectural-model look with Hunter Douglas orange accents
   const P = {
-    grass: "#F3EEE6", grassDark: "#F6C9A0", road: "#D8D2C8", line: "#FFFFFF", walk: "#FBF9F5",
+    grass: "#E3DDD2", grassDark: "#F6C9A0", road: "#A2A7AC", line: "#F4F2EC", walk: "#F7F4EE", lawn: "#CFDDBE", pad: "#F3EFE8",
     white: "#F7F6F1", cream: "#EDE6D8", glass: "#9FB2C9", glassDark: "#6F82A0",
     hf: "#4C653D", hfLight: "#D6E5CD", dk: "#6A5C48", dkLight: "#E1D5C2", lx: "#57617A", lxLight: "#E1EAF8",
     orange: "#F08300", peach: "#F8C9A0", red: "#D9574A", tree: "#A9C394", treeDark: "#8DAE78", trunk: "#B59C80", water: "#A9CBDD",
-    decoy: ["#FFFFFF", "#F4F0EA", "#ECE6DC"], decoyRoof: "#E2DACD", decoyWin: "#D6DCE2"
+    decoy: ["#EEEAE3", "#E4DED4", "#D9D2C6"], decoyRoof: "#C8BFB0", decoyWin: "#AEB9C4",
+    hq: "#5B6770", hqGlass: "#8A9AAB"
   };
 
   // ---------- Ground & roads ----------
@@ -172,13 +173,16 @@
         r.position.set(0, 5 + Math.sin(a) * 3, -Math.cos(a) * 5.5);
         r.rotation.x = a - Math.PI / 2;
       }
-      box(1, 7, 1, P.lx, 7.5, 0, 6.5, g);
-      cyl(1.2, 0.4, P.white, 7.5, 7, 6.8, g, 16).rotation.x = Math.PI / 2;
+      box(0.8, 6.9, 0.8, P.lx, 7.5, 0, 6.5, g);                 // sign post
+      box(2.6, 1.6, 0.4, P.white, 7.5, 6.9, 6.5, g);
+      box(2.6, 0.4, 0.42, P.orange, 7.5, 7.5, 6.5, g);
     },
     leisure(g) {              // hotel/cinema with stepped volumes
-      box(14, 6, 12, P.lxLight, 0, 0, 0, g);
-      box(10, 6, 9, P.white, -1, 6, -1, g);
-      box(6, 5, 6, P.lxLight, -2, 12, -2, g);
+      box(14, 6, 12, P.peach, 0, 0, 0, g);
+      box(10, 6, 9, "#FBE4D0", -1, 6, -1, g);
+      box(6, 5, 6, P.peach, -2, 12, -2, g);
+      box(10.4, 0.5, 9.4, P.lx, -1, 12, -1, g);
+      box(6.4, 0.5, 6.4, P.lx, -2, 17, -2, g);
       windows(g, 14, 6, 12, 1, 5, P.glassDark, 1.6);
       box(8, 2, 0.4, P.orange, 1, 6.5, 3.6, g);
       box(16, 0.4, 3, P.lx, 0, 4.2, 7, g);
@@ -201,6 +205,9 @@
     const [px, pz] = plots[i % plots.length];
     const holder = new THREE.Group();
     holder.position.set(px * step, 0.1, pz * step);
+    box(BLOCK, 0.3, BLOCK, P.pad, 0, 0, 0, holder);           // pavement
+    box(BLOCK - 4, 0.32, 3, P.lawn, 0, 0, BLOCK / 2 - 2.2, holder);   // strip of lawn
+    g.position.y = 0.3;
     holder.add(g);
     // a couple of trees per plot
     tree(-BLOCK / 2 + 1.5, BLOCK / 2 - 1.5, 0.7, holder);
@@ -209,7 +216,7 @@
     const bbox = new THREE.Box3().setFromObject(g);
     const height = bbox.max.y;
     g.traverse((o) => (o.userData.index = i));
-    return { sector, group: g, holder, height, lift: 0, hover: 0 };
+    return { sector, group: g, holder, height: height + 0.3, lift: 0, hover: 0 };
   });
 
   // ---------- Decoy buildings (plain, white, not clickable) ----------
@@ -241,12 +248,53 @@
     parent.add(g);
   }
 
-  // Outer ring of cells around the sector plots
+  // ---------- Landmarks: Hunter Douglas HQ and Special Projects pavilion ----------
   const ringCentre = roadsAt[1] + ROAD / 2 + EDGE / 2;       // middle of the edge strip
+  const L = {
+    about(g) {                // HQ tower in Hunter Douglas grey with an orange crown
+      box(10, 24, 9, P.hqGlass, 0, 0, 0, g);
+      for (let y = 3; y < 24; y += 3) box(10.3, 0.5, 9.3, P.hq, 0, y, 0, g);
+      box(10.6, 1.4, 9.6, P.hq, 0, 24, 0, g);
+      box(3.2, 3.2, 3.2, P.orange, 0, 25.4, 0, g).rotation.y = Math.PI / 4;
+      box(6, 2.4, 0.5, P.orange, 0, 0, 4.6, g);
+    },
+    "special-projects"(g) {   // pavilion with a wave of baffles on top
+      box(14, 1, 9, P.white, 0, 0, 0, g);
+      [[-6, -3.5], [6, -3.5], [-6, 3.5], [6, 3.5]].forEach(([x, z]) => box(0.6, 6, 0.6, P.hq, x, 1, z, g));
+      box(13, 0.4, 8, P.white, 0, 7, 0, g);
+      for (let i = 0; i < 13; i++) {
+        const x = -6 + i, h = 1.5 + Math.sin(i / 12 * Math.PI) * 4;
+        box(0.35, h, 8, i % 2 ? P.peach : P.orange, x, 7.4, 0, g);
+      }
+    }
+  };
+  const landmarkSpots = { about: [-ringCentre, step], "special-projects": [step, -ringCentre] };
+  const landmarks = (C.topics || []).filter((t) => L[t.id]).map((t) => {
+    const g = new THREE.Group();
+    L[t.id](g);
+    const holder = new THREE.Group();
+    const [x, z] = landmarkSpots[t.id];
+    holder.position.set(x, 0.1, z);
+    box(t.id === "about" ? EDGE - 0.5 : BLOCK - 2, 0.3, t.id === "about" ? BLOCK - 2 : EDGE - 0.5, P.pad, 0, 0, 0, holder);
+    g.position.y = 0.3;
+    holder.add(g);
+    city.add(holder);
+    const height = new THREE.Box3().setFromObject(g).max.y + 0.3;
+    return { topic: t, group: g, holder, height, hover: 0, base: 0.3 };
+  });
+  const taken = (x, z) => Object.values(landmarkSpots).some(([lx, lz]) => Math.abs(lx - x) < 8 && Math.abs(lz - z) < 8);
+
+  // Outer ring of cells around the sector plots
   const cells = [-ringCentre, -step, 0, step, ringCentre];
   cells.forEach((cx) => cells.forEach((cz) => {
     const outer = Math.abs(cx) === ringCentre || Math.abs(cz) === ringCentre;
     if (!outer) return;
+    if (landmarks.length && taken(cx, cz)) return;
+    // lawn or paving under each block
+    const corner = Math.abs(cx) === ringCentre && Math.abs(cz) === ringCentre;
+    const along0 = Math.abs(cx) === ringCentre ? "z" : "x";
+    const w = corner ? EDGE - 1 : along0 === "x" ? BLOCK - 1 : EDGE - 1, d = corner ? EDGE - 1 : along0 === "z" ? BLOCK - 1 : EDGE - 1;
+    box(w, 0.25, d, rand() > 0.5 ? P.lawn : P.pad, cx, 0, cz, city);
     // cells nearest the camera (+x / +z) stay low so they never hide the sector buildings
     const front = cx === ringCentre || cz === ringCentre;
     const along = Math.abs(cx) === ringCentre ? "z" : "x";
@@ -260,6 +308,8 @@
       else block(x, z, 16, city);
     });
   }));
+
+  const esc0 = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
   // ---------- Little cars (crossy-road vibe) ----------
   const carColors = [P.orange, P.lx, P.peach, P.hf, P.white, P.dk, P.red];
@@ -280,6 +330,20 @@
 
   // ---------- HTML labels ----------
   const labelsEl = $("#labels");
+  const spots = buildings.concat(landmarks);                 // everything clickable
+  spots.forEach((b, i) => b.group.traverse((o) => (o.userData.index = i)));
+  landmarks.forEach((b, j) => {
+    const el = document.createElement("button");
+    el.className = "tag landmark";
+    el.type = "button";
+    el.innerHTML = esc0(b.topic.title);
+    const i = buildings.length + j;
+    el.addEventListener("click", () => openLandmark(b.topic.id));
+    el.addEventListener("pointerenter", () => (hovered = i));
+    el.addEventListener("pointerleave", () => (hovered = -1));
+    labelsEl.appendChild(el);
+    b.label = el;
+  });
   buildings.forEach((b, i) => {
     const el = document.createElement("button");
     el.className = "tag";
@@ -379,8 +443,9 @@
     const imgs = (p.images || []).filter(Boolean);
     const rows = Object.entries(Object.assign(p.product ? { Product: p.product } : {}, p.location ? { Location: p.location } : {}, p.details || {}));
     const specs = rows.length ? `<dl class="s-specs">${rows.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v ? esc(v) : '<span class="s-todo">—</span>'}</dd></div>`).join("")}</dl>` : "";
+    // Only project info here; product specs live on the material page
     const link = THEMES[theme].logo
-      ? `<button class="s-link" type="button" data-action="material" data-arg="${theme}"><img src="${esc(THEMES[theme].logo)}" alt="">Material specs: fire, acoustics, sustainability ${ARROW}</button>` : "";
+      ? `<button class="s-link" type="button" data-action="material" data-arg="${theme}|${esc(p.product || "")}"><img src="${esc(THEMES[theme].logo)}" alt="">${esc(p.product || THEMES[theme].name)} ${ARROW}</button>` : "";
     const slides = [
       { layout: "photo-info", image: imgs[0] || "", captionHtml: projectCaption(p) },
       { layout: "text-photo", title: projectName(p), subtitle: [p.location, p.year].filter(Boolean).join(" · "),
@@ -411,44 +476,88 @@
     window.Deck.open(slides, { theme: "general", folder: sector.id });
   }
 
-  function openMaterial(key) {
-    const slides = (C.materials || {})[brandKey(key)];
-    if (slides) window.Deck.open(slides, { theme: brandKey(key), folder: "materials/" + brandKey(key) });
+  // Material page: cover → index → product spec pages → fire → acoustics → sustainability
+  const words = (x) => String(x || "").toLowerCase().replace(/derako|heartfelt|luxalon/g, "").split(/[^a-z0-9]+/).filter(Boolean);
+  function findProduct(m, name) {
+    const want = words(name);
+    if (!want.length) return -1;
+    return (m.products || []).findIndex((p) => {
+      const have = words(p.name);
+      return want.every((w) => have.includes(w)) || (have.length && have.every((w) => want.includes(w)));
+    });
+  }
+  function materialSlides(key) {
+    const m = (C.materials || {})[key];
+    if (!m) return null;
+    const products = (m.products || []).map((p) => ({ layout: "spec", brand: m.name, title: p.name, acoustic: p.acoustic, fire: p.fire, voc: p.voc,
+      specs: p.specs, drawing: p.drawing, finishes: p.finishes, certificates: p.certificates }));
+    const groups = [["Reaction to fire", m.fire || []], ["Acoustics", m.acoustics || []], ["Sustainability", m.sustainability || []]];
+    const firstProduct = 2;
+    let at = firstProduct + products.length;
+    const entries = products.map((p, k) => [p.title, firstProduct + k, "Product"]);
+    groups.forEach(([name, list]) => { if (list.length) { entries.push([name, at, ""]); at += list.length; } });
+    const index = `<ol class="s-index">${entries.map(([name, to, grp], k) =>
+      `<li><button type="button" data-action="goto" data-arg="${to}"><span class="n">${pad(k + 1)}</span>${esc(name)}${grp ? `<span class="grp">${grp}</span>` : ""}</button></li>`).join("")}</ol>`;
+    const slides = [
+      { layout: "cover", title: m.name, subtitle: m.tagline, image: m.cover },
+      { layout: "text-photo", title: m.name, subtitle: m.tagline, text: m.intro || " ", html: index, image: m.cover },
+      ...products,
+      ...groups.flatMap(([, list]) => list)
+    ];
+    return { slides, firstProduct };
+  }
+  function openMaterial(key, productName) {
+    key = brandKey(key);
+    const built = materialSlides(key);
+    if (!built) return;
+    const k = findProduct(C.materials[key], productName);
+    window.Deck.open(built.slides, { theme: key, folder: "materials/" + key, start: k >= 0 ? built.firstProduct + k : 0 });
   }
 
-  function openTopic(id) {
-    if (id === "sectors") { window.Deck.close(); return; }
+  function openTopic(id, onClose) {
     const t = (C.topics || []).find((x) => x.id === id);
-    if (t) window.Deck.open(t.slides, { theme: "general", folder: t.id });
+    if (t) window.Deck.open(t.slides, { theme: "general", folder: t.id, onClose });
+  }
+
+  // Landmark: fly to the building, then open its slides; closing them flies back out
+  function openLandmark(id) {
+    const b = landmarks.find((x) => x.topic.id === id);
+    if (!b) return openTopic(id);
+    if (active >= 0) { active = -1; document.body.classList.remove("focused"); }
+    const t = b.holder.position.clone().setY(b.height * 0.45);
+    flyTo(t, Math.min(3, (viewSize * 0.55) / Math.max(b.height, 14)));
+    setTimeout(() => openTopic(id, overview), reduceMotion ? 0 : 750);
   }
 
   // Opening deck: cover + agenda. Closing it (or going past the end) lands in the city.
   function agendaItems() {
     return [{ id: "sectors", title: "Sectors" }, ...(C.topics || [])];
   }
-  function openIntro() {
+  function openCover() {
     const cv = C.cover || {};
-    const list = `<ol class="s-agenda">${agendaItems().map((t, k) =>
-      `<li><button type="button" data-action="topic" data-arg="${esc(t.id)}"><span class="n">${pad(k + 1)}</span>${esc(t.title)}</button></li>`).join("")}</ol>`;
-    window.Deck.open([
-      { layout: "cover", title: cv.title, subtitle: cv.subtitle, image: cv.image },
-      { layout: "text-photo", title: "Today's agenda", html: list, image: cv.image, text: " " }
-    ], { theme: "general", folder: "cover" });
+    window.Deck.open([{ layout: "cover", title: cv.title, subtitle: cv.subtitle, image: cv.image }], { theme: "general", folder: "cover" });
   }
 
   window.Deck.onAction = (action, arg) => {
-    if (action === "material") openMaterial(arg);
+    if (action === "material") { const [key, product] = String(arg).split("|"); openMaterial(key, product); }
     if (action === "topic") openTopic(arg);
   };
 
   // Home screen: agenda + material chips
   $("#agenda").innerHTML = agendaItems().map((t, k) =>
-    `<li><button type="button" data-topic="${esc(t.id)}" class="${t.id === "sectors" ? "here" : ""}"><span class="n">${pad(k + 1)}</span>${esc(t.title)}</button></li>`).join("");
+    `<li><button type="button" data-topic="${esc(t.id)}"><span class="n">${pad(k + 1)}</span>${esc(t.title)}</button></li>`).join("");
+  // Agenda stays folded until the button is clicked
+  const intro = $("#intro");
+  const setAgenda = (open) => { intro.classList.toggle("open", open); $("#intro-btn").setAttribute("aria-expanded", open); };
+  $("#intro-btn").addEventListener("click", (e) => { e.stopPropagation(); setAgenda(!intro.classList.contains("open")); });
+  document.addEventListener("click", (e) => { if (!e.target.closest("#intro")) setAgenda(false); });
   $("#agenda").addEventListener("click", (e) => {
     const b = e.target.closest("[data-topic]");
-    if (b && b.dataset.topic !== "sectors") openTopic(b.dataset.topic);
+    if (!b) return;
+    setAgenda(false);
+    if (b.dataset.topic === "sectors") overview(); else openLandmark(b.dataset.topic);
   });
-  $("#intro-btn").addEventListener("click", openIntro);
+  $(".brandmark").addEventListener("click", openCover);
   document.querySelectorAll(".legend [data-brand]").forEach((b) => b.addEventListener("click", () => openMaterial(b.dataset.brand)));
 
   // ---------- Camera animation ----------
@@ -513,7 +622,7 @@
   function pick(e) {
     ndc.set((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
     ray.setFromCamera(ndc, camera);
-    const hit = ray.intersectObjects(buildings.map((b) => b.group), true)[0];
+    const hit = ray.intersectObjects(spots.map((b) => b.group), true)[0];
     return hit ? hit.object.userData.index : -1;
   }
   let downAt = null;
@@ -525,7 +634,8 @@
   canvas.addEventListener("pointerup", (e) => {
     if (!downAt || Math.hypot(e.clientX - downAt[0], e.clientY - downAt[1]) > 6) return;
     const i = pick(e);
-    if (i >= 0) focus(i);
+    if (i >= buildings.length) openLandmark(spots[i].topic.id);
+    else if (i >= 0) focus(i);
     else if (active >= 0) overview();
   });
 
@@ -568,10 +678,10 @@
     camera.updateProjectionMatrix();
 
     // Hover: building rises a touch (spring-ish smoothing)
-    buildings.forEach((b, i) => {
+    spots.forEach((b, i) => {
       const goal = (i === hovered && active < 0) || i === active ? 1 : 0;
       b.hover += (goal - b.hover) * Math.min(1, dt * 12);
-      b.group.position.y = b.hover * 0.8;
+      b.group.position.y = (b.base || 0.3) + b.hover * 0.8;
       b.label.classList.toggle("hover", i === hovered);
     });
 
@@ -586,7 +696,7 @@
     });
 
     // Labels follow buildings on screen
-    buildings.forEach((b) => {
+    spots.forEach((b) => {
       tmp.copy(b.holder.position).setY(b.height + 3 + b.hover * 0.8).project(camera);
       const x = (tmp.x * 0.5 + 0.5) * innerWidth;
       const y = (-tmp.y * 0.5 + 0.5) * innerHeight;
@@ -598,5 +708,4 @@
   }
   requestAnimationFrame(frame);
 
-  if ((C.cover || {}).showOnStart !== false) openIntro();
 })();
