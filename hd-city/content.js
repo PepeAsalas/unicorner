@@ -579,7 +579,7 @@ window.HD_CONTENT = {
       id: "sport",
       name: "Sport",
       intro: "Sports facilities bring together active use, large spaces and demanding acoustic conditions. Select ceiling systems for the activity, with documented impact performance and finishes suited to the environment.",
-      hero: "",
+      hero: "sports-hall-amersfoort-01.jpg",
       points: [
         { title: "Impact resistance", text: "Use a system with documented ball impact performance for sports halls, including the specified panels, carriers and fixings." },
         { title: "Reverberation control", text: "Sound absorption helps limit reverberation in large halls, supporting clearer instructions and communication during activities." },
@@ -722,7 +722,7 @@ window.HD_CONTENT = {
       id: "transport",
       name: "Transport",
       intro: "Airports and stations need ceilings that work across large, busy spaces. Acoustic design, clear visual organisation, durability and access to services are central to a coordinated transport environment.",
-      hero: "",
+      hero: "charles-de-gaulle-01.jpg",
       points: [
         { title: "Large-span solutions", text: "Coordinate panel lengths, support spacing and service integration to create a consistent ceiling across large public areas." },
         { title: "Speech intelligibility", text: "Control reverberation to support clearer announcements and conversations in busy terminals and circulation spaces." },
@@ -800,7 +800,7 @@ window.HD_CONTENT = {
       id: "leisure",
       name: "Leisure",
       intro: "Hotels, restaurants and cultural venues each need their own atmosphere. Ceilings and walls bring character to these spaces while helping balance acoustic comfort, service integration and everyday maintenance.",
-      hero: "",
+      hero: "silt-casino-01.jpg",
       points: [
         { title: "Atmosphere & character", text: "Bring material, colour and texture together to create a distinctive setting for hotels, restaurants and cultural venues." },
         { title: "Acoustic comfort", text: "Balance sound absorption with the intended use, from relaxed dining and conversation to performance and event spaces." },
@@ -957,7 +957,7 @@ window.HD_CONTENT = {
         { layout: "text-photo", title: "Cradle to Cradle Certified®", subtitle: "Silver · specified certified systems", text: "Derako Grill Systems and Derako Linear System – Inside are listed as Cradle to Cradle Certified Full Scope Silver, version 3.1. Certification applies to the scope in each certificate, rather than every possible wood species, treatment or system configuration.", bullets: ["Grill Systems: certificate 8314","Linear System – Inside: certificate 8315","Published validity: until 22 October 2026; check renewal before use"], image: "../shared/cradle-to-cradle.jpg" },
         { layout: "photo-info", image: "../shared/c2c-process.jpg", caption: "Cradle to Cradle Certified® process" },
         { layout: "text-photo", title: "FSC® or PEFC certification", subtitle: "The mark of responsible forestry", text: "FSC and PEFC support responsible forest management and traceability through certified supply chains. Certified wood can be supplied on request; specify the required certification and confirm the claim in the supply documentation.", bullets: [], image: "../shared/fsc-pefc.jpg" },
-        { layout: "text-photo", title: "BREEAM", subtitle: "Green building certification", figure: "BREEAM", label: "Project-level assessment", text: "Hunter Douglas publishes supporting evidence for BREEAM International assessments. Contributions depend on the scheme, specified system and project assessment; products do not earn a building rating on their own.", bullets: ["HEA02: indoor air emissions evidence","HEA05: acoustic performance test data","MAT01: life-cycle impacts through available EPDs","MAT03: responsible sourcing, including FSC or PEFC supply"], image: "" }
+        { layout: "text-photo", title: "BREEAM", subtitle: "Green building certification", figure: "BREEAM", label: "Project-level assessment", text: "Hunter Douglas publishes supporting evidence for BREEAM International assessments. Contributions depend on the scheme, specified system and project assessment; products do not earn a building rating on their own.", bullets: ["HEA02: indoor air emissions evidence","HEA05: acoustic performance test data","MAT01: life-cycle impacts through available EPDs","MAT03: responsible sourcing, including FSC or PEFC supply"], image: "../../commercial/derako-wood-linear.jpg" }
       ]
     },
 
@@ -1004,15 +1004,15 @@ window.HD_CONTENT = {
 
       // One spec page per product. A project's "product" opens the matching page.
       products: [
-        { name: "Luxalon 70U", acoustic: "NRC 0.80", fire: "A2-s1,d0", voc: "A+", drawing: "", finishes: "", certificates: "",
+        { name: "Luxalon 70U", acoustic: "NRC 0.80", fire: "A2-s1,d0", voc: "A+", drawing: "../../exterior/voortuinen-amsterdam.jpg", finishes: "", certificates: "",
           specs: ["70 x 25 mm aluminium panels; 30 mm open joint; 100 mm module","Interior panel lengths 800–6000 mm; exterior 1000–6000 mm","NRC 0.80: plain 70U at M100, with 25 mm mineral wool, approx. 55 kg/m³","Acoustic test configuration: 200 mm plenum; report MA 82","Interior plain panels: A2-s1,d0; VOC A+","Exterior version: Luxacote finish and ProFix support for wind loads","Up to 86% recycled aluminium, as published for this range"] },
-        { name: "Luxalon V100", acoustic: "", fire: "A2-s1,d0", voc: "A+", drawing: "", finishes: "", certificates: "",
+        { name: "Luxalon V100", acoustic: "", fire: "A2-s1,d0", voc: "A+", drawing: "../../exterior/ing-bank-amsterdam.jpg", finishes: "", certificates: "",
           specs: ["Interior V100: 101 mm high; lengths 1000–6000 mm","Standard modules 100, 150 and 200 mm","Interior version: A2-s1,d0; VOC A+","Demountable vertical screens with optional decorative profiles","Exterior V100: aluminium panels with locking clips and ProFix support","No numerical sound-absorption value is published on the referenced screen page"] },
-        { name: "Luxalon Cell50E", acoustic: "", fire: "A2-s1,d0", voc: "", drawing: "", finishes: "", certificates: "",
+        { name: "Luxalon Cell50E", acoustic: "", fire: "A2-s1,d0", voc: "", drawing: "../../exterior/ahoy-rotterdam.jpg", finishes: "", certificates: "",
           specs: ["Open-cell panels assembled from aluminium U-profiles","Profile height 50 mm","Standard panels 600 x 600 mm or 600 x 1200 mm","Cell modules 50, 75, 86, 100, 120, 150 and 200 mm","Integrated main and cross runners","Sliding clips allow panel removal for access","Cell50E is distinct from Cell C50; the Ahoy photo designation is still pending"] },
-        { name: "Luxalon 300L / 300L Ext", acoustic: "Up to αw 0.95", fire: "A2-s1,d0", voc: "", drawing: "", finishes: "", certificates: "",
+        { name: "Luxalon 300L / 300L Ext", acoustic: "Up to αw 0.95", fire: "A2-s1,d0", voc: "", drawing: "../../exterior/wroclaw-airport.jpg", finishes: "", certificates: "",
           specs: ["300 mm wide panels, 28 mm high; lengths 1000–6000 mm","Interior 300L: aluminium or steel; carrier, lay-on or C-grid installation","Interior 300L: up to αw 0.75; 0.95 with acoustical infill","Interior 300L VOC class A+; no exterior VOC value assigned here","300L Ext: corrosion-resistant aluminium and Luxacote finish","300L Ext uses ProFix support for wind-load resistance","Up to 86% recycled aluminium, as published for these ranges"] },
-        { name: "Luxalon Combiline", acoustic: "αw 0.55 / 0.70", fire: "B-s1,d0", voc: "A+ / A", drawing: "", finishes: "", certificates: "",
+        { name: "Luxalon Combiline", acoustic: "αw 0.55 / 0.70", fire: "B-s1,d0", voc: "A+ / A", drawing: "../../retail/illa-diagonal-1.jpg", finishes: "", certificates: "",
           specs: ["Combine metal, HeartFelt and veneered wood panels on one carrier","Panel sections: metal 30 x 64 mm; felt and wood 30 x 60 mm","Panel lengths 1000–6000 mm","Standard module 50 mm; custom modulation possible","αw 0.55: metal 30BXD at M50; 0.70: felt 30HL60 at M50","Panels can be removed individually for access","VOC class depends on the panel material"] }
       ],
 
@@ -1024,7 +1024,7 @@ window.HD_CONTENT = {
       ],
 
       acoustics: [
-        {layout: "text-photo",title: "Acoustic performance",subtitle: "Sound absorption",figure: "0.95 αw",label: "300L interior · up to, with acoustical infill",text: "Acoustic results depend on the panel, perforation, backing and installation. NRC and αw are separate ratings and should retain the metric used in the source.",bullets: ["300L interior: up to αw 0.95 with infill","70U reference configuration: NRC 0.80","CombiLine M50: αw 0.55 metal / 0.70 felt"],image: ""},
+        {layout: "text-photo",title: "Acoustic performance",subtitle: "Sound absorption",figure: "0.95 αw",label: "300L interior · up to, with acoustical infill",text: "Acoustic results depend on the panel, perforation, backing and installation. NRC and αw are separate ratings and should retain the metric used in the source.",bullets: ["300L interior: up to αw 0.95 with infill","70U reference configuration: NRC 0.80","CombiLine M50: αw 0.55 metal / 0.70 felt"],image: "../../transport/chisinau-airport-01.jpg"},
         {layout: "text",title: "Metal ceiling performance",subtitle: "Linear and stretch metal systems",text: "The current product pages provide the following reference values. These describe product configurations, rather than guaranteed performance for every installation.",bullets: ["30BD / 30BXD: up to αw 1.00 with acoustical pad; lengths 800–6000 mm; VOC A+","MultiPanel: up to αw 0.95 with acoustical pad; B, BD and BXD panels on one carrier; VOC A+","Planks Stretch: αw 0.85–1.00 with acoustical pad; steel mesh panels up to 600 x 2500 mm with reinforcement; VOC A+"]},
         {layout: "text",title: "Metal ceiling performance",subtitle: "Tavola baffle systems",text: "The Tavola ranges have separate specifications. Confirm the material, perforation and backing before selecting performance data.",bullets: ["Tavola Closed: up to αw 0.65; aluminium baffle 40 x 162 mm combined with a 150C panel","Tavola Closed: module 190 mm; baffle length 600–4000 mm; VOC A+","Tavola Straight: up to αw 0.50, or 0.90 with acoustical pad; aluminium or steel; VOC A+","Tavola Straight: panel lengths 600–4000 mm; multiple widths, heights and spacings"]}
       ],
