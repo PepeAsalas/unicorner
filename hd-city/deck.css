@@ -1,0 +1,189 @@
+/* Slides in the Hunter Douglas template style.
+   Sizes use cqw (1% of the slide width) so a slide scales like PowerPoint. */
+
+.deck {
+  position: fixed; inset: 0; z-index: 40;
+  display: grid; place-items: center;
+  background: #0E0F10;
+  opacity: 0; pointer-events: none;
+  transition: opacity 200ms ease;
+}
+.deck.open { opacity: 1; pointer-events: auto; transition: opacity 320ms var(--ease-out); }
+
+.deck-stage {
+  position: relative;
+  width: min(100vw, calc(100vh * 16 / 9));
+  aspect-ratio: 16 / 9;
+  container-type: inline-size;
+  overflow: hidden;
+}
+
+/* ---------- Player controls (fade while presenting) ---------- */
+.deck-close, .deck-bar { opacity: 0; transition: opacity 300ms ease; }
+.deck.awake .deck-close, .deck.awake .deck-bar { opacity: 1; }
+.deck-close {
+  position: fixed; top: 16px; right: 16px; z-index: 2;
+  width: 40px; height: 40px; border-radius: 50%; border: 0; cursor: pointer;
+  display: grid; place-items: center;
+  background: rgba(20,22,24,0.55); color: #fff; backdrop-filter: blur(8px);
+  transition: opacity 300ms ease, transform 160ms var(--ease-out);
+}
+.deck-close svg { width: 16px; height: 16px; }
+.deck-close:active { transform: scale(0.94); }
+.deck-bar {
+  position: fixed; left: 50%; bottom: 16px; translate: -50% 0; z-index: 2;
+  display: flex; align-items: center; gap: 4px; padding: 4px;
+  border-radius: 999px; background: rgba(20,22,24,0.55); backdrop-filter: blur(8px); color: #fff;
+}
+.deck-bar button {
+  width: 36px; height: 36px; border-radius: 50%; border: 0; cursor: pointer;
+  display: grid; place-items: center; background: transparent; color: #fff;
+  transition: background-color 150ms ease, transform 160ms var(--ease-out);
+}
+.deck-bar button svg { width: 18px; height: 18px; }
+.deck-bar button:active { transform: scale(0.94); }
+.deck-bar button:disabled { opacity: 0.3; cursor: default; }
+@media (hover: hover) and (pointer: fine) { .deck-bar button:not(:disabled):hover { background: rgba(255,255,255,0.12); } }
+.deck-count { font-family: var(--head); font-weight: 500; font-size: 13px; min-width: 52px; text-align: center; font-variant-numeric: tabular-nums; }
+
+/* ---------- Slide base ---------- */
+.slide {
+  --tint: #FFFFFF; --light: #FFFFFF; --dark: #1F2328; --mid: #5B6770; --line: #EDEDED;
+  position: absolute; inset: 0;
+  background: var(--tint);
+  font-family: var(--body); font-weight: 300; color: var(--ink);
+  opacity: 0; visibility: hidden;
+  transition: opacity 350ms ease, visibility 0s linear 350ms;
+}
+.slide.on { opacity: 1; visibility: visible; transition: opacity 350ms ease; }
+.slide.instant { transition: none; }
+.slide.t-heartfelt { --tint: #F2F7EF; --light: #D6E5CD; --dark: #334E22; --mid: #4C653D; --line: #D6E5CD; }
+.slide.t-luxalon   { --tint: #F5F8FC; --light: #E1EAF8; --dark: #303A54; --mid: #57617A; --line: #E1EAF8; }
+.slide.t-derako    { --tint: #F5F2EC; --light: #E1D5C2; --dark: #483C2C; --mid: #6A5C48; --line: #E1D5C2; }
+
+/* Slatted background (cover, section, thank you): vertical lines like the template */
+.slide.slats {
+  background:
+    repeating-linear-gradient(90deg, transparent 0 calc(9.333cqw - 1px), rgba(255,255,255,0.95) calc(9.333cqw - 1px) 9.333cqw) 8cqw 0 / 100% 100% no-repeat,
+    var(--light);
+}
+.slide.slats.t-general {
+  background:
+    repeating-linear-gradient(90deg, transparent 0 calc(9.333cqw - 1px), #F1F1F1 calc(9.333cqw - 1px) 9.333cqw) 8cqw 0 / 100% 100% no-repeat,
+    #FFFFFF;
+}
+
+/* Brand tab: black vertical label on the left edge */
+.s-tab {
+  position: absolute; left: 0; top: 2.2%; width: 1.25cqw; height: 9%;
+  background: #000; display: grid; place-items: center; z-index: 3;
+}
+.s-tab span {
+  writing-mode: vertical-rl; color: #fff;
+  font-family: var(--head); font-weight: 600; font-size: 0.6cqw; letter-spacing: 0.08em; text-transform: uppercase;
+}
+
+/* Footer band */
+.s-footer {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 8.5%;
+  background: #fff; display: flex; align-items: center;
+  padding: 0 3cqw; gap: 0.9cqw;
+  font-family: var(--head); font-weight: 400; font-size: 0.62cqw; color: var(--ink);
+}
+.s-num { font-weight: 600; }
+.s-foot-text { padding-left: 0.9cqw; border-left: 1px solid #C9C9C9; line-height: 1.6; }
+.s-hdlogo.small { margin-left: auto; margin-right: 4cqw; height: 2.6cqw; }
+.s-hdlogo.big { position: absolute; right: 6cqw; bottom: 5.5%; height: 6.4cqw; }
+
+/* Titles & text */
+.s-title { font-family: var(--head); font-weight: 700; color: var(--dark); margin: 0; letter-spacing: -0.015em; line-height: 1.1; }
+.s-head { position: absolute; left: 7%; top: 6%; width: 51%; }
+.s-head .s-title { font-size: 2.8cqw; }
+.s-subtitle { margin: 0.9cqw 0 0; font-family: var(--head); font-weight: 400; font-size: 1.35cqw; color: var(--ink); }
+.s-body { position: absolute; left: 7%; top: 27%; width: 46%; bottom: 13%; overflow: hidden; }
+.s-body.wide { width: 86%; columns: 2; column-gap: 5cqw; }
+.s-text { margin: 0 0 1.4cqw; font-size: 1.25cqw; line-height: 1.6; }
+.s-bullets { list-style: none; margin: 0; padding: 0; }
+.s-bullets li {
+  position: relative; padding: 0.75cqw 0 0.75cqw 1.6cqw; border-top: 1px solid var(--line);
+  font-size: 1.2cqw; line-height: 1.45; break-inside: avoid;
+}
+.s-bullets li:last-child { border-bottom: 1px solid var(--line); }
+.s-bullets li::before { content: ""; position: absolute; left: 0; top: 1.45cqw; width: 0.55cqw; height: 0.55cqw; background: var(--mid); }
+.t-general .s-bullets li::before { background: var(--hd-orange); }
+.s-bullets b { display: block; font-family: var(--head); font-weight: 600; color: var(--dark); }
+.s-bullets span { display: block; margin-top: 0.2cqw; font-size: 1.05cqw; color: var(--ink); }
+.s-figure { display: flex; flex-direction: column; gap: 0.3cqw; margin: 0 0 1.6cqw; }
+.s-figure strong { font-family: var(--head); font-weight: 700; font-size: 3.6cqw; letter-spacing: -0.02em; color: var(--dark); line-height: 1; }
+.s-figure.empty strong { color: var(--light); }
+.t-general .s-figure.empty strong { color: #E3E3E3; }
+.s-figure span { font-family: var(--head); font-weight: 500; font-size: 0.85cqw; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); }
+.s-todo { color: #B5B0A8; font-style: normal; }
+.s-sub { margin: 0 0 0.6cqw; font-family: var(--head); font-weight: 400; font-size: 1.35cqw; color: var(--mid); }
+
+/* Photos */
+.s-photo { position: absolute; overflow: hidden; background: var(--light); }
+.s-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.s-photo.cover { left: 0; top: 0; width: 100%; height: 63%; }
+.s-photo.side  { left: 60%; top: 11%; width: 32%; height: 70%; }
+.s-photo.info  { left: 0; top: 0; width: 100%; height: 82%; }
+.s-photo.full  { left: 0; top: 0; width: 100%; height: 91.5%; }
+.s-photo.todo {
+  display: grid; place-items: center;
+  background: repeating-linear-gradient(90deg, var(--light) 0 2.4cqw, rgba(255,255,255,0.75) 2.4cqw calc(2.4cqw + 1px));
+  font-family: var(--head); font-weight: 500; font-size: 0.9cqw; color: var(--mid);
+}
+.t-general .s-photo.todo { background: repeating-linear-gradient(90deg, #F4F1EC 0 2.4cqw, #fff 2.4cqw calc(2.4cqw + 1px)); }
+.s-photo.missing { background: #FBEDEA; color: #A3402F; text-align: center; padding: 1cqw; word-break: break-all; }
+
+/* Cover / section / thanks text positions (from the template) */
+.s-cover-text { position: absolute; left: 8%; top: 68%; width: 60%; }
+.s-cover-text.section { top: auto; bottom: 12%; }
+.s-title.xl { font-size: 3.4cqw; }
+.s-title.xxl { font-size: 5cqw; letter-spacing: -0.025em; }
+.s-title.thanks { position: absolute; left: 8%; top: 36%; width: 50%; font-size: 5cqw; letter-spacing: -0.02em; }
+
+/* Caption under a photo-info slide */
+.s-caption {
+  position: absolute; left: 7%; right: 7%; top: 82%; height: 9.5%; margin: 0;
+  display: flex; align-items: center; gap: 1.2cqw;
+  font-size: 1.15cqw; color: var(--ink);
+}
+.s-caption b { font-family: var(--head); font-weight: 600; color: var(--dark); }
+.s-caption .sep { width: 1px; height: 1.4cqw; background: #CFCFCF; }
+.s-caption .brand { height: 1.1cqw; margin-left: auto; }
+
+/* Project info table + material link inside a slide */
+.s-specs { margin: 0 0 1.6cqw; }
+.s-specs div { display: grid; grid-template-columns: 11cqw 1fr; gap: 1.2cqw; padding: 0.7cqw 0; border-top: 1px solid var(--line); font-size: 1.1cqw; }
+.s-specs div:last-child { border-bottom: 1px solid var(--line); }
+.s-specs dt { font-family: var(--head); font-weight: 500; color: var(--mid); }
+.s-specs dd { margin: 0; }
+.s-link {
+  display: inline-flex; align-items: center; gap: 1cqw;
+  padding: 0.9cqw 1.3cqw; border: 0; border-radius: 0.6cqw; cursor: pointer;
+  background: var(--light); color: var(--dark);
+  font-family: var(--head); font-weight: 500; font-size: 0.95cqw;
+  transition: transform 160ms var(--ease-out), filter 150ms ease;
+}
+.s-link img { height: 1cqw; }
+.s-link svg { width: 0.9cqw; height: 0.9cqw; }
+.s-link:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) { .s-link:hover { filter: brightness(0.96); } }
+
+/* Agenda list on the opening deck */
+.s-agenda { list-style: none; margin: 0; padding: 0; }
+.s-agenda li { border-top: 1px solid #E6E1D9; }
+.s-agenda li:last-child { border-bottom: 1px solid #E6E1D9; }
+.s-agenda button {
+  width: 100%; display: flex; align-items: baseline; gap: 1.4cqw; padding: 1cqw 0;
+  border: 0; background: none; cursor: pointer; text-align: left;
+  font-family: var(--head); font-weight: 500; font-size: 1.45cqw; color: var(--ink);
+  transition: padding-left 200ms var(--ease-out), color 150ms ease;
+}
+.s-agenda .n { font-size: 0.9cqw; font-weight: 600; color: var(--hd-orange); font-variant-numeric: tabular-nums; }
+@media (hover: hover) and (pointer: fine) { .s-agenda button:hover { padding-left: 0.6cqw; color: #000; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .slide, .deck { transition-duration: 0ms !important; }
+}

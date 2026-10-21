@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="deck.css">
 </head>
 <body>
   <canvas id="scene"></canvas>
@@ -16,10 +17,10 @@
     <div class="brandmark">
       <img src="assets/logos/hunter-douglas.png" alt="Hunter Douglas Architectural">
     </div>
-    <div class="intro" id="intro">
-      <h1 id="title"></h1>
-      <p id="subtitle"></p>
-    </div>
+    <nav class="intro" id="intro" aria-label="Agenda">
+      <button class="intro-btn" id="intro-btn" type="button">Agenda</button>
+      <ol class="agenda" id="agenda"></ol>
+    </nav>
   </header>
 
   <nav class="legend" aria-label="Materials">
@@ -36,13 +37,12 @@
 
   <aside class="panel" id="panel" aria-live="polite"></aside>
 
-  <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Project"></div>
-  <div class="material" id="material" role="dialog" aria-modal="true" aria-label="Material"></div>
 
   <p class="hint">Click a building or a material · ← → to move · Esc to go back</p>
 
   <script src="vendor/three.min.js"></script>
   <script src="content.js"></script>
+  <script src="deck.js"></script>
   <script src="city.js"></script>
 </body>
 </html>

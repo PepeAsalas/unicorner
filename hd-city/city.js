@@ -2,8 +2,6 @@
 (function () {
   const C = window.HD_CONTENT;
   const $ = (s) => document.querySelector(s);
-  document.getElementById("title").textContent = C.title;
-  document.getElementById("subtitle").textContent = C.subtitle;
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -295,20 +293,11 @@
   });
 
   // ---------- Panel ----------
-  const BRANDS = {
-    derako:    { name: "Derako",    logo: "assets/logos/derako.png" },
-    heartfelt: { name: "HeartFelt", logo: "assets/logos/heartfelt.png" },
-    luxalon:   { name: "Luxalon",   logo: "assets/logos/luxalon.png" }
-  };
+  const { esc, pad, imgPath, themeOf, THEMES, ARROW } = window.Deck;
   const brandKey = (b) => String(b || "").toLowerCase();
-  const brandOf = (b) => BRANDS[brandKey(b)] || { name: b, logo: "" };
   const panel = $("#panel");
-  const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  // "photo.jpg" → "assets/img/<folder>/photo.jpg"; full paths are left alone
-  const imgPath = (folder, f) => (!f ? "" : f.includes("/") ? f : `assets/img/${folder}/${f}`);
-  const pad = (n) => String(n).padStart(2, "0");
+  const projectName = (p) => p.title || p.product || "";
 
-  // A wrong file name shows a clear message instead of a broken image
   function guardImages(root) {
     root.querySelectorAll("img[data-src-check]").forEach((img) => {
       img.addEventListener("error", () => {
@@ -322,25 +311,25 @@
   function renderPanel(sector) {
     const projects = (sector.projects || []).length
       ? sector.projects.map((p, pi) => {
-          const brand = brandOf(p.brand);
+          const theme = themeOf(p.brand);
+          const brand = THEMES[theme];
           const imgs = (p.images || []).filter(Boolean);
-          const sub = [p.location, p.year].filter(Boolean).join(" · ");
+          const sub = [p.title ? p.product : "", p.location, p.year].filter(Boolean).join(" · ");
           return `
-          <article class="project ${esc(brandKey(p.brand))}" data-project="${pi}" tabindex="0">
+          <article class="project ${theme}" data-project="${pi}" tabindex="0">
             <div class="ph ${imgs.length ? "" : "empty"}">
               ${imgs.length ? `<img data-src-check src="${esc(imgPath(sector.id, imgs[0]))}" alt="">` : "<span>Add photo</span>"}
+              ${imgs.length > 1 ? `<span class="count">${imgs.length}</span>` : ""}
             </div>
             <div class="meta">
-              <button class="brandbtn" type="button" data-brand="${esc(brandKey(p.brand))}" aria-label="About ${esc(brand.name)}">
-                ${brand.logo ? `<img src="${esc(brand.logo)}" alt="${esc(brand.name)}">` : esc(brand.name)}
-              </button>
-              <span class="t">${esc(p.title)}</span>
+              ${brand.logo ? `<button class="brandbtn" type="button" data-brand="${theme}" aria-label="${esc(brand.name)} material slides"><img src="${esc(brand.logo)}" alt="${esc(brand.name)}"></button>` : ""}
+              <span class="t">${projectName(p) ? esc(projectName(p)) : '<span class="todo">Project name to add</span>'}</span>
               ${sub ? `<span class="p">${esc(sub)}</span>` : ""}
-              <span class="more">View project <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="more">View project ${ARROW}</span>
             </div>
           </article>`;
         }).join("")
-      : `<p class="empty-note">Projects for this sector coming soon. Add them in <code>content.js</code>.</p>`;
+      : `<p class="empty-note">No projects yet. Add them in <code>content.js</code>.</p>`;
     const hero = sector.hero
       ? `<img data-src-check src="${esc(imgPath(sector.id, sector.hero))}" alt="">`
       : `<div class="hero-empty"></div>`;
@@ -351,9 +340,14 @@
         <p class="kicker" style="--i:0">Sector ${pad(active + 1)}</p>
         <h2 style="--i:0">${esc(sector.name)}</h2>
         <p class="lead" style="--i:1">${esc(sector.intro)}</p>
-        ${points.length ? `<ol class="points" style="--i:2">${points.map((p, k) => `<li><span class="n">${pad(k + 1)}</span>${esc(p)}</li>`).join("")}</ol>` : ""}
-        <h3 style="--i:3">Projects</h3>
-        <div class="projects" style="--i:4">${projects}</div>
+        ${points.length ? `<ol class="points" style="--i:2">${points.map((p, k) => `<li><span class="n">${pad(k + 1)}</span>${esc(p.title || p)}</li>`).join("")}</ol>` : ""}
+        <button class="present" type="button" style="--i:3" data-present>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z" fill="currentColor"/></svg>
+          Present ${esc(sector.name)}
+          <span>${(sector.projects || []).length + 3} slides</span>
+        </button>
+        <h3 style="--i:4">Projects</h3>
+        <div class="projects" style="--i:5">${projects}</div>
       </div>`;
     guardImages(panel);
     panel.scrollTop = 0;
@@ -362,6 +356,7 @@
   panel.addEventListener("click", (e) => {
     const bb = e.target.closest(".brandbtn");
     if (bb) { e.stopPropagation(); return openMaterial(bb.dataset.brand); }
+    if (e.target.closest("[data-present]")) return presentSector(buildings[active].sector);
     const card = e.target.closest(".project[data-project]");
     if (card) openProject(buildings[active].sector, +card.dataset.project);
   });
@@ -370,144 +365,90 @@
     if (card && e.key === "Enter") { e.stopPropagation(); openProject(buildings[active].sector, +card.dataset.project); }
   });
 
-  // ---------- Project view: large photo + info on the right ----------
-  const viewer = $("#viewer");
-  let proj = null; // { sector, project, imgs, k }
+  // ---------- Slides built from the content ----------
+  function projectCaption(p) {
+    const theme = themeOf(p.brand);
+    const bits = [p.location, p.title ? p.product : ""].filter(Boolean).map(esc);
+    return `<b>${projectName(p) ? esc(projectName(p)) : '<span class="s-todo">Project name to add</span>'}</b>`
+      + bits.map((b) => `<span class="sep"></span>${b}`).join("")
+      + (THEMES[theme].logo ? `<img class="brand" src="${esc(THEMES[theme].logo)}" alt="${esc(THEMES[theme].name)}">` : "");
+  }
+
+  function projectSlides(p) {
+    const theme = themeOf(p.brand);
+    const imgs = (p.images || []).filter(Boolean);
+    const rows = Object.entries(Object.assign(p.product ? { Product: p.product } : {}, p.location ? { Location: p.location } : {}, p.details || {}));
+    const specs = rows.length ? `<dl class="s-specs">${rows.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v ? esc(v) : '<span class="s-todo">—</span>'}</dd></div>`).join("")}</dl>` : "";
+    const link = THEMES[theme].logo
+      ? `<button class="s-link" type="button" data-action="material" data-arg="${theme}"><img src="${esc(THEMES[theme].logo)}" alt="">Material specs: fire, acoustics, sustainability ${ARROW}</button>` : "";
+    const slides = [
+      { layout: "photo-info", image: imgs[0] || "", captionHtml: projectCaption(p) },
+      { layout: "text-photo", title: projectName(p), subtitle: [p.location, p.year].filter(Boolean).join(" · "),
+        text: p.text, html: specs + link, image: imgs[1] || imgs[0] || "" }
+    ];
+    imgs.slice(1).forEach((img) => slides.push({ layout: "photo", image: img }));
+    return { slides, theme };
+  }
 
   function openProject(sector, pi) {
-    const p = sector.projects[pi];
-    const brand = brandOf(p.brand);
-    const imgs = (p.images || []).filter(Boolean).map((f) => imgPath(sector.id, f));
-    proj = { sector, p, imgs, k: 0 };
-    const details = Object.entries(p.details || {});
-    viewer.className = "viewer " + brandKey(p.brand);
-    viewer.innerHTML = `
-      <div class="v-media">
-        <div class="v-stage">${imgs.length ? "" : `<div class="v-empty"><span>Add photos in content.js</span></div>`}</div>
-        ${imgs.length > 1 ? `
-          <button class="v-nav prev" type="button" aria-label="Previous photo"><svg width="20" height="20" viewBox="0 0 20 20"><path d="M12 4l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <button class="v-nav next" type="button" aria-label="Next photo"><svg width="20" height="20" viewBox="0 0 20 20"><path d="M8 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <div class="v-thumbs">${imgs.map((src, k) => `<button type="button" data-k="${k}" aria-label="Photo ${k + 1}"><img src="${esc(src)}" alt=""></button>`).join("")}</div>` : ""}
-      </div>
-      <div class="v-info">
-        <button class="v-close" type="button" aria-label="Close project"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
-        <p class="kicker">${esc(sector.name)}</p>
-        <h2>${esc(p.title)}</h2>
-        ${[p.location, p.year].filter(Boolean).length ? `<p class="v-sub">${esc([p.location, p.year].filter(Boolean).join(" · "))}</p>` : ""}
-        ${p.text ? `<p class="v-text">${esc(p.text)}</p>` : ""}
-        ${details.length ? `<dl class="v-specs">${details.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v ? esc(v) : '<span class="tbd">—</span>'}</dd></div>`).join("")}</dl>` : ""}
-        <button class="v-brand brandbtn" type="button" data-brand="${esc(brandKey(p.brand))}">
-          ${brand.logo ? `<img src="${esc(brand.logo)}" alt="${esc(brand.name)}">` : esc(brand.name)}
-          <span>Fire, acoustics &amp; sustainability</span>
-          <svg width="14" height="14" viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-      </div>`;
-    if (imgs.length) showProjectPhoto(0, true);
-    viewer.classList.add("open");
-    document.body.classList.add("viewing");
+    const { slides, theme } = projectSlides(sector.projects[pi]);
+    window.Deck.open(slides, { theme, folder: sector.id });
   }
 
-  function showProjectPhoto(k, first) {
-    const n = proj.imgs.length;
-    proj.k = (k + n) % n;
-    const stage = viewer.querySelector(".v-stage");
-    const old = stage.querySelector("img");
-    const img = new Image();
-    img.alt = proj.p.title;
-    img.setAttribute("data-src-check", "");
-    img.src = proj.imgs[proj.k];
-    img.className = first ? "" : "entering";
-    stage.appendChild(img);
-    guardImages(stage);
-    requestAnimationFrame(() => requestAnimationFrame(() => img.classList.remove("entering")));
-    if (old) { old.classList.add("leaving"); setTimeout(() => old.remove(), 260); }
-    viewer.querySelectorAll(".v-thumbs button").forEach((b, i) => b.classList.toggle("on", i === proj.k));
+  function presentSector(sector) {
+    const slides = [
+      { layout: "section", title: sector.name, subtitle: "Sectors" },
+      { layout: "text-photo", title: sector.name, text: sector.intro, image: sector.hero },
+      { layout: "text", title: sector.name, subtitle: "Why it matters",
+        bullets: (sector.points || []).map((p) => (typeof p === "string" ? p : { title: p.title, text: p.text })) }
+    ];
+    (sector.projects || []).forEach((p) => {
+      (p.images || []).filter(Boolean).slice(0, 1).forEach((img) =>
+        slides.push({ layout: "photo-info", image: img, captionHtml: projectCaption(p), theme: themeOf(p.brand) }));
+      if (!(p.images || []).filter(Boolean).length)
+        slides.push({ layout: "photo-info", image: "", captionHtml: projectCaption(p), theme: themeOf(p.brand) });
+    });
+    window.Deck.open(slides, { theme: "general", folder: sector.id });
   }
-
-  function closeProject() {
-    viewer.classList.remove("open");
-    document.body.classList.remove("viewing");
-    proj = null;
-  }
-  viewer.addEventListener("click", (e) => {
-    if (e.target.closest(".brandbtn")) return openMaterial(e.target.closest(".brandbtn").dataset.brand);
-    if (e.target.closest(".v-close")) return closeProject();
-    if (e.target.closest(".v-nav.prev")) return showProjectPhoto(proj.k - 1);
-    if (e.target.closest(".v-nav.next")) return showProjectPhoto(proj.k + 1);
-    const t = e.target.closest(".v-thumbs button");
-    if (t) return showProjectPhoto(+t.dataset.k);
-  });
-
-  // ---------- Material slides (fire, acoustics, sustainability...) ----------
-  const material = $("#material");
-  let slideState = null; // { key, k, n }
 
   function openMaterial(key) {
-    key = brandKey(key);
-    const m = (C.materials || {})[key];
-    const brand = brandOf(key);
-    if (!m) return;
-    const slides = m.slides || [];
-    const folder = "materials/" + key;
-    const media = (src, cls) => src
-      ? `<div class="${cls}"><img data-src-check src="${esc(imgPath(folder, src))}" alt=""></div>`
-      : `<div class="${cls} empty"><span>Add image</span></div>`;
-    const cover = `
-      <section class="m-slide m-cover">
-        <div class="m-copy">
-          <img class="m-logo" src="${esc(brand.logo)}" alt="${esc(brand.name)}">
-          <h2>${esc(m.tagline)}</h2>
-          <p class="m-text">${esc(m.intro)}</p>
-          <ol class="m-index">${slides.map((sl, k) => `<li><button type="button" data-go="${k + 1}"><span class="n">${pad(k + 1)}</span>${esc(sl.title)}</button></li>`).join("")}</ol>
-        </div>
-        ${media(m.image, "m-media")}
-      </section>`;
-    const body = slides.map((sl, k) => `
-      <section class="m-slide">
-        <div class="m-copy">
-          <p class="kicker">${pad(k + 1)} / ${pad(slides.length)}</p>
-          <h2>${esc(sl.title)}</h2>
-          <div class="m-figure ${sl.figure ? "" : "tbd"}">
-            <strong>${esc(sl.figure || "Key figure")}</strong>
-            ${sl.label ? `<span>${esc(sl.label)}</span>` : ""}
-          </div>
-          <p class="m-text">${esc(sl.text)}</p>
-        </div>
-        ${media(sl.image, "m-media")}
-      </section>`).join("");
-    material.className = "material " + key;
-    material.innerHTML = `
-      <header class="m-bar">
-        <img src="${esc(brand.logo)}" alt="${esc(brand.name)}">
-        <nav class="m-dots">${[m.tagline ? "Overview" : "Overview", ...slides.map((s) => s.title)].map((t, k) => `<button type="button" data-go="${k}" aria-label="${esc(t)}"></button>`).join("")}</nav>
-        <button class="m-close" type="button" aria-label="Close"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
-      </header>
-      <div class="m-track">${cover}${body}</div>
-      <div class="m-arrows">
-        <button class="prev" type="button" aria-label="Previous slide"><svg width="20" height="20" viewBox="0 0 20 20"><path d="M12 4l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <button class="next" type="button" aria-label="Next slide"><svg width="20" height="20" viewBox="0 0 20 20"><path d="M8 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      </div>`;
-    guardImages(material);
-    slideState = { key, k: 0, n: slides.length + 1 };
-    goSlide(0);
-    material.classList.add("open");
+    const slides = (C.materials || {})[brandKey(key)];
+    if (slides) window.Deck.open(slides, { theme: brandKey(key), folder: "materials/" + brandKey(key) });
   }
-  function goSlide(k) {
-    slideState.k = Math.max(0, Math.min(slideState.n - 1, k));
-    material.querySelector(".m-track").style.transform = `translateX(${-slideState.k * 100}%)`;
-    material.querySelectorAll(".m-slide").forEach((el, i) => el.classList.toggle("on", i === slideState.k));
-    material.querySelectorAll(".m-dots button").forEach((b, i) => b.classList.toggle("on", i === slideState.k));
-    material.querySelector(".m-arrows .prev").disabled = slideState.k === 0;
-    material.querySelector(".m-arrows .next").disabled = slideState.k === slideState.n - 1;
+
+  function openTopic(id) {
+    if (id === "sectors") { window.Deck.close(); return; }
+    const t = (C.topics || []).find((x) => x.id === id);
+    if (t) window.Deck.open(t.slides, { theme: "general", folder: t.id });
   }
-  function closeMaterial() { material.classList.remove("open"); slideState = null; }
-  material.addEventListener("click", (e) => {
-    if (e.target.closest(".m-close")) return closeMaterial();
-    const go = e.target.closest("[data-go]");
-    if (go) return goSlide(+go.dataset.go);
-    if (e.target.closest(".m-arrows .prev")) return goSlide(slideState.k - 1);
-    if (e.target.closest(".m-arrows .next")) return goSlide(slideState.k + 1);
+
+  // Opening deck: cover + agenda. Closing it (or going past the end) lands in the city.
+  function agendaItems() {
+    return [{ id: "sectors", title: "Sectors" }, ...(C.topics || [])];
+  }
+  function openIntro() {
+    const cv = C.cover || {};
+    const list = `<ol class="s-agenda">${agendaItems().map((t, k) =>
+      `<li><button type="button" data-action="topic" data-arg="${esc(t.id)}"><span class="n">${pad(k + 1)}</span>${esc(t.title)}</button></li>`).join("")}</ol>`;
+    window.Deck.open([
+      { layout: "cover", title: cv.title, subtitle: cv.subtitle, image: cv.image },
+      { layout: "text-photo", title: "Today's agenda", html: list, image: cv.image, text: " " }
+    ], { theme: "general", folder: "cover" });
+  }
+
+  window.Deck.onAction = (action, arg) => {
+    if (action === "material") openMaterial(arg);
+    if (action === "topic") openTopic(arg);
+  };
+
+  // Home screen: agenda + material chips
+  $("#agenda").innerHTML = agendaItems().map((t, k) =>
+    `<li><button type="button" data-topic="${esc(t.id)}" class="${t.id === "sectors" ? "here" : ""}"><span class="n">${pad(k + 1)}</span>${esc(t.title)}</button></li>`).join("");
+  $("#agenda").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-topic]");
+    if (b && b.dataset.topic !== "sectors") openTopic(b.dataset.topic);
   });
+  $("#intro-btn").addEventListener("click", openIntro);
   document.querySelectorAll(".legend [data-brand]").forEach((b) => b.addEventListener("click", () => openMaterial(b.dataset.brand)));
 
   // ---------- Camera animation ----------
@@ -557,21 +498,8 @@
   $("#back").addEventListener("click", overview);
 
   window.addEventListener("keydown", (e) => {
-    const next = ["ArrowRight", "PageDown", " "].includes(e.key);
-    const prev = ["ArrowLeft", "PageUp"].includes(e.key);
-    if (slideState) {                       // material slides are on top
-      if (e.key === "Escape") closeMaterial();
-      else if (next) { e.preventDefault(); goSlide(slideState.k + 1); }
-      else if (prev) { e.preventDefault(); goSlide(slideState.k - 1); }
-      return;
-    }
-    if (proj) {                      // then the project view
-      if (e.key === "Escape") closeProject();
-      else if (proj.imgs.length > 1 && next) { e.preventDefault(); showProjectPhoto(proj.k + 1); }
-      else if (proj.imgs.length > 1 && prev) { e.preventDefault(); showProjectPhoto(proj.k - 1); }
-      return;
-    }
-    if (e.target.closest && e.target.closest("button, [tabindex]") && e.key === " ") return;
+    if (window.Deck.handleKey(e)) return;     // slides are on top
+    if (e.target.closest && e.target.closest("button, [tabindex]") && (e.key === " " || e.key === "Enter")) return;
     const n = buildings.length;
     if (e.key === "Escape" || e.key === "Home") overview();
     else if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") { e.preventDefault(); focus(active < 0 ? 0 : (active + 1) % n); }
@@ -669,4 +597,6 @@
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
+
+  if ((C.cover || {}).showOnStart !== false) openIntro();
 })();

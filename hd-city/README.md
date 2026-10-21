@@ -1,10 +1,14 @@
 # Hunter Douglas – Sector City
 
-An interactive low-poly city where each coloured building is a sector. Click one (or press 1–8, or ← →) to zoom in and see the Derako, HeartFelt and Luxalon projects for that sector. The white buildings are decoration only.
+An interactive presentation in the Hunter Douglas template style. It opens on the cover and agenda slides. Press → to enter the 3D city, where each coloured building is a sector. The white buildings are decoration only.
 
-- **Project view**: click a project card for a large photo with the project info on the right (← → to go through its photos).
-- **Material slides**: click a brand logo, either on the home screen (bottom left), on a project card, or in the project view, to open that material's slides: fire, acoustics, sustainability, design.
-- **Esc** always goes back one step.
+- **Sector**: click a building (or press 1–8) to zoom in. **Present** plays the sector as slides: section divider, intro, points, then one slide per project.
+- **Project**: click a project card for its slides: a large photo with caption, an info slide with details, then any extra photos.
+- **Materials**: click a brand logo (home screen bottom left, project cards, or the project info slide) for that brand's slides: product range, fire, acoustics, sustainability.
+- **Agenda** (top right on the home screen): opens the topic slides (Acoustics, Reaction to fire, ...).
+- In slides: ← → or a clicker to move, Esc to go back. Going past the last slide also goes back.
+
+See **CHECKLIST.md** for what is still missing.
 
 ## Run it
 Double-click `index.html` (Chrome or Edge), then press F11 for full screen. It works offline; only the web fonts need internet (it falls back to Arial without it).
@@ -36,10 +40,8 @@ If a photo name is misspelled, the card shows **"Image not found: …"** with th
 
 Tips: use JPGs about 1800px wide (under ~1 MB each) so it stays fast. Avoid spaces in file names (`my-photo.jpg`, not `my photo.jpg`).
 
-## Material slides
-At the bottom of `content.js`, under `materials`, each brand has an intro and four slides. Per slide:
-`title`, `figure` (the big number, e.g. `"B-s1, d0"`), `label` (small text under it), `text` and `image`.
-Material photos go in `assets/img/materials/derako/` (or `heartfelt` / `luxalon`). Add or remove slides by copying a `{ title: ... }` line.
+## Slides (topics and materials)
+In `content.js`, `topics` (agenda items) and `materials` (per brand) are lists of slides, one line each. Each slide has a `layout` from the Hunter Douglas template: `cover`, `section`, `text-photo`, `text`, `photo-info`, `photo`, `thanks`. The top of content.js lists the fields for each. Copy a line to add a slide.
 
 ## Put it on the website
 Upload the whole `hd-city` folder as it is to any web host. There is no build step.
@@ -48,4 +50,6 @@ Upload the whole `hd-city` folder as it is to any web host. There is no build st
 - `content.js`: all text and photos (**edit this**)
 - `assets/img/<sector>/`: photos per sector
 - `assets/logos/`: brand logos
+- `CHECKLIST.md`: what content is still missing
+- `deck.js`, `deck.css`: the template-style slides
 - `city.js`, `style.css`, `index.html`: the 3D city and layout (no need to touch)
