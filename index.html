@@ -1132,6 +1132,43 @@ body.inf-mode #in:focus{box-shadow:0 0 0 3px rgba(94,240,255,.35),0 0 26px rgba(
 body.inf-mode #screen .cta,body.inf-mode #next{background:linear-gradient(90deg,#b06bff,#5ef0ff)!important;color:#0b0624!important}
 body.inf-mode .lvl-crest,body.inf-mode .lvl-tick.now{background:#5ef0ff}body.inf-mode .lvl-bar i{background:repeating-linear-gradient(90deg,#5ef0ff 0 10px,#2ab8d0 10px 12px)}
 body.inf-mode .seo-info,body.inf-mode footer{display:none}
+/* Infinity batch report and run summary */
+.inf-batch{max-width:520px;margin:0 auto;padding:22px 20px 18px!important;display:flex;flex-direction:column;gap:14px;text-align:left}
+.ib-eye{font:400 12px/1 var(--lab);letter-spacing:.08em;color:#5ef0ff}
+.ib-top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.ib-top>div{display:flex;flex-direction:column}
+.ib-score{font:400 78px/.85 var(--px);color:#fff;font-variant-numeric:tabular-nums;text-shadow:0 0 22px rgba(94,240,255,.35)}
+.ib-top span{font:400 14px var(--lab);color:#c9bff5}
+.ib-verdict{font:400 13px/1.2 var(--lab)!important;color:#0b0624!important;background:var(--vc);padding:7px 10px;border:2px solid #000;box-shadow:3px 3px 0 #000;animation:ib-stamp .32s cubic-bezier(.23,1,.32,1) .5s both}
+@keyframes ib-stamp{from{opacity:0;transform:scale(1.4) rotate(-4deg)}}
+.ib-run{font:400 14px var(--lab);color:#c9bff5}.ib-run b{color:#fff}
+.ib-list{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:ib}
+.ib-list li{position:relative;background:#0f0a33;border:2px solid #2d2580;padding:10px 12px 10px 40px;display:grid;gap:4px;animation:ib-in .35s cubic-bezier(.23,1,.32,1) both}
+.ib-list li::before{counter-increment:ib;content:counter(ib);position:absolute;left:12px;top:10px;font:400 22px/1 var(--px);color:#5a4fb0}
+.ib-list li:nth-child(2){animation-delay:40ms}.ib-list li:nth-child(3){animation-delay:80ms}.ib-list li:nth-child(4){animation-delay:120ms}.ib-list li:nth-child(5){animation-delay:160ms}
+@keyframes ib-in{from{opacity:0;transform:translateY(8px)}}
+.ib-q{font-size:13px;color:#a79ed8;line-height:1.3}
+.ib-a{display:flex;justify-content:space-between;align-items:center;gap:10px}.ib-a b{color:#fff;font-size:16px}
+.ib-a i{flex:none;font:400 11px/1 var(--lab);font-style:normal;color:#0b0624;padding:4px 6px;border:2px solid #000;white-space:nowrap}
+.ib-could{font-size:13px;color:#c9bff5}
+.ib-str{background:#120b40;border:2px solid #5ef0ff;padding:12px 14px;display:grid;gap:8px}
+.ib-h{font:400 12px/1 var(--lab);letter-spacing:.06em;color:#5ef0ff}
+.ib-str p{margin:0;font-size:15px;color:#e6e0ff}.ib-str p b{color:#fff}
+.ib-bars{display:grid;gap:6px}
+.ib-bar{display:grid;grid-template-columns:minmax(0,9.5em) minmax(0,1fr) 2.2em;align-items:center;gap:8px;font-size:13px;color:#c9bff5}
+.ib-bar b{font:400 18px/1 var(--px);color:#fff;text-align:right}
+.ib-track{height:10px;background:#0b0624;border:2px solid #2d2580;display:block;overflow:hidden}
+.ib-track i{display:block;height:100%;transform-origin:left;transform:scaleX(var(--w));animation:ib-grow .6s cubic-bezier(.23,1,.32,1) both}
+@keyframes ib-grow{from{transform:scaleX(0)}}
+.ib-note{font:400 11px var(--lab);color:#8f86c2}
+.ib-prog{height:8px;background:#0b0624;border:2px solid #2d2580;display:block}.ib-prog i{display:block;height:100%;background:#5ef0ff;transform-origin:left}
+.ib-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.ib-tiles div{background:#0f0a33;border:2px solid #2d2580;padding:10px;display:flex;flex-direction:column;gap:4px;text-align:center}
+.ib-tiles b{font:400 30px/1 var(--px);color:#fff}.ib-tiles span{font:400 11px var(--lab);color:#a79ed8}
+.ib-bestans{margin:0;font-size:14px;color:#c9bff5}.ib-bestans b{color:#fff}
+.inf-batch .cta{width:100%;min-height:56px}
+.ib-end{align-self:center;background:none!important;border:0!important;box-shadow:none!important;color:#c9bff5!important;text-decoration:underline;font-size:14px!important;padding:6px!important}
+@media (prefers-reduced-motion:reduce){.ib-list li,.ib-track i,.ib-verdict{animation:none}}
 /* Infinity paywall */
 .inf-pay{max-width:460px;margin:0 auto;padding:26px 22px 20px!important;display:flex;flex-direction:column;align-items:center;gap:12px}
 .ip-hero{position:relative;width:150px;height:125px}
@@ -2027,6 +2064,52 @@ async function infPool(){const today=amsterdamDay(),days=[];for(const d=new Date
  let list=[...all.values()];const seen=infSeenGet(),fresh=list.filter(q=>!seen.has(q.id||q._id));if(fresh.length)list=fresh;else{try{localStorage.removeItem('uc-inf-seen')}catch{}}
  for(let i=list.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[list[i],list[j]]=[list[j],list[i]]}
  return list.map(b=>toGame({...b,_id:'inf:'+(b.id||b._id)}))}
+// ── Infinity reports: a batch report every 5 questions, a run summary when you leave, and what you're best at over time ──
+const INF_CATS=[['Premier League',/premier league|arsenal|chelsea|liverpool|tottenham|manchester|man utd|man united|man city|everton|newcastle|west ham|aston villa|leeds|fa cup/i],
+ ['La Liga',/la ?liga|barcelona|real madrid|atl[eé]tico|sevilla|valencia|villarreal|athletic|copa del rey|spanish/i],
+ ['Serie A',/serie a|juventus|\binter\b|milan|napoli|\broma\b|lazio|fiorentina|italian/i],
+ ['Bundesliga',/bundesliga|bayern|dortmund|leverkusen|leipzig|schalke|german/i],
+ ['Ligue 1',/ligue 1|\bpsg\b|paris|marseille|lyon|monaco|lille|french/i],
+ ['Champions League',/champions league|europa league|european cup/i],
+ ['World Cup & Euros',/world cup|\beuros?\b|euro 20|copa am[eé]rica|nations league|international|capped|caps/i],
+ ["Ballon d'Or & awards",/ballon|golden boot|award|player of the|top scorer|top ten/i]];
+const infCat=q=>{const t=q.prompt+' '+(q.sub||'');for(const[c,re]of INF_CATS)if(re.test(t))return c;return{country:'Nations',club:'Clubs',manager:'Managers',stadium:'Stadiums'}[q.answer_type]||'Players'};
+const catL=c=>ES?({'World Cup & Euros':'Mundial y Euro',"Ballon d'Or & awards":'Balón de Oro y premios',Nations:'Selecciones',Clubs:'Clubes',Managers:'Entrenadores',Stadiums:'Estadios',Players:'Jugadores'}[c]||c):c;
+const infStats=()=>{try{return JSON.parse(localStorage.getItem('uc-inf-stats')||'{}')}catch{return{}}};
+function infStatAdd(q,pts){const s=infStats(),c=infCat(q);s[c]=s[c]||{n:0,p:0};s[c].n++;s[c].p+=pts;try{localStorage.setItem('uc-inf-stats',JSON.stringify(s))}catch{}}
+const tcol=p=>p?(TCOL[p]||TIER_COLS[Math.max(0,tierIdx(p))]||'#cfd8e6'):'#ff6b6b';
+// what you could have said: a rarer answer or two, or for a miss the obvious one and a rare one
+function couldHave(r){const a=[...r.q.answers].sort((x,y)=>y.pts-x.pts);if(!a.length)return'';
+ const pick=!r.ans?[a[a.length-1],a[0]].filter((x,i,l)=>l.indexOf(x)===i):a.filter(x=>x.pts>r.pts).slice(0,2);
+ if(!pick.length)return'';return`<span class="ib-could">${!r.ans?L('You could have said','Podrías haber dicho'):L('Rarer','Más raro')}: ${pick.map(x=>`<b style="color:${tcol(x.pts)}">${esc(an(x))}</b>`).join(L(' or ',' o '))}</span>`}
+function verdict(avg){return avg>=70?[L("Ballon d'Or brain",'Cerebro de Balón de Oro'),'#f2c230']:avg>=50?[L('Proper ball knowledge','Sabes de fútbol de verdad'),'#ff7ac8']:avg>=30?[L('Solid. Keep digging','Sólido. Sigue rascando'),'#b48cff']:[L('Warming up','Calentando'),'#7fe0a8']}
+// strengths: best and weakest competitions over every Infinity question you've played (needs 10)
+function strengthsHTML(){const s=infStats(),all=Object.entries(s),tot=all.reduce((t,[,v])=>t+v.n,0);
+ if(tot<10)return`<div class="ib-str ib-lock"><span class="ib-h">${L('YOUR STRENGTHS','TUS PUNTOS FUERTES')}</span><p>${L(`Answer ${10-tot} more to see which leagues you know best.`,`Responde ${10-tot} más para ver qué ligas dominas.`)}</p><span class="ib-prog"><i style="transform:scaleX(${tot/10})"></i></span></div>`;
+ const rows=all.filter(([,v])=>v.n>=2).map(([c,v])=>[c,Math.round(v.p/v.n),v.n]).sort((a,b)=>b[1]-a[1]);if(!rows.length)return'';
+ const best=rows[0],worst=rows.length>1?rows[rows.length-1]:null;
+ return`<div class="ib-str"><span class="ib-h">${L('YOUR STRENGTHS','TUS PUNTOS FUERTES')} · ${tot} ${L('QUESTIONS','PREGUNTAS')}</span>
+  <p class="ib-best">${L('You know','Dominas')} <b>${catL(best[0])}</b> ${L('best','sobre todo')}${worst&&worst[1]<best[1]?`. ${L('Weak spot','Punto débil')}: <b>${catL(worst[0])}</b>`:''}.</p>
+  <div class="ib-bars">${rows.slice(0,6).map(([c,a,n],i)=>`<div class="ib-bar"><span>${catL(c)}</span><span class="ib-track"><i style="--w:${Math.min(1,a/100)};background:${TIER_COLS[a>=85?3:a>=60?2:a>=30?1:0]};animation-delay:${200+i*60}ms"></i></span><b>${a}</b></div>`).join('')}</div>
+  <span class="ib-note">${L('Average points per answer','Puntos medios por respuesta')}</span></div>`}
+function infBatch(){document.body.classList.remove('playing');const b=Math.floor(qi/5),from=b*5,rs=results.slice(from,qi+1).filter(Boolean),bs=rs.reduce((t,r)=>t+r.pts,0),avg=Math.round(bs/Math.max(1,rs.length)),[vt,vc]=verdict(avg);
+ track('infinity_batch',{batch:b+1,score:bs});
+ swap(`<div class="card inf-batch"><span class="ib-eye">${L('BATCH','TANDA')} ${b+1} · ${L('QUESTIONS','PREGUNTAS')} ${from+1}–${qi+1}</span>
+  <div class="ib-top"><div><b class="ib-score" id="ib-sc">0</b><span>${L('points this batch','puntos en esta tanda')}</span></div><span class="ib-verdict" style="--vc:${vc}">${vt}</span></div>
+  <div class="ib-run">${L('Run total','Total de la partida')} <b>${score}</b> · ${qi+1} ${L('answered','respondidas')}</div>
+  <ol class="ib-list">${rs.map(r=>`<li><span class="ib-q">${qt(r.q,'prompt')}</span><span class="ib-a"><b>${r.ans?esc(an(r.ans)):L('No answer','Sin respuesta')}</b><i style="background:${tcol(r.pts)}">${r.ans?tl(tierName(r.pts))+' '+r.pts:'0'}</i></span>${couldHave(r)}</li>`).join('')}</ol>
+  ${strengthsHTML()}
+  <button type="button" class="cta" id="ib-next">${L('Next batch','Siguiente tanda')} ▸</button>
+  <button type="button" class="ib-end" data-inf-exit>${L('End run','Terminar partida')}</button></div>`,()=>{countUp(document.getElementById('ib-sc'),bs,700,'');document.getElementById('ib-next').onclick=()=>{qi++;playSfx('whoosh');ask(true)}})}
+function infSummary(){document.body.classList.remove('playing');const rs=results.filter(Boolean),n=rs.length,avg=Math.round(score/Math.max(1,n)),best=[...rs].sort((a,b)=>b.pts-a.pts)[0],hits=rs.filter(r=>r.ans).length,[vt,vc]=verdict(avg);
+ track('infinity_run_end',{score,questions:n});
+ swap(`<div class="card inf-batch inf-sum"><span class="ib-eye">${L('RUN OVER','FIN DE LA PARTIDA')}</span>
+  <div class="ib-top"><div><b class="ib-score" id="ib-sc">0</b><span>${L('points in','puntos en')} ${n} ${L('questions','preguntas')}</span></div><span class="ib-verdict" style="--vc:${vc}">${vt}</span></div>
+  <div class="ib-tiles"><div><b>${avg}</b><span>${L('avg per answer','media por respuesta')}</span></div><div><b>${hits}/${n}</b><span>${L('answered','respondidas')}</span></div><div><b style="color:${tcol(best?.pts||0)}">${best?.pts||0}</b><span>${L('best answer','mejor respuesta')}</span></div></div>
+  ${best&&best.ans?`<p class="ib-bestans">${L('Best answer','Mejor respuesta')}: <b>${esc(an(best.ans))}</b> · ${qt(best.q,'prompt')}</p>`:''}
+  ${strengthsHTML()}
+  <button type="button" class="cta" id="ib-again">${L('Keep going','Seguir jugando')} ▸</button>
+  <button type="button" class="ib-end" data-inf-exit data-final="1">${L('Back to home','Volver al inicio')}</button></div>`,()=>{countUp(document.getElementById('ib-sc'),score,900,'');document.getElementById('ib-again').onclick=()=>{if(qi+1<Q.length){qi++;ask(true)}else infEndless()}})}
 async function infEndless(){INF.endless=true;let qs=[];try{qs=await infPool()}catch{}
  if(!qs.length)return swap(`<div class="card inf-wall"><div class="inf-big">∞</div><h2>${L('Lost in space','Perdidos en el espacio')}</h2><p>${L("We couldn't load the questions. Check your connection and try again.",'No hemos podido cargar las preguntas. Revisa tu conexión y vuelve a intentarlo.')}</p><div class="row"><button type="button" class="ghost" data-inf-exit>${L('Back to home','Volver al inicio')}</button></div></div>`);
  Q=qs;qi=0;score=0;results=[];lvlLast=-1;setMeter();
@@ -2057,7 +2140,7 @@ function infIntro(){swap(`<div class="card inf-intro"><div class="inf-big">∞</
   <button type="button" class="cta" id="inf-go">${L('To infinity and beyond 🚀','Hasta el infinito y más allá 🚀')}</button>
   <div class="row"><button type="button" class="ghost" data-inf-exit>${L('Back to home','Volver al inicio')}</button></div></div>`,()=>{track('infinity_intro',{});document.getElementById('inf-go').onclick=()=>{track('infinity_start',{});ask()}})}
 // leave Infinity from any of its screens
-document.addEventListener('click',e=>{const x=e.target.closest('[data-inf-exit]');if(!x||!INF)return;track('infinity_exit',{at:document.body.classList.contains('playing')?'question '+(qi+1):'intro'});window.scrollTo({top:0});start()});
+document.addEventListener('click',e=>{const x=e.target.closest('[data-inf-exit]');if(!x||!INF)return;if(INF.endless&&!x.dataset.final&&results.filter(Boolean).length){e.preventDefault();return infSummary()}track('infinity_exit',{at:document.body.classList.contains('playing')?'question '+(qi+1):'intro'});window.scrollTo({top:0});start()});
 function infEnd(){if(INF&&INF.endless){track('infinity_all_done',{score});document.body.classList.remove('playing');return swap(`<div class="card inf-wall"><div class="inf-big">∞</div><h2>${L('You played them all!','¡Las has jugado todas!')}</h2><p class="inf-run">${L('Your run','Tu partida')}: <b>${score}</b></p><p>${L('That was every question from every past day. Five more join tomorrow, and the queue starts again from the top.','Eran todas las preguntas de todos los días anteriores. Mañana se suman cinco más y la cola vuelve a empezar.')}</p><div class="row"><button type="button" class="ghost" data-inf-exit>${L('Back to home','Volver al inicio')}</button></div></div>`)}
  try{localStorage.setItem(infKey(),String(score))}catch{}track('infinity_finish',{score});
  swap(`<div class="card inf-load"><div class="inf-big">∞</div><p>${L('Loading question 6…','Cargando la pregunta 6…')}</p></div>`,()=>setTimeout(()=>infWall(false),1200))}
@@ -2101,7 +2184,7 @@ function ask(slide){calmDown();document.body.classList.remove('results-view');do
   track('rejected',{question_id:q.id||slug(q.prompt),prompt:q.prompt,input:typed,matched_known_player:matchedKnown,outcome,position:qi+1,set_id:dailySetId()});
   msg.className='msg bad';msg.textContent=ES?(r==='ambiguous'?(isPersonAnswerType(q.answer_type)?'Encaja más de una persona. Escribe más del nombre.':'Encaja más de una respuesta. Sé más concreto.'):matchedKnown?`Conocemos ${ansEs(q,1)}, pero no está en esta lista.`:`No reconocemos ${ansEs(q,1)}.`):r==='ambiguous'?(isPersonAnswerType(q.answer_type)?'More than one person fits. Add more of the name.':'More than one answer fits. Be more specific.'):matchedKnown?`Recognised ${answerLabel(q)}, but not on this list.`:`Didn't recognise that ${answerLabel(q)}.`;
   playSfx('buzz');inp.classList.remove('shake');void inp.offsetWidth;inp.classList.add('shake');inp.select()}},slide)}
-function reveal(ans){if(results[qi])return;const q=Q[qi];const pts=ans?ans.pts:0;const before=zoneOf(score);score+=pts;results[qi]={q,ans,pts};const after=zoneOf(score);
+function reveal(ans){if(results[qi])return;const q=Q[qi];const pts=ans?ans.pts:0;const before=zoneOf(score);score+=pts;results[qi]={q,ans,pts};if(INF&&INF.endless)infStatAdd(q,pts);const after=zoneOf(score);
  swap(`<div class="card"><div class="reveal-top"><div class="mute">${qt(q,'prompt')}</div><div class="sprite mid-sprite hold" id="mascot" data-mood="${!ans?'sad':pts>=64?'wow':'happy'}"></div><div class="scream-bubble${ans?'':' stink'}" id="bubble">${ans?'AAAAAH!':L('What a stinker!','¡Qué fallo!')}</div></div>
  <div class="gauge trailg" id="gauge"><canvas class="gfx" id="gfx" aria-hidden="true"></canvas><div class="gbar"><canvas class="gtrail" id="gtrail" aria-hidden="true"></canvas>${TIERS.slice(0,-1).map(t=>`<i class="gdiv" style="left:${t[0]}%"></i>`).join('')}<span class="glab hold" id="glabel">${tl('Tap-in')}</span><i class="guni hold" id="guni" aria-hidden="true"></i></div><div class="gpts">${TIERS.map((t,i)=>`<span data-i="${i}" style="left:${t[0]}%">${t[0]}</span>`).join('')}</div></div>
  ${ans?`<div class="tier hold" id="tn">${pts===100?L("SCREAMER!!!",'¡QUÉ CHICHARRO!'):tl(tierName(pts))}</div><div class="pts hold" id="pl">${an(ans)} · <span id="pc">+0</span> ${L('points','puntos')}</div>`:`<div class="tier wipe" style="color:var(--mute)">${L('Missed','Fallada')}</div><div class="pts">${L('No answer','Sin respuesta')} · +0</div>`}
@@ -2169,7 +2252,7 @@ function reveal(ans){if(results[qi])return;const q=Q[qi];const pts=ans?ans.pts:0
    uni.style.opacity=op;uni.style.transform=`translate(${Math.round(cx-uw/2+px)}px,${Math.round(uy+py)}px) rotate(${Math.round(rot)}deg)${fly?` scale(${(1+Math.min(.15,a*.3)).toFixed(3)})`:''}`;
    requestAnimationFrame(step)};
   requestAnimationFrame(step)}
-const n=nx;n.onclick=()=>{qi++;if(qi<Q.length){playSfx('whoosh');ask(true)}else if(INF)infEnd();else end()}})}
+const n=nx;if(INF&&INF.endless&&(qi+1)%5===0&&qi+1<Q.length)n.textContent=L('See your batch','Ver tu tanda');n.onclick=()=>{if(INF&&INF.endless&&(qi+1)%5===0&&qi+1<Q.length)return infBatch();qi++;if(qi<Q.length){playSfx('whoosh');ask(true)}else if(INF)infEnd();else end()}})}
 /* result screen social loop */
 function end(restored){
  document.body.classList.add('results-view');
