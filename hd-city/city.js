@@ -300,84 +300,215 @@
     heartfelt: { name: "HeartFelt", logo: "assets/logos/heartfelt.png" },
     luxalon:   { name: "Luxalon",   logo: "assets/logos/luxalon.png" }
   };
+  const brandKey = (b) => String(b || "").toLowerCase();
+  const brandOf = (b) => BRANDS[brandKey(b)] || { name: b, logo: "" };
   const panel = $("#panel");
   const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  // "photo.jpg" → "assets/img/<sector>/photo.jpg"; full paths are left alone
-  const imgPath = (sector, f) => (!f ? "" : f.includes("/") ? f : `assets/img/${sector.id}/${f}`);
-  let projectImages = [];
+  // "photo.jpg" → "assets/img/<folder>/photo.jpg"; full paths are left alone
+  const imgPath = (folder, f) => (!f ? "" : f.includes("/") ? f : `assets/img/${folder}/${f}`);
+  const pad = (n) => String(n).padStart(2, "0");
+
+  // A wrong file name shows a clear message instead of a broken image
+  function guardImages(root) {
+    root.querySelectorAll("img[data-src-check]").forEach((img) => {
+      img.addEventListener("error", () => {
+        const box = img.parentElement;
+        box.classList.add("missing");
+        box.innerHTML = `<span>Image not found:<br>${esc(img.getAttribute("src"))}</span>`;
+      }, { once: true });
+    });
+  }
 
   function renderPanel(sector) {
-    projectImages = [];
     const projects = (sector.projects || []).length
-      ? sector.projects.map((p) => {
-          const brand = BRANDS[String(p.brand).toLowerCase()] || { name: p.brand, logo: "" };
-          const imgs = (p.images || []).filter(Boolean).map((f) => imgPath(sector, f));
-          const gi = projectImages.push({ imgs, title: p.title }) - 1;
+      ? sector.projects.map((p, pi) => {
+          const brand = brandOf(p.brand);
+          const imgs = (p.images || []).filter(Boolean);
           const sub = [p.location, p.year].filter(Boolean).join(" · ");
           return `
-          <article class="project ${esc(String(p.brand).toLowerCase())}">
-            <div class="ph ${imgs.length ? "" : "empty"}" data-gallery="${gi}">
-              ${imgs.length ? `<img src="${esc(imgs[0])}" alt="${esc(p.title)}">` : "Add photo"}
-              ${imgs.length > 1 ? `<span class="count">${imgs.length} photos</span>` : ""}
+          <article class="project ${esc(brandKey(p.brand))}" data-project="${pi}" tabindex="0">
+            <div class="ph ${imgs.length ? "" : "empty"}">
+              ${imgs.length ? `<img data-src-check src="${esc(imgPath(sector.id, imgs[0]))}" alt="">` : "<span>Add photo</span>"}
             </div>
             <div class="meta">
-              ${brand.logo ? `<img class="brandlogo" src="${esc(brand.logo)}" alt="${esc(brand.name)}">` : `<span class="t">${esc(brand.name)}</span>`}
+              <button class="brandbtn" type="button" data-brand="${esc(brandKey(p.brand))}" aria-label="About ${esc(brand.name)}">
+                ${brand.logo ? `<img src="${esc(brand.logo)}" alt="${esc(brand.name)}">` : esc(brand.name)}
+              </button>
               <span class="t">${esc(p.title)}</span>
               ${sub ? `<span class="p">${esc(sub)}</span>` : ""}
-              ${p.text ? `<span class="d">${esc(p.text)}</span>` : ""}
+              <span class="more">View project <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </div>
           </article>`;
         }).join("")
       : `<p class="empty-note">Projects for this sector coming soon. Add them in <code>content.js</code>.</p>`;
     const hero = sector.hero
-      ? `<img src="${esc(imgPath(sector, sector.hero))}" alt="">`
+      ? `<img data-src-check src="${esc(imgPath(sector.id, sector.hero))}" alt="">`
       : `<div class="hero-empty"></div>`;
     const points = sector.points || [];
     panel.innerHTML = `
-      <div class="hero">${hero}<span class="eyebrow">Sector</span></div>
+      <div class="hero">${hero}</div>
       <div class="body stagger">
+        <p class="kicker" style="--i:0">Sector ${pad(active + 1)}</p>
         <h2 style="--i:0">${esc(sector.name)}</h2>
         <p class="lead" style="--i:1">${esc(sector.intro)}</p>
-        ${points.length ? `<ul class="points" style="--i:2">${points.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>` : ""}
-        <h3 style="--i:3">What we've made</h3>
+        ${points.length ? `<ol class="points" style="--i:2">${points.map((p, k) => `<li><span class="n">${pad(k + 1)}</span>${esc(p)}</li>`).join("")}</ol>` : ""}
+        <h3 style="--i:3">Projects</h3>
         <div class="projects" style="--i:4">${projects}</div>
       </div>`;
-    // A wrong file name shows a clear message instead of a broken image
-    panel.querySelectorAll(".hero img, .ph img").forEach((img) => {
-      img.addEventListener("error", () => {
-        const box = img.parentElement;
-        box.classList.add("empty", "missing");
-        box.textContent = "Image not found: " + img.getAttribute("src");
-      });
-    });
+    guardImages(panel);
     panel.scrollTop = 0;
   }
 
-  // Lightbox with all photos of a project (← → to browse)
-  const lb = $("#lightbox");
-  let gallery = null;
-  function showPhoto(k) {
-    gallery.k = (k + gallery.imgs.length) % gallery.imgs.length;
-    lb.querySelector("img").src = gallery.imgs[gallery.k];
-    lb.querySelector(".cap").textContent = gallery.imgs.length > 1
-      ? `${gallery.title} · ${gallery.k + 1} / ${gallery.imgs.length}` : gallery.title;
-    lb.classList.toggle("multi", gallery.imgs.length > 1);
-  }
-  const closeLightbox = () => { lb.classList.remove("open"); gallery = null; };
   panel.addEventListener("click", (e) => {
-    const ph = e.target.closest(".ph[data-gallery]");
-    if (!ph || ph.classList.contains("empty")) return;
-    const g = projectImages[+ph.dataset.gallery];
-    if (!g.imgs.length) return;
-    gallery = { ...g, k: 0 };
-    showPhoto(0);
-    lb.classList.add("open");
+    const bb = e.target.closest(".brandbtn");
+    if (bb) { e.stopPropagation(); return openMaterial(bb.dataset.brand); }
+    const card = e.target.closest(".project[data-project]");
+    if (card) openProject(buildings[active].sector, +card.dataset.project);
   });
-  lb.addEventListener("click", (e) => {
-    if (e.target.closest(".prev")) return showPhoto(gallery.k - 1);
-    if (e.target.closest(".next")) return showPhoto(gallery.k + 1);
-    closeLightbox();
+  panel.addEventListener("keydown", (e) => {
+    const card = e.target.closest(".project[data-project]");
+    if (card && e.key === "Enter") { e.stopPropagation(); openProject(buildings[active].sector, +card.dataset.project); }
   });
+
+  // ---------- Project view: large photo + info on the right ----------
+  const viewer = $("#viewer");
+  let proj = null; // { sector, project, imgs, k }
+
+  function openProject(sector, pi) {
+    const p = sector.projects[pi];
+    const brand = brandOf(p.brand);
+    const imgs = (p.images || []).filter(Boolean).map((f) => imgPath(sector.id, f));
+    proj = { sector, p, imgs, k: 0 };
+    const details = Object.entries(p.details || {});
+    viewer.className = "viewer " + brandKey(p.brand);
+    viewer.innerHTML = `
+      <div class="v-media">
+        <div class="v-stage">${imgs.length ? "" : `<div class="v-empty"><span>Add photos in content.js</span></div>`}</div>
+        ${imgs.length > 1 ? `
+          <button class="v-nav prev" type="button" aria-label="Previous photo"><svg width="20" height="20" viewBox="0 0 20 20"><path d="M12 4l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="v-nav next" type="button" aria-label="Next photo"><svg width="20" height="20" viewBox="0 0 20 20"><path d="M8 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="v-thumbs">${imgs.map((src, k) => `<button type="button" data-k="${k}" aria-label="Photo ${k + 1}"><img src="${esc(src)}" alt=""></button>`).join("")}</div>` : ""}
+      </div>
+      <div class="v-info">
+        <button class="v-close" type="button" aria-label="Close project"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+        <p class="kicker">${esc(sector.name)}</p>
+        <h2>${esc(p.title)}</h2>
+        ${[p.location, p.year].filter(Boolean).length ? `<p class="v-sub">${esc([p.location, p.year].filter(Boolean).join(" · "))}</p>` : ""}
+        ${p.text ? `<p class="v-text">${esc(p.text)}</p>` : ""}
+        ${details.length ? `<dl class="v-specs">${details.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v ? esc(v) : '<span class="tbd">—</span>'}</dd></div>`).join("")}</dl>` : ""}
+        <button class="v-brand brandbtn" type="button" data-brand="${esc(brandKey(p.brand))}">
+          ${brand.logo ? `<img src="${esc(brand.logo)}" alt="${esc(brand.name)}">` : esc(brand.name)}
+          <span>Fire, acoustics &amp; sustainability</span>
+          <svg width="14" height="14" viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>`;
+    if (imgs.length) showProjectPhoto(0, true);
+    viewer.classList.add("open");
+    document.body.classList.add("viewing");
+  }
+
+  function showProjectPhoto(k, first) {
+    const n = proj.imgs.length;
+    proj.k = (k + n) % n;
+    const stage = viewer.querySelector(".v-stage");
+    const old = stage.querySelector("img");
+    const img = new Image();
+    img.alt = proj.p.title;
+    img.setAttribute("data-src-check", "");
+    img.src = proj.imgs[proj.k];
+    img.className = first ? "" : "entering";
+    stage.appendChild(img);
+    guardImages(stage);
+    requestAnimationFrame(() => requestAnimationFrame(() => img.classList.remove("entering")));
+    if (old) { old.classList.add("leaving"); setTimeout(() => old.remove(), 260); }
+    viewer.querySelectorAll(".v-thumbs button").forEach((b, i) => b.classList.toggle("on", i === proj.k));
+  }
+
+  function closeProject() {
+    viewer.classList.remove("open");
+    document.body.classList.remove("viewing");
+    proj = null;
+  }
+  viewer.addEventListener("click", (e) => {
+    if (e.target.closest(".brandbtn")) return openMaterial(e.target.closest(".brandbtn").dataset.brand);
+    if (e.target.closest(".v-close")) return closeProject();
+    if (e.target.closest(".v-nav.prev")) return showProjectPhoto(proj.k - 1);
+    if (e.target.closest(".v-nav.next")) return showProjectPhoto(proj.k + 1);
+    const t = e.target.closest(".v-thumbs button");
+    if (t) return showProjectPhoto(+t.dataset.k);
+  });
+
+  // ---------- Material slides (fire, acoustics, sustainability...) ----------
+  const material = $("#material");
+  let slideState = null; // { key, k, n }
+
+  function openMaterial(key) {
+    key = brandKey(key);
+    const m = (C.materials || {})[key];
+    const brand = brandOf(key);
+    if (!m) return;
+    const slides = m.slides || [];
+    const folder = "materials/" + key;
+    const media = (src, cls) => src
+      ? `<div class="${cls}"><img data-src-check src="${esc(imgPath(folder, src))}" alt=""></div>`
+      : `<div class="${cls} empty"><span>Add image</span></div>`;
+    const cover = `
+      <section class="m-slide m-cover">
+        <div class="m-copy">
+          <img class="m-logo" src="${esc(brand.logo)}" alt="${esc(brand.name)}">
+          <h2>${esc(m.tagline)}</h2>
+          <p class="m-text">${esc(m.intro)}</p>
+          <ol class="m-index">${slides.map((sl, k) => `<li><button type="button" data-go="${k + 1}"><span class="n">${pad(k + 1)}</span>${esc(sl.title)}</button></li>`).join("")}</ol>
+        </div>
+        ${media(m.image, "m-media")}
+      </section>`;
+    const body = slides.map((sl, k) => `
+      <section class="m-slide">
+        <div class="m-copy">
+          <p class="kicker">${pad(k + 1)} / ${pad(slides.length)}</p>
+          <h2>${esc(sl.title)}</h2>
+          <div class="m-figure ${sl.figure ? "" : "tbd"}">
+            <strong>${esc(sl.figure || "Key figure")}</strong>
+            ${sl.label ? `<span>${esc(sl.label)}</span>` : ""}
+          </div>
+          <p class="m-text">${esc(sl.text)}</p>
+        </div>
+        ${media(sl.image, "m-media")}
+      </section>`).join("");
+    material.className = "material " + key;
+    material.innerHTML = `
+      <header class="m-bar">
+        <img src="${esc(brand.logo)}" alt="${esc(brand.name)}">
+        <nav class="m-dots">${[m.tagline ? "Overview" : "Overview", ...slides.map((s) => s.title)].map((t, k) => `<button type="button" data-go="${k}" aria-label="${esc(t)}"></button>`).join("")}</nav>
+        <button class="m-close" type="button" aria-label="Close"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+      </header>
+      <div class="m-track">${cover}${body}</div>
+      <div class="m-arrows">
+        <button class="prev" type="button" aria-label="Previous slide"><svg width="20" height="20" viewBox="0 0 20 20"><path d="M12 4l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="next" type="button" aria-label="Next slide"><svg width="20" height="20" viewBox="0 0 20 20"><path d="M8 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>`;
+    guardImages(material);
+    slideState = { key, k: 0, n: slides.length + 1 };
+    goSlide(0);
+    material.classList.add("open");
+  }
+  function goSlide(k) {
+    slideState.k = Math.max(0, Math.min(slideState.n - 1, k));
+    material.querySelector(".m-track").style.transform = `translateX(${-slideState.k * 100}%)`;
+    material.querySelectorAll(".m-slide").forEach((el, i) => el.classList.toggle("on", i === slideState.k));
+    material.querySelectorAll(".m-dots button").forEach((b, i) => b.classList.toggle("on", i === slideState.k));
+    material.querySelector(".m-arrows .prev").disabled = slideState.k === 0;
+    material.querySelector(".m-arrows .next").disabled = slideState.k === slideState.n - 1;
+  }
+  function closeMaterial() { material.classList.remove("open"); slideState = null; }
+  material.addEventListener("click", (e) => {
+    if (e.target.closest(".m-close")) return closeMaterial();
+    const go = e.target.closest("[data-go]");
+    if (go) return goSlide(+go.dataset.go);
+    if (e.target.closest(".m-arrows .prev")) return goSlide(slideState.k - 1);
+    if (e.target.closest(".m-arrows .next")) return goSlide(slideState.k + 1);
+  });
+  document.querySelectorAll(".legend [data-brand]").forEach((b) => b.addEventListener("click", () => openMaterial(b.dataset.brand)));
 
   // ---------- Camera animation ----------
   let anim = null;
@@ -426,12 +557,21 @@
   $("#back").addEventListener("click", overview);
 
   window.addEventListener("keydown", (e) => {
-    if (gallery) {
-      if (e.key === "Escape") closeLightbox();
-      else if (e.key === "ArrowRight") showPhoto(gallery.k + 1);
-      else if (e.key === "ArrowLeft") showPhoto(gallery.k - 1);
+    const next = ["ArrowRight", "PageDown", " "].includes(e.key);
+    const prev = ["ArrowLeft", "PageUp"].includes(e.key);
+    if (slideState) {                       // material slides are on top
+      if (e.key === "Escape") closeMaterial();
+      else if (next) { e.preventDefault(); goSlide(slideState.k + 1); }
+      else if (prev) { e.preventDefault(); goSlide(slideState.k - 1); }
       return;
     }
+    if (proj) {                      // then the project view
+      if (e.key === "Escape") closeProject();
+      else if (proj.imgs.length > 1 && next) { e.preventDefault(); showProjectPhoto(proj.k + 1); }
+      else if (proj.imgs.length > 1 && prev) { e.preventDefault(); showProjectPhoto(proj.k - 1); }
+      return;
+    }
+    if (e.target.closest && e.target.closest("button, [tabindex]") && e.key === " ") return;
     const n = buildings.length;
     if (e.key === "Escape" || e.key === "Home") overview();
     else if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") { e.preventDefault(); focus(active < 0 ? 0 : (active + 1) % n); }

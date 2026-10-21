@@ -22,10 +22,11 @@
     </div>
   </header>
 
-  <nav class="legend" aria-label="Brands">
-    <span class="chip derako"><img src="assets/logos/derako.png" alt="Derako"></span>
-    <span class="chip heartfelt"><img src="assets/logos/heartfelt.png" alt="HeartFelt"></span>
-    <span class="chip luxalon"><img src="assets/logos/luxalon.png" alt="Luxalon"></span>
+  <nav class="legend" aria-label="Materials">
+    <span class="legend-label">Materials</span>
+    <button type="button" class="chip derako" data-brand="derako" aria-label="Derako material specs"><img src="assets/logos/derako.png" alt="Derako"></button>
+    <button type="button" class="chip heartfelt" data-brand="heartfelt" aria-label="HeartFelt material specs"><img src="assets/logos/heartfelt.png" alt="HeartFelt"></button>
+    <button type="button" class="chip luxalon" data-brand="luxalon" aria-label="Luxalon material specs"><img src="assets/logos/luxalon.png" alt="Luxalon"></button>
   </nav>
 
   <button class="back" id="back" type="button" aria-label="Back to city">
@@ -35,13 +36,10 @@
 
   <aside class="panel" id="panel" aria-live="polite"></aside>
 
-  <div class="lightbox" id="lightbox">
-    <button class="nav prev" type="button" aria-label="Previous photo">‹</button>
-    <figure><img alt=""><figcaption class="cap"></figcaption></figure>
-    <button class="nav next" type="button" aria-label="Next photo">›</button>
-  </div>
+  <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Project"></div>
+  <div class="material" id="material" role="dialog" aria-modal="true" aria-label="Material"></div>
 
-  <p class="hint">Click a building · ← → to move · Esc to go back</p>
+  <p class="hint">Click a building or a material · ← → to move · Esc to go back</p>
 
   <script src="vendor/three.min.js"></script>
   <script src="content.js"></script>
