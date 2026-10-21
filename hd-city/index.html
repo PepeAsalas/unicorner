@@ -14,7 +14,7 @@
 
   <header class="topbar">
     <div class="brandmark">
-      <img src="assets/img/hd-logo.png" alt="Hunter Douglas Architectural">
+      <img src="assets/logos/hunter-douglas.png" alt="Hunter Douglas Architectural">
     </div>
     <div class="intro" id="intro">
       <h1 id="title"></h1>
@@ -23,9 +23,9 @@
   </header>
 
   <nav class="legend" aria-label="Brands">
-    <span class="dot derako"></span>Derako
-    <span class="dot heartfelt"></span>HeartFelt
-    <span class="dot luxalon"></span>Luxalon
+    <span class="chip derako"><img src="assets/logos/derako.png" alt="Derako"></span>
+    <span class="chip heartfelt"><img src="assets/logos/heartfelt.png" alt="HeartFelt"></span>
+    <span class="chip luxalon"><img src="assets/logos/luxalon.png" alt="Luxalon"></span>
   </nav>
 
   <button class="back" id="back" type="button" aria-label="Back to city">
@@ -35,7 +35,11 @@
 
   <aside class="panel" id="panel" aria-live="polite"></aside>
 
-  <div class="lightbox" id="lightbox"><img alt=""></div>
+  <div class="lightbox" id="lightbox">
+    <button class="nav prev" type="button" aria-label="Previous photo">‹</button>
+    <figure><img alt=""><figcaption class="cap"></figcaption></figure>
+    <button class="nav next" type="button" aria-label="Next photo">›</button>
+  </div>
 
   <p class="hint">Click a building · ← → to move · Esc to go back</p>
 

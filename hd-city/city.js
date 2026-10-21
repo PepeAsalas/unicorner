@@ -15,25 +15,29 @@
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color("#EEF3EA");
+  scene.background = new THREE.Color("#FAF7F2");
 
   const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 1, 400);
   const CAM_DIR = new THREE.Vector3(1, 1.05, 1).normalize();
-  const CAM_DIST = 120;
-  const OVERVIEW = { target: new THREE.Vector3(0, 7, 0), zoom: 1 };
+  const CAM_DIST = 160;
+  const OVERVIEW = { target: new THREE.Vector3(0, 4, 0), zoom: 1 };
   const view = { target: OVERVIEW.target.clone(), zoom: 1 }; // current, animated
   let viewSize = 70; // world units visible vertically at zoom 1
 
-  scene.add(new THREE.HemisphereLight(0xffffff, 0xb9c7ae, 0.75));
+  scene.add(new THREE.HemisphereLight(0xffffff, 0xe9d8c6, 0.75));
   const sun = new THREE.DirectionalLight(0xffffff, 0.75);
   sun.position.set(40, 70, 20);
   sun.castShadow = true;
-  sun.shadow.mapSize.set(2048, 2048);
-  Object.assign(sun.shadow.camera, { left: -60, right: 60, top: 60, bottom: -60, near: 1, far: 200 });
+  sun.shadow.mapSize.set(4096, 4096);
+  Object.assign(sun.shadow.camera, { left: -80, right: 80, top: 80, bottom: -80, near: 1, far: 220 });
   sun.shadow.bias = -0.0005;
   scene.add(sun);
 
   // ---------- Helpers ----------
+  // Seeded random so the city looks the same every time it loads
+  let seed = 7;
+  const rand = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
+  const choose = (arr) => arr[Math.floor(rand() * arr.length)];
   const mats = {};
   const mat = (hex) => (mats[hex] ||= new THREE.MeshLambertMaterial({ color: hex, flatShading: true }));
   function box(w, h, d, color, x = 0, y = 0, z = 0, parent) {
@@ -59,29 +63,34 @@
       }
   }
 
-  // Palette: soft, matches the template's pastel tones
+  // Palette: white architectural-model look with Hunter Douglas orange accents
   const P = {
-    grass: "#CFDDBF", grassDark: "#B8CBA6", road: "#8D9297", line: "#F4F4EF", walk: "#E6E2D8",
+    grass: "#F3EEE6", grassDark: "#F6C9A0", road: "#D8D2C8", line: "#FFFFFF", walk: "#FBF9F5",
     white: "#F7F6F1", cream: "#EDE6D8", glass: "#9FB2C9", glassDark: "#6F82A0",
     hf: "#4C653D", hfLight: "#D6E5CD", dk: "#6A5C48", dkLight: "#E1D5C2", lx: "#57617A", lxLight: "#E1EAF8",
-    orange: "#EE7F1A", red: "#D9574A", tree: "#6F9A57", treeDark: "#557F43", trunk: "#7A6248", water: "#9FC3D9"
+    orange: "#F08300", peach: "#F8C9A0", red: "#D9574A", tree: "#A9C394", treeDark: "#8DAE78", trunk: "#B59C80", water: "#A9CBDD",
+    decoy: ["#FFFFFF", "#F4F0EA", "#ECE6DC"], decoyRoof: "#E2DACD", decoyWin: "#D6DCE2"
   };
 
   // ---------- Ground & roads ----------
   const city = new THREE.Group();
   scene.add(city);
-  const SIZE = 72, BLOCK = 20, ROAD = 6;
-  box(SIZE, 3, SIZE, P.grassDark, 0, -3, 0, city);           // island base
+  const BLOCK = 20, ROAD = 6, EDGE = 12;
+  const step = BLOCK + ROAD;                         // 26: centre of each sector plot
+  const roadsAt = [BLOCK / 2 + ROAD / 2, step + BLOCK / 2 + ROAD / 2]; // 13, 39
+  const SIZE = 2 * (roadsAt[1] + ROAD / 2 + EDGE);   // whole island
+  box(SIZE, 3, SIZE, P.grassDark, 0, -3, 0, city);   // island base (pastel orange edge)
   box(SIZE - 1, 0.2, SIZE - 1, P.grass, 0, 0, 0, city);
-  [-1, 1].forEach((s) => {
-    const o = s * (BLOCK / 2 + ROAD / 2);
+  roadsAt.forEach((r) => [-1, 1].forEach((s) => {
+    const o = s * r;
     box(SIZE - 1, 0.25, ROAD, P.road, 0, 0, o, city);
     box(ROAD, 0.25, SIZE - 1, P.road, o, 0, 0, city);
     for (let i = -SIZE / 2 + 3; i < SIZE / 2 - 2; i += 4) {   // dashed lines
+      if (roadsAt.some((q) => Math.abs(Math.abs(i) - q) < ROAD / 2 + 1)) continue; // keep crossings clean
       box(1.6, 0.3, 0.3, P.line, i, 0, o, city);
       box(0.3, 0.3, 1.6, P.line, o, 0, i, city);
     }
-  });
+  }));
 
   // Central plaza with fountain
   const plaza = new THREE.Group(); city.add(plaza);
@@ -94,17 +103,10 @@
   function tree(x, z, s = 1, parent = city) {
     const g = new THREE.Group();
     box(0.6 * s, 1.4 * s, 0.6 * s, P.trunk, 0, 0, 0, g);
-    box(2.2 * s, 2.2 * s, 2.2 * s, Math.random() > 0.5 ? P.tree : P.treeDark, 0, 1.4 * s, 0, g);
+    box(2.2 * s, 2.2 * s, 2.2 * s, rand() > 0.5 ? P.tree : P.treeDark, 0, 1.4 * s, 0, g);
     g.position.set(x, 0.1, z);
-    g.rotation.y = Math.random() * Math.PI;
+    g.rotation.y = rand() * Math.PI;
     parent.add(g);
-  }
-  // Trees along the island edge
-  for (let i = -SIZE / 2 + 2.5; i < SIZE / 2 - 2; i += 5.5) {
-    [[i, -SIZE / 2 + 2], [i, SIZE / 2 - 2], [-SIZE / 2 + 2, i], [SIZE / 2 - 2, i]].forEach(([x, z]) => {
-      if (Math.abs(Math.abs(x) - (BLOCK / 2 + ROAD / 2)) > 4 && Math.abs(Math.abs(z) - (BLOCK / 2 + ROAD / 2)) > 4)
-        tree(x, z, 0.8 + Math.random() * 0.4);
-    });
   }
   [[-6, -6], [6, 6], [6, -6], [-6, 6]].forEach(([x, z]) => tree(x, z, 0.9, plaza));
 
@@ -135,15 +137,22 @@
       cyl(3, 0.3, P.lx, -4, 16, -1, g, 16);
       box(4, 3, 0.4, P.lxLight, 0, 0, 5.1, g);
     },
-    sport(g) {                // stadium bowl
+    sport(g) {                // arena: stands around a court, basketball hoops, floodlights
       const s = 15;
-      box(s, 4, s, P.white, 0, 0, 0, g);
-      box(s - 4, 4.1, s - 4, P.hf, 0, 0, 0, g);
-      box(s - 6, 4.2, s - 8, "#7FAE5F", 0, 0, 0, g);
-      box(0.3, 4.3, s - 8, P.white, 0, 0, 0, g);
+      box(s, 3, s, P.white, 0, 0, 0, g);                         // podium
+      box(s - 3, 0.2, s - 5, "#7FAE5F", 0, 3, 0, g);             // court
+      box(0.25, 0.06, s - 6, P.white, 0, 3.2, 0, g);             // centre line
+      [-1, 1].forEach((side) => {
+        box(s, 1.2, 1.2, P.hf, 0, 3, side * (s / 2 - 0.6), g);   // stands
+        box(s, 0.8, 0.8, P.hfLight, 0, 4.2, side * (s / 2 - 0.4), g);
+        const x = side * (s / 2 - 2.2);                          // hoop: pole, board, rim
+        box(0.25, 3.2, 0.25, P.lx, x, 3.2, 0, g);
+        box(0.15, 1.2, 1.8, P.white, x - side * 0.2, 5.6, 0, g);
+        box(0.6, 0.08, 0.6, P.orange, x - side * 0.6, 5.7, 0, g);
+      });
       [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(([a, b]) => {
-        box(0.5, 9, 0.5, P.lx, a * (s / 2 - 0.5), 0, b * (s / 2 - 0.5), g);
-        box(2, 1, 0.6, P.white, a * (s / 2 - 0.5), 9, b * (s / 2 - 0.5), g);
+        box(0.5, 10, 0.5, P.lx, a * (s / 2 + 0.6), 0, b * (s / 2 + 0.6), g);   // floodlights outside the podium
+        box(1.8, 1, 0.5, P.white, a * (s / 2 + 0.6), 10, b * (s / 2 + 0.6), g).rotation.y = a * b * Math.PI / 4;
       });
     },
     retail(g) {               // shops with striped awnings
@@ -187,7 +196,6 @@
   };
 
   // Plot positions around the plaza (3x3 grid without the centre)
-  const step = BLOCK + ROAD;
   const plots = [[-1, -1], [0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0]];
   const buildings = C.sectors.map((sector, i) => {
     const g = new THREE.Group();
@@ -206,16 +214,65 @@
     return { sector, group: g, holder, height, lift: 0, hover: 0 };
   });
 
+  // ---------- Decoy buildings (plain, white, not clickable) ----------
+
+  function house(x, z, parent) {
+    const g = new THREE.Group();
+    const w = 3.5 + rand() * 1.5, d = 3.5 + rand() * 1.5, h = 2.5 + rand() * 1.5;
+    box(w, h, d, choose(P.decoy), 0, 0, 0, g);
+    const roof = new THREE.Mesh(new THREE.CylinderGeometry(0.01, w * 0.75, 2, 4, 1), mat(P.decoyRoof));
+    roof.rotation.y = Math.PI / 4;
+    roof.scale.set(1, 1, d / w);
+    roof.position.y = h + 1;
+    roof.castShadow = true;
+    g.add(roof);
+    box(0.9, 1.4, 0.15, P.decoyRoof, 0, 0, d / 2, g);
+    g.position.set(x, 0.1, z);
+    g.rotation.y = Math.floor(rand() * 4) * Math.PI / 2;
+    parent.add(g);
+  }
+  function block(x, z, maxH, parent) {
+    const g = new THREE.Group();
+    const w = 5 + rand() * 3, d = 5 + rand() * 3, h = 4 + rand() * (maxH - 4);
+    const col = choose(P.decoy);
+    box(w, h, d, col, 0, 0, 0, g);
+    windows(g, w, h, d, Math.floor(h / 2.6), Math.max(2, Math.floor(w / 2)), P.decoyWin, 1.2, 2.6);
+    box(w + 0.3, 0.4, d + 0.3, P.decoyRoof, 0, h, 0, g);
+    if (rand() > 0.6) box(w * 0.4, 1.2, d * 0.4, P.decoyRoof, 0, h + 0.4, 0, g);
+    g.position.set(x, 0.1, z);
+    parent.add(g);
+  }
+
+  // Outer ring of cells around the sector plots
+  const ringCentre = roadsAt[1] + ROAD / 2 + EDGE / 2;       // middle of the edge strip
+  const cells = [-ringCentre, -step, 0, step, ringCentre];
+  cells.forEach((cx) => cells.forEach((cz) => {
+    const outer = Math.abs(cx) === ringCentre || Math.abs(cz) === ringCentre;
+    if (!outer) return;
+    // cells nearest the camera (+x / +z) stay low so they never hide the sector buildings
+    const front = cx === ringCentre || cz === ringCentre;
+    const along = Math.abs(cx) === ringCentre ? "z" : "x";
+    const span = Math.abs(cx) === ringCentre && Math.abs(cz) === ringCentre ? 0 : BLOCK / 2 - 3;
+    const slots = span ? [-span, 0, span] : [0];
+    slots.forEach((o) => {
+      const x = cx + (along === "x" ? o : 0), z = cz + (along === "z" ? o : 0);
+      const r = rand();
+      if (r < 0.2) tree(x, z, 0.8 + rand() * 0.3);
+      else if (front || r < 0.55) house(x, z, city);
+      else block(x, z, 16, city);
+    });
+  }));
+
   // ---------- Little cars (crossy-road vibe) ----------
-  const carColors = [P.orange, P.lx, P.red, P.hf, P.white, P.dk];
+  const carColors = [P.orange, P.lx, P.peach, P.hf, P.white, P.dk, P.red];
   const cars = [];
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 7; i++) {
     const c = new THREE.Group();
     const col = carColors[i % carColors.length];
     box(3, 1.2, 1.7, col, 0, 0.3, 0, c);
     box(1.8, 0.9, 1.5, P.white, -0.2, 1.5, 0, c);
     const horizontal = i % 2 === 0;
-    const lane = (i % 4 < 2 ? -1 : 1) * (BLOCK / 2 + ROAD / 2) + (i % 3 === 0 ? 1.4 : -1.4);
+    const lane = (i % 4 < 2 ? -1 : 1) * roadsAt[i % 3 === 2 ? 1 : 0] + (i % 3 === 0 ? 1.4 : -1.4);
     const dir = i % 3 === 0 ? 1 : -1;
     if (!horizontal) c.rotation.y = Math.PI / 2;
     if (dir < 0) c.rotation.y += Math.PI;
@@ -238,43 +295,89 @@
   });
 
   // ---------- Panel ----------
+  const BRANDS = {
+    derako:    { name: "Derako",    logo: "assets/logos/derako.png" },
+    heartfelt: { name: "HeartFelt", logo: "assets/logos/heartfelt.png" },
+    luxalon:   { name: "Luxalon",   logo: "assets/logos/luxalon.png" }
+  };
   const panel = $("#panel");
   const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  // "photo.jpg" → "assets/img/<sector>/photo.jpg"; full paths are left alone
+  const imgPath = (sector, f) => (!f ? "" : f.includes("/") ? f : `assets/img/${sector.id}/${f}`);
+  let projectImages = [];
+
   function renderPanel(sector) {
-    const brandName = (k) => C.brands[k]?.name || k;
-    const projects = sector.projects.length
-      ? sector.projects.map((p) => `
-          <article class="project ${esc(p.brand)}">
-            <div class="ph ${p.image ? "" : "empty"}">${p.image ? `<img src="${esc(p.image)}" alt="${esc(p.title)}">` : "Add photo"}</div>
-            <div class="meta">
-              <span class="badge">${esc(brandName(p.brand))}</span>
-              <span class="t">${esc(p.title)}</span>
-              <span class="p">${esc(p.place)}</span>
+    projectImages = [];
+    const projects = (sector.projects || []).length
+      ? sector.projects.map((p) => {
+          const brand = BRANDS[String(p.brand).toLowerCase()] || { name: p.brand, logo: "" };
+          const imgs = (p.images || []).filter(Boolean).map((f) => imgPath(sector, f));
+          const gi = projectImages.push({ imgs, title: p.title }) - 1;
+          const sub = [p.location, p.year].filter(Boolean).join(" · ");
+          return `
+          <article class="project ${esc(String(p.brand).toLowerCase())}">
+            <div class="ph ${imgs.length ? "" : "empty"}" data-gallery="${gi}">
+              ${imgs.length ? `<img src="${esc(imgs[0])}" alt="${esc(p.title)}">` : "Add photo"}
+              ${imgs.length > 1 ? `<span class="count">${imgs.length} photos</span>` : ""}
             </div>
-          </article>`).join("")
+            <div class="meta">
+              ${brand.logo ? `<img class="brandlogo" src="${esc(brand.logo)}" alt="${esc(brand.name)}">` : `<span class="t">${esc(brand.name)}</span>`}
+              <span class="t">${esc(p.title)}</span>
+              ${sub ? `<span class="p">${esc(sub)}</span>` : ""}
+              ${p.text ? `<span class="d">${esc(p.text)}</span>` : ""}
+            </div>
+          </article>`;
+        }).join("")
       : `<p class="empty-note">Projects for this sector coming soon. Add them in <code>content.js</code>.</p>`;
     const hero = sector.hero
-      ? `<img src="${esc(sector.hero)}" alt="">`
-      : `<div style="height:100%;background:repeating-linear-gradient(90deg,#D6E5CD 0 22px,#fff 22px 23px)"></div>`;
+      ? `<img src="${esc(imgPath(sector, sector.hero))}" alt="">`
+      : `<div class="hero-empty"></div>`;
+    const points = sector.points || [];
     panel.innerHTML = `
       <div class="hero">${hero}<span class="eyebrow">Sector</span></div>
       <div class="body stagger">
         <h2 style="--i:0">${esc(sector.name)}</h2>
         <p class="lead" style="--i:1">${esc(sector.intro)}</p>
-        ${sector.points.length ? `<ul class="points" style="--i:2">${sector.points.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>` : ""}
+        ${points.length ? `<ul class="points" style="--i:2">${points.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>` : ""}
         <h3 style="--i:3">What we've made</h3>
         <div class="projects" style="--i:4">${projects}</div>
       </div>`;
+    // A wrong file name shows a clear message instead of a broken image
+    panel.querySelectorAll(".hero img, .ph img").forEach((img) => {
+      img.addEventListener("error", () => {
+        const box = img.parentElement;
+        box.classList.add("empty", "missing");
+        box.textContent = "Image not found: " + img.getAttribute("src");
+      });
+    });
     panel.scrollTop = 0;
   }
+
+  // Lightbox with all photos of a project (← → to browse)
+  const lb = $("#lightbox");
+  let gallery = null;
+  function showPhoto(k) {
+    gallery.k = (k + gallery.imgs.length) % gallery.imgs.length;
+    lb.querySelector("img").src = gallery.imgs[gallery.k];
+    lb.querySelector(".cap").textContent = gallery.imgs.length > 1
+      ? `${gallery.title} · ${gallery.k + 1} / ${gallery.imgs.length}` : gallery.title;
+    lb.classList.toggle("multi", gallery.imgs.length > 1);
+  }
+  const closeLightbox = () => { lb.classList.remove("open"); gallery = null; };
   panel.addEventListener("click", (e) => {
-    const img = e.target.closest(".ph img");
-    if (!img) return;
-    const lb = $("#lightbox");
-    lb.querySelector("img").src = img.src;
+    const ph = e.target.closest(".ph[data-gallery]");
+    if (!ph || ph.classList.contains("empty")) return;
+    const g = projectImages[+ph.dataset.gallery];
+    if (!g.imgs.length) return;
+    gallery = { ...g, k: 0 };
+    showPhoto(0);
     lb.classList.add("open");
   });
-  $("#lightbox").addEventListener("click", () => $("#lightbox").classList.remove("open"));
+  lb.addEventListener("click", (e) => {
+    if (e.target.closest(".prev")) return showPhoto(gallery.k - 1);
+    if (e.target.closest(".next")) return showPhoto(gallery.k + 1);
+    closeLightbox();
+  });
 
   // ---------- Camera animation ----------
   let anim = null;
@@ -323,8 +426,10 @@
   $("#back").addEventListener("click", overview);
 
   window.addEventListener("keydown", (e) => {
-    if ($("#lightbox").classList.contains("open")) {
-      if (e.key === "Escape") $("#lightbox").classList.remove("open");
+    if (gallery) {
+      if (e.key === "Escape") closeLightbox();
+      else if (e.key === "ArrowRight") showPhoto(gallery.k + 1);
+      else if (e.key === "ArrowLeft") showPhoto(gallery.k - 1);
       return;
     }
     const n = buildings.length;
@@ -360,7 +465,7 @@
   const aspect = () => innerWidth / innerHeight;
   function resize() {
     renderer.setSize(innerWidth, innerHeight, false);
-    viewSize = aspect() < 1 ? 130 : 92;
+    viewSize = aspect() < 1 ? 170 : 112;
     const a = aspect();
     camera.left = (-viewSize * a) / 2;
     camera.right = (viewSize * a) / 2;
