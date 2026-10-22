@@ -1527,6 +1527,22 @@ body.kit-gold .sprite{filter:drop-shadow(0 0 var(--kg) #ffd23f) drop-shadow(0 0 
 @keyframes wx-150{to{transform:translate3d(0,150px,0)}}
 @keyframes wx-170{to{transform:translate3d(0,170px,0)}}
 @media (prefers-reduced-motion:reduce){.retro2 .weather::before,.retro2 .weather::after{animation:none!important}}
+.rd-pop{position:fixed;inset:0;z-index:300;background:rgba(5,15,10,.6);display:flex;align-items:center;justify-content:center;padding:16px;animation:rdFade .2s ease-out}
+.rd-pop.out{opacity:0;transition:opacity .18s ease-out}
+.rd-card{position:relative;width:100%;max-width:380px;background:#fbf3dc;color:#1a1030;border:3px solid #1a1030;border-radius:14px;box-shadow:0 6px 0 #1a1030,0 20px 40px rgba(0,0,0,.45);padding:20px 20px 14px;text-align:left;animation:rdIn .32s cubic-bezier(.23,1,.32,1)}
+.rd-x{position:absolute;top:10px;right:10px;width:36px;height:36px;padding:0!important;box-shadow:none!important;border:2px solid #1a1030;border-radius:8px;background:#fff;color:#1a1030;font:700 18px/1 system-ui;cursor:pointer}
+.rd-card h2{font:400 84px/.8 var(--px);margin:4px 44px 0 0;color:#ff4500}
+.rd-card h3{font:400 28px/.95 var(--px);margin:6px 0 12px;color:#1a1030}
+.rd-card ul{list-style:none;margin:0 0 16px;padding:12px 14px;background:#f3e6bf;border-radius:10px;display:grid;gap:8px}
+.rd-card li{display:flex;gap:10px;font:600 15px/1.3 Barlow,system-ui,sans-serif}
+.rd-card li b{width:22px;flex:none;text-align:center}
+.rd-go{display:block;text-align:center;padding:15px;border:3px solid #1a1030;border-radius:12px;background:#ff4500;color:#fff!important;text-decoration:none;font:400 34px/1 var(--px);box-shadow:0 5px 0 #1a1030;animation:rdPulse 1.6s ease-in-out infinite}
+.rd-go:active{transform:translateY(3px);box-shadow:0 2px 0 #1a1030;animation:none}
+.rd-later{display:block;margin:10px auto 0;padding:4px!important;width:auto!important;background:none!important;border:0!important;box-shadow:none!important;font:600 14px Barlow,system-ui,sans-serif!important;text-transform:none!important;letter-spacing:0!important;color:#6b6280!important;text-decoration:underline;cursor:pointer}
+@keyframes rdFade{from{opacity:0}}
+@keyframes rdIn{from{opacity:0;transform:translateY(14px) scale(.97)}}
+@keyframes rdPulse{50%{transform:scale(1.03)}}
+@media (prefers-reduced-motion:reduce){.rd-card,.rd-go,.rd-pop{animation:none}}
 </style></head><body><div class="sp" id="sp" aria-hidden="true"><div class="sp-s"></div><div class="sp-t">UNICORNER</div><div class="sp-run"><div class="sp-bar"><div class="sp-fill"><i class="sp-u"></i></div></div></div><div class="sp-m"><span class="sp-en">Warming up on the touchline…</span><span class="sp-es">Calentando en la banda…</span></div></div>
 <script>
 // loading screen: always shown, lifts once the page and its fonts are ready (at least ~1s so it never just flickers), then the landing intro plays
@@ -2266,12 +2282,31 @@ function reveal(ans){if(results[qi])return;const q=Q[qi];const pts=ans?ans.pts:0
    requestAnimationFrame(step)};
   requestAnimationFrame(step)}
 const n=nx;if(INF&&INF.endless&&(qi+1)%5===0&&qi+1<Q.length)n.textContent=L('See your batch','Ver tu tanda');n.onclick=()=>{if(INF&&INF.endless&&(qi+1)%5===0&&qi+1<Q.length)return infBatch();qi++;if(qi<Q.length){playSfx('whoosh');ask(true)}else if(INF)infEnd();else end()}})}
+
+/* one-time r/Unicorner_Game invite after a finished daily game */
+function rdPromo(tries=0){
+ try{if(localStorage.getItem('uc-rd-promo'))return}catch(e){return}
+ if(INF||document.querySelector('.rd-pop'))return;
+ const busy=[...document.querySelectorAll('[aria-modal="true"],dialog[open]')].some(el=>el.offsetParent!==null);
+ if(busy){if(tries<20)setTimeout(()=>rdPromo(tries+1),1500);return}
+ try{localStorage.setItem('uc-rd-promo','1')}catch(e){}
+ const URL='https://www.reddit.com/r/Unicorner_Game/';
+ const w=document.createElement('div');w.className='rd-pop';
+ w.innerHTML=`<div class="rd-card" role="dialog" aria-modal="true" aria-labelledby="rd-h"><button type="button" class="rd-x" aria-label="${L('Close','Cerrar')}">✕</button><h2 id="rd-h">${L('JOIN!','¡ÚNETE!')}</h2><h3>r/Unicorner_Game ${L('on Reddit','en Reddit')}</h3><ul><li><b>🤔</b>${L("Argue about today's answers",'Discute las respuestas de hoy')}</li><li><b>💡</b>${L('Suggest questions, we build them','Propón preguntas y las creamos')}</li><li><b>⚽</b>${L('Football chat with other fans','Habla de fútbol con otros fans')}</li><li><b>🦄</b>${L('First to hear about new modes and kits','Entérate antes de los nuevos modos y equipaciones')}</li></ul><a class="rd-go" href="${URL}" target="_blank" rel="noopener">${L('JOIN FOR FREE →','ÚNETE GRATIS →')}</a><button type="button" class="rd-later">${L('Maybe later, show my results','Ahora no, ver mis resultados')}</button></div>`;
+ const close=how=>{track('reddit_promo',{action:how});w.classList.add('out');setTimeout(()=>w.remove(),180)};
+ w.querySelector('.rd-x').onclick=()=>close('close');
+ w.querySelector('.rd-later').onclick=()=>close('later');
+ w.querySelector('.rd-go').onclick=()=>close('join');
+ w.addEventListener('click',e=>{if(e.target===w)close('backdrop')});
+ document.addEventListener('keydown',function k(e){if(e.key==='Escape'&&w.isConnected){document.removeEventListener('keydown',k);close('escape')}});
+ document.body.appendChild(w);track('reddit_promo',{action:'shown'});w.querySelector('.rd-go').focus({preventScroll:true})}
 /* result screen social loop */
 function end(restored){
  document.body.classList.add('results-view');
  document.body.classList.remove('playing');
  if(!restored)track('game_finish',{score,question_count:Q.length,correct:results.filter(r=>r.ans).length,missed:results.filter(r=>!r.ans).length,screamers:results.filter(r=>r.pts===100).length,tiers:results.map(r=>r.pts),set_id:dailySetId()});
  fillReport();
+ if(!restored)setTimeout(rdPromo,2200);
  if(!restored){setPlayed({score,picks:results.filter(Boolean).map(r=>[Q.indexOf(r.q),r.ans?r.ans.name:null,r.pts,r.q.id||null])});submitScore(score)}
  renderRateStrip();
  setTimeout(()=>renderDist(score),restored?900:1600);
