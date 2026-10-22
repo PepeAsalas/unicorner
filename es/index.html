@@ -2898,7 +2898,7 @@ const show=html=>{$('lea-body').innerHTML=X+html;if(!dlg.open)dlg.showModal()};
 const activeId=()=>{const a=lsGet(LG_ACTIVE),l=me?.leagues||[];return(l.find(x=>x.id===a)||l[0])?.id||null};
 const inviteLink=c=>location.origin+location.pathname.replace(/index\.html$/,'')+'?league='+c;
 
-async function loadMe(){me=await rpc('lg_me');try{if(me?.nickname)localStorage.setItem('uc-nick',me.nickname)}catch{}try{window.ucAdoptLook?.(me?.profile?{...me.profile,crew:!!me.crew}:{crew:!!me?.crew})}catch{}return me}
+async function loadMe(){me=await rpc('lg_me');try{const nk=me?.profile?.nickname||me?.nickname;if(nk)localStorage.setItem('uc-nick',nk)}catch{}try{window.ucAdoptLook?.(me?.profile?{...me.profile,crew:!!me.crew}:{crew:!!me?.crew})}catch{}return me}
 async function loadBoard(){const id=activeId();board=id?await rpc('lg_league_board',{p_league:id}):null;return board}
 
 function boardTable(b,tab,limit){
@@ -3081,12 +3081,13 @@ function claimBox(c,pl){const sent=claimSent();
 const ghostName=()=>L('YOU · ','TÚ · ')+(draft.nick.trim().toUpperCase()||'???');
 // today's score came from your account (played on another device): it's already on the board, never offer to add it again
 const remoteMine=()=>{try{const p=getPlayed();return !!(p&&(p.remote||p.synced))}catch{return false}};
-const knownNick=()=>(me?.profile?.nickname||lsGet('uc-nick')||'').toLowerCase();
+const knownNick=()=>(me?.profile?.nickname||lsGet('uc-nick')||lsGet(LG_NICK)||'').toLowerCase();
 function gStatus(part){const pl=playedToday(),has=sess&&me?.profile;
+ if(sess&&me&&!me.profile&&pl&&part._mine)return`<p class="g-note">${L(`You're signed in as <b>${esc(sess.email||'another account')}</b>, which has no nickname. Your score is already on the board as <b>${esc(part._mine)}</b>.`,`Has iniciado sesión como <b>${esc(sess.email||'otra cuenta')}</b>, que no tiene apodo. Tu puntuación ya está en el ranking como <b>${esc(part._mine)}</b>.`)} <button type="button" class="linkish" data-lg="logout">${L('Switch account','Cambiar de cuenta')}</button></p>`;
  if(!has&&pl&&(remoteMine()||part._mine||(sess&&!me)))return sess?'':`<p class="g-note">${L('Your score is on the board from your other device.','Tu puntuación ya está en el ranking desde tu otro dispositivo.')} <button type="button" class="linkish" data-lg="open" data-from="board">${L('Sign in to see your place','Inicia sesión para ver tu puesto')}</button></p>`;
  if(has&&part.me)return `<p class="g-you">${L("You're",'Eres el')} <b>${ord(part.me.rank)}</b> ${L('of','de')} ${part.players} ${L('today','hoy')} 🌍</p>`;
  if(has)return pl?'<p class="g-note">Your score will show here in a moment.</p>':'';
- if(pl)return claimBox(claimCopy(pl,gboard),pl);
+ if(pl)return claimBox(claimCopy(pl,gboard),pl)+(sess&&me&&!me.profile?`<p class="g-note g-acct">${L(`Signed in as <b>${esc(sess.email||'')}</b>. Already on the board under another nickname?`,`Sesión iniciada como <b>${esc(sess.email||'')}</b>. ¿Ya estás en el ranking con otro apodo?`)} <button type="button" class="linkish" data-lg="logout">${L('Switch account','Cambiar de cuenta')}</button></p>`:'');
  return ''}
 const LEDS=[['Green','#39ff6a'],['Amber','#ffb000'],['Red','#ff4d4d'],['Cyan','#4fd7ff'],['Pink','#ff7ac8']];
 const ledIdx=()=>Math.max(0,LEDS.findIndex(l=>l[0]===lsGet('uc-led')));
@@ -3135,7 +3136,7 @@ function leagueBox(){cardRows=[];const create=`<div class="g-cta"><p class="g-yo
   `<div class="lg-row jb-actions"><button type="button" class="cta" data-lg="copy" data-code="${esc(board.code)}">🔗 Copy invite link</button><button type="button" class="ghost" data-lg="open" data-from="card">Open league</button></div>`)}
 async function globalBox(){cardRows=[];let g;try{g=await loadGlobal()}catch{return competeShell('UNICORNER LEAGUE',ucwEmpty(L('Ranking unavailable right now. Try again later.','Ranking no disponible ahora. Inténtalo más tarde.')),L('New game every day at midnight','Partido nuevo cada día a medianoche'),'')}
  cardRows=[];const wk=gTab==='week',part=wk?g.week:g.day,rows=(part.rows||[]).map(r=>({...r}));
- if(!part.me&&!rows.some(r=>r.me)){const n=knownNick();const r=n&&rows.find(x=>String(x.nickname||'').toLowerCase()===n);if(r){r.me=true;part._mine=true}}
+ if(!part.me&&!rows.some(r=>r.me)){const n=knownNick();const r=n&&rows.find(x=>String(x.nickname||'').toLowerCase()===n);if(r){r.me=true;part._mine=r.nickname}}
  const mine=part.me&&!rows.some(r=>r.me)?ucwRow({rank:part.me.rank,score:part.me.score,nickname:me?.profile?.nickname||'',me:true,kits:myLook()?.kits,streak:myLook()?.streak,games:myLook()?.games},' gap'):'';
  infMembers(rows);
  const pl=!wk&&playedToday(),ghost=pl&&!part.me&&!rows.some(r=>r.me)&&!remoteMine()&&!(sess&&(me?.profile||!me))?claimCopy(pl,g):null;
