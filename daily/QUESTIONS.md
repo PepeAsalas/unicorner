@@ -27,7 +27,7 @@ Avoid: tiny lists, plain squad lists, "played for club X in season Y", and anyth
 - Five questions, ideally two easy, two medium and one hard.
 - Mix the answer types: not five player questions. Use clubs, countries and managers too.
 - Mix the topics: Premier League, Spain, Europe, World Cup and Euros, careers, oddities. Spanish players read the game too, so include LaLiga and Spanish or Latin American angles.
-- Never reuse a prompt or the same topic as a recent day. Run `python3 scripts/check_daily.py --prompts` to see everything already used.
+- Never reuse a prompt or a topic from any earlier day, even with a new range. The checker rejects near-identical prompts. Run `python3 scripts/check_daily.py --prompts` to see everything already used.
 
 ## Format of one question
 

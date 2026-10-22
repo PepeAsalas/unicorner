@@ -24,6 +24,13 @@ def norm(s):
     return re.sub(r'[^a-z0-9]+', ' ', s).strip()
 
 
+STOP = set('a an the that who has have had of in for to at and or name one was is by from with as'.split())
+
+
+def topic(prompt):
+    return {w for w in norm(prompt).split() if w not in STOP and not w.isdigit()}
+
+
 def day_files():
     return sorted(glob.glob(os.path.join(DAILY, '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].json')))
 
@@ -106,8 +113,15 @@ def main(argv):
         for q in json.load(open(f))['questions']:
             seen_ids.setdefault(q.get('id'), []).append(f)
             seen_prompts.setdefault(norm(q.get('prompt', '')) + '|' + norm(q.get('subtitle', '')), []).append(f)
+    earlier = [(os.path.basename(f)[:10], q) for f in files for q in json.load(open(f))['questions']]
     for f in targets:
         name = os.path.basename(f)
+        for q in json.load(open(f))['questions']:
+            a = topic(q.get('prompt', ''))
+            for d2, q2 in earlier:
+                b = topic(q2.get('prompt', ''))
+                if d2 < name[:10] and a and len(a & b) / len(a | b) >= 0.75:
+                    errors.append(f'{name} {q.get("prompt")}: repeats {d2} "{q2.get("prompt")}"; pick a different topic')
         d = json.load(open(f))
         if d.get('date') != name[:10]:
             errors.append(f'{name}: date field {d.get("date")} does not match the file name')
