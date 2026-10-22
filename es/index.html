@@ -1171,6 +1171,13 @@ body.inf-mode .seo-info,body.inf-mode footer{display:none}
 .inf-batch .cta{width:100%;min-height:56px}
 .ib-end{align-self:center;background:none!important;border:0!important;box-shadow:none!important;color:#c9bff5!important;text-decoration:underline;font-size:14px!important;padding:6px!important}
 @media (prefers-reduced-motion:reduce){.ib-list li,.ib-track i,.ib-verdict{animation:none}}
+.ia{margin-top:2px;text-align:left}
+.ia summary{cursor:pointer;list-style:none;font:400 13px var(--lab);color:#5ef0ff;padding:4px 0}.ia summary::-webkit-details-marker{display:none}.ia summary::before{content:'▸ ';display:inline-block;transition:transform .15s ease}.ia[open] summary::before{transform:rotate(90deg)}
+.ia-list{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:4px;max-height:260px;overflow:auto}
+.ia-list li{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:5px 8px;background:#0b0624;border:1px solid #2d2580;font-size:14px;color:#e6e0ff}
+.ia-list li.you{border-color:#5ef0ff;color:#fff;font-weight:700}
+.ia-list i{flex:none;font:400 10px/1 var(--lab);font-style:normal;color:#0b0624;padding:3px 5px;border:1px solid #000;white-space:nowrap}
+.inf-tag{display:inline-block;margin-left:4px;padding:1px 4px 2px;font:400 13px/1 var(--px);font-style:normal;color:#0b0624;background:linear-gradient(90deg,#b06bff,#5ef0ff);border:1px solid #000;vertical-align:middle}
 /* Infinity paywall */
 .inf-pay{max-width:460px;margin:0 auto;padding:26px 22px 20px!important;display:flex;flex-direction:column;align-items:center;gap:12px}
 .ip-hero{position:relative;width:150px;height:125px}
@@ -2080,6 +2087,9 @@ const catL=c=>ES?({'World Cup & Euros':'Mundial y Euro',"Ballon d'Or & awards":'
 const infStats=()=>{try{return JSON.parse(localStorage.getItem('uc-inf-stats')||'{}')}catch{return{}}};
 function infStatAdd(q,pts){const s=infStats(),c=infCat(q);s[c]=s[c]||{n:0,p:0};s[c].n++;s[c].p+=pts;try{localStorage.setItem('uc-inf-stats',JSON.stringify(s))}catch{}}
 const tcol=p=>p?(TCOL[p]||TIER_COLS[Math.max(0,tierIdx(p))]||'#cfd8e6'):'#ff6b6b';
+// every valid answer, rarest first, yours starred; opens like the lists on the daily results
+function infAll(q,ans,label){const all=[...q.answers].sort((a,b)=>b.pts-a.pts||a.name.localeCompare(b.name));
+ return`<details class="ia"><summary>${label}</summary><ul class="ia-list">${all.map(a=>`<li class="${a===ans?'you':''}"><span>${esc(an(a))}${a===ans?' ★':''}</span><i style="background:${tcol(a.pts)}">${tl(tierName(a.pts))} ${a.pts}</i></li>`).join('')}</ul></details>`}
 // what you could have said: a rarer answer or two, or for a miss the obvious one and a rare one
 function couldHave(r){const a=[...r.q.answers].sort((x,y)=>y.pts-x.pts);if(!a.length)return'';
  const pick=!r.ans?[a[a.length-1],a[0]].filter((x,i,l)=>l.indexOf(x)===i):a.filter(x=>x.pts>r.pts).slice(0,2);
@@ -2099,7 +2109,7 @@ function infBatch(){document.body.classList.remove('playing');const b=Math.floor
  swap(`<div class="card inf-batch"><span class="ib-eye">${L('BATCH','TANDA')} ${b+1} · ${L('QUESTIONS','PREGUNTAS')} ${from+1}–${qi+1}</span>
   <div class="ib-top"><div><b class="ib-score" id="ib-sc">0</b><span>${L('points this batch','puntos en esta tanda')}</span></div><span class="ib-verdict" style="--vc:${vc}">${vt}</span></div>
   <div class="ib-run">${L('Run total','Total de la partida')} <b>${score}</b> · ${qi+1} ${L('answered','respondidas')}</div>
-  <ol class="ib-list">${rs.map(r=>`<li><span class="ib-q">${qt(r.q,'prompt')}</span><span class="ib-a"><b>${r.ans?esc(an(r.ans)):L('No answer','Sin respuesta')}</b><i style="background:${tcol(r.pts)}">${r.ans?tl(tierName(r.pts))+' '+r.pts:'0'}</i></span>${couldHave(r)}</li>`).join('')}</ol>
+  <ol class="ib-list">${rs.map(r=>`<li><span class="ib-q">${qt(r.q,'prompt')}</span><span class="ib-a"><b>${r.ans?esc(an(r.ans)):L('No answer','Sin respuesta')}</b><i style="background:${tcol(r.pts)}">${r.ans?tl(tierName(r.pts))+' '+r.pts:'0'}</i></span>${couldHave(r)}${infAll(r.q,r.ans,L(`All ${r.q.answers.length} answers`,`Las ${r.q.answers.length} respuestas`))}</li>`).join('')}</ol>
   ${strengthsHTML()}
   <button type="button" class="cta" id="ib-next">${L('Next batch','Siguiente tanda')} ▸</button>
   <button type="button" class="ib-end" data-inf-exit>${L('End run','Terminar partida')}</button></div>`,()=>{countUp(document.getElementById('ib-sc'),bs,700,'');document.getElementById('ib-next').onclick=()=>{qi++;playSfx('whoosh');ask(true)}})}
@@ -2192,6 +2202,7 @@ function reveal(ans){if(results[qi])return;const q=Q[qi];const pts=ans?ans.pts:0
  ${ans?`<div class="tier hold" id="tn">${pts===100?L("SCREAMER!!!",'¡QUÉ CHICHARRO!'):tl(tierName(pts))}</div><div class="pts hold" id="pl">${an(ans)} · <span id="pc">+0</span> ${L('points','puntos')}</div>`:`<div class="tier wipe" style="color:var(--mute)">${L('Missed','Fallada')}</div><div class="pts">${L('No answer','Sin respuesta')} · +0</div>`}
  <p class="mute">${L('Level:','Nivel:')} <b style="color:var(--ink)">${zl(after)}</b>${after!==before?`<br><span class="promo-row" id="promoRow"><span class="promo hold" id="promo">${L('Promoted to','Asciendes a')} ${zl(after)}</span></span>`:''}</p>
  
+ ${INF?infAll(q,ans,L(`See all ${q.answers.length} answers`,`Ver las ${q.answers.length} respuestas`)):''}
  <div class="row">${INF?`<button type="button" class="ghost inf-exit" data-inf-exit>← ${L('Home','Inicio')}</button>`:''}<button id="next">${qi<Q.length-1||INF?L('Keep going','Siguiente'):L('See full time','Ver el final')}</button></div></div>`,()=>{
  const spans=[...document.querySelectorAll('#lad span')];const target=ans?tierIdx(pts):-1;
  const nx=document.getElementById('next');nx.style.visibility='hidden';{const cd=nx.closest('.card');if(cd)cd.addEventListener('pointerdown',e=>{if(nx.style.visibility==='hidden'&&!e.target.closest('button,a')){nx.style.visibility='visible'}},{once:true})}
@@ -3095,7 +3106,12 @@ let cardRows=[];
 const cardAttr=r=>{if(r.ghost)return'';const i=cardRows.push(r)-1;return` data-lg="card" data-i="${i}" role="button" tabindex="0" aria-label="${esc(L('Open the card of ','Ver la ficha de ')+(r.me?L('you','ti'):r.nickname))}"`};
 const crewTag=r=>kitOf(r).crew?'<i class="crew-tag">CREW</i>':'';
 const trTag=r=>{const n=r.ghost?'':(r.nickname||(r.me?me?.profile?.nickname:''))||'';return n?`<span class="bdg" data-tn="${esc(String(n).toLowerCase())}"></span>`:''};
-const nmOf=r=>(r.ghost?esc(ghostName()):r.me?L('YOU','TÚ'):esc(r.nickname.toUpperCase()))+crewTag(r)+trTag(r);
+// Infinity members get an ∞ next to their name; the board asks once for the names it shows
+const INFM=new Set(),INFQ=new Set();let infmBusy=false;
+async function infMembers(rows){const want=[...new Set((rows||[]).map(r=>String(r.nickname||'').toLowerCase()).filter(n=>n&&!INFQ.has(n)))];if(!want.length||infmBusy)return;infmBusy=true;want.forEach(n=>INFQ.add(n));
+ try{const got=await pubRpc('infinity_members',{p_nicks:want.slice(0,200)});const add=(got||[]).map(n=>String(n).toLowerCase()).filter(n=>!INFM.has(n));add.forEach(n=>INFM.add(n));if(add.length){renderGlobal();if(document.getElementById('dlg-full')?.open)drawFull()}}catch{}finally{infmBusy=false}}
+const infTag=r=>{const n=String(r.nickname||'').toLowerCase();return(r.me&&!r.ghost&&lsGet('uc-inf-sub')==='1')||(n&&INFM.has(n))?`<i class="inf-tag" title="${L('Infinity mode member','Miembro del Modo Infinito')}" aria-label="${L('Infinity mode member','Miembro del Modo Infinito')}">∞</i>`:''};
+const nmOf=r=>(r.ghost?esc(ghostName()):r.me?L('YOU','TÚ'):esc(r.nickname.toUpperCase()))+crewTag(r)+infTag(r)+trTag(r);
 function ucwPod(top){if(!top.length)return'';const ord=[1,0,2].filter(i=>top[i]);
  return`<div class="ucw-pod"><div class="ucw-trio">${ord.map(i=>{const r=top[i];return`<div class="p${i+1}${r.ghost?' ghost'+(draft.nick.trim()?' named':''):''}"${cardAttr(r)}>${uni(r)}<span class="ucw-pn">${nmOf(r)}</span><div class="ucw-blk"><b>${i+1}</b><span>${r.score??'—'} ${L('pts','pts')}</span></div></div>`}).join('')}</div></div>`}
 const ucwRow=(r,extra='')=>`<div class="ucw-r${r.me?' me':''}${r.ghost?' ghost'+(draft.nick.trim()?' named':''):''}${extra}"${cardAttr(r)}><span>${r.rank||'–'}</span>${uni(r)}<span class="ucw-n">${nmOf(r)}</span><span class="ucw-s">${r.score??'—'}</span></div>`;
@@ -3115,6 +3131,7 @@ const clickHint=()=>L('Click a player for their stats','Toca un jugador para ver
 function leagueBox(){cardRows=[];const create=`<div class="g-cta"><p class="g-you">Beat your mates</p><p class="g-note">Make a private league, send the link, see who knows ball best — today and all week.</p><button type="button" class="cta" data-lg="open" data-from="card">Create a league</button></div>`;
  if(!sess||!me?.leagues?.length)return competeShell(L('MY LEAGUE','MI LIGA'),ucwEmpty(L('No league yet. Make one, send the link and see who knows ball best.','Aún no tienes liga. Crea una, manda el enlace y a ver quién sabe más.')),L('Private leagues with your mates','Ligas privadas con tus amigos'),create);
  if(!board)return competeShell(L('MY LEAGUE','MI LIGA'),ucwEmpty(L('Loading…','Cargando…')),'','');
+ infMembers(board.rows);
  const list=[...board.rows].map(r=>({...r,score:gTab==='day'?r.today_score:r.week_total}))
   .sort((a,b)=>(b.score??-1)-(a.score??-1)||a.nickname.localeCompare(b.nickname)).map((r,i)=>({...r,rank:r.score==null?0:i+1}));
  const sw=`<button type="button" class="ucw-mini${gTab==='day'?' on':''}" data-lg="gtab" data-tab="day">${L('Today','Hoy')}</button><button type="button" class="ucw-mini${gTab==='week'?' on':''}" data-lg="gtab" data-tab="week">${L('Week','Semana')}</button>`;
@@ -3124,6 +3141,7 @@ async function globalBox(){cardRows=[];let g;try{g=await loadGlobal()}catch{retu
  cardRows=[];const wk=gTab==='week',part=wk?g.week:g.day,rows=(part.rows||[]).map(r=>({...r}));
  if(!part.me&&!rows.some(r=>r.me)){const n=knownNick();const r=n&&rows.find(x=>String(x.nickname||'').toLowerCase()===n);if(r){r.me=true;part._mine=true}}
  const mine=part.me&&!rows.some(r=>r.me)?ucwRow({rank:part.me.rank,score:part.me.score,nickname:me?.profile?.nickname||'',me:true,kits:myLook()?.kits,streak:myLook()?.streak,games:myLook()?.games},' gap'):'';
+ infMembers(rows);
  const pl=!wk&&playedToday(),ghost=pl&&!part.me&&!rows.some(r=>r.me)&&!remoteMine()&&!(sess&&(me?.profile||!me))?claimCopy(pl,g):null;
  let list=rows;
  if(ghost){const gr={ghost:true,score:pl.score},at=ghost.rank&&ghost.rank<=rows.length+1?ghost.rank-1:-1;
@@ -3162,9 +3180,9 @@ function drawFull(loading){const wk=fullScope==='week',rows=fullData[fullScope]?
  document.getElementById('ft-stats').innerHTML=`<div><b>${n}</b>${L('players','jugadores')}</div><div><b>${me?ord(me.rank):'–'}</b>${L('your place','tu puesto')}</div><div><b>${top?L('Top ','Top ')+top+'%':'–'}</b>${L('of everyone','de todos')}</div><div><b>${avg}</b>${L('average','media')}</div>`;
  const mx=Math.max(1,...rows.map(r=>+r.score||0)),B=12,bk=Array(B).fill(0);rows.forEach(r=>bk[Math.min(B-1,Math.floor((+r.score||0)/mx*B))]++);const mb=me?Math.min(B-1,Math.floor(me.score/mx*B)):-1,bm=Math.max(1,...bk);
  document.getElementById('ft-dist').innerHTML=bk.map((v,i)=>`<i class="${i===mb?'mine':''}" style="height:${Math.max(4,Math.round(v/bm*100))}%"></i>`).join('');
- const q=document.getElementById('ft-q').value.trim().toLowerCase();fullRows=rows;
+ const q=document.getElementById('ft-q').value.trim().toLowerCase();fullRows=rows;infMembers(rows);
  const list=rows.map((r,i)=>[r,i]).filter(([r])=>!q||String(r.nickname).toLowerCase().includes(q));
- const rowH=(r,i,extra='')=>`<div class="ucw-r${r.me?' me':''}${r.rank<=3?' ft-top'+r.rank:''}${extra}" data-fi="${i}" role="button" tabindex="0"><span>${r.rank}</span>${uni(r)}<span class="ucw-n">${r.me?L('YOU','TÚ')+' · ':''}${esc(String(r.nickname).toUpperCase())}${crewTag(r)}${trTag(r)}</span><span class="ucw-s">${r.score}</span></div>`;
+ const rowH=(r,i,extra='')=>`<div class="ucw-r${r.me?' me':''}${r.rank<=3?' ft-top'+r.rank:''}${extra}" data-fi="${i}" role="button" tabindex="0"><span>${r.rank}</span>${uni(r)}<span class="ucw-n">${r.me?L('YOU','TÚ')+' · ':''}${esc(String(r.nickname).toUpperCase())}${crewTag(r)}${infTag(r)}${trTag(r)}</span><span class="ucw-s">${r.score}</span></div>`;
  sc.innerHTML=`<div class="ucw-r h"><span>${L('Pos','Pos')}</span><span></span><span>${L('Player','Jugador')}</span><span class="ucw-s">Pts</span></div>`+(n?list.length?list.map(([r,i])=>rowH(r,i)).join(''):`<p class="ucw-empty">${L(`Nobody called "${esc(q)}" is on the table.`,`Nadie llamado "${esc(q)}" está en la tabla.`)}</p>`:`<p class="ucw-empty">${wk?L('No scores this week yet.','Aún no hay puntos esta semana.'):L('No one on the board yet today.','Nadie en el ranking hoy.')}</p>`);
  document.getElementById('ft-me').innerHTML=me?rowH(me,rows.indexOf(me)).replace('data-fi=','data-ft="me" data-x='):'';
  document.querySelector('#dlg-full [data-ft=jump]').hidden=!me;pinFull()}
