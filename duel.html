@@ -248,7 +248,7 @@ function match(input,answers,type){const x=norm(input);if(!x)return null;const p
 let BANK=null;
 async function bank(){if(!BANK)BANK=fetch('duel/bank.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error('question bank HTTP '+r.status);return r.json()}).then(a=>Object.fromEntries(a.map(q=>[q.id,q]))).catch(e=>{BANK=null;throw e});return BANK}
 async function loadQ(id){const q=(await bank())[id];if(!q)throw new Error('question missing');
- return{prompt:q.prompt,sub:'',type:String(q.answer_type||'player').toLowerCase(),answers:q.answers.map(a=>({name:a.name,aliases:a.aliases||[],pts:FAME_V2[a.fame]||60}))}}
+ return{id:q.id,prompt:q.prompt,sub:'',type:String(q.answer_type||'player').toLowerCase(),answers:q.answers.map(a=>({name:a.name,aliases:a.aliases||[],pts:FAME_V2[a.fame]||60}))}}
 async function pickQs(){const ids=Object.keys(await bank());for(let i=ids.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[ids[i],ids[j]]=[ids[j],ids[i]]}
  if(ids.length<20)throw new Error('Not enough questions');return ids.slice(0,20)}
 // rounds: 5 questions while under 15, then sudden death one at a time. Same rules as duel_hp/duel_over in the SQL.
@@ -371,10 +371,13 @@ async function play(){try{D=await rpc('duel_get',{p_code:code,p_token:TOKEN})}ca
 function ask(){const q=Q[qi];locked=false;left=SECS;for(const el of[$('q-text'),$('q-sub')]){el.getAnimations().forEach(a=>a.cancel());if(qi&&!SCR_RM&&el.animate)el.animate([{opacity:0,transform:'translateX(24px)'},{opacity:1,transform:'none'}],{duration:220,easing:EASE})}$('q-n').textContent=size>1?`${roundName(base)} · Q${qi+1} OF 5`:'SUDDEN DEATH';$('q-text').textContent=q.prompt;$('q-sub').textContent=q.sub;$('q-in').value='';$('q-in').disabled=false;$('q-msg').textContent='';$('q-msg').className='msg';$('q-skip').hidden=false;$('q-go').hidden=false;
  $('q-in').placeholder=PERSON.has(q.type)?'Type a '+(q.type==='player'?'player':q.type):'Type a '+q.type;tick();clearInterval(timer);timer=setInterval(()=>{left--;tick();if(left<=0)lock(null)},1000);setTimeout(()=>$('q-in').focus(),50)}
 function tick(){const c=$('q-clock');c.textContent=Math.max(0,left);c.classList.toggle('low',left<=5);if(left<=5&&left>0&&!SCR_RM){c.classList.remove('thump');void c.offsetWidth;c.classList.add('thump')}$('q-bar').style.width=Math.max(0,left/SECS*100)+'%'}
-$('q-form').onsubmit=e=>{e.preventDefault();if(locked)return;const r=match($('q-in').value,Q[qi].answers,Q[qi].type);
- if(r==='ambiguous'){nope();$('q-msg').className='msg bad';$('q-msg').textContent='More than one fits. Add more of the name.';return}
- if(!r){nope();$('q-msg').className='msg bad';$('q-msg').textContent='Not on the list. Try another.';$('q-in').select();return}
- if(picks.slice(0,qi).some(p=>p&&p[0]===r.name)){$('q-msg').className='msg bad';return}
+// Keep rejected text for answer-bank reviews; telemetry must never block play.
+function rejectedAnswer(input,outcome){if(!input.trim())return;const q=Q[qi];
+ track('rejected',{code,slot:D.me,question_id:q.id,prompt:q.prompt,answer_type:q.type,input:input.slice(0,500),outcome,position:base+qi+1,round:roundNo(base)})}
+$('q-form').onsubmit=e=>{e.preventDefault();if(locked)return;const input=$('q-in').value,r=match(input,Q[qi].answers,Q[qi].type);
+ if(r==='ambiguous'){rejectedAnswer(input,'ambiguous');nope();$('q-msg').className='msg bad';$('q-msg').textContent='More than one fits. Add more of the name.';return}
+ if(!r){rejectedAnswer(input,'not_on_list');nope();$('q-msg').className='msg bad';$('q-msg').textContent='Not on the list. Try another.';$('q-in').select();return}
+ if(picks.slice(0,qi).some(p=>p&&p[0]===r.name)){rejectedAnswer(input,'duplicate');$('q-msg').className='msg bad';return}
  lock(r)};
 $('q-skip').onclick=()=>lock(null);
 function nope(){const f=$('q-in');if(SCR_RM||!f.animate)return;f.animate([{transform:'none'},{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(-4px)'},{transform:'translateX(4px)'},{transform:'none'}],{duration:280,easing:'ease-in-out'})}
