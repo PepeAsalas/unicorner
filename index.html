@@ -2957,13 +2957,9 @@ function viewMore(join){moreJoin=join||null;const cur=me?.leagues?.[0],email=ses
  if(join)return show(`<h2>${L('Join','¿Unirte a')} “${esc(join.name)}”?</h2>
  <p class="mute">${L('For now you can be in one league','De momento puedes estar en una liga')}${cur?L(`, and you're already in <b>${esc(cur.name)}</b>`,`, y ya estás en <b>${esc(cur.name)}</b>`):''}.</p>
  <div class="lg-row"><button type="button" data-lg="switch" data-code="${esc(join.code)}">${L('Switch to','Cambiarme a')} ${esc(join.name)}</button><button type="button" class="ghost" data-lg="nojoin">${L('Stay','Quedarme')}${cur?L(' in ',' en ')+esc(cur.name):''}</button></div>
- <h3 class="lg-more-h">∞ Want more leagues?</h3>
- <p class="mute">More leagues are coming with <b>Infinity mode</b>.${done?'':' Want us to tell you when it\'s live?'}</p>
- ${notify}
  <p class="lg-err" id="lea-err" role="status"></p>`);
- show(`<h2>∞ More leagues are coming</h2>
- <p class="mute">In the beta you can be in one league. More leagues unlock with <b>Infinity mode</b> — coming soon.${done?'':' Want us to tell you when it\'s live?'}</p>
- ${notify}
+ show(`<h2>${L('One league for now','Una liga por ahora')}</h2>
+ <p class="mute">${L("For now you can be in one league. Leave your current league if you want to join or create another.",'De momento puedes estar en una liga. Sal de tu liga actual si quieres unirte a otra o crear una.')}</p>
  <div class="lg-row"><button type="button" class="ghost" data-lg="home">Back</button></div>
  <p class="lg-err" id="lea-err" role="status"></p>`)}
 function joinWaitlist(email,from,note){if(!email||lsGet(LG_INF)===email)return;
@@ -3078,7 +3074,7 @@ function claimBox(c,pl){const sent=claimSent();
   <div class="g-fields"><label class="g-f"><span>Nickname</span><input name="nick" required minlength="2" maxlength="16" autocomplete="nickname" spellcheck="false" placeholder="e.g. Zizou10" value="${esc(draft.nick)}"></label>
   ${sess?'':`<label class="g-f"><span>Email</span><input name="email" type="email" required maxlength="120" autocomplete="email" placeholder="you@email.com" value="${esc(draft.email)}"></label>`}</div>
   <button type="submit" class="cta">Put me on the board</button>
-  ${sess?'':`<p class="g-small">We'll email you a link to confirm — no password.</p><label class="g-check"><input type="checkbox" name="optout" ${lsGet(LG_OPTOUT)==='1'?'checked':''}> <span>I don't want reminders or Unicorner news</span></label><label class="g-check g-inf"><input type="checkbox" name="infwait"> <span>🔥 Join the Infinity mode waitlist — unlimited questions, coming soon</span></label>`}
+  ${sess?'':`<p class="g-small">We'll email you a link to confirm — no password.</p><label class="g-check"><input type="checkbox" name="optout" ${lsGet(LG_OPTOUT)==='1'?'checked':''}> <span>I don't want reminders or Unicorner news</span></label>`}
   <p class="g-err" role="status"></p></form>`}
 const ghostName=()=>L('YOU · ','TÚ · ')+(draft.nick.trim().toUpperCase()||'???');
 // today's score came from your account (played on another device): it's already on the board, never offer to add it again
