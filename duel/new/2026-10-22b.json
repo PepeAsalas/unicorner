@@ -1,0 +1,2179 @@
+[
+ {
+  "id": "d17-name-a-club-that-played-in-the-scottish-premiership-since-2013-14",
+  "template": 17,
+  "prompt": "Name a club that played in the Scottish Premiership since 2013-14",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Celtic",
+    "aliases": [
+     "Celtic FC"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Rangers",
+    "aliases": [
+     "Rangers FC",
+     "Gers"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Aberdeen",
+    "aliases": [
+     "Aberdeen FC",
+     "Dons"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Heart of Midlothian",
+    "aliases": [
+     "Hearts",
+     "Heart of Midlothian FC"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Hibernian",
+    "aliases": [
+     "Hibs",
+     "Hibernian FC"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Dundee United",
+    "aliases": [
+     "Dundee Utd",
+     "Dundee Utd FC",
+     "United"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Motherwell",
+    "aliases": [
+     "Motherwell FC"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "St Johnstone",
+    "aliases": [
+     "St Johnstone FC",
+     "Saints",
+     "Saint Johnstone"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Kilmarnock",
+    "aliases": [
+     "Kilmarnock FC",
+     "Killie"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Ross County",
+    "aliases": [
+     "Ross County FC"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Partick Thistle",
+    "aliases": [
+     "Partick",
+     "Thistle"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Inverness Caledonian Thistle",
+    "aliases": [
+     "Inverness CT",
+     "Inverness",
+     "Caley Thistle",
+     "Caley"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Dundee",
+    "aliases": [
+     "Dundee FC"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Hamilton Academical",
+    "aliases": [
+     "Hamilton",
+     "Accies",
+     "Hamilton Accies"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "St Mirren",
+    "aliases": [
+     "St Mirren FC",
+     "Saint Mirren",
+     "Buddies"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Livingston",
+    "aliases": [
+     "Livingston FC"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Falkirk",
+    "aliases": [
+     "Falkirk FC",
+     "Bairns"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Dunfermline Athletic",
+    "why": "Not in the Premiership in 2013-14 to 2025-26 (promotion play-off losers / Championship only)."
+   },
+   {
+    "name": "Raith Rovers",
+    "why": "Never in the Premiership since it was created in 2013-14."
+   },
+   {
+    "name": "Ayr United",
+    "why": "Never in the Premiership since 2013-14."
+   },
+   {
+    "name": "Greenock Morton",
+    "why": "Never in the Premiership since 2013-14."
+   },
+   {
+    "name": "Queen of the South",
+    "why": "Never in the Premiership since 2013-14."
+   }
+  ]
+ },
+ {
+  "id": "d17-name-a-club-that-played-in-the-bundesliga-since-2020-21",
+  "template": 17,
+  "prompt": "Name a club that played in the Bundesliga since 2020-21",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "FC Bayern München",
+    "aliases": [
+     "Bayern Munich",
+     "Bayern",
+     "FC Bayern",
+     "Bayern Munchen"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Borussia Dortmund",
+    "aliases": [
+     "Dortmund",
+     "BVB"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "RB Leipzig",
+    "aliases": [
+     "Leipzig",
+     "RBL"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Bayer 04 Leverkusen",
+    "aliases": [
+     "Bayer Leverkusen",
+     "Leverkusen"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Borussia Mönchengladbach",
+    "aliases": [
+     "Gladbach",
+     "Monchengladbach",
+     "Borussia Monchengladbach",
+     "Mönchengladbach"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "VfL Wolfsburg",
+    "aliases": [
+     "Wolfsburg"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Eintracht Frankfurt",
+    "aliases": [
+     "Frankfurt",
+     "Eintracht"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "TSG Hoffenheim",
+    "aliases": [
+     "Hoffenheim",
+     "TSG 1899 Hoffenheim"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "VfB Stuttgart",
+    "aliases": [
+     "Stuttgart"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "SC Freiburg",
+    "aliases": [
+     "Freiburg"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "1. FC Union Berlin",
+    "aliases": [
+     "Union Berlin",
+     "Union"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Hertha BSC",
+    "aliases": [
+     "Hertha Berlin",
+     "Hertha"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "1. FSV Mainz 05",
+    "aliases": [
+     "Mainz",
+     "Mainz 05",
+     "FSV Mainz"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "FC Augsburg",
+    "aliases": [
+     "Augsburg"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "1. FC Köln",
+    "aliases": [
+     "Köln",
+     "Koln",
+     "FC Koln",
+     "FC Köln",
+     "Cologne"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Werder Bremen",
+    "aliases": [
+     "Bremen",
+     "SV Werder Bremen"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Arminia Bielefeld",
+    "aliases": [
+     "Bielefeld",
+     "Arminia"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "FC Schalke 04",
+    "aliases": [
+     "Schalke",
+     "Schalke 04"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "VfL Bochum",
+    "aliases": [
+     "Bochum"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "SpVgg Greuther Fürth",
+    "aliases": [
+     "Greuther Furth",
+     "Greuther Fürth",
+     "Fürth",
+     "Furth",
+     "SpVgg Greuther Furth"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "1. FC Heidenheim",
+    "aliases": [
+     "Heidenheim",
+     "FC Heidenheim"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "SV Darmstadt 98",
+    "aliases": [
+     "Darmstadt",
+     "Darmstadt 98"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "FC St. Pauli",
+    "aliases": [
+     "St Pauli",
+     "St. Pauli",
+     "Sankt Pauli"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Holstein Kiel",
+    "aliases": [
+     "Kiel"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Hamburger SV",
+    "aliases": [
+     "Hamburg",
+     "HSV",
+     "Hamburger"
+    ],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "Hannover 96",
+    "why": "Last in the Bundesliga in 2018-19."
+   },
+   {
+    "name": "Nürnberg",
+    "why": "Not in the Bundesliga since 2018-19."
+   },
+   {
+    "name": "Fortuna Düsseldorf",
+    "why": "Last in the Bundesliga in 2019-20."
+   },
+   {
+    "name": "SC Paderborn 07",
+    "why": "Last in the Bundesliga in 2019-20; back only from 2026-27."
+   },
+   {
+    "name": "Eintracht Braunschweig",
+    "why": "Not in the Bundesliga in this period."
+   },
+   {
+    "name": "1. FC Kaiserslautern",
+    "why": "Not in the Bundesliga in this period."
+   },
+   {
+    "name": "Elversberg",
+    "why": "Only promoted for 2026-27, after the scope ends."
+   }
+  ]
+ },
+ {
+  "id": "d17-name-a-club-that-played-in-serie-a-in-2025-26",
+  "template": 17,
+  "prompt": "Name a club that played in Serie A in 2025-26",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Juventus",
+    "aliases": [
+     "Juve",
+     "Juventus FC"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "FC Internazionale Milano",
+    "aliases": [
+     "Inter",
+     "Inter Milan",
+     "Internazionale"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "AC Milan",
+    "aliases": [
+     "Milan",
+     "A.C. Milan"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "SSC Napoli",
+    "aliases": [
+     "Napoli",
+     "Naples"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "AS Roma",
+    "aliases": [
+     "Roma"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "SS Lazio",
+    "aliases": [
+     "Lazio"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Atalanta BC",
+    "aliases": [
+     "Atalanta"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "ACF Fiorentina",
+    "aliases": [
+     "Fiorentina",
+     "Viola"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Bologna FC 1909",
+    "aliases": [
+     "Bologna"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Torino FC",
+    "aliases": [
+     "Torino",
+     "Toro"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Udinese Calcio",
+    "aliases": [
+     "Udinese"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Genoa CFC",
+    "aliases": [
+     "Genoa"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Cagliari Calcio",
+    "aliases": [
+     "Cagliari"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Hellas Verona",
+    "aliases": [
+     "Verona",
+     "Hellas"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "US Lecce",
+    "aliases": [
+     "Lecce"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Parma Calcio 1913",
+    "aliases": [
+     "Parma"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Como 1907",
+    "aliases": [
+     "Como"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "US Sassuolo",
+    "aliases": [
+     "Sassuolo"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "AC Pisa 1909",
+    "aliases": [
+     "Pisa"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "US Cremonese",
+    "aliases": [
+     "Cremonese"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Sampdoria",
+    "why": "Relegated before 2025-26, in Serie B."
+   },
+   {
+    "name": "Empoli",
+    "why": "Relegated from Serie A in 2024-25."
+   },
+   {
+    "name": "Venezia",
+    "why": "Relegated from Serie A in 2024-25."
+   },
+   {
+    "name": "Monza",
+    "why": "Relegated from Serie A in 2024-25."
+   },
+   {
+    "name": "Spezia",
+    "why": "Not in Serie A in 2025-26."
+   }
+  ]
+ },
+ {
+  "id": "d17-name-a-club-that-played-in-ligue-1-in-2025-26",
+  "template": 17,
+  "prompt": "Name a club that played in Ligue 1 in 2025-26",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Paris Saint-Germain",
+    "aliases": [
+     "PSG",
+     "Paris SG",
+     "Paris Saint Germain",
+     "Paris"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Olympique de Marseille",
+    "aliases": [
+     "Marseille",
+     "OM"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Olympique Lyonnais",
+    "aliases": [
+     "Lyon",
+     "OL"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "AS Monaco",
+    "aliases": [
+     "Monaco"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "LOSC Lille",
+    "aliases": [
+     "Lille",
+     "LOSC"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "OGC Nice",
+    "aliases": [
+     "Nice"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Stade Rennais",
+    "aliases": [
+     "Rennes",
+     "Stade Rennais FC"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "RC Lens",
+    "aliases": [
+     "Lens"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "RC Strasbourg",
+    "aliases": [
+     "Strasbourg",
+     "Racing Strasbourg"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Toulouse FC",
+    "aliases": [
+     "Toulouse"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "FC Nantes",
+    "aliases": [
+     "Nantes"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Stade Brestois 29",
+    "aliases": [
+     "Brest",
+     "Stade Brestois"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Le Havre AC",
+    "aliases": [
+     "Le Havre",
+     "HAC"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "AJ Auxerre",
+    "aliases": [
+     "Auxerre"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Angers SCO",
+    "aliases": [
+     "Angers"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "FC Lorient",
+    "aliases": [
+     "Lorient"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "FC Metz",
+    "aliases": [
+     "Metz"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Paris FC",
+    "aliases": [],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Montpellier",
+    "why": "Relegated from Ligue 1 in 2024-25."
+   },
+   {
+    "name": "Reims",
+    "why": "Relegated from Ligue 1 in 2024-25."
+   },
+   {
+    "name": "Saint-Étienne",
+    "why": "Relegated from Ligue 1 in 2024-25."
+   },
+   {
+    "name": "Troyes",
+    "why": "Only promoted for 2026-27."
+   }
+  ]
+ },
+ {
+  "id": "d17-name-a-club-that-played-in-la-liga-in-2025-26",
+  "template": 17,
+  "prompt": "Name a club that played in La Liga in 2025-26",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Real Madrid",
+    "aliases": [
+     "Madrid",
+     "Real Madrid CF"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "FC Barcelona",
+    "aliases": [
+     "Barcelona",
+     "Barca",
+     "Barça"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Atlético Madrid",
+    "aliases": [
+     "Atletico Madrid",
+     "Atletico",
+     "Atleti"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Sevilla FC",
+    "aliases": [
+     "Sevilla"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Valencia CF",
+    "aliases": [
+     "Valencia"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Villarreal CF",
+    "aliases": [
+     "Villarreal"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Real Betis",
+    "aliases": [
+     "Betis"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Real Sociedad",
+    "aliases": [
+     "Sociedad",
+     "La Real"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Athletic Club",
+    "aliases": [
+     "Athletic Bilbao",
+     "Athletic",
+     "Bilbao"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Celta de Vigo",
+    "aliases": [
+     "Celta Vigo",
+     "Celta"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Girona FC",
+    "aliases": [
+     "Girona"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "CA Osasuna",
+    "aliases": [
+     "Osasuna"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "RCD Mallorca",
+    "aliases": [
+     "Mallorca"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Getafe CF",
+    "aliases": [
+     "Getafe"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Rayo Vallecano",
+    "aliases": [
+     "Rayo"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Deportivo Alavés",
+    "aliases": [
+     "Alaves",
+     "Alavés",
+     "Deportivo Alaves"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "RCD Espanyol",
+    "aliases": [
+     "Espanyol"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Elche CF",
+    "aliases": [
+     "Elche"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Levante UD",
+    "aliases": [
+     "Levante"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Real Oviedo",
+    "aliases": [
+     "Oviedo"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Las Palmas",
+    "why": "Relegated from La Liga in 2024-25."
+   },
+   {
+    "name": "Leganés",
+    "why": "Relegated from La Liga in 2024-25."
+   },
+   {
+    "name": "Real Valladolid",
+    "why": "Relegated from La Liga in 2024-25."
+   },
+   {
+    "name": "Granada",
+    "why": "Not in La Liga in 2025-26."
+   },
+   {
+    "name": "Cádiz",
+    "why": "Not in La Liga in 2025-26."
+   }
+  ]
+ },
+ {
+  "id": "d17-name-a-club-that-played-in-the-premier-league-in-2025-26",
+  "template": 17,
+  "prompt": "Name a club that played in the Premier League in 2025-26",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Manchester United",
+    "aliases": [
+     "Man United",
+     "Man Utd",
+     "Manchester Utd",
+     "United"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Liverpool",
+    "aliases": [
+     "Liverpool FC"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Arsenal",
+    "aliases": [
+     "Arsenal FC",
+     "Gunners"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Chelsea",
+    "aliases": [
+     "Chelsea FC"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Manchester City",
+    "aliases": [
+     "Man City",
+     "City"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Tottenham Hotspur",
+    "aliases": [
+     "Spurs",
+     "Tottenham"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Newcastle United",
+    "aliases": [
+     "Newcastle",
+     "Newcastle Utd"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Everton",
+    "aliases": [
+     "Everton FC"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "West Ham United",
+    "aliases": [
+     "West Ham",
+     "Hammers"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Aston Villa",
+    "aliases": [
+     "Villa"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Leeds United",
+    "aliases": [
+     "Leeds"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Crystal Palace",
+    "aliases": [
+     "Palace"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Wolverhampton Wanderers",
+    "aliases": [
+     "Wolves",
+     "Wolverhampton"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Nottingham Forest",
+    "aliases": [
+     "Forest",
+     "Notts Forest"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Fulham",
+    "aliases": [
+     "Fulham FC"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Brighton & Hove Albion",
+    "aliases": [
+     "Brighton",
+     "Brighton and Hove Albion",
+     "Seagulls"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Brentford",
+    "aliases": [
+     "Brentford FC"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "AFC Bournemouth",
+    "aliases": [
+     "Bournemouth",
+     "Cherries"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Burnley",
+    "aliases": [
+     "Burnley FC"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Sunderland",
+    "aliases": [
+     "Sunderland AFC"
+    ],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Leicester City",
+    "why": "Relegated in 2024-25."
+   },
+   {
+    "name": "Ipswich Town",
+    "why": "Relegated in 2024-25."
+   },
+   {
+    "name": "Southampton",
+    "why": "Relegated in 2024-25."
+   },
+   {
+    "name": "Sheffield United",
+    "why": "Not in the Premier League in 2025-26."
+   },
+   {
+    "name": "Luton Town",
+    "why": "Not in the Premier League in 2025-26."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2006-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 2006 World Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Germany",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Costa Rica",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Poland",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ecuador",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Trinidad and Tobago",
+    "aliases": [
+     "Trinidad & Tobago",
+     "Trinidad",
+     "T&T"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Ivory Coast",
+    "aliases": [
+     "Côte d'Ivoire",
+     "Cote d'Ivoire"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Serbia and Montenegro",
+    "aliases": [
+     "Serbia & Montenegro",
+     "Serbia",
+     "Montenegro",
+     "Yugoslavia"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Iran",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Angola",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Ghana",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "United States",
+    "aliases": [
+     "USA",
+     "US",
+     "United States of America",
+     "America"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Czech Republic",
+    "aliases": [
+     "Czechia"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Croatia",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Australia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Japan",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Switzerland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "South Korea",
+    "aliases": [
+     "Korea Republic",
+     "Korea",
+     "Republic of Korea"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Togo",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Ukraine",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Tunisia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Saudi Arabia",
+    "aliases": [
+     "Saudi"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Russia",
+    "why": "Did not qualify for 2006."
+   },
+   {
+    "name": "Nigeria",
+    "why": "Did not qualify for 2006."
+   },
+   {
+    "name": "Cameroon",
+    "why": "Did not qualify for 2006."
+   },
+   {
+    "name": "Egypt",
+    "why": "Did not qualify for 2006."
+   },
+   {
+    "name": "Denmark",
+    "why": "Did not qualify for 2006."
+   },
+   {
+    "name": "Scotland",
+    "why": "Did not qualify for 2006."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2002-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 2002 World Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Senegal",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Denmark",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "South Africa",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Slovenia",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Turkey",
+    "aliases": [
+     "Türkiye",
+     "Turkiye"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "China",
+    "aliases": [
+     "China PR"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Costa Rica",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "South Korea",
+    "aliases": [
+     "Korea Republic",
+     "Korea",
+     "Republic of Korea"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Poland",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "United States",
+    "aliases": [
+     "USA",
+     "US",
+     "United States of America",
+     "America"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Germany",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Saudi Arabia",
+    "aliases": [
+     "Saudi"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Republic of Ireland",
+    "aliases": [
+     "Ireland",
+     "Eire"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Cameroon",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Nigeria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Croatia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Ecuador",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Japan",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Russia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Tunisia",
+    "aliases": [],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Czech Republic",
+    "why": "Did not qualify for 2002."
+   },
+   {
+    "name": "Netherlands",
+    "why": "Did not qualify for 2002."
+   },
+   {
+    "name": "Colombia",
+    "why": "Did not qualify for 2002."
+   },
+   {
+    "name": "Chile",
+    "why": "Did not qualify for 2002."
+   },
+   {
+    "name": "Egypt",
+    "why": "Did not qualify for 2002."
+   },
+   {
+    "name": "Scotland",
+    "why": "Did not qualify for 2002."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-1998-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 1998 World Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Scotland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Norway",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Cameroon",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Austria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "South Africa",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Saudi Arabia",
+    "aliases": [
+     "Saudi"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Denmark",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Nigeria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Bulgaria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "South Korea",
+    "aliases": [
+     "Korea Republic",
+     "Korea",
+     "Republic of Korea"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Germany",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "United States",
+    "aliases": [
+     "USA",
+     "US",
+     "United States of America",
+     "America"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Yugoslavia",
+    "aliases": [
+     "FR Yugoslavia",
+     "Serbia",
+     "Serbia and Montenegro",
+     "Serbia & Montenegro"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Iran",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Romania",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Tunisia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Japan",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Jamaica",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Croatia",
+    "aliases": [],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "Russia",
+    "why": "Did not qualify for 1998."
+   },
+   {
+    "name": "Sweden",
+    "why": "Did not qualify for 1998."
+   },
+   {
+    "name": "Portugal",
+    "why": "Did not qualify for 1998."
+   },
+   {
+    "name": "Greece",
+    "why": "Did not qualify for 1998."
+   },
+   {
+    "name": "Egypt",
+    "why": "Did not qualify for 1998."
+   },
+   {
+    "name": "Uruguay",
+    "why": "Did not qualify for 1998."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-euro-2020",
+  "template": 22,
+  "prompt": "Name a country that played at Euro 2020",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Turkey",
+    "aliases": [
+     "Türkiye",
+     "Turkiye"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Wales",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Switzerland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Denmark",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Finland",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Russia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Ukraine",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Austria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "North Macedonia",
+    "aliases": [
+     "Macedonia"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Croatia",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Scotland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Czech Republic",
+    "aliases": [
+     "Czechia"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Poland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Slovakia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Hungary",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Germany",
+    "aliases": [],
+    "fame": 6
+   }
+  ],
+  "traps": [
+   {
+    "name": "Serbia",
+    "why": "Did not qualify for Euro 2020."
+   },
+   {
+    "name": "Norway",
+    "why": "Did not qualify for Euro 2020."
+   },
+   {
+    "name": "Republic of Ireland",
+    "why": "Did not qualify for Euro 2020."
+   },
+   {
+    "name": "Romania",
+    "why": "Did not qualify for Euro 2020."
+   },
+   {
+    "name": "Bulgaria",
+    "why": "Did not qualify for Euro 2020."
+   },
+   {
+    "name": "Greece",
+    "why": "Did not qualify for Euro 2020."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-euro-2012",
+  "template": 22,
+  "prompt": "Name a country that played at Euro 2012",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Poland",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Greece",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Russia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Czech Republic",
+    "aliases": [
+     "Czechia"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Denmark",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Germany",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Republic of Ireland",
+    "aliases": [
+     "Ireland",
+     "Eire"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Croatia",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Ukraine",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 6
+   }
+  ],
+  "traps": [
+   {
+    "name": "Turkey",
+    "why": "Did not qualify for Euro 2012."
+   },
+   {
+    "name": "Belgium",
+    "why": "Did not qualify for Euro 2012."
+   },
+   {
+    "name": "Serbia",
+    "why": "Did not qualify for Euro 2012."
+   },
+   {
+    "name": "Switzerland",
+    "why": "Did not qualify for Euro 2012."
+   },
+   {
+    "name": "Austria",
+    "why": "Qualified as co-hosts only for Euro 2008, not 2012."
+   },
+   {
+    "name": "Wales",
+    "why": "Did not qualify for Euro 2012."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-euro-2008",
+  "template": 22,
+  "prompt": "Name a country that played at Euro 2008",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Switzerland",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Czech Republic",
+    "aliases": [
+     "Czechia"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Turkey",
+    "aliases": [
+     "Türkiye",
+     "Turkiye"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Austria",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Croatia",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Germany",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Poland",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Romania",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Russia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Greece",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "England",
+    "why": "Did not qualify for Euro 2008."
+   },
+   {
+    "name": "Republic of Ireland",
+    "why": "Did not qualify for Euro 2008."
+   },
+   {
+    "name": "Denmark",
+    "why": "Did not qualify for Euro 2008."
+   },
+   {
+    "name": "Ukraine",
+    "why": "Did not qualify for Euro 2008."
+   },
+   {
+    "name": "Serbia",
+    "why": "Did not qualify for Euro 2008."
+   },
+   {
+    "name": "Belgium",
+    "why": "Did not qualify for Euro 2008."
+   }
+  ]
+ }
+]
