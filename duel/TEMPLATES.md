@@ -29,7 +29,7 @@ Duel questions live in `duel/bank.json`. Each one is built from a template below
 3. **8 to 200 answers.** Fewer is too narrow for a 15-second duel; more cannot be checked.
 4. **Aliases** for every answer people would type differently. No alias may be shared by two answers in the same question.
 5. **No duplicates** of a prompt already in the bank (same template + same scope).
-6. **Facts as of the end of the 2025-26 season** unless the prompt has its own end year.
+6. **Every scope ends at a finished season.** Never write an open-ended "since 2010" or "has ever": the current season is still being played, so answers would change and players would be marked wrong. Write "between 2010-11 and 2025-26" or "up to 2025-26" (use the last finished season). Do not state facts about a season that has not finished, in answers or in traps.
 
 ## Templates
 
