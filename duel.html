@@ -44,6 +44,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 .cab{position:relative;aspect-ratio:9/13;width:100%;border:4px solid var(--cream);box-shadow:0 0 0 4px var(--ink);overflow:hidden;background:var(--ink)}
 .cab canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
 .small{font-size:18px}
+.fresh{opacity:.85;margin-top:6px}
 .ib{display:grid;gap:10px;margin:14px 0}.ib-row{display:flex;align-items:center;gap:10px;background:#120c38;padding:10px 12px;border:3px solid var(--ink)}
 .ib-row b{flex:1;font-family:var(--disp);font-size:26px;font-weight:400;color:#fff;line-height:1}.ib-row small{display:block;font-family:var(--mono);font-size:17px;color:var(--muted)}
 .ib-st{font-family:var(--mono);font-size:17px;padding:2px 8px;color:var(--ink);white-space:nowrap}.ib-row button{width:auto;font-size:20px;padding:6px 12px}
@@ -129,6 +130,7 @@ dialog.intro[open]{animation:dlgin 220ms cubic-bezier(.23,1,.32,1)}
   <label for="nm">Your name<input id="nm" maxlength="16" autocomplete="nickname" placeholder="e.g. Pepo"></label>
   <button id="create">Create duel</button>
   <p class="small">You get a link to send. You both start on 300 HP and play rounds of five questions, 15 seconds each, then watch the battle. Keep going until someone is KO'd.</p>
+  <p class="small fresh">🆕 New duel questions every week. The bank keeps growing, so rematches stay fresh.</p>
   <p class="small rec" id="rec1" hidden></p>
   <button class="ghost" id="to-inbox" hidden style="margin-top:12px">My duels</button>
  </section>
@@ -263,7 +265,7 @@ async function copy(c){try{await navigator.clipboard.writeText(link(c))}catch{}}
 let D=null,Q=[];
 // first-time intro: four steps, shown once, reopened from "How duels work"
 const DUEL_INTRO=[
- ()=>`<div class="in-art"><i style="background-image:${spBg(KIT)}"></i><b class="vs">VS</b><i style="background-image:${spBg('galaxy')};transform:scaleX(-1)"></i></div><span class="in-tag">1. ROUNDS OF FIVE</span><p>You and your rival answer the same 5 questions, 15 seconds each. Play your round whenever you like, within 24 hours.</p>`,
+ ()=>`<div class="in-art"><i style="background-image:${spBg(KIT)}"></i><b class="vs">VS</b><i style="background-image:${spBg('galaxy')};transform:scaleX(-1)"></i></div><span class="in-tag">1. ROUNDS OF FIVE</span><p>You and your rival answer the same 5 questions, 15 seconds each. Play your round whenever you like, within 24 hours. New questions are added every week.</p>`,
  ()=>`<div class="in-art"><span class="in-chip" style="background:#c9d1e0">TAP-IN 10</span><span class="in-chip" style="background:#7dd8a8">HEADER 30</span><span class="in-chip" style="background:#b48cff">VOLLEY 60</span><span class="in-chip" style="background:#ff7ac8">BICYCLE 85</span><span class="in-chip" style="background:#ffd23f">SCREAMER 100</span></div><span class="in-tag">2. RARER HITS HARDER</span><p>Your answer is your attack: a Screamer does 100 damage. Same answer as your rival? Blocked, nobody gets hurt.</p>`,
  ()=>`<div class="in-art"><div class="in-hp"><div>YOU <span><i style="width:78%;background:#39d353"></i></span> 234</div><div>RIVAL <span><i style="width:12%;background:#e3262f"></i></span> 36</div></div></div><span class="in-tag">3. KNOCK THEM OUT</span><p>Both start on 300 HP. First to 0 loses. Still level after 15 questions? Sudden death, one question at a time.</p>`,
  ()=>`<div class="in-art" style="flex-direction:column;gap:4px"><span class="in-chip" style="background:linear-gradient(90deg,#ff5a5a,#ffd23f,#39d353,#4fc3ff,#b48cff)">BALLON D'OR</span><span class="in-chip" style="background:#c6a8ff">CHAMPIONS LEAGUE</span><span class="in-chip" style="background:#ffd23f">PREMIER LEAGUE</span><span class="in-chip" style="background:#d9e0ee">CHAMPIONSHIP</span></div><span class="in-tag">4. CLIMB THE LADDER</span><p>Signed in? Your duels are rated. Play 5 to get your league; a new season starts every month.</p>`];
