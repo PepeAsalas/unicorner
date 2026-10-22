@@ -53,8 +53,10 @@ def check_question(q, e, w):
     ans = q['answers']
     if q.get('answer_count') != len(ans):
         e(f"answer_count {q.get('answer_count')} but {len(ans)} answers")
-    if not 5 <= len(ans) <= 80:
-        e(f'{len(ans)} answers (need 5-80)')
+    if not 10 <= len(ans) <= 80:
+        e(f'{len(ans)} answers (need 10-80; aim for 20 or more)')
+    elif len(ans) < 12 and q.get('format_family') != 'player_club_history':
+        w(f'only {len(ans)} answers: need 12 or more (10 is only for a journeyman\'s clubs)')
     keys = collections.defaultdict(list)
     fames = collections.Counter()
     for a in ans:

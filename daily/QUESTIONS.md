@@ -6,20 +6,21 @@ Each day is one file, `daily/YYYY-MM-DD.json`, with five questions. Everyone pla
 
 The daily game is the shop window. A question should make people smile, argue, or say "oh, I know a weird one". Duel questions are plain lists ("Name a German who played in the Premier League"); daily questions need an angle.
 
+**Size matters most.** A question needs enough answers that most players can name one: at least 12, ideally 20 to 40. A tiny list (goalkeepers who scored, players sent off in a final) is a quiz for experts and most people score nothing. The only exception is a journeyman's clubs, which needs 10 or more.
+
 Good angles:
 
 | Angle | Example |
 |---|---|
-| A strange fact | Name a goalkeeper who has scored in the Premier League |
-| Drama and moments | Sent off in a World Cup final; scored in a Euro final |
-| A journeyman's career | Name a club Peter Crouch played for (Dulwich Hamlet and IFK Hässleholm are the Screamers) |
-| A surprising side of a famous name | Name a club Pep Guardiola played for (Dorados de Sinaloa) |
-| A manager's travels | Name a Premier League club managed by Sam Allardyce |
-| Letters and names | Name a Premier League club whose name starts with S |
-| Records and thresholds | Scored 30+ goals in one Premier League season |
-| Winners across history | Name a club that has won the European Cup or Champions League |
+| Moments across history | Scored in a World Cup final, 1966 to 2022 (37 answers, Pelé to Nanninga) |
+| Awards with a long tail | Won the Premier League Golden Boot (Dion Dublin is the Screamer) |
+| A journeyman's career, 10+ clubs | Name a club Kevin-Prince Boateng played for (Barcelona, Monza) |
+| Winners across history | Name a club that has won the English top flight (Preston, Huddersfield) |
+| Places | Name a stadium that hosted a World Cup final; a country that hosted Euros matches |
+| Spain and Latin America | Clubs in a Copa del Rey final; Copa Libertadores winners |
+| Records and thresholds | Scored 5+ goals at one World Cup |
 
-Avoid: plain squad lists, "played for club X in season Y", and anything a duel template already covers. A question where the answers are only the famous ones is boring; one where only experts score is frustrating. The best have a few obvious answers and a tail of surprising ones.
+Avoid: tiny lists, plain squad lists, "played for club X in season Y", and anything a duel template already covers. A question where the answers are only the famous ones is boring; one where only experts score is frustrating. The best have a few obvious answers and a long tail of surprising ones.
 
 ## A day
 
@@ -32,19 +33,19 @@ Avoid: plain squad lists, "played for club X in season Y", and anything a duel t
 
 ```json
 {
-  "id": "f005", "_id": "f005",
-  "prompt": "Name a goalkeeper who has scored in the Premier League",
-  "subtitle": "Any season, 1992-93 to 2024-25",
-  "prompt_es": "Nombra un portero que haya marcado en la Premier League",
-  "subtitle_es": "Cualquier temporada, de la 1992-93 a la 2024-25",
-  "difficulty": "hard",
+  "id": "f004", "_id": "f004",
+  "prompt": "Won the Premier League Golden Boot",
+  "subtitle": "1992-93 to 2024-25, shared awards count",
+  "prompt_es": "Ganó la Bota de Oro de la Premier",
+  "subtitle_es": "De la 1992-93 a la 2024-25, cuentan los premios compartidos",
+  "difficulty": "easy",
   "answer_type": "player",
-  "format_family": "oddity",
+  "format_family": "award_winner_player",
   "scoring_version": 2,
-  "answer_count": 6,
+  "answer_count": 26,
   "clash_note": "",
-  "answers": [{"name": "Alisson Becker", "aliases": ["Alisson"], "fame": 6}],
-  "traps": [{"name": "Jordan Pickford", "aliases": ["Pickford"], "why": "One sentence in English.", "why_es": "Una frase en español."}]
+  "answers": [{"name": "Alan Shearer", "aliases": ["Shearer"], "fame": 6}],
+  "traps": [{"name": "Wayne Rooney", "aliases": ["Rooney"], "why": "Rooney never won it: his 26 in 2009-10 was three behind Drogba.", "why_es": "Rooney nunca la ganó: sus 26 de la 2009-10 se quedaron a tres de Drogba."}]
 }
 ```
 
@@ -63,7 +64,7 @@ Avoid: plain squad lists, "played for club X in season Y", and anything a duel t
 1. **Correct and complete.** Research every list from reliable sources (official competition sites, Wikipedia season and final pages, Transfermarkt), then do a second, independent pass looking for missing and wrong answers. A missing answer means a player is told they are wrong when they are right, which is the worst thing that can happen in this game.
 2. **The scope is closed.** It must end at a finished season or tournament: "1992-93 to 2024-25", "finals from 2000 to 2025", or for a career, a player who has retired ("retired 2019") or "up to 2025-26". Never "has ever", "all-time" or "so far" for anything still going on.
 3. **Unambiguous.** Say what counts: "played for" means a competitive first-team appearance, loans count, youth and B teams do not; "scored" means normal or extra time, not shootouts, not own goals.
-4. **5 to 80 answers.** Fewer than 5 makes the question a lottery; more than 80 cannot be checked.
+4. **12 to 80 answers, ideally 20 to 40** (10 is enough only for a journeyman's clubs). Fewer leaves most players with nothing; more than 80 cannot be checked.
 5. **No alias shared by two answers.** Put the shared word in neither and let the clash note explain.
 
 ## Workflow (what the weekly routine does)
