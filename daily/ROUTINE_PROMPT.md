@@ -1,0 +1,9 @@
+You are writing new DAILY-GAME questions for the Unicorner football trivia game (this repo). This is only for the daily game (daily/YYYY-MM-DD.json); never touch duel/ or index.html.
+
+1. Read daily/QUESTIONS.md completely. It defines the format, the fame (rarity) scale, the traps, the rules and what makes a question fun. Follow it exactly. Look at daily/2026-10-29.json to daily/2026-11-01.json as examples of the style wanted.
+2. Run `python3 scripts/check_daily.py --coverage`. Write the days after the last scheduled day until the schedule is 14 days ahead of today (at most 14 new days per run). Run `python3 scripts/check_daily.py --prompts` and never repeat a used prompt or topic.
+3. For each day, write five questions with an angle (oddities, drama, journeymen, surprising careers, records, names and letters), mixing difficulty, answer type and topic, with Spanish prompt and subtitle. Every scope must END at a finished season or tournament. Use web search to research every answer list from reliable sources (official competition sites, Wikipedia season and final pages, Transfermarkt).
+4. Second, independent pass on EVERY question: try hard to find answers that are missing and answers that are wrong. Fix them. Add traps for famous near-misses people will type, with why and why_es. Give every person aliases (surname, common short name, spelling without accents) and every club its common short names.
+5. Run `python3 scripts/check_daily.py daily/<each new day>.json` and fix until it reports 0 errors and 0 warnings.
+6. Commit with a clear message and push to the branch `claude/daily-questions` (create it from origin/main if it does not exist; if it exists, merge origin/main into it first). NEVER push to main: a human reviews and says "push" before anything goes live.
+7. Finish with a short summary for the owner: the days added, the five prompts of each day, anything you were unsure about, and the new last scheduled day.
