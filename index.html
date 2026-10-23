@@ -1541,6 +1541,11 @@ body.kit-gold .sprite{filter:drop-shadow(0 0 var(--kg) #ffd23f) drop-shadow(0 0 
 @keyframes rdIn{from{opacity:0;transform:translateY(14px) scale(.97)}}
 @keyframes rdPulse{50%{transform:scale(1.03)}}
 @media (prefers-reduced-motion:reduce){.rd-card,.rd-go,.rd-pop{animation:none}}
+.ip-wait{background:#fbf3dc;color:#1a1030;border:3px solid #1a1030;border-radius:12px;padding:14px 16px;text-align:left;animation:rdIn .28s cubic-bezier(.23,1,.32,1)}
+.ip-wait b{font:400 28px/1 var(--px)}.ip-wait p{margin:6px 0 0!important;font-size:15px;line-height:1.35;color:#3a3050}
+.ip-wait .ip-ok{color:#1d7a45;font-weight:700}
+.ip-notify{display:flex;gap:8px;margin-top:10px}.ip-notify input{flex:1;min-width:0;padding:10px;border:2px solid #1a1030;border-radius:8px;font:16px Barlow,system-ui}
+.ip-notify button{padding:10px 14px!important;border:2px solid #1a1030!important;border-radius:8px;background:#f2c230!important;color:#1a1030!important;font:700 15px Barlow,system-ui!important;box-shadow:none!important;width:auto!important;text-transform:none!important}
 </style></head><body><div class="sp" id="sp" aria-hidden="true"><div class="sp-s"></div><div class="sp-t">UNICORNER</div><div class="sp-run"><div class="sp-bar"><div class="sp-fill"><i class="sp-u"></i></div></div></div><div class="sp-m"><span class="sp-en">Warming up on the touchline…</span><span class="sp-es">Calentando en la banda…</span></div></div>
 <script>
 // loading screen: always shown, lifts once the page and its fonts are ready (at least ~1s so it never just flickers), then the landing intro plays
@@ -2066,7 +2071,7 @@ const INF_SET=[{"id":"u035","prompt":"Made the Ballon d'Or top ten, 2019-2024","
 const infKey=()=>'uc-inf-'+amsterdamDay();
 const infDone=()=>{try{return localStorage.getItem(infKey())!==null}catch{return false}};
 // Payment: a Lemon Squeezy checkout for the monthly plan. The link carries the player's account id, so the lemonsqueezy-webhook function knows who paid.
-const INF_PAY={link:'https://unicorner.lemonsqueezy.com/checkout/buy/074b6a44-c035-463e-bc40-033f5b5f78c2',portal:'https://app.lemonsqueezy.com/my-orders',price:()=>L('€2.99 a month','2,99 € al mes')};
+const INF_PAY={paused:true /* Lemon Squeezy still verifying the store: set false to reopen checkout */,link:'https://unicorner.lemonsqueezy.com/checkout/buy/074b6a44-c035-463e-bc40-033f5b5f78c2',portal:'https://app.lemonsqueezy.com/my-orders',price:()=>L('€2.99 a month','2,99 € al mes')};
 const INF_FIRST='2026-09-18'; // first day with a daily file; Infinity plays every day before today
 let INF_SUB=null;
 async function infSub(force){if(!window.ucSignedIn?.())return{active:false,signed:false};if(INF_SUB&&!force)return INF_SUB;
@@ -2146,6 +2151,11 @@ async function infEndless(){INF.endless=true;let qs=[];try{qs=await infPool()}ca
   ${INF_PAY.portal?`<p class="inf-manage"><a href="${INF_PAY.portal}" target="_blank" rel="noopener">${L('Manage or cancel your subscription','Gestiona o cancela tu suscripción')}</a></p>`:''}</div>`,()=>{track('infinity_endless_intro',{left:qs.length});document.getElementById('inf-go').onclick=()=>{track('infinity_start',{endless:true});ask()}})}
 // ── buying: sign in first (so the subscription follows the account), then off to Stripe ──
 async function infBuy(){const msg=document.getElementById('inf-msg');
+ if(INF_PAY.paused){const email=window.ucSignedEmail?.()||'';track('infinity_buy_paused',{signed:!!email});
+  const box=document.getElementById('inf-buy');box.outerHTML=`<div class="ip-wait" role="status"><b>${L('Almost there! 🛠️','¡Casi listo! 🛠️')}</b><p>${L("We're having a small problem with payments while our checkout is being approved. Infinity opens very soon.",'Estamos teniendo un pequeño problema con los pagos mientras se aprueba nuestro sistema de cobro. El Infinito abre muy pronto.')}</p>${email?`<p class="ip-ok">✓ ${L("We'll email you at","Te avisaremos en")} <strong>${esc(email)}</strong> ${L('the moment it is up.','en cuanto esté listo.')}</p>`:`<form class="ip-notify" id="ip-notify"><input type="email" required placeholder="${L('Your email','Tu email')}" aria-label="${L('Your email','Tu email')}"><button type="submit">${L('Notify me','Avísame')}</button></form>`}</div>`;
+  if(email)window.ucJoinWaitlist?.(email,'infinity_buy','Tried to buy Infinity while checkout was paused');
+  const f=document.getElementById('ip-notify');if(f)f.onsubmit=e=>{e.preventDefault();const v=f.querySelector('input').value.trim();window.ucJoinWaitlist?.(v,'infinity_buy','Tried to buy Infinity while checkout was paused');f.outerHTML=`<p class="ip-ok">✓ ${L("Done! We'll email you the moment it is up.",'¡Hecho! Te avisaremos en cuanto esté listo.')}</p>`};
+  return}
  if(!window.ucSignedIn?.()){track('infinity_signin',{});return window.ucInfLogin?.()}
  const sub=await infSub(true);if(sub.active)return infEndless();
  const uid=await window.ucUserId?.();if(!uid||!INF_PAY.link){if(msg)msg.textContent=L('Something went wrong. Sign out and in again, then try once more.','Algo ha fallado. Cierra sesión, vuelve a entrar e inténtalo otra vez.');else infWall(true);return}
