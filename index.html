@@ -2071,7 +2071,7 @@ const INF_SET=[{"id":"u035","prompt":"Made the Ballon d'Or top ten, 2019-2024","
 const infKey=()=>'uc-inf-'+amsterdamDay();
 const infDone=()=>{try{return localStorage.getItem(infKey())!==null}catch{return false}};
 // Payment: a Lemon Squeezy checkout for the monthly plan. The link carries the player's account id, so the lemonsqueezy-webhook function knows who paid.
-const INF_PAY={paused:true /* Lemon Squeezy still verifying the store: set false to reopen checkout */,link:'https://unicorner.lemonsqueezy.com/checkout/buy/074b6a44-c035-463e-bc40-033f5b5f78c2',portal:'https://app.lemonsqueezy.com/my-orders',price:()=>L('€2.99 a month','2,99 € al mes')};
+const INF_PAY={paused:true /* no payment provider yet: the Infinity wall collects waitlist emails instead */,link:'https://unicorner.lemonsqueezy.com/checkout/buy/074b6a44-c035-463e-bc40-033f5b5f78c2',portal:'https://app.lemonsqueezy.com/my-orders',price:()=>L('€2.99 a month','2,99 € al mes')};
 const INF_FIRST='2026-09-18'; // first day with a daily file; Infinity plays every day before today
 let INF_SUB=null;
 async function infSub(force){if(!window.ucSignedIn?.())return{active:false,signed:false};if(INF_SUB&&!force)return INF_SUB;
@@ -2183,17 +2183,16 @@ function infEnd(){if(INF&&INF.endless){track('infinity_all_done',{score});docume
 function infWall(again){document.body.classList.remove('playing');const signed=!!window.ucSignedIn?.(),ready=!!INF_PAY.link,k=KITS.find(x=>x.id==='shadow');
  swap(`<div class="card inf-wall inf-pay"><div class="ip-hero"><i class="ip-uni" style="background-image:${spriteDraw('wow',0,false,k).replace(/"/g,"'")}"></i><span class="ip-orbit" aria-hidden="true">∞</span></div>
   <span class="ip-eye">${again?L("TODAY'S FREE TASTER IS DONE",'YA HAS JUGADO LA PRUEBA DE HOY'):L('THAT WAS THE FREE TASTER','ESA ERA LA PRUEBA GRATIS')}${again?'':` · ${L('YOUR RUN','TU PARTIDA')} ${score}`}</span>
-  <h2>${L('Go infinite','Pásate al infinito')}</h2>
-  <p class="ip-sub">${L("Don't wait for tomorrow. Keep playing for as long as you like.",'No esperes a mañana. Sigue jugando todo lo que quieras.')}</p>
+  <h2>${L('Infinity is coming','El Infinito llega pronto')}</h2>
+  <p class="ip-sub">${L('Endless questions, no waiting for tomorrow. We are putting the finishing touches on it.','Preguntas sin fin, sin esperar a mañana. Le estamos dando los últimos retoques.')}</p>
   <ul class="ip-perks"><li><b>∞</b><span><strong>${L('Every past daily question','Todas las preguntas anteriores')}</strong>${L('Hundreds of them, 5 more every day','Cientos, y 5 más cada día')}</span></li><li><b>★</b><span><strong>${L('The Infinity kit','La equipación Infinito')}</strong>${L('Wear it on every leaderboard','Lúcela en todos los rankings')}</span></li><li><b>✓</b><span><strong>${L('Your daily game stays free','El juego diario sigue gratis')}</strong>${L('This is extra, nothing is taken away','Es un extra, no quitamos nada')}</span></li></ul>
-  <div class="ip-price"><b>€2.99</b><span>${L('a month','al mes')}</span></div>
-  <button type="button" class="cta ip-buy" id="inf-buy"${ready?'':' disabled'}>${!ready?L('Opening very soon','Abre muy pronto'):signed?L('Unlock Infinity','Desbloquear Infinito'):L('Sign in to unlock','Inicia sesión para desbloquear')}</button>
-  <p class="ip-fine">${L('Cancel any time · Secure checkout by Lemon Squeezy','Cancela cuando quieras · Pago seguro con Lemon Squeezy')} · <a href="terms.html">${L('Terms & refunds','Condiciones y reembolsos')}</a></p>
+  <div class="ip-wait ip-soon">${(()=>{let n='';try{n=localStorage.getItem('uc-inf-notified')||''}catch{}const em=window.ucSignedEmail?.()||'';return n&&(!em||n===em)?`<p class="ip-ok">✓ ${L("You're on the list. We'll email you the moment Infinity opens.",'Ya estás en la lista. Te avisaremos en cuanto abra el Infinito.')}</p>`:`<b>${L('Not ready yet','Aún no está listo')}</b><p>${L("Leave your email and you'll be the first in when it opens.",'Deja tu email y serás el primero en entrar cuando abra.')}</p><form class="ip-notify" id="ip-notify"><input type="email" required value="${esc(em)}" placeholder="${L('Your email','Tu email')}" aria-label="${L('Your email','Tu email')}"><button type="submit">${L('Notify me','Avísame')}</button></form>`})()}</div>
   <p class="inf-msg" id="inf-msg" role="status"></p>
   <button type="button" class="ip-back" id="inf-home">${L("Back to today's game",'Volver al partido de hoy')}</button></div>`,()=>{
-  track('infinity_wall',{again,signed});
+  track('infinity_wall',{again,signed,waitlist:true});
+  const nf=document.getElementById('ip-notify');if(nf)nf.onsubmit=e=>{e.preventDefault();const v=nf.querySelector('input').value.trim();if(!v)return;window.ucJoinWaitlist?.(v,'infinity_wall','Hit the Infinity wall after the free taster');try{localStorage.setItem('uc-inf-notified',v)}catch{}track('infinity_notify',{from:'wall'});nf.closest('.ip-wait').innerHTML=`<p class="ip-ok">✓ ${L("You're on the list! We'll email you the moment Infinity opens.",'¡Estás en la lista! Te avisaremos en cuanto abra el Infinito.')}</p>`};
   document.getElementById('inf-home').onclick=()=>{track('home_click',{from:'infinity'});start()};
-  document.getElementById('inf-buy').onclick=e=>{e.currentTarget.disabled=true;infBuy().finally(()=>{const b=document.getElementById('inf-buy');if(b)b.disabled=false})}})}
+})}
 function ask(slide){calmDown();document.body.classList.remove('results-view');document.body.classList.add('playing');const q=Q[qi];if(INF&&INF.endless)infSeen(String(q.id).replace(/^inf:/,''));if(qi===0)track('game_start',{question_count:Q.length,set_id:dailySetId()});track('question_view',{question_id:q.id||slug(q.prompt),prompt:q.prompt,position:qi+1,question_count:Q.length,difficulty:q.difficulty||'unknown',answer_type:q.answer_type||'player',answer_count:q.answers.length,set_id:dailySetId()});let left=TIME*1000,t0,done=false;
  swap(`<div class="card"><div class="q-progress" aria-label="${L('Question','Pregunta')} ${qi+1}${INF&&INF.endless?'':' '+L('of','de')+' '+Q.length}"><span>${L('Question','Pregunta')}</span><b>${qi+1} ${INF&&INF.endless?'· ∞':L('of','de')+' '+Q.length}</b></div><div class="prompt">${qt(q,'prompt')}</div><div class="mute q-sub">${qt(q,'sub')}</div>${q.by?`<div class="byline">🦄 ${L('Community question by','Pregunta de la comunidad por')} ${q.by}</div>`:''}
  <div class="timer" id="tm"><i id="bar"></i></div>
