@@ -3177,7 +3177,7 @@ function champStrip(y){if(!y?.nickname)return'';const beat=(+y.players||1)>1?+y.
 function competeShell(title,body,foot,status){const tab=gScope==='league'?'league':gTab==='week'?'week':'today';
  const tb=(k,t)=>`<button type="button" role="tab" data-lg="wtab" data-t="${k}" aria-selected="${tab===k}" class="${tab===k?'on':''}">${t}</button>`;
  return `<div class="ucw-o"><div class="ucw"><div class="ucw-bar"><span>${title}</span><i aria-hidden="true">x</i></div>
-  <div class="ucw-tabs" role="tablist">${tb('today',L('Today','Hoy'))}${tb('week',L('Week','Semana'))}${tb('league',L('League','Liga'))}</div>
+  <div class="ucw-tabs" role="tablist">${tb('today',L('Today','Hoy'))}${tb('week',L('Week','Semana'))}</div>
   ${body}<div class="ucw-st">${foot}</div></div></div>
   ${status?`<div class="jb-status">${status}</div>`:''}`}
 const ucwEmpty=t=>`<div class="ucw-grid"><p class="ucw-empty">${t}</p></div>`;
