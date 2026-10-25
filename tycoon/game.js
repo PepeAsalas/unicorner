@@ -206,12 +206,13 @@ function drawPuffs(dt) {
 function celebrate(b) { const big = S.lv[b] === 1 || C.stages.includes(S.lv[b]); pops[b] = {t: performance.now() / 1000, big}; puff(b, big); if (big) lampsFrom = performance.now() / 1000; }
 
 // ---------- moving parts painted by ChatGPT: corner flags and floodlights ----------
-// Positions are fractions of the building image (x, y). Flags stand on (x, y) with a pole h tall; lamps are centred on (x, y), w wide.
+// Positions are fractions of the building image: flags stand on (x, y) with a pole that tall; lamp heads are centred on (x, y), w wide.
+// Flags stand on the pitch corners the stands don't hide.
 const ANIM = {
-  'building-stadium-1': {
-    flags: [[0.5003, 0.894], [0.1769, 0.636], [0.8237, 0.636], [0.5003, 0.351]], pole: 0.046,
-    lamps: [[0.4997, 0.034, 0.04], [0.0715, 0.302, 0.03], [0.9282, 0.3, 0.03]],
-  },
+  'building-stadium-1': {flags: [[0.1477, 0.6244], [0.5003, 0.3427], [0.8587, 0.6056], [0.5061, 0.8873]], pole: 0.0646, lamps: [[0.0712, 0.3016, 0.0280], [0.4997, 0.0329, 0.0350], [0.9276, 0.3016, 0.0280]]},
+  'building-stadium-2': {flags: [[0.5003, 0.3419], [0.5061, 0.8852]], pole: 0.0644, lamps: [[0.0683, 0.3021, 0.0374], [0.5003, 0.0340, 0.0403], [0.9317, 0.3009, 0.0350]]},
+  'building-stadium-3': {flags: [[0.4997, 0.3427], [0.5055, 0.8873]], pole: 0.0646, lamps: [[0.0665, 0.2441, 0.0373], [0.5003, 0.0329, 0.0402], [0.9329, 0.2465, 0.0350]]},
+  'building-stadium-4': {flags: [[0.1480, 0.6172], [0.5012, 0.3387], [0.8602, 0.5986], [0.5070, 0.8770]], pole: 0.0638, lamps: [[0.0661, 0.2831, 0.0398], [0.5000, 0.0394, 0.0409], [0.9351, 0.2865, 0.0386]]},
 };
 let lampsFrom = performance.now() / 1000 - 99, flick = {i: -1, until: 0, next: 6};
 function lampOn(i, t) { // switch on one by one with a stutter after a build, and now and then one lamp flickers
@@ -227,7 +228,7 @@ function animate(fx, b, x0, y0, w, h, t) {
   if (lamp) {
     const fw = lamp.width / 3, fh = lamp.height;
     fx.lamps.forEach(([lx, ly, lw], i) => {
-      const on = lampOn(i, t), dw = lw * w * 1.35, dh = dw * fh / fw, cx = x0 + lx * w, cy = y0 + ly * h;
+      const on = lampOn(i, t), dw = lw * w * 1.08, dh = dw * fh / fw, cx = x0 + lx * w, cy = y0 + ly * h;
       ctx.drawImage(lamp, on ? fw : 0, 0, fw, fh, cx - dw / 2, cy - dh / 2, dw, dh);
       if (on) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, dw * 1.3); g.addColorStop(0, 'rgba(255,240,180,.35)'); g.addColorStop(1, 'rgba(255,240,180,0)'); ctx.fillStyle = g; ctx.fillRect(cx - dw * 1.3, cy - dw * 1.3, dw * 2.6, dw * 2.6); ctx.restore(); }
     });
@@ -236,7 +237,7 @@ function animate(fx, b, x0, y0, w, h, t) {
     const fw = flag.width / 4, fh = flag.height, gust = Math.sin(t * 0.37) + Math.sin(t * 0.23 + 1);
     const seq = gust < -1.1 ? [0, 1, 0, 1] : [1, 2, 3, 2], fps = gust < -1.1 ? 3 : 7;
     fx.flags.forEach(([fxp, fyp], i) => {
-      const f = seq[Math.floor(t * fps + i * 0.6) % 4], dh = fx.pole * h * 2.2, dw = dh * fw / fh, px = x0 + fxp * w, py = y0 + fyp * h;
+      const f = seq[Math.floor(t * fps + i * 0.6) % 4], dh = fx.pole * h, dw = dh * fw / fh, px = x0 + fxp * w, py = y0 + fyp * h;
       ctx.drawImage(flag, f * fw, 0, fw, fh, px - dw * 0.075, py - dh, dw, dh); // the pole sits at the left edge of each frame
     });
   }
