@@ -78,146 +78,255 @@ function track(name, data) {
   } catch {}
 }
 
-// ---------- the district: floating islands in the sky (canvas) ----------
-const W = 300, H = 420;
-// cx, cy: centre of each island's grass top; w: drawn width. Islands further back (smaller cy) are drawn first.
-const ISLES = {
-  stadium: {cx: 150, cy: 100, w: 120},
-  shop: {cx: 66, cy: 212, w: 100},
-  transfer: {cx: 234, cy: 212, w: 100},
-  academy: {cx: 74, cy: 326, w: 106},
-  pitch: {cx: 226, cy: 326, w: 112},
+// ---------- the club grounds: one isometric field with roads and plots (canvas) ----------
+// World coordinates are (u, v) grid units; P() turns them into pixels. Plots are 4x4 units with 3-unit roads between them.
+const W = 320, H = 270, A = 14, X0 = 160, Y0 = 55;
+const P = (u, v) => [X0 + (u - v) * A, Y0 + (u + v) * A / 2];
+// u0, v0: the plot's back corner. door: where people arrive, on a road next to it.
+const LOTS = {
+  stadium: {u0: 0, v0: 0, door: [2, 5.5]},
+  shop: {u0: 0, v0: 7, door: [5.5, 9]},
+  transfer: {u0: 7, v0: 0, door: [9, 5.5]},
+  pitch: {u0: 7, v0: 7, door: [12.5, 9]},
+  academy: {u0: 7, v0: 14, door: [12.5, 16]},
 };
-const BRIDGES = [['pitch', 'academy'], ['academy', 'shop'], ['shop', 'stadium'], ['stadium', 'transfer'], ['transfer', 'pitch']];
+const ROADS = [5.5, 12.5], EDGE = [-8, 26];
 const TARGET_PLOT = {tap: 'pitch', pitch: 'pitch', sales: 'academy', transfer: 'transfer', shop: 'shop', tickets: 'stadium'};
 const stageOf = b => S.lv[b] ? C.stages.filter(t => S.lv[b] >= t).length : 0;
+const lotCentre = b => { const L = LOTS[b]; return P(L.u0 + 2, L.v0 + 2); };
+const lotFront = b => { const L = LOTS[b]; return P(L.u0 + 4, L.v0 + 4); };
+
 const cv = $('map'), ctx = cv.getContext('2d'), mid = $('stage'), mapFloats = $('mapFloats');
-let K = 2;
+let K = 2, SC = 1, OX = 0, OY = 0, CW = 1, CH = 1;
+const ground = document.createElement('canvas'), gctx = ground.getContext('2d');
 function resize() {
-  const r = mid.getBoundingClientRect(), s = Math.min(r.width / W, r.height / H);
-  const cw = Math.floor(W * s), ch = Math.floor(H * s);
-  cv.style.width = cw + 'px'; cv.style.height = ch + 'px';
-  Object.assign(mapFloats.style, {width: cw + 'px', height: ch + 'px', left: (r.width - cw) / 2 + 'px', top: (r.height - ch) / 2 + 'px'});
-  K = Math.max(1, Math.ceil(s * (window.devicePixelRatio || 1)));
-  cv.width = W * K; cv.height = H * K; ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+  const r = mid.getBoundingClientRect(); if (!r.width || !r.height) return;
+  CW = r.width; CH = r.height; SC = Math.min(CW / W, CH / H); OX = (CW - W * SC) / 2; OY = (CH - H * SC) / 2;
+  const dpr = window.devicePixelRatio || 1; K = dpr;
+  cv.style.width = CW + 'px'; cv.style.height = CH + 'px'; cv.width = Math.round(CW * dpr); cv.height = Math.round(CH * dpr);
+  Object.assign(mapFloats.style, {width: W * SC + 'px', height: H * SC + 'px', left: OX + 'px', top: OY + 'px'});
+  ground.width = cv.width; ground.height = cv.height; paintGround();
 }
-// art from tycoon/art/ (listed in content.js); anything missing falls back to a simple drawing
+const toWorld = c => c.setTransform(K * SC, 0, 0, K * SC, K * OX, K * OY);
+const visible = () => [-OX / SC, -OY / SC, CW / SC, CH / SC]; // x, y, w, h of the world that is on screen
+
+// art from tycoon/art/ (listed in content.js)
 const ART = {};
-function loadArt() { for (const f of C.art || []) { const img = new Image(); img.onload = () => { ART[f.replace(/\.\w+$/, '')] = img; }; img.src = 'art/' + f; } }
+function loadArt() { for (const f of C.art || []) { const img = new Image(); img.onload = () => { ART[f.replace(/\.\w+$/, '')] = img; paintGround(); }; img.src = 'art/' + f; } }
 const art = name => ART[name];
 const INK = '#1a1030';
 const R = (x, y, w, h, c) => { ctx.fillStyle = c; ctx.fillRect(x, y, w, h); };
 function text(s, x, y, size, c) { ctx.font = `${size}px Silkscreen, monospace`; ctx.textAlign = 'center'; ctx.lineWidth = 2.5; ctx.strokeStyle = INK; ctx.strokeText(s, x, y); ctx.fillStyle = c; ctx.fillText(s, x, y); }
-// island name tags: an ink plate so they stay readable over art and sky
 function label(s, x, y) {
   ctx.font = '6px Silkscreen, monospace'; const w = ctx.measureText(s).width + 8;
   R(Math.round(x - w / 2), y - 7, Math.round(w), 10, INK); ctx.textAlign = 'center'; ctx.fillStyle = '#fbf3dc'; ctx.fillText(s, x, y);
 }
-
-// clouds drifting behind the islands
-const clouds = Array.from({length: 7}, (_, i) => ({x: Math.random() * W, y: 10 + i * 50 + Math.random() * 20, s: 0.6 + Math.random() * 0.8, v: 3 + Math.random() * 5}));
-function drawCloud(c) {
-  ctx.fillStyle = 'rgba(255,255,255,.85)';
-  const u = 6 * c.s;
-  ctx.fillRect(c.x, c.y, u * 6, u * 1.5); ctx.fillRect(c.x + u, c.y - u, u * 3, u); ctx.fillRect(c.x + u * 2.5, c.y - u * 1.8, u * 2, u);
+// a filled iso rectangle from (u0, v0) to (u1, v1)
+function quad(c, u0, v0, u1, v1, fill) {
+  c.beginPath(); for (const [u, v] of [[u0, v0], [u1, v0], [u1, v1], [u0, v1]]) c.lineTo(...P(u, v)); c.closePath(); c.fillStyle = fill; c.fill();
 }
-function drawBridge(a, b, t) {
-  const A = ISLES[a], B2 = ISLES[b], dx = B2.cx - A.cx, dy = B2.cy - A.cy, len = Math.hypot(dx, dy), ux = dx / len, uy = dy / len, nx = -uy * 4, ny = ux * 4;
-  const sag = 6;
-  for (let d = 0; d <= len; d += 5) {
-    const k = d / len, x = A.cx + dx * k, y = A.cy + dy * k + Math.sin(k * Math.PI) * sag + 8;
-    ctx.fillStyle = INK; ctx.beginPath(); ctx.moveTo(x - nx - 0.5, y - ny - 0.5); ctx.lineTo(x + nx + 0.5, y + ny + 0.5); ctx.lineTo(x + nx + ux * 4.5, y + ny + uy * 4.5 + 1); ctx.lineTo(x - nx + ux * 4.5, y - ny + uy * 4.5 + 1); ctx.fill();
-    ctx.fillStyle = (d / 5) % 2 ? '#b07a43' : '#c48a4f'; ctx.beginPath(); ctx.moveTo(x - nx, y - ny); ctx.lineTo(x + nx, y + ny); ctx.lineTo(x + nx + ux * 4, y + ny + uy * 4); ctx.lineTo(x - nx + ux * 4, y - ny + uy * 4); ctx.fill();
+const hash = (a, b) => { const s = Math.sin(a * 127.1 + b * 311.7) * 43758.5453; return s - Math.floor(s); };
+function tree(c, u, v, s = 1) {
+  const [x, y] = P(u, v);
+  c.fillStyle = 'rgba(20,40,10,.25)'; c.beginPath(); c.ellipse(x + 2, y, 7 * s, 3.2 * s, 0, 0, Math.PI * 2); c.fill();
+  c.fillStyle = '#5b3a1e'; c.fillRect(x - 1, y - 6 * s, 2.4, 6 * s);
+  c.fillStyle = '#1f4a1c'; c.beginPath(); c.arc(x, y - 11 * s, 7.4 * s, 0, Math.PI * 2); c.fill();
+  c.fillStyle = '#2f7a2a'; c.beginPath(); c.arc(x - 0.6, y - 11.6 * s, 6.2 * s, 0, Math.PI * 2); c.fill();
+  c.fillStyle = '#4fa03a'; c.beginPath(); c.arc(x - 2.2 * s, y - 13.6 * s, 3 * s, 0, Math.PI * 2); c.fill();
+}
+
+// everything that never moves: grass, roads, the pond, the trees. Painted once per resize.
+function paintGround() {
+  const c = gctx; c.setTransform(1, 0, 0, 1, 0, 0); c.clearRect(0, 0, ground.width, ground.height); toWorld(c);
+  const [vx, vy, vw, vh] = visible();
+  c.fillStyle = '#4f8d36'; c.fillRect(vx, vy, vw, vh);
+  for (let u = -60; u < 80; u += 2) quad(c, u, -60, u + 1, 80, '#548f39'); // mowing stripes
+  // roads, kerbs first so the paving sits on top
+  for (const k of ROADS) { quad(c, k - 1.1, -60, k + 1.1, 80, '#a89a72'); quad(c, -60, k - 1.1, 80, k + 1.1, '#a89a72'); }
+  for (const k of ROADS) { quad(c, k - 1, -60, k + 1, 80, '#e2d4a6'); quad(c, -60, k - 1, 80, k + 1, '#e2d4a6'); }
+  // the far corners of the grounds: a pond, a little park, the car park and the entrance plaza
+  quad(c, 14.2, 0.2, 17.8, 3.8, '#4a8a34');
+  const [px, py] = P(16, 2); c.fillStyle = '#2d5e8a'; c.beginPath(); c.ellipse(px, py, 20, 10, 0, 0, Math.PI * 2); c.fill();
+  c.fillStyle = '#4f9ad0'; c.beginPath(); c.ellipse(px, py - 1, 18, 8.4, 0, 0, Math.PI * 2); c.fill();
+  c.fillStyle = 'rgba(255,255,255,.55)'; c.fillRect(px - 8, py - 4, 6, 1.2); c.fillRect(px + 3, py + 1, 5, 1.2);
+  quad(c, 14.2, 7.2, 17.8, 10.8, '#6b6878');
+  for (let i = 0; i < 4; i++) { const [ax, ay] = P(14.6, 7.6 + i * 0.85), [bx, by] = P(16.2, 7.6 + i * 0.85); c.strokeStyle = 'rgba(255,255,255,.7)'; c.lineWidth = 0.7; c.beginPath(); c.moveTo(ax, ay); c.lineTo(bx, by); c.stroke(); }
+  quad(c, 14.2, 14.2, 17.8, 17.8, '#d8c99c'); quad(c, 15.2, 15.2, 16.8, 16.8, '#c9b685');
+  // trees: a few in the park corner and plenty outside the grounds
+  for (const [u, v] of [[1, 15], [2.6, 14.8], [1.6, 16.6], [3.2, 16.8], [0.8, 17.6]]) tree(c, u, v, 0.9);
+  const trees = [];
+  for (let u = -30; u < 44; u++) for (let v = -30; v < 44; v++) {
+    const inside = u > -1.5 && u < 19 && v > -1.5 && v < 19, onRoad = ROADS.some(k => Math.abs(u + 0.5 - k) < 2.2 || Math.abs(v + 0.5 - k) < 2.2);
+    if (!inside && !onRoad && hash(u, v) < 0.09) trees.push([u + hash(v, u) * 0.6, v + hash(u + 3, v) * 0.6]);
+  }
+  trees.sort((a, b) => a[0] + a[1] - b[0] - b[1]).forEach(([u, v]) => tree(c, u, v, 0.8 + hash(u, v) * 0.35));
+}
+
+// ---------- buildings: art sits on its plot; a quick settle when it is built or grows ----------
+const hitBox = {}, pops = {};
+const ease = k => 1 - Math.pow(1 - k, 3);
+function popScale(b, t) { // squash and settle, 360 ms, only after a purchase
+  const p = pops[b]; if (!p) return [1, 1];
+  const k = (t - p.t) / 0.36; if (k >= 1) { delete pops[b]; return [1, 1]; }
+  const big = p.big ? 1 : 0.4, s = Math.sin(k * Math.PI * 2) * (1 - ease(k)) * 0.07 * big;
+  return [1 + s, 1 - s];
+}
+function drawLot(b, t) {
+  const L = LOTS[b], st = stageOf(b), img = st && art(`building-${b}-${st}`), [cx] = lotCentre(b), [, fy] = lotFront(b);
+  if (!img) { // empty plot for sale
+    quad(ctx, L.u0 + 0.35, L.v0 + 0.35, L.u0 + 3.65, L.v0 + 3.65, '#9a6f45');
+    for (let i = 1; i < 6; i++) { const [ax, ay] = P(L.u0 + 0.35 + i * 0.55, L.v0 + 0.5), [bx, by] = P(L.u0 + 0.35 + i * 0.55, L.v0 + 3.5); ctx.strokeStyle = '#86603b'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.stroke(); }
+    for (const [u, v] of [[0.35, 0.35], [3.65, 0.35], [0.35, 3.65], [3.65, 3.65]]) { const [x, y] = P(L.u0 + u, L.v0 + v); R(x - 0.8, y - 5, 1.6, 5, '#f3ead0'); }
+    const [x, y] = lotCentre(b);
+    R(x - 1, y - 16, 2.2, 16, INK); R(x - 15, y - 28, 30, 14, INK); R(x - 14, y - 27, 28, 12, '#fbf3dc');
+    ctx.font = '5px Silkscreen, monospace'; ctx.textAlign = 'center'; ctx.fillStyle = INK; ctx.fillText('FOR', x, y - 21.5); ctx.fillStyle = '#e3262f'; ctx.fillText('SALE', x, y - 16);
+    hitBox[b] = {x: x - 26, y: y - 30, w: 52, h: 46};
+    return;
+  }
+  const w = 8 * A, h = img.height * w / img.width, [sx, sy] = popScale(b, t);
+  ctx.save(); ctx.translate(cx, fy + 1); ctx.scale(sx, sy); ctx.drawImage(img, -w / 2, -h, w, h); ctx.restore();
+  hitBox[b] = {x: cx - w / 2, y: fy - h, w, h};
+}
+// dust puffs when something is built
+const puffs = [];
+function puff(b, big) {
+  const L = LOTS[b];
+  for (let i = 0; i < (big ? 14 : 5); i++) { const a = i / (big ? 14 : 5) * Math.PI * 2, [x, y] = P(L.u0 + 2 + Math.cos(a) * 2.1, L.v0 + 2 + Math.sin(a) * 2.1); puffs.push({x, y, dx: Math.cos(a) * 10, dy: Math.sin(a) * 5 - 4, t: 0}); }
+}
+function drawPuffs(dt) {
+  for (let i = puffs.length - 1; i >= 0; i--) {
+    const p = puffs[i]; p.t += dt; const k = p.t / 0.5; if (k >= 1) { puffs.splice(i, 1); continue; }
+    const e = ease(k); ctx.fillStyle = `rgba(251,243,220,${0.85 * (1 - k)})`; ctx.beginPath(); ctx.arc(p.x + p.dx * e, p.y + p.dy * e, 2.5 + 3 * e, 0, Math.PI * 2); ctx.fill();
   }
 }
-// the point on a bridge where walkers stand (same curve as the planks)
-function bridgePoint(a, b, k) {
-  const A = ISLES[a], B2 = ISLES[b];
-  return {x: A.cx + (B2.cx - A.cx) * k, y: A.cy + (B2.cy - A.cy) * k + Math.sin(k * Math.PI) * 6 + 10};
-}
-// an empty floating island with a "for sale" sign
-function drawEmpty(I) {
-  const w = I.w * 0.78, h = w * 0.46, x = I.cx, y = I.cy + 6;
-  ctx.fillStyle = '#7a4a2a'; ctx.beginPath(); ctx.moveTo(x - w / 2, y); ctx.lineTo(x, y + h / 2); ctx.lineTo(x + w / 2, y); ctx.lineTo(x + w / 2, y + 12); ctx.lineTo(x, y + h / 2 + 12); ctx.lineTo(x - w / 2, y + 12); ctx.closePath(); ctx.fill();
-  ctx.strokeStyle = INK; ctx.lineWidth = 1.5; ctx.stroke();
-  ctx.fillStyle = '#6fbf5a'; ctx.beginPath(); ctx.moveTo(x, y - h / 2); ctx.lineTo(x + w / 2, y); ctx.lineTo(x, y + h / 2); ctx.lineTo(x - w / 2, y); ctx.closePath(); ctx.fill(); ctx.stroke();
-  ctx.fillStyle = '#a77b46'; ctx.beginPath(); ctx.moveTo(x, y - h / 4); ctx.lineTo(x + w / 4, y); ctx.lineTo(x, y + h / 4); ctx.lineTo(x - w / 4, y); ctx.closePath(); ctx.fill();
-  R(x - 1, y - 18, 3, 16, INK); R(x - 17, y - 30, 34, 15, INK); R(x - 16, y - 29, 32, 13, '#fbf3dc');
-  ctx.font = '5px Silkscreen, monospace'; ctx.textAlign = 'center'; ctx.fillStyle = INK; ctx.fillText('FOR', x, y - 23.5); ctx.fillStyle = '#e3262f'; ctx.fillText('SALE', x, y - 17.5);
-  return {x: x - w / 2, y: y - 32, w, h: h / 2 + 46};
-}
-const hitBox = {};
-function drawIsland(b, t) {
-  const I = ISLES[b], st = stageOf(b), img = st && art(`building-${b}-${st}`);
-  if (!img) { hitBox[b] = drawEmpty(I); return; }
-  const w = I.w, h = img.height * w / img.width, bottom = I.cy + w * 0.3 + Math.sin(t * 0.8 + I.cx) * 1.2;
-  ctx.drawImage(img, I.cx - w / 2, bottom - h, w, h);
-  hitBox[b] = {x: I.cx - w / 2, y: bottom - h, w, h};
-}
-// characters: ChatGPT sprites moved, bobbed and flipped in code
+function celebrate(b) { const big = S.lv[b] === 1 || C.stages.includes(S.lv[b]); pops[b] = {t: performance.now() / 1000, big}; puff(b, big); }
+
+// ---------- people: they walk along the roads to a building's door ----------
+// sprite() draws a character standing at (x, y) on the ground: a two-beat step bob and a slight lean while walking
 function sprite(name, x, y, h, t, opts = {}) {
   const img = art(name); if (!img) return;
-  const w = img.width * h / img.height, walk = opts.walk ? Math.abs(Math.sin(t * 10 + x)) * 1.6 : Math.sin(t * 2.4 + x) * 0.6;
-  ctx.save(); ctx.translate(x, y - walk);
-  if (opts.walk) ctx.rotate(Math.sin(t * 10 + x) * 0.06);
+  const w = img.width * h / img.height, ph = t * 9 + (opts.seed || 0), lift = opts.walk ? Math.abs(Math.sin(ph)) * 1.4 : 0;
+  ctx.save(); ctx.globalAlpha = opts.alpha ?? 1; ctx.translate(x, y);
+  ctx.fillStyle = 'rgba(20,40,10,.28)'; ctx.beginPath(); ctx.ellipse(0, 0, w * 0.3, 1.5, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.translate(0, -lift); if (opts.walk) ctx.rotate(Math.sin(ph) * 0.05);
   if (opts.flip) ctx.scale(-1, 1);
-  ctx.fillStyle = 'rgba(26,16,48,.22)'; ctx.beginPath(); ctx.ellipse(0, walk, w * 0.32, 1.6, 0, 0, Math.PI * 2); ctx.fill();
   ctx.drawImage(img, -w / 2, -h, w, h); ctx.restore();
 }
-const walkers = [];
-function stepWalkers(dt) {
-  const want = S.lv.stadium ? Math.min(10, 2 + S.lv.stadium) : 0;
-  if (walkers.length < want && Math.random() < dt * 1.2) {
-    const from = Math.random() < 0.5 ? 'shop' : 'transfer';
-    walkers.push({a: from, b: 'stadium', k: 0, v: 0.12 + Math.random() * 0.08});
+// road graph: crossings, the points where roads leave the grounds, and every door
+function route(from, to) {
+  const pts = [];
+  for (const a of ROADS) for (const b of ROADS) pts.push([a, b]);
+  for (const k of ROADS) for (const e of EDGE) pts.push([k, e], [e, k]);
+  pts.push(from, to);
+  const same = (p, q) => Math.abs(p[0] - q[0]) < 1e-6 || Math.abs(p[1] - q[1]) < 1e-6;
+  const onRoad = (p, q) => same(p, q) && (ROADS.includes(p[0]) && Math.abs(p[0] - q[0]) < 1e-6 || ROADS.includes(p[1]) && Math.abs(p[1] - q[1]) < 1e-6);
+  const dist = pts.map(() => Infinity), prev = pts.map(() => -1), done = pts.map(() => false), s = pts.length - 2, e = pts.length - 1;
+  dist[s] = 0;
+  for (;;) {
+    let i = -1; for (let j = 0; j < pts.length; j++) if (!done[j] && (i < 0 || dist[j] < dist[i])) i = j;
+    if (i < 0 || dist[i] === Infinity || i === e) break; done[i] = true;
+    for (let j = 0; j < pts.length; j++) if (!done[j] && onRoad(pts[i], pts[j])) { const d = dist[i] + Math.abs(pts[i][0] - pts[j][0]) + Math.abs(pts[i][1] - pts[j][1]); if (d < dist[j]) { dist[j] = d; prev[j] = i; } }
   }
-  for (let i = walkers.length - 1; i >= 0; i--) { walkers[i].k += walkers[i].v * dt; if (walkers[i].k >= 1) walkers.splice(i, 1); }
+  const out = []; for (let i = e; i >= 0; i = prev[i]) out.unshift(pts[i]);
+  return out[0] === from ? out : [from, to];
+}
+const walkers = [];
+const WHO = {stadium: 'char-fan', shop: 'char-fan', transfer: 'char-agent', pitch: 'char-youth', academy: 'char-youth'};
+function spawn(b, from) {
+  const start = from || [ROADS[Math.random() * 2 | 0], EDGE[1]].sort(() => Math.random() - 0.5);
+  walkers.push({who: WHO[b], path: route(start, LOTS[b].door), i: 0, k: 0, v: 1.5 + Math.random() * 0.6, seed: Math.random() * 9, life: 0, out: 0});
+}
+function stepWalkers(dt) {
+  const busy = S.lv.stadium * 1.2 + S.lv.shop * 0.6 + S.lv.transfer * 0.3 + (S.lv.academy ? 1 : 0);
+  if (walkers.length < Math.min(14, 1 + busy) && Math.random() < dt * 0.9) {
+    const open = Object.keys(LOTS).filter(b => S.lv[b]), weights = open.map(b => b === 'stadium' ? 3 : b === 'shop' ? 2 : 1);
+    let r = Math.random() * weights.reduce((a, b) => a + b, 0), pick = open[0];
+    for (let i = 0; i < open.length; i++) { r -= weights[i]; if (r <= 0) { pick = open[i]; break; } }
+    if (pick) spawn(pick);
+  }
+  for (let n = walkers.length - 1; n >= 0; n--) {
+    const w = walkers[n]; w.life += dt;
+    if (w.i >= w.path.length - 1) { w.out += dt; if (w.out > 0.25) walkers.splice(n, 1); continue; }
+    const a = w.path[w.i], b = w.path[w.i + 1], len = Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]) || 1e-6;
+    w.k += w.v * dt / len; if (w.k >= 1) { w.k = 0; w.i++; }
+  }
+}
+function walkerPos(w) {
+  const a = w.path[Math.min(w.i, w.path.length - 1)], b = w.path[Math.min(w.i + 1, w.path.length - 1)];
+  const u = a[0] + (b[0] - a[0]) * w.k, v = a[1] + (b[1] - a[1]) * w.k, side = (w.seed % 1 - 0.5) * 1.1; // keep people off the exact centre line
+  const [x, y] = P(u + (a[0] === b[0] ? side : 0), v + (a[1] === b[1] ? side : 0));
+  const [bx] = P(b[0], b[1]), [ax] = P(a[0], a[1]);
+  return {x, y, d: u + v, flip: bx < ax};
 }
 function drawPeople(t) {
   const list = [];
-  for (const w of walkers) { const p = bridgePoint(w.a, w.b, w.k); list.push({y: p.y, f: () => sprite('char-fan', p.x, p.y, 17, t, {walk: true, flip: ISLES[w.b].cx < ISLES[w.a].cx})}); }
-  if (S.lv.academy) {
-    const I = ISLES.academy, kids = Math.min(3, Math.ceil(S.lv.academy / 6));
-    for (let i = 0; i < kids; i++) { const s = Math.sin(t * 0.9 + i * 2.1), x = I.cx - 22 + i * 18 + s * 10, y = I.cy + 14 + i * 3; list.push({y, f: () => sprite('char-youth', x, y, 15, t, {walk: true, flip: Math.cos(t * 0.9 + i * 2.1) < 0})}); }
+  for (const w of walkers) {
+    const p = walkerPos(w), alpha = Math.min(1, w.life / 0.25) * (1 - w.out / 0.25);
+    list.push({d: p.d, f: () => sprite(w.who, p.x, p.y, 15, t, {walk: w.out === 0, flip: p.flip, seed: w.seed, alpha})});
   }
-  if (S.lv.pitch >= 5) { const I = ISLES.pitch; list.push({y: I.cy + 22, f: () => sprite('char-coach', I.cx + 30, I.cy + 22, 16, t, {flip: Math.sin(t * 0.4) > 0})}); }
-  if (S.lv.transfer) {
-    const I = ISLES.transfer, n = EV && EV.e.target === 'transfer' ? 5 : 1;
-    for (let i = 0; i < n; i++) { const x = I.cx - 26 + i * 12 + Math.sin(t * 1.3 + i) * 6, y = I.cy + 20 + (i % 2) * 4; list.push({y, f: () => sprite('char-agent', x, y, 16, t, {walk: n > 1, flip: Math.cos(t * 1.3 + i) < 0})}); }
+  if (S.lv.academy) { // youth players doing drills in front of the academy
+    const L = LOTS.academy, kids = Math.min(3, Math.ceil(S.lv.academy / 6));
+    for (let i = 0; i < kids; i++) {
+      const k = (Math.sin(t * 0.7 + i * 2.1) + 1) / 2, u = L.u0 + 4.5, v = L.v0 + 0.8 + i * 1.1 + k * 0.6, [x, y] = P(u, v);
+      list.push({d: u + v, f: () => sprite('char-youth', x, y, 13, t, {walk: true, flip: Math.cos(t * 0.7 + i * 2.1) > 0, seed: i})});
+    }
   }
-  if (S.lv.shop >= 10) { // the mascot wanders the bridges
-    const e = BRIDGES[Math.floor(t / 9) % BRIDGES.length], k = (t % 9) / 9, p = bridgePoint(e[0], e[1], k);
-    list.push({y: p.y, f: () => sprite('char-mascot', p.x, p.y, 18, t, {walk: true, flip: ISLES[e[1]].cx < ISLES[e[0]].cx})});
+  if (S.lv.pitch >= 5) { const [x, y] = P(LOTS.pitch.u0 + 4.6, LOTS.pitch.v0 + 2.6); list.push({d: 21.2, f: () => sprite('char-coach', x, y, 15, t, {flip: Math.sin(t * 0.4) > 0})}); }
+  if (EV && EV.e.target === 'transfer') { // agents queue at the transfer office door
+    for (let i = 0; i < 5; i++) { const [x, y] = P(9 + (i - 2) * 0.55, 4.7 + (i % 2) * 0.5); list.push({d: 13.7, f: () => sprite('char-agent', x, y, 14, t, {walk: true, seed: i * 1.7, flip: i % 2})}); }
   }
-  list.sort((a, b) => a.y - b.y).forEach(o => o.f());
+  if (S.lv.shop >= 10) { // the mascot does laps of the grounds
+    const k = (t / 48) % 1, loop = [[5.5, 5.5], [12.5, 5.5], [12.5, 12.5], [5.5, 12.5], [5.5, 5.5]], seg = Math.floor(k * 4), f = k * 4 - seg;
+    const a = loop[seg], b = loop[seg + 1], u = a[0] + (b[0] - a[0]) * f, v = a[1] + (b[1] - a[1]) * f, [x, y] = P(u, v);
+    list.push({d: u + v, f: () => sprite('char-mascot', x, y, 17, t, {walk: true, flip: P(...b)[0] < P(...a)[0], seed: 3})});
+  }
+  for (const b of Object.keys(LOTS)) { const L = LOTS[b]; list.push({d: L.u0 + L.v0 + 4, f: () => drawLot(b, t)}); }
+  list.sort((a, b) => a.d - b.d).forEach(o => o.f());
 }
+
+// ---------- events: a prop over the building, a pin to tap, and the odd plane ----------
 const PROP = {plague: 'event-plague-cloud', airport: 'event-plane', haalunch: 'event-sold-out-sign', misprint: 'event-misprint-shirts', mascot: 'event-banana'};
 function eventProp(e) { const t = e.title.toLowerCase(); return e.prop || (t.includes('plague') ? PROP.plague : t.includes('airport') ? PROP.airport : t.includes('haalunch') ? PROP.haalunch : t.includes('misprint') ? PROP.misprint : t.includes('mascot') ? PROP.mascot : null); }
 function drawEvent(t) {
   if (!EV) return;
-  const b = TARGET_PLOT[EV.e.target], hb = hitBox[b], I = ISLES[b]; if (!hb) return;
-  const prop = eventProp(EV.e), img = prop && art(prop), y = hb.y - 4 + Math.sin(t * 3) * 3;
-  if (prop === PROP.airport && img) { const x = ((t * 40) % (W + 120)) - 60; ctx.drawImage(img, x - 30, I.cy - 70 + Math.sin(t * 2) * 4, 60, 60 * img.height / img.width); }
-  else if (img) { const w = 44, h = w * img.height / img.width; ctx.drawImage(img, I.cx - w / 2, y - h + 10, w, h); }
-  const on = Math.sin(t * 8) > 0; R(I.cx + I.w / 2 - 18, hb.y + 4, 14, 16, INK); R(I.cx + I.w / 2 - 17, hb.y + 5, 12, 14, on ? '#e3262f' : '#ff6b6b'); text('!', I.cx + I.w / 2 - 11, hb.y + 16, 10, '#fff');
+  const b = TARGET_PLOT[EV.e.target], hb = hitBox[b]; if (!hb) return;
+  const [cx, cy] = lotCentre(b), prop = eventProp(EV.e), img = prop && art(prop);
+  if (prop === PROP.airport && img) { // flies over the grounds, its shadow on the grass
+    const k = (t / 6) % 1, x = -40 + k * (W + 80), y = 30 + k * 40, w = 54;
+    ctx.fillStyle = 'rgba(20,40,10,.18)'; ctx.beginPath(); ctx.ellipse(x + 10, y + 70, 20, 6, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.drawImage(img, x - w / 2, y - w * img.height / img.width / 2, w, w * img.height / img.width);
+  } else if (img) { const w = 40, h = w * img.height / img.width; ctx.drawImage(img, cx - w / 2, hb.y + 6 - h + Math.sin(t * 2.2) * 2, w, h); }
+  // the pin: bobs gently so it reads as tappable
+  const y = hb.y + 2 - Math.abs(Math.sin(t * 3)) * 4, x = cx + 30;
+  ctx.fillStyle = 'rgba(20,40,10,.25)'; ctx.beginPath(); ctx.ellipse(x, cy - 2, 4, 1.6, 0, 0, Math.PI * 2); ctx.fill();
+  R(x - 7, y, 14, 15, INK); R(x - 6, y + 1, 12, 13, '#e3262f'); R(x - 2, y + 15, 4, 3, INK); text('!', x, y + 11.5, 10, '#fff');
+}
+// slow cloud shadows drifting over the grass: the only ambient motion
+const shadows = Array.from({length: 3}, (_, i) => ({x: i * 150 - 60, y: 40 + i * 80, v: 4 + i}));
+function drawShadows(dt) {
+  const [vx, vy, vw] = visible();
+  ctx.fillStyle = 'rgba(10,30,10,.07)';
+  for (const s of shadows) {
+    s.x += s.v * dt; if (s.x > vx + vw + 80) s.x = vx - 120;
+    ctx.beginPath(); ctx.ellipse(s.x, s.y, 46, 18, 0, 0, Math.PI * 2); ctx.ellipse(s.x + 30, s.y + 6, 30, 13, 0, 0, Math.PI * 2); ctx.fill();
+  }
 }
 function draw(t, dt) {
-  ctx.setTransform(K, 0, 0, K, 0, 0); ctx.clearRect(0, 0, W, H);
-  for (const c of clouds) { c.x += c.v * dt; if (c.x > W + 10) { c.x = -60; c.y = 10 + Math.random() * (H - 30); } drawCloud(c); }
-  for (const [a, b] of BRIDGES) if (S.lv[a] || S.lv[b]) drawBridge(a, b, t);
-  const order = Object.keys(ISLES).sort((a, b) => ISLES[a].cy - ISLES[b].cy);
-  for (const b of order) drawIsland(b, t);
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height); ctx.drawImage(ground, 0, 0);
+  toWorld(ctx);
   drawPeople(t);
-  for (const b of order) label(B[b].name.toUpperCase() + (S.lv[b] ? ' · ' + S.lv[b] : ''), ISLES[b].cx, ISLES[b].cy + ISLES[b].w * 0.3 + 9);
+  drawPuffs(dt);
+  for (const b of Object.keys(LOTS)) if (!S.lv[b]) { const [x, y] = lotFront(b); label(B[b].name.toUpperCase(), x, y - 6); } // names only on empty plots
+  drawShadows(dt);
   drawEvent(t);
 }
 
 // ---------- floats, coins and the news ticker ----------
 function floatText(s, xPct, yPct, big, layer) {
   const el = document.createElement('div'); el.className = 'float' + (big ? ' big' : ''); el.textContent = s;
-  el.style.left = xPct + '%'; el.style.top = yPct + '%'; (layer || mapFloats).appendChild(el); setTimeout(() => el.remove(), 950);
+  el.style.left = xPct + '%'; el.style.top = yPct + '%'; (layer || mapFloats).appendChild(el); setTimeout(() => el.remove(), 750);
 }
-const plotPct = b => { const I = ISLES[b]; return [I.cx / W * 100, (I.cy - I.w * 0.2) / H * 100]; };
+const plotPct = b => { const [x] = lotCentre(b), y = hitBox[b] ? hitBox[b].y + 10 : lotCentre(b)[1] - 20; return [x / W * 100, y / H * 100]; };
 let tickerT = 0;
 function ticker(s) { $('tickerText').textContent = s; tickerT = 9; }
 function news() {
@@ -226,29 +335,43 @@ function news() {
 }
 
 // ---------- tapping: the keepy-uppies player (left) and the islands (map) ----------
-const kicker = $('kicker'), kickImg = kicker.querySelector('img'), ball = $('ball'), kickFloats = $('floats');
+const kicker = $('kicker'), body = kicker.querySelector('.body'), ball = $('ball'), kickFloats = $('floats'), moneyEl = $('money');
+const still = matchMedia('(prefers-reduced-motion: reduce)');
+// the ball juggles on its own with real gravity; a tap kicks it higher. Units: player heights and seconds.
+const BALL = {y: 0, vy: 0, spin: 0, g: 3.2, idle: 0.95, kick: 1.8};
+function stepBall(dt) {
+  if (still.matches) { ball.style.transform = ''; return; }
+  BALL.vy -= BALL.g * dt; BALL.y += BALL.vy * dt; BALL.spin += BALL.vy * dt * 260;
+  if (BALL.y <= 0) { BALL.y = 0; BALL.vy = BALL.idle; nudge(0.015); }
+  ball.style.transform = `translateY(${-BALL.y * body.clientHeight}px) rotate(${BALL.spin}deg)`;
+}
+const nudge = k => body.animate([{transform: 'scale(1,1)'}, {transform: `scale(${1 + k},${1 - k})`, offset: .35}, {transform: 'scale(1,1)'}], {duration: 160, easing: 'cubic-bezier(.23,1,.32,1)'});
+let lastCoin = 0;
+function coinToBank(x, y) { // one coin flies from the tap into the money counter, which then pulses
+  const now = performance.now(); if (now - lastCoin < 90 || still.matches) return; lastCoin = now;
+  const m = moneyEl.getBoundingClientRect(), tx = m.left + m.width / 2, ty = m.top + m.height / 2, c = document.createElement('span');
+  c.className = 'coin'; document.body.appendChild(c);
+  const lift = Math.min(80, Math.abs(ty - y) * 0.4 + 30);
+  c.animate([{transform: `translate(${x - 6}px,${y - 6}px) scale(.9)`}, {transform: `translate(${(x + tx) / 2 - 6}px,${Math.min(y, ty) - lift - 6}px) scale(1.15)`, offset: .45}, {transform: `translate(${tx - 6}px,${ty - 6}px) scale(.7)`}],
+    {duration: 520, easing: 'cubic-bezier(.45,0,.25,1)'}).onfinish = () => { c.remove(); moneyEl.animate([{transform: 'scale(1.06)'}, {transform: 'scale(1)'}], {duration: 180, easing: 'cubic-bezier(.23,1,.32,1)'}); };
+}
 kicker.addEventListener('pointerdown', e => {
   if (S.wall) return;
   e.preventDefault();
   const v = tapValue(); earn(v); S.taps++;
   const r = kickFloats.getBoundingClientRect();
   floatText('+' + fmt(v), (e.clientX - r.left) / r.width * 100, (e.clientY - r.top) / r.height * 100, false, kickFloats);
-  kickImg.animate([{transform: 'translateX(-50%) scale(1,1)'}, {transform: 'translateX(-50%) scale(1.06,.92)'}, {transform: 'translateX(-50%) scale(.97,1.04)'}, {transform: 'translateX(-50%) scale(1,1)'}], {duration: 260, easing: 'ease-out'});
-  ball.animate([{transform: 'translateY(0)'}, {transform: 'translateY(-420%) rotate(240deg)', offset: .45}, {transform: 'translateY(0) rotate(360deg)'}], {duration: 520, easing: 'cubic-bezier(.33,0,.67,1)'});
-  for (let i = 0; i < 3; i++) {
-    const c = document.createElement('span'); c.className = 'coin'; c.style.left = (e.clientX - r.left) + 'px'; c.style.top = (e.clientY - r.top) + 'px'; kickFloats.appendChild(c);
-    const dx = (Math.random() - 0.5) * 90, dy = -40 - Math.random() * 40;
-    c.animate([{transform: 'translate(-50%,-50%)', opacity: 1}, {transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`, opacity: 1, offset: .4}, {transform: `translate(calc(-50% + ${dx * 1.4}px), calc(-50% + ${dy + 90}px))`, opacity: 0}], {duration: 700, easing: 'ease-out'}).onfinish = () => c.remove();
-  }
+  nudge(0.05); BALL.vy = Math.max(BALL.vy, BALL.kick);
+  coinToBank(e.clientX, e.clientY);
   if (S.taps % 9 === 1) ticker(C.tapLines[(S.taps / 9 | 0) % C.tapLines.length].replace('{m}', fmt(v)));
   paintBank();
 });
 cv.addEventListener('pointerdown', e => {
   if (S.wall) return;
-  const r = cv.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * W, y = (e.clientY - r.top) / r.height * H;
+  const r = cv.getBoundingClientRect(), x = (e.clientX - r.left - OX) / SC, y = (e.clientY - r.top - OY) / SC;
   const inside = b => { const h = hitBox[b]; return h && x >= h.x && x <= h.x + h.w && y >= h.y && y <= h.y + h.h; };
   if (EV && inside(TARGET_PLOT[EV.e.target])) return openEvent();
-  const hit = Object.keys(ISLES).sort((a, b) => ISLES[b].cy - ISLES[a].cy).find(inside);
+  const hit = Object.keys(LOTS).sort((a, b) => LOTS[b].u0 + LOTS[b].v0 - LOTS[a].u0 - LOTS[a].v0).find(inside);
   if (hit) { tab = 'club'; renderPanel(hit); }
 });
 
@@ -294,7 +417,7 @@ function refreshButtons() {
 }
 panel.addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b || b.disabled || S.wall) return;
-  if (b.dataset.buy) { const id = b.dataset.buy, c = cost(id); if (S.money < c) return; S.money -= c; S.lv[id]++; const [x, y] = plotPct(id); floatText(S.lv[id] === 1 ? 'BUILT!' : 'LEVEL ' + S.lv[id], x, y, true); if (C.stages.includes(S.lv[id])) ticker(`${B[id].name} looks bigger and shinier!`); }
+  if (b.dataset.buy) { const id = b.dataset.buy, c = cost(id); if (S.money < c) return; S.money -= c; S.lv[id]++; celebrate(id); const [x, y] = plotPct(id); floatText(S.lv[id] === 1 ? 'BUILT!' : 'LEVEL ' + S.lv[id], x, y, true); if (C.stages.includes(S.lv[id])) ticker(`${B[id].name} looks bigger and shinier!`); }
   else if (b.dataset.up) { const i = +b.dataset.up, u = C.upgrades[i]; if (S.money < u.cost || S.ups.includes(i)) return; S.money -= u.cost; S.ups.push(i); ticker(`${u.name}: ${u.joke}`); }
   else if (b.dataset.sell) { const i = +b.dataset.sell, s = S.stars.find(x => x.i === i && x.kept); if (!s) return; const p = starPrice(); s.kept = false; earn(p); ticker(`${C.stars[i].name} sold to ${club().name} for ${fmt(p)}.`); }
   save(); paintBank(); renderPanel();
@@ -423,6 +546,7 @@ function frame(now) {
   if (!S.wall) {
     earn((rates().total - academy().perSec) * dt);
     academyTick(dt); eventTick(dt); stepWalkers(dt);
+    stepBall(dt);
     if (!document.hidden) S.play += dt;
     if (S.play >= DEMO_SECONDS && modalEl.hidden) wall();
   }

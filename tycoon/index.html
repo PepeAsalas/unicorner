@@ -24,15 +24,14 @@
     <div class="kick-zone">
       <button type="button" class="kicker" id="kicker" aria-label="Do keepy-uppies to earn money">
         <span class="spot" aria-hidden="true"></span>
-        <img src="art/char-keepy-uppy.webp" alt="" draggable="false">
-        <span class="ball" id="ball" aria-hidden="true"></span>
+        <span class="player" aria-hidden="true"><img class="body" src="art/char-keepy-uppy-body.webp" alt="" draggable="false"><img class="ball" id="ball" src="art/ball.webp" alt="" draggable="false"></span>
       </button>
       <div class="floats" id="floats" aria-hidden="true"></div>
     </div>
     <p class="ticker" id="ticker"><b>News:</b> <span id="tickerText">Tap the player to do keepy-uppies and earn money.</span></p>
   </aside>
   <main class="mid" id="stage">
-    <canvas id="map" aria-label="Your football district: one floating island per building."></canvas>
+    <canvas id="map" aria-label="Your football district: your club grounds, one plot per building."></canvas>
     <div class="floats" id="mapFloats" aria-hidden="true"></div>
     <button type="button" class="event-badge" id="eventBadge" hidden></button>
   </main>

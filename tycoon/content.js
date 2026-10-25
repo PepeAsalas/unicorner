@@ -26,7 +26,6 @@ window.TYC_CONTENT = {
     'char-agent.webp',
     'char-coach.webp',
     'char-fan.webp',
-    'char-keepy-uppy.webp',
     'char-mascot.webp',
     'char-youth.webp',
     'event-banana.webp',
