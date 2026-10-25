@@ -78,155 +78,178 @@ function track(name, data) {
   } catch {}
 }
 
-// ---------- the map (canvas) ----------
-const W = 300, H = 360;
-const PLOTS = {
-  stadium: {x: 70, y: 14, w: 160, h: 100},
-  shop: {x: 12, y: 136, w: 100, h: 78},
-  transfer: {x: 188, y: 136, w: 100, h: 78},
-  academy: {x: 12, y: 238, w: 112, h: 92},
-  pitch: {x: 140, y: 232, w: 148, h: 104},
+// ---------- the district: floating islands in the sky (canvas) ----------
+const W = 300, H = 420;
+// cx, cy: centre of each island's grass top; w: drawn width. Islands further back (smaller cy) are drawn first.
+const ISLES = {
+  stadium: {cx: 150, cy: 100, w: 120},
+  shop: {cx: 66, cy: 212, w: 100},
+  transfer: {cx: 234, cy: 212, w: 100},
+  academy: {cx: 74, cy: 326, w: 106},
+  pitch: {cx: 226, cy: 326, w: 112},
 };
+const BRIDGES = [['pitch', 'academy'], ['academy', 'shop'], ['shop', 'stadium'], ['stadium', 'transfer'], ['transfer', 'pitch']];
 const TARGET_PLOT = {tap: 'pitch', pitch: 'pitch', sales: 'academy', transfer: 'transfer', shop: 'shop', tickets: 'stadium'};
 const stageOf = b => S.lv[b] ? C.stages.filter(t => S.lv[b] >= t).length : 0;
-const cv = $('map'), ctx = cv.getContext('2d');
+const cv = $('map'), ctx = cv.getContext('2d'), mid = $('stage'), mapFloats = $('mapFloats');
 let K = 2;
 function resize() {
-  const cssW = cv.parentElement.clientWidth;
-  K = Math.max(1, Math.round(cssW / W * (window.devicePixelRatio || 1)));
-  cv.width = W * K; cv.height = H * K; ctx.imageSmoothingEnabled = false;
+  const r = mid.getBoundingClientRect(), s = Math.min(r.width / W, r.height / H);
+  const cw = Math.floor(W * s), ch = Math.floor(H * s);
+  cv.style.width = cw + 'px'; cv.style.height = ch + 'px';
+  Object.assign(mapFloats.style, {width: cw + 'px', height: ch + 'px', left: (r.width - cw) / 2 + 'px', top: (r.height - ch) / 2 + 'px'});
+  K = Math.max(1, Math.ceil(s * (window.devicePixelRatio || 1)));
+  cv.width = W * K; cv.height = H * K; ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
 }
-// optional art from tycoon/art/ (ART_BRIEF.md); the procedural drawings are used until a file exists
-const ART = {}, artBox = {};
-function loadArt() {
-  for (const f of C.art || []) { const m = /^building-(\w+)-(\d)\.(png|webp)$/.exec(f); if (!m) continue; const img = new Image(); img.onload = () => { ART[m[1] + m[2]] = img; }; img.src = 'art/' + f; }
-}
-const R = (x, y, w, h, c) => { ctx.fillStyle = c; ctx.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); };
+// art from tycoon/art/ (listed in content.js); anything missing falls back to a simple drawing
+const ART = {};
+function loadArt() { for (const f of C.art || []) { const img = new Image(); img.onload = () => { ART[f.replace(/\.\w+$/, '')] = img; }; img.src = 'art/' + f; } }
+const art = name => ART[name];
 const INK = '#1a1030';
-function box(x, y, w, h, c) { R(x - 1, y - 1, w + 2, h + 2, INK); R(x, y, w, h, c); }
-function text(s, x, y, size, c, align) { ctx.font = `${size}px Silkscreen, monospace`; ctx.textAlign = align || 'center'; ctx.fillStyle = c; ctx.fillText(s, x, y); }
+const R = (x, y, w, h, c) => { ctx.fillStyle = c; ctx.fillRect(x, y, w, h); };
+function text(s, x, y, size, c) { ctx.font = `${size}px Silkscreen, monospace`; ctx.textAlign = 'center'; ctx.lineWidth = 2.5; ctx.strokeStyle = INK; ctx.strokeText(s, x, y); ctx.fillStyle = c; ctx.fillText(s, x, y); }
+// island name tags: an ink plate so they stay readable over art and sky
+function label(s, x, y) {
+  ctx.font = '6px Silkscreen, monospace'; const w = ctx.measureText(s).width + 8;
+  R(Math.round(x - w / 2), y - 7, Math.round(w), 10, INK); ctx.textAlign = 'center'; ctx.fillStyle = '#fbf3dc'; ctx.fillText(s, x, y);
+}
 
-function drawGround(t) {
-  for (let y = 0; y < H; y += 20) R(0, y, W, 20, (y / 20) % 2 ? '#5aae64' : '#62b86c');
-  // paths
-  R(128, 0, 44, H, '#e2c98f'); R(0, 222, W, 12, '#e2c98f'); R(0, 120, W, 12, '#e2c98f');
-  for (let y = 4; y < H; y += 14) R(148, y, 4, 6, '#d4b878');
+// clouds drifting behind the islands
+const clouds = Array.from({length: 7}, (_, i) => ({x: Math.random() * W, y: 10 + i * 50 + Math.random() * 20, s: 0.6 + Math.random() * 0.8, v: 3 + Math.random() * 5}));
+function drawCloud(c) {
+  ctx.fillStyle = 'rgba(255,255,255,.85)';
+  const u = 6 * c.s;
+  ctx.fillRect(c.x, c.y, u * 6, u * 1.5); ctx.fillRect(c.x + u, c.y - u, u * 3, u); ctx.fillRect(c.x + u * 2.5, c.y - u * 1.8, u * 2, u);
 }
-function drawSale(p, b) {
-  R(p.x + 6, p.y + 10, p.w - 12, p.h - 20, '#9b7b4c');
-  for (let i = 0; i < 6; i++) R(p.x + 12 + i * ((p.w - 30) / 5), p.y + 18 + (i % 2) * 20, 6, 4, '#7d6038');
-  const sx = p.x + p.w / 2 - 26, sy = p.y + p.h / 2 - 14;
-  box(sx, sy, 52, 22, '#fbf3dc'); R(sx + 24, sy + 22, 4, 14, INK);
-  text('FOR', sx + 26, sy + 9, 7, INK); text('SALE', sx + 26, sy + 18, 7, '#e3262f');
-}
-function house(p, st, wall, roof, t) {
-  const s = 0.55 + 0.12 * st, w = p.w * s, h = p.h * s * 0.8, x = p.x + (p.w - w) / 2, y = p.y + p.h - h - 8;
-  box(x, y, w, h, wall);
-  R(x - 3, y - 10, w + 6, 10, INK); R(x - 2, y - 9, w + 4, 8, roof);
-  const n = 1 + st;
-  for (let i = 0; i < n; i++) { const wx = x + 6 + i * ((w - 18) / Math.max(1, n - 1 || 1)); R(wx, y + 8, 6, 6, '#bfe8ff'); if (h > 30) R(wx, y + 20, 6, 6, '#bfe8ff'); }
-  R(x + w / 2 - 5, y + h - 12, 10, 12, '#7a4a2a');
-  if (st >= 2) { R(x + w - 4, y - 26, 2, 16, INK); R(x + w - 2, y - 26 + Math.round(Math.sin(t * 6)), 10, 6, '#e3262f'); }
-  if (st >= 4) { R(x - 3, y - 12, w + 6, 3, '#f2c230'); R(x + w / 2 - 6, y - 22, 12, 10, '#f2c230'); }
-  return {x, y, w, h};
-}
-function drawStadium(p, st, t) {
-  const s = 0.6 + 0.1 * st, w = p.w * s, h = p.h * s, x = p.x + (p.w - w) / 2, y = p.y + (p.h - h) / 2;
-  box(x, y, w, h, st >= 4 ? '#f2c230' : '#b9b3c9');
-  R(x + 8, y + 8, w - 16, h - 16, '#4da35a');
-  R(x + w / 2 - 1, y + 8, 2, h - 16, '#e8f5e9');
-  const fans = Math.min(40, 6 + st * 8), cols = ['#e3262f', '#3fc1ff', '#fbf3dc', '#ff6fa8', '#f2c230'];
-  for (let i = 0; i < fans; i++) {
-    const side = i % 4, k = (i >> 2) / (fans / 4), bob = Math.round(Math.sin(t * 8 + i) * 0.6);
-    const fx = side < 2 ? x + 3 + k * (w - 6) : (side === 2 ? x + 2 : x + w - 5), fy = side < 2 ? (side ? y + h - 5 : y + 2) : y + 3 + k * (h - 6);
-    R(fx, fy + bob, 3, 3, cols[i % cols.length]);
+function drawBridge(a, b, t) {
+  const A = ISLES[a], B2 = ISLES[b], dx = B2.cx - A.cx, dy = B2.cy - A.cy, len = Math.hypot(dx, dy), ux = dx / len, uy = dy / len, nx = -uy * 4, ny = ux * 4;
+  const sag = 6;
+  for (let d = 0; d <= len; d += 5) {
+    const k = d / len, x = A.cx + dx * k, y = A.cy + dy * k + Math.sin(k * Math.PI) * sag + 8;
+    ctx.fillStyle = INK; ctx.beginPath(); ctx.moveTo(x - nx - 0.5, y - ny - 0.5); ctx.lineTo(x + nx + 0.5, y + ny + 0.5); ctx.lineTo(x + nx + ux * 4.5, y + ny + uy * 4.5 + 1); ctx.lineTo(x - nx + ux * 4.5, y - ny + uy * 4.5 + 1); ctx.fill();
+    ctx.fillStyle = (d / 5) % 2 ? '#b07a43' : '#c48a4f'; ctx.beginPath(); ctx.moveTo(x - nx, y - ny); ctx.lineTo(x + nx, y + ny); ctx.lineTo(x + nx + ux * 4, y + ny + uy * 4); ctx.lineTo(x - nx + ux * 4, y - ny + uy * 4); ctx.fill();
   }
-  if (st >= 3) { R(x - 4, y - 4, w + 8, 4, INK); R(x - 2, y - 3, w + 4, 2, '#d8d2e6'); }
-  if (st >= 4) { for (let i = 0; i < 4; i++) R(x - 6 + i * (w + 8) / 3, y - 14, 3, 12, INK); }
 }
-let ballBoost = 0;
-function drawPitch(p, st, t) {
-  const s = 0.6 + 0.07 * st, w = p.w * s, h = p.h * s, x = p.x + (p.w - w) / 2, y = p.y + (p.h - h) / 2 - 4;
-  box(x, y, w, h, st >= 2 ? '#3f9c4c' : '#7a8f3a');
-  if (st === 1) for (let i = 0; i < 8; i++) R(x + 6 + (i * 17) % (w - 12), y + 6 + (i * 11) % (h - 12), 6, 4, '#8b6b3a');
-  R(x + 4, y + 4, w - 8, 1, '#e8f5e9'); R(x + 4, y + h - 5, w - 8, 1, '#e8f5e9'); R(x + w / 2, y + 4, 1, h - 8, '#e8f5e9');
-  const gc = st >= 4 ? '#f2c230' : '#fff';
-  R(x - 2, y + h / 2 - 9, 3, 18, gc); R(x + w - 1, y + h / 2 - 9, 3, 18, gc);
-  if (st === 1) { R(x + 10, y + h - 14, 3, 5, '#ff8c1a'); R(x + 20, y + h - 14, 3, 5, '#ff8c1a'); }
-  if (st >= 3) for (const lx of [x - 6, x + w + 3]) { R(lx, y - 10, 3, 18, INK); R(lx - 2, y - 13, 7, 4, '#fff7a8'); }
-  drawPlayer(x + w / 2 - 4, y + h / 2 - 2, t);
+// the point on a bridge where walkers stand (same curve as the planks)
+function bridgePoint(a, b, k) {
+  const A = ISLES[a], B2 = ISLES[b];
+  return {x: A.cx + (B2.cx - A.cx) * k, y: A.cy + (B2.cy - A.cy) * k + Math.sin(k * Math.PI) * 6 + 10};
 }
-// the keepy-uppies player (the tap target)
-function drawPlayer(px, py, t) {
-  R(px, py, 8, 10, '#e3262f'); R(px + 1, py - 7, 6, 7, '#f1c27d'); R(px + 1, py + 10, 2, 6, INK); R(px + 5, py + 10, 2, 6, INK);
-  const amp = 10 + ballBoost * 14, by = py + 12 - Math.abs(Math.sin(t * 5)) * amp;
-  R(px + 6, by, 5, 5, '#fff'); R(px + 7, by + 1, 2, 2, INK);
-  pitchHit = {x: px - 18, y: py - 30, w: 44, h: 52};
+// an empty floating island with a "for sale" sign
+function drawEmpty(I) {
+  const w = I.w * 0.78, h = w * 0.46, x = I.cx, y = I.cy + 6;
+  ctx.fillStyle = '#7a4a2a'; ctx.beginPath(); ctx.moveTo(x - w / 2, y); ctx.lineTo(x, y + h / 2); ctx.lineTo(x + w / 2, y); ctx.lineTo(x + w / 2, y + 12); ctx.lineTo(x, y + h / 2 + 12); ctx.lineTo(x - w / 2, y + 12); ctx.closePath(); ctx.fill();
+  ctx.strokeStyle = INK; ctx.lineWidth = 1.5; ctx.stroke();
+  ctx.fillStyle = '#6fbf5a'; ctx.beginPath(); ctx.moveTo(x, y - h / 2); ctx.lineTo(x + w / 2, y); ctx.lineTo(x, y + h / 2); ctx.lineTo(x - w / 2, y); ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = '#a77b46'; ctx.beginPath(); ctx.moveTo(x, y - h / 4); ctx.lineTo(x + w / 4, y); ctx.lineTo(x, y + h / 4); ctx.lineTo(x - w / 4, y); ctx.closePath(); ctx.fill();
+  R(x - 1, y - 18, 3, 16, INK); R(x - 17, y - 30, 34, 15, INK); R(x - 16, y - 29, 32, 13, '#fbf3dc');
+  ctx.font = '5px Silkscreen, monospace'; ctx.textAlign = 'center'; ctx.fillStyle = INK; ctx.fillText('FOR', x, y - 23.5); ctx.fillStyle = '#e3262f'; ctx.fillText('SALE', x, y - 17.5);
+  return {x: x - w / 2, y: y - 32, w, h: h / 2 + 46};
 }
-let pitchHit = {x: 0, y: 0, w: 0, h: 0};
-// walking supporters and academy kids
+const hitBox = {};
+function drawIsland(b, t) {
+  const I = ISLES[b], st = stageOf(b), img = st && art(`building-${b}-${st}`);
+  if (!img) { hitBox[b] = drawEmpty(I); return; }
+  const w = I.w, h = img.height * w / img.width, bottom = I.cy + w * 0.3 + Math.sin(t * 0.8 + I.cx) * 1.2;
+  ctx.drawImage(img, I.cx - w / 2, bottom - h, w, h);
+  hitBox[b] = {x: I.cx - w / 2, y: bottom - h, w, h};
+}
+// characters: ChatGPT sprites moved, bobbed and flipped in code
+function sprite(name, x, y, h, t, opts = {}) {
+  const img = art(name); if (!img) return;
+  const w = img.width * h / img.height, walk = opts.walk ? Math.abs(Math.sin(t * 10 + x)) * 1.6 : Math.sin(t * 2.4 + x) * 0.6;
+  ctx.save(); ctx.translate(x, y - walk);
+  if (opts.walk) ctx.rotate(Math.sin(t * 10 + x) * 0.06);
+  if (opts.flip) ctx.scale(-1, 1);
+  ctx.fillStyle = 'rgba(26,16,48,.22)'; ctx.beginPath(); ctx.ellipse(0, walk, w * 0.32, 1.6, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.drawImage(img, -w / 2, -h, w, h); ctx.restore();
+}
 const walkers = [];
-function stepWalkers(dt, t) {
-  const want = S.lv.stadium ? Math.min(14, 2 + S.lv.stadium) : 0;
-  if (walkers.length < want && Math.random() < dt * 1.5) walkers.push({p: 0, c: ['#e3262f', '#3fc1ff', '#ff6fa8', '#f2c230'][walkers.length % 4], sp: 0.08 + Math.random() * 0.06});
-  for (let i = walkers.length - 1; i >= 0; i--) { walkers[i].p += walkers[i].sp * dt; if (walkers[i].p >= 1) walkers.splice(i, 1); }
+function stepWalkers(dt) {
+  const want = S.lv.stadium ? Math.min(10, 2 + S.lv.stadium) : 0;
+  if (walkers.length < want && Math.random() < dt * 1.2) {
+    const from = Math.random() < 0.5 ? 'shop' : 'transfer';
+    walkers.push({a: from, b: 'stadium', k: 0, v: 0.12 + Math.random() * 0.08});
+  }
+  for (let i = walkers.length - 1; i >= 0; i--) { walkers[i].k += walkers[i].v * dt; if (walkers[i].k >= 1) walkers.splice(i, 1); }
 }
-function drawWalkers(t) {
-  for (const w of walkers) {
-    const y = H - 4 - w.p * (H - 120), x = 140 + Math.sin(w.p * 30) * 2, leg = Math.sin(t * 14 + w.p * 50) > 0;
-    R(x, y - 8, 5, 6, w.c); R(x + 1, y - 12, 3, 4, '#f1c27d'); R(x + (leg ? 0 : 3), y - 2, 2, 3, INK);
+function drawPeople(t) {
+  const list = [];
+  for (const w of walkers) { const p = bridgePoint(w.a, w.b, w.k); list.push({y: p.y, f: () => sprite('char-fan', p.x, p.y, 17, t, {walk: true, flip: ISLES[w.b].cx < ISLES[w.a].cx})}); }
+  if (S.lv.academy) {
+    const I = ISLES.academy, kids = Math.min(3, Math.ceil(S.lv.academy / 6));
+    for (let i = 0; i < kids; i++) { const s = Math.sin(t * 0.9 + i * 2.1), x = I.cx - 22 + i * 18 + s * 10, y = I.cy + 14 + i * 3; list.push({y, f: () => sprite('char-youth', x, y, 15, t, {walk: true, flip: Math.cos(t * 0.9 + i * 2.1) < 0})}); }
   }
-  const kids = Math.min(4, Math.ceil(S.lv.academy / 5));
-  const p = PLOTS.academy;
-  for (let i = 0; i < kids; i++) {
-    const a = t * 1.6 + i * 1.7, x = p.x + p.w / 2 + Math.cos(a) * 34, y = p.y + p.h - 12 + Math.sin(a) * 5;
-    R(x, y - 6, 4, 5, '#3fc1ff'); R(x, y - 9, 4, 3, '#f1c27d'); R(x + (Math.sin(t * 16 + i) > 0 ? 0 : 2), y - 1, 2, 2, INK);
+  if (S.lv.pitch >= 5) { const I = ISLES.pitch; list.push({y: I.cy + 22, f: () => sprite('char-coach', I.cx + 30, I.cy + 22, 16, t, {flip: Math.sin(t * 0.4) > 0})}); }
+  if (S.lv.transfer) {
+    const I = ISLES.transfer, n = EV && EV.e.target === 'transfer' ? 5 : 1;
+    for (let i = 0; i < n; i++) { const x = I.cx - 26 + i * 12 + Math.sin(t * 1.3 + i) * 6, y = I.cy + 20 + (i % 2) * 4; list.push({y, f: () => sprite('char-agent', x, y, 16, t, {walk: n > 1, flip: Math.cos(t * 1.3 + i) < 0})}); }
   }
+  if (S.lv.shop >= 10) { // the mascot wanders the bridges
+    const e = BRIDGES[Math.floor(t / 9) % BRIDGES.length], k = (t % 9) / 9, p = bridgePoint(e[0], e[1], k);
+    list.push({y: p.y, f: () => sprite('char-mascot', p.x, p.y, 18, t, {walk: true, flip: ISLES[e[1]].cx < ISLES[e[0]].cx})});
+  }
+  list.sort((a, b) => a.y - b.y).forEach(o => o.f());
 }
-function draw(t) {
-  ctx.setTransform(K, 0, 0, K, 0, 0);
-  drawGround(t);
-  for (const [b, p] of Object.entries(PLOTS)) {
-    const st = stageOf(b);
-    if (!st) { drawSale(p, b); }
-    else if (ART[b + st]) { const img = ART[b + st], s = Math.min(p.w / img.width, (p.h + 22) / img.height), w = img.width * s, h = img.height * s, ax = p.x + (p.w - w) / 2, ay = p.y + p.h - h - 6; ctx.drawImage(img, ax, ay, w, h); artBox[b] = {x: ax, y: ay, w, h}; }
-    else if (b === 'stadium') drawStadium(p, st, t);
-    else if (b === 'pitch') drawPitch(p, st, t);
-    else house(p, st, {academy: '#fbf3dc', transfer: '#cfd8e6', shop: '#ffd1e3'}[b], {academy: '#3fc1ff', transfer: '#4a1c86', shop: '#e3262f'}[b], t);
-    if (b === 'pitch' && ART[b + st]) { const a = artBox.pitch; drawPlayer(a.x + a.w * 0.5 - 4, a.y + a.h * 0.52, t); }
-    text(B[b].name.toUpperCase() + (S.lv[b] ? ' ' + S.lv[b] : ''), p.x + p.w / 2, p.y + p.h - 1, 6, INK);
-  }
-  drawWalkers(t);
-  if (EV) {
-    const p = PLOTS[TARGET_PLOT[EV.e.target]], on = Math.sin(t * 8) > 0;
-    ctx.strokeStyle = on ? '#e3262f' : '#fff'; ctx.lineWidth = 2; ctx.strokeRect(p.x + 1, p.y + 1, p.w - 2, p.h - 2);
-    box(p.x + p.w - 16, p.y + 4, 12, 14, '#e3262f'); text('!', p.x + p.w - 10, p.y + 15, 10, '#fff');
-  }
+const PROP = {plague: 'event-plague-cloud', airport: 'event-plane', haalunch: 'event-sold-out-sign', misprint: 'event-misprint-shirts', mascot: 'event-banana'};
+function eventProp(e) { const t = e.title.toLowerCase(); return e.prop || (t.includes('plague') ? PROP.plague : t.includes('airport') ? PROP.airport : t.includes('haalunch') ? PROP.haalunch : t.includes('misprint') ? PROP.misprint : t.includes('mascot') ? PROP.mascot : null); }
+function drawEvent(t) {
+  if (!EV) return;
+  const b = TARGET_PLOT[EV.e.target], hb = hitBox[b], I = ISLES[b]; if (!hb) return;
+  const prop = eventProp(EV.e), img = prop && art(prop), y = hb.y - 4 + Math.sin(t * 3) * 3;
+  if (prop === PROP.airport && img) { const x = ((t * 40) % (W + 120)) - 60; ctx.drawImage(img, x - 30, I.cy - 70 + Math.sin(t * 2) * 4, 60, 60 * img.height / img.width); }
+  else if (img) { const w = 44, h = w * img.height / img.width; ctx.drawImage(img, I.cx - w / 2, y - h + 10, w, h); }
+  const on = Math.sin(t * 8) > 0; R(I.cx + I.w / 2 - 18, hb.y + 4, 14, 16, INK); R(I.cx + I.w / 2 - 17, hb.y + 5, 12, 14, on ? '#e3262f' : '#ff6b6b'); text('!', I.cx + I.w / 2 - 11, hb.y + 16, 10, '#fff');
+}
+function draw(t, dt) {
+  ctx.setTransform(K, 0, 0, K, 0, 0); ctx.clearRect(0, 0, W, H);
+  for (const c of clouds) { c.x += c.v * dt; if (c.x > W + 10) { c.x = -60; c.y = 10 + Math.random() * (H - 30); } drawCloud(c); }
+  for (const [a, b] of BRIDGES) if (S.lv[a] || S.lv[b]) drawBridge(a, b, t);
+  const order = Object.keys(ISLES).sort((a, b) => ISLES[a].cy - ISLES[b].cy);
+  for (const b of order) drawIsland(b, t);
+  drawPeople(t);
+  for (const b of order) label(B[b].name.toUpperCase() + (S.lv[b] ? ' · ' + S.lv[b] : ''), ISLES[b].cx, ISLES[b].cy + ISLES[b].w * 0.3 + 9);
+  drawEvent(t);
 }
 
-// ---------- floats and ticker ----------
-const floats = $('floats');
-function floatText(s, xPct, yPct, big) {
+// ---------- floats, coins and the news ticker ----------
+function floatText(s, xPct, yPct, big, layer) {
   const el = document.createElement('div'); el.className = 'float' + (big ? ' big' : ''); el.textContent = s;
-  el.style.left = xPct + '%'; el.style.top = yPct + '%'; floats.appendChild(el); setTimeout(() => el.remove(), 950);
+  el.style.left = xPct + '%'; el.style.top = yPct + '%'; (layer || mapFloats).appendChild(el); setTimeout(() => el.remove(), 950);
 }
-const plotPct = b => { const p = PLOTS[b]; return [(p.x + p.w / 2) / W * 100, (p.y + p.h / 3) / H * 100]; };
+const plotPct = b => { const I = ISLES[b]; return [I.cx / W * 100, (I.cy - I.w * 0.2) / H * 100]; };
 let tickerT = 0;
-function ticker(s) { $('ticker').textContent = s; tickerT = 6; }
+function ticker(s) { $('tickerText').textContent = s; tickerT = 9; }
+function news() {
+  const pool = [...C.tapLines.map(l => l.replace('+{m} ', '')), ...C.clubs.map(c => `${c.name}: ${c.line}`), ...C.stars.map(s => `${s.name} ${s.trait[0].toLowerCase()}${s.trait.slice(1)}`)];
+  ticker(pool[Math.random() * pool.length | 0]);
+}
 
-// ---------- tapping the map ----------
+// ---------- tapping: the keepy-uppies player (left) and the islands (map) ----------
+const kicker = $('kicker'), kickImg = kicker.querySelector('img'), ball = $('ball'), kickFloats = $('floats');
+kicker.addEventListener('pointerdown', e => {
+  if (S.wall) return;
+  e.preventDefault();
+  const v = tapValue(); earn(v); S.taps++;
+  const r = kickFloats.getBoundingClientRect();
+  floatText('+' + fmt(v), (e.clientX - r.left) / r.width * 100, (e.clientY - r.top) / r.height * 100, false, kickFloats);
+  kickImg.animate([{transform: 'translateX(-50%) scale(1,1)'}, {transform: 'translateX(-50%) scale(1.06,.92)'}, {transform: 'translateX(-50%) scale(.97,1.04)'}, {transform: 'translateX(-50%) scale(1,1)'}], {duration: 260, easing: 'ease-out'});
+  ball.animate([{transform: 'translateY(0)'}, {transform: 'translateY(-420%) rotate(240deg)', offset: .45}, {transform: 'translateY(0) rotate(360deg)'}], {duration: 520, easing: 'cubic-bezier(.33,0,.67,1)'});
+  for (let i = 0; i < 3; i++) {
+    const c = document.createElement('span'); c.className = 'coin'; c.style.left = (e.clientX - r.left) + 'px'; c.style.top = (e.clientY - r.top) + 'px'; kickFloats.appendChild(c);
+    const dx = (Math.random() - 0.5) * 90, dy = -40 - Math.random() * 40;
+    c.animate([{transform: 'translate(-50%,-50%)', opacity: 1}, {transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`, opacity: 1, offset: .4}, {transform: `translate(calc(-50% + ${dx * 1.4}px), calc(-50% + ${dy + 90}px))`, opacity: 0}], {duration: 700, easing: 'ease-out'}).onfinish = () => c.remove();
+  }
+  if (S.taps % 9 === 1) ticker(C.tapLines[(S.taps / 9 | 0) % C.tapLines.length].replace('{m}', fmt(v)));
+  paintBank();
+});
 cv.addEventListener('pointerdown', e => {
   if (S.wall) return;
   const r = cv.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * W, y = (e.clientY - r.top) / r.height * H;
-  if (EV) { const p = PLOTS[TARGET_PLOT[EV.e.target]]; if (x >= p.x && x <= p.x + p.w && y >= p.y && y <= p.y + p.h) return openEvent(); }
-  const h = pitchHit;
-  if (x >= h.x && x <= h.x + h.w && y >= h.y && y <= h.y + h.h) {
-    const v = tapValue(); earn(v); S.taps++; ballBoost = 1;
-    floatText('+' + fmt(v), x / W * 100, y / H * 100);
-    if (S.taps % 9 === 1) ticker(C.tapLines[(S.taps / 9 | 0) % C.tapLines.length].replace('{m}', fmt(v)));
-    paintBank(); return;
-  }
-  for (const [b, p] of Object.entries(PLOTS)) if (x >= p.x && x <= p.x + p.w && y >= p.y && y <= p.y + p.h) { tab = 'club'; renderPanel(b); return; }
+  const inside = b => { const h = hitBox[b]; return h && x >= h.x && x <= h.x + h.w && y >= h.y && y <= h.y + h.h; };
+  if (EV && inside(TARGET_PLOT[EV.e.target])) return openEvent();
+  const hit = Object.keys(ISLES).sort((a, b) => ISLES[b].cy - ISLES[a].cy).find(inside);
+  if (hit) { tab = 'club'; renderPanel(hit); }
 });
 
 // ---------- the panel ----------
@@ -241,22 +264,27 @@ function renderPanel(focus) {
     panel.innerHTML = C.buildings.map(b => {
       const lv = S.lv[b.id], c = cost(b.id);
       const earnLine = b.id === 'academy' ? (lv ? `Sells a player every ${academy().every.toFixed(1)} s for ${fmt(academy().sale)}` : '') : (lv ? `Earning ${fmt(r[b.id])} per second` : '');
-      return `<div class="row" id="row-${b.id}"><div><h3>${esc(b.name)}<small>${lv ? 'LEVEL ' + lv : 'NOT BUILT'}</small></h3><p>${esc(b.blurb)}</p>${earnLine ? `<div class="earn">${earnLine}</div>` : ''}</div>
+      const th = `art/building-${b.id}-${Math.max(1, stageOf(b.id))}.webp`;
+      return `<div class="row" id="row-${b.id}"><img class="thumb" src="${th}" alt="" style="${lv ? '' : 'filter:grayscale(1);opacity:.55'}"><div><h3>${esc(b.name)}<small>${lv ? 'LEVEL ' + lv : 'NOT BUILT'}</small></h3><p>${esc(b.blurb)}</p>${earnLine ? `<div class="earn">${earnLine}</div>` : ''}</div>
         <button type="button" class="buy" data-buy="${b.id}" data-cost="${c}">${lv ? 'Upgrade' : 'Build'}<br>${fmt(c)}</button></div>`;
     }).join('');
     if (focus) { const row = $('row-' + focus); if (row) { row.scrollIntoView({block: 'nearest', behavior: 'smooth'}); row.animate([{background: '#fff3b0'}, {background: '#fff'}], {duration: 900}); } }
   } else if (tab === 'upgrades') {
     const list = availableUps().sort((a, b) => a.u.cost - b.u.cost);
-    panel.innerHTML = list.length ? list.map(({u, i}) => `<div class="row"><div><h3>${esc(u.name)}</h3><p>${esc(B[u.b].name)}: ${u.what === 'tap' ? 'tap money' : u.what === 'sales' ? 'player sale prices' : 'income'} ${u.mult >= 2 ? 'x' + u.mult : '+' + Math.round((u.mult - 1) * 100) + '%'}</p><p><i>${esc(u.joke)}</i></p></div>
+    panel.innerHTML = list.length ? list.map(({u, i}) => `<div class="row"><img class="thumb" src="art/building-${u.b}-${Math.max(1, stageOf(u.b))}.webp" alt=""><div><h3>${esc(u.name)}</h3><p>${esc(B[u.b].name)}: ${u.what === 'tap' ? 'tap money' : u.what === 'sales' ? 'player sale prices' : 'income'} ${u.mult >= 2 ? 'x' + u.mult : '+' + Math.round((u.mult - 1) * 100) + '%'}</p><p><i>${esc(u.joke)}</i></p></div>
       <button type="button" class="buy" data-up="${i}" data-cost="${u.cost}">Buy<br>${fmt(u.cost)}</button></div>`).join('')
       : '<p class="empty">No upgrades right now. Level up your buildings to unlock more.</p>';
   } else {
     const kept = S.stars.filter(s => s.kept);
-    panel.innerHTML = kept.length ? kept.map(s => { const st = C.stars[s.i]; return `<div class="row"><div><h3>${esc(st.name)}</h3><p>${esc(st.trait)}</p><div class="earn">${bonusText(st.bonus)}</div></div>
+    panel.innerHTML = kept.length ? kept.map(s => { const st = C.stars[s.i]; return `<div class="row">${portrait(st)}<div><h3>${esc(st.name)}</h3><p>${esc(st.trait)}</p><div class="earn">${bonusText(st.bonus)}</div></div>
       <button type="button" class="buy sell" data-sell="${s.i}" data-cost="0">Sell<br>${fmt(starPrice())}</button></div>`; }).join('')
       : '<p class="empty">Your academy finds a star now and then. Keep them for a bonus, or sell them for a fortune.</p>';
   }
   refreshButtons();
+}
+function portrait(st, hero) {
+  const img = st.art && art(st.art);
+  return img ? `<img class="${hero ? 'hero' : 'portrait'}" src="${img.src}" alt="">` : hero ? '' : `<span class="portrait init">${esc(st.name[0])}</span>`;
 }
 function bonusText(k) { return {tap: 'Tap money x2', tickets: 'Ticket income +50%', shop: 'Shop sales +50%', sales: 'Player sale prices +50%', transfer: 'Transfer office +50%', canteen: 'Everything +10% (keeps the canteen busy)'}[k]; }
 function refreshButtons() {
@@ -290,7 +318,7 @@ function academyTick(dt) {
 }
 function foundStar(i) {
   const st = C.stars[i], p = starPrice(), c = club();
-  modal(`<span class="tag gold">WONDERKID!</span><h2>${esc(st.name)}</h2><p>${esc(st.trait)}</p>
+  modal(`${portrait(st, true)}<span class="tag gold">WONDERKID!</span><h2>${esc(st.name)}</h2><p>${esc(st.trait)}</p>
     <div class="choices"><button type="button" class="buy" data-act="keep">Keep him<span>${bonusText(st.bonus)}</span></button>
     <button type="button" class="buy sell" data-act="sell">Sell to ${esc(c.name)} for ${fmt(p)}<span>${esc(c.line)}</span></button></div>`, act => {
     const s = S.stars.find(x => x.i === i);
@@ -394,20 +422,20 @@ function frame(now) {
   const t = now / 1000;
   if (!S.wall) {
     earn((rates().total - academy().perSec) * dt);
-    academyTick(dt); eventTick(dt); stepWalkers(dt, t);
+    academyTick(dt); eventTick(dt); stepWalkers(dt);
     if (!document.hidden) S.play += dt;
     if (S.play >= DEMO_SECONDS && modalEl.hidden) wall();
   }
-  ballBoost = Math.max(0, ballBoost - dt * 1.5);
-  draw(t);
+  draw(t, dt);
   uiT += dt; if (uiT > 0.2) { uiT = 0; paintBank(); refreshButtons(); }
   saveT += dt; if (saveT > 5) { saveT = 0; save(); }
-  if (tickerT > 0) { tickerT -= dt; }
+  tickerT -= dt; if (tickerT < 0) news();
   requestAnimationFrame(frame);
 }
 document.addEventListener('visibilitychange', () => { if (document.hidden) save(); else { last = performance.now(); offline(); } });
 window.addEventListener('pagehide', save);
 window.addEventListener('resize', resize);
+if (window.ResizeObserver) new ResizeObserver(resize).observe(mid);
 
 resize(); loadArt(); renderPanel(); paintBank();
 if (S.wall) (S.feedback ? thanks : wall)();

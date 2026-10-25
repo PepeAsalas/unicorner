@@ -2,7 +2,43 @@
 // Edit this file to add content; the game reads it, no other code changes needed.
 window.TYC_CONTENT = {
   // art files in tycoon/art/ that the game should use, e.g. 'building-stadium-1.png' (see ART_BRIEF.md)
-  art: ['building-pitch-1.webp', 'building-pitch-2.webp', 'building-pitch-3.webp', 'building-pitch-4.webp'],
+  art: [
+    'building-academy-1.webp',
+    'building-academy-2.webp',
+    'building-academy-3.webp',
+    'building-academy-4.webp',
+    'building-pitch-1.webp',
+    'building-pitch-2.webp',
+    'building-pitch-3.webp',
+    'building-pitch-4.webp',
+    'building-shop-1.webp',
+    'building-shop-2.webp',
+    'building-shop-3.webp',
+    'building-shop-4.webp',
+    'building-stadium-1.webp',
+    'building-stadium-2.webp',
+    'building-stadium-3.webp',
+    'building-stadium-4.webp',
+    'building-transfer-1.webp',
+    'building-transfer-2.webp',
+    'building-transfer-3.webp',
+    'building-transfer-4.webp',
+    'char-agent.webp',
+    'char-coach.webp',
+    'char-fan.webp',
+    'char-keepy-uppy.webp',
+    'char-mascot.webp',
+    'char-youth.webp',
+    'event-banana.webp',
+    'event-misprint-shirts.webp',
+    'event-plague-cloud.webp',
+    'event-plane.webp',
+    'event-sold-out-sign.webp',
+    'star-haalunch.webp',
+    'star-mboopi.webp',
+    'star-messy.webp',
+    'star-ronal-dough.webp',
+  ],
 
   // id, name, what it earns; first: cost of level 1; grow: cost x per level; rate: money per second per level
   buildings: [
@@ -25,10 +61,10 @@ window.TYC_CONTENT = {
 
   // bonus: tap | tickets | shop | sales | transfer | canteen (canteen = +10% on everything until the canteen exists)
   stars: [
-    {name: 'Kylian Mboopi', trait: 'Arrives before the pass and renegotiates before it lands.', bonus: 'tickets'},
-    {name: 'Erling Haalunch', trait: 'Scores a hat-trick, then eats the match ball.', bonus: 'canteen'},
-    {name: 'Lionel Messy', trait: 'Dribbles past six defenders to avoid tidying his room.', bonus: 'tap'},
-    {name: 'Cristiano Ronal-dough', trait: 'Celebrates every shirt sold with a shirtless celebration.', bonus: 'shop'},
+    {name: 'Kylian Mboopi', art: 'star-mboopi', trait: 'Arrives before the pass and renegotiates before it lands.', bonus: 'tickets'},
+    {name: 'Erling Haalunch', art: 'star-haalunch', trait: 'Scores a hat-trick, then eats the match ball.', bonus: 'canteen'},
+    {name: 'Lionel Messy', art: 'star-messy', trait: 'Dribbles past six defenders to avoid tidying his room.', bonus: 'tap'},
+    {name: 'Cristiano Ronal-dough', art: 'star-ronal-dough', trait: 'Celebrates every shirt sold with a shirtless celebration.', bonus: 'shop'},
     {name: 'Neymart Junior', trait: 'Opens a gift shop wherever he falls over.', bonus: 'shop'},
     {name: 'Jude Bellingham-and-Cheese', trait: 'Opens his arms to celebrate and catches two sandwiches.', bonus: 'canteen'},
     {name: 'Vinicius Zoomior', trait: 'Runs so fast the ticket scanner charges him twice.', bonus: 'tickets'},

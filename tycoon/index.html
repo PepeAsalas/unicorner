@@ -14,26 +14,36 @@
 </head>
 <body>
 <div class="app">
-  <header class="top">
-    <a class="back" href="/">← Unicorner</a>
-    <span class="demo">DEMO</span>
-  </header>
-  <section class="bank" aria-live="polite">
-    <div class="money" id="money">€0</div>
-    <div class="rate" id="rate">€0 per second</div>
-  </section>
-  <div class="stage" id="stage">
-    <canvas id="map" aria-label="Your football district. Tap the player doing keepy-uppies to earn money."></canvas>
-    <div class="floats" id="floats" aria-hidden="true"></div>
+  <aside class="left">
+    <header class="top"><a class="back" href="/">← Unicorner</a><span class="demo">DEMO</span></header>
+    <div class="club">Unicorner FC</div>
+    <section class="bank" aria-live="polite">
+      <div class="money" id="money">€0</div>
+      <div class="rate" id="rate">€0 per second</div>
+    </section>
+    <div class="kick-zone">
+      <button type="button" class="kicker" id="kicker" aria-label="Do keepy-uppies to earn money">
+        <span class="spot" aria-hidden="true"></span>
+        <img src="art/char-keepy-uppy.webp" alt="" draggable="false">
+        <span class="ball" id="ball" aria-hidden="true"></span>
+      </button>
+      <div class="floats" id="floats" aria-hidden="true"></div>
+    </div>
+    <p class="ticker" id="ticker"><b>News:</b> <span id="tickerText">Tap the player to do keepy-uppies and earn money.</span></p>
+  </aside>
+  <main class="mid" id="stage">
+    <canvas id="map" aria-label="Your football district: one floating island per building."></canvas>
+    <div class="floats" id="mapFloats" aria-hidden="true"></div>
     <button type="button" class="event-badge" id="eventBadge" hidden></button>
-  </div>
-  <p class="ticker" id="ticker">Tap the player doing keepy-uppies to earn money.</p>
-  <nav class="tabs" role="tablist">
-    <button type="button" role="tab" data-tab="club" aria-selected="true" class="on">Club</button>
-    <button type="button" role="tab" data-tab="upgrades" aria-selected="false">Upgrades <b id="upCount"></b></button>
-    <button type="button" role="tab" data-tab="stars" aria-selected="false">Stars <b id="starCount"></b></button>
-  </nav>
-  <section class="panel" id="panel"></section>
+  </main>
+  <section class="right">
+    <nav class="tabs" role="tablist">
+      <button type="button" role="tab" data-tab="club" aria-selected="true" class="on">Club</button>
+      <button type="button" role="tab" data-tab="upgrades" aria-selected="false">Upgrades <b id="upCount"></b></button>
+      <button type="button" role="tab" data-tab="stars" aria-selected="false">Stars <b id="starCount"></b></button>
+    </nav>
+    <div class="panel" id="panel"></div>
+  </section>
 </div>
 <div class="modal" id="modal" hidden><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
 <script src="content.js"></script>
