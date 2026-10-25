@@ -7,7 +7,7 @@
 
 health exits 1 and prints the problems when something is wrong.
 """
-import datetime, glob, json, os, re, subprocess, sys, urllib.request
+import datetime, glob, json, os, re, subprocess, sys, urllib.error, urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = 'https://unicornergame.lol'
@@ -16,7 +16,7 @@ MIN_DAYS_AHEAD = 5
 
 def today():
     # the game day runs on Amsterdam time; the jobs run early morning UTC, which is the same day
-    return (datetime.datetime.utcnow() + datetime.timedelta(hours=1)).date()
+    return (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=1)).date()
 
 
 def get(url, timeout=30):
@@ -31,8 +31,11 @@ def supabase_rpc(fn, args):
     key = re.search(r'SB_KEY="([^"]+)"', html).group(1)
     req = urllib.request.Request(f'{url}/rest/v1/rpc/{fn}', data=json.dumps(args).encode(), method='POST',
                                  headers={'apikey': key, 'Authorization': f'Bearer {key}', 'Content-Type': 'application/json'})
-    with urllib.request.urlopen(req, timeout=60) as r:
-        return json.loads(r.read())
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            return json.loads(r.read())
+    except urllib.error.HTTPError as e:
+        raise RuntimeError(f'{fn}: HTTP {e.code} {e.read().decode(errors="replace")[:300]}') from None
 
 
 def last_day():
