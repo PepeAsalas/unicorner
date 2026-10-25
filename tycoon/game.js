@@ -2,6 +2,14 @@
    The only network calls are the feedback form and three analytics events (open, wall, feedback). */
 (() => {
 'use strict';
+// demo is tester-only for now: open /tycoon/?tester=on once on a device to see it (and the home card); ?tester=off to hide it again
+try {
+  const q = new URLSearchParams(location.search).get('tester');
+  if (q === 'on') localStorage.setItem('uc-tycoon-tester', '1');
+  if (q === 'off') localStorage.removeItem('uc-tycoon-tester');
+  if (q) history.replaceState(null, '', location.pathname);
+  if (localStorage.getItem('uc-tycoon-tester') !== '1') { location.replace('/'); return; }
+} catch { location.replace('/'); return; }
 const C = window.TYC_CONTENT;
 const SB_URL = 'https://yujhjepukzdahsppntua.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1amhqZXB1a3pkYWhzcHBudHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2NDMzNDcsImV4cCI6MjEwNTIxOTM0N30.YIOdtL7tJnNLPFPy19QuXe6w3Dcnz6Xedw0tFGdV_CE';
@@ -89,9 +97,9 @@ function resize() {
   cv.width = W * K; cv.height = H * K; ctx.imageSmoothingEnabled = false;
 }
 // optional art from tycoon/art/ (ART_BRIEF.md); the procedural drawings are used until a file exists
-const ART = {};
+const ART = {}, artBox = {};
 function loadArt() {
-  for (const f of C.art || []) { const m = /^building-(\w+)-(\d)\.png$/.exec(f); if (!m) continue; const img = new Image(); img.onload = () => { ART[m[1] + m[2]] = img; }; img.src = 'art/' + f; }
+  for (const f of C.art || []) { const m = /^building-(\w+)-(\d)\.(png|webp)$/.exec(f); if (!m) continue; const img = new Image(); img.onload = () => { ART[m[1] + m[2]] = img; }; img.src = 'art/' + f; }
 }
 const R = (x, y, w, h, c) => { ctx.fillStyle = c; ctx.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); };
 const INK = '#1a1030';
@@ -181,11 +189,11 @@ function draw(t) {
   for (const [b, p] of Object.entries(PLOTS)) {
     const st = stageOf(b);
     if (!st) { drawSale(p, b); }
-    else if (ART[b + st]) { const img = ART[b + st], s = Math.min(p.w / img.width, p.h / img.height); ctx.drawImage(img, p.x + (p.w - img.width * s) / 2, p.y + (p.h - img.height * s) / 2, img.width * s, img.height * s); }
+    else if (ART[b + st]) { const img = ART[b + st], s = Math.min(p.w / img.width, (p.h + 22) / img.height), w = img.width * s, h = img.height * s, ax = p.x + (p.w - w) / 2, ay = p.y + p.h - h - 6; ctx.drawImage(img, ax, ay, w, h); artBox[b] = {x: ax, y: ay, w, h}; }
     else if (b === 'stadium') drawStadium(p, st, t);
     else if (b === 'pitch') drawPitch(p, st, t);
     else house(p, st, {academy: '#fbf3dc', transfer: '#cfd8e6', shop: '#ffd1e3'}[b], {academy: '#3fc1ff', transfer: '#4a1c86', shop: '#e3262f'}[b], t);
-    if (b === 'pitch' && ART[b + st]) drawPlayer(p.x + p.w / 2 - 4, p.y + p.h / 2 - 2, t);
+    if (b === 'pitch' && ART[b + st]) { const a = artBox.pitch; drawPlayer(a.x + a.w * 0.5 - 4, a.y + a.h * 0.52, t); }
     text(B[b].name.toUpperCase() + (S.lv[b] ? ' ' + S.lv[b] : ''), p.x + p.w / 2, p.y + p.h - 1, 6, INK);
   }
   drawWalkers(t);

@@ -2,7 +2,7 @@
 // Edit this file to add content; the game reads it, no other code changes needed.
 window.TYC_CONTENT = {
   // art files in tycoon/art/ that the game should use, e.g. 'building-stadium-1.png' (see ART_BRIEF.md)
-  art: [],
+  art: ['building-pitch-1.webp', 'building-pitch-2.webp', 'building-pitch-3.webp', 'building-pitch-4.webp'],
 
   // id, name, what it earns; first: cost of level 1; grow: cost x per level; rate: money per second per level
   buildings: [

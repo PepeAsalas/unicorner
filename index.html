@@ -2040,7 +2040,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
  ${played?infStrip:''}
 
  <a class="duel-strip lp-duel" id="lp-duel" href="/duel.html?inbox" hidden></a>
- <a class="duel-strip tyc-strip" href="/tycoon/" data-track="tycoon_card"><span class="tyc-coin" aria-hidden="true">€</span><span class="duel-txt"><b>Unicorner Football Money Tycoon</b><small>${L('New · build a ridiculous football empire','Nuevo · construye un imperio futbolero absurdo')}</small></span><span class="duel-go">${L('Play demo','Jugar demo')} →</span></a>
+${(()=>{try{return localStorage.getItem('uc-tycoon-tester')==='1'}catch{return false}})()?` <a class="duel-strip tyc-strip" href="/tycoon/" data-track="tycoon_card"><span class="tyc-coin" aria-hidden="true">€</span><span class="duel-txt"><b>Unicorner Football Money Tycoon</b><small>${L('New · build a ridiculous football empire','Nuevo · construye un imperio futbolero absurdo')}</small></span><span class="duel-go">${L('Play demo','Jugar demo')} →</span></a>`:''}
 
  ${compete}
 
