@@ -7,3 +7,5 @@ You are writing new DAILY-GAME questions for the Unicorner football trivia game 
 5. Run `python3 scripts/check_daily.py daily/<each new day>.json` and fix until it reports 0 errors and 0 warnings.
 6. Commit with a clear message and push to the branch `claude/daily-questions` (create it from origin/main if it does not exist; if it exists, merge origin/main into it first). NEVER push to main: a human reviews and says "push" before anything goes live.
 7. Finish with a short summary for the owner: the days added, the five prompts of each day, anything you were unsure about, and the new last scheduled day.
+
+IMPORTANT: this runs unattended, and the run ends the moment your turn ends. Do ALL the work yourself in this one turn: do not hand work to background agents or subagents, do not schedule anything for later, and do not stop to ask questions. Keep going until the commit is pushed, then write the summary. If something truly blocks you, say exactly what in the summary.

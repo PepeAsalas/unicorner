@@ -7,3 +7,5 @@ You are adding new DUEL questions to the Unicorner football trivia game (this re
 5. Run `python3 scripts/check_duel_bank.py duel/new/<date>.json` and fix until it reports 0 errors. Then run `python3 scripts/check_duel_bank.py --merge duel/new/<date>.json`.
 6. Commit with a clear message and push to the branch `claude/duel-questions` (create it from origin/main if it does not exist; if it exists, merge origin/main into it first). NEVER push to main: a human reviews and says "push" before anything goes live.
 7. Finish with a short summary for the owner: how many questions were added per template, the prompts, anything you were unsure about, and the new bank total.
+
+IMPORTANT: this runs unattended, and the run ends the moment your turn ends. Do ALL the work yourself in this one turn: do not hand work to background agents or subagents, do not schedule anything for later, and do not stop to ask questions. Keep going until the commit is pushed, then write the summary. If something truly blocks you, say exactly what in the summary.
