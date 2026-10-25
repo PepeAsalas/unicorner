@@ -128,7 +128,22 @@ function quad(c, u0, v0, u1, v1, fill) {
   c.beginPath(); for (const [u, v] of [[u0, v0], [u1, v0], [u1, v1], [u0, v1]]) c.lineTo(...P(u, v)); c.closePath(); c.fillStyle = fill; c.fill();
 }
 const hash = (a, b) => { const s = Math.sin(a * 127.1 + b * 311.7) * 43758.5453; return s - Math.floor(s); };
+// a 4x4 ground piece of art sitting on its plot; false when the art hasn't loaded
+function piece(c, name, u0, v0, n = 4) {
+  const img = art(name); if (!img) return false;
+  const w = 2 * n * A, h = img.height * w / img.width, [x] = P(u0 + n / 2, v0 + n / 2), [, y] = P(u0 + n, v0 + n);
+  c.drawImage(img, x - w / 2, y + 1 - h, w, h); return true;
+}
+// something standing on the ground at (u, v), h world pixels tall
+function stand(c, name, u, v, h) {
+  const img = art(name); if (!img) return;
+  const [x, y] = P(u, v), w = img.width * h / img.height;
+  c.fillStyle = 'rgba(20,40,10,.25)'; c.beginPath(); c.ellipse(x + 1, y, Math.max(3, w * 0.45), 1.6, 0, 0, Math.PI * 2); c.fill();
+  c.drawImage(img, x - w / 2, y - h, w, h);
+}
 function tree(c, u, v, s = 1) {
+  const pick = hash(u * 3.1, v * 1.7), kind = pick < 0.45 ? 1 : pick < 0.75 ? 3 : 2;
+  if (art(`tree-${kind}`)) return stand(c, `tree-${kind}`, u, v, (kind === 2 ? 30 : kind === 3 ? 26 : 22) * s);
   const [x, y] = P(u, v);
   c.fillStyle = 'rgba(20,40,10,.25)'; c.beginPath(); c.ellipse(x + 2, y, 7 * s, 3.2 * s, 0, 0, Math.PI * 2); c.fill();
   c.fillStyle = '#5b3a1e'; c.fillRect(x - 1, y - 6 * s, 2.4, 6 * s);
@@ -146,14 +161,16 @@ function paintGround() {
   // roads, kerbs first so the paving sits on top
   for (const k of ROADS) { quad(c, k - 1.1, -60, k + 1.1, 80, '#a89a72'); quad(c, -60, k - 1.1, 80, k + 1.1, '#a89a72'); }
   for (const k of ROADS) { quad(c, k - 1, -60, k + 1, 80, '#e2d4a6'); quad(c, -60, k - 1, 80, k + 1, '#e2d4a6'); }
-  // the far corners of the grounds: a pond, a little park, the car park and the entrance plaza
-  quad(c, 14.2, 0.2, 17.8, 3.8, '#4a8a34');
-  const [px, py] = P(16, 2); c.fillStyle = '#2d5e8a'; c.beginPath(); c.ellipse(px, py, 20, 10, 0, 0, Math.PI * 2); c.fill();
-  c.fillStyle = '#4f9ad0'; c.beginPath(); c.ellipse(px, py - 1, 18, 8.4, 0, 0, Math.PI * 2); c.fill();
-  c.fillStyle = 'rgba(255,255,255,.55)'; c.fillRect(px - 8, py - 4, 6, 1.2); c.fillRect(px + 3, py + 1, 5, 1.2);
-  quad(c, 14.2, 7.2, 17.8, 10.8, '#6b6878');
-  for (let i = 0; i < 4; i++) { const [ax, ay] = P(14.6, 7.6 + i * 0.85), [bx, by] = P(16.2, 7.6 + i * 0.85); c.strokeStyle = 'rgba(255,255,255,.7)'; c.lineWidth = 0.7; c.beginPath(); c.moveTo(ax, ay); c.lineTo(bx, by); c.stroke(); }
-  quad(c, 14.2, 14.2, 17.8, 17.8, '#d8c99c'); quad(c, 15.2, 15.2, 16.8, 16.8, '#c9b685');
+  // the far corners of the grounds: a pond, a little park, the car park and the entrance plaza (ChatGPT art when it has loaded)
+  if (!piece(c, 'ground-pond', 14, 0)) {
+    quad(c, 14.2, 0.2, 17.8, 3.8, '#4a8a34');
+    const [px, py] = P(16, 2); c.fillStyle = '#2d5e8a'; c.beginPath(); c.ellipse(px, py, 20, 10, 0, 0, Math.PI * 2); c.fill();
+  }
+  if (!piece(c, 'ground-car-park', 14, 7)) quad(c, 14.2, 7.2, 17.8, 10.8, '#6b6878');
+  if (!piece(c, 'ground-plaza', 14, 14)) quad(c, 14.2, 14.2, 17.8, 17.8, '#d8c99c');
+  // street furniture: a lamp on each crossing, benches by the plaza
+  for (const [u, v] of [[6.8, 6.8], [13.8, 6.8], [6.8, 13.8], [13.8, 13.8]]) stand(c, 'prop-lamppost', u, v, 22);
+  for (const [u, v] of [[13.9, 15.2], [15.2, 13.9]]) stand(c, 'prop-bench', u, v, 7);
   // trees: a few in the park corner and plenty outside the grounds
   for (const [u, v] of [[1, 15], [2.6, 14.8], [1.6, 16.6], [3.2, 16.8], [0.8, 17.6]]) tree(c, u, v, 0.9);
   const trees = [];
@@ -175,7 +192,11 @@ function popScale(b, t) { // squash and settle, 360 ms, only after a purchase
 }
 function drawLot(b, t) {
   const L = LOTS[b], n = size(b), st = stageOf(b), img = st && art(`building-${b}-${st}`), [cx] = lotCentre(b), [, fy] = lotFront(b);
-  if (!img) { // empty plot for sale
+  if (!img && art('ground-empty-plot')) { // empty plot for sale
+    const e = art('ground-empty-plot'), w = 2 * n * A, h = e.height * w / e.width; ctx.drawImage(e, cx - w / 2, fy + 1 - h, w, h);
+    hitBox[b] = {x: cx - w / 2, y: fy - h, w, h}; return;
+  }
+  if (!img) { // empty plot for sale, drawn in code until the art loads
     quad(ctx, L.u0 + 0.35, L.v0 + 0.35, L.u0 + n - 0.35, L.v0 + n - 0.35, '#9a6f45');
     for (let i = 1; i < n * 1.5; i++) { const [ax, ay] = P(L.u0 + 0.35 + i * 0.55, L.v0 + 0.5), [bx, by] = P(L.u0 + 0.35 + i * 0.55, L.v0 + n - 0.5); ctx.strokeStyle = '#86603b'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.stroke(); }
     for (const [u, v] of [[0.35, 0.35], [n - 0.35, 0.35], [0.35, n - 0.35], [n - 0.35, n - 0.35]]) { const [x, y] = P(L.u0 + u, L.v0 + v); R(x - 0.8, y - 5, 1.6, 5, '#f3ead0'); }
@@ -287,13 +308,14 @@ function animate(fx, b, x0, y0, w, h, t) {
 
 // ---------- people: they walk along the roads to a building's door ----------
 // person() draws a character standing at (x, y) on the ground. Each character has two 4-frame walking sheets:
-// "front" (walking towards the camera) and "back" (walking away), both drawn facing left; facing right is a mirror image.
+// "front" (walking towards the camera) and "back" (walking away), mostly drawn facing left; the other way is a mirror image.
+const FACES_RIGHT = new Set(['char-agent-front', 'char-mascot-front']); // ChatGPT drew these two the other way round
 function person(who, x, y, h, t, o = {}) {
-  const img = art(`char-${who}-${o.back ? 'back' : 'front'}`); if (!img) return;
+  const name = `char-${who}-${o.back ? 'back' : 'front'}`, img = art(name); if (!img) return;
   const fw = img.width / 4, fh = img.height, w = fw * h / fh, f = o.walk ? Math.floor(t * 8 + (o.seed || 0)) % 4 : 0;
   ctx.save(); ctx.globalAlpha = o.alpha ?? 1; ctx.translate(x, y);
   ctx.fillStyle = 'rgba(20,40,10,.28)'; ctx.beginPath(); ctx.ellipse(0, 0, w * 0.3, 1.5, 0, 0, Math.PI * 2); ctx.fill();
-  if (o.right) ctx.scale(-1, 1);
+  if (!o.right !== !FACES_RIGHT.has(name)) ctx.scale(-1, 1);
   ctx.drawImage(img, f * fw, 0, fw, fh, -w / 2, -h, w, h); ctx.restore();
 }
 // any other sheet of frames standing on the ground (the academy players' kick)
@@ -405,11 +427,21 @@ function drawShadows(dt) {
     ctx.beginPath(); ctx.ellipse(s.x, s.y, 46, 18, 0, 0, Math.PI * 2); ctx.ellipse(s.x + 30, s.y + 6, 30, 13, 0, 0, Math.PI * 2); ctx.fill();
   }
 }
+// red-and-cream pennants on the plaza flagpoles, waving
+function drawPennants(t) {
+  const img = art('anim-pennant'), plaza = art('ground-plaza'); if (!img || !plaza) return;
+  const fw = img.width / 4, fh = img.height, w = 8 * A, h = plaza.height * w / plaza.width, [x0] = P(16, 16), [, yb] = P(18, 18), left = x0 - w / 2, top = yb + 1 - h;
+  [[0.255, 0.01], [0.743, 0.01]].forEach(([px, py], i) => {
+    const f = Math.floor(t * 6 + i * 1.5) % 4, dh = h * 0.3, dw = dh * fw / fh;
+    ctx.drawImage(img, f * fw, 0, fw, fh, left + px * w - dw * 0.09, top + py * h, dw, dh);
+  });
+}
 function draw(t, dt) {
   ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height); ctx.drawImage(ground, 0, 0);
   toWorld(ctx);
   drawPeople(t);
   drawPuffs(dt);
+  drawPennants(t);
   for (const b of Object.keys(LOTS)) if (!S.lv[b]) { const [x, y] = lotFront(b); label(B[b].name.toUpperCase(), x, y - 6); } // names only on empty plots
   drawShadows(dt);
   drawEvent(t);
@@ -431,12 +463,17 @@ function news() {
 // ---------- tapping: the keepy-uppies player (left) and the islands (map) ----------
 const kicker = $('kicker'), body = kicker.querySelector('.body'), ball = $('ball'), kickFloats = $('floats'), moneyEl = $('money');
 const still = matchMedia('(prefers-reduced-motion: reduce)');
-// the ball juggles on its own with real gravity; a tap kicks it higher. Units: player heights and seconds.
-const BALL = {y: 0, vy: 0, spin: 0, g: 3.2, idle: 0.95, kick: 1.8};
+// the ball juggles on its own with real gravity, and the player's four kick frames are timed to it:
+// foot up at contact, foot coming down, then knee up ready for the next touch. A tap makes the next kick a big one.
+const BALL = {y: 0.2, vy: 0, spin: 0, g: 3.2, idle: 0.95, kick: 1.8, big: false, hit: -1};
+const kickFrame = f => { body.style.backgroundPosition = `${f * 100 / 3}% 0`; };
 function stepBall(dt) {
-  if (still.matches) { ball.style.transform = ''; return; }
+  if (still.matches) { ball.style.transform = ''; kickFrame(2); return; }
   BALL.vy -= BALL.g * dt; BALL.y += BALL.vy * dt; BALL.spin += BALL.vy * dt * 260;
-  if (BALL.y <= 0) { BALL.y = 0; BALL.vy = BALL.idle; nudge(0.015); }
+  const now = performance.now() / 1000;
+  if (BALL.y <= 0) { BALL.y = 0; BALL.vy = BALL.big ? BALL.kick : BALL.idle; BALL.hit = now; if (BALL.big) nudge(0.03); BALL.big = false; }
+  const since = now - BALL.hit;
+  kickFrame(since < 0.09 ? 2 : since < 0.22 ? 3 : BALL.y > 0.3 && BALL.vy > 0 ? 0 : 1); // stands only while a big kick is on its way up
   ball.style.transform = `translateY(${-BALL.y * body.clientHeight}px) rotate(${BALL.spin}deg)`;
 }
 const nudge = k => body.animate([{transform: 'scale(1,1)'}, {transform: `scale(${1 + k},${1 - k})`, offset: .35}, {transform: 'scale(1,1)'}], {duration: 160, easing: 'cubic-bezier(.23,1,.32,1)'});
@@ -455,7 +492,7 @@ kicker.addEventListener('pointerdown', e => {
   const v = tapValue(); earn(v); S.taps++;
   const r = kickFloats.getBoundingClientRect();
   floatText('+' + fmt(v), (e.clientX - r.left) / r.width * 100, (e.clientY - r.top) / r.height * 100, false, kickFloats);
-  nudge(0.05); BALL.vy = Math.max(BALL.vy, BALL.kick);
+  BALL.big = true;
   coinToBank(e.clientX, e.clientY);
   if (S.taps % 9 === 1) ticker(C.tapLines[(S.taps / 9 | 0) % C.tapLines.length].replace('{m}', fmt(v)));
   paintBank();

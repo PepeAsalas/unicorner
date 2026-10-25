@@ -16,10 +16,10 @@ img{image-rendering:auto}
 .rate{font:700 11px var(--lab);opacity:.85;margin-top:4px}
 .kick-zone{grid-area:kick;position:relative;width:118px;height:118px}
 .kicker{position:relative;width:100%;height:100%;padding:0;border:0;background:none;outline-offset:4px;touch-action:manipulation;user-select:none;-webkit-user-select:none}
-.player{position:absolute;left:50%;bottom:6%;height:88%;aspect-ratio:200/316;transform:translateX(-50%);pointer-events:none}
-.player img{position:absolute;display:block;pointer-events:none;user-select:none;-webkit-user-drag:none}
-.player .body{inset:0;width:100%;height:100%;transform-origin:50% 100%;filter:drop-shadow(0 4px 0 rgba(0,0,0,.35))}
-.player .ball{left:.25%;top:48.1%;width:29%;will-change:transform}
+.player{position:absolute;left:46%;bottom:6%;height:88%;aspect-ratio:260/383;transform:translateX(-50%);pointer-events:none}
+.player .body{position:absolute;inset:0;background:url(art/char-keepy-uppy.webp) 0 0/400% 100% no-repeat;transform-origin:50% 100%;filter:drop-shadow(0 4px 0 rgba(0,0,0,.35))}
+/* the ball rests on the raised foot of frame 3 */
+.player .ball{position:absolute;display:block;left:78%;top:30.5%;width:20%;pointer-events:none;user-select:none;-webkit-user-drag:none;will-change:transform}
 .spot{position:absolute;left:50%;bottom:2%;width:70%;height:12%;transform:translateX(-50%);border-radius:50%;background:radial-gradient(rgba(242,194,48,.55),transparent 70%)}
 .floats{position:absolute;inset:-40px -40px 0;pointer-events:none;overflow:visible}
 .float{position:absolute;font:400 22px/1 var(--px);color:#fff;text-shadow:0 2px 0 var(--ink),0 0 2px var(--ink);white-space:nowrap;animation:up .7s var(--ease) forwards;transform:translate(-50%,0)}
