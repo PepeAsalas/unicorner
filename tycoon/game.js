@@ -19,10 +19,10 @@ const $ = id => document.getElementById(id);
 const B = Object.fromEntries(C.buildings.map(b => [b.id, b]));
 
 // ---------- state ----------
-const fresh = () => ({v: 2, money: 0, earned: 0, lv: {pitch: 1, academy: 0, transfer: 0, shop: 0, stadium: 0}, ups: [], stars: [], sold: 0, play: 0,
+const fresh = () => ({v: 3, money: 0, earned: 0, lv: {pitch: 0, academy: 0, transfer: 0, shop: 0, stadium: 0}, ups: [], stars: [], sold: 0, play: 0,
   saved: Date.now(), wall: false, feedback: false, taps: 0, academyT: 0, nextEvent: 90, firstStarAt: 25});
 let S = fresh();
-try { const raw = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); if (raw && raw.v === 2) S = Object.assign(fresh(), raw, {lv: Object.assign(fresh().lv, raw.lv)}); } catch {}
+try { const raw = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); if (raw && raw.v === 3) S = Object.assign(fresh(), raw, {lv: Object.assign(fresh().lv, raw.lv)}); } catch {}
 let EV = null; // the active event: {e, until}
 const save = () => { S.saved = Date.now(); try { localStorage.setItem(SAVE_KEY, JSON.stringify(S)); } catch {} };
 
@@ -193,8 +193,8 @@ function popScale(b, t) { // squash and settle, 360 ms, only after a purchase
 function drawLot(b, t) {
   const L = LOTS[b], n = size(b), st = stageOf(b), img = st && art(`building-${b}-${st}`), [cx] = lotCentre(b), [, fy] = lotFront(b);
   if (!img && art('ground-empty-plot')) { // empty plot for sale
-    const e = art('ground-empty-plot'), w = 2 * n * A, h = e.height * w / e.width; ctx.drawImage(e, cx - w / 2, fy + 1 - h, w, h);
-    hitBox[b] = {x: cx - w / 2, y: fy - h, w, h}; return;
+    const e = art('ground-empty-plot'), w = 8 * A, h = e.height * w / e.width, [, by] = P(L.u0 + n / 2 + 2, L.v0 + n / 2 + 2); ctx.drawImage(e, cx - w / 2, by + 1 - h, w, h);
+    hitBox[b] = {x: cx - w / 2, y: by - h, w, h}; return;
   }
   if (!img) { // empty plot for sale, drawn in code until the art loads
     quad(ctx, L.u0 + 0.35, L.v0 + 0.35, L.u0 + n - 0.35, L.v0 + n - 0.35, '#9a6f45');
@@ -308,14 +308,13 @@ function animate(fx, b, x0, y0, w, h, t) {
 
 // ---------- people: they walk along the roads to a building's door ----------
 // person() draws a character standing at (x, y) on the ground. Each character has two 4-frame walking sheets:
-// "front" (walking towards the camera) and "back" (walking away), mostly drawn facing left; the other way is a mirror image.
-const FACES_RIGHT = new Set(['char-agent-front', 'char-mascot-front']); // ChatGPT drew these two the other way round
+// "front" (walking towards the camera, down-right) and "back" (walking away, up-right); walking left is a mirror image.
 function person(who, x, y, h, t, o = {}) {
   const name = `char-${who}-${o.back ? 'back' : 'front'}`, img = art(name); if (!img) return;
-  const fw = img.width / 4, fh = img.height, w = fw * h / fh, f = o.walk ? Math.floor(t * 8 + (o.seed || 0)) % 4 : 0;
+  const fw = img.width / 4, fh = img.height, w = fw * h / fh, f = o.walk ? Math.floor(t * 6 + (o.seed || 0)) % 4 : 0;
   ctx.save(); ctx.globalAlpha = o.alpha ?? 1; ctx.translate(x, y);
   ctx.fillStyle = 'rgba(20,40,10,.28)'; ctx.beginPath(); ctx.ellipse(0, 0, w * 0.3, 1.5, 0, 0, Math.PI * 2); ctx.fill();
-  if (!o.right !== !FACES_RIGHT.has(name)) ctx.scale(-1, 1);
+  if (!o.right) ctx.scale(-1, 1);
   ctx.drawImage(img, f * fw, 0, fw, fh, -w / 2, -h, w, h); ctx.restore();
 }
 // any other sheet of frames standing on the ground (the academy players' kick)
@@ -346,7 +345,7 @@ const walkers = [];
 const WHO = {stadium: 'fan', shop: 'fan', transfer: 'agent', pitch: 'youth', academy: 'youth'};
 function spawn(b, from) {
   const start = from || [ROADS[Math.random() * 2 | 0], EDGE[1]].sort(() => Math.random() - 0.5);
-  walkers.push({who: WHO[b], path: route(start, LOTS[b].door), i: 0, k: 0, v: 1.5 + Math.random() * 0.6, seed: Math.random() * 9, life: 0, out: 0});
+  walkers.push({who: WHO[b], path: route(start, LOTS[b].door), i: 0, k: 0, v: 1 + Math.random() * 0.3, seed: Math.random() * 9, life: 0, out: 0});
 }
 function stepWalkers(dt) {
   const busy = S.lv.stadium * 1.2 + S.lv.shop * 0.6 + S.lv.transfer * 0.3 + (S.lv.academy ? 1 : 0);
@@ -385,7 +384,7 @@ function drawPeople(t) {
   }
   if (S.lv.pitch >= 5) { const [x, y] = P(LOTS.pitch.u0 + 4.6, LOTS.pitch.v0 + 2.6); list.push({d: 21.2, f: () => person('coach', x, y, 15, t, {right: Math.sin(t * 0.4) > 0})}); }
   if (EV && EV.e.target === 'transfer') { // agents pace up and down outside the transfer office
-    for (let i = 0; i < 5; i++) { const s = Math.sin(t * 0.8 + i * 1.3), [x, y] = P(9 + (i - 2) * 0.6 + s * 0.4, 4.7 + (i % 2) * 0.5); list.push({d: 13.7, f: () => person('agent', x, y, 14, t, {walk: true, seed: i, right: Math.cos(t * 0.8 + i * 1.3) > 0})}); }
+    for (let i = 0; i < 5; i++) { const s = Math.sin(t * 0.8 + i * 1.3), [x, y] = P(9 + (i - 2) * 0.6 + s * 0.4, 4.7 + (i % 2) * 0.5); list.push({d: 13.7, f: () => person('agent', x, y, 14, t, {walk: true, seed: i, right: Math.cos(t * 0.8 + i * 1.3) > 0, back: Math.cos(t * 0.8 + i * 1.3) < 0})}); }
   }
   if (S.lv.shop >= 10) { // the mascot does laps of the grounds
     const k = (t / 48) % 1, loop = [[5.5, 5.5], [12.5, 5.5], [12.5, 12.5], [5.5, 12.5], [5.5, 5.5]], seg = Math.floor(k * 4), f = k * 4 - seg;
@@ -442,7 +441,7 @@ function draw(t, dt) {
   drawPeople(t);
   drawPuffs(dt);
   drawPennants(t);
-  for (const b of Object.keys(LOTS)) if (!S.lv[b]) { const [x, y] = lotFront(b); label(B[b].name.toUpperCase(), x, y - 6); } // names only on empty plots
+  for (const b of Object.keys(LOTS)) if (!S.lv[b]) { const L = LOTS[b], n = size(b), [x, y] = P(L.u0 + n / 2 + 2, L.v0 + n / 2 + 2); label(B[b].name.toUpperCase(), x, y - 6); } // names only on empty plots
   drawShadows(dt);
   drawEvent(t);
 }
@@ -670,7 +669,7 @@ function thanks() {
 
 // ---------- loop ----------
 function paintBank() { $('money').textContent = fmt(S.money); $('rate').textContent = fmt(rates().total) + ' per second'; }
-let last = performance.now(), uiT = 0, saveT = 0;
+let last = performance.now(), uiT = 0, saveT = 0, hinted = false;
 function frame(now) {
   const dt = Math.min(0.25, (now - last) / 1000); last = now;
   const t = now / 1000;
@@ -684,6 +683,7 @@ function frame(now) {
   draw(t, dt);
   uiT += dt; if (uiT > 0.2) { uiT = 0; paintBank(); refreshButtons(); }
   saveT += dt; if (saveT > 5) { saveT = 0; save(); }
+  if (!S.lv.pitch && S.money >= cost('pitch') && !hinted) { hinted = true; ticker('You can afford a training pitch: build it in the Club tab.'); }
   tickerT -= dt; if (tickerT < 0) news();
   requestAnimationFrame(frame);
 }
