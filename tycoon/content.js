@@ -5,6 +5,10 @@ window.TYC_CONTENT = {
   art: [
     'anim-corner-flag.webp',
     'anim-floodlight.webp',
+    'anim-rocket.webp',
+    'anim-firework.webp',
+    'anim-screen.webp',
+    'anim-fans.webp',
     'building-academy-1.webp',
     'building-academy-2.webp',
     'building-academy-3.webp',

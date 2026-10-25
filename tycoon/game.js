@@ -203,18 +203,24 @@ function drawPuffs(dt) {
     const e = ease(k); ctx.fillStyle = `rgba(251,243,220,${0.85 * (1 - k)})`; ctx.beginPath(); ctx.arc(p.x + p.dx * e, p.y + p.dy * e, 2.5 + 3 * e, 0, Math.PI * 2); ctx.fill();
   }
 }
-function celebrate(b) { const big = S.lv[b] === 1 || C.stages.includes(S.lv[b]); pops[b] = {t: performance.now() / 1000, big}; puff(b, big); if (big) lampsFrom = performance.now() / 1000; }
+function celebrate(b) {
+  const big = S.lv[b] === 1 || C.stages.includes(S.lv[b]), now = performance.now() / 1000;
+  pops[b] = {t: now, big}; puff(b, big);
+  if (b === 'stadium') { cheerUntil = now + 2.5; volley = now + (big ? 0.9 : 0); if (big) lampsFrom = now; } // fireworks wait for the floodlights on a new stage
+}
 
 // ---------- moving parts painted by ChatGPT: corner flags and floodlights ----------
 // Positions are fractions of the building image: flags stand on (x, y) with a pole that tall; lamp heads are centred on (x, y), w wide.
 // Flags stand on the pitch corners the stands don't hide.
 const ANIM = {
   'building-stadium-1': {flags: [[0.1477, 0.6244], [0.5003, 0.3427], [0.8587, 0.6056], [0.5061, 0.8873]], pole: 0.0646, lamps: [[0.0712, 0.3016, 0.0280], [0.4997, 0.0329, 0.0350], [0.9276, 0.3016, 0.0280]]},
-  'building-stadium-2': {flags: [[0.5003, 0.3419], [0.5061, 0.8852]], pole: 0.0644, lamps: [[0.0683, 0.3021, 0.0374], [0.5003, 0.0340, 0.0403], [0.9317, 0.3009, 0.0350]]},
-  'building-stadium-3': {flags: [[0.4997, 0.3427], [0.5055, 0.8873]], pole: 0.0646, lamps: [[0.0665, 0.2441, 0.0373], [0.5003, 0.0329, 0.0402], [0.9329, 0.2465, 0.0350]]},
-  'building-stadium-4': {flags: [[0.1480, 0.6172], [0.5012, 0.3387], [0.8602, 0.5986], [0.5070, 0.8770]], pole: 0.0638, lamps: [[0.0661, 0.2831, 0.0398], [0.5000, 0.0394, 0.0409], [0.9351, 0.2865, 0.0386]]},
+  'building-stadium-2': {flags: [[0.5003, 0.3419], [0.5061, 0.8852]], pole: 0.0644, lamps: [[0.0683, 0.3021, 0.0374], [0.5003, 0.0340, 0.0403], [0.9317, 0.3009, 0.0350]], fans: [[[0.1582, 0.5187], [0.4256, 0.3595]], [[0.1459, 0.4438], [0.4168, 0.3009]], [[0.5756, 0.3595], [0.8587, 0.5351]], [[0.5838, 0.2845], [0.8675, 0.4438]]], fan: 0.0280},
+  'building-stadium-3': {flags: [[0.4997, 0.3427], [0.5055, 0.8873]], pole: 0.0646, lamps: [[0.0665, 0.2441, 0.0373], [0.5003, 0.0329, 0.0402], [0.9329, 0.2465, 0.0350]], fans: [[[0.1335, 0.4695], [0.4332, 0.3603]], [[0.0997, 0.3603], [0.4163, 0.2347]], [[0.5749, 0.3521], [0.8746, 0.5035]], [[0.5749, 0.2512], [0.8828, 0.3603]]], fan: 0.0280},
+  'building-stadium-4': {flags: [[0.1480, 0.6172], [0.5012, 0.3387], [0.8602, 0.5986], [0.5070, 0.8770]], pole: 0.0638, lamps: [[0.0661, 0.2831, 0.0398], [0.5000, 0.0394, 0.0409], [0.9351, 0.2865, 0.0386]], fans: [[[0.1585, 0.5383], [0.4263, 0.3898]], [[0.1503, 0.3979], [0.4263, 0.2738]], [[0.5848, 0.3817], [0.8520, 0.5302]], [[0.5766, 0.2657], [0.8602, 0.3979]]], fan: 0.0281, screens: [[0.1082, 0.0872, 0.1205, -0.0188, 0.1655], [0.7760, 0.0270, 0.1076, 0.1226, 0.1470]], roof: [[0.2754, 0.0858], [0.3632, 0.0360], [0.6392, 0.0360], [0.7392, 0.0858]]},
 };
 let lampsFrom = performance.now() / 1000 - 99, flick = {i: -1, until: 0, next: 6};
+let cheerUntil = 0, volley = 0, nextRocket = 4;
+const rockets = []; // {i: launch point, t0}
 function lampOn(i, t) { // switch on one by one with a stutter after a build, and now and then one lamp flickers
   const k = t - lampsFrom - i * 0.35;
   if (k < 0) return false;
@@ -240,6 +246,42 @@ function animate(fx, b, x0, y0, w, h, t) {
       const f = seq[Math.floor(t * fps + i * 0.6) % 4], dh = fx.pole * h, dw = dh * fw / fh, px = x0 + fxp * w, py = y0 + fyp * h;
       ctx.drawImage(flag, f * fw, 0, fw, fh, px - dw * 0.075, py - dh, dw, dh); // the pole sits at the left edge of each frame
     });
+  }
+  const screen = art('anim-screen');
+  if (screen && fx.screens) { // the big screens cycle through their four pictures; the right one is sheared to face the other way
+    const fw = screen.width / 4, fh = screen.height, f = Math.floor(t / 2.6) % 4;
+    for (const [sx, sy, sw, sk, sh] of fx.screens) {
+      ctx.save(); ctx.transform(sw * w / fw, sk * h / fw, 0, sh * h / fh, x0 + sx * w, y0 + sy * h);
+      ctx.drawImage(screen, f * fw, 0, fw, fh, 0, 0, fw, fh); ctx.restore();
+    }
+  }
+  const fans = art('anim-fans');
+  if (fans && fx.fans) { // a Mexican wave runs round the stands every 14 s; everyone jumps after an upgrade
+    const fw = fans.width / 2, fh = fans.height, dw = fx.fan * w, dh = dw * fh / fw, wave = (t % 14) / 3, all = t < cheerUntil;
+    const total = fx.fans.length;
+    fx.fans.forEach(([[ax, ay], [bx, by]], r) => {
+      const right = bx > 0.55, n = Math.max(2, Math.round(Math.hypot((bx - ax) * w, (by - ay) * h) / (dw * 1.15)));
+      for (let k = 0; k <= n; k++) {
+        const q = k / n, x = x0 + (ax + (bx - ax) * q) * w, y = y0 + (ay + (by - ay) * q) * h;
+        const along = (right ? 0.5 : 0) + (right ? q : q) * 0.5; // left stand first, then the right one
+        const up = all ? Math.floor(t * 4 + k) % 2 === 0 : Math.abs(wave - along) < 0.07;
+        ctx.save(); ctx.translate(x, y); if (right) ctx.scale(-1, 1);
+        ctx.drawImage(fans, up ? fw : 0, 0, fw, fh, -dw / 2, -dh, dw, dh); ctx.restore();
+      }
+    });
+  }
+  const pts = fx.roof || fx.lamps, rocket = art('anim-rocket'), boom = art('anim-firework');
+  if (rocket && boom) { // fireworks: now and then from the stage 4 roof, and a volley after an upgrade
+    if (fx.roof && t > nextRocket) { rockets.push({i: Math.random() * pts.length | 0, t0: t}); nextRocket = t + 2.5 + Math.random() * 4; }
+    if (volley && t > volley) { pts.forEach((_, i) => rockets.push({i, t0: t + i * 0.18})); volley = 0; }
+    const bw = boom.width / 5, bh = boom.height, size = 0.09 * w, rise = 0.12 * h;
+    for (let n = rockets.length - 1; n >= 0; n--) {
+      const r = rockets[n], k = t - r.t0, [px, py] = pts[r.i], x = x0 + px * w, y = y0 + py * h;
+      if (k < 0) continue;
+      if (k < 0.45) { const e = ease(k / 0.45), rh = size * 0.4; ctx.drawImage(rocket, x - rh * rocket.width / rocket.height / 2, y - rise * e - rh * 0.3, rh * rocket.width / rocket.height, rh); continue; }
+      const f = Math.floor((k - 0.45) / 0.11); if (f > 4) { rockets.splice(n, 1); continue; }
+      ctx.drawImage(boom, f * bw, 0, bw, bh, x - size / 2, y - rise - size / 2, size, size * bh / bw);
+    }
   }
 }
 
