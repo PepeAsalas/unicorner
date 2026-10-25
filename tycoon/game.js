@@ -19,10 +19,10 @@ const $ = id => document.getElementById(id);
 const B = Object.fromEntries(C.buildings.map(b => [b.id, b]));
 
 // ---------- state ----------
-const fresh = () => ({v: 1, money: 0, earned: 0, lv: {pitch: 1, academy: 0, transfer: 0, shop: 0, stadium: 0}, ups: [], stars: [], sold: 0, play: 0,
+const fresh = () => ({v: 2, money: 0, earned: 0, lv: {pitch: 1, academy: 0, transfer: 0, shop: 0, stadium: 0}, ups: [], stars: [], sold: 0, play: 0,
   saved: Date.now(), wall: false, feedback: false, taps: 0, academyT: 0, nextEvent: 90, firstStarAt: 25});
 let S = fresh();
-try { const raw = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); if (raw && raw.v === 1) S = Object.assign(fresh(), raw, {lv: Object.assign(fresh().lv, raw.lv)}); } catch {}
+try { const raw = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); if (raw && raw.v === 2) S = Object.assign(fresh(), raw, {lv: Object.assign(fresh().lv, raw.lv)}); } catch {}
 let EV = null; // the active event: {e, until}
 const save = () => { S.saved = Date.now(); try { localStorage.setItem(SAVE_KEY, JSON.stringify(S)); } catch {} };
 
@@ -36,8 +36,8 @@ const cost = b => Math.ceil(B[b].first * B[b].grow ** S.lv[b]);
 function academy() {
   const lv = S.lv.academy;
   if (!lv) return {every: Infinity, sale: 0, perSec: 0};
-  const every = Math.max(1.5, 20 / (1 + 0.12 * lv) / upMult('academy', 'rate'));
-  const sale = 15 * lv ** 1.15 * (1 + 0.03 * S.lv.pitch) * (1 + 0.12 * S.lv.transfer) * upMult('academy', 'sales') * upMult('transfer', 'sales')
+  const every = Math.max(2.5, 20 / (1 + 0.08 * lv) / upMult('academy', 'rate'));
+  const sale = 15 * lv ** 1.05 * (1 + 0.03 * S.lv.pitch) * (1 + 0.08 * S.lv.transfer) * upMult('academy', 'sales') * upMult('transfer', 'sales')
     * starMult('sales') * evMult('sales') * canteen();
   return {every, sale, perSec: sale / every};
 }
@@ -55,7 +55,7 @@ function rates(noEvents) {
   r.total = r.pitch + r.transfer + r.shop + r.stadium + r.academy;
   return r;
 }
-const tapValue = () => Math.max(1, (1 + 0.02 * rates().total) * upMult('pitch', 'tap') * starMult('tap') * evMult('tap'));
+const tapValue = () => Math.max(1, (1 + 0.01 * rates().total) * upMult('pitch', 'tap') * starMult('tap') * evMult('tap'));
 function earn(n) { S.money += n; S.earned += n; }
 
 // ---------- formatting ----------
@@ -286,15 +286,21 @@ function animate(fx, b, x0, y0, w, h, t) {
 }
 
 // ---------- people: they walk along the roads to a building's door ----------
-// sprite() draws a character standing at (x, y) on the ground: a two-beat step bob and a slight lean while walking
-function sprite(name, x, y, h, t, opts = {}) {
-  const img = art(name); if (!img) return;
-  const w = img.width * h / img.height, ph = t * 9 + (opts.seed || 0), lift = opts.walk ? Math.abs(Math.sin(ph)) * 1.4 : 0;
-  ctx.save(); ctx.globalAlpha = opts.alpha ?? 1; ctx.translate(x, y);
+// person() draws a character standing at (x, y) on the ground. Each character has two 4-frame walking sheets:
+// "front" (walking towards the camera) and "back" (walking away), both drawn facing left; facing right is a mirror image.
+function person(who, x, y, h, t, o = {}) {
+  const img = art(`char-${who}-${o.back ? 'back' : 'front'}`); if (!img) return;
+  const fw = img.width / 4, fh = img.height, w = fw * h / fh, f = o.walk ? Math.floor(t * 8 + (o.seed || 0)) % 4 : 0;
+  ctx.save(); ctx.globalAlpha = o.alpha ?? 1; ctx.translate(x, y);
   ctx.fillStyle = 'rgba(20,40,10,.28)'; ctx.beginPath(); ctx.ellipse(0, 0, w * 0.3, 1.5, 0, 0, Math.PI * 2); ctx.fill();
-  ctx.translate(0, -lift); if (opts.walk) ctx.rotate(Math.sin(ph) * 0.05);
-  if (opts.flip) ctx.scale(-1, 1);
-  ctx.drawImage(img, -w / 2, -h, w, h); ctx.restore();
+  if (o.right) ctx.scale(-1, 1);
+  ctx.drawImage(img, f * fw, 0, fw, fh, -w / 2, -h, w, h); ctx.restore();
+}
+// any other sheet of frames standing on the ground (the academy players' kick)
+function frames(name, n, f, x, y, h, right) {
+  const img = art(name); if (!img) return;
+  const fw = img.width / n, fh = img.height, w = fw * h / fh;
+  ctx.save(); ctx.translate(x, y); if (right) ctx.scale(-1, 1); ctx.drawImage(img, (f % n) * fw, 0, fw, fh, -w / 2, -h, w, h); ctx.restore();
 }
 // road graph: crossings, the points where roads leave the grounds, and every door
 function route(from, to) {
@@ -315,7 +321,7 @@ function route(from, to) {
   return out[0] === from ? out : [from, to];
 }
 const walkers = [];
-const WHO = {stadium: 'char-fan', shop: 'char-fan', transfer: 'char-agent', pitch: 'char-youth', academy: 'char-youth'};
+const WHO = {stadium: 'fan', shop: 'fan', transfer: 'agent', pitch: 'youth', academy: 'youth'};
 function spawn(b, from) {
   const start = from || [ROADS[Math.random() * 2 | 0], EDGE[1]].sort(() => Math.random() - 0.5);
   walkers.push({who: WHO[b], path: route(start, LOTS[b].door), i: 0, k: 0, v: 1.5 + Math.random() * 0.6, seed: Math.random() * 9, life: 0, out: 0});
@@ -339,30 +345,30 @@ function walkerPos(w) {
   const a = w.path[Math.min(w.i, w.path.length - 1)], b = w.path[Math.min(w.i + 1, w.path.length - 1)];
   const u = a[0] + (b[0] - a[0]) * w.k, v = a[1] + (b[1] - a[1]) * w.k, side = (w.seed % 1 - 0.5) * 1.1; // keep people off the exact centre line
   const [x, y] = P(u + (a[0] === b[0] ? side : 0), v + (a[1] === b[1] ? side : 0));
-  const [bx] = P(b[0], b[1]), [ax] = P(a[0], a[1]);
-  return {x, y, d: u + v, flip: bx < ax};
+  const [bx, by] = P(b[0], b[1]), [ax, ay] = P(a[0], a[1]);
+  return {x, y, d: u + v, right: bx > ax, back: by < ay};
 }
 function drawPeople(t) {
   const list = [];
   for (const w of walkers) {
     const p = walkerPos(w), alpha = Math.min(1, w.life / 0.25) * (1 - w.out / 0.25);
-    list.push({d: p.d, f: () => sprite(w.who, p.x, p.y, 15, t, {walk: w.out === 0, flip: p.flip, seed: w.seed, alpha})});
+    list.push({d: p.d, f: () => person(w.who, p.x, p.y, 15, t, {walk: w.out === 0, right: p.right, back: p.back, seed: w.seed * 4, alpha})});
   }
-  if (S.lv.academy) { // youth players doing drills in front of the academy
+  if (S.lv.academy) { // academy players practising shots beside the academy: a kick every couple of seconds each
     const L = LOTS.academy, kids = Math.min(3, Math.ceil(S.lv.academy / 6));
     for (let i = 0; i < kids; i++) {
-      const k = (Math.sin(t * 0.7 + i * 2.1) + 1) / 2, u = L.u0 + 4.5, v = L.v0 + 0.8 + i * 1.1 + k * 0.6, [x, y] = P(u, v);
-      list.push({d: u + v, f: () => sprite('char-youth', x, y, 13, t, {walk: true, flip: Math.cos(t * 0.7 + i * 2.1) > 0, seed: i})});
+      const u = L.u0 + 4.5, v = L.v0 + 0.9 + i * 1.3, [x, y] = P(u, v), k = (t * 0.55 + i * 0.37) % 1, f = k < 0.6 ? 0 : Math.floor((k - 0.6) / 0.1);
+      list.push({d: u + v, f: () => frames('char-youth-kick', 4, f, x, y, 14, i % 2 === 1)});
     }
   }
-  if (S.lv.pitch >= 5) { const [x, y] = P(LOTS.pitch.u0 + 4.6, LOTS.pitch.v0 + 2.6); list.push({d: 21.2, f: () => sprite('char-coach', x, y, 15, t, {flip: Math.sin(t * 0.4) > 0})}); }
-  if (EV && EV.e.target === 'transfer') { // agents queue at the transfer office door
-    for (let i = 0; i < 5; i++) { const [x, y] = P(9 + (i - 2) * 0.55, 4.7 + (i % 2) * 0.5); list.push({d: 13.7, f: () => sprite('char-agent', x, y, 14, t, {walk: true, seed: i * 1.7, flip: i % 2})}); }
+  if (S.lv.pitch >= 5) { const [x, y] = P(LOTS.pitch.u0 + 4.6, LOTS.pitch.v0 + 2.6); list.push({d: 21.2, f: () => person('coach', x, y, 15, t, {right: Math.sin(t * 0.4) > 0})}); }
+  if (EV && EV.e.target === 'transfer') { // agents pace up and down outside the transfer office
+    for (let i = 0; i < 5; i++) { const s = Math.sin(t * 0.8 + i * 1.3), [x, y] = P(9 + (i - 2) * 0.6 + s * 0.4, 4.7 + (i % 2) * 0.5); list.push({d: 13.7, f: () => person('agent', x, y, 14, t, {walk: true, seed: i, right: Math.cos(t * 0.8 + i * 1.3) > 0})}); }
   }
   if (S.lv.shop >= 10) { // the mascot does laps of the grounds
     const k = (t / 48) % 1, loop = [[5.5, 5.5], [12.5, 5.5], [12.5, 12.5], [5.5, 12.5], [5.5, 5.5]], seg = Math.floor(k * 4), f = k * 4 - seg;
     const a = loop[seg], b = loop[seg + 1], u = a[0] + (b[0] - a[0]) * f, v = a[1] + (b[1] - a[1]) * f, [x, y] = P(u, v);
-    list.push({d: u + v, f: () => sprite('char-mascot', x, y, 17, t, {walk: true, flip: P(...b)[0] < P(...a)[0], seed: 3})});
+    list.push({d: u + v, f: () => person('mascot', x, y, 17, t, {walk: true, right: P(...b)[0] > P(...a)[0], back: P(...b)[1] < P(...a)[1], seed: 3})});
   }
   for (const b of Object.keys(LOTS)) { const L = LOTS[b]; list.push({d: L.u0 + L.v0 + size(b), f: () => drawLot(b, t)}); }
   list.sort((a, b) => a.d - b.d).forEach(o => o.f());
@@ -370,6 +376,7 @@ function drawPeople(t) {
 
 // ---------- events: a prop over the building, a pin to tap, and the odd plane ----------
 const PROP = {plague: 'event-plague-cloud', airport: 'event-plane', haalunch: 'event-sold-out-sign', misprint: 'event-misprint-shirts', mascot: 'event-banana'};
+const PROP_FRAMES = {'event-plague-cloud': 4, 'event-sold-out-sign': 2};
 function eventProp(e) { const t = e.title.toLowerCase(); return e.prop || (t.includes('plague') ? PROP.plague : t.includes('airport') ? PROP.airport : t.includes('haalunch') ? PROP.haalunch : t.includes('misprint') ? PROP.misprint : t.includes('mascot') ? PROP.mascot : null); }
 function drawEvent(t) {
   if (!EV) return;
@@ -379,7 +386,10 @@ function drawEvent(t) {
     const k = (t / 6) % 1, x = -40 + k * (W + 80), y = 30 + k * 40, w = 54;
     ctx.fillStyle = 'rgba(20,40,10,.18)'; ctx.beginPath(); ctx.ellipse(x + 10, y + 70, 20, 6, 0, 0, Math.PI * 2); ctx.fill();
     ctx.drawImage(img, x - w / 2, y - w * img.height / img.width / 2, w, w * img.height / img.width);
-  } else if (img) { const w = 40, h = w * img.height / img.width; ctx.drawImage(img, cx - w / 2, hb.y + 6 - h + Math.sin(t * 2.2) * 2, w, h); }
+  } else if (img) { // props with several frames (the swirling cloud, the blinking sign) cycle through them
+    const n = PROP_FRAMES[prop] || 1, f = Math.floor(t * (n > 2 ? 5 : 2)) % n, fw = img.width / n, w = 40, h = w * img.height / fw;
+    ctx.drawImage(img, f * fw, 0, fw, img.height, cx - w / 2, hb.y + 6 - h + Math.sin(t * 2.2) * 2, w, h);
+  }
   // the pin: bobs gently so it reads as tappable
   const y = hb.y + 2 - Math.abs(Math.sin(t * 3)) * 4, x = cx + 30;
   ctx.fillStyle = 'rgba(20,40,10,.25)'; ctx.beginPath(); ctx.ellipse(x, cy - 2, 4, 1.6, 0, 0, Math.PI * 2); ctx.fill();

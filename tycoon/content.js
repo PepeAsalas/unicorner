@@ -49,9 +49,9 @@ window.TYC_CONTENT = {
   buildings: [
     {id: 'pitch', name: 'Training pitch', blurb: 'Passive income, and a better pitch makes better academy players.', first: 15, grow: 1.15, rate: 0.5},
     {id: 'academy', name: 'Youth academy', blurb: 'Produces players and sells them automatically.', first: 120, grow: 1.16, rate: 0},
-    {id: 'transfer', name: 'Transfer office', blurb: 'Every level makes academy sales 12% richer.', first: 900, grow: 1.17, rate: 3},
-    {id: 'shop', name: 'Club shop', blurb: 'Sells shirts. Stars sell many more.', first: 4000, grow: 1.17, rate: 14},
-    {id: 'stadium', name: 'Stadium', blurb: 'Supporters pay to watch. Stars bring bigger crowds.', first: 15000, grow: 1.18, rate: 45},
+    {id: 'transfer', name: 'Transfer office', blurb: 'Every level makes academy sales 8% richer.', first: 600, grow: 1.17, rate: 3},
+    {id: 'shop', name: 'Club shop', blurb: 'Sells shirts. Stars sell many more.', first: 1500, grow: 1.17, rate: 14},
+    {id: 'stadium', name: 'Stadium', blurb: 'Supporters pay to watch. Stars bring bigger crowds.', first: 5000, grow: 1.18, rate: 45},
   ],
   // stage thresholds: building level at which it looks bigger
   stages: [1, 10, 25, 50],
