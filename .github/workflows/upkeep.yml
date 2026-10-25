@@ -3,16 +3,19 @@ name: Upkeep
 # Daily: health check of the schedule and live site, and fresh sitemap dates.
 # Friday: saves the week's rejected daily-game answers for the Saturday routine to review.
 # Monday: weekly report as a GitHub issue (GitHub emails it to the owner).
+# Sunday night: moves events older than 21 days to private Supabase Storage (bucket events-archive) and
+# deletes them from the database. Needs the repository secret SUPABASE_SERVICE_ROLE_KEY.
 on:
   workflow_dispatch:
     inputs:
       job:
-        description: 'health, rejections or report'
+        description: 'health, rejections, report, archive or archive-dry-run'
         default: health
   schedule:
     - cron: '41 4 * * *'   # health, every day
     - cron: '13 20 * * 5'  # rejections, Friday evening
     - cron: '13 6 * * 1'   # report, Monday morning
+    - cron: '27 2 * * 0'   # archive, Sunday night
 
 permissions:
   contents: write
@@ -28,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
-      JOB: ${{ github.event.inputs.job || (github.event.schedule == '13 20 * * 5' && 'rejections') || (github.event.schedule == '13 6 * * 1' && 'report') || 'health' }}
+      JOB: ${{ github.event.inputs.job || (github.event.schedule == '13 20 * * 5' && 'rejections') || (github.event.schedule == '13 6 * * 1' && 'report') || (github.event.schedule == '27 2 * * 0' && 'archive') || 'health' }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -71,3 +74,9 @@ jobs:
           for n in $(gh issue list --label weekly-report --state open --json number --jq '.[].number'); do gh issue close "$n"; done
           gh label create weekly-report --color FBF3DC --force >/dev/null 2>&1 || true
           gh issue create --title "📊 Unicorner weekly report ($(date -u +%F))" --label weekly-report --body-file report.md
+
+      - name: Archive old events
+        if: env.JOB == 'archive' || env.JOB == 'archive-dry-run'
+        env:
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: python scripts/archive_events.py ${{ env.JOB == 'archive-dry-run' && '--dry-run' || '' }}
