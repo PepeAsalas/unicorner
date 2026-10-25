@@ -80,11 +80,12 @@ function track(name, data) {
 
 // ---------- the club grounds: one isometric field with roads and plots (canvas) ----------
 // World coordinates are (u, v) grid units; P() turns them into pixels. Plots are 4x4 units with 3-unit roads between them.
-const W = 320, H = 270, A = 14, X0 = 160, Y0 = 55;
-const P = (u, v) => [X0 + (u - v) * A, Y0 + (u + v) * A / 2];
+// RAT matches the camera angle of the stadium art (a little flatter than a 2:1 diamond)
+const W = 320, H = 245, A = 14, RAT = 0.405, X0 = 160, Y0 = 62;
+const P = (u, v) => [X0 + (u - v) * A, Y0 + (u + v) * A * RAT];
 // u0, v0: the plot's back corner. door: where people arrive, on a road next to it.
 const LOTS = {
-  stadium: {u0: 0, v0: 0, door: [2, 5.5]},
+  stadium: {u0: -3, v0: -3, n: 7, door: [2, 5.5]}, // the stadium gets a bigger plot that reaches back past the roads
   shop: {u0: 0, v0: 7, door: [5.5, 9]},
   transfer: {u0: 7, v0: 0, door: [9, 5.5]},
   pitch: {u0: 7, v0: 7, door: [12.5, 9]},
@@ -93,8 +94,9 @@ const LOTS = {
 const ROADS = [5.5, 12.5], EDGE = [-8, 26];
 const TARGET_PLOT = {tap: 'pitch', pitch: 'pitch', sales: 'academy', transfer: 'transfer', shop: 'shop', tickets: 'stadium'};
 const stageOf = b => S.lv[b] ? C.stages.filter(t => S.lv[b] >= t).length : 0;
-const lotCentre = b => { const L = LOTS[b]; return P(L.u0 + 2, L.v0 + 2); };
-const lotFront = b => { const L = LOTS[b]; return P(L.u0 + 4, L.v0 + 4); };
+const size = b => LOTS[b].n || 4;
+const lotCentre = b => { const L = LOTS[b], n = size(b); return P(L.u0 + n / 2, L.v0 + n / 2); };
+const lotFront = b => { const L = LOTS[b], n = size(b); return P(L.u0 + n, L.v0 + n); };
 
 const cv = $('map'), ctx = cv.getContext('2d'), mid = $('stage'), mapFloats = $('mapFloats');
 let K = 2, SC = 1, OX = 0, OY = 0, CW = 1, CH = 1;
@@ -156,7 +158,7 @@ function paintGround() {
   for (const [u, v] of [[1, 15], [2.6, 14.8], [1.6, 16.6], [3.2, 16.8], [0.8, 17.6]]) tree(c, u, v, 0.9);
   const trees = [];
   for (let u = -30; u < 44; u++) for (let v = -30; v < 44; v++) {
-    const inside = u > -1.5 && u < 19 && v > -1.5 && v < 19, onRoad = ROADS.some(k => Math.abs(u + 0.5 - k) < 2.2 || Math.abs(v + 0.5 - k) < 2.2);
+    const inside = u > -1.5 && u < 19 && v > -1.5 && v < 19 || u > -4.5 && u < 4.5 && v > -4.5 && v < 4.5, onRoad = ROADS.some(k => Math.abs(u + 0.5 - k) < 2.2 || Math.abs(v + 0.5 - k) < 2.2);
     if (!inside && !onRoad && hash(u, v) < 0.09) trees.push([u + hash(v, u) * 0.6, v + hash(u + 3, v) * 0.6]);
   }
   trees.sort((a, b) => a[0] + a[1] - b[0] - b[1]).forEach(([u, v]) => tree(c, u, v, 0.8 + hash(u, v) * 0.35));
@@ -172,26 +174,28 @@ function popScale(b, t) { // squash and settle, 360 ms, only after a purchase
   return [1 + s, 1 - s];
 }
 function drawLot(b, t) {
-  const L = LOTS[b], st = stageOf(b), img = st && art(`building-${b}-${st}`), [cx] = lotCentre(b), [, fy] = lotFront(b);
+  const L = LOTS[b], n = size(b), st = stageOf(b), img = st && art(`building-${b}-${st}`), [cx] = lotCentre(b), [, fy] = lotFront(b);
   if (!img) { // empty plot for sale
-    quad(ctx, L.u0 + 0.35, L.v0 + 0.35, L.u0 + 3.65, L.v0 + 3.65, '#9a6f45');
-    for (let i = 1; i < 6; i++) { const [ax, ay] = P(L.u0 + 0.35 + i * 0.55, L.v0 + 0.5), [bx, by] = P(L.u0 + 0.35 + i * 0.55, L.v0 + 3.5); ctx.strokeStyle = '#86603b'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.stroke(); }
-    for (const [u, v] of [[0.35, 0.35], [3.65, 0.35], [0.35, 3.65], [3.65, 3.65]]) { const [x, y] = P(L.u0 + u, L.v0 + v); R(x - 0.8, y - 5, 1.6, 5, '#f3ead0'); }
+    quad(ctx, L.u0 + 0.35, L.v0 + 0.35, L.u0 + n - 0.35, L.v0 + n - 0.35, '#9a6f45');
+    for (let i = 1; i < n * 1.5; i++) { const [ax, ay] = P(L.u0 + 0.35 + i * 0.55, L.v0 + 0.5), [bx, by] = P(L.u0 + 0.35 + i * 0.55, L.v0 + n - 0.5); ctx.strokeStyle = '#86603b'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.stroke(); }
+    for (const [u, v] of [[0.35, 0.35], [n - 0.35, 0.35], [0.35, n - 0.35], [n - 0.35, n - 0.35]]) { const [x, y] = P(L.u0 + u, L.v0 + v); R(x - 0.8, y - 5, 1.6, 5, '#f3ead0'); }
     const [x, y] = lotCentre(b);
     R(x - 1, y - 16, 2.2, 16, INK); R(x - 15, y - 28, 30, 14, INK); R(x - 14, y - 27, 28, 12, '#fbf3dc');
     ctx.font = '5px Silkscreen, monospace'; ctx.textAlign = 'center'; ctx.fillStyle = INK; ctx.fillText('FOR', x, y - 21.5); ctx.fillStyle = '#e3262f'; ctx.fillText('SALE', x, y - 16);
     hitBox[b] = {x: x - 26, y: y - 30, w: 52, h: 46};
     return;
   }
-  const w = 8 * A, h = img.height * w / img.width, [sx, sy] = popScale(b, t);
-  ctx.save(); ctx.translate(cx, fy + 1); ctx.scale(sx, sy); ctx.drawImage(img, -w / 2, -h, w, h); ctx.restore();
+  const w = 2 * n * A, h = img.height * w / img.width, [sx, sy] = popScale(b, t);
+  ctx.save(); ctx.translate(cx, fy + 1); ctx.scale(sx, sy); ctx.drawImage(img, -w / 2, -h, w, h);
+  const fx = ANIM[`building-${b}-${st}`]; if (fx) animate(fx, b, -w / 2, -h, w, h, t);
+  ctx.restore();
   hitBox[b] = {x: cx - w / 2, y: fy - h, w, h};
 }
 // dust puffs when something is built
 const puffs = [];
 function puff(b, big) {
-  const L = LOTS[b];
-  for (let i = 0; i < (big ? 14 : 5); i++) { const a = i / (big ? 14 : 5) * Math.PI * 2, [x, y] = P(L.u0 + 2 + Math.cos(a) * 2.1, L.v0 + 2 + Math.sin(a) * 2.1); puffs.push({x, y, dx: Math.cos(a) * 10, dy: Math.sin(a) * 5 - 4, t: 0}); }
+  const L = LOTS[b], n = size(b);
+  for (let i = 0; i < (big ? 14 : 5); i++) { const a = i / (big ? 14 : 5) * Math.PI * 2, [x, y] = P(L.u0 + n / 2 + Math.cos(a) * n * 0.52, L.v0 + n / 2 + Math.sin(a) * n * 0.52); puffs.push({x, y, dx: Math.cos(a) * 10, dy: Math.sin(a) * 5 - 4, t: 0}); }
 }
 function drawPuffs(dt) {
   for (let i = puffs.length - 1; i >= 0; i--) {
@@ -199,7 +203,44 @@ function drawPuffs(dt) {
     const e = ease(k); ctx.fillStyle = `rgba(251,243,220,${0.85 * (1 - k)})`; ctx.beginPath(); ctx.arc(p.x + p.dx * e, p.y + p.dy * e, 2.5 + 3 * e, 0, Math.PI * 2); ctx.fill();
   }
 }
-function celebrate(b) { const big = S.lv[b] === 1 || C.stages.includes(S.lv[b]); pops[b] = {t: performance.now() / 1000, big}; puff(b, big); }
+function celebrate(b) { const big = S.lv[b] === 1 || C.stages.includes(S.lv[b]); pops[b] = {t: performance.now() / 1000, big}; puff(b, big); if (big) lampsFrom = performance.now() / 1000; }
+
+// ---------- moving parts painted by ChatGPT: corner flags and floodlights ----------
+// Positions are fractions of the building image (x, y). Flags stand on (x, y) with a pole h tall; lamps are centred on (x, y), w wide.
+const ANIM = {
+  'building-stadium-1': {
+    flags: [[0.5003, 0.894], [0.1769, 0.636], [0.8237, 0.636], [0.5003, 0.351]], pole: 0.046,
+    lamps: [[0.4997, 0.034, 0.04], [0.0715, 0.302, 0.03], [0.9282, 0.3, 0.03]],
+  },
+};
+let lampsFrom = performance.now() / 1000 - 99, flick = {i: -1, until: 0, next: 6};
+function lampOn(i, t) { // switch on one by one with a stutter after a build, and now and then one lamp flickers
+  const k = t - lampsFrom - i * 0.35;
+  if (k < 0) return false;
+  if (k < 0.3) return Math.floor(k / 0.07) % 2 === 1;
+  if (flick.i === i && t < flick.until) return Math.floor(t / 0.06) % 2 === 0;
+  return true;
+}
+function animate(fx, b, x0, y0, w, h, t) {
+  const flag = art('anim-corner-flag'), lamp = art('anim-floodlight');
+  if (t > flick.next) { flick = {i: Math.random() * fx.lamps.length | 0, until: t + 0.35, next: t + 9 + Math.random() * 14}; }
+  if (lamp) {
+    const fw = lamp.width / 3, fh = lamp.height;
+    fx.lamps.forEach(([lx, ly, lw], i) => {
+      const on = lampOn(i, t), dw = lw * w * 1.35, dh = dw * fh / fw, cx = x0 + lx * w, cy = y0 + ly * h;
+      ctx.drawImage(lamp, on ? fw : 0, 0, fw, fh, cx - dw / 2, cy - dh / 2, dw, dh);
+      if (on) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, dw * 1.3); g.addColorStop(0, 'rgba(255,240,180,.35)'); g.addColorStop(1, 'rgba(255,240,180,0)'); ctx.fillStyle = g; ctx.fillRect(cx - dw * 1.3, cy - dw * 1.3, dw * 2.6, dw * 2.6); ctx.restore(); }
+    });
+  }
+  if (flag) {
+    const fw = flag.width / 4, fh = flag.height, gust = Math.sin(t * 0.37) + Math.sin(t * 0.23 + 1);
+    const seq = gust < -1.1 ? [0, 1, 0, 1] : [1, 2, 3, 2], fps = gust < -1.1 ? 3 : 7;
+    fx.flags.forEach(([fxp, fyp], i) => {
+      const f = seq[Math.floor(t * fps + i * 0.6) % 4], dh = fx.pole * h * 2.2, dw = dh * fw / fh, px = x0 + fxp * w, py = y0 + fyp * h;
+      ctx.drawImage(flag, f * fw, 0, fw, fh, px - dw * 0.075, py - dh, dw, dh); // the pole sits at the left edge of each frame
+    });
+  }
+}
 
 // ---------- people: they walk along the roads to a building's door ----------
 // sprite() draws a character standing at (x, y) on the ground: a two-beat step bob and a slight lean while walking
@@ -280,7 +321,7 @@ function drawPeople(t) {
     const a = loop[seg], b = loop[seg + 1], u = a[0] + (b[0] - a[0]) * f, v = a[1] + (b[1] - a[1]) * f, [x, y] = P(u, v);
     list.push({d: u + v, f: () => sprite('char-mascot', x, y, 17, t, {walk: true, flip: P(...b)[0] < P(...a)[0], seed: 3})});
   }
-  for (const b of Object.keys(LOTS)) { const L = LOTS[b]; list.push({d: L.u0 + L.v0 + 4, f: () => drawLot(b, t)}); }
+  for (const b of Object.keys(LOTS)) { const L = LOTS[b]; list.push({d: L.u0 + L.v0 + size(b), f: () => drawLot(b, t)}); }
   list.sort((a, b) => a.d - b.d).forEach(o => o.f());
 }
 

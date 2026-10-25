@@ -28,7 +28,7 @@ img{image-rendering:auto}
 .coin{position:fixed;z-index:30;left:0;top:0;width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:inset -2px -2px 0 #c99a1a,0 0 0 2px var(--ink);pointer-events:none}
 .ticker{grid-area:ticker;margin:0;min-height:20px;font:600 14px Barlow,sans-serif;opacity:.92}
 .ticker b{font:700 11px var(--lab);color:var(--gold);margin-right:4px}
-.mid{position:relative;aspect-ratio:320/270;border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink);overflow:hidden;
+.mid{position:relative;aspect-ratio:320/245;border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink);overflow:hidden;
   background:#4f8d36;touch-action:manipulation}
 #map{position:absolute;left:0;top:0;display:block}
 .mid #mapFloats{inset:auto;z-index:1}

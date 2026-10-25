@@ -3,6 +3,8 @@
 window.TYC_CONTENT = {
   // art files in tycoon/art/ that the game should use, e.g. 'building-stadium-1.png' (see ART_BRIEF.md)
   art: [
+    'anim-corner-flag.webp',
+    'anim-floodlight.webp',
     'building-academy-1.webp',
     'building-academy-2.webp',
     'building-academy-3.webp',
