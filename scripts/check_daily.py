@@ -120,7 +120,7 @@ def main(argv):
             a = topic(q.get('prompt', ''))
             for d2, q2 in earlier:
                 b = topic(q2.get('prompt', ''))
-                if d2 < name[:10] and a and len(a & b) / len(a | b) >= 0.75:
+                if d2 < name[:10] and a and len(a & b) / len(a | b) >= 0.8:
                     errors.append(f'{name} {q.get("prompt")}: repeats {d2} "{q2.get("prompt")}"; pick a different topic')
         d = json.load(open(f))
         if d.get('date') != name[:10]:

@@ -1,0 +1,45 @@
+name: Publish routine questions
+
+# The weekly routines push new questions to claude/daily-questions and
+# claude/duel-questions. This checks them and, if every check passes, merges
+# them into main so they go live without anyone saying "push".
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/daily-questions, claude/duel-questions]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-questions
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Merge the routine branch into main
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin "$GITHUB_REF_NAME"
+          # only question files may go live this way
+          bad=$(git diff --name-only HEAD...FETCH_HEAD | grep -Ev '^(daily/[0-9]{4}-[0-9]{2}-[0-9]{2}\.json|duel/bank\.json|duel/new/.*\.json)$' || true)
+          if [ -n "$bad" ]; then echo "Not publishing: the branch changes files other than questions:"; echo "$bad"; exit 1; fi
+          if [ -z "$(git diff --name-only HEAD...FETCH_HEAD)" ]; then echo 'Nothing new to publish'; exit 0; fi
+          git merge --no-edit FETCH_HEAD -m "Publish questions from $GITHUB_REF_NAME"
+      - name: Check every question
+        run: |
+          python scripts/check_daily.py
+          python scripts/check_duel_bank.py | tail -1
+          python scripts/check_duel_bank.py > /dev/null
+      - name: Go live
+        run: git push origin HEAD:main
