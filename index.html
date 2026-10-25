@@ -1366,7 +1366,7 @@ body.inf-mode .inf-price{font:400 34px/1 var(--px);color:#5ef0ff;margin:6px 0 2p
 /* stadium button + picker + unlock card */
 .stadium-toggle{position:relative!important;display:inline-flex!important;align-items:center;justify-content:center}
 .stadium-toggle svg{display:block;width:22px;height:19px}
-.stadium-toggle.has-new::after{content:'';position:absolute;top:-3px;right:-3px;width:10px;height:10px;border-radius:50%;background:#e3262f;border:2px solid #000}
+.stadium-toggle.has-new::after{content:'';position:absolute;top:-3px;right:-3px;width:10px;height:10px;border-radius:0;background:#e3262f;border:2px solid #000}
 #dlg-stadium{width:min(560px,calc(100vw - 24px))}
 #dlg-stadium .st-body{padding:20px;position:relative}
 #dlg-stadium h2{margin:0 0 6px;font-size:32px}
@@ -1547,10 +1547,10 @@ body.kit-gold .sprite{filter:drop-shadow(0 0 var(--kg) #ffd23f) drop-shadow(0 0 
 .ip-notify{display:flex;gap:8px;margin-top:10px}.ip-notify input{flex:1;min-width:0;padding:10px;border:2px solid #1a1030;border-radius:8px;font:16px Barlow,system-ui}
 .ip-notify button{padding:10px 14px!important;border:2px solid #1a1030!important;border-radius:8px;background:#f2c230!important;color:#1a1030!important;font:700 15px Barlow,system-ui!important;box-shadow:none!important;width:auto!important;text-transform:none!important}
 .topbar .brand-home{position:relative;overflow:visible}
-.beta-stamp{position:absolute;right:-26px;top:-6px;transform:rotate(12deg);font:700 9px/1 Silkscreen,monospace;letter-spacing:1px;color:#1a1030;background:#f2c230;padding:3px 4px;border-radius:3px;box-shadow:0 2px 0 #1a1030;pointer-events:none}
-.topbar #stadiumToggle{display:inline-flex!important;align-items:center!important;margin-left:auto!important;height:38px!important;width:48px!important;min-width:0!important;max-width:48px!important;flex:none!important;justify-content:center!important;padding:0!important;background:#fbf3dc!important;border:2px solid #1a1030!important;border-radius:10px!important;box-shadow:0 3px 0 #1a1030!important;transition:transform .12s ease-out!important}
+.beta-stamp{position:absolute;right:-26px;top:-6px;transform:rotate(12deg);font:700 9px/1 Silkscreen,monospace;letter-spacing:1px;color:#1a1030;background:#f2c230;padding:3px 4px;box-shadow:0 2px 0 #1a1030;pointer-events:none;border-radius:0!important}
+.topbar #stadiumToggle{display:inline-flex!important;align-items:center!important;margin-left:auto!important;height:38px!important;width:48px!important;min-width:0!important;max-width:48px!important;flex:none!important;justify-content:center!important;padding:0!important;background:#fbf3dc!important;border:2px solid #1a1030!important;border-radius:0!important;box-shadow:0 3px 0 #1a1030!important;transition:transform .12s ease-out!important}
 .topbar #stadiumToggle svg{display:block;width:26px;height:23px;margin:0 auto;image-rendering:pixelated}
-.topbar .tb-split{display:inline-flex;height:38px;flex:none;background:#fbf3dc;border:2px solid #1a1030;border-radius:10px;box-shadow:0 3px 0 #1a1030;overflow:hidden}
+.topbar .tb-split{display:inline-flex;height:38px;flex:none;background:#fbf3dc;border:2px solid #1a1030;border-radius:0;box-shadow:0 3px 0 #1a1030;overflow:hidden}
 .topbar .tb-split .sound-toggle{height:100%!important;padding:0 11px!important;border:0!important;border-radius:0!important;background:transparent!important;color:#1a1030!important;box-shadow:none!important;align-items:center!important;transition:background .15s ease!important}
 .topbar .tb-split .lang-toggle{font:700 14px Silkscreen,monospace!important;letter-spacing:1px}
 .topbar .tb-split .sound-toggle+.sound-toggle{border-left:2px solid #1a1030!important}
