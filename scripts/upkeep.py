@@ -108,7 +108,7 @@ def report():
     lines = [f'## Unicorner weekly report, week to {t}', '']
     try:
         stats = supabase_rpc('upkeep_weekly_stats', {'days': 7})
-        lines += ['### Players', '', '| Day | Visitors | Finished the daily | Avg score | Infinity runs | Duel answers | Reddit joins | Waitlist |', '|---|---|---|---|---|---|---|---|']
+        lines += ['### Players', '', '| Day | Visitors | Finished the daily | Avg score | Infinity runs | Duel rounds | Reddit joins | Waitlist |', '|---|---|---|---|---|---|---|---|']
         for r in stats:
             lines.append(f"| {r['day']} | {r['visitors']} | {r['players']} | {r['avg_score'] or '-'} | {r['infinity_runs']} | {r['duel_rounds']} | {r['reddit_joins']} | {r['waitlist']} |")
         tot = lambda k: sum(r[k] or 0 for r in stats)

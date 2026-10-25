@@ -35,7 +35,7 @@ begin
   m := case
     when new.name = 'game_finish' and not inf then 'games'
     when new.name = 'infinity_finish' then 'infinity_runs'
-    when new.name = 'question_result' and new.data->>'code' is not null then 'duel_answers'
+    when new.name = 'duel_round' then 'duel_answers'
     when new.name = 'reddit_promo' and new.data->>'action' = 'join' then 'reddit_joins'
     when new.name in ('infinity_notify', 'infinity_buy_paused', 'infinite_waitlist') then 'waitlist'
   end;
@@ -115,7 +115,7 @@ begin
     from (select d, data, case
         when name = 'game_finish' and coalesce(data->>'mode','') <> 'infinity' then 'games'
         when name = 'infinity_finish' then 'infinity_runs'
-        when name = 'question_result' and data->>'code' is not null then 'duel_answers'
+        when name = 'duel_round' then 'duel_answers'
         when name = 'reddit_promo' and data->>'action' = 'join' then 'reddit_joins'
         when name in ('infinity_notify', 'infinity_buy_paused', 'infinite_waitlist') then 'waitlist' end m from ev) x
     where m is not null group by d, m
