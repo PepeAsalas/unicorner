@@ -1,0 +1,116 @@
+// Unicorner Football Tycoon: all names, stars, events and upgrades (from tycoon/DESIGN.md).
+// Edit this file to add content; the game reads it, no other code changes needed.
+window.TYC_CONTENT = {
+  // art files in tycoon/art/ that the game should use, e.g. 'building-stadium-1.png' (see ART_BRIEF.md)
+  art: [],
+
+  // id, name, what it earns; first: cost of level 1; grow: cost x per level; rate: money per second per level
+  buildings: [
+    {id: 'pitch', name: 'Training pitch', blurb: 'Passive income, and a better pitch makes better academy players.', first: 15, grow: 1.15, rate: 0.5},
+    {id: 'academy', name: 'Youth academy', blurb: 'Produces players and sells them automatically.', first: 120, grow: 1.16, rate: 0},
+    {id: 'transfer', name: 'Transfer office', blurb: 'Every level makes academy sales 12% richer.', first: 900, grow: 1.17, rate: 3},
+    {id: 'shop', name: 'Club shop', blurb: 'Sells shirts. Stars sell many more.', first: 4000, grow: 1.17, rate: 14},
+    {id: 'stadium', name: 'Stadium', blurb: 'Supporters pay to watch. Stars bring bigger crowds.', first: 15000, grow: 1.18, rate: 45},
+  ],
+  // stage thresholds: building level at which it looks bigger
+  stages: [1, 10, 25, 50],
+
+  tapLines: [
+    '+{m} The clip has reached someone\'s uncle.',
+    '+{m} A scout has opened a spreadsheet.',
+    '+{m} Your agent calls that an assist.',
+    '+{m} Royal Madribble is monitoring the situation.',
+    '+{m} The ball has requested image rights.',
+  ],
+
+  // bonus: tap | tickets | shop | sales | transfer | canteen (canteen = +10% on everything until the canteen exists)
+  stars: [
+    {name: 'Kylian Mboopi', trait: 'Arrives before the pass and renegotiates before it lands.', bonus: 'tickets'},
+    {name: 'Erling Haalunch', trait: 'Scores a hat-trick, then eats the match ball.', bonus: 'canteen'},
+    {name: 'Lionel Messy', trait: 'Dribbles past six defenders to avoid tidying his room.', bonus: 'tap'},
+    {name: 'Cristiano Ronal-dough', trait: 'Celebrates every shirt sold with a shirtless celebration.', bonus: 'shop'},
+    {name: 'Neymart Junior', trait: 'Opens a gift shop wherever he falls over.', bonus: 'shop'},
+    {name: 'Jude Bellingham-and-Cheese', trait: 'Opens his arms to celebrate and catches two sandwiches.', bonus: 'canteen'},
+    {name: 'Vinicius Zoomior', trait: 'Runs so fast the ticket scanner charges him twice.', bonus: 'tickets'},
+    {name: 'Mohamed Salahahaha', trait: 'Cuts inside, scores, then laughs at the replay.', bonus: 'tap'},
+    {name: 'Kevin De Brinvoice', trait: 'Delivers perfect assists with payment terms attached.', bonus: 'transfer'},
+    {name: 'Harry Claime', trait: 'Claims the goal, the assist, and your parking space.', bonus: 'sales'},
+    {name: 'Cole Palmtree', trait: 'Celebrates so coldly the club shop starts selling coats.', bonus: 'shop'},
+    {name: 'Bukayo Saka-punch', trait: 'Beats his marker with a smile and a suspiciously large boxing glove.', bonus: 'tap'},
+    {name: 'Robert Lewangoalski', trait: 'Refuses to leave training until the scoreboard needs another digit.', bonus: 'sales'},
+    {name: 'Zlatan Ego-himovic', trait: 'Requires a separate team bus for his self-esteem.', bonus: 'tickets'},
+    {name: 'Luka More-dosh', trait: 'Controls the midfield and insists on exact change.', bonus: 'transfer'},
+  ],
+
+  clubs: [
+    {name: 'Royal Madribble', line: 'Offers €200 million for your prospect, then asks whether delivery is included.'},
+    {name: 'Barce-loan-a', line: 'Pays in instalments scheduled beyond the expected lifespan of the stadium.'},
+    {name: 'Manchester Chequebook', line: 'Sends a scout, an accountant, and a suitcase with suspension.'},
+    {name: 'Manchester Reunited', line: 'Buys your former player back for six times the original price.'},
+    {name: 'Paris Saint-Ger-money', line: 'Includes a designer tracksuit and a small principality in every offer.'},
+    {name: 'Bayern Buy-them', line: 'Considers every promising academy player a future employee.'},
+    {name: 'Borussia Buy-and-Sellmund', line: 'Spots your wonderkid before you have finished drawing his face.'},
+    {name: 'Chelski Collectors FC', line: 'Needs your prospect to complete the seventh row of its squad spreadsheet.'},
+    {name: 'Athletic Mattress', line: 'Defends the transfer fee with eleven accountants behind the ball.'},
+    {name: 'Inter Mi-yacht-i', line: 'Negotiates every transfer from a boat that costs more than your club.'},
+  ],
+
+  // target: tap | pitch | sales | transfer | shop | tickets ; hit: income cut while active
+  // fix: pay to clear (cost = seconds of income); trade: the funny option, clears it and pays out (seconds of income)
+  events: [
+    {title: 'Dressing-room plague', see: 'A green cloud hangs over the academy.', target: 'sales', hit: 0.12, fix: 'Send in the medical van', trade: 'Sell "authentic plague-era" shirts'},
+    {title: 'Agents everywhere', see: 'Men in suits swarm the transfer office.', target: 'transfer', hit: 0.25, fix: 'Shoo them out', trade: 'Charge them office rent'},
+    {title: 'Erling Haalunch empties the canteen', see: 'The canteen sign flips to SOLD OUT.', target: 'pitch', hit: 0.15, fix: 'Order more food', trade: 'Film it for his documentary'},
+    {title: 'The mascot takes over the chairman\'s office', see: 'The mascot waves from the boardroom window.', target: 'shop', hit: 0.15, fix: 'Bribe him with a banana', trade: 'Make him chairman (shirts sell out)'},
+    {title: 'Stadium mistaken for an airport', see: 'A plane lands on the pitch.', target: 'tickets', hit: 0.3, fix: 'Wave it off', trade: 'Sell plane-spotter tickets'},
+    {title: 'Misprinted shirts', see: 'Every shirt says UNICRONER.', target: 'shop', hit: 0.2, fix: 'Bin the batch', trade: 'Sell them as a limited edition'},
+    {title: 'The Floor Is VAR', see: 'Players freeze while a referee draws increasingly crooked lines.', target: 'tap', hit: 0.2, fix: 'Pay for fresh batteries', trade: '"Clear and obvious enough"'},
+    {title: 'Tactical Spaghetti', see: 'The tactics board sprouts noodles and tangles the squad.', target: 'pitch', hit: 0.15, fix: 'Cut the noodles', trade: 'Serve them in the canteen'},
+    {title: 'Pigeon Press Conference', see: 'Pigeons occupy every microphone and demand answers.', target: 'sales', hit: 0.1, fix: 'Scatter seed', trade: 'Announce a pigeon as interim manager'},
+    {title: 'The Goal Has Left', see: 'A goal grows legs and walks towards the car park.', target: 'tap', hit: 0.2, fix: 'Buy a replacement', trade: 'Charge the car park for the show'},
+    {title: 'Too Many Captains', see: 'Every player wears an armband and points in a different direction.', target: 'pitch', hit: 0.15, fix: 'Choose one captain', trade: 'Sell the spare armbands'},
+    {title: 'Transfer Fax Avalanche', see: 'Paper pours out of the office and buries the agents.', target: 'transfer', hit: 0.2, fix: 'Shred it', trade: 'Sell it as historic transfer documents'},
+    {title: 'The Bus Is Literally Parked', see: 'A full-size coach sits across the pitch.', target: 'pitch', hit: 0.2, fix: 'Tow it', trade: 'Turn it into a hospitality suite'},
+    {title: 'Invisible Away Kit', see: 'Players vanish, leaving floating boots and confused sponsors.', target: 'shop', hit: 0.15, fix: 'Hand out bibs', trade: 'Relaunch it as the Emperor\'s Away Kit'},
+    {title: 'Inflatable Trophy Disaster', see: 'A giant trophy expands until it blocks the turnstiles.', target: 'tickets', hit: 0.15, fix: 'Deflate it', trade: 'Sell it to a passing parade'},
+    {title: 'Boots in Sport Mode', see: 'Every boot turns into a squeaky foam clog.', target: 'tap', hit: 0.15, fix: 'Replace the boots', trade: 'Sign a clog sponsorship'},
+    {title: 'Scout Discovers Himself', see: 'Your scout returns with a glowing report about his own potential.', target: 'sales', hit: 0.1, fix: 'Correct the paperwork', trade: 'Sell the scout to a gullible buyer'},
+    {title: 'The Ball Is a Watermelon', see: 'Each kick showers the pitch with seeds.', target: 'tap', hit: 0.1, fix: 'Swap the ball', trade: 'Sell the slices'},
+    {title: 'Ultras Bring Flat-Pack Furniture', see: 'Supporters assemble a wardrobe across the entrance.', target: 'tickets', hit: 0.15, fix: 'Finish assembling it', trade: 'Sell it as executive seating'},
+    {title: 'Press Conference Echo', see: 'The microphone repeats "one game at a time" endlessly.', target: 'shop', hit: 0.1, fix: 'Unplug it', trade: 'Sample it into the club anthem'},
+  ],
+
+  // building, mult (x2 = 2, +50% = 1.5), what (rate | tap | sales), unlock: building level needed, cost
+  upgrades: [
+    {name: 'Ball on a String', b: 'pitch', what: 'tap', mult: 2, unlock: 1, cost: 50, joke: 'The scout thinks your first touch is incredible.'},
+    {name: 'Golden Cones', b: 'pitch', what: 'rate', mult: 2, unlock: 5, cost: 200, joke: 'They don\'t help, but they\'re shiny.'},
+    {name: 'Celebration Consultant', b: 'pitch', what: 'tap', mult: 1.5, unlock: 10, cost: 1500, joke: 'The goal was average. The knee slide has sponsors.'},
+    {name: 'Motivational Shouting Subscription', b: 'pitch', what: 'rate', mult: 1.5, unlock: 15, cost: 6000, joke: 'A new "COME ON!" delivered every morning.'},
+    {name: 'Floodlights from a Car Park', b: 'pitch', what: 'rate', mult: 2, unlock: 25, cost: 40000, joke: 'Training continues until someone needs to reverse.'},
+    {name: 'Premium Mud', b: 'pitch', what: 'rate', mult: 2, unlock: 40, cost: 400000, joke: 'Imported from a more successful puddle.'},
+    {name: 'Birth Certificate Laminator', b: 'academy', what: 'sales', mult: 1.25, unlock: 1, cost: 400, joke: 'Finally, paperwork resistant to orange squash.'},
+    {name: 'Scout with Two Eyes', b: 'academy', what: 'rate', mult: 2, unlock: 5, cost: 1800, joke: 'A major improvement over the previous arrangement.'},
+    {name: 'Wonderkid Haircuts', b: 'academy', what: 'sales', mult: 1.5, unlock: 10, cost: 9000, joke: 'The ability is unchanged. The highlights are exceptional.'},
+    {name: 'Inspirational Fence', b: 'academy', what: 'rate', mult: 1.5, unlock: 15, cost: 30000, joke: 'Separates the prospects from their parents\' tactical advice.'},
+    {name: 'Potential-O-Meter', b: 'academy', what: 'sales', mult: 1.5, unlock: 25, cost: 150000, joke: 'Every needle points to "generational".'},
+    {name: 'Indoor Weather', b: 'academy', what: 'rate', mult: 2, unlock: 40, cost: 900000, joke: 'We have installed the revolutionary concept of a roof.'},
+    {name: 'Fax Machine with Turbo', b: 'transfer', what: 'rate', mult: 2, unlock: 1, cost: 2500, joke: 'Rejects low bids before they arrive.'},
+    {name: 'YouTube Highlights Editor', b: 'transfer', what: 'sales', mult: 1.5, unlock: 5, cost: 9000, joke: 'Every sideways pass now has a bass drop.'},
+    {name: 'Bigger Handshake', b: 'transfer', what: 'rate', mult: 1.5, unlock: 10, cost: 30000, joke: 'Both parties need physiotherapy afterwards.'},
+    {name: 'Deadline-Day Tie', b: 'transfer', what: 'sales', mult: 1.25, unlock: 15, cost: 90000, joke: 'Tight enough to make every negotiation urgent.'},
+    {name: 'Suitcase Wheels', b: 'transfer', what: 'rate', mult: 1.5, unlock: 25, cost: 300000, joke: 'Large offers are now easier on the back.'},
+    {name: 'Release Clause Magnifying Glass', b: 'transfer', what: 'rate', mult: 2, unlock: 40, cost: 2000000, joke: 'The important bit was hiding under the staple.'},
+    {name: 'Shirt Printer with Spellcheck', b: 'shop', what: 'rate', mult: 2, unlock: 1, cost: 12000, joke: 'Finally spells the club name the same way twice.'},
+    {name: 'Smaller Shirts, Bigger Margins', b: 'shop', what: 'rate', mult: 1.25, unlock: 5, cost: 35000, joke: 'Marketed exclusively as an athletic fit.'},
+    {name: 'Official Unofficial Scarf', b: 'shop', what: 'rate', mult: 1.5, unlock: 10, cost: 110000, joke: 'Approved by a man standing near the office.'},
+    {name: 'Retro Kit Time Machine', b: 'shop', what: 'rate', mult: 1.5, unlock: 15, cost: 350000, joke: 'Yesterday\'s unsold stock becomes tomorrow\'s heritage collection.'},
+    {name: 'Limited Unlimited Edition', b: 'shop', what: 'rate', mult: 2, unlock: 25, cost: 1500000, joke: 'Only twelve million available.'},
+    {name: 'Commemorative Commemoration Kit', b: 'shop', what: 'rate', mult: 2, unlock: 40, cost: 9000000, joke: 'Celebrating ten years since the last commemorative kit.'},
+    {name: 'Seats with Actual Seats', b: 'stadium', what: 'rate', mult: 2, unlock: 1, cost: 45000, joke: 'Fans no longer have to bring dining chairs.'},
+    {name: 'Turnstile That Turns', b: 'stadium', what: 'rate', mult: 1.5, unlock: 5, cost: 140000, joke: 'Previously, supporters simply formed a permanent queue.'},
+    {name: 'Roof That Mostly Works', b: 'stadium', what: 'rate', mult: 1.5, unlock: 10, cost: 450000, joke: 'The dry section is now a premium experience.'},
+    {name: 'Luxury Plastic Chairs', b: 'stadium', what: 'rate', mult: 1.5, unlock: 15, cost: 1400000, joke: 'Identical chairs. A completely different invoice.'},
+    {name: 'Suspiciously Loud Speakers', b: 'stadium', what: 'rate', mult: 1.5, unlock: 25, cost: 5000000, joke: 'The attendance can now be heard from orbit.'},
+    {name: 'Executive Puddle', b: 'stadium', what: 'rate', mult: 2, unlock: 40, cost: 25000000, joke: 'Includes a velvet rope and two complimentary biscuits.'},
+  ],
+};

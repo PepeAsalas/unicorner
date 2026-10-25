@@ -1561,6 +1561,8 @@ body.kit-gold .sprite{filter:drop-shadow(0 0 var(--kg) #ffd23f) drop-shadow(0 0 
 body.playing .topbar .tb-split .sound-toggle+.sound-toggle{border-left:0!important}
 .topbar #stadiumToggle:active,.topbar .tb-split .sound-toggle:active{transform:translateY(2px)}
 @media (hover:hover){.topbar .tb-split .sound-toggle:hover{background-color:#f3e6bf!important}}
+.tyc-coin{flex:none;width:40px;height:34px;display:flex;align-items:center;justify-content:center;font:400 26px/1 'Jersey 10',monospace;color:#06041a;background:#f2c230;border:2px solid #06041a;box-shadow:inset -3px -3px 0 #c99a1a}
+.tyc-strip .duel-txt b{font-weight:800}.tyc-strip .duel-txt small{opacity:.75}
 </style></head><body><div class="sp" id="sp" aria-hidden="true"><div class="sp-s"></div><div class="sp-t">UNICORNER</div><div class="sp-run"><div class="sp-bar"><div class="sp-fill"><i class="sp-u"></i></div></div></div><div class="sp-m"><span class="sp-en">Warming up on the touchline…</span><span class="sp-es">Calentando en la banda…</span></div></div>
 <script>
 // loading screen: always shown, lifts once the page and its fonts are ready (at least ~1s so it never just flickers), then the landing intro plays
@@ -2040,6 +2042,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
  ${played?infStrip:''}
 
  <a class="duel-strip lp-duel" id="lp-duel" href="/duel.html?inbox" hidden></a>
+ <a class="duel-strip tyc-strip" href="/tycoon/" data-track="tycoon_card"><span class="tyc-coin" aria-hidden="true">€</span><span class="duel-txt"><b>Unicorner Football Money Tycoon</b><small>${L('New · build a ridiculous football empire','Nuevo · construye un imperio futbolero absurdo')}</small></span><span class="duel-go">${L('Play demo','Jugar demo')} →</span></a>
 
  ${compete}
 
