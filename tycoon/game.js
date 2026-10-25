@@ -158,9 +158,7 @@ function paintGround() {
   const [vx, vy, vw, vh] = visible();
   c.fillStyle = '#4f8d36'; c.fillRect(vx, vy, vw, vh);
   for (let u = -60; u < 80; u += 2) quad(c, u, -60, u + 1, 80, '#548f39'); // mowing stripes
-  // roads, kerbs first so the paving sits on top
-  for (const k of ROADS) { quad(c, k - 1.1, -60, k + 1.1, 80, '#a89a72'); quad(c, -60, k - 1.1, 80, k + 1.1, '#a89a72'); }
-  for (const k of ROADS) { quad(c, k - 1, -60, k + 1, 80, '#e2d4a6'); quad(c, -60, k - 1, 80, k + 1, '#e2d4a6'); }
+  // no paved paths for now: people still walk the same routes, across the grass
   // the far corners of the grounds: a pond, a little park, the car park and the entrance plaza (ChatGPT art when it has loaded)
   if (!piece(c, 'ground-pond', 14, 0)) {
     quad(c, 14.2, 0.2, 17.8, 3.8, '#4a8a34');
@@ -168,8 +166,7 @@ function paintGround() {
   }
   if (!piece(c, 'ground-car-park', 14, 7)) quad(c, 14.2, 7.2, 17.8, 10.8, '#6b6878');
   if (!piece(c, 'ground-plaza', 14, 14)) quad(c, 14.2, 14.2, 17.8, 17.8, '#d8c99c');
-  // street furniture: a lamp on each crossing, benches by the plaza
-  for (const [u, v] of [[6.8, 6.8], [13.8, 6.8], [6.8, 13.8], [13.8, 13.8]]) stand(c, 'prop-lamppost', u, v, 22);
+  // benches by the plaza
   for (const [u, v] of [[13.9, 15.2], [15.2, 13.9]]) stand(c, 'prop-bench', u, v, 7);
   // trees: a few in the park corner and plenty outside the grounds
   for (const [u, v] of [[1, 15], [2.6, 14.8], [1.6, 16.6], [3.2, 16.8], [0.8, 17.6]]) tree(c, u, v, 0.9);
