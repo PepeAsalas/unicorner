@@ -1,6 +1,10 @@
 -- Read-only summaries for the upkeep automations (.github/workflows/upkeep-*.yml).
 -- They return aggregates only: no visitor ids, sessions or emails.
 
+-- Without these, a week of events is a full-table scan and hits the 3-second public timeout.
+create index if not exists events_created_at_idx on public.events (created_at);
+create index if not exists events_name_created_at_idx on public.events (name, created_at);
+
 -- Answers players typed in the DAILY game (and Infinity) that were not accepted,
 -- grouped per question. Duel events (they carry a duel code) are left out.
 create or replace function public.upkeep_daily_rejections(days int default 7)
