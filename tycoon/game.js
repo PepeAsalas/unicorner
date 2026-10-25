@@ -217,6 +217,18 @@ function drawLot(b, t) {
     ctx.drawImage(site, Math.min(2, Math.floor(k / 0.35)) * fw, 0, fw, site.height, cx - w / 2, by + 1 - h, w, h);
     hitBox[b] = {x: cx - w / 2, y: by - h, w, h}; return;
   }
+  const fit = FIT[`building-${b}-${st}`];
+  if (fit) { // flat art drawn from a steeper camera: map its left, right and bottom ground corners onto the plot's
+    const [sx, sy] = popScale(b, t), [lx, ly] = P(L.u0, L.v0 + n), [rx, ry] = P(L.u0 + n, L.v0), [bx, by] = P(L.u0 + n, L.v0 + n);
+    const [[x1, y1], [x2, y2], [x3, y3]] = fit.map(([fx, fy]) => [fx * img.width, fy * img.height]);
+    const det = (x2 - x1) * (y3 - y1) - (x3 - x1) * (y2 - y1);
+    const a = ((rx - lx) * (y3 - y1) - (bx - lx) * (y2 - y1)) / det, c = ((bx - lx) * (x2 - x1) - (rx - lx) * (x3 - x1)) / det;
+    const b2 = ((ry - ly) * (y3 - y1) - (by - ly) * (y2 - y1)) / det, d = ((by - ly) * (x2 - x1) - (ry - ly) * (x3 - x1)) / det;
+    ctx.save(); ctx.translate(cx, by); ctx.scale(sx, sy); ctx.translate(-cx, -by);
+    ctx.transform(a, b2, c, d, lx - a * x1 - c * y1, ly - b2 * x1 - d * y1); ctx.drawImage(img, 0, 0); ctx.restore();
+    hitBox[b] = {x: lx, y: Math.min(ly, ry) - (by - Math.min(ly, ry)), w: rx - lx, h: 2 * (by - Math.min(ly, ry))};
+    return;
+  }
   const w = 2 * n * A, h = img.height * w / img.width, [sx, sy] = popScale(b, t);
   ctx.save(); ctx.translate(cx, fy + 1); ctx.scale(sx, sy); ctx.drawImage(img, -w / 2, -h, w, h);
   const fx = ANIM[`building-${b}-${st}`]; if (fx) animate(fx, b, -w / 2, -h, w, h, t);
@@ -245,6 +257,11 @@ function celebrate(b) {
 
 // ---------- moving parts painted by ChatGPT: corner flags and floodlights ----------
 // Positions are fractions of the building image: flags stand on (x, y) with a pole that tall; lamp heads are centred on (x, y), w wide.
+// Ground corners (left, right, bottom) of art drawn from a different camera angle, as fractions of the image: drawLot bends it onto the plot.
+const FIT = {
+  'building-pitch-1': [[0, 0.528], [1, 0.534], [0.505, 1]], 'building-pitch-2': [[0, 0.527], [1, 0.535], [0.505, 1]],
+  'building-pitch-3': [[0, 0.616], [1, 0.618], [0.507, 1]], 'building-pitch-4': [[0, 0.609], [1, 0.611], [0.499, 1]],
+};
 // Flags stand on the pitch corners the stands don't hide.
 const ANIM = {
   'building-stadium-1': {flags: [[0.1477, 0.6244], [0.5003, 0.3427], [0.8587, 0.6056], [0.5061, 0.8873]], pole: 0.0646, lamps: [[0.0712, 0.3016, 0.0280], [0.4997, 0.0329, 0.0350], [0.9276, 0.3016, 0.0280]]},
