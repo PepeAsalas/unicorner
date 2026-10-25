@@ -166,7 +166,18 @@ function paintGround() {
     }
     c.globalAlpha = 1;
   } else for (let u = -60; u < 80; u += 2) quad(c, u, -60, u + 1, 80, '#548f39'); // mowing stripes until the tile loads
-  // no paved paths for now: people still walk the same routes, across the grass
+  // paved footpaths between the plots (colours from ChatGPT's path tile): dark kerb, cream paving, staggered stone joints
+  for (const k of ROADS) { quad(c, k - 1.12, -60, k + 1.12, 80, '#8f7f68'); quad(c, -60, k - 1.12, 80, k + 1.12, '#8f7f68'); }
+  for (const k of ROADS) { quad(c, k - 1, -60, k + 1, 80, '#ead8b4'); quad(c, -60, k - 1, 80, k + 1, '#ead8b4'); }
+  c.strokeStyle = '#d3bd92'; c.lineWidth = 0.6; c.beginPath();
+  for (const k of ROADS) for (let i = -30; i < 50; i += 0.7) for (const [o, j] of [[-0.5, 0], [0.5, 0.35]]) { // across each lane of stones
+    const a = i + j, inCross = ROADS.some(q => Math.abs(a - q) < 1);
+    if (inCross) continue;
+    let [x1, y1] = P(k + o - 0.5, a), [x2, y2] = P(k + o + 0.5, a); c.moveTo(x1, y1); c.lineTo(x2, y2);
+    [x1, y1] = P(a, k + o - 0.5); [x2, y2] = P(a, k + o + 0.5); c.moveTo(x1, y1); c.lineTo(x2, y2);
+  }
+  for (const k of ROADS) { let [x1, y1] = P(k, -30), [x2, y2] = P(k, 50); c.moveTo(x1, y1); c.lineTo(x2, y2); [x1, y1] = P(-30, k); [x2, y2] = P(50, k); c.moveTo(x1, y1); c.lineTo(x2, y2); }
+  c.stroke();
   // the far corners of the grounds: a pond, a little park, the car park and the entrance plaza (ChatGPT art when it has loaded)
   if (!piece(c, 'ground-pond', 14, 0)) {
     quad(c, 14.2, 0.2, 17.8, 3.8, '#4a8a34');
@@ -211,6 +222,7 @@ function drawLot(b, t) {
     hitBox[b] = {x: x - 26, y: y - 30, w: 52, h: 46};
     return;
   }
+  if (img) quad(ctx, L.u0 + 0.35, L.v0 + 0.1, L.u0 + n + 0.35, L.v0 + n + 0.1, 'rgba(20,30,10,.22)');
   const site = art('construction'), k = t - (builtAt[b] || -9);
   if (site && k < 1.05) { // scaffolding, the crane, then the dust as it comes down; the building pops in after
     const fw = site.width / 3, w = 8 * A, h = site.height * w / fw, [, by] = P(L.u0 + n / 2 + 2, L.v0 + n / 2 + 2);
@@ -438,8 +450,19 @@ function drawEvent(t) {
     ctx.fillStyle = 'rgba(20,40,10,.18)'; ctx.beginPath(); ctx.ellipse(x + 10, y + 70, 20, 6, 0, 0, Math.PI * 2); ctx.fill();
     ctx.drawImage(img, x - w / 2, y - w * img.height / img.width / 2, w, w * img.height / img.width);
   } else if (img) { // props with several frames (the swirling cloud, the blinking sign) cycle through them
-    const n = PROP_FRAMES[prop] || 1, f = Math.floor(t * (n > 2 ? 5 : 2)) % n, fw = img.width / n, w = 40, h = w * img.height / fw;
-    ctx.drawImage(img, f * fw, 0, fw, img.height, cx - w / 2, hb.y + 6 - h + Math.sin(t * 2.2) * 2, w, h);
+    const n = PROP_FRAMES[prop] || 1, f = Math.floor(t * (n > 2 ? 5 : 2)) % n, fw = img.width / n, L = LOTS[b], sz = size(b);
+    const k = Math.min(1, (t - EV.t0) / 0.25), e = ease(k), sc = 0.9 + 0.1 * e; // arrives with a short settle, then stays put
+    ctx.save(); ctx.globalAlpha = e;
+    if (prop === PROP.plague) { // a cloud may float: it hangs over the building and darkens the ground under it
+      const w = 46, h = w * img.height / fw, drift = Math.sin(t * 0.6) * 4;
+      ctx.fillStyle = 'rgba(40,60,10,.25)'; ctx.beginPath(); ctx.ellipse(cx + drift, cy + 4, 26, 9, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.drawImage(img, f * fw, 0, fw, img.height, cx + drift - w * sc / 2, hb.y - h * sc * 0.4, w * sc, h * sc);
+    } else { // everything else stands on the grass in front of the plot, with a contact shadow
+      const [gx, gy] = P(L.u0 + sz * 0.3, L.v0 + sz + 0.9), w = 26, h = w * img.height / fw;
+      ctx.fillStyle = 'rgba(20,30,10,.3)'; ctx.beginPath(); ctx.ellipse(gx, gy, w * 0.42, 2.6, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.drawImage(img, f * fw, 0, fw, img.height, gx - w * sc / 2, gy - h * sc, w * sc, h * sc);
+    }
+    ctx.restore();
   }
   // the pin: bobs gently so it reads as tappable
   const y = hb.y + 2 - Math.abs(Math.sin(t * 3)) * 4, x = cx + 30;
@@ -625,7 +648,7 @@ function eventTick(dt) {
   if (S.nextEvent <= 0) {
     const pool = C.events.filter(e => S.lv[TARGET_PLOT[e.target]] > 0);
     const e = pool[Math.random() * pool.length | 0];
-    EV = {e, until: performance.now() + 75000};
+    EV = {e, until: performance.now() + 75000, t0: performance.now() / 1000};
     S.nextEvent = 70 + Math.random() * 60;
     const b = $('eventBadge'); b.textContent = '⚠ ' + e.title + ' · tap to fix'; b.hidden = false;
     ticker(e.see);

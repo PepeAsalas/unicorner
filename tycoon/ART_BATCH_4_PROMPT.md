@@ -1,10 +1,4 @@
 Batch 4 for the football tycoon game, same chat. Same rules as before: pixel art, cool not cute (for teenagers and adults: real proportions, no chibi, no big eyes), club red and cream, plain white background, every image a still frame, sprite sheets as frames side by side in one row, all frames the same size, the character in exactly the same spot in every frame. When everything is done, put all files in one zip called unicorner-tycoon-batch-4.zip.
 
-1. The keepy-uppy player (replaces the old one, which I didn't like)
-A new main character for the left panel of the game: a confident young street footballer with style, three-quarter view facing the camera and slightly to the right, full body, in a red-and-cream training top, shorts and socks, maybe a headband or a chain. Big: the player fills the frame height. The ball is drawn IN every frame this time.
-- keepy-idle.png: 8 frames, one smooth loop of relaxed keepy-uppies (ball on the foot, ball rising, ball at the top, ball falling, foot meeting it again). The last frame leads back into the first.
-- keepy-trick.png: 8 frames of a show-off trick he does when the player taps (ball flicked up behind the back and over the head, then caught on the foot), ending in the same pose as the first idle frame.
-- keepy-celebrate.png: 6 frames of a short cool celebration (no silly dance), ending in the first idle pose.
-
-2. The same camera angle as the stadiums for the other buildings
+The same camera angle as the stadiums for the other buildings
 The academy, transfer office and shop were drawn from a slightly steeper angle than the stadiums, so they don't sit right next to them. Redraw all 12 images exactly as they are now (same designs, same 4 stages), but from the same camera angle and footprint shape as the stadium images (the diamond is flatter: about 2.5 times as wide as it is tall). Same file names as before: building-academy-1.png to -4, building-transfer-1.png to -4, building-shop-1.png to -4. The shop stages should now also stand on a small plot with the same red-and-cream wall as the academy and transfer office.
