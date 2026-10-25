@@ -26,8 +26,8 @@ declare
   m text;
   v bigint := 0;
 begin
-  if new.game_day is null or new.game_day::text !~ '^\d{4}-\d{2}-\d{2}$' then return new; end if;
-  d := new.game_day::text::date;
+  if new.game_day is not null and new.game_day::text ~ '^\d{4}-\d{2}-\d{2}' then d := left(new.game_day::text, 10)::date;
+  else d := (coalesce(new.created_at, now()) at time zone 'Europe/Amsterdam')::date; end if;
   if who is not null then
     insert into upkeep_seen values (d, 'visitor', who) on conflict do nothing;
     if found then insert into upkeep_day values (d, 'visitors', 1, 0) on conflict (day, metric) do update set n = upkeep_day.n + 1; end if;
