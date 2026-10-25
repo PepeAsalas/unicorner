@@ -25,7 +25,8 @@ img{image-rendering:auto}
 .float{position:absolute;font:400 22px/1 var(--px);color:#fff;text-shadow:0 2px 0 var(--ink),0 0 2px var(--ink);white-space:nowrap;animation:up .7s var(--ease) forwards;transform:translate(-50%,0)}
 .float.big{color:var(--gold);font-size:28px}
 @keyframes up{from{opacity:1;transform:translate(-50%,0) scale(.9)}to{opacity:0;transform:translate(-50%,-60px) scale(1.05)}}
-.coin{position:fixed;z-index:30;left:0;top:0;width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:inset -2px -2px 0 #c99a1a,0 0 0 2px var(--ink);pointer-events:none}
+.coin{position:fixed;z-index:30;left:0;top:0;width:22px;height:22px;background:url(art/coin.webp) 0 0/132px 22px no-repeat;pointer-events:none;animation:coin-spin .36s steps(6) infinite}
+@keyframes coin-spin{to{background-position:-132px 0}}
 .ticker{grid-area:ticker;margin:0;min-height:20px;font:600 14px Barlow,sans-serif;opacity:.92}
 .ticker b{font:700 11px var(--lab);color:var(--gold);margin-right:4px}
 .mid{position:relative;aspect-ratio:320/245;border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink);overflow:hidden;
@@ -46,7 +47,7 @@ img{image-rendering:auto}
 @media (min-width:900px){
   body{overflow:hidden}
   .app{max-width:none;height:100dvh;margin:0;padding:12px;display:grid;grid-template-columns:minmax(280px,1fr) minmax(380px,1.35fr) minmax(320px,1fr);gap:12px}
-  .left{display:flex;flex-direction:column;align-items:stretch;gap:6px;min-height:0;background:radial-gradient(ellipse at 50% 55%,#2f6b3a 0%,#1d4627 45%,#140c26 100%);border:3px solid var(--ink);box-shadow:0 4px 0 #000;padding:12px 14px;text-align:center}
+  .left{display:flex;flex-direction:column;align-items:stretch;gap:6px;min-height:0;background:linear-gradient(rgba(14,10,30,.55),rgba(14,10,30,.2) 35%,rgba(14,10,30,.15) 70%,rgba(14,10,30,.6)),url(art/backdrop-training.webp) center/cover;border:3px solid var(--ink);box-shadow:0 4px 0 #000;padding:12px 14px;text-align:center}
   .top{order:0}
   .club{display:block;font:400 30px/1 var(--px);color:#fff;text-shadow:0 2px 0 var(--ink);margin-top:4px}
   .bank{order:1}

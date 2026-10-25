@@ -156,8 +156,16 @@ function tree(c, u, v, s = 1) {
 function paintGround() {
   const c = gctx; c.setTransform(1, 0, 0, 1, 0, 0); c.clearRect(0, 0, ground.width, ground.height); toWorld(c);
   const [vx, vy, vw, vh] = visible();
-  c.fillStyle = '#4f8d36'; c.fillRect(vx, vy, vw, vh);
-  for (let u = -60; u < 80; u += 2) quad(c, u, -60, u + 1, 80, '#548f39'); // mowing stripes
+  c.fillStyle = '#5f9531'; c.fillRect(vx, vy, vw, vh);
+  const grass = art('ground-grass');
+  if (grass) { // ChatGPT's mown grass tile, one per 8x8 units and faded into the base colour so the stripes stay calm
+    const T = 8, w = 2 * T * A + 1, h = 2 * T * A * RAT + 1; c.globalAlpha = 0.45;
+    for (let u = -48; u < 64; u += T) for (let v = -48; v < 64; v += T) {
+      const [x, y] = P(u + T / 2, v + T / 2); if (x < vx - w || x > vx + vw + w || y < vy - h || y > vy + vh + h) continue;
+      c.drawImage(grass, x - w / 2, y - h / 2, w, h);
+    }
+    c.globalAlpha = 1;
+  } else for (let u = -60; u < 80; u += 2) quad(c, u, -60, u + 1, 80, '#548f39'); // mowing stripes until the tile loads
   // no paved paths for now: people still walk the same routes, across the grass
   // the far corners of the grounds: a pond, a little park, the car park and the entrance plaza (ChatGPT art when it has loaded)
   if (!piece(c, 'ground-pond', 14, 0)) {
@@ -183,14 +191,14 @@ const hitBox = {}, pops = {};
 const ease = k => 1 - Math.pow(1 - k, 3);
 function popScale(b, t) { // squash and settle, 360 ms, only after a purchase
   const p = pops[b]; if (!p) return [1, 1];
-  const k = (t - p.t) / 0.36; if (k >= 1) { delete pops[b]; return [1, 1]; }
+  const k = (t - p.t) / 0.36; if (k < 0) return [1, 1]; if (k >= 1) { delete pops[b]; return [1, 1]; }
   const big = p.big ? 1 : 0.4, s = Math.sin(k * Math.PI * 2) * (1 - ease(k)) * 0.07 * big;
   return [1 + s, 1 - s];
 }
 function drawLot(b, t) {
   const L = LOTS[b], n = size(b), st = stageOf(b), img = st && art(`building-${b}-${st}`), [cx] = lotCentre(b), [, fy] = lotFront(b);
-  if (!img && art('ground-empty-plot')) { // empty plot for sale
-    const e = art('ground-empty-plot'), w = 8 * A, h = e.height * w / e.width, [, by] = P(L.u0 + n / 2 + 2, L.v0 + n / 2 + 2); ctx.drawImage(e, cx - w / 2, by + 1 - h, w, h);
+  if (!img && (art('plot-for-sale') || art('ground-empty-plot'))) { // empty plot for sale
+    const e = art('plot-for-sale') || art('ground-empty-plot'), w = 8 * A, h = e.height * w / e.width, [, by] = P(L.u0 + n / 2 + 2, L.v0 + n / 2 + 2); ctx.drawImage(e, cx - w / 2, by + 1 - h, w, h);
     hitBox[b] = {x: cx - w / 2, y: by - h, w, h}; return;
   }
   if (!img) { // empty plot for sale, drawn in code until the art loads
@@ -202,6 +210,12 @@ function drawLot(b, t) {
     ctx.font = '5px Silkscreen, monospace'; ctx.textAlign = 'center'; ctx.fillStyle = INK; ctx.fillText('FOR', x, y - 21.5); ctx.fillStyle = '#e3262f'; ctx.fillText('SALE', x, y - 16);
     hitBox[b] = {x: x - 26, y: y - 30, w: 52, h: 46};
     return;
+  }
+  const site = art('construction'), k = t - (builtAt[b] || -9);
+  if (site && k < 1.05) { // scaffolding, the crane, then the dust as it comes down; the building pops in after
+    const fw = site.width / 3, w = 8 * A, h = site.height * w / fw, [, by] = P(L.u0 + n / 2 + 2, L.v0 + n / 2 + 2);
+    ctx.drawImage(site, Math.min(2, Math.floor(k / 0.35)) * fw, 0, fw, site.height, cx - w / 2, by + 1 - h, w, h);
+    hitBox[b] = {x: cx - w / 2, y: by - h, w, h}; return;
   }
   const w = 2 * n * A, h = img.height * w / img.width, [sx, sy] = popScale(b, t);
   ctx.save(); ctx.translate(cx, fy + 1); ctx.scale(sx, sy); ctx.drawImage(img, -w / 2, -h, w, h);
@@ -221,9 +235,11 @@ function drawPuffs(dt) {
     const e = ease(k); ctx.fillStyle = `rgba(251,243,220,${0.85 * (1 - k)})`; ctx.beginPath(); ctx.arc(p.x + p.dx * e, p.y + p.dy * e, 2.5 + 3 * e, 0, Math.PI * 2); ctx.fill();
   }
 }
+const builtAt = {};
 function celebrate(b) {
   const big = S.lv[b] === 1 || C.stages.includes(S.lv[b]), now = performance.now() / 1000;
-  pops[b] = {t: now, big}; puff(b, big);
+  if (S.lv[b] === 1) { builtAt[b] = now; pops[b] = {t: now + 1.05, big}; setTimeout(() => puff(b, true), 1050); }
+  else { pops[b] = {t: now, big}; puff(b, big); }
   if (b === 'stadium') { cheerUntil = now + 2.5; volley = now + (big ? 0.9 : 0); if (big) lampsFrom = now; } // fireworks wait for the floodlights on a new stage
 }
 
@@ -479,7 +495,7 @@ function coinToBank(x, y) { // one coin flies from the tap into the money counte
   const m = moneyEl.getBoundingClientRect(), tx = m.left + m.width / 2, ty = m.top + m.height / 2, c = document.createElement('span');
   c.className = 'coin'; document.body.appendChild(c);
   const lift = Math.min(80, Math.abs(ty - y) * 0.4 + 30);
-  c.animate([{transform: `translate(${x - 6}px,${y - 6}px) scale(.9)`}, {transform: `translate(${(x + tx) / 2 - 6}px,${Math.min(y, ty) - lift - 6}px) scale(1.15)`, offset: .45}, {transform: `translate(${tx - 6}px,${ty - 6}px) scale(.7)`}],
+  c.animate([{transform: `translate(${x - 11}px,${y - 11}px) scale(.9)`}, {transform: `translate(${(x + tx) / 2 - 11}px,${Math.min(y, ty) - lift - 11}px) scale(1.15)`, offset: .45}, {transform: `translate(${tx - 11}px,${ty - 11}px) scale(.7)`}],
     {duration: 520, easing: 'cubic-bezier(.45,0,.25,1)'}).onfinish = () => { c.remove(); moneyEl.animate([{transform: 'scale(1.06)'}, {transform: 'scale(1)'}], {duration: 180, easing: 'cubic-bezier(.23,1,.32,1)'}); };
 }
 kicker.addEventListener('pointerdown', e => {

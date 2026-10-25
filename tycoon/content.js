@@ -3,6 +3,9 @@
 window.TYC_CONTENT = {
   // art files in tycoon/art/ that the game should use, e.g. 'building-stadium-1.png' (see ART_BRIEF.md)
   art: [
+    'construction.webp',
+    'ground-grass.webp',
+    'plot-for-sale.webp',
     'anim-corner-flag.webp',
     'anim-fans.webp',
     'anim-firework.webp',
