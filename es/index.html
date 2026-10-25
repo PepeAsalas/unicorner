@@ -2044,7 +2044,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
 
  </div>`,()=>{window.ucAwards?.();const play=async()=>{if(!played&&window.ucCheckRemote&&await window.ucCheckRemote())return start();document.body.classList.remove('landing');if(played){try{restore(played);setMeter();end(true)}catch(x){track('results_view_error',{message:String(x&&x.message||x).slice(0,200),stack:String(x&&x.stack||'').slice(0,600),score:played.score,picks:played.picks});start()}}else ask()};
   {const lpd=()=>lpDuels(!!played);if(document.readyState==='loading')addEventListener('DOMContentLoaded',lpd,{once:true});else lpd()}
-  const go=document.getElementById('go');if(go)go.onclick=()=>{if(!played&&window.ucHowToNeeded?.())return window.ucHowTo(play,'first');if(!played&&window.ucTear)return window.ucTear(play);play()};
+  const go=document.getElementById('go');if(go)go.onclick=()=>{if(!played&&window.ucHowToNeeded?.())return window.ucHowTo(play,'first');play()};
   try{if(sessionStorage.getItem('uc-reopen')==='results'){sessionStorage.removeItem('uc-reopen');if(played&&go)setTimeout(()=>go.click(),0)}}catch{}
   const hw=document.getElementById('how');if(hw)hw.onclick=()=>{track('how_click',{from:'ticket'});if(window.ucHowTo)return window.ucHowTo(played?null:play,'button');const st=document.getElementById('steps');st.scrollIntoView({behavior:'smooth',block:'center'});st.classList.remove('flash');void st.offsetWidth;st.classList.add('flash')};
   if(!played)liveLine().then(({n,top})=>{const el=document.querySelector('#tkLive span');if(el&&n)el.innerHTML=ES?`<b>${n} aficionado${n===1?'':'s'}</b> ${n===1?'ha':'han'} jugado hoy · récord <b>${top}</b>`:`<b>${n} fan${n===1?'':'s'}</b> played today · top score <b>${top}</b>`;else if(el)el.textContent=L('Be the first to play today','Sé el primero en jugar hoy')}).catch(()=>{});
@@ -3875,20 +3875,9 @@ html.polish .pz-count{font-variant-numeric:tabular-nums}
 .uc-spark{position:fixed;width:5px;height:5px;pointer-events:none;z-index:50}
 </style>
 <script>
-/* Motion, round two: ticket tear, unicorn tricks, streak flame flare, leaderboard climb, departure-board countdown */
+/* Motion, round two: unicorn tricks, streak flame flare, leaderboard climb, departure-board countdown */
 (()=>{const RM=()=>matchMedia('(prefers-reduced-motion: reduce)').matches,OUT='cubic-bezier(.23,1,.32,1)',IO='cubic-bezier(.77,0,.175,1)';
  const wait=ms=>new Promise(r=>setTimeout(r,ms));
- // 1. ticket tear: the stub rips off along the perforation and tumbles away, the ticket lifts, KICK-OFF! slams down
- window.ucTear=cb=>{const tk=document.querySelector('.tk'),stub=tk&&tk.querySelector('.tk-stub'),wrap=document.querySelector('.tk-wrap');if(!stub||RM()||!stub.animate)return cb();
-  const r=stub.getBoundingClientRect(),c=stub.cloneNode(true);c.style.cssText=`position:fixed;left:${r.left}px;top:${r.top}px;width:${r.width}px;height:${r.height}px;margin:0;box-sizing:border-box;z-index:9998;transform-origin:100% 0;border-right:0;clip-path:polygon(0 0,100% 0,92% 6%,100% 12%,92% 18%,100% 24%,92% 30%,100% 36%,92% 42%,100% 48%,92% 54%,100% 60%,92% 66%,100% 72%,92% 78%,100% 84%,92% 90%,100% 96%,100% 100%,0 100%)`;
-  document.body.appendChild(c);stub.style.visibility='hidden';
-  c.animate([{transform:'none'},{transform:'rotate(-8deg) translate(-4px,6px)',offset:.22},{transform:`rotate(-34deg) translate(-50px,${innerHeight-r.top+60}px)`}],{duration:700,easing:'cubic-bezier(.45,0,.8,.4)',fill:'forwards'});
-  if(wrap)wrap.animate([{transform:'none'},{transform:'translateX(5px)'},{transform:'none'}],{duration:140});
-  const st=document.createElement('div');st.textContent=document.documentElement.lang==='es'?'¡A JUGAR!':'KICK-OFF!';st.style.cssText='position:fixed;left:50%;top:42%;translate:-50% -50%;z-index:9999;font:400 clamp(56px,16vw,96px)/1 var(--px);color:#ffd23f;text-shadow:4px 0 0 #1a1030,-4px 0 0 #1a1030,0 4px 0 #1a1030,0 -4px 0 #1a1030,6px 7px 0 #1a1030;white-space:nowrap;pointer-events:none;opacity:0';
-  setTimeout(()=>{if(wrap)wrap.animate([{transform:'none',opacity:1},{transform:'translateY(-28px) scale(.97)',opacity:0}],{duration:220,easing:OUT,fill:'forwards'})},220);
-  setTimeout(()=>{document.body.appendChild(st);st.animate([{opacity:0,transform:'scale(1.8)'},{opacity:1,transform:'scale(1)',offset:.3},{opacity:1,transform:'scale(1)',offset:.75},{opacity:0,transform:'scale(1)'}],{duration:900,easing:OUT,fill:'forwards'});
-   document.body.animate([{transform:'none'},{transform:'translate(-3px,2px)'},{transform:'translate(2px,-1px)'},{transform:'none'}],{duration:120,delay:60})},380);
-  let done=false;const go=()=>{if(done)return;done=true;cb()};setTimeout(go,720);setTimeout(()=>{c.remove();st.remove()},1400)};
  // 2. tap the home unicorn: keepy-uppies, backflip, spin, a big neigh, one after the other
  let ti=0,busy=false;const TR=['juggle','flip','spin','neigh'];
  const pop=(art,txt,x,y)=>{const b=document.createElement('span');b.textContent=txt;b.style.cssText=`position:absolute;left:${x}px;top:${y}px;z-index:3;translate:-50% -50%;font:400 26px/1 var(--px);color:#ffd23f;text-shadow:3px 0 0 #1a1030,-3px 0 0 #1a1030,0 3px 0 #1a1030,0 -3px 0 #1a1030;pointer-events:none;white-space:nowrap`;art.appendChild(b);
