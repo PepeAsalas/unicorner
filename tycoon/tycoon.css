@@ -16,11 +16,16 @@ img{image-rendering:auto}
 .rate{font:700 11px var(--lab);opacity:.85;margin-top:4px}
 .kick-zone{grid-area:kick;position:relative;width:118px;height:118px}
 .kicker{position:relative;width:100%;height:100%;padding:0;border:0;background:none;outline-offset:4px;touch-action:manipulation;user-select:none;-webkit-user-select:none}
-.player{position:absolute;left:46%;bottom:6%;height:88%;aspect-ratio:260/383;transform:translateX(-50%);pointer-events:none}
-.player .body{position:absolute;inset:0;background:url(art/char-keepy-uppy.webp) 0 0/400% 100% no-repeat;transform-origin:50% 100%;filter:drop-shadow(0 4px 0 rgba(0,0,0,.35))}
-/* the ball rests on the raised foot of frame 3 */
-.player .ball{position:absolute;display:block;left:74%;top:30.5%;width:20%;pointer-events:none;user-select:none;-webkit-user-drag:none;will-change:transform}
-.spot{position:absolute;left:50%;bottom:2%;width:70%;height:12%;transform:translateX(-50%);border-radius:50%;background:radial-gradient(rgba(242,194,48,.55),transparent 70%)}
+/* the cookie unicorn: crisp pixels, a little lift on hover, a press on tap */
+.uni{position:absolute;left:50%;top:50%;width:94%;aspect-ratio:36/30;translate:-50% -50%;image-rendering:pixelated;filter:drop-shadow(0 5px 0 rgba(0,0,0,.35));transition:scale .16s var(--ease);pointer-events:none}
+.kicker:active .uni{scale:.95}
+@media (hover:hover) and (pointer:fine){.kicker:hover .uni{scale:1.04}.kicker:hover:active .uni{scale:.97}}
+/* soft cream rays turning slowly behind it */
+.rays{position:absolute;left:50%;top:50%;width:120%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;pointer-events:none;
+  background:repeating-conic-gradient(rgba(251,243,220,.16) 0 10deg,transparent 10deg 30deg);-webkit-mask:radial-gradient(closest-side,#000 35%,transparent);mask:radial-gradient(closest-side,#000 35%,transparent);animation:rays 40s linear infinite}
+@keyframes rays{to{rotate:360deg}}
+.crumb{position:absolute;width:7px;height:7px;background:#b97a3f;box-shadow:inset -2px -2px 0 #7a4a24;pointer-events:none}
+.spot{position:absolute;left:50%;bottom:8%;width:70%;height:12%;transform:translateX(-50%);border-radius:50%;background:radial-gradient(rgba(242,194,48,.55),transparent 70%)}
 .floats{position:absolute;inset:-40px -40px 0;pointer-events:none;overflow:visible}
 .float{position:absolute;font:400 22px/1 var(--px);color:#fff;text-shadow:0 2px 0 var(--ink),0 0 2px var(--ink);white-space:nowrap;animation:up .7s var(--ease) forwards;transform:translate(-50%,0)}
 .float.big{color:var(--gold);font-size:28px}
@@ -97,4 +102,4 @@ img{image-rendering:auto}
 .sheet textarea{min-height:70px;resize:vertical}
 .note{font-size:12px!important;color:#6b6280}
 .dots{font:400 40px/1 var(--px);text-align:center;letter-spacing:4px}
-@media (prefers-reduced-motion:reduce){.float,.event-badge,.sheet,.modal{animation:none}}
+@media (prefers-reduced-motion:reduce){.float,.event-badge,.sheet,.modal,.rays{animation:none}}

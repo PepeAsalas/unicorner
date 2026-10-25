@@ -489,23 +489,29 @@ function news() {
   ticker(pool[Math.random() * pool.length | 0]);
 }
 
-// ---------- tapping: the keepy-uppies player (left) and the islands (map) ----------
-const kicker = $('kicker'), body = kicker.querySelector('.body'), ball = $('ball'), kickFloats = $('floats'), moneyEl = $('money');
+// ---------- tapping: the cookie unicorn (left) and the plots (map) ----------
+const kicker = $('kicker'), uni = $('uni'), kickFloats = $('floats'), moneyEl = $('money');
 const still = matchMedia('(prefers-reduced-motion: reduce)');
-// the ball juggles on its own with real gravity, and the player's four kick frames are timed to it:
-// foot up at contact, foot coming down, then knee up ready for the next touch. A tap makes the next kick a big one.
-const BALL = {y: 0.2, vy: 0, spin: 0, g: 3.2, idle: 0.95, kick: 1.8, big: false, hit: -1};
-const kickFrame = f => { body.style.backgroundPosition = `${f * 100 / 3}% 0`; };
-function stepBall(dt) {
-  if (still.matches) { ball.style.transform = ''; kickFrame(2); return; }
-  BALL.vy -= BALL.g * dt; BALL.y += BALL.vy * dt; BALL.spin += BALL.vy * dt * 260;
-  const now = performance.now() / 1000;
-  if (BALL.y <= 0) { BALL.y = 0; BALL.vy = BALL.big ? BALL.kick : BALL.idle; BALL.hit = now; if (BALL.big) nudge(0.03); BALL.big = false; }
-  const since = now - BALL.hit;
-  kickFrame(since < 0.09 ? 2 : since < 0.22 ? 3 : BALL.y > 0.3 && BALL.vy > 0 ? 0 : 1); // stands only while a big kick is on its way up
-  ball.style.transform = `translateY(${-BALL.y * body.clientHeight}px) rotate(${BALL.spin}deg)`;
+// the unicorn stands still and blinks now and then; a tap makes it gallop for a moment and shed crumbs
+const UNI = [0, 1, 2].map(f => cookieUnicorn(f, 8)), BLINK = cookieUnicorn(0, 8, true), ug = uni.getContext('2d');
+uni.width = UNI[0].width; uni.height = UNI[0].height;
+let uniFrame = -1, galloping = 0, nextBlink = 3;
+function showUni(img) { if (img === uniFrame) return; uniFrame = img; ug.clearRect(0, 0, uni.width, uni.height); ug.drawImage(img, 0, 0); }
+function stepUni(dt) {
+  const t = performance.now() / 1000;
+  if (galloping > 0) { galloping -= dt; return showUni(UNI[galloping > 0.09 ? 2 : 1]); }
+  if (t > nextBlink) { if (t > nextBlink + 0.12) nextBlink = t + 2.5 + Math.random() * 3; return showUni(BLINK); }
+  showUni(UNI[0]);
 }
-const nudge = k => body.animate([{transform: 'scale(1,1)'}, {transform: `scale(${1 + k},${1 - k})`, offset: .35}, {transform: 'scale(1,1)'}], {duration: 160, easing: 'cubic-bezier(.23,1,.32,1)'});
+function crumbs(x, y) { // a few cookie crumbs fall away from the tap with a little gravity
+  if (still.matches) return;
+  for (let i = 0; i < 5; i++) {
+    const c = document.createElement('span'); c.className = 'crumb'; c.style.left = x + 'px'; c.style.top = y + 'px'; kickFloats.appendChild(c);
+    const dx = (Math.random() - 0.5) * 90, up = 20 + Math.random() * 30;
+    c.animate([{transform: 'translate(-50%,-50%) rotate(0deg)', opacity: 1}, {transform: `translate(calc(-50% + ${dx * 0.6}px), calc(-50% - ${up}px)) rotate(${dx * 2}deg)`, opacity: 1, offset: .35},
+      {transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${70 - up}px)) rotate(${dx * 4}deg)`, opacity: 0}], {duration: 620, easing: 'cubic-bezier(.33,0,.67,1)'}).onfinish = () => c.remove();
+  }
+}
 let lastCoin = 0;
 function coinToBank(x, y) { // one coin flies from the tap into the money counter, which then pulses
   const now = performance.now(); if (now - lastCoin < 90 || still.matches) return; lastCoin = now;
@@ -521,7 +527,7 @@ kicker.addEventListener('pointerdown', e => {
   const v = tapValue(); earn(v); S.taps++;
   const r = kickFloats.getBoundingClientRect();
   floatText('+' + fmt(v), (e.clientX - r.left) / r.width * 100, (e.clientY - r.top) / r.height * 100, false, kickFloats);
-  BALL.big = true;
+  galloping = 0.18; crumbs(e.clientX - r.left, e.clientY - r.top);
   coinToBank(e.clientX, e.clientY);
   if (S.taps % 9 === 1) ticker(C.tapLines[(S.taps / 9 | 0) % C.tapLines.length].replace('{m}', fmt(v)));
   paintBank();
@@ -706,11 +712,10 @@ function frame(now) {
   if (!S.wall) {
     earn((rates().total - academy().perSec) * dt);
     academyTick(dt); eventTick(dt); stepWalkers(dt);
-    stepBall(dt);
     if (!document.hidden) S.play += dt;
     if (S.play >= DEMO_SECONDS && modalEl.hidden) wall();
   }
-  draw(t, dt);
+  draw(t, dt); stepUni(dt);
   uiT += dt; if (uiT > 0.2) { uiT = 0; paintBank(); refreshButtons(); }
   saveT += dt; if (saveT > 5) { saveT = 0; save(); }
   if (!S.lv.pitch && S.money >= cost('pitch') && !hinted) { hinted = true; ticker('You can afford a training pitch: build it in the Club tab.'); }

@@ -22,13 +22,14 @@
       <div class="rate" id="rate">€0 per second</div>
     </section>
     <div class="kick-zone">
-      <button type="button" class="kicker" id="kicker" aria-label="Do keepy-uppies to earn money">
+      <button type="button" class="kicker" id="kicker" aria-label="Tap the unicorn to earn money">
+        <span class="rays" aria-hidden="true"></span>
         <span class="spot" aria-hidden="true"></span>
-        <span class="player" aria-hidden="true"><span class="body"></span><img class="ball" id="ball" src="art/ball.webp" alt="" draggable="false"></span>
+        <canvas class="uni" id="uni" aria-hidden="true"></canvas>
       </button>
       <div class="floats" id="floats" aria-hidden="true"></div>
     </div>
-    <p class="ticker" id="ticker"><b>News:</b> <span id="tickerText">Tap the player to do keepy-uppies and earn money.</span></p>
+    <p class="ticker" id="ticker"><b>News:</b> <span id="tickerText">Tap the unicorn to earn money.</span></p>
   </aside>
   <main class="mid" id="stage">
     <canvas id="map" aria-label="Your football district: your club grounds, one plot per building."></canvas>
@@ -46,6 +47,7 @@
 </div>
 <div class="modal" id="modal" hidden><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
 <script src="content.js"></script>
+<script src="unicorn.js"></script>
 <script src="game.js"></script>
 </body>
 </html>
