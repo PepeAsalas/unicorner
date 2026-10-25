@@ -1,0 +1,2762 @@
+[
+ {
+  "id": "d21-name-a-club-relegated-from-the-premier-league-between-1992-93-and-2013-14",
+  "template": 21,
+  "prompt": "Name a club relegated from the Premier League between 1992-93 and 2013-14",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Crystal Palace",
+    "aliases": [
+     "Palace"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Middlesbrough",
+    "aliases": [
+     "Boro"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Nottingham Forest",
+    "aliases": [
+     "Forest",
+     "Notts Forest"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Swindon Town",
+    "aliases": [
+     "Swindon"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Oldham Athletic",
+    "aliases": [
+     "Oldham"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Sheffield United",
+    "aliases": [
+     "Sheff Utd",
+     "Sheffield Utd",
+     "Blades"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Norwich City",
+    "aliases": [
+     "Norwich"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Leicester City",
+    "aliases": [
+     "Leicester"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Ipswich Town",
+    "aliases": [
+     "Ipswich"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Manchester City",
+    "aliases": [
+     "Man City"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Queens Park Rangers",
+    "aliases": [
+     "QPR",
+     "Queens Park"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Bolton Wanderers",
+    "aliases": [
+     "Bolton"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Sunderland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Barnsley",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Charlton Athletic",
+    "aliases": [
+     "Charlton"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Blackburn Rovers",
+    "aliases": [
+     "Blackburn"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Wimbledon",
+    "aliases": [
+     "Wimbledon FC",
+     "Dons"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Sheffield Wednesday",
+    "aliases": [
+     "Sheff Wed",
+     "Sheffield Wed",
+     "Wednesday",
+     "Owls"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Watford",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Coventry City",
+    "aliases": [
+     "Coventry"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Bradford City",
+    "aliases": [
+     "Bradford"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Derby County",
+    "aliases": [
+     "Derby"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "West Ham United",
+    "aliases": [
+     "West Ham"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "West Bromwich Albion",
+    "aliases": [
+     "West Brom",
+     "WBA"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Leeds United",
+    "aliases": [
+     "Leeds"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Wolverhampton Wanderers",
+    "aliases": [
+     "Wolves"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Southampton",
+    "aliases": [
+     "Saints"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Birmingham City",
+    "aliases": [
+     "Birmingham"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Reading",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Newcastle United",
+    "aliases": [
+     "Newcastle"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Burnley",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Hull City",
+    "aliases": [
+     "Hull"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Portsmouth",
+    "aliases": [
+     "Pompey"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Blackpool",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Wigan Athletic",
+    "aliases": [
+     "Wigan"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Fulham",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Cardiff City",
+    "aliases": [
+     "Cardiff"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Aston Villa",
+    "why": "Relegated in 2015-16, after this range."
+   },
+   {
+    "name": "Stoke City",
+    "why": "Relegated in 2017-18, after this range."
+   },
+   {
+    "name": "Swansea City",
+    "why": "Relegated in 2017-18, after this range."
+   },
+   {
+    "name": "Everton",
+    "why": "Never relegated from the Premier League."
+   },
+   {
+    "name": "Tottenham Hotspur",
+    "why": "Never relegated in the Premier League era."
+   },
+   {
+    "name": "Arsenal",
+    "why": "Never relegated from the Premier League."
+   }
+  ]
+ },
+ {
+  "id": "d21-name-a-club-relegated-from-the-bundesliga-between-2014-15-and-2024-25",
+  "template": 21,
+  "prompt": "Name a club relegated from the Bundesliga between 2014-15 and 2024-25",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Hamburger SV",
+    "aliases": [
+     "Hamburg",
+     "HSV"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Werder Bremen",
+    "aliases": [
+     "Bremen",
+     "Werder"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Schalke 04",
+    "aliases": [
+     "Schalke"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Hertha BSC",
+    "aliases": [
+     "Hertha",
+     "Hertha Berlin"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "1. FC Köln",
+    "aliases": [
+     "Köln",
+     "Koln",
+     "Cologne",
+     "FC Köln",
+     "FC Koln"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "VfB Stuttgart",
+    "aliases": [
+     "Stuttgart"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Hannover 96",
+    "aliases": [
+     "Hannover"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "SC Freiburg",
+    "aliases": [
+     "Freiburg"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "SC Paderborn 07",
+    "aliases": [
+     "Paderborn"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Darmstadt 98",
+    "aliases": [
+     "Darmstadt"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "FC Ingolstadt 04",
+    "aliases": [
+     "Ingolstadt"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "1. FC Nürnberg",
+    "aliases": [
+     "Nürnberg",
+     "Nurnberg",
+     "Nuremberg",
+     "FC Nürnberg"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Fortuna Düsseldorf",
+    "aliases": [
+     "Düsseldorf",
+     "Dusseldorf",
+     "Fortuna"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Arminia Bielefeld",
+    "aliases": [
+     "Bielefeld",
+     "Arminia"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "SpVgg Greuther Fürth",
+    "aliases": [
+     "Greuther Fürth",
+     "Greuther Furth",
+     "Fürth",
+     "Furth"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Holstein Kiel",
+    "aliases": [
+     "Kiel"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "VfL Bochum",
+    "aliases": [
+     "Bochum"
+    ],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Eintracht Frankfurt",
+    "why": "Won the 2015-16 relegation play-off and stayed up."
+   },
+   {
+    "name": "VfL Wolfsburg",
+    "why": "Won the 2016-17 relegation play-off and stayed up."
+   },
+   {
+    "name": "Union Berlin",
+    "why": "Not relegated from the Bundesliga between 2014-15 and 2024-25."
+   },
+   {
+    "name": "FC Augsburg",
+    "why": "Not relegated from the Bundesliga in this period."
+   },
+   {
+    "name": "Mainz 05",
+    "why": "Not relegated from the Bundesliga in this period."
+   }
+  ]
+ },
+ {
+  "id": "d21-name-a-club-relegated-from-la-liga-between-2014-15-and-2024-25",
+  "template": 21,
+  "prompt": "Name a club relegated from La Liga between 2014-15 and 2024-25",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Almería",
+    "aliases": [
+     "UD Almería",
+     "Almeria"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Córdoba",
+    "aliases": [
+     "Cordoba"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Elche",
+    "aliases": [
+     "Elche CF"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Levante",
+    "aliases": [
+     "Levante UD"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Getafe",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Rayo Vallecano",
+    "aliases": [
+     "Rayo"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Osasuna",
+    "aliases": [
+     "CA Osasuna"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Sporting Gijón",
+    "aliases": [
+     "Sporting de Gijón",
+     "Sporting Gijon",
+     "Gijon",
+     "Gijón"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Granada",
+    "aliases": [
+     "Granada CF"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Málaga",
+    "aliases": [
+     "Malaga"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Las Palmas",
+    "aliases": [
+     "UD Las Palmas"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Deportivo La Coruña",
+    "aliases": [
+     "Deportivo",
+     "Depor",
+     "La Coruña",
+     "Deportivo de La Coruña"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Huesca",
+    "aliases": [
+     "SD Huesca"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Girona",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Mallorca",
+    "aliases": [
+     "Real Mallorca"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Espanyol",
+    "aliases": [
+     "RCD Espanyol"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Leganés",
+    "aliases": [
+     "Leganes"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Eibar",
+    "aliases": [
+     "SD Eibar"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Real Valladolid",
+    "aliases": [
+     "Valladolid"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Alavés",
+    "aliases": [
+     "Alaves"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Cádiz",
+    "aliases": [
+     "Cadiz"
+    ],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Real Betis",
+    "why": "Relegated in 2013-14, before this range."
+   },
+   {
+    "name": "Real Zaragoza",
+    "why": "Relegated in 2012-13, before this range."
+   },
+   {
+    "name": "Villarreal",
+    "why": "Relegated in 2011-12, before this range."
+   },
+   {
+    "name": "Celta Vigo",
+    "why": "Not relegated from La Liga in this period."
+   },
+   {
+    "name": "Real Sociedad",
+    "why": "Not relegated from La Liga in this period."
+   }
+  ]
+ },
+ {
+  "id": "d21-name-a-club-relegated-from-serie-a-between-2014-15-and-2024-25",
+  "template": 21,
+  "prompt": "Name a club relegated from Serie A between 2014-15 and 2024-25",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Cesena",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Cagliari",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Parma",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Carpi",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Frosinone",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Hellas Verona",
+    "aliases": [
+     "Verona"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Pescara",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Palermo",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Empoli",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Benevento",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Crotone",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Chievo",
+    "aliases": [
+     "ChievoVerona",
+     "Chievo Verona"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Lecce",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Brescia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "SPAL",
+    "aliases": [
+     "Spal 2013",
+     "SPAL 1907"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Genoa",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Venezia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Cremonese",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Spezia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Sampdoria",
+    "aliases": [
+     "Samp"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Sassuolo",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Salernitana",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Monza",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Udinese",
+    "why": "Not relegated from Serie A in this period."
+   },
+   {
+    "name": "Torino",
+    "why": "Not relegated from Serie A in this period."
+   },
+   {
+    "name": "Fiorentina",
+    "why": "Relegated in 2001-02, before this range."
+   },
+   {
+    "name": "Bologna",
+    "why": "Not relegated from Serie A in this period."
+   }
+  ]
+ },
+ {
+  "id": "d18-name-a-german-club-that-played-in-the-champions-league-group-or-league-phase-between-2001-02-and-2025-26",
+  "template": 18,
+  "prompt": "Name a German club that played in the Champions League group or league phase between 2001-02 and 2025-26",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Bayern Munich",
+    "aliases": [
+     "Bayern",
+     "Bayern München",
+     "Bayern Munchen",
+     "FC Bayern"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Borussia Dortmund",
+    "aliases": [
+     "Dortmund",
+     "BVB"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Bayer Leverkusen",
+    "aliases": [
+     "Leverkusen",
+     "Bayer 04"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Schalke 04",
+    "aliases": [
+     "Schalke"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "VfB Stuttgart",
+    "aliases": [
+     "Stuttgart"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Werder Bremen",
+    "aliases": [
+     "Bremen",
+     "Werder"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "VfL Wolfsburg",
+    "aliases": [
+     "Wolfsburg"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Hamburger SV",
+    "aliases": [
+     "Hamburg",
+     "HSV"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Borussia Mönchengladbach",
+    "aliases": [
+     "Gladbach",
+     "Monchengladbach",
+     "Mönchengladbach",
+     "Borussia Monchengladbach"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "RB Leipzig",
+    "aliases": [
+     "Leipzig"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Eintracht Frankfurt",
+    "aliases": [
+     "Frankfurt"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "TSG Hoffenheim",
+    "aliases": [
+     "Hoffenheim"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Union Berlin",
+    "aliases": [
+     "1. FC Union Berlin"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Hertha BSC",
+    "why": "Did not reach a Champions League group stage in this period."
+   },
+   {
+    "name": "1. FC Köln",
+    "why": "Never reached the Champions League group stage in this period."
+   },
+   {
+    "name": "SC Freiburg",
+    "why": "Europa League only, never the Champions League group stage."
+   },
+   {
+    "name": "Mainz 05",
+    "why": "Never reached the Champions League group stage."
+   }
+  ]
+ },
+ {
+  "id": "d18-name-an-italian-club-that-played-in-the-champions-league-group-or-league-phase-between-2001-02-and-2025-26",
+  "template": 18,
+  "prompt": "Name an Italian club that played in the Champions League group or league phase between 2001-02 and 2025-26",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Juventus",
+    "aliases": [
+     "Juve"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "AC Milan",
+    "aliases": [
+     "Milan"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Inter Milan",
+    "aliases": [
+     "Inter",
+     "Internazionale",
+     "FC Internazionale"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "AS Roma",
+    "aliases": [
+     "Roma"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Lazio",
+    "aliases": [
+     "SS Lazio"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Napoli",
+    "aliases": [
+     "SSC Napoli"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Fiorentina",
+    "aliases": [
+     "ACF Fiorentina"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Udinese",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Atalanta",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Bologna",
+    "aliases": [],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Sampdoria",
+    "why": "Lost in the qualifying round and never reached the group stage in this period."
+   },
+   {
+    "name": "Palermo",
+    "why": "Played only in the UEFA Cup, never the Champions League group stage."
+   },
+   {
+    "name": "Parma",
+    "why": "Never reached the Champions League group stage in this period."
+   },
+   {
+    "name": "Torino",
+    "why": "Never reached the Champions League group stage in this period."
+   },
+   {
+    "name": "Chievo",
+    "why": "Lost in the qualifying round in 2006-07."
+   }
+  ]
+ },
+ {
+  "id": "d24-name-a-dutchman-who-was-a-permanent-premier-league-manager-up-to-2025-26",
+  "template": 24,
+  "prompt": "Name a Dutchman who was a permanent Premier League manager up to 2025-26",
+  "time": 15,
+  "answer_type": "manager",
+  "answers": [
+   {
+    "name": "Ruud Gullit",
+    "aliases": [
+     "Gullit"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Ronald Koeman",
+    "aliases": [
+     "Koeman"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Frank de Boer",
+    "aliases": [
+     "De Boer"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Louis van Gaal",
+    "aliases": [
+     "Van Gaal"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Dick Advocaat",
+    "aliases": [
+     "Advocaat"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Martin Jol",
+    "aliases": [
+     "Jol"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Erik ten Hag",
+    "aliases": [
+     "Ten Hag"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Arne Slot",
+    "aliases": [
+     "Slot"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Ruud van Nistelrooy",
+    "aliases": [
+     "Van Nistelrooy",
+     "Nistelrooy"
+    ],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "Guus Hiddink",
+    "why": "Only caretaker/interim at Chelsea, never a permanent Premier League manager."
+   },
+   {
+    "name": "Ralf Rangnick",
+    "why": "German, and only interim manager at Manchester United."
+   },
+   {
+    "name": "Frank Rijkaard",
+    "why": "Never managed in the Premier League."
+   },
+   {
+    "name": "Jaap Stam",
+    "why": "Never managed in the Premier League."
+   }
+  ]
+ },
+ {
+  "id": "d24-name-a-spaniard-who-was-a-permanent-premier-league-manager-up-to-2025-26",
+  "template": 24,
+  "prompt": "Name a Spaniard who was a permanent Premier League manager up to 2025-26",
+  "time": 15,
+  "answer_type": "manager",
+  "answers": [
+   {
+    "name": "Pep Guardiola",
+    "aliases": [
+     "Guardiola",
+     "Pep"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Mikel Arteta",
+    "aliases": [
+     "Arteta"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Unai Emery",
+    "aliases": [
+     "Emery"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Rafael Benítez",
+    "aliases": [
+     "Rafa Benitez",
+     "Benitez",
+     "Benítez",
+     "Rafa"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Roberto Martínez",
+    "aliases": [
+     "Roberto Martinez",
+     "Martinez",
+     "Martínez"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Julen Lopetegui",
+    "aliases": [
+     "Lopetegui"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Andoni Iraola",
+    "aliases": [
+     "Iraola"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Juande Ramos",
+    "aliases": [
+     "Ramos"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Quique Sánchez Flores",
+    "aliases": [
+     "Quique Sanchez Flores",
+     "Quique Flores",
+     "Sánchez Flores",
+     "Sanchez Flores"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Aitor Karanka",
+    "aliases": [
+     "Karanka"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Pepe Mel",
+    "aliases": [
+     "Mel"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Javi Gracia",
+    "aliases": [
+     "Gracia"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Xisco Muñoz",
+    "aliases": [
+     "Xisco Munoz",
+     "Xisco"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Mauricio Pochettino",
+    "why": "Argentine, not Spanish."
+   },
+   {
+    "name": "Gus Poyet",
+    "why": "Uruguayan, not Spanish."
+   },
+   {
+    "name": "Roberto De Zerbi",
+    "why": "Italian, not Spanish."
+   },
+   {
+    "name": "Xabi Alonso",
+    "why": "Has never managed in the Premier League."
+   },
+   {
+    "name": "Luis Enrique",
+    "why": "Has never managed in the Premier League."
+   }
+  ]
+ },
+ {
+  "id": "d19-name-a-club-from-andalusia-that-played-in-la-liga-between-2000-01-and-2025-26",
+  "template": 19,
+  "prompt": "Name a club from Andalusia that played in La Liga between 2000-01 and 2025-26",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Sevilla",
+    "aliases": [
+     "Sevilla FC"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Real Betis",
+    "aliases": [
+     "Betis"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Málaga",
+    "aliases": [
+     "Malaga"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Cádiz",
+    "aliases": [
+     "Cadiz"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Granada",
+    "aliases": [
+     "Granada CF"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Almería",
+    "aliases": [
+     "UD Almería",
+     "Almeria"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Córdoba",
+    "aliases": [
+     "Cordoba"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Xerez",
+    "aliases": [
+     "Xerez CD"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Recreativo de Huelva",
+    "aliases": [
+     "Recreativo",
+     "Recre",
+     "Huelva"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Real Jaén",
+    "why": "Never played in La Liga in this period."
+   },
+   {
+    "name": "Polideportivo Ejido",
+    "why": "Never played in La Liga."
+   },
+   {
+    "name": "Villarreal",
+    "why": "From Valencia region, not Andalusia."
+   },
+   {
+    "name": "Valencia",
+    "why": "From Valencia region, not Andalusia."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-1994-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 1994 World Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "United States",
+    "aliases": [
+     "USA",
+     "US",
+     "America",
+     "United States of America"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Switzerland",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Romania",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Russia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Cameroon",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Greece",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Nigeria",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Bulgaria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Germany",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "South Korea",
+    "aliases": [
+     "Korea",
+     "Korea Republic",
+     "Republic of Korea"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Bolivia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Republic of Ireland",
+    "aliases": [
+     "Ireland",
+     "Eire"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Norway",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Saudi Arabia",
+    "aliases": [
+     "Saudi"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "England",
+    "why": "Failed to qualify for the 1994 World Cup."
+   },
+   {
+    "name": "France",
+    "why": "Failed to qualify for the 1994 World Cup."
+   },
+   {
+    "name": "Denmark",
+    "why": "Failed to qualify for the 1994 World Cup."
+   },
+   {
+    "name": "Portugal",
+    "why": "Failed to qualify for the 1994 World Cup."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-1990-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 1990 World Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "United States",
+    "aliases": [
+     "USA",
+     "US",
+     "America",
+     "United States of America"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Austria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Czechoslovakia",
+    "aliases": [
+     "Czech",
+     "Czechoslovak"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Cameroon",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Romania",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Soviet Union",
+    "aliases": [
+     "USSR",
+     "CCCP",
+     "Russia"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Costa Rica",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Scotland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "United Arab Emirates",
+    "aliases": [
+     "UAE",
+     "Emirates"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Yugoslavia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "West Germany",
+    "aliases": [
+     "Germany",
+     "BRD"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "South Korea",
+    "aliases": [
+     "Korea",
+     "Korea Republic",
+     "Republic of Korea"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Republic of Ireland",
+    "aliases": [
+     "Ireland",
+     "Eire"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Egypt",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "France",
+    "why": "Failed to qualify for the 1990 World Cup."
+   },
+   {
+    "name": "Portugal",
+    "why": "Failed to qualify for the 1990 World Cup."
+   },
+   {
+    "name": "Poland",
+    "why": "Failed to qualify for the 1990 World Cup."
+   },
+   {
+    "name": "Denmark",
+    "why": "Failed to qualify for the 1990 World Cup."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-euro-2004",
+  "template": 22,
+  "prompt": "Name a country that played at Euro 2004",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Greece",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Russia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Switzerland",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Croatia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Denmark",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Bulgaria",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Czech Republic",
+    "aliases": [
+     "Czechia",
+     "Czech"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Germany",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Latvia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "Poland",
+    "why": "Did not qualify for Euro 2004."
+   },
+   {
+    "name": "Turkey",
+    "why": "Did not qualify for Euro 2004."
+   },
+   {
+    "name": "Republic of Ireland",
+    "why": "Did not qualify for Euro 2004."
+   },
+   {
+    "name": "Norway",
+    "why": "Did not qualify for Euro 2004."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-euro-2000",
+  "template": 22,
+  "prompt": "Name a country that played at Euro 2000",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Germany",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Turkey",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Romania",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Yugoslavia",
+    "aliases": [
+     "FR Yugoslavia"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Norway",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Slovenia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Czech Republic",
+    "aliases": [
+     "Czechia",
+     "Czech"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Denmark",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Poland",
+    "why": "Did not qualify for Euro 2000."
+   },
+   {
+    "name": "Greece",
+    "why": "Did not qualify for Euro 2000."
+   },
+   {
+    "name": "Republic of Ireland",
+    "why": "Did not qualify for Euro 2000."
+   },
+   {
+    "name": "Switzerland",
+    "why": "Did not qualify for Euro 2000."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-euro-1996",
+  "template": 22,
+  "prompt": "Name a country that played at Euro 1996",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Switzerland",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Scotland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Bulgaria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Romania",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Germany",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Czech Republic",
+    "aliases": [
+     "Czechia",
+     "Czech"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Russia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Croatia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Turkey",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Denmark",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Sweden",
+    "why": "Did not qualify for Euro 1996."
+   },
+   {
+    "name": "Republic of Ireland",
+    "why": "Lost the play-off and did not qualify for Euro 1996."
+   },
+   {
+    "name": "Belgium",
+    "why": "Did not qualify for Euro 1996."
+   },
+   {
+    "name": "Poland",
+    "why": "Did not qualify for Euro 1996."
+   }
+  ]
+ },
+ {
+  "id": "d17-name-a-club-that-played-in-the-premier-league-in-2015-16",
+  "template": 17,
+  "prompt": "Name a club that played in the Premier League in 2015-16",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Leicester City",
+    "aliases": [
+     "Leicester"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Arsenal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Tottenham Hotspur",
+    "aliases": [
+     "Tottenham",
+     "Spurs"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Manchester City",
+    "aliases": [
+     "Man City"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Manchester United",
+    "aliases": [
+     "Man United",
+     "Man Utd"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Southampton",
+    "aliases": [
+     "Saints"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "West Ham United",
+    "aliases": [
+     "West Ham"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Liverpool",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Stoke City",
+    "aliases": [
+     "Stoke"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Chelsea",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Everton",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Swansea City",
+    "aliases": [
+     "Swansea"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Watford",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "West Bromwich Albion",
+    "aliases": [
+     "West Brom",
+     "WBA"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Crystal Palace",
+    "aliases": [
+     "Palace"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "AFC Bournemouth",
+    "aliases": [
+     "Bournemouth"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Sunderland",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Newcastle United",
+    "aliases": [
+     "Newcastle"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Norwich City",
+    "aliases": [
+     "Norwich"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Aston Villa",
+    "aliases": [
+     "Villa"
+    ],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "Hull City",
+    "why": "Was in the Championship in 2015-16."
+   },
+   {
+    "name": "Burnley",
+    "why": "Was in the Championship in 2015-16."
+   },
+   {
+    "name": "Queens Park Rangers",
+    "why": "Was in the Championship in 2015-16."
+   },
+   {
+    "name": "Middlesbrough",
+    "why": "Was in the Championship in 2015-16."
+   }
+  ]
+ },
+ {
+  "id": "d17-name-a-club-that-played-in-the-bundesliga-in-2015-16",
+  "template": 17,
+  "prompt": "Name a club that played in the Bundesliga in 2015-16",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Bayern Munich",
+    "aliases": [
+     "Bayern",
+     "Bayern München",
+     "Bayern Munchen",
+     "FC Bayern"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Borussia Dortmund",
+    "aliases": [
+     "Dortmund",
+     "BVB"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Bayer Leverkusen",
+    "aliases": [
+     "Leverkusen",
+     "Bayer 04"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Borussia Mönchengladbach",
+    "aliases": [
+     "Gladbach",
+     "Monchengladbach",
+     "Mönchengladbach",
+     "Borussia Monchengladbach"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Schalke 04",
+    "aliases": [
+     "Schalke"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Mainz 05",
+    "aliases": [
+     "Mainz"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "VfL Wolfsburg",
+    "aliases": [
+     "Wolfsburg"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "1. FC Köln",
+    "aliases": [
+     "Köln",
+     "Koln",
+     "Cologne",
+     "FC Köln",
+     "FC Koln"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "TSG Hoffenheim",
+    "aliases": [
+     "Hoffenheim"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "FC Augsburg",
+    "aliases": [
+     "Augsburg"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Hertha BSC",
+    "aliases": [
+     "Hertha",
+     "Hertha Berlin"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Darmstadt 98",
+    "aliases": [
+     "Darmstadt"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "FC Ingolstadt 04",
+    "aliases": [
+     "Ingolstadt"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Hannover 96",
+    "aliases": [
+     "Hannover"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Eintracht Frankfurt",
+    "aliases": [
+     "Frankfurt"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Hamburger SV",
+    "aliases": [
+     "Hamburg",
+     "HSV"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "VfB Stuttgart",
+    "aliases": [
+     "Stuttgart"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Werder Bremen",
+    "aliases": [
+     "Bremen",
+     "Werder"
+    ],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "SC Freiburg",
+    "why": "Was in the 2. Bundesliga in 2015-16."
+   },
+   {
+    "name": "SC Paderborn 07",
+    "why": "Was relegated in 2014-15."
+   },
+   {
+    "name": "1. FC Nürnberg",
+    "why": "Was in the 2. Bundesliga in 2015-16."
+   },
+   {
+    "name": "Union Berlin",
+    "why": "Was in the 2. Bundesliga in 2015-16."
+   }
+  ]
+ },
+ {
+  "id": "d17-name-a-club-that-played-in-la-liga-in-2015-16",
+  "template": 17,
+  "prompt": "Name a club that played in La Liga in 2015-16",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Barcelona",
+    "aliases": [
+     "FC Barcelona",
+     "Barca",
+     "Barça"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Real Madrid",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Atlético Madrid",
+    "aliases": [
+     "Atletico Madrid",
+     "Atletico",
+     "Atleti",
+     "Atlético de Madrid"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Villarreal",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Athletic Club",
+    "aliases": [
+     "Athletic Bilbao",
+     "Athletic",
+     "Bilbao"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Celta de Vigo",
+    "aliases": [
+     "Celta",
+     "Celta Vigo"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Sevilla",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Málaga",
+    "aliases": [
+     "Malaga"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Real Sociedad",
+    "aliases": [
+     "Sociedad"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Real Betis",
+    "aliases": [
+     "Betis"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Las Palmas",
+    "aliases": [
+     "UD Las Palmas"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Valencia",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Eibar",
+    "aliases": [
+     "SD Eibar"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Espanyol",
+    "aliases": [
+     "RCD Espanyol"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Deportivo La Coruña",
+    "aliases": [
+     "Deportivo",
+     "Depor",
+     "La Coruña",
+     "Deportivo de La Coruña"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Granada",
+    "aliases": [
+     "Granada CF"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Sporting Gijón",
+    "aliases": [
+     "Sporting de Gijón",
+     "Sporting Gijon",
+     "Gijon",
+     "Gijón"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Rayo Vallecano",
+    "aliases": [
+     "Rayo"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Getafe",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Levante",
+    "aliases": [
+     "Levante UD"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Osasuna",
+    "why": "Was in the Segunda División in 2015-16."
+   },
+   {
+    "name": "Girona",
+    "why": "Was in the Segunda División in 2015-16."
+   },
+   {
+    "name": "Elche",
+    "why": "Was in the Segunda División in 2015-16."
+   },
+   {
+    "name": "Almería",
+    "why": "Was in the Segunda División in 2015-16."
+   }
+  ]
+ },
+ {
+  "id": "d17-name-a-club-that-played-in-serie-a-in-2015-16",
+  "template": 17,
+  "prompt": "Name a club that played in Serie A in 2015-16",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Juventus",
+    "aliases": [
+     "Juve"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Napoli",
+    "aliases": [
+     "SSC Napoli"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "AS Roma",
+    "aliases": [
+     "Roma"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Inter Milan",
+    "aliases": [
+     "Inter",
+     "Internazionale",
+     "FC Internazionale"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Fiorentina",
+    "aliases": [
+     "ACF Fiorentina"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Sassuolo",
+    "aliases": [
+     "US Sassuolo"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "AC Milan",
+    "aliases": [
+     "Milan"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Lazio",
+    "aliases": [
+     "SS Lazio"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Chievo",
+    "aliases": [
+     "ChievoVerona",
+     "Chievo Verona"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Empoli",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Genoa",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Torino",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Atalanta",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Bologna",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Sampdoria",
+    "aliases": [
+     "Samp"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Palermo",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Udinese",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Carpi",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Frosinone",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Hellas Verona",
+    "aliases": [
+     "Verona"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Cagliari",
+    "why": "Was in Serie B in 2015-16."
+   },
+   {
+    "name": "Parma",
+    "why": "Was not in Serie A in 2015-16 (relegated in 2014-15, then refounded in the lower leagues)."
+   },
+   {
+    "name": "Cesena",
+    "why": "Was relegated in 2014-15."
+   },
+   {
+    "name": "Spezia",
+    "why": "Was in Serie B in 2015-16."
+   }
+  ]
+ },
+ {
+  "id": "d17-name-a-club-that-played-in-the-scottish-premiership-in-2015-16",
+  "template": 17,
+  "prompt": "Name a club that played in the Scottish Premiership in 2015-16",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Celtic",
+    "aliases": [
+     "Celtic FC"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Aberdeen",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Heart of Midlothian",
+    "aliases": [
+     "Hearts"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Ross County",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "St Johnstone",
+    "aliases": [
+     "St Johnstone FC"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Dundee",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Motherwell",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Partick Thistle",
+    "aliases": [
+     "Partick"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Hamilton Academical",
+    "aliases": [
+     "Hamilton",
+     "Accies"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Kilmarnock",
+    "aliases": [
+     "Killie"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Inverness Caledonian Thistle",
+    "aliases": [
+     "Inverness",
+     "Inverness CT",
+     "Caley Thistle",
+     "ICT"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Dundee United",
+    "aliases": [
+     "Dundee Utd"
+    ],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Rangers",
+    "why": "Was in the Championship in 2015-16."
+   },
+   {
+    "name": "Hibernian",
+    "why": "Was in the Championship in 2015-16."
+   },
+   {
+    "name": "St Mirren",
+    "why": "Was in the Championship in 2015-16."
+   },
+   {
+    "name": "Falkirk",
+    "why": "Was in the Championship in 2015-16."
+   }
+  ]
+ }
+]
