@@ -283,10 +283,7 @@ const FIT = {
   'building-pitch-3': [[0, 0.616], [1, 0.618], [0.507, 1]], 'building-pitch-4': [[0, 0.609], [1, 0.611], [0.499, 1]],
 };
 // Height (fraction of the image) of the plot's left and right corners in art drawn from a steeper camera.
-const BASE = {
-  'building-academy-1': 0.567, 'building-academy-2': 0.624, 'building-academy-3': 0.644, 'building-academy-4': 0.56,
-  'building-transfer-1': 0.53, 'building-transfer-2': 0.529, 'building-transfer-3': 0.651, 'building-transfer-4': 0.738,
-};
+const BASE = {};
 // Flags stand on the pitch corners the stands don't hide.
 const ANIM = {
   'building-stadium-1': {flags: [[0.1477, 0.6244], [0.5003, 0.3427], [0.8587, 0.6056], [0.5061, 0.8873]], pole: 0.0646, lamps: [[0.0712, 0.3016, 0.0280], [0.4997, 0.0329, 0.0350], [0.9276, 0.3016, 0.0280]]},
