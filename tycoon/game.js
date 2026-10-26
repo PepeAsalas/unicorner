@@ -182,8 +182,9 @@ function paintGround() {
   }
   const cross = art('path-cross');
   if (cross) for (const u of ROADS) for (const v of ROADS) { // the crest mosaic from the middle of the crossroads tile
-    const [x, y] = P(u, v), w2 = 1.5 * A, h2 = w2 * 54 / 110;
-    c.drawImage(cross, 295, 126, 110, 54, x - w2 / 2, y - h2 / 2, w2, h2);
+    const [x, y] = P(u, v), w2 = 1.7 * A, h2 = w2 * 70 / 124; // a roomy crop with an oval clip, so the whole ring shows and no square corner does
+    c.save(); c.beginPath(); c.ellipse(x, y, w2 * 0.43, h2 * 0.43, 0, 0, Math.PI * 2); c.clip();
+    c.drawImage(cross, 288, 118, 124, 70, x - w2 / 2, y - h2 / 2, w2, h2); c.restore();
   }
   // the far corners of the grounds: a pond, a little park, the car park and the entrance plaza (ChatGPT art when it has loaded)
   if (!piece(c, 'ground-pond', 14, 0)) {
