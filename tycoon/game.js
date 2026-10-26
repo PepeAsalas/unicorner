@@ -437,7 +437,11 @@ function drawPeople(t) {
       list.push({d: u + v, f: () => frames('char-youth-kick', 4, f, x, y, 14, i % 2 === 1)});
     }
   }
-  if (S.lv.pitch >= 5) { const [x, y] = P(LOTS.pitch.u0 + 4.6, LOTS.pitch.v0 + 2.6); list.push({d: 21.2, f: () => person('coach', x, y, 15, t, {right: Math.sin(t * 0.4) > 0})}); }
+  if (S.lv.pitch >= 5) { // the coach paces up and down the touchline, turning at each end
+    const L = LOTS.pitch, k = (t / 4.5) % 2, out = k < 1, q = out ? k : 2 - k, e = q * q * (3 - 2 * q), v = L.v0 + 0.6 + e * 2.8, u = L.u0 + 4.6, [x, y] = P(u, v);
+    const turning = q < 0.04 || q > 0.96; // the walking sheets have no standing frame, so he only stops for a beat at the turn
+    list.push({d: u + v, f: () => person('coach', x, y, 15, t, {walk: !turning, right: !out, back: !out})});
+  }
   if (EV && EV.e.target === 'transfer') { // agents pace up and down outside the transfer office
     for (let i = 0; i < 5; i++) { const s = Math.sin(t * 0.8 + i * 1.3), [x, y] = P(9 + (i - 2) * 0.6 + s * 0.4, 4.7 + (i % 2) * 0.5); list.push({d: 13.7, f: () => person('agent', x, y, 14, t, {walk: true, seed: i, right: Math.cos(t * 0.8 + i * 1.3) > 0, back: Math.cos(t * 0.8 + i * 1.3) < 0})}); }
   }
