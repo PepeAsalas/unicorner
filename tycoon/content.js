@@ -3,6 +3,10 @@
 window.TYC_CONTENT = {
   // art files in tycoon/art/ that the game should use, e.g. 'building-stadium-1.png' (see ART_BRIEF.md)
   art: [
+    'boot.webp',
+    'path-cross.webp',
+    'path-props.webp',
+    'path-straight.webp',
     'construction.webp',
     'ground-grass.webp',
     'plot-for-sale.webp',
@@ -89,13 +93,37 @@ window.TYC_CONTENT = {
   // stage thresholds: building level at which it looks bigger
   stages: [1, 10, 25, 50],
 
+  // said now and then while you kick (every 40th kick); {m} is the money that kick made
   tapLines: [
-    '+{m} The clip has reached someone\'s uncle.',
-    '+{m} A scout has opened a spreadsheet.',
-    '+{m} Your agent calls that an assist.',
-    '+{m} Royal Madribble is monitoring the situation.',
-    '+{m} The ball has requested image rights.',
+    '{m}. The unicorn didn\'t even blink.',
+    '{m}. Your physio has asked you to stop.',
+    '{m}. That\'s the groundsman\'s wages sorted.',
+    '{m}. Somewhere, an accountant weeps.',
+    '{m}. The RSPCA have been in touch.',
+    '{m}. Still more than the shirt sponsor pays.',
   ],
+  // the news, picked by how big the club is: 0 = nothing built, 1 = a few buildings, 2 = a proper club
+  news: [
+    [0, 'The club bank account is a jar of 2p coins and a button.'],
+    [0, 'Your striker is your uncle. He has asked for a pay rise.'],
+    [0, 'The floodlights are one torch, held by a volunteer.'],
+    [0, 'Local paper: "Worst club in the league." Fair.'],
+    [0, 'The kit is washed in the canal on Sundays.'],
+    [1, 'Attendance up to 41. Two of them paid.'],
+    [1, 'The academy\'s first wonderkid is 6 foot 4 and 31 years old.'],
+    [1, 'Your scout watched three games this week. All on telly.'],
+    [1, 'The pie at half-time is now mostly pie.'],
+    [1, 'A sponsor! It\'s the kebab shop. The logo is a kebab.'],
+    [1, 'The club shop sold out of shirts. There were four.'],
+    [1, 'Rival chairman spotted kicking a horse. It didn\'t work.'],
+    [2, 'Sky want to show your games. Highlights only. Very short highlights.'],
+    [2, 'Pundits now say "the unicorn project" with a straight face.'],
+    [2, 'Fans are asking for a statue. Of the unicorn, not you.'],
+    [2, 'The away end has a waiting list. The home end has a dress code.'],
+    [2, 'Your uncle has retired. The club has named a car park after him.'],
+    [2, 'Three clubs have bought a horse and taped a cone to its head.'],
+  ],
+
 
   // bonus: tap | tickets | shop | sales | transfer | canteen (canteen = +10% on everything until the canteen exists)
   stars: [

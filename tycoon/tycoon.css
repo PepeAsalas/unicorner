@@ -104,3 +104,38 @@ img{image-rendering:auto}
 .note{font-size:12px!important;color:#6b6280}
 .dots{font:400 40px/1 var(--px);text-align:center;letter-spacing:4px}
 @media (prefers-reduced-motion:reduce){.float,.event-badge,.sheet,.modal,.rays{animation:none}}
+
+/* ---------- the store (right panel): every row is one big button, Cookie Clicker style ---------- */
+.panel{gap:6px;background:#efe3c1;background-image:repeating-linear-gradient(0deg,transparent 0 23px,rgba(26,16,48,.04) 23px 24px)}
+.store-head{display:flex;justify-content:space-between;align-items:baseline;padding:2px 4px 4px;border-bottom:2px dashed rgba(26,16,48,.25);font:700 11px var(--lab);text-transform:uppercase;letter-spacing:1px;color:#6b5a3a}
+.store-head b{font:400 22px/1 var(--px);color:#1d7a45;letter-spacing:0}
+.shop-row{all:unset;box-sizing:border-box;display:grid;grid-template-columns:56px 1fr auto;gap:10px;align-items:center;padding:6px 10px 6px 6px;background:#fffaf0;border:2px solid var(--ink);box-shadow:0 3px 0 var(--ink);cursor:pointer;position:relative;transition:transform .12s var(--ease),box-shadow .12s var(--ease),background-color .15s ease}
+button.shop-row:disabled{cursor:default;background:#e9dfc6}
+button.shop-row:disabled .thumb{opacity:.6}
+button.shop-row:disabled .price{color:#b0412f}
+button.shop-row.can{background:#fffaf0}
+button.shop-row.can::before{content:'';position:absolute;left:-2px;top:-2px;bottom:-2px;width:6px;background:var(--gold);border-right:2px solid var(--ink)}
+button.shop-row.can:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+@media (hover:hover) and (pointer:fine){button.shop-row.can:hover{background:#fff3cf}}
+.shop-row .thumb{width:56px;height:46px;object-fit:contain;image-rendering:auto}
+.shop-row .thumb.unbuilt{filter:grayscale(1) brightness(.75);opacity:.55}
+.shop-row .boot-thumb{display:block;background:url(art/boot.webp) 0 50%/400% auto no-repeat}
+.shop-row .thumb.q{display:grid;place-items:center;font:400 34px var(--px);color:#b9ad8c;background:#e4d8b8;border:2px dashed #b9ad8c}
+.hidden-row{opacity:.7;cursor:default}
+.hidden-row h3{color:#9c8f6e}
+.mid-col{min-width:0;display:grid;gap:1px}
+.mid-col h3{margin:0;font:400 22px/1 var(--px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.price{margin:0;display:flex;align-items:center;gap:4px;font:700 12px var(--lab);color:#1d7a45}
+.ico-coin{display:inline-block;width:13px;height:13px;background:url(art/coin.webp) 0 0/78px 13px}
+.mid-col .earn{font:700 10px var(--lab);color:#6b5a3a}
+.mid-col .blurb{font:500 12px/1.25 Barlow,sans-serif;color:#5b5070}
+.stage{display:block;height:4px;background:#d8cba6;margin-top:3px;max-width:120px}
+.stage i{display:block;height:100%;background:var(--red)}
+.owned{font:400 40px/1 var(--px);color:rgba(26,16,48,.22);min-width:34px;text-align:right}
+.owned.up{font-size:24px;color:#1d7a45}
+.star-row{cursor:default}
+.star-row .portrait{width:56px;height:56px}
+.sell-btn{background:var(--cream2);border:2px solid var(--ink);box-shadow:0 3px 0 var(--ink);padding:7px 8px;font:700 11px var(--lab)}
+.sell-btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.tabs button{transition:transform .12s var(--ease)}
+.tabs button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}

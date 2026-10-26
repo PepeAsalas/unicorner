@@ -167,18 +167,24 @@ function paintGround() {
     }
     c.globalAlpha = 1;
   } else for (let u = -60; u < 80; u += 2) quad(c, u, -60, u + 1, 80, '#548f39'); // mowing stripes until the tile loads
-  // paved footpaths between the plots (colours from ChatGPT's path tile): dark kerb, cream paving, staggered stone joints
-  for (const k of ROADS) { quad(c, k - 1.12, -60, k + 1.12, 80, '#8f7f68'); quad(c, -60, k - 1.12, 80, k + 1.12, '#8f7f68'); }
-  for (const k of ROADS) { quad(c, k - 1, -60, k + 1, 80, '#ead8b4'); quad(c, -60, k - 1, 80, k + 1, '#ead8b4'); }
-  c.strokeStyle = '#d3bd92'; c.lineWidth = 0.6; c.beginPath();
-  for (const k of ROADS) for (let i = -30; i < 50; i += 0.7) for (const [o, j] of [[-0.5, 0], [0.5, 0.35]]) { // across each lane of stones
-    const a = i + j, inCross = ROADS.some(q => Math.abs(a - q) < 1);
-    if (inCross) continue;
-    let [x1, y1] = P(k + o - 0.5, a), [x2, y2] = P(k + o + 0.5, a); c.moveTo(x1, y1); c.lineTo(x2, y2);
-    [x1, y1] = P(a, k + o - 0.5); [x2, y2] = P(a, k + o + 0.5); c.moveTo(x1, y1); c.lineTo(x2, y2);
+  // footpaths: ChatGPT's herringbone paving as a texture laid along the iso axes, a red-and-cream kerb, the club crest at each crossing
+  const pave = art('path-straight');
+  if (pave) {
+    const tex = document.createElement('canvas'); tex.width = 150; tex.height = 70; // a clean square of paving from the middle of the tile
+    tex.getContext('2d').drawImage(pave, 200, 80, 150, 70, 0, 0, 150, 70); // already drawn at our angle, so it repeats as a plain screen pattern
+    const pat = c.createPattern(tex, 'repeat'); pat.setTransform(new DOMMatrix([0.16, 0, 0, 0.16, 0, 0]));
+    for (const k of ROADS) { quad(c, k - 1, -60, k + 1, 80, pat); quad(c, -60, k - 1, 80, k + 1, pat); }
+  } else for (const k of ROADS) { quad(c, k - 1, -60, k + 1, 80, '#ead8b4'); quad(c, -60, k - 1, 80, k + 1, '#ead8b4'); }
+  for (const k of ROADS) for (const e of [-1, 1]) for (let i = -40; i < 60; i += 0.5) { // kerb: alternating red and cream blocks
+    const a = i, b2 = i + 0.5; if (ROADS.some(q => Math.abs(a + 0.25 - q) < 1)) continue;
+    const col = (i * 2) % 2 === 0 ? '#c8303a' : '#efe4c6', o = k + e * 1.02, w2 = 0.12 * e;
+    quad(c, o - w2, a, o + w2, b2, col); quad(c, a, o - w2, b2, o + w2, col);
   }
-  for (const k of ROADS) { let [x1, y1] = P(k, -30), [x2, y2] = P(k, 50); c.moveTo(x1, y1); c.lineTo(x2, y2); [x1, y1] = P(-30, k); [x2, y2] = P(50, k); c.moveTo(x1, y1); c.lineTo(x2, y2); }
-  c.stroke();
+  const cross = art('path-cross');
+  if (cross) for (const u of ROADS) for (const v of ROADS) { // the crest mosaic from the middle of the crossroads tile
+    const [x, y] = P(u, v), w2 = 1.5 * A, h2 = w2 * 54 / 110;
+    c.drawImage(cross, 295, 126, 110, 54, x - w2 / 2, y - h2 / 2, w2, h2);
+  }
   // the far corners of the grounds: a pond, a little park, the car park and the entrance plaza (ChatGPT art when it has loaded)
   if (!piece(c, 'ground-pond', 14, 0)) {
     quad(c, 14.2, 0.2, 17.8, 3.8, '#4a8a34');
@@ -186,6 +192,12 @@ function paintGround() {
   }
   if (!piece(c, 'ground-car-park', 14, 7)) quad(c, 14.2, 7.2, 17.8, 10.8, '#6b6878');
   if (!piece(c, 'ground-plaza', 14, 14)) quad(c, 14.2, 14.2, 17.8, 17.8, '#d8c99c');
+  // street furniture by the paths: bins, bollards, flower tubs and a signpost to the stadium
+  const props = art('path-props');
+  if (props) {
+    const fw = props.width / 4, put = (i, u, v, h) => { const [x, y] = P(u, v), w2 = fw * h / props.height; c.fillStyle = 'rgba(20,30,10,.25)'; c.beginPath(); c.ellipse(x + 1, y, w2 * 0.4, 1.4, 0, 0, Math.PI * 2); c.fill(); c.drawImage(props, i * fw, 0, fw, props.height, x - w2 / 2, y - h, w2, h); };
+    for (const [i, u, v, h] of [[0, 4.2, 8.6, 9], [2, 6.8, 4.2, 8], [1, 4.2, 4.3, 7], [1, 6.8, 6.8, 7], [2, 13.8, 11.2, 8], [0, 11.2, 13.8, 9], [3, 11.2, 4.1, 16], [1, 13.8, 13.8, 7]]) put(i, u, v, h);
+  }
   // benches by the plaza
   for (const [u, v] of [[13.9, 15.2], [15.2, 13.9]]) stand(c, 'prop-bench', u, v, 7);
   // trees: a few in the park corner and plenty outside the grounds
@@ -226,12 +238,10 @@ function drawLot(b, t) {
   if (img) quad(ctx, L.u0 + 0.35, L.v0 + 0.1, L.u0 + n + 0.35, L.v0 + n + 0.1, 'rgba(20,30,10,.22)');
   const site = art('construction'), k = t - (builtAt[b] || -9);
   if (site && k < 1.05) { // scaffolding, the crane, then the dust as it comes down; the building pops in after
-    // the site art is drawn from a steeper camera: keep the scaffolding as drawn and squeeze its plot onto ours
-    const fw = site.width / 3, sx0 = Math.min(2, Math.floor(k / 0.35)) * fw, w = 8 * A, sc = w / fw, cut = site.height * 0.73;
-    const u = L.u0 + n / 2 - 2, v = L.v0 + n / 2 - 2, [, ly] = P(u, v + 4), [, by] = P(u + 4, v + 4), top = cut * sc;
-    ctx.drawImage(site, sx0, 0, fw, cut, cx - w / 2, ly - top, w, top);
-    ctx.drawImage(site, sx0, cut, fw, site.height - cut, cx - w / 2, ly, w, by + 1 - ly);
-    hitBox[b] = {x: cx - w / 2, y: ly - top, w, h: by - ly + top}; return;
+    // scaffolding, crane, dust: drawn at the stadium's angle, so its plot sits straight on ours
+    const fw = site.width / 3, w = 8 * A, h = site.height * w / fw, [, by] = P(L.u0 + n / 2 + 2, L.v0 + n / 2 + 2);
+    ctx.drawImage(site, Math.min(2, Math.floor(k / 0.35)) * fw, 0, fw, site.height, cx - w / 2, by + 1 - h, w, h);
+    hitBox[b] = {x: cx - w / 2, y: by - h, w, h}; return;
   }
   const fit = FIT[`building-${b}-${st}`];
   if (fit) { // flat art drawn from a steeper camera: map its left, right and bottom ground corners onto the plot's
@@ -530,9 +540,11 @@ function ticker(s, important) {
   const now = performance.now() / 1000; if (!important && now - lastTick < 15) return;
   lastTick = now; $('tickerText').textContent = s; tickerT = 30;
 }
-function news() {
-  const pool = [...C.tapLines.map(l => l.replace('+{m} ', '')), ...C.clubs.map(c => `${c.name}: ${c.line}`), ...C.stars.map(s => `${s.name} ${s.trait[0].toLowerCase()}${s.trait.slice(1)}`)];
-  ticker(pool[Math.random() * pool.length | 0]);
+let lastNews = '';
+function news() { // a line that fits how far the club has come, never the same one twice in a row
+  const built = Object.keys(LOTS).filter(b => S.lv[b]).length, tier = built === 0 ? 0 : built < 4 ? 1 : 2;
+  const pool = C.news.filter(([t, l]) => t === tier && l !== lastNews).map(([, l]) => l);
+  if (pool.length) ticker(lastNews = pool[Math.random() * pool.length | 0]);
 }
 
 // ---------- tapping: the cookie unicorn (left) and the plots (map) ----------
@@ -569,7 +581,10 @@ function stepBoots(dt) {
     if (!still.matches && p < 0.05 && p + dt * 0.3 >= 0.05 && Math.random() < Math.min(1, 10 / n)) pops2.push({x: cx + Math.cos(a) * R0 * 0.55, y: cy + Math.sin(a) * R0 * 0.55, a, k: 0});
     const r = R0 - kick * bw * 0.45;
     bctx.save(); bctx.translate(cx + Math.cos(a) * r, cy + Math.sin(a) * r); bctx.rotate(a + Math.PI);
-    bctx.drawImage(BOOT, -bw / 2, -bh / 2, bw, bh); bctx.restore();
+    const bootArt = art('boot');
+    if (bootArt) { const f = kick ? (p < 0.03 ? 1 : 2) : 0, fw = bootArt.width / 4, h2 = bw * bootArt.height / fw; bctx.imageSmoothingEnabled = true; bctx.drawImage(bootArt, f * fw, 0, fw, bootArt.height, -bw / 2, -h2 / 2, bw, h2); }
+    else bctx.drawImage(BOOT, -bw / 2, -bh / 2, bw, bh);
+    bctx.restore();
   }
   for (let i = pops2.length - 1; i >= 0; i--) { // coins hop out of the unicorn and fade
     const c = pops2[i]; c.k += dt / 0.6; if (c.k >= 1) { pops2.splice(i, 1); continue; }
@@ -604,7 +619,7 @@ kicker.addEventListener('pointerdown', e => {
   floatText('+' + fmt(v), (e.clientX - r.left) / r.width * 100, (e.clientY - r.top) / r.height * 100, false, kickFloats);
   galloping = 0.18; crumbs(e.clientX - r.left, e.clientY - r.top);
   coinToBank(e.clientX, e.clientY);
-  if (S.taps % 40 === 1) ticker(C.tapLines[(S.taps / 9 | 0) % C.tapLines.length].replace('{m}', fmt(v)));
+  if (S.taps % 40 === 1) ticker(C.tapLines[(S.taps / 40 | 0) % C.tapLines.length].replace('{m}', '+' + fmt(v)));
   paintBank();
 });
 cv.addEventListener('pointerdown', e => {
@@ -624,25 +639,28 @@ function availableUps() { return C.upgrades.map((u, i) => ({u, i})).filter(({u, 
 function renderPanel(focus) {
   document.querySelectorAll('.tabs button').forEach(b => { const on = b.dataset.tab === tab; b.classList.toggle('on', on); b.setAttribute('aria-selected', on); });
   const r = rates();
+  const coin = '<i class="ico-coin" aria-hidden="true"></i>';
   if (tab === 'club') {
-    panel.innerHTML = C.buildings.map(b => {
-      const lv = S.lv[b.id], c = cost(b.id);
-      const earnLine = lv ? `${fmt(r[b.id])}/s` : '';
-      const th = b.id === 'boots' ? BOOT.toDataURL() : `art/building-${b.id}-${Math.max(1, stageOf(b.id))}.webp`;
-      return `<div class="row" id="row-${b.id}"><img class="thumb" src="${th}" alt="" style="${lv ? '' : 'filter:grayscale(1);opacity:.55'}"><div><h3>${esc(b.name)}<small>${lv ? 'LV ' + lv : ''}</small></h3>${lv ? `<div class="earn">${earnLine}</div>` : `<p>${esc(b.blurb)}</p>`}</div>
-        <button type="button" class="buy" data-buy="${b.id}" data-cost="${c}">${b.id === 'boots' ? 'Buy' : lv ? 'Upgrade' : 'Build'}<br>${fmt(c)}</button></div>`;
+    // Cookie Clicker style store: every row is one big button. Buildings you can't reach yet stay a "???" silhouette.
+    const reach = Math.max(1, ...C.buildings.map((b, i) => S.lv[b.id] ? i + 1 : 0)); // owned ones plus the next one
+    panel.innerHTML = `<div class="store-head"><span>Club store</span><b>${fmt(r.total)}/s</b></div>` + C.buildings.map((b, i) => {
+      const lv = S.lv[b.id], c = cost(b.id), hidden = i > reach;
+      if (hidden) return `<div class="shop-row hidden-row"><span class="thumb q">?</span><div class="mid-col"><h3>???</h3><p class="price">${coin}${fmt(c)}</p></div><b class="owned"></b></div>`;
+      const th = b.id === 'boots' ? '<span class="thumb boot-thumb"></span>' : `<img class="thumb${lv ? '' : ' unbuilt'}" src="art/building-${b.id}-${Math.max(1, stageOf(b.id))}.webp" alt="">`;
+      const next = LOTS[b.id] && lv ? C.stages.find(t => t > lv) : null, prev = [...C.stages].reverse().find(t => t <= lv) || 0;
+      const info = lv ? `<span class="earn">+${fmt(r[b.id])}/s</span>${next ? `<span class="stage" title="New look at level ${next}"><i style="width:${Math.round((lv - prev) / (next - prev) * 100)}%"></i></span>` : ''}` : `<span class="blurb">${esc(b.blurb)}</span>`;
+      return `<button type="button" class="shop-row" id="row-${b.id}" data-buy="${b.id}" data-cost="${c}">${th}<div class="mid-col"><h3>${esc(b.name)}</h3><p class="price">${coin}${fmt(c)}</p>${info}</div><b class="owned">${lv || ''}</b></button>`;
     }).join('');
-    if (focus) { const row = $('row-' + focus); if (row) { row.scrollIntoView({block: 'nearest', behavior: 'smooth'}); row.animate([{background: '#fff3b0'}, {background: '#fff'}], {duration: 900}); } }
+    if (focus) { const row = $('row-' + focus); if (row) { row.scrollIntoView({block: 'nearest', behavior: 'smooth'}); row.animate([{outline: '3px solid #f2c230'}, {outline: '3px solid transparent'}], {duration: 900}); } }
   } else if (tab === 'upgrades') {
     const list = availableUps().sort((a, b) => a.u.cost - b.u.cost);
-    panel.innerHTML = list.length ? list.map(({u, i}) => `<div class="row"><img class="thumb" src="art/building-${u.b}-${Math.max(1, stageOf(u.b))}.webp" alt=""><div><h3>${esc(u.name)}</h3><div class="earn">${u.what === 'tap' ? 'Tap money' : u.what === 'sales' ? 'Player sales' : esc(B[u.b].name)} ${u.mult >= 2 ? 'x' + u.mult : '+' + Math.round((u.mult - 1) * 100) + '%'}</div></div>
-      <button type="button" class="buy" data-up="${i}" data-cost="${u.cost}">Buy<br>${fmt(u.cost)}</button></div>`).join('')
-      : '<p class="empty">No upgrades right now. Level up your buildings to unlock more.</p>';
+    panel.innerHTML = list.length ? `<div class="store-head"><span>Upgrades</span><b>${list.length} available</b></div>` + list.map(({u, i}) => `<button type="button" class="shop-row" data-up="${i}" data-cost="${u.cost}"><img class="thumb" src="art/building-${u.b}-${Math.max(1, stageOf(u.b))}.webp" alt=""><div class="mid-col"><h3>${esc(u.name)}</h3><p class="price">${coin}${fmt(u.cost)}</p><span class="earn">${u.what === 'tap' ? 'Kicks' : u.what === 'sales' ? 'Player sales' : esc(B[u.b].name)} ${u.mult >= 2 ? 'x' + u.mult : '+' + Math.round((u.mult - 1) * 100) + '%'}</span></div><b class="owned up">${u.mult >= 2 ? 'x' + u.mult : '+' + Math.round((u.mult - 1) * 100) + '%'}</b></button>`).join('')
+      : '<p class="empty">Nothing to buy yet. Level up your buildings and upgrades turn up here.</p>';
   } else {
     const kept = S.stars.filter(s => s.kept);
-    panel.innerHTML = kept.length ? kept.map(s => { const st = C.stars[s.i]; return `<div class="row">${portrait(st)}<div><h3>${esc(st.name)}</h3><div class="earn">${bonusText(st.bonus)}</div></div>
-      <button type="button" class="buy sell" data-sell="${s.i}" data-cost="0">Sell<br>${fmt(starPrice())}</button></div>`; }).join('')
-      : '<p class="empty">Your academy finds a star now and then. Keep them for a bonus, or sell them for a fortune.</p>';
+    panel.innerHTML = kept.length ? `<div class="store-head"><span>Squad</span><b>${kept.length} star${kept.length > 1 ? 's' : ''}</b></div>` + kept.map(s => { const st = C.stars[s.i]; return `<div class="shop-row star-row">${portrait(st)}<div class="mid-col"><h3>${esc(st.name)}</h3><span class="earn">${bonusText(st.bonus)}</span></div>
+      <button type="button" class="sell-btn" data-sell="${s.i}">Sell<br>${fmt(starPrice())}</button></div>`; }).join('')
+      : '<p class="empty">The academy finds a star now and then. Keep him for a bonus or cash in.</p>';
   }
   refreshButtons();
 }
@@ -652,7 +670,7 @@ function portrait(st, hero) {
 }
 function bonusText(k) { return {tap: 'Tap money x2', tickets: 'Ticket income +50%', shop: 'Shop sales +50%', sales: 'Player sale prices +50%', transfer: 'Transfer office +50%', canteen: 'Everything +10% (keeps the canteen busy)'}[k]; }
 function refreshButtons() {
-  panel.querySelectorAll('[data-cost]').forEach(b => { b.disabled = S.money < +b.dataset.cost; });
+  panel.querySelectorAll('[data-cost]').forEach(b => { const ok = S.money >= +b.dataset.cost; b.disabled = !ok; b.classList.toggle('can', ok); });
   const n = availableUps().filter(({u}) => S.money >= u.cost).length;
   $('upCount').textContent = n || ''; $('starCount').textContent = S.stars.filter(s => s.kept).length || '';
 }
@@ -662,6 +680,8 @@ panel.addEventListener('click', e => {
   else if (b.dataset.up) { const i = +b.dataset.up, u = C.upgrades[i]; if (S.money < u.cost || S.ups.includes(i)) return; S.money -= u.cost; S.ups.push(i); ticker(`${u.name}: ${u.joke}`); }
   else if (b.dataset.sell) { const i = +b.dataset.sell, s = S.stars.find(x => x.i === i && x.kept); if (!s) return; const p = starPrice(); s.kept = false; earn(p); ticker(`${C.stars[i].name} sold to ${club().name} for ${fmt(p)}.`); }
   save(); paintBank(); renderPanel();
+  const again = b.dataset.buy && $('row-' + b.dataset.buy); // the row you just bought from gives a quick gold flash
+  if (again && !still.matches) again.animate([{boxShadow: 'inset 0 0 0 3px #f2c230, 0 3px 0 #1a1030'}, {boxShadow: 'inset 0 0 0 0 #f2c230, 0 3px 0 #1a1030'}], {duration: 380, easing: 'cubic-bezier(.23,1,.32,1)'});
 });
 
 // ---------- academy sales and stars ----------
