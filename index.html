@@ -1559,6 +1559,33 @@ body.kit-gold .sprite{filter:drop-shadow(0 0 var(--kg) #ffd23f) drop-shadow(0 0 
 body.playing .topbar .tb-split .sound-toggle+.sound-toggle{border-left:0!important}
 .topbar #stadiumToggle:active,.topbar .tb-split .sound-toggle:active{transform:translateY(2px)}
 @media (hover:hover){.topbar .tb-split .sound-toggle:hover{background-color:#f3e6bf!important}}
+.modes{display:grid;gap:10px;margin:0 0 26px}
+.modes-head{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+.modes-head span{font:700 13px Silkscreen,monospace;letter-spacing:2px;text-transform:uppercase;color:#fff;text-shadow:2px 2px 0 #06041a}
+.modes-head i{flex:1;height:3px;background:repeating-linear-gradient(90deg,#fff 0 8px,transparent 8px 14px);opacity:.6}
+.mode{position:relative;display:flex!important;align-items:stretch;width:100%;height:96px;padding:0!important;margin:0!important;overflow:hidden;color:#fff!important;text-decoration:none;text-align:left;text-transform:none!important;border:3px solid #06041a!important;border-radius:0!important;box-shadow:5px 5px 0 rgba(0,0,0,.45)!important;cursor:pointer;transition:transform .16s cubic-bezier(.23,1,.32,1),box-shadow .16s cubic-bezier(.23,1,.32,1)}
+@media (hover:hover) and (pointer:fine){.mode:hover{transform:translate(-2px,-2px)}}
+.mode:active{transform:translate(2px,2px);box-shadow:2px 2px 0 rgba(0,0,0,.45)!important}
+.m-pic{flex:none;width:150px;display:grid;place-items:center;position:relative}
+.m-txt{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:3px;padding:0 120px 0 14px;background:rgba(6,4,26,.45)}
+.m-txt b{font:400 30px/1 'Jersey 15','Jersey 10',monospace;letter-spacing:.02em;text-shadow:2px 0 0 #06041a,-2px 0 0 #06041a,0 2px 0 #06041a,0 -2px 0 #06041a,3px 3px 0 #06041a}
+.m-txt small{font:600 13px/1.25 Barlow,sans-serif;opacity:.92}
+.m-go{position:absolute;right:12px;top:50%;translate:0 -50%;font:700 11px Silkscreen,monospace;color:#06041a;background:#f2c230;border:2px solid #06041a;box-shadow:0 3px 0 #06041a;padding:7px 9px;white-space:nowrap}
+.m-tag{position:absolute;top:6px;left:6px;z-index:1;font:700 10px Silkscreen,monospace;color:#06041a;background:#f2c230;border:2px solid #06041a;padding:2px 5px;transform:rotate(-3deg)}
+.m-inf{background:radial-gradient(circle at 20% 30%,#3b1a8a,#120a3a 60%,#05031a)!important}
+.m-inf::before{content:'';position:absolute;inset:0;background-image:radial-gradient(#fff 1px,transparent 1.5px),radial-gradient(#ffd23f 1px,transparent 1.5px);background-size:37px 31px,53px 47px;background-position:0 0,18px 12px;opacity:.7;animation:mTw 3s ease-in-out infinite alternate;pointer-events:none}
+@keyframes mTw{to{opacity:.35}}
+.m-sym{font:400 64px/1 'Jersey 15','Jersey 10',monospace;color:#5ef0ff;text-shadow:0 0 16px #5ef0ff,4px 4px 0 #06041a}
+.m-duel{background:linear-gradient(90deg,#1f5fd6,#163f9a)!important}
+.m-duel .m-pic{background:linear-gradient(115deg,#c8303a 0 50%,#1f5fd6 50% 100%)}
+.m-duel.hot{animation:lpdhot 1.2s ease-in-out infinite}
+.m-vs{font:400 44px/1 'Jersey 15','Jersey 10',monospace;transform:rotate(-6deg);text-shadow:3px 0 0 #06041a,-3px 0 0 #06041a,0 3px 0 #06041a,0 -3px 0 #06041a,5px 5px 0 #06041a}
+.m-tyc{background:repeating-linear-gradient(90deg,#2f7d32 0 22px,#2a7330 22px 44px)!important}
+.m-tyc .m-pic img{width:88%;height:auto;filter:drop-shadow(0 3px 0 rgba(0,0,0,.35))}
+.m-tyc .m-pic i{position:absolute;top:-12px;width:10px;height:10px;border-radius:50%;background:#f2c230;box-shadow:inset -2px -2px 0 #c99a1a,0 0 0 2px #06041a;animation:tycCoin 2.6s linear infinite}
+.m-tyc .m-pic i:nth-of-type(1){left:22%}.m-tyc .m-pic i:nth-of-type(2){left:64%;animation-delay:1.3s}
+@media (max-width:560px){.mode{height:84px}.m-pic{width:96px}.m-sym{font-size:48px}.m-vs{font-size:34px}.m-txt{padding:0 10px 0 10px}.m-txt b{font-size:24px}.m-txt small{font-size:12px}.m-go{display:none}}
+@media (prefers-reduced-motion:reduce){.m-inf::before,.m-tyc .m-pic i{animation:none}}
 .tyc-card{position:relative;display:flex;align-items:center;gap:12px;margin:-12px 0 22px;padding:8px 12px 8px 8px;overflow:hidden;color:#fff;text-decoration:none;border:3px solid #06041a;box-shadow:4px 4px 0 rgba(0,0,0,.4);background:repeating-linear-gradient(90deg,#2f7d32 0 22px,#2a7330 22px 44px);transition:transform .16s cubic-bezier(.23,1,.32,1)}
 .tyc-card:active{transform:translate(2px,2px);box-shadow:2px 2px 0 rgba(0,0,0,.4)}
 @media (hover:hover) and (pointer:fine){.tyc-card:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 rgba(0,0,0,.4)}.tyc-card:hover .tyc-art img{transform:translateY(-2px)}}
@@ -2056,10 +2083,11 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
   ${streakStrip(sInfo)}
   ${signedOut()?`<p class="tk-back"><button type="button" data-lg="back">${L('Played on another device? Sign in to bring your streak back','¿Has jugado en otro dispositivo? Entra y recupera tu racha')} →</button></p>`:''}
  </section></div>
- ${played?infStrip:''}
-
- <a class="duel-strip lp-duel" id="lp-duel" href="/duel.html?inbox" hidden></a>
-<a class="tyc-card" href="/tycoon/" data-track="tycoon_card"><span class="tyc-art" aria-hidden="true"><img src="/tycoon/art/building-stadium-2.webp" alt="" loading="lazy" width="150" height="75"><i></i><i></i><i></i><i></i></span><span class="tyc-txt"><em>${L('New','Nuevo')}</em><b>Football Money Tycoon</b><small>${L('Kick the unicorn. Build a ridiculous club.','Patea al unicornio. Construye un club absurdo.')}</small></span><span class="tyc-go">${L('Play free','Jugar gratis')} →</span></a>
+ <section class="modes" aria-label="${L('Game modes','Modos de juego')}"><div class="modes-head"><span>${L('Game modes','Modos de juego')}</span><i></i></div>
+  <button type="button" class="mode m-inf" data-infinite><span class="m-pic"><span class="m-sym">∞</span></span><span class="m-txt"><b>${L('Infinity','Infinito')}</b><small>${L('Unlimited questions, out in space','Preguntas ilimitadas, en el espacio')}</small></span><span class="m-go">${L('Press start','Pulsa start')}</span></button>
+  ${ES?'':`<a class="mode m-duel" id="lp-duel" href="/duel.html"><span class="m-pic"><span class="m-vs">VS</span></span><span class="m-txt"><b>${L('Duels','Duelos')}</b><small id="lp-duel-sub">1v1 a mate. Rarer answers hit harder</small></span><span class="m-go" id="lp-duel-go">Challenge</span></a>`}
+  <a class="mode m-tyc" href="/tycoon/" data-track="tycoon_card"><span class="m-tag">${L('New','Nuevo')}</span><span class="m-pic"><img src="/tycoon/art/building-stadium-2.webp" alt="" loading="lazy" width="150" height="75"><i></i><i></i></span><span class="m-txt"><b>${L('Money Tycoon','Money Tycoon')}</b><small>${L('Kick the unicorn. Build a ridiculous club','Patea al unicornio. Construye un club absurdo')}</small></span><span class="m-go">${L('Play free','Jugar gratis')}</span></a>
+ </section>
 
  ${compete}
 
@@ -2524,7 +2552,7 @@ function duelStrip(){if(ES||document.body.classList.contains('inf-mode'))return'
 async function lpDuels(pl){try{const el=document.getElementById('lp-duel');if(!el||ES)return;
  const signed=!!window.ucSignedIn?.();let its=[];
  if(signed){const t=await window.ucToken();if(t){const r=await fetch(SB_URL+'/rest/v1/rpc/duel_inbox',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:'{}'});if(r.ok)its=((await r.json()).items||[]).filter(x=>x.state==='your_turn'||x.state==='challenge'||x.fresh)}}
- const n=its.length,code=duelPending();if(!el.isConnected||(!n&&!pl&&!code))return;   // before today's game: only when something is waiting
+ const n=its.length,code=duelPending();if(!el.isConnected)return;
  const ch=its.filter(x=>x.state==='challenge').length,fr=its.filter(x=>x.fresh).length,kit=(()=>{try{return KITS.find(k=>k.id===localStorage.getItem('uc-kit'))}catch{return null}})();
  const spr=(m,f,k)=>`<i class="duel-spr" style="background-image:${spriteDraw(m,f,false,k&&k.id!=='classic'?k:null).replace(/"/g,"'")}"></i>`;
  const who=n===1?esc(its[0].opp):'';let txt,go,href;
@@ -2534,8 +2562,8 @@ async function lpDuels(pl){try{const el=document.getElementById('lp-duel');if(!e
  else if(code){txt='<b>Your duel is waiting</b><small>Back to your duel</small>';go='GO →';href='/duel.html?d='+encodeURIComponent(code)}
  else if(signed){txt='<b>1v1 duels</b><small>My duels · challenge a mate</small>';go='OPEN →';href='/duel.html?inbox'}
  else{txt='<b>1v1 duels</b><small>Challenge a mate</small>';go='PLAY →';href='/duel.html'}
- el.href=href;el.innerHTML=`${spr('wow',0,kit)}<b class="duel-vs">VS</b><span class="duel-flip">${spr('wow',1,KITS.find(k=>k.id==='galaxy'))}</span><span class="duel-txt">${txt}</span><span class="duel-go">${go}</span>`;
- el.hidden=false;el.onclick=()=>track('duel_home_click',{n,played:!!pl})}catch{}}
+ el.href=href;const tx=document.createElement('span');tx.innerHTML=txt;const t2=tx.querySelector('small'),t1=tx.querySelector('b');   // the Duels tile keeps its title; the line underneath says what's waiting
+ if(n||code||urg){el.querySelector('.m-txt b').innerHTML=t1.innerHTML}document.getElementById('lp-duel-sub').textContent=t2?t2.textContent:'';document.getElementById('lp-duel-go').textContent=go.replace(' →','');el.onclick=()=>track('duel_home_click',{n,played:!!pl})}catch{}}
 async function duelInboxStrip(){const el=document.getElementById('duel-strip');if(!el||duelPending()||!window.ucSignedIn?.())return;try{const t=await window.ucToken();if(!t)return;
  const r=await fetch(SB_URL+'/rest/v1/rpc/duel_inbox',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:'{}'});if(!r.ok)return;const j=await r.json();
  const n=(j.items||[]).filter(x=>x.state==='your_turn'||x.state==='challenge'||x.fresh).length,urg=(j.items||[]).some(x=>x.state==='your_turn'&&x.deadline&&new Date(x.deadline)-Date.now()<4*3600000);el.href='/duel.html?inbox';
