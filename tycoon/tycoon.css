@@ -39,7 +39,8 @@ img{image-rendering:auto}
 .ticker b{font:700 11px var(--lab);color:var(--gold);margin-right:4px}
 .mid{position:relative;aspect-ratio:320/245;border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink);overflow:hidden;
   background:#4f8d36;touch-action:manipulation}
-#map{position:absolute;left:0;top:0;display:block}
+#map{position:absolute;left:0;top:0;display:block;touch-action:none;cursor:grab}
+#map:active{cursor:grabbing}
 .mid #mapFloats{inset:auto;z-index:1}
 .event-badge{position:absolute;z-index:2;left:50%;bottom:10px;transform:translateX(-50%);max-width:92%;background:var(--red);color:#fff;border:2px solid var(--ink);box-shadow:0 3px 0 var(--ink);font:700 12px var(--lab);padding:7px 10px;animation:shake 1.6s ease-in-out infinite}
 @keyframes shake{0%,90%,100%{transform:translateX(-50%)}93%{transform:translateX(calc(-50% - 3px))}96%{transform:translateX(calc(-50% + 3px))}}
@@ -220,3 +221,7 @@ button.shop-row.can:active{transform:translateY(2px);box-shadow:0 1px 0 var(--in
 .minibar button{margin-left:auto;width:46px;height:38px;padding:0;border:2px solid var(--gold);background:none;image-rendering:pixelated}
 .minibar canvas{width:100%;height:100%;image-rendering:pixelated;pointer-events:none}
 @media (min-width:900px){.minibar{display:none}}
+
+.map-hint{position:absolute;z-index:2;left:50%;top:8px;translate:-50% 0;padding:4px 8px;font:700 10px var(--lab);color:#fff;background:rgba(26,16,48,.75);pointer-events:none;transition:opacity .3s ease}
+.map-hint.gone{opacity:0}
+@media (hover:hover) and (pointer:fine){.map-hint{display:none}}

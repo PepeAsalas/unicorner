@@ -100,13 +100,24 @@ const lotFront = b => { const L = LOTS[b], n = size(b); return P(L.u0 + n, L.v0 
 const cv = $('map'), ctx = cv.getContext('2d'), mid = $('stage'), mapFloats = $('mapFloats');
 let K = 2, SC = 1, OX = 0, OY = 0, CW = 1, CH = 1;
 const ground = document.createElement('canvas'), gctx = ground.getContext('2d');
+// the camera: Z zooms around the middle of the map, PX/PY pan it (screen pixels). Phones start zoomed in and can drag and pinch.
+let Z = matchMedia('(max-width: 899px)').matches ? 1.6 : 1, PX = 0, PY = 0, SC0 = 1;
+function clampView() {
+  Z = Math.max(1, Math.min(2.6, Z));
+  const mx = Math.max(0, (W * SC0 * Z - CW) / 2) + 30, my = Math.max(0, (H * SC0 * Z - CH) / 2) + 30;
+  PX = Math.max(-mx, Math.min(mx, PX)); PY = Math.max(-my, Math.min(my, PY));
+}
+function applyView() {
+  clampView(); SC = SC0 * Z; OX = CW / 2 - W / 2 * SC + PX; OY = CH / 2 - H / 2 * SC + PY;
+  Object.assign(mapFloats.style, {width: W * SC + 'px', height: H * SC + 'px', left: OX + 'px', top: OY + 'px'});
+  paintGround();
+}
 function resize() {
   const r = mid.getBoundingClientRect(); if (!r.width || !r.height) return;
-  CW = r.width; CH = r.height; SC = Math.min(CW / W, CH / H); OX = (CW - W * SC) / 2; OY = (CH - H * SC) / 2;
+  CW = r.width; CH = r.height; SC0 = Math.min(CW / W, CH / H);
   const dpr = window.devicePixelRatio || 1; K = dpr;
   cv.style.width = CW + 'px'; cv.style.height = CH + 'px'; cv.width = Math.round(CW * dpr); cv.height = Math.round(CH * dpr);
-  Object.assign(mapFloats.style, {width: W * SC + 'px', height: H * SC + 'px', left: OX + 'px', top: OY + 'px'});
-  ground.width = cv.width; ground.height = cv.height; paintGround();
+  ground.width = cv.width; ground.height = cv.height; applyView();
 }
 const toWorld = c => c.setTransform(K * SC, 0, 0, K * SC, K * OX, K * OY);
 const visible = () => [-OX / SC, -OY / SC, CW / SC, CH / SC]; // x, y, w, h of the world that is on screen
@@ -635,14 +646,28 @@ kicker.addEventListener('pointerdown', e => {
   if (S.taps % 40 === 1) ticker(C.tapLines[(S.taps / 40 | 0) % C.tapLines.length].replace('{m}', '+' + fmt(v)));
   paintBank();
 });
-cv.addEventListener('pointerdown', e => {
-  if (S.wall) return;
+const pts = new Map(); let dragged = 0, pinch0 = 0, z0 = 1, viewDirty = false;
+cv.addEventListener('pointerdown', e => { cv.setPointerCapture(e.pointerId); pts.set(e.pointerId, {x: e.clientX, y: e.clientY}); dragged = pts.size > 1 ? 99 : 0;
+  if (pts.size === 2) { const [a, b] = [...pts.values()]; pinch0 = Math.hypot(a.x - b.x, a.y - b.y); z0 = Z; } });
+cv.addEventListener('pointermove', e => {
+  const p = pts.get(e.pointerId); if (!p) return;
+  if (dragged > 20) $('mapHint').classList.add('gone');
+  if (pts.size === 1) { const dx = e.clientX - p.x, dy = e.clientY - p.y; dragged += Math.abs(dx) + Math.abs(dy); PX += dx; PY += dy; }
+  p.x = e.clientX; p.y = e.clientY;
+  if (pts.size === 2) { const [a, b] = [...pts.values()]; Z = z0 * Math.hypot(a.x - b.x, a.y - b.y) / (pinch0 || 1); }
+  viewDirty = true;
+});
+const lift = e => {
+  if (!pts.delete(e.pointerId)) return;
+  if (pts.size || dragged > 8 || S.wall) return; // a drag or a pinch, not a tap
   const r = cv.getBoundingClientRect(), x = (e.clientX - r.left - OX) / SC, y = (e.clientY - r.top - OY) / SC;
   const inside = b => { const h = hitBox[b]; return h && x >= h.x && x <= h.x + h.w && y >= h.y && y <= h.y + h.h; };
   if (EV && inside(TARGET_PLOT[EV.e.target])) return openEvent();
   const hit = Object.keys(LOTS).sort((a, b) => LOTS[b].u0 + LOTS[b].v0 - LOTS[a].u0 - LOTS[a].v0).find(inside);
   if (hit) { tab = 'club'; renderPanel(hit); }
-});
+};
+cv.addEventListener('pointerup', lift); cv.addEventListener('pointercancel', e => pts.delete(e.pointerId));
+cv.addEventListener('wheel', e => { e.preventDefault(); Z *= e.deltaY < 0 ? 1.1 : 1 / 1.1; viewDirty = true; }, {passive: false});
 
 // ---------- the panel ----------
 let tab = 'club';
@@ -1021,6 +1046,7 @@ function frame(now) {
     if (!document.hidden) S.play += dt;
     if (S.play >= DEMO_SECONDS && modalEl.hidden) wall();
   }
+  if (viewDirty) { viewDirty = false; applyView(); }
   draw(t, dt); stepUni(dt); stepBoots(dt); stepRain(dt);
   $('money').textContent = bigMoney(S.money); // every frame, so the cents roll
   if (miniOn) $('miniMoney').textContent = bigMoney(S.money);
