@@ -90,6 +90,8 @@ window.TYC_CONTENT = {
     {id: 'shop', name: 'Club shop', blurb: 'Sells shirts. Stars sell many more.', first: 1500, grow: 1.17, rate: 14},
     {id: 'stadium', name: 'Stadium', blurb: 'Supporters pay to watch. Stars bring bigger crowds.', first: 5000, grow: 1.18, rate: 45},
   ],
+  // shown locked at the bottom of the store: the full game's buildings
+  later: ['Physio clinic', 'Fan zone', 'Media centre', 'Women\'s team', 'Club hotel', 'Scouting network', 'Training camp in Dubai', 'Second stadium', 'Football museum', 'Club airline', 'Moon academy'],
   // stage thresholds: building level at which it looks bigger
   stages: [1, 10, 25, 50],
 

@@ -93,6 +93,7 @@ const LOTS = {
   academy: {u0: 7, v0: 14, door: [12.5, 16]},
 };
 const ROADS = [5.5, 12.5], EDGE = [-8, 26];
+const LOCKED = [[-9, -1], [-1, -9], [-9, -9], [20, 20], [21, 13], [13, 21]]; // plots of the full game's bigger map
 const TARGET_PLOT = {tap: 'pitch', pitch: 'pitch', sales: 'academy', transfer: 'transfer', shop: 'shop', tickets: 'stadium'};
 const stageOf = b => S.lv[b] ? C.stages.filter(t => S.lv[b] >= t).length : 0;
 const size = b => LOTS[b].n || 4;
@@ -199,13 +200,23 @@ function paintGround() {
     const fw = props.width / 4, put = (i, u, v, h) => { const [x, y] = P(u, v), w2 = fw * h / props.height; c.fillStyle = 'rgba(20,30,10,.25)'; c.beginPath(); c.ellipse(x + 1, y, w2 * 0.4, 1.4, 0, 0, Math.PI * 2); c.fill(); c.drawImage(props, i * fw, 0, fw, props.height, x - w2 / 2, y - h, w2, h); };
     for (const [i, u, v, h] of [[0, 4.2, 8.6, 9], [2, 6.8, 4.2, 8], [1, 4.2, 4.3, 7], [1, 6.8, 6.8, 7], [2, 13.8, 11.2, 8], [0, 11.2, 13.8, 9], [3, 11.2, 4.1, 16], [1, 13.8, 13.8, 7]]) put(i, u, v, h);
   }
+  // land beyond the grounds, locked in the demo: fenced plots with a padlock sign, hinting the map goes on
+  for (const [u0, v0] of LOCKED) {
+    quad(c, u0, v0, u0 + 4, v0 + 4, 'rgba(60,50,30,.18)');
+    c.strokeStyle = 'rgba(26,16,48,.45)'; c.lineWidth = 1; c.setLineDash([3, 3]); c.beginPath();
+    for (const [u, v] of [[u0, v0], [u0 + 4, v0], [u0 + 4, v0 + 4], [u0, v0 + 4], [u0, v0]]) c.lineTo(...P(u, v)); c.stroke(); c.setLineDash([]);
+    const [x, y] = P(u0 + 2, v0 + 2);
+    c.fillStyle = '#1a1030'; c.fillRect(x - 1, y - 14, 2, 14); c.fillRect(x - 16, y - 26, 32, 13);
+    c.fillStyle = '#efe4c6'; c.fillRect(x - 15, y - 25, 30, 11);
+    c.font = '5px Silkscreen, monospace'; c.textAlign = 'center'; c.fillStyle = '#c8303a'; c.fillText('FULL GAME', x, y - 17.5);
+  }
   // benches by the plaza
   for (const [u, v] of [[13.9, 15.2], [15.2, 13.9]]) stand(c, 'prop-bench', u, v, 7);
   // trees: a few in the park corner and plenty outside the grounds
   for (const [u, v] of [[1, 15], [2.6, 14.8], [1.6, 16.6], [3.2, 16.8], [0.8, 17.6]]) tree(c, u, v, 0.9);
   const trees = [];
   for (let u = -30; u < 44; u++) for (let v = -30; v < 44; v++) {
-    const inside = u > -1.5 && u < 19 && v > -1.5 && v < 19 || u > -4.5 && u < 4.5 && v > -4.5 && v < 4.5, onRoad = ROADS.some(k => Math.abs(u + 0.5 - k) < 2.2 || Math.abs(v + 0.5 - k) < 2.2);
+    const inside = LOCKED.some(([a, b]) => u > a - 1 && u < a + 5 && v > b - 1 && v < b + 5) || u > -1.5 && u < 19 && v > -1.5 && v < 19 || u > -4.5 && u < 4.5 && v > -4.5 && v < 4.5, onRoad = ROADS.some(k => Math.abs(u + 0.5 - k) < 2.2 || Math.abs(v + 0.5 - k) < 2.2);
     if (!inside && !onRoad && hash(u, v) < 0.09) trees.push([u + hash(v, u) * 0.6, v + hash(u + 3, v) * 0.6]);
   }
   trees.sort((a, b) => a[0] + a[1] - b[0] - b[1]).forEach(([u, v]) => tree(c, u, v, 0.8 + hash(u, v) * 0.35));
@@ -651,7 +662,7 @@ function renderPanel(focus) {
       const next = LOTS[b.id] && lv ? C.stages.find(t => t > lv) : null, prev = [...C.stages].reverse().find(t => t <= lv) || 0;
       const info = lv ? `<span class="earn">+${fmt(r[b.id])}/s</span>${next ? `<span class="stage" title="New look at level ${next}"><i style="width:${Math.round((lv - prev) / (next - prev) * 100)}%"></i></span>` : ''}` : `<span class="blurb">${esc(b.blurb)}</span>`;
       return `<button type="button" class="shop-row" id="row-${b.id}" data-buy="${b.id}" data-cost="${c}">${th}<div class="mid-col"><h3>${esc(b.name)}</h3><p class="price">${coin}${fmt(c)}</p>${info}</div><b class="owned">${lv || ''}</b></button>`;
-    }).join('');
+    }).join('') + `<div class="locked-head">Full game · ${C.later.length} more to build</div>` + C.later.map(n => `<div class="shop-row locked-row"><span class="thumb lock" aria-hidden="true"></span><div class="mid-col"><h3>${esc(n)}</h3><p class="price">Locked</p></div><b class="owned"></b></div>`).join('');
     if (focus) { const row = $('row-' + focus); if (row) { row.scrollIntoView({block: 'nearest', behavior: 'smooth'}); row.animate([{outline: '3px solid #f2c230'}, {outline: '3px solid transparent'}], {duration: 900}); } }
   } else if (tab === 'upgrades') {
     const list = availableUps().sort((a, b) => a.u.cost - b.u.cost);
@@ -659,9 +670,11 @@ function renderPanel(focus) {
       : '<p class="empty">Nothing to buy yet. Level up your buildings and upgrades turn up here.</p>';
   } else {
     const kept = S.stars.filter(s => s.kept);
-    panel.innerHTML = kept.length ? `<div class="store-head"><span>Squad</span><b>${kept.length} star${kept.length > 1 ? 's' : ''}</b></div>` + kept.map(s => { const st = C.stars[s.i]; return `<div class="shop-row star-row">${portrait(st)}<div class="mid-col"><h3>${esc(st.name)}</h3><span class="earn">${bonusText(st.bonus)}</span></div>
-      <button type="button" class="sell-btn" data-sell="${s.i}">Sell<br>${fmt(starPrice())}</button></div>`; }).join('')
-      : '<p class="empty">The academy finds a star now and then. Keep him for a bonus or cash in.</p>';
+    panel.innerHTML = kept.length ? `<div class="store-head"><span>Squad market</span><b>${fmt(kept.reduce((t, s) => t + starValue(s), 0))}</b></div>` + kept.map(s => {
+      const st = C.stars[s.i], ch = starChange(s);
+      return `<button type="button" class="shop-row star-row" data-star="${s.i}">${portrait(st)}<div class="mid-col"><h3>${esc(st.name)}</h3><p class="price">${coin}<span data-val="${s.i}">${fmt(starValue(s))}</span></p><span class="earn">${bonusText(st.bonus)}</span></div>
+        <span class="trend ${ch >= 0 ? 'up' : 'down'}" data-trend="${s.i}">${spark(s.hist, 56, 26)}<b>${ch >= 0 ? '▲' : '▼'} ${Math.abs(ch).toFixed(1)}%</b></span></button>`; }).join('')
+      : '<p class="empty">The academy finds a star now and then. Keep him and his value goes up and down like a share price: sell at the top.</p>';
   }
   refreshButtons();
 }
@@ -679,7 +692,8 @@ panel.addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b || b.disabled || S.wall) return;
   if (b.dataset.buy) { const id = b.dataset.buy, c = cost(id); if (S.money < c) return; S.money -= c; S.lv[id]++; if (LOTS[id]) { celebrate(id); const [x, y] = plotPct(id); floatText(S.lv[id] === 1 ? 'BUILT!' : 'LEVEL ' + S.lv[id], x, y, true); } if (LOTS[id] && C.stages.includes(S.lv[id])) ticker(`${B[id].name} looks bigger and shinier!`); }
   else if (b.dataset.up) { const i = +b.dataset.up, u = C.upgrades[i]; if (S.money < u.cost || S.ups.includes(i)) return; S.money -= u.cost; S.ups.push(i); ticker(`${u.name}: ${u.joke}`); }
-  else if (b.dataset.sell) { const i = +b.dataset.sell, s = S.stars.find(x => x.i === i && x.kept); if (!s) return; const p = starPrice(); s.kept = false; earn(p); ticker(`${C.stars[i].name} sold to ${club().name} for ${fmt(p)}.`); }
+  else if (b.dataset.star) return starSheet(+b.dataset.star);
+  else if (b.dataset.sell) { const i = +b.dataset.sell, s = S.stars.find(x => x.i === i && x.kept); if (!s) return; const p = starValue(s); s.kept = false; earn(p); ticker(`${C.stars[i].name} sold to ${club().name} for ${fmt(p)}.`); }
   save(); paintBank(); renderPanel();
   const again = b.dataset.buy && $('row-' + b.dataset.buy); // the row you just bought from gives a quick gold flash
   if (again && !still.matches) again.animate([{boxShadow: 'inset 0 0 0 3px #f2c230, 0 3px 0 #1a1030'}, {boxShadow: 'inset 0 0 0 0 #f2c230, 0 3px 0 #1a1030'}], {duration: 380, easing: 'cubic-bezier(.23,1,.32,1)'});
@@ -688,6 +702,60 @@ panel.addEventListener('click', e => {
 // ---------- academy sales and stars ----------
 const club = () => C.clubs[Math.random() * C.clubs.length | 0];
 const starPrice = () => Math.max(2000, rates().total * 150);
+// ---------- the squad market: a kept star's value wanders like a share price (form, injuries, nights out) ----------
+const starValue = s => starPrice() * (s.m || 1);
+const starChange = s => { const h = s.hist || [1]; return h.length < 2 ? 0 : (h[h.length - 1] / h[h.length - 2] - 1) * 100; };
+const NEWS_UP = ['{n} scores a bicycle kick in training. Value up.', '{n} trends worldwide for a celebration. Value up.', 'A Saudi club asks about {n}. Value up.', '{n} nutmegs the manager. Value up.'];
+const NEWS_DOWN = ['{n} seen leaving a nightclub at 4am holding a traffic cone. Value down.', '{n} pulls a hamstring taking a selfie. Value down.', '{n} misses an open goal. From one yard. Value down.', '{n} has started a podcast. Value down.'];
+let marketT = 0;
+function marketTick(dt) {
+  marketT += dt; if (marketT < 3) return; marketT = 0;
+  for (const s of S.stars) {
+    if (!s.kept) continue;
+    if (!s.hist) { s.m = 1; s.hist = [1]; }
+    let r = 0.004 + (Math.random() + Math.random() + Math.random() - 1.5) * 0.09; // mostly small moves, a slight drift up
+    if (Math.random() < 0.04) { // now and then a big story moves him 25-45%
+      const up = Math.random() < 0.5, n = C.stars[s.i].name, pool = up ? NEWS_UP : NEWS_DOWN;
+      r = (up ? 1 : -1) * (0.25 + Math.random() * 0.2); ticker(pool[Math.random() * pool.length | 0].replace('{n}', n), true);
+    }
+    s.m = Math.min(8, Math.max(0.08, s.m * Math.exp(r)));
+    s.hist.push(s.m); if (s.hist.length > 60) s.hist.shift();
+  }
+  if (tab === 'stars') paintMarket();
+  if (openStar >= 0) paintStarSheet();
+}
+function paintMarket() { // update numbers in place, no re-render, so a press on a row isn't lost
+  for (const s of S.stars) {
+    if (!s.kept) continue;
+    const v = panel.querySelector(`[data-val="${s.i}"]`), t = panel.querySelector(`[data-trend="${s.i}"]`), ch = starChange(s);
+    if (v) v.textContent = fmt(starValue(s));
+    if (t) { t.className = 'trend ' + (ch >= 0 ? 'up' : 'down'); t.innerHTML = spark(s.hist, 56, 26) + `<b>${ch >= 0 ? '▲' : '▼'} ${Math.abs(ch).toFixed(1)}%</b>`; }
+  }
+}
+function spark(h, w, ht, big) { // a tiny pixel line chart of the price history
+  const lo = Math.min(...h), hi = Math.max(...h), span = hi - lo || 1, n = Math.max(1, h.length - 1);
+  const pts = h.map((m, i) => `${(i / n * w).toFixed(1)},${(ht - 3 - (m - lo) / span * (ht - 6)).toFixed(1)}`).join(' ');
+  const up = h[h.length - 1] >= h[0], col = up ? '#1d7a45' : '#c8303a';
+  return `<svg viewBox="0 0 ${w} ${ht}" width="${w}" height="${ht}" shape-rendering="crispEdges" aria-hidden="true">${big ? `<polygon points="0,${ht} ${pts} ${w},${ht}" fill="${col}" opacity=".12"/>` : ''}<polyline points="${pts}" fill="none" stroke="${col}" stroke-width="${big ? 2.5 : 2}" stroke-linejoin="miter"/></svg>`;
+}
+let openStar = -1;
+function starSheet(i) {
+  openStar = i;
+  const s = S.stars.find(x => x.i === i && x.kept), st = C.stars[i]; if (!s) return;
+  modal(`<div class="star-sheet">${portrait(st)}<div><span class="tag gold">SQUAD MARKET</span><h2>${esc(st.name)}</h2><p class="note">${esc(st.trait)}</p></div></div>
+    <div class="chart" id="starChart"></div>
+    <div class="choices"><button type="button" class="buy sell" data-act="sell" id="starSellBtn"></button><button type="button" class="buy" data-act="hold">Hold<span>${bonusText(st.bonus)} while he stays</span></button></div>`, act => {
+    openStar = -1;
+    if (act === 'sell') { const p = starValue(s); s.kept = false; earn(p); ticker(`${st.name} sold to ${club().name} for ${fmt(p)}.`, true); save(); renderPanel(); }
+  });
+  paintStarSheet();
+}
+function paintStarSheet() {
+  const s = S.stars.find(x => x.i === openStar && x.kept), box = $('starChart'), btn = $('starSellBtn'); if (!s || !box) return;
+  const ch = (s.hist[s.hist.length - 1] / s.hist[0] - 1) * 100, hi = Math.max(...s.hist), lo = Math.min(...s.hist);
+  box.innerHTML = spark(s.hist, 320, 120, true) + `<div class="chart-ax"><span>High ${fmt(starPrice() * hi)}</span><span class="${ch >= 0 ? 'up' : 'down'}">${ch >= 0 ? '▲' : '▼'} ${Math.abs(ch).toFixed(1)}% since signing</span><span>Low ${fmt(starPrice() * lo)}</span></div>`;
+  btn.innerHTML = `Sell now for ${fmt(starValue(s))}<span>Price changes every 3 seconds</span>`;
+}
 function academyTick(dt) {
   const a = academy(); if (!S.lv.academy) return;
   S.academyT += dt;
@@ -707,7 +775,7 @@ function foundStar(i) {
     <div class="choices"><button type="button" class="buy" data-act="keep">Keep him<span>${bonusText(st.bonus)}</span></button>
     <button type="button" class="buy sell" data-act="sell">Sell to ${esc(c.name)} for ${fmt(p)}<span>${esc(c.line)}</span></button></div>`, act => {
     const s = S.stars.find(x => x.i === i);
-    if (act === 'keep') { s.kept = true; ticker(`${st.name} joins the club. ${bonusText(st.bonus)}.`, true); }
+    if (act === 'keep') { s.kept = true; s.m = 1; s.hist = [1]; ticker(`${st.name} joins the club. ${bonusText(st.bonus)}.`, true); }
     else { earn(p); ticker(`${st.name} sold to ${c.name} for ${fmt(p)}.`, true); }
     save(); renderPanel();
   });
@@ -810,18 +878,26 @@ function thanks() {
 }
 
 // ---------- loop ----------
-function paintBank() { $('money').textContent = fmt(S.money); $('rate').textContent = fmt(rates().total) + ' per second'; }
+// the big counter shows every cent ticking up (€12,345.67), then three decimals of millions and beyond (€5.012M)
+function bigMoney(n) {
+  if (n < 1e6) return '€' + n.toLocaleString('en-GB', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  const u = ['M', 'B', 'T', 'Qa', 'Qi']; let i = 0; n /= 1e6;
+  while (n >= 1000 && i < u.length - 1) { n /= 1000; i++; }
+  return '€' + n.toFixed(3) + u[i];
+}
+function paintBank() { $('money').textContent = bigMoney(S.money); $('rate').textContent = fmt(rates().total) + ' per second'; }
 let last = performance.now(), uiT = 0, saveT = 0, hinted = false;
 function frame(now) {
   const dt = Math.min(0.25, (now - last) / 1000); last = now;
   const t = now / 1000;
   if (!S.wall) {
     earn((rates().total - academy().perSec) * dt);
-    academyTick(dt); eventTick(dt); stepWalkers(dt);
+    academyTick(dt); eventTick(dt); stepWalkers(dt); marketTick(dt);
     if (!document.hidden) S.play += dt;
     if (S.play >= DEMO_SECONDS && modalEl.hidden) wall();
   }
   draw(t, dt); stepUni(dt); stepBoots(dt);
+  $('money').textContent = bigMoney(S.money); // every frame, so the cents roll
   uiT += dt; if (uiT > 0.2) { uiT = 0; paintBank(); refreshButtons(); }
   saveT += dt; if (saveT > 5) { saveT = 0; save(); }
   if (!S.lv.boots && S.money >= cost('boots') && !hinted) { hinted = true; ticker('You can afford a pair of boots: buy them in the Club tab.', true); }
