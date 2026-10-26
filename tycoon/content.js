@@ -83,17 +83,17 @@ window.TYC_CONTENT = {
 
   // id, name, what it earns; first: cost of level 1; grow: cost x per level; rate: money per second per level
   buildings: [
-    {id: 'boots', name: 'Boots', blurb: 'Another boot to kick the unicorn. Money falls out by itself.', first: 15, grow: 1.15, rate: 0.2},
-    {id: 'pitch', name: 'Training pitch', blurb: 'Passive income, and a better pitch makes better academy players.', first: 100, grow: 1.15, rate: 0.5},
-    {id: 'academy', name: 'Youth academy', blurb: 'Produces players and sells them automatically.', first: 120, grow: 1.16, rate: 0},
-    {id: 'transfer', name: 'Transfer office', blurb: 'Every level makes academy sales 8% richer.', first: 600, grow: 1.17, rate: 3},
-    {id: 'shop', name: 'Club shop', blurb: 'Sells shirts. Stars sell many more.', first: 1500, grow: 1.17, rate: 14},
-    {id: 'stadium', name: 'Stadium', blurb: 'Supporters pay to watch. Stars bring bigger crowds.', first: 5000, grow: 1.18, rate: 45},
+    {id: 'boots', name: 'Boots', blurb: 'Another boot to kick the unicorn. Money falls out by itself.', first: 15, grow: 1.15, rate: 0.3},
+    {id: 'pitch', name: 'Training pitch', blurb: 'Passive income, and a better pitch makes better academy players.', first: 80, grow: 1.15, rate: 1.6},
+    {id: 'academy', name: 'Youth academy', blurb: 'Produces players and sells them automatically.', first: 350, grow: 1.15, rate: 0},
+    {id: 'transfer', name: 'Transfer office', blurb: 'Agents on commission. Every level makes academy sales 6% richer.', first: 1500, grow: 1.15, rate: 40},
+    {id: 'shop', name: 'Club shop', blurb: 'Sells shirts. Stars sell many more.', first: 6000, grow: 1.15, rate: 180},
+    {id: 'stadium', name: 'Stadium', blurb: 'Supporters pay to watch. Stars bring bigger crowds.', first: 25000, grow: 1.15, rate: 800},
   ],
   // shown locked at the bottom of the store: the full game's buildings
   later: ['Physio clinic', 'Fan zone', 'Media centre', 'Women\'s team', 'Club hotel', 'Scouting network', 'Training camp in Dubai', 'Second stadium', 'Football museum', 'Club airline', 'Moon academy'],
   // shown locked at the bottom of the Upgrades tab
-  laterUps: ['Cryotherapy chamber', 'Hologram manager', 'Pay-per-view training', 'Unicorn horn polish', 'Moon kit sponsor', 'VAR you own', 'Golden toilet in the dressing room', 'A second unicorn'],
+  laterUps: ['New season (keep your legacy, start again)', 'Cryotherapy chamber', 'Hologram manager', 'Pay-per-view training', 'Unicorn horn polish', 'Moon kit sponsor', 'VAR you own', 'Golden toilet in the dressing room', 'A second unicorn'],
   // stage thresholds: building level at which it looks bigger
   stages: [1, 10, 25, 50],
 

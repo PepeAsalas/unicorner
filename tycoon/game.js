@@ -19,27 +19,32 @@ const $ = id => document.getElementById(id);
 const B = Object.fromEntries(C.buildings.map(b => [b.id, b]));
 
 // ---------- state ----------
-const fresh = () => ({v: 5, club: 'Unicorner FC', money: 0, earned: 0, lv: {boots: 0, pitch: 0, academy: 0, transfer: 0, shop: 0, stadium: 0}, ups: [], stars: [], sold: 0, play: 0,
+const fresh = () => ({v: 6, trophies: [], idle: 0, club: 'Unicorner FC', money: 0, earned: 0, lv: {boots: 0, pitch: 0, academy: 0, transfer: 0, shop: 0, stadium: 0}, ups: [], stars: [], sold: 0, play: 0,
   saved: Date.now(), wall: false, feedback: false, taps: 0, academyT: 0, nextEvent: 90, firstStarAt: 25});
 let S = fresh();
-try { const raw = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); if (raw && raw.v === 5) S = Object.assign(fresh(), raw, {lv: Object.assign(fresh().lv, raw.lv)}); } catch {}
+try { const raw = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); if (raw && raw.v === 6) S = Object.assign(fresh(), raw, {lv: Object.assign(fresh().lv, raw.lv)}); } catch {}
 let EV = null; // the active event: {e, until}
 const save = () => { S.saved = Date.now(); try { localStorage.setItem(SAVE_KEY, JSON.stringify(S)); } catch {} };
 
 // ---------- economy ----------
 const upMult = (b, what) => S.ups.reduce((m, i) => { const u = C.upgrades[i]; return u.b === b && u.what === what ? m * u.mult : m; }, 1);
-const starCount = kind => S.stars.filter(s => s.kept && C.stars[s.i].bonus === kind).length;
+const starCount = kind => S.stars.filter(s => s.kept && !(s.loan > Date.now()) && C.stars[s.i].bonus === kind).length;
 const starMult = kind => kind === 'tap' ? 2 ** starCount('tap') : 1.5 ** starCount(kind);
 const evMult = target => EV && EV.e.target === target ? 1 - EV.e.hit : 1;
 const canteen = () => 1 + 0.1 * starCount('canteen');
 const cost = b => Math.ceil(B[b].first * B[b].grow ** S.lv[b]);
+// upgrades cost about ten times their building and climb steeply, so each one is a decision you save up for
+const upCost = u => Math.ceil(B[u.b].first * 10 * 1.2 ** u.unlock);
+// everything that multiplies all income: trophies, a golden-boot frenzy, and the crowd drifting away when you go quiet
+let BUFF = null;
+const boost = () => (1 + 0.02 * (S.trophies || []).length) * (BUFF && BUFF.kind === 'frenzy' && performance.now() < BUFF.until ? 7 : 1) * crowd();
 function academy() {
   const lv = S.lv.academy;
   if (!lv) return {every: Infinity, sale: 0, perSec: 0};
-  const every = Math.max(2.5, 20 / (1 + 0.08 * lv) / upMult('academy', 'rate'));
-  const sale = 15 * lv ** 1.05 * (1 + 0.03 * S.lv.pitch) * (1 + 0.08 * S.lv.transfer) * upMult('academy', 'sales') * upMult('transfer', 'sales')
-    * starMult('sales') * evMult('sales') * canteen();
-  return {every, sale, perSec: sale / every};
+  const every = Math.max(2, 8 / (1 + 0.05 * lv)); // a player sold every few seconds, faster as the academy grows
+  const perSec = 8 * lv * (1 + 0.02 * S.lv.pitch) * (1 + 0.06 * S.lv.transfer) * upMult('academy', 'rate') * upMult('academy', 'sales') * upMult('transfer', 'sales')
+    * starMult('sales') * evMult('sales') * canteen() * boost();
+  return {every, sale: perSec * every, perSec};
 }
 function rates(noEvents) {
   const ev = noEvents ? () => 1 : evMult;
@@ -50,13 +55,13 @@ function rates(noEvents) {
     shop: S.lv.shop * B.shop.rate * upMult('shop', 'rate') * starMult('shop') * ev('shop'),
     stadium: S.lv.stadium * B.stadium.rate * upMult('stadium', 'rate') * starMult('tickets') * ev('tickets'),
   };
-  for (const k in r) r[k] *= canteen();
+  for (const k in r) r[k] *= canteen() * boost();
   const a = academy();
   r.academy = noEvents && EV && EV.e.target === 'sales' ? a.perSec / (1 - EV.e.hit) : a.perSec;
   r.total = r.boots + r.pitch + r.transfer + r.shop + r.stadium + r.academy;
   return r;
 }
-const tapValue = () => Math.max(1, (1 + 0.01 * rates().total) * upMult('pitch', 'tap') * starMult('tap') * evMult('tap'));
+const tapValue = () => Math.max(1, (1 + 0.01 * rates().total) * upMult('pitch', 'tap') * starMult('tap') * evMult('tap') * (BUFF && BUFF.kind === 'kicks' && performance.now() < BUFF.until ? 50 : 1));
 function earn(n) { S.money += n; S.earned += n; }
 
 // ---------- formatting ----------
@@ -627,7 +632,7 @@ function coinToBank(x, y) { // one coin flies from the tap into the money counte
 kicker.addEventListener('pointerdown', e => {
   if (S.wall) return;
   e.preventDefault();
-  const v = tapValue(); earn(v); S.taps++;
+  const v = tapValue(); earn(v); S.taps++; S.idle = 0; rainBurst(3);
   const r = kickFloats.getBoundingClientRect();
   floatText('+' + fmt(v), (e.clientX - r.left) / r.width * 100, (e.clientY - r.top) / r.height * 100, false, kickFloats);
   galloping = 0.18; crumbs(e.clientX - r.left, e.clientY - r.top);
@@ -666,15 +671,19 @@ function renderPanel(focus) {
     }).join('') + `<div class="locked-head">Full game · ${C.later.length} more to build</div>` + C.later.map(n => `<div class="shop-row locked-row"><span class="thumb lock" aria-hidden="true"></span><div class="mid-col"><h3>${esc(n)}</h3><p class="price">Locked</p></div><b class="owned"></b></div>`).join('');
     if (focus) { const row = $('row-' + focus); if (row) { row.scrollIntoView({block: 'nearest', behavior: 'smooth'}); row.animate([{outline: '3px solid #f2c230'}, {outline: '3px solid transparent'}], {duration: 900}); } }
   } else if (tab === 'upgrades') {
-    const list = availableUps().sort((a, b) => a.u.cost - b.u.cost);
-    panel.innerHTML = list.length ? `<div class="store-head"><span>Upgrades</span><b>${list.length} available</b></div>` + list.map(({u, i}) => `<button type="button" class="shop-row" data-up="${i}" data-cost="${u.cost}">${u.b === 'boots' ? '<span class="thumb boot-thumb"></span>' : `<img class="thumb" src="art/building-${u.b}-${Math.max(1, stageOf(u.b))}.webp" alt="">`}<div class="mid-col"><h3>${esc(u.name)}</h3><p class="price">${coin}${fmt(u.cost)}</p><span class="earn">${u.what === 'tap' ? 'Kicks' : u.what === 'sales' ? 'Player sales' : esc(B[u.b].name)} ${u.mult >= 2 ? 'x' + u.mult : '+' + Math.round((u.mult - 1) * 100) + '%'}</span></div><b class="owned up">${u.mult >= 2 ? 'x' + u.mult : '+' + Math.round((u.mult - 1) * 100) + '%'}</b></button>`).join('')
+    const list = availableUps().sort((a, b) => upCost(a.u) - upCost(b.u));
+    panel.innerHTML = list.length ? `<div class="store-head"><span>Upgrades</span><b>${list.length} available</b></div>` + list.map(({u, i}) => `<button type="button" class="shop-row" data-up="${i}" data-cost="${upCost(u)}">${u.b === 'boots' ? '<span class="thumb boot-thumb"></span>' : `<img class="thumb" src="art/building-${u.b}-${Math.max(1, stageOf(u.b))}.webp" alt="">`}<div class="mid-col"><h3>${esc(u.name)}</h3><p class="price">${coin}${fmt(upCost(u))}</p><span class="earn">${u.what === 'tap' ? 'Kicks' : u.what === 'sales' ? 'Player sales' : esc(B[u.b].name)} ${u.mult >= 2 ? 'x' + u.mult : '+' + Math.round((u.mult - 1) * 100) + '%'}</span></div><b class="owned up">${u.mult >= 2 ? 'x' + u.mult : '+' + Math.round((u.mult - 1) * 100) + '%'}</b></button>`).join('')
       : '<p class="empty">Nothing to buy yet. Level up your buildings and upgrades turn up here.</p>';
     panel.innerHTML += `<div class="locked-head">Full game · 60+ more upgrades</div>` + C.laterUps.map(n => `<div class="shop-row locked-row"><span class="thumb lock" aria-hidden="true"></span><div class="mid-col"><h3>${esc(n)}</h3><p class="price">Locked</p></div><b class="owned"></b></div>`).join('');
+  } else if (tab === 'trophies') {
+    const have = S.trophies || [];
+    panel.innerHTML = `<div class="store-head"><span>Trophy cabinet</span><b>+${have.length * 2}%</b></div><div class="cabinet">` + TROPHIES.map(([id, name, how]) => {
+      const on = have.includes(id); return `<div class="trophy${on ? ' on' : ''}" title="${esc(how)}"><i aria-hidden="true">${on ? '🏆' : '?'}</i><b>${on ? esc(name) : '???'}</b><span>${esc(how)}</span></div>`; }).join('') + '</div>';
   } else {
     const kept = S.stars.filter(s => s.kept);
     panel.innerHTML = kept.length ? `<div class="store-head"><span>Squad market</span><b>${fmt(kept.reduce((t, s) => t + starValue(s), 0))}</b></div>` + kept.map(s => {
       const st = C.stars[s.i], ch = starChange(s);
-      return `<button type="button" class="shop-row star-row" data-star="${s.i}">${portrait(st)}<div class="mid-col"><h3>${esc(st.name)}</h3><p class="price">${coin}<span data-val="${s.i}">${fmt(starValue(s))}</span></p><span class="earn">${bonusText(st.bonus)}</span></div>
+      return `<button type="button" class="shop-row star-row" data-star="${s.i}">${portrait(st)}<div class="mid-col"><h3>${esc(st.name)}</h3><p class="price">${coin}<span data-val="${s.i}">${fmt(starValue(s))}</span></p><span class="earn">${s.loan ? 'On loan · back soon' : bonusText(st.bonus)}</span></div>
         <span class="trend ${ch >= 0 ? 'up' : 'down'}" data-trend="${s.i}">${spark(s.hist, 56, 26)}<b>${ch >= 0 ? '▲' : '▼'} ${Math.abs(ch).toFixed(1)}%</b></span></button>`; }).join('')
       : '<p class="empty">The academy finds a star now and then. Keep him and his value goes up and down like a share price: sell at the top.</p>';
   }
@@ -687,13 +696,14 @@ function portrait(st, hero) {
 function bonusText(k) { return {tap: 'Tap money x2', tickets: 'Ticket income +50%', shop: 'Shop sales +50%', sales: 'Player sale prices +50%', transfer: 'Transfer office +50%', canteen: 'Everything +10% (keeps the canteen busy)'}[k]; }
 function refreshButtons() {
   panel.querySelectorAll('[data-cost]').forEach(b => { const ok = S.money >= +b.dataset.cost; b.disabled = !ok; b.classList.toggle('can', ok); });
-  const n = availableUps().filter(({u}) => S.money >= u.cost).length;
-  $('upCount').textContent = n || ''; $('starCount').textContent = S.stars.filter(s => s.kept).length || '';
+  const n = availableUps().filter(({u}) => S.money >= upCost(u)).length;
+  $('upCount').textContent = n || ''; $('starCount').textContent = S.stars.filter(s => s.kept).length || ''; $('trophyCount').textContent = (S.trophies || []).length || '';
 }
 panel.addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b || b.disabled || S.wall) return;
+  S.idle = 0;
   if (b.dataset.buy) { const id = b.dataset.buy, c = cost(id); if (S.money < c) return; S.money -= c; S.lv[id]++; if (LOTS[id]) { celebrate(id); const [x, y] = plotPct(id); floatText(S.lv[id] === 1 ? 'BUILT!' : 'LEVEL ' + S.lv[id], x, y, true); } if (LOTS[id] && C.stages.includes(S.lv[id])) ticker(`${B[id].name} looks bigger and shinier!`); }
-  else if (b.dataset.up) { const i = +b.dataset.up, u = C.upgrades[i]; if (S.money < u.cost || S.ups.includes(i)) return; S.money -= u.cost; S.ups.push(i); ticker(`${u.name}: ${u.joke}`); }
+  else if (b.dataset.up) { const i = +b.dataset.up, u = C.upgrades[i]; if (S.money < upCost(u) || S.ups.includes(i)) return; S.money -= upCost(u); S.ups.push(i); ticker(`${u.name}: ${u.joke}`); }
   else if (b.dataset.star) return starSheet(+b.dataset.star);
   else if (b.dataset.sell) { const i = +b.dataset.sell, s = S.stars.find(x => x.i === i && x.kept); if (!s) return; const p = starValue(s); s.kept = false; earn(p); ticker(`${C.stars[i].name} sold to ${club().name} for ${fmt(p)}.`); }
   save(); paintBank(); renderPanel();
@@ -715,6 +725,7 @@ function marketTick(dt) {
   for (const s of S.stars) {
     if (!s.kept) continue;
     if (!s.hist) { s.m = 1; s.hist = [1]; }
+    if (s.loan) continue; // value frozen while he's away on loan
     let r = 0.004 + (Math.random() + Math.random() + Math.random() - 1.5) * 0.09; // mostly small moves, a slight drift up
     if (Math.random() < 0.04) { // now and then a big story moves him 25-45%
       const up = Math.random() < 0.5, n = C.stars[s.i].name, pool = up ? NEWS_UP : NEWS_DOWN;
@@ -742,13 +753,15 @@ function spark(h, w, ht, big) { // a tiny pixel line chart of the price history
 }
 let openStar = -1;
 function starSheet(i) {
+  const ln = S.stars.find(x => x.i === i && x.kept); if (ln && ln.loan) { ticker(`${C.stars[i].name} is on loan. Back in ${Math.ceil((ln.loan - Date.now()) / 1000)} s.`, true); return; }
   openStar = i;
   const s = S.stars.find(x => x.i === i && x.kept), st = C.stars[i]; if (!s) return;
   modal(`<button type="button" class="sheet-x" data-act="hold" aria-label="Close">✕</button><div class="star-sheet">${portrait(st)}<div><span class="tag gold">SQUAD MARKET</span><h2>${esc(st.name)}</h2><p class="note">${esc(st.trait)}</p></div></div>
     <div class="chart" id="starChart"></div>
-    <div class="choices"><button type="button" class="buy sell" data-act="sell" id="starSellBtn"></button><button type="button" class="buy" data-act="hold">Keep him<span>${bonusText(st.bonus)} while he stays</span></button></div>`, act => {
+    <div class="choices"><button type="button" class="buy sell" data-act="sell" id="starSellBtn"></button><button type="button" class="buy" data-act="hold">Keep him<span>${bonusText(st.bonus)} while he stays</span></button>${s.loan ? '' : '<button type="button" class="buy" style="background:#fff" data-act="loan">Loan him out for 2 minutes<span>No bonus while he\'s away. He comes back worth 1.5x, or injured and worth half.</span></button>'}</div>`, act => {
     openStar = -1;
-    if (act === 'sell') { const p = starValue(s); s.kept = false; earn(p); ticker(`${st.name} sold to ${club().name} for ${fmt(p)}.`, true); save(); renderPanel(); }
+    if (act === 'loan') { s.loan = Date.now() + 120000; ticker(`${st.name} goes out on loan. Fingers crossed.`, true); save(); renderPanel(); return; }
+    if (act === 'sell') { const p = starValue(s); if (s.m >= 2) S.flip = true; s.kept = false; earn(p); ticker(`${st.name} sold to ${club().name} for ${fmt(p)}.`, true); save(); renderPanel(); }
   });
   paintStarSheet();
 }
@@ -806,8 +819,8 @@ function openEvent() {
     <div class="choices"><button type="button" class="buy" data-act="fix" ${S.money < fixCost ? 'disabled' : ''}>${esc(e.fix)}<span>Costs ${fmt(fixCost)}. Back to normal now.</span></button>
     <button type="button" class="buy sell" data-act="trade">${esc(e.trade)}<span>Earn ${fmt(payout)} and move on.</span></button>
     <button type="button" class="buy" style="background:#fff" data-act="wait">Ignore it<span>It sorts itself out in a minute.</span></button></div>`, act => {
-    if (act === 'fix') { if (S.money < fixCost) return; S.money -= fixCost; ticker(`${e.fix}. Sorted!`, true); end(); }
-    else if (act === 'trade') { earn(payout); ticker(`${e.trade}: +${fmt(payout)}`, true); end(); }
+    if (act === 'fix') { if (S.money < fixCost) return; S.money -= fixCost; S.fixed = (S.fixed || 0) + 1; ticker(`${e.fix}. Sorted!`, true); end(); }
+    else if (act === 'trade') { earn(payout); S.fixed = (S.fixed || 0) + 1; ticker(`${e.trade}: +${fmt(payout)}`, true); end(); }
   });
   function end() { EV = null; $('eventBadge').hidden = true; save(); }
 }
@@ -890,6 +903,104 @@ function thanks() {
     <p>Total earned: <b>${fmt(S.earned)}</b></p><div class="choices"><a class="buy" href="/" style="text-align:center;text-decoration:none;color:inherit">Back to Unicorner</a></div>`, null, true);
 }
 
+
+// ---------- golden boot: every minute or three a gold boot appears for 10 seconds; tap it for a bonus ----------
+const goldEl = $('golden'); let goldNext = 75, goldUntil = 0;
+function goldTick(dt) {
+  goldNext -= dt;
+  if (goldUntil && performance.now() > goldUntil) { goldEl.hidden = true; goldUntil = 0; }
+  if (goldNext > 0 || goldUntil || S.wall) return;
+  goldNext = 60 + Math.random() * 120;
+  const r = mid.getBoundingClientRect(); // somewhere over the map, in viewport coordinates
+  goldEl.style.left = (r.left + r.width * (0.15 + Math.random() * 0.7)) + 'px';
+  goldEl.style.top = (r.top + r.height * (0.15 + Math.random() * 0.6)) + 'px';
+  goldEl.hidden = false; goldUntil = performance.now() + 10000;
+}
+goldEl.addEventListener('pointerdown', e => {
+  e.preventDefault(); if (goldEl.hidden) return;
+  goldEl.hidden = true; goldUntil = 0; S.golden = (S.golden || 0) + 1; S.idle = 0;
+  const roll = Math.random(), now = performance.now();
+  if (roll < 0.5) { BUFF = {kind: 'frenzy', until: now + 60000, label: 'FRENZY x7'}; ticker('Golden boot! Frenzy: everything earns 7x for 60 seconds.', true); }
+  else if (roll < 0.75) { BUFF = {kind: 'kicks', until: now + 15000, label: 'HAT-TRICK x50 KICKS'}; ticker('Golden boot! Hat-trick: kicks are worth 50x for 15 seconds. Go.', true); }
+  else { const w = Math.max(50, Math.min(S.money * 0.15, rates().total * 900)); earn(w); ticker(`Golden boot! Transfer windfall: +${fmt(w)}.`, true); }
+  rainBurst(25); paintBank(); save();
+});
+function paintBuff() {
+  const el = $('buff'), on = BUFF && performance.now() < BUFF.until, dim = crowd() < 1;
+  if (on) { el.hidden = false; el.className = 'buff'; el.textContent = `${BUFF.label} · ${Math.ceil((BUFF.until - performance.now()) / 1000)}s`; }
+  else if (dim) { el.hidden = false; el.className = 'buff cold'; el.textContent = `Fans drifting off · income ${Math.round(crowd() * 100)}%`; }
+  else el.hidden = true;
+}
+
+// ---------- the crowd: go quiet for 2 minutes and attendance starts to slide (down to 60%) until you kick or buy again ----------
+function crowd() { const i = S.idle || 0; return i < 120 ? 1 : Math.max(0.6, 1 - (i - 120) / 300); }
+
+// ---------- loans: a loaned star comes back after 2 minutes, worth more or injured ----------
+function loanTick() {
+  for (const s of S.stars) if (s.kept && s.loan && Date.now() > s.loan) {
+    s.loan = 0; const st = C.stars[s.i];
+    if (Math.random() < 0.6) { s.m *= 1.5; S.loanWin = true; ticker(`${st.name} is back from loan. Scored 9 in 6. Value up 50%.`, true); }
+    else { s.m *= 0.5; ticker(`${st.name} is back from loan with his leg in a cast. Value halved.`, true); }
+    s.hist.push(s.m); if (tab === 'stars') renderPanel();
+  }
+}
+
+// ---------- trophy cabinet: each trophy makes everything 2% richer ----------
+const TROPHIES = [
+  ['first', 'First touch', 'Kick the unicorn', () => S.taps >= 1],
+  ['taps100', 'Sore foot', 'Kick it 100 times', () => S.taps >= 100],
+  ['taps1k', 'Physio\'s nightmare', 'Kick it 1,000 times', () => S.taps >= 1000],
+  ['boots10', 'Boot room', 'Own 10 boots', () => S.lv.boots >= 10],
+  ['boots36', 'The full ring', 'Own 36 boots', () => S.lv.boots >= 36],
+  ['all', 'Full house', 'Build one of everything', () => C.buildings.every(b => S.lv[b.id] > 0)],
+  ['stadium', 'Open for business', 'Build the stadium', () => S.lv.stadium > 0],
+  ['look', 'Glow-up', 'Give any building a new look', () => Object.keys(LOTS).some(b => S.lv[b] >= 10)],
+  ['e10k', 'Five figures', 'Earn €10,000', () => S.earned >= 1e4],
+  ['e100k', 'Six figures', 'Earn €100,000', () => S.earned >= 1e5],
+  ['e1m', 'Millionaire chairman', 'Earn €1,000,000', () => S.earned >= 1e6],
+  ['gold1', 'Golden touch', 'Catch a golden boot', () => (S.golden || 0) >= 1],
+  ['gold5', 'Midas boots', 'Catch 5 golden boots', () => (S.golden || 0) >= 5],
+  ['star', 'Wonderkid', 'Find a star in the academy', () => S.stars.length > 0],
+  ['flip', 'Buy low, sell high', 'Sell a star for 2x what he was worth when signed', () => !!S.flip],
+  ['loan', 'Loan masterclass', 'Get a star back from loan in better shape', () => !!S.loanWin],
+  ['fix', 'Crisis manager', 'Sort out 5 problems', () => (S.fixed || 0) >= 5],
+  ['name', 'Rebrand', 'Give the club a new name', () => S.club && S.club !== 'Unicorner FC'],
+];
+function trophyTick() {
+  S.trophies = S.trophies || [];
+  for (const [id, name] of TROPHIES) if (!S.trophies.includes(id) && TROPHIES.find(t => t[0] === id)[3]()) {
+    S.trophies.push(id); ticker(`🏆 Trophy: ${name}. Everything +2%.`, true); toast(name);
+    if (tab === 'trophies') renderPanel();
+  }
+}
+function toast(name) {
+  const t = document.createElement('div'); t.className = 'trophy-toast'; t.innerHTML = `<b>🏆 ${esc(name)}</b><span>+2% to everything</span>`; document.body.appendChild(t);
+  setTimeout(() => { t.classList.add('out'); setTimeout(() => t.remove(), 300); }, 2600);
+}
+
+// ---------- coins raining behind the unicorn: more coins the more you earn ----------
+const rainCv = $('rain'), rctx = rainCv.getContext('2d'), drops = [];
+let rainAcc = 0;
+function rainBurst(n) { if (!still.matches) for (let i = 0; i < n; i++) drops.push(newDrop(true)); }
+function newDrop(burst) { const w = rainCv.clientWidth; return {x: Math.random() * w, y: burst ? rainCv.clientHeight * (0.2 + Math.random() * 0.3) : -20, vy: burst ? -60 - Math.random() * 80 : 30 + Math.random() * 40, vx: (Math.random() - 0.5) * 20, f: Math.random() * 6, s: 10 + Math.random() * 10}; }
+function stepRain(dt) {
+  const dpr = window.devicePixelRatio || 1, W2 = rainCv.clientWidth, H2 = rainCv.clientHeight;
+  if (rainCv.width !== Math.round(W2 * dpr) || rainCv.height !== Math.round(H2 * dpr)) { rainCv.width = Math.round(W2 * dpr); rainCv.height = Math.round(H2 * dpr); }
+  rctx.setTransform(dpr, 0, 0, dpr, 0, 0); rctx.clearRect(0, 0, W2, H2);
+  if (still.matches || !coinImg.complete) return;
+  rainAcc += dt * Math.min(22, Math.log10(rates().total + 1) * 5); // coins per second grow with income, capped
+  while (rainAcc > 1 && drops.length < 160) { rainAcc--; drops.push(newDrop(false)); }
+  const fh = coinImg.height;
+  for (let i = drops.length - 1; i >= 0; i--) {
+    const d = drops[i]; d.vy += 120 * dt; d.y += d.vy * dt; d.x += d.vx * dt; d.f += dt * 12;
+    if (d.y > H2 + 20) { drops.splice(i, 1); continue; }
+    rctx.globalAlpha = Math.max(0, Math.min(0.4, 1 - d.y / H2 * 0.9));
+    rctx.drawImage(coinImg, (Math.floor(d.f) % 6) * fh, 0, fh, fh, d.x - d.s / 2, d.y - d.s / 2, d.s, d.s);
+  }
+  rctx.globalAlpha = 1;
+}
+let trophyT = 0;
+
 // ---------- loop ----------
 // the big counter shows every cent ticking up (€12,345.67), then three decimals of millions and beyond (€5.012M)
 function bigMoney(n) {
@@ -906,10 +1017,11 @@ function frame(now) {
   if (!S.wall) {
     earn((rates().total - academy().perSec) * dt);
     academyTick(dt); eventTick(dt); stepWalkers(dt); marketTick(dt);
+    S.idle = (S.idle || 0) + dt; goldTick(dt); trophyT += dt; if (trophyT > 1) { trophyT = 0; trophyTick(); loanTick(); paintBuff(); }
     if (!document.hidden) S.play += dt;
     if (S.play >= DEMO_SECONDS && modalEl.hidden) wall();
   }
-  draw(t, dt); stepUni(dt); stepBoots(dt);
+  draw(t, dt); stepUni(dt); stepBoots(dt); stepRain(dt);
   $('money').textContent = bigMoney(S.money); // every frame, so the cents roll
   uiT += dt; if (uiT > 0.2) { uiT = 0; paintBank(); refreshButtons(); }
   saveT += dt; if (saveT > 5) { saveT = 0; save(); }

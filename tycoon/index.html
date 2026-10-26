@@ -15,11 +15,13 @@
 <body>
 <div class="app">
   <aside class="left">
+    <canvas class="rain" id="rain" aria-hidden="true"></canvas>
     <header class="top"><a class="back" href="/">← Unicorner</a><span class="demo">DEMO</span></header>
     <button type="button" class="club" id="clubName2" title="Rename your club">Unicorner FC</button>
     <section class="bank">
       <div class="money" id="money">€0</div>
       <div class="rate" id="rate">€0 per second</div>
+      <div class="buff" id="buff" hidden></div>
     </section>
     <div class="kick-zone">
       <button type="button" class="kicker" id="kicker" aria-label="Tap the unicorn to earn money">
@@ -42,10 +44,12 @@
       <button type="button" role="tab" data-tab="club" aria-selected="true" class="on">Club</button>
       <button type="button" role="tab" data-tab="upgrades" aria-selected="false">Upgrades <b id="upCount"></b></button>
       <button type="button" role="tab" data-tab="stars" aria-selected="false">Stars <b id="starCount"></b></button>
+      <button type="button" role="tab" data-tab="trophies" aria-selected="false">🏆 <b id="trophyCount"></b></button>
     </nav>
     <div class="panel" id="panel"></div>
   </section>
 </div>
+<button type="button" class="golden" id="golden" hidden aria-label="Golden boot: tap it"></button>
 <div class="modal" id="modal" hidden><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
 <script src="content.js"></script>
 <script src="unicorn.js"></script>
