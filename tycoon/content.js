@@ -79,7 +79,8 @@ window.TYC_CONTENT = {
 
   // id, name, what it earns; first: cost of level 1; grow: cost x per level; rate: money per second per level
   buildings: [
-    {id: 'pitch', name: 'Training pitch', blurb: 'Passive income, and a better pitch makes better academy players.', first: 15, grow: 1.15, rate: 0.5},
+    {id: 'boots', name: 'Boots', blurb: 'Another boot to kick the unicorn. Money falls out by itself.', first: 15, grow: 1.15, rate: 0.2},
+    {id: 'pitch', name: 'Training pitch', blurb: 'Passive income, and a better pitch makes better academy players.', first: 100, grow: 1.15, rate: 0.5},
     {id: 'academy', name: 'Youth academy', blurb: 'Produces players and sells them automatically.', first: 120, grow: 1.16, rate: 0},
     {id: 'transfer', name: 'Transfer office', blurb: 'Every level makes academy sales 8% richer.', first: 600, grow: 1.17, rate: 3},
     {id: 'shop', name: 'Club shop', blurb: 'Sells shirts. Stars sell many more.', first: 1500, grow: 1.17, rate: 14},

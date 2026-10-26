@@ -19,10 +19,10 @@ const $ = id => document.getElementById(id);
 const B = Object.fromEntries(C.buildings.map(b => [b.id, b]));
 
 // ---------- state ----------
-const fresh = () => ({v: 3, money: 0, earned: 0, lv: {pitch: 0, academy: 0, transfer: 0, shop: 0, stadium: 0}, ups: [], stars: [], sold: 0, play: 0,
+const fresh = () => ({v: 4, money: 0, earned: 0, lv: {boots: 0, pitch: 0, academy: 0, transfer: 0, shop: 0, stadium: 0}, ups: [], stars: [], sold: 0, play: 0,
   saved: Date.now(), wall: false, feedback: false, taps: 0, academyT: 0, nextEvent: 90, firstStarAt: 25});
 let S = fresh();
-try { const raw = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); if (raw && raw.v === 3) S = Object.assign(fresh(), raw, {lv: Object.assign(fresh().lv, raw.lv)}); } catch {}
+try { const raw = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); if (raw && raw.v === 4) S = Object.assign(fresh(), raw, {lv: Object.assign(fresh().lv, raw.lv)}); } catch {}
 let EV = null; // the active event: {e, until}
 const save = () => { S.saved = Date.now(); try { localStorage.setItem(SAVE_KEY, JSON.stringify(S)); } catch {} };
 
@@ -44,6 +44,7 @@ function academy() {
 function rates(noEvents) {
   const ev = noEvents ? () => 1 : evMult;
   const r = {
+    boots: S.lv.boots * B.boots.rate * upMult('boots', 'rate') * ev('tap'),
     pitch: S.lv.pitch * B.pitch.rate * upMult('pitch', 'rate') * ev('pitch'),
     transfer: S.lv.transfer * B.transfer.rate * upMult('transfer', 'rate') * starMult('transfer') * ev('transfer'),
     shop: S.lv.shop * B.shop.rate * upMult('shop', 'rate') * starMult('shop') * ev('shop'),
@@ -52,7 +53,7 @@ function rates(noEvents) {
   for (const k in r) r[k] *= canteen();
   const a = academy();
   r.academy = noEvents && EV && EV.e.target === 'sales' ? a.perSec / (1 - EV.e.hit) : a.perSec;
-  r.total = r.pitch + r.transfer + r.shop + r.stadium + r.academy;
+  r.total = r.boots + r.pitch + r.transfer + r.shop + r.stadium + r.academy;
   return r;
 }
 const tapValue = () => Math.max(1, (1 + 0.01 * rates().total) * upMult('pitch', 'tap') * starMult('tap') * evMult('tap'));
@@ -553,7 +554,7 @@ function stepBoots(dt) {
   const dpr = window.devicePixelRatio || 1, W2 = bootsCv.clientWidth, H2 = bootsCv.clientHeight;
   if (bootsCv.width !== Math.round(W2 * dpr)) { bootsCv.width = Math.round(W2 * dpr); bootsCv.height = Math.round(H2 * dpr); }
   bctx.setTransform(dpr, 0, 0, dpr, 0, 0); bctx.clearRect(0, 0, W2, H2); bctx.imageSmoothingEnabled = false;
-  const n = Math.min(36, S.lv.pitch), t = performance.now() / 1000, cx = W2 / 2, cy = H2 / 2, R0 = Math.min(W2, H2) * 0.42, bw = Math.max(18, R0 * 0.2), bh = bw * 0.6;
+  const n = Math.min(36, S.lv.boots), t = performance.now() / 1000, cx = W2 / 2, cy = H2 / 2, R0 = Math.min(W2, H2) * 0.42, bw = Math.max(18, R0 * 0.2), bh = bw * 0.6;
   for (let i = 0; i < n; i++) {
     const a = i / n * Math.PI * 2 + t * 0.12, p = (t * 0.3 + i / n * 3.7) % 1;
     const kick = still.matches || p > 0.1 ? 0 : Math.sin(p / 0.1 * Math.PI); // a quick jab inwards and back
@@ -619,9 +620,9 @@ function renderPanel(focus) {
     panel.innerHTML = C.buildings.map(b => {
       const lv = S.lv[b.id], c = cost(b.id);
       const earnLine = lv ? `${fmt(r[b.id])}/s` : '';
-      const th = `art/building-${b.id}-${Math.max(1, stageOf(b.id))}.webp`;
+      const th = b.id === 'boots' ? BOOT.toDataURL() : `art/building-${b.id}-${Math.max(1, stageOf(b.id))}.webp`;
       return `<div class="row" id="row-${b.id}"><img class="thumb" src="${th}" alt="" style="${lv ? '' : 'filter:grayscale(1);opacity:.55'}"><div><h3>${esc(b.name)}<small>${lv ? 'LV ' + lv : ''}</small></h3>${lv ? `<div class="earn">${earnLine}</div>` : `<p>${esc(b.blurb)}</p>`}</div>
-        <button type="button" class="buy" data-buy="${b.id}" data-cost="${c}">${lv ? 'Upgrade' : 'Build'}<br>${fmt(c)}</button></div>`;
+        <button type="button" class="buy" data-buy="${b.id}" data-cost="${c}">${b.id === 'boots' ? 'Buy' : lv ? 'Upgrade' : 'Build'}<br>${fmt(c)}</button></div>`;
     }).join('');
     if (focus) { const row = $('row-' + focus); if (row) { row.scrollIntoView({block: 'nearest', behavior: 'smooth'}); row.animate([{background: '#fff3b0'}, {background: '#fff'}], {duration: 900}); } }
   } else if (tab === 'upgrades') {
@@ -649,7 +650,7 @@ function refreshButtons() {
 }
 panel.addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b || b.disabled || S.wall) return;
-  if (b.dataset.buy) { const id = b.dataset.buy, c = cost(id); if (S.money < c) return; S.money -= c; S.lv[id]++; celebrate(id); const [x, y] = plotPct(id); floatText(S.lv[id] === 1 ? 'BUILT!' : 'LEVEL ' + S.lv[id], x, y, true); if (C.stages.includes(S.lv[id])) ticker(`${B[id].name} looks bigger and shinier!`); }
+  if (b.dataset.buy) { const id = b.dataset.buy, c = cost(id); if (S.money < c) return; S.money -= c; S.lv[id]++; if (LOTS[id]) { celebrate(id); const [x, y] = plotPct(id); floatText(S.lv[id] === 1 ? 'BUILT!' : 'LEVEL ' + S.lv[id], x, y, true); } if (LOTS[id] && C.stages.includes(S.lv[id])) ticker(`${B[id].name} looks bigger and shinier!`); }
   else if (b.dataset.up) { const i = +b.dataset.up, u = C.upgrades[i]; if (S.money < u.cost || S.ups.includes(i)) return; S.money -= u.cost; S.ups.push(i); ticker(`${u.name}: ${u.joke}`); }
   else if (b.dataset.sell) { const i = +b.dataset.sell, s = S.stars.find(x => x.i === i && x.kept); if (!s) return; const p = starPrice(); s.kept = false; earn(p); ticker(`${C.stars[i].name} sold to ${club().name} for ${fmt(p)}.`); }
   save(); paintBank(); renderPanel();
@@ -721,7 +722,7 @@ function modal(html, cb, locked) {
 }
 function closeModal() { modalEl.hidden = true; sheet.innerHTML = ''; modalCb = null; }
 sheet.addEventListener('click', e => { const b = e.target.closest('[data-act]'); if (!b || b.disabled) return; const cb = modalCb; closeModal(); if (cb) cb(b.dataset.act); paintBank(); });
-modalEl.addEventListener('click', e => { if (e.target === modalEl && !modalEl.dataset.locked) closeModal(); });
+// tapping outside a pop-up does nothing: every pop-up needs an answer from its own buttons
 
 // ---------- the story, once at the start ----------
 function intro() {
@@ -794,7 +795,7 @@ function frame(now) {
   draw(t, dt); stepUni(dt); stepBoots(dt);
   uiT += dt; if (uiT > 0.2) { uiT = 0; paintBank(); refreshButtons(); }
   saveT += dt; if (saveT > 5) { saveT = 0; save(); }
-  if (!S.lv.pitch && S.money >= cost('pitch') && !hinted) { hinted = true; ticker('You can afford a training pitch: build it in the Club tab.'); }
+  if (!S.lv.boots && S.money >= cost('boots') && !hinted) { hinted = true; ticker('You can afford a pair of boots: buy them in the Club tab.'); }
   tickerT -= dt; if (tickerT < 0) news();
   requestAnimationFrame(frame);
 }
