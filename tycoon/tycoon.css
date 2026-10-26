@@ -33,7 +33,7 @@ img{image-rendering:auto}
 @keyframes up{from{opacity:1;transform:translate(-50%,0) scale(.9)}to{opacity:0;transform:translate(-50%,-60px) scale(1.05)}}
 .coin{position:fixed;z-index:30;left:0;top:0;width:22px;height:22px;background:url(art/coin.webp) 0 0/132px 22px no-repeat;pointer-events:none;animation:coin-spin .36s steps(6) infinite}
 @keyframes coin-spin{to{background-position:-132px 0}}
-.ticker{grid-area:ticker;margin:0;min-height:20px;font:600 14px Barlow,sans-serif;opacity:.92}
+.ticker{grid-area:ticker;margin:0;font:600 14px/1.3 Barlow,sans-serif;height:calc(2.6em + 2px);overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;opacity:.92}/* always two lines tall, so a long line never pushes the unicorn */
 .ticker b{font:700 11px var(--lab);color:var(--gold);margin-right:4px}
 .mid{position:relative;aspect-ratio:320/245;border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink);overflow:hidden;
   background:#4f8d36;touch-action:manipulation}
@@ -61,7 +61,7 @@ img{image-rendering:auto}
   .rate{font-size:12px}
   .kick-zone{order:2;flex:1;width:100%;height:auto;min-height:0;display:flex;align-items:center;justify-content:center}
   .kicker{width:min(100%,46vh);height:auto;aspect-ratio:1}
-  .ticker{order:3;text-align:left;padding:8px 10px;background:rgba(0,0,0,.35);border:2px solid var(--ink)}
+  .ticker{order:3;text-align:left;padding:8px 10px;height:calc(2.6em + 22px);flex:none;background:rgba(0,0,0,.35);border:2px solid var(--ink)}
   .mid{aspect-ratio:auto;height:100%}
   .right{min-height:0;height:100%}
   .panel{flex:1;overflow:auto;min-height:0;overscroll-behavior:contain}

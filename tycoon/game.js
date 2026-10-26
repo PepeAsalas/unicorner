@@ -226,9 +226,12 @@ function drawLot(b, t) {
   if (img) quad(ctx, L.u0 + 0.35, L.v0 + 0.1, L.u0 + n + 0.35, L.v0 + n + 0.1, 'rgba(20,30,10,.22)');
   const site = art('construction'), k = t - (builtAt[b] || -9);
   if (site && k < 1.05) { // scaffolding, the crane, then the dust as it comes down; the building pops in after
-    const fw = site.width / 3, w = 8 * A, h = site.height * w / fw, [, by] = P(L.u0 + n / 2 + 2, L.v0 + n / 2 + 2);
-    ctx.drawImage(site, Math.min(2, Math.floor(k / 0.35)) * fw, 0, fw, site.height, cx - w / 2, by + 1 - h, w, h);
-    hitBox[b] = {x: cx - w / 2, y: by - h, w, h}; return;
+    // the site art is drawn from a steeper camera: keep the scaffolding as drawn and squeeze its plot onto ours
+    const fw = site.width / 3, sx0 = Math.min(2, Math.floor(k / 0.35)) * fw, w = 8 * A, sc = w / fw, cut = site.height * 0.73;
+    const u = L.u0 + n / 2 - 2, v = L.v0 + n / 2 - 2, [, ly] = P(u, v + 4), [, by] = P(u + 4, v + 4), top = cut * sc;
+    ctx.drawImage(site, sx0, 0, fw, cut, cx - w / 2, ly - top, w, top);
+    ctx.drawImage(site, sx0, cut, fw, site.height - cut, cx - w / 2, ly, w, by + 1 - ly);
+    hitBox[b] = {x: cx - w / 2, y: ly - top, w, h: by - ly + top}; return;
   }
   const fit = FIT[`building-${b}-${st}`];
   if (fit) { // flat art drawn from a steeper camera: map its left, right and bottom ground corners onto the plot's
@@ -521,7 +524,12 @@ function floatText(s, xPct, yPct, big, layer) {
 }
 const plotPct = b => { const [x] = lotCentre(b), y = hitBox[b] ? hitBox[b].y + 10 : lotCentre(b)[1] - 20; return [x / W * 100, y / H * 100]; };
 let tickerT = 0;
-function ticker(s) { $('tickerText').textContent = s; tickerT = 25; } // a news line every 25 s at most, so the panel isn't a wall of text
+let lastTick = -99;
+// one news line at a time: small talk waits at least 15 s after the last line; important news (events, stars, hints) always shows
+function ticker(s, important) {
+  const now = performance.now() / 1000; if (!important && now - lastTick < 15) return;
+  lastTick = now; $('tickerText').textContent = s; tickerT = 30;
+}
 function news() {
   const pool = [...C.tapLines.map(l => l.replace('+{m} ', '')), ...C.clubs.map(c => `${c.name}: ${c.line}`), ...C.stars.map(s => `${s.name} ${s.trait[0].toLowerCase()}${s.trait.slice(1)}`)];
   ticker(pool[Math.random() * pool.length | 0]);
@@ -596,7 +604,7 @@ kicker.addEventListener('pointerdown', e => {
   floatText('+' + fmt(v), (e.clientX - r.left) / r.width * 100, (e.clientY - r.top) / r.height * 100, false, kickFloats);
   galloping = 0.18; crumbs(e.clientX - r.left, e.clientY - r.top);
   coinToBank(e.clientX, e.clientY);
-  if (S.taps % 9 === 1) ticker(C.tapLines[(S.taps / 9 | 0) % C.tapLines.length].replace('{m}', fmt(v)));
+  if (S.taps % 40 === 1) ticker(C.tapLines[(S.taps / 9 | 0) % C.tapLines.length].replace('{m}', fmt(v)));
   paintBank();
 });
 cv.addEventListener('pointerdown', e => {
@@ -678,8 +686,8 @@ function foundStar(i) {
     <div class="choices"><button type="button" class="buy" data-act="keep">Keep him<span>${bonusText(st.bonus)}</span></button>
     <button type="button" class="buy sell" data-act="sell">Sell to ${esc(c.name)} for ${fmt(p)}<span>${esc(c.line)}</span></button></div>`, act => {
     const s = S.stars.find(x => x.i === i);
-    if (act === 'keep') { s.kept = true; ticker(`${st.name} joins the club. ${bonusText(st.bonus)}.`); }
-    else { earn(p); ticker(`${st.name} sold to ${c.name} for ${fmt(p)}.`); }
+    if (act === 'keep') { s.kept = true; ticker(`${st.name} joins the club. ${bonusText(st.bonus)}.`, true); }
+    else { earn(p); ticker(`${st.name} sold to ${c.name} for ${fmt(p)}.`, true); }
     save(); renderPanel();
   });
 }
@@ -695,7 +703,7 @@ function eventTick(dt) {
     EV = {e, until: performance.now() + 75000, t0: performance.now() / 1000};
     S.nextEvent = 70 + Math.random() * 60;
     const b = $('eventBadge'); b.textContent = '⚠ Trouble! Tap'; b.hidden = false;
-    ticker(e.see);
+    ticker(e.see, true);
   }
 }
 $('eventBadge').onclick = () => openEvent();
@@ -707,8 +715,8 @@ function openEvent() {
     <div class="choices"><button type="button" class="buy" data-act="fix" ${S.money < fixCost ? 'disabled' : ''}>${esc(e.fix)}<span>Costs ${fmt(fixCost)}. Back to normal now.</span></button>
     <button type="button" class="buy sell" data-act="trade">${esc(e.trade)}<span>Earn ${fmt(payout)} and move on.</span></button>
     <button type="button" class="buy" style="background:#fff" data-act="wait">Ignore it<span>It sorts itself out in a minute.</span></button></div>`, act => {
-    if (act === 'fix') { if (S.money < fixCost) return; S.money -= fixCost; ticker(`${e.fix}. Sorted!`); end(); }
-    else if (act === 'trade') { earn(payout); ticker(`${e.trade}: +${fmt(payout)}`); end(); }
+    if (act === 'fix') { if (S.money < fixCost) return; S.money -= fixCost; ticker(`${e.fix}. Sorted!`, true); end(); }
+    else if (act === 'trade') { earn(payout); ticker(`${e.trade}: +${fmt(payout)}`, true); end(); }
   });
   function end() { EV = null; $('eventBadge').hidden = true; save(); }
 }
@@ -795,7 +803,7 @@ function frame(now) {
   draw(t, dt); stepUni(dt); stepBoots(dt);
   uiT += dt; if (uiT > 0.2) { uiT = 0; paintBank(); refreshButtons(); }
   saveT += dt; if (saveT > 5) { saveT = 0; save(); }
-  if (!S.lv.boots && S.money >= cost('boots') && !hinted) { hinted = true; ticker('You can afford a pair of boots: buy them in the Club tab.'); }
+  if (!S.lv.boots && S.money >= cost('boots') && !hinted) { hinted = true; ticker('You can afford a pair of boots: buy them in the Club tab.', true); }
   tickerT -= dt; if (tickerT < 0) news();
   requestAnimationFrame(frame);
 }
