@@ -19,10 +19,10 @@ const $ = id => document.getElementById(id);
 const B = Object.fromEntries(C.buildings.map(b => [b.id, b]));
 
 // ---------- state ----------
-const fresh = () => ({v: 4, money: 0, earned: 0, lv: {boots: 0, pitch: 0, academy: 0, transfer: 0, shop: 0, stadium: 0}, ups: [], stars: [], sold: 0, play: 0,
+const fresh = () => ({v: 5, club: 'Unicorner FC', money: 0, earned: 0, lv: {boots: 0, pitch: 0, academy: 0, transfer: 0, shop: 0, stadium: 0}, ups: [], stars: [], sold: 0, play: 0,
   saved: Date.now(), wall: false, feedback: false, taps: 0, academyT: 0, nextEvent: 90, firstStarAt: 25});
 let S = fresh();
-try { const raw = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); if (raw && raw.v === 4) S = Object.assign(fresh(), raw, {lv: Object.assign(fresh().lv, raw.lv)}); } catch {}
+try { const raw = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); if (raw && raw.v === 5) S = Object.assign(fresh(), raw, {lv: Object.assign(fresh().lv, raw.lv)}); } catch {}
 let EV = null; // the active event: {e, until}
 const save = () => { S.saved = Date.now(); try { localStorage.setItem(SAVE_KEY, JSON.stringify(S)); } catch {} };
 
@@ -174,15 +174,16 @@ function paintGround() {
     const tex = document.createElement('canvas'); tex.width = 150; tex.height = 70; // a clean square of paving from the middle of the tile
     tex.getContext('2d').drawImage(pave, 200, 80, 150, 70, 0, 0, 150, 70); // already drawn at our angle, so it repeats as a plain screen pattern
     const pat = c.createPattern(tex, 'repeat'); pat.setTransform(new DOMMatrix([0.16, 0, 0, 0.16, 0, 0]));
-    for (const k of ROADS) { quad(c, k - 1, -60, k + 1, 80, pat); quad(c, -60, k - 1, 80, k + 1, pat); }
+    for (const k of ROADS) { quad(c, k - 1, -60, k + 1, 80, '#e6d6b2'); quad(c, -60, k - 1, 80, k + 1, '#e6d6b2'); }
+    c.globalAlpha = 0.35; for (const k of ROADS) { quad(c, k - 1, -60, k + 1, 80, pat); quad(c, -60, k - 1, 80, k + 1, pat); } c.globalAlpha = 1; // the paving pattern faded right back, so the paths stay calm
   } else for (const k of ROADS) { quad(c, k - 1, -60, k + 1, 80, '#ead8b4'); quad(c, -60, k - 1, 80, k + 1, '#ead8b4'); }
   for (const k of ROADS) for (const e of [-1, 1]) for (let i = -40; i < 60; i += 0.5) { // kerb: alternating red and cream blocks
     const a = i, b2 = i + 0.5; if (ROADS.some(q => Math.abs(a + 0.25 - q) < 1)) continue;
-    const col = (i * 2) % 2 === 0 ? '#c8303a' : '#efe4c6', o = k + e * 1.02, w2 = 0.12 * e;
+    const col = (i * 2) % 4 === 0 ? '#b8434a' : '#efe4c6', o = k + e * 1.02, w2 = 0.12 * e;
     quad(c, o - w2, a, o + w2, b2, col); quad(c, a, o - w2, b2, o + w2, col);
   }
   const cross = art('path-cross');
-  if (cross) for (const u of ROADS) for (const v of ROADS) { // the crest mosaic from the middle of the crossroads tile
+  if (cross) for (const [u, v] of [[ROADS[0], ROADS[1]]]) { // one crest, at the crossing nearest the entrance // the crest mosaic from the middle of the crossroads tile
     const [x, y] = P(u, v), w2 = 1.7 * A, h2 = w2 * 70 / 124; // a roomy crop with an oval clip, so the whole ring shows and no square corner does
     c.save(); c.beginPath(); c.ellipse(x, y, w2 * 0.43, h2 * 0.43, 0, 0, Math.PI * 2); c.clip();
     c.drawImage(cross, 288, 118, 124, 70, x - w2 / 2, y - h2 / 2, w2, h2); c.restore();
@@ -198,7 +199,7 @@ function paintGround() {
   const props = art('path-props');
   if (props) {
     const fw = props.width / 4, put = (i, u, v, h) => { const [x, y] = P(u, v), w2 = fw * h / props.height; c.fillStyle = 'rgba(20,30,10,.25)'; c.beginPath(); c.ellipse(x + 1, y, w2 * 0.4, 1.4, 0, 0, Math.PI * 2); c.fill(); c.drawImage(props, i * fw, 0, fw, props.height, x - w2 / 2, y - h, w2, h); };
-    for (const [i, u, v, h] of [[0, 4.2, 8.6, 9], [2, 6.8, 4.2, 8], [1, 4.2, 4.3, 7], [1, 6.8, 6.8, 7], [2, 13.8, 11.2, 8], [0, 11.2, 13.8, 9], [3, 11.2, 4.1, 16], [1, 13.8, 13.8, 7]]) put(i, u, v, h);
+    for (const [i, u, v, h] of [[2, 6.8, 4.2, 8], [3, 11.2, 4.1, 16], [0, 11.2, 13.8, 9]]) put(i, u, v, h); // just three: a flower tub, the stadium signpost, a bin
   }
   // land beyond the grounds, locked in the demo: fenced plots with a padlock sign, hinting the map goes on
   for (const [u0, v0] of LOCKED) {
@@ -389,7 +390,7 @@ function animate(fx, b, x0, y0, w, h, t) {
 // "front" (walking towards the camera, down-right) and "back" (walking away, up-right); walking left is a mirror image.
 function person(who, x, y, h, t, o = {}) {
   const name = `char-${who}-${o.back ? 'back' : 'front'}`, img = art(name); if (!img) return;
-  const fw = img.width / 4, fh = img.height, w = fw * h / fh, f = o.walk ? Math.floor(t * 6 + (o.seed || 0)) % 4 : 0;
+  const fw = img.width / 4, fh = img.height, w = fw * h / fh, f = o.f != null ? o.f : o.walk ? Math.floor(t * 6 + (o.seed || 0)) % 4 : 0; // walkers pass f from the distance walked, so feet don't slide
   ctx.save(); ctx.globalAlpha = o.alpha ?? 1; ctx.translate(x, y);
   ctx.fillStyle = 'rgba(20,40,10,.28)'; ctx.beginPath(); ctx.ellipse(0, 0, w * 0.3, 1.5, 0, 0, Math.PI * 2); ctx.fill();
   if (!o.right) ctx.scale(-1, 1);
@@ -437,7 +438,7 @@ function stepWalkers(dt) {
     const w = walkers[n]; w.life += dt;
     if (w.i >= w.path.length - 1) { w.out += dt; if (w.out > 0.25) walkers.splice(n, 1); continue; }
     const a = w.path[w.i], b = w.path[w.i + 1], len = Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]) || 1e-6;
-    w.k += w.v * dt / len; if (w.k >= 1) { w.k = 0; w.i++; }
+    w.k += w.v * dt / len; w.dist = (w.dist || 0) + w.v * dt; if (w.k >= 1) { w.k = 0; w.i++; }
   }
 }
 function walkerPos(w) {
@@ -451,7 +452,7 @@ function drawPeople(t) {
   const list = [];
   for (const w of walkers) {
     const p = walkerPos(w), alpha = Math.min(1, w.life / 0.25) * (1 - w.out / 0.25);
-    list.push({d: p.d, f: () => person(w.who, p.x, p.y, 15, t, {walk: w.out === 0, right: p.right, back: p.back, seed: w.seed * 4, alpha})});
+    list.push({d: p.d, f: () => person(w.who, p.x, p.y, 15, t, {walk: w.out === 0, f: Math.floor((w.dist || 0) * 4.5 + w.seed) % 4, right: p.right, back: p.back, alpha})});
   }
   if (S.lv.academy) { // academy players practising shots beside the academy: a kick every couple of seconds each
     const L = LOTS.academy, kids = Math.min(3, Math.ceil(S.lv.academy / 6));
@@ -666,8 +667,9 @@ function renderPanel(focus) {
     if (focus) { const row = $('row-' + focus); if (row) { row.scrollIntoView({block: 'nearest', behavior: 'smooth'}); row.animate([{outline: '3px solid #f2c230'}, {outline: '3px solid transparent'}], {duration: 900}); } }
   } else if (tab === 'upgrades') {
     const list = availableUps().sort((a, b) => a.u.cost - b.u.cost);
-    panel.innerHTML = list.length ? `<div class="store-head"><span>Upgrades</span><b>${list.length} available</b></div>` + list.map(({u, i}) => `<button type="button" class="shop-row" data-up="${i}" data-cost="${u.cost}"><img class="thumb" src="art/building-${u.b}-${Math.max(1, stageOf(u.b))}.webp" alt=""><div class="mid-col"><h3>${esc(u.name)}</h3><p class="price">${coin}${fmt(u.cost)}</p><span class="earn">${u.what === 'tap' ? 'Kicks' : u.what === 'sales' ? 'Player sales' : esc(B[u.b].name)} ${u.mult >= 2 ? 'x' + u.mult : '+' + Math.round((u.mult - 1) * 100) + '%'}</span></div><b class="owned up">${u.mult >= 2 ? 'x' + u.mult : '+' + Math.round((u.mult - 1) * 100) + '%'}</b></button>`).join('')
+    panel.innerHTML = list.length ? `<div class="store-head"><span>Upgrades</span><b>${list.length} available</b></div>` + list.map(({u, i}) => `<button type="button" class="shop-row" data-up="${i}" data-cost="${u.cost}">${u.b === 'boots' ? '<span class="thumb boot-thumb"></span>' : `<img class="thumb" src="art/building-${u.b}-${Math.max(1, stageOf(u.b))}.webp" alt="">`}<div class="mid-col"><h3>${esc(u.name)}</h3><p class="price">${coin}${fmt(u.cost)}</p><span class="earn">${u.what === 'tap' ? 'Kicks' : u.what === 'sales' ? 'Player sales' : esc(B[u.b].name)} ${u.mult >= 2 ? 'x' + u.mult : '+' + Math.round((u.mult - 1) * 100) + '%'}</span></div><b class="owned up">${u.mult >= 2 ? 'x' + u.mult : '+' + Math.round((u.mult - 1) * 100) + '%'}</b></button>`).join('')
       : '<p class="empty">Nothing to buy yet. Level up your buildings and upgrades turn up here.</p>';
+    panel.innerHTML += `<div class="locked-head">Full game · 60+ more upgrades</div>` + C.laterUps.map(n => `<div class="shop-row locked-row"><span class="thumb lock" aria-hidden="true"></span><div class="mid-col"><h3>${esc(n)}</h3><p class="price">Locked</p></div><b class="owned"></b></div>`).join('');
   } else {
     const kept = S.stars.filter(s => s.kept);
     panel.innerHTML = kept.length ? `<div class="store-head"><span>Squad market</span><b>${fmt(kept.reduce((t, s) => t + starValue(s), 0))}</b></div>` + kept.map(s => {
@@ -822,6 +824,14 @@ sheet.addEventListener('click', e => { const b = e.target.closest('[data-act]');
 // tapping outside a pop-up does nothing: every pop-up needs an answer from its own buttons. Escape works where there's a close button.
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modalEl.hidden) { const x = sheet.querySelector('.sheet-x'); if (x) x.click(); } });
 
+// ---------- the club's name: set in the story, changed any time by tapping it ----------
+let pendingName = '';
+function setClub(n) { S.club = (n || '').trim().slice(0, 24) || 'Unicorner FC'; $('clubName2').textContent = S.club; document.title = S.club + ' · Unicorner Tycoon (demo)'; }
+$('clubName2').addEventListener('click', () => {
+  modal(`<button type="button" class="sheet-x" data-act="x" aria-label="Close">✕</button><h2>Rename the club</h2><label for="clubName">Club name</label><input id="clubName" maxlength="24" value="${esc(S.club)}" autocomplete="off">
+    <div class="choices" style="margin-top:12px"><button type="button" class="buy" data-act="ok">Save</button></div>`, act => { if (act === 'ok') { setClub(pendingName); save(); } });
+  pendingName = S.club; const i = $('clubName'); i.addEventListener('input', e => { pendingName = e.target.value; }); i.select();
+});
 // ---------- the story, once at the start ----------
 function intro() {
   const pic = cookieUnicorn(0, 8).toDataURL();
@@ -829,7 +839,9 @@ function intro() {
     <span class="tag">UNICORNER FC</span><h2>Your club is skint</h2>
     <p>You're the president of the worst club in the league. The floodlights run on a hamster and the striker is your uncle.</p>
     <p>Then a unicorn wandered onto the pitch. Every time someone kicks it, money falls out.</p>
-    <div class="choices"><button type="button" class="buy" data-act="go">Kick the unicorn</button></div>`, () => { S.intro = true; save(); }, true);
+    <label for="clubName">Name your club</label><input id="clubName" maxlength="24" value="${esc(S.club)}" autocomplete="off">
+    <div class="choices" style="margin-top:12px"><button type="button" class="buy" data-act="go">Kick the unicorn</button></div>`, () => { S.intro = true; setClub(pendingName); save(); }, true);
+  pendingName = S.club; $('clubName').addEventListener('input', e => { pendingName = e.target.value; });
 }
 
 // ---------- offline earnings ----------
@@ -910,7 +922,7 @@ window.addEventListener('pagehide', save);
 window.addEventListener('resize', resize);
 if (window.ResizeObserver) new ResizeObserver(resize).observe(mid);
 
-resize(); loadArt(); renderPanel(); paintBank();
+resize(); loadArt(); renderPanel(); paintBank(); setClub(S.club);
 if (S.wall) (S.feedback ? thanks : wall)();
 else if (!S.intro) intro();
 else offline();

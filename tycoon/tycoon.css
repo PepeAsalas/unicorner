@@ -10,7 +10,9 @@ img{image-rendering:auto}
 .top{grid-area:top;display:flex;align-items:center;justify-content:space-between}
 .back{font:700 13px var(--lab);color:#fff;text-decoration:none;padding:6px 0}
 .demo{font:700 10px var(--lab);letter-spacing:1px;color:var(--ink);background:var(--gold);padding:3px 6px;box-shadow:0 2px 0 var(--ink);transform:rotate(4deg)}
-.club{display:none}
+.club{grid-area:top;justify-self:center;background:none;border:0;padding:4px 6px;font:400 22px/1 var(--px);color:#fff;text-shadow:0 2px 0 var(--ink);cursor:pointer}
+.club::after{content:' ✎';font-size:.6em;opacity:.6}
+.club:active{transform:translateY(1px)}
 .bank{grid-area:bank}
 .money{font:400 46px/0.9 var(--px);font-variant-numeric:tabular-nums;color:var(--gold);text-shadow:0 3px 0 var(--ink)}
 .rate{font:700 11px var(--lab);opacity:.85;margin-top:4px}
@@ -55,7 +57,7 @@ img{image-rendering:auto}
   .app{max-width:none;height:100dvh;margin:0;padding:12px;display:grid;grid-template-columns:minmax(280px,1fr) minmax(380px,1.35fr) minmax(320px,1fr);gap:12px}
   .left{display:flex;flex-direction:column;align-items:stretch;gap:6px;min-height:0;background:linear-gradient(rgba(14,10,30,.55),rgba(14,10,30,.2) 35%,rgba(14,10,30,.15) 70%,rgba(14,10,30,.6)),url(art/backdrop-training.webp) center/cover;border:3px solid var(--ink);box-shadow:0 4px 0 #000;padding:12px 14px;text-align:center}
   .top{order:0}
-  .club{display:block;font:400 30px/1 var(--px);color:#fff;text-shadow:0 2px 0 var(--ink);margin-top:4px}
+  .club{display:block;align-self:center;font:400 30px/1 var(--px);color:#fff;text-shadow:0 2px 0 var(--ink);margin-top:4px}
   .bank{order:1}
   .money{font-size:64px}
   .rate{font-size:12px}
@@ -99,7 +101,7 @@ img{image-rendering:auto}
 .rate10 button{padding:9px 0;background:#fff;border:2px solid var(--ink);font:700 13px var(--lab)}
 .rate10 button.on{background:var(--gold)}
 .sheet label{display:block;font:700 12px var(--lab);margin:10px 0 4px}
-.sheet input[type=email],.sheet textarea{width:100%;padding:10px;border:2px solid var(--ink);font:16px Barlow,sans-serif;background:#fff}
+.sheet input[type=email],.sheet input:not([type]),.sheet textarea{width:100%;padding:10px;border:2px solid var(--ink);font:16px Barlow,sans-serif;background:#fff}
 .sheet textarea{min-height:70px;resize:vertical}
 .note{font-size:12px!important;color:#6b6280}
 .dots{font:400 40px/1 var(--px);text-align:center;letter-spacing:4px}

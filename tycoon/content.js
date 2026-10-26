@@ -92,6 +92,8 @@ window.TYC_CONTENT = {
   ],
   // shown locked at the bottom of the store: the full game's buildings
   later: ['Physio clinic', 'Fan zone', 'Media centre', 'Women\'s team', 'Club hotel', 'Scouting network', 'Training camp in Dubai', 'Second stadium', 'Football museum', 'Club airline', 'Moon academy'],
+  // shown locked at the bottom of the Upgrades tab
+  laterUps: ['Cryotherapy chamber', 'Hologram manager', 'Pay-per-view training', 'Unicorn horn polish', 'Moon kit sponsor', 'VAR you own', 'Golden toilet in the dressing room', 'A second unicorn'],
   // stage thresholds: building level at which it looks bigger
   stages: [1, 10, 25, 50],
 
@@ -187,6 +189,9 @@ window.TYC_CONTENT = {
 
   // building, mult (x2 = 2, +50% = 1.5), what (rate | tap | sales), unlock: building level needed, cost
   upgrades: [
+    {name: 'Steel toecaps', b: 'boots', what: 'rate', mult: 2, unlock: 1, cost: 100, joke: 'The unicorn has noticed.'},
+    {name: 'Lucky laces', b: 'boots', what: 'rate', mult: 2, unlock: 10, cost: 1200, joke: 'Unwashed since the cup run.'},
+    {name: 'Golden studs', b: 'boots', what: 'rate', mult: 2, unlock: 25, cost: 25000, joke: 'They leave little gold dents.'},
     {name: 'Ball on a String', b: 'pitch', what: 'tap', mult: 2, unlock: 1, cost: 50, joke: 'The scout thinks your first touch is incredible.'},
     {name: 'Golden Cones', b: 'pitch', what: 'rate', mult: 2, unlock: 5, cost: 200, joke: 'They don\'t help, but they\'re shiny.'},
     {name: 'Celebration Consultant', b: 'pitch', what: 'tap', mult: 1.5, unlock: 10, cost: 1500, joke: 'The goal was average. The knee slide has sponsors.'},
