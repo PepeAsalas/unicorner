@@ -114,6 +114,65 @@ dialog.intro[open]{animation:dlgin 220ms cubic-bezier(.23,1,.32,1)}
 @media (prefers-reduced-motion:reduce){.w-uni i,.w-uni b{animation:none}.w-uni b{opacity:1}.w-uni b:nth-of-type(2){transform:translate(12px,-22px)}.w-uni b:nth-of-type(3){transform:translate(24px,-46px)}}
 /* question feedback: the clock thumps in the last five seconds */
 .clock.thump{animation:thump .2s cubic-bezier(.23,1,.32,1)}@keyframes thump{from{scale:1.25}}
+
+/* ---------- My duels: the matchday programme (cream paper, red masthead) ---------- */
+html:has(body.prog-on),body.prog-on{background:#efe3c1}body.prog-on .x-exit{display:none}body.prog-on .stadium,body.prog-on .side{display:none!important}body.prog-on main{max-width:1180px}
+body.prog-on main>header:not(.pr-mast){display:none}
+.prog{background:#fbf6e6;background-image:radial-gradient(rgba(6,4,26,.07) 1px,transparent 1.5px);background-size:10px 10px;color:var(--ink);border:4px solid var(--ink);box-shadow:8px 8px 0 rgba(6,4,26,.35);font-family:Barlow,var(--ui)}
+.pr-mast{background:#d7262e;color:#fff;padding:12px 18px;border-bottom:4px solid var(--ink);display:flex;align-items:center;gap:12px;position:relative;margin:0;min-height:0}
+.pr-mast::after{content:'';position:absolute;left:0;right:0;bottom:-12px;height:6px;background:repeating-linear-gradient(90deg,var(--ink) 0 12px,#f2c230 12px 24px)}
+.pr-mast b{display:block;font:400 42px/1 var(--disp);text-shadow:3px 3px 0 var(--ink)}.pr-mast small{font:16px/1 var(--mono);letter-spacing:1px}.pr-mast a{color:#fff}
+.pr-me{width:64px;height:54px;flex:none;background:center/contain no-repeat;image-rendering:pixelated}
+.pr-iss{margin-left:auto;text-align:right;font:18px/1.2 var(--mono)}
+.pr-cols{display:grid;grid-template-columns:300px 1fr 290px;padding-top:12px}
+.pr-pg{padding:16px 18px 22px;min-width:0}.pr-pg+.pr-pg,.pr-tabs+.pr-pg{border-left:3px double var(--ink)}
+.pr-sec{display:flex;justify-content:space-between;align-items:baseline;font:20px/1 var(--mono);letter-spacing:1px;border-bottom:2px solid var(--ink);padding-bottom:4px;margin:20px 0 10px}.pr-pg>.pr-sec:first-child,.pr-p>.pr-sec:first-child{margin-top:0}
+.pr-note{font:600 14px/1.35 Barlow,sans-serif;color:#5b5070;margin:8px 0 0}
+/* division pyramid: the leagues stacked like a real football pyramid, your unicorn standing on its row */
+.pyr{display:grid;justify-items:center;gap:4px}
+.pyr-row{position:relative;display:flex;align-items:center;justify-content:center;gap:6px;height:30px;border:2px solid var(--ink);background:color-mix(in srgb,var(--c) 22%,#fbf6e6);color:#3a3020;font:17px/1 var(--mono);letter-spacing:1px}
+.pyr-row b{font-weight:400}
+.pyr-row.past{background:color-mix(in srgb,var(--c) 40%,#fbf6e6)}
+.pyr-row.on{height:58px;flex-wrap:wrap;align-content:center;background:var(--c);color:#fff;box-shadow:0 4px 0 var(--ink);text-shadow:2px 2px 0 var(--ink);z-index:1}
+.pyr-row.on b{font:400 24px/1 var(--disp);letter-spacing:.02em;width:100%;text-align:center;padding-left:46px}
+.pyr-row.on .pr-uni{position:absolute;left:8px;bottom:6px;width:46px;height:38px}
+.pyr-bar{position:absolute;left:62px;right:12px;bottom:6px;height:7px;border:2px solid var(--ink);background:rgba(6,4,26,.35)}.pyr-bar i{display:block;height:100%;background:#f2c230}
+.pyr-row.on b{margin-bottom:8px}
+.pr-uni{display:inline-block;width:52px;height:44px;flex:none;background:center/contain no-repeat;image-rendering:pixelated}.pr-uni.flip{transform:scaleX(-1)}
+.pr-form{display:flex;gap:6px}.pr-form i{width:30px;height:30px;display:grid;place-items:center;border:2px solid var(--ink);font:400 20px var(--disp);font-style:normal;color:#fff}
+.pr-form .w,.pr-rs .w{background:#1d7a45}.pr-form .l,.pr-rs .l{background:#d7262e}.pr-form .dr,.pr-rs .dr{background:#6b6878}.pr-rs .x{background:#b9ad8c}
+.pr-kv{width:100%;border-collapse:collapse}.pr-kv td{padding:5px 0;border-bottom:1px dashed #b9ad8c;font:600 15px Barlow,sans-serif}.pr-kv td:last-child{text-align:right;font:400 24px var(--disp)}
+.pr-pod{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;align-items:end;text-align:center;font:16px var(--mono)}
+.pr-pod>div{border:2px solid var(--ink);background:#fffaf0;padding:6px 2px;display:grid;justify-items:center}.pr-pod .p1{padding-top:14px;background:#fff3c4}.pr-pod em{font:400 18px var(--disp);font-style:normal;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pr-pod .pr-uni{width:40px;height:34px}
+.pr-fx{position:relative;display:grid;grid-template-columns:56px 1fr auto;gap:12px;align-items:center;padding:10px 26px 10px 0;border-bottom:1px dashed #b9ad8c}
+.pr-fx.hot{background:linear-gradient(90deg,rgba(215,38,46,.12),transparent)}
+.pr-fx .pr-uni{width:56px;height:47px;border:2px solid var(--ink);background-color:#fff;background-size:90%}
+.pr-who b{display:block;font:400 26px/1 var(--disp)}.pr-who small{font:600 13px Barlow,sans-serif;color:#5b5070}
+.pr-act{display:grid;gap:6px;justify-items:end}.pr-btns{display:flex;gap:6px}
+.prog button{font-size:20px;padding:6px 12px;box-shadow:0 0 0 3px var(--ink),0 4px 0 3px var(--ink)}.prog button.ghost{background:#fffaf0;color:var(--ink)}
+.prog .ib-x{position:absolute;right:0;top:12px;width:22px;height:22px;padding:0;font-size:14px;background:none;box-shadow:none;color:#8a7a55}
+.stamp{font:17px/1 var(--mono);letter-spacing:1px;padding:4px 6px;border:2px solid currentColor;transform:rotate(-5deg);display:inline-block;white-space:nowrap}
+.stamp.st-go{color:#d7262e}.stamp.st-wt{color:#6b6878}.stamp.st-nw{color:#1f5fd6}.stamp.st-ok{color:#1d7a45}
+.pr-rs{display:grid;grid-template-columns:30px 1fr auto auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed #b9ad8c}
+.pr-rs .r{width:30px;height:30px;display:grid;place-items:center;border:2px solid var(--ink);font:400 20px var(--disp);color:#fff}
+.pr-rs-t b{display:block;font:400 22px/1 var(--disp)}.pr-rs-t small{font:600 12px Barlow,sans-serif;color:#5b5070}
+.pr-re{font:18px var(--mono);color:var(--ink);background:#f2c230;border:2px solid var(--ink);box-shadow:0 3px 0 var(--ink);padding:4px 8px;text-decoration:none}
+.pr-tbl{width:100%;border-collapse:collapse;font:600 14px Barlow,sans-serif}.pr-tbl td{padding:4px 3px;border-bottom:1px dashed #b9ad8c}.pr-tbl td:first-child{font:400 19px var(--disp);width:26px}.pr-tbl td:last-child{text-align:right;font:400 19px var(--disp)}
+.pr-tbl tr.zone td{border-bottom:2px solid #1d7a45}.pr-tbl tr.me td{background:#f2c230;font-weight:800}
+.pr-medal{font:16px var(--mono);color:#1d7a45;margin:6px 0 0}
+.pr-news{background:#fffaf0;border:2px solid var(--ink);padding:10px;font:600 14px/1.35 Barlow,sans-serif}.pr-news b{display:block;font:400 22px/1 var(--disp);margin-bottom:4px}
+.prog #ib-new{width:100%}.prog .ib-off{color:var(--ink);font:600 14px Barlow,sans-serif;margin:14px 0 0}
+.pr-tabs{display:none}
+@media (max-width:980px){
+ .pr-cols{grid-template-columns:1fr}.pr-pg+.pr-pg,.pr-tabs+.pr-pg{border-left:0}.pr-mast b{font-size:30px}.pr-me{width:48px;height:40px}.pr-iss{display:none}.pr-mast small{font-size:13px}
+ .pr-tabs{display:flex;gap:6px;padding:12px 12px 0}.pr-tabs button{flex:1;font-size:18px;padding:7px 4px;background:#fffaf0;box-shadow:0 0 0 2px var(--ink)}.pr-tabs button.on{background:#f2c230;box-shadow:0 0 0 2px var(--ink),0 3px 0 2px var(--ink)}
+ .pr-a{padding-bottom:6px}.pr-a .pr-dk{display:none!important}
+ .pr-tabs{padding:12px 14px 4px;gap:8px}.pr-tabs button{min-width:0;transform:none!important}
+ #s-inbox[data-tab=tb] .pr-b{display:none}
+ #s-inbox .pr-p{display:none}#s-inbox:not([data-tab]) .pr-p[data-p=fx],#s-inbox[data-tab=fx] .pr-p[data-p=fx],#s-inbox[data-tab=tb] .pr-p[data-p=tb],#s-inbox[data-tab=rs] .pr-p[data-p=rs]{display:block}
+ .pr-fx{grid-template-columns:46px 1fr auto}.pr-fx .pr-uni{width:46px;height:39px}
+ body.prog-on main{padding-left:10px;padding-right:10px}
+}
 </style></head><body><script>/* arrived from Unicorner on the gallop: the gold curtain it pulled across slides away */
 (()=>{let on=false;try{on=sessionStorage.getItem('uc-gallop')==='1';sessionStorage.removeItem('uc-gallop')}catch{}if(!on||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
  const c=document.createElement('div');c.style.cssText='position:fixed;inset:0;z-index:10000;background:#ffd23f;pointer-events:none';document.body.appendChild(c);
@@ -134,14 +193,29 @@ dialog.intro[open]{animation:dlgin 220ms cubic-bezier(.23,1,.32,1)}
   <p class="small rec" id="rec1" hidden></p>
   <button class="ghost" id="to-inbox" hidden style="margin-top:12px">My duels</button>
  </section>
- <section id="s-inbox" class="card" hidden>
-  <h2>MY DUELS</h2>
-  <details class="sz" id="sz" hidden><summary id="sz-sum"></summary><div id="sz-body"></div></details>
-  <div class="ib-tabs"><button id="ib-t0" class="on">Active</button><button id="ib-t1">Archive</button></div>
-  <div id="ib-list" class="ib"></div>
-  <label class="ib-off"><input type="checkbox" id="ib-allow"> Let other players challenge me</label>
-  <button id="ib-new">+ New duel</button>
-  <button class="ghost" onclick="location.href='/'">← Back to Unicorner</button>
+ <section id="s-inbox" class="prog" hidden>
+  <header class="pr-mast"><i class="pr-me" id="pr-me"></i><div><small>OFFICIAL MATCHDAY PROGRAMME · <a href="/">← UNICORNER</a></small><b id="pr-title">My duels</b></div><div class="pr-iss" id="pr-iss"></div></header>
+  <div class="pr-cols">
+   <div class="pr-pg pr-a">
+    <div class="pr-sec"><span>YOUR DIVISION</span><span id="pr-div-r"></span></div>
+    <div class="pyr" id="pr-pyr"></div>
+    <div class="pr-sec"><span>FORM GUIDE</span><span>LAST 5</span></div><div class="pr-form" id="pr-form"></div>
+    <div class="pr-sec pr-dk"><span>ALL-TIME RECORD</span></div><table class="pr-kv pr-dk" id="pr-rec"></table>
+    <div class="pr-hof pr-dk" id="pr-hof-w"><div class="pr-sec"><span>HALL OF FAME</span><span id="pr-hof-m"></span></div><div class="pr-pod" id="pr-hof"></div></div>
+   </div>
+   <nav class="pr-tabs" id="pr-tabs"><button data-t="fx" class="on">Fixtures</button><button data-t="tb">Table</button><button data-t="rs">Results</button></nav>
+   <div class="pr-pg pr-b">
+    <div class="pr-p" data-p="fx"><div class="pr-sec"><span>TODAY'S FIXTURES</span><span id="pr-fx-n"></span></div><div id="ib-list"></div></div>
+    <div class="pr-p" data-p="rs"><div class="pr-sec"><span>RESULTS</span><span id="pr-rs-n"></span></div><div id="pr-results"></div></div>
+   </div>
+   <div class="pr-pg pr-c">
+    <div class="pr-p" data-p="tb"><div class="pr-sec"><span>THE TABLE</span><span id="pr-tb-m"></span></div><table class="pr-tbl" id="pr-table"></table><p class="pr-medal">TOP 3 WIN A SEASON MEDAL</p></div>
+    <div class="pr-sec"><span>TEAM NEWS</span></div><div class="pr-news" id="pr-news"></div>
+    <div class="pr-sec"><span>CHALLENGE A MATE</span></div>
+    <button id="ib-new">+ New duel</button>
+    <label class="ib-off"><input type="checkbox" id="ib-allow"> Let other players challenge me</label>
+   </div>
+  </div>
  </section>
  <section id="s-join" class="card" hidden>
   <div class="vs"><div class="pl" id="j-p1"></div><b>VS</b><div class="pl"><i id="j-me"></i>YOU</div></div>
@@ -340,18 +414,59 @@ async function season(){let z;try{z=await rpc('duel_season',{})}catch{return}if(
  const pod=z.last.podium.length?`<p>Last season: ${z.last.podium.map(p=>['🥇','🥈','🥉'][p.pos-1]+' '+esc(p.nick||'?')).join('  ')}</p>`:'';
  $('sz-body').innerHTML=top+me+pod+'<p>Rated: duels between signed-in players. Ratings ease halfway back to 1000 at the start of each month; the top 3 earn a season medal.</p>';$('sz').hidden=false}
 const ordN=n=>{const t=['th','st','nd','rd'],v=n%100;return n+(t[(v-20)%10]||t[v]||t[0])};
-async function inbox(){season();if(!await userToken())return fail('Sign in on Unicorner (the league login) to see your duels.');try{IBR=(await rpc('duel_inbox',{}))||{items:[]}}catch{return fail('Could not load your duels. Try again in a moment.')}
+// ---------- My duels: a matchday programme (division pyramid, form, fixtures, results, the season table) ----------
+const PYR_TIERS=[['SUNDAY LEAGUE',0,'#8a6a3a'],['NON-LEAGUE',900,'#4f7d3a'],['CHAMPIONSHIP',1000,'#2f6b8a'],['PREMIER LEAGUE',1100,'#b8323a'],['CHAMPIONS LEAGUE',1200,'#24407a'],["BALLON D'OR",1400,'#c99a1a']];
+const kitFor=n=>{const pool=KITS.filter(k=>!k.crew&&!k.myth&&k.id!=='boardroom');let h=0;for(const c of String(n||'?'))h=h*31+c.charCodeAt(0)|0;return pool[Math.abs(h)%pool.length]};
+const myKit=()=>{try{return KITS.find(k=>k.id===localStorage.getItem('uc-kit'))||null}catch{return null}};
+const uni=(k,flip)=>`<i class="pr-uni${flip?' flip':''}" style="background-image:${spriteDraw('happy',0,false,k).replace(/"/g,"'")}"></i>`;
+const MONS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+let IBZ=null,IBREC=null;
+async function inbox(){if(!await userToken())return fail('Sign in on Unicorner (the league login) to see your duels.');
+ document.body.classList.add('prog-on');
+ try{[IBR,IBZ,IBREC]=await Promise.all([rpc('duel_inbox',{}),rpc('duel_season',{}).catch(()=>null),rpc('duel_record',{p_token:TOKEN}).catch(()=>null)]);IBR=IBR||{items:[]}}catch{return fail('Could not load your duels. Try again in a moment.')}
  track('duel_inbox',{n:IBR.items.length});$('ib-allow').checked=!IBR.off;ibDraw();show('s-inbox')}
-function ibDraw(){const all=IBR.items,act=all.filter(x=>!done(x)),arc=all.filter(done),list=IBT?arc:act;
- $('ib-t0').textContent='Active'+(act.length?' ('+act.length+')':'');$('ib-t1').textContent='Archive'+(arc.length?' ('+arc.length+')':'');$('ib-t0').classList.toggle('on',!IBT);$('ib-t1').classList.toggle('on',!!IBT);
- $('ib-list').innerHTML=list.length?list.map(x=>{let[l,c,b]=IB[x.state]||[x.state,'#ccc',''];if(x.fresh){l='RESULT IN';c='#ffd23f';b='Watch'}const gu=x.how==='timeout'?(x.state==='draw'?' · out of time':x.state==='lost'?' · you ran out of time':' · they ran out of time'):x.gave_up==='you'?' · you gave up':x.gave_up==='them'?' · they gave up':'';const tl=x.deadline&&tLeft(x.deadline),urgent=tl&&x.state==='your_turn'&&hot(x.deadline);const clk=tl?`<small class="${urgent?'hot':''}">⏰ ${tl} left${x.state==='your_turn'?(urgent?' · play or you lose!':' to play'):' for them'}</small>`:'';return`<div class="ib-row"><b>${esc(x.opp)}<small>${new Date(x.at).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}${x.played?' · '+x.played+' questions played':''}${gu}</small>${clk}</b><span class="ib-st" style="background:${c}">${l}</span>${b?`<button data-go="${x.code}">${b}</button>`:''}${x.state==='challenge'?`<button class="ghost" data-no="${x.code}">No</button>`:`<button class="ib-x" data-rm="${x.code}" data-st="${x.state}" aria-label="Remove">✕</button>`}</div>`}).join('')
-  :IBT?'<p>Finished duels land here.</p>':all.length?'<p>No duels going right now.</p>':'<p>No duels yet. Tap a player on the leaderboard to challenge them, or send a duel link to a mate.</p>';
+function pyramid(){const mi=IBZ&&IBZ.mine,el=$('pr-pyr');
+ if(!mi){el.innerHTML='<p class="pr-note">Play rated duels (both players signed in) to get a league this season.</p>';$('pr-div-r').textContent='';return}
+ const placing=mi.g<5,cur=placing?-1:PYR_TIERS.findLastIndex(t=>mi.r>=t[1]),nx=PYR_TIERS[cur+1];
+ const pct=placing||!nx?100:Math.round((mi.r-PYR_TIERS[cur][1])/(nx[1]-PYR_TIERS[cur][1])*100);
+ $('pr-div-r').textContent=placing?'PLACEMENT':mi.r+(IBZ.me?' · '+ordN(IBZ.me.pos):'');
+ el.innerHTML=PYR_TIERS.map((t,i)=>{const on=i===cur;return`<div class="pyr-row${on?' on':''}${i<cur?' past':''}" style="--c:${t[2]};width:${100-i*9}%">${on?uni(myKit()):''}<b>${t[0]}</b>${on&&nx?`<span class="pyr-bar"><i style="width:${pct}%"></i></span>`:''}</div>`}).reverse().join('')
+  +`<p class="pr-note">${placing?`Placement: ${mi.g}/5 rated duels played. Your league shows after 5.`:nx?`${nx[1]-mi.r} rating points to <b>${nx[0].toLowerCase().replace(/\b\w/g,c=>c.toUpperCase())}</b>.`:'Top of the pyramid. Stay there.'}</p>`}
+function ibDraw(){const all=IBR.items,act=all.filter(x=>!done(x)),arc=all.filter(done),nick=ls('uc-nick')||'My';
+ $('pr-me').style.backgroundImage=spriteDraw('wow',0,false,myKit()).replace(/"/g,"'");
+ $('pr-title').textContent=nick==='My'?'My duels':nick+"'s duels";
+ if(IBZ){const[y,m]=IBZ.season.split('-'),days=Math.max(0,Math.ceil((new Date(IBZ.ends)-Date.now())/864e5));
+  $('pr-iss').innerHTML=`ISSUE ${all.length||1}<br>${MONS[+m-1].toUpperCase()} SEASON · ${days} DAY${days===1?'':'S'} LEFT`;$('pr-tb-m').textContent=MONS[+m-1].toUpperCase();
+  const top=IBZ.top||[];$('pr-table').innerHTML=top.length?top.map(t=>`<tr class="${t.pos<=3?'zone':''}${IBZ.me&&t.pos===IBZ.me.pos?' me':''}"><td>${t.pos}</td><td>${esc(t.nick||'?')}</td><td>${t.r}</td></tr>`).join('')+(IBZ.me&&IBZ.me.pos>10?`<tr class="me"><td>${IBZ.me.pos}</td><td>${esc(nick)}</td><td>${IBZ.me.r}</td></tr>`:''):'<tr><td colspan="3">No one has finished placement yet this month.</td></tr>';
+  const pod=(IBZ.last&&IBZ.last.podium)||[];$('pr-hof-w').hidden=!pod.length;if(pod.length){const[ly,lm]=IBZ.last.season.split('-');$('pr-hof-m').textContent=MONS[+lm-1].toUpperCase();
+   const by=p=>pod.find(x=>x.pos===p);$('pr-hof').innerHTML=[2,1,3].map(p=>{const x=by(p);return x?`<div class="p${p}">${['','🥇','🥈','🥉'][p]}${uni(kitFor(x.nick))}<em>${esc(x.nick||'?')}</em>${x.r}</div>`:'<div></div>'}).join('')}}
+ pyramid();
+ const fin=all.filter(x=>x.state==='won'||x.state==='lost'||x.state==='draw');
+ $('pr-form').innerHTML=fin.slice(0,5).map(x=>`<i class="${x.state==='won'?'w':x.state==='lost'?'l':'dr'}" title="vs ${esc(x.opp)}">${x.state==='won'?'W':x.state==='lost'?'L':'D'}</i>`).join('')||'<span class="pr-note">No results yet.</span>';
+ const r=IBREC||{w:0,d:0,l:0};$('pr-rec').innerHTML=`<tr><td>Played</td><td>${r.w+r.d+r.l}</td></tr><tr><td>Won</td><td>${r.w}</td></tr><tr><td>Drawn</td><td>${r.d}</td></tr><tr><td>Lost</td><td>${r.l}</td></tr>`;
+ // fixtures: duels still going (and results you haven't watched yet)
+ const ST={challenge:['NEW','nw'],sent:['SENT','wt'],your_turn:['YOUR TURN','go'],their_turn:['WAITING','wt'],won:['RESULT IN','ok'],lost:['RESULT IN','ok'],draw:['RESULT IN','ok']};
+ $('pr-fx-n').textContent=act.length?act.length+' ACTIVE':'';
+ $('ib-list').innerHTML=act.length?act.map(x=>{const[l,c]=x.fresh?['RESULT IN','ok']:ST[x.state]||[x.state.toUpperCase(),'wt'],tl=x.deadline&&tLeft(x.deadline),urgent=tl&&x.state==='your_turn'&&hot(x.deadline);
+  const rd=x.played?`Round ${Math.floor(x.played/5)+1}`:'Round 1',sub=x.state==='challenge'?'Challenged you':x.state==='sent'?'Link sent · waiting for them to join':x.fresh?'Watch how it ended':tl?`${x.state==='your_turn'?'⏰ '+tl+' left to play':'They have '+tl}`:rd;
+  const act=x.state==='challenge'?`<span class="pr-btns"><button class="ghost" data-no="${x.code}">Decline</button><button data-go="${x.code}">Accept</button></span>`:x.state==='your_turn'&&!x.fresh?`<button data-go="${x.code}">Play ${rd.toLowerCase()} ▶</button>`:x.fresh?`<button data-go="${x.code}">Watch ▶</button>`:`<button class="ghost" data-go="${x.code}">View</button>`;
+  return`<div class="pr-fx${urgent?' hot':''}">${uni(kitFor(x.opp),true)}<div class="pr-who"><b>vs ${esc(x.opp)}</b><small>${sub}</small></div><div class="pr-act"><span class="stamp st-${c}">${l}</span>${act}</div><button class="ib-x" data-rm="${x.code}" data-st="${x.state}" aria-label="Remove">✕</button></div>`}).join('')
+  :'<p class="pr-note">No duels going right now. Challenge a mate, or tap a player on the Unicorner leaderboard.</p>';
+ $('pr-rs-n').textContent=arc.length?arc.length+' PLAYED':'';
+ $('pr-results').innerHTML=arc.length?arc.slice(0,12).map(x=>{const w=x.state==='won',l=x.state==='lost',d=x.state==='draw',how=x.how==='timeout'?' · out of time':x.gave_up?(x.gave_up==='you'?' · you gave up':' · they gave up'):'';
+  return`<div class="pr-rs"><span class="r ${w?'w':l?'l':d?'dr':'x'}">${w?'W':l?'L':d?'D':'–'}</span><span class="pr-rs-t"><b>vs ${esc(x.opp)}</b><small>${w?'You won':l?'You lost':d?'Draw':x.state==='declined'?'Declined':'Expired'}${how} · ${new Date(x.at).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}</small></span>${w||l||d?`<button class="ghost" data-go="${x.code}">Watch</button><a class="pr-re" href="duel.html?vs=${encodeURIComponent(x.opp)}">Rematch</a>`:''}</div>`}).join('')
+  :'<p class="pr-note">Finished duels land here.</p>';
+ // team news: one line about where you stand
+ const mine=IBZ&&IBZ.mine,me=IBZ&&IBZ.me,third=IBZ&&(IBZ.top||[])[2],days=IBZ?Math.max(0,Math.ceil((new Date(IBZ.ends)-Date.now())/864e5)):0,yt=act.filter(x=>x.state==='your_turn'&&!x.fresh);
+ $('pr-news').innerHTML=(yt.length?`<b>${yt.length===1?esc(yt[0].opp)+' is waiting on you':yt.length+' rivals are waiting on you'}</b>`:'<b>The dressing room is quiet</b>')
+  +(!mine?'Rated duels need both players signed in. Win them to climb the pyramid.':mine.g<5?`Play ${5-mine.g} more rated duel${5-mine.g===1?'':'s'} to finish placement and get your league.`:me&&me.pos<=3?`You're in the medal places. Hold on for ${days} more day${days===1?'':'s'}.`:third?`${third.r-mine.r} points behind the medal places with ${days} day${days===1?'':'s'} left.`:`${days} day${days===1?'':'s'} left this season.`);
  for(const b of document.querySelectorAll('[data-go]'))b.onclick=()=>{location.href='duel.html?d='+b.dataset.go};
  for(const b of document.querySelectorAll('[data-no]'))b.onclick=async()=>{b.disabled=true;try{await rpc('duel_decline',{p_code:b.dataset.no})}catch{}inbox()};
  for(const b of document.querySelectorAll('[data-rm]'))b.onclick=async()=>{const st=b.dataset.st,live=st==='your_turn'||st==='their_turn';
   if(!confirm(live?'Give up this duel? It counts as a loss.':st==='sent'?'Remove this duel? Your mate can still open the link.':'Remove this duel from your list?'))return;
   b.disabled=true;try{await rpc('duel_remove',{p_code:b.dataset.rm});track('duel_remove',{state:st})}catch{}inbox()}}
-$('ib-t0').onclick=()=>{IBT=0;ibDraw()};$('ib-t1').onclick=()=>{IBT=1;ibDraw()};
+// phones: one section at a time
+for(const t of document.querySelectorAll('#pr-tabs button'))t.onclick=()=>{for(const o of document.querySelectorAll('#pr-tabs button'))o.classList.toggle('on',o===t);document.querySelector('#s-inbox').dataset.tab=t.dataset.t};
 $('ib-allow').onchange=e=>rpc('duel_challenges_set',{p_off:!e.target.checked}).catch(()=>{});
 $('ib-new').onclick=()=>{location.href='duel.html'};$('to-inbox').onclick=()=>{location.href='duel.html?inbox'};
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
