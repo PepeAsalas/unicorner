@@ -393,9 +393,10 @@ function animate(fx, b, x0, y0, w, h, t) {
 // ---------- people: they walk along the roads to a building's door ----------
 // person() draws a character standing at (x, y) on the ground. Each character has two 4-frame walking sheets:
 // "front" (walking towards the camera, down-right) and "back" (walking away, up-right); walking left is a mirror image.
+const WALK_FRAMES = 8; // ChatGPT's batch 6 walk cycles
 function person(who, x, y, h, t, o = {}) {
   const name = `char-${who}-${o.back ? 'back' : 'front'}`, img = art(name); if (!img) return;
-  const fw = img.width / 4, fh = img.height, w = fw * h / fh, f = o.f != null ? o.f : o.walk ? Math.floor(t * 6 + (o.seed || 0)) % 4 : 0; // walkers pass f from the distance walked, so feet don't slide
+  const n = WALK_FRAMES, fw = img.width / n, fh = img.height, w = fw * h / fh, f = (o.f != null ? o.f : o.walk ? Math.floor(t * 10 + (o.seed || 0)) : 0) % n; // walkers pass f from the distance walked, so feet don't slide
   ctx.save(); ctx.globalAlpha = o.alpha ?? 1; ctx.translate(x, y);
   ctx.fillStyle = 'rgba(20,40,10,.28)'; ctx.beginPath(); ctx.ellipse(0, 0, w * 0.3, 1.5, 0, 0, Math.PI * 2); ctx.fill();
   if (!o.right) ctx.scale(-1, 1);
@@ -457,7 +458,7 @@ function drawPeople(t) {
   const list = [];
   for (const w of walkers) {
     const p = walkerPos(w), alpha = Math.min(1, w.life / 0.25) * (1 - w.out / 0.25);
-    list.push({d: p.d, f: () => person(w.who, p.x, p.y, 15, t, {walk: w.out === 0, f: Math.floor((w.dist || 0) * 4.5 + w.seed) % 4, right: p.right, back: p.back, alpha})});
+    list.push({d: p.d, f: () => person(w.who, p.x, p.y, 15, t, {walk: w.out === 0, f: Math.floor((w.dist || 0) * 9 + w.seed), right: p.right, back: p.back, alpha})});
   }
   if (S.lv.academy) { // academy players practising shots beside the academy: a kick every couple of seconds each
     const L = LOTS.academy, kids = Math.min(3, Math.ceil(S.lv.academy / 6));
@@ -467,9 +468,9 @@ function drawPeople(t) {
     }
   }
   if (S.lv.pitch >= 5) { // the coach paces up and down the touchline, turning at each end
-    const L = LOTS.pitch, k = (t / 4.5) % 2, out = k < 1, q = out ? k : 2 - k, e = q * q * (3 - 2 * q), v = L.v0 + 0.6 + e * 2.8, u = L.u0 + 4.6, [x, y] = P(u, v);
-    const turning = q < 0.04 || q > 0.96; // the walking sheets have no standing frame, so he only stops for a beat at the turn
-    list.push({d: u + v, f: () => person('coach', x, y, 15, t, {walk: !turning, right: !out, back: !out})});
+    const L = LOTS.pitch, k = (t / 7) % 2, out = k < 1, q = out ? k : 2 - k, e = q * q * (3 - 2 * q), v = L.v0 + 0.6 + e * 2.8, u = L.u0 + 4.6, [x, y] = P(u, v);
+    const turning = q < 0.12 || q > 0.88; // the walking sheets have no standing frame, so he only stops for a beat at the turn
+    list.push({d: u + v, f: () => turning ? frames('char-coach-idle', 4, Math.floor(t * 2), x, y, 15.5, false) : person('coach', x, y, 15, t, {walk: true, right: !out, back: !out})});
   }
   if (EV && EV.e.target === 'transfer') { // agents pace up and down outside the transfer office
     for (let i = 0; i < 5; i++) { const s = Math.sin(t * 0.8 + i * 1.3), [x, y] = P(9 + (i - 2) * 0.6 + s * 0.4, 4.7 + (i % 2) * 0.5); list.push({d: 13.7, f: () => person('agent', x, y, 14, t, {walk: true, seed: i, right: Math.cos(t * 0.8 + i * 1.3) > 0, back: Math.cos(t * 0.8 + i * 1.3) < 0})}); }
@@ -485,8 +486,10 @@ function drawPeople(t) {
 
 // ---------- events: a prop over the building, a pin to tap, and the odd plane ----------
 const PROP = {plague: 'event-plague-cloud', airport: 'event-plane', haalunch: 'event-sold-out-sign', misprint: 'event-misprint-shirts', mascot: 'event-banana'};
-const PROP_FRAMES = {'event-plague-cloud': 4, 'event-sold-out-sign': 2};
-function eventProp(e) { const t = e.title.toLowerCase(); return e.prop || (t.includes('plague') ? PROP.plague : t.includes('airport') ? PROP.airport : t.includes('haalunch') ? PROP.haalunch : t.includes('misprint') ? PROP.misprint : t.includes('mascot') ? PROP.mascot : null); }
+const PROP_FRAMES = {'event-plague-cloud': 4, 'event-sold-out-sign': 2, 'event-pigeons': 2, 'event-floating-boots': 2, 'event-inflatable-trophy': 2, 'event-walking-goal': 4};
+// the rest of the events' pictures, matched on a word in the title
+const PROP_WORDS = [['var', 'event-var-screen'], ['spaghetti', 'event-spaghetti'], ['pigeon', 'event-pigeons'], ['goal has left', 'event-walking-goal'], ['captains', 'event-armbands'], ['fax', 'event-fax-pile'], ['bus', 'event-team-bus'], ['invisible', 'event-floating-boots'], ['trophy', 'event-inflatable-trophy'], ['boots in sport', 'event-foam-clogs'], ['scout', 'event-scout'], ['watermelon', 'event-watermelon'], ['flat-pack', 'event-flatpack'], ['echo', 'event-echo-mic']];
+function eventProp(e) { const t = e.title.toLowerCase(); return e.prop || (t.includes('plague') ? PROP.plague : t.includes('airport') ? PROP.airport : t.includes('haalunch') ? PROP.haalunch : t.includes('misprint') ? PROP.misprint : t.includes('mascot') ? PROP.mascot : (PROP_WORDS.find(([w]) => t.includes(w)) || [])[1] || null); }
 function drawEvent(t) {
   if (!EV) return;
   const b = TARGET_PLOT[EV.e.target], hb = hitBox[b]; if (!hb) return;
@@ -504,7 +507,7 @@ function drawEvent(t) {
       ctx.fillStyle = 'rgba(40,60,10,.25)'; ctx.beginPath(); ctx.ellipse(cx + drift, cy + 4, 26, 9, 0, 0, Math.PI * 2); ctx.fill();
       ctx.drawImage(img, f * fw, 0, fw, img.height, cx + drift - w * sc / 2, hb.y - h * sc * 0.4, w * sc, h * sc);
     } else { // everything else stands on the grass in front of the plot, with a contact shadow
-      const [gx, gy] = P(L.u0 + sz * 0.3, L.v0 + sz + 0.9), w = 26, h = w * img.height / fw;
+      const [gx, gy] = P(L.u0 + sz * 0.3, L.v0 + sz + 0.9), w = Math.min(prop === 'event-team-bus' ? 44 : 28, 32 * fw / img.height), h = w * img.height / fw; // tall props (the scout, the fax pile) keep to the same height
       ctx.fillStyle = 'rgba(20,30,10,.3)'; ctx.beginPath(); ctx.ellipse(gx, gy, w * 0.42, 2.6, 0, 0, Math.PI * 2); ctx.fill();
       ctx.drawImage(img, f * fw, 0, fw, img.height, gx - w * sc / 2, gy - h * sc, w * sc, h * sc);
     }
