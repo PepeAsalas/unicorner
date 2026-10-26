@@ -14,7 +14,7 @@ const C = window.TYC_CONTENT;
 const SB_URL = 'https://yujhjepukzdahsppntua.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1amhqZXB1a3pkYWhzcHBudHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2NDMzNDcsImV4cCI6MjEwNTIxOTM0N30.YIOdtL7tJnNLPFPy19QuXe6w3Dcnz6Xedw0tFGdV_CE';
 const SAVE_KEY = 'uc-tycoon-demo';
-const DEMO_SECONDS = 600; // the wall appears after 10 minutes of play
+const DEMO_SECONDS = 1020; // the wall appears after 17 minutes of play
 const $ = id => document.getElementById(id);
 const B = Object.fromEntries(C.buildings.map(b => [b.id, b]));
 
