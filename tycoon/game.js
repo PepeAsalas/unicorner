@@ -982,7 +982,7 @@ function toast(name) {
 const rainCv = $('rain'), rctx = rainCv.getContext('2d'), drops = [];
 let rainAcc = 0;
 function rainBurst(n) { if (!still.matches) for (let i = 0; i < n; i++) drops.push(newDrop(true)); }
-function newDrop(burst) { const w = rainCv.clientWidth; return {x: Math.random() * w, y: burst ? rainCv.clientHeight * (0.2 + Math.random() * 0.3) : -20, vy: burst ? -60 - Math.random() * 80 : 30 + Math.random() * 40, vx: (Math.random() - 0.5) * 20, f: Math.random() * 6, s: 10 + Math.random() * 10}; }
+function newDrop(burst) { const w = rainCv.clientWidth; return {x: Math.random() * w, y: burst ? rainCv.clientHeight * (0.2 + Math.random() * 0.3) : -20, vy: burst ? -60 - Math.random() * 80 : 30 + Math.random() * 40, vx: (Math.random() - 0.5) * 20, f: Math.random() * 6, s: 18 + Math.random() * 14}; }
 function stepRain(dt) {
   const dpr = window.devicePixelRatio || 1, W2 = rainCv.clientWidth, H2 = rainCv.clientHeight;
   if (rainCv.width !== Math.round(W2 * dpr) || rainCv.height !== Math.round(H2 * dpr)) { rainCv.width = Math.round(W2 * dpr); rainCv.height = Math.round(H2 * dpr); }
