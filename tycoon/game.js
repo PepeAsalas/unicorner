@@ -242,6 +242,14 @@ function drawLot(b, t) {
     return;
   }
   const w = 2 * n * A, h = img.height * w / img.width, [sx, sy] = popScale(b, t);
+  const base = BASE[`building-${b}-${st}`];
+  if (base) { // drawn from a steeper camera: keep the building as drawn, flatten only the front half of its plot onto ours
+    const k = w / img.width, [, ly] = P(L.u0, L.v0 + n), cut = base * img.height, top = cut * k;
+    ctx.save(); ctx.translate(cx, fy + 1); ctx.scale(sx, sy); ctx.translate(-cx, -(fy + 1));
+    ctx.drawImage(img, 0, 0, img.width, cut, cx - w / 2, ly - top, w, top);
+    ctx.drawImage(img, 0, cut, img.width, img.height - cut, cx - w / 2, ly, w, fy + 1 - ly);
+    ctx.restore(); hitBox[b] = {x: cx - w / 2, y: ly - top, w, h: fy - ly + top}; return;
+  }
   ctx.save(); ctx.translate(cx, fy + 1); ctx.scale(sx, sy); ctx.drawImage(img, -w / 2, -h, w, h);
   const fx = ANIM[`building-${b}-${st}`]; if (fx) animate(fx, b, -w / 2, -h, w, h, t);
   ctx.restore();
@@ -273,6 +281,11 @@ function celebrate(b) {
 const FIT = {
   'building-pitch-1': [[0, 0.528], [1, 0.534], [0.505, 1]], 'building-pitch-2': [[0, 0.527], [1, 0.535], [0.505, 1]],
   'building-pitch-3': [[0, 0.616], [1, 0.618], [0.507, 1]], 'building-pitch-4': [[0, 0.609], [1, 0.611], [0.499, 1]],
+};
+// Height (fraction of the image) of the plot's left and right corners in art drawn from a steeper camera.
+const BASE = {
+  'building-academy-1': 0.567, 'building-academy-2': 0.624, 'building-academy-3': 0.644, 'building-academy-4': 0.56,
+  'building-transfer-1': 0.53, 'building-transfer-2': 0.529, 'building-transfer-3': 0.651, 'building-transfer-4': 0.738,
 };
 // Flags stand on the pitch corners the stands don't hide.
 const ANIM = {
@@ -506,7 +519,7 @@ function floatText(s, xPct, yPct, big, layer) {
 }
 const plotPct = b => { const [x] = lotCentre(b), y = hitBox[b] ? hitBox[b].y + 10 : lotCentre(b)[1] - 20; return [x / W * 100, y / H * 100]; };
 let tickerT = 0;
-function ticker(s) { $('tickerText').textContent = s; tickerT = 9; }
+function ticker(s) { $('tickerText').textContent = s; tickerT = 25; } // a news line every 25 s at most, so the panel isn't a wall of text
 function news() {
   const pool = [...C.tapLines.map(l => l.replace('+{m} ', '')), ...C.clubs.map(c => `${c.name}: ${c.line}`), ...C.stars.map(s => `${s.name} ${s.trait[0].toLowerCase()}${s.trait.slice(1)}`)];
   ticker(pool[Math.random() * pool.length | 0]);
@@ -525,6 +538,35 @@ function stepUni(dt) {
   if (galloping > 0) { galloping -= dt; return showUni(UNI[galloping > 0.09 ? 2 : 1]); }
   if (t > nextBlink) { if (t > nextBlink + 0.12) nextBlink = t + 2.5 + Math.random() * 3; return showUni(BLINK); }
   showUni(UNI[0]);
+}
+// the training pitch's boots: one per level (up to 36) circle the unicorn and take turns kicking it; a coin pops out each time
+const bootsCv = $('boots'), bctx = bootsCv.getContext('2d'), pops2 = [];
+const BOOT = (() => { // a 10x6 pixel boot, toe pointing right
+  const rows = ['..KKK.....', '.KCCK.....', '.KRRKKKK..', 'KRRRRRRRKK', 'KKKKKKKKKK', '.G.G..G.G.'], col = {K: '#14101f', C: '#fbf3dc', R: '#d7262e', G: '#f2c230'};
+  const c = document.createElement('canvas'), z = 3; c.width = 10 * z; c.height = 6 * z; const g = c.getContext('2d');
+  rows.forEach((r, y) => [...r].forEach((ch, x) => { if (col[ch]) { g.fillStyle = col[ch]; g.fillRect(x * z, y * z, z, z); } }));
+  return c;
+})();
+const coinImg = new Image(); coinImg.src = 'art/coin.webp';
+function stepBoots(dt) {
+  const dpr = window.devicePixelRatio || 1, W2 = bootsCv.clientWidth, H2 = bootsCv.clientHeight;
+  if (bootsCv.width !== Math.round(W2 * dpr)) { bootsCv.width = Math.round(W2 * dpr); bootsCv.height = Math.round(H2 * dpr); }
+  bctx.setTransform(dpr, 0, 0, dpr, 0, 0); bctx.clearRect(0, 0, W2, H2); bctx.imageSmoothingEnabled = false;
+  const n = Math.min(36, S.lv.pitch), t = performance.now() / 1000, cx = W2 / 2, cy = H2 / 2, R0 = Math.min(W2, H2) * 0.42, bw = Math.max(18, R0 * 0.2), bh = bw * 0.6;
+  for (let i = 0; i < n; i++) {
+    const a = i / n * Math.PI * 2 + t * 0.12, p = (t * 0.3 + i / n * 3.7) % 1;
+    const kick = still.matches || p > 0.1 ? 0 : Math.sin(p / 0.1 * Math.PI); // a quick jab inwards and back
+    if (!still.matches && p < 0.05 && p + dt * 0.3 >= 0.05 && Math.random() < Math.min(1, 10 / n)) pops2.push({x: cx + Math.cos(a) * R0 * 0.55, y: cy + Math.sin(a) * R0 * 0.55, a, k: 0});
+    const r = R0 - kick * bw * 0.45;
+    bctx.save(); bctx.translate(cx + Math.cos(a) * r, cy + Math.sin(a) * r); bctx.rotate(a + Math.PI);
+    bctx.drawImage(BOOT, -bw / 2, -bh / 2, bw, bh); bctx.restore();
+  }
+  for (let i = pops2.length - 1; i >= 0; i--) { // coins hop out of the unicorn and fade
+    const c = pops2[i]; c.k += dt / 0.6; if (c.k >= 1) { pops2.splice(i, 1); continue; }
+    const e = ease(c.k), s2 = bw * 0.55; bctx.globalAlpha = 1 - c.k;
+    if (coinImg.complete) bctx.drawImage(coinImg, 0, 0, coinImg.height, coinImg.height, c.x - Math.cos(c.a) * 6 * e - s2 / 2, c.y - 22 * e - s2 / 2, s2, s2);
+    bctx.globalAlpha = 1;
+  }
 }
 function crumbs(x, y) { // a few cookie crumbs fall away from the tap with a little gravity
   if (still.matches) return;
@@ -575,20 +617,20 @@ function renderPanel(focus) {
   if (tab === 'club') {
     panel.innerHTML = C.buildings.map(b => {
       const lv = S.lv[b.id], c = cost(b.id);
-      const earnLine = b.id === 'academy' ? (lv ? `Sells a player every ${academy().every.toFixed(1)} s for ${fmt(academy().sale)}` : '') : (lv ? `Earning ${fmt(r[b.id])} per second` : '');
+      const earnLine = lv ? `${fmt(r[b.id])}/s` : '';
       const th = `art/building-${b.id}-${Math.max(1, stageOf(b.id))}.webp`;
-      return `<div class="row" id="row-${b.id}"><img class="thumb" src="${th}" alt="" style="${lv ? '' : 'filter:grayscale(1);opacity:.55'}"><div><h3>${esc(b.name)}<small>${lv ? 'LEVEL ' + lv : 'NOT BUILT'}</small></h3><p>${esc(b.blurb)}</p>${earnLine ? `<div class="earn">${earnLine}</div>` : ''}</div>
+      return `<div class="row" id="row-${b.id}"><img class="thumb" src="${th}" alt="" style="${lv ? '' : 'filter:grayscale(1);opacity:.55'}"><div><h3>${esc(b.name)}<small>${lv ? 'LV ' + lv : ''}</small></h3>${lv ? `<div class="earn">${earnLine}</div>` : `<p>${esc(b.blurb)}</p>`}</div>
         <button type="button" class="buy" data-buy="${b.id}" data-cost="${c}">${lv ? 'Upgrade' : 'Build'}<br>${fmt(c)}</button></div>`;
     }).join('');
     if (focus) { const row = $('row-' + focus); if (row) { row.scrollIntoView({block: 'nearest', behavior: 'smooth'}); row.animate([{background: '#fff3b0'}, {background: '#fff'}], {duration: 900}); } }
   } else if (tab === 'upgrades') {
     const list = availableUps().sort((a, b) => a.u.cost - b.u.cost);
-    panel.innerHTML = list.length ? list.map(({u, i}) => `<div class="row"><img class="thumb" src="art/building-${u.b}-${Math.max(1, stageOf(u.b))}.webp" alt=""><div><h3>${esc(u.name)}</h3><p>${esc(B[u.b].name)}: ${u.what === 'tap' ? 'tap money' : u.what === 'sales' ? 'player sale prices' : 'income'} ${u.mult >= 2 ? 'x' + u.mult : '+' + Math.round((u.mult - 1) * 100) + '%'}</p><p><i>${esc(u.joke)}</i></p></div>
+    panel.innerHTML = list.length ? list.map(({u, i}) => `<div class="row"><img class="thumb" src="art/building-${u.b}-${Math.max(1, stageOf(u.b))}.webp" alt=""><div><h3>${esc(u.name)}</h3><div class="earn">${u.what === 'tap' ? 'Tap money' : u.what === 'sales' ? 'Player sales' : esc(B[u.b].name)} ${u.mult >= 2 ? 'x' + u.mult : '+' + Math.round((u.mult - 1) * 100) + '%'}</div></div>
       <button type="button" class="buy" data-up="${i}" data-cost="${u.cost}">Buy<br>${fmt(u.cost)}</button></div>`).join('')
       : '<p class="empty">No upgrades right now. Level up your buildings to unlock more.</p>';
   } else {
     const kept = S.stars.filter(s => s.kept);
-    panel.innerHTML = kept.length ? kept.map(s => { const st = C.stars[s.i]; return `<div class="row">${portrait(st)}<div><h3>${esc(st.name)}</h3><p>${esc(st.trait)}</p><div class="earn">${bonusText(st.bonus)}</div></div>
+    panel.innerHTML = kept.length ? kept.map(s => { const st = C.stars[s.i]; return `<div class="row">${portrait(st)}<div><h3>${esc(st.name)}</h3><div class="earn">${bonusText(st.bonus)}</div></div>
       <button type="button" class="buy sell" data-sell="${s.i}" data-cost="0">Sell<br>${fmt(starPrice())}</button></div>`; }).join('')
       : '<p class="empty">Your academy finds a star now and then. Keep them for a bonus, or sell them for a fortune.</p>';
   }
@@ -650,7 +692,7 @@ function eventTick(dt) {
     const e = pool[Math.random() * pool.length | 0];
     EV = {e, until: performance.now() + 75000, t0: performance.now() / 1000};
     S.nextEvent = 70 + Math.random() * 60;
-    const b = $('eventBadge'); b.textContent = '⚠ ' + e.title + ' · tap to fix'; b.hidden = false;
+    const b = $('eventBadge'); b.textContent = '⚠ Trouble! Tap'; b.hidden = false;
     ticker(e.see);
   }
 }
@@ -679,6 +721,16 @@ function modal(html, cb, locked) {
 function closeModal() { modalEl.hidden = true; sheet.innerHTML = ''; modalCb = null; }
 sheet.addEventListener('click', e => { const b = e.target.closest('[data-act]'); if (!b || b.disabled) return; const cb = modalCb; closeModal(); if (cb) cb(b.dataset.act); paintBank(); });
 modalEl.addEventListener('click', e => { if (e.target === modalEl && !modalEl.dataset.locked) closeModal(); });
+
+// ---------- the story, once at the start ----------
+function intro() {
+  const pic = cookieUnicorn(0, 8).toDataURL();
+  modal(`<img class="hero" src="${pic}" alt="" style="image-rendering:pixelated;height:auto;width:180px">
+    <span class="tag">UNICORNER FC</span><h2>Your club is skint</h2>
+    <p>You're the president of the worst club in the league. The floodlights run on a hamster and the striker is your uncle.</p>
+    <p>Then a unicorn wandered onto the pitch. Every time someone kicks it, money falls out.</p>
+    <div class="choices"><button type="button" class="buy" data-act="go">Kick the unicorn</button></div>`, () => { S.intro = true; save(); }, true);
+}
 
 // ---------- offline earnings ----------
 function offline() {
@@ -738,7 +790,7 @@ function frame(now) {
     if (!document.hidden) S.play += dt;
     if (S.play >= DEMO_SECONDS && modalEl.hidden) wall();
   }
-  draw(t, dt); stepUni(dt);
+  draw(t, dt); stepUni(dt); stepBoots(dt);
   uiT += dt; if (uiT > 0.2) { uiT = 0; paintBank(); refreshButtons(); }
   saveT += dt; if (saveT > 5) { saveT = 0; save(); }
   if (!S.lv.pitch && S.money >= cost('pitch') && !hinted) { hinted = true; ticker('You can afford a training pitch: build it in the Club tab.'); }
@@ -752,6 +804,7 @@ if (window.ResizeObserver) new ResizeObserver(resize).observe(mid);
 
 resize(); loadArt(); renderPanel(); paintBank();
 if (S.wall) (S.feedback ? thanks : wall)();
+else if (!S.intro) intro();
 else offline();
 track('tycoon_open', {returning: S.earned > 0});
 requestAnimationFrame(frame);
