@@ -1562,6 +1562,7 @@ body.playing .topbar .tb-split .sound-toggle+.sound-toggle{border-left:0!importa
 .topbar #stadiumToggle:active,.topbar .tb-split .sound-toggle:active{transform:translateY(2px)}
 @media (hover:hover){.topbar .tb-split .sound-toggle:hover{background-color:#f3e6bf!important}}
 .modes{display:grid;gap:10px;margin:0 0 26px}
+.res-modes{margin:28px 0 16px!important} /* results page: clear space from the answers box above */
 .modes-head{display:flex;align-items:center;gap:10px;margin-bottom:2px}
 .modes-head span{font:700 13px Silkscreen,monospace;letter-spacing:2px;text-transform:uppercase;color:#fff;text-shadow:2px 2px 0 #06041a}
 .modes-head i{flex:1;height:3px;background:repeating-linear-gradient(90deg,#fff 0 8px,transparent 8px 14px);opacity:.6}
@@ -2403,7 +2404,7 @@ www.unicornergame.lol`};
   <section class="jb" id="compete-results" data-compete><div class="jb-frame"><div class="jb-screen"><p class="jb-empty">GLOBAL RANKING · LOADING…</p></div></div></section>
   ${hits.length?`<section class="result-section"><div class="result-section-head"><h2>${L('Your match highlights','Lo mejor de tu partido')}</h2><p class="mute">${L('Best answers first','Primero las mejores respuestas')}</p></div><div class="result-list">${hits.map(r=>resultItem(r,false)).join('')}</div></section>`:''}
   ${misses.length?`<div class="result-nearly"><section class="result-section"><div class="result-section-head"><h2>${L('Nearly had it','Casi')}</h2><p class="mute">${ES?(misses.length===1?'1 respuesta':misses.length+' respuestas')+' para aprender para mañana':(misses.length===1?'1 answer':misses.length+' answers')+' to learn for tomorrow'}</p></div><div class="result-list">${misses.map(r=>resultItem(r,true)).join('')}</div></section></div>`:''}
-  <div class="modes" style="margin:0 0 22px"><button type="button" class="mode m-inf" data-infinite><span class="m-pic"><span class="m-sym">∞</span></span><span class="m-txt"><b>${L('Infinity','Infinito')}</b><small>${L('Unlimited questions, out in space','Preguntas ilimitadas, en el espacio')}</small></span><span class="m-go">${L('Press start','Pulsa start')}</span></button></div>
+  <div class="modes res-modes"><button type="button" class="mode m-inf" data-infinite><span class="m-pic"><span class="m-sym">∞</span></span><span class="m-txt"><b>${L('Infinity','Infinito')}</b><small>${L('Unlimited questions, out in space','Preguntas ilimitadas, en el espacio')}</small></span><span class="m-go">${L('Press start','Pulsa start')}</span></button></div>
   <div class="row result-home-row"><button class="ghost" id="home">${L('Back to home','Volver al inicio')}</button></div>
   <div class="relay-rail" id="relay-rail"></div>
  </div></div>`,()=>{
