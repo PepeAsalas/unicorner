@@ -1,6 +1,6 @@
 :root{--ink:#1a1030;--cream:#fbf3dc;--cream2:#f3e6bf;--gold:#f2c230;--red:#e3262f;--sky:#3fc1ff;--pink:#ff6fa8;--purple:#4a1c86;--px:"Jersey 10","Silkscreen",monospace;--lab:"Silkscreen",monospace;--ease:cubic-bezier(.23,1,.32,1)}
 *{box-sizing:border-box}
-html,body{margin:0;background:#140c26;color:var(--ink);font-family:Barlow,system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:#efe3c1;background-image:repeating-linear-gradient(0deg,transparent 0 23px,rgba(26,16,48,.035) 23px 24px),repeating-linear-gradient(90deg,transparent 0 23px,rgba(26,16,48,.035) 23px 24px);color:var(--ink);font-family:Barlow,system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
 button{font:inherit;color:inherit;cursor:pointer}
 img{image-rendering:auto}
 
@@ -194,3 +194,29 @@ button.shop-row.can:active{transform:translateY(2px);box-shadow:0 1px 0 var(--in
 .trophy-toast.out{opacity:0;translate:-50% -10px;transition:opacity .2s ease,translate .2s ease}
 @keyframes toast-in{from{opacity:0;translate:-50% -12px}}
 @media (prefers-reduced-motion:reduce){.golden,.golden::before,.buff{animation:none}}
+
+/* ---------- phone: cream page, a dark hero card with a big unicorn, sticky money + tabs ---------- */
+@media (max-width:899px){
+  .app{gap:10px;padding:10px 12px calc(20px + env(safe-area-inset-bottom))}
+  .left{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 12px 12px;text-align:center;border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink);
+    background:linear-gradient(rgba(14,10,30,.65),rgba(14,10,30,.25) 40%,rgba(14,10,30,.55)),url(art/backdrop-training.webp) center 30%/cover;overflow:hidden}
+  .top{align-self:stretch}
+  .club{font-size:26px;margin:2px 0 0}
+  .money{font-size:44px}
+  .rate{font-size:11px}
+  .kick-zone{width:min(68vw,250px);height:min(68vw,250px);margin:-4px 0 -6px}
+  .ticker{align-self:stretch;text-align:left;font-size:13px;padding:6px 9px;background:rgba(0,0,0,.4);border:2px solid var(--ink);height:calc(2.6em + 16px)}
+  body.mini .tabs{top:calc(57px + env(safe-area-inset-top))}
+  .tabs{position:sticky;top:0;z-index:5;transition:top .22s var(--ease);margin:0 -12px;padding:8px 12px;background:#efe3c1;border-bottom:2px solid rgba(26,16,48,.15)}
+  .mid{border-width:3px}
+  .panel{min-height:0}
+}
+/* the money bar that sticks to the top of the screen on phones once the hero card scrolls away */
+.minibar{position:fixed;left:0;right:0;top:0;z-index:12;display:flex;align-items:center;gap:10px;padding:8px 14px calc(8px);padding-top:calc(8px + env(safe-area-inset-top));background:var(--ink);color:#fff;border-bottom:3px solid #000;
+  translate:0 -110%;transition:translate .22s var(--ease)}
+.minibar.on{translate:0 0}
+.minibar b{font:400 30px/1 var(--px);color:var(--gold);font-variant-numeric:tabular-nums}
+.minibar span{font:700 10px var(--lab);opacity:.8}
+.minibar button{margin-left:auto;width:46px;height:38px;padding:0;border:2px solid var(--gold);background:none;image-rendering:pixelated}
+.minibar canvas{width:100%;height:100%;image-rendering:pixelated;pointer-events:none}
+@media (min-width:900px){.minibar{display:none}}

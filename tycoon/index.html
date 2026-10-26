@@ -9,13 +9,14 @@
 <meta property="og:title" content="Unicorner Football Money Tycoon">
 <meta property="og:description" content="Kick the unicorn, build a ridiculous football club. A free browser idle game from Unicorner.">
 <meta property="og:url" content="https://unicornergame.lol/tycoon/">
-<meta name="theme-color" content="#1a1030">
+<meta name="theme-color" content="#efe3c1">
 <link rel="icon" href="/favicon-32.png" sizes="32x32">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800&family=Jersey+10&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="tycoon.css">
 </head>
 <body>
+<div class="minibar" id="minibar" aria-hidden="true"><b id="miniMoney">€0</b><span id="miniRate"></span><button type="button" id="miniKick" tabindex="-1" aria-label="Kick the unicorn"><canvas id="miniUni"></canvas></button></div>
 <div class="app">
   <aside class="left">
     <canvas class="rain" id="rain" aria-hidden="true"></canvas>

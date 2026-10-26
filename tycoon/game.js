@@ -840,6 +840,11 @@ $('clubName2').addEventListener('click', () => {
     <div class="choices" style="margin-top:12px"><button type="button" class="buy" data-act="ok">Save</button></div>`, act => { if (act === 'ok') { setClub(pendingName); save(); } });
   pendingName = S.club; const i = $('clubName'); i.addEventListener('input', e => { pendingName = e.target.value; }); i.select();
 });
+// ---------- phones: once the hero card scrolls off, a slim money bar slides down, with a small unicorn you can keep kicking ----------
+let miniOn = false;
+if (window.IntersectionObserver) new IntersectionObserver(([e]) => { miniOn = !e.isIntersecting; $('minibar').classList.toggle('on', miniOn); document.body.classList.toggle('mini', miniOn); }, {threshold: 0.15}).observe(document.querySelector('.kick-zone'));
+{ const m = $('miniUni'), u = cookieUnicorn(0, 2); m.width = u.width; m.height = u.height; m.getContext('2d').drawImage(u, 0, 0);
+  $('miniKick').addEventListener('pointerdown', e => { e.preventDefault(); kicker.dispatchEvent(new PointerEvent('pointerdown', {clientX: e.clientX, clientY: e.clientY + 60, bubbles: true})); }); }
 // ---------- the story, once at the start ----------
 function intro() {
   const pic = cookieUnicorn(0, 8).toDataURL();
@@ -1004,7 +1009,7 @@ function bigMoney(n) {
   while (n >= 1000 && i < u.length - 1) { n /= 1000; i++; }
   return '€' + n.toFixed(3) + u[i];
 }
-function paintBank() { $('money').textContent = bigMoney(S.money); $('rate').textContent = fmt(rates().total) + ' per second'; }
+function paintBank() { $('money').textContent = bigMoney(S.money); $('rate').textContent = fmt(rates().total) + ' per second'; $('miniRate').textContent = fmt(rates().total) + '/s'; }
 let last = performance.now(), uiT = 0, saveT = 0, hinted = false;
 function frame(now) {
   const dt = Math.min(0.25, (now - last) / 1000); last = now;
@@ -1018,6 +1023,7 @@ function frame(now) {
   }
   draw(t, dt); stepUni(dt); stepBoots(dt); stepRain(dt);
   $('money').textContent = bigMoney(S.money); // every frame, so the cents roll
+  if (miniOn) $('miniMoney').textContent = bigMoney(S.money);
   uiT += dt; if (uiT > 0.2) { uiT = 0; paintBank(); refreshButtons(); }
   saveT += dt; if (saveT > 5) { saveT = 0; save(); }
   if (!S.lv.boots && S.money >= cost('boots') && !hinted) { hinted = true; ticker('You can afford a pair of boots: buy them in the Club tab.', true); }
