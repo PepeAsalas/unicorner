@@ -742,9 +742,9 @@ let openStar = -1;
 function starSheet(i) {
   openStar = i;
   const s = S.stars.find(x => x.i === i && x.kept), st = C.stars[i]; if (!s) return;
-  modal(`<div class="star-sheet">${portrait(st)}<div><span class="tag gold">SQUAD MARKET</span><h2>${esc(st.name)}</h2><p class="note">${esc(st.trait)}</p></div></div>
+  modal(`<button type="button" class="sheet-x" data-act="hold" aria-label="Close">✕</button><div class="star-sheet">${portrait(st)}<div><span class="tag gold">SQUAD MARKET</span><h2>${esc(st.name)}</h2><p class="note">${esc(st.trait)}</p></div></div>
     <div class="chart" id="starChart"></div>
-    <div class="choices"><button type="button" class="buy sell" data-act="sell" id="starSellBtn"></button><button type="button" class="buy" data-act="hold">Hold<span>${bonusText(st.bonus)} while he stays</span></button></div>`, act => {
+    <div class="choices"><button type="button" class="buy sell" data-act="sell" id="starSellBtn"></button><button type="button" class="buy" data-act="hold">Keep him<span>${bonusText(st.bonus)} while he stays</span></button></div>`, act => {
     openStar = -1;
     if (act === 'sell') { const p = starValue(s); s.kept = false; earn(p); ticker(`${st.name} sold to ${club().name} for ${fmt(p)}.`, true); save(); renderPanel(); }
   });
@@ -819,7 +819,8 @@ function modal(html, cb, locked) {
 }
 function closeModal() { modalEl.hidden = true; sheet.innerHTML = ''; modalCb = null; }
 sheet.addEventListener('click', e => { const b = e.target.closest('[data-act]'); if (!b || b.disabled) return; const cb = modalCb; closeModal(); if (cb) cb(b.dataset.act); paintBank(); });
-// tapping outside a pop-up does nothing: every pop-up needs an answer from its own buttons
+// tapping outside a pop-up does nothing: every pop-up needs an answer from its own buttons. Escape works where there's a close button.
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modalEl.hidden) { const x = sheet.querySelector('.sheet-x'); if (x) x.click(); } });
 
 // ---------- the story, once at the start ----------
 function intro() {
