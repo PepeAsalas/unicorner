@@ -2,14 +2,6 @@
    The only network calls are the feedback form and three analytics events (open, wall, feedback). */
 (() => {
 'use strict';
-// demo is tester-only for now: open /tycoon/?tester=on once on a device to see it (and the home card); ?tester=off to hide it again
-try {
-  const q = new URLSearchParams(location.search).get('tester');
-  if (q === 'on') localStorage.setItem('uc-tycoon-tester', '1');
-  if (q === 'off') localStorage.removeItem('uc-tycoon-tester');
-  if (q) history.replaceState(null, '', location.pathname);
-  if (localStorage.getItem('uc-tycoon-tester') !== '1') { location.replace('/'); return; }
-} catch { location.replace('/'); return; }
 const C = window.TYC_CONTENT;
 const SB_URL = 'https://yujhjepukzdahsppntua.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1amhqZXB1a3pkYWhzcHBudHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2NDMzNDcsImV4cCI6MjEwNTIxOTM0N30.YIOdtL7tJnNLPFPy19QuXe6w3Dcnz6Xedw0tFGdV_CE';
@@ -908,7 +900,7 @@ function thanks() {
 
 
 // ---------- golden boot: every minute or three a gold boot appears for 10 seconds; tap it for a bonus ----------
-const goldEl = $('golden'); let goldNext = 75, goldUntil = 0;
+const goldEl = $('golden'); let goldNext = location.hash === '#gold' ? 2 : 75, goldUntil = 0; // #gold in the address shows one straight away, for testing
 function goldTick(dt) {
   goldNext -= dt;
   if (goldUntil && performance.now() > goldUntil) { goldEl.hidden = true; goldUntil = 0; }
@@ -985,7 +977,7 @@ function toast(name) {
 const rainCv = $('rain'), rctx = rainCv.getContext('2d'), drops = [];
 let rainAcc = 0;
 function rainBurst(n) { if (!still.matches) for (let i = 0; i < n; i++) drops.push(newDrop(true)); }
-function newDrop(burst) { const w = rainCv.clientWidth; return {x: Math.random() * w, y: burst ? rainCv.clientHeight * (0.2 + Math.random() * 0.3) : -20, vy: burst ? -60 - Math.random() * 80 : 30 + Math.random() * 40, vx: (Math.random() - 0.5) * 20, f: Math.random() * 6, s: 18 + Math.random() * 14}; }
+function newDrop(burst) { const w = rainCv.clientWidth; return {x: Math.random() * w, y: burst ? rainCv.clientHeight * (0.35 + Math.random() * 0.3) : rainCv.clientHeight * 0.2, vy: burst ? -60 - Math.random() * 80 : 30 + Math.random() * 40, vx: (Math.random() - 0.5) * 20, f: Math.random() * 6, s: 18 + Math.random() * 14}; }
 function stepRain(dt) {
   const dpr = window.devicePixelRatio || 1, W2 = rainCv.clientWidth, H2 = rainCv.clientHeight;
   if (rainCv.width !== Math.round(W2 * dpr) || rainCv.height !== Math.round(H2 * dpr)) { rainCv.width = Math.round(W2 * dpr); rainCv.height = Math.round(H2 * dpr); }
@@ -997,7 +989,7 @@ function stepRain(dt) {
   for (let i = drops.length - 1; i >= 0; i--) {
     const d = drops[i]; d.vy += 120 * dt; d.y += d.vy * dt; d.x += d.vx * dt; d.f += dt * 12;
     if (d.y > H2 + 20) { drops.splice(i, 1); continue; }
-    rctx.globalAlpha = Math.max(0, Math.min(0.4, 1 - d.y / H2 * 0.9));
+    const top = H2 * 0.26; rctx.globalAlpha = d.y < top ? 0 : Math.min(0.45, (d.y - top) / 60, 1 - d.y / H2 * 0.85); // coins only below the money counter, so the number stays readable
     rctx.drawImage(coinImg, (Math.floor(d.f) % 6) * fh, 0, fh, fh, d.x - d.s / 2, d.y - d.s / 2, d.s, d.s);
   }
   rctx.globalAlpha = 1;

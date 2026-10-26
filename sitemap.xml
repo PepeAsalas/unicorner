@@ -30,4 +30,10 @@
     <changefreq>yearly</changefreq>
     <priority>0.1</priority>
   </url>
+  <url>
+    <loc>https://unicornergame.lol/tycoon/</loc>
+    <lastmod>2026-10-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>

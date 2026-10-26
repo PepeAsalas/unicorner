@@ -1559,6 +1559,21 @@ body.kit-gold .sprite{filter:drop-shadow(0 0 var(--kg) #ffd23f) drop-shadow(0 0 
 body.playing .topbar .tb-split .sound-toggle+.sound-toggle{border-left:0!important}
 .topbar #stadiumToggle:active,.topbar .tb-split .sound-toggle:active{transform:translateY(2px)}
 @media (hover:hover){.topbar .tb-split .sound-toggle:hover{background-color:#f3e6bf!important}}
+.tyc-card{position:relative;display:flex;align-items:center;gap:12px;margin:-12px 0 22px;padding:8px 12px 8px 8px;overflow:hidden;color:#fff;text-decoration:none;border:3px solid #06041a;box-shadow:4px 4px 0 rgba(0,0,0,.4);background:repeating-linear-gradient(90deg,#2f7d32 0 22px,#2a7330 22px 44px);transition:transform .16s cubic-bezier(.23,1,.32,1)}
+.tyc-card:active{transform:translate(2px,2px);box-shadow:2px 2px 0 rgba(0,0,0,.4)}
+@media (hover:hover) and (pointer:fine){.tyc-card:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 rgba(0,0,0,.4)}.tyc-card:hover .tyc-art img{transform:translateY(-2px)}}
+.tyc-art{position:relative;flex:none;width:96px;height:62px;display:grid;place-items:center}
+.tyc-art img{width:100%;height:auto;filter:drop-shadow(0 3px 0 rgba(0,0,0,.35));transition:transform .2s cubic-bezier(.23,1,.32,1)}
+.tyc-art i{position:absolute;top:-12px;width:10px;height:10px;border-radius:50%;background:#f2c230;box-shadow:inset -2px -2px 0 #c99a1a,0 0 0 2px #06041a;animation:tycCoin 2.6s linear infinite}
+.tyc-art i:nth-child(2){left:12%;animation-delay:0s}.tyc-art i:nth-child(3){left:42%;animation-delay:.9s}.tyc-art i:nth-child(4){left:70%;animation-delay:1.7s}.tyc-art i:nth-child(5){left:88%;animation-delay:.4s}
+@keyframes tycCoin{0%{transform:translateY(0) scaleX(1);opacity:0}10%{opacity:1}50%{transform:translateY(40px) scaleX(.3)}90%{opacity:1}100%{transform:translateY(80px) scaleX(1);opacity:0}}
+.tyc-txt{display:grid;gap:2px;min-width:0;flex:1}
+.tyc-txt em{justify-self:start;font:400 11px/1 'Silkscreen',monospace;font-style:normal;color:#06041a;background:#f2c230;padding:3px 5px;border:2px solid #06041a;transform:rotate(-3deg)}
+.tyc-txt b{font:400 26px/1 'Jersey 15','Jersey 10',monospace;letter-spacing:.02em;text-shadow:2px 0 0 #06041a,-2px 0 0 #06041a,0 2px 0 #06041a,0 -2px 0 #06041a,3px 3px 0 #06041a}
+.tyc-txt small{font:600 13px/1.25 Barlow,sans-serif;opacity:.92}
+.tyc-go{flex:none;font:400 12px 'Silkscreen',monospace;font-weight:700;color:#06041a;background:#f2c230;border:2px solid #06041a;box-shadow:0 3px 0 #06041a;padding:8px 9px}
+@media (max-width:520px){.tyc-art{width:72px;height:48px}.tyc-txt b{font-size:22px}.tyc-go{display:none}}
+@media (prefers-reduced-motion:reduce){.tyc-art i{animation:none;opacity:0}}
 .tyc-coin{flex:none;width:40px;height:34px;display:flex;align-items:center;justify-content:center;font:400 26px/1 'Jersey 10',monospace;color:#06041a;background:#f2c230;border:2px solid #06041a;box-shadow:inset -3px -3px 0 #c99a1a}
 .tyc-strip .duel-txt b{font-weight:800}.tyc-strip .duel-txt small{opacity:.75}
 
@@ -2044,7 +2059,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
  ${played?infStrip:''}
 
  <a class="duel-strip lp-duel" id="lp-duel" href="/duel.html?inbox" hidden></a>
-${(()=>{try{return localStorage.getItem('uc-tycoon-tester')==='1'}catch{return false}})()?` <a class="duel-strip tyc-strip" href="/tycoon/" data-track="tycoon_card"><span class="tyc-coin" aria-hidden="true">€</span><span class="duel-txt"><b>Unicorner Football Money Tycoon</b><small>${L('New · build a ridiculous football empire','Nuevo · construye un imperio futbolero absurdo')}</small></span><span class="duel-go">${L('Play demo','Jugar demo')} →</span></a>`:''}
+<a class="tyc-card" href="/tycoon/" data-track="tycoon_card"><span class="tyc-art" aria-hidden="true"><img src="/tycoon/art/building-stadium-2.webp" alt="" loading="lazy" width="150" height="75"><i></i><i></i><i></i><i></i></span><span class="tyc-txt"><em>${L('New','Nuevo')}</em><b>Football Money Tycoon</b><small>${L('Kick the unicorn. Build a ridiculous club.','Patea al unicornio. Construye un club absurdo.')}</small></span><span class="tyc-go">${L('Play free','Jugar gratis')} →</span></a>
 
  ${compete}
 
