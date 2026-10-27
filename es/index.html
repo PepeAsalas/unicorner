@@ -2955,6 +2955,7 @@ const css=`
 .ucw-r:nth-child(odd):not(.h){background:#f3ead2}
 .ucw-r.h{cursor:default;background:var(--w0);box-shadow:inset 1px 1px 0 var(--wl),inset -1px -1px 0 var(--wd);font-size:8px}
 .ucw-r .ucw-u{width:32px;height:27px}
+.ucw-r .ucw-k{min-width:0;overflow:hidden;white-space:nowrap}.ucw-r .ucw-k.r3{font-size:.72em;letter-spacing:-.5px} /* 3-digit places shrink so they never run into the unicorn */
 .ucw-n{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ucw-s{text-align:right}
 .ucw-r.me,.ucw-r.ghost.named{background:#d12a2a!important;color:#fffbea}
@@ -3317,7 +3318,7 @@ function drawFull(loading){const wk=fullScope==='week',rows=fullData[fullScope]?
  document.getElementById('ft-dist').innerHTML=bk.map((v,i)=>`<i class="${i===mb?'mine':''}" style="height:${Math.max(4,Math.round(v/bm*100))}%"></i>`).join('');
  const q=document.getElementById('ft-q').value.trim().toLowerCase();fullRows=rows;infMembers(rows);
  const list=rows.map((r,i)=>[r,i]).filter(([r])=>!q||String(r.nickname).toLowerCase().includes(q));
- const rowH=(r,i,extra='')=>`<div class="ucw-r${r.me?' me':''}${r.rank<=3?' ft-top'+r.rank:''}${extra}" data-fi="${i}" role="button" tabindex="0"><span>${r.rank}</span>${uni(r)}<span class="ucw-n">${r.me?L('YOU','TÚ')+' · ':''}${esc(String(r.nickname).toUpperCase())}${crewTag(r)}${infTag(r)}${trTag(r)}</span><span class="ucw-s">${r.score}</span></div>`;
+ const rowH=(r,i,extra='')=>`<div class="ucw-r${r.me?' me':''}${r.rank<=3?' ft-top'+r.rank:''}${extra}" data-fi="${i}" role="button" tabindex="0"><span class="ucw-k${r.rank>=100?' r3':''}">${r.rank}</span>${uni(r)}<span class="ucw-n">${r.me?L('YOU','TÚ')+' · ':''}${esc(String(r.nickname).toUpperCase())}${crewTag(r)}${infTag(r)}${trTag(r)}</span><span class="ucw-s">${r.score}</span></div>`;
  sc.innerHTML=`<div class="ucw-r h"><span>${L('Pos','Pos')}</span><span></span><span>${L('Player','Jugador')}</span><span class="ucw-s">Pts</span></div>`+(n?list.length?list.map(([r,i])=>rowH(r,i)).join(''):`<p class="ucw-empty">${L(`Nobody called "${esc(q)}" is on the table.`,`Nadie llamado "${esc(q)}" está en la tabla.`)}</p>`:`<p class="ucw-empty">${wk?L('No scores this week yet.','Aún no hay puntos esta semana.'):L('No one on the board yet today.','Nadie en el ranking hoy.')}</p>`);
  document.getElementById('ft-me').innerHTML=me?rowH(me,rows.indexOf(me)).replace('data-fi=','data-ft="me" data-x='):'';
  document.querySelector('#dlg-full [data-ft=jump]').hidden=!me;pinFull()}
