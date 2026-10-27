@@ -47,6 +47,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 .rules{display:grid;gap:6px;margin:4px 0 2px}.rl-lbl{font-family:var(--mono);font-size:19px;color:var(--muted)}
 .seg{display:flex;gap:8px;margin-bottom:6px}.seg button{flex:1;width:auto;font-size:22px;padding:7px 4px;background:#120c38;color:var(--cream);box-shadow:0 0 0 3px var(--ink),0 4px 0 3px var(--ink);transition:transform .12s cubic-bezier(.23,1,.32,1)}
 .seg button.on{background:var(--gold);color:var(--ink)}.seg button:active{transform:translateY(2px)}
+.qm-btn{background:#ff7a1a!important}
 .r-rules{font-family:var(--mono);font-size:19px;color:var(--gold);margin:-4px 0 4px}
 .fresh{opacity:.85;margin-top:6px}
 .ib{display:grid;gap:10px;margin:14px 0}.ib-row{display:flex;align-items:center;gap:10px;background:#120c38;padding:10px 12px;border:3px solid var(--ink)}
@@ -270,6 +271,7 @@ body.prog-on.night .prog .ib-x{color:#b9b0d8}body.prog-on.night .prog .ib-off{co
   <p class="small" id="home-rules">You get a link to send. You both start on 300 HP and play rounds of 5 questions, 15 seconds each, then watch the battle. Keep going until someone is KO'd.</p>
   <p class="small fresh">🆕 New duel questions every week. The bank keeps growing, so rematches stay fresh.</p>
   <p class="small rec" id="rec1" hidden></p>
+  <button class="qm-btn" id="h-quick" hidden style="margin-top:12px">⚡ Quick match</button>
   <button class="ghost" id="to-inbox" hidden style="margin-top:12px">My duels</button>
  </section>
  <section id="s-inbox" class="prog" hidden>
@@ -296,8 +298,9 @@ body.prog-on.night .prog .ib-x{color:#b9b0d8}body.prog-on.night .prog .ib-off{co
     <div class="pr-in">
      <div class="pr-lbl"><span id="pr-tb-m"></span> table</div><table class="pr-tbl" id="pr-table"></table><p class="pr-note">Top 3 win a season medal</p>
      <div class="pr-lbl">Team news</div><div class="pr-news" id="pr-news"></div>
-     <div class="pr-lbl">Challenge a mate</div>
-     <button id="ib-new">+ New duel</button>
+     <div class="pr-lbl">Play</div>
+     <button class="qm-btn" id="ib-quick">⚡ Quick match</button><p class="pr-note" style="margin:6px 0 12px">Paired with a player near your rating. Not live: play your round, your rival turns up in Matches.</p>
+     <button id="ib-new" class="ghost">+ Challenge a mate</button>
      <label class="ib-off"><input type="checkbox" id="ib-allow"> Let other players challenge me</label>
     </div>
    </div>
@@ -447,7 +450,7 @@ async function boot(){if(!ls('uc-duel-intro'))openIntro('first');sides();$('nm')
  if(VSN&&!code){if(!await userToken())return fail('Sign in on Unicorner (the league login) to challenge players.');if(!playedToday())return gate();
   $('h-title').textContent=`CHALLENGE ${VSN.toUpperCase().slice(0,16)}`;$('create').textContent='Send challenge';$('create').dataset.vs=VSN;
   $('home-rules').dataset.vs=VSN;homeRules();show('s-home');return}
- if(!code){if(!playedToday()){if(await userToken())$('g-inbox').hidden=false;return gate()}record('rec1');if(await userToken())$('to-inbox').hidden=false;show('s-home');return}
+ if(!code){if(!playedToday()){if(await userToken())$('g-inbox').hidden=false;return gate()}record('rec1');if(await userToken())$('to-inbox').hidden=$('h-quick').hidden=false;show('s-home');return}
  try{[D]=await Promise.all([rpc('duel_get',{p_code:code,p_token:TOKEN}),loadRules()])}catch(e){track('duel_load_error',{message:String(e&&e.message||e).slice(0,160)});return fail(navigator.onLine===false?'You seem to be offline. Check your connection and try again.':'Could not load this duel. Try again in a moment.'+(e&&e.message?' ('+String(e.message).slice(0,80)+')':''))}
  if(!D)return fail('That duel link does not exist.');
  const me=D.players.find(p=>p.slot===D.me),p1=D.players.find(p=>p.slot===1);
@@ -471,6 +474,7 @@ async function boot(){if(!ls('uc-duel-intro'))openIntro('first');sides();$('nm')
 function ready(){const me=D.players.find(p=>p.slot===D.me),n=me.picks.length;clock($('r-clock'),true);$('r-link').textContent=link(code);
  $('r-title').textContent=n?(n<15?roundName(n)+' · NO KO YET':'LEVEL AFTER 15 · SUDDEN DEATH'):me.slot===1?'YOUR DUEL IS READY':'READY WHEN YOU ARE';
  $('go').textContent=n<15?(PER===15?'Play all 15':'Play round '+roundNo(n)):'Sudden death: 1 question';$('r-rules').textContent=rulesTxt(PER,SECS).replace(/^./,c=>c.toUpperCase());
+ const qk=QS.get('quick');if(qk&&me.slot===1&&!D.players.find(p=>p.slot===2)){$('r-title').textContent=n?'LOOKING FOR A RIVAL':'POSTED: QUICK MATCH';$('r-link').hidden=$('copy').hidden=true;$('r-link').previousElementSibling.textContent=`We'll pair you with a player near ${qk}. Play your round now; your rival turns up in My duels. Come back in a bit.`;show('s-ready');return}
  const ch=D.challenge&&me.slot===1&&!D.players.find(p=>p.slot===2);$('r-link').hidden=$('copy').hidden=!!ch;$('r-link').previousElementSibling.textContent=ch?`Challenge sent to ${D.for_nick}. It's in their duel inbox; play your round now.`:'Send this link to your mate:';if(ch&&!n)$('r-title').textContent='CHALLENGE SENT';show('s-ready')}
 function gate(who){if(code)ls('uc-duel-pending',code);if(who){$('g-title').textContent=`${who.toUpperCase()} CHALLENGED YOU`;$('g-msg').textContent=`Play today's five questions first, then come back for your duel. Your link is saved: you'll find it on your results screen.`}
  track('duel_gate',{code:code||null});show('s-gate')}
@@ -509,10 +513,10 @@ const kitFor=n=>{const pool=KITS.filter(k=>!k.crew&&!k.myth&&k.id!=='boardroom')
 const myKit=()=>{try{return KITS.find(k=>k.id===localStorage.getItem('uc-kit'))||null}catch{return null}};
 const uni=(k,flip)=>`<i class="pr-uni${flip?' flip':''}" style="background-image:${spriteDraw('happy',0,false,k).replace(/"/g,"'")}"></i>`;
 const MONS=['January','February','March','April','May','June','July','August','September','October','November','December'];
-let IBZ=null,IBREC=null;
+let IBZ=null,IBREC=null,IBQ=new Set();
 async function inbox(){if(!await userToken())return fail('Sign in on Unicorner (the league login) to see your duels.');
  document.body.classList.add('prog-on');
- try{[IBR,IBZ,IBREC]=await Promise.all([rpc('duel_inbox',{}),rpc('duel_season',{}).catch(()=>null),rpc('duel_record',{p_token:TOKEN}).catch(()=>null)]);IBR=IBR||{items:[]}}catch{return fail('Could not load your duels. Try again in a moment.')}
+ try{[IBR,IBZ,IBREC,IBQ]=await Promise.all([rpc('duel_inbox',{}),rpc('duel_season',{}).catch(()=>null),rpc('duel_record',{p_token:TOKEN}).catch(()=>null),rpc('duel_quick_mine',{}).catch(()=>[])]);IBR=IBR||{items:[]};IBQ=new Set(IBQ||[])}catch{return fail('Could not load your duels. Try again in a moment.')}
  track('duel_inbox',{n:IBR.items.length});$('ib-allow').checked=!IBR.off;ibDraw();show('s-inbox')}
 function pyramid(){const mi=IBZ&&IBZ.mine,el=$('pr-pyr');
  if(!mi){el.innerHTML='<p class="pr-note">Play rated duels (both players signed in) to get a league this season.</p>';$('pr-div-r').textContent='';return}
@@ -538,11 +542,11 @@ function ibDraw(){const all=IBR.items,act=all.filter(x=>!done(x)),arc=all.filter
  const needs=x=>!x.fresh&&(x.state==='challenge'||x.state==='your_turn'),need=act.filter(needs),rest=act.filter(x=>!needs(x));
  $('pr-fx-n').textContent=need.length?need.length+' need'+(need.length===1?'s':'')+' you':act.length?act.length+' going':'';
  const tn=$('pr-tab-n');tn.hidden=!need.length;tn.textContent=need.length;
- const card=x=>{const[pl,pc]=x.fresh||done(x)?['Result in','#1d7a45']:PILL[x.state]||[x.state,'#6b6878'],tl=x.deadline&&tLeft(x.deadline),urgent=tl&&x.state==='your_turn'&&hot(x.deadline);
-  const rd=x.played?(x.played>=15?'Sudden death':`${x.played} of 15 played`):'Round 1',sub=x.state==='challenge'?'Challenged you':x.state==='sent'?'Waiting for them to join':x.fresh?'Watch to find out':tl?(x.state==='your_turn'?'⏰ '+tl+' left':tl+' left for them'):rd;
+ const card=x=>{const qw=IBQ.has(x.code)&&x.state==='sent',[pl,pc]=qw?['Quick match','#b8860b']:x.fresh||done(x)?['Result in','#1d7a45']:PILL[x.state]||[x.state,'#6b6878'],tl=x.deadline&&tLeft(x.deadline),urgent=tl&&x.state==='your_turn'&&hot(x.deadline);
+  const rd=x.played?(x.played>=15?'Sudden death':`${x.played} of 15 played`):'Round 1',sub=x.state==='challenge'?'Challenged you':qw?'Looking for a rival near your rating':x.state==='sent'?'Waiting for them to join':x.fresh?'Watch to find out':tl?(x.state==='your_turn'?'⏰ '+tl+' left':tl+' left for them'):rd;
   const live=x.state==='your_turn'||x.state==='their_turn',rm=x.state==='challenge'?'':`<button class="pr-rm" data-rm="${x.code}" data-st="${x.state}">${live?'Give up':'Remove'}</button>`;
   const go=x.state==='challenge'?`<button class="ghost" data-no="${x.code}">Decline</button><button data-go="${x.code}">Accept</button>`:x.state==='your_turn'&&!x.fresh?`<button data-go="${x.code}">Play ${x.played>=15?'sudden death':'your round'} ▶</button>`:x.fresh?`<button data-go="${x.code}">Watch ▶</button>`:`<button class="ghost" data-go="${x.code}">View</button>`;
-  return`<div class="pr-card${urgent||(x.state==='your_turn'&&!x.fresh)?' hot':''}">${uni(kitFor(x.opp),true)}<div class="pr-who"><span class="pr-pill" style="--sc:${pc}">${pl}</span><b>vs ${esc(x.opp)}</b><small>${sub}${rm?' · ':''}</small>${rm}</div><div class="pr-go">${go}</div></div>`};
+  return`<div class="pr-card${urgent||(x.state==='your_turn'&&!x.fresh)?' hot':''}">${uni(kitFor(x.opp),true)}<div class="pr-who"><span class="pr-pill" style="--sc:${pc}">${pl}</span><b>${qw?'vs ???':'vs '+esc(x.opp)}</b><small>${sub}${rm?' · ':''}</small>${rm}</div><div class="pr-go">${go}</div></div>`};
  $('ib-list').innerHTML=act.length?(need.length?'<div class="pr-lbl">Needs you</div>'+need.map(card).join(''):'')+(rest.length?'<div class="pr-lbl">Waiting &amp; finished</div>'+rest.map(card).join(''):'')
   :'<div class="pr-lbl">Needs you</div><p class="pr-note">Nothing right now. Challenge a mate, or tap a player on the Unicorner leaderboard.</p>';
  $('pr-results').innerHTML=arc.length?arc.slice(0,12).map(x=>{const w=x.state==='won',l=x.state==='lost',d=x.state==='draw',how=x.how==='timeout'?' · out of time':x.gave_up?(x.gave_up==='you'?' · you gave up':' · they gave up'):'';
@@ -579,6 +583,13 @@ function homeRules(){const[p,s]=myRules(),vs=$('home-rules').dataset.vs;for(cons
  $('home-rules').textContent=(vs?`${vs} gets it in their duel inbox. `:'You get a link to send. ')+`You both start on 300 HP and play ${rulesTxt(p,s)}, then watch the battle. Keep going until someone is KO'd.`}
 for(const[id,key]of[['r-per','uc-duel-per'],['r-secs','uc-duel-secs']])$(id).onclick=e=>{const b=e.target.closest('button');if(!b)return;try{localStorage.setItem(key,b.dataset.v)}catch{}homeRules()};
 homeRules();
+// quick match: join a waiting duel near my rating, or post mine and play my round while a rival turns up
+async function quick(b){const t=b.textContent;b.disabled=true;b.textContent='Finding a rival…';
+ try{const[p,sx]=myRules(),qset=await pickQs(),n=(ls('uc-nick')||ls('uc-duel-name')||'Player').slice(0,16);
+  const r=await rpc('duel_quick',{p_token:TOKEN,p_name:n,p_kit:KIT,p_qset:qset,p_per:p,p_secs:sx});track('duel_quick',{matched:!!r.matched});
+  location.href='duel.html?d='+r.code+(r.matched?'':'&quick='+r.r)}
+ catch(e){b.disabled=false;b.textContent=t;alert(/sign in/.test(e.message)?'Sign in on Unicorner to play quick match (it counts for your rating).':'Quick match failed: '+e.message)}}
+$('ib-quick').onclick=e=>quick(e.currentTarget);$('h-quick').onclick=e=>quick(e.currentTarget);
 $('go').onclick=()=>play();$('refresh').onclick=()=>location.reload();
 $('rematch').onclick=()=>{location.href='duel.html'};
 // ── play the five ──
