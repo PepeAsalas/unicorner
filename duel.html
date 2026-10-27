@@ -42,6 +42,14 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 .msg.ok{color:var(--green)}.msg.bad{color:var(--red)}
 .tier{font-family:var(--disp);font-size:46px;text-align:center}
 .cab{position:relative;aspect-ratio:9/13;width:100%;border:4px solid var(--cream);box-shadow:0 0 0 4px var(--ink);overflow:hidden;background:var(--ink)}
+/* desktop: the battle fits the screen height, with the buttons beside it instead of below */
+@media (min-width:900px){
+ body:has(#s-battle:not([hidden])) main{max-width:900px}
+ body:has(#s-battle:not([hidden])) .side{display:none!important}
+ #s-battle:not([hidden]){display:grid;grid-template-columns:auto 300px;gap:20px;align-items:start}
+ #s-battle .cab{height:min(calc(100vh - 130px),780px);width:auto;grid-row:span 4}
+ #s-battle>:not(.cab){grid-column:2}#s-battle .row{flex-direction:column}#s-battle .row>*{width:100%}
+}
 .cab canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
 .small{font-size:18px}
 .rules{display:grid;gap:6px;margin:4px 0 2px}.rl-lbl{font-family:var(--mono);font-size:19px;color:var(--muted)}
