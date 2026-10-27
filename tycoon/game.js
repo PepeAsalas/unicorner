@@ -286,7 +286,7 @@ function drawLot(b, t) {
     ctx.restore(); hitBox[b] = {x: cx - w / 2, y: ly - top, w, h: fy - ly + top}; return;
   }
   ctx.save(); ctx.translate(cx, fy + 1); ctx.scale(sx, sy); ctx.drawImage(img, -w / 2, -h, w, h);
-  const fx = ANIM[`building-${b}-${st}`]; if (fx) animate(fx, b, -w / 2, -h, w, h, t);
+  const fx = ANIM[`building-${b}-${st}`]; if (fx) animate(fx, img, -w / 2, -h, w, h, t);
   ctx.restore();
   hitBox[b] = {x: cx - w / 2, y: fy - h, w, h};
 }
@@ -322,9 +322,9 @@ const BASE = {};
 // Flags stand on the pitch corners the stands don't hide.
 const ANIM = {
   'building-stadium-1': {flags: [[0.1477, 0.6244], [0.5003, 0.3427], [0.8587, 0.6056], [0.5061, 0.8873]], pole: 0.0646, lamps: [[0.0712, 0.3016, 0.0280], [0.4997, 0.0329, 0.0350], [0.9276, 0.3016, 0.0280]]},
-  'building-stadium-2': {flags: [[0.5003, 0.3419], [0.5061, 0.8852]], pole: 0.0644, lamps: [[0.0683, 0.3021, 0.0374], [0.5003, 0.0340, 0.0403], [0.9317, 0.3009, 0.0350]], fans: [[[0.1582, 0.5187], [0.4256, 0.3595]], [[0.1459, 0.4438], [0.4168, 0.3009]], [[0.5756, 0.3595], [0.8587, 0.5351]], [[0.5838, 0.2845], [0.8675, 0.4438]]], fan: 0.0280},
-  'building-stadium-3': {flags: [[0.4997, 0.3427], [0.5055, 0.8873]], pole: 0.0646, lamps: [[0.0665, 0.2441, 0.0373], [0.5003, 0.0329, 0.0402], [0.9329, 0.2465, 0.0350]], fans: [[[0.1335, 0.4695], [0.4332, 0.3603]], [[0.0997, 0.3603], [0.4163, 0.2347]], [[0.5749, 0.3521], [0.8746, 0.5035]], [[0.5749, 0.2512], [0.8828, 0.3603]]], fan: 0.0280},
-  'building-stadium-4': {flags: [[0.1480, 0.6172], [0.5012, 0.3387], [0.8602, 0.5986], [0.5070, 0.8770]], pole: 0.0638, lamps: [[0.0661, 0.2831, 0.0398], [0.5000, 0.0394, 0.0409], [0.9351, 0.2865, 0.0386]], fans: [[[0.1585, 0.5383], [0.4263, 0.3898]], [[0.1503, 0.3979], [0.4263, 0.2738]], [[0.5848, 0.3817], [0.8520, 0.5302]], [[0.5766, 0.2657], [0.8602, 0.3979]]], fan: 0.0281, screens: [[0.1082, 0.0872, 0.1205, -0.0188, 0.1655], [0.7760, 0.0270, 0.1076, 0.1226, 0.1470]], roof: [[0.2754, 0.0858], [0.3632, 0.0360], [0.6392, 0.0360], [0.7392, 0.0858]]},
+  'building-stadium-2': {flags: [[0.5003, 0.3419], [0.5061, 0.8852]], pole: 0.0644, lamps: [[0.0683, 0.3021, 0.0374], [0.5003, 0.0340, 0.0403], [0.9317, 0.3009, 0.0350]], tiers: [[[0.1467, 0.4388], [0.4389, 0.2339], [0.4389, 0.3341], [0.1467, 0.5167]], [[0.5611, 0.2494], [0.8578, 0.4454], [0.8578, 0.5278], [0.5611, 0.3363]]]},
+  'building-stadium-3': {flags: [[0.4997, 0.3427], [0.5055, 0.8873]], pole: 0.0646, lamps: [[0.0665, 0.2441, 0.0373], [0.5003, 0.0329, 0.0402], [0.9329, 0.2465, 0.0350]], tiers: [[[0.1167, 0.3535], [0.4167, 0.2058], [0.4311, 0.2483], [0.1300, 0.4452]], [[0.1333, 0.4877], [0.4356, 0.2864], [0.4389, 0.3311], [0.1500, 0.5280]], [[0.5722, 0.2058], [0.8611, 0.3535], [0.8644, 0.4497], [0.5689, 0.2461]], [[0.5644, 0.2774], [0.8589, 0.4765], [0.8500, 0.5324], [0.5611, 0.3490]]]},
+  'building-stadium-4': {flags: [[0.1480, 0.6172], [0.5012, 0.3387], [0.8602, 0.5986], [0.5070, 0.8770]], pole: 0.0638, lamps: [[0.0661, 0.2831, 0.0398], [0.5000, 0.0394, 0.0409], [0.9351, 0.2865, 0.0386]], tiers: [[[0.1311, 0.4339], [0.4333, 0.2599], [0.4333, 0.3172], [0.1311, 0.4824]], [[0.1556, 0.5022], [0.4389, 0.3414], [0.4389, 0.3789], [0.1556, 0.5815]], [[0.5856, 0.2577], [0.8722, 0.4295], [0.8722, 0.4846], [0.5856, 0.3128]], [[0.5633, 0.3260], [0.8667, 0.5198], [0.8667, 0.5815], [0.5633, 0.3700]]], screens: [[0.1082, 0.0872, 0.1205, -0.0188, 0.1655], [0.7760, 0.0270, 0.1076, 0.1226, 0.1470]], roof: [[0.2754, 0.0858], [0.3632, 0.0360], [0.6392, 0.0360], [0.7392, 0.0858]]},
 };
 let lampsFrom = performance.now() / 1000 - 99, flick = {i: -1, until: 0, next: 6};
 let cheerUntil = 0, volley = 0, nextRocket = 4;
@@ -336,7 +336,7 @@ function lampOn(i, t) { // switch on one by one with a stutter after a build, an
   if (flick.i === i && t < flick.until) return Math.floor(t / 0.06) % 2 === 0;
   return true;
 }
-function animate(fx, b, x0, y0, w, h, t) {
+function animate(fx, img, x0, y0, w, h, t) {
   const flag = art('anim-corner-flag'), lamp = art('anim-floodlight');
   if (t > flick.next) { flick = {i: Math.random() * fx.lamps.length | 0, until: t + 0.35, next: t + 9 + Math.random() * 14}; }
   if (lamp) {
@@ -363,20 +363,20 @@ function animate(fx, b, x0, y0, w, h, t) {
       ctx.drawImage(screen, f * fw, 0, fw, fh, 0, 0, fw, fh); ctx.restore();
     }
   }
-  const fans = art('anim-fans');
-  if (fans && fx.fans) { // a Mexican wave runs round the stands every 14 s; everyone jumps after an upgrade
-    const fw = fans.width / 2, fh = fans.height, dw = fx.fan * w, dh = dw * fh / fw, wave = (t % 14) / 3, all = t < cheerUntil;
-    const total = fx.fans.length;
-    fx.fans.forEach(([[ax, ay], [bx, by]], r) => {
-      const right = bx > 0.55, n = Math.max(2, Math.round(Math.hypot((bx - ax) * w, (by - ay) * h) / (dw * 1.15)));
-      for (let k = 0; k <= n; k++) {
-        const q = k / n, x = x0 + (ax + (bx - ax) * q) * w, y = y0 + (ay + (by - ay) * q) * h;
-        const along = (right ? 0.5 : 0) + (right ? q : q) * 0.5; // left stand first, then the right one
-        const up = all ? Math.floor(t * 4 + k) % 2 === 0 : Math.abs(wave - along) < 0.07;
-        ctx.save(); ctx.translate(x, y); if (right) ctx.scale(-1, 1);
-        ctx.drawImage(fans, up ? fw : 0, 0, fw, fh, -dw / 2, -dh, dw, dh); ctx.restore();
+  if (fx.tiers) { // the painted crowd stands up as a Mexican wave goes round the stands every 14 s; everyone bounces after an upgrade
+    const wave = (t % 14) / 3, all = t < cheerUntil, lift = 0.014 * h, SL = 14, lerp = (p, q, s) => [p[0] + (q[0] - p[0]) * s, p[1] + (q[1] - p[1]) * s];
+    for (const [tl, tr, br, bl] of fx.tiers) {
+      const right = tl[0] > 0.5;
+      for (let k = 0; k < SL; k++) {
+        const q0 = k / SL, q1 = (k + 1) / SL, along = (right ? 0.5 : 0) + (q0 + q1) / 4;
+        const d = Math.abs(wave - along), up = all ? lift * (0.5 + 0.5 * Math.sin(t * 14 + k * 1.3)) : d < 0.06 ? lift * (1 - d / 0.06) ** 0.5 : 0;
+        if (up < 0.15) continue;
+        const pts = [lerp(tl, tr, q0), lerp(tl, tr, q1), lerp(bl, br, q1), lerp(bl, br, q0)];
+        ctx.save(); ctx.beginPath(); // clip to this slice of the tier, its floor raised by the lift so the rail below never shows
+        pts.forEach(([px, py], i) => ctx[i ? 'lineTo' : 'moveTo'](x0 + px * w, y0 + py * h - (i > 1 ? up : 0)));
+        ctx.clip(); ctx.drawImage(img, x0, y0 - up, w, h); ctx.restore();
       }
-    });
+    }
   }
   const pts = fx.roof || fx.lamps, rocket = art('anim-rocket'), boom = art('anim-firework');
   if (rocket && boom) { // fireworks: now and then from the stage 4 roof, and a volley after an upgrade
