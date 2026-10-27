@@ -108,6 +108,44 @@ dialog.intro[open]{animation:dlgin 220ms cubic-bezier(.23,1,.32,1)}
 .sp-last{display:flex;gap:6px}.sp-last i{width:28px;height:28px;border:2px solid var(--ink);display:grid;place-items:center;font:400 13px var(--mono);font-style:normal}
 .sp-link{width:auto;align-self:flex-start;background:none;box-shadow:none;padding:0;font:400 13px var(--mono);color:var(--ink);text-decoration:underline;text-underline-offset:3px;letter-spacing:0}
 .sp-link:active{transform:none;box-shadow:none}
+
+/* paper: every screen around a duel (create, join, ready, waiting, results-in, errors) in the matchday-programme style of My duels:
+   cream page, a red title band, ink borders. The question screen and the battle keep the dark arena. */
+html:has(body.paper),body.paper{background:#efe3c1}
+body.paper .stadium{display:none!important}
+body.paper main>header h1{color:var(--ink);text-shadow:3px 3px 0 #f2c230}
+body.paper main>header .how-link{color:#5b5070}
+body.paper .card{--pp:#fbf6e6;background:var(--pp);background-image:radial-gradient(rgba(6,4,26,.07) 1px,transparent 1.5px);background-size:10px 10px;color:var(--ink);box-shadow:none;border:4px solid var(--ink);box-shadow:8px 8px 0 rgba(6,4,26,.35);padding:0 18px 20px;overflow:hidden}
+body.paper .card>h2:first-child{position:relative;margin:0 -18px 10px;padding:14px 18px 12px;background:#d7262e;color:#fff;font-size:34px;border-bottom:4px solid var(--ink);text-shadow:3px 3px 0 var(--ink)}
+body.paper .card>h2:first-child::after{content:'';position:absolute;left:0;right:0;bottom:-10px;height:6px;background:repeating-linear-gradient(90deg,var(--ink) 0 12px,#f2c230 12px 24px)}
+body.paper .card p,body.paper .card label,body.paper .rl-lbl,body.paper .pl small,body.paper .qsub{color:#5b5070}
+body.paper .card p b{color:var(--ink)}
+body.paper .card input{background:#fff;color:var(--ink);border-color:var(--ink)}
+body.paper .card input:focus{box-shadow:0 0 0 3px #f2c230}
+body.paper .card button.ghost,body.paper .seg button{background:#fffaf0;color:var(--ink)}
+body.paper .seg button.on{background:#f2c230}
+body.paper .link{background:#fff;color:var(--ink);border-color:var(--ink)}
+body.paper .clock{color:#b03030}body.paper .r-rules{color:#8a5a00}
+body.paper .pl{color:var(--ink)}body.paper .vs b{color:#d7262e;text-shadow:3px 3px 0 var(--ink)}
+body.paper .w-uni b{color:var(--ink)}
+body.paper .small.rec,body.paper .fresh{color:#5b5070}
+/* side panels on wide screens: boxed programme pages with a coloured band, like the My duels columns */
+body.paper .side{top:120px}
+.sp-panel{border-width:3px;box-shadow:4px 4px 0 rgba(6,4,26,.3)}
+.sp-band{display:flex;align-items:center;gap:8px;margin:-14px -14px 4px;padding:8px 12px;background:var(--bc,#d7262e);color:#fff;border-bottom:3px solid var(--ink);font:400 24px/1 var(--disp);text-shadow:2px 2px 0 var(--ink)}
+.sp-band em{margin-left:auto;font:16px/1.1 var(--mono);font-style:normal;letter-spacing:1px;background:var(--ink);padding:2px 7px;text-shadow:none}
+.sp-row.me{background:#f2c230}
+/* night edition, same switch as My duels */
+html:has(body.paper.night),body.paper.night{background:#0b0820}
+body.paper.night main>header h1{color:#f3ead2}
+body.paper.night .card{--pp:#151130;background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1.5px);color:#f3ead2;border-color:#f3ead2;box-shadow:8px 8px 0 #000}
+body.paper.night .card p,body.paper.night .card label,body.paper.night .rl-lbl{color:#b9b0d8}body.paper.night .card p b{color:#f3ead2}
+body.paper.night .card button.ghost,body.paper.night .seg button{background:#201a44;color:#f3ead2}body.paper.night .seg button.on{background:#f2c230;color:var(--ink)}
+body.paper.night .link,body.paper.night .card input{background:#201a44;color:#f3ead2;border-color:#f3ead2}
+body.paper.night .pl,body.paper.night .w-uni b{color:#f3ead2}
+body.paper.night .sp-panel{background:#201a44;color:#f3ead2;border-color:#f3ead2;box-shadow:4px 4px 0 #000}body.paper.night .sp-row{border-top-color:#3d3566}body.paper.night .sp-row.me{color:var(--ink)}
+body.paper.night .sp-wdl,body.paper.night .sp-wdl div{border-color:#f3ead2}body.paper.night .sp-link{color:#f3ead2}body.paper.night .sp-wdl b:not([style]){color:#f3ead2}
+body.paper .w-uni{margin-top:22px}.sp-panel.dark{box-shadow:4px 4px 0 rgba(6,4,26,.3)}body.paper.night .clock{color:#ff8a8a}body.paper.night .r-rules{color:#f2c230}
 [hidden]{display:none!important}
 /* waiting: your unicorn nods off until the rival plays */
 .w-uni{position:relative;width:144px;height:120px;margin:4px auto 0}
@@ -345,7 +383,7 @@ const rpc=async(fn,args)=>{const ut=await userToken();const go=tok=>fetch(SB_URL
  let r=await go(ut);if(ut&&(r.status===401||r.status===403)){track('duel_token_retry',{fn,status:r.status});r=await go(null)}
  const t=await r.text();if(!r.ok){let m=t;try{m=JSON.parse(t).message||t}catch{}throw new Error(m||('HTTP '+r.status))}return t?JSON.parse(t):null};
 let curScr=null;const SCR_RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const show=(id,dir)=>{for(const s of document.querySelectorAll('main>section'))s.hidden=s.id!==id;document.body.classList.toggle('playing',id==='s-play');scrollTo(0,0);
+const show=(id,dir)=>{for(const s of document.querySelectorAll('main>section'))s.hidden=s.id!==id;document.body.classList.toggle('playing',id==='s-play');document.body.classList.toggle('paper',!['s-play','s-battle','s-inbox'].includes(id));scrollTo(0,0);
  const el=document.getElementById(id);if(el&&curScr!==id&&el.animate){if(!dir)try{dir=sessionStorage.getItem('uc-duel-dir');sessionStorage.removeItem('uc-duel-dir')}catch{}
   el.animate(SCR_RM?[{opacity:0},{opacity:1}]:[{opacity:0,transform:`translateX(${dir==='back'?-24:24}px)`},{opacity:1,transform:'none'}],{duration:SCR_RM?160:240,easing:'cubic-bezier(.32,.72,0,1)'})}
  curScr=id};
@@ -379,7 +417,7 @@ async function pickQs(){const ids=Object.keys(await bank());for(let i=ids.length
 // rounds: PER questions (3, 5 or all 15) while under 15, then sudden death one at a time. Same rules as duel_submit/duel_over in the SQL.
 const roundSize=n=>n<15?PER:1,roundNo=n=>n<15?Math.floor(n/PER)+1:15/PER+1+(n-15);
 const roundStart=n=>n<=15?n-PER:n-1; // first question of the round that ends at n
-async function loadRules(){try{const r=await rpc('duel_rules',{p_code:code});if(r){PER=[3,5,15].includes(r.per)?r.per:5;SECS=[10,15,20,30].includes(r.secs)?r.secs:15}}catch{}}
+async function loadRules(){try{const r=await rpc('duel_rules',{p_code:code});if(r){PER=[3,5,15].includes(r.per)?r.per:5;SECS=[10,15,20,30].includes(r.secs)?r.secs:15;if(PER!==5||SECS!==15)sides()}}catch{}}
 const rulesTxt=(p,s)=>`${p===15?'all 15 questions in one go':'rounds of '+p+' questions'}, ${s} seconds each`
 function hpAfter(a,b,n){let h=[300,300];for(let i=0;i<n&&h[0]&&h[1];i++){const x=a[i]||[null,0],y=b[i]||[null,0];if(x[0]&&x[0]===y[0])continue;h=[Math.max(0,h[0]-y[1]),Math.max(0,h[1]-x[1])]}return h}
 const roundName=n=>n<15?(PER===15?'THE 15':'ROUND '+roundNo(n)):'SUDDEN DEATH';
@@ -450,12 +488,12 @@ async function sides(){if(!matchMedia('(min-width:1200px)').matches)return;
  const [z,rec,ib]=await Promise.all([rpc('duel_season',{}).catch(()=>null),rpc('duel_record',{p_token:TOKEN}).catch(()=>null),signed?rpc('duel_inbox',{}).catch(()=>null):null]);
  const MON=['January','February','March','April','May','June','July','August','September','October','November','December'];let L='';
  if(z){const[y,m]=z.season.split('-'),days=Math.max(0,Math.ceil((new Date(z.ends)-Date.now())/864e5)),top=(z.top||[]).slice(0,5);
-  L+=`<div class="sp-panel"><span class="sp-lbl">${MON[+m-1].toUpperCase()} SEASON · ${days} DAY${days===1?'':'S'} LEFT</span>${top.length?top.map(t=>`<div class="sp-row${z.me&&z.me.pos===t.pos?' me':''}"><b>${t.pos}</b><span>${esc(t.nick||'?')}</span><b>${t.r}</b></div>`).join(''):'<span style="font-size:15px">No one has finished placement yet. Play 5 rated duels to get on the table.</span>'}<span class="sp-lbl" style="color:#5a4a2a">TOP 3 GET A SEASON MEDAL</span></div>`;
+  L+=`<div class="sp-panel" style="--bc:#b8860b"><span class="sp-band">${MON[+m-1]} table<em>${days} day${days===1?'':'s'} left</em></span>${top.length?top.map(t=>`<div class="sp-row${z.me&&z.me.pos===t.pos?' me':''}"><b>${t.pos}</b><span>${esc(t.nick||'?')}</span><b>${t.r}</b></div>`).join(''):'<span style="font-size:15px">No one has finished placement yet. Play 5 rated duels to get on the table.</span>'}<span class="sp-lbl" style="color:#5a4a2a">TOP 3 GET A SEASON MEDAL</span></div>`;
   const mi=z.mine;if(mi){const T=[900,1000,1100,1200,1400],N=['Non-League','Championship','Premier League','Champions League',"Ballon d'Or"],nx=T.findIndex(t=>mi.r<t);
-   L+=`<div class="sp-panel dark"><span class="sp-lbl" style="color:#9fe7ff">YOUR RATING</span>${mi.g<5?`<div class="sp-big"><b>${esc(duelTier(mi.r,mi.g))}</b></div><span style="font-size:15px;color:#c9bff5">Play ${5-mi.g} more rated duel${5-mi.g===1?'':'s'} to get your league</span>`:`<div class="sp-big"><b>${esc(duelTier(mi.r,mi.g))}</b><strong>${mi.r}</strong></div>${nx>=0?`<span style="font-size:15px;color:#c9bff5">${T[nx]-mi.r} to ${N[nx]}</span>`:''}`}</div>`}}
+   L+=`<div class="sp-panel dark" style="--bc:#1d7a45"><span class="sp-band">Your rating</span>${mi.g<5?`<div class="sp-big"><b>${esc(duelTier(mi.r,mi.g))}</b></div><span style="font-size:15px;color:#c9bff5">Play ${5-mi.g} more rated duel${5-mi.g===1?'':'s'} to get your league</span>`:`<div class="sp-big"><b>${esc(duelTier(mi.r,mi.g))}</b><strong>${mi.r}</strong></div>${nx>=0?`<span style="font-size:15px;color:#c9bff5">${T[nx]-mi.r} to ${N[nx]}</span>`:''}`}</div>`}}
  let R='';if(rec&&rec.w+rec.d+rec.l>0){const last=((ib&&ib.items)||[]).filter(x=>x.state==='won'||x.state==='lost'||x.state==='draw').slice(0,5);
-  R+=`<div class="sp-panel"><span class="sp-lbl">YOUR RECORD</span><div class="sp-wdl"><div><b style="color:#1f9a3a">${rec.w}</b><span class="sp-lbl">WON</span></div><div><b>${rec.d}</b><span class="sp-lbl">DRAW</span></div><div><b style="color:#d12a2a">${rec.l}</b><span class="sp-lbl">LOST</span></div></div>${last.length?`<span class="sp-lbl">LAST RESULTS</span><div class="sp-last">${last.map(x=>`<i title="${esc(x.opp)}" style="background:${x.state==='won'?'#39d353':x.state==='lost'?'#ff6b6b':'#4fc3ff'}">${x.state==='won'?'W':x.state==='lost'?'L':'D'}</i>`).join('')}</div>`:''}</div>`}
- R+=`<div class="sp-panel"><span class="sp-lbl" style="color:#d12a2a">HOW DUELS WORK</span><span style="font-size:16px;line-height:1.35">5 questions a round, 15 s each · rarer answer = bigger hit · 300 HP, first to 0 loses · 24 h per turn</span><button type="button" class="sp-link" id="sp-how">READ THE BOOKLET ▸</button></div>`;
+  R+=`<div class="sp-panel" style="--bc:#1d7a45"><span class="sp-band">Your record</span><div class="sp-wdl"><div><b style="color:#1f9a3a">${rec.w}</b><span class="sp-lbl">WON</span></div><div><b>${rec.d}</b><span class="sp-lbl">DRAW</span></div><div><b style="color:#d12a2a">${rec.l}</b><span class="sp-lbl">LOST</span></div></div>${last.length?`<span class="sp-lbl">LAST RESULTS</span><div class="sp-last">${last.map(x=>`<i title="${esc(x.opp)}" style="background:${x.state==='won'?'#39d353':x.state==='lost'?'#ff6b6b':'#4fc3ff'}">${x.state==='won'?'W':x.state==='lost'?'L':'D'}</i>`).join('')}</div>`:''}</div>`}
+ R+=`<div class="sp-panel" style="--bc:#d7262e"><span class="sp-band">How duels work</span><span style="font-size:16px;line-height:1.35">${PER===15?'All 15 questions at once':PER+' questions a round'}, ${SECS} s each · rarer answer = bigger hit · 300 HP, first to 0 loses · 24 h per turn</span><button type="button" class="sp-link" id="sp-how">READ THE BOOKLET ▸</button></div>`;
  if(L){$('side-l').innerHTML=L;$('side-l').hidden=false}$('side-r').innerHTML=R;$('side-r').hidden=false;$('sp-how').onclick=()=>openIntro('side')}
 async function season(){let z;try{z=await rpc('duel_season',{})}catch{return}if(!z)return;const[y,m]=z.season.split('-'),MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
  const days=Math.max(0,Math.ceil((new Date(z.ends)-Date.now())/864e5)),mine=z.mine;
