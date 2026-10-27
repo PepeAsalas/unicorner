@@ -1580,7 +1580,7 @@ body.playing .topbar .tb-split .sound-toggle+.sound-toggle{border-left:0!importa
 .m-duel{background:linear-gradient(90deg,#163f9a,#0f2c70)!important}
 .m-duel .m-pic{width:170px;background:linear-gradient(105deg,#d7262e 0 50%,#1f5fd6 50% 100%);border-right:3px solid #06041a}
 .m-duel .duel-spr{position:absolute;bottom:10px;width:58px;height:50px;filter:drop-shadow(2px 2px 0 #06041a)}.m-duel .fo-a{left:8px}.m-duel .fo-b{right:8px;transform:scaleX(-1)}
-.m-duel .m-vs{position:relative;z-index:1;margin-top:-30px;font-size:30px;color:#06041a;background:#f2c230;border:3px solid #06041a;padding:2px 6px;text-shadow:none}
+.m-duel .m-vs{position:relative;z-index:1;margin-top:-34px;font-size:36px;color:#f2c230}
 .m-rec{display:flex;gap:4px;margin-top:3px}.m-rec i{font:700 10px/1 Silkscreen,monospace;font-style:normal;padding:3px 5px;border:2px solid #06041a;color:#fff}.m-rec[hidden]{display:none}
 .m-duel .lp-duel-n{font:400 22px/1 'Jersey 10',monospace;padding:1px 5px;margin-right:6px;text-shadow:none;vertical-align:3px}
 .m-duel.hot{box-shadow:5px 5px 0 rgba(0,0,0,.45),0 0 0 3px #d7262e!important}.m-duel.hot .m-txt{background:linear-gradient(90deg,rgba(215,38,46,.55),rgba(6,4,26,.2))}
@@ -1592,7 +1592,7 @@ body.playing .topbar .tb-split .sound-toggle+.sound-toggle{border-left:0!importa
 .m-tyc .m-txt b{color:#06041a;text-shadow:2px 2px 0 #f2c230}
 .m-tyc .m-txt small{color:#3a2f4a;opacity:1}
 .m-sum{font:700 11px Silkscreen,monospace;color:#1f7a34;letter-spacing:.5px}
-@media (max-width:560px){.mode{height:84px}.m-pic{width:96px}.m-sym{font-size:48px}.m-vs{font-size:34px}.m-duel .m-pic{width:112px}.m-duel .duel-spr{width:40px;height:34px;bottom:8px}.m-duel .fo-a{left:4px}.m-duel .fo-b{right:4px}.m-duel .m-vs{font-size:20px;margin-top:-26px;padding:1px 4px}.m-rec{display:none}.m-txt{padding:0 10px 0 10px}.m-txt b{font-size:24px}.m-txt small{font-size:12px}.m-go{display:none}}
+@media (max-width:560px){.mode{height:84px}.m-pic{width:96px}.m-sym{font-size:48px}.m-vs{font-size:34px}.m-duel .m-pic{width:112px}.m-duel .duel-spr{width:40px;height:34px;bottom:8px}.m-duel .fo-a{left:4px}.m-duel .fo-b{right:4px}.m-duel .m-vs{font-size:26px;margin-top:-28px}.m-rec{display:none}.m-txt{padding:0 10px 0 10px}.m-txt b{font-size:24px}.m-txt small{font-size:12px}.m-go{display:none}}
 @media (prefers-reduced-motion:reduce){.m-inf::before{animation:none}}
 .tyc-card{position:relative;display:flex;align-items:center;gap:12px;margin:-12px 0 22px;padding:8px 12px 8px 8px;overflow:hidden;color:#fff;text-decoration:none;border:3px solid #06041a;box-shadow:4px 4px 0 rgba(0,0,0,.4);background:repeating-linear-gradient(90deg,#2f7d32 0 22px,#2a7330 22px 44px);transition:transform .16s cubic-bezier(.23,1,.32,1)}
 .tyc-card:active{transform:translate(2px,2px);box-shadow:2px 2px 0 rgba(0,0,0,.4)}
@@ -2562,7 +2562,7 @@ async function lpDuels(pl){try{const el=document.getElementById('lp-duel');if(!e
  const n=its.length,code=duelPending();if(!el.isConnected)return;
  const ch=its.filter(x=>x.state==='challenge').length,fr=its.filter(x=>x.fresh).length,kit=(()=>{try{return KITS.find(k=>k.id===localStorage.getItem('uc-kit'))}catch{return null}})();
  const spr=(m,f,k)=>`<i class="duel-spr" style="background-image:${spriteDraw(m,f,false,k&&k.id!=='classic'?k:null).replace(/"/g,"'")}"></i>`;
- const pic=el.querySelector('.m-pic'),dr=(c,k)=>{const i=pic.querySelector(c);if(i)i.style.backgroundImage=spriteDraw('happy',0,false,k).replace(/"/g,"'")};dr('.fo-a',kit&&kit.id!=='classic'?kit:null);dr('.fo-b',KITS.find(k=>k.id==='ocean')||null); // your unicorn faces a rival
+ const pic=el.querySelector('.m-pic'),dr=(c,k)=>{const i=pic.querySelector(c);if(i)i.style.backgroundImage=spriteDraw('happy',0,false,k).replace(/"/g,"'")};dr('.fo-a',kit&&kit.id!=='classic'?kit:null);dr('.fo-b',KITS.find(k=>k.id===(kit&&kit.id==='ocean'?'fire':'ocean'))||null); // your unicorn faces a rival
  const who=n===1?esc(its[0].opp):'';let txt,go,href;
  const urg=its.filter(x=>x.state==='your_turn'&&x.deadline&&new Date(x.deadline)-Date.now()<4*3600000).sort((a,b)=>new Date(a.deadline)-new Date(b.deadline))[0];el.classList.toggle('hot',!!urg);
  if(urg){const ms=Math.max(0,new Date(urg.deadline)-Date.now()),h=Math.floor(ms/3600000),m=Math.floor(ms%3600000/60000);txt=`<b>⏰ ${h?h+'h '+m+'m':m+'m'} vs ${esc(urg.opp)}</b><small>Play your round or lose the duel</small>`;go='PLAY NOW →';href='/duel.html?d='+encodeURIComponent(urg.code)}
