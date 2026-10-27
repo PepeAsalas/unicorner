@@ -56,6 +56,8 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 .seg{display:flex;gap:8px;margin-bottom:6px}.seg button{flex:1;width:auto;font-size:22px;padding:7px 4px;background:#120c38;color:var(--cream);box-shadow:0 0 0 3px var(--ink),0 4px 0 3px var(--ink);transition:transform .12s cubic-bezier(.23,1,.32,1)}
 .seg button.on{background:var(--gold);color:var(--ink)}.seg button:active{transform:translateY(2px)}
 .pr-rs.more{display:none}#pr-results.all .pr-rs.more{display:grid}.prog .pr-more{width:100%;margin-top:8px;padding:6px;font:18px/1 var(--mono);background:none;color:var(--pt);box-shadow:none;text-decoration:underline;text-underline-offset:3px}
+.pr-stack{display:flex;flex-direction:column;gap:16px;min-width:0}
+@media (max-width:980px){.pr-stack{display:contents}.pr-play{order:2}}
 .qm-btn{background:#ff7a1a!important}
 .r-rules{font-family:var(--mono);font-size:19px;color:var(--gold);margin:-4px 0 4px}
 .fresh{opacity:.85;margin-top:6px}
@@ -297,6 +299,7 @@ body.prog-on.night .prog .ib-x{color:#b9b0d8}body.prog-on.night .prog .ib-off{co
   <header class="pr-mast"><i class="pr-me" id="pr-me"></i><div><small>OFFICIAL MATCHDAY PROGRAMME · <a href="/">← UNICORNER</a></small><b id="pr-title">My duels</b></div><div class="pr-iss" id="pr-iss"></div><button type="button" class="pr-mode" id="pr-mode" aria-label="Switch dark mode"></button></header>
   <nav class="pr-tabs" id="pr-tabs"><button data-t="m" class="on">Matches<i id="pr-tab-n" hidden></i></button><button data-t="y">You</button><button data-t="l">League</button></nav>
   <div class="pr-cols">
+   <div class="pr-stack">
    <div class="pr-pg" data-pg="y" style="--bc:#1d7a45">
     <div class="pr-band"><b>You</b><span id="pr-div-r"></span></div>
     <div class="pr-in">
@@ -306,6 +309,16 @@ body.prog-on.night .prog .ib-x{color:#b9b0d8}body.prog-on.night .prog .ib-off{co
      <div id="pr-hof-w"><div class="pr-lbl">Hall of fame · <span id="pr-hof-m"></span></div><div class="pr-pod" id="pr-hof"></div></div>
     </div>
    </div>
+   <div class="pr-pg pr-play" data-pg="m" style="--bc:#ff7a1a">
+    <div class="pr-band"><b>Play</b></div>
+    <div class="pr-in">
+     <button class="qm-btn" id="ib-quick">⚡ Quick match</button><p class="pr-note" style="margin:6px 0 12px;font:17px/1.15 var(--mono)">Paired with a player near your rating. Not live: play your round, your rival turns up in Matches.</p>
+     <button id="ib-new" class="ghost">+ Challenge a mate</button>
+     <button class="ghost" id="ib-bots" style="margin-top:12px">🤖 Practice vs bots</button>
+     <label class="ib-off"><input type="checkbox" id="ib-allow"> Let other players challenge me</label>
+    </div>
+   </div>
+  </div>
    <div class="pr-pg pr-mid" data-pg="m" style="--bc:#d7262e">
     <div class="pr-band"><b>Matches</b><span id="pr-fx-n"></span></div>
     <div class="pr-in"><div id="ib-list"></div>
@@ -317,11 +330,7 @@ body.prog-on.night .prog .ib-x{color:#b9b0d8}body.prog-on.night .prog .ib-off{co
     <div class="pr-in">
      <div class="pr-lbl"><span id="pr-tb-m"></span> table</div><table class="pr-tbl" id="pr-table"></table><p class="pr-note">Top 3 win a season medal</p>
      <div class="pr-lbl">Team news</div><div class="pr-news" id="pr-news"></div>
-     <div class="pr-lbl">Play</div>
-     <button class="qm-btn" id="ib-quick">⚡ Quick match</button><p class="pr-note" style="margin:6px 0 12px;font:17px/1.15 var(--mono)">Paired with a player near your rating. Not live: play your round, your rival turns up in Matches.</p>
-     <button id="ib-new" class="ghost">+ Challenge a mate</button>
-     <button class="ghost" id="ib-bots" style="margin-top:12px">🤖 Practice vs bots</button>
-     <label class="ib-off"><input type="checkbox" id="ib-allow"> Let other players challenge me</label>
+
     </div>
    </div>
   </div>
