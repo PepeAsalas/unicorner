@@ -44,6 +44,10 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 .cab{position:relative;aspect-ratio:9/13;width:100%;border:4px solid var(--cream);box-shadow:0 0 0 4px var(--ink);overflow:hidden;background:var(--ink)}
 .cab canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
 .small{font-size:18px}
+.rules{display:grid;gap:6px;margin:4px 0 2px}.rl-lbl{font-family:var(--mono);font-size:19px;color:var(--muted)}
+.seg{display:flex;gap:8px;margin-bottom:6px}.seg button{flex:1;width:auto;font-size:22px;padding:7px 4px;background:#120c38;color:var(--cream);box-shadow:0 0 0 3px var(--ink),0 4px 0 3px var(--ink);transition:transform .12s cubic-bezier(.23,1,.32,1)}
+.seg button.on{background:var(--gold);color:var(--ink)}.seg button:active{transform:translateY(2px)}
+.r-rules{font-family:var(--mono);font-size:19px;color:var(--gold);margin:-4px 0 4px}
 .fresh{opacity:.85;margin-top:6px}
 .ib{display:grid;gap:10px;margin:14px 0}.ib-row{display:flex;align-items:center;gap:10px;background:#120c38;padding:10px 12px;border:3px solid var(--ink)}
 .ib-row b{flex:1;font-family:var(--disp);font-size:26px;font-weight:400;color:#fff;line-height:1}.ib-row small{display:block;font-family:var(--mono);font-size:17px;color:var(--muted)}
@@ -222,8 +226,10 @@ body.prog-on.night .prog .ib-x{color:#b9b0d8}body.prog-on.night .prog .ib-off{co
  <section id="s-home" class="card" hidden>
   <h2 id="h-title">CHALLENGE A MATE</h2>
   <label for="nm">Your name<input id="nm" maxlength="16" autocomplete="nickname" placeholder="e.g. Pepo"></label>
+  <div class="rules"><span class="rl-lbl">Questions per round</span><div class="seg" id="r-per" role="radiogroup" aria-label="Questions per round"><button type="button" data-v="3">3</button><button type="button" data-v="5">5</button><button type="button" data-v="15">All 15</button></div>
+   <span class="rl-lbl">Seconds per question</span><div class="seg" id="r-secs" role="radiogroup" aria-label="Seconds per question"><button type="button" data-v="10">10</button><button type="button" data-v="15">15</button><button type="button" data-v="20">20</button><button type="button" data-v="30">30</button></div></div>
   <button id="create">Create duel</button>
-  <p class="small">You get a link to send. You both start on 300 HP and play rounds of five questions, 15 seconds each, then watch the battle. Keep going until someone is KO'd.</p>
+  <p class="small" id="home-rules">You get a link to send. You both start on 300 HP and play rounds of 5 questions, 15 seconds each, then watch the battle. Keep going until someone is KO'd.</p>
   <p class="small fresh">🆕 New duel questions every week. The bank keeps growing, so rematches stay fresh.</p>
   <p class="small rec" id="rec1" hidden></p>
   <button class="ghost" id="to-inbox" hidden style="margin-top:12px">My duels</button>
@@ -268,6 +274,7 @@ body.prog-on.night .prog .ib-x{color:#b9b0d8}body.prog-on.night .prog .ib-off{co
  <section id="s-ready" class="card" hidden>
   <h2 id="r-title">YOUR DUEL IS READY</h2>
   <p class="clock" id="r-clock" hidden></p>
+  <p class="r-rules" id="r-rules"></p>
   <p>Send this link to your mate:</p>
   <div class="link" id="r-link"></div>
   <div class="row"><button id="copy" class="ghost">Copy link</button><button id="go">Play round 1</button></div>
@@ -317,7 +324,7 @@ body.prog-on.night .prog .ib-x{color:#b9b0d8}body.prog-on.night .prog .ib-off{co
 <script src="duel/battle.js"></script>
 <script>
 const SB_URL="https://yujhjepukzdahsppntua.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1amhqZXB1a3pkYWhzcHBudHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2NDMzNDcsImV4cCI6MjEwNTIxOTM0N30.YIOdtL7tJnNLPFPy19QuXe6w3Dcnz6Xedw0tFGdV_CE";
-const $=id=>document.getElementById(id),SECS=15;
+const $=id=>document.getElementById(id);let SECS=15,PER=5; // per-duel rules (duel_rules); old duels and a missing RPC fall back to 5 a round, 15 seconds
 const PTS=[10,30,60,85,100],FAME_V1={6:10,5:10,4:30,3:60,2:85,1:100},FAME_V2={6:10,5:30,4:60,3:60,2:85,1:100};
 const TIER={10:'TAP-IN',30:'HEADER',60:'VOLLEY',85:'BICYCLE KICK',100:'SCREAMER'},TCOL={10:'#cfd8e6',30:'#7fe0a8',60:'#b48cff',85:'#ff7ac8',100:'#ffd23f'};
 const ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch{return null}};
@@ -369,11 +376,13 @@ async function loadQ(id){const q=(await bank())[id];if(!q)throw new Error('quest
  return{id:q.id,prompt:q.prompt,sub:'',type:String(q.answer_type||'player').toLowerCase(),answers:q.answers.map(a=>({name:a.name,aliases:a.aliases||[],pts:FAME_V2[a.fame]||60}))}}
 async function pickQs(){const ids=Object.keys(await bank());for(let i=ids.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[ids[i],ids[j]]=[ids[j],ids[i]]}
  if(ids.length<20)throw new Error('Not enough questions');return ids.slice(0,20)}
-// rounds: 5 questions while under 15, then sudden death one at a time. Same rules as duel_hp/duel_over in the SQL.
-const roundSize=n=>n<15?5:1,roundNo=n=>n<15?Math.floor(n/5)+1:4+(n-15);
-const roundStart=n=>n<=15?n-5:n-1; // first question of the round that ends at n
+// rounds: PER questions (3, 5 or all 15) while under 15, then sudden death one at a time. Same rules as duel_submit/duel_over in the SQL.
+const roundSize=n=>n<15?PER:1,roundNo=n=>n<15?Math.floor(n/PER)+1:15/PER+1+(n-15);
+const roundStart=n=>n<=15?n-PER:n-1; // first question of the round that ends at n
+async function loadRules(){try{const r=await rpc('duel_rules',{p_code:code});if(r){PER=[3,5,15].includes(r.per)?r.per:5;SECS=[10,15,20,30].includes(r.secs)?r.secs:15}}catch{}}
+const rulesTxt=(p,s)=>`${p===15?'all 15 questions in one go':'rounds of '+p+' questions'}, ${s} seconds each`
 function hpAfter(a,b,n){let h=[300,300];for(let i=0;i<n&&h[0]&&h[1];i++){const x=a[i]||[null,0],y=b[i]||[null,0];if(x[0]&&x[0]===y[0])continue;h=[Math.max(0,h[0]-y[1]),Math.max(0,h[1]-x[1])]}return h}
-const roundName=n=>n<15?'ROUND '+roundNo(n):'SUDDEN DEATH';
+const roundName=n=>n<15?(PER===15?'THE 15':'ROUND '+roundNo(n)):'SUDDEN DEATH';
 // ── flow ──
 const QS=new URLSearchParams(location.search),code=QS.get('d'),VSN=QS.get('vs'),INBOX=QS.has('inbox');
 const link=c=>location.origin+location.pathname+'?d='+c;
@@ -381,7 +390,7 @@ async function copy(c){try{await navigator.clipboard.writeText(link(c))}catch{}}
 let D=null,Q=[];
 // first-time intro: four steps, shown once, reopened from "How duels work"
 const DUEL_INTRO=[
- ()=>`<div class="in-art"><i style="background-image:${spBg(KIT)}"></i><b class="vs">VS</b><i style="background-image:${spBg('galaxy')};transform:scaleX(-1)"></i></div><span class="in-tag">1. ROUNDS OF FIVE</span><p>You and your rival answer the same 5 questions, 15 seconds each. Play your round whenever you like, within 24 hours. New questions are added every week.</p>`,
+ ()=>`<div class="in-art"><i style="background-image:${spBg(KIT)}"></i><b class="vs">VS</b><i style="background-image:${spBg('galaxy')};transform:scaleX(-1)"></i></div><span class="in-tag">1. ROUNDS</span><p>You and your rival answer the same questions, 5 a round and 15 seconds each unless the duel's creator picked other settings. Play your round whenever you like, within 24 hours. New questions are added every week.</p>`,
  ()=>`<div class="in-art"><span class="in-chip" style="background:#c9d1e0">TAP-IN 10</span><span class="in-chip" style="background:#7dd8a8">HEADER 30</span><span class="in-chip" style="background:#b48cff">VOLLEY 60</span><span class="in-chip" style="background:#ff7ac8">BICYCLE 85</span><span class="in-chip" style="background:#ffd23f">SCREAMER 100</span></div><span class="in-tag">2. RARER HITS HARDER</span><p>Your answer is your attack: a Screamer does 100 damage. Same answer as your rival? Blocked, nobody gets hurt.</p>`,
  ()=>`<div class="in-art"><div class="in-hp"><div>YOU <span><i style="width:78%;background:#39d353"></i></span> 234</div><div>RIVAL <span><i style="width:12%;background:#e3262f"></i></span> 36</div></div></div><span class="in-tag">3. KNOCK THEM OUT</span><p>Both start on 300 HP. First to 0 loses. Still level after 15 questions? Sudden death, one question at a time.</p>`,
  ()=>`<div class="in-art" style="flex-direction:column;gap:4px"><span class="in-chip" style="background:linear-gradient(90deg,#ff5a5a,#ffd23f,#39d353,#4fc3ff,#b48cff)">BALLON D'OR</span><span class="in-chip" style="background:#c6a8ff">CHAMPIONS LEAGUE</span><span class="in-chip" style="background:#ffd23f">PREMIER LEAGUE</span><span class="in-chip" style="background:#d9e0ee">CHAMPIONSHIP</span></div><span class="in-tag">4. CLIMB THE LADDER</span><p>Signed in? Your duels are rated. Play 5 to get your league; a new season starts every month.</p>`];
@@ -399,9 +408,9 @@ async function boot(){if(!ls('uc-duel-intro'))openIntro('first');sides();$('nm')
  if(INBOX)return inbox();
  if(VSN&&!code){if(!await userToken())return fail('Sign in on Unicorner (the league login) to challenge players.');if(!playedToday())return gate();
   $('h-title').textContent=`CHALLENGE ${VSN.toUpperCase().slice(0,16)}`;$('create').textContent='Send challenge';$('create').dataset.vs=VSN;
-  document.querySelector('#s-home .small').textContent=`${VSN} gets it in their duel inbox. You both start on 300 HP and play rounds of five questions until someone is KO'd.`;show('s-home');return}
+  $('home-rules').dataset.vs=VSN;homeRules();show('s-home');return}
  if(!code){if(!playedToday()){if(await userToken())$('g-inbox').hidden=false;return gate()}record('rec1');if(await userToken())$('to-inbox').hidden=false;show('s-home');return}
- try{D=await rpc('duel_get',{p_code:code,p_token:TOKEN})}catch(e){track('duel_load_error',{message:String(e&&e.message||e).slice(0,160)});return fail(navigator.onLine===false?'You seem to be offline. Check your connection and try again.':'Could not load this duel. Try again in a moment.'+(e&&e.message?' ('+String(e.message).slice(0,80)+')':''))}
+ try{[D]=await Promise.all([rpc('duel_get',{p_code:code,p_token:TOKEN}),loadRules()])}catch(e){track('duel_load_error',{message:String(e&&e.message||e).slice(0,160)});return fail(navigator.onLine===false?'You seem to be offline. Check your connection and try again.':'Could not load this duel. Try again in a moment.'+(e&&e.message?' ('+String(e.message).slice(0,80)+')':''))}
  if(!D)return fail('That duel link does not exist.');
  const me=D.players.find(p=>p.slot===D.me),p1=D.players.find(p=>p.slot===1);
 
@@ -423,7 +432,7 @@ async function boot(){if(!ls('uc-duel-intro'))openIntro('first');sides();$('nm')
  ready()}
 function ready(){const me=D.players.find(p=>p.slot===D.me),n=me.picks.length;clock($('r-clock'),true);$('r-link').textContent=link(code);
  $('r-title').textContent=n?(n<15?roundName(n)+' · NO KO YET':'LEVEL AFTER 15 · SUDDEN DEATH'):me.slot===1?'YOUR DUEL IS READY':'READY WHEN YOU ARE';
- $('go').textContent=n<15?'Play round '+roundNo(n):'Sudden death: 1 question';
+ $('go').textContent=n<15?(PER===15?'Play all 15':'Play round '+roundNo(n)):'Sudden death: 1 question';$('r-rules').textContent=rulesTxt(PER,SECS).replace(/^./,c=>c.toUpperCase());
  const ch=D.challenge&&me.slot===1&&!D.players.find(p=>p.slot===2);$('r-link').hidden=$('copy').hidden=!!ch;$('r-link').previousElementSibling.textContent=ch?`Challenge sent to ${D.for_nick}. It's in their duel inbox; play your round now.`:'Send this link to your mate:';if(ch&&!n)$('r-title').textContent='CHALLENGE SENT';show('s-ready')}
 function gate(who){if(code)ls('uc-duel-pending',code);if(who){$('g-title').textContent=`${who.toUpperCase()} CHALLENGED YOU`;$('g-msg').textContent=`Play today's five questions first, then come back for your duel. Your link is saved: you'll find it on your results screen.`}
  track('duel_gate',{code:code||null});show('s-gate')}
@@ -492,9 +501,9 @@ function ibDraw(){const all=IBR.items,act=all.filter(x=>!done(x)),arc=all.filter
  $('pr-fx-n').textContent=need.length?need.length+' need'+(need.length===1?'s':'')+' you':act.length?act.length+' going':'';
  const tn=$('pr-tab-n');tn.hidden=!need.length;tn.textContent=need.length;
  const card=x=>{const[pl,pc]=x.fresh||done(x)?['Result in','#1d7a45']:PILL[x.state]||[x.state,'#6b6878'],tl=x.deadline&&tLeft(x.deadline),urgent=tl&&x.state==='your_turn'&&hot(x.deadline);
-  const rd=x.played?`Round ${Math.floor(x.played/5)+1}`:'Round 1',sub=x.state==='challenge'?'Challenged you':x.state==='sent'?'Waiting for them to join':x.fresh?'Watch to find out':tl?(x.state==='your_turn'?'⏰ '+tl+' left':tl+' left for them'):rd;
+  const rd=x.played?(x.played>=15?'Sudden death':`${x.played} of 15 played`):'Round 1',sub=x.state==='challenge'?'Challenged you':x.state==='sent'?'Waiting for them to join':x.fresh?'Watch to find out':tl?(x.state==='your_turn'?'⏰ '+tl+' left':tl+' left for them'):rd;
   const live=x.state==='your_turn'||x.state==='their_turn',rm=x.state==='challenge'?'':`<button class="pr-rm" data-rm="${x.code}" data-st="${x.state}">${live?'Give up':'Remove'}</button>`;
-  const go=x.state==='challenge'?`<button class="ghost" data-no="${x.code}">Decline</button><button data-go="${x.code}">Accept</button>`:x.state==='your_turn'&&!x.fresh?`<button data-go="${x.code}">Play ${rd.toLowerCase()} ▶</button>`:x.fresh?`<button data-go="${x.code}">Watch ▶</button>`:`<button class="ghost" data-go="${x.code}">View</button>`;
+  const go=x.state==='challenge'?`<button class="ghost" data-no="${x.code}">Decline</button><button data-go="${x.code}">Accept</button>`:x.state==='your_turn'&&!x.fresh?`<button data-go="${x.code}">Play ${x.played>=15?'sudden death':'your round'} ▶</button>`:x.fresh?`<button data-go="${x.code}">Watch ▶</button>`:`<button class="ghost" data-go="${x.code}">View</button>`;
   return`<div class="pr-card${urgent||(x.state==='your_turn'&&!x.fresh)?' hot':''}">${uni(kitFor(x.opp),true)}<div class="pr-who"><span class="pr-pill" style="--sc:${pc}">${pl}</span><b>vs ${esc(x.opp)}</b><small>${sub}${rm?' · ':''}</small>${rm}</div><div class="pr-go">${go}</div></div>`};
  $('ib-list').innerHTML=act.length?(need.length?'<div class="pr-lbl">Needs you</div>'+need.map(card).join(''):'')+(rest.length?'<div class="pr-lbl">Waiting &amp; finished</div>'+rest.map(card).join(''):'')
   :'<div class="pr-lbl">Needs you</div><p class="pr-note">Nothing right now. Challenge a mate, or tap a player on the Unicorner leaderboard.</p>';
@@ -521,21 +530,28 @@ $('ib-allow').onchange=e=>rpc('duel_challenges_set',{p_off:!e.target.checked}).c
 $('ib-new').onclick=()=>{location.href='duel.html'};$('to-inbox').onclick=()=>{location.href='duel.html?inbox'};
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 $('create').onclick=async e=>{const n=$('nm').value.trim();if(!n)return $('nm').focus();ls('uc-duel-name',n);e.target.disabled=true;e.target.textContent='Creating…';
- try{const qset=await pickQs();const vs=e.target.dataset.vs;const c=vs?await rpc('duel_challenge',{p_token:TOKEN,p_name:n,p_kit:KIT,p_qset:qset,p_nick:vs}):await rpc('duel_create',{p_token:TOKEN,p_name:n,p_kit:KIT,p_qset:qset});track(vs?'duel_challenge':'duel_create',{code:c});location.href='duel.html?d='+c}catch(err){e.target.disabled=false;e.target.textContent='Create duel';fail('Could not create the duel: '+err.message)}};
+ try{const qset=await pickQs();const vs=e.target.dataset.vs;const c=vs?await rpc('duel_challenge',{p_token:TOKEN,p_name:n,p_kit:KIT,p_qset:qset,p_nick:vs}):await rpc('duel_create',{p_token:TOKEN,p_name:n,p_kit:KIT,p_qset:qset});
+  const[rp,rs]=myRules();if(rp!==5||rs!==15)await rpc('duel_set_rules',{p_code:c,p_token:TOKEN,p_per:rp,p_secs:rs}).catch(err=>track('duel_rules_fail',{err:String(err.message).slice(0,120)}));track(vs?'duel_challenge':'duel_create',{code:c});location.href='duel.html?d='+c}catch(err){e.target.disabled=false;e.target.textContent='Create duel';fail('Could not create the duel: '+err.message)}};
 $('join').onclick=async e=>{const n=$('nm2').value.trim();if(!n)return $('nm2').focus();ls('uc-duel-name',n);e.target.disabled=true;
  try{await rpc('duel_join',{p_code:code,p_token:TOKEN,p_name:n,p_kit:KIT});ls('uc-duel-pending','');track('duel_join',{code});play()}catch(err){fail(/someone else|declined|expired/.test(err.message)?'Could not join: '+err.message+'.':/duel yourself/.test(err.message)?"That's your own duel. Send the link to a mate.":err.message==='duel is full'?'This duel already has two players.':'Could not join: '+err.message)}};
 $('copy').onclick=async e=>{await copy(code);e.target.textContent='Copied ✓'};$('copy2').onclick=async e=>{await copy(code);e.target.textContent='Copied ✓'};
+// duel settings on the create screen, remembered for next time
+const myRules=()=>{let p=5,s=15;try{p=+localStorage.getItem('uc-duel-per')||5;s=+localStorage.getItem('uc-duel-secs')||15}catch{}return[[3,5,15].includes(p)?p:5,[10,15,20,30].includes(s)?s:15]};
+function homeRules(){const[p,s]=myRules(),vs=$('home-rules').dataset.vs;for(const[id,v]of[['r-per',p],['r-secs',s]])for(const b of $(id).children){b.classList.toggle('on',+b.dataset.v===v);b.setAttribute('aria-checked',+b.dataset.v===v)}
+ $('home-rules').textContent=(vs?`${vs} gets it in their duel inbox. `:'You get a link to send. ')+`You both start on 300 HP and play ${rulesTxt(p,s)}, then watch the battle. Keep going until someone is KO'd.`}
+for(const[id,key]of[['r-per','uc-duel-per'],['r-secs','uc-duel-secs']])$(id).onclick=e=>{const b=e.target.closest('button');if(!b)return;try{localStorage.setItem(key,b.dataset.v)}catch{}homeRules()};
+homeRules();
 $('go').onclick=()=>play();$('refresh').onclick=()=>location.reload();
 $('rematch').onclick=()=>{location.href='duel.html'};
 // ── play the five ──
 let qi=0,picks=[],timer=null,left=SECS,locked=false;
 let base=0,size=5;
-async function play(){try{D=await rpc('duel_get',{p_code:code,p_token:TOKEN})}catch(e){track('duel_load_fail',{code,step:'get',err:String(e.message).slice(0,200)});return fail('Could not load this duel: '+e.message)}
+async function play(){try{[D]=await Promise.all([rpc('duel_get',{p_code:code,p_token:TOKEN}),loadRules()])}catch(e){track('duel_load_fail',{code,step:'get',err:String(e.message).slice(0,200)});return fail('Could not load this duel: '+e.message)}
  const mine=D&&D.players.find(p=>p.slot===D.me);if(!mine){track('duel_load_fail',{code,step:'me',signed:!!(await userToken())});return fail(await userToken()?"You're not a player in this duel on this account.":'Your Unicorner login has expired. Open the game, sign in again, then come back.')}
  base=mine.picks.length;size=roundSize(base);if(base>=D.qset.length)return fail('No questions left to play in this duel.');
  try{Q=await Promise.all(D.qset.slice(base,base+size).map(loadQ))}catch(e){track('duel_load_fail',{code,step:'bank',err:String(e.message).slice(0,200)});return fail('Could not load the questions ('+e.message+'). Refresh the page and try again.')}
  qi=0;picks=[];show('s-play');ask()}
-function ask(){const q=Q[qi];locked=false;left=SECS;for(const el of[$('q-text'),$('q-sub')]){el.getAnimations().forEach(a=>a.cancel());if(qi&&!SCR_RM&&el.animate)el.animate([{opacity:0,transform:'translateX(24px)'},{opacity:1,transform:'none'}],{duration:220,easing:EASE})}$('q-n').textContent=size>1?`${roundName(base)} · Q${qi+1} OF 5`:'SUDDEN DEATH';$('q-text').textContent=q.prompt;$('q-sub').textContent=q.sub;$('q-in').value='';$('q-in').disabled=false;$('q-msg').textContent='';$('q-msg').className='msg';$('q-skip').hidden=false;$('q-go').hidden=false;
+function ask(){const q=Q[qi];locked=false;left=SECS;for(const el of[$('q-text'),$('q-sub')]){el.getAnimations().forEach(a=>a.cancel());if(qi&&!SCR_RM&&el.animate)el.animate([{opacity:0,transform:'translateX(24px)'},{opacity:1,transform:'none'}],{duration:220,easing:EASE})}$('q-n').textContent=size>1?`${roundName(base)} · Q${qi+1} OF ${size}`:'SUDDEN DEATH';$('q-text').textContent=q.prompt;$('q-sub').textContent=q.sub;$('q-in').value='';$('q-in').disabled=false;$('q-msg').textContent='';$('q-msg').className='msg';$('q-skip').hidden=false;$('q-go').hidden=false;
  $('q-in').placeholder=PERSON.has(q.type)?'Type a '+(q.type==='player'?'player':q.type):'Type a '+q.type;tick();clearInterval(timer);timer=setInterval(()=>{left--;tick();if(left<=0)lock(null)},1000);setTimeout(()=>$('q-in').focus(),50)}
 function tick(){const c=$('q-clock');c.textContent=Math.max(0,left);c.classList.toggle('low',left<=5);if(left<=5&&left>0&&!SCR_RM){c.classList.remove('thump');void c.offsetWidth;c.classList.add('thump')}$('q-bar').style.width=Math.max(0,left/SECS*100)+'%'}
 // Keep rejected text for answer-bank reviews; telemetry must never block play.
