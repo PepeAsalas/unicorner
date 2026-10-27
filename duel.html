@@ -55,10 +55,13 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 .rules{display:grid;gap:6px;margin:4px 0 2px}.rl-lbl{font-family:var(--mono);font-size:19px;color:var(--muted)}
 .seg{display:flex;gap:8px;margin-bottom:6px}.seg button{flex:1;width:auto;font-size:22px;padding:7px 4px;background:#120c38;color:var(--cream);box-shadow:0 0 0 3px var(--ink),0 4px 0 3px var(--ink);transition:transform .12s cubic-bezier(.23,1,.32,1)}
 .seg button.on{background:var(--gold);color:var(--ink)}.seg button:active{transform:translateY(2px)}
-.pr-rs.more{display:none}#pr-results.all .pr-rs.more{display:grid}.prog .pr-more{width:100%;margin-top:8px;padding:6px;font:18px/1 var(--mono);background:none;color:var(--pt);box-shadow:none;text-decoration:underline;text-underline-offset:3px}
+.pr-rs.more{display:none}#pr-results.all .pr-rs.more{display:grid}.prog button.pr-re{width:auto;cursor:pointer}
+.prog .pr-more{width:100%;margin-top:8px;padding:6px;font:18px/1 var(--mono);background:none;color:var(--pt);box-shadow:none;text-decoration:underline;text-underline-offset:3px}
 .pr-stack{display:flex;flex-direction:column;gap:16px;min-width:0}
 @media (max-width:980px){.pr-stack{display:contents}.pr-play{order:2}}
 .bot-quit{margin-left:auto;margin-right:12px;font:18px var(--mono);color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+#q-clock{font:400 40px/1 var(--disp)!important;min-width:56px;text-align:right;background:none;padding:0;animation:none}#q-clock.low{color:var(--red)!important}
+.bot-note{font:19px var(--mono);color:var(--gold);text-align:center;margin:0}
 .qm-btn{background:#ff7a1a!important}
 .r-rules{font-family:var(--mono);font-size:19px;color:var(--gold);margin:-4px 0 4px}
 .fresh{opacity:.85;margin-top:6px}
@@ -374,6 +377,7 @@ body.prog-on.night .prog .ib-x{color:#b9b0d8}body.prog-on.night .prog .ib-off{co
   <button class="ghost back" style="margin-top:14px">← Back to Unicorner</button>
  </section>
  <section id="s-battle" hidden>
+  <p class="bot-note" id="bot-note" hidden>Practice: your rating didn't change.</p>
   <div class="cab"><canvas id="bc" width="540" height="780" aria-label="Duel battle replay"></canvas></div>
   <div class="card fb" id="fb" hidden><p><b>How was the duel?</b> It's new, so tell us.</p>
    <div class="row"><button class="ghost" data-fb="up">👍 Loved it</button><button class="ghost" data-fb="down">👎 Meh</button></div>
@@ -420,6 +424,7 @@ const BOTS=[['Sunday League',[['uncle-dave','Uncle Dave',600,.08,'mud',"Back in 
  ['Legends',[['el-maestro','El Maestro',1500,.8,'royal','Football is an art. So is this.'],['the-wall','The Wall',1650,.87,'shadow','You shall not pass.'],['the-unicorn-whisperer','The Unicorn Whisperer',1800,.94,'galaxy','I know the answers nobody gives.']]]];
 const botOf=id=>BOTS.flatMap(g=>g[1]).find(b=>b[0]===id);
 const isBot=c=>/^BOT-/.test(c||'');
+try{for(const k of Object.keys(localStorage))if(k.startsWith('uc-bot-')){const v=JSON.parse(localStorage.getItem(k));if(!v||Date.now()-(v.at||0)>7*864e5)localStorage.removeItem(k)}}catch{} // bot duels older than a week
 const botGet=c=>{try{return JSON.parse(localStorage.getItem('uc-bot-'+c))}catch{return null}},botPut=(c,v)=>{try{localStorage.setItem('uc-bot-'+c,JSON.stringify(v))}catch{}};
 async function botPicks(b,ids){const bk=await bank(),sk=b[3];return ids.map(id=>{const q=bk[id];if(!q||Math.random()<.5-.42*sk)return[null,0];
  const a=q.answers.map(x=>[x.name,FAME_V2[x.fame]||60]),w=a.map(([,p])=>Math.pow(p,4*sk-1.6)),t=w.reduce((x,y)=>x+y,0);let r=Math.random()*t;for(let i=0;i<a.length;i++){r-=w[i];if(r<=0)return a[i]}return a[0]})}
@@ -483,7 +488,7 @@ async function copy(c){try{await navigator.clipboard.writeText(link(c))}catch{}}
 let D=null,Q=[];
 // first-time intro: four steps, shown once, reopened from "How duels work"
 const DUEL_INTRO=[
- ()=>`<div class="in-art"><i style="background-image:${spBg(KIT)}"></i><b class="vs">VS</b><i style="background-image:${spBg('galaxy')};transform:scaleX(-1)"></i></div><span class="in-tag">1. ROUNDS</span><p>You and your rival answer the same questions, 5 a round and 15 seconds each unless the duel's creator picked other settings. Play your round whenever you like, within 24 hours. New questions are added every week.</p>`,
+ ()=>`<div class="in-art"><i style="background-image:${spBg(KIT)}"></i><b class="vs">VS</b><i style="background-image:${spBg('galaxy')};transform:scaleX(-1)"></i></div><span class="in-tag">1. ROUNDS</span><p>You and your rival answer the same questions, 5 a round and 15 seconds each (a mate's duel can use other settings). Quick match pairs you with a player near your rating; bots are practice and don't change your rating. Play your round whenever you like, within 24 hours. New questions are added every week.</p>`,
  ()=>`<div class="in-art"><span class="in-chip" style="background:#c9d1e0">TAP-IN 10</span><span class="in-chip" style="background:#7dd8a8">HEADER 30</span><span class="in-chip" style="background:#b48cff">VOLLEY 60</span><span class="in-chip" style="background:#ff7ac8">BICYCLE 85</span><span class="in-chip" style="background:#ffd23f">SCREAMER 100</span></div><span class="in-tag">2. RARER HITS HARDER</span><p>Your answer is your attack: a Screamer does 100 damage. Same answer as your rival? Blocked, nobody gets hurt.</p>`,
  ()=>`<div class="in-art"><div class="in-hp"><div>YOU <span><i style="width:78%;background:#39d353"></i></span> 234</div><div>RIVAL <span><i style="width:12%;background:#e3262f"></i></span> 36</div></div></div><span class="in-tag">3. KNOCK THEM OUT</span><p>Both start on 300 HP. First to 0 loses. Still level after 15 questions? Sudden death, one question at a time.</p>`,
  ()=>`<div class="in-art" style="flex-direction:column;gap:4px"><span class="in-chip" style="background:linear-gradient(90deg,#ff5a5a,#ffd23f,#39d353,#4fc3ff,#b48cff)">BALLON D'OR</span><span class="in-chip" style="background:#c6a8ff">CHAMPIONS LEAGUE</span><span class="in-chip" style="background:#ffd23f">PREMIER LEAGUE</span><span class="in-chip" style="background:#d9e0ee">CHAMPIONSHIP</span></div><span class="in-tag">4. CLIMB THE LADDER</span><p>Signed in? Your duels are rated. Play 5 to get your league; a new season starts every month.</p>`];
@@ -603,7 +608,7 @@ function ibDraw(){const all=IBR.items,act=all.filter(x=>!done(x)),arc=all.filter
  $('ib-list').innerHTML=act.length?(need.length?'<div class="pr-lbl">Needs you</div>'+need.map(card).join(''):'')+(rest.length?'<div class="pr-lbl">Waiting &amp; finished</div>'+rest.map(card).join(''):'')
   :'<div class="pr-lbl">Needs you</div><p class="pr-note">Nothing right now. Challenge a mate, or tap a player on the Unicorner leaderboard.</p>';
  $('pr-results').innerHTML=arc.length?arc.slice(0,12).map((x,ri)=>{const w=x.state==='won',l=x.state==='lost',d=x.state==='draw',how=x.how==='timeout'?' · out of time':x.gave_up?(x.gave_up==='you'?' · you gave up':' · they gave up'):'';
-  return`<div class="pr-rs${ri>2?' more':''}"><span class="r ${w?'w':l?'l':d?'dr':'x'}">${w?'W':l?'L':d?'D':'–'}</span><span class="pr-rs-t"><b>vs ${esc(x.opp)}</b><small>${w?'You won':l?'You lost':d?'Draw':x.state==='declined'?'Declined':'Expired'}${how} · ${new Date(x.at).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}</small></span>${w||l||d?`<button class="pr-wl" data-go="${x.code}">Watch</button><a class="pr-re" href="duel.html?vs=${encodeURIComponent(x.opp)}">Rematch</a>`:''}</div>`}).join('')+(arc.length>3?`<button type="button" class="pr-more" onclick="this.parentNode.classList.toggle('all');this.textContent=this.parentNode.classList.contains('all')?'Show fewer ▴':'Show ${Math.min(12,arc.length)-3} more ▾'">Show ${Math.min(12,arc.length)-3} more ▾</button>`:'')
+  return`<div class="pr-rs${ri>2?' more':''}"><span class="r ${w?'w':l?'l':d?'dr':'x'}">${w?'W':l?'L':d?'D':'–'}</span><span class="pr-rs-t"><b>vs ${esc(x.opp||'???')}</b><small>${w?'You won':l?'You lost':d?'Draw':x.state==='declined'?'Declined':x.opp?'Expired':'No rival found · try Quick match again'}${how} · ${new Date(x.at).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}</small></span>${w||l||d?`<button class="pr-wl" data-go="${x.code}">Watch</button><button type="button" class="pr-re" data-re="${esc(x.opp)}">Rematch</button>`:''}</div>`}).join('')+(arc.length>3?`<button type="button" class="pr-more" onclick="this.parentNode.classList.toggle('all');this.textContent=this.parentNode.classList.contains('all')?'Show fewer ▴':'Show ${Math.min(12,arc.length)-3} more ▾'">Show ${Math.min(12,arc.length)-3} more ▾</button>`:'')
   :'<p class="pr-note">Finished duels land here.</p>';
  // team news: one line about where you stand
  const mine=IBZ&&IBZ.mine,me=IBZ&&IBZ.me,third=IBZ&&(IBZ.top||[])[2],days=IBZ?Math.max(0,Math.ceil((new Date(IBZ.ends)-Date.now())/864e5)):0,yt=act.filter(x=>x.state==='your_turn'&&!x.fresh);
@@ -644,8 +649,13 @@ async function quick(b){const t=b.textContent;b.disabled=true;b.textContent='Fin
  catch(e){b.disabled=false;b.textContent=t;alert(/sign in/.test(e.message)?'Sign in on Unicorner to play quick match (it counts for your rating).':'Quick match failed: '+e.message)}}
 $('ib-quick').onclick=e=>quick(e.currentTarget);$('h-quick').onclick=e=>quick(e.currentTarget);
 $('ib-bots').onclick=$('h-bots').onclick=botPicker;
+// rematch from results: send the challenge right away (same rules as last time) and play round 1
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-re]');if(!b)return;b.disabled=true;b.textContent='Sending…';
+ try{const[p,sx]=myRules(),qset=await pickQs(),c=await rpc('duel_challenge',{p_token:TOKEN,p_name:(ls('uc-nick')||'Player').slice(0,16),p_kit:KIT,p_qset:qset,p_nick:b.dataset.re});
+  if(p!==5||sx!==15)await rpc('duel_set_rules',{p_code:c,p_token:TOKEN,p_per:p,p_secs:sx}).catch(()=>{});track('duel_challenge',{code:c,from:'rematch'});location.href='duel.html?d='+c}
+ catch(err){b.disabled=false;b.textContent='Rematch';alert(/already have a duel/.test(err.message)?'You already have a duel going with this player.':'Could not send the rematch: '+err.message)}});
 $('go').onclick=()=>play();$('refresh').onclick=()=>location.reload();
-$('rematch').onclick=()=>{location.href='duel.html'};
+$('rematch').onclick=()=>{if(isBot(code))return botStart(botGet(code).bot);location.href='duel.html'};
 // ── play the five ──
 let qi=0,picks=[],timer=null,left=SECS,locked=false;
 let base=0,size=5;
@@ -687,7 +697,7 @@ async function battle(){const slot=D.me||1,me=D.players.find(p=>p.slot===slot),r
  const dl=elo&&elo.delta,myE=elo&&(dl?{r:dl['b'+slot],g:Math.max(0,dl['g'+slot]-1)}:elo['p'+slot]),rvE=elo&&(dl?{r:dl['b'+(3-slot)],g:Math.max(0,dl['g'+(3-slot)]-1)}:elo['p'+(3-slot)]);if(over&&D.me)try{const r=await rpc('duel_record',{p_token:TOKEN});if(r)rec=[r.w,r.d,r.l]}catch{}
  $('fb').hidden=true;if(over&&D.me){const res=hp[0]===hp[1]?'draw':hp[slot-1]>hp[2-slot]?'win':'loss';if(!ls('uc-duel-end-'+code)){ls('uc-duel-end-'+code,'1');track('duel_end',{code,result:res,questions:n})}fbFor=code}
  const opts={hp:hpAfter(A,B,s0),q0:s0,title:roundName(s0),final:over,rec,intro:s0===0?'vs':s0===15?'sd':null,next:n<15?'NO KO YET':'STILL LEVEL',elo:over&&D.me&&dl?{b:dl['b'+slot],a:dl['a'+slot],g:dl['g'+slot]}:null};
- const go=()=>{show('s-battle');$('next').hidden=true;startBattle($('bc'),R,{name:D.me?'YOU':me.name,kit:me.kit,rec:me.rec,elo:myE},{name:rv.name,kit:rv.kit,rec:rv.rec,elo:rvE},()=>{if(!over&&D.me){$('next').hidden=false;$('next').textContent=n<15?'Play round '+roundNo(n):'Sudden death'}if(over&&D.me&&!ls('uc-duel-fb-'+code))$('fb').hidden=false},opts)};$('v-title').textContent=over?'THE DUEL IS OVER':roundName(s0)+' IS IN';$('v-msg').textContent=over?'Full time. See who won.':"You've both played. See how it went.";$('v-go').onclick=go;$('replay').onclick=go;if(isBot(code))return go();show('s-view')}
+ const go=()=>{show('s-battle');$('next').hidden=true;startBattle($('bc'),R,{name:D.me?'YOU':me.name,kit:me.kit,rec:me.rec,elo:myE},{name:rv.name,kit:rv.kit,rec:rv.rec,elo:rvE},()=>{if(!over&&D.me){$('next').hidden=false;$('next').textContent=n<15?'Play round '+roundNo(n):'Sudden death'}if(over&&D.me&&!ls('uc-duel-fb-'+code)&&!isBot(code))$('fb').hidden=false;$('bot-note').hidden=!(over&&isBot(code))},opts)};$('v-title').textContent=over?'THE DUEL IS OVER':roundName(s0)+' IS IN';$('v-msg').textContent=over?'Full time. See who won.':"You've both played. See how it went.";$('v-go').onclick=go;$('replay').onclick=go;if(isBot(code))return go();show('s-view')}
 $('next').onclick=()=>play();
 // feedback on the finished duel, shown once the battle ends
 let fbFor=null,fbRate=null;
