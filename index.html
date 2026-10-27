@@ -4083,4 +4083,14 @@ html.polish .pz-count{font-variant-numeric:tabular-nums}
  .lp-title .uni-word,.lp-title .lp-lead{-webkit-box-decoration-break:clone;box-decoration-break:clone}
 }
 </style>
+<script>
+// AdSense: hand-placed units only (Auto ads off). Under Game modes on home, under Infinity on the results page.
+(()=>{const C='ca-pub-9034426912596924';
+ const put=(after,slot,id)=>{if(!after||document.getElementById(id))return;const w=document.createElement('div');w.className='ad-box';w.id=id;
+  w.innerHTML=`<span>Advertisement</span><ins class="adsbygoogle" style="display:block" data-ad-client="${C}" data-ad-slot="${slot}" data-ad-format="auto" data-full-width-responsive="true"></ins>`;
+  after.after(w);try{(window.adsbygoogle=window.adsbygoogle||[]).push({})}catch{}};
+ const scan=()=>{if(document.body.classList.contains('playing'))return;put(document.querySelector('.modes:not(.res-modes)'),'6459386468','ad-home');put(document.querySelector('.res-modes'),'5338088514','ad-res')};
+ new MutationObserver(scan).observe(document.body,{childList:true,subtree:true});scan()})();
+</script>
+<style>.ad-box{margin:6px 0 22px;padding:6px;background:#fbf3dc;border:3px solid #06041a;box-shadow:4px 4px 0 rgba(0,0,0,.35)}.ad-box span{display:block;font:700 9px/1 Silkscreen,monospace;letter-spacing:1px;color:#5b5070;margin:0 0 4px}.ad-box:has(ins[data-ad-status=unfilled]){display:none}</style>
 </body></html>
