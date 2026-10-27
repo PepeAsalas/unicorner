@@ -58,6 +58,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 .pr-rs.more{display:none}#pr-results.all .pr-rs.more{display:grid}.prog .pr-more{width:100%;margin-top:8px;padding:6px;font:18px/1 var(--mono);background:none;color:var(--pt);box-shadow:none;text-decoration:underline;text-underline-offset:3px}
 .pr-stack{display:flex;flex-direction:column;gap:16px;min-width:0}
 @media (max-width:980px){.pr-stack{display:contents}.pr-play{order:2}}
+.bot-quit{margin-left:auto;margin-right:12px;font:18px var(--mono);color:var(--muted);text-decoration:underline;text-underline-offset:3px}
 .qm-btn{background:#ff7a1a!important}
 .r-rules{font-family:var(--mono);font-size:19px;color:var(--gold);margin:-4px 0 4px}
 .fresh{opacity:.85;margin-top:6px}
@@ -352,7 +353,7 @@ body.prog-on.night .prog .ib-x{color:#b9b0d8}body.prog-on.night .prog .ib-off{co
   <button class="ghost back" style="margin-top:14px">← Back to Unicorner</button>
  </section>
  <section id="s-play" class="card" hidden>
-  <div class="qhead"><span class="chip" id="q-n">Q1 OF 5</span><span class="clock" id="q-clock">15</span></div>
+  <div class="qhead"><span class="chip" id="q-n">Q1 OF 5</span><a class="bot-quit" id="q-quit" href="duel.html" hidden>← Leave</a><span class="clock" id="q-clock">15</span></div>
   <div class="bar"><i id="q-bar" style="width:100%"></i></div>
   <div class="qtext" id="q-text"></div><div class="qsub" id="q-sub"></div>
   <form id="q-form" autocomplete="off"><input id="q-in" placeholder="Type your answer" autocapitalize="words" spellcheck="false" enterkeyhint="send"><button type="submit" id="q-go" class="go">Enter ⏎</button></form>
@@ -429,7 +430,7 @@ async function botRpc(fn,a){const d=botGet(a.p_code);if(!d)return null;const b=b
  if(fn==='duel_get'){const sh=Math.min(d.me.length,d.bp.length),hp=hpAfter(d.me,d.bp,sh);
   return{code:a.p_code,qset:d.qset,me:1,shared:sh,hp,over:botOver(hp,sh),bot:true,players:[{slot:1,name:d.name,kit:KIT,played:d.me.length,picks:d.me},{slot:2,name:b[1],kit:b[4],played:d.bp.length,picks:d.bp.slice(0,sh)}]}}
  return null}
-async function botStart(id){const[p,sx]=myRules(),qset=await pickQs(),c='BOT-'+Math.random().toString(36).slice(2,8).toUpperCase();
+async function botStart(id){const p=5,sx=15,qset=await pickQs(),c='BOT-'+Math.random().toString(36).slice(2,8).toUpperCase();
  botPut(c,{bot:id,qset,per:p,secs:sx,name:(ls('uc-nick')||ls('uc-duel-name')||'You').slice(0,16),me:[],bp:[],at:Date.now()});track('duel_bot',{bot:id});location.href='duel.html?d='+c+'&go=1'}
 function botPicker(){let d=$('dlg-bots');if(!d){document.body.insertAdjacentHTML('beforeend','<dialog id="dlg-bots" class="bots"></dialog>');d=$('dlg-bots');d.addEventListener('click',e=>{if(e.target===d||e.target.closest('[data-bx]'))d.close();const r=e.target.closest('[data-bot]');if(r)botStart(r.dataset.bot)})}
  d.innerHTML=`<button type="button" class="bx" data-bx aria-label="Close">✕</button><div class="b-hd"><img src="duel/bots/the-unicorn-whisperer.webp" alt=""><p>Practise against a bot. <b>Bot duels don't change your rating.</b></p></div>`+BOTS.map(([g,l])=>`<h3>${g}<em>${l.length} bots</em></h3>`+l.map(b=>`<button type="button" class="b-row" data-bot="${b[0]}"><img src="duel/bots/${b[0]}.webp" alt=""><span><b>${b[1]}</b><small>“${b[5]}”</small></span><i>${b[2]}</i></button>`).join('')).join('');d.showModal()}
@@ -652,7 +653,7 @@ async function play(){try{[D]=await Promise.all([rpc('duel_get',{p_code:code,p_t
  const mine=D&&D.players.find(p=>p.slot===D.me);if(!mine){track('duel_load_fail',{code,step:'me',signed:!!(await userToken())});return fail(await userToken()?"You're not a player in this duel on this account.":'Your Unicorner login has expired. Open the game, sign in again, then come back.')}
  base=mine.picks.length;size=roundSize(base);if(base>=D.qset.length)return fail('No questions left to play in this duel.');
  try{Q=await Promise.all(D.qset.slice(base,base+size).map(loadQ))}catch(e){track('duel_load_fail',{code,step:'bank',err:String(e.message).slice(0,200)});return fail('Could not load the questions ('+e.message+'). Refresh the page and try again.')}
- qi=0;picks=[];show('s-play');ask()}
+ qi=0;picks=[];$('q-quit').hidden=!isBot(code);show('s-play');ask()}
 function ask(){const q=Q[qi];locked=false;left=SECS;for(const el of[$('q-text'),$('q-sub')]){el.getAnimations().forEach(a=>a.cancel());if(qi&&!SCR_RM&&el.animate)el.animate([{opacity:0,transform:'translateX(24px)'},{opacity:1,transform:'none'}],{duration:220,easing:EASE})}$('q-n').textContent=size>1?`${roundName(base)} · Q${qi+1} OF ${size}`:'SUDDEN DEATH';$('q-text').textContent=q.prompt;$('q-sub').textContent=q.sub;$('q-in').value='';$('q-in').disabled=false;$('q-msg').textContent='';$('q-msg').className='msg';$('q-skip').hidden=false;$('q-go').hidden=false;
  $('q-in').placeholder=PERSON.has(q.type)?'Type a '+(q.type==='player'?'player':q.type):'Type a '+q.type;tick();clearInterval(timer);timer=setInterval(()=>{left--;tick();if(left<=0)lock(null)},1000);setTimeout(()=>$('q-in').focus(),50)}
 function tick(){const c=$('q-clock');c.textContent=Math.max(0,left);c.classList.toggle('low',left<=5);if(left<=5&&left>0&&!SCR_RM){c.classList.remove('thump');void c.offsetWidth;c.classList.add('thump')}$('q-bar').style.width=Math.max(0,left/SECS*100)+'%'}
@@ -686,7 +687,7 @@ async function battle(){const slot=D.me||1,me=D.players.find(p=>p.slot===slot),r
  const dl=elo&&elo.delta,myE=elo&&(dl?{r:dl['b'+slot],g:Math.max(0,dl['g'+slot]-1)}:elo['p'+slot]),rvE=elo&&(dl?{r:dl['b'+(3-slot)],g:Math.max(0,dl['g'+(3-slot)]-1)}:elo['p'+(3-slot)]);if(over&&D.me)try{const r=await rpc('duel_record',{p_token:TOKEN});if(r)rec=[r.w,r.d,r.l]}catch{}
  $('fb').hidden=true;if(over&&D.me){const res=hp[0]===hp[1]?'draw':hp[slot-1]>hp[2-slot]?'win':'loss';if(!ls('uc-duel-end-'+code)){ls('uc-duel-end-'+code,'1');track('duel_end',{code,result:res,questions:n})}fbFor=code}
  const opts={hp:hpAfter(A,B,s0),q0:s0,title:roundName(s0),final:over,rec,intro:s0===0?'vs':s0===15?'sd':null,next:n<15?'NO KO YET':'STILL LEVEL',elo:over&&D.me&&dl?{b:dl['b'+slot],a:dl['a'+slot],g:dl['g'+slot]}:null};
- const go=()=>{show('s-battle');$('next').hidden=true;startBattle($('bc'),R,{name:D.me?'YOU':me.name,kit:me.kit,rec:me.rec,elo:myE},{name:rv.name,kit:rv.kit,rec:rv.rec,elo:rvE},()=>{if(!over&&D.me){$('next').hidden=false;$('next').textContent=n<15?'Play round '+roundNo(n):'Sudden death'}if(over&&D.me&&!ls('uc-duel-fb-'+code))$('fb').hidden=false},opts)};$('v-title').textContent=over?'THE DUEL IS OVER':roundName(s0)+' IS IN';$('v-msg').textContent=over?'Full time. See who won.':"You've both played. See how it went.";$('v-go').onclick=go;show('s-view');$('replay').onclick=go}
+ const go=()=>{show('s-battle');$('next').hidden=true;startBattle($('bc'),R,{name:D.me?'YOU':me.name,kit:me.kit,rec:me.rec,elo:myE},{name:rv.name,kit:rv.kit,rec:rv.rec,elo:rvE},()=>{if(!over&&D.me){$('next').hidden=false;$('next').textContent=n<15?'Play round '+roundNo(n):'Sudden death'}if(over&&D.me&&!ls('uc-duel-fb-'+code))$('fb').hidden=false},opts)};$('v-title').textContent=over?'THE DUEL IS OVER':roundName(s0)+' IS IN';$('v-msg').textContent=over?'Full time. See who won.':"You've both played. See how it went.";$('v-go').onclick=go;$('replay').onclick=go;if(isBot(code))return go();show('s-view')}
 $('next').onclick=()=>play();
 // feedback on the finished duel, shown once the battle ends
 let fbFor=null,fbRate=null;
