@@ -147,6 +147,15 @@ body.paper.night .pl,body.paper.night .w-uni b{color:#f3ead2}
 body.paper.night .sp-panel{background:#201a44;color:#f3ead2;border-color:#f3ead2;box-shadow:4px 4px 0 #000}body.paper.night .sp-row{border-top-color:#3d3566}body.paper.night .sp-row.me{color:var(--ink)}
 body.paper.night .sp-wdl,body.paper.night .sp-wdl div{border-color:#f3ead2}body.paper.night .sp-link{color:#f3ead2}body.paper.night .sp-wdl b:not([style]){color:#f3ead2}
 body.paper .w-uni{margin-top:22px}.sp-panel.dark{box-shadow:4px 4px 0 rgba(6,4,26,.3)}body.paper.night .clock{color:#ff8a8a}body.paper.night .r-rules{color:#f2c230}
+
+/* bot picker: chess.com-style list of practice bots */
+dialog.bots{width:min(440px,94vw);max-height:88vh;overflow:auto;padding:16px;background:#fbf6e6;color:#06041a;border:4px solid #06041a;box-shadow:8px 8px 0 rgba(6,4,26,.4)}
+dialog.bots::backdrop{background:rgba(6,4,26,.6)}
+.bots .bx{position:absolute;right:10px;top:10px;width:36px;height:36px;padding:0;font-size:18px;background:#fffaf0;color:#06041a}
+.b-hd{display:flex;gap:10px;align-items:center;margin:0 40px 6px 0}.b-hd img{width:56px;height:56px;border:3px solid #06041a}.b-hd p{font:600 14px/1.3 Barlow,sans-serif;color:#06041a;background:#fff;border:2px solid #06041a;padding:8px}
+.bots h3{display:flex;justify-content:space-between;align-items:baseline;font:400 24px/1 var(--disp);margin:14px 0 6px;color:#d7262e}.bots h3 em{font:16px var(--mono);font-style:normal;color:#5b5070}
+.b-row{display:grid;grid-template-columns:52px 1fr auto;gap:10px;align-items:center;text-align:left;width:100%;margin:0 0 6px;padding:6px;background:#fff;color:#06041a;box-shadow:0 0 0 3px #06041a,0 4px 0 3px #06041a;font:inherit}
+.b-row img{width:52px;height:52px;border:2px solid #06041a}.b-row b{display:block;font:400 22px/1 var(--disp)}.b-row small{font:600 12px/1.2 Barlow,sans-serif;color:#5b5070}.b-row i{font:400 24px var(--disp);font-style:normal;color:#b8860b}
 [hidden]{display:none!important}
 /* waiting: your unicorn nods off until the rival plays */
 .w-uni{position:relative;width:144px;height:120px;margin:4px auto 0}
@@ -272,6 +281,7 @@ body.prog-on.night .prog .ib-x{color:#b9b0d8}body.prog-on.night .prog .ib-off{co
   <p class="small fresh">🆕 New duel questions every week. The bank keeps growing, so rematches stay fresh.</p>
   <p class="small rec" id="rec1" hidden></p>
   <button class="qm-btn" id="h-quick" hidden style="margin-top:12px">⚡ Quick match</button>
+  <button class="ghost" id="h-bots" style="margin-top:12px">🤖 Practice vs bots</button>
   <button class="ghost" id="to-inbox" hidden style="margin-top:12px">My duels</button>
  </section>
  <section id="s-inbox" class="prog" hidden>
@@ -301,6 +311,7 @@ body.prog-on.night .prog .ib-x{color:#b9b0d8}body.prog-on.night .prog .ib-off{co
      <div class="pr-lbl">Play</div>
      <button class="qm-btn" id="ib-quick">⚡ Quick match</button><p class="pr-note" style="margin:6px 0 12px">Paired with a player near your rating. Not live: play your round, your rival turns up in Matches.</p>
      <button id="ib-new" class="ghost">+ Challenge a mate</button>
+     <button class="ghost" id="ib-bots" style="margin-top:12px">🤖 Practice vs bots</button>
      <label class="ib-off"><input type="checkbox" id="ib-allow"> Let other players challenge me</label>
     </div>
    </div>
@@ -382,7 +393,28 @@ async function userToken(){let x;try{x=JSON.parse(localStorage.getItem('uc-playe
  if(Date.now()>(x.exp||0)-60000){try{const r=await fetch(SB_URL+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:x.refresh_token})});const j=await r.json();if(!r.ok||!j.access_token)return null;
   x={...x,access_token:j.access_token,refresh_token:j.refresh_token||x.refresh_token,exp:Date.now()+Math.max(60,(+j.expires_in||3600))*1000};localStorage.setItem('uc-player-session',JSON.stringify(x))}catch{return null}}return x.access_token}
 // a stale league login (expired or revoked token) must not break the duel: on 401 retry signed out, and drop the dead session
-const rpc=async(fn,args)=>{const ut=await userToken();const go=tok=>fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+(tok||SB_KEY),'Content-Type':'application/json'},body:JSON.stringify(args)});
+// ── practice bots (like chess.com): a bot duel lives only on this device and never touches your rating ──
+const BOTS=[['Sunday League',[['uncle-dave','Uncle Dave',600,.08,'mud',"Back in my day we didn't need answers."],['kid-kevin','Kid Kevin',700,.14,'candy','I know EVERY player. Probably.'],['nan-pat','Nan Pat',800,.2,'tartan',"I've watched every match since 1958, dear."]]],
+ ['Non-League',[['big-sal','Big Sal',900,.3,'hoops','I head the ball. I head the questions.'],['dazza','Dazza',1000,.38,'retro','Pub quiz champion three years running.'],['coach-bev','Coach Bev',1100,.46,'ref','Fundamentals first. Then we win.']]],
+ ['Championship',[['rico-flash','Rico Flash',1200,.56,'fire','Fast feet, faster answers.'],['the-professor','The Professor',1300,.64,'checks','I have a spreadsheet for this.'],['ice-keeper-ingrid','Ice Keeper Ingrid',1400,.72,'ice','Nothing gets past me.']]],
+ ['Legends',[['el-maestro','El Maestro',1500,.8,'royal','Football is an art. So is this.'],['the-wall','The Wall',1650,.87,'shadow','You shall not pass.'],['the-unicorn-whisperer','The Unicorn Whisperer',1800,.94,'galaxy','I know the answers nobody gives.']]]];
+const botOf=id=>BOTS.flatMap(g=>g[1]).find(b=>b[0]===id);
+const isBot=c=>/^BOT-/.test(c||'');
+const botGet=c=>{try{return JSON.parse(localStorage.getItem('uc-bot-'+c))}catch{return null}},botPut=(c,v)=>{try{localStorage.setItem('uc-bot-'+c,JSON.stringify(v))}catch{}};
+async function botPicks(b,ids){const bk=await bank(),sk=b[3];return ids.map(id=>{const q=bk[id];if(!q||Math.random()<.5-.42*sk)return[null,0];
+ const a=q.answers.map(x=>[x.name,FAME_V2[x.fame]||60]),w=a.map(([,p])=>Math.pow(p,4*sk-1.6)),t=w.reduce((x,y)=>x+y,0);let r=Math.random()*t;for(let i=0;i<a.length;i++){r-=w[i];if(r<=0)return a[i]}return a[0]})}
+function botOver(h,n){return n>0&&(h[0]===0||h[1]===0||(n>=15&&h[0]!==h[1])||n>=20)}
+async function botRpc(fn,a){const d=botGet(a.p_code);if(!d)return null;const b=botOf(d.bot);
+ if(fn==='duel_rules')return{per:d.per,secs:d.secs};
+ if(fn==='duel_submit'){const n=d.me.length;d.me=d.me.concat(a.p_picks);d.bp=d.bp.concat(await botPicks(b,d.qset.slice(n,n+a.p_picks.length)));botPut(a.p_code,d);return null}
+ if(fn==='duel_get'){const sh=Math.min(d.me.length,d.bp.length),hp=hpAfter(d.me,d.bp,sh);
+  return{code:a.p_code,qset:d.qset,me:1,shared:sh,hp,over:botOver(hp,sh),bot:true,players:[{slot:1,name:d.name,kit:KIT,played:d.me.length,picks:d.me},{slot:2,name:b[1],kit:b[4],played:d.bp.length,picks:d.bp.slice(0,sh)}]}}
+ return null}
+async function botStart(id){const[p,sx]=myRules(),qset=await pickQs(),c='BOT-'+Math.random().toString(36).slice(2,8).toUpperCase();
+ botPut(c,{bot:id,qset,per:p,secs:sx,name:(ls('uc-nick')||ls('uc-duel-name')||'You').slice(0,16),me:[],bp:[],at:Date.now()});track('duel_bot',{bot:id});location.href='duel.html?d='+c+'&go=1'}
+function botPicker(){let d=$('dlg-bots');if(!d){document.body.insertAdjacentHTML('beforeend','<dialog id="dlg-bots" class="bots"></dialog>');d=$('dlg-bots');d.addEventListener('click',e=>{if(e.target===d||e.target.closest('[data-bx]'))d.close();const r=e.target.closest('[data-bot]');if(r)botStart(r.dataset.bot)})}
+ d.innerHTML=`<button type="button" class="bx" data-bx aria-label="Close">✕</button><div class="b-hd"><img src="duel/bots/the-unicorn-whisperer.webp" alt=""><p>Practise against a bot. <b>Bot duels don't change your rating.</b></p></div>`+BOTS.map(([g,l])=>`<h3>${g}<em>${l.length} bots</em></h3>`+l.map(b=>`<button type="button" class="b-row" data-bot="${b[0]}"><img src="duel/bots/${b[0]}.webp" alt=""><span><b>${b[1]}</b><small>“${b[5]}”</small></span><i>${b[2]}</i></button>`).join('')).join('');d.showModal()}
+const rpc=async(fn,args)=>{if(args&&isBot(args.p_code))return botRpc(fn,args);const ut=await userToken();const go=tok=>fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+(tok||SB_KEY),'Content-Type':'application/json'},body:JSON.stringify(args)});
  let r=await go(ut);if(ut&&(r.status===401||r.status===403)){track('duel_token_retry',{fn,status:r.status});r=await go(null)}
  const t=await r.text();if(!r.ok){let m=t;try{m=JSON.parse(t).message||t}catch{}throw new Error(m||('HTTP '+r.status))}return t?JSON.parse(t):null};
 let curScr=null;const SCR_RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -471,9 +503,10 @@ async function boot(){if(!ls('uc-duel-intro'))openIntro('first');sides();$('nm')
  if(rv&&mine>(rv.played||0)||(!rv&&mine>0))return waiting();
  if(D.shared>0&&+ls('uc-duel-seen-'+code)<D.shared)return battle();
  ready()}
-function ready(){const me=D.players.find(p=>p.slot===D.me),n=me.picks.length;clock($('r-clock'),true);$('r-link').textContent=link(code);
+function ready(){if(isBot(code)&&QS.get('go')&&!D.players[0].picks.length)return play();const me=D.players.find(p=>p.slot===D.me),n=me.picks.length;clock($('r-clock'),true);$('r-link').textContent=link(code);
  $('r-title').textContent=n?(n<15?roundName(n)+' · NO KO YET':'LEVEL AFTER 15 · SUDDEN DEATH'):me.slot===1?'YOUR DUEL IS READY':'READY WHEN YOU ARE';
  $('go').textContent=n<15?(PER===15?'Play all 15':'Play round '+roundNo(n)):'Sudden death: 1 question';$('r-rules').textContent=rulesTxt(PER,SECS).replace(/^./,c=>c.toUpperCase());
+ if(isBot(code)){const b=botOf(botGet(code).bot);$('r-title').textContent=n?'VS '+b[1].toUpperCase():'YOUR DUEL IS READY';$('r-link').hidden=$('copy').hidden=true;$('r-link').previousElementSibling.textContent=`Practice vs ${b[1]} (${b[2]}). Doesn't count for your rating.`;show('s-ready');return}
  const qk=QS.get('quick');if(qk&&me.slot===1&&!D.players.find(p=>p.slot===2)){$('r-title').textContent=n?'LOOKING FOR A RIVAL':'POSTED: QUICK MATCH';$('r-link').hidden=$('copy').hidden=true;$('r-link').previousElementSibling.textContent=`We'll pair you with a player near ${qk}. Play your round now; your rival turns up in My duels. Come back in a bit.`;show('s-ready');return}
  const ch=D.challenge&&me.slot===1&&!D.players.find(p=>p.slot===2);$('r-link').hidden=$('copy').hidden=!!ch;$('r-link').previousElementSibling.textContent=ch?`Challenge sent to ${D.for_nick}. It's in their duel inbox; play your round now.`:'Send this link to your mate:';if(ch&&!n)$('r-title').textContent='CHALLENGE SENT';show('s-ready')}
 function gate(who){if(code)ls('uc-duel-pending',code);if(who){$('g-title').textContent=`${who.toUpperCase()} CHALLENGED YOU`;$('g-msg').textContent=`Play today's five questions first, then come back for your duel. Your link is saved: you'll find it on your results screen.`}
@@ -590,6 +623,7 @@ async function quick(b){const t=b.textContent;b.disabled=true;b.textContent='Fin
   location.href='duel.html?d='+r.code+(r.matched?'':'&quick='+r.r)}
  catch(e){b.disabled=false;b.textContent=t;alert(/sign in/.test(e.message)?'Sign in on Unicorner to play quick match (it counts for your rating).':'Quick match failed: '+e.message)}}
 $('ib-quick').onclick=e=>quick(e.currentTarget);$('h-quick').onclick=e=>quick(e.currentTarget);
+$('ib-bots').onclick=$('h-bots').onclick=botPicker;
 $('go').onclick=()=>play();$('refresh').onclick=()=>location.reload();
 $('rematch').onclick=()=>{location.href='duel.html'};
 // ── play the five ──
