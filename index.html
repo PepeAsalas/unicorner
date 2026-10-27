@@ -3336,7 +3336,23 @@ function playerCard(r){const k=kitOf(r),info=window.ucKitInfo||{},t=info.KLV?.[k
  <div class="pcd-kh"><span>${L('Kits','Equipaciones')}</span><b>${n}/${all.length}</b><i class="pcd-bar" aria-hidden="true"><i style="width:${Math.round(n/Math.max(1,all.length)*100)}%"></i></i></div>
  <div class="pcd-shelf" aria-label="${n} ${L('kits owned','equipaciones')}">${all.map(x=>`<i class="${own.has(x.id)?'':'no'}" title="${esc(L(x.en,x.es))}" style="background-image:${uniBg(x)}"></i>`).join('')}</div></div>`;
  if(!d.open)d.showModal();track('player_card',{me:!!r.me});duelRec(d,(r.me?me?.profile?.nickname:r.nickname)||'');duelElo(d,(r.me?me?.profile?.nickname:r.nickname)||'');
- if(!ES&&sess&&!r.me&&!r.ghost&&r.nickname){const b=document.createElement('a');b.className='pcd-ch';b.href='/duel.html?vs='+encodeURIComponent(r.nickname);b.textContent='⚔️ CHALLENGE TO A DUEL';b.onclick=()=>track('duel_card_challenge',{});d.querySelector('.pcd-b')?.appendChild(b)}}
+ if(!ES&&sess&&!r.me&&!r.ghost&&r.nickname){const b=document.createElement('button');b.type='button';b.className='pcd-ch';b.textContent='⚔️ CHALLENGE TO A DUEL';b.onclick=()=>{track('duel_card_challenge',{});pcdChallenge(b,r.nickname)};d.querySelector('.pcd-b')?.appendChild(b)}}
+// challenge straight from the player card: pick the rules, send it, and stay on the leaderboard (play your round now or later from My duels)
+function pcdChallenge(btn,nick){const gl=k=>{try{return localStorage.getItem(k)}catch{return null}},sl=(k,v)=>{try{localStorage.setItem(k,v)}catch{}};
+ let per=+gl('uc-duel-per')||5,secs=+gl('uc-duel-secs')||15;const box=document.createElement('div');box.className='pcd-duel';btn.replaceWith(box);
+ const seg=(id,vals,cur)=>`<div class="pcd-seg" data-g="${id}">${vals.map(([v,t])=>`<button type="button" data-v="${v}" class="${v===cur?'on':''}">${t}</button>`).join('')}</div>`;
+ const form=()=>{box.innerHTML=`<b>${L('Duel','Duelo')} ${esc(nick)}</b><span>${L('Questions per round','Preguntas por ronda')}</span>${seg('per',[[3,'3'],[5,'5'],[15,L('All 15','Las 15')]],per)}<span>${L('Seconds per question','Segundos por pregunta')}</span>${seg('secs',[[10,'10'],[15,'15'],[20,'20'],[30,'30']],secs)}<button type="button" class="pcd-ch pcd-send">${L('Send challenge','Enviar reto')}</button><p class="pcd-msg" aria-live="polite"></p>`;
+  box.querySelectorAll('.pcd-seg button').forEach(x=>x.onclick=()=>{const g=x.parentNode.dataset.g;if(g==='per'){per=+x.dataset.v;sl('uc-duel-per',per)}else{secs=+x.dataset.v;sl('uc-duel-secs',secs)}form()});
+  box.querySelector('.pcd-send').onclick=send};
+ async function send(e){const b=e.currentTarget,msg=box.querySelector('.pcd-msg');b.disabled=true;b.textContent=L('Sending…','Enviando…');
+  try{let tok=gl('uc-duel-token');if(!tok||tok.length<16){tok=[...crypto.getRandomValues(new Uint8Array(16))].map(x=>x.toString(16).padStart(2,'0')).join('');sl('uc-duel-token',tok)}
+   const bank=await fetch('/duel/bank.json',{cache:'no-cache'}).then(x=>x.json()),ids=bank.map(q=>q.id);for(let i=ids.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[ids[i],ids[j]]=[ids[j],ids[i]]}
+   const name=(me?.profile?.nickname||gl('uc-nick')||gl('uc-duel-name')||'Player').slice(0,16),code=await rpc('duel_challenge',{p_token:tok,p_name:name,p_kit:gl('uc-kit')||'classic',p_qset:ids.slice(0,20),p_nick:nick});
+   if(per!==5||secs!==15)await rpc('duel_set_rules',{p_code:code,p_token:tok,p_per:per,p_secs:secs}).catch(()=>{});
+   track('duel_challenge',{code,from:'card'});
+   box.innerHTML=`<b>✓ ${L('Challenge sent to','Reto enviado a')} ${esc(nick)}</b><span>${L("It's in their duel inbox. Play your first round now, or later from My duels.","Está en su bandeja de duelos. Juega tu primera ronda ahora o luego desde Mis duelos.")}</span><a class="pcd-ch" href="/duel.html?d=${encodeURIComponent(code)}">${L('Play round 1 now ▶','Jugar ronda 1 ▶')}</a>`}
+  catch(err){b.disabled=false;b.textContent=L('Send challenge','Enviar reto');msg.textContent=/already have a duel/.test(err.message)?L('You already have a duel going with this player.','Ya tienes un duelo con este jugador.'):/not taking/.test(err.message)?L("This player isn't taking challenges.",'Este jugador no acepta retos.'):L('Could not send it: ','No se pudo enviar: ')+err.message}}
+ form()}
 // duel rating line + season titles on the player card (English site only, like duels)
 const ELO_MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const eloTier=(r,g)=>g<5?`Placement ${g}/5`:r<900?'Sunday League':r<1000?'Non-League':r<1100?'Championship':r<1200?'Premier League':r<1400?'Champions League':"Ballon d'Or";
@@ -3708,6 +3724,8 @@ dialog.pcd .pcd-tr b{position:absolute;right:-7px;bottom:-4px;margin:0;font:400 
 dialog.pcd .pcd-shelf{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:4px 2px}
 dialog.pcd .pcd-shelf i{width:100%;height:auto;aspect-ratio:36/30;background-size:contain;background-repeat:no-repeat;image-rendering:pixelated}
 dialog.pcd .pcd-shelf i.no{filter:brightness(0);opacity:.42}
+dialog.pcd .pcd-duel{display:grid;gap:6px;margin-top:6px;padding:10px;border:3px solid #06041a;background:#fbf3dc;color:#06041a}dialog.pcd .pcd-duel b{font:400 22px/1 var(--px,var(--lab))}dialog.pcd .pcd-duel span{font:15px/1.2 var(--lab)}
+dialog.pcd .pcd-seg{display:flex;gap:6px}dialog.pcd .pcd-seg button{flex:1;padding:6px 2px;font:400 18px/1 var(--px,var(--lab));background:#fffaf0;color:#06041a;border:2px solid #06041a;box-shadow:0 3px 0 #06041a;cursor:pointer}dialog.pcd .pcd-seg button.on{background:#ffd23f}dialog.pcd .pcd-msg{margin:0;font:15px var(--lab);color:#b03030}dialog.pcd button.pcd-ch{width:100%;cursor:pointer}
 dialog.pcd .pcd-ch{display:block;margin:4px 0 0!important;padding:11px!important;text-align:center;text-decoration:none;font:400 24px/1 var(--px,var(--lab));white-space:nowrap;background:#ffd23f;color:#06041a;border:3px solid #06041a;box-shadow:4px 4px 0 #06041a;transition:transform 100ms ease-out,box-shadow 100ms ease-out}
 dialog.pcd .pcd-ch:active{transform:translate(2px,2px);box-shadow:2px 2px 0 #06041a}
 .pcd-ti{font-style:normal;font-size:13px;background:#2a1f78;border:2px solid #000;padding:0 5px}
