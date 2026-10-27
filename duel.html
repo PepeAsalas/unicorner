@@ -124,9 +124,24 @@ body.prog-on main>header:not(.pr-mast){display:none}
 .pr-mast b{display:block;font:400 42px/1 var(--disp);text-shadow:3px 3px 0 var(--ink)}.pr-mast small{font:16px/1 var(--mono);letter-spacing:1px}.pr-mast a{color:#fff}
 .pr-me{width:64px;height:54px;flex:none;background:center/contain no-repeat;image-rendering:pixelated}
 .pr-iss{margin-left:auto;text-align:right;font:18px/1.2 var(--mono)}
-.pr-cols{display:grid;grid-template-columns:300px 1fr 290px;padding-top:12px}
-.pr-pg{padding:16px 18px 22px;min-width:0}.pr-pg+.pr-pg,.pr-tabs+.pr-pg{border-left:3px double var(--ink)}
-.pr-sec{display:flex;justify-content:space-between;align-items:baseline;font:20px/1 var(--mono);letter-spacing:1px;border-bottom:2px solid var(--ink);padding-bottom:4px;margin:20px 0 10px}.pr-pg>.pr-sec:first-child,.pr-p>.pr-sec:first-child{margin-top:0}
+.pr-cols{display:grid;grid-template-columns:300px 1fr 290px;gap:16px;align-items:start;padding:24px 16px 18px}
+.pr-pg{min-width:0;border:3px solid var(--ink);background:var(--pc);box-shadow:4px 4px 0 rgba(6,4,26,.3)}
+.pr-band{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--bc);color:#fff;border-bottom:3px solid var(--ink)}
+.pr-band b{font:400 28px/1 var(--disp);text-shadow:2px 2px 0 var(--ink)}
+.pr-band span{margin-left:auto;font:18px/1.1 var(--mono);letter-spacing:1px;background:var(--ink);padding:2px 7px}.pr-band span:empty{display:none}
+.pr-in{padding:12px}
+.pr-lbl{font:700 11px/1 Barlow,sans-serif;letter-spacing:1.5px;text-transform:uppercase;color:var(--pm);margin:16px 0 7px}.pr-in>.pr-lbl:first-child,.pr-in>div:first-child>.pr-lbl:first-child{margin-top:0}
+.pr-stat{display:grid;grid-template-columns:repeat(4,1fr);border:2px solid var(--ink);background:var(--pp)}
+.pr-stat div{padding:6px 2px;text-align:center;border-left:1px dashed var(--pl)}.pr-stat div:first-child{border-left:0}
+.pr-stat b{display:block;font:400 26px/1 var(--disp)}.pr-stat small{font:700 10px Barlow,sans-serif;letter-spacing:1px;text-transform:uppercase;color:var(--pm)}
+.pr-card{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:10px;border:2px solid var(--ink);margin-bottom:8px;background:var(--pp)}
+.pr-go{display:flex;gap:6px}.pr-who small{display:inline}
+.pr-card.hot{background:#fff1ee;box-shadow:inset 0 0 0 2px #d7262e}
+.pr-card .pr-uni{width:52px;height:44px;border:2px solid var(--ink);background-color:#fff;background-size:90%}
+.pr-pill{display:inline-block;font:700 10px/1 Barlow,sans-serif;letter-spacing:1px;text-transform:uppercase;padding:3px 6px;color:#fff;background:var(--sc);margin-bottom:4px}
+.prog .pr-rm{display:inline;width:auto;padding:0;margin-left:4px;font:600 12px Barlow,sans-serif;letter-spacing:0;color:var(--pm);background:none;box-shadow:none;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.prog .pr-wl{width:auto;padding:0;font:700 13px Barlow,sans-serif;letter-spacing:0;color:var(--pt);background:none;box-shadow:none;text-decoration:underline;text-underline-offset:3px}
+.pr-sec{display:none;justify-content:space-between;align-items:baseline;font:20px/1 var(--mono);letter-spacing:1px;border-bottom:2px solid var(--ink);padding-bottom:4px;margin:20px 0 10px}.pr-pg>.pr-sec:first-child,.pr-p>.pr-sec:first-child{margin-top:0}
 .pr-note{font:600 14px/1.35 Barlow,sans-serif;color:var(--pm);margin:8px 0 0}
 /* division pyramid: the leagues stacked like a real football pyramid, your unicorn standing on its row */
 .pyr{display:grid;justify-items:center;gap:4px}
@@ -164,13 +179,11 @@ body.prog-on main>header:not(.pr-mast){display:none}
 .prog #ib-new{width:100%}.prog .ib-off{color:var(--ink);font:600 14px Barlow,sans-serif;margin:14px 0 0}
 .pr-tabs{display:none}
 @media (max-width:980px){
- .pr-cols{grid-template-columns:1fr}.pr-pg+.pr-pg,.pr-tabs+.pr-pg{border-left:0}.pr-mast b{font-size:30px}.pr-me{width:48px;height:40px}.pr-iss{display:none}.pr-mast small{font-size:13px}
- .pr-tabs{display:flex;gap:6px;padding:12px 12px 0}.pr-tabs button{flex:1;font-size:18px;padding:7px 4px;background:var(--pc);box-shadow:0 0 0 2px var(--ink)}.pr-tabs button.on{background:#f2c230;box-shadow:0 0 0 2px var(--ink),0 3px 0 2px var(--ink)}
- .pr-a{padding-bottom:6px}.pr-a .pr-dk{display:none!important}
- .pr-tabs{padding:12px 14px 4px;gap:8px}.pr-tabs button{min-width:0;transform:none!important}
- #s-inbox[data-tab=tb] .pr-b{display:none}
- #s-inbox .pr-p{display:none}#s-inbox:not([data-tab]) .pr-p[data-p=fx],#s-inbox[data-tab=fx] .pr-p[data-p=fx],#s-inbox[data-tab=tb] .pr-p[data-p=tb],#s-inbox[data-tab=rs] .pr-p[data-p=rs]{display:block}
- .pr-fx{grid-template-columns:46px 1fr auto}.pr-fx .pr-uni{width:46px;height:39px}
+ .pr-cols{display:flex;flex-direction:column;align-items:stretch;gap:12px;padding:12px 10px}#s-inbox .pr-mast{padding-right:58px;flex-wrap:nowrap}#s-inbox .pr-mode{position:absolute;right:10px;top:10px;width:36px;height:36px;margin:0;display:grid;place-items:center;line-height:1}.pr-mast b{font-size:30px}.pr-me{width:48px;height:40px}.pr-iss{display:none}.pr-mast small{font-size:13px}
+ .pr-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:24px 10px 0}.pr-tabs button{min-width:0;font-size:19px;padding:8px 4px;background:var(--pc);box-shadow:0 0 0 3px var(--ink),0 3px 0 3px var(--ink);transform:none!important}.pr-tabs button.on{background:#f2c230}
+ .pr-tabs button i{font:15px/1 var(--mono);font-style:normal;margin-left:5px;background:#d7262e;color:#fff;padding:1px 5px;vertical-align:2px}
+ #s-inbox .pr-pg{display:none}#s-inbox:not([data-tab]) .pr-pg[data-pg=m],#s-inbox[data-tab=m] .pr-pg[data-pg=m],#s-inbox[data-tab=y] .pr-pg[data-pg=y],#s-inbox[data-tab=l] .pr-pg[data-pg=l]{display:block}
+ .pr-card{grid-template-columns:auto 1fr}.pr-card>.pr-go{grid-column:1/-1;display:flex;gap:6px}.pr-card>.pr-go button{flex:1}
  body.prog-on main{padding-left:10px;padding-right:10px}
 }
 
@@ -190,6 +203,8 @@ body.prog-on.night .pr-news,body.prog-on.night .pr-pod>div{border-color:#f3ead2}
 body.prog-on.night .pr-tbl tr.me td{color:#06041a}
 body.prog-on.night .stamp.st-go{color:#ff6b6b}body.prog-on.night .stamp.st-wt{color:#b9b0d8}body.prog-on.night .stamp.st-nw{color:#7fb2ff}body.prog-on.night .stamp.st-ok{color:#5fe08a}
 body.prog-on.night .pr-medal{color:#5fe08a}body.prog-on.night .pr-tbl tr.zone td{border-bottom-color:#5fe08a}
+body.prog-on.night .pr-pg,body.prog-on.night .pr-card,body.prog-on.night .pr-stat,body.prog-on.night .pr-card .pr-uni{border-color:#f3ead2}body.prog-on.night .pr-card .pr-uni{background-color:#2a2350}
+body.prog-on.night .pr-card.hot{background:#3a1626;box-shadow:inset 0 0 0 2px #ff6b6b}body.prog-on.night .pr-pg{box-shadow:4px 4px 0 #000}
 body.prog-on.night .pr-fx.hot{background:linear-gradient(90deg,rgba(255,107,107,.18),transparent)}
 body.prog-on.night .prog .ib-x{color:#b9b0d8}body.prog-on.night .prog .ib-off{color:#f3ead2}
 @media (prefers-reduced-motion:no-preference){.prog,.prog *{transition:background-color .2s ease,color .2s ease,border-color .2s ease}}
@@ -215,25 +230,32 @@ body.prog-on.night .prog .ib-x{color:#b9b0d8}body.prog-on.night .prog .ib-off{co
  </section>
  <section id="s-inbox" class="prog" hidden>
   <header class="pr-mast"><i class="pr-me" id="pr-me"></i><div><small>OFFICIAL MATCHDAY PROGRAMME · <a href="/">← UNICORNER</a></small><b id="pr-title">My duels</b></div><div class="pr-iss" id="pr-iss"></div><button type="button" class="pr-mode" id="pr-mode" aria-label="Switch dark mode"></button></header>
+  <nav class="pr-tabs" id="pr-tabs"><button data-t="m" class="on">Matches<i id="pr-tab-n" hidden></i></button><button data-t="y">You</button><button data-t="l">League</button></nav>
   <div class="pr-cols">
-   <div class="pr-pg pr-a">
-    <div class="pr-sec"><span>YOUR DIVISION</span><span id="pr-div-r"></span></div>
-    <div class="pyr" id="pr-pyr"></div>
-    <div class="pr-sec"><span>FORM GUIDE</span><span>LAST 5</span></div><div class="pr-form" id="pr-form"></div>
-    <div class="pr-sec pr-dk"><span>ALL-TIME RECORD</span></div><table class="pr-kv pr-dk" id="pr-rec"></table>
-    <div class="pr-hof pr-dk" id="pr-hof-w"><div class="pr-sec"><span>HALL OF FAME</span><span id="pr-hof-m"></span></div><div class="pr-pod" id="pr-hof"></div></div>
+   <div class="pr-pg" data-pg="y" style="--bc:#1d7a45">
+    <div class="pr-band"><b>You</b><span id="pr-div-r"></span></div>
+    <div class="pr-in">
+     <div class="pr-lbl">Division</div><div class="pyr" id="pr-pyr"></div>
+     <div class="pr-lbl">Form · last 5</div><div class="pr-form" id="pr-form"></div>
+     <div class="pr-lbl">All-time</div><div class="pr-stat" id="pr-rec"></div>
+     <div id="pr-hof-w"><div class="pr-lbl">Hall of fame · <span id="pr-hof-m"></span></div><div class="pr-pod" id="pr-hof"></div></div>
+    </div>
    </div>
-   <nav class="pr-tabs" id="pr-tabs"><button data-t="fx" class="on">Fixtures</button><button data-t="tb">Table</button><button data-t="rs">Results</button></nav>
-   <div class="pr-pg pr-b">
-    <div class="pr-p" data-p="fx"><div class="pr-sec"><span>TODAY'S FIXTURES</span><span id="pr-fx-n"></span></div><div id="ib-list"></div></div>
-    <div class="pr-p" data-p="rs"><div class="pr-sec"><span>RESULTS</span><span id="pr-rs-n"></span></div><div id="pr-results"></div></div>
+   <div class="pr-pg pr-mid" data-pg="m" style="--bc:#d7262e">
+    <div class="pr-band"><b>Matches</b><span id="pr-fx-n"></span></div>
+    <div class="pr-in"><div id="ib-list"></div>
+     <div class="pr-lbl">Results</div><div id="pr-results"></div>
+    </div>
    </div>
-   <div class="pr-pg pr-c">
-    <div class="pr-p" data-p="tb"><div class="pr-sec"><span>THE TABLE</span><span id="pr-tb-m"></span></div><table class="pr-tbl" id="pr-table"></table><p class="pr-medal">TOP 3 WIN A SEASON MEDAL</p></div>
-    <div class="pr-sec"><span>TEAM NEWS</span></div><div class="pr-news" id="pr-news"></div>
-    <div class="pr-sec"><span>CHALLENGE A MATE</span></div>
-    <button id="ib-new">+ New duel</button>
-    <label class="ib-off"><input type="checkbox" id="ib-allow"> Let other players challenge me</label>
+   <div class="pr-pg" data-pg="l" style="--bc:#b8860b">
+    <div class="pr-band"><b>League</b><span id="pr-left"></span></div>
+    <div class="pr-in">
+     <div class="pr-lbl"><span id="pr-tb-m"></span> table</div><table class="pr-tbl" id="pr-table"></table><p class="pr-note">Top 3 win a season medal</p>
+     <div class="pr-lbl">Team news</div><div class="pr-news" id="pr-news"></div>
+     <div class="pr-lbl">Challenge a mate</div>
+     <button id="ib-new">+ New duel</button>
+     <label class="ib-off"><input type="checkbox" id="ib-allow"> Let other players challenge me</label>
+    </div>
    </div>
   </div>
  </section>
@@ -456,25 +478,28 @@ function ibDraw(){const all=IBR.items,act=all.filter(x=>!done(x)),arc=all.filter
  $('pr-me').style.backgroundImage=spriteDraw('wow',0,false,myKit()).replace(/"/g,"'");
  $('pr-title').textContent=nick==='My'?'My duels':nick+"'s duels";
  if(IBZ){const[y,m]=IBZ.season.split('-'),days=Math.max(0,Math.ceil((new Date(IBZ.ends)-Date.now())/864e5));
-  $('pr-iss').innerHTML=`ISSUE ${all.length||1}<br>${MONS[+m-1].toUpperCase()} SEASON · ${days} DAY${days===1?'':'S'} LEFT`;$('pr-tb-m').textContent=MONS[+m-1].toUpperCase();
+  $('pr-iss').innerHTML=`ISSUE ${all.length||1}<br>${MONS[+m-1].toUpperCase()} SEASON · ${days} DAY${days===1?'':'S'} LEFT`;$('pr-tb-m').textContent=MONS[+m-1];$('pr-left').textContent=days+' day'+(days===1?'':'s')+' left';
   const top=IBZ.top||[];$('pr-table').innerHTML=top.length?top.map(t=>`<tr class="${t.pos<=3?'zone':''}${IBZ.me&&t.pos===IBZ.me.pos?' me':''}"><td>${t.pos}</td><td>${esc(t.nick||'?')}</td><td>${t.r}</td></tr>`).join('')+(IBZ.me&&IBZ.me.pos>10?`<tr class="me"><td>${IBZ.me.pos}</td><td>${esc(nick)}</td><td>${IBZ.me.r}</td></tr>`:''):'<tr><td colspan="3">No one has finished placement yet this month.</td></tr>';
   const pod=(IBZ.last&&IBZ.last.podium)||[];$('pr-hof-w').hidden=!pod.length;if(pod.length){const[ly,lm]=IBZ.last.season.split('-');$('pr-hof-m').textContent=MONS[+lm-1].toUpperCase();
    const by=p=>pod.find(x=>x.pos===p);$('pr-hof').innerHTML=[2,1,3].map(p=>{const x=by(p);return x?`<div class="p${p}">${['','🥇','🥈','🥉'][p]}${uni(kitFor(x.nick))}<em>${esc(x.nick||'?')}</em>${x.r}</div>`:'<div></div>'}).join('')}}
  pyramid();
  const fin=all.filter(x=>x.state==='won'||x.state==='lost'||x.state==='draw');
  $('pr-form').innerHTML=fin.slice(0,5).map(x=>`<i class="${x.state==='won'?'w':x.state==='lost'?'l':'dr'}" title="vs ${esc(x.opp)}">${x.state==='won'?'W':x.state==='lost'?'L':'D'}</i>`).join('')||'<span class="pr-note">No results yet.</span>';
- const r=IBREC||{w:0,d:0,l:0};$('pr-rec').innerHTML=`<tr><td>Played</td><td>${r.w+r.d+r.l}</td></tr><tr><td>Won</td><td>${r.w}</td></tr><tr><td>Drawn</td><td>${r.d}</td></tr><tr><td>Lost</td><td>${r.l}</td></tr>`;
- // fixtures: duels still going (and results you haven't watched yet)
- const ST={challenge:['NEW','nw'],sent:['SENT','wt'],your_turn:['YOUR TURN','go'],their_turn:['WAITING','wt'],won:['RESULT IN','ok'],lost:['RESULT IN','ok'],draw:['RESULT IN','ok']};
- $('pr-fx-n').textContent=act.length?act.length+' ACTIVE':'';
- $('ib-list').innerHTML=act.length?act.map(x=>{const[l,c]=x.fresh?['RESULT IN','ok']:ST[x.state]||[x.state.toUpperCase(),'wt'],tl=x.deadline&&tLeft(x.deadline),urgent=tl&&x.state==='your_turn'&&hot(x.deadline);
-  const rd=x.played?`Round ${Math.floor(x.played/5)+1}`:'Round 1',sub=x.state==='challenge'?'Challenged you':x.state==='sent'?'Link sent · waiting for them to join':x.fresh?'Watch how it ended':tl?`${x.state==='your_turn'?'⏰ '+tl+' left to play':'They have '+tl}`:rd;
-  const act=x.state==='challenge'?`<span class="pr-btns"><button class="ghost" data-no="${x.code}">Decline</button><button data-go="${x.code}">Accept</button></span>`:x.state==='your_turn'&&!x.fresh?`<button data-go="${x.code}">Play ${rd.toLowerCase()} ▶</button>`:x.fresh?`<button data-go="${x.code}">Watch ▶</button>`:`<button class="ghost" data-go="${x.code}">View</button>`;
-  return`<div class="pr-fx${urgent?' hot':''}">${uni(kitFor(x.opp),true)}<div class="pr-who"><b>vs ${esc(x.opp)}</b><small>${sub}</small></div><div class="pr-act"><span class="stamp st-${c}">${l}</span>${act}</div><button class="ib-x" data-rm="${x.code}" data-st="${x.state}" aria-label="Remove">✕</button></div>`}).join('')
-  :'<p class="pr-note">No duels going right now. Challenge a mate, or tap a player on the Unicorner leaderboard.</p>';
- $('pr-rs-n').textContent=arc.length?arc.length+' PLAYED':'';
+ const r=IBREC||{w:0,d:0,l:0};$('pr-rec').innerHTML=[[r.w+r.d+r.l,'Played'],[r.w,'Won'],[r.d,'Drawn'],[r.l,'Lost']].map(([n,t])=>`<div><b>${n}</b><small>${t}</small></div>`).join('');
+ // matches: what needs you first, then what's waiting on them or ready to watch
+ const PILL={challenge:['New challenge','#1f5fd6'],sent:['Link sent','#6b6878'],your_turn:['Your turn','#d7262e'],their_turn:['Their turn','#6b6878']};
+ const needs=x=>!x.fresh&&(x.state==='challenge'||x.state==='your_turn'),need=act.filter(needs),rest=act.filter(x=>!needs(x));
+ $('pr-fx-n').textContent=need.length?need.length+' need'+(need.length===1?'s':'')+' you':act.length?act.length+' going':'';
+ const tn=$('pr-tab-n');tn.hidden=!need.length;tn.textContent=need.length;
+ const card=x=>{const[pl,pc]=x.fresh||done(x)?['Result in','#1d7a45']:PILL[x.state]||[x.state,'#6b6878'],tl=x.deadline&&tLeft(x.deadline),urgent=tl&&x.state==='your_turn'&&hot(x.deadline);
+  const rd=x.played?`Round ${Math.floor(x.played/5)+1}`:'Round 1',sub=x.state==='challenge'?'Challenged you':x.state==='sent'?'Waiting for them to join':x.fresh?'Watch to find out':tl?(x.state==='your_turn'?'⏰ '+tl+' left':tl+' left for them'):rd;
+  const live=x.state==='your_turn'||x.state==='their_turn',rm=x.state==='challenge'?'':`<button class="pr-rm" data-rm="${x.code}" data-st="${x.state}">${live?'Give up':'Remove'}</button>`;
+  const go=x.state==='challenge'?`<button class="ghost" data-no="${x.code}">Decline</button><button data-go="${x.code}">Accept</button>`:x.state==='your_turn'&&!x.fresh?`<button data-go="${x.code}">Play ${rd.toLowerCase()} ▶</button>`:x.fresh?`<button data-go="${x.code}">Watch ▶</button>`:`<button class="ghost" data-go="${x.code}">View</button>`;
+  return`<div class="pr-card${urgent||(x.state==='your_turn'&&!x.fresh)?' hot':''}">${uni(kitFor(x.opp),true)}<div class="pr-who"><span class="pr-pill" style="--sc:${pc}">${pl}</span><b>vs ${esc(x.opp)}</b><small>${sub}${rm?' · ':''}</small>${rm}</div><div class="pr-go">${go}</div></div>`};
+ $('ib-list').innerHTML=act.length?(need.length?'<div class="pr-lbl">Needs you</div>'+need.map(card).join(''):'')+(rest.length?'<div class="pr-lbl">Waiting &amp; finished</div>'+rest.map(card).join(''):'')
+  :'<div class="pr-lbl">Needs you</div><p class="pr-note">Nothing right now. Challenge a mate, or tap a player on the Unicorner leaderboard.</p>';
  $('pr-results').innerHTML=arc.length?arc.slice(0,12).map(x=>{const w=x.state==='won',l=x.state==='lost',d=x.state==='draw',how=x.how==='timeout'?' · out of time':x.gave_up?(x.gave_up==='you'?' · you gave up':' · they gave up'):'';
-  return`<div class="pr-rs"><span class="r ${w?'w':l?'l':d?'dr':'x'}">${w?'W':l?'L':d?'D':'–'}</span><span class="pr-rs-t"><b>vs ${esc(x.opp)}</b><small>${w?'You won':l?'You lost':d?'Draw':x.state==='declined'?'Declined':'Expired'}${how} · ${new Date(x.at).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}</small></span>${w||l||d?`<button class="ghost" data-go="${x.code}">Watch</button><a class="pr-re" href="duel.html?vs=${encodeURIComponent(x.opp)}">Rematch</a>`:''}</div>`}).join('')
+  return`<div class="pr-rs"><span class="r ${w?'w':l?'l':d?'dr':'x'}">${w?'W':l?'L':d?'D':'–'}</span><span class="pr-rs-t"><b>vs ${esc(x.opp)}</b><small>${w?'You won':l?'You lost':d?'Draw':x.state==='declined'?'Declined':'Expired'}${how} · ${new Date(x.at).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}</small></span>${w||l||d?`<button class="pr-wl" data-go="${x.code}">Watch</button><a class="pr-re" href="duel.html?vs=${encodeURIComponent(x.opp)}">Rematch</a>`:''}</div>`}).join('')
   :'<p class="pr-note">Finished duels land here.</p>';
  // team news: one line about where you stand
  const mine=IBZ&&IBZ.mine,me=IBZ&&IBZ.me,third=IBZ&&(IBZ.top||[])[2],days=IBZ?Math.max(0,Math.ceil((new Date(IBZ.ends)-Date.now())/864e5)):0,yt=act.filter(x=>x.state==='your_turn'&&!x.fresh);
