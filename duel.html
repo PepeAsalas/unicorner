@@ -334,7 +334,7 @@ body.prog-on.night .prog .ib-x{color:#b9b0d8}body.prog-on.night .prog .ib-off{co
     <div class="pr-band"><b>League</b><span id="pr-left"></span></div>
     <div class="pr-in">
      <div class="pr-lbl"><span id="pr-tb-m"></span> table</div><table class="pr-tbl" id="pr-table"></table><p class="pr-note">Top 3 win a season medal</p>
-     <div class="pr-lbl">Team news</div><div class="pr-news" id="pr-news"></div><div class="ad-box"><span>Advertisement</span><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9034426912596924" data-ad-slot="8893978111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+     <div class="pr-lbl">Team news</div><div class="pr-news" id="pr-news"></div><div class="ad-box" hidden><span>Advertisement</span><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9034426912596924" data-ad-slot="8893978111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
 
     </div>
    </div>
@@ -445,7 +445,7 @@ const rpc=async(fn,args)=>{if(args&&isBot(args.p_code))return botRpc(fn,args);co
  const t=await r.text();if(!r.ok){let m=t;try{m=JSON.parse(t).message||t}catch{}throw new Error(m||('HTTP '+r.status))}return t?JSON.parse(t):null};
 let curScr=null;const SCR_RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let adPushed=false;
-const show=(id,dir)=>{if(id==='s-inbox'&&!adPushed){adPushed=true;setTimeout(()=>{try{(window.adsbygoogle=window.adsbygoogle||[]).push({})}catch{}},300)}for(const s of document.querySelectorAll('main>section'))s.hidden=s.id!==id;document.body.classList.toggle('playing',id==='s-play');document.body.classList.toggle('paper',!['s-play','s-battle','s-inbox'].includes(id));scrollTo(0,0);
+const show=(id,dir)=>{if(false&&id==='s-inbox'&&!adPushed){adPushed=true;setTimeout(()=>{try{(window.adsbygoogle=window.adsbygoogle||[]).push({})}catch{}},300)}for(const s of document.querySelectorAll('main>section'))s.hidden=s.id!==id;document.body.classList.toggle('playing',id==='s-play');document.body.classList.toggle('paper',!['s-play','s-battle','s-inbox'].includes(id));scrollTo(0,0);
  const el=document.getElementById(id);if(el&&curScr!==id&&el.animate){if(!dir)try{dir=sessionStorage.getItem('uc-duel-dir');sessionStorage.removeItem('uc-duel-dir')}catch{}
   el.animate(SCR_RM?[{opacity:0},{opacity:1}]:[{opacity:0,transform:`translateX(${dir==='back'?-24:24}px)`},{opacity:1,transform:'none'}],{duration:SCR_RM?160:240,easing:'cubic-bezier(.32,.72,0,1)'})}
  curScr=id};

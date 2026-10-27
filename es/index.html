@@ -4087,14 +4087,15 @@ html.polish .pz-count{font-variant-numeric:tabular-nums}
 </style>
 <script>
 // AdSense: hand-placed units only (Auto ads off). Under Game modes on home, under Infinity on the results page.
-(()=>{const C='ca-pub-9034426912596924';
+const ADS_ON=false; // flip to true once AdSense has approved the site (the head script stays in for the review)
+(()=>{if(!ADS_ON)return;const C='ca-pub-9034426912596924';
  const put=(after,slot,id)=>{if(!after||document.getElementById(id))return;const w=document.createElement('div');w.className='ad-box';w.id=id;
   w.innerHTML=`<span>Advertisement</span><ins class="adsbygoogle" style="display:block" data-ad-client="${C}" data-ad-slot="${slot}" data-ad-format="auto" data-full-width-responsive="true"></ins>`;
   after.after(w);try{(window.adsbygoogle=window.adsbygoogle||[]).push({})}catch{}};
  const scan=()=>{if(document.body.classList.contains('playing'))return;put(document.querySelector('.modes:not(.res-modes)'),'6459386468','ad-home');put(document.querySelector('.res-modes'),'5338088514','ad-res')};
  new MutationObserver(scan).observe(document.body,{childList:true,subtree:true});scan()})();
 // desktop only: one tall ad in the empty space on each side of the landing page (wide screens, never while playing)
-(()=>{if(!matchMedia('(min-width:1300px)').matches)return;for(const side of['l','r']){const w=document.createElement('div');w.className='ad-side ad-side-'+side;
+(()=>{if(!ADS_ON||!matchMedia('(min-width:1300px)').matches)return;for(const side of['l','r']){const w=document.createElement('div');w.className='ad-side ad-side-'+side;
  w.innerHTML='<span>Advertisement</span><ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px" data-ad-client="ca-pub-9034426912596924" data-ad-slot="1377742334"></ins>';
  document.body.appendChild(w);try{(window.adsbygoogle=window.adsbygoogle||[]).push({})}catch{}}})();
 </script>
