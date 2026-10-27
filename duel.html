@@ -47,6 +47,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 .rules{display:grid;gap:6px;margin:4px 0 2px}.rl-lbl{font-family:var(--mono);font-size:19px;color:var(--muted)}
 .seg{display:flex;gap:8px;margin-bottom:6px}.seg button{flex:1;width:auto;font-size:22px;padding:7px 4px;background:#120c38;color:var(--cream);box-shadow:0 0 0 3px var(--ink),0 4px 0 3px var(--ink);transition:transform .12s cubic-bezier(.23,1,.32,1)}
 .seg button.on{background:var(--gold);color:var(--ink)}.seg button:active{transform:translateY(2px)}
+.pr-rs.more{display:none}#pr-results.all .pr-rs.more{display:grid}.prog .pr-more{width:100%;margin-top:8px;padding:6px;font:18px/1 var(--mono);background:none;color:var(--pt);box-shadow:none;text-decoration:underline;text-underline-offset:3px}
 .qm-btn{background:#ff7a1a!important}
 .r-rules{font-family:var(--mono);font-size:19px;color:var(--gold);margin:-4px 0 4px}
 .fresh{opacity:.85;margin-top:6px}
@@ -582,8 +583,8 @@ function ibDraw(){const all=IBR.items,act=all.filter(x=>!done(x)),arc=all.filter
   return`<div class="pr-card${urgent||(x.state==='your_turn'&&!x.fresh)?' hot':''}">${uni(kitFor(x.opp),true)}<div class="pr-who"><span class="pr-pill" style="--sc:${pc}">${pl}</span><b>${qw?'vs ???':'vs '+esc(x.opp)}</b><small>${sub}${rm?' · ':''}</small>${rm}</div><div class="pr-go">${go}</div></div>`};
  $('ib-list').innerHTML=act.length?(need.length?'<div class="pr-lbl">Needs you</div>'+need.map(card).join(''):'')+(rest.length?'<div class="pr-lbl">Waiting &amp; finished</div>'+rest.map(card).join(''):'')
   :'<div class="pr-lbl">Needs you</div><p class="pr-note">Nothing right now. Challenge a mate, or tap a player on the Unicorner leaderboard.</p>';
- $('pr-results').innerHTML=arc.length?arc.slice(0,12).map(x=>{const w=x.state==='won',l=x.state==='lost',d=x.state==='draw',how=x.how==='timeout'?' · out of time':x.gave_up?(x.gave_up==='you'?' · you gave up':' · they gave up'):'';
-  return`<div class="pr-rs"><span class="r ${w?'w':l?'l':d?'dr':'x'}">${w?'W':l?'L':d?'D':'–'}</span><span class="pr-rs-t"><b>vs ${esc(x.opp)}</b><small>${w?'You won':l?'You lost':d?'Draw':x.state==='declined'?'Declined':'Expired'}${how} · ${new Date(x.at).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}</small></span>${w||l||d?`<button class="pr-wl" data-go="${x.code}">Watch</button><a class="pr-re" href="duel.html?vs=${encodeURIComponent(x.opp)}">Rematch</a>`:''}</div>`}).join('')
+ $('pr-results').innerHTML=arc.length?arc.slice(0,12).map((x,ri)=>{const w=x.state==='won',l=x.state==='lost',d=x.state==='draw',how=x.how==='timeout'?' · out of time':x.gave_up?(x.gave_up==='you'?' · you gave up':' · they gave up'):'';
+  return`<div class="pr-rs${ri>2?' more':''}"><span class="r ${w?'w':l?'l':d?'dr':'x'}">${w?'W':l?'L':d?'D':'–'}</span><span class="pr-rs-t"><b>vs ${esc(x.opp)}</b><small>${w?'You won':l?'You lost':d?'Draw':x.state==='declined'?'Declined':'Expired'}${how} · ${new Date(x.at).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}</small></span>${w||l||d?`<button class="pr-wl" data-go="${x.code}">Watch</button><a class="pr-re" href="duel.html?vs=${encodeURIComponent(x.opp)}">Rematch</a>`:''}</div>`}).join('')+(arc.length>3?`<button type="button" class="pr-more" onclick="this.parentNode.classList.toggle('all');this.textContent=this.parentNode.classList.contains('all')?'Show fewer ▴':'Show ${Math.min(12,arc.length)-3} more ▾'">Show ${Math.min(12,arc.length)-3} more ▾</button>`:'')
   :'<p class="pr-note">Finished duels land here.</p>';
  // team news: one line about where you stand
  const mine=IBZ&&IBZ.mine,me=IBZ&&IBZ.me,third=IBZ&&(IBZ.top||[])[2],days=IBZ?Math.max(0,Math.ceil((new Date(IBZ.ends)-Date.now())/864e5)):0,yt=act.filter(x=>x.state==='your_turn'&&!x.fresh);
