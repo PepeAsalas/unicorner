@@ -3504,8 +3504,9 @@ const kitFavs=()=>{try{const v=JSON.parse(ls('uc-kit-fav')||'[]');return Array.i
 function apply(){const q=new URLSearchParams(location.search).get('bg');let k=q||ls('uc-bg')||'classic';
  if(k!=='classic'&&!q&&!unlocked(k)){ls('uc-bg',null);k='classic'}
  const x=BGX.find(b=>b[0]===k),de=document.documentElement;   // a colour, pattern or scene replaces the stadium
- if(x){bgxEl.style.background=x[5];de.dataset.bgx=x[0][0];de.classList.toggle('bg-light',!!x[4]);delete scene.dataset.bg;return}
- bgxEl.style.background='';delete de.dataset.bgx;de.classList.remove('bg-light');
+ if(x){bgxEl.style.cssText='background:'+x[5];   // cssText: patterns carry background-image/-size after the colour
+  de.dataset.bgx=x[0][0];de.classList.toggle('bg-light',!!x[4]);delete scene.dataset.bg;return}
+ bgxEl.style.cssText='';delete de.dataset.bgx;de.classList.remove('bg-light');
  if(k==='classic')delete scene.dataset.bg;else scene.dataset.bg=k}
 const sw=k=>{const c=SKY[k];return `<span class="st-sw" style="--sky:${c[0]};--crowd:${c[1]};--grass:${c[2]}"></span>`};
 function dot(){const best=bestStreak(),top=Math.max(0,...LIST.filter(t=>best>=t[2]).map(t=>t[2])),st=kitStats(),kits=KITS.filter(k=>kitHas(k,st)).length;btn.classList.toggle('has-new',top>+(ls('uc-bg-seen')||0)||kits>+(ls('uc-kit-seen')||1)||BGX.filter(b=>b[3]&&bgxReq(b[3])).length>+(ls('uc-bgx-seen')||0))}
