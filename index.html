@@ -1581,12 +1581,15 @@ body.playing .topbar .tb-split .sound-toggle+.sound-toggle{border-left:0!importa
 .m-duel .m-pic{background:linear-gradient(115deg,#c8303a 0 50%,#1f5fd6 50% 100%)}
 .m-duel.hot{animation:lpdhot 1.2s ease-in-out infinite}
 .m-vs{font:400 44px/1 'Jersey 15','Jersey 10',monospace;transform:rotate(-6deg);text-shadow:3px 0 0 #06041a,-3px 0 0 #06041a,0 3px 0 #06041a,0 -3px 0 #06041a,5px 5px 0 #06041a}
-.m-tyc{background:repeating-linear-gradient(90deg,#2f7d32 0 22px,#2a7330 22px 44px)!important}
-.m-tyc .m-pic img{width:88%;height:auto;filter:drop-shadow(0 3px 0 rgba(0,0,0,.35))}
-.m-tyc .m-pic i{position:absolute;top:-12px;width:10px;height:10px;border-radius:50%;background:#f2c230;box-shadow:inset -2px -2px 0 #c99a1a,0 0 0 2px #06041a;animation:tycCoin 2.6s linear infinite}
-.m-tyc .m-pic i:nth-of-type(1){left:22%}.m-tyc .m-pic i:nth-of-type(2){left:64%;animation-delay:1.3s}
+.m-tyc{background:#fbf3dc!important;color:#06041a!important}
+.m-tyc .m-pic{background:repeating-linear-gradient(90deg,#c8303a 0 14px,#b02a33 14px 28px);border-right:3px solid #06041a}
+.m-tyc .m-pic img{width:94%;height:auto;image-rendering:pixelated;filter:drop-shadow(0 3px 0 rgba(0,0,0,.35))}
+.m-tyc .m-txt{background:repeating-linear-gradient(180deg,transparent 0 23px,rgba(26,16,48,.08) 23px 24px)}
+.m-tyc .m-txt b{color:#06041a;text-shadow:2px 2px 0 #f2c230}
+.m-tyc .m-txt small{color:#3a2f4a;opacity:1}
+.m-sum{font:700 11px Silkscreen,monospace;color:#1f7a34;letter-spacing:.5px}
 @media (max-width:560px){.mode{height:84px}.m-pic{width:96px}.m-sym{font-size:48px}.m-vs{font-size:34px}.m-txt{padding:0 10px 0 10px}.m-txt b{font-size:24px}.m-txt small{font-size:12px}.m-go{display:none}}
-@media (prefers-reduced-motion:reduce){.m-inf::before,.m-tyc .m-pic i{animation:none}}
+@media (prefers-reduced-motion:reduce){.m-inf::before{animation:none}}
 .tyc-card{position:relative;display:flex;align-items:center;gap:12px;margin:-12px 0 22px;padding:8px 12px 8px 8px;overflow:hidden;color:#fff;text-decoration:none;border:3px solid #06041a;box-shadow:4px 4px 0 rgba(0,0,0,.4);background:repeating-linear-gradient(90deg,#2f7d32 0 22px,#2a7330 22px 44px);transition:transform .16s cubic-bezier(.23,1,.32,1)}
 .tyc-card:active{transform:translate(2px,2px);box-shadow:2px 2px 0 rgba(0,0,0,.4)}
 @media (hover:hover) and (pointer:fine){.tyc-card:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 rgba(0,0,0,.4)}.tyc-card:hover .tyc-art img{transform:translateY(-2px)}}
@@ -2087,7 +2090,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
  <section class="modes" aria-label="${L('Game modes','Modos de juego')}"><div class="modes-head"><span>${L('Game modes','Modos de juego')}</span><i></i></div>
   <button type="button" class="mode m-inf" data-infinite><span class="m-pic"><span class="m-sym">∞</span></span><span class="m-txt"><b>${L('Infinity','Infinito')}</b><small>${L('Unlimited questions, out in space','Preguntas ilimitadas, en el espacio')}</small></span><span class="m-go">${L('Press start','Pulsa start')}</span></button>
   ${ES?'':`<a class="mode m-duel" id="lp-duel" href="/duel.html"><span class="m-pic"><span class="m-vs">VS</span></span><span class="m-txt"><b>${L('Duels','Duelos')}</b><small id="lp-duel-sub">1v1 a mate. Rarer answers hit harder</small></span><span class="m-go" id="lp-duel-go">Challenge</span></a>`}
-  <a class="mode m-tyc" href="/tycoon/" data-track="tycoon_card"><span class="m-tag">${L('New','Nuevo')}</span><span class="m-pic"><img src="/tycoon/art/building-stadium-2.webp" alt="" loading="lazy" width="150" height="75"><i></i><i></i></span><span class="m-txt"><b>${L('Money Tycoon','Money Tycoon')}</b><small>${L('Kick the unicorn. Build a ridiculous club','Patea al unicornio. Construye un club absurdo')}</small></span><span class="m-go">${L('Play free','Jugar gratis')}</span></a>
+  <a class="mode m-tyc" href="/tycoon/" data-track="tycoon_card"><span class="m-tag">${L('New','Nuevo')}</span><span class="m-pic"><img src="/tycoon/art/building-stadium-4.webp" alt="" loading="lazy" width="150" height="76"></span><span class="m-txt"><b>Chairman</b><small>${L('Kick the unicorn. Buy the club a stadium','Patea al unicornio. Cómprale un estadio al club')}</small><span class="m-sum">€1,204,330.50 ▲</span></span><span class="m-go">${L('Take over','Al mando')}</span></a>
  </section>
 
  ${compete}

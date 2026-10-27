@@ -903,7 +903,7 @@ function wall() {
   if (S.feedback) return thanks();
   let rating = 0;
   modal(`<span class="tag gold">DEMO OVER</span><h2>We're still building the full game!</h2>
-    <p>Thanks for playing. Help us shape Unicorner Football Tycoon: how did it feel?</p>
+    <p>Thanks for playing. Help us shape Chairman: how did it feel?</p>
     <label>Rate the demo, 1 to 10</label><div class="rate10" id="r10">${Array.from({length: 10}, (_, i) => `<button type="button" data-r="${i + 1}">${i + 1}</button>`).join('')}</div>
     <label for="fb-c">Anything to tell us? (optional)</label><textarea id="fb-c" maxlength="1000" placeholder="What was fun, what was boring, what should we add?"></textarea>
     <label for="fb-e">Email me when it's ready (optional)</label><input type="email" id="fb-e" placeholder="you@example.com" autocomplete="email">
