@@ -4091,6 +4091,14 @@ html.polish .pz-count{font-variant-numeric:tabular-nums}
   after.after(w);try{(window.adsbygoogle=window.adsbygoogle||[]).push({})}catch{}};
  const scan=()=>{if(document.body.classList.contains('playing'))return;put(document.querySelector('.modes:not(.res-modes)'),'6459386468','ad-home');put(document.querySelector('.res-modes'),'5338088514','ad-res')};
  new MutationObserver(scan).observe(document.body,{childList:true,subtree:true});scan()})();
+// desktop only: one tall ad in the empty space on each side of the landing page (wide screens, never while playing)
+(()=>{if(!matchMedia('(min-width:1300px)').matches)return;for(const side of['l','r']){const w=document.createElement('div');w.className='ad-side ad-side-'+side;
+ w.innerHTML='<span>Advertisement</span><ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px" data-ad-client="ca-pub-9034426912596924" data-ad-slot="1377742334"></ins>';
+ document.body.appendChild(w);try{(window.adsbygoogle=window.adsbygoogle||[]).push({})}catch{}}})();
 </script>
-<style>.ad-box{margin:6px 0 22px;padding:6px;background:#fbf3dc;border:3px solid #06041a;box-shadow:4px 4px 0 rgba(0,0,0,.35)}.ad-box span{display:block;font:700 9px/1 Silkscreen,monospace;letter-spacing:1px;color:#5b5070;margin:0 0 4px}.ad-box:has(ins[data-ad-status=unfilled]){display:none}</style>
+<style>.ad-box{margin:6px 0 22px;padding:6px;background:#fbf3dc;border:3px solid #06041a;box-shadow:4px 4px 0 rgba(0,0,0,.35)}.ad-box span{display:block;font:700 9px/1 Silkscreen,monospace;letter-spacing:1px;color:#5b5070;margin:0 0 4px}.ad-box:has(ins[data-ad-status=unfilled]){display:none}.ad-side{position:fixed;top:120px;z-index:2;width:172px;padding:6px;background:#fbf3dc;border:3px solid #06041a;box-shadow:4px 4px 0 rgba(0,0,0,.35)}.ad-side span{display:block;font:700 9px/1 Silkscreen,monospace;letter-spacing:1px;color:#5b5070;margin:0 0 4px}
+.ad-side-l{right:calc(50% + 450px)}.ad-side-r{left:calc(50% + 450px)}
+body:not(.landing) .ad-side,body.playing .ad-side,.ad-side:has(ins[data-ad-status=unfilled]){display:none}
+@media (max-width:1299px),(max-height:700px){.ad-side{display:none}}
+</style>
 </body></html>
