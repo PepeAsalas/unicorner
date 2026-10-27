@@ -225,3 +225,9 @@ button.shop-row.can:active{transform:translateY(2px);box-shadow:0 1px 0 var(--in
 .map-hint{position:absolute;z-index:2;left:50%;top:8px;translate:-50% 0;padding:4px 8px;font:700 10px var(--lab);color:#fff;background:rgba(26,16,48,.75);pointer-events:none;transition:opacity .3s ease}
 .map-hint.gone{opacity:0}
 @media (hover:hover) and (pointer:fine){.map-hint{display:none}}
+
+/* next goal under the bank, and the star life-cycle tags */
+.goal{font:600 13px/1.3 Barlow,sans-serif;opacity:.8;margin-top:2px;min-height:17px}
+.ph{display:inline-block;margin-top:3px;font:700 10px/1 Silkscreen,monospace;padding:3px 5px;border:2px solid #1a1030;background:#fbf3dc;color:#1a1030}
+.ph.up{background:#d9f2df}.ph.down{background:#f6d5d5}.ph.peak{background:#f2c230}
+.scout-row{border-style:dashed}

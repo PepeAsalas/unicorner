@@ -12,7 +12,7 @@ const B = Object.fromEntries(C.buildings.map(b => [b.id, b]));
 
 // ---------- state ----------
 const fresh = () => ({v: 6, trophies: [], idle: 0, club: 'Unicorner FC', money: 0, earned: 0, lv: {boots: 0, pitch: 0, academy: 0, transfer: 0, shop: 0, stadium: 0}, ups: [], stars: [], sold: 0, play: 0,
-  saved: Date.now(), wall: false, feedback: false, taps: 0, academyT: 0, nextEvent: 90, firstStarAt: 25});
+  saved: Date.now(), wall: false, feedback: false, taps: 0, academyT: 0, nextEvent: 45, firstStarAt: 8, scouts: 0});
 let S = fresh();
 try { const raw = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); if (raw && raw.v === 6) S = Object.assign(fresh(), raw, {lv: Object.assign(fresh().lv, raw.lv)}); } catch {}
 let EV = null; // the active event: {e, until}
@@ -703,9 +703,10 @@ function renderPanel(focus) {
     const kept = S.stars.filter(s => s.kept);
     panel.innerHTML = kept.length ? `<div class="store-head"><span>Squad market</span><b>${fmt(kept.reduce((t, s) => t + starValue(s), 0))}</b></div>` + kept.map(s => {
       const st = C.stars[s.i], ch = starChange(s);
-      return `<button type="button" class="shop-row star-row" data-star="${s.i}">${portrait(st)}<div class="mid-col"><h3>${esc(st.name)}</h3><p class="price">${coin}<span data-val="${s.i}">${fmt(starValue(s))}</span></p><span class="earn">${s.loan ? 'On loan · back soon' : bonusText(st.bonus)}</span></div>
+      return `<button type="button" class="shop-row star-row" data-star="${s.i}">${portrait(st)}<div class="mid-col"><h3>${esc(st.name)}</h3><p class="price">${coin}<span data-val="${s.i}">${fmt(starValue(s))}</span></p><span class="earn">${s.loan ? 'On loan · back soon' : bonusText(st.bonus)}</span><span class="ph ${PHASE[phase(s)][1]}" data-ph="${s.i}">${PHASE[phase(s)][0]}</span></div>
         <span class="trend ${ch >= 0 ? 'up' : 'down'}" data-trend="${s.i}">${spark(s.hist, 56, 26)}<b>${ch >= 0 ? '▲' : '▼'} ${Math.abs(ch).toFixed(1)}%</b></span></button>`; }).join('')
-      : '<p class="empty">The academy finds a star now and then. Keep him and his value goes up and down like a share price: sell at the top.</p>';
+      : '<p class="empty">The academy finds stars, or send a scout. A star rises, peaks, then declines and retires: sell at the peak for +50%.</p>';
+    if (S.lv.academy) panel.innerHTML += `<button type="button" class="shop-row scout-row" data-scout="1"><div class="mid-col"><h3>Scout</h3><p class="price">${coin}${fmt(scoutCost())}</p><span class="earn">Finds a wonderkid right now</span></div></button>`;
   }
   refreshButtons();
 }
@@ -725,6 +726,7 @@ panel.addEventListener('click', e => {
   if (b.dataset.buy) { const id = b.dataset.buy, c = cost(id); if (S.money < c) return; S.money -= c; S.lv[id]++; if (LOTS[id]) { celebrate(id); const [x, y] = plotPct(id); floatText(S.lv[id] === 1 ? 'BUILT!' : 'LEVEL ' + S.lv[id], x, y, true); } if (LOTS[id] && C.stages.includes(S.lv[id])) ticker(`${B[id].name} looks bigger and shinier!`); }
   else if (b.dataset.up) { const i = +b.dataset.up, u = C.upgrades[i]; if (S.money < upCost(u) || S.ups.includes(i)) return; S.money -= upCost(u); S.ups.push(i); ticker(`${u.name}: ${u.joke}`); }
   else if (b.dataset.star) return starSheet(+b.dataset.star);
+  else if (b.dataset.scout) { scout(); save(); return renderPanel(); }
   else if (b.dataset.sell) { const i = +b.dataset.sell, s = S.stars.find(x => x.i === i && x.kept); if (!s) return; const p = starValue(s); s.kept = false; earn(p); ticker(`${C.stars[i].name} sold to ${club().name} for ${fmt(p)}.`); }
   save(); paintBank(); renderPanel();
   const again = b.dataset.buy && $('row-' + b.dataset.buy); // the row you just bought from gives a quick gold flash
@@ -735,7 +737,10 @@ panel.addEventListener('click', e => {
 const club = () => C.clubs[Math.random() * C.clubs.length | 0];
 const starPrice = () => Math.max(2000, rates().total * 150);
 // ---------- the squad market: a kept star's value wanders like a share price (form, injuries, nights out) ----------
-const starValue = s => starPrice() * (s.m || 1);
+const starValue = s => starPrice() * (s.m || 1) * (phase(s) === 'peak' ? 1.5 : 1);
+// a kept star rises for a few minutes, peaks, then declines and retires: the reason to sell
+const phase = s => { const a = s.age || 0, p = s.peakAt || 200; return a < p - 25 ? 'rising' : a <= p + 25 ? 'peak' : a < p + 260 ? 'declining' : 'retiring'; };
+const PHASE = {rising: ['Rising', 'up'], peak: ['Peak! +50% if sold now', 'peak'], declining: ['Declining', 'down'], retiring: ['Retiring soon', 'down']};
 const starChange = s => { const h = s.hist || [1]; return h.length < 2 ? 0 : (h[h.length - 1] / h[h.length - 2] - 1) * 100; };
 const NEWS_UP = ['{n} scores a bicycle kick in training. Value up.', '{n} trends worldwide for a celebration. Value up.', 'A Saudi club asks about {n}. Value up.', '{n} nutmegs the manager. Value up.'];
 const NEWS_DOWN = ['{n} seen leaving a nightclub at 4am holding a traffic cone. Value down.', '{n} pulls a hamstring taking a selfie. Value down.', '{n} misses an open goal. From one yard. Value down.', '{n} has started a podcast. Value down.'];
@@ -746,7 +751,13 @@ function marketTick(dt) {
     if (!s.kept) continue;
     if (!s.hist) { s.m = 1; s.hist = [1]; }
     if (s.loan) continue; // value frozen while he's away on loan
-    let r = 0.004 + (Math.random() + Math.random() + Math.random() - 1.5) * 0.09; // mostly small moves, a slight drift up
+    if (!s.peakAt) { s.peakAt = 140 + Math.random() * 160; s.age = s.age || 0; }
+    s.age += 3; const ph = phase(s);
+    if (s.age > s.peakAt + 320) { // hung up his boots: the slot frees up for the next wonderkid
+      s.kept = false; s.retired = true; ticker(`${C.stars[s.i].name} has retired to open a padel club. Should have sold.`, true); if (tab === 'stars') renderPanel(); continue;
+    }
+    const drift = ph === 'rising' ? 0.035 : ph === 'peak' ? 0.005 : -0.045;
+    let r = drift + (Math.random() + Math.random() + Math.random() - 1.5) * 0.07; // the trend plus some noise
     if (Math.random() < 0.04) { // now and then a big story moves him 25-45%
       const up = Math.random() < 0.5, n = C.stars[s.i].name, pool = up ? NEWS_UP : NEWS_DOWN;
       r = (up ? 1 : -1) * (0.25 + Math.random() * 0.2); ticker(pool[Math.random() * pool.length | 0].replace('{n}', n), true);
@@ -754,7 +765,7 @@ function marketTick(dt) {
     s.m = Math.min(8, Math.max(0.08, s.m * Math.exp(r)));
     s.hist.push(s.m); if (s.hist.length > 60) s.hist.shift();
   }
-  if (tab === 'stars') paintMarket();
+  if (tab === 'stars') { paintMarket(); for (const s of S.stars) { const t = panel.querySelector(`[data-ph="${s.i}"]`); if (t && s.kept) { const [l, c] = PHASE[phase(s)]; t.textContent = l; t.className = 'ph ' + c; } } }
   if (openStar >= 0) paintStarSheet();
 }
 function paintMarket() { // update numbers in place, no re-render, so a press on a row isn't lost
@@ -789,7 +800,7 @@ function paintStarSheet() {
   const s = S.stars.find(x => x.i === openStar && x.kept), box = $('starChart'), btn = $('starSellBtn'); if (!s || !box) return;
   const ch = (s.hist[s.hist.length - 1] / s.hist[0] - 1) * 100, hi = Math.max(...s.hist), lo = Math.min(...s.hist);
   box.innerHTML = spark(s.hist, 320, 120, true) + `<div class="chart-ax"><span>High ${fmt(starPrice() * hi)}</span><span class="${ch >= 0 ? 'up' : 'down'}">${ch >= 0 ? '▲' : '▼'} ${Math.abs(ch).toFixed(1)}% since signing</span><span>Low ${fmt(starPrice() * lo)}</span></div>`;
-  btn.innerHTML = `Sell now for ${fmt(starValue(s))}<span>Price changes every 3 seconds</span>`;
+  btn.innerHTML = `Sell now for ${fmt(starValue(s))}<span>${PHASE[phase(s)][0]} · price changes every 3 seconds</span>`;
 }
 function academyTick(dt) {
   const a = academy(); if (!S.lv.academy) return;
@@ -799,10 +810,17 @@ function academyTick(dt) {
     const [x, y] = plotPct('academy'); floatText('+' + fmt(a.sale), x, y);
     if (S.sold % 7 === 1) { const c = club(); ticker(`Academy player sold to ${c.name}. ${c.line}`); }
     const left = C.stars.map((s, i) => i).filter(i => !S.stars.some(s => s.i === i));
-    if (left.length && S.lv.academy >= 3 && (S.sold >= S.firstStarAt && !S.stars.length || Math.random() < 0.025)) {
+    if (left.length && (S.sold >= S.firstStarAt && !S.stars.length || S.stars.length && Math.random() < 0.03 + 0.004 * Math.min(10, S.lv.academy))) {
       const i = left[Math.random() * left.length | 0]; S.stars.push({i, kept: false}); return foundStar(i);
     }
   }
+}
+const scoutCost = () => Math.ceil(Math.max(500, starPrice() * 0.35) * 1.6 ** (S.scouts || 0));
+function scout() {
+  const left = C.stars.map((s, i) => i).filter(i => !S.stars.some(s => s.i === i)), c = scoutCost();
+  if (!left.length) return ticker('Your scout has seen every wonderkid there is.', true);
+  if (S.money < c) return ticker(`A scouting trip costs ${fmt(c)}.`, true);
+  S.money -= c; S.scouts = (S.scouts || 0) + 1; const i = left[Math.random() * left.length | 0]; S.stars.push({i, kept: false}); foundStar(i);
 }
 function foundStar(i) {
   const st = C.stars[i], p = starPrice(), c = club();
@@ -819,10 +837,10 @@ function foundStar(i) {
 // ---------- events ----------
 function eventTick(dt) {
   if (EV) { if (performance.now() > EV.until) { ticker(`${EV.e.title}: it sorted itself out.`); EV = null; $('eventBadge').hidden = true; } return; }
-  if (S.lv.academy < 1) return;
+  if (S.lv.boots < 1) return;
   S.nextEvent -= dt;
   if (S.nextEvent <= 0) {
-    const pool = C.events.filter(e => S.lv[TARGET_PLOT[e.target]] > 0);
+    const pool = C.events.filter(e => S.lv[TARGET_PLOT[e.target]] > 0); if (!pool.length) { S.nextEvent = 20; return; }
     const e = pool[Math.random() * pool.length | 0];
     EV = {e, until: performance.now() + 75000, t0: performance.now() / 1000};
     S.nextEvent = 70 + Math.random() * 60;
@@ -1034,7 +1052,15 @@ function bigMoney(n) {
   while (n >= 1000 && i < u.length - 1) { n /= 1000; i++; }
   return '€' + n.toFixed(3) + u[i];
 }
-function paintBank() { $('money').textContent = bigMoney(S.money); $('rate').textContent = fmt(rates().total) + ' per second'; $('miniRate').textContent = fmt(rates().total) + '/s'; }
+// "next goal": the cheapest thing you can't afford yet, and how long until you can, so there's always something to aim for
+function nextGoal() {
+  const opts = C.buildings.filter((b, i) => i === 0 || S.lv[C.buildings[i - 1].id] > 0).map(b => [b.name, cost(b.id)])
+    .concat(availableUps().map(({u}) => [u.name, upCost(u)])).filter(([, c]) => c > S.money).sort((a, b) => a[1] - b[1]);
+  if (!opts.length) return '';
+  const [n, c] = opts[0], r = rates().total + academy().perSec, t = r > 0 ? Math.ceil((c - S.money) / r) : 0;
+  return `Next: ${n} · ${fmt(c)}${t && t < 3600 ? ` · ${t < 60 ? t + 's' : Math.ceil(t / 60) + ' min'}` : r ? '' : ' · kick the unicorn'}`;
+}
+function paintBank() { const g = $('goal'); if (g) g.textContent = nextGoal(); $('money').textContent = bigMoney(S.money); $('rate').textContent = fmt(rates().total) + ' per second'; $('miniRate').textContent = fmt(rates().total) + '/s'; }
 let last = performance.now(), uiT = 0, saveT = 0, hinted = false;
 function frame(now) {
   const dt = Math.min(0.25, (now - last) / 1000); last = now;
