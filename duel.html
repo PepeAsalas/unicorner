@@ -618,7 +618,7 @@ for(const[id,key]of[['r-per','uc-duel-per'],['r-secs','uc-duel-secs']])$(id).onc
 homeRules();
 // quick match: join a waiting duel near my rating, or post mine and play my round while a rival turns up
 async function quick(b){const t=b.textContent;b.disabled=true;b.textContent='Finding a rival…';
- try{const[p,sx]=myRules(),qset=await pickQs(),n=(ls('uc-nick')||ls('uc-duel-name')||'Player').slice(0,16);
+ try{const p=5,sx=15,qset=await pickQs(),n=(ls('uc-nick')||ls('uc-duel-name')||'Player').slice(0,16);
   const r=await rpc('duel_quick',{p_token:TOKEN,p_name:n,p_kit:KIT,p_qset:qset,p_per:p,p_secs:sx});track('duel_quick',{matched:!!r.matched});
   location.href='duel.html?d='+r.code+(r.matched?'':'&quick='+r.r)}
  catch(e){b.disabled=false;b.textContent=t;alert(/sign in/.test(e.message)?'Sign in on Unicorner to play quick match (it counts for your rating).':'Quick match failed: '+e.message)}}
