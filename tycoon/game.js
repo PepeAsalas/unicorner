@@ -29,7 +29,7 @@ const cost = b => Math.ceil(B[b].first * B[b].grow ** S.lv[b]);
 const upCost = u => Math.ceil(B[u.b].first * 10 * 1.2 ** u.unlock);
 // everything that multiplies all income: trophies, a golden-boot frenzy, and the crowd drifting away when you go quiet
 let BUFF = null;
-const boost = () => (1 + 0.02 * (S.trophies || []).length) * (BUFF && BUFF.kind === 'frenzy' && performance.now() < BUFF.until ? 7 : 1) * crowd();
+const boost = () => (1 + 0.02 * (S.trophies || []).length) * (BUFF && BUFF.kind === 'frenzy' && performance.now() < BUFF.until ? 3 : 1) * crowd();
 function academy() {
   const lv = S.lv.academy;
   if (!lv) return {every: Infinity, sale: 0, perSec: 0};
@@ -53,7 +53,7 @@ function rates(noEvents) {
   r.total = r.boots + r.pitch + r.transfer + r.shop + r.stadium + r.academy;
   return r;
 }
-const tapValue = () => Math.max(1, (1 + 0.01 * rates().total) * upMult('pitch', 'tap') * starMult('tap') * evMult('tap') * (BUFF && BUFF.kind === 'kicks' && performance.now() < BUFF.until ? 50 : 1));
+const tapValue = () => Math.max(1, (1 + 0.01 * rates().total) * upMult('pitch', 'tap') * starMult('tap') * evMult('tap') * (BUFF && BUFF.kind === 'kicks' && performance.now() < BUFF.until ? 15 : 1));
 function earn(n) { S.money += n; S.earned += n; }
 
 // ---------- formatting ----------
@@ -963,9 +963,9 @@ goldEl.addEventListener('pointerdown', e => {
   e.preventDefault(); if (goldEl.hidden) return;
   goldEl.hidden = true; goldUntil = 0; S.golden = (S.golden || 0) + 1; S.idle = 0;
   const roll = Math.random(), now = performance.now();
-  if (roll < 0.5) { BUFF = {kind: 'frenzy', until: now + 60000, label: 'FRENZY x7'}; ticker('Golden boot! Frenzy: everything earns 7x for 60 seconds.', true); }
-  else if (roll < 0.75) { BUFF = {kind: 'kicks', until: now + 15000, label: 'HAT-TRICK x50 KICKS'}; ticker('Golden boot! Hat-trick: kicks are worth 50x for 15 seconds. Go.', true); }
-  else { const w = Math.max(50, Math.min(S.money * 0.15, rates().total * 900)); earn(w); ticker(`Golden boot! Transfer windfall: +${fmt(w)}.`, true); }
+  if (roll < 0.5) { BUFF = {kind: 'frenzy', until: now + 45000, label: 'FRENZY x3'}; ticker('Golden boot! Frenzy: everything earns 3x for 45 seconds.', true); }
+  else if (roll < 0.75) { BUFF = {kind: 'kicks', until: now + 15000, label: 'HAT-TRICK x15 KICKS'}; ticker('Golden boot! Hat-trick: kicks are worth 15x for 15 seconds. Go.', true); }
+  else { const w = Math.max(50, Math.min(S.money * 0.06, rates().total * 300)); earn(w); ticker(`Golden boot! Transfer windfall: +${fmt(w)}.`, true); }
   rainBurst(25); paintBank(); save();
 });
 function paintBuff() {
