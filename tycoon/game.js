@@ -859,7 +859,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modalEl.h
 
 // ---------- the club's name: set in the story, changed any time by tapping it ----------
 let pendingName = '';
-function setClub(n) { S.club = (n || '').trim().slice(0, 24) || 'Unicorner FC'; $('clubName2').textContent = S.club; document.title = S.club + ' · Unicorner Tycoon (demo)'; }
+function setClub(n) { S.club = (n || '').trim().slice(0, 24) || 'Unicorner FC'; $('clubName2').textContent = S.club; document.title = S.club + ' · Chairman (demo)'; }
 $('clubName2').addEventListener('click', () => {
   modal(`<button type="button" class="sheet-x" data-act="x" aria-label="Close">✕</button><h2>Rename the club</h2><label for="clubName">Club name</label><input id="clubName" maxlength="24" value="${esc(S.club)}" autocomplete="off">
     <div class="choices" style="margin-top:12px"><button type="button" class="buy" data-act="ok">Save</button></div>`, act => { if (act === 'ok') { setClub(pendingName); save(); } });
@@ -874,8 +874,8 @@ if (window.IntersectionObserver) new IntersectionObserver(([e]) => { miniOn = !e
 function intro() {
   const pic = cookieUnicorn(0, 8).toDataURL();
   modal(`<img class="hero" src="${pic}" alt="" style="image-rendering:pixelated;height:auto;width:180px">
-    <span class="tag">UNICORNER FC</span><h2>Your club is skint</h2>
-    <p>You're the president of the worst club in the league. The floodlights run on a hamster and the striker is your uncle.</p>
+    <span class="tag">CHAIRMAN</span><h2>Your club is skint</h2>
+    <p>You're the chairman of the worst club in the league. The floodlights run on a hamster and the striker is your uncle.</p>
     <p>Then a unicorn wandered onto the pitch. Every time someone kicks it, money falls out.</p>
     <label for="clubName">Name your club</label><input id="clubName" maxlength="24" value="${esc(S.club)}" autocomplete="off">
     <div class="choices" style="margin-top:12px"><button type="button" class="buy" data-act="go">Kick the unicorn</button></div>`, () => { S.intro = true; setClub(pendingName); save(); }, true);
