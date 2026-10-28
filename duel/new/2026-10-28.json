@@ -1,0 +1,2124 @@
+[
+ {
+  "id": "d22-name-a-country-that-played-at-the-1986-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 1986 World Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Bulgaria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Canada",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Denmark",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "West Germany",
+    "aliases": [
+     "Germany",
+     "W Germany",
+     "FR Germany",
+     "BR Deutschland"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Hungary",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Iraq",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Northern Ireland",
+    "aliases": [
+     "N Ireland",
+     "N. Ireland"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Poland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Scotland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "South Korea",
+    "aliases": [
+     "Korea Republic",
+     "Korea",
+     "Republic of Korea"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Soviet Union",
+    "aliases": [
+     "USSR",
+     "CCCP"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Algeria",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Wales",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Netherlands",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Sweden",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "East Germany",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-1982-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 1982 World Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Algeria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Austria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Cameroon",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Czechoslovakia",
+    "aliases": [
+     "Czechoslovak"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "El Salvador",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "West Germany",
+    "aliases": [
+     "Germany",
+     "W Germany",
+     "FR Germany",
+     "BR Deutschland"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Honduras",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Hungary",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Kuwait",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "New Zealand",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Northern Ireland",
+    "aliases": [
+     "N Ireland",
+     "N. Ireland"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Peru",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Poland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Scotland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Soviet Union",
+    "aliases": [
+     "USSR",
+     "CCCP"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Yugoslavia",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Netherlands",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Sweden",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Wales",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Mexico",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-1978-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 1978 World Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Austria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "West Germany",
+    "aliases": [
+     "Germany",
+     "W Germany",
+     "FR Germany",
+     "BR Deutschland"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Hungary",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Iran",
+    "aliases": [
+     "IR Iran"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Peru",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Poland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Scotland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Tunisia",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "England",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Soviet Union",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Yugoslavia",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Belgium",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-1974-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 1974 World Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "West Germany",
+    "aliases": [
+     "Germany",
+     "W Germany",
+     "FR Germany",
+     "BR Deutschland"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "East Germany",
+    "aliases": [
+     "GDR",
+     "DDR"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Australia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Bulgaria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Haiti",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Poland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Scotland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Yugoslavia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Zaire",
+    "aliases": [
+     "DR Congo",
+     "Congo DR",
+     "DRC"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "England",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Spain",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Hungary",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Belgium",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-1970-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 1970 World Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Soviet Union",
+    "aliases": [
+     "USSR",
+     "CCCP"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "El Salvador",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Israel",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Czechoslovakia",
+    "aliases": [
+     "Czechoslovak"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Romania",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "West Germany",
+    "aliases": [
+     "Germany",
+     "W Germany",
+     "FR Germany",
+     "BR Deutschland"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Peru",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Bulgaria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "France",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Spain",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Argentina",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Netherlands",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-1966-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 1966 World Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "West Germany",
+    "aliases": [
+     "Germany",
+     "W Germany",
+     "FR Germany",
+     "BR Deutschland"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Switzerland",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Hungary",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Bulgaria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Soviet Union",
+    "aliases": [
+     "USSR",
+     "CCCP"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "North Korea",
+    "aliases": [
+     "Korea DPR",
+     "DPR Korea"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Netherlands",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Sweden",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Belgium",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Peru",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-1962-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 1962 World Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Czechoslovakia",
+    "aliases": [
+     "Czechoslovak"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Soviet Union",
+    "aliases": [
+     "USSR",
+     "CCCP"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Yugoslavia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "West Germany",
+    "aliases": [
+     "Germany",
+     "W Germany",
+     "FR Germany",
+     "BR Deutschland"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Switzerland",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Hungary",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Bulgaria",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "France",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Sweden",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Portugal",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Netherlands",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-1958-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 1958 World Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "West Germany",
+    "aliases": [
+     "Germany",
+     "W Germany",
+     "FR Germany",
+     "BR Deutschland"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Northern Ireland",
+    "aliases": [
+     "N Ireland",
+     "N. Ireland"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Czechoslovakia",
+    "aliases": [
+     "Czechoslovak"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Wales",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Hungary",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Soviet Union",
+    "aliases": [
+     "USSR",
+     "CCCP"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Austria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Scotland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Yugoslavia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Italy",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Spain",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Netherlands",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Portugal",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-1954-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 1954 World Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Switzerland",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "West Germany",
+    "aliases": [
+     "Germany",
+     "W Germany",
+     "FR Germany",
+     "BR Deutschland"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Hungary",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Turkey",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Yugoslavia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Austria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Czechoslovakia",
+    "aliases": [
+     "Czechoslovak"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Scotland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "South Korea",
+    "aliases": [
+     "Korea Republic",
+     "Korea",
+     "Republic of Korea"
+    ],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Sweden",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Netherlands",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Spain",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Argentina",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-euro-1992",
+  "template": 22,
+  "prompt": "Name a country that played at Euro 1992",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Denmark",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Germany",
+    "aliases": [
+     "West Germany"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Scotland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "CIS",
+    "aliases": [
+     "Commonwealth of Independent States",
+     "Soviet Union",
+     "USSR",
+     "Russia"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Yugoslavia",
+    "why": "Was excluded from the tournament; Denmark replaced them."
+   },
+   {
+    "name": "Italy",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Spain",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-euro-1988",
+  "template": 22,
+  "prompt": "Name a country that played at Euro 1988",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "West Germany",
+    "aliases": [
+     "Germany",
+     "W Germany",
+     "FR Germany",
+     "BR Deutschland"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Denmark",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Soviet Union",
+    "aliases": [
+     "USSR",
+     "CCCP"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Republic of Ireland",
+    "aliases": [
+     "Ireland",
+     "Eire"
+    ],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "France",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Portugal",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Scotland",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Belgium",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-euro-1984",
+  "template": 22,
+  "prompt": "Name a country that played at Euro 1984",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Denmark",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "West Germany",
+    "aliases": [
+     "Germany",
+     "W Germany",
+     "FR Germany",
+     "BR Deutschland"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Romania",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Yugoslavia",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "England",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Italy",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Netherlands",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Soviet Union",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-euro-1980",
+  "template": 22,
+  "prompt": "Name a country that played at Euro 1980",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "West Germany",
+    "aliases": [
+     "Germany",
+     "W Germany",
+     "FR Germany",
+     "BR Deutschland"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Czechoslovakia",
+    "aliases": [
+     "Czechoslovak"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Greece",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "France",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Soviet Union",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Yugoslavia",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Portugal",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2024-copa-america",
+  "template": 22,
+  "prompt": "Name a country that played at the 2024 Copa América",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Bolivia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ecuador",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Peru",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Venezuela",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Canada",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Costa Rica",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Jamaica",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Panama",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "United States",
+    "aliases": [
+     "USA",
+     "US",
+     "United States of America"
+    ],
+    "fame": 5
+   }
+  ],
+  "traps": [
+   {
+    "name": "Honduras",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Haiti",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2021-copa-america",
+  "template": 22,
+  "prompt": "Name a country that played at the 2021 Copa América",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Bolivia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ecuador",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Peru",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Venezuela",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Qatar",
+    "why": "Withdrew before the tournament."
+   },
+   {
+    "name": "Australia",
+    "why": "Withdrew before the tournament."
+   },
+   {
+    "name": "Mexico",
+    "why": "Not invited to the 2021 edition."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2019-copa-america",
+  "template": 22,
+  "prompt": "Name a country that played at the 2019 Copa América",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Bolivia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ecuador",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Peru",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Venezuela",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Qatar",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Japan",
+    "aliases": [],
+    "fame": 6
+   }
+  ],
+  "traps": [
+   {
+    "name": "Mexico",
+    "why": "Withdrew and did not play in 2019."
+   },
+   {
+    "name": "United States",
+    "why": "Not invited to the 2019 edition."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2016-copa-america-centenario",
+  "template": 22,
+  "prompt": "Name a country that played at the 2016 Copa América Centenario",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Bolivia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ecuador",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Peru",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Venezuela",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Costa Rica",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Haiti",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Jamaica",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Panama",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "United States",
+    "aliases": [
+     "USA",
+     "US",
+     "United States of America"
+    ],
+    "fame": 5
+   }
+  ],
+  "traps": [
+   {
+    "name": "Canada",
+    "why": "Did not play in the 2016 edition."
+   },
+   {
+    "name": "Honduras",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2023-africa-cup-of-nations",
+  "template": 22,
+  "prompt": "Name a country that played at the 2023 Africa Cup of Nations",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Ivory Coast",
+    "aliases": [
+     "Cote d'Ivoire",
+     "Cote dIvoire"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Nigeria",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "DR Congo",
+    "aliases": [
+     "Congo DR",
+     "DRC",
+     "Democratic Republic of the Congo"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "South Africa",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Mali",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Cape Verde",
+    "aliases": [
+     "Cabo Verde"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Angola",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Egypt",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Senegal",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Guinea",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ghana",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Tunisia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Namibia",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Mozambique",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Cameroon",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Algeria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Burkina Faso",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Mauritania",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Equatorial Guinea",
+    "aliases": [
+     "Eq Guinea"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Gambia",
+    "aliases": [
+     "The Gambia"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Guinea-Bissau",
+    "aliases": [
+     "Guinea Bissau"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Zambia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Tanzania",
+    "aliases": [],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Uganda",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Benin",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Congo",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2023-afc-asian-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 2023 AFC Asian Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Qatar",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Jordan",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Iran",
+    "aliases": [
+     "IR Iran"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "South Korea",
+    "aliases": [
+     "Korea Republic",
+     "Korea",
+     "Republic of Korea"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Iraq",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Japan",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Australia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Uzbekistan",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Syria",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Saudi Arabia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Tajikistan",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Palestine",
+    "aliases": [
+     "State of Palestine"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Bahrain",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Indonesia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Thailand",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Vietnam",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "UAE",
+    "aliases": [
+     "United Arab Emirates"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Kyrgyzstan",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Lebanon",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Oman",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "China",
+    "aliases": [
+     "China PR"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "India",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Hong Kong",
+    "aliases": [
+     "Hong Kong China"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Malaysia",
+    "aliases": [],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Kuwait",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "North Korea",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "New Zealand",
+    "why": "Plays in the OFC, not the AFC."
+   }
+  ]
+ }
+]
