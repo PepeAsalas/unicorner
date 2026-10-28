@@ -63,6 +63,9 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 #q-clock{font:400 40px/1 var(--disp)!important;min-width:56px;text-align:right;background:none;padding:0;animation:none}#q-clock.low{color:var(--red)!important}
 .bot-note{font:19px var(--mono);color:var(--gold);text-align:center;margin:0}
 .ad-box{margin-top:14px;padding:6px;border:2px solid var(--ink);background:var(--pp)}.ad-box span{display:block;font:13px var(--mono);color:var(--pm);margin-bottom:4px}.ad-box:has(ins[data-ad-status=unfilled]){display:none}
+.bat-ad{display:flex;align-items:flex-end;margin-top:16px;aspect-ratio:4/3;background:#0d1838 70% center/cover no-repeat;border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink);color:#fff;text-decoration:none;image-rendering:pixelated}
+.bat-ad span{display:grid;gap:4px;padding:12px;background:linear-gradient(transparent,rgba(6,4,26,.85));width:100%}.bat-ad img{width:30px;image-rendering:pixelated}.bat-ad b{font:400 26px/1 var(--disp);text-shadow:2px 2px 0 #06041a}.bat-ad small{font:16px var(--mono);color:#ffd23f}
+@media (max-width:899px){.bat-ad{display:none!important}}
 .qm-btn{background:#ff7a1a!important}
 .r-rules{font-family:var(--mono);font-size:19px;color:var(--gold);margin:-4px 0 4px}
 .fresh{opacity:.85;margin-top:6px}
@@ -385,6 +388,7 @@ body.prog-on.night .prog .ib-x{color:#b9b0d8}body.prog-on.night .prog .ib-off{co
    <textarea id="fb-t" maxlength="500" rows="2" placeholder="Anything to change? (optional)"></textarea><button id="fb-send" hidden>Send</button><p class="small" id="fb-ok" hidden>Thanks! 🦄</p></div>
   <div class="row" style="margin-top:14px"><button id="replay" class="ghost">Replay</button><button id="next" hidden>Play round 2</button><button id="rematch">Rematch</button></div>
   <button class="ghost back" style="margin-top:14px">← Back to Unicorner</button>
+   <a class="bat-ad" id="bat-ad" hidden target="_blank" rel="noopener"></a>
  </section>
  <section id="s-gate" class="card" hidden>
   <h2 id="g-title">PLAY TODAY'S GAME FIRST</h2>
@@ -699,8 +703,15 @@ async function battle(){const slot=D.me||1,me=D.players.find(p=>p.slot===slot),r
  const dl=elo&&elo.delta,myE=elo&&(dl?{r:dl['b'+slot],g:Math.max(0,dl['g'+slot]-1)}:elo['p'+slot]),rvE=elo&&(dl?{r:dl['b'+(3-slot)],g:Math.max(0,dl['g'+(3-slot)]-1)}:elo['p'+(3-slot)]);if(over&&D.me)try{const r=await rpc('duel_record',{p_token:TOKEN});if(r)rec=[r.w,r.d,r.l]}catch{}
  $('fb').hidden=true;if(over&&D.me){const res=hp[0]===hp[1]?'draw':hp[slot-1]>hp[2-slot]?'win':'loss';if(!ls('uc-duel-end-'+code)){ls('uc-duel-end-'+code,'1');track('duel_end',{code,result:res,questions:n})}fbFor=code}
  const opts={hp:hpAfter(A,B,s0),q0:s0,title:roundName(s0),final:over,rec,intro:s0===0?'vs':s0===15?'sd':null,next:n<15?'NO KO YET':'STILL LEVEL',elo:over&&D.me&&dl?{b:dl['b'+slot],a:dl['a'+slot],g:dl['g'+slot]}:null};
- const go=()=>{show('s-battle');$('next').hidden=true;startBattle($('bc'),R,{name:D.me?'YOU':me.name,kit:me.kit,rec:me.rec,elo:myE},{name:rv.name,kit:rv.kit,rec:rv.rec,elo:rvE},()=>{if(!over&&D.me){$('next').hidden=false;$('next').textContent=n<15?'Play round '+roundNo(n):'Sudden death'}if(over&&D.me&&!ls('uc-duel-fb-'+code)&&!isBot(code))$('fb').hidden=false;$('bot-note').hidden=!(over&&isBot(code))},opts)};$('v-title').textContent=over?'THE DUEL IS OVER':roundName(s0)+' IS IN';$('v-msg').textContent=over?'Full time. See who won.':"You've both played. See how it went.";$('v-go').onclick=go;$('replay').onclick=go;if(isBot(code))return go();show('s-view')}
+ const go=()=>{show('s-battle');$('next').hidden=true;batAd(true);startBattle($('bc'),R,{name:D.me?'YOU':me.name,kit:me.kit,rec:me.rec,elo:myE},{name:rv.name,kit:rv.kit,rec:rv.rec,elo:rvE},()=>{if(!over&&D.me){$('next').hidden=false;$('next').textContent=n<15?'Play round '+roundNo(n):'Sudden death'}batAd(false);if(over&&D.me&&!ls('uc-duel-fb-'+code)&&!isBot(code))$('fb').hidden=false;$('bot-note').hidden=!(over&&isBot(code))},opts)};$('v-title').textContent=over?'THE DUEL IS OVER':roundName(s0)+' IS IN';$('v-msg').textContent=over?'Full time. See who won.':"You've both played. See how it went.";$('v-go').onclick=go;$('replay').onclick=go;if(isBot(code))return go();show('s-view')}
 $('next').onclick=()=>play();
+// while a battle plays on desktop: one of our own banners under the buttons (an AdSense square later); gone when the result comes in
+const BAT_B=[['reddit','https://www.reddit.com/r/Unicorner_Game/','Join the club','r/Unicorner_Game on Reddit'],['tiktok','https://www.tiktok.com/@unicornergame.lol','Follow on TikTok','@unicornergame.lol'],['linkedin','https://www.linkedin.com/company/unicorner-football-game','Join the board','Unicorner on LinkedIn']];
+let batShown=false;
+function batAd(on){const a=$('bat-ad');if(!on||!matchMedia('(min-width:900px)').matches){a.hidden=true;return}
+ const b=BAT_B[Math.floor(Date.now()/864e5)%3];a.href=b[1];a.style.backgroundImage=`url(banners/${b[0]}-wide.webp)`;
+ a.innerHTML=`<span><img src="banners/${b[0]}-logo.png" alt=""><b>${b[2]}</b><small>${b[3]} →</small></span>`;a.onclick=()=>track('banner_click',{banner:b[0],spot:'battle'});
+ a.hidden=false;if(!batShown){batShown=true;track('banner_view',{banner:b[0],spot:'battle'})}}
 // feedback on the finished duel, shown once the battle ends
 let fbFor=null,fbRate=null;
 for(const b of document.querySelectorAll('[data-fb]'))b.onclick=()=>{fbRate=b.dataset.fb;for(const x of document.querySelectorAll('[data-fb]'))x.classList.toggle('on',x===b);$('fb-send').hidden=false;track('duel_feedback',{code:fbFor,rating:fbRate})};
