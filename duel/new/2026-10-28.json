@@ -1,1924 +1,2123 @@
 [
  {
-  "id": "d17-name-a-club-that-played-in-serie-a-between-2020-21-and-2025-26",
-  "template": 17,
-  "prompt": "Name a club that played in Serie A between 2020-21 and 2025-26",
+  "id": "d22-name-a-country-that-played-at-the-1986-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 1986 World Cup",
   "time": 15,
-  "answer_type": "club",
+  "answer_type": "country",
   "answers": [
    {
-    "name": "Juventus",
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Bulgaria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Canada",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Denmark",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "West Germany",
     "aliases": [
-     "Juve"
+     "Germany",
+     "W Germany",
+     "FR Germany",
+     "BR Deutschland"
     ],
     "fame": 6
    },
    {
-    "name": "Inter",
-    "aliases": [
-     "Internazionale",
-     "Inter Milan"
-    ],
-    "fame": 6
-   },
-   {
-    "name": "AC Milan",
-    "aliases": [
-     "Milan"
-    ],
-    "fame": 6
-   },
-   {
-    "name": "Napoli",
-    "aliases": [
-     "SSC Napoli"
-    ],
-    "fame": 5
-   },
-   {
-    "name": "Roma",
-    "aliases": [
-     "AS Roma"
-    ],
-    "fame": 5
-   },
-   {
-    "name": "Lazio",
-    "aliases": [
-     "SS Lazio"
-    ],
-    "fame": 5
-   },
-   {
-    "name": "Atalanta",
-    "aliases": [
-     "Atalanta BC"
-    ],
-    "fame": 5
-   },
-   {
-    "name": "Fiorentina",
-    "aliases": [
-     "ACF Fiorentina",
-     "Viola"
-    ],
+    "name": "Hungary",
+    "aliases": [],
     "fame": 4
    },
    {
-    "name": "Bologna",
-    "aliases": [
-     "Bologna FC"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Torino",
-    "aliases": [
-     "Torino FC"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Udinese",
-    "aliases": [
-     "Udinese Calcio"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Sassuolo",
-    "aliases": [
-     "US Sassuolo"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Genoa",
-    "aliases": [
-     "Genoa CFC"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Sampdoria",
-    "aliases": [
-     "UC Sampdoria",
-     "Samp"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Cagliari",
-    "aliases": [
-     "Cagliari Calcio"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Hellas Verona",
-    "aliases": [
-     "Verona"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Empoli",
-    "aliases": [
-     "Empoli FC"
-    ],
-    "fame": 2
-   },
-   {
-    "name": "Lecce",
-    "aliases": [
-     "US Lecce"
-    ],
-    "fame": 2
-   },
-   {
-    "name": "Salernitana",
-    "aliases": [
-     "US Salernitana"
-    ],
-    "fame": 2
-   },
-   {
-    "name": "Spezia",
-    "aliases": [
-     "Spezia Calcio"
-    ],
-    "fame": 2
-   },
-   {
-    "name": "Monza",
-    "aliases": [
-     "AC Monza"
-    ],
-    "fame": 2
-   },
-   {
-    "name": "Parma",
-    "aliases": [
-     "Parma Calcio"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Venezia",
-    "aliases": [
-     "Venezia FC"
-    ],
-    "fame": 2
-   },
-   {
-    "name": "Cremonese",
-    "aliases": [
-     "US Cremonese"
-    ],
-    "fame": 2
-   },
-   {
-    "name": "Benevento",
-    "aliases": [
-     "Benevento Calcio"
-    ],
-    "fame": 2
-   },
-   {
-    "name": "Crotone",
-    "aliases": [
-     "FC Crotone"
-    ],
+    "name": "Iraq",
+    "aliases": [],
     "fame": 1
    },
    {
-    "name": "Frosinone",
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Northern Ireland",
     "aliases": [
-     "Frosinone Calcio"
+     "N Ireland",
+     "N. Ireland"
     ],
+    "fame": 3
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Poland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Scotland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "South Korea",
+    "aliases": [
+     "Korea Republic",
+     "Korea",
+     "Republic of Korea"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Soviet Union",
+    "aliases": [
+     "USSR",
+     "CCCP"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Algeria",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Wales",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Netherlands",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Sweden",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "East Germany",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-1982-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 1982 World Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Algeria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Austria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Cameroon",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Czechoslovakia",
+    "aliases": [
+     "Czechoslovak"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "El Salvador",
+    "aliases": [],
     "fame": 1
    },
    {
-    "name": "Como",
-    "aliases": [
-     "Como 1907"
-    ],
-    "fame": 2
+    "name": "England",
+    "aliases": [],
+    "fame": 5
    },
    {
-    "name": "Pisa",
+    "name": "France",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "West Germany",
     "aliases": [
-     "Pisa SC"
+     "Germany",
+     "W Germany",
+     "FR Germany",
+     "BR Deutschland"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Honduras",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Hungary",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Kuwait",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "New Zealand",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Northern Ireland",
+    "aliases": [
+     "N Ireland",
+     "N. Ireland"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Peru",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Poland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Scotland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Soviet Union",
+    "aliases": [
+     "USSR",
+     "CCCP"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Yugoslavia",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Netherlands",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Sweden",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Wales",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Mexico",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-1978-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 1978 World Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Austria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "West Germany",
+    "aliases": [
+     "Germany",
+     "W Germany",
+     "FR Germany",
+     "BR Deutschland"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Hungary",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Iran",
+    "aliases": [
+     "IR Iran"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Peru",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Poland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Scotland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Tunisia",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "England",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Soviet Union",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Yugoslavia",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Belgium",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-1974-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 1974 World Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "West Germany",
+    "aliases": [
+     "Germany",
+     "W Germany",
+     "FR Germany",
+     "BR Deutschland"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "East Germany",
+    "aliases": [
+     "GDR",
+     "DDR"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Australia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Bulgaria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Haiti",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Poland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Scotland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Yugoslavia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Zaire",
+    "aliases": [
+     "DR Congo",
+     "Congo DR",
+     "DRC"
     ],
     "fame": 1
    }
   ],
   "traps": [
    {
-    "name": "Chievo",
-    "why": "Last played in Serie A in 2018-19."
+    "name": "England",
+    "why": "Did not qualify."
    },
    {
-    "name": "Brescia",
-    "why": "Last played in Serie A in 2019-20."
+    "name": "Spain",
+    "why": "Did not qualify."
    },
    {
-    "name": "SPAL",
-    "why": "Last played in Serie A in 2019-20."
+    "name": "Hungary",
+    "why": "Did not qualify."
    },
    {
-    "name": "Palermo",
-    "why": "Not in Serie A in any season from 2020-21 to 2025-26."
-   },
-   {
-    "name": "Cosenza",
-    "why": "Never played in Serie A in this period."
+    "name": "Belgium",
+    "why": "Did not qualify."
    }
   ]
  },
  {
-  "id": "d17-name-a-club-that-played-in-la-liga-between-2020-21-and-2025-26",
-  "template": 17,
-  "prompt": "Name a club that played in La Liga between 2020-21 and 2025-26",
+  "id": "d22-name-a-country-that-played-at-the-1970-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 1970 World Cup",
   "time": 15,
-  "answer_type": "club",
+  "answer_type": "country",
   "answers": [
    {
-    "name": "Real Madrid",
-    "aliases": [
-     "Madrid"
-    ],
-    "fame": 6
-   },
-   {
-    "name": "Barcelona",
-    "aliases": [
-     "FC Barcelona",
-     "Barca",
-     "Barça"
-    ],
-    "fame": 6
-   },
-   {
-    "name": "Atlético Madrid",
-    "aliases": [
-     "Atletico Madrid",
-     "Atletico",
-     "Atlético"
-    ],
+    "name": "Mexico",
+    "aliases": [],
     "fame": 5
    },
    {
-    "name": "Sevilla",
+    "name": "Soviet Union",
     "aliases": [
-     "Sevilla FC"
-    ],
-    "fame": 5
-   },
-   {
-    "name": "Valencia",
-    "aliases": [
-     "Valencia CF"
-    ],
-    "fame": 5
-   },
-   {
-    "name": "Villarreal",
-    "aliases": [
-     "Villarreal CF"
+     "USSR",
+     "CCCP"
     ],
     "fame": 4
    },
    {
-    "name": "Real Betis",
-    "aliases": [
-     "Betis"
-    ],
+    "name": "Belgium",
+    "aliases": [],
     "fame": 4
    },
    {
-    "name": "Real Sociedad",
-    "aliases": [
-     "Sociedad"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Athletic Club",
-    "aliases": [
-     "Athletic Bilbao",
-     "Athletic",
-     "Bilbao"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Celta Vigo",
-    "aliases": [
-     "Celta",
-     "RC Celta"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Getafe",
-    "aliases": [
-     "Getafe CF"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Osasuna",
-    "aliases": [
-     "CA Osasuna"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Espanyol",
-    "aliases": [
-     "RCD Espanyol"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Alavés",
-    "aliases": [
-     "Alaves",
-     "Deportivo Alavés"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Mallorca",
-    "aliases": [
-     "RCD Mallorca"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Girona",
-    "aliases": [
-     "Girona FC"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Rayo Vallecano",
-    "aliases": [
-     "Rayo"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Levante",
-    "aliases": [
-     "Levante UD"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Granada",
-    "aliases": [
-     "Granada CF"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Cádiz",
-    "aliases": [
-     "Cadiz",
-     "Cádiz CF"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Elche",
-    "aliases": [
-     "Elche CF"
-    ],
-    "fame": 2
-   },
-   {
-    "name": "Real Valladolid",
-    "aliases": [
-     "Valladolid"
-    ],
-    "fame": 2
-   },
-   {
-    "name": "Eibar",
-    "aliases": [
-     "SD Eibar"
-    ],
-    "fame": 2
-   },
-   {
-    "name": "Almería",
-    "aliases": [
-     "Almeria",
-     "UD Almería"
-    ],
-    "fame": 2
-   },
-   {
-    "name": "Las Palmas",
-    "aliases": [
-     "UD Las Palmas"
-    ],
-    "fame": 2
-   },
-   {
-    "name": "Huesca",
-    "aliases": [
-     "SD Huesca"
-    ],
+    "name": "El Salvador",
+    "aliases": [],
     "fame": 1
    },
    {
-    "name": "Leganés",
-    "aliases": [
-     "Leganes",
-     "CD Leganés"
-    ],
-    "fame": 2
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
    },
    {
-    "name": "Real Oviedo",
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Israel",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Czechoslovakia",
     "aliases": [
-     "Oviedo"
+     "Czechoslovak"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Romania",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "West Germany",
+    "aliases": [
+     "Germany",
+     "W Germany",
+     "FR Germany",
+     "BR Deutschland"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Peru",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Bulgaria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "France",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Spain",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Argentina",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Netherlands",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-1966-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 1966 World Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "West Germany",
+    "aliases": [
+     "Germany",
+     "W Germany",
+     "FR Germany",
+     "BR Deutschland"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Switzerland",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Hungary",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Bulgaria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Soviet Union",
+    "aliases": [
+     "USSR",
+     "CCCP"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "North Korea",
+    "aliases": [
+     "Korea DPR",
+     "DPR Korea"
     ],
     "fame": 1
    }
   ],
   "traps": [
    {
-    "name": "Málaga",
-    "why": "Last played in La Liga in 2017-18."
+    "name": "Netherlands",
+    "why": "Did not qualify."
    },
    {
-    "name": "Deportivo La Coruña",
-    "why": "Last played in La Liga in 2017-18."
+    "name": "Sweden",
+    "why": "Did not qualify."
    },
    {
-    "name": "Real Zaragoza",
-    "why": "Not in La Liga in this period."
+    "name": "Belgium",
+    "why": "Did not qualify."
    },
    {
-    "name": "Sporting Gijón",
-    "why": "Not in La Liga in this period."
-   },
-   {
-    "name": "Tenerife",
-    "why": "Not in La Liga in this period."
-   },
-   {
-    "name": "Real Racing Club",
-    "why": "Not in La Liga in this period."
+    "name": "Peru",
+    "why": "Did not qualify."
    }
   ]
  },
  {
-  "id": "d17-name-a-club-that-played-in-the-premier-league-between-2020-21-and-2025-26",
-  "template": 17,
-  "prompt": "Name a club that played in the Premier League between 2020-21 and 2025-26",
+  "id": "d22-name-a-country-that-played-at-the-1962-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 1962 World Cup",
   "time": 15,
-  "answer_type": "club",
+  "answer_type": "country",
   "answers": [
    {
-    "name": "Manchester United",
+    "name": "Chile",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Czechoslovakia",
     "aliases": [
-     "Man United",
-     "Man Utd",
-     "United"
+     "Czechoslovak"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Soviet Union",
+    "aliases": [
+     "USSR",
+     "CCCP"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Yugoslavia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "West Germany",
+    "aliases": [
+     "Germany",
+     "W Germany",
+     "FR Germany",
+     "BR Deutschland"
     ],
     "fame": 6
    },
    {
-    "name": "Liverpool",
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Switzerland",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Hungary",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Bulgaria",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "France",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Sweden",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Portugal",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Netherlands",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-1958-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 1958 World Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "West Germany",
     "aliases": [
-     "Liverpool FC"
+     "Germany",
+     "W Germany",
+     "FR Germany",
+     "BR Deutschland"
     ],
     "fame": 6
    },
    {
-    "name": "Chelsea",
+    "name": "Northern Ireland",
     "aliases": [
-     "Chelsea FC"
+     "N Ireland",
+     "N. Ireland"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Czechoslovakia",
+    "aliases": [
+     "Czechoslovak"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Wales",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Hungary",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Soviet Union",
+    "aliases": [
+     "USSR",
+     "CCCP"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Austria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Scotland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Yugoslavia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Italy",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Spain",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Netherlands",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Portugal",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-1954-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 1954 World Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Switzerland",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "West Germany",
+    "aliases": [
+     "Germany",
+     "W Germany",
+     "FR Germany",
+     "BR Deutschland"
     ],
     "fame": 6
    },
    {
-    "name": "Arsenal",
-    "aliases": [
-     "Arsenal FC",
-     "Gunners"
-    ],
+    "name": "Hungary",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Turkey",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
     "fame": 6
    },
    {
-    "name": "Manchester City",
+    "name": "Yugoslavia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Austria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Czechoslovakia",
     "aliases": [
-     "Man City",
-     "City"
+     "Czechoslovak"
     ],
+    "fame": 3
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Scotland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
     "fame": 6
    },
    {
-    "name": "Tottenham Hotspur",
+    "name": "South Korea",
     "aliases": [
-     "Spurs",
-     "Tottenham"
+     "Korea Republic",
+     "Korea",
+     "Republic of Korea"
+    ],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Sweden",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Netherlands",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Spain",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Argentina",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-euro-1992",
+  "template": 22,
+  "prompt": "Name a country that played at Euro 1992",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Denmark",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
     ],
     "fame": 5
    },
    {
-    "name": "Newcastle United",
+    "name": "Germany",
     "aliases": [
-     "Newcastle"
+     "West Germany"
     ],
-    "fame": 5
+    "fame": 3
    },
    {
-    "name": "Everton",
-    "aliases": [
-     "Everton FC"
-    ],
-    "fame": 5
-   },
-   {
-    "name": "West Ham United",
-    "aliases": [
-     "West Ham"
-    ],
+    "name": "Scotland",
+    "aliases": [],
     "fame": 4
    },
    {
-    "name": "Aston Villa",
+    "name": "CIS",
     "aliases": [
-     "Villa"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Leicester City",
-    "aliases": [
-     "Leicester"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Leeds United",
-    "aliases": [
-     "Leeds"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Wolverhampton Wanderers",
-    "aliases": [
-     "Wolves"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Southampton",
-    "aliases": [
-     "Southampton FC",
-     "Saints"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Crystal Palace",
-    "aliases": [
-     "Palace"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Brighton & Hove Albion",
-    "aliases": [
-     "Brighton",
-     "Brighton and Hove Albion"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Fulham",
-    "aliases": [
-     "Fulham FC"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Burnley",
-    "aliases": [
-     "Burnley FC"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Brentford",
-    "aliases": [
-     "Brentford FC"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Nottingham Forest",
-    "aliases": [
-     "Forest",
-     "Nottm Forest"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "AFC Bournemouth",
-    "aliases": [
-     "Bournemouth"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Sheffield United",
-    "aliases": [
-     "Sheffield Utd"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Watford",
-    "aliases": [
-     "Watford FC"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Norwich City",
-    "aliases": [
-     "Norwich"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "West Bromwich Albion",
-    "aliases": [
-     "West Brom",
-     "WBA"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Sunderland",
-    "aliases": [
-     "Sunderland AFC"
-    ],
-    "fame": 2
-   },
-   {
-    "name": "Luton Town",
-    "aliases": [
-     "Luton"
-    ],
-    "fame": 2
-   },
-   {
-    "name": "Ipswich Town",
-    "aliases": [
-     "Ipswich"
+     "Commonwealth of Independent States",
+     "Soviet Union",
+     "USSR",
+     "Russia"
     ],
     "fame": 2
    }
   ],
   "traps": [
    {
-    "name": "Huddersfield Town",
-    "why": "Last played in the Premier League in 2018-19."
+    "name": "Yugoslavia",
+    "why": "Was excluded from the tournament; Denmark replaced them."
    },
    {
-    "name": "Cardiff City",
-    "why": "Last played in the Premier League in 2018-19."
+    "name": "Italy",
+    "why": "Did not qualify."
    },
    {
-    "name": "Stoke City",
-    "why": "Last played in the Premier League in 2017-18."
-   },
-   {
-    "name": "Swansea City",
-    "why": "Last played in the Premier League in 2017-18."
-   },
-   {
-    "name": "Middlesbrough",
-    "why": "Last played in the Premier League in 2016-17."
-   },
-   {
-    "name": "Hull City",
-    "why": "Last played in the Premier League in 2016-17."
-   },
-   {
-    "name": "Derby County",
-    "why": "Last played in the Premier League in 2007-08."
+    "name": "Spain",
+    "why": "Did not qualify."
    }
   ]
  },
  {
-  "id": "d17-name-a-club-that-played-in-ligue-1-between-2020-21-and-2025-26",
-  "template": 17,
-  "prompt": "Name a club that played in Ligue 1 between 2020-21 and 2025-26",
+  "id": "d22-name-a-country-that-played-at-euro-1988",
+  "template": 22,
+  "prompt": "Name a country that played at Euro 1988",
   "time": 15,
-  "answer_type": "club",
+  "answer_type": "country",
   "answers": [
    {
-    "name": "Paris Saint-Germain",
+    "name": "West Germany",
     "aliases": [
-     "PSG",
-     "Paris SG",
-     "Paris"
+     "Germany",
+     "W Germany",
+     "FR Germany",
+     "BR Deutschland"
     ],
     "fame": 6
    },
    {
-    "name": "Marseille",
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Denmark",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Netherlands",
     "aliases": [
-     "Olympique de Marseille",
-     "OM"
+     "Holland"
     ],
     "fame": 5
    },
    {
-    "name": "Lyon",
+    "name": "Soviet Union",
     "aliases": [
-     "Olympique Lyonnais",
-     "OL"
+     "USSR",
+     "CCCP"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Republic of Ireland",
+    "aliases": [
+     "Ireland",
+     "Eire"
+    ],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "France",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Portugal",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Scotland",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Belgium",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-euro-1984",
+  "template": 22,
+  "prompt": "Name a country that played at Euro 1984",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Denmark",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "West Germany",
+    "aliases": [
+     "Germany",
+     "W Germany",
+     "FR Germany",
+     "BR Deutschland"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Romania",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Yugoslavia",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "England",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Italy",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Netherlands",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Soviet Union",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-euro-1980",
+  "template": 22,
+  "prompt": "Name a country that played at Euro 1980",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "West Germany",
+    "aliases": [
+     "Germany",
+     "W Germany",
+     "FR Germany",
+     "BR Deutschland"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Czechoslovakia",
+    "aliases": [
+     "Czechoslovak"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
     ],
     "fame": 5
    },
    {
-    "name": "Monaco",
-    "aliases": [
-     "AS Monaco"
-    ],
+    "name": "Greece",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "France",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Soviet Union",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Yugoslavia",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Portugal",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2024-copa-america",
+  "template": 22,
+  "prompt": "Name a country that played at the 2024 Copa América",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Bolivia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ecuador",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Peru",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
     "fame": 5
    },
    {
-    "name": "Lille",
-    "aliases": [
-     "LOSC",
-     "LOSC Lille"
-    ],
-    "fame": 4
+    "name": "Venezuela",
+    "aliases": [],
+    "fame": 3
    },
    {
-    "name": "Nice",
-    "aliases": [
-     "OGC Nice"
-    ],
-    "fame": 4
+    "name": "Canada",
+    "aliases": [],
+    "fame": 3
    },
    {
-    "name": "Rennes",
-    "aliases": [
-     "Stade Rennais"
-    ],
-    "fame": 4
+    "name": "Costa Rica",
+    "aliases": [],
+    "fame": 3
    },
    {
-    "name": "Lens",
-    "aliases": [
-     "RC Lens"
-    ],
-    "fame": 4
+    "name": "Jamaica",
+    "aliases": [],
+    "fame": 2
    },
    {
-    "name": "Nantes",
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Panama",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "United States",
     "aliases": [
-     "FC Nantes"
+     "USA",
+     "US",
+     "United States of America"
+    ],
+    "fame": 5
+   }
+  ],
+  "traps": [
+   {
+    "name": "Honduras",
+    "why": "Did not qualify."
+   },
+   {
+    "name": "Haiti",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2021-copa-america",
+  "template": 22,
+  "prompt": "Name a country that played at the 2021 Copa América",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Bolivia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ecuador",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Peru",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Venezuela",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Qatar",
+    "why": "Withdrew before the tournament."
+   },
+   {
+    "name": "Australia",
+    "why": "Withdrew before the tournament."
+   },
+   {
+    "name": "Mexico",
+    "why": "Not invited to the 2021 edition."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2019-copa-america",
+  "template": 22,
+  "prompt": "Name a country that played at the 2019 Copa América",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Bolivia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ecuador",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Peru",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Venezuela",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Qatar",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Japan",
+    "aliases": [],
+    "fame": 6
+   }
+  ],
+  "traps": [
+   {
+    "name": "Mexico",
+    "why": "Withdrew and did not play in 2019."
+   },
+   {
+    "name": "United States",
+    "why": "Not invited to the 2019 edition."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2016-copa-america-centenario",
+  "template": 22,
+  "prompt": "Name a country that played at the 2016 Copa América Centenario",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Bolivia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ecuador",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Peru",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Venezuela",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Costa Rica",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Haiti",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Jamaica",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Panama",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "United States",
+    "aliases": [
+     "USA",
+     "US",
+     "United States of America"
+    ],
+    "fame": 5
+   }
+  ],
+  "traps": [
+   {
+    "name": "Canada",
+    "why": "Did not play in the 2016 edition."
+   },
+   {
+    "name": "Honduras",
+    "why": "Did not qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2023-africa-cup-of-nations",
+  "template": 22,
+  "prompt": "Name a country that played at the 2023 Africa Cup of Nations",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Ivory Coast",
+    "aliases": [
+     "Cote d'Ivoire",
+     "Cote dIvoire"
     ],
     "fame": 3
    },
    {
-    "name": "Saint-Étienne",
-    "aliases": [
-     "Saint-Etienne",
-     "St Etienne",
-     "ASSE"
-    ],
-    "fame": 3
+    "name": "Nigeria",
+    "aliases": [],
+    "fame": 6
    },
    {
-    "name": "Bordeaux",
+    "name": "DR Congo",
     "aliases": [
-     "Girondins de Bordeaux",
-     "Girondins"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Montpellier",
-    "aliases": [
-     "Montpellier HSC"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Strasbourg",
-    "aliases": [
-     "RC Strasbourg"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Reims",
-    "aliases": [
-     "Stade de Reims"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Toulouse",
-    "aliases": [
-     "Toulouse FC"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Brest",
-    "aliases": [
-     "Stade Brestois"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Angers",
-    "aliases": [
-     "Angers SCO"
+     "Congo DR",
+     "DRC",
+     "Democratic Republic of the Congo"
     ],
     "fame": 2
    },
    {
-    "name": "Metz",
+    "name": "South Africa",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Mali",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Cape Verde",
     "aliases": [
-     "FC Metz"
+     "Cabo Verde"
     ],
     "fame": 2
    },
    {
-    "name": "Lorient",
-    "aliases": [
-     "FC Lorient"
-    ],
+    "name": "Angola",
+    "aliases": [],
     "fame": 2
    },
    {
-    "name": "Nîmes",
-    "aliases": [
-     "Nimes",
-     "Nîmes Olympique"
-    ],
+    "name": "Egypt",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Senegal",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Guinea",
+    "aliases": [],
     "fame": 2
    },
    {
-    "name": "Dijon",
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ghana",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Tunisia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Namibia",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Mozambique",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Cameroon",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Algeria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Burkina Faso",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Mauritania",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Equatorial Guinea",
     "aliases": [
-     "Dijon FCO"
+     "Eq Guinea"
     ],
     "fame": 1
    },
    {
-    "name": "Clermont Foot",
+    "name": "Gambia",
     "aliases": [
-     "Clermont"
-    ],
-    "fame": 2
-   },
-   {
-    "name": "Troyes",
-    "aliases": [
-     "ESTAC",
-     "ES Troyes"
-    ],
-    "fame": 2
-   },
-   {
-    "name": "Ajaccio",
-    "aliases": [
-     "AC Ajaccio"
+     "The Gambia"
     ],
     "fame": 1
    },
    {
-    "name": "Auxerre",
+    "name": "Guinea-Bissau",
     "aliases": [
-     "AJ Auxerre"
+     "Guinea Bissau"
     ],
+    "fame": 1
+   },
+   {
+    "name": "Zambia",
+    "aliases": [],
     "fame": 2
    },
    {
-    "name": "Le Havre",
-    "aliases": [
-     "Le Havre AC"
-    ],
-    "fame": 2
-   },
-   {
-    "name": "Paris FC",
+    "name": "Tanzania",
     "aliases": [],
     "fame": 1
    }
   ],
   "traps": [
    {
-    "name": "Guingamp",
-    "why": "Last played in Ligue 1 in 2018-19."
+    "name": "Uganda",
+    "why": "Did not qualify."
    },
    {
-    "name": "Amiens",
-    "why": "Last played in Ligue 1 in 2019-20."
+    "name": "Benin",
+    "why": "Did not qualify."
    },
    {
-    "name": "Caen",
-    "why": "Last played in Ligue 1 in 2018-19."
-   },
-   {
-    "name": "Sochaux",
-    "why": "Not in Ligue 1 in this period."
-   },
-   {
-    "name": "Bastia",
-    "why": "Last played in Ligue 1 in 2016-17."
+    "name": "Congo",
+    "why": "Did not qualify."
    }
   ]
  },
  {
-  "id": "d17-name-a-club-that-played-in-the-premier-league-between-2011-12-and-2019-20",
-  "template": 17,
-  "prompt": "Name a club that played in the Premier League between 2011-12 and 2019-20",
+  "id": "d22-name-a-country-that-played-at-the-2023-afc-asian-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 2023 AFC Asian Cup",
   "time": 15,
-  "answer_type": "club",
+  "answer_type": "country",
   "answers": [
    {
-    "name": "Manchester United",
+    "name": "Qatar",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Jordan",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Iran",
     "aliases": [
-     "Man United",
-     "Man Utd",
-     "United"
+     "IR Iran"
     ],
+    "fame": 3
+   },
+   {
+    "name": "South Korea",
+    "aliases": [
+     "Korea Republic",
+     "Korea",
+     "Republic of Korea"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Iraq",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Japan",
+    "aliases": [],
     "fame": 6
    },
    {
-    "name": "Liverpool",
-    "aliases": [
-     "Liverpool FC"
-    ],
-    "fame": 6
-   },
-   {
-    "name": "Chelsea",
-    "aliases": [
-     "Chelsea FC"
-    ],
-    "fame": 6
-   },
-   {
-    "name": "Arsenal",
-    "aliases": [
-     "Arsenal FC"
-    ],
-    "fame": 6
-   },
-   {
-    "name": "Manchester City",
-    "aliases": [
-     "Man City",
-     "City"
-    ],
-    "fame": 6
-   },
-   {
-    "name": "Tottenham Hotspur",
-    "aliases": [
-     "Spurs",
-     "Tottenham"
-    ],
-    "fame": 5
-   },
-   {
-    "name": "Newcastle United",
-    "aliases": [
-     "Newcastle"
-    ],
-    "fame": 5
-   },
-   {
-    "name": "Everton",
-    "aliases": [
-     "Everton FC"
-    ],
-    "fame": 5
-   },
-   {
-    "name": "West Ham United",
-    "aliases": [
-     "West Ham"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Aston Villa",
-    "aliases": [
-     "Villa"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Leicester City",
-    "aliases": [
-     "Leicester"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Wolverhampton Wanderers",
-    "aliases": [
-     "Wolves"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Southampton",
-    "aliases": [
-     "Southampton FC",
-     "Saints"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Crystal Palace",
-    "aliases": [
-     "Palace"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Stoke City",
-    "aliases": [
-     "Stoke"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Swansea City",
-    "aliases": [
-     "Swansea"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Sunderland",
-    "aliases": [
-     "Sunderland AFC"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "West Bromwich Albion",
-    "aliases": [
-     "West Brom",
-     "WBA"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Fulham",
-    "aliases": [
-     "Fulham FC"
-    ],
+    "name": "Australia",
+    "aliases": [],
     "fame": 3
    },
    {
-    "name": "Norwich City",
-    "aliases": [
-     "Norwich"
-    ],
+    "name": "Uzbekistan",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Syria",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Saudi Arabia",
+    "aliases": [],
     "fame": 3
    },
    {
-    "name": "Watford",
-    "aliases": [
-     "Watford FC"
-    ],
-    "fame": 3
+    "name": "Tajikistan",
+    "aliases": [],
+    "fame": 1
    },
    {
-    "name": "AFC Bournemouth",
+    "name": "Palestine",
     "aliases": [
-     "Bournemouth"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Burnley",
-    "aliases": [
-     "Burnley FC"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Brighton & Hove Albion",
-    "aliases": [
-     "Brighton"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Hull City",
-    "aliases": [
-     "Hull"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Middlesbrough",
-    "aliases": [
-     "Boro"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Queens Park Rangers",
-    "aliases": [
-     "QPR"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Wigan Athletic",
-    "aliases": [
-     "Wigan"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Cardiff City",
-    "aliases": [
-     "Cardiff"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Huddersfield Town",
-    "aliases": [
-     "Huddersfield"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Bolton Wanderers",
-    "aliases": [
-     "Bolton"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Blackburn Rovers",
-    "aliases": [
-     "Blackburn"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Reading",
-    "aliases": [
-     "Reading FC"
+     "State of Palestine"
     ],
     "fame": 2
    },
    {
-    "name": "Sheffield United",
+    "name": "Bahrain",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Indonesia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Thailand",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Vietnam",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "UAE",
     "aliases": [
-     "Sheffield Utd"
-    ],
-    "fame": 3
-   }
-  ],
-  "traps": [
-   {
-    "name": "Blackpool",
-    "why": "Last played in the Premier League in 2010-11."
-   },
-   {
-    "name": "Birmingham City",
-    "why": "Last played in the Premier League in 2010-11."
-   },
-   {
-    "name": "Portsmouth",
-    "why": "Last played in the Premier League in 2009-10."
-   },
-   {
-    "name": "Leeds United",
-    "why": "Not in the Premier League in this period."
-   },
-   {
-    "name": "Derby County",
-    "why": "Not in the Premier League in this period."
-   },
-   {
-    "name": "Nottingham Forest",
-    "why": "Not in the Premier League in this period."
-   }
-  ]
- },
- {
-  "id": "d17-name-a-club-that-played-in-the-premier-league-between-2000-01-and-2010-11",
-  "template": 17,
-  "prompt": "Name a club that played in the Premier League between 2000-01 and 2010-11",
-  "time": 15,
-  "answer_type": "club",
-  "answers": [
-   {
-    "name": "Manchester United",
-    "aliases": [
-     "Man United",
-     "Man Utd",
-     "United"
-    ],
-    "fame": 6
-   },
-   {
-    "name": "Liverpool",
-    "aliases": [
-     "Liverpool FC"
-    ],
-    "fame": 6
-   },
-   {
-    "name": "Chelsea",
-    "aliases": [
-     "Chelsea FC"
-    ],
-    "fame": 6
-   },
-   {
-    "name": "Arsenal",
-    "aliases": [
-     "Arsenal FC"
-    ],
-    "fame": 6
-   },
-   {
-    "name": "Manchester City",
-    "aliases": [
-     "Man City",
-     "City"
-    ],
-    "fame": 6
-   },
-   {
-    "name": "Tottenham Hotspur",
-    "aliases": [
-     "Spurs",
-     "Tottenham"
-    ],
-    "fame": 5
-   },
-   {
-    "name": "Newcastle United",
-    "aliases": [
-     "Newcastle"
-    ],
-    "fame": 5
-   },
-   {
-    "name": "Everton",
-    "aliases": [
-     "Everton FC"
-    ],
-    "fame": 5
-   },
-   {
-    "name": "West Ham United",
-    "aliases": [
-     "West Ham"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Aston Villa",
-    "aliases": [
-     "Villa"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Leeds United",
-    "aliases": [
-     "Leeds"
-    ],
-    "fame": 5
-   },
-   {
-    "name": "Leicester City",
-    "aliases": [
-     "Leicester"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Middlesbrough",
-    "aliases": [
-     "Boro"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Blackburn Rovers",
-    "aliases": [
-     "Blackburn"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Bolton Wanderers",
-    "aliases": [
-     "Bolton"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Fulham",
-    "aliases": [
-     "Fulham FC"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Southampton",
-    "aliases": [
-     "Southampton FC",
-     "Saints"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Sunderland",
-    "aliases": [
-     "Sunderland AFC"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Charlton Athletic",
-    "aliases": [
-     "Charlton"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Birmingham City",
-    "aliases": [
-     "Birmingham"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Portsmouth",
-    "aliases": [
-     "Pompey"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Wigan Athletic",
-    "aliases": [
-     "Wigan"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "West Bromwich Albion",
-    "aliases": [
-     "West Brom",
-     "WBA"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Stoke City",
-    "aliases": [
-     "Stoke"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Wolverhampton Wanderers",
-    "aliases": [
-     "Wolves"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Hull City",
-    "aliases": [
-     "Hull"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Burnley",
-    "aliases": [
-     "Burnley FC"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Blackpool",
-    "aliases": [
-     "Blackpool FC"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Derby County",
-    "aliases": [
-     "Derby"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Ipswich Town",
-    "aliases": [
-     "Ipswich"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Coventry City",
-    "aliases": [
-     "Coventry"
+     "United Arab Emirates"
     ],
     "fame": 2
    },
    {
-    "name": "Bradford City",
+    "name": "Kyrgyzstan",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Lebanon",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Oman",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "China",
     "aliases": [
-     "Bradford"
+     "China PR"
     ],
     "fame": 2
    },
    {
-    "name": "Crystal Palace",
-    "aliases": [
-     "Palace"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Norwich City",
-    "aliases": [
-     "Norwich"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Reading",
-    "aliases": [
-     "Reading FC"
-    ],
+    "name": "India",
+    "aliases": [],
     "fame": 2
    },
    {
-    "name": "Sheffield United",
+    "name": "Hong Kong",
     "aliases": [
-     "Sheffield Utd"
+     "Hong Kong China"
     ],
-    "fame": 2
+    "fame": 1
    },
    {
-    "name": "Watford",
-    "aliases": [
-     "Watford FC"
-    ],
-    "fame": 2
-   }
-  ],
-  "traps": [
-   {
-    "name": "Queens Park Rangers",
-    "why": "First Premier League season in this era was 2011-12."
-   },
-   {
-    "name": "Swansea City",
-    "why": "First Premier League season was 2011-12."
-   },
-   {
-    "name": "Wimbledon",
-    "why": "Relegated in 1999-00, before this period."
-   },
-   {
-    "name": "Nottingham Forest",
-    "why": "Not in the Premier League in this period."
-   },
-   {
-    "name": "Barnsley",
-    "why": "Not in the Premier League in this period."
-   },
-   {
-    "name": "Brighton & Hove Albion",
-    "why": "Not in the Premier League in this period."
-   }
-  ]
- },
- {
-  "id": "d21-name-a-club-promoted-to-the-premier-league-in-the-summers-of-2015-to-2025-automatic-promotion-or-play-offs",
-  "template": 21,
-  "prompt": "Name a club promoted to the Premier League in the summers of 2015 to 2025 (automatic promotion or play-offs)",
-  "time": 15,
-  "answer_type": "club",
-  "answers": [
-   {
-    "name": "AFC Bournemouth",
-    "aliases": [
-     "Bournemouth"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Watford",
-    "aliases": [
-     "Watford FC"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Norwich City",
-    "aliases": [
-     "Norwich"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Burnley",
-    "aliases": [
-     "Burnley FC"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Middlesbrough",
-    "aliases": [
-     "Boro"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Hull City",
-    "aliases": [
-     "Hull"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Newcastle United",
-    "aliases": [
-     "Newcastle"
-    ],
-    "fame": 5
-   },
-   {
-    "name": "Brighton & Hove Albion",
-    "aliases": [
-     "Brighton"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Huddersfield Town",
-    "aliases": [
-     "Huddersfield"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Wolverhampton Wanderers",
-    "aliases": [
-     "Wolves"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Cardiff City",
-    "aliases": [
-     "Cardiff"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Fulham",
-    "aliases": [
-     "Fulham FC"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Sheffield United",
-    "aliases": [
-     "Sheffield Utd"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Aston Villa",
-    "aliases": [
-     "Villa"
-    ],
-    "fame": 5
-   },
-   {
-    "name": "Leeds United",
-    "aliases": [
-     "Leeds"
-    ],
-    "fame": 5
-   },
-   {
-    "name": "West Bromwich Albion",
-    "aliases": [
-     "West Brom",
-     "WBA"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Brentford",
-    "aliases": [
-     "Brentford FC"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Nottingham Forest",
-    "aliases": [
-     "Forest",
-     "Nottm Forest"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Luton Town",
-    "aliases": [
-     "Luton"
-    ],
-    "fame": 2
-   },
-   {
-    "name": "Leicester City",
-    "aliases": [
-     "Leicester"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Ipswich Town",
-    "aliases": [
-     "Ipswich"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Southampton",
-    "aliases": [
-     "Southampton FC",
-     "Saints"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Sunderland",
-    "aliases": [
-     "Sunderland AFC"
-    ],
-    "fame": 3
-   }
-  ],
-  "traps": [
-   {
-    "name": "Derby County",
-    "why": "Lost the 2019 play-off final."
-   },
-   {
-    "name": "Sheffield Wednesday",
-    "why": "Lost the 2016 play-off final."
-   },
-   {
-    "name": "Reading",
-    "why": "Lost the 2017 play-off final."
-   },
-   {
-    "name": "Swansea City",
-    "why": "Lost the 2021 play-off final."
-   },
-   {
-    "name": "Blackburn Rovers",
-    "why": "Not promoted to the Premier League in this period."
-   }
-  ]
- },
- {
-  "id": "d19-name-a-club-from-north-west-england-that-played-in-the-premier-league-up-to-2025-26",
-  "template": 19,
-  "prompt": "Name a club from North West England that played in the Premier League up to 2025-26",
-  "time": 15,
-  "answer_type": "club",
-  "answers": [
-   {
-    "name": "Manchester United",
-    "aliases": [
-     "Man United",
-     "Man Utd",
-     "United"
-    ],
-    "fame": 6
-   },
-   {
-    "name": "Liverpool",
-    "aliases": [
-     "Liverpool FC"
-    ],
-    "fame": 6
-   },
-   {
-    "name": "Manchester City",
-    "aliases": [
-     "Man City",
-     "City"
-    ],
-    "fame": 6
-   },
-   {
-    "name": "Everton",
-    "aliases": [
-     "Everton FC"
-    ],
-    "fame": 5
-   },
-   {
-    "name": "Blackburn Rovers",
-    "aliases": [
-     "Blackburn"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Bolton Wanderers",
-    "aliases": [
-     "Bolton"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Wigan Athletic",
-    "aliases": [
-     "Wigan"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Burnley",
-    "aliases": [
-     "Burnley FC"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Blackpool",
-    "aliases": [
-     "Blackpool FC"
-    ],
-    "fame": 3
-   },
-   {
-    "name": "Oldham Athletic",
-    "aliases": [
-     "Oldham"
-    ],
+    "name": "Malaysia",
+    "aliases": [],
     "fame": 1
    }
   ],
   "traps": [
    {
-    "name": "Stoke City",
-    "why": "From Staffordshire, in the West Midlands region."
+    "name": "Kuwait",
+    "why": "Did not qualify."
    },
    {
-    "name": "Preston North End",
-    "why": "Never played in the Premier League."
+    "name": "North Korea",
+    "why": "Did not qualify."
    },
    {
-    "name": "Bury",
-    "why": "Never played in the Premier League."
-   },
-   {
-    "name": "Crewe Alexandra",
-    "why": "Never played in the Premier League."
-   },
-   {
-    "name": "Wolverhampton Wanderers",
-    "why": "From the West Midlands."
-   }
-  ]
- },
- {
-  "id": "d24-name-a-portuguese-who-was-a-permanent-premier-league-manager-up-to-2025-26",
-  "template": 24,
-  "prompt": "Name a Portuguese who was a permanent Premier League manager up to 2025-26",
-  "time": 15,
-  "answer_type": "manager",
-  "answers": [
-   {
-    "name": "José Mourinho",
-    "aliases": [
-     "Mourinho",
-     "Jose Mourinho"
-    ],
-    "fame": 6
-   },
-   {
-    "name": "André Villas-Boas",
-    "aliases": [
-     "Villas-Boas",
-     "Villas Boas",
-     "Andre Villas-Boas",
-     "AVB"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Nuno Espírito Santo",
-    "aliases": [
-     "Nuno",
-     "Nuno Espirito Santo"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Marco Silva",
-    "aliases": [
-     "Silva"
-    ],
-    "fame": 4
-   },
-   {
-    "name": "Rúben Amorim",
-    "aliases": [
-     "Amorim",
-     "Ruben Amorim"
-    ],
-    "fame": 5
-   },
-   {
-    "name": "Carlos Carvalhal",
-    "aliases": [
-     "Carvalhal"
-    ],
-    "fame": 2
-   },
-   {
-    "name": "Bruno Lage",
-    "aliases": [
-     "Lage"
-    ],
-    "fame": 2
-   },
-   {
-    "name": "Vítor Pereira",
-    "aliases": [
-     "Pereira",
-     "Vitor Pereira"
-    ],
-    "fame": 2
-   }
-  ],
-  "traps": [
-   {
-    "name": "Paulo Fonseca",
-    "why": "Never managed in the Premier League."
-   },
-   {
-    "name": "Leonardo Jardim",
-    "why": "Never managed in the Premier League."
-   },
-   {
-    "name": "Sérgio Conceição",
-    "why": "Never managed in the Premier League."
-   },
-   {
-    "name": "Carlos Queiroz",
-    "why": "Never a permanent Premier League manager."
-   },
-   {
-    "name": "Jorge Jesus",
-    "why": "Never managed in the Premier League."
+    "name": "New Zealand",
+    "why": "Plays in the OFC, not the AFC."
    }
   ]
  }
