@@ -4093,11 +4093,11 @@ html.polish .pz-count{font-variant-numeric:tabular-nums}
  const pick=i=>B[(Math.floor(Date.now()/864e5)+i)%B.length];
  const go=(b,spot)=>{try{track('banner_click',{banner:b[0],spot})}catch{}};
  const wide=(after,id,i)=>{if(!after||document.getElementById(id))return;const b=pick(i),a=document.createElement('a');a.className='hb';a.id=id;a.href=b[1];a.target='_blank';a.rel='noopener';
-  a.style.backgroundImage=`url(/banners/${b[0]}-wide.webp)`;a.innerHTML=`<span><img class="hb-logo" src="/banners/${b[0]}-logo.svg" alt=""><b>${b[2]}</b><small>${b[3]} →</small></span>`;a.onclick=()=>go(b,id);after.after(a)};
+  a.style.backgroundImage=`url(/banners/${b[0]}-wide.webp)`;a.innerHTML=`<span><img class="hb-logo" src="/banners/${b[0]}-logo.png" alt=""><b>${b[2]}</b><small>${b[3]} →</small></span>`;a.onclick=()=>go(b,id);after.after(a)};
  const scan=()=>{if(ADS_ON||document.body.classList.contains('playing'))return;wide(document.querySelector('.modes:not(.res-modes)'),'hb-home',0);wide(document.querySelector('.res-modes'),'hb-res',1)};
  new MutationObserver(scan).observe(document.body,{childList:true,subtree:true});setTimeout(scan,0);
  if(matchMedia('(min-width:1300px) and (min-height:700px)').matches)setTimeout(()=>{if(ADS_ON)return;['l','r'].forEach((sd,i)=>{const b=pick(i+2),a=document.createElement('a');a.className='hb-side hb-side-'+sd;a.href=b[1];a.target='_blank';a.rel='noopener';
-  a.style.backgroundImage=`url(/banners/${b[0]}-tall.webp)`;a.innerHTML=`<span><img class="hb-logo" src="/banners/${b[0]}-logo.svg" alt=""><b>${b[2]}</b><small>${b[3]} →</small></span>`;a.onclick=()=>go(b,'side-'+sd);document.body.appendChild(a)})},0)})();
+  a.style.backgroundImage=`url(/banners/${b[0]}-tall.webp)`;a.innerHTML=`<span><img class="hb-logo" src="/banners/${b[0]}-logo.png" alt=""><b>${b[2]}</b><small>${b[3]} →</small></span>`;a.onclick=()=>go(b,'side-'+sd);document.body.appendChild(a)})},0)})();
 const ADS_ON=false; // flip to true once AdSense has approved the site (the head script stays in for the review)
 (()=>{if(!ADS_ON)return;const C='ca-pub-9034426912596924';
  const put=(after,slot,id)=>{if(!after||document.getElementById(id))return;const w=document.createElement('div');w.className='ad-box';w.id=id;
