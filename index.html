@@ -4093,11 +4093,11 @@ html.polish .pz-count{font-variant-numeric:tabular-nums}
  const pick=i=>B[(Math.floor(Date.now()/864e5)+i)%B.length];
  const go=(b,spot)=>{try{track('banner_click',{banner:b[0],spot})}catch{}};
  const wide=(after,id,i)=>{if(!after||document.getElementById(id))return;const b=pick(i),a=document.createElement('a');a.className='hb';a.id=id;a.href=b[1];a.target='_blank';a.rel='noopener';
-  a.style.backgroundImage=`url(/banners/${b[0]}-wide.webp)`;a.innerHTML=`<span><b>${b[2]}</b><small>${b[3]} →</small></span>`;a.onclick=()=>go(b,id);after.after(a)};
+  a.style.backgroundImage=`url(/banners/${b[0]}-wide.webp)`;a.innerHTML=`<span><img class="hb-logo" src="/banners/${b[0]}-logo.svg" alt=""><b>${b[2]}</b><small>${b[3]} →</small></span>`;a.onclick=()=>go(b,id);after.after(a)};
  const scan=()=>{if(ADS_ON||document.body.classList.contains('playing'))return;wide(document.querySelector('.modes:not(.res-modes)'),'hb-home',0);wide(document.querySelector('.res-modes'),'hb-res',1)};
  new MutationObserver(scan).observe(document.body,{childList:true,subtree:true});setTimeout(scan,0);
  if(matchMedia('(min-width:1300px) and (min-height:700px)').matches)setTimeout(()=>{if(ADS_ON)return;['l','r'].forEach((sd,i)=>{const b=pick(i+2),a=document.createElement('a');a.className='hb-side hb-side-'+sd;a.href=b[1];a.target='_blank';a.rel='noopener';
-  a.style.backgroundImage=`url(/banners/${b[0]}-tall.webp)`;a.innerHTML=`<span><b>${b[2]}</b><small>${b[3]} →</small></span>`;a.onclick=()=>go(b,'side-'+sd);document.body.appendChild(a)})},0)})();
+  a.style.backgroundImage=`url(/banners/${b[0]}-tall.webp)`;a.innerHTML=`<span><img class="hb-logo" src="/banners/${b[0]}-logo.svg" alt=""><b>${b[2]}</b><small>${b[3]} →</small></span>`;a.onclick=()=>go(b,'side-'+sd);document.body.appendChild(a)})},0)})();
 const ADS_ON=false; // flip to true once AdSense has approved the site (the head script stays in for the review)
 (()=>{if(!ADS_ON)return;const C='ca-pub-9034426912596924';
  const put=(after,slot,id)=>{if(!after||document.getElementById(id))return;const w=document.createElement('div');w.className='ad-box';w.id=id;
@@ -4116,6 +4116,7 @@ body:not(.landing) .ad-side,body.playing .ad-side,.ad-side:has(ins[data-ad-statu
 @media (max-width:1299px),(max-height:700px){.ad-side{display:none}}
 .hb{display:flex;align-items:center;margin:6px 0 22px;aspect-ratio:4/1;background:#0d1838 center/cover no-repeat;border:3px solid #06041a;box-shadow:4px 4px 0 rgba(0,0,0,.35);color:#fff;text-decoration:none;image-rendering:pixelated;transition:transform .16s cubic-bezier(.23,1,.32,1)}
 .hb span,.hb-side span{display:grid;gap:4px;padding:0 4%;max-width:55%}.hb b,.hb-side b{font:400 clamp(20px,4.4vw,34px)/1 'Jersey 15','Jersey 10',monospace;text-shadow:2px 2px 0 #06041a}.hb small,.hb-side small{font:700 clamp(9px,1.5vw,12px)/1.2 Silkscreen,monospace;color:#ffd23f;text-shadow:1px 1px 0 #06041a}
+.hb-logo{width:clamp(22px,4vw,34px);height:auto;image-rendering:pixelated;filter:drop-shadow(2px 2px 0 #06041a)}.hb-side .hb-logo{width:40px;margin:0 auto 4px}
 .hb-side{position:fixed;top:120px;z-index:2;width:160px;height:600px;background:#0d1838 center/cover no-repeat;border:3px solid #06041a;box-shadow:4px 4px 0 rgba(0,0,0,.35);color:#fff;text-decoration:none;display:flex;padding-top:24px}
 .hb-side span{max-width:none;align-content:start;text-align:center;width:100%}.hb-side b{font-size:26px}
 .hb-side-l{right:calc(50% + 450px)}.hb-side-r{left:calc(50% + 450px)}
