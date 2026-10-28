@@ -4115,17 +4115,19 @@ const ADS_ON=false; // flip to true once AdSense has approved the site (the head
  w.innerHTML='<span>Advertisement</span><ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px" data-ad-client="ca-pub-9034426912596924" data-ad-slot="1377742334"></ins>';
  document.body.appendChild(w);try{(window.adsbygoogle=window.adsbygoogle||[]).push({})}catch{}}})();
 </script>
-<style>.ad-box{margin:6px 0 22px;padding:6px;background:#fbf3dc;border:3px solid #06041a;box-shadow:4px 4px 0 rgba(0,0,0,.35)}.ad-box span{display:block;font:700 9px/1 Silkscreen,monospace;letter-spacing:1px;color:#5b5070;margin:0 0 4px}.ad-box:has(ins[data-ad-status=unfilled]){display:none}.ad-side{position:fixed;top:120px;z-index:2;width:172px;padding:6px;background:#fbf3dc;border:3px solid #06041a;box-shadow:4px 4px 0 rgba(0,0,0,.35)}.ad-side span{display:block;font:700 9px/1 Silkscreen,monospace;letter-spacing:1px;color:#5b5070;margin:0 0 4px}
+<style>.ad-box{margin:6px 0 22px;padding:6px;background:#fbf3dc;border:3px solid #06041a;box-shadow:4px 4px 0 rgba(0,0,0,.35)}.ad-box span{display:block;font:700 9px/1 Silkscreen,monospace;letter-spacing:1px;color:#5b5070;margin:0 0 4px}.ad-box:has(ins[data-ad-status=unfilled]){display:none}.ad-side{position:fixed;top:120px;z-index:1;width:172px;padding:6px;background:#fbf3dc;border:3px solid #06041a;box-shadow:4px 4px 0 rgba(0,0,0,.35)}.ad-side span{display:block;font:700 9px/1 Silkscreen,monospace;letter-spacing:1px;color:#5b5070;margin:0 0 4px}
 .ad-side-l{right:calc(50% + 450px)}.ad-side-r{left:calc(50% + 450px)}
 body:not(.landing) .ad-side,body.playing .ad-side,.ad-side:has(ins[data-ad-status=unfilled]){display:none}
 @media (max-width:1299px),(max-height:700px){.ad-side{display:none}}
 .hb{display:flex;align-items:center;margin:6px 0 22px;aspect-ratio:4/1;background:#0d1838 center/cover no-repeat;border:3px solid #06041a;box-shadow:4px 4px 0 rgba(0,0,0,.35);color:#fff;text-decoration:none;image-rendering:pixelated;transition:transform .16s cubic-bezier(.23,1,.32,1)}
 .hb span,.hb-side span{display:grid;gap:4px;padding:0 4%;max-width:55%}.hb b,.hb-side b{font:400 clamp(20px,4.4vw,34px)/1 'Jersey 15','Jersey 10',monospace;text-shadow:2px 2px 0 #06041a}.hb small,.hb-side small{font:700 clamp(9px,1.5vw,12px)/1.2 Silkscreen,monospace;color:#ffd23f;text-shadow:1px 1px 0 #06041a}
 .hb-logo{width:clamp(22px,4vw,34px);height:auto;image-rendering:pixelated;filter:drop-shadow(2px 2px 0 #06041a)}.hb-side .hb-logo{width:40px;margin:0 auto 4px}
-.hb-side{position:fixed;top:120px;z-index:2;width:160px;height:600px;background:#0d1838 center/cover no-repeat;border:3px solid #06041a;box-shadow:4px 4px 0 rgba(0,0,0,.35);color:#fff;text-decoration:none;display:flex;padding-top:24px}
+.hb-side{position:fixed;top:120px;z-index:1;width:160px;height:600px;background:#0d1838 center/cover no-repeat;border:3px solid #06041a;box-shadow:4px 4px 0 rgba(0,0,0,.35);color:#fff;text-decoration:none;display:flex;padding-top:24px}
 .hb-side span{box-sizing:border-box;max-width:none;width:100%;padding:0 10px;align-content:start;justify-items:center;text-align:center}.hb-side b{font-size:24px}.hb-side small{font-size:9px;line-height:1.4;overflow-wrap:anywhere}
 .hb-side-l{right:calc(50% + 450px)}.hb-side-r{left:calc(50% + 450px)}
 body:not(.landing) .hb-side,body.playing .hb-side,body.playing .hb{display:none}
 @media (hover:hover){.hb:hover,.hb-side:hover{transform:translate(-2px,-2px)}}.hb:active,.hb-side:active{transform:translate(2px,2px)}
+/* the dark info band and footer slide over the side banners when you scroll down */
+body:not(.playing):not(.results-view) .seo-info,footer.site{z-index:3}
 </style>
 </body></html>
