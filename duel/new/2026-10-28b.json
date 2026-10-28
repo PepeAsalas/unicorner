@@ -1,0 +1,2218 @@
+[
+ {
+  "id": "d22-name-a-country-that-reached-a-world-cup-semi-final-between-1998-and-2022",
+  "template": 22,
+  "prompt": "Name a country that reached a World Cup semi-final between 1998 and 2022",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Germany",
+    "aliases": [
+     "West Germany"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland",
+     "The Netherlands"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Croatia",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Turkey",
+    "aliases": [
+     "Türkiye",
+     "Turkiye"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "South Korea",
+    "aliases": [
+     "Korea",
+     "Korea Republic",
+     "Republic of Korea"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Sweden",
+    "why": "Reached the semi-finals in 1994, outside the range."
+   },
+   {
+    "name": "Bulgaria",
+    "why": "Semi-finalist in 1994, outside the range."
+   },
+   {
+    "name": "Russia",
+    "why": "Only reached the quarter-finals in 2018."
+   },
+   {
+    "name": "Japan",
+    "why": "Never went beyond the last 16."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-reached-the-euro-semi-finals-between-1996-and-2024",
+  "template": 22,
+  "prompt": "Name a country that reached the Euro semi-finals between 1996 and 2024",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Germany",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Czech Republic",
+    "aliases": [
+     "Czechia",
+     "Czech"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Greece",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Turkey",
+    "aliases": [
+     "Türkiye",
+     "Turkiye"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Russia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Denmark",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Wales",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Croatia",
+    "why": "Never got past the quarter-finals at a Euro in this range."
+   },
+   {
+    "name": "Sweden",
+    "why": "Best result in the range was the quarter-finals in 2004."
+   },
+   {
+    "name": "Belgium",
+    "why": "Lost in the quarter-finals in 2016 and 2020."
+   },
+   {
+    "name": "Switzerland",
+    "why": "Reached the quarter-finals in 2020 and 2024 only."
+   },
+   {
+    "name": "Ukraine",
+    "why": "Reached the quarter-finals in 2020 only."
+   },
+   {
+    "name": "Poland",
+    "why": "Reached the quarter-finals in 2016 only."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-has-won-the-world-cup-up-to-2022",
+  "template": 22,
+  "prompt": "Name a country that has won the World Cup (up to 2022)",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Germany",
+    "aliases": [
+     "West Germany"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   }
+  ],
+  "traps": [
+   {
+    "name": "Netherlands",
+    "why": "Three-time finalist, never champion."
+   },
+   {
+    "name": "Hungary",
+    "why": "Lost the 1954 final."
+   },
+   {
+    "name": "Croatia",
+    "why": "Lost the 2018 final."
+   },
+   {
+    "name": "Czechoslovakia",
+    "why": "Lost two finals (1934, 1962)."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-has-played-in-a-world-cup-final-up-to-2022",
+  "template": 22,
+  "prompt": "Name a country that has played in a World Cup final (up to 2022)",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Germany",
+    "aliases": [
+     "West Germany"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Croatia",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Hungary",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Czechoslovakia",
+    "aliases": [
+     "Czech Republic",
+     "Czechia",
+     "Czech",
+     "Slovakia"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Portugal",
+    "why": "Never reached a World Cup final."
+   },
+   {
+    "name": "Belgium",
+    "why": "Best result was third place in 2018."
+   },
+   {
+    "name": "Austria",
+    "why": "Never reached a World Cup final."
+   },
+   {
+    "name": "Yugoslavia",
+    "why": "Best result was fourth place in 1930 and 1962."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-hosted-a-world-cup-up-to-2022",
+  "template": 22,
+  "prompt": "Name a country that hosted a World Cup up to 2022",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Germany",
+    "aliases": [
+     "West Germany"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Qatar",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Russia",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "South Africa",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Japan",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "South Korea",
+    "aliases": [
+     "Korea",
+     "Korea Republic"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "United States",
+    "aliases": [
+     "USA",
+     "US",
+     "United States of America"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Switzerland",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Netherlands",
+    "why": "Never hosted a World Cup."
+   },
+   {
+    "name": "Portugal",
+    "why": "Never hosted a World Cup."
+   },
+   {
+    "name": "Canada",
+    "why": "Co-hosts of the 2026 tournament, not in the range."
+   },
+   {
+    "name": "China",
+    "why": "Never hosted a World Cup."
+   },
+   {
+    "name": "Colombia",
+    "why": "Was due to host in 1986 but withdrew."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-has-won-the-european-championship-up-to-euro-2024",
+  "template": 22,
+  "prompt": "Name a country that has won the European Championship up to Euro 2024",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Germany",
+    "aliases": [
+     "West Germany"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Denmark",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Greece",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Soviet Union",
+    "aliases": [
+     "USSR",
+     "Russia"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Czechoslovakia",
+    "aliases": [
+     "Czech Republic",
+     "Czechia",
+     "Czech",
+     "Slovakia"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "England",
+    "why": "Lost the finals in 2020 and 2024."
+   },
+   {
+    "name": "Sweden",
+    "why": "Never won the Euros."
+   },
+   {
+    "name": "Yugoslavia",
+    "why": "Lost the 1960 and 1968 finals."
+   },
+   {
+    "name": "Belgium",
+    "why": "Lost the 1980 final."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-has-won-the-copa-america-up-to-2024",
+  "template": 22,
+  "prompt": "Name a country that has won the Copa América up to 2024",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Peru",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Bolivia",
+    "aliases": [],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Ecuador",
+    "why": "Never won the Copa América."
+   },
+   {
+    "name": "Venezuela",
+    "why": "Never won the Copa América."
+   },
+   {
+    "name": "Mexico",
+    "why": "Guest team, finalist in 1993 and 2001, never won."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-has-won-the-africa-cup-of-nations-up-to-2023",
+  "template": 22,
+  "prompt": "Name a country that has won the Africa Cup of Nations up to 2023",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Egypt",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Cameroon",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Nigeria",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Ghana",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Algeria",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Ivory Coast",
+    "aliases": [
+     "Cote d'Ivoire",
+     "Côte d'Ivoire",
+     "Cote dIvoire"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Senegal",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Zambia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Tunisia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "South Africa",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "DR Congo",
+    "aliases": [
+     "Zaire",
+     "Congo DR",
+     "Democratic Republic of Congo",
+     "DRC"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Congo",
+    "aliases": [
+     "Republic of the Congo",
+     "Congo-Brazzaville",
+     "Congo Brazzaville"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Sudan",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Ethiopia",
+    "aliases": [],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Mali",
+    "why": "Finalist in 1972, never champion."
+   },
+   {
+    "name": "Burkina Faso",
+    "why": "Finalist in 2013, never champion."
+   },
+   {
+    "name": "Guinea",
+    "why": "Finalist in 1976, never champion."
+   },
+   {
+    "name": "Togo",
+    "why": "Never won."
+   },
+   {
+    "name": "Angola",
+    "why": "Never won."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-has-won-the-afc-asian-cup-up-to-2023",
+  "template": 22,
+  "prompt": "Name a country that has won the AFC Asian Cup up to 2023",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Japan",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "South Korea",
+    "aliases": [
+     "Korea",
+     "Korea Republic"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Saudi Arabia",
+    "aliases": [
+     "Saudi"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Iran",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Australia",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Qatar",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Iraq",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Kuwait",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Israel",
+    "aliases": [],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "China",
+    "why": "Finalist in 1984 and 2004, never champion."
+   },
+   {
+    "name": "United Arab Emirates",
+    "why": "Finalist in 1996, never champion."
+   },
+   {
+    "name": "Uzbekistan",
+    "why": "Never won."
+   },
+   {
+    "name": "Jordan",
+    "why": "Finalist in 2023, never champion."
+   }
+  ]
+ },
+ {
+  "id": "d18-name-a-club-that-won-the-european-cup-or-champions-league-up-to-2024-25",
+  "template": 18,
+  "prompt": "Name a club that won the European Cup or Champions League up to 2024-25",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Real Madrid",
+    "aliases": [
+     "Real"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "AC Milan",
+    "aliases": [
+     "Milan",
+     "A.C. Milan"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Liverpool",
+    "aliases": [
+     "Liverpool FC"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Bayern Munich",
+    "aliases": [
+     "Bayern",
+     "FC Bayern",
+     "Bayern München",
+     "Bayern Munchen"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "FC Barcelona",
+    "aliases": [
+     "Barcelona",
+     "Barca",
+     "Barça"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Inter Milan",
+    "aliases": [
+     "Inter",
+     "Internazionale",
+     "FC Internazionale"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Manchester United",
+    "aliases": [
+     "Man United",
+     "Man Utd",
+     "Man U"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Ajax",
+    "aliases": [
+     "AFC Ajax"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Juventus",
+    "aliases": [
+     "Juve"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Benfica",
+    "aliases": [
+     "SL Benfica",
+     "Sport Lisboa e Benfica"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Chelsea",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Manchester City",
+    "aliases": [
+     "Man City"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Paris Saint-Germain",
+    "aliases": [
+     "PSG",
+     "Paris SG",
+     "Paris Saint Germain"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Porto",
+    "aliases": [
+     "FC Porto"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Borussia Dortmund",
+    "aliases": [
+     "Dortmund",
+     "BVB"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Nottingham Forest",
+    "aliases": [
+     "Forest",
+     "Notts Forest"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Celtic",
+    "aliases": [
+     "Celtic FC"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Marseille",
+    "aliases": [
+     "Olympique de Marseille",
+     "OM"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Feyenoord",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "PSV Eindhoven",
+    "aliases": [
+     "PSV"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Aston Villa",
+    "aliases": [
+     "Villa"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Hamburg",
+    "aliases": [
+     "Hamburger SV",
+     "HSV"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Steaua Bucharest",
+    "aliases": [
+     "Steaua",
+     "Steaua Bucuresti",
+     "FCSB"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Red Star Belgrade",
+    "aliases": [
+     "Crvena Zvezda",
+     "Red Star",
+     "Crvena zvezda"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Arsenal",
+    "why": "Lost the 2006 final, never won it."
+   },
+   {
+    "name": "Atlético Madrid",
+    "why": "Lost three finals, never won it."
+   },
+   {
+    "name": "Tottenham Hotspur",
+    "why": "Lost the 2019 final; won the Europa League, not this."
+   },
+   {
+    "name": "Valencia",
+    "why": "Lost two finals, never won it."
+   },
+   {
+    "name": "Leverkusen",
+    "why": "Lost the 2002 final, never won it."
+   },
+   {
+    "name": "Monaco",
+    "why": "Lost the 2004 final, never won it."
+   },
+   {
+    "name": "Sevilla",
+    "why": "Won the Europa League, not the European Cup."
+   }
+  ]
+ },
+ {
+  "id": "d17-name-an-english-club-that-won-the-top-flight-league-title-between-1960-61-and-2024-25",
+  "template": 17,
+  "prompt": "Name an English club that won the top-flight league title between 1960-61 and 2024-25",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Liverpool",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Manchester United",
+    "aliases": [
+     "Man United",
+     "Man Utd",
+     "Man U"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Arsenal",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Manchester City",
+    "aliases": [
+     "Man City"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Chelsea",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Everton",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Leeds United",
+    "aliases": [
+     "Leeds"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Tottenham Hotspur",
+    "aliases": [
+     "Tottenham",
+     "Spurs"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Aston Villa",
+    "aliases": [
+     "Villa"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Nottingham Forest",
+    "aliases": [
+     "Forest",
+     "Notts Forest"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Leicester City",
+    "aliases": [
+     "Leicester"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Derby County",
+    "aliases": [
+     "Derby"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Blackburn Rovers",
+    "aliases": [
+     "Blackburn"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Ipswich Town",
+    "aliases": [
+     "Ipswich"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Newcastle United",
+    "why": "Last won the league in 1926-27."
+   },
+   {
+    "name": "Wolverhampton Wanderers",
+    "why": "Last titles were in 1957-58 and 1958-59."
+   },
+   {
+    "name": "Burnley",
+    "why": "Won in 1959-60, just before the range."
+   },
+   {
+    "name": "West Ham United",
+    "why": "Never won the top-flight title."
+   },
+   {
+    "name": "Sheffield Wednesday",
+    "why": "Last won the league in 1929-30."
+   }
+  ]
+ },
+ {
+  "id": "d17-name-an-english-club-that-won-the-fa-cup-between-1990-91-and-2024-25",
+  "template": 17,
+  "prompt": "Name an English club that won the FA Cup between 1990-91 and 2024-25",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Arsenal",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Manchester United",
+    "aliases": [
+     "Man United",
+     "Man Utd",
+     "Man U"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Chelsea",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Liverpool",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Manchester City",
+    "aliases": [
+     "Man City"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Tottenham Hotspur",
+    "aliases": [
+     "Tottenham",
+     "Spurs"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Everton",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Leicester City",
+    "aliases": [
+     "Leicester"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Portsmouth",
+    "aliases": [
+     "Pompey"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Wigan Athletic",
+    "aliases": [
+     "Wigan"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Crystal Palace",
+    "aliases": [
+     "Palace"
+    ],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "Newcastle United",
+    "why": "Last FA Cup win was 1955."
+   },
+   {
+    "name": "West Ham United",
+    "why": "Last FA Cup win was 1980."
+   },
+   {
+    "name": "Aston Villa",
+    "why": "Last FA Cup win was 1957."
+   },
+   {
+    "name": "Millwall",
+    "why": "Lost the 2004 final."
+   },
+   {
+    "name": "Cardiff City",
+    "why": "Welsh club that lost the 2008 final."
+   },
+   {
+    "name": "Stoke City",
+    "why": "Lost the 2011 final."
+   },
+   {
+    "name": "Hull City",
+    "why": "Lost the 2014 final."
+   }
+  ]
+ },
+ {
+  "id": "d17-name-an-english-club-that-won-the-league-cup-between-1990-91-and-2024-25",
+  "template": 17,
+  "prompt": "Name an English club that won the League Cup between 1990-91 and 2024-25",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Manchester United",
+    "aliases": [
+     "Man United",
+     "Man Utd",
+     "Man U"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Liverpool",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Manchester City",
+    "aliases": [
+     "Man City"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Chelsea",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Arsenal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Tottenham Hotspur",
+    "aliases": [
+     "Tottenham",
+     "Spurs"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Aston Villa",
+    "aliases": [
+     "Villa"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Leicester City",
+    "aliases": [
+     "Leicester"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Newcastle United",
+    "aliases": [
+     "Newcastle"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Blackburn Rovers",
+    "aliases": [
+     "Blackburn"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Middlesbrough",
+    "aliases": [
+     "Boro"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Birmingham City",
+    "aliases": [
+     "Birmingham"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Swansea City",
+    "aliases": [
+     "Swansea"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Sheffield Wednesday",
+    "aliases": [
+     "Sheffield Wed",
+     "Wednesday"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Everton",
+    "why": "Lost League Cup finals but never won it."
+   },
+   {
+    "name": "West Ham United",
+    "why": "Lost finals, never won the League Cup."
+   },
+   {
+    "name": "Nottingham Forest",
+    "why": "Last League Cup win was 1990 (outside range)."
+   },
+   {
+    "name": "Bolton Wanderers",
+    "why": "Lost the 2004 final."
+   },
+   {
+    "name": "Wigan Athletic",
+    "why": "Lost the 2006 final."
+   }
+  ]
+ },
+ {
+  "id": "d17-name-a-spanish-club-that-won-the-copa-del-rey-between-2000-01-and-2024-25",
+  "template": 17,
+  "prompt": "Name a Spanish club that won the Copa del Rey between 2000-01 and 2024-25",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "FC Barcelona",
+    "aliases": [
+     "Barcelona",
+     "Barca",
+     "Barça"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Real Madrid",
+    "aliases": [
+     "Real"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Atlético Madrid",
+    "aliases": [
+     "Atletico Madrid",
+     "Atlético",
+     "Atletico"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Sevilla",
+    "aliases": [
+     "Sevilla FC"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Valencia",
+    "aliases": [
+     "Valencia CF"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Real Betis",
+    "aliases": [
+     "Betis"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Athletic Club",
+    "aliases": [
+     "Athletic Bilbao",
+     "Athletic",
+     "Bilbao"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Real Sociedad",
+    "aliases": [
+     "Sociedad"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Real Zaragoza",
+    "aliases": [
+     "Zaragoza"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Deportivo La Coruña",
+    "aliases": [
+     "Deportivo",
+     "Depor",
+     "Deportivo La Coruna"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Mallorca",
+    "aliases": [
+     "RCD Mallorca"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Espanyol",
+    "aliases": [
+     "RCD Espanyol"
+    ],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Villarreal",
+    "why": "Never won the Copa del Rey."
+   },
+   {
+    "name": "Getafe",
+    "why": "Lost the 2007 and 2008 finals."
+   },
+   {
+    "name": "Osasuna",
+    "why": "Lost the 2023 final."
+   },
+   {
+    "name": "Celta Vigo",
+    "why": "Lost the 2001 final, never won it."
+   }
+  ]
+ },
+ {
+  "id": "d17-name-a-german-club-that-won-the-dfb-pokal-between-2000-01-and-2024-25",
+  "template": 17,
+  "prompt": "Name a German club that won the DFB-Pokal between 2000-01 and 2024-25",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Bayern Munich",
+    "aliases": [
+     "Bayern",
+     "FC Bayern",
+     "Bayern München",
+     "Bayern Munchen"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Borussia Dortmund",
+    "aliases": [
+     "Dortmund",
+     "BVB"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Schalke 04",
+    "aliases": [
+     "Schalke"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Werder Bremen",
+    "aliases": [
+     "Werder",
+     "Bremen"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "RB Leipzig",
+    "aliases": [
+     "Leipzig"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Bayer Leverkusen",
+    "aliases": [
+     "Leverkusen",
+     "Bayer 04"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "VfL Wolfsburg",
+    "aliases": [
+     "Wolfsburg"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Eintracht Frankfurt",
+    "aliases": [
+     "Frankfurt",
+     "Eintracht"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "VfB Stuttgart",
+    "aliases": [
+     "Stuttgart"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "1. FC Nürnberg",
+    "aliases": [
+     "Nurnberg",
+     "Nuremberg",
+     "Nürnberg",
+     "FC Nurnberg"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Hamburger SV",
+    "why": "Last DFB-Pokal win was 1987."
+   },
+   {
+    "name": "Borussia Mönchengladbach",
+    "why": "Last DFB-Pokal win was 1995."
+   },
+   {
+    "name": "Hertha BSC",
+    "why": "Lost finals, never won in range."
+   },
+   {
+    "name": "Cottbus",
+    "why": "Lost the 1997 final; not a winner."
+   },
+   {
+    "name": "Union Berlin",
+    "why": "Never won the DFB-Pokal."
+   }
+  ]
+ },
+ {
+  "id": "d17-name-an-italian-club-that-won-the-coppa-italia-between-2000-01-and-2024-25",
+  "template": 17,
+  "prompt": "Name an Italian club that won the Coppa Italia between 2000-01 and 2024-25",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Juventus",
+    "aliases": [
+     "Juve"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Inter Milan",
+    "aliases": [
+     "Inter",
+     "Internazionale"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "AC Milan",
+    "aliases": [
+     "Milan",
+     "A.C. Milan"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Lazio",
+    "aliases": [
+     "SS Lazio"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Napoli",
+    "aliases": [
+     "SSC Napoli"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Roma",
+    "aliases": [
+     "AS Roma"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Fiorentina",
+    "aliases": [
+     "Viola"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Parma",
+    "aliases": [
+     "Parma Calcio"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Bologna",
+    "aliases": [
+     "Bologna FC"
+    ],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "Atalanta",
+    "why": "Lost finals, last won the Coppa Italia in 1963."
+   },
+   {
+    "name": "Torino",
+    "why": "Last Coppa Italia win was 1993."
+   },
+   {
+    "name": "Sampdoria",
+    "why": "Last Coppa Italia win was 1994."
+   },
+   {
+    "name": "Udinese",
+    "why": "Never won the Coppa Italia."
+   },
+   {
+    "name": "Palermo",
+    "why": "Lost the 2011 final."
+   }
+  ]
+ },
+ {
+  "id": "d17-name-a-french-club-that-won-the-coupe-de-france-between-2000-01-and-2024-25",
+  "template": 17,
+  "prompt": "Name a French club that won the Coupe de France between 2000-01 and 2024-25",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Paris Saint-Germain",
+    "aliases": [
+     "PSG",
+     "Paris SG",
+     "Paris Saint Germain"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Lyon",
+    "aliases": [
+     "Olympique Lyonnais",
+     "OL"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Lille",
+    "aliases": [
+     "LOSC",
+     "Lille OSC"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Bordeaux",
+    "aliases": [
+     "Girondins de Bordeaux"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Rennes",
+    "aliases": [
+     "Stade Rennais"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Nantes",
+    "aliases": [
+     "FC Nantes"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Toulouse",
+    "aliases": [
+     "Toulouse FC"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Auxerre",
+    "aliases": [
+     "AJ Auxerre"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Guingamp",
+    "aliases": [
+     "EA Guingamp"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Strasbourg",
+    "aliases": [
+     "RC Strasbourg"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Lorient",
+    "aliases": [
+     "FC Lorient"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Sochaux",
+    "aliases": [
+     "FC Sochaux"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Marseille",
+    "why": "Last Coupe de France win was 1989."
+   },
+   {
+    "name": "Monaco",
+    "why": "Last Coupe de France win was 1991."
+   },
+   {
+    "name": "Nice",
+    "why": "Lost finals; last won in 1997."
+   },
+   {
+    "name": "Lens",
+    "why": "Never won the Coupe de France."
+   }
+  ]
+ },
+ {
+  "id": "d18-name-a-club-that-won-the-uefa-cup-or-europa-league-between-2000-01-and-2024-25",
+  "template": 18,
+  "prompt": "Name a club that won the UEFA Cup or Europa League between 2000-01 and 2024-25",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Sevilla",
+    "aliases": [
+     "Sevilla FC"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Atlético Madrid",
+    "aliases": [
+     "Atletico Madrid",
+     "Atlético",
+     "Atletico"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Chelsea",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Porto",
+    "aliases": [
+     "FC Porto"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Liverpool",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Manchester United",
+    "aliases": [
+     "Man United",
+     "Man Utd",
+     "Man U"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Tottenham Hotspur",
+    "aliases": [
+     "Tottenham",
+     "Spurs"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Valencia",
+    "aliases": [
+     "Valencia CF"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Eintracht Frankfurt",
+    "aliases": [
+     "Frankfurt",
+     "Eintracht"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Atalanta",
+    "aliases": [
+     "Atalanta BC"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Villarreal",
+    "aliases": [
+     "Villarreal CF"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Feyenoord",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Zenit Saint Petersburg",
+    "aliases": [
+     "Zenit",
+     "Zenit St Petersburg",
+     "Zenit St. Petersburg"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Shakhtar Donetsk",
+    "aliases": [
+     "Shakhtar"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "CSKA Moscow",
+    "aliases": [
+     "CSKA"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Arsenal",
+    "why": "Lost the 2000 and 2019 finals; never won it."
+   },
+   {
+    "name": "Roma",
+    "why": "Won the Conference League in 2021-22, lost the 2022-23 Europa League final."
+   },
+   {
+    "name": "Inter Milan",
+    "why": "Won the UEFA Cup in 1991, 1994 and 1998, outside range."
+   },
+   {
+    "name": "Juventus",
+    "why": "Last UEFA Cup win was 1993."
+   },
+   {
+    "name": "Ajax",
+    "why": "Last UEFA Cup win was 1992."
+   },
+   {
+    "name": "Marseille",
+    "why": "Lost finals in 2004 and 2018."
+   }
+  ]
+ },
+ {
+  "id": "d24-name-a-manager-who-won-the-champions-league-between-1992-93-and-2024-25",
+  "template": 24,
+  "prompt": "Name a manager who won the Champions League between 1992-93 and 2024-25",
+  "time": 15,
+  "answer_type": "manager",
+  "answers": [
+   {
+    "name": "Carlo Ancelotti",
+    "aliases": [
+     "Ancelotti",
+     "Carletto"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Pep Guardiola",
+    "aliases": [
+     "Guardiola",
+     "Pep"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "José Mourinho",
+    "aliases": [
+     "Mourinho",
+     "Jose Mourinho"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Zinedine Zidane",
+    "aliases": [
+     "Zidane"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Alex Ferguson",
+    "aliases": [
+     "Ferguson",
+     "Alex Ferguson",
+     "Sir Alex Ferguson"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Jürgen Klopp",
+    "aliases": [
+     "Klopp",
+     "Jurgen Klopp"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Hansi Flick",
+    "aliases": [
+     "Flick",
+     "Hans-Dieter Flick"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Thomas Tuchel",
+    "aliases": [
+     "Tuchel"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Luis Enrique",
+    "aliases": [
+     "Enrique"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Rafael Benítez",
+    "aliases": [
+     "Benitez",
+     "Rafa Benitez",
+     "Rafael Benitez"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Frank Rijkaard",
+    "aliases": [
+     "Rijkaard"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Fabio Capello",
+    "aliases": [
+     "Capello"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Louis van Gaal",
+    "aliases": [
+     "Van Gaal",
+     "Louis Van Gaal"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Marcello Lippi",
+    "aliases": [
+     "Lippi"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Jupp Heynckes",
+    "aliases": [
+     "Heynckes"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Vicente del Bosque",
+    "aliases": [
+     "Del Bosque",
+     "Vicente Del Bosque"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Ottmar Hitzfeld",
+    "aliases": [
+     "Hitzfeld"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Roberto Di Matteo",
+    "aliases": [
+     "Di Matteo",
+     "Roberto Di Matteo"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Raymond Goethals",
+    "aliases": [
+     "Goethals"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Arsène Wenger",
+    "why": "Lost the 2006 final, never won it."
+   },
+   {
+    "name": "Diego Simeone",
+    "why": "Lost two finals, never won it."
+   },
+   {
+    "name": "Mauricio Pochettino",
+    "why": "Lost the 2019 final with Tottenham."
+   },
+   {
+    "name": "Antonio Conte",
+    "why": "Never won the Champions League as a manager."
+   },
+   {
+    "name": "Johan Cruyff",
+    "why": "Won the European Cup in 1992 as manager (before the Champions League rename) - outside the range."
+   }
+  ]
+ }
+]
