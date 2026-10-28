@@ -42,8 +42,29 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 .msg.ok{color:var(--green)}.msg.bad{color:var(--red)}
 .tier{font-family:var(--disp);font-size:46px;text-align:center}
 .cab{position:relative;aspect-ratio:9/13;width:100%;border:4px solid var(--cream);box-shadow:0 0 0 4px var(--ink);overflow:hidden;background:var(--ink)}
+/* desktop: the battle fits the screen height, with the buttons beside it instead of below */
+@media (min-width:900px){
+ body:has(#s-battle:not([hidden])) main{max-width:900px}
+ body:has(#s-battle:not([hidden])) .side{display:none!important}
+ #s-battle:not([hidden]){display:grid;grid-template-columns:auto 300px;gap:20px;align-items:start}
+ #s-battle .cab{height:min(calc(100vh - 130px),780px);width:auto;grid-row:span 4}
+ #s-battle>:not(.cab){grid-column:2}#s-battle .row{flex-direction:column}#s-battle .row>*{width:100%}
+}
 .cab canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
 .small{font-size:18px}
+.rules{display:grid;gap:6px;margin:4px 0 2px}.rl-lbl{font-family:var(--mono);font-size:19px;color:var(--muted)}
+.seg{display:flex;gap:8px;margin-bottom:6px}.seg button{flex:1;width:auto;font-size:22px;padding:7px 4px;background:#120c38;color:var(--cream);box-shadow:0 0 0 3px var(--ink),0 4px 0 3px var(--ink);transition:transform .12s cubic-bezier(.23,1,.32,1)}
+.seg button.on{background:var(--gold);color:var(--ink)}.seg button:active{transform:translateY(2px)}
+.pr-rs.more{display:none}#pr-results.all .pr-rs.more{display:grid}.prog button.pr-re{width:auto;cursor:pointer}
+.prog .pr-more{width:100%;margin-top:8px;padding:6px;font:18px/1 var(--mono);background:none;color:var(--pt);box-shadow:none;text-decoration:underline;text-underline-offset:3px}
+.pr-stack{display:flex;flex-direction:column;gap:16px;min-width:0}
+@media (max-width:980px){.pr-stack{display:contents}.pr-play{order:2}}
+.bot-quit{margin-left:auto;margin-right:12px;font:18px var(--mono);color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+#q-clock{font:400 40px/1 var(--disp)!important;min-width:56px;text-align:right;background:none;padding:0;animation:none}#q-clock.low{color:var(--red)!important}
+.bot-note{font:19px var(--mono);color:var(--gold);text-align:center;margin:0}
+.ad-box{margin-top:14px;padding:6px;border:2px solid var(--ink);background:var(--pp)}.ad-box span{display:block;font:13px var(--mono);color:var(--pm);margin-bottom:4px}.ad-box:has(ins[data-ad-status=unfilled]){display:none}
+.qm-btn{background:#ff7a1a!important}
+.r-rules{font-family:var(--mono);font-size:19px;color:var(--gold);margin:-4px 0 4px}
 .fresh{opacity:.85;margin-top:6px}
 .ib{display:grid;gap:10px;margin:14px 0}.ib-row{display:flex;align-items:center;gap:10px;background:#120c38;padding:10px 12px;border:3px solid var(--ink)}
 .ib-row b{flex:1;font-family:var(--disp);font-size:26px;font-weight:400;color:#fff;line-height:1}.ib-row small{display:block;font-family:var(--mono);font-size:17px;color:var(--muted)}
@@ -104,6 +125,53 @@ dialog.intro[open]{animation:dlgin 220ms cubic-bezier(.23,1,.32,1)}
 .sp-last{display:flex;gap:6px}.sp-last i{width:28px;height:28px;border:2px solid var(--ink);display:grid;place-items:center;font:400 13px var(--mono);font-style:normal}
 .sp-link{width:auto;align-self:flex-start;background:none;box-shadow:none;padding:0;font:400 13px var(--mono);color:var(--ink);text-decoration:underline;text-underline-offset:3px;letter-spacing:0}
 .sp-link:active{transform:none;box-shadow:none}
+
+/* paper: every screen around a duel (create, join, ready, waiting, results-in, errors) in the matchday-programme style of My duels:
+   cream page, a red title band, ink borders. The question screen and the battle keep the dark arena. */
+html:has(body.paper),body.paper{background:#efe3c1}
+body.paper .stadium{display:none!important}
+body.paper main>header h1{color:var(--ink);text-shadow:3px 3px 0 #f2c230}
+body.paper main>header .how-link{color:#5b5070}
+body.paper .card{--pp:#fbf6e6;background:var(--pp);background-image:radial-gradient(rgba(6,4,26,.07) 1px,transparent 1.5px);background-size:10px 10px;color:var(--ink);box-shadow:none;border:4px solid var(--ink);box-shadow:8px 8px 0 rgba(6,4,26,.35);padding:0 18px 20px;overflow:hidden}
+body.paper .card>h2:first-child{position:relative;margin:0 -18px 10px;padding:14px 18px 12px;background:#d7262e;color:#fff;font-size:34px;border-bottom:4px solid var(--ink);text-shadow:3px 3px 0 var(--ink)}
+body.paper .card>h2:first-child::after{content:'';position:absolute;left:0;right:0;bottom:-10px;height:6px;background:repeating-linear-gradient(90deg,var(--ink) 0 12px,#f2c230 12px 24px)}
+body.paper .card p,body.paper .card label,body.paper .rl-lbl,body.paper .pl small,body.paper .qsub{color:#5b5070}
+body.paper .card p b{color:var(--ink)}
+body.paper .card input{background:#fff;color:var(--ink);border-color:var(--ink)}
+body.paper .card input:focus{box-shadow:0 0 0 3px #f2c230}
+body.paper .card button.ghost,body.paper .seg button{background:#fffaf0;color:var(--ink)}
+body.paper .seg button.on{background:#f2c230}
+body.paper .link{background:#fff;color:var(--ink);border-color:var(--ink)}
+body.paper .clock{color:#b03030}body.paper .r-rules{color:#8a5a00}
+body.paper .pl{color:var(--ink)}body.paper .vs b{color:#d7262e;text-shadow:3px 3px 0 var(--ink)}
+body.paper .w-uni b{color:var(--ink)}
+body.paper .small.rec,body.paper .fresh{color:#5b5070}
+/* side panels on wide screens: boxed programme pages with a coloured band, like the My duels columns */
+body.paper .side{top:120px}
+.sp-panel{border-width:3px;box-shadow:4px 4px 0 rgba(6,4,26,.3)}
+.sp-band{display:flex;align-items:center;gap:8px;margin:-14px -14px 4px;padding:8px 12px;background:var(--bc,#d7262e);color:#fff;border-bottom:3px solid var(--ink);font:400 24px/1 var(--disp);text-shadow:2px 2px 0 var(--ink)}
+.sp-band em{margin-left:auto;font:16px/1.1 var(--mono);font-style:normal;letter-spacing:1px;background:var(--ink);padding:2px 7px;text-shadow:none}
+.sp-row.me{background:#f2c230}
+/* night edition, same switch as My duels */
+html:has(body.paper.night),body.paper.night{background:#0b0820}
+body.paper.night main>header h1{color:#f3ead2}
+body.paper.night .card{--pp:#151130;background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1.5px);color:#f3ead2;border-color:#f3ead2;box-shadow:8px 8px 0 #000}
+body.paper.night .card p,body.paper.night .card label,body.paper.night .rl-lbl{color:#b9b0d8}body.paper.night .card p b{color:#f3ead2}
+body.paper.night .card button.ghost,body.paper.night .seg button{background:#201a44;color:#f3ead2}body.paper.night .seg button.on{background:#f2c230;color:var(--ink)}
+body.paper.night .link,body.paper.night .card input{background:#201a44;color:#f3ead2;border-color:#f3ead2}
+body.paper.night .pl,body.paper.night .w-uni b{color:#f3ead2}
+body.paper.night .sp-panel{background:#201a44;color:#f3ead2;border-color:#f3ead2;box-shadow:4px 4px 0 #000}body.paper.night .sp-row{border-top-color:#3d3566}body.paper.night .sp-row.me{color:var(--ink)}
+body.paper.night .sp-wdl,body.paper.night .sp-wdl div{border-color:#f3ead2}body.paper.night .sp-link{color:#f3ead2}body.paper.night .sp-wdl b:not([style]){color:#f3ead2}
+body.paper .w-uni{margin-top:22px}.sp-panel.dark{box-shadow:4px 4px 0 rgba(6,4,26,.3)}body.paper.night .clock{color:#ff8a8a}body.paper.night .r-rules{color:#f2c230}
+
+/* bot picker: chess.com-style list of practice bots */
+dialog.bots{width:min(440px,94vw);max-height:88vh;overflow:auto;padding:16px;background:#fbf6e6;color:#06041a;border:4px solid #06041a;box-shadow:8px 8px 0 rgba(6,4,26,.4)}
+dialog.bots::backdrop{background:rgba(6,4,26,.6)}
+.bots .bx{position:absolute;right:10px;top:10px;width:36px;height:36px;padding:0;font-size:18px;background:#fffaf0;color:#06041a}
+.b-hd{display:flex;gap:10px;align-items:center;margin:0 40px 6px 0}.b-hd img{width:56px;height:56px;border:3px solid #06041a}.b-hd p{font:600 14px/1.3 Barlow,sans-serif;color:#06041a;background:#fff;border:2px solid #06041a;padding:8px}
+.bots h3{display:flex;justify-content:space-between;align-items:baseline;font:400 24px/1 var(--disp);margin:14px 0 6px;color:#d7262e}.bots h3 em{font:16px var(--mono);font-style:normal;color:#5b5070}
+.b-row{display:grid;grid-template-columns:52px 1fr auto;gap:10px;align-items:center;text-align:left;width:100%;margin:0 0 6px;padding:6px;background:#fff;color:#06041a;box-shadow:0 0 0 3px #06041a,0 4px 0 3px #06041a;font:inherit}
+.b-row img{width:52px;height:52px;border:2px solid #06041a}.b-row b{display:block;font:400 22px/1 var(--disp)}.b-row small{font:600 12px/1.2 Barlow,sans-serif;color:#5b5070}.b-row i{font:400 24px var(--disp);font-style:normal;color:#b8860b}
 [hidden]{display:none!important}
 /* waiting: your unicorn nods off until the rival plays */
 .w-uni{position:relative;width:144px;height:120px;margin:4px auto 0}
@@ -114,7 +182,102 @@ dialog.intro[open]{animation:dlgin 220ms cubic-bezier(.23,1,.32,1)}
 @media (prefers-reduced-motion:reduce){.w-uni i,.w-uni b{animation:none}.w-uni b{opacity:1}.w-uni b:nth-of-type(2){transform:translate(12px,-22px)}.w-uni b:nth-of-type(3){transform:translate(24px,-46px)}}
 /* question feedback: the clock thumps in the last five seconds */
 .clock.thump{animation:thump .2s cubic-bezier(.23,1,.32,1)}@keyframes thump{from{scale:1.25}}
-</style></head><body><script>/* arrived from Unicorner on the gallop: the gold curtain it pulled across slides away */
+
+/* ---------- My duels: the matchday programme (cream paper, red masthead) ---------- */
+html:has(body.prog-on),body.prog-on{background:#efe3c1}body.prog-on .x-exit{display:none}body.prog-on .stadium,body.prog-on .side{display:none!important}body.prog-on main{max-width:1180px}
+body.prog-on main>header:not(.pr-mast){display:none}
+.prog{--pp:#fbf6e6;--pc:#fffaf0;--pl:#b9ad8c;--pm:#5b5070;--pg:#fff3c4;--pdot:rgba(6,4,26,.07);--pt:#06041a;background:var(--pp);background-image:radial-gradient(var(--pdot) 1px,transparent 1.5px);background-size:10px 10px;color:var(--pt);border:4px solid var(--ink);box-shadow:8px 8px 0 rgba(6,4,26,.35);font-family:Barlow,var(--ui)}
+.pr-mast{background:#d7262e;color:#fff;padding:12px 18px;border-bottom:4px solid var(--ink);display:flex;align-items:center;gap:12px;position:relative;margin:0;min-height:0}
+.pr-mast::after{content:'';position:absolute;left:0;right:0;bottom:-12px;height:6px;background:repeating-linear-gradient(90deg,var(--ink) 0 12px,#f2c230 12px 24px)}
+.pr-mast b{display:block;font:400 42px/1 var(--disp);text-shadow:3px 3px 0 var(--ink)}.pr-mast small{font:16px/1 var(--mono);letter-spacing:1px}.pr-mast a{color:#fff}
+.pr-me{width:64px;height:54px;flex:none;background:center/contain no-repeat;image-rendering:pixelated}
+.pr-iss{margin-left:auto;text-align:right;font:18px/1.2 var(--mono)}
+.pr-cols{display:grid;grid-template-columns:300px 1fr 290px;gap:16px;align-items:start;padding:24px 16px 18px}
+.pr-pg{min-width:0;border:3px solid var(--ink);background:var(--pc);box-shadow:4px 4px 0 rgba(6,4,26,.3)}
+.pr-band{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--bc);color:#fff;border-bottom:3px solid var(--ink)}
+.pr-band b{font:400 28px/1 var(--disp);text-shadow:2px 2px 0 var(--ink)}
+.pr-band span{margin-left:auto;font:18px/1.1 var(--mono);letter-spacing:1px;background:var(--ink);padding:2px 7px}.pr-band span:empty{display:none}
+.pr-in{padding:12px}
+.pr-lbl{font:700 11px/1 Barlow,sans-serif;letter-spacing:1.5px;text-transform:uppercase;color:var(--pm);margin:16px 0 7px}.pr-in>.pr-lbl:first-child,.pr-in>div:first-child>.pr-lbl:first-child{margin-top:0}
+.pr-stat{display:grid;grid-template-columns:repeat(4,1fr);border:2px solid var(--ink);background:var(--pp)}
+.pr-stat div{padding:6px 2px;text-align:center;border-left:1px dashed var(--pl)}.pr-stat div:first-child{border-left:0}
+.pr-stat b{display:block;font:400 26px/1 var(--disp)}.pr-stat small{font:700 10px Barlow,sans-serif;letter-spacing:1px;text-transform:uppercase;color:var(--pm)}
+.pr-card{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:10px;border:2px solid var(--ink);margin-bottom:8px;background:var(--pp)}
+.pr-go{display:flex;gap:6px}.pr-who small{display:inline}
+.pr-card.hot{background:#fff1ee;box-shadow:inset 0 0 0 2px #d7262e}
+.pr-card .pr-uni{width:52px;height:44px;border:2px solid var(--ink);background-color:#fff;background-size:90%}
+.pr-pill{display:inline-block;font:700 10px/1 Barlow,sans-serif;letter-spacing:1px;text-transform:uppercase;padding:3px 6px;color:#fff;background:var(--sc);margin-bottom:4px}
+.prog .pr-rm{display:inline;width:auto;padding:0;margin-left:4px;font:600 12px Barlow,sans-serif;letter-spacing:0;color:var(--pm);background:none;box-shadow:none;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.prog .pr-wl{width:auto;padding:0;font:700 13px Barlow,sans-serif;letter-spacing:0;color:var(--pt);background:none;box-shadow:none;text-decoration:underline;text-underline-offset:3px}
+.pr-sec{display:none;justify-content:space-between;align-items:baseline;font:20px/1 var(--mono);letter-spacing:1px;border-bottom:2px solid var(--ink);padding-bottom:4px;margin:20px 0 10px}.pr-pg>.pr-sec:first-child,.pr-p>.pr-sec:first-child{margin-top:0}
+.pr-note{font:600 14px/1.35 Barlow,sans-serif;color:var(--pm);margin:8px 0 0}
+/* division pyramid: the leagues stacked like a real football pyramid, your unicorn standing on its row */
+.pyr{display:grid;justify-items:center;gap:4px}
+.pyr-row{position:relative;display:flex;align-items:center;justify-content:center;gap:6px;height:30px;border:2px solid var(--ink);background:color-mix(in srgb,var(--c) 22%,var(--pp));color:var(--pt);font:17px/1 var(--mono);letter-spacing:1px}
+.pyr-row b{font-weight:400}
+.pyr-row.past{background:color-mix(in srgb,var(--c) 40%,var(--pp))}
+.pyr-row.on{height:58px;flex-wrap:wrap;align-content:center;background:var(--c);color:#fff;box-shadow:0 4px 0 var(--ink);text-shadow:2px 2px 0 var(--ink);z-index:1}
+.pyr-row.on b{font:400 24px/1 var(--disp);letter-spacing:.02em;width:100%;text-align:center;padding-left:46px}
+.pyr-row.on .pr-uni{position:absolute;left:8px;bottom:6px;width:46px;height:38px}
+.pyr-bar{position:absolute;left:62px;right:12px;bottom:6px;height:7px;border:2px solid var(--ink);background:rgba(6,4,26,.35)}.pyr-bar i{display:block;height:100%;background:#f2c230}
+.pyr-row.on b{margin-bottom:8px}
+.pr-uni{display:inline-block;width:52px;height:44px;flex:none;background:center/contain no-repeat;image-rendering:pixelated}.pr-uni.flip{transform:scaleX(-1)}
+.pr-form{display:flex;gap:6px}.pr-form i{width:30px;height:30px;display:grid;place-items:center;border:2px solid var(--ink);font:400 20px var(--disp);font-style:normal;color:#fff}
+.pr-form .w,.pr-rs .w{background:#1d7a45}.pr-form .l,.pr-rs .l{background:#d7262e}.pr-form .dr,.pr-rs .dr{background:#6b6878}.pr-rs .x{background:var(--pl)}
+.pr-kv{width:100%;border-collapse:collapse}.pr-kv td{padding:5px 0;border-bottom:1px dashed var(--pl);font:600 15px Barlow,sans-serif}.pr-kv td:last-child{text-align:right;font:400 24px var(--disp)}
+.pr-pod{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;align-items:end;text-align:center;font:16px var(--mono)}
+.pr-pod>div{border:2px solid var(--ink);background:var(--pc);padding:6px 2px;display:grid;justify-items:center}.pr-pod .p1{padding-top:14px;background:var(--pg)}.pr-pod em{font:400 18px var(--disp);font-style:normal;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pr-pod .pr-uni{width:40px;height:34px}
+.pr-fx{position:relative;display:grid;grid-template-columns:56px 1fr auto;gap:12px;align-items:center;padding:10px 26px 10px 0;border-bottom:1px dashed var(--pl)}
+.pr-fx.hot{background:linear-gradient(90deg,rgba(215,38,46,.12),transparent)}
+.pr-fx .pr-uni{width:56px;height:47px;border:2px solid var(--ink);background-color:#fff;background-size:90%}
+.pr-who b{display:block;font:400 26px/1 var(--disp)}.pr-who small{font:600 13px Barlow,sans-serif;color:var(--pm)}
+.pr-act{display:grid;gap:6px;justify-items:end}.pr-btns{display:flex;gap:6px}
+.prog button{font-size:20px;padding:6px 12px;box-shadow:0 0 0 3px var(--ink),0 4px 0 3px var(--ink)}.prog button.ghost{background:var(--pc);color:var(--ink)}
+.prog .ib-x{position:absolute;right:0;top:12px;width:22px;height:22px;padding:0;font-size:14px;background:none;box-shadow:none;color:#8a7a55}
+.stamp{font:17px/1 var(--mono);letter-spacing:1px;padding:4px 6px;border:2px solid currentColor;transform:rotate(-5deg);display:inline-block;white-space:nowrap}
+.stamp.st-go{color:#d7262e}.stamp.st-wt{color:#6b6878}.stamp.st-nw{color:#1f5fd6}.stamp.st-ok{color:#1d7a45}
+.pr-rs{display:grid;grid-template-columns:30px 1fr auto auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--pl)}
+.pr-rs .r{width:30px;height:30px;display:grid;place-items:center;border:2px solid var(--ink);font:400 20px var(--disp);color:#fff}
+.pr-rs-t b{display:block;font:400 22px/1 var(--disp)}.pr-rs-t small{font:600 12px Barlow,sans-serif;color:var(--pm)}
+.pr-re{font:18px var(--mono);color:var(--ink);background:#f2c230;border:2px solid var(--ink);box-shadow:0 3px 0 var(--ink);padding:4px 8px;text-decoration:none}
+.pr-tbl{width:100%;border-collapse:collapse;font:600 14px Barlow,sans-serif}.pr-tbl td{padding:4px 3px;border-bottom:1px dashed var(--pl)}.pr-tbl td:first-child{font:400 19px var(--disp);width:26px}.pr-tbl td:last-child{text-align:right;font:400 19px var(--disp)}
+.pr-tbl tr.zone td{border-bottom:2px solid #1d7a45}.pr-tbl tr.me td{background:#f2c230;font-weight:800}
+.pr-medal{font:16px var(--mono);color:#1d7a45;margin:6px 0 0}
+.pr-news{background:var(--pc);border:2px solid var(--ink);padding:10px;font:600 14px/1.35 Barlow,sans-serif}.pr-news b{display:block;font:400 22px/1 var(--disp);margin-bottom:4px}
+.prog #ib-new{width:100%}.prog .ib-off{color:var(--ink);font:600 14px Barlow,sans-serif;margin:14px 0 0}
+.pr-tabs{display:none}
+@media (max-width:980px){
+ .pr-cols{display:flex;flex-direction:column;align-items:stretch;gap:12px;padding:12px 10px}#s-inbox .pr-mast{padding-right:58px;flex-wrap:nowrap}#s-inbox .pr-mode{position:absolute;right:10px;top:10px;width:36px;height:36px;margin:0;display:grid;place-items:center;line-height:1}.pr-mast b{font-size:30px}.pr-me{width:48px;height:40px}.pr-iss{display:none}.pr-mast small{font-size:13px}
+ .pr-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:24px 10px 0}.pr-tabs button{min-width:0;font-size:19px;padding:8px 4px;background:var(--pc);box-shadow:0 0 0 3px var(--ink),0 3px 0 3px var(--ink);transform:none!important}.pr-tabs button.on{background:#f2c230}
+ .pr-tabs button i{font:15px/1 var(--mono);font-style:normal;margin-left:5px;background:#d7262e;color:#fff;padding:1px 5px;vertical-align:2px}
+ #s-inbox .pr-pg{display:none}#s-inbox:not([data-tab]) .pr-pg[data-pg=m],#s-inbox[data-tab=m] .pr-pg[data-pg=m],#s-inbox[data-tab=y] .pr-pg[data-pg=y],#s-inbox[data-tab=l] .pr-pg[data-pg=l]{display:block}
+ .pr-card{grid-template-columns:auto 1fr}.pr-card>.pr-go{grid-column:1/-1;display:flex;gap:6px}.pr-card>.pr-go button{flex:1}
+ body.prog-on main{padding-left:10px;padding-right:10px}
+}
+
+/* dark mode: night-edition programme. Follows the device; the moon/sun button in the masthead overrides it */
+.pr-mode{margin-left:10px;width:40px;height:40px;padding:0!important;font-size:20px!important;background:rgba(0,0,0,.25)!important;color:#fff!important;box-shadow:0 0 0 2px #fff!important;flex:none}
+.pr-mode:active{transform:scale(.94)!important}
+body.prog-on.night,html:has(body.prog-on.night){background:#0b0820}
+body.prog-on.night .prog{--pp:#151130;--pc:#201a44;--pl:#3d3566;--pm:#b9b0d8;--pg:#3a3010;--pdot:rgba(255,255,255,.05);--pt:#f3ead2;box-shadow:8px 8px 0 #000}
+body.prog-on.night .pr-sec{border-color:#f3ead2}
+body.prog-on.night .pr-pg+.pr-pg,body.prog-on.night .pr-tabs+.pr-pg{border-left-color:#f3ead2}
+body.prog-on.night .pyr-row:not(.on){color:#f3ead2;border-color:#f3ead2;background:color-mix(in srgb,var(--c) 35%,#151130)}
+body.prog-on.night .pyr-row.past{background:color-mix(in srgb,var(--c) 55%,#151130)}
+body.prog-on.night .pr-fx .pr-uni{background-color:#2a2350;border-color:#f3ead2}
+body.prog-on.night .prog button.ghost,body.prog-on.night .pr-tabs button{background:#201a44;color:#f3ead2}
+body.prog-on.night .pr-tabs button.on{background:#f2c230;color:#06041a}
+body.prog-on.night .pr-news,body.prog-on.night .pr-pod>div{border-color:#f3ead2}
+body.prog-on.night .pr-tbl tr.me td{color:#06041a}
+body.prog-on.night .stamp.st-go{color:#ff6b6b}body.prog-on.night .stamp.st-wt{color:#b9b0d8}body.prog-on.night .stamp.st-nw{color:#7fb2ff}body.prog-on.night .stamp.st-ok{color:#5fe08a}
+body.prog-on.night .pr-medal{color:#5fe08a}body.prog-on.night .pr-tbl tr.zone td{border-bottom-color:#5fe08a}
+body.prog-on.night .pr-pg,body.prog-on.night .pr-card,body.prog-on.night .pr-stat,body.prog-on.night .pr-card .pr-uni{border-color:#f3ead2}body.prog-on.night .pr-card .pr-uni{background-color:#2a2350}
+body.prog-on.night .pr-card.hot{background:#3a1626;box-shadow:inset 0 0 0 2px #ff6b6b}body.prog-on.night .pr-pg{box-shadow:4px 4px 0 #000}
+body.prog-on.night .pr-fx.hot{background:linear-gradient(90deg,rgba(255,107,107,.18),transparent)}
+body.prog-on.night .prog .ib-x{color:#b9b0d8}body.prog-on.night .prog .ib-off{color:#f3ead2}
+@media (prefers-reduced-motion:no-preference){.prog,.prog *{transition:background-color .2s ease,color .2s ease,border-color .2s ease}}
+</style><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9034426912596924" crossorigin="anonymous"></script>
+</head><body><script>/* arrived from Unicorner on the gallop: the gold curtain it pulled across slides away */
 (()=>{let on=false;try{on=sessionStorage.getItem('uc-gallop')==='1';sessionStorage.removeItem('uc-gallop')}catch{}if(!on||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
  const c=document.createElement('div');c.style.cssText='position:fixed;inset:0;z-index:10000;background:#ffd23f;pointer-events:none';document.body.appendChild(c);
  const off=()=>{if(!c.animate)return c.remove();c.animate([{clipPath:'inset(0 0 0 0)'},{clipPath:'inset(0 0 0 100%)'}],{duration:300,easing:'cubic-bezier(.23,1,.32,1)',fill:'forwards'}).finished.then(()=>c.remove(),()=>c.remove())};
@@ -128,20 +291,55 @@ dialog.intro[open]{animation:dlgin 220ms cubic-bezier(.23,1,.32,1)}
  <section id="s-home" class="card" hidden>
   <h2 id="h-title">CHALLENGE A MATE</h2>
   <label for="nm">Your name<input id="nm" maxlength="16" autocomplete="nickname" placeholder="e.g. Pepo"></label>
+  <div class="rules"><span class="rl-lbl">Questions per round</span><div class="seg" id="r-per" role="radiogroup" aria-label="Questions per round"><button type="button" data-v="3">3</button><button type="button" data-v="5">5</button><button type="button" data-v="15">All 15</button></div>
+   <span class="rl-lbl">Seconds per question</span><div class="seg" id="r-secs" role="radiogroup" aria-label="Seconds per question"><button type="button" data-v="10">10</button><button type="button" data-v="15">15</button><button type="button" data-v="20">20</button><button type="button" data-v="30">30</button></div></div>
   <button id="create">Create duel</button>
-  <p class="small">You get a link to send. You both start on 300 HP and play rounds of five questions, 15 seconds each, then watch the battle. Keep going until someone is KO'd.</p>
+  <p class="small" id="home-rules">You get a link to send. You both start on 300 HP and play rounds of 5 questions, 15 seconds each, then watch the battle. Keep going until someone is KO'd.</p>
   <p class="small fresh">🆕 New duel questions every week. The bank keeps growing, so rematches stay fresh.</p>
   <p class="small rec" id="rec1" hidden></p>
+  <button class="qm-btn" id="h-quick" hidden style="margin-top:12px">⚡ Quick match</button>
+  <button class="ghost" id="h-bots" style="margin-top:12px">🤖 Practice vs bots</button>
   <button class="ghost" id="to-inbox" hidden style="margin-top:12px">My duels</button>
  </section>
- <section id="s-inbox" class="card" hidden>
-  <h2>MY DUELS</h2>
-  <details class="sz" id="sz" hidden><summary id="sz-sum"></summary><div id="sz-body"></div></details>
-  <div class="ib-tabs"><button id="ib-t0" class="on">Active</button><button id="ib-t1">Archive</button></div>
-  <div id="ib-list" class="ib"></div>
-  <label class="ib-off"><input type="checkbox" id="ib-allow"> Let other players challenge me</label>
-  <button id="ib-new">+ New duel</button>
-  <button class="ghost" onclick="location.href='/'">← Back to Unicorner</button>
+ <section id="s-inbox" class="prog" hidden>
+  <header class="pr-mast"><i class="pr-me" id="pr-me"></i><div><small>OFFICIAL MATCHDAY PROGRAMME · <a href="/">← UNICORNER</a></small><b id="pr-title">My duels</b></div><div class="pr-iss" id="pr-iss"></div><button type="button" class="pr-mode" id="pr-mode" aria-label="Switch dark mode"></button></header>
+  <nav class="pr-tabs" id="pr-tabs"><button data-t="m" class="on">Matches<i id="pr-tab-n" hidden></i></button><button data-t="y">You</button><button data-t="l">League</button></nav>
+  <div class="pr-cols">
+   <div class="pr-pg" data-pg="y" style="--bc:#1d7a45">
+    <div class="pr-band"><b>You</b><span id="pr-div-r"></span></div>
+    <div class="pr-in">
+     <div class="pr-lbl">Division</div><div class="pyr" id="pr-pyr"></div>
+     <div class="pr-lbl">Form · last 5</div><div class="pr-form" id="pr-form"></div>
+     <div class="pr-lbl">All-time</div><div class="pr-stat" id="pr-rec"></div>
+     <div id="pr-hof-w"><div class="pr-lbl">Hall of fame · <span id="pr-hof-m"></span></div><div class="pr-pod" id="pr-hof"></div></div>
+    </div>
+   </div>
+   <div class="pr-pg pr-mid" data-pg="m" style="--bc:#d7262e">
+    <div class="pr-band"><b>Matches</b><span id="pr-fx-n"></span></div>
+    <div class="pr-in"><div id="ib-list"></div>
+     <div class="pr-lbl">Results</div><div id="pr-results"></div>
+    </div>
+   </div>
+   <div class="pr-stack">
+   <div class="pr-pg pr-play" data-pg="m" style="--bc:#ff7a1a">
+    <div class="pr-band"><b>Play</b></div>
+    <div class="pr-in">
+     <button class="qm-btn" id="ib-quick">⚡ Quick match</button><p class="pr-note" style="margin:6px 0 12px;font:17px/1.15 var(--mono)">Paired with a player near your rating. Not live: play your round, your rival turns up in Matches.</p>
+     <button id="ib-new" class="ghost">+ Challenge a mate</button>
+     <button class="ghost" id="ib-bots" style="margin-top:12px">🤖 Practice vs bots</button>
+     <label class="ib-off"><input type="checkbox" id="ib-allow"> Let other players challenge me</label>
+    </div>
+   </div>
+   <div class="pr-pg" data-pg="l" style="--bc:#b8860b">
+    <div class="pr-band"><b>League</b><span id="pr-left"></span></div>
+    <div class="pr-in">
+     <div class="pr-lbl"><span id="pr-tb-m"></span> table</div><table class="pr-tbl" id="pr-table"></table><p class="pr-note">Top 3 win a season medal</p>
+     <div class="pr-lbl">Team news</div><div class="pr-news" id="pr-news"></div><div class="ad-box" hidden><span>Advertisement</span><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9034426912596924" data-ad-slot="8893978111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+
+    </div>
+   </div>
+   </div>
+  </div>
  </section>
  <section id="s-join" class="card" hidden>
   <div class="vs"><div class="pl" id="j-p1"></div><b>VS</b><div class="pl"><i id="j-me"></i>YOU</div></div>
@@ -152,13 +350,14 @@ dialog.intro[open]{animation:dlgin 220ms cubic-bezier(.23,1,.32,1)}
  <section id="s-ready" class="card" hidden>
   <h2 id="r-title">YOUR DUEL IS READY</h2>
   <p class="clock" id="r-clock" hidden></p>
+  <p class="r-rules" id="r-rules"></p>
   <p>Send this link to your mate:</p>
   <div class="link" id="r-link"></div>
   <div class="row"><button id="copy" class="ghost">Copy link</button><button id="go">Play round 1</button></div>
   <button class="ghost back" style="margin-top:14px">← Back to Unicorner</button>
  </section>
  <section id="s-play" class="card" hidden>
-  <div class="qhead"><span class="chip" id="q-n">Q1 OF 5</span><span class="clock" id="q-clock">15</span></div>
+  <div class="qhead"><span class="chip" id="q-n">Q1 OF 5</span><a class="bot-quit" id="q-quit" href="duel.html" hidden>← Leave</a><span class="clock" id="q-clock">15</span></div>
   <div class="bar"><i id="q-bar" style="width:100%"></i></div>
   <div class="qtext" id="q-text"></div><div class="qsub" id="q-sub"></div>
   <form id="q-form" autocomplete="off"><input id="q-in" placeholder="Type your answer" autocapitalize="words" spellcheck="false" enterkeyhint="send"><button type="submit" id="q-go" class="go">Enter ⏎</button></form>
@@ -179,6 +378,7 @@ dialog.intro[open]{animation:dlgin 220ms cubic-bezier(.23,1,.32,1)}
   <button class="ghost back" style="margin-top:14px">← Back to Unicorner</button>
  </section>
  <section id="s-battle" hidden>
+  <p class="bot-note" id="bot-note" hidden>Practice: your rating didn't change.</p>
   <div class="cab"><canvas id="bc" width="540" height="780" aria-label="Duel battle replay"></canvas></div>
   <div class="card fb" id="fb" hidden><p><b>How was the duel?</b> It's new, so tell us.</p>
    <div class="row"><button class="ghost" data-fb="up">👍 Loved it</button><button class="ghost" data-fb="down">👎 Meh</button></div>
@@ -201,7 +401,7 @@ dialog.intro[open]{animation:dlgin 220ms cubic-bezier(.23,1,.32,1)}
 <script src="duel/battle.js"></script>
 <script>
 const SB_URL="https://yujhjepukzdahsppntua.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1amhqZXB1a3pkYWhzcHBudHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2NDMzNDcsImV4cCI6MjEwNTIxOTM0N30.YIOdtL7tJnNLPFPy19QuXe6w3Dcnz6Xedw0tFGdV_CE";
-const $=id=>document.getElementById(id),SECS=15;
+const $=id=>document.getElementById(id);let SECS=15,PER=5; // per-duel rules (duel_rules); old duels and a missing RPC fall back to 5 a round, 15 seconds
 const PTS=[10,30,60,85,100],FAME_V1={6:10,5:10,4:30,3:60,2:85,1:100},FAME_V2={6:10,5:30,4:60,3:60,2:85,1:100};
 const TIER={10:'TAP-IN',30:'HEADER',60:'VOLLEY',85:'BICYCLE KICK',100:'SCREAMER'},TCOL={10:'#cfd8e6',30:'#7fe0a8',60:'#b48cff',85:'#ff7ac8',100:'#ffd23f'};
 const ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch{return null}};
@@ -218,11 +418,34 @@ async function userToken(){let x;try{x=JSON.parse(localStorage.getItem('uc-playe
  if(Date.now()>(x.exp||0)-60000){try{const r=await fetch(SB_URL+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:x.refresh_token})});const j=await r.json();if(!r.ok||!j.access_token)return null;
   x={...x,access_token:j.access_token,refresh_token:j.refresh_token||x.refresh_token,exp:Date.now()+Math.max(60,(+j.expires_in||3600))*1000};localStorage.setItem('uc-player-session',JSON.stringify(x))}catch{return null}}return x.access_token}
 // a stale league login (expired or revoked token) must not break the duel: on 401 retry signed out, and drop the dead session
-const rpc=async(fn,args)=>{const ut=await userToken();const go=tok=>fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+(tok||SB_KEY),'Content-Type':'application/json'},body:JSON.stringify(args)});
+// ── practice bots (like chess.com): a bot duel lives only on this device and never touches your rating ──
+const BOTS=[['Sunday League',[['uncle-dave','Uncle Dave',600,.08,'mud',"Back in my day we didn't need answers."],['kid-kevin','Kid Kevin',700,.14,'candy','I know EVERY player. Probably.'],['nan-pat','Nan Pat',800,.2,'tartan',"I've watched every match since 1958, dear."]]],
+ ['Non-League',[['big-sal','Big Sal',900,.3,'hoops','I head the ball. I head the questions.'],['dazza','Dazza',1000,.38,'retro','Pub quiz champion three years running.'],['coach-bev','Coach Bev',1100,.46,'ref','Fundamentals first. Then we win.']]],
+ ['Championship',[['rico-flash','Rico Flash',1200,.56,'fire','Fast feet, faster answers.'],['the-professor','The Professor',1300,.64,'checks','I have a spreadsheet for this.'],['ice-keeper-ingrid','Ice Keeper Ingrid',1400,.72,'ice','Nothing gets past me.']]],
+ ['Legends',[['el-maestro','El Maestro',1500,.8,'royal','Football is an art. So is this.'],['the-wall','The Wall',1650,.87,'shadow','You shall not pass.'],['the-unicorn-whisperer','The Unicorn Whisperer',1800,.94,'galaxy','I know the answers nobody gives.']]]];
+const botOf=id=>BOTS.flatMap(g=>g[1]).find(b=>b[0]===id);
+const isBot=c=>/^BOT-/.test(c||'');
+try{for(const k of Object.keys(localStorage))if(k.startsWith('uc-bot-')){const v=JSON.parse(localStorage.getItem(k));if(!v||Date.now()-(v.at||0)>7*864e5)localStorage.removeItem(k)}}catch{} // bot duels older than a week
+const botGet=c=>{try{return JSON.parse(localStorage.getItem('uc-bot-'+c))}catch{return null}},botPut=(c,v)=>{try{localStorage.setItem('uc-bot-'+c,JSON.stringify(v))}catch{}};
+async function botPicks(b,ids){const bk=await bank(),sk=b[3];return ids.map(id=>{const q=bk[id];if(!q||Math.random()<.5-.42*sk)return[null,0];
+ const a=q.answers.map(x=>[x.name,FAME_V2[x.fame]||60]),w=a.map(([,p])=>Math.pow(p,4*sk-1.6)),t=w.reduce((x,y)=>x+y,0);let r=Math.random()*t;for(let i=0;i<a.length;i++){r-=w[i];if(r<=0)return a[i]}return a[0]})}
+function botOver(h,n){return n>0&&(h[0]===0||h[1]===0||(n>=15&&h[0]!==h[1])||n>=20)}
+async function botRpc(fn,a){const d=botGet(a.p_code);if(!d)return null;const b=botOf(d.bot);
+ if(fn==='duel_rules')return{per:d.per,secs:d.secs};
+ if(fn==='duel_submit'){const n=d.me.length;d.me=d.me.concat(a.p_picks);d.bp=d.bp.concat(await botPicks(b,d.qset.slice(n,n+a.p_picks.length)));botPut(a.p_code,d);return null}
+ if(fn==='duel_get'){const sh=Math.min(d.me.length,d.bp.length),hp=hpAfter(d.me,d.bp,sh);
+  return{code:a.p_code,qset:d.qset,me:1,shared:sh,hp,over:botOver(hp,sh),bot:true,players:[{slot:1,name:d.name,kit:KIT,played:d.me.length,picks:d.me},{slot:2,name:b[1],kit:b[4],played:d.bp.length,picks:d.bp.slice(0,sh)}]}}
+ return null}
+async function botStart(id){const p=5,sx=15,qset=await pickQs(),c='BOT-'+Math.random().toString(36).slice(2,8).toUpperCase();
+ botPut(c,{bot:id,qset,per:p,secs:sx,name:(ls('uc-nick')||ls('uc-duel-name')||'You').slice(0,16),me:[],bp:[],at:Date.now()});track('duel_bot',{bot:id});location.href='duel.html?d='+c+'&go=1'}
+function botPicker(){let d=$('dlg-bots');if(!d){document.body.insertAdjacentHTML('beforeend','<dialog id="dlg-bots" class="bots"></dialog>');d=$('dlg-bots');d.addEventListener('click',e=>{if(e.target===d||e.target.closest('[data-bx]'))d.close();const r=e.target.closest('[data-bot]');if(r)botStart(r.dataset.bot)})}
+ d.innerHTML=`<button type="button" class="bx" data-bx aria-label="Close">✕</button><div class="b-hd"><img src="duel/bots/the-unicorn-whisperer.webp" alt=""><p>Practise against a bot. <b>Bot duels don't change your rating.</b></p></div>`+BOTS.map(([g,l])=>`<h3>${g}<em>${l.length} bots</em></h3>`+l.map(b=>`<button type="button" class="b-row" data-bot="${b[0]}"><img src="duel/bots/${b[0]}.webp" alt=""><span><b>${b[1]}</b><small>“${b[5]}”</small></span><i>${b[2]}</i></button>`).join('')).join('');d.showModal()}
+const rpc=async(fn,args)=>{if(args&&isBot(args.p_code))return botRpc(fn,args);const ut=await userToken();const go=tok=>fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+(tok||SB_KEY),'Content-Type':'application/json'},body:JSON.stringify(args)});
  let r=await go(ut);if(ut&&(r.status===401||r.status===403)){track('duel_token_retry',{fn,status:r.status});r=await go(null)}
  const t=await r.text();if(!r.ok){let m=t;try{m=JSON.parse(t).message||t}catch{}throw new Error(m||('HTTP '+r.status))}return t?JSON.parse(t):null};
 let curScr=null;const SCR_RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const show=(id,dir)=>{for(const s of document.querySelectorAll('main>section'))s.hidden=s.id!==id;document.body.classList.toggle('playing',id==='s-play');scrollTo(0,0);
+let adPushed=false;
+const show=(id,dir)=>{if(false&&id==='s-inbox'&&!adPushed){adPushed=true;setTimeout(()=>{try{(window.adsbygoogle=window.adsbygoogle||[]).push({})}catch{}},300)}for(const s of document.querySelectorAll('main>section'))s.hidden=s.id!==id;document.body.classList.toggle('playing',id==='s-play');document.body.classList.toggle('paper',!['s-play','s-battle','s-inbox'].includes(id));scrollTo(0,0);
  const el=document.getElementById(id);if(el&&curScr!==id&&el.animate){if(!dir)try{dir=sessionStorage.getItem('uc-duel-dir');sessionStorage.removeItem('uc-duel-dir')}catch{}
   el.animate(SCR_RM?[{opacity:0},{opacity:1}]:[{opacity:0,transform:`translateX(${dir==='back'?-24:24}px)`},{opacity:1,transform:'none'}],{duration:SCR_RM?160:240,easing:'cubic-bezier(.32,.72,0,1)'})}
  curScr=id};
@@ -253,11 +476,13 @@ async function loadQ(id){const q=(await bank())[id];if(!q)throw new Error('quest
  return{id:q.id,prompt:q.prompt,sub:'',type:String(q.answer_type||'player').toLowerCase(),answers:q.answers.map(a=>({name:a.name,aliases:a.aliases||[],pts:FAME_V2[a.fame]||60}))}}
 async function pickQs(){const ids=Object.keys(await bank());for(let i=ids.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[ids[i],ids[j]]=[ids[j],ids[i]]}
  if(ids.length<20)throw new Error('Not enough questions');return ids.slice(0,20)}
-// rounds: 5 questions while under 15, then sudden death one at a time. Same rules as duel_hp/duel_over in the SQL.
-const roundSize=n=>n<15?5:1,roundNo=n=>n<15?Math.floor(n/5)+1:4+(n-15);
-const roundStart=n=>n<=15?n-5:n-1; // first question of the round that ends at n
+// rounds: PER questions (3, 5 or all 15) while under 15, then sudden death one at a time. Same rules as duel_submit/duel_over in the SQL.
+const roundSize=n=>n<15?PER:1,roundNo=n=>n<15?Math.floor(n/PER)+1:15/PER+1+(n-15);
+const roundStart=n=>n<=15?n-PER:n-1; // first question of the round that ends at n
+async function loadRules(){try{const r=await rpc('duel_rules',{p_code:code});if(r){PER=[3,5,15].includes(r.per)?r.per:5;SECS=[10,15,20,30].includes(r.secs)?r.secs:15;if(PER!==5||SECS!==15)sides()}}catch{}}
+const rulesTxt=(p,s)=>`${p===15?'all 15 questions in one go':'rounds of '+p+' questions'}, ${s} seconds each`
 function hpAfter(a,b,n){let h=[300,300];for(let i=0;i<n&&h[0]&&h[1];i++){const x=a[i]||[null,0],y=b[i]||[null,0];if(x[0]&&x[0]===y[0])continue;h=[Math.max(0,h[0]-y[1]),Math.max(0,h[1]-x[1])]}return h}
-const roundName=n=>n<15?'ROUND '+roundNo(n):'SUDDEN DEATH';
+const roundName=n=>n<15?(PER===15?'THE 15':'ROUND '+roundNo(n)):'SUDDEN DEATH';
 // ── flow ──
 const QS=new URLSearchParams(location.search),code=QS.get('d'),VSN=QS.get('vs'),INBOX=QS.has('inbox');
 const link=c=>location.origin+location.pathname+'?d='+c;
@@ -265,7 +490,7 @@ async function copy(c){try{await navigator.clipboard.writeText(link(c))}catch{}}
 let D=null,Q=[];
 // first-time intro: four steps, shown once, reopened from "How duels work"
 const DUEL_INTRO=[
- ()=>`<div class="in-art"><i style="background-image:${spBg(KIT)}"></i><b class="vs">VS</b><i style="background-image:${spBg('galaxy')};transform:scaleX(-1)"></i></div><span class="in-tag">1. ROUNDS OF FIVE</span><p>You and your rival answer the same 5 questions, 15 seconds each. Play your round whenever you like, within 24 hours. New questions are added every week.</p>`,
+ ()=>`<div class="in-art"><i style="background-image:${spBg(KIT)}"></i><b class="vs">VS</b><i style="background-image:${spBg('galaxy')};transform:scaleX(-1)"></i></div><span class="in-tag">1. ROUNDS</span><p>You and your rival answer the same questions, 5 a round and 15 seconds each (a mate's duel can use other settings). Quick match pairs you with a player near your rating; bots are practice and don't change your rating. Play your round whenever you like, within 24 hours. New questions are added every week.</p>`,
  ()=>`<div class="in-art"><span class="in-chip" style="background:#c9d1e0">TAP-IN 10</span><span class="in-chip" style="background:#7dd8a8">HEADER 30</span><span class="in-chip" style="background:#b48cff">VOLLEY 60</span><span class="in-chip" style="background:#ff7ac8">BICYCLE 85</span><span class="in-chip" style="background:#ffd23f">SCREAMER 100</span></div><span class="in-tag">2. RARER HITS HARDER</span><p>Your answer is your attack: a Screamer does 100 damage. Same answer as your rival? Blocked, nobody gets hurt.</p>`,
  ()=>`<div class="in-art"><div class="in-hp"><div>YOU <span><i style="width:78%;background:#39d353"></i></span> 234</div><div>RIVAL <span><i style="width:12%;background:#e3262f"></i></span> 36</div></div></div><span class="in-tag">3. KNOCK THEM OUT</span><p>Both start on 300 HP. First to 0 loses. Still level after 15 questions? Sudden death, one question at a time.</p>`,
  ()=>`<div class="in-art" style="flex-direction:column;gap:4px"><span class="in-chip" style="background:linear-gradient(90deg,#ff5a5a,#ffd23f,#39d353,#4fc3ff,#b48cff)">BALLON D'OR</span><span class="in-chip" style="background:#c6a8ff">CHAMPIONS LEAGUE</span><span class="in-chip" style="background:#ffd23f">PREMIER LEAGUE</span><span class="in-chip" style="background:#d9e0ee">CHAMPIONSHIP</span></div><span class="in-tag">4. CLIMB THE LADDER</span><p>Signed in? Your duels are rated. Play 5 to get your league; a new season starts every month.</p>`];
@@ -283,9 +508,9 @@ async function boot(){if(!ls('uc-duel-intro'))openIntro('first');sides();$('nm')
  if(INBOX)return inbox();
  if(VSN&&!code){if(!await userToken())return fail('Sign in on Unicorner (the league login) to challenge players.');if(!playedToday())return gate();
   $('h-title').textContent=`CHALLENGE ${VSN.toUpperCase().slice(0,16)}`;$('create').textContent='Send challenge';$('create').dataset.vs=VSN;
-  document.querySelector('#s-home .small').textContent=`${VSN} gets it in their duel inbox. You both start on 300 HP and play rounds of five questions until someone is KO'd.`;show('s-home');return}
- if(!code){if(!playedToday()){if(await userToken())$('g-inbox').hidden=false;return gate()}record('rec1');if(await userToken())$('to-inbox').hidden=false;show('s-home');return}
- try{D=await rpc('duel_get',{p_code:code,p_token:TOKEN})}catch(e){track('duel_load_error',{message:String(e&&e.message||e).slice(0,160)});return fail(navigator.onLine===false?'You seem to be offline. Check your connection and try again.':'Could not load this duel. Try again in a moment.'+(e&&e.message?' ('+String(e.message).slice(0,80)+')':''))}
+  $('home-rules').dataset.vs=VSN;homeRules();show('s-home');return}
+ if(!code){if(!playedToday()){if(await userToken())$('g-inbox').hidden=false;return gate()}record('rec1');if(await userToken())$('to-inbox').hidden=$('h-quick').hidden=false;show('s-home');return}
+ try{[D]=await Promise.all([rpc('duel_get',{p_code:code,p_token:TOKEN}),loadRules()])}catch(e){track('duel_load_error',{message:String(e&&e.message||e).slice(0,160)});return fail(navigator.onLine===false?'You seem to be offline. Check your connection and try again.':'Could not load this duel. Try again in a moment.'+(e&&e.message?' ('+String(e.message).slice(0,80)+')':''))}
  if(!D)return fail('That duel link does not exist.');
  const me=D.players.find(p=>p.slot===D.me),p1=D.players.find(p=>p.slot===1);
 
@@ -305,9 +530,11 @@ async function boot(){if(!ls('uc-duel-intro'))openIntro('first');sides();$('nm')
  if(rv&&mine>(rv.played||0)||(!rv&&mine>0))return waiting();
  if(D.shared>0&&+ls('uc-duel-seen-'+code)<D.shared)return battle();
  ready()}
-function ready(){const me=D.players.find(p=>p.slot===D.me),n=me.picks.length;clock($('r-clock'),true);$('r-link').textContent=link(code);
+function ready(){if(isBot(code)&&QS.get('go')&&!D.players[0].picks.length)return play();const me=D.players.find(p=>p.slot===D.me),n=me.picks.length;clock($('r-clock'),true);$('r-link').textContent=link(code);
  $('r-title').textContent=n?(n<15?roundName(n)+' · NO KO YET':'LEVEL AFTER 15 · SUDDEN DEATH'):me.slot===1?'YOUR DUEL IS READY':'READY WHEN YOU ARE';
- $('go').textContent=n<15?'Play round '+roundNo(n):'Sudden death: 1 question';
+ $('go').textContent=n<15?(PER===15?'Play all 15':'Play round '+roundNo(n)):'Sudden death: 1 question';$('r-rules').textContent=rulesTxt(PER,SECS).replace(/^./,c=>c.toUpperCase());
+ if(isBot(code)){const b=botOf(botGet(code).bot);$('r-title').textContent=n?'VS '+b[1].toUpperCase():'YOUR DUEL IS READY';$('r-link').hidden=$('copy').hidden=true;$('r-link').previousElementSibling.textContent=`Practice vs ${b[1]} (${b[2]}). Doesn't count for your rating.`;show('s-ready');return}
+ const qk=QS.get('quick');if(qk&&me.slot===1&&!D.players.find(p=>p.slot===2)){$('r-title').textContent=n?'LOOKING FOR A RIVAL':'POSTED: QUICK MATCH';$('r-link').hidden=$('copy').hidden=true;$('r-link').previousElementSibling.textContent=`We'll pair you with a player near ${qk}. Play your round now; your rival turns up in My duels. Come back in a bit.`;show('s-ready');return}
  const ch=D.challenge&&me.slot===1&&!D.players.find(p=>p.slot===2);$('r-link').hidden=$('copy').hidden=!!ch;$('r-link').previousElementSibling.textContent=ch?`Challenge sent to ${D.for_nick}. It's in their duel inbox; play your round now.`:'Send this link to your mate:';if(ch&&!n)$('r-title').textContent='CHALLENGE SENT';show('s-ready')}
 function gate(who){if(code)ls('uc-duel-pending',code);if(who){$('g-title').textContent=`${who.toUpperCase()} CHALLENGED YOU`;$('g-msg').textContent=`Play today's five questions first, then come back for your duel. Your link is saved: you'll find it on your results screen.`}
  track('duel_gate',{code:code||null});show('s-gate')}
@@ -325,12 +552,12 @@ async function sides(){if(!matchMedia('(min-width:1200px)').matches)return;
  const [z,rec,ib]=await Promise.all([rpc('duel_season',{}).catch(()=>null),rpc('duel_record',{p_token:TOKEN}).catch(()=>null),signed?rpc('duel_inbox',{}).catch(()=>null):null]);
  const MON=['January','February','March','April','May','June','July','August','September','October','November','December'];let L='';
  if(z){const[y,m]=z.season.split('-'),days=Math.max(0,Math.ceil((new Date(z.ends)-Date.now())/864e5)),top=(z.top||[]).slice(0,5);
-  L+=`<div class="sp-panel"><span class="sp-lbl">${MON[+m-1].toUpperCase()} SEASON · ${days} DAY${days===1?'':'S'} LEFT</span>${top.length?top.map(t=>`<div class="sp-row${z.me&&z.me.pos===t.pos?' me':''}"><b>${t.pos}</b><span>${esc(t.nick||'?')}</span><b>${t.r}</b></div>`).join(''):'<span style="font-size:15px">No one has finished placement yet. Play 5 rated duels to get on the table.</span>'}<span class="sp-lbl" style="color:#5a4a2a">TOP 3 GET A SEASON MEDAL</span></div>`;
+  L+=`<div class="sp-panel" style="--bc:#b8860b"><span class="sp-band">${MON[+m-1]} table<em>${days} day${days===1?'':'s'} left</em></span>${top.length?top.map(t=>`<div class="sp-row${z.me&&z.me.pos===t.pos?' me':''}"><b>${t.pos}</b><span>${esc(t.nick||'?')}</span><b>${t.r}</b></div>`).join(''):'<span style="font-size:15px">No one has finished placement yet. Play 5 rated duels to get on the table.</span>'}<span class="sp-lbl" style="color:#5a4a2a">TOP 3 GET A SEASON MEDAL</span></div>`;
   const mi=z.mine;if(mi){const T=[900,1000,1100,1200,1400],N=['Non-League','Championship','Premier League','Champions League',"Ballon d'Or"],nx=T.findIndex(t=>mi.r<t);
-   L+=`<div class="sp-panel dark"><span class="sp-lbl" style="color:#9fe7ff">YOUR RATING</span>${mi.g<5?`<div class="sp-big"><b>${esc(duelTier(mi.r,mi.g))}</b></div><span style="font-size:15px;color:#c9bff5">Play ${5-mi.g} more rated duel${5-mi.g===1?'':'s'} to get your league</span>`:`<div class="sp-big"><b>${esc(duelTier(mi.r,mi.g))}</b><strong>${mi.r}</strong></div>${nx>=0?`<span style="font-size:15px;color:#c9bff5">${T[nx]-mi.r} to ${N[nx]}</span>`:''}`}</div>`}}
+   L+=`<div class="sp-panel dark" style="--bc:#1d7a45"><span class="sp-band">Your rating</span>${mi.g<5?`<div class="sp-big"><b>${esc(duelTier(mi.r,mi.g))}</b></div><span style="font-size:15px;color:#c9bff5">Play ${5-mi.g} more rated duel${5-mi.g===1?'':'s'} to get your league</span>`:`<div class="sp-big"><b>${esc(duelTier(mi.r,mi.g))}</b><strong>${mi.r}</strong></div>${nx>=0?`<span style="font-size:15px;color:#c9bff5">${T[nx]-mi.r} to ${N[nx]}</span>`:''}`}</div>`}}
  let R='';if(rec&&rec.w+rec.d+rec.l>0){const last=((ib&&ib.items)||[]).filter(x=>x.state==='won'||x.state==='lost'||x.state==='draw').slice(0,5);
-  R+=`<div class="sp-panel"><span class="sp-lbl">YOUR RECORD</span><div class="sp-wdl"><div><b style="color:#1f9a3a">${rec.w}</b><span class="sp-lbl">WON</span></div><div><b>${rec.d}</b><span class="sp-lbl">DRAW</span></div><div><b style="color:#d12a2a">${rec.l}</b><span class="sp-lbl">LOST</span></div></div>${last.length?`<span class="sp-lbl">LAST RESULTS</span><div class="sp-last">${last.map(x=>`<i title="${esc(x.opp)}" style="background:${x.state==='won'?'#39d353':x.state==='lost'?'#ff6b6b':'#4fc3ff'}">${x.state==='won'?'W':x.state==='lost'?'L':'D'}</i>`).join('')}</div>`:''}</div>`}
- R+=`<div class="sp-panel"><span class="sp-lbl" style="color:#d12a2a">HOW DUELS WORK</span><span style="font-size:16px;line-height:1.35">5 questions a round, 15 s each · rarer answer = bigger hit · 300 HP, first to 0 loses · 24 h per turn</span><button type="button" class="sp-link" id="sp-how">READ THE BOOKLET ▸</button></div>`;
+  R+=`<div class="sp-panel" style="--bc:#1d7a45"><span class="sp-band">Your record</span><div class="sp-wdl"><div><b style="color:#1f9a3a">${rec.w}</b><span class="sp-lbl">WON</span></div><div><b>${rec.d}</b><span class="sp-lbl">DRAW</span></div><div><b style="color:#d12a2a">${rec.l}</b><span class="sp-lbl">LOST</span></div></div>${last.length?`<span class="sp-lbl">LAST RESULTS</span><div class="sp-last">${last.map(x=>`<i title="${esc(x.opp)}" style="background:${x.state==='won'?'#39d353':x.state==='lost'?'#ff6b6b':'#4fc3ff'}">${x.state==='won'?'W':x.state==='lost'?'L':'D'}</i>`).join('')}</div>`:''}</div>`}
+ R+=`<div class="sp-panel" style="--bc:#d7262e"><span class="sp-band">How duels work</span><span style="font-size:16px;line-height:1.35">${PER===15?'All 15 questions at once':PER+' questions a round'}, ${SECS} s each · rarer answer = bigger hit · 300 HP, first to 0 loses · 24 h per turn</span><button type="button" class="sp-link" id="sp-how">READ THE BOOKLET ▸</button></div>`;
  if(L){$('side-l').innerHTML=L;$('side-l').hidden=false}$('side-r').innerHTML=R;$('side-r').hidden=false;$('sp-how').onclick=()=>openIntro('side')}
 async function season(){let z;try{z=await rpc('duel_season',{})}catch{return}if(!z)return;const[y,m]=z.season.split('-'),MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
  const days=Math.max(0,Math.ceil((new Date(z.ends)-Date.now())/864e5)),mine=z.mine;
@@ -340,37 +567,106 @@ async function season(){let z;try{z=await rpc('duel_season',{})}catch{return}if(
  const pod=z.last.podium.length?`<p>Last season: ${z.last.podium.map(p=>['🥇','🥈','🥉'][p.pos-1]+' '+esc(p.nick||'?')).join('  ')}</p>`:'';
  $('sz-body').innerHTML=top+me+pod+'<p>Rated: duels between signed-in players. Ratings ease halfway back to 1000 at the start of each month; the top 3 earn a season medal.</p>';$('sz').hidden=false}
 const ordN=n=>{const t=['th','st','nd','rd'],v=n%100;return n+(t[(v-20)%10]||t[v]||t[0])};
-async function inbox(){season();if(!await userToken())return fail('Sign in on Unicorner (the league login) to see your duels.');try{IBR=(await rpc('duel_inbox',{}))||{items:[]}}catch{return fail('Could not load your duels. Try again in a moment.')}
+// ---------- My duels: a matchday programme (division pyramid, form, fixtures, results, the season table) ----------
+const PYR_TIERS=[['SUNDAY LEAGUE',0,'#8a6a3a'],['NON-LEAGUE',900,'#4f7d3a'],['CHAMPIONSHIP',1000,'#2f6b8a'],['PREMIER LEAGUE',1100,'#b8323a'],['CHAMPIONS LEAGUE',1200,'#24407a'],["BALLON D'OR",1400,'#c99a1a']];
+const kitFor=n=>{const pool=KITS.filter(k=>!k.crew&&!k.myth&&k.id!=='boardroom');let h=0;for(const c of String(n||'?'))h=h*31+c.charCodeAt(0)|0;return pool[Math.abs(h)%pool.length]};
+const myKit=()=>{try{return KITS.find(k=>k.id===localStorage.getItem('uc-kit'))||null}catch{return null}};
+const uni=(k,flip)=>`<i class="pr-uni${flip?' flip':''}" style="background-image:${spriteDraw('happy',0,false,k).replace(/"/g,"'")}"></i>`;
+const MONS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+let IBZ=null,IBREC=null,IBQ=new Set();
+async function inbox(){if(!await userToken())return fail('Sign in on Unicorner (the league login) to see your duels.');
+ document.body.classList.add('prog-on');
+ try{[IBR,IBZ,IBREC,IBQ]=await Promise.all([rpc('duel_inbox',{}),rpc('duel_season',{}).catch(()=>null),rpc('duel_record',{p_token:TOKEN}).catch(()=>null),rpc('duel_quick_mine',{}).catch(()=>[])]);IBR=IBR||{items:[]};IBQ=new Set(IBQ||[])}catch{return fail('Could not load your duels. Try again in a moment.')}
  track('duel_inbox',{n:IBR.items.length});$('ib-allow').checked=!IBR.off;ibDraw();show('s-inbox')}
-function ibDraw(){const all=IBR.items,act=all.filter(x=>!done(x)),arc=all.filter(done),list=IBT?arc:act;
- $('ib-t0').textContent='Active'+(act.length?' ('+act.length+')':'');$('ib-t1').textContent='Archive'+(arc.length?' ('+arc.length+')':'');$('ib-t0').classList.toggle('on',!IBT);$('ib-t1').classList.toggle('on',!!IBT);
- $('ib-list').innerHTML=list.length?list.map(x=>{let[l,c,b]=IB[x.state]||[x.state,'#ccc',''];if(x.fresh){l='RESULT IN';c='#ffd23f';b='Watch'}const gu=x.how==='timeout'?(x.state==='draw'?' · out of time':x.state==='lost'?' · you ran out of time':' · they ran out of time'):x.gave_up==='you'?' · you gave up':x.gave_up==='them'?' · they gave up':'';const tl=x.deadline&&tLeft(x.deadline),urgent=tl&&x.state==='your_turn'&&hot(x.deadline);const clk=tl?`<small class="${urgent?'hot':''}">⏰ ${tl} left${x.state==='your_turn'?(urgent?' · play or you lose!':' to play'):' for them'}</small>`:'';return`<div class="ib-row"><b>${esc(x.opp)}<small>${new Date(x.at).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}${x.played?' · '+x.played+' questions played':''}${gu}</small>${clk}</b><span class="ib-st" style="background:${c}">${l}</span>${b?`<button data-go="${x.code}">${b}</button>`:''}${x.state==='challenge'?`<button class="ghost" data-no="${x.code}">No</button>`:`<button class="ib-x" data-rm="${x.code}" data-st="${x.state}" aria-label="Remove">✕</button>`}</div>`}).join('')
-  :IBT?'<p>Finished duels land here.</p>':all.length?'<p>No duels going right now.</p>':'<p>No duels yet. Tap a player on the leaderboard to challenge them, or send a duel link to a mate.</p>';
+function pyramid(){const mi=IBZ&&IBZ.mine,el=$('pr-pyr');
+ if(!mi){el.innerHTML='<p class="pr-note">Play rated duels (both players signed in) to get a league this season.</p>';$('pr-div-r').textContent='';return}
+ const placing=mi.g<5,cur=placing?-1:PYR_TIERS.findLastIndex(t=>mi.r>=t[1]),nx=PYR_TIERS[cur+1];
+ const pct=placing||!nx?100:Math.round((mi.r-PYR_TIERS[cur][1])/(nx[1]-PYR_TIERS[cur][1])*100);
+ $('pr-div-r').textContent=placing?'PLACEMENT':mi.r+(IBZ.me?' · '+ordN(IBZ.me.pos):'');
+ el.innerHTML=PYR_TIERS.map((t,i)=>{const on=i===cur;return`<div class="pyr-row${on?' on':''}${i<cur?' past':''}" style="--c:${t[2]};width:${100-i*9}%">${on?uni(myKit()):''}<b>${t[0]}</b>${on&&nx?`<span class="pyr-bar"><i style="width:${pct}%"></i></span>`:''}</div>`}).reverse().join('')
+  +`<p class="pr-note">${placing?`Placement: ${mi.g}/5 rated duels played. Your league shows after 5.`:nx?`${nx[1]-mi.r} rating points to <b>${nx[0].toLowerCase().replace(/\b\w/g,c=>c.toUpperCase())}</b>.`:'Top of the pyramid. Stay there.'}</p>`}
+function ibDraw(){const all=IBR.items,act=all.filter(x=>!done(x)),arc=all.filter(done),nick=ls('uc-nick')||'My';
+ $('pr-me').style.backgroundImage=spriteDraw('wow',0,false,myKit()).replace(/"/g,"'");
+ $('pr-title').textContent=nick==='My'?'My duels':nick+"'s duels";
+ if(IBZ){const[y,m]=IBZ.season.split('-'),days=Math.max(0,Math.ceil((new Date(IBZ.ends)-Date.now())/864e5));
+  $('pr-iss').innerHTML=`ISSUE ${all.length||1}<br>${MONS[+m-1].toUpperCase()} SEASON · ${days} DAY${days===1?'':'S'} LEFT`;$('pr-tb-m').textContent=MONS[+m-1];$('pr-left').textContent=days+' day'+(days===1?'':'s')+' left';
+  const top=IBZ.top||[];$('pr-table').innerHTML=top.length?top.map(t=>`<tr class="${t.pos<=3?'zone':''}${IBZ.me&&t.pos===IBZ.me.pos?' me':''}"><td>${t.pos}</td><td>${esc(t.nick||'?')}</td><td>${t.r}</td></tr>`).join('')+(IBZ.me&&IBZ.me.pos>10?`<tr class="me"><td>${IBZ.me.pos}</td><td>${esc(nick)}</td><td>${IBZ.me.r}</td></tr>`:''):'<tr><td colspan="3">No one has finished placement yet this month.</td></tr>';
+  const pod=(IBZ.last&&IBZ.last.podium)||[];$('pr-hof-w').hidden=!pod.length;if(pod.length){const[ly,lm]=IBZ.last.season.split('-');$('pr-hof-m').textContent=MONS[+lm-1].toUpperCase();
+   const by=p=>pod.find(x=>x.pos===p);$('pr-hof').innerHTML=[2,1,3].map(p=>{const x=by(p);return x?`<div class="p${p}">${['','🥇','🥈','🥉'][p]}${uni(kitFor(x.nick))}<em>${esc(x.nick||'?')}</em>${x.r}</div>`:'<div></div>'}).join('')}}
+ pyramid();
+ const fin=all.filter(x=>x.state==='won'||x.state==='lost'||x.state==='draw');
+ $('pr-form').innerHTML=fin.slice(0,5).map(x=>`<i class="${x.state==='won'?'w':x.state==='lost'?'l':'dr'}" title="vs ${esc(x.opp)}">${x.state==='won'?'W':x.state==='lost'?'L':'D'}</i>`).join('')||'<span class="pr-note">No results yet.</span>';
+ const r=IBREC||{w:0,d:0,l:0};$('pr-rec').innerHTML=[[r.w+r.d+r.l,'Played'],[r.w,'Won'],[r.d,'Drawn'],[r.l,'Lost']].map(([n,t])=>`<div><b>${n}</b><small>${t}</small></div>`).join('');
+ // matches: what needs you first, then what's waiting on them or ready to watch
+ const PILL={challenge:['New challenge','#1f5fd6'],sent:['Link sent','#6b6878'],your_turn:['Your turn','#d7262e'],their_turn:['Their turn','#6b6878']};
+ const needs=x=>!x.fresh&&(x.state==='challenge'||x.state==='your_turn'),need=act.filter(needs),rest=act.filter(x=>!needs(x));
+ $('pr-fx-n').textContent=need.length?need.length+' need'+(need.length===1?'s':'')+' you':act.length?act.length+' going':'';
+ const tn=$('pr-tab-n');tn.hidden=!need.length;tn.textContent=need.length;
+ const card=x=>{const qw=IBQ.has(x.code)&&x.state==='sent',[pl,pc]=qw?['Quick match','#b8860b']:x.fresh||done(x)?['Result in','#1d7a45']:PILL[x.state]||[x.state,'#6b6878'],tl=x.deadline&&tLeft(x.deadline),urgent=tl&&x.state==='your_turn'&&hot(x.deadline);
+  const rd=x.played?(x.played>=15?'Sudden death':`${x.played} of 15 played`):'Round 1',sub=x.state==='challenge'?'Challenged you':qw?'Looking for a rival near your rating':x.state==='sent'?'Waiting for them to join':x.fresh?'Watch to find out':tl?(x.state==='your_turn'?'⏰ '+tl+' left':tl+' left for them'):rd;
+  const live=x.state==='your_turn'||x.state==='their_turn',rm=x.state==='challenge'?'':`<button class="pr-rm" data-rm="${x.code}" data-st="${x.state}">${live?'Give up':'Remove'}</button>`;
+  const go=x.state==='challenge'?`<button class="ghost" data-no="${x.code}">Decline</button><button data-go="${x.code}">Accept</button>`:x.state==='your_turn'&&!x.fresh?`<button data-go="${x.code}">Play ${x.played>=15?'sudden death':'your round'} ▶</button>`:x.fresh?`<button data-go="${x.code}">Watch ▶</button>`:`<button class="ghost" data-go="${x.code}">View</button>`;
+  return`<div class="pr-card${urgent||(x.state==='your_turn'&&!x.fresh)?' hot':''}">${uni(kitFor(x.opp),true)}<div class="pr-who"><span class="pr-pill" style="--sc:${pc}">${pl}</span><b>${qw?'vs ???':'vs '+esc(x.opp)}</b><small>${sub}${rm?' · ':''}</small>${rm}</div><div class="pr-go">${go}</div></div>`};
+ $('ib-list').innerHTML=act.length?(need.length?'<div class="pr-lbl">Needs you</div>'+need.map(card).join(''):'')+(rest.length?'<div class="pr-lbl">Waiting &amp; finished</div>'+rest.map(card).join(''):'')
+  :'<div class="pr-lbl">Needs you</div><p class="pr-note">Nothing right now. Challenge a mate, or tap a player on the Unicorner leaderboard.</p>';
+ $('pr-results').innerHTML=arc.length?arc.slice(0,12).map((x,ri)=>{const w=x.state==='won',l=x.state==='lost',d=x.state==='draw',how=x.how==='timeout'?' · out of time':x.gave_up?(x.gave_up==='you'?' · you gave up':' · they gave up'):'';
+  return`<div class="pr-rs${ri>2?' more':''}"><span class="r ${w?'w':l?'l':d?'dr':'x'}">${w?'W':l?'L':d?'D':'–'}</span><span class="pr-rs-t"><b>vs ${esc(x.opp||'???')}</b><small>${w?'You won':l?'You lost':d?'Draw':x.state==='declined'?'Declined':x.opp?'Expired':'No rival found · try Quick match again'}${how} · ${new Date(x.at).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}</small></span>${w||l||d?`<button class="pr-wl" data-go="${x.code}">Watch</button><button type="button" class="pr-re" data-re="${esc(x.opp)}">Rematch</button>`:''}</div>`}).join('')+(arc.length>3?`<button type="button" class="pr-more" onclick="this.parentNode.classList.toggle('all');this.textContent=this.parentNode.classList.contains('all')?'Show fewer ▴':'Show ${Math.min(12,arc.length)-3} more ▾'">Show ${Math.min(12,arc.length)-3} more ▾</button>`:'')
+  :'<p class="pr-note">Finished duels land here.</p>';
+ // team news: one line about where you stand
+ const mine=IBZ&&IBZ.mine,me=IBZ&&IBZ.me,third=IBZ&&(IBZ.top||[])[2],days=IBZ?Math.max(0,Math.ceil((new Date(IBZ.ends)-Date.now())/864e5)):0,yt=act.filter(x=>x.state==='your_turn'&&!x.fresh);
+ $('pr-news').innerHTML=(yt.length?`<b>${yt.length===1?esc(yt[0].opp)+' is waiting on you':yt.length+' rivals are waiting on you'}</b>`:'<b>The dressing room is quiet</b>')
+  +(!mine?'Rated duels need both players signed in. Win them to climb the pyramid.':mine.g<5?`Play ${5-mine.g} more rated duel${5-mine.g===1?'':'s'} to finish placement and get your league.`:me&&me.pos<=3?`You're in the medal places. Hold on for ${days} more day${days===1?'':'s'}.`:third?`${third.r-mine.r} points behind the medal places with ${days} day${days===1?'':'s'} left.`:`${days} day${days===1?'':'s'} left this season.`);
  for(const b of document.querySelectorAll('[data-go]'))b.onclick=()=>{location.href='duel.html?d='+b.dataset.go};
  for(const b of document.querySelectorAll('[data-no]'))b.onclick=async()=>{b.disabled=true;try{await rpc('duel_decline',{p_code:b.dataset.no})}catch{}inbox()};
  for(const b of document.querySelectorAll('[data-rm]'))b.onclick=async()=>{const st=b.dataset.st,live=st==='your_turn'||st==='their_turn';
   if(!confirm(live?'Give up this duel? It counts as a loss.':st==='sent'?'Remove this duel? Your mate can still open the link.':'Remove this duel from your list?'))return;
   b.disabled=true;try{await rpc('duel_remove',{p_code:b.dataset.rm});track('duel_remove',{state:st})}catch{}inbox()}}
-$('ib-t0').onclick=()=>{IBT=0;ibDraw()};$('ib-t1').onclick=()=>{IBT=1;ibDraw()};
+// dark mode: follow the device unless the player picked one (remembered)
+function prMode(){let pick=null;try{pick=localStorage.getItem('uc-duel-theme')}catch{}const night=pick?pick==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
+ document.body.classList.toggle('night',night);$('pr-mode').textContent=night?'☀':'☾';$('pr-mode').setAttribute('aria-label',night?'Switch to light mode':'Switch to dark mode')}
+$('pr-mode').onclick=()=>{const night=!document.body.classList.contains('night');try{localStorage.setItem('uc-duel-theme',night?'dark':'light')}catch{}prMode()};
+matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',prMode);prMode();
+// phones: one section at a time
+for(const t of document.querySelectorAll('#pr-tabs button'))t.onclick=()=>{for(const o of document.querySelectorAll('#pr-tabs button'))o.classList.toggle('on',o===t);document.querySelector('#s-inbox').dataset.tab=t.dataset.t};
 $('ib-allow').onchange=e=>rpc('duel_challenges_set',{p_off:!e.target.checked}).catch(()=>{});
 $('ib-new').onclick=()=>{location.href='duel.html'};$('to-inbox').onclick=()=>{location.href='duel.html?inbox'};
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 $('create').onclick=async e=>{const n=$('nm').value.trim();if(!n)return $('nm').focus();ls('uc-duel-name',n);e.target.disabled=true;e.target.textContent='Creating…';
- try{const qset=await pickQs();const vs=e.target.dataset.vs;const c=vs?await rpc('duel_challenge',{p_token:TOKEN,p_name:n,p_kit:KIT,p_qset:qset,p_nick:vs}):await rpc('duel_create',{p_token:TOKEN,p_name:n,p_kit:KIT,p_qset:qset});track(vs?'duel_challenge':'duel_create',{code:c});location.href='duel.html?d='+c}catch(err){e.target.disabled=false;e.target.textContent='Create duel';fail('Could not create the duel: '+err.message)}};
+ try{const qset=await pickQs();const vs=e.target.dataset.vs;const c=vs?await rpc('duel_challenge',{p_token:TOKEN,p_name:n,p_kit:KIT,p_qset:qset,p_nick:vs}):await rpc('duel_create',{p_token:TOKEN,p_name:n,p_kit:KIT,p_qset:qset});
+  const[rp,rs]=myRules();if(rp!==5||rs!==15)await rpc('duel_set_rules',{p_code:c,p_token:TOKEN,p_per:rp,p_secs:rs}).catch(err=>track('duel_rules_fail',{err:String(err.message).slice(0,120)}));track(vs?'duel_challenge':'duel_create',{code:c});location.href='duel.html?d='+c}catch(err){e.target.disabled=false;e.target.textContent='Create duel';fail('Could not create the duel: '+err.message)}};
 $('join').onclick=async e=>{const n=$('nm2').value.trim();if(!n)return $('nm2').focus();ls('uc-duel-name',n);e.target.disabled=true;
  try{await rpc('duel_join',{p_code:code,p_token:TOKEN,p_name:n,p_kit:KIT});ls('uc-duel-pending','');track('duel_join',{code});play()}catch(err){fail(/someone else|declined|expired/.test(err.message)?'Could not join: '+err.message+'.':/duel yourself/.test(err.message)?"That's your own duel. Send the link to a mate.":err.message==='duel is full'?'This duel already has two players.':'Could not join: '+err.message)}};
 $('copy').onclick=async e=>{await copy(code);e.target.textContent='Copied ✓'};$('copy2').onclick=async e=>{await copy(code);e.target.textContent='Copied ✓'};
+// duel settings on the create screen, remembered for next time
+const myRules=()=>{let p=5,s=15;try{p=+localStorage.getItem('uc-duel-per')||5;s=+localStorage.getItem('uc-duel-secs')||15}catch{}return[[3,5,15].includes(p)?p:5,[10,15,20,30].includes(s)?s:15]};
+function homeRules(){const[p,s]=myRules(),vs=$('home-rules').dataset.vs;for(const[id,v]of[['r-per',p],['r-secs',s]])for(const b of $(id).children){b.classList.toggle('on',+b.dataset.v===v);b.setAttribute('aria-checked',+b.dataset.v===v)}
+ $('home-rules').textContent=(vs?`${vs} gets it in their duel inbox. `:'You get a link to send. ')+`You both start on 300 HP and play ${rulesTxt(p,s)}, then watch the battle. Keep going until someone is KO'd.`}
+for(const[id,key]of[['r-per','uc-duel-per'],['r-secs','uc-duel-secs']])$(id).onclick=e=>{const b=e.target.closest('button');if(!b)return;try{localStorage.setItem(key,b.dataset.v)}catch{}homeRules()};
+homeRules();
+// quick match: join a waiting duel near my rating, or post mine and play my round while a rival turns up
+async function quick(b){const t=b.textContent;b.disabled=true;b.textContent='Finding a rival…';
+ try{const p=5,sx=15,qset=await pickQs(),n=(ls('uc-nick')||ls('uc-duel-name')||'Player').slice(0,16);
+  const r=await rpc('duel_quick',{p_token:TOKEN,p_name:n,p_kit:KIT,p_qset:qset,p_per:p,p_secs:sx});track('duel_quick',{matched:!!r.matched});
+  location.href='duel.html?d='+r.code+(r.matched?'':'&quick='+r.r)}
+ catch(e){b.disabled=false;b.textContent=t;alert(/sign in/.test(e.message)?'Sign in on Unicorner to play quick match (it counts for your rating).':'Quick match failed: '+e.message)}}
+$('ib-quick').onclick=e=>quick(e.currentTarget);$('h-quick').onclick=e=>quick(e.currentTarget);
+$('ib-bots').onclick=$('h-bots').onclick=botPicker;
+// rematch from results: send the challenge right away (same rules as last time) and play round 1
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-re]');if(!b)return;b.disabled=true;b.textContent='Sending…';
+ try{const[p,sx]=myRules(),qset=await pickQs(),c=await rpc('duel_challenge',{p_token:TOKEN,p_name:(ls('uc-nick')||'Player').slice(0,16),p_kit:KIT,p_qset:qset,p_nick:b.dataset.re});
+  if(p!==5||sx!==15)await rpc('duel_set_rules',{p_code:c,p_token:TOKEN,p_per:p,p_secs:sx}).catch(()=>{});track('duel_challenge',{code:c,from:'rematch'});location.href='duel.html?d='+c}
+ catch(err){b.disabled=false;b.textContent='Rematch';alert(/already have a duel/.test(err.message)?'You already have a duel going with this player.':'Could not send the rematch: '+err.message)}});
 $('go').onclick=()=>play();$('refresh').onclick=()=>location.reload();
-$('rematch').onclick=()=>{location.href='duel.html'};
+$('rematch').onclick=()=>{if(isBot(code))return botStart(botGet(code).bot);location.href='duel.html'};
 // ── play the five ──
 let qi=0,picks=[],timer=null,left=SECS,locked=false;
 let base=0,size=5;
-async function play(){try{D=await rpc('duel_get',{p_code:code,p_token:TOKEN})}catch(e){track('duel_load_fail',{code,step:'get',err:String(e.message).slice(0,200)});return fail('Could not load this duel: '+e.message)}
+async function play(){try{[D]=await Promise.all([rpc('duel_get',{p_code:code,p_token:TOKEN}),loadRules()])}catch(e){track('duel_load_fail',{code,step:'get',err:String(e.message).slice(0,200)});return fail('Could not load this duel: '+e.message)}
  const mine=D&&D.players.find(p=>p.slot===D.me);if(!mine){track('duel_load_fail',{code,step:'me',signed:!!(await userToken())});return fail(await userToken()?"You're not a player in this duel on this account.":'Your Unicorner login has expired. Open the game, sign in again, then come back.')}
  base=mine.picks.length;size=roundSize(base);if(base>=D.qset.length)return fail('No questions left to play in this duel.');
  try{Q=await Promise.all(D.qset.slice(base,base+size).map(loadQ))}catch(e){track('duel_load_fail',{code,step:'bank',err:String(e.message).slice(0,200)});return fail('Could not load the questions ('+e.message+'). Refresh the page and try again.')}
- qi=0;picks=[];show('s-play');ask()}
-function ask(){const q=Q[qi];locked=false;left=SECS;for(const el of[$('q-text'),$('q-sub')]){el.getAnimations().forEach(a=>a.cancel());if(qi&&!SCR_RM&&el.animate)el.animate([{opacity:0,transform:'translateX(24px)'},{opacity:1,transform:'none'}],{duration:220,easing:EASE})}$('q-n').textContent=size>1?`${roundName(base)} · Q${qi+1} OF 5`:'SUDDEN DEATH';$('q-text').textContent=q.prompt;$('q-sub').textContent=q.sub;$('q-in').value='';$('q-in').disabled=false;$('q-msg').textContent='';$('q-msg').className='msg';$('q-skip').hidden=false;$('q-go').hidden=false;
+ qi=0;picks=[];$('q-quit').hidden=!isBot(code);show('s-play');ask()}
+function ask(){const q=Q[qi];locked=false;left=SECS;for(const el of[$('q-text'),$('q-sub')]){el.getAnimations().forEach(a=>a.cancel());if(qi&&!SCR_RM&&el.animate)el.animate([{opacity:0,transform:'translateX(24px)'},{opacity:1,transform:'none'}],{duration:220,easing:EASE})}$('q-n').textContent=size>1?`${roundName(base)} · Q${qi+1} OF ${size}`:'SUDDEN DEATH';$('q-text').textContent=q.prompt;$('q-sub').textContent=q.sub;$('q-in').value='';$('q-in').disabled=false;$('q-msg').textContent='';$('q-msg').className='msg';$('q-skip').hidden=false;$('q-go').hidden=false;
  $('q-in').placeholder=PERSON.has(q.type)?'Type a '+(q.type==='player'?'player':q.type):'Type a '+q.type;tick();clearInterval(timer);timer=setInterval(()=>{left--;tick();if(left<=0)lock(null)},1000);setTimeout(()=>$('q-in').focus(),50)}
 function tick(){const c=$('q-clock');c.textContent=Math.max(0,left);c.classList.toggle('low',left<=5);if(left<=5&&left>0&&!SCR_RM){c.classList.remove('thump');void c.offsetWidth;c.classList.add('thump')}$('q-bar').style.width=Math.max(0,left/SECS*100)+'%'}
 // Keep rejected text for answer-bank reviews; telemetry must never block play.
@@ -403,7 +699,7 @@ async function battle(){const slot=D.me||1,me=D.players.find(p=>p.slot===slot),r
  const dl=elo&&elo.delta,myE=elo&&(dl?{r:dl['b'+slot],g:Math.max(0,dl['g'+slot]-1)}:elo['p'+slot]),rvE=elo&&(dl?{r:dl['b'+(3-slot)],g:Math.max(0,dl['g'+(3-slot)]-1)}:elo['p'+(3-slot)]);if(over&&D.me)try{const r=await rpc('duel_record',{p_token:TOKEN});if(r)rec=[r.w,r.d,r.l]}catch{}
  $('fb').hidden=true;if(over&&D.me){const res=hp[0]===hp[1]?'draw':hp[slot-1]>hp[2-slot]?'win':'loss';if(!ls('uc-duel-end-'+code)){ls('uc-duel-end-'+code,'1');track('duel_end',{code,result:res,questions:n})}fbFor=code}
  const opts={hp:hpAfter(A,B,s0),q0:s0,title:roundName(s0),final:over,rec,intro:s0===0?'vs':s0===15?'sd':null,next:n<15?'NO KO YET':'STILL LEVEL',elo:over&&D.me&&dl?{b:dl['b'+slot],a:dl['a'+slot],g:dl['g'+slot]}:null};
- const go=()=>{show('s-battle');$('next').hidden=true;startBattle($('bc'),R,{name:D.me?'YOU':me.name,kit:me.kit,rec:me.rec,elo:myE},{name:rv.name,kit:rv.kit,rec:rv.rec,elo:rvE},()=>{if(!over&&D.me){$('next').hidden=false;$('next').textContent=n<15?'Play round '+roundNo(n):'Sudden death'}if(over&&D.me&&!ls('uc-duel-fb-'+code))$('fb').hidden=false},opts)};$('v-title').textContent=over?'THE DUEL IS OVER':roundName(s0)+' IS IN';$('v-msg').textContent=over?'Full time. See who won.':"You've both played. See how it went.";$('v-go').onclick=go;show('s-view');$('replay').onclick=go}
+ const go=()=>{show('s-battle');$('next').hidden=true;startBattle($('bc'),R,{name:D.me?'YOU':me.name,kit:me.kit,rec:me.rec,elo:myE},{name:rv.name,kit:rv.kit,rec:rv.rec,elo:rvE},()=>{if(!over&&D.me){$('next').hidden=false;$('next').textContent=n<15?'Play round '+roundNo(n):'Sudden death'}if(over&&D.me&&!ls('uc-duel-fb-'+code)&&!isBot(code))$('fb').hidden=false;$('bot-note').hidden=!(over&&isBot(code))},opts)};$('v-title').textContent=over?'THE DUEL IS OVER':roundName(s0)+' IS IN';$('v-msg').textContent=over?'Full time. See who won.':"You've both played. See how it went.";$('v-go').onclick=go;$('replay').onclick=go;if(isBot(code))return go();show('s-view')}
 $('next').onclick=()=>play();
 // feedback on the finished duel, shown once the battle ends
 let fbFor=null,fbRate=null;

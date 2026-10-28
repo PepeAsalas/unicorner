@@ -1,0 +1,233 @@
+:root{--ink:#1a1030;--cream:#fbf3dc;--cream2:#f3e6bf;--gold:#f2c230;--red:#e3262f;--sky:#3fc1ff;--pink:#ff6fa8;--purple:#4a1c86;--px:"Jersey 10","Silkscreen",monospace;--lab:"Silkscreen",monospace;--ease:cubic-bezier(.23,1,.32,1)}
+*{box-sizing:border-box}
+html,body{margin:0;background:#efe3c1;background-image:repeating-linear-gradient(0deg,transparent 0 23px,rgba(26,16,48,.035) 23px 24px),repeating-linear-gradient(90deg,transparent 0 23px,rgba(26,16,48,.035) 23px 24px);color:var(--ink);font-family:Barlow,system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;cursor:pointer}
+img{image-rendering:auto}
+
+/* ---------- phone: one column ---------- */
+.app{max-width:520px;margin:0 auto;padding:8px 12px calc(16px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:8px}
+.left{position:relative;display:grid;grid-template-columns:1fr auto;grid-template-areas:"top top" "bank kick" "ticker ticker";align-items:center;gap:4px 8px;color:#fff}
+.top{grid-area:top;display:flex;align-items:center;justify-content:space-between}
+.back{font:700 13px var(--lab);color:#fff;text-decoration:none;padding:6px 0}
+.demo{font:700 10px var(--lab);letter-spacing:1px;color:var(--ink);background:var(--gold);padding:3px 6px;box-shadow:0 2px 0 var(--ink);transform:rotate(4deg)}
+.club{grid-area:top;justify-self:center;background:none;border:0;padding:4px 6px;font:400 22px/1 var(--px);color:#fff;text-shadow:0 2px 0 var(--ink);cursor:pointer}
+.club::after{content:' ✎';font-size:.6em;opacity:.6}
+.club:active{transform:translateY(1px)}
+.bank{grid-area:bank}
+.money{font:400 46px/0.9 var(--px);font-variant-numeric:tabular-nums;color:var(--gold);text-shadow:0 3px 0 var(--ink)}
+.rate{font:700 11px var(--lab);opacity:.85;margin-top:4px}
+.kick-zone{grid-area:kick;position:relative;width:118px;height:118px}
+.kicker{position:relative;width:100%;height:100%;padding:0;border:0;background:none;outline-offset:4px;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+/* the cookie unicorn: crisp pixels, a little lift on hover, a press on tap */
+.uni{position:absolute;left:50%;top:50%;width:72%;aspect-ratio:36/30;translate:-50% -50%;image-rendering:pixelated;filter:drop-shadow(0 5px 0 rgba(0,0,0,.35));transition:scale .16s var(--ease);pointer-events:none}
+.kicker:active .uni{scale:.95}
+@media (hover:hover) and (pointer:fine){.kicker:hover .uni{scale:1.04}.kicker:hover:active .uni{scale:.97}}
+/* soft cream rays turning slowly behind it */
+.rays{position:absolute;left:50%;top:50%;width:120%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;pointer-events:none;
+  background:repeating-conic-gradient(rgba(251,243,220,.16) 0 10deg,transparent 10deg 30deg);-webkit-mask:radial-gradient(closest-side,#000 35%,transparent);mask:radial-gradient(closest-side,#000 35%,transparent);animation:rays 40s linear infinite}
+@keyframes rays{to{rotate:360deg}}
+.boots{position:absolute;inset:-4%;width:108%;height:108%;pointer-events:none}
+.crumb{position:absolute;width:7px;height:7px;background:#b97a3f;box-shadow:inset -2px -2px 0 #7a4a24;pointer-events:none}
+.spot{position:absolute;left:50%;bottom:8%;width:70%;height:12%;transform:translateX(-50%);border-radius:50%;background:radial-gradient(rgba(242,194,48,.55),transparent 70%)}
+.floats{position:absolute;inset:-40px -40px 0;pointer-events:none;overflow:visible}
+.float{position:absolute;font:400 22px/1 var(--px);color:#fff;text-shadow:0 2px 0 var(--ink),0 0 2px var(--ink);white-space:nowrap;animation:up .7s var(--ease) forwards;transform:translate(-50%,0)}
+.float.big{color:var(--gold);font-size:28px}
+@keyframes up{from{opacity:1;transform:translate(-50%,0) scale(.9)}to{opacity:0;transform:translate(-50%,-60px) scale(1.05)}}
+.coin{position:fixed;z-index:30;left:0;top:0;width:22px;height:22px;background:url(art/coin.webp) 0 0/132px 22px no-repeat;pointer-events:none;animation:coin-spin .36s steps(6) infinite}
+@keyframes coin-spin{to{background-position:-132px 0}}
+.ticker{grid-area:ticker;margin:0;font:600 14px/1.3 Barlow,sans-serif;height:calc(2.6em + 2px);overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;opacity:.92}/* always two lines tall, so a long line never pushes the unicorn */
+.ticker b{font:700 11px var(--lab);color:var(--gold);margin-right:4px}
+.mid{position:relative;aspect-ratio:320/245;border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink);overflow:hidden;
+  background:#4f8d36;touch-action:manipulation}
+#map{position:absolute;left:0;top:0;display:block;touch-action:none;cursor:grab}
+#map:active{cursor:grabbing}
+.mid #mapFloats{inset:auto;z-index:1}
+.event-badge{position:absolute;z-index:2;left:50%;bottom:10px;transform:translateX(-50%);max-width:92%;background:var(--red);color:#fff;border:2px solid var(--ink);box-shadow:0 3px 0 var(--ink);font:700 12px var(--lab);padding:7px 10px;animation:shake 1.6s ease-in-out infinite}
+@keyframes shake{0%,90%,100%{transform:translateX(-50%)}93%{transform:translateX(calc(-50% - 3px))}96%{transform:translateX(calc(-50% + 3px))}}
+.right{display:flex;flex-direction:column;gap:8px;min-height:0}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr) auto;gap:6px}
+.tabs button{background:var(--cream2);border:2px solid var(--ink);box-shadow:0 3px 0 var(--ink);padding:9px 4px;font:700 12px var(--lab);white-space:nowrap}
+.tabs button.on{background:var(--gold)}
+.tabs b{display:inline-block;min-width:18px;padding:1px 4px;background:var(--red);color:#fff;font-size:11px}
+.tabs b:empty{display:none}
+.panel{background:var(--cream);border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink);padding:8px;display:grid;align-content:start;gap:8px;min-height:180px}
+
+/* ---------- desktop: Cookie Clicker layout, nothing scrolls except the shop ---------- */
+@media (min-width:900px){
+  body{overflow:hidden}
+  .app{max-width:none;height:100dvh;margin:0;padding:12px;display:grid;grid-template-columns:minmax(280px,1fr) minmax(380px,1.35fr) minmax(320px,1fr);gap:12px}
+  .left{display:flex;flex-direction:column;align-items:stretch;gap:6px;min-height:0;background:linear-gradient(rgba(14,10,30,.55),rgba(14,10,30,.2) 35%,rgba(14,10,30,.15) 70%,rgba(14,10,30,.6)),url(art/backdrop-training.webp) center/cover;border:3px solid var(--ink);box-shadow:0 4px 0 #000;padding:12px 14px;text-align:center}
+  .top{order:0}
+  .club{display:block;align-self:center;font:400 30px/1 var(--px);color:#fff;text-shadow:0 2px 0 var(--ink);margin-top:4px}
+  .bank{order:1}
+  .money{font-size:64px}
+  .rate{font-size:12px}
+  .kick-zone{order:2;flex:1;width:100%;height:auto;min-height:0;display:flex;align-items:center;justify-content:center}
+  .kicker{width:min(100%,46vh);height:auto;aspect-ratio:1}
+  .ticker{order:3;text-align:left;padding:8px 10px;height:calc(2.6em + 22px);flex:none;background:rgba(0,0,0,.35);border:2px solid var(--ink)}
+  .mid{aspect-ratio:auto;height:100%}
+  .right{min-height:0;height:100%}
+  .panel{flex:1;overflow:auto;min-height:0;overscroll-behavior:contain}
+}
+
+.row{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;padding:8px;background:#fff;border:2px solid var(--ink)}
+.row .thumb{width:48px;height:48px;object-fit:contain}
+.row .thumb.blank{display:block;background:var(--cream2);border:2px dashed #b9ae8f}
+.row h3{margin:0;font:400 22px/1 var(--px)}
+.row h3 small{display:inline-block;font:700 11px var(--lab);color:#6b6280;margin-left:6px;white-space:nowrap}
+.row p{margin:3px 0 0;font-size:13px;line-height:1.3;color:#3a3050}
+.row .earn{font:700 11px var(--lab);color:#1d7a45;margin-top:3px}
+.buy{min-width:86px;background:var(--gold);border:2px solid var(--ink);box-shadow:0 3px 0 var(--ink);padding:8px 6px;font:700 12px var(--lab);transition:transform .1s var(--ease)}
+.buy:active:not(:disabled){transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.buy:disabled{background:#d9d2bd;color:#7a7389;cursor:default}
+.buy.sell{background:var(--cream2)}
+.portrait{width:54px;height:54px;object-fit:cover;object-position:top;background:var(--cream2);border:2px solid var(--ink)}
+.portrait.init{display:flex;align-items:center;justify-content:center;font:400 26px var(--px)}
+.empty{margin:0;padding:18px 8px;text-align:center;font-size:14px;color:#5b5370}
+.modal{position:fixed;inset:0;z-index:20;background:rgba(10,6,24,.7);display:flex;align-items:center;justify-content:center;padding:16px;animation:fade .2s ease-out}
+.modal[hidden]{display:none}
+@keyframes fade{from{opacity:0}}
+.sheet{width:100%;max-width:400px;max-height:90dvh;overflow:auto;background:var(--cream);border:3px solid var(--ink);box-shadow:0 6px 0 var(--ink);padding:18px;animation:pop .28s var(--ease)}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.97)}}
+.sheet h2{margin:0 0 6px;font:400 34px/.95 var(--px)}
+.sheet p{margin:0 0 12px;font-size:15px;line-height:1.4}
+.sheet .hero{display:block;width:140px;height:140px;object-fit:contain;margin:0 auto 6px}
+.sheet .tag{display:inline-block;font:700 11px var(--lab);background:var(--red);color:#fff;padding:3px 6px;margin-bottom:8px}
+.sheet .tag.gold{background:var(--gold);color:var(--ink)}
+.choices{display:grid;gap:8px}
+.choices .buy{width:100%;padding:12px;font-size:13px;text-align:left}
+.choices .buy span{display:block;font:600 12px Barlow,sans-serif;margin-top:3px}
+.big-money{font:400 48px/1 var(--px);color:#1d7a45;text-align:center;margin:8px 0 14px}
+.rate10{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;margin:6px 0 12px}
+.rate10 button{padding:9px 0;background:#fff;border:2px solid var(--ink);font:700 13px var(--lab)}
+.rate10 button.on{background:var(--gold)}
+.sheet label{display:block;font:700 12px var(--lab);margin:10px 0 4px}
+.sheet input[type=email],.sheet input:not([type]),.sheet textarea{width:100%;padding:10px;border:2px solid var(--ink);font:16px Barlow,sans-serif;background:#fff}
+.sheet textarea{min-height:70px;resize:vertical}
+.note{font-size:12px!important;color:#6b6280}
+.dots{font:400 40px/1 var(--px);text-align:center;letter-spacing:4px}
+@media (prefers-reduced-motion:reduce){.float,.event-badge,.sheet,.modal,.rays{animation:none}}
+
+/* ---------- the store (right panel): every row is one big button, Cookie Clicker style ---------- */
+.panel{gap:6px;background:#efe3c1;background-image:repeating-linear-gradient(0deg,transparent 0 23px,rgba(26,16,48,.04) 23px 24px)}
+.store-head{display:flex;justify-content:space-between;align-items:baseline;padding:2px 4px 4px;border-bottom:2px dashed rgba(26,16,48,.25);font:700 11px var(--lab);text-transform:uppercase;letter-spacing:1px;color:#6b5a3a}
+.store-head b{font:400 22px/1 var(--px);color:#1d7a45;letter-spacing:0}
+.shop-row{all:unset;box-sizing:border-box;display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:12px;align-items:center;padding:8px 12px 8px 16px;background:#fffaf0;border:2px solid var(--ink);box-shadow:0 3px 0 var(--ink);cursor:pointer;position:relative;transition:transform .12s var(--ease),box-shadow .12s var(--ease),background-color .15s ease}
+button.shop-row:disabled{cursor:default;background:#e9dfc6}
+button.shop-row:disabled .thumb{opacity:.6}
+button.shop-row:disabled .price{color:#b0412f}
+button.shop-row.can{background:#fffaf0}
+button.shop-row.can::before{content:'';position:absolute;left:-2px;top:-2px;bottom:-2px;width:6px;background:var(--gold);border-right:2px solid var(--ink)}
+button.shop-row.can:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+@media (hover:hover) and (pointer:fine){button.shop-row.can:hover{background:#fff3cf}}
+.shop-row .thumb{width:56px;height:46px;object-fit:contain;image-rendering:auto}
+.shop-row .thumb.unbuilt{filter:grayscale(1) brightness(.75);opacity:.55}
+.shop-row .boot-thumb{display:block;background:url(art/boot.webp) 0 50%/400% auto no-repeat}
+.shop-row .thumb.q{display:grid;place-items:center;font:400 34px var(--px);color:#b9ad8c;background:#e4d8b8;border:2px dashed #b9ad8c}
+.hidden-row{opacity:.7;cursor:default}
+.hidden-row h3{color:#9c8f6e}
+.mid-col{min-width:0;display:grid;gap:1px}
+.mid-col h3{margin:0;font:400 22px/1 var(--px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.price{margin:0;display:flex;align-items:center;gap:4px;font:700 12px var(--lab);color:#1d7a45}
+.ico-coin{display:inline-block;width:13px;height:13px;background:url(art/coin.webp) 0 0/78px 13px}
+.mid-col .earn{font:700 10px var(--lab);color:#6b5a3a}
+.mid-col .blurb{font:500 12px/1.25 Barlow,sans-serif;color:#5b5070}
+.stage{display:block;height:4px;background:#d8cba6;margin-top:3px;max-width:120px}
+.stage i{display:block;height:100%;background:var(--red)}
+.owned{font:400 40px/1 var(--px);color:rgba(26,16,48,.22);min-width:34px;text-align:right}
+.owned.up{font-size:24px;color:#1d7a45}
+.star-row{cursor:default}
+.star-row .portrait{width:56px;height:56px}
+.sell-btn{background:var(--cream2);border:2px solid var(--ink);box-shadow:0 3px 0 var(--ink);padding:7px 8px;font:700 11px var(--lab)}
+.sell-btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.tabs button{transition:transform .12s var(--ease)}
+.tabs button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+
+/* squad market */
+.trend{display:grid;justify-items:end;gap:2px;font:700 11px var(--lab)}
+.trend.up{color:#1d7a45}.trend.down{color:#c8303a}
+.star-row{cursor:pointer}
+.star-sheet{display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:center;margin-bottom:10px}
+.star-sheet .portrait{width:72px;height:72px}
+.star-sheet h2{font-size:28px;margin:4px 0 2px}
+.chart{background:#fffaf0;border:2px solid var(--ink);padding:8px 8px 6px;margin-bottom:12px}
+.chart svg{display:block;width:100%;height:120px}
+.chart-ax{display:flex;justify-content:space-between;gap:6px;font:700 10px var(--lab);color:#6b5a3a;margin-top:6px}
+.chart-ax .up{color:#1d7a45}.chart-ax .down{color:#c8303a}
+
+/* the full game, hinted: locked rows under the store */
+.locked-head{margin-top:8px;padding:8px 4px 2px;border-top:2px dashed rgba(26,16,48,.25);font:700 11px var(--lab);letter-spacing:1px;text-transform:uppercase;color:#6b5a3a}
+.locked-row{opacity:.55;cursor:default;background:#e4d8b8;box-shadow:0 2px 0 rgba(26,16,48,.5)}
+.locked-row h3{color:#5b5070}
+.locked-row .price{color:#6b5a3a}
+.thumb.lock{display:block;width:56px;height:46px;background:#cfc2a0 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 9' shape-rendering='crispEdges'%3E%3Cpath d='M2 0h4v1H2zM1 1h1v3H1zM6 1h1v3H6zM0 4h8v5H0z' fill='%231a1030'/%3E%3Cpath d='M3 6h2v2H3z' fill='%23f2c230'/%3E%3C/svg%3E") center/18px 20px no-repeat;image-rendering:pixelated}
+
+.sheet{position:relative}
+.sheet-x{position:absolute;top:8px;right:8px;width:34px;height:34px;padding:0;background:var(--cream2);border:2px solid var(--ink);box-shadow:0 3px 0 var(--ink);font:700 16px/1 var(--lab);cursor:pointer}
+.sheet-x:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+
+/* coins raining down the left panel, behind everything else in it */
+.left{isolation:isolate}
+.rain{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+/* the golden boot: glows and bobs so it's easy to spot, 10 seconds to tap it */
+.app{position:relative}
+.golden{position:fixed;z-index:15;width:84px;height:84px;margin:-42px 0 0 -42px;padding:0;border:0;cursor:pointer;background:none;animation:gold-bob 1.1s ease-in-out infinite alternate,gold-in .25s var(--ease)}
+.golden::before{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(closest-side,rgba(255,236,140,.95),rgba(255,210,63,.55) 45%,rgba(255,210,63,0));animation:gold-pulse .8s ease-in-out infinite alternate}
+.golden::after{content:'';position:absolute;left:8px;right:8px;top:20px;bottom:20px;background:url(art/boot-gold.webp) center/contain no-repeat;filter:drop-shadow(0 2px 0 rgba(6,4,26,.6))}
+.golden[hidden]{display:none}
+@keyframes gold-pulse{from{transform:scale(.85);opacity:.8}to{transform:scale(1.1);opacity:1}}
+@keyframes gold-bob{from{transform:translateY(-3px) rotate(-6deg)}to{transform:translateY(3px) rotate(6deg)}}
+@keyframes gold-in{from{opacity:0;scale:.9}}
+.golden:active{scale:.94}
+.buff{display:inline-block;margin-top:6px;padding:3px 8px;font:700 11px var(--lab);color:var(--ink);background:var(--gold);border:2px solid var(--ink);animation:pulse .9s ease-in-out infinite alternate}
+.buff.cold{background:#9fb3c8;animation:none}
+.buff[hidden]{display:none}
+@keyframes pulse{to{transform:scale(1.04)}}
+/* trophy cabinet */
+.cabinet{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px}
+.trophy{display:grid;gap:2px;padding:8px;background:#e4d8b8;border:2px solid rgba(26,16,48,.4);text-align:center;opacity:.65}
+.trophy i{font-style:normal;font:400 26px/1 var(--px);color:#9c8f6e}
+.trophy b{font:400 18px/1 var(--px)}
+.trophy span{font:500 11px/1.2 Barlow,sans-serif;color:#5b5070}
+.trophy.on{background:#fff6d6;border-color:var(--ink);box-shadow:0 3px 0 var(--ink);opacity:1}
+.trophy-toast{position:fixed;left:50%;top:16px;z-index:40;translate:-50% 0;display:grid;gap:2px;padding:10px 16px;background:var(--gold);border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink);text-align:center;animation:toast-in .3s var(--ease)}
+.trophy-toast b{font:400 22px/1 var(--px)}.trophy-toast span{font:700 10px var(--lab)}
+.trophy-toast.out{opacity:0;translate:-50% -10px;transition:opacity .2s ease,translate .2s ease}
+@keyframes toast-in{from{opacity:0;translate:-50% -12px}}
+@media (prefers-reduced-motion:reduce){.golden,.golden::before,.buff{animation:none}}
+
+/* ---------- phone: cream page, a dark hero card with a big unicorn, sticky money + tabs ---------- */
+@media (max-width:899px){
+  .app{gap:10px;padding:10px 12px calc(20px + env(safe-area-inset-bottom))}
+  .left{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 12px 12px;text-align:center;border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink);
+    background:linear-gradient(rgba(14,10,30,.65),rgba(14,10,30,.25) 40%,rgba(14,10,30,.55)),url(art/backdrop-training.webp) center 30%/cover;overflow:hidden}
+  .top{align-self:stretch}
+  .club{font-size:26px;margin:2px 0 0}
+  .money{font-size:44px}
+  .rate{font-size:11px}
+  .kick-zone{width:min(68vw,250px);height:min(68vw,250px);margin:-4px 0 -6px}
+  .ticker{align-self:stretch;text-align:left;font-size:13px;padding:6px 9px;background:rgba(0,0,0,.4);border:2px solid var(--ink);height:calc(2.6em + 16px)}
+  body.mini .tabs{top:calc(57px + env(safe-area-inset-top))}
+  .tabs{position:sticky;top:0;z-index:5;transition:top .22s var(--ease);margin:0 -12px;padding:8px 12px;background:#efe3c1;border-bottom:2px solid rgba(26,16,48,.15)}
+  .mid{border-width:3px}
+  .panel{min-height:0}
+}
+/* the money bar that sticks to the top of the screen on phones once the hero card scrolls away */
+.minibar{position:fixed;left:0;right:0;top:0;z-index:12;display:flex;align-items:center;gap:10px;padding:8px 14px calc(8px);padding-top:calc(8px + env(safe-area-inset-top));background:var(--ink);color:#fff;border-bottom:3px solid #000;
+  translate:0 -110%;transition:translate .22s var(--ease)}
+.minibar.on{translate:0 0}
+.minibar b{font:400 30px/1 var(--px);color:var(--gold);font-variant-numeric:tabular-nums}
+.minibar span{font:700 10px var(--lab);opacity:.8}
+.minibar button{margin-left:auto;width:46px;height:38px;padding:0;border:2px solid var(--gold);background:none;image-rendering:pixelated}
+.minibar canvas{width:100%;height:100%;image-rendering:pixelated;pointer-events:none}
+@media (min-width:900px){.minibar{display:none}}
+
+.map-hint{position:absolute;z-index:2;left:50%;top:8px;translate:-50% 0;padding:4px 8px;font:700 10px var(--lab);color:#fff;background:rgba(26,16,48,.75);pointer-events:none;transition:opacity .3s ease}
+.map-hint.gone{opacity:0}
+@media (hover:hover) and (pointer:fine){.map-hint{display:none}}
+
+/* next goal under the bank, and the star life-cycle tags */
+.goal{font:600 13px/1.3 Barlow,sans-serif;opacity:.8;margin-top:2px;min-height:17px}
+.ph{display:inline-block;margin-top:3px;font:700 10px/1 Silkscreen,monospace;padding:3px 5px;border:2px solid #1a1030;background:#fbf3dc;color:#1a1030}
+.ph.up{background:#d9f2df}.ph.down{background:#f6d5d5}.ph.peak{background:#f2c230}
+.scout-row{border-style:dashed}

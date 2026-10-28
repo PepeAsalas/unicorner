@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Chairman – free idle football club game | Unicorner</title>
+<meta name="description" content="Kick the unicorn, build a ridiculous football club from a muddy pitch to a golden stadium. A free browser idle game from Unicorner.">
+<link rel="canonical" href="https://unicornergame.lol/tycoon/">
+<meta property="og:title" content="Chairman: a Unicorner idle football game">
+<meta property="og:description" content="Kick the unicorn, build a ridiculous football club. A free browser idle game from Unicorner.">
+<meta property="og:url" content="https://unicornergame.lol/tycoon/">
+<meta name="theme-color" content="#efe3c1">
+<link rel="icon" href="/favicon-32.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800&family=Jersey+10&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tycoon.css">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9034426912596924" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="minibar" id="minibar" aria-hidden="true"><b id="miniMoney">€0</b><span id="miniRate"></span><button type="button" id="miniKick" tabindex="-1" aria-label="Kick the unicorn"><canvas id="miniUni"></canvas></button></div>
+<div class="app">
+  <aside class="left">
+    <canvas class="rain" id="rain" aria-hidden="true"></canvas>
+    <header class="top"><a class="back" href="/">← Unicorner</a><span class="demo">CHAIRMAN · DEMO</span></header>
+    <button type="button" class="club" id="clubName2" title="Rename your club">Unicorner FC</button>
+    <section class="bank">
+      <div class="money" id="money">€0</div>
+      <div class="rate" id="rate">€0 per second</div>
+      <div class="goal" id="goal"></div>
+      <div class="buff" id="buff" hidden></div>
+    </section>
+    <div class="kick-zone">
+      <button type="button" class="kicker" id="kicker" aria-label="Tap the unicorn to earn money">
+        <span class="rays" aria-hidden="true"></span>
+        <span class="spot" aria-hidden="true"></span>
+        <canvas class="boots" id="boots" aria-hidden="true"></canvas>
+        <canvas class="uni" id="uni" aria-hidden="true"></canvas>
+      </button>
+      <div class="floats" id="floats" aria-hidden="true"></div>
+    </div>
+    <p class="ticker" id="ticker"><b>News:</b> <span id="tickerText">Kick the unicorn. Money falls out.</span></p>
+  </aside>
+  <main class="mid" id="stage">
+    <canvas id="map" aria-label="Your football district: your club grounds, one plot per building."></canvas>
+    <div class="floats" id="mapFloats" aria-hidden="true"></div>
+    <span class="map-hint" id="mapHint" aria-hidden="true">Drag to look around · pinch to zoom</span>
+    <button type="button" class="event-badge" id="eventBadge" hidden></button>
+  </main>
+  <section class="right">
+    <nav class="tabs" role="tablist">
+      <button type="button" role="tab" data-tab="club" aria-selected="true" class="on">Club</button>
+      <button type="button" role="tab" data-tab="upgrades" aria-selected="false">Upgrades <b id="upCount"></b></button>
+      <button type="button" role="tab" data-tab="stars" aria-selected="false">Stars <b id="starCount"></b></button>
+      <button type="button" role="tab" data-tab="trophies" aria-selected="false">🏆 <b id="trophyCount"></b></button>
+    </nav>
+    <div class="panel" id="panel"></div>
+  </section>
+</div>
+<button type="button" class="golden" id="golden" hidden aria-label="Golden boot: tap it"></button>
+<div class="modal" id="modal" hidden><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
+<script src="content.js"></script>
+<script src="unicorn.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
