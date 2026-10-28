@@ -53,12 +53,16 @@ def main():
     if not days:
         return
     latest = days[0][0]
+    prompts = ' '.join(q['prompt'].rstrip('.?') + '?' for q in days[0][1])
+    topics = ', '.join(q['prompt'].rstrip('.?') for q in days[0][1][:2])
+    if len(topics) > 70:
+        topics = topics[:67].rsplit(' ', 1)[0] + '…'
     body = '\n'.join(day_html(d, q) for d, q in days)
     nav = ' · '.join(f'<a href="#{d.isoformat()}">{d.strftime("%a %-d %b")}</a>' for d, _ in days)
     page = f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Unicorner answers: yesterday's football trivia answers ({latest.strftime("%-d %B %Y")})</title>
-<meta name="description" content="Every valid answer to the last {len(days)} days of Unicorner, the daily football trivia game: the questions, all accepted players, clubs and countries, and which answers were rare Screamers.">
+<title>Unicorner answers {latest.strftime("%-d %B %Y")}: {e(topics)}</title>
+<meta name="description" content="All answers to Unicorner, {latest.strftime("%-d %B")}: {e(prompts)} Every valid answer from the last {len(days)} days of the daily football trivia game.">
 <link rel="canonical" href="https://unicornergame.lol/answers/">
 <link rel="icon" href="/favicon-32.png" sizes="32x32">
 <link href="https://fonts.googleapis.com/css2?family=Jersey+15&family=VT323&family=Barlow:wght@500;700&display=swap" rel="stylesheet">
