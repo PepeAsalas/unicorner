@@ -35,7 +35,18 @@ jobs:
           bad=$(git diff --name-only HEAD...FETCH_HEAD | grep -Ev '^(daily/[0-9]{4}-[0-9]{2}-[0-9]{2}\.json|duel/bank\.json|duel/new/.*\.json)$' || true)
           if [ -n "$bad" ]; then echo "Not publishing: the branch changes files other than questions:"; echo "$bad"; exit 1; fi
           if [ -z "$(git diff --name-only HEAD...FETCH_HEAD)" ]; then echo 'Nothing new to publish'; exit 0; fi
-          git merge --no-edit FETCH_HEAD -m "Publish questions from $GITHUB_REF_NAME"
+          if ! git merge --no-edit FETCH_HEAD -m "Publish questions from $GITHUB_REF_NAME"; then
+            # main fixed questions after the routine started: keep main's bank and add the routine's new questions to it
+            if [ "$(git diff --name-only --diff-filter=U)" != "duel/bank.json" ]; then echo "Conflict outside duel/bank.json"; exit 1; fi
+            python3 -c "
+          import json,subprocess
+          m=json.loads(subprocess.check_output(['git','show','HEAD:duel/bank.json']))
+          b=json.loads(subprocess.check_output(['git','show','FETCH_HEAD:duel/bank.json']))
+          ids={q['id'] for q in m}
+          json.dump(m+[q for q in b if q['id'] not in ids],open('duel/bank.json','w'),ensure_ascii=False,separators=(',',':'))"
+            python3 scripts/check_duel_bank.py
+            git add duel/bank.json && git commit --no-edit -m "Publish questions from $GITHUB_REF_NAME (kept main's corrections)"
+          fi
       - name: Check every question
         run: |
           python scripts/check_daily.py
