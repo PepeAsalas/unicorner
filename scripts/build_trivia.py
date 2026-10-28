@@ -94,7 +94,8 @@ summary{{cursor:pointer;margin-top:8px;font:18px VT323,monospace;color:#d7262e}}
 ul{{display:flex;flex-wrap:wrap;gap:4px;list-style:none;margin:8px 0 0;padding:0}}li{{font-size:14px;padding:1px 7px;border:2px solid #06041a;background:#fff}}
 li.s{{background:#d7262e;color:#fff}}li.b{{background:#ff6fb5}}li.v{{background:#c9b8ff}}
 footer{{margin-top:30px;color:#c9bff5;font-size:14px}}
-</style></head><body><main>
+.hero{{position:relative;display:flex;align-items:center;gap:14px;margin:-24px -16px 18px;padding:22px 16px;background:linear-gradient(rgba(27,21,48,.35),#1b1530),url(/bg/floodlit-wide.webp) center/cover;border-bottom:3px solid #06041a;text-decoration:none}}.hero img{{width:72px;height:72px;image-rendering:pixelated;border:3px solid #06041a;background:#fbf3dc}}.hero b{{font:400 34px/1 'Jersey 15',monospace;color:#ffd23f;text-shadow:3px 3px 0 #06041a}}.hero small{{display:block;font:18px VT323,monospace;color:#fff}}.bar{{position:sticky;bottom:0;display:flex;align-items:center;justify-content:space-between;gap:10px;margin:24px -16px -48px;padding:10px 16px;background:#fbf3dc;color:#1a1030;border-top:3px solid #06041a;font:700 15px Barlow,sans-serif}}.bar .play{{white-space:nowrap;margin:0;font-size:20px;padding:8px 14px}}</style></head><body><main>
+<a class="hero" href="/"><img src="/favicon-512.png" alt="Unicorner"><span><b>Unicorner</b><small>free daily football trivia ▶ play now</small></span></a>
 <h1>Football trivia questions and answers</h1>
 <p class="lead">{n} football quiz questions in {len(rounds)} rounds, made from real Unicorner games. Every question has many correct answers, so it's perfect for a party, the pub or a long car journey.</p>
 <p class="how"><b>How to play with friends:</b> read a question out loud and go round the group. Everyone names one valid answer, no repeats. Get it wrong or freeze for 5 seconds and you're out. Last one standing wins the round. Bonus point for a <b>Screamer</b> (red): an answer almost nobody thinks of.</p>
@@ -102,6 +103,7 @@ footer{{margin-top:30px;color:#c9bff5;font-size:14px}}
 <nav>{''.join(toc)}</nav>
 {''.join(parts)}
 <footer>New questions are added as Unicorner grows. Want yesterday's answers? See <a href="/answers/">past answers</a>. <a href="/">Back to Unicorner</a></footer>
+<div class="bar"><span>Think you know ball? Five new questions every day.</span><a class="play" href="/">Play ▶</a></div>
 </main></body></html>
 '''
     os.makedirs(os.path.join(ROOT, 'football-trivia-questions'), exist_ok=True)
