@@ -4138,31 +4138,4 @@ body:not(.landing) .hb-side,body.playing .hb-side,body.playing .hb{display:none}
 /* the dark info band and footer slide over the side banners when you scroll down */
 body:not(.playing):not(.results-view) .seo-info,footer.site{z-index:3}
 </style>
-<script>
-// Halloween decorations, 28 Oct - 1 Nov only (or ?halloween in the address to preview). Small, at the edges, never while playing.
-(()=>{const d=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam'}).format(new Date());if(!(d>='2026-10-28'&&d<='2026-11-01')&&!/halloween/.test(location.search))return;
- document.documentElement.classList.add('hw-on');
- const add=(host,cls,src,pos)=>{if(!host||host.querySelector('.'+cls))return;const i=document.createElement('img');i.className='hw '+cls;i.src='/hw/'+src+'.png';i.alt='';i.setAttribute('aria-hidden','true');host.appendChild(i)};
- const scan=()=>{const hero=document.querySelector('.lp-art');add(hero,'hw-pump','pumpkin');add(hero,'hw-bat','bat');
-  const tk=document.querySelector('.tk-wrap');add(tk,'hw-web','web-corner');add(tk,'hw-spider','spider');
-  const pod=document.querySelector('.ucw-pod');add(pod,'hw-tomb','tombstone');add(pod,'hw-ghost','ghost-ball');
-  const mh=document.querySelector('.modes-head');add(mh,'hw-candle','candle')};
- new MutationObserver(scan).observe(document.body,{childList:true,subtree:true});scan()})();
-</script>
-<style>
-.hw{position:absolute;pointer-events:none;image-rendering:pixelated;z-index:3}
-body.playing .hw{display:none}
-.hw-on .lp-art,.hw-on .tk-wrap,.hw-on .ucw-pod,.hw-on .modes-head{position:relative}
-.hw-pump{width:46px;left:46%;bottom:-8px;z-index:0}
-.hw-bat{width:48px;left:2%;top:-14px;animation:hwBat 3.2s ease-in-out infinite}
-@keyframes hwBat{50%{transform:translate(-8px,6px) rotate(-6deg)}}
-.hw-web{width:78px;left:-3px;top:-3px;opacity:.9}
-.hw-spider{width:16px;right:6px;top:-6px;animation:hwSp 4s ease-in-out infinite;transform-origin:top}
-@keyframes hwSp{50%{transform:translateY(10px)}}
-.hw-tomb{width:36px;left:8px;top:8px}
-.hw-ghost{width:34px;right:6px;top:8px;animation:hwBat 3.6s ease-in-out infinite}
-.hw-candle{width:14px;position:static;margin-left:6px}
-@media (max-width:560px){.hw-pump{width:36px}.hw-bat{width:38px}.hw-web{width:60px}}
-@media (prefers-reduced-motion:reduce){.hw{animation:none!important}}
-</style>
 </body></html>
