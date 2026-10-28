@@ -47,10 +47,14 @@ jobs:
         id: health
         continue-on-error: true
         run: python scripts/upkeep.py health | tee health.txt
-      - name: Commit sitemap dates
+      - name: Build the past answers page
+        if: env.JOB == 'health'
+        run: python scripts/build_answers.py
+      - name: Commit sitemap dates and answers page
         if: env.JOB == 'health'
         run: |
-          if ! git diff --quiet sitemap.xml; then git add sitemap.xml && git commit -m 'Refresh sitemap dates' && git pull --rebase origin main && git push origin HEAD:main; fi
+          git add sitemap.xml answers/
+          if ! git diff --cached --quiet; then git commit -m 'Refresh sitemap dates and past answers' && git pull --rebase origin main && git push origin HEAD:main; fi
       - name: Report a failed health check
         if: env.JOB == 'health' && steps.health.outcome == 'failure'
         run: |
