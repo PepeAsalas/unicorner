@@ -927,7 +927,8 @@ function wall() {
     <label for="fb-e">Email me when it's ready (optional)</label><input type="email" id="fb-e" placeholder="you@example.com" autocomplete="email">
     <p class="note">We'll only use your email to tell you the full game is out. No newsletter.</p>
     <div class="choices"><button type="button" class="buy" id="fb-send" disabled>Send</button></div>
-    <p class="note" id="fb-msg"></p>`, null, true);
+    <p class="note" id="fb-msg"></p>${AGAIN}`, null, true);
+  sheet.querySelector('#again').onclick = restart;
   sheet.querySelector('#r10').onclick = e => { const b = e.target.closest('[data-r]'); if (!b) return; rating = +b.dataset.r; sheet.querySelectorAll('#r10 button').forEach(x => x.classList.toggle('on', x === b)); sheet.querySelector('#fb-send').disabled = false; };
   sheet.querySelector('#fb-send').onclick = async () => {
     const comment = sheet.querySelector('#fb-c').value.trim().slice(0, 1000), email = sheet.querySelector('#fb-e').value.trim().slice(0, 200);
@@ -943,7 +944,15 @@ function wall() {
 }
 function thanks() {
   modal(`<h2>Thank you!</h2><p>Your club is saved on this device. When the full game is ready, you'll be first in.</p>
-    <p>Total earned: <b>${fmt(S.earned)}</b></p><div class="choices"><a class="buy" href="/" style="text-align:center;text-decoration:none;color:inherit">Back to Unicorner</a></div>`, null, true);
+    <p>Total earned: <b>${fmt(S.earned)}</b></p><div class="choices"><a class="buy" href="/" style="text-align:center;text-decoration:none;color:inherit">Back to Unicorner</a></div>${AGAIN}`, null, true);
+  sheet.querySelector('#again').onclick = restart;
+}
+const AGAIN = '<div class="choices"><button type="button" class="buy" id="again">↻ Play the 17 minutes again</button></div>';
+// a fresh club from zero; the feedback is kept so the form isn't asked twice
+function restart() {
+  if (!confirm('Start a new club from scratch? Your current club will be lost.')) return;
+  const feedback = S.feedback; track('tycoon_restart', {earned: Math.round(S.earned)});
+  S = fresh(); S.feedback = feedback; save(); location.reload();
 }
 
 
