@@ -16,7 +16,7 @@
 <div class="top"><div class="brand">🦄 Unicorner</div><a class="back" href="./">Back to game</a></div>
 <main class="card">
 <h1>Privacy policy</h1>
-<p class="small">Last updated: 22 October 2026</p>
+<p class="small">Last updated: 29 October 2026</p>
 <p>Unicorner is the data controller for personal data collected through this football trivia game. For privacy questions, access requests or deletion requests, email <a href="mailto:joseasalasnl@gmail.com">joseasalasnl@gmail.com</a>.</p>
 
 <h2>What we collect</h2>
@@ -24,7 +24,7 @@
 <li><strong>Gameplay and analytics data:</strong> game events, question views, answer outcomes, canonical correct answers, scores, timings, skips/timeouts, device and screen basics, language, timezone, referrer/path, the platform you arrived from (for example a tagged TikTok or Reddit link, or the referring website), an approximate country (a 2-letter code worked out by our server from your connection; we do not store your IP address), a random session identifier and a random persistent visitor identifier used to measure return visits and retention. We do not intentionally store names or email addresses in analytics events. During testing, when an answer is rejected, we store the exact typed answer together with the question so we can find missing valid answers and improve typo/name matching.</li>
 <li><strong>Messages and submissions:</strong> information you choose to send through contact, question-submission, problem-report or Infinite-mode forms, which may include your name, email address and message.</li>
 <li><strong>Accounts, rankings and leagues (optional):</strong> if you sign in to appear on the global ranking or use leagues, we store your email address (from Google sign-in or the sign-in link you request), the nickname you choose, the leagues you create or join, your daily game scores, and whether you ticked “I don’t want reminders or Unicorner news”. The daily game itself never requires an account.</li>
-<li><strong>Infinity mode subscription (optional, paid):</strong> if you subscribe, payment is handled by Lemon Squeezy (see below). We never see or store your card details. We receive and keep, linked to your account: a Lemon Squeezy customer number, a subscription number, the subscription status (for example active or cancelled) and the date it renews or ends. While your subscription is active, an ∞ badge appears next to your nickname on the public rankings. Your Infinity progress (which questions you have seen and your average points per competition) is kept only on your own device.</li>
+<li><strong>Infinity mode purchase (optional, paid):</strong> if you buy Infinity mode, payment is handled by Stripe (see below). We never see or store your card details. We receive and keep, linked to your account: a Stripe customer reference or the email used at checkout, a payment number and the purchase status (for example paid or refunded). While Infinity mode is unlocked, an ∞ badge appears next to your nickname on the public rankings. Your Infinity progress (which questions you have seen and your average points per competition) is kept only on your own device.</li>
 <li><strong>Newsletter choice:</strong> whether you actively tick the optional newsletter box, plus the time of that opt-in.</li>
 </ul>
 
@@ -34,7 +34,7 @@
 <div class="row"><b>Reply to messages, reports and question submissions</b>Necessary to take steps at your request and, where appropriate, our legitimate interest in operating and supporting Unicorner.</div>
 <div class="row"><b>Improve the game and understand usage</b>Our legitimate interest in measuring and improving Unicorner using privacy-minimised, pseudonymous analytics.</div>
 <div class="row"><b>Global ranking, leagues and leaderboards</b>Necessary to provide the feature you asked for. Your nickname and daily and weekly scores appear publicly on the global ranking, and other members of your league see them in that league. Nobody else ever sees your email address.</div>
-<div class="row"><b>Infinity mode subscription</b>Necessary to perform the contract you enter when you subscribe: to unlock Infinity mode on your account, keep it unlocked while you pay, and show the ∞ badge on the rankings.</div>
+<div class="row"><b>Infinity mode subscription</b>Necessary to perform the contract you enter when you buy Infinity mode: to unlock Infinity mode on your account, keep it unlocked while you pay, and show the ∞ badge on the rankings.</div>
 <div class="row"><b>Reminders and news for league players</b>Our legitimate interest in telling players about new games and features. You can opt out with the checkbox when you sign up, later in your league profile, or with the unsubscribe link in any email.</div>
 <div class="row"><b>Newsletter and marketing emails</b>Your consent. The checkbox is optional and unticked by default. You can withdraw consent at any time.</div>
 </div>
@@ -44,9 +44,8 @@
 <li><strong>Supabase</strong> provides the database and backend. The Unicorner Supabase project is hosted in the EU (Ireland).</li>
 <li><strong>GitHub</strong> hosts our source code and deployment workflow and may process technical data associated with hosting/deployment.</li>
 <li><strong>FormSubmit</strong> relays form submissions to our email inbox when you submit a form.</li>
-<li><strong>Lemon Squeezy</strong> (Lemon Squeezy, LLC, a Stripe company) is the reseller and merchant of record for Infinity mode. It runs the checkout, takes the payment, handles sales tax/VAT, sends receipts and lets you manage or cancel your subscription. It processes your payment details, email address and billing country under its own privacy policy, and tells us only the subscription details listed above.</li>
+<li><strong>Stripe</strong> (Stripe Payments Europe, Ltd. and its affiliates) processes Infinity mode payments. It runs the checkout, takes the payment and sends receipts. It processes your payment details, email address and billing country under its own privacy policy, and tells us only the purchase details listed above.</li>
 <li><strong>Google</strong> confirms your identity if you choose “Continue with Google” and shares your email address and basic profile with us.</li>
-<li><strong>Google Fonts</strong> serves some website fonts and may receive standard request information such as your IP address and browser details.</li>
 </ul>
 <p>Some service providers may process data outside the EU/EEA under their own applicable transfer safeguards and privacy terms.</p>
 
@@ -59,7 +58,7 @@
 <li>Raw gameplay analytics, scores and answer-pick records: <strong>up to 12 months</strong>.</li>
 <li>Contact messages, reports, question submissions and waitlist submissions: <strong>up to 2 years</strong>.</li>
 <li>Player accounts (email, nickname, league memberships): <strong>until you ask us to delete them</strong>. Ranking and league scores: <strong>up to 12 months</strong>.</li>
-<li>Infinity subscription records (status and dates): <strong>while your account exists</strong>, so your access stays correct; they are deleted with your account. Lemon Squeezy keeps its own payment and tax records as the law requires.</li>
+<li>Infinity subscription records (status and dates): <strong>while your account exists</strong>, so your access stays correct; they are deleted with your account. Stripe keeps its own payment records as the law requires.</li>
 <li>Aggregated or non-identifying statistics may be kept longer.</li>
 </ul>
 <p>The gameplay, message and score retention periods are enforced automatically in our database.</p>
