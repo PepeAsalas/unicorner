@@ -943,7 +943,7 @@ function wall() {
   };
 }
 function thanks() {
-  modal(`<h2>Thank you!</h2><p>Your club is saved on this device. When the full game is ready, you'll be first in.</p>
+  modal(`<h2>Thank you!</h2><p>When the full game is ready, you'll be first in. It starts every club fresh, with lots more to build.</p>
     <p>Total earned: <b>${fmt(S.earned)}</b></p><div class="choices"><a class="buy" href="/" style="text-align:center;text-decoration:none;color:inherit">Back to Unicorner</a></div>${AGAIN}`, null, true);
   sheet.querySelector('#again').onclick = restart;
 }
