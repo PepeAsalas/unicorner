@@ -9,9 +9,10 @@ on:
   workflow_dispatch:
     inputs:
       job:
-        description: 'health, rejections, report, archive or archive-dry-run'
+        description: 'health, answers, rejections, report, archive or archive-dry-run'
         default: health
   schedule:
+    - cron: '7 23 * * *'   # answers page, just after midnight Amsterdam (GitHub often starts it hours late)
     - cron: '41 4 * * *'   # health, every day
     - cron: '13 20 * * 5'  # rejections, Friday evening
     - cron: '13 6 * * 1'   # report, Monday morning
@@ -31,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
-      JOB: ${{ github.event.inputs.job || (github.event.schedule == '13 20 * * 5' && 'rejections') || (github.event.schedule == '13 6 * * 1' && 'report') || (github.event.schedule == '27 2 * * 0' && 'archive') || 'health' }}
+      JOB: ${{ github.event.inputs.job || (github.event.schedule == '13 20 * * 5' && 'rejections') || (github.event.schedule == '13 6 * * 1' && 'report') || (github.event.schedule == '27 2 * * 0' && 'archive') || (github.event.schedule == '7 23 * * *' && 'answers') || 'health' }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -48,10 +49,10 @@ jobs:
         continue-on-error: true
         run: python scripts/upkeep.py health | tee health.txt
       - name: Build the past answers page
-        if: env.JOB == 'health'
+        if: env.JOB == 'health' || env.JOB == 'answers'
         run: python scripts/build_answers.py && python scripts/build_trivia.py
       - name: Commit sitemap dates and answers page
-        if: env.JOB == 'health'
+        if: env.JOB == 'health' || env.JOB == 'answers'
         run: |
           git add sitemap.xml answers/ football-trivia-questions/
           if ! git diff --cached --quiet; then git commit -m 'Refresh sitemap dates and past answers' && git pull --rebase origin main && git push origin HEAD:main; fi
