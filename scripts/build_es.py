@@ -28,7 +28,7 @@ FAQ = [
     ('¿Puedo jugar con amigos?', 'Sí. Crea una liga privada, manda el enlace a tus amigos y comparad vuestras puntuaciones del día y de la semana. Para las ligas hace falta entrar gratis con tu email; para el juego diario, no.'),
     ('¿Hay una clasificación?', 'Sí. Hay un ranking mundial de cada partido diario y otro semanal que se reinicia cada lunes, y arriba aparece el ganador de ayer. Para salir en él, entra y elige un apodo.'),
     ('¿Cuál es la puntuación máxima?', '500. Cada una de las cinco preguntas vale hasta 100 puntos: 10 por las respuestas más obvias (Empujarla), luego 30, 60 y 85, y 100 por las respuestas válidas más raras (Qué chicharro).'),
-    ('¿Qué es el Modo Infinito?', 'El Modo Infinito es práctica sin fin con las mismas reglas que el juego diario: 30 segundos por pregunta y las respuestas más raras puntúan más, pero sin ranking. Ya puedes probar una ronda corta; la versión infinita completa llega pronto.'),
+    ('¿Qué es el Modo Infinito?', 'El Modo Infinito es práctica sin fin con las mismas reglas que el juego diario: 30 segundos por pregunta y las respuestas más raras puntúan más, pero sin ranking. Puedes probar una ronda corta gratis, y la versión infinita completa viene con la suscripción al Modo Infinito.'),
     ('¿Qué son las equipaciones?', 'Las equipaciones son trajes para tu unicornio pixelado. Hay 40 que se desbloquean jugando: por partidos jugados, rachas, chicharros y puntuaciones altas. La más rara, el GOAT cósmico, es solo para quien gana un día. Si has entrado con tu cuenta, tu equipación sale en la clasificación.'),
     ('¿Qué es un Qué chicharro?', 'Qué chicharro es la respuesta válida más rara de una pregunta y vale los 100 puntos. Todas las respuestas correctas cuentan, pero cuanto más obvia, menos puntos: Empujarla vale 10, luego Remate 30, Volea 60 y Chilena 85.'),
     ('¿Por qué no me ha contado la respuesta?', 'La respuesta tiene que encajar exactamente con la pregunta. Si escribes un fallo típico, como un jugador que llegó una temporada tarde o que jugó en el otro club, salta un VAR que te explica por qué no cuenta, y puedes volver a intentarlo mientras quede tiempo.'),
@@ -51,7 +51,7 @@ FAQ_EN_NEW = [
     ('Can I play with friends?', 'Yes. Challenge a friend to a 1v1 duel: send the link, play rounds of five questions, and the rarer answer hits harder until someone is knocked out. You can also create a private league, send the link to your friends and compare your daily and weekly scores. Leagues need a free sign-in with your email; the daily game itself does not.'),
     ('Is there a leaderboard?', "Yes. There is a global ranking for each day's game and a weekly ranking that resets every Monday, and yesterday's winner is shown at the top. To appear on it, sign in and pick a nickname."),
     ('What is the highest score?', '500. Each of the five questions is worth up to 100 points: 10 for the most obvious answers (a Tap-in), then 30, 60 and 85, and 100 for the rarest valid answers (a Screamer).'),
-    ('What is Infinity mode?', 'Infinity mode is endless practice with the same rules as the daily game: 30 seconds per question and rarer answers score more, but there is no ranking. You can try a short run now; the full endless version is coming soon.'),
+    ('What is Infinity mode?', 'Infinity mode is endless practice with the same rules as the daily game: 30 seconds per question and rarer answers score more, but there is no ranking. You can try a short run for free, and the full endless version comes with an Infinity subscription.'),
     ('What are kits?', 'Kits are outfits for your pixel unicorn. There are 40 to unlock by playing, through games played, streaks, Screamers and big scores. The rarest, the Cosmic GOAT, is only for players who win a day. If you are signed in, your kit shows on the leaderboard.'),
     ('What is a Screamer?', 'A Screamer is the rarest valid answer to a question, worth the full 100 points. Every correct answer counts, but the more obvious it is, the fewer points it scores: a Tap-in is 10, then a Header 30, a Volley 60 and a Bicycle kick 85.'),
     ("Why didn't my answer count?", 'Your answer has to fit the question exactly. If you type a common near miss, such as a player who joined a season too late or played for the other club, a VAR check pops up and explains why it does not count, and you can try again while the clock is still running.'),
@@ -63,6 +63,8 @@ for (q, a), (qe, ae) in zip(FAQ_EN_NEW, FAQ[4:]):
 
 def build():
     s = SRC.read_text(encoding='utf-8')
+    s = s.replace('<a class="privacy-link lang-link" href="/es/" hreflang="es">Español</a>', '<a class="privacy-link lang-link" href="/" hreflang="en">English</a>', 1)
+    s = s.replace('>Past answers</a>', '>Respuestas anteriores</a>', 1).replace('href="/duel.html">Duels</a>', 'href="/duel.html">Duelos</a>', 1)
 
     def sub(old, new, count=1):
         nonlocal s
