@@ -4137,41 +4137,24 @@ body:not(.landing) .hb-side,body.playing .hb-side,body.playing .hb{display:none}
 body:not(.playing):not(.results-view) .seo-info,footer.site{z-index:3}
 </style>
 <style id="palette">
-/* One palette for every screen: paper, cream, sand, ink, gold, grass, clay, slate. Art, kits and trophies keep their own colours. */
-:root{--p-paper:#fbf6e8;--p-cream:#f6eed8;--p-sand:#e9dfc2;--p-ink:#1d1a2b;--p-ink2:#5d566b;--p-gold:#f2c230;--p-grass:#2f9a62;--p-clay:#c8473b;--p-slate:#2c3550}
-html body .meter.lvl{background:var(--p-paper)!important;color:var(--p-ink)!important;border-color:var(--p-ink)!important}
-html body .meter.lvl *{color:var(--p-ink)!important}
-html body .meter.lvl .lvl-bar{background:var(--p-sand)!important;border-color:var(--p-ink)!important}
-html body .meter.lvl .lvl-bar i{background:var(--p-grass)!important}
-html body .meter.lvl .lvl-tick:not(.now){background:var(--p-sand)!important}
-html body .meter.lvl .lvl-tick.now,html body .meter.lvl .lvl-crest{background:var(--p-gold)!important}
-html body .meter.lvl .lvl-tick:not(.now) svg{opacity:.55}
-html body.playing #screen>.card,html body #screen .card.result-screen{background:var(--p-paper)!important;color:var(--p-ink)!important;border-color:var(--p-ink)!important}
-html body.playing #screen>.card :is(h1,h2,h3,p,div,span,label,a,b,small,strong,li,summary){color:var(--p-ink)}
-html body.playing #screen .q-progress{background:var(--p-gold)!important;border-color:var(--p-ink)!important}
-html body.playing #screen .q-progress *{color:var(--p-ink)!important}
-html body.playing #screen .q-sub{background:var(--p-cream)!important;border-color:var(--p-ink2)!important;color:var(--p-ink2)!important}
-html body.playing #screen .timer{background:var(--p-sand)!important;border-color:var(--p-ink)!important}
-html body.playing #screen .timer #bar{background:var(--p-grass)!important}
-html body.playing #screen input,html body.playing #screen .fake-input{background:#fff!important;color:var(--p-ink)!important;border-color:var(--p-ink)!important}
-html body.playing #screen input::placeholder{color:#a39d8f!important}
-html body #screen .cta{background:var(--p-gold)!important;color:var(--p-ink)!important}
-html body.playing #screen .cta.submitbtn{background:var(--p-grass)!important;color:#fff!important}
-html body #screen .result-screen :is(.res.result-item,ul.ans li){background:var(--p-cream)!important;border-color:var(--p-ink)!important}
-html body #screen .result-screen :is(.res.result-item,ul.ans li) :is(summary,span,b,p,div,small,em){color:var(--p-ink)}
-html body #screen .result-screen .dist{background:var(--p-cream)!important}
-html body.playing #screen .skipbtn{color:var(--p-ink2)!important}
-html body.playing #screen .gbar{background:var(--p-sand)!important;border-color:var(--p-ink)!important}
-html body.playing #screen .tier{color:var(--p-ink)!important}
-html body.playing #screen>.card b{color:var(--p-ink)!important}
-html body.playing #screen>.card .cta b,html body.playing #screen .submitbtn *{color:inherit!important}
-html body #screen .result-screen :is(.mute,.tk-streak-txt,em){color:var(--p-ink2)!important}
-html body #screen .result-screen .result-item i{color:var(--p-ink)!important}
-html body #screen .result-screen .result-nearly{background:var(--p-cream)!important;border-color:var(--p-clay)!important}
-html body #screen .result-screen .result-nearly h3{color:var(--p-clay)!important}
-html body #screen .result-screen .jb-status{background:var(--p-slate)!important}
-html body #screen .result-screen .jb-status :is(.g-sub,.g-back,.g-small,span,p.mute){color:#d9dce8!important}
-html body #screen .quick-home-x{background:var(--p-ink)!important}
+/* One palette, swapped like for like: indigo -> slate navy, deep indigo insets -> ink, neon yellow -> gold, lavender text -> sand.
+   paper #fbf6e8 · cream #f6eed8 · sand #e9dfc2 · ink #1d1a2b · gold #f2c230 · grass #2f9a62 · clay #c8473b · slate #2c3550. Art, kits and trophies keep their own colours. */
+:root{--p-paper:#fbf6e8;--p-cream:#f6eed8;--p-sand:#e9dfc2;--p-ink:#1d1a2b;--p-gold:#f2c230;--p-grass:#2f9a62;--p-clay:#c8473b;--p-slate:#2c3550}
+html body .meter.lvl{background:var(--p-slate)!important}
+html body .meter.lvl .lvl-bar{background:var(--p-ink)!important}
+html body .meter.lvl .lvl-tick:not(.now){background:#3d4766!important}
+html body .meter.lvl :is(.lvl-tick.now,.lvl-crest){background:var(--p-gold)!important}
+html body .meter.lvl :is(small,.lvl-next){color:var(--p-sand)!important}
+html body.playing #screen>.card,html body #screen .card.result-screen{background:var(--p-slate)!important}
+html body.playing #screen :is(.q-sub,.timer,input,.fake-input,.gbar){background:var(--p-ink)!important}
+html body.playing #screen :is(.q-sub,input,.q-progress){border-color:var(--p-gold)!important}
+html body.playing #screen .q-progress{color:var(--p-gold)!important}
+html body.playing #screen .timer #bar{background:repeating-linear-gradient(90deg,var(--p-gold) 0 10px,var(--p-ink) 10px 13px)!important}
+html body #screen .cta{background:var(--p-gold)!important}
+html body #screen .mute{color:var(--p-sand)!important}
+html body #screen .result-screen :is(.res.result-item,ul.ans li){background:var(--p-ink)!important}
+html body #screen .result-screen :is(.dist,.jb-status){background:var(--p-ink)!important}
+html body #screen .result-screen .result-nearly{background:rgba(200,71,59,.18)!important;border-color:var(--p-clay)!important}
 html body :is(.ucw-bar,.ucw .ucw-more,.ftd .ucw-more,.ucw .ucw-mini.on){background:var(--p-slate)!important}
 html body footer.site{background:var(--p-slate)!important}
 </style>
