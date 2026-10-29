@@ -41,6 +41,7 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 .msg{min-height:28px;font-family:var(--mono);font-size:22px}
 .msg.ok{color:var(--green)}.msg.bad{color:var(--red)}
 .tier{font-family:var(--disp);font-size:46px;text-align:center}
+#bat-skip[hidden]{display:none}
 .cab{position:relative;aspect-ratio:9/13;width:100%;border:4px solid var(--cream);box-shadow:0 0 0 4px var(--ink);overflow:hidden;background:var(--ink)}
 /* desktop: the battle fits the screen height, with the buttons beside it instead of below */
 @media (min-width:900px){
@@ -386,7 +387,7 @@ body.prog-on.night .prog .ib-x{color:#e9dfc2}body.prog-on.night .prog .ib-off{co
   <div class="card fb" id="fb" hidden><p><b>How was the duel?</b> It's new, so tell us.</p>
    <div class="row"><button class="ghost" data-fb="up">👍 Loved it</button><button class="ghost" data-fb="down">👎 Meh</button></div>
    <textarea id="fb-t" maxlength="500" rows="2" placeholder="Anything to change? (optional)"></textarea><button id="fb-send" hidden>Send</button><p class="small" id="fb-ok" hidden>Thanks! 🦄</p></div>
-  <div class="row" style="margin-top:14px"><button id="replay" class="ghost">Replay</button><button id="next" hidden>Play round 2</button><button id="rematch">Rematch</button></div>
+  <div class="row" style="margin-top:14px"><button type="button" id="bat-skip" hidden onclick="skipBattle();track&&track('duel_skip',{})">Skip ⏭</button><button id="replay" class="ghost">Replay</button><button id="next" hidden>Play round 2</button><button id="rematch">Rematch</button></div>
   <button class="ghost back" style="margin-top:14px">← Back to Unicorner</button>
    <a class="bat-ad" id="bat-ad" hidden target="_blank" rel="noopener"></a>
  </section>
