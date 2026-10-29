@@ -2192,7 +2192,7 @@ const infKey=()=>'uc-inf-'+amsterdamDay();
 const infDone=()=>{try{return localStorage.getItem(infKey())!==null}catch{return false}};
 // Payment: a Stripe Payment Link, $4.99 once. The link carries the player's account id (client_reference_id), so the stripe-webhook function knows who paid.
 // To open checkout: paste the Payment Link into link and set paused:false. While paused, the Infinity wall collects waitlist emails instead.
-const INF_PAY={paused:true,link:'',portal:'',price:'$4.99'};
+const INF_PAY={paused:true,link:'https://buy.stripe.com/00w8wP4mTcOv3lU02j83C01',portal:'',price:'$4.99'};
 const INF_FIRST='2026-09-18'; // first day with a daily file; Infinity plays every day before today
 let INF_SUB=null;
 async function infSub(force){if(!window.ucSignedIn?.())return{active:false,signed:false};if(INF_SUB&&!force)return INF_SUB;
