@@ -109,3 +109,5 @@ def build():
 
 if __name__ == '__main__':
     build()
+    import build_sprites  # Duels draws the same kits as the main game
+    build_sprites.main()
