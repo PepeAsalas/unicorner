@@ -65,7 +65,7 @@ def main():
 <meta name="description" content="All answers to Unicorner, {latest.strftime("%-d %B")}: {e(prompts)} Every valid answer from the last {len(days)} days of the daily football trivia game.">
 <link rel="canonical" href="https://unicornergame.lol/answers/">
 <link rel="icon" href="/favicon-32.png" sizes="32x32">
-<link href="https://fonts.googleapis.com/css2?family=Jersey+15&family=VT323&family=Barlow:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <style>
 *{{box-sizing:border-box}}body{{margin:0;background:#1d1a2b;color:#f3ead2;font:500 16px/1.5 Barlow,system-ui,sans-serif}}
 main{{max-width:760px;margin:0 auto;padding:24px 16px 48px}}a{{color:#f2c230}}

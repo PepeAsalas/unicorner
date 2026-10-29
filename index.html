@@ -21,8 +21,26 @@
 <link rel="alternate" hreflang="en" href="https://unicornergame.lol/">
 <link rel="alternate" hreflang="es" href="https://unicornergame.lol/es/">
 <link rel="alternate" hreflang="x-default" href="https://unicornergame.lol/"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png"><link rel="icon" href="/favicon-192.png" sizes="192x192" type="image/png"><link rel="apple-touch-icon" href="/favicon-180.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://yujhjepukzdahsppntua.supabase.co" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Barlow:wght@400;500;600;700&family=Jersey+10&family=Jersey+15&family=Pixelify+Sans:wght@400;500;700&family=Silkscreen:wght@400;700&family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://yujhjepukzdahsppntua.supabase.co" crossorigin>
+<style id="fonts">/* Three fonts: Jersey 10, VT323, Barlow (self-hosted in /fonts). The older names below are aliases that draw those three, size-adjusted to the old cap height and given the old line metrics, so existing sizes and layout stay put. */
+@font-face{font-family:'VT323';src:url(/fonts/vt323.woff2) format('woff2');font-weight:400;font-display:swap;size-adjust:100%}
+@font-face{font-family:'Jersey 10';src:url(/fonts/jersey10.woff2) format('woff2');font-weight:400;font-display:swap;size-adjust:100%}
+@font-face{font-family:'Barlow';src:url(/fonts/barlow-400.woff2) format('woff2');font-weight:400;font-display:swap;size-adjust:100%}
+@font-face{font-family:'Barlow';src:url(/fonts/barlow-500.woff2) format('woff2');font-weight:500;font-display:swap;size-adjust:100%}
+@font-face{font-family:'Barlow';src:url(/fonts/barlow-600.woff2) format('woff2');font-weight:600;font-display:swap;size-adjust:100%}
+@font-face{font-family:'Barlow';src:url(/fonts/barlow-700.woff2) format('woff2');font-weight:700;font-display:swap;size-adjust:100%}
+@font-face{font-family:'Barlow';src:url(/fonts/barlow-800.woff2) format('woff2');font-weight:800;font-display:swap;size-adjust:100%}
+@font-face{font-family:'Press Start 2P';src:url(/fonts/vt323.woff2) format('woff2');font-weight:400;font-display:swap;size-adjust:179%;ascent-override:55.9%;descent-override:0%;line-gap-override:0%}
+@font-face{font-family:'Silkscreen';src:url(/fonts/vt323.woff2) format('woff2');font-weight:400;font-display:swap;size-adjust:135%;ascent-override:76.3%;descent-override:18.5%;line-gap-override:0%}
+@font-face{font-family:'Silkscreen';src:url(/fonts/vt323.woff2) format('woff2');font-weight:700;font-display:swap;size-adjust:135%;ascent-override:76.3%;descent-override:18.5%;line-gap-override:0%}
+@font-face{font-family:'Pixelify Sans';src:url(/fonts/jersey10.woff2) format('woff2');font-weight:400;font-display:swap;size-adjust:119%;ascent-override:77.3%;descent-override:23.5%;line-gap-override:0%}
+@font-face{font-family:'Pixelify Sans';src:url(/fonts/jersey10.woff2) format('woff2');font-weight:500;font-display:swap;size-adjust:119%;ascent-override:77.3%;descent-override:23.5%;line-gap-override:0%}
+@font-face{font-family:'Pixelify Sans';src:url(/fonts/jersey10.woff2) format('woff2');font-weight:700;font-display:swap;size-adjust:119%;ascent-override:77.3%;descent-override:23.5%;line-gap-override:0%}
+@font-face{font-family:'Jersey 15';src:url(/fonts/jersey10.woff2) format('woff2');font-weight:400;font-display:swap;size-adjust:104%;ascent-override:75%;descent-override:21.2%;line-gap-override:0%}
+@font-face{font-family:'Barlow Condensed';src:url(/fonts/barlow-600.woff2) format('woff2');font-weight:600;font-display:swap;size-adjust:88%;ascent-override:113.6%;descent-override:22.7%;line-gap-override:0%}
+@font-face{font-family:'Barlow Condensed';src:url(/fonts/barlow-800.woff2) format('woff2');font-weight:800;font-display:swap;size-adjust:88%;ascent-override:113.6%;descent-override:22.7%;line-gap-override:0%}
+</style>
+<link rel="preload" href="/fonts/jersey10.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/fonts/vt323.woff2" as="font" type="font/woff2" crossorigin>
 <style>.sp{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:radial-gradient(ellipse at 50% 40%,#fbf5e4 0%,#f6eed8 55%,#e6d9b4 100%);color:#1d1a2b;transition:opacity .45s ease,transform .45s ease}
 .sp.out{opacity:0;transform:scale(1.04);pointer-events:none}
 .sp-t{font:400 clamp(52px,14vw,84px)/1 var(--px);letter-spacing:.03em;color:#f2c230;text-shadow:3px 0 0 #1d1a2b,-3px 0 0 #1d1a2b,0 3px 0 #1d1a2b,0 -3px 0 #1d1a2b,3px 3px 0 #1d1a2b,-3px 3px 0 #1d1a2b,3px -3px 0 #1d1a2b,-3px -3px 0 #1d1a2b,0 7px 0 #1d1a2b}
@@ -4157,5 +4175,10 @@ html body #screen .result-screen :is(.dist,.jb-status){background:var(--p-ink)!i
 html body #screen .result-screen .result-nearly{background:rgba(200,71,59,.18)!important;border-color:var(--p-clay)!important}
 html body :is(.ucw-bar,.ucw .ucw-more,.ftd .ucw-more,.ucw .ucw-mini.on){background:var(--p-marine)!important}
 html body footer.site{background:var(--p-marine)!important}
+html body .mode.m-inf{background:var(--p-marine)!important}
+html body .mode.m-inf .m-pic{background:#16356b!important}
+html body .mode.m-inf .m-sym{color:var(--p-gold)!important;text-shadow:none!important}
+html body .mode.m-inf::before,html body .mode.m-inf::after,html body .mode.m-inf .m-pic::before,html body .mode.m-inf .m-pic::after{opacity:0!important}
+html body .landing .cta.tk-play{background:var(--p-grass)!important;color:#fff!important}
 </style>
 </body></html>

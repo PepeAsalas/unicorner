@@ -16,6 +16,6 @@ One palette for every screen. Art, kits, trophies and the five rarity tiers keep
 
 Rarity tiers (keep): Tap-in `#cfd8e6`, Header `#7fe0a8`, Volley `#b48cff`, Bicycle kick `#ff7ac8`, Screamer `#ffd23f`.
 
-Fonts: Jersey 15 (titles, buttons), VT323 (labels, timers), Barlow (questions, reading text).
+Fonts: Jersey 10 (titles, buttons), VT323 (labels, timers), Barlow (questions, reading text). Self-hosted in `/fonts` (`fonts.css`). Older font names in the CSS (Press Start 2P, Silkscreen, Pixelify Sans, Jersey 15, Barlow Condensed) are aliases that draw these three at matched sizes.
 
 In code: `index.html` defines these as `--p-*` variables in the `<style id="palette">` block at the end of the page.
