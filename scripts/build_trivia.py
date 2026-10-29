@@ -83,7 +83,7 @@ def main():
 *{{box-sizing:border-box}}body{{margin:0;background:#1d1a2b;color:#f3ead2;font:500 16px/1.5 Barlow,system-ui,sans-serif}}
 main{{max-width:760px;margin:0 auto;padding:24px 16px 48px}}a{{color:#f2c230}}
 h1{{font:400 42px/1 'Jersey 15',monospace;margin:0 0 10px;color:#f2c230;text-shadow:3px 3px 0 #1d1a2b}}
-.lead{{color:#e9dfc2;margin:0 0 10px}}.how{{background:#2c3550;border:2px solid #1d1a2b;padding:10px 14px;margin:0 0 16px;font-size:15px}}
+.lead{{color:#e9dfc2;margin:0 0 10px}}.how{{background:#1d4486;border:2px solid #1d1a2b;padding:10px 14px;margin:0 0 16px;font-size:15px}}
 .how b{{color:#f2c230}}.play{{display:inline-block;margin:0 0 16px;padding:12px 18px;background:#2f9a62;color:#fbf6e8;border:3px solid #1d1a2b;box-shadow:0 4px 0 #1d1a2b;font:400 24px/1 'Jersey 15',monospace;text-decoration:none}}
 nav{{display:grid;gap:4px;font:19px VT323,monospace;margin:0 0 10px}}
 h2{{font:400 30px/1 'Jersey 15',monospace;margin:28px 0 10px;padding:8px 12px;background:#c8473b;color:#fff;border:3px solid #1d1a2b}}
