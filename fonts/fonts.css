@@ -1,11 +1,12 @@
+html{font-synthesis:none}
 /* Three fonts: Jersey 10, VT323, Barlow (self-hosted in /fonts). The older names below are aliases that draw those three, size-adjusted to the old cap height and given the old line metrics, so existing sizes and layout stay put. */
 @font-face{font-family:'VT323';src:url(/fonts/vt323.woff2) format('woff2');font-weight:400;font-display:swap;size-adjust:100%}
 @font-face{font-family:'Jersey 10';src:url(/fonts/jersey10.woff2) format('woff2');font-weight:400;font-display:swap;size-adjust:100%}
-@font-face{font-family:'Barlow';src:url(/fonts/barlow-400.woff2) format('woff2');font-weight:400;font-display:swap;size-adjust:100%}
-@font-face{font-family:'Barlow';src:url(/fonts/barlow-500.woff2) format('woff2');font-weight:500;font-display:swap;size-adjust:100%}
-@font-face{font-family:'Barlow';src:url(/fonts/barlow-600.woff2) format('woff2');font-weight:600;font-display:swap;size-adjust:100%}
-@font-face{font-family:'Barlow';src:url(/fonts/barlow-700.woff2) format('woff2');font-weight:700;font-display:swap;size-adjust:100%}
-@font-face{font-family:'Barlow';src:url(/fonts/barlow-800.woff2) format('woff2');font-weight:800;font-display:swap;size-adjust:100%}
+@font-face{font-family:'Barlow';src:url(/fonts/vt323.woff2) format('woff2');font-weight:400;font-display:swap;size-adjust:125%;ascent-override:80%;descent-override:16%;line-gap-override:0%}
+@font-face{font-family:'Barlow';src:url(/fonts/vt323.woff2) format('woff2');font-weight:500;font-display:swap;size-adjust:125%;ascent-override:80%;descent-override:16%;line-gap-override:0%}
+@font-face{font-family:'Barlow';src:url(/fonts/vt323.woff2) format('woff2');font-weight:600;font-display:swap;size-adjust:125%;ascent-override:80%;descent-override:16%;line-gap-override:0%}
+@font-face{font-family:'Barlow';src:url(/fonts/vt323.woff2) format('woff2');font-weight:700;font-display:swap;size-adjust:125%;ascent-override:80%;descent-override:16%;line-gap-override:0%}
+@font-face{font-family:'Barlow';src:url(/fonts/vt323.woff2) format('woff2');font-weight:800;font-display:swap;size-adjust:125%;ascent-override:80%;descent-override:16%;line-gap-override:0%}
 @font-face{font-family:'Press Start 2P';src:url(/fonts/vt323.woff2) format('woff2');font-weight:400;font-display:swap;size-adjust:179%;ascent-override:55.9%;descent-override:0%;line-gap-override:0%}
 @font-face{font-family:'Silkscreen';src:url(/fonts/vt323.woff2) format('woff2');font-weight:400;font-display:swap;size-adjust:135%;ascent-override:76.3%;descent-override:18.5%;line-gap-override:0%}
 @font-face{font-family:'Silkscreen';src:url(/fonts/vt323.woff2) format('woff2');font-weight:700;font-display:swap;size-adjust:135%;ascent-override:76.3%;descent-override:18.5%;line-gap-override:0%}
@@ -13,5 +14,5 @@
 @font-face{font-family:'Pixelify Sans';src:url(/fonts/jersey10.woff2) format('woff2');font-weight:500;font-display:swap;size-adjust:119%;ascent-override:77.3%;descent-override:23.5%;line-gap-override:0%}
 @font-face{font-family:'Pixelify Sans';src:url(/fonts/jersey10.woff2) format('woff2');font-weight:700;font-display:swap;size-adjust:119%;ascent-override:77.3%;descent-override:23.5%;line-gap-override:0%}
 @font-face{font-family:'Jersey 15';src:url(/fonts/jersey10.woff2) format('woff2');font-weight:400;font-display:swap;size-adjust:104%;ascent-override:75%;descent-override:21.2%;line-gap-override:0%}
-@font-face{font-family:'Barlow Condensed';src:url(/fonts/barlow-600.woff2) format('woff2');font-weight:600;font-display:swap;size-adjust:88%;ascent-override:113.6%;descent-override:22.7%;line-gap-override:0%}
-@font-face{font-family:'Barlow Condensed';src:url(/fonts/barlow-800.woff2) format('woff2');font-weight:800;font-display:swap;size-adjust:88%;ascent-override:113.6%;descent-override:22.7%;line-gap-override:0%}
+@font-face{font-family:'Barlow Condensed';src:url(/fonts/vt323.woff2) format('woff2');font-weight:600;font-display:swap;size-adjust:125%;ascent-override:80%;descent-override:16%;line-gap-override:0%}
+@font-face{font-family:'Barlow Condensed';src:url(/fonts/vt323.woff2) format('woff2');font-weight:800;font-display:swap;size-adjust:125%;ascent-override:80%;descent-override:16%;line-gap-override:0%}
