@@ -23,6 +23,10 @@ button{font:inherit;color:inherit;cursor:pointer}
 .gold{background:var(--gold)}.grass{background:var(--grass);color:#fff}.paper{background:var(--paper)}
 .row{display:flex;gap:10px}.row .btn{flex:1}
 [hidden]{display:none!important}
+.fb{display:grid;gap:10px}.fb-q{margin:0}.fb-q b{color:var(--gold)}
+.r10{display:grid;grid-template-columns:repeat(10,1fr);gap:4px}.r10 button{height:38px;font:400 20px var(--disp);color:var(--ink);background:var(--paper);border:2px solid var(--ink);padding:0}.r10 button.on{background:var(--gold)}
+.fb textarea{width:100%;border:3px solid var(--ink);background:#fff;color:var(--ink);font:16px/1.3 VT323,monospace;padding:8px;border-radius:0;resize:vertical}
+.fb-ok{margin:0;color:var(--gold);font:20px var(--mono)}
 /* the presenter: portrait + text box, like talking to an NPC */
 .host{display:flex;gap:10px;align-items:flex-end}
 .face{flex:none;width:96px;height:96px;background:linear-gradient(#2d5aa0,#1d4486) center/cover;border:3px solid var(--ink);box-shadow:3px 3px 0 rgba(0,0,0,.35);overflow:hidden;position:relative}
@@ -97,6 +101,10 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
  <button class="btn gold" id="copy" style="width:100%">Copy result</button>
  <div class="row"><button class="btn paper" id="share" hidden>Share</button><button class="btn paper" id="show">See answers</button></div>
  <ul class="ans" id="ans" hidden></ul>
+ <div class="card fb" id="fb" hidden><p class="fb-q"><b>How was today's Rosco?</b> It's brand new, so tell us.</p>
+  <div class="r10" id="r10"></div>
+  <textarea id="fb-t" maxlength="500" rows="2" placeholder="Too hard? Too easy? A clue that was wrong? (optional)"></textarea>
+  <button class="btn gold" id="fb-send" disabled style="width:100%">Send</button><p class="fb-ok" id="fb-ok" hidden>Thanks! Horacio has noted it down.</p></div>
  <p class="note" id="next"></p>
 </section>
 </main>
@@ -190,7 +198,7 @@ $('f').onsubmit=e=>{e.preventDefault();answer()};$('enter').onclick=answer;$('pa
 
 function finish(why){clearInterval(tick);if(S.done)return;S.done=true;S.left=left();S.why=why;R.letters.forEach(x=>{if(!S.res[x.letter])S.res[x.letter]='miss'});save();
  const c=counts();track('rosco_finish',{score:c.ok,wrong:c.no,total:R.letters.length,left:S.left,why});end(true)}
-function end(fresh){show('s-end');const c=counts(),n=R.letters.length;drawRing('ring2');$('score').innerHTML=`${c.ok}<span>/${n}</span>`;
+function end(fresh){show('s-end');feedback();const c=counts(),n=R.letters.length;drawRing('ring2');$('score').innerHTML=`${c.ok}<span>/${n}</span>`;
  $('left').textContent=S.why==='time'?'TIME UP':fmt(S.left||0)+' LEFT';
  const mood=c.ok>=19?'celebrate':c.ok>=15?'excited':c.ok>=11?'wink':c.ok>=7?'sad':'facepalm';host.end=host.end||Host($('face2'));
  say($('say2'),host.end,c.ok>=19?`${c.ok}! That's a huge Rosco. Take a bow.`:c.ok>=13?`${c.ok} correct. Solid ball knowledge, that.`:c.ok>=8?`${c.ok} today. The Rosco is a tough one, come back tomorrow!`:`Only ${c.ok}... we all have off days. New Rosco tomorrow!`,mood);
@@ -198,6 +206,12 @@ function end(fresh){show('s-end');const c=counts(),n=R.letters.length;drawRing('
  $('ans').innerHTML=R.letters.map(x=>{const st=S.res[x.letter],col=st==='ok'?'var(--grass)':st==='no'?'var(--clay)':'#6b6878';
   return`<li><b style="background:${col}">${x.letter}</b><div><strong>${esc(x.prompt)}</strong><small>${st==='ok'?'✓ '+esc(S.typed[x.letter]):st==='no'?'✕ You said '+esc(S.typed[x.letter]):'Not answered'} · ${x.answers.length>1?'Answers':'Answer'}: ${x.answers.map(a=>esc(a.name)).join(', ')}</small></div></li>`}).join('');
  const nx=()=>{const now=new Date(),am=new Date(now.toLocaleString('en-US',{timeZone:'Europe/Amsterdam'})),ms=(24*3600-am.getHours()*3600-am.getMinutes()*60-am.getSeconds())*1000;$('next').textContent=`New Rosco in ${Math.floor(ms/36e5)}h ${Math.floor(ms%36e5/6e4)}m`};nx();setInterval(nx,30000)}
+// feedback after a round: 1-10 and an optional note, once per day (sent as an event)
+function feedback(){const k='uc-rosco-fb-'+DAY;if(ls(k))return;let rating=0;$('fb').hidden=false;
+ $('r10').innerHTML=Array.from({length:10},(_,i)=>`<button type="button" data-r="${i+1}">${i+1}</button>`).join('');
+ $('r10').onclick=e=>{const b=e.target.closest('[data-r]');if(!b)return;rating=+b.dataset.r;$('r10').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));$('fb-send').disabled=false};
+ $('fb-send').onclick=()=>{const t=$('fb-t').value.trim().slice(0,500),c=counts();track('rosco_feedback',{rating,text:t||null,score:c.ok});ls(k,'1');
+  $('r10').hidden=$('fb-t').hidden=$('fb-send').hidden=true;$('fb-ok').hidden=false}}
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const gridText=()=>ABC.map(ch=>{if(!R.letters.some(x=>x.letter===ch))return'⬛';const s=S.res[ch];return s==='ok'?'🟩':s==='no'?'🟥':'⬜'}).join('');
 $('show').onclick=()=>{$('ans').hidden=!$('ans').hidden;$('show').textContent=$('ans').hidden?'See answers':'Hide answers'};
