@@ -126,7 +126,7 @@ function Host(box){const img=box.querySelector('img');let pose='idle-1',talkT=0,
  show(pose);blink();return api}
 let typing=0;
 function say(el,h,text,pose='idle-1',more=false){clearInterval(typing);h.set(pose);
- el.innerHTML='<span class="who">THE PRESENTER</span><span class="t"></span>'+(more?'<span class="more" hidden>▼</span>':'');const t=el.querySelector('.t');let i=0;
+ el.innerHTML='<span class="who">MR. MANE</span><span class="t"></span>'+(more?'<span class="more" hidden>▼</span>':'');const t=el.querySelector('.t');let i=0;
  if(REDUCE){t.textContent=text;el.querySelector('.more')?.removeAttribute('hidden');return}
  h.talk(text.length*22);typing=setInterval(()=>{t.textContent=text.slice(0,++i);if(i>=text.length){clearInterval(typing);h.hush();el.querySelector('.more')?.removeAttribute('hidden')}},22)}
 const pick=a=>a[Math.floor(Math.random()*a.length)];
@@ -162,7 +162,7 @@ async function load(){if(!TESTER){$('s-load').innerHTML='<div class="card"><h1>C
  $('tag').textContent=`ROSCO #${NO}`;try{S=JSON.parse(ls(KEY)||'null')}catch{S=null}
  if(S&&S.done)return end(false);if(S&&S.start)return play();
  show('s-intro');drawRing('ring0','A');$('clock0').textContent=fmt(R.seconds);$('count0').textContent=`${R.letters.length} LETTERS`+(R.letters.length<26?` · ${26-R.letters.length} SKIPPED`:'');
- host.intro=host.intro||Host($('face0'));say($('say0'),host.intro,`Welcome to the Rosco! ${R.letters.length} letters, three minutes, and the clock doesn't stop. Shall we?`,'happy-1');track('rosco_intro',{})}
+ host.intro=host.intro||Host($('face0'));say($('say0'),host.intro,`Welcome to the Rosco! I'm Mr. Mane. ${R.letters.length} letters, three minutes, and the clock doesn't stop. Shall we?`,'happy-1');track('rosco_intro',{})}
 
 $('go').onclick=()=>{S={start:Date.now(),res:{},typed:{},passed:[],queue:R.letters.map(x=>x.letter),lap:1,done:false};save();track('rosco_start',{});play()};
 
