@@ -1,6 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Unicorner Rosco</title>
 <meta name="description" content="The daily football Rosco: one clue for every letter, against the clock. Free, new every day.">
+<meta name="robots" content="noindex"><!-- beta: testers only for now -->
 <link rel="icon" href="/favicon-32.png" sizes="32x32">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <style>
@@ -24,9 +25,12 @@ button{font:inherit;color:inherit;cursor:pointer}
 [hidden]{display:none!important}
 /* the presenter: portrait + text box, like talking to an NPC */
 .host{display:flex;gap:10px;align-items:flex-end}
-.face{flex:none;width:84px;height:84px;background:var(--cream) 88% 8%/250% no-repeat;border:3px solid var(--ink);box-shadow:3px 3px 0 rgba(0,0,0,.35);image-rendering:pixelated}
-.face.talk{animation:talk .22s steps(2) infinite}
-@keyframes talk{50%{background-position:88% 14%}}
+.face{flex:none;width:96px;height:96px;background:linear-gradient(#2d5aa0,#1d4486) center/cover;border:3px solid var(--ink);box-shadow:3px 3px 0 rgba(0,0,0,.35);overflow:hidden;position:relative}
+.face img{position:absolute;inset:auto 0 0 0;width:100%;height:auto;image-rendering:pixelated;transform-origin:50% 100%}
+.face.pop img{animation:hpop 220ms cubic-bezier(.34,1.56,.64,1)}
+@keyframes hpop{0%{transform:scale(1.06,.94)}100%{transform:none}}
+.l.pop{animation:lpop 260ms cubic-bezier(.34,1.56,.64,1)}@keyframes lpop{0%{transform:scale(1.5)}100%{transform:scale(1)}}
+.inp.shake{animation:shake 260ms}@keyframes shake{25%{translate:-6px 0}50%{translate:5px 0}75%{translate:-3px 0}}
 .say{position:relative;flex:1;min-height:84px;background:var(--paper);color:var(--ink);border:3px solid var(--ink);box-shadow:4px 4px 0 rgba(0,0,0,.35);padding:10px 12px;font:600 16px/1.35 Barlow}
 .say::before{content:"";position:absolute;left:-11px;bottom:14px;border:8px solid transparent;border-right-color:var(--ink)}
 .say .who{display:block;font:400 18px/1 var(--mono);color:var(--marine);margin-bottom:4px}
@@ -60,7 +64,7 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
 .ans li{display:grid;grid-template-columns:34px 1fr;gap:8px;align-items:start;background:var(--paper);color:var(--ink);border:2px solid var(--ink);padding:8px}
 .ans li>b{display:grid;place-items:center;height:30px;font:400 20px var(--disp);border:2px solid var(--ink);color:#fff}
 .ans small{display:block;color:#5d566b}
-@media (prefers-reduced-motion:reduce){.l.now,.face.talk,.clock.low,.say .more{animation:none}}
+@media (prefers-reduced-motion:reduce){.l.now,.face.pop img,.l.pop,.inp.shake,.clock.low,.say .more{animation:none}}
 </style></head><body><main>
 <div class="top"><a class="logo" href="/">UNICORNER</a><span class="tag" id="tag">ROSCO</span></div>
 
@@ -68,7 +72,7 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
 
 <section id="s-intro" hidden>
  <div class="ring" id="ring0"><div class="mid"><div class="clock" id="clock0">3:00</div><div class="sc" id="count0"></div></div></div>
- <div class="host"><i class="face" id="face0"></i><div class="say" id="say0" role="status"></div></div>
+ <div class="host"><div class="face" id="face0"><img alt="" width="64" height="64"></div><div class="say" id="say0" role="status"></div></div>
  <button class="btn grass" id="go" style="width:100%">Start the Rosco</button>
  <p class="note">Most players get 12–16. A 19 is a great day.</p>
  <div class="card"><h1>How it works</h1><ul class="rules">
@@ -80,7 +84,7 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
 
 <section id="s-play" hidden style="display:flex;flex-direction:column;gap:12px">
  <div class="ring" id="ring"><div class="mid"><div class="clock" id="clock">3:00</div><div class="sc" id="count"></div></div></div>
- <div class="host"><i class="face" id="face"></i><div class="clue" style="flex:1"><span class="chip" id="chip">Starts with A</span><p id="prompt"></p><small id="sub"></small></div></div>
+ <div class="host"><div class="face" id="face"><img alt="" width="64" height="64"></div><div class="clue" style="flex:1"><span class="chip" id="chip">Starts with A</span><p id="prompt"></p><small id="sub"></small></div></div>
  <form id="f" autocomplete="off"><input class="inp" id="in" placeholder="Type your answer" enterkeyhint="send" autocapitalize="words" spellcheck="false"></form>
  <p class="var" id="var" role="status"></p>
  <div class="row"><button class="btn gold" id="pass" type="button">Pasapalabra</button><button class="btn grass" id="enter" type="button">Enter</button></div>
@@ -88,7 +92,7 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
 
 <section id="s-end" hidden style="display:flex;flex-direction:column;gap:12px">
  <div class="ring" id="ring2"><div class="mid"><div class="big" id="score"></div><div class="sc" id="left"></div></div></div>
- <div class="host"><i class="face" id="face2"></i><div class="say" id="say2" role="status"></div></div>
+ <div class="host"><div class="face" id="face2"><img alt="" width="64" height="64"></div><div class="say" id="say2" role="status"></div></div>
  <div class="grid" id="grid"></div>
  <div class="row"><button class="btn gold" id="share">Share</button><button class="btn paper" id="show">See answers</button></div>
  <ul class="ans" id="ans" hidden></ul>
@@ -105,14 +109,26 @@ if(!ls('uc-visitor'))ls('uc-visitor',Math.random().toString(36).slice(2)+Date.no
 const VISITOR=ls('uc-visitor'),SID=Math.random().toString(36).slice(2);
 function track(name,data){try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,session:SID,visitor:VISITOR,seconds:0,game_day:DAY,event_version:2,data:{language:'en',page:'rosco',rosco:NO,...(data||{})}})}).catch(()=>{})}catch{}}
 
-// ── the presenter (placeholder art: our unicorn in the Boardroom suit, until the presenter frames are drawn) ──
-const HOST_KIT=KITS.find(k=>k.id==='boardroom')||null,FACES={};
-const face=m=>FACES[m]||(FACES[m]=spriteDraw(m==='talk'?'happy':m,0,false,HOST_KIT).replace(/"/g,"'"));
+// ── the presenter: 20 hand-picked 64x64 frames in rosco/host. He blinks when idle and moves his mouth while his text types out ──
+const POSES=['idle-1','idle-2','talk-1','talk-2','talk-3','happy-1','happy-talk','laugh','excited','wink','point','think','surprised','nervous','sad','sad-talk','annoyed','facepalm','pasapalabra','celebrate'];
+POSES.forEach(n=>{const i=new Image();i.src=`rosco/host/${n}.png`});
+// while talking, a pose flips between its mouth frames; poses without talking frames hold still
+const MOUTH={'idle-1':['idle-1','talk-1','talk-2','talk-3'],'happy-1':['happy-1','happy-talk'],'sad':['sad','sad-talk']};
+const REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const host={};
+function Host(box){const img=box.querySelector('img');let pose='idle-1',talkT=0,blinkT=0;
+ const show=n=>{img.src=`rosco/host/${n}.png`};
+ const blink=()=>{clearTimeout(blinkT);blinkT=setTimeout(()=>{if(pose==='idle-1'&&!talkT){show('idle-2');setTimeout(()=>{if(pose==='idle-1'&&!talkT)show('idle-1')},130)}blink()},2600+Math.random()*2600)};
+ const api={set(n){if(n!==pose){box.classList.remove('pop');void box.offsetWidth;if(!REDUCE)box.classList.add('pop')}pose=n;show(n)},
+  talk(ms){clearInterval(talkT);talkT=0;const f=MOUTH[pose];if(!f||REDUCE)return;let i=0;
+   talkT=setInterval(()=>{show(f[1+(i++%(f.length-1))])},110);setTimeout(api.hush,ms)},
+  hush(){clearInterval(talkT);talkT=0;show(pose)},get pose(){return pose}};
+ show(pose);blink();return api}
 let typing=0;
-function say(el,faceEl,text,mood='happy',more=false){clearInterval(typing);faceEl.style.backgroundImage=face(mood);faceEl.classList.add('talk');
+function say(el,h,text,pose='idle-1',more=false){clearInterval(typing);h.set(pose);
  el.innerHTML='<span class="who">THE PRESENTER</span><span class="t"></span>'+(more?'<span class="more" hidden>▼</span>':'');const t=el.querySelector('.t');let i=0;
- const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;if(reduce){t.textContent=text;faceEl.classList.remove('talk');el.querySelector('.more')?.removeAttribute('hidden');return}
- typing=setInterval(()=>{t.textContent=text.slice(0,++i);if(i>=text.length){clearInterval(typing);faceEl.classList.remove('talk');el.querySelector('.more')?.removeAttribute('hidden')}},22)}
+ if(REDUCE){t.textContent=text;el.querySelector('.more')?.removeAttribute('hidden');return}
+ h.talk(text.length*22);typing=setInterval(()=>{t.textContent=text.slice(0,++i);if(i>=text.length){clearInterval(typing);h.hush();el.querySelector('.more')?.removeAttribute('hidden')}},22)}
 const pick=a=>a[Math.floor(Math.random()*a.length)];
 const LINES={ok:['Golazo!','Correct!','Top bins.','Ball knowledge!','Lovely stuff.','That\'s the one.'],
  no:w=>[`No! It was ${w}.`,`Ooh, not that. It was ${w}.`,`Wrong one, it was ${w}.`],pass:['Pasapalabra!','Next letter!','We\'ll come back to it.'],
@@ -140,41 +156,45 @@ function drawRing(id,cur){const r=$(id);r.querySelectorAll('.l').forEach(e=>e.re
 const counts=()=>{const v=Object.values(S.res);return{ok:v.filter(x=>x==='ok').length,no:v.filter(x=>x==='no').length}};
 function show(id){['s-load','s-intro','s-play','s-end'].forEach(x=>$(x).hidden=x!==id)}
 
-async function load(){let r;try{r=await fetch(`rosco/${DAY}.json`,{cache:'no-cache'});if(!r.ok)throw 0;R=await r.json()}catch{$('s-load').innerHTML='<p class="note">No Rosco today yet. Come back soon!</p>';return}
+// beta: testers only (a device that opened a page with ?tester=pasapalabra). Everyone else sees a short note.
+const TESTER=(()=>{try{const q=new URLSearchParams(location.search).get('tester');if(q==='off')localStorage.removeItem('uc-tester');else if(q==='pasapalabra')localStorage.setItem('uc-tester','1');return localStorage.getItem('uc-tester')==='1'}catch{return false}})();
+async function load(){if(!TESTER){$('s-load').innerHTML='<div class="card"><h1>Coming soon</h1><p style="margin:8px 0 12px">The Rosco is being tested right now. It opens to everyone very soon.</p><a class="btn gold" href="/" style="display:grid;place-items:center;text-decoration:none">Back to today\'s game</a></div>';return}let r;try{r=await fetch(`rosco/${DAY}.json`,{cache:'no-cache'});if(!r.ok)throw 0;R=await r.json()}catch{$('s-load').innerHTML='<p class="note">No Rosco today yet. Come back soon!</p>';return}
  $('tag').textContent=`ROSCO #${NO}`;try{S=JSON.parse(ls(KEY)||'null')}catch{S=null}
  if(S&&S.done)return end(false);if(S&&S.start)return play();
  show('s-intro');drawRing('ring0','A');$('clock0').textContent=fmt(R.seconds);$('count0').textContent=`${R.letters.length} LETTERS`+(R.letters.length<26?` · ${26-R.letters.length} SKIPPED`:'');
- say($('say0'),$('face0'),`Welcome to the Rosco! ${R.letters.length} letters, three minutes, and the clock doesn't stop. Shall we?`,'happy');track('rosco_intro',{})}
+ host.intro=host.intro||Host($('face0'));say($('say0'),host.intro,`Welcome to the Rosco! ${R.letters.length} letters, three minutes, and the clock doesn't stop. Shall we?`,'happy-1');track('rosco_intro',{})}
 
 $('go').onclick=()=>{S={start:Date.now(),res:{},typed:{},passed:[],queue:R.letters.map(x=>x.letter),lap:1,done:false};save();track('rosco_start',{});play()};
 
 const cur=()=>R.letters.find(x=>x.letter===S.queue[0]);
-function play(){show('s-play');render(true);clearInterval(tick);tick=setInterval(()=>{const s=left();$('clock').textContent=fmt(s);$('clock').classList.toggle('low',s<=30);if(s<=0)finish('time')},250);setTimeout(()=>$('in').focus(),50)}
+function play(){show('s-play');render(true);clearInterval(tick);tick=setInterval(()=>{const s=left();$('clock').textContent=fmt(s);$('clock').classList.toggle('low',s<=30);if(s<=30&&!S.warned){S.warned=1;react('nervous','30 seconds left!')}if(s<=0)finish('time')},250);setTimeout(()=>$('in').focus(),50)}
 function render(first){const q=cur();if(!q)return finish('all');S.seen=S.seen||[];
- if(S.seen.includes(q.letter)){S.lap++;S.seen=[];if(!first)setTimeout(()=>react('happy',pick(LINES.lap)),0)}S.seen.push(q.letter);save();drawRing('ring',q.letter);const c=counts();
+ if(S.seen.includes(q.letter)){S.lap++;S.seen=[];if(!first)setTimeout(()=>react('wink',pick(LINES.lap)),0)}S.seen.push(q.letter);save();drawRing('ring',q.letter);const c=counts();
  $('count').innerHTML=`<b>${c.ok} ✓</b> · <i>${c.no} ✕</i> · ${S.queue.length} left`;$('clock').textContent=fmt(left());
  $('chip').textContent=`Starts with ${q.letter}`;$('prompt').textContent=q.prompt;$('sub').textContent=q.subtitle||'';
  $('in').placeholder=q.answer_type==='club'?'Type a club':q.answer_type==='country'?'Type a country':q.answer_type==='manager'?'Type a manager':'Type a player';
- if(first)$('face').style.backgroundImage=face('happy')}
-function react(mood,text){$('face').style.backgroundImage=face(mood);$('var').textContent=text;$('face').classList.add('talk');setTimeout(()=>$('face').classList.remove('talk'),700)}
+ if(first){host.play=host.play||Host($('face'));host.play.set('point')}}
+function react(pose,text){host.play.set(pose);$('var').textContent=text;host.play.talk(650)}
+function popLetter(l){setTimeout(()=>{const e=[...$('ring').querySelectorAll('.l')].find(x=>x.textContent===l);if(e&&!REDUCE){e.classList.add('pop')}},0)}
+function shake(){const i=$('in');i.classList.remove('shake');void i.offsetWidth;if(!REDUCE)i.classList.add('shake')}
 function next(){S.queue.shift();if(!S.queue.length)return finish('all');save();render()}
 
 function answer(){const q=cur(),raw=$('in').value.trim();if(!q)return;if(!raw)return pass();
  const t=norm(raw),good=q.answers.find(a=>hit(t,forms(a.name,a.aliases)));
- if(good){S.res[q.letter]='ok';S.typed[q.letter]=good.name;react('happy',pick(LINES.ok)+' '+good.name);track('rosco_answer',{letter:q.letter,ok:true})}
- else if((q.others||[]).some(n=>hit(t,forms(n)))){$('var').textContent=`VAR: right answer, but it doesn't start with ${q.letter}. Try another!`;$('face').style.backgroundImage=face('wow');$('in').select();return}
- else{S.res[q.letter]='no';S.typed[q.letter]=raw;react('sad',pick(LINES.no(q.answers[0].name)));track('rosco_answer',{letter:q.letter,ok:false})}
+ if(good){S.res[q.letter]='ok';S.typed[q.letter]=good.name;S.run=(S.run||0)+1;S.miss=0;react(S.run>=5&&S.run%5===0?'excited':S.run>=3?'laugh':'happy-1',(S.run>=3?S.run+' in a row! ':'')+pick(LINES.ok)+' '+good.name);popLetter(q.letter);track('rosco_answer',{letter:q.letter,ok:true})}
+ else if((q.others||[]).some(n=>hit(t,forms(n)))){$('var').textContent=`VAR: right answer, but it doesn't start with ${q.letter}. Try another!`;host.play.set('think');$('in').select();return}
+ else{S.res[q.letter]='no';S.typed[q.letter]=raw;S.run=0;S.miss=(S.miss||0)+1;react(S.miss>=3?'facepalm':S.miss===2?'annoyed':'sad',pick(LINES.no(q.answers[0].name)));shake();track('rosco_answer',{letter:q.letter,ok:false})}
  S.passed=S.passed.filter(x=>x!==q.letter);$('in').value='';next();$('in').focus()}
 function pass(){const q=cur();if(!q)return;if(!S.passed.includes(q.letter))S.passed.push(q.letter);
- S.queue.push(S.queue.shift());react('wow',pick(LINES.pass));$('in').value='';track('rosco_pass',{letter:q.letter});save();render();$('in').focus()}
+ S.queue.push(S.queue.shift());react('pasapalabra',pick(LINES.pass));$('in').value='';track('rosco_pass',{letter:q.letter});save();render();$('in').focus()}
 $('f').onsubmit=e=>{e.preventDefault();answer()};$('enter').onclick=answer;$('pass').onclick=pass;
 
 function finish(why){clearInterval(tick);if(S.done)return;S.done=true;S.left=left();S.why=why;R.letters.forEach(x=>{if(!S.res[x.letter])S.res[x.letter]='miss'});save();
  const c=counts();track('rosco_finish',{score:c.ok,wrong:c.no,total:R.letters.length,left:S.left,why});end(true)}
 function end(fresh){show('s-end');const c=counts(),n=R.letters.length;drawRing('ring2');$('score').innerHTML=`${c.ok}<span>/${n}</span>`;
  $('left').textContent=S.why==='time'?'TIME UP':fmt(S.left||0)+' LEFT';
- const mood=c.ok>=19?'wow':c.ok>=13?'happy':c.ok>=8?'happy':'sad';
- say($('say2'),$('face2'),c.ok>=19?`${c.ok}! That's a huge Rosco. Take a bow.`:c.ok>=13?`${c.ok} correct. Solid ball knowledge, that.`:c.ok>=8?`${c.ok} today. The Rosco is a tough one, come back tomorrow!`:`Only ${c.ok}... we all have off days. New Rosco tomorrow!`,mood);
+ const mood=c.ok>=19?'celebrate':c.ok>=15?'excited':c.ok>=11?'wink':c.ok>=7?'sad':'facepalm';host.end=host.end||Host($('face2'));
+ say($('say2'),host.end,c.ok>=19?`${c.ok}! That's a huge Rosco. Take a bow.`:c.ok>=13?`${c.ok} correct. Solid ball knowledge, that.`:c.ok>=8?`${c.ok} today. The Rosco is a tough one, come back tomorrow!`:`Only ${c.ok}... we all have off days. New Rosco tomorrow!`,mood);
  $('grid').textContent=gridText();
  $('ans').innerHTML=R.letters.map(x=>{const st=S.res[x.letter],col=st==='ok'?'var(--grass)':st==='no'?'var(--clay)':'#6b6878';
   return`<li><b style="background:${col}">${x.letter}</b><div><strong>${esc(x.prompt)}</strong><small>${st==='ok'?'✓ '+esc(S.typed[x.letter]):st==='no'?'✕ You said '+esc(S.typed[x.letter]):'Not answered'} · ${x.answers.length>1?'Answers':'Answer'}: ${x.answers.map(a=>esc(a.name)).join(', ')}</small></div></li>`}).join('');

@@ -1626,6 +1626,10 @@ body.playing .topbar .tb-split .sound-toggle+.sound-toggle{border-left:0!importa
 .m-duel.hot{box-shadow:5px 5px 0 rgba(0,0,0,.45),0 0 0 3px #c8473b!important}.m-duel.hot .m-txt{background:linear-gradient(90deg,rgba(215,38,46,.55),rgba(6,4,26,.2))}
 .m-vs{font:400 44px/1 'Jersey 15','Jersey 10',monospace;transform:rotate(-6deg);text-shadow:3px 0 0 #1d1a2b,-3px 0 0 #1d1a2b,0 3px 0 #1d1a2b,0 -3px 0 #1d1a2b,5px 5px 0 #1d1a2b}
 .m-tyc{background:#fbf6e8!important;color:#1d1a2b!important}
+.m-rosco{background:#1d4486!important;color:#fbf6e8!important}
+.m-rosco .m-pic{background:repeating-linear-gradient(90deg,#16356b 0 14px,#1d4486 14px 28px);border-right:3px solid #1d1a2b;display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
+.m-rosco .m-pic img{width:84px;height:84px;image-rendering:pixelated;margin-bottom:-3px}
+.m-rosco .m-txt b{color:#f2c230}.m-rosco .m-txt small{color:#e9dfc2;opacity:1}
 .m-tyc .m-pic{background:repeating-linear-gradient(90deg,#c8303a 0 14px,#b02a33 14px 28px);border-right:3px solid #1d1a2b}
 .m-tyc .m-pic img{width:94%;height:auto;image-rendering:pixelated;filter:drop-shadow(0 3px 0 rgba(0,0,0,.35))}
 .m-tyc .m-txt{background:repeating-linear-gradient(180deg,transparent 0 23px,rgba(26,16,48,.08) 23px 24px)}
@@ -2148,6 +2152,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
  <section class="modes" aria-label="${L('Game modes','Modos de juego')}"><div class="modes-head"><span>${L('Game modes','Modos de juego')}</span><i></i></div>
   <button type="button" class="mode m-inf" data-infinite><span class="m-pic"><span class="m-sym">∞</span></span><span class="m-txt"><b>${L('Infinity','Infinito')}</b><small>${L('Unlimited questions, out in space','Preguntas ilimitadas, en el espacio')}</small></span><span class="m-go">${L('Press start','Pulsa start')}</span></button>
   <a class="mode m-duel" id="lp-duel" href="/duel.html"><span class="m-pic"><i class="duel-spr fo-a"></i><span class="m-vs">VS</span><i class="duel-spr fo-b"></i></span><span class="m-txt"><b>${L('Duels','Duelos')}</b><small id="lp-duel-sub">${L('1v1 a mate. Rarer answers hit harder','Reta a un amigo. Las respuestas raras pegan más')}</small><span class="m-rec" id="lp-duel-rec" hidden></span></span><span class="m-go" id="lp-duel-go">${L('Challenge','Retar')}</span></a>
+  ${isTester()?`<a class="mode m-rosco" href="/rosco.html" data-track="rosco_card"><span class="m-tag">${L('Beta','Beta')}</span><span class="m-pic"><img src="/rosco/host/point.png" alt="" width="64" height="64"></span><span class="m-txt"><b>Rosco</b><small>${L('One clue for every letter. Three minutes.','Una pista por letra. Tres minutos.')}</small></span></a>`:''}
   <a class="mode m-tyc" href="/tycoon/" data-track="tycoon_card"><span class="m-tag">${L('New','Nuevo')}</span><span class="m-pic"><img src="/tycoon/art/building-stadium-4.webp" alt="" loading="lazy" width="150" height="76"></span><span class="m-txt"><b>Chairman</b><small>${L('Kick the unicorn. Buy the club a stadium','Patea al unicornio. Cómprale un estadio al club')}</small><span class="m-sum">€1,204,330.50 ▲</span></span><span class="m-go">${L('Take over','Al mando')}</span></a>
  </section>
 
@@ -2614,6 +2619,8 @@ function duelStrip(){if(ES||document.body.classList.contains('inf-mode'))return'
  return`<a class="duel-strip" id="duel-strip" href="/duel.html${code?'?d='+encodeURIComponent(code):''}">${spr('wow',0,kit)}<b class="duel-vs">VS</b><span class="duel-flip">${spr('wow',1,KITS.find(k=>k.id==='galaxy'))}</span><span class="duel-txt"><b>${code?'Your duel is waiting':'New: 1v1 duels'}</b><small>${code?'Back to your duel':'Challenge a mate'}</small></span><span class="duel-go">${code?'GO':'PLAY'} →</span></a>`}
 // signed in: the strip points at the duel inbox and says how many duels are waiting on you
 // home screen: a strip under the ticket when a signed-in player has duels waiting on them
+// beta testers: a device that opened any page with ?tester=<code> sees modes still in testing (the Rosco). ?tester=off turns it off.
+function isTester(){try{const q=new URLSearchParams(location.search).get('tester');if(q==='off')localStorage.removeItem('uc-tester');else if(q==='pasapalabra')localStorage.setItem('uc-tester','1');return localStorage.getItem('uc-tester')==='1'}catch{return false}}
 async function lpDuels(pl){try{const el=document.getElementById('lp-duel');if(!el)return;
  const signed=!!window.ucSignedIn?.();let its=[];
  if(signed){const t=await window.ucToken();if(t){const r=await fetch(SB_URL+'/rest/v1/rpc/duel_inbox',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:'{}'});if(r.ok)its=((await r.json()).items||[]).filter(x=>x.state==='your_turn'||x.state==='challenge'||x.fresh)}}
