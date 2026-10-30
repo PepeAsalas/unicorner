@@ -104,7 +104,7 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
 const SB_URL="https://yujhjepukzdahsppntua.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1amhqZXB1a3pkYWhzcHBudHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2NDMzNDcsImV4cCI6MjEwNTIxOTM0N30.YIOdtL7tJnNLPFPy19QuXe6w3Dcnz6Xedw0tFGdV_CE";
 const $=id=>document.getElementById(id),ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch{return null}};
 const DAY=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
-const FIRST='2026-10-30',NO=Math.round((Date.parse(DAY)-Date.parse(FIRST))/864e5)+1,KEY='uc-rosco-'+DAY,ABC='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+const FIRST='2026-10-30',NO=Math.round((Date.parse(DAY)-Date.parse(FIRST))/864e5)+1,KEY='uc-rosco-v2-'+DAY,ABC='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 if(!ls('uc-visitor'))ls('uc-visitor',Math.random().toString(36).slice(2)+Date.now().toString(36));
 const VISITOR=ls('uc-visitor'),SID=Math.random().toString(36).slice(2);
 function track(name,data){try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,session:SID,visitor:VISITOR,seconds:0,game_day:DAY,event_version:2,data:{language:'en',page:'rosco',rosco:NO,...(data||{})}})}).catch(()=>{})}catch{}}

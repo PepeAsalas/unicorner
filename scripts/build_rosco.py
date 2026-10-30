@@ -18,7 +18,7 @@ from datetime import date, datetime, timedelta
 from zoneinfo import ZoneInfo
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ORDER = 'ABCDEFGHIJKLMNOPQRSTUVWYZ'  # no X: too few fair clues
+ORDER = 'ABCDEFGHIJKLMNOPRSTUVWYZ'  # no Q or X: too few fair clues
 MAX_LETTERS = 25
 CLUB_PREFIX = re.compile(r'^(FC|AFC|SC|AC|AS|SS|CF|CD|UD|RC|SL|SV|VfB|VfL|1\. ?FC|Real|Club|Sporting|Atlético|Athletic|Deportivo)\s+', re.I)
 # open-ended prompts ("a Brazilian left-back") are risky: our lists can't be complete. A clue needs a clear limit.
