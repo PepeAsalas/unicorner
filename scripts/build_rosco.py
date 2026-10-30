@@ -125,7 +125,7 @@ def build(day, questions, recent):
     # the hardest letters go first when there are too many
     while len(items) > MAX_LETTERS:
         items.remove(min((i for i in items if i['letter'] in 'KQWXY'), key=lambda i: i['letter'], default=items[-1]))
-    return {"date": day, "seconds": 270, 'letters': items}
+    return {"date": day, "seconds": 300, 'letters': items}
 
 
 def main():
