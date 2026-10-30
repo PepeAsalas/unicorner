@@ -50,11 +50,11 @@ jobs:
         run: python scripts/upkeep.py health | tee health.txt
       - name: Build the past answers page
         if: env.JOB == 'health' || env.JOB == 'answers'
-        run: python scripts/build_answers.py && python scripts/build_trivia.py
+        run: python scripts/build_answers.py && python scripts/build_trivia.py && python scripts/build_rosco.py 3
       - name: Commit sitemap dates and answers page
         if: env.JOB == 'health' || env.JOB == 'answers'
         run: |
-          git add sitemap.xml answers/ football-trivia-questions/
+          git add sitemap.xml answers/ football-trivia-questions/ rosco/
           if ! git diff --cached --quiet; then git commit -m 'Refresh sitemap dates and past answers' && git pull --rebase origin main && git push origin HEAD:main; fi
       - name: Report a failed health check
         if: env.JOB == 'health' && steps.health.outcome == 'failure'
