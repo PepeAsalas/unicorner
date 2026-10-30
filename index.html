@@ -4187,5 +4187,8 @@ html body .mode.m-inf .m-pic{background:#16356b!important}
 html body .mode.m-inf .m-sym{color:var(--p-gold)!important;text-shadow:none!important}
 html body .mode.m-inf::before,html body .mode.m-inf::after,html body .mode.m-inf .m-pic::before,html body .mode.m-inf .m-pic::after{opacity:0!important}
 html body .landing .cta.tk-play{background:var(--p-grass)!important;color:#fff!important}
+/* laptops: the question and answer screens are shown at 90% so the bottom buttons fit without scrolling */
+@media (min-width:900px) and (max-height:900px){html:has(body.playing){zoom:.9}}
+@media (min-width:1024px) and (min-height:901px) and (max-height:1100px){html:has(body.playing){zoom:.93}}
 </style>
 </body></html>
