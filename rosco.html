@@ -10,7 +10,8 @@
  --disp:"Jersey 10",monospace;--mono:"VT323",monospace;--ease:cubic-bezier(.23,1,.32,1)}
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;background:var(--ink);color:var(--paper);font:500 16px/1.4 Barlow,system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
-body{background:linear-gradient(rgba(29,26,43,.55),rgba(29,26,43,.8)),url(/bg/floodlit-tall.webp) center/cover fixed}
+body{background:linear-gradient(rgba(29,26,43,.25),rgba(29,26,43,.55)),url(/bg/rosco-tall.webp) center/cover fixed}
+@media (min-aspect-ratio:1/1){body{background-image:linear-gradient(rgba(29,26,43,.25),rgba(29,26,43,.55)),url(/bg/rosco-wide.webp)}}
 main{max-width:460px;margin:0 auto;padding:12px max(14px,env(safe-area-inset-left)) 28px;display:flex;flex-direction:column;gap:12px;min-height:100dvh}
 button{font:inherit;color:inherit;cursor:pointer}
 .top{display:flex;justify-content:space-between;align-items:center}
@@ -94,7 +95,8 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
  <div class="ring" id="ring2"><div class="mid"><div class="big" id="score"></div><div class="sc" id="left"></div></div></div>
  <div class="host"><div class="face" id="face2"><img alt="" width="64" height="64"></div><div class="say" id="say2" role="status"></div></div>
  <div class="grid" id="grid"></div>
- <div class="row"><button class="btn gold" id="share">Share</button><button class="btn paper" id="show">See answers</button></div>
+ <button class="btn gold" id="copy" style="width:100%">Copy result</button>
+ <div class="row"><button class="btn paper" id="share" hidden>Share</button><button class="btn paper" id="show">See answers</button></div>
  <ul class="ans" id="ans" hidden></ul>
  <p class="note" id="next"></p>
 </section>
@@ -104,7 +106,7 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
 const SB_URL="https://yujhjepukzdahsppntua.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1amhqZXB1a3pkYWhzcHBudHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2NDMzNDcsImV4cCI6MjEwNTIxOTM0N30.YIOdtL7tJnNLPFPy19QuXe6w3Dcnz6Xedw0tFGdV_CE";
 const $=id=>document.getElementById(id),ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch{return null}};
 const DAY=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
-const FIRST='2026-10-30',NO=Math.round((Date.parse(DAY)-Date.parse(FIRST))/864e5)+1,KEY='uc-rosco-v2-'+DAY,ABC='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+const FIRST='2026-10-30',NO=Math.round((Date.parse(DAY)-Date.parse(FIRST))/864e5)+1,KEY='uc-rosco-v3-'+DAY,ABC='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 if(!ls('uc-visitor'))ls('uc-visitor',Math.random().toString(36).slice(2)+Date.now().toString(36));
 const VISITOR=ls('uc-visitor'),SID=Math.random().toString(36).slice(2);
 function track(name,data){try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,session:SID,visitor:VISITOR,seconds:0,game_day:DAY,event_version:2,data:{language:'en',page:'rosco',rosco:NO,...(data||{})}})}).catch(()=>{})}catch{}}
@@ -202,7 +204,11 @@ function end(fresh){show('s-end');const c=counts(),n=R.letters.length;drawRing('
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const gridText=()=>ABC.map(ch=>{if(!R.letters.some(x=>x.letter===ch))return'⬛';const s=S.res[ch];return s==='ok'?'🟩':s==='no'?'🟥':'⬜'}).join('');
 $('show').onclick=()=>{$('ans').hidden=!$('ans').hidden;$('show').textContent=$('ans').hidden?'See answers':'Hide answers'};
-$('share').onclick=async()=>{const c=counts(),txt=`Unicorner Rosco #${NO}: ${c.ok}/${R.letters.length}\n${gridText()}\nunicornergame.lol/rosco.html`;track('rosco_share',{score:c.ok});
- try{if(navigator.share)await navigator.share({text:txt});else{await navigator.clipboard.writeText(txt);$('share').textContent='Copied!';setTimeout(()=>$('share').textContent='Share',1500)}}catch{}};
+const resultText=()=>{const c=counts();return`Unicorner Rosco #${NO}: ${c.ok}/${R.letters.length}\n${gridText()}\nunicornergame.lol/rosco.html`};
+$('copy').onclick=async()=>{const c=counts(),t=resultText();track('rosco_copy',{score:c.ok});
+ try{await navigator.clipboard.writeText(t)}catch{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch{}a.remove()}
+ $('copy').textContent='Copied! Paste it anywhere';setTimeout(()=>$('copy').textContent='Copy result',1800)};
+if(navigator.share)$('share').hidden=false;
+$('share').onclick=async()=>{track('rosco_share',{score:counts().ok});try{await navigator.share({text:resultText()})}catch{}};
 load();
 </script></body></html>

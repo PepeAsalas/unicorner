@@ -20,6 +20,7 @@ from zoneinfo import ZoneInfo
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ORDER = 'ABCDEFGHIJKLMNOPRSTUVWYZ'  # no Q or X: too few fair clues
 MAX_LETTERS = 25
+EASY = 9  # letters per Rosco with a better-known answer
 CLUB_PREFIX = re.compile(r'^(FC|AFC|SC|AC|AS|SS|CF|CD|UD|RC|SL|SV|VfB|VfL|1\. ?FC|Real|Club|Sporting|Atlético|Athletic|Deportivo)\s+', re.I)
 # open-ended prompts ("a Brazilian left-back") are risky: our lists can't be complete. A clue needs a clear limit.
 BOUNDED = re.compile(r'\d|squad|won|winning|captain|final|scorer|top three|ballon|golden|cup|champion|title', re.I)
@@ -84,8 +85,8 @@ def candidates(questions):
             if not answers or not 1 <= len(fair) <= 4:
                 continue
             fame = sum((a.get('fame') or 3) for a in answers) / len(answers)
-            # the obvious names make it too easy; clubs and countries must be rare ones
-            if fame > (4 if kind in ('player', 'manager') else 2):
+            # superstars (fame 6) are too easy for any letter; the rest is sorted into hard and easier letters in build()
+            if any((a.get('fame') or 3) >= 6 for a in answers) or fame > (5.5 if kind in ('player', 'manager') else 4):
                 continue
             by_letter.setdefault(letter, []).append((q, fair, fame))
     return by_letter
@@ -95,10 +96,15 @@ def build(day, questions, recent):
     rng = random.Random('rosco-' + day)
     by_letter = candidates(questions)
     used, items = set(), []
+    # most letters are hard; EASY of them get a better-known answer (a well-known player, not a superstar)
+    easy = set(rng.sample([l for l in ORDER if by_letter.get(l)], EASY))
     for letter in ORDER:
         pool = [c for c in by_letter.get(letter, []) if c[0]['prompt'] not in used and c[0]['prompt'] not in recent]
-        # hard but fair: prefer fame around 2-4 (Volley, Header), avoid only-Screamer letters most days
-        pool = [c for c in pool if 2 <= c[2] <= 4] or pool
+        def known(c):
+            return c[0].get('answer_type', 'player') in ('player', 'manager') and 4.5 <= c[2] <= 5.5 or c[0].get('answer_type') in ('club', 'country') and 3 <= c[2] <= 4
+        def hard(c):
+            return c[0].get('answer_type', 'player') in ('player', 'manager') and 2 <= c[2] <= 4 or c[0].get('answer_type') in ('club', 'country') and c[2] <= 2
+        pool = [c for c in pool if (known if letter in easy else hard)(c)] or [c for c in pool if hard(c)] or pool
         if not pool:
             continue
         q, answers, _ = rng.choice(pool)
