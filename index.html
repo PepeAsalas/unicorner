@@ -2153,7 +2153,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
   ${signedOut()?`<p class="tk-back"><button type="button" data-lg="back">${L('Played on another device? Sign in to bring your streak back','¿Has jugado en otro dispositivo? Entra y recupera tu racha')} →</button></p>`:''}
  </section></div>
  <section class="modes" aria-label="${L('Game modes','Modos de juego')}"><div class="modes-head"><span>${L('Game modes','Modos de juego')}</span><i></i></div>
-  <button type="button" class="mode m-inf" data-infinite><span class="m-pic"><span class="m-sym">∞</span></span><span class="m-txt"><b>${L('Infinity','Infinito')}</b><small>${L('Unlimited questions, out in space','Preguntas ilimitadas, en el espacio')}</small></span><span class="m-go">${L('Press start','Pulsa start')}</span></button>
+  <button type="button" class="mode m-inf" data-infinite><span class="m-pic"><span class="m-sym">∞</span><i class="inf-uni" style="background-image:${(()=>{try{return spriteDraw('wow',0,false,KITS.find(k=>k.id==='shadow')).replace(/"/g,"'")}catch{return'none'}})()}"></i></span><span class="m-txt"><b>${L('Infinity','Infinito')}</b><small>${L('Unlimited questions, out in space','Preguntas ilimitadas, en el espacio')}</small></span><span class="m-go">${L('Press start','Pulsa start')}</span></button>
   <a class="mode m-duel" id="lp-duel" href="/duel.html"><span class="m-pic"><i class="duel-spr fo-a"></i><span class="m-vs">VS</span><i class="duel-spr fo-b"></i></span><span class="m-txt"><b>${L('Duels','Duelos')}</b><small id="lp-duel-sub">${L('1v1 a mate. Rarer answers hit harder','Reta a un amigo. Las respuestas raras pegan más')}</small><span class="m-rec" id="lp-duel-rec" hidden></span></span><span class="m-go" id="lp-duel-go">${L('Challenge','Retar')}</span></a>
   ${isTester()?`<a class="mode m-rosco" href="/rosco.html" data-track="rosco_card"><span class="m-tag">${L('Beta','Beta')}</span><span class="m-pic"><img src="/rosco/host/point.png" alt="" width="64" height="64"></span><span class="m-txt"><b>Rosco</b><small>${L('One clue for every letter. Hosted by Horacio Herradura','Una pista por letra. Presenta Horacio Herradura')}</small><span class="mr-abc">${'ABCDEFG'.split('').map((c,i)=>`<i${i===0?' class="on"':''}>${c}</i>`).join('')}</span></span><span class="m-go">${L('Play','Jugar')}</span></a>`:''}
   <a class="mode m-tyc" href="/tycoon/" data-track="tycoon_card"><span class="m-tag">${L('New','Nuevo')}</span><span class="m-pic"><img src="/tycoon/art/building-stadium-4.webp" alt="" loading="lazy" width="150" height="76"></span><span class="m-txt"><b>Chairman</b><small>${L('Kick the unicorn. Buy the club a stadium','Patea al unicornio. Cómprale un estadio al club')}</small><span class="m-sum">€1,204,330.50 ▲</span></span><span class="m-go">${L('Take over','Al mando')}</span></a>
@@ -2475,7 +2475,7 @@ www.unicornergame.lol`};
   <section class="jb" id="compete-results" data-compete><div class="jb-frame"><div class="jb-screen"><p class="jb-empty">GLOBAL RANKING · LOADING…</p></div></div></section>
   ${hits.length?`<section class="result-section"><div class="result-section-head"><h2>${L('Your match highlights','Lo mejor de tu partido')}</h2><p class="mute">${L('Best answers first','Primero las mejores respuestas')}</p></div><div class="result-list">${hits.map(r=>resultItem(r,false)).join('')}</div></section>`:''}
   ${misses.length?`<div class="result-nearly"><section class="result-section"><div class="result-section-head"><h2>${L('Nearly had it','Casi')}</h2><p class="mute">${ES?(misses.length===1?'1 respuesta':misses.length+' respuestas')+' para aprender para mañana':(misses.length===1?'1 answer':misses.length+' answers')+' to learn for tomorrow'}</p></div><div class="result-list">${misses.map(r=>resultItem(r,true)).join('')}</div></section></div>`:''}
-  <div class="modes res-modes"><button type="button" class="mode m-inf" data-infinite><span class="m-pic"><span class="m-sym">∞</span></span><span class="m-txt"><b>${L('Infinity','Infinito')}</b><small>${L('Unlimited questions, out in space','Preguntas ilimitadas, en el espacio')}</small></span><span class="m-go">${L('Press start','Pulsa start')}</span></button></div>
+  <div class="modes res-modes"><button type="button" class="mode m-inf" data-infinite><span class="m-pic"><span class="m-sym">∞</span><i class="inf-uni" style="background-image:${(()=>{try{return spriteDraw('wow',0,false,KITS.find(k=>k.id==='shadow')).replace(/"/g,"'")}catch{return'none'}})()}"></i></span><span class="m-txt"><b>${L('Infinity','Infinito')}</b><small>${L('Unlimited questions, out in space','Preguntas ilimitadas, en el espacio')}</small></span><span class="m-go">${L('Press start','Pulsa start')}</span></button></div>
   <div class="row result-home-row"><button class="ghost" id="home">${L('Back to home','Volver al inicio')}</button></div>
   <div class="relay-rail" id="relay-rail"></div>
  </div></div>`,()=>{
@@ -4205,5 +4205,15 @@ html body .landing .cta.tk-play{background:var(--p-grass)!important;color:#fff!i
 /* laptops: the question and answer screens are shown at 90% so the bottom buttons fit without scrolling */
 @media (min-width:900px) and (max-height:900px){html:has(body.playing){zoom:.9}}
 @media (min-width:1024px) and (min-height:901px) and (max-height:1100px){html:has(body.playing){zoom:.93}}
+/* game-mode pictures: Infinity = the Infinity-kit unicorn under a gold ∞; Duels = two unicorns face to face on the pitch */
+html body .mode.m-inf .m-pic{background:radial-gradient(circle at 50% 45%,#2d5aa0,#16356b 70%)!important;display:block;overflow:hidden}
+html body .mode.m-inf .m-sym{position:absolute;left:50%;top:6%;translate:-50% 0;font-size:40px;z-index:1}
+.inf-uni{position:absolute;left:50%;bottom:4%;translate:-50% 0;width:84px;height:70px;background:center/contain no-repeat;image-rendering:pixelated;filter:drop-shadow(3px 3px 0 #1d1a2b);z-index:1}
+html body .modes .m-duel .m-pic{display:block}
+html body .modes .m-duel .m-pic::after{content:"";position:absolute;left:0;right:0;bottom:0;height:22%;background:repeating-linear-gradient(90deg,#2f9a62 0 14px,#2a8a58 14px 28px);border-top:3px solid #1d1a2b}
+html body .modes .m-duel .duel-spr{bottom:18%;width:62px;height:52px;z-index:1}
+html body .modes .m-duel .fo-a{left:8%;transform:none!important}html body .modes .m-duel .fo-b{right:8%;transform:scaleX(-1)!important}
+html body .modes .m-duel .m-vs{position:absolute;left:50%;top:14%;translate:-50% 0;margin:0;font-size:34px;z-index:2}
+@media (max-width:560px){.inf-uni{width:62px;height:52px}html body .mode.m-inf .m-sym{font-size:30px}html body .modes .m-duel .duel-spr{width:42px;height:36px}html body .modes .m-duel .m-vs{font-size:24px;top:10%}}
 </style>
 </body></html>
