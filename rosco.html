@@ -76,10 +76,10 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
  <button class="btn grass" id="go" style="width:100%">Start the Rosco</button>
  <p class="note">Most players get 12–16. A 19 is a great day.</p>
  <div class="card"><h1>How it works</h1><ul class="rules">
-  <li><b class="gold">A</b><span>One clue per letter. The answer's <strong>surname</strong> (or the club or country) starts with that letter.</span></li>
+  <li><b class="gold">A</b><span>One clue per letter. The answer's <strong>surname</strong> starts with that letter (for clubs and countries, the name). Lionel Messi goes under M.</span></li>
   <li><b class="paper">»</b><span><strong>Pasapalabra</strong> skips a letter. It comes back on the next lap.</span></li>
   <li><b style="background:var(--clay);color:#fff">✕</b><span>A wrong answer locks that letter. No second tries.</span></li>
-  <li><b class="grass" style="color:#fff">3</b><span>Three minutes on the clock. The same Rosco for everyone, new every day.</span></li></ul></div>
+  <li><b class="grass" style="color:#fff">4½</b><span>Four and a half minutes on the clock. The same Rosco for everyone, new every day.</span></li></ul></div>
 </section>
 
 <section id="s-play" hidden style="display:flex;flex-direction:column;gap:12px">
@@ -162,7 +162,7 @@ async function load(){if(!TESTER){$('s-load').innerHTML='<div class="card"><h1>C
  $('tag').textContent=`ROSCO #${NO}`;try{S=JSON.parse(ls(KEY)||'null')}catch{S=null}
  if(S&&S.done)return end(false);if(S&&S.start)return play();
  show('s-intro');drawRing('ring0','A');$('clock0').textContent=fmt(R.seconds);$('count0').textContent=`${R.letters.length} LETTERS`+(R.letters.length<26?` · ${26-R.letters.length} SKIPPED`:'');
- host.intro=host.intro||Host($('face0'));say($('say0'),host.intro,`Welcome to the Rosco! I'm Horacio Herradura. ${R.letters.length} letters, three minutes, and the clock doesn't stop. Shall we?`,'happy-1');track('rosco_intro',{})}
+ host.intro=host.intro||Host($('face0'));say($('say0'),host.intro,`Welcome to the Rosco! I'm Horacio Herradura. ${R.letters.length} letters, four and a half minutes, and the clock doesn't stop. Shall we?`,'happy-1');track('rosco_intro',{})}
 
 $('go').onclick=()=>{S={start:Date.now(),res:{},typed:{},passed:[],queue:R.letters.map(x=>x.letter),lap:1,done:false};save();track('rosco_start',{});play()};
 
@@ -171,7 +171,7 @@ function play(){show('s-play');render(true);clearInterval(tick);tick=setInterval
 function render(first){const q=cur();if(!q)return finish('all');S.seen=S.seen||[];
  if(S.seen.includes(q.letter)){S.lap++;S.seen=[];if(!first)setTimeout(()=>react('wink',pick(LINES.lap)),0)}S.seen.push(q.letter);save();drawRing('ring',q.letter);const c=counts();
  $('count').innerHTML=`<b>${c.ok} ✓</b> · <i>${c.no} ✕</i> · ${S.queue.length} left`;$('clock').textContent=fmt(left());
- $('chip').textContent=`Starts with ${q.letter}`;$('prompt').textContent=q.prompt;$('sub').textContent=q.subtitle||'';
+ $('chip').textContent=(q.answer_type==='club'?'Club':q.answer_type==='country'?'Country':'Surname')+` starts with ${q.letter}`;$('prompt').textContent=q.prompt;$('sub').textContent=q.subtitle||'';
  $('in').placeholder=q.answer_type==='club'?'Type a club':q.answer_type==='country'?'Type a country':q.answer_type==='manager'?'Type a manager':'Type a player';
  if(first){host.play=host.play||Host($('face'));host.play.set('point')}}
 function react(pose,text){host.play.set(pose);$('var').textContent=text;host.play.talk(650)}
