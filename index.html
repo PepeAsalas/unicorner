@@ -2148,6 +2148,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
     ${Array.isArray(played.picks)&&played.picks.length?`<ol class="rx-shots lx-shots">${played.picks.filter(Array.isArray).map(x=>`<li style="--c:${x[2]?TCOL[x[2]]:'#5b5470'}"><i style="height:${x[2]?Math.max(18,x[2]):8}%"></i><b>${x[2]?'+'+x[2]:'–'}</b><span>${x[2]?tl(tierName(x[2])):L('Miss','Fallo')}</span></li>`).join('')}</ol>`:''}
     ${played.remote?`<p class="tk-live">${L('Played on another device ✓ · next game in','Jugado en otro dispositivo ✓ · próximo partido en')} <b class="flapclock" data-flap>${untilMidnight()}</b></p>`:`<button type="button" class="cta tk-play" id="go">${L("View today's result",'Resultados de hoy')}</button>`}`
     :`<div class="tk-actions"><button type="button" class="cta tk-play" id="go">${L("Play today's game",'Jugar el partido de hoy')}</button></div>
+    <ol class="rx-shots lx-shots lx-empty" aria-label="${L("Today's questions",'Preguntas de hoy')}">${Q.map(q=>{const t=q.answer_type||'player';return`<li><i></i><b>?</b><span>${t==='club'?'Club':t==='country'?L('Country','País'):t==='manager'?L('Manager','Míster'):L('Player','Jugador')}</span></li>`}).join('')}</ol>
     <p class="tk-live" id="tkLive"><i class="tk-dot"></i><span>${Q.length+L(' questions · 3 min',' preguntas · 3 min')}</span></p>`}
    </div>
   </div>
@@ -4222,6 +4223,11 @@ html body .modes .m-duel .m-vs{position:absolute;left:50%;top:14%;translate:-50%
 </style>
 <style id="dist-v2">html body #screen .result-screen .dist{width:100%!important;max-width:none!important;box-sizing:border-box;border:3px solid #1d1a2b!important;box-shadow:0 4px 0 #1d1a2b!important;border-radius:0!important}</style>
 <style id="landing-v2">
+body.landing .tk ol.lx-shots.lx-empty li{grid-template-rows:44px auto auto}
+.lx-empty i{height:100%!important;background:repeating-linear-gradient(135deg,#e9dfc2 0 6px,#f6eed8 6px 12px)!important;border-style:dashed!important;animation:none!important}
+.lx-empty b{color:#8a8199!important}
+body.landing .lx-today .tk-body{justify-content:space-between}
+
 .lx-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
 .lx-stats>span{background:#16356b;border:2px solid #1d1a2b;padding:8px;font:400 15px/1.1 VT323,monospace;color:rgba(251,246,232,.8);text-transform:uppercase}
 .lx-stats b{display:block;font:400 30px/1 "Jersey 10",monospace;font-weight:400;color:#f2c230}
