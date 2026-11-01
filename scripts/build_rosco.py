@@ -46,6 +46,15 @@ def key(name, kind):
     return norm(CLUB_PREFIX.sub('', name))[:1]
 
 
+def obvious(name, kind):
+    """Only answers whose letter nobody would argue about can be a letter's answer: 'first name + surname' players with no
+    particle (no De Cuyper, Di Lorenzo, Van Dijk) and clubs whose name doesn't start with a word we skip (no Atlético Madrid, Real Betis)."""
+    if kind in ('player', 'manager'):
+        words = name.replace('-', ' ').split()
+        return len(words) == 2 and not any(w.lower() in PARTICLES for w in words)
+    return not CLUB_PREFIX.match(name)
+
+
 def letters_of(name, kind):
     """Every letter a typed answer could fairly claim: any surname word for people (Valdés or Arribas)."""
     if kind in ('player', 'manager'):
@@ -80,7 +89,7 @@ def candidates(questions):
         for letter in ORDER:
             # targets: answers known by that letter; anyone else with a surname on that letter also counts, so the cap includes them
             # (clean 'first name + surname' only, so the clue is always about the surname: no full legal names, no one-name players like Xavi)
-            answers = [a for a in q['answers'] if key(a['name'], kind) == letter and (kind not in ('player', 'manager') or (len(surnames(a['name'])) == 1 and len(a['name'].split()) > 1))]
+            answers = [a for a in q['answers'] if key(a['name'], kind) == letter and obvious(a['name'], kind)]
             fair = [a for a in q['answers'] if letter in letters_of(a['name'], kind)]
             if not answers or not 1 <= len(fair) <= 4:
                 continue
