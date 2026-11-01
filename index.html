@@ -4312,6 +4312,11 @@ body.landing .landing-wrap #hb-home.hb{width:100%!important;max-width:none!impor
  body.landing .landing-wrap #hb-home.hb{height:96px!important}
 }
 </style>
+<style id="hb-v2">/* wide banners: show the whole picture (scene on the right), pitch colour fills the rest */
+html body a.hb.hb::before{content:"";position:absolute;inset:0;z-index:-1;background:repeating-linear-gradient(90deg,#2d7549 0 26px,#296a42 26px 52px)}
+html body a.hb.hb::after{content:"";position:absolute;inset:0;z-index:-1;background-image:inherit;background-size:auto 100%;background-position:right center;background-repeat:no-repeat;image-rendering:pixelated}
+html body a.hb.hb{position:relative;isolation:isolate;background-color:transparent!important;background-size:auto 100%!important;background-position:right center!important;background-repeat:no-repeat!important;aspect-ratio:auto!important;height:150px!important}
+@media(max-width:600px){html body a.hb.hb{height:100px!important}}</style>
 <style id="title-v2">/* Landing title: text only, pixel outline, no glow */
 html body .landing-wrap .lp-home-hero{display:block!important;padding:0!important;margin:18px 0 6px!important;background:none!important;border:0!important}
 html body .landing-wrap .lp-halo{display:none!important}
