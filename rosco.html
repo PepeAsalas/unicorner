@@ -72,18 +72,18 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
 </style></head><body><main>
 <div class="top"><a class="logo" href="/">UNICORNER</a><span class="tag" id="tag">ROSCO</span></div>
 
-<section id="s-load"><p class="note">Loading today's Rosco…</p></section>
+<section id="s-load"><p class="note" data-es="Cargando el Rosco de hoy…">Loading today's Rosco…</p></section>
 
 <section id="s-intro" hidden>
  <div class="ring" id="ring0"><div class="mid"><div class="clock" id="clock0">3:00</div><div class="sc" id="count0"></div></div></div>
  <div class="host"><div class="face" id="face0"><img alt="" width="64" height="64"></div><div class="say" id="say0" role="status"></div></div>
- <button class="btn grass" id="go" style="width:100%">Start the Rosco</button>
- <p class="note">Most players get 12–16. A 19 is a great day.</p>
- <div class="card"><h1>How it works</h1><ul class="rules">
-  <li><b class="gold">A</b><span>One clue per letter. The answer's <strong>surname</strong> starts with that letter (for clubs and countries, the name). Lionel Messi goes under M.</span></li>
-  <li><b class="paper">»</b><span><strong>Pasapalabra</strong> skips a letter. It comes back on the next lap.</span></li>
-  <li><b style="background:var(--clay);color:#fff">✕</b><span>A wrong answer locks that letter. No second tries.</span></li>
-  <li><b class="grass" style="color:#fff">5</b><span>Five minutes on the clock. The same Rosco for everyone, new every day.</span></li></ul></div>
+ <button class="btn grass" id="go" style="width:100%" data-es="Empezar el Rosco">Start the Rosco</button>
+ <p class="note" data-es="La mayoría acierta entre 12 y 16. Un 19 es un gran día.">Most players get 12–16. A 19 is a great day.</p>
+ <div class="card"><h1 data-es="Cómo se juega">How it works</h1><ul class="rules">
+  <li><b class="gold">A</b><span data-es="Una pista por letra. El <strong>apellido</strong> de la respuesta empieza por esa letra (en clubes y selecciones, el nombre). Lionel Messi va en la M.">One clue per letter. The answer's <strong>surname</strong> starts with that letter (for clubs and countries, the name). Lionel Messi goes under M.</span></li>
+  <li><b class="paper">»</b><span data-es="<strong>Pasapalabra</strong> salta una letra. Vuelve en la siguiente vuelta."><strong>Pasapalabra</strong> skips a letter. It comes back on the next lap.</span></li>
+  <li><b style="background:var(--clay);color:#fff">✕</b><span data-es="Una respuesta incorrecta bloquea esa letra. No hay segundas oportunidades.">A wrong answer locks that letter. No second tries.</span></li>
+  <li><b class="grass" style="color:#fff">5</b><span data-es="Cinco minutos de reloj. El mismo Rosco para todos, nuevo cada día.">Five minutes on the clock. The same Rosco for everyone, new every day.</span></li></ul></div>
 </section>
 
 <section id="s-play" hidden style="display:flex;flex-direction:column;gap:12px">
@@ -91,42 +91,45 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
  <div class="host"><div class="face" id="face"><img alt="" width="64" height="64"></div><div class="clue" style="flex:1"><span class="chip" id="chip">Starts with A</span><p id="prompt"></p><small id="sub"></small></div></div>
  <form id="f" autocomplete="off"><input class="inp" id="in" placeholder="Type your answer" enterkeyhint="send" autocapitalize="words" spellcheck="false"></form>
  <p class="var" id="var" role="status"></p>
- <div class="row"><button class="btn gold" id="pass" type="button">Pasapalabra</button><button class="btn grass" id="enter" type="button">Enter</button></div>
+ <div class="row"><button class="btn gold" id="pass" type="button">Pasapalabra</button><button class="btn grass" id="enter" type="button" data-es="Enviar">Enter</button></div>
 </section>
 
 <section id="s-end" hidden style="display:flex;flex-direction:column;gap:12px">
  <div class="ring" id="ring2"><div class="mid"><div class="big" id="score"></div><div class="sc" id="left"></div></div></div>
  <div class="host"><div class="face" id="face2"><img alt="" width="64" height="64"></div><div class="say" id="say2" role="status"></div></div>
  <div class="grid" id="grid"></div>
- <button class="btn gold" id="copy" style="width:100%">Copy result</button>
- <div class="row"><button class="btn paper" id="share" hidden>Share</button><button class="btn paper" id="show">See answers</button></div>
+ <button class="btn gold" id="copy" style="width:100%" data-es="Copiar resultado">Copy result</button>
+ <div class="row"><button class="btn paper" id="share" hidden data-es="Compartir">Share</button><button class="btn paper" id="show" data-es="Ver respuestas">See answers</button></div>
  <ul class="ans" id="ans" hidden></ul>
- <div class="card fb" id="fb" hidden><p class="fb-q"><b>How was today's Rosco?</b> It's brand new, so tell us.</p>
+ <div class="card fb" id="fb" hidden><p class="fb-q" data-es="<b>¿Qué tal el Rosco de hoy?</b> Es nuevo, así que cuéntanos."><b>How was today's Rosco?</b> It's brand new, so tell us.</p>
   <div class="r10" id="r10"></div>
-  <textarea id="fb-t" maxlength="500" rows="2" placeholder="Too hard? Too easy? A clue that was wrong? (optional)"></textarea>
-  <button class="btn gold" id="fb-send" disabled style="width:100%">Send</button><p class="fb-ok" id="fb-ok" hidden>Thanks! Horacio has noted it down.</p></div>
+  <textarea id="fb-t" maxlength="500" rows="2" placeholder="Too hard? Too easy? A clue that was wrong? (optional)" data-es-ph="¿Muy difícil? ¿Muy fácil? ¿Alguna pista mal? (opcional)"></textarea>
+  <button class="btn gold" id="fb-send" disabled style="width:100%" data-es="Enviar">Send</button><p class="fb-ok" id="fb-ok" hidden data-es="¡Gracias! Horacio lo ha apuntado.">Thanks! Horacio has noted it down.</p></div>
  <p class="note" id="next"></p>
 </section>
 </main>
-<script src="duel/sprites.js"></script>
+<script src="/duel/sprites.js"></script>
 <script>
 const SB_URL="https://yujhjepukzdahsppntua.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1amhqZXB1a3pkYWhzcHBudHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2NDMzNDcsImV4cCI6MjEwNTIxOTM0N30.YIOdtL7tJnNLPFPy19QuXe6w3Dcnz6Xedw0tFGdV_CE";
+// Spanish at /es/rosco.html (a copy made by scripts/build_es.py): static text from data-es, the rest through L(en, es)
+const ES=location.pathname.startsWith('/es/'),L=(en,es)=>ES?es:en;
+if(ES){document.querySelectorAll('[data-es]').forEach(e=>e.innerHTML=e.dataset.es);document.querySelectorAll('[data-es-ph]').forEach(e=>e.placeholder=e.dataset.esPh)}
 const $=id=>document.getElementById(id),ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch{return null}};
 const DAY=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
 const FIRST='2026-10-30',NO=Math.round((Date.parse(DAY)-Date.parse(FIRST))/864e5)+1,KEY='uc-rosco-v3-'+DAY,ABC='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 if(!ls('uc-visitor'))ls('uc-visitor',Math.random().toString(36).slice(2)+Date.now().toString(36));
 const VISITOR=ls('uc-visitor'),SID=Math.random().toString(36).slice(2);
-function track(name,data){try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,session:SID,visitor:VISITOR,seconds:0,game_day:DAY,event_version:2,data:{language:'en',page:'rosco',rosco:NO,...(data||{})}})}).catch(()=>{})}catch{}}
+function track(name,data){try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,session:SID,visitor:VISITOR,seconds:0,game_day:DAY,event_version:2,data:{language:ES?'es':'en',page:'rosco',rosco:NO,...(data||{})}})}).catch(()=>{})}catch{}}
 
 // ── the presenter: 20 hand-picked 64x64 frames in rosco/host. He blinks when idle and moves his mouth while his text types out ──
 const POSES=['idle-1','idle-2','talk-1','talk-2','talk-3','happy-1','happy-talk','laugh','excited','wink','point','think','surprised','nervous','sad','sad-talk','annoyed','facepalm','pasapalabra','celebrate'];
-POSES.forEach(n=>{const i=new Image();i.src=`rosco/host/${n}.png`});
+POSES.forEach(n=>{const i=new Image();i.src=`/rosco/host/${n}.png`});
 // while talking, a pose flips between its mouth frames; poses without talking frames hold still
 const MOUTH={'idle-1':['idle-1','talk-1','talk-2','talk-3'],'happy-1':['happy-1','happy-talk'],'sad':['sad','sad-talk']};
 const REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const host={};
 function Host(box){const img=box.querySelector('img');let pose='idle-1',talkT=0,blinkT=0;
- const show=n=>{img.src=`rosco/host/${n}.png`};
+ const show=n=>{img.src=`/rosco/host/${n}.png`};
  const blink=()=>{clearTimeout(blinkT);blinkT=setTimeout(()=>{if(pose==='idle-1'&&!talkT){show('idle-2');setTimeout(()=>{if(pose==='idle-1'&&!talkT)show('idle-1')},130)}blink()},2600+Math.random()*2600)};
  const api={set(n){if(n!==pose){box.classList.remove('pop');void box.offsetWidth;if(!REDUCE)box.classList.add('pop')}pose=n;show(n)},
   talk(ms){clearInterval(talkT);talkT=0;const f=MOUTH[pose];if(!f||REDUCE)return;let i=0;
@@ -139,7 +142,10 @@ function say(el,h,text,pose='idle-1',more=false){clearInterval(typing);h.set(pos
  if(REDUCE){t.textContent=text;el.querySelector('.more')?.removeAttribute('hidden');return}
  h.talk(text.length*22);typing=setInterval(()=>{t.textContent=text.slice(0,++i);if(i>=text.length){clearInterval(typing);h.hush();el.querySelector('.more')?.removeAttribute('hidden')}},22)}
 const pick=a=>a[Math.floor(Math.random()*a.length)];
-const LINES={ok:['Golazo!','Correct!','Top bins.','Ball knowledge!','Lovely stuff.','That\'s the one.'],
+const LINES=ES?{ok:['¡Golazo!','¡Correcto!','¡A la escuadra!','¡Eso es saber de fútbol!','¡Muy bien!','¡Esa es!'],
+ no:w=>[`¡No! Era ${w}.`,`Uy, esa no. Era ${w}.`,`Fallo, era ${w}.`],pass:['¡Pasapalabra!','¡Siguiente letra!','Ya volveremos a ella.'],
+ lap:['Segunda vuelta. Vuelven las que pasaste.','¡Otra vuelta!']}
+ :{ok:['Golazo!','Correct!','Top bins.','Ball knowledge!','Lovely stuff.','That\'s the one.'],
  no:w=>[`No! It was ${w}.`,`Ooh, not that. It was ${w}.`,`Wrong one, it was ${w}.`],pass:['Pasapalabra!','Next letter!','We\'ll come back to it.'],
  lap:['Lap two. The ones you passed are back.','Round we go again!']};
 
@@ -165,21 +171,22 @@ function drawRing(id,cur){const r=$(id);r.querySelectorAll('.l').forEach(e=>e.re
 const counts=()=>{const v=Object.values(S.res);return{ok:v.filter(x=>x==='ok').length,no:v.filter(x=>x==='no').length}};
 function show(id){['s-load','s-intro','s-play','s-end'].forEach(x=>$(x).hidden=x!==id)}
 
-async function load(){let r;try{r=await fetch(`rosco/${DAY}.json`,{cache:'no-cache'});if(!r.ok)throw 0;R=await r.json()}catch{$('s-load').innerHTML='<p class="note">No Rosco today yet. Come back soon!</p>';return}
+async function load(){let r;try{r=await fetch(`/rosco/${DAY}.json`,{cache:'no-cache'});if(!r.ok)throw 0;R=await r.json()}catch{$('s-load').innerHTML=`<p class="note">${L('No Rosco today yet. Come back soon!','Aún no hay Rosco hoy. ¡Vuelve pronto!')}</p>`;return}
  $('tag').textContent=`ROSCO #${NO}`;try{S=JSON.parse(ls(KEY)||'null')}catch{S=null}
  if(S&&S.done)return end(false);if(S&&S.start)return play();
- show('s-intro');drawRing('ring0','A');$('clock0').textContent=fmt(R.seconds);$('count0').textContent=`${R.letters.length} LETTERS`+(R.letters.length<26?` · ${26-R.letters.length} SKIPPED`:'');
- host.intro=host.intro||Host($('face0'));say($('say0'),host.intro,`Welcome to the Rosco! I'm Horacio Herradura. ${R.letters.length} letters, five minutes, and the clock doesn't stop. Shall we?`,'happy-1');track('rosco_intro',{})}
+ show('s-intro');drawRing('ring0','A');$('clock0').textContent=fmt(R.seconds);$('count0').textContent=L(`${R.letters.length} LETTERS`,`${R.letters.length} LETRAS`)+(R.letters.length<26?L(` · ${26-R.letters.length} SKIPPED`,` · ${26-R.letters.length} FUERA`):'');
+ host.intro=host.intro||Host($('face0'));say($('say0'),host.intro,L(`Welcome to the Rosco! I'm Horacio Herradura. ${R.letters.length} letters, five minutes, and the clock doesn't stop. Shall we?`,`¡Bienvenidos al Rosco! Soy Horacio Herradura. ${R.letters.length} letras, cinco minutos, y el reloj no se para. ¿Empezamos?`),'happy-1');track('rosco_intro',{})}
 
 $('go').onclick=()=>{S={start:Date.now(),res:{},typed:{},passed:[],queue:R.letters.map(x=>x.letter),lap:1,done:false};save();track('rosco_start',{});play()};
 
+const clue=q=>ES&&q.prompt_es?q.prompt_es:q.prompt;
 const cur=()=>R.letters.find(x=>x.letter===S.queue[0]);
-function play(){show('s-play');render(true);clearInterval(tick);tick=setInterval(()=>{const s=left();$('clock').textContent=fmt(s);$('clock').classList.toggle('low',s<=30);if(s<=30&&!S.warned){S.warned=1;react('nervous','30 seconds left!')}if(s<=0)finish('time')},250);setTimeout(()=>$('in').focus(),50)}
+function play(){show('s-play');render(true);clearInterval(tick);tick=setInterval(()=>{const s=left();$('clock').textContent=fmt(s);$('clock').classList.toggle('low',s<=30);if(s<=30&&!S.warned){S.warned=1;react('nervous',L('30 seconds left!','¡Quedan 30 segundos!'))}if(s<=0)finish('time')},250);setTimeout(()=>$('in').focus(),50)}
 function render(first){const q=cur();if(!q)return finish('all');S.seen=S.seen||[];
  if(S.seen.includes(q.letter)){S.lap++;S.seen=[];if(!first)setTimeout(()=>react('wink',pick(LINES.lap)),0)}S.seen.push(q.letter);save();drawRing('ring',q.letter);const c=counts();
- $('count').innerHTML=`<b>${c.ok} ✓</b> · <i>${c.no} ✕</i> · ${S.queue.length} left`;$('clock').textContent=fmt(left());
- $('chip').textContent=(q.answer_type==='club'?'Club':q.answer_type==='country'?'Country':'Surname')+` starts with ${q.letter}`;$('prompt').textContent=q.prompt;$('sub').textContent=q.subtitle||'';
- $('in').placeholder=q.answer_type==='club'?'Type a club':q.answer_type==='country'?'Type a country':q.answer_type==='manager'?'Type a manager':'Type a player';
+ $('count').innerHTML=`<b>${c.ok} ✓</b> · <i>${c.no} ✕</i> · `+L(`${S.queue.length} left`,`quedan ${S.queue.length}`);$('clock').textContent=fmt(left());
+ $('chip').textContent=ES?(q.answer_type==='club'?'Club':q.answer_type==='country'?'Selección':'Apellido')+` por la ${q.letter}`:(q.answer_type==='club'?'Club':q.answer_type==='country'?'Country':'Surname')+` starts with ${q.letter}`;$('prompt').textContent=clue(q);$('sub').textContent=(ES&&q.prompt_es?q.subtitle_es:q.subtitle)||'';
+ $('in').placeholder=ES?(q.answer_type==='club'?'Escribe un club':q.answer_type==='country'?'Escribe una selección':q.answer_type==='manager'?'Escribe un entrenador':'Escribe un jugador'):(q.answer_type==='club'?'Type a club':q.answer_type==='country'?'Type a country':q.answer_type==='manager'?'Type a manager':'Type a player');
  if(first){host.play=host.play||Host($('face'));host.play.set('point')}}
 function react(pose,text){host.play.set(pose);$('var').textContent=text;host.play.talk(650)}
 function popLetter(l){setTimeout(()=>{const e=[...$('ring').querySelectorAll('.l')].find(x=>x.textContent===l);if(e&&!REDUCE){e.classList.add('pop')}},0)}
@@ -188,8 +195,8 @@ function next(){S.queue.shift();if(!S.queue.length)return finish('all');save();r
 
 function answer(){const q=cur(),raw=$('in').value.trim();if(!q)return;if(!raw)return pass();
  const t=norm(raw),good=q.answers.find(a=>hit(t,forms(a.name,a.aliases)));
- if(good){S.res[q.letter]='ok';S.typed[q.letter]=good.name;S.run=(S.run||0)+1;S.miss=0;react(S.run>=5&&S.run%5===0?'excited':S.run>=3?'laugh':'happy-1',(S.run>=3?S.run+' in a row! ':'')+pick(LINES.ok)+' '+good.name);popLetter(q.letter);track('rosco_answer',{letter:q.letter,ok:true})}
- else if((q.others||[]).some(n=>hit(t,forms(n)))){$('var').textContent=`VAR: right answer, but it doesn't start with ${q.letter}. Try another!`;host.play.set('think');$('in').select();return}
+ if(good){S.res[q.letter]='ok';S.typed[q.letter]=good.name;S.run=(S.run||0)+1;S.miss=0;react(S.run>=5&&S.run%5===0?'excited':S.run>=3?'laugh':'happy-1',(S.run>=3?L(S.run+' in a row! ','¡'+S.run+' seguidas! '):'')+pick(LINES.ok)+' '+good.name);popLetter(q.letter);track('rosco_answer',{letter:q.letter,ok:true})}
+ else if((q.others||[]).some(n=>hit(t,forms(n)))){$('var').textContent=L(`VAR: right answer, but it doesn't start with ${q.letter}. Try another!`,`VAR: respuesta válida, pero no empieza por la ${q.letter}. ¡Prueba otra!`);host.play.set('think');$('in').select();return}
  else{S.res[q.letter]='no';S.typed[q.letter]=raw;S.run=0;S.miss=(S.miss||0)+1;react(S.miss>=3?'facepalm':S.miss===2?'annoyed':'sad',pick(LINES.no(q.answers[0].name)));shake();track('rosco_answer',{letter:q.letter,ok:false})}
  S.passed=S.passed.filter(x=>x!==q.letter);$('in').value='';next();$('in').focus()}
 function pass(){const q=cur();if(!q)return;if(!S.passed.includes(q.letter))S.passed.push(q.letter);
@@ -199,13 +206,13 @@ $('f').onsubmit=e=>{e.preventDefault();answer()};$('enter').onclick=answer;$('pa
 function finish(why){clearInterval(tick);if(S.done)return;S.done=true;S.left=left();S.why=why;R.letters.forEach(x=>{if(!S.res[x.letter])S.res[x.letter]='miss'});save();
  const c=counts();track('rosco_finish',{score:c.ok,wrong:c.no,total:R.letters.length,left:S.left,why});end(true)}
 function end(fresh){show('s-end');feedback();const c=counts(),n=R.letters.length;drawRing('ring2');$('score').innerHTML=`${c.ok}<span>/${n}</span>`;
- $('left').textContent=S.why==='time'?'TIME UP':fmt(S.left||0)+' LEFT';
+ $('left').textContent=S.why==='time'?L('TIME UP','¡TIEMPO!'):L(fmt(S.left||0)+' LEFT','SOBRAN '+fmt(S.left||0));
  const mood=c.ok>=19?'celebrate':c.ok>=15?'excited':c.ok>=11?'wink':c.ok>=7?'sad':'facepalm';host.end=host.end||Host($('face2'));
- say($('say2'),host.end,c.ok>=19?`${c.ok}! That's a huge Rosco. Take a bow.`:c.ok>=13?`${c.ok} correct. Solid ball knowledge, that.`:c.ok>=8?`${c.ok} today. The Rosco is a tough one, come back tomorrow!`:`Only ${c.ok}... we all have off days. New Rosco tomorrow!`,mood);
+ say($('say2'),host.end,ES?(c.ok>=19?`¡${c.ok}! Menudo Rosco. Saluda al público.`:c.ok>=13?`${c.ok} aciertos. Eso es saber de fútbol.`:c.ok>=8?`${c.ok} hoy. El Rosco es duro, ¡vuelve mañana!`:`Solo ${c.ok}... todos tenemos un mal día. ¡Mañana, Rosco nuevo!`):(c.ok>=19?`${c.ok}! That's a huge Rosco. Take a bow.`:c.ok>=13?`${c.ok} correct. Solid ball knowledge, that.`:c.ok>=8?`${c.ok} today. The Rosco is a tough one, come back tomorrow!`:`Only ${c.ok}... we all have off days. New Rosco tomorrow!`),mood);
  $('grid').textContent=gridText();
  $('ans').innerHTML=R.letters.map(x=>{const st=S.res[x.letter],col=st==='ok'?'var(--grass)':st==='no'?'var(--clay)':'#6b6878';
-  return`<li><b style="background:${col}">${x.letter}</b><div><strong>${esc(x.prompt)}</strong><small>${st==='ok'?'✓ '+esc(S.typed[x.letter]):st==='no'?'✕ You said '+esc(S.typed[x.letter]):'Not answered'} · ${x.answers.length>1?'Answers':'Answer'}: ${x.answers.map(a=>esc(a.name)).join(', ')}</small></div></li>`}).join('');
- const nx=()=>{const now=new Date(),am=new Date(now.toLocaleString('en-US',{timeZone:'Europe/Amsterdam'})),ms=(24*3600-am.getHours()*3600-am.getMinutes()*60-am.getSeconds())*1000;$('next').textContent=`New Rosco in ${Math.floor(ms/36e5)}h ${Math.floor(ms%36e5/6e4)}m`};nx();setInterval(nx,30000)}
+  return`<li><b style="background:${col}">${x.letter}</b><div><strong>${esc(clue(x))}</strong><small>${st==='ok'?'✓ '+esc(S.typed[x.letter]):st==='no'?L('✕ You said ','✕ Dijiste ')+esc(S.typed[x.letter]):L('Not answered','Sin responder')} · ${x.answers.length>1?L('Answers','Respuestas'):L('Answer','Respuesta')}: ${x.answers.map(a=>esc(a.name)).join(', ')}</small></div></li>`}).join('');
+ const nx=()=>{const now=new Date(),am=new Date(now.toLocaleString('en-US',{timeZone:'Europe/Amsterdam'})),ms=(24*3600-am.getHours()*3600-am.getMinutes()*60-am.getSeconds())*1000;$('next').textContent=L('New Rosco in ','Nuevo Rosco en ')+`${Math.floor(ms/36e5)}h ${Math.floor(ms%36e5/6e4)}m`};nx();setInterval(nx,30000)}
 // feedback after a round: 1-10 and an optional note, once per day (sent as an event)
 function feedback(){const k='uc-rosco-fb-'+DAY;if(ls(k))return;let rating=0;$('fb').hidden=false;
  $('r10').innerHTML=Array.from({length:10},(_,i)=>`<button type="button" data-r="${i+1}">${i+1}</button>`).join('');
@@ -214,11 +221,11 @@ function feedback(){const k='uc-rosco-fb-'+DAY;if(ls(k))return;let rating=0;$('f
   $('r10').hidden=$('fb-t').hidden=$('fb-send').hidden=true;$('fb-ok').hidden=false}}
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const gridText=()=>ABC.map(ch=>{if(!R.letters.some(x=>x.letter===ch))return'⬛';const s=S.res[ch];return s==='ok'?'🟩':s==='no'?'🟥':'⬜'}).join('');
-$('show').onclick=()=>{$('ans').hidden=!$('ans').hidden;$('show').textContent=$('ans').hidden?'See answers':'Hide answers'};
-const resultText=()=>{const c=counts();return`Unicorner Rosco #${NO}: ${c.ok}/${R.letters.length}\n${gridText()}\nunicornergame.lol/rosco.html`};
+$('show').onclick=()=>{$('ans').hidden=!$('ans').hidden;$('show').textContent=$('ans').hidden?L('See answers','Ver respuestas'):L('Hide answers','Ocultar respuestas')};
+const resultText=()=>{const c=counts();return L('Unicorner Rosco','Rosco Unicorner')+` #${NO}: ${c.ok}/${R.letters.length}\n${gridText()}\nunicornergame.lol/`+L('rosco.html','es/rosco.html')};
 $('copy').onclick=async()=>{const c=counts(),t=resultText();track('rosco_copy',{score:c.ok});
  try{await navigator.clipboard.writeText(t)}catch{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch{}a.remove()}
- $('copy').textContent='Copied! Paste it anywhere';setTimeout(()=>$('copy').textContent='Copy result',1800)};
+ $('copy').textContent=L('Copied! Paste it anywhere','¡Copiado! Pégalo donde quieras');setTimeout(()=>$('copy').textContent=L('Copy result','Copiar resultado'),1800)};
 if(navigator.share)$('share').hidden=false;
 $('share').onclick=async()=>{track('rosco_share',{score:counts().ok});try{await navigator.share({text:resultText()})}catch{}};
 load();

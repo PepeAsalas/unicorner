@@ -105,6 +105,7 @@ def build(day, questions, recent):
         def hard(c):
             return c[0].get('answer_type', 'player') in ('player', 'manager') and 2 <= c[2] <= 4 or c[0].get('answer_type') in ('club', 'country') and c[2] <= 2
         pool = [c for c in pool if (known if letter in easy else hard)(c)] or [c for c in pool if hard(c)] or pool
+        pool = [c for c in pool if c[0].get('prompt_es')] or pool  # Spanish players get the clue in Spanish
         if not pool:
             continue
         q, answers, _ = rng.choice(pool)

@@ -111,3 +111,8 @@ if __name__ == '__main__':
     build()
     import build_sprites  # Duels draws the same kits as the main game
     build_sprites.main()
+    # the Rosco: the same page in Spanish (rosco.html switches language by its /es/ path)
+    r = (SRC.parent / 'rosco.html').read_text(encoding='utf-8')
+    r = r.replace('<html lang="en">', '<html lang="es">', 1).replace('<title>Unicorner Rosco</title>', '<title>Rosco de fútbol · Unicorner</title>', 1)
+    r = re.sub(r'<meta name="description" content="[^"]*">', '<meta name="description" content="El Rosco diario de fútbol: una pista por cada letra, contra el reloj. Gratis y nuevo cada día.">', r, count=1)
+    (SRC.parent / 'es' / 'rosco.html').write_text(r, encoding='utf-8')
