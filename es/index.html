@@ -2159,9 +2159,9 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
  </div>
  <div class="lx-h">${L('Anytime','Cuando quieras')} <small>${L('no daily limit','sin límite diario')}</small></div>
  <section class="modes" aria-label="${L('Game modes','Modos de juego')}">
-  <button type="button" class="mode m-inf" data-infinite><span class="m-pic"><span class="m-sym">∞</span><i class="inf-uni" style="background-image:${(()=>{try{return spriteDraw('wow',0,false,KITS.find(k=>k.id==='shadow')).replace(/"/g,"'")}catch{return'none'}})()}"></i></span><span class="m-txt"><b>${L('Infinity','Infinito')}</b><small>${L('Unlimited questions, out in space','Preguntas ilimitadas, en el espacio')}</small></span><span class="m-go">${L('Press start','Pulsa start')}</span></button>
-  <a class="mode m-duel" id="lp-duel" href="/duel.html"><span class="m-pic"><i class="duel-spr fo-a"></i><span class="m-vs">VS</span><i class="duel-spr fo-b"></i></span><span class="m-txt"><b>${L('Duels','Duelos')}</b><small id="lp-duel-sub">${L('1v1 a mate. Rarer answers hit harder','Reta a un amigo. Las respuestas raras pegan más')}</small><span class="m-rec" id="lp-duel-rec" hidden></span></span><span class="m-go" id="lp-duel-go">${L('Challenge','Retar')}</span></a>
-  <a class="mode m-tyc" href="/tycoon/" data-track="tycoon_card"><span class="m-tag">${L('New','Nuevo')}</span><span class="m-pic"><img src="/tycoon/art/building-stadium-4.webp" alt="" loading="lazy" width="150" height="76"></span><span class="m-txt"><b>Chairman</b><small>${L('Kick the unicorn. Buy the club a stadium','Patea al unicornio. Cómprale un estadio al club')}</small><span class="m-sum">€1,204,330.50 ▲</span></span><span class="m-go">${L('Take over','Al mando')}</span></a>
+  <button type="button" class="mode m-inf" data-infinite><span class="m-pic lx-thumb"><img class="lx-i" src="/bg/mode-inf.png" alt="" width="720" height="330"></span><span class="m-txt"><b>${L('Infinity','Infinito')}</b><small>${L('Unlimited questions, out in space','Preguntas ilimitadas, en el espacio')}</small></span><span class="m-go">${L('Press start','Pulsa start')}</span></button>
+  <a class="mode m-duel" id="lp-duel" href="/duel.html"><span class="m-pic lx-thumb"><img class="lx-i" src="/bg/mode-duel.png" alt="" width="720" height="330"></span><span class="m-txt"><b>${L('Duels','Duelos')}</b><small id="lp-duel-sub">${L('1v1 a mate. Rarer answers hit harder','Reta a un amigo. Las respuestas raras pegan más')}</small><span class="m-rec" id="lp-duel-rec" hidden></span></span><span class="m-go" id="lp-duel-go">${L('Challenge','Retar')}</span></a>
+  <a class="mode m-tyc" href="/tycoon/" data-track="tycoon_card"><span class="m-tag">${L('New','Nuevo')}</span><span class="m-pic lx-thumb"><img class="lx-i" src="/bg/mode-tyc.png" alt="" width="720" height="330"></span><span class="m-txt"><b>Chairman</b><small>${L('Kick the unicorn. Buy the club a stadium','Patea al unicornio. Cómprale un estadio al club')}</small><span class="m-sum">€1,204,330.50 ▲</span></span><span class="m-go">${L('Take over','Al mando')}</span></a>
  </section>
 
  ${compete}
@@ -2480,7 +2480,7 @@ www.unicornergame.lol`};
   <section class="jb" id="compete-results" data-compete><div class="jb-frame"><div class="jb-screen"><p class="jb-empty">GLOBAL RANKING · LOADING…</p></div></div></section>
   ${hits.length?`<section class="result-section"><div class="result-section-head"><h2>${L('Your match highlights','Lo mejor de tu partido')}</h2><p class="mute">${L('Best answers first','Primero las mejores respuestas')}</p></div><div class="result-list">${hits.map(r=>resultItem(r,false)).join('')}</div></section>`:''}
   ${misses.length?`<div class="result-nearly"><section class="result-section"><div class="result-section-head"><h2>${L('Nearly had it','Casi')}</h2><p class="mute">${ES?(misses.length===1?'1 respuesta':misses.length+' respuestas')+' para aprender para mañana':(misses.length===1?'1 answer':misses.length+' answers')+' to learn for tomorrow'}</p></div><div class="result-list">${misses.map(r=>resultItem(r,true)).join('')}</div></section></div>`:''}
-  <div class="modes res-modes"><button type="button" class="mode m-inf" data-infinite><span class="m-pic"><span class="m-sym">∞</span><i class="inf-uni" style="background-image:${(()=>{try{return spriteDraw('wow',0,false,KITS.find(k=>k.id==='shadow')).replace(/"/g,"'")}catch{return'none'}})()}"></i></span><span class="m-txt"><b>${L('Infinity','Infinito')}</b><small>${L('Unlimited questions, out in space','Preguntas ilimitadas, en el espacio')}</small></span><span class="m-go">${L('Press start','Pulsa start')}</span></button></div>
+  <div class="modes res-modes"><button type="button" class="mode m-inf" data-infinite><span class="m-pic lx-thumb"><img class="lx-i" src="/bg/mode-inf.png" alt="" width="720" height="330"></span><span class="m-txt"><b>${L('Infinity','Infinito')}</b><small>${L('Unlimited questions, out in space','Preguntas ilimitadas, en el espacio')}</small></span><span class="m-go">${L('Press start','Pulsa start')}</span></button></div>
   <div class="row result-home-row"><button class="ghost" id="home">${L('Back to home','Volver al inicio')}</button></div>
   <div class="relay-rail" id="relay-rail"></div>
  </div></div>`,()=>{
@@ -4266,10 +4266,10 @@ body.landing .landing-wrap .modes .mode .m-txt b{font:400 32px/1 "Jersey 10",mon
 body.landing .landing-wrap .modes .mode .m-txt small{font:400 18px/1.05 VT323,monospace!important;color:rgba(251,246,232,.78)!important;white-space:normal!important}
 body.landing .landing-wrap .modes .mode .m-sum{font:400 18px/1 VT323,monospace!important;color:#7ee08f!important}
 body.landing .landing-wrap .modes .mode .m-go.m-go{display:block!important;top:auto!important;bottom:14px!important;left:14px!important;right:14px!important;width:auto!important;translate:none!important;text-align:center!important;font:400 24px/1 "Jersey 10",monospace!important;letter-spacing:.04em!important;padding:8px!important;border:3px solid #1d1a2b!important;box-shadow:0 4px 0 #000!important;background:#f2c230!important;color:#1d1a2b!important;text-transform:uppercase!important}
-body.landing .landing-wrap .modes .mode.m-tyc .m-pic{background:repeating-linear-gradient(90deg,#c8473b 0 14px,#b13b30 14px 28px)!important}
-body.landing .landing-wrap .modes .mode.m-tyc .m-pic img{width:200px!important;height:auto!important}
-body.landing .landing-wrap .modes .mode.m-inf .m-pic .inf-uni{width:110px!important;height:92px!important}
 body.landing .landing-wrap .modes .mode .m-tag{top:8px!important;left:8px!important}
+html body .modes .mode .m-pic.lx-thumb.lx-thumb{background:#2a6b43!important;overflow:hidden!important;display:block!important;position:relative!important;padding:0!important}
+html body .modes .mode .m-pic.lx-thumb.lx-thumb::before,html body .modes .mode .m-pic.lx-thumb.lx-thumb::after{display:none!important;content:none!important}
+html body .modes .mode.mode .m-pic.lx-thumb.lx-thumb img.lx-i,html body .modes .mode .m-pic.lx-thumb.lx-thumb img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;image-rendering:pixelated;margin:0!important}
 body.landing .landing-wrap #hb-home.hb{width:100%!important;max-width:none!important;height:120px!important;border:3px solid #1d1a2b!important;box-shadow:0 4px 0 #1d1a2b!important}
 @media (max-width:700px){
  .lx-today{grid-template-columns:1fr;gap:14px}
@@ -4287,9 +4287,6 @@ body.landing .landing-wrap #hb-home.hb{width:100%!important;max-width:none!impor
  body.landing .landing-wrap .modes .mode .m-go.m-go{left:8px!important;right:8px!important;bottom:8px!important;font-size:0!important;padding:7px 0!important}
  body.landing .landing-wrap .modes .mode .m-go.m-go::after{content:"PLAY";font:400 19px/1 "Jersey 10",monospace;letter-spacing:.04em}
  html[lang=es] body.landing .landing-wrap .modes .mode .m-go.m-go::after{content:"JUGAR"}
- body.landing .landing-wrap .modes .mode.m-tyc .m-pic img{width:120px!important}
- body.landing .landing-wrap .modes .mode.m-inf .m-pic .inf-uni{width:76px!important;height:64px!important}
- body.landing .landing-wrap .m-duel .duel-spr{width:40px!important;height:34px!important}
  body.landing .landing-wrap #hb-home.hb{height:96px!important}
 }
 </style>
