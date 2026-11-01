@@ -2153,7 +2153,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
   </div>
   ${streakStrip(sInfo,'short')}
  </section></div>
- <a class="lx-ro" href="${ES?'/es/rosco.html':'/rosco.html'}" data-track="rosco_card"><span class="lx-ro-top"><span>Rosco ${L('No.','n.º')} ${Math.max(1,Math.round((Date.parse(amsterdamDay())-Date.parse('2026-10-30'))/864e5)+1)}</span><b>${L('New','Nuevo')}</b></span><span class="lx-ro-mid"><span><b class="lx-ro-t">Rosco</b><small>${L('24 letters · 5 minutes','24 letras · 5 minutos')}</small><span class="lx-abc">${'ABCDEFGHIJKLMNOPRSTUVWYZ'.split('').map((c,i)=>`<i${i===0?' class="on"':''}>${c}</i>`).join('')}</span></span><img src="/rosco/host/point.png" alt="" width="128" height="128"></span><span class="lx-ro-go">${L('Play the Rosco','Jugar el Rosco')}</span></a>
+ <a class="lx-ro" href="${ES?'/es/rosco.html':'/rosco.html'}" data-track="rosco_card"><span class="lx-ro-top"><span>Rosco ${L('No.','n.º')} ${Math.max(1,Math.round((Date.parse(amsterdamDay())-Date.parse('2026-10-30'))/864e5)+1)}</span><b>${L('New','Nuevo')}</b></span><span class="lx-ro-mid"><span><b class="lx-ro-t">Rosco</b><span class="lx-stats" id="lx-ro-stats"><span>${L('Letters','Letras')}<b>24</b></span><span>${L('Minutes','Minutos')}<b>5</b></span></span><span class="lx-abc lx-grid">${'ABCDEFGHIJKLMNOPRSTUVWYZ'.split('').map((c,i)=>`<i${i===0?' class="on"':''}>${c}</i>`).join('')}</span></span><img src="/rosco/host/point.png" alt="" width="128" height="128"></span><span class="lx-ro-go">${L('Play the Rosco','Jugar el Rosco')}</span></a>
  </div>
  <div class="lx-h">${L('Anytime','Cuando quieras')} <small>${L('no daily limit','sin límite diario')}</small></div>
  <section class="modes" aria-label="${L('Game modes','Modos de juego')}">
@@ -2182,6 +2182,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
   try{if(sessionStorage.getItem('uc-reopen')==='results'){sessionStorage.removeItem('uc-reopen');if(played&&go)setTimeout(()=>go.click(),0)}}catch{}
   const hw=document.getElementById('how');if(hw)hw.onclick=()=>{track('how_click',{from:'ticket'});if(window.ucHowTo)return window.ucHowTo(played?null:play,'button');const st=document.getElementById('steps');st.scrollIntoView({behavior:'smooth',block:'center'});st.classList.remove('flash');void st.offsetWidth;st.classList.add('flash')};
   if(!played)liveLine().then(({n,top})=>{const el=document.querySelector('#tkLive span');if(el&&n)el.innerHTML=ES?`<b>${n}</b> han jugado hoy · récord <b>${top}</b>`:`<b>${n}</b> played today · top <b>${top}</b>`}).catch(()=>{});
+  (async()=>{try{const el=document.getElementById('lx-ro-stats');if(!el)return;const r=await fetch(SB_URL+'/rest/v1/rpc/rosco_day_stats',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({p_day:amsterdamDay()})});if(!r.ok)return;const j=await r.json();if(j&&j.players>=5&&document.body.contains(el))el.innerHTML=`<span>${L("Today's average",'Media de hoy')}<b>${j.avg}</b></span><span>${L('Players','Jugadores')}<b>${j.players}</b></span>`}catch{}})();
   const otdLink=document.getElementById('otdLink');if(otdLink)otdLink.onclick=()=>track('on_this_day_click',{date:octDay,url:onThisDay.url});
   const lm=document.getElementById('landingMascot');
   if(isLeafWindow){const art=lm&&lm.closest('.lp-art');if(art)spawnOctLeaves(art)}
@@ -4231,6 +4232,13 @@ html body .modes .m-duel .m-vs{position:absolute;left:50%;top:14%;translate:-50%
 @media (max-width:560px){.inf-uni{width:62px;height:52px}html body .mode.m-inf .m-sym{font-size:30px}html body .modes .m-duel .duel-spr{width:42px;height:36px}html body .modes .m-duel .m-vs{font-size:24px;top:10%}}
 </style>
 <style id="landing-v2">
+.lx-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.lx-stats>span{background:#16356b;border:2px solid #1d1a2b;padding:8px;font:400 15px/1.1 VT323,monospace;color:rgba(251,246,232,.8);text-transform:uppercase}
+.lx-stats b{display:block;font:400 30px/1 "Jersey 10",monospace;font-weight:400;color:#f2c230}
+.lx-ro .lx-ro-mid{align-items:end}
+.lx-abc.lx-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:3px;margin:0 0 12px}
+.lx-abc.lx-grid i{width:auto;height:auto;aspect-ratio:1}
+
 .lx-score{display:flex!important;align-items:flex-end;gap:8px;flex-wrap:wrap}
 .lx-digits{display:flex;gap:5px}
 body.landing .tk .lx-digits i{font:400 32px/1 "Jersey 10",monospace;font-style:normal;color:#f2c230;background:#1d1a2b;border:2px solid #1d1a2b;padding:6px 8px 4px;min-width:38px;text-align:center}
