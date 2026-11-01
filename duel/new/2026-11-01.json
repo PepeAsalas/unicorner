@@ -1,0 +1,2644 @@
+[
+ {
+  "id": "d21-name-a-club-relegated-from-ligue-1-between-2014-15-and-2024-25-relegation-play-off-losers-included",
+  "template": 21,
+  "prompt": "Name a club relegated from Ligue 1 between 2014-15 and 2024-25 (relegation play-off losers included)",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Évian Thonon Gaillard",
+    "aliases": [
+     "Evian",
+     "Evian TG",
+     "Evian Thonon Gaillard"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "FC Metz",
+    "aliases": [
+     "Metz"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "RC Lens",
+    "aliases": [
+     "Lens",
+     "Racing Club de Lens"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Stade de Reims",
+    "aliases": [
+     "Reims"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Gazélec Ajaccio",
+    "aliases": [
+     "Gazelec Ajaccio",
+     "Gazelec",
+     "GFC Ajaccio"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "ESTAC Troyes",
+    "aliases": [
+     "Troyes"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "FC Lorient",
+    "aliases": [
+     "Lorient"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "AS Nancy",
+    "aliases": [
+     "Nancy",
+     "Nancy Lorraine"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "SC Bastia",
+    "aliases": [
+     "Bastia"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "SM Caen",
+    "aliases": [
+     "Caen",
+     "Stade Malherbe Caen"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "En Avant Guingamp",
+    "aliases": [
+     "Guingamp"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Amiens SC",
+    "aliases": [
+     "Amiens"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Toulouse FC",
+    "aliases": [
+     "Toulouse",
+     "TFC"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Nîmes Olympique",
+    "aliases": [
+     "Nimes",
+     "Nimes Olympique"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Dijon FCO",
+    "aliases": [
+     "Dijon"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "AS Saint-Étienne",
+    "aliases": [
+     "Saint-Etienne",
+     "Saint Etienne",
+     "St Etienne",
+     "ASSE",
+     "Sainté"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Girondins de Bordeaux",
+    "aliases": [
+     "Bordeaux",
+     "Girondins"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "AJ Auxerre",
+    "aliases": [
+     "Auxerre"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "AC Ajaccio",
+    "aliases": [
+     "Ajaccio",
+     "AC Ajaccio",
+     "ACA"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Angers SCO",
+    "aliases": [
+     "Angers"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Clermont Foot",
+    "aliases": [
+     "Clermont",
+     "Clermont Foot 63"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Montpellier HSC",
+    "aliases": [
+     "Montpellier",
+     "MHSC"
+    ],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "Sochaux",
+    "why": "Relegated in 2013-14, before the range."
+   },
+   {
+    "name": "AS Monaco",
+    "why": "Relegated in 2010-11, before the range."
+   },
+   {
+    "name": "FC Nantes",
+    "why": "Finished 18th in 2020-21 but won the relegation play-off and stayed up."
+   }
+  ]
+ },
+ {
+  "id": "d24-name-a-french-manager-who-was-a-permanent-premier-league-manager-up-to-2025-26",
+  "template": 24,
+  "prompt": "Name a French manager who was a permanent Premier League manager up to 2025-26",
+  "time": 15,
+  "answer_type": "manager",
+  "answers": [
+   {
+    "name": "Arsène Wenger",
+    "aliases": [
+     "Wenger",
+     "Arsene Wenger"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Gérard Houllier",
+    "aliases": [
+     "Houllier",
+     "Gerard Houllier"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Patrick Vieira",
+    "aliases": [
+     "Vieira"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Claude Puel",
+    "aliases": [
+     "Puel"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Rémi Garde",
+    "aliases": [
+     "Garde",
+     "Remi Garde"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Jean Tigana",
+    "aliases": [
+     "Tigana"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Jacques Santini",
+    "aliases": [
+     "Santini"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Alain Perrin",
+    "aliases": [
+     "Perrin"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Régis Le Bris",
+    "aliases": [
+     "Le Bris",
+     "Regis Le Bris"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Thierry Henry",
+    "why": "Has never managed in the Premier League."
+   },
+   {
+    "name": "Didier Deschamps",
+    "why": "Has never managed in the Premier League."
+   },
+   {
+    "name": "Zinedine Zidane",
+    "why": "Has never managed in the Premier League."
+   }
+  ]
+ },
+ {
+  "id": "d24-name-a-scottish-manager-who-was-a-permanent-premier-league-manager-up-to-2025-26",
+  "template": 24,
+  "prompt": "Name a Scottish manager who was a permanent Premier League manager up to 2025-26",
+  "time": 15,
+  "answer_type": "manager",
+  "answers": [
+   {
+    "name": "Alex Ferguson",
+    "aliases": [
+     "Ferguson",
+     "Alex Ferguson",
+     "Sir Alex Ferguson",
+     "Fergie"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "David Moyes",
+    "aliases": [
+     "Moyes"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Kenny Dalglish",
+    "aliases": [
+     "Dalglish",
+     "King Kenny"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Graeme Souness",
+    "aliases": [
+     "Souness"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "George Graham",
+    "aliases": [
+     "Graham"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Gordon Strachan",
+    "aliases": [
+     "Strachan"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Walter Smith",
+    "aliases": [
+     "Smith",
+     "Walter Smith"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Alex McLeish",
+    "aliases": [
+     "McLeish"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Steve Clarke",
+    "aliases": [
+     "Clarke"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Paul Lambert",
+    "aliases": [
+     "Lambert"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Malky Mackay",
+    "aliases": [
+     "Mackay",
+     "Malky Mackay"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Bruce Rioch",
+    "aliases": [
+     "Rioch"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "George Burley",
+    "aliases": [
+     "Burley"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Russell Martin",
+    "aliases": [
+     "Martin"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Steve Kean",
+    "aliases": [
+     "Kean"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Jim Jefferies",
+    "aliases": [
+     "Jefferies"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Billy Davies",
+    "aliases": [
+     "Davies"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Mark McGhee",
+    "aliases": [
+     "McGhee"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Alex Neil",
+    "aliases": [
+     "Neil"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Alan Irvine",
+    "aliases": [
+     "Irvine"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Paul Sturrock",
+    "aliases": [
+     "Sturrock"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Ricky Sbragia",
+    "aliases": [
+     "Sbragia"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Ian Porterfield",
+    "aliases": [
+     "Porterfield"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "John Gorman",
+    "aliases": [
+     "Gorman"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Brendan Rodgers",
+    "why": "Northern Irish, not Scottish."
+   },
+   {
+    "name": "Kevin Keegan",
+    "why": "English, not Scottish."
+   },
+   {
+    "name": "Mark Hughes",
+    "why": "Welsh, not Scottish."
+   },
+   {
+    "name": "Duncan Ferguson",
+    "why": "Only a caretaker at Everton, never a permanent manager."
+   },
+   {
+    "name": "Ally McCoist",
+    "why": "Never managed in the Premier League."
+   }
+  ]
+ },
+ {
+  "id": "d24-name-a-manager-who-won-the-premier-league-title-between-1992-93-and-2024-25",
+  "template": 24,
+  "prompt": "Name a manager who won the Premier League title between 1992-93 and 2024-25",
+  "time": 15,
+  "answer_type": "manager",
+  "answers": [
+   {
+    "name": "Alex Ferguson",
+    "aliases": [
+     "Ferguson",
+     "Alex Ferguson",
+     "Sir Alex Ferguson",
+     "Fergie"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Pep Guardiola",
+    "aliases": [
+     "Guardiola",
+     "Pep"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Jürgen Klopp",
+    "aliases": [
+     "Klopp",
+     "Jurgen Klopp"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "José Mourinho",
+    "aliases": [
+     "Mourinho",
+     "Jose Mourinho"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Arsène Wenger",
+    "aliases": [
+     "Wenger",
+     "Arsene Wenger"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Carlo Ancelotti",
+    "aliases": [
+     "Ancelotti"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Claudio Ranieri",
+    "aliases": [
+     "Ranieri"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Antonio Conte",
+    "aliases": [
+     "Conte"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Roberto Mancini",
+    "aliases": [
+     "Mancini"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Arne Slot",
+    "aliases": [
+     "Slot"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Manuel Pellegrini",
+    "aliases": [
+     "Pellegrini"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Kenny Dalglish",
+    "aliases": [
+     "Dalglish"
+    ],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "Mikel Arteta",
+    "why": "Did not win the title up to 2024-25."
+   },
+   {
+    "name": "Rafael Benítez",
+    "why": "Never won the Premier League."
+   },
+   {
+    "name": "Harry Redknapp",
+    "why": "Never won the Premier League."
+   },
+   {
+    "name": "Mauricio Pochettino",
+    "why": "Never won the Premier League."
+   },
+   {
+    "name": "Thomas Tuchel",
+    "why": "Never won the Premier League."
+   }
+  ]
+ },
+ {
+  "id": "d24-name-a-manager-who-won-the-la-liga-title-between-2000-01-and-2024-25",
+  "template": 24,
+  "prompt": "Name a manager who won the La Liga title between 2000-01 and 2024-25",
+  "time": 15,
+  "answer_type": "manager",
+  "answers": [
+   {
+    "name": "Vicente del Bosque",
+    "aliases": [
+     "Del Bosque",
+     "Vicente Del Bosque"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Rafael Benítez",
+    "aliases": [
+     "Benitez",
+     "Rafa Benitez",
+     "Rafael Benitez"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Frank Rijkaard",
+    "aliases": [
+     "Rijkaard"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Fabio Capello",
+    "aliases": [
+     "Capello"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Bernd Schuster",
+    "aliases": [
+     "Schuster"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Pep Guardiola",
+    "aliases": [
+     "Guardiola",
+     "Pep"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "José Mourinho",
+    "aliases": [
+     "Mourinho",
+     "Jose Mourinho"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Tito Vilanova",
+    "aliases": [
+     "Vilanova",
+     "Francesc Vilanova"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Diego Simeone",
+    "aliases": [
+     "Simeone",
+     "Cholo Simeone",
+     "El Cholo"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Luis Enrique",
+    "aliases": [
+     "Enrique",
+     "Luis Enrique Martinez"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Zinedine Zidane",
+    "aliases": [
+     "Zidane"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Ernesto Valverde",
+    "aliases": [
+     "Valverde"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Carlo Ancelotti",
+    "aliases": [
+     "Ancelotti"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Xavi Hernández",
+    "aliases": [
+     "Xavi",
+     "Xavi Hernandez"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Hansi Flick",
+    "aliases": [
+     "Flick",
+     "Hans-Dieter Flick",
+     "Hans Flick"
+    ],
+    "fame": 5
+   }
+  ],
+  "traps": [
+   {
+    "name": "Unai Emery",
+    "why": "Never won La Liga."
+   },
+   {
+    "name": "Ronald Koeman",
+    "why": "Won the Copa del Rey with Barcelona but not La Liga."
+   },
+   {
+    "name": "Jupp Heynckes",
+    "why": "Won the Champions League with Real Madrid but not La Liga."
+   },
+   {
+    "name": "Quique Setién",
+    "why": "Never won La Liga."
+   }
+  ]
+ },
+ {
+  "id": "d24-name-a-manager-who-won-the-bundesliga-title-between-2000-01-and-2024-25",
+  "template": 24,
+  "prompt": "Name a manager who won the Bundesliga title between 2000-01 and 2024-25",
+  "time": 15,
+  "answer_type": "manager",
+  "answers": [
+   {
+    "name": "Ottmar Hitzfeld",
+    "aliases": [
+     "Hitzfeld"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Matthias Sammer",
+    "aliases": [
+     "Sammer"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Thomas Schaaf",
+    "aliases": [
+     "Schaaf"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Felix Magath",
+    "aliases": [
+     "Magath"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Armin Veh",
+    "aliases": [
+     "Veh"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Louis van Gaal",
+    "aliases": [
+     "Van Gaal",
+     "Louis Van Gaal"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Jürgen Klopp",
+    "aliases": [
+     "Klopp",
+     "Jurgen Klopp"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Jupp Heynckes",
+    "aliases": [
+     "Heynckes"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Pep Guardiola",
+    "aliases": [
+     "Guardiola",
+     "Pep"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Carlo Ancelotti",
+    "aliases": [
+     "Ancelotti"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Niko Kovač",
+    "aliases": [
+     "Kovac",
+     "Niko Kovac"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Hansi Flick",
+    "aliases": [
+     "Flick",
+     "Hans-Dieter Flick"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Julian Nagelsmann",
+    "aliases": [
+     "Nagelsmann"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Thomas Tuchel",
+    "aliases": [
+     "Tuchel"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Xabi Alonso",
+    "aliases": [
+     "Alonso",
+     "Xabi"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Vincent Kompany",
+    "aliases": [
+     "Kompany"
+    ],
+    "fame": 5
+   }
+  ],
+  "traps": [
+   {
+    "name": "Lucien Favre",
+    "why": "Finished runner-up with Dortmund but never won the title."
+   },
+   {
+    "name": "Jürgen Klinsmann",
+    "why": "Sacked by Bayern in April 2009 before the title race ended, and never won it."
+   },
+   {
+    "name": "Christian Streich",
+    "why": "Never won the Bundesliga."
+   },
+   {
+    "name": "Roger Schmidt",
+    "why": "Never won the Bundesliga."
+   }
+  ]
+ },
+ {
+  "id": "d24-name-a-manager-who-won-the-serie-a-title-between-2006-07-and-2024-25",
+  "template": 24,
+  "prompt": "Name a manager who won the Serie A title between 2006-07 and 2024-25",
+  "time": 15,
+  "answer_type": "manager",
+  "answers": [
+   {
+    "name": "Roberto Mancini",
+    "aliases": [
+     "Mancini"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "José Mourinho",
+    "aliases": [
+     "Mourinho",
+     "Jose Mourinho"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Massimiliano Allegri",
+    "aliases": [
+     "Allegri",
+     "Max Allegri"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Antonio Conte",
+    "aliases": [
+     "Conte"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Maurizio Sarri",
+    "aliases": [
+     "Sarri"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Stefano Pioli",
+    "aliases": [
+     "Pioli"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Luciano Spalletti",
+    "aliases": [
+     "Spalletti"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Simone Inzaghi",
+    "aliases": [
+     "Inzaghi",
+     "Simone Inzaghi"
+    ],
+    "fame": 5
+   }
+  ],
+  "traps": [
+   {
+    "name": "Carlo Ancelotti",
+    "why": "His Serie A title with Milan was in 2003-04, before the range."
+   },
+   {
+    "name": "Fabio Capello",
+    "why": "His last Serie A titles were in 2004-05 and 2005-06, before the range, and were stripped."
+   },
+   {
+    "name": "Gian Piero Gasperini",
+    "why": "Never won Serie A."
+   },
+   {
+    "name": "Marcello Lippi",
+    "why": "His Serie A titles came before 2006-07."
+   }
+  ]
+ },
+ {
+  "id": "d19-name-a-club-from-the-midlands-of-england-that-played-in-the-premier-league-up-to-2025-26",
+  "template": 19,
+  "prompt": "Name a club from the Midlands of England that played in the Premier League up to 2025-26",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Aston Villa",
+    "aliases": [
+     "Villa",
+     "Aston Villa FC"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Leicester City",
+    "aliases": [
+     "Leicester",
+     "Foxes"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Nottingham Forest",
+    "aliases": [
+     "Forest",
+     "Notts Forest"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Wolverhampton Wanderers",
+    "aliases": [
+     "Wolves",
+     "Wolverhampton"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "West Bromwich Albion",
+    "aliases": [
+     "West Brom",
+     "WBA",
+     "West Bromwich",
+     "Baggies"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Birmingham City",
+    "aliases": [
+     "Birmingham",
+     "Blues",
+     "Brum"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Stoke City",
+    "aliases": [
+     "Stoke"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Derby County",
+    "aliases": [
+     "Derby",
+     "The Rams"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Coventry City",
+    "aliases": [
+     "Coventry",
+     "Sky Blues"
+    ],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "Sheffield United",
+    "why": "Based in Yorkshire, not the Midlands."
+   },
+   {
+    "name": "Luton Town",
+    "why": "Based in the East of England, not the Midlands."
+   },
+   {
+    "name": "Notts County",
+    "why": "Never played in the Premier League."
+   },
+   {
+    "name": "Peterborough United",
+    "why": "Never played in the Premier League."
+   }
+  ]
+ },
+ {
+  "id": "d19-name-a-club-from-north-rhine-westphalia-that-played-in-the-bundesliga-between-2000-01-and-2025-26",
+  "template": 19,
+  "prompt": "Name a club from North Rhine-Westphalia that played in the Bundesliga between 2000-01 and 2025-26",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Borussia Dortmund",
+    "aliases": [
+     "Dortmund",
+     "BVB"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "FC Schalke 04",
+    "aliases": [
+     "Schalke",
+     "Schalke 04"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Bayer 04 Leverkusen",
+    "aliases": [
+     "Leverkusen",
+     "Bayer Leverkusen"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Borussia Mönchengladbach",
+    "aliases": [
+     "Gladbach",
+     "Monchengladbach",
+     "Mönchengladbach",
+     "Borussia Monchengladbach"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "1. FC Köln",
+    "aliases": [
+     "Köln",
+     "Koln",
+     "Cologne",
+     "FC Koln",
+     "FC Cologne"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "VfL Bochum",
+    "aliases": [
+     "Bochum"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Arminia Bielefeld",
+    "aliases": [
+     "Bielefeld",
+     "Arminia"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Fortuna Düsseldorf",
+    "aliases": [
+     "Dusseldorf",
+     "Düsseldorf",
+     "Fortuna Dusseldorf"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "SC Paderborn 07",
+    "aliases": [
+     "Paderborn",
+     "SC Paderborn"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "MSV Duisburg",
+    "aliases": [
+     "Duisburg"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Alemannia Aachen",
+    "aliases": [
+     "Aachen",
+     "Alemannia"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "VfL Wolfsburg",
+    "why": "Based in Lower Saxony."
+   },
+   {
+    "name": "Rot-Weiss Essen",
+    "why": "Not in the Bundesliga in this period."
+   },
+   {
+    "name": "Fortuna Köln",
+    "why": "Not in the Bundesliga in this period."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-1930-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 1930 World Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "United States",
+    "aliases": [
+     "USA",
+     "US",
+     "America"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Yugoslavia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Romania",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Peru",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Bolivia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Italy",
+    "why": "Did not enter."
+   },
+   {
+    "name": "England",
+    "why": "Did not enter."
+   },
+   {
+    "name": "Germany",
+    "why": "Did not enter."
+   },
+   {
+    "name": "Spain",
+    "why": "Did not enter."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-1934-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 1934 World Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Czechoslovakia",
+    "aliases": [
+     "Czechoslovak"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Germany",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Austria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Hungary",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Switzerland",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Romania",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Egypt",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "United States",
+    "aliases": [
+     "USA",
+     "US",
+     "America"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 5
+   }
+  ],
+  "traps": [
+   {
+    "name": "Uruguay",
+    "why": "Did not enter as the holders."
+   },
+   {
+    "name": "England",
+    "why": "Did not enter."
+   },
+   {
+    "name": "Yugoslavia",
+    "why": "Failed to qualify."
+   },
+   {
+    "name": "Mexico",
+    "why": "Failed to qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-1950-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 1950 World Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Yugoslavia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Switzerland",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "United States",
+    "aliases": [
+     "USA",
+     "US",
+     "America"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Bolivia",
+    "aliases": [],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Scotland",
+    "why": "Qualified but declined to travel."
+   },
+   {
+    "name": "Turkey",
+    "why": "Qualified but withdrew."
+   },
+   {
+    "name": "India",
+    "why": "Qualified but withdrew."
+   },
+   {
+    "name": "West Germany",
+    "why": "Not allowed to enter."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-reached-a-world-cup-quarter-final-between-1998-and-2022",
+  "template": 22,
+  "prompt": "Name a country that reached a World Cup quarter-final between 1998 and 2022",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Germany",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Croatia",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Denmark",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Russia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Turkey",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "South Korea",
+    "aliases": [
+     "Korea Republic",
+     "Korea",
+     "Republic of Korea"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "United States",
+    "aliases": [
+     "USA",
+     "US",
+     "America"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ghana",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ukraine",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Senegal",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Costa Rica",
+    "aliases": [],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Mexico",
+    "why": "Never went beyond the last 16 in this period."
+   },
+   {
+    "name": "Japan",
+    "why": "Never went beyond the last 16."
+   },
+   {
+    "name": "Switzerland",
+    "why": "Never reached a quarter-final in this period."
+   },
+   {
+    "name": "Poland",
+    "why": "Never reached a quarter-final in this period."
+   },
+   {
+    "name": "Nigeria",
+    "why": "Never went beyond the last 16."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2015-africa-cup-of-nations",
+  "template": 22,
+  "prompt": "Name a country that played at the 2015 Africa Cup of Nations",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Equatorial Guinea",
+    "aliases": [
+     "Eq Guinea"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Congo",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Gabon",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Burkina Faso",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Zambia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "DR Congo",
+    "aliases": [
+     "Congo DR",
+     "DRC",
+     "Democratic Republic of the Congo"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Cape Verde",
+    "aliases": [
+     "Cabo Verde"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Tunisia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ivory Coast",
+    "aliases": [
+     "Cote d'Ivoire",
+     "Cote dIvoire"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Mali",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Cameroon",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Guinea",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Ghana",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "South Africa",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Senegal",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Algeria",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Nigeria",
+    "why": "Failed to qualify."
+   },
+   {
+    "name": "Egypt",
+    "why": "Failed to qualify."
+   },
+   {
+    "name": "Morocco",
+    "why": "Withdrew as intended hosts and was excluded."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2017-africa-cup-of-nations",
+  "template": 22,
+  "prompt": "Name a country that played at the 2017 Africa Cup of Nations",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Gabon",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Burkina Faso",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Cameroon",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Guinea-Bissau",
+    "aliases": [
+     "Guinea Bissau"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Senegal",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Tunisia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Algeria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Zimbabwe",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Egypt",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Mali",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Ghana",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Uganda",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ivory Coast",
+    "aliases": [
+     "Cote d'Ivoire",
+     "Cote dIvoire"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "DR Congo",
+    "aliases": [
+     "Congo DR",
+     "DRC",
+     "Democratic Republic of the Congo"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Togo",
+    "aliases": [],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Nigeria",
+    "why": "Failed to qualify."
+   },
+   {
+    "name": "South Africa",
+    "why": "Failed to qualify."
+   },
+   {
+    "name": "Zambia",
+    "why": "Failed to qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2019-africa-cup-of-nations",
+  "template": 22,
+  "prompt": "Name a country that played at the 2019 Africa Cup of Nations",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Egypt",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Zimbabwe",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "DR Congo",
+    "aliases": [
+     "Congo DR",
+     "DRC",
+     "Democratic Republic of the Congo"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Uganda",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Nigeria",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Guinea",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Madagascar",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Burundi",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Senegal",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Algeria",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Kenya",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Tanzania",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Ivory Coast",
+    "aliases": [
+     "Cote d'Ivoire",
+     "Cote dIvoire"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "South Africa",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Namibia",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Tunisia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Mali",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Mauritania",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Angola",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Cameroon",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Ghana",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Benin",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Guinea-Bissau",
+    "aliases": [
+     "Guinea Bissau"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Burkina Faso",
+    "why": "Failed to qualify."
+   },
+   {
+    "name": "Zambia",
+    "why": "Failed to qualify."
+   },
+   {
+    "name": "Gabon",
+    "why": "Failed to qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2021-africa-cup-of-nations",
+  "template": 22,
+  "prompt": "Name a country that played at the 2021 Africa Cup of Nations",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Cameroon",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Burkina Faso",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Ethiopia",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Cape Verde",
+    "aliases": [
+     "Cabo Verde"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Senegal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Zimbabwe",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Guinea",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Malawi",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Ghana",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Comoros",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Gabon",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Nigeria",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Egypt",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Sudan",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Guinea-Bissau",
+    "aliases": [
+     "Guinea Bissau"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Algeria",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Sierra Leone",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Equatorial Guinea",
+    "aliases": [
+     "Eq Guinea"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Ivory Coast",
+    "aliases": [
+     "Cote d'Ivoire",
+     "Cote dIvoire"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Tunisia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Mali",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Mauritania",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Gambia",
+    "aliases": [
+     "The Gambia"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "South Africa",
+    "why": "Failed to qualify."
+   },
+   {
+    "name": "DR Congo",
+    "why": "Failed to qualify."
+   },
+   {
+    "name": "Uganda",
+    "why": "Failed to qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2015-afc-asian-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 2015 AFC Asian Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Australia",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "South Korea",
+    "aliases": [
+     "Korea Republic",
+     "Korea",
+     "Republic of Korea"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "United Arab Emirates",
+    "aliases": [
+     "UAE"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Iraq",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Iran",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Japan",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Uzbekistan",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "China",
+    "aliases": [
+     "China PR"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Saudi Arabia",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "North Korea",
+    "aliases": [
+     "Korea DPR",
+     "DPR Korea"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Qatar",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Bahrain",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Kuwait",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Oman",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Palestine",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Jordan",
+    "aliases": [],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Syria",
+    "why": "Failed to qualify."
+   },
+   {
+    "name": "India",
+    "why": "Failed to qualify."
+   },
+   {
+    "name": "Thailand",
+    "why": "Failed to qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2019-afc-asian-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 2019 AFC Asian Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Australia",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Jordan",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Syria",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Palestine",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "India",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Thailand",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Bahrain",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "United Arab Emirates",
+    "aliases": [
+     "UAE"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Iran",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Iraq",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Vietnam",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Yemen",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Saudi Arabia",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "North Korea",
+    "aliases": [
+     "Korea DPR",
+     "DPR Korea"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Qatar",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Lebanon",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "South Korea",
+    "aliases": [
+     "Korea Republic",
+     "Korea",
+     "Republic of Korea"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "China",
+    "aliases": [
+     "China PR"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Kyrgyzstan",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Philippines",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Japan",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Uzbekistan",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Oman",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Turkmenistan",
+    "aliases": [],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Kuwait",
+    "why": "Failed to qualify."
+   },
+   {
+    "name": "Indonesia",
+    "why": "Failed to qualify."
+   },
+   {
+    "name": "Malaysia",
+    "why": "Failed to qualify."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2011-copa-america",
+  "template": 22,
+  "prompt": "Name a country that played at the 2011 Copa América",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Bolivia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Costa Rica",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Venezuela",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Ecuador",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Peru",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   }
+  ],
+  "traps": [
+   {
+    "name": "Japan",
+    "why": "Withdrew before the tournament."
+   },
+   {
+    "name": "United States",
+    "why": "Was not invited."
+   },
+   {
+    "name": "Jamaica",
+    "why": "Was not invited."
+   }
+  ]
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2015-copa-america",
+  "template": 22,
+  "prompt": "Name a country that played at the 2015 Copa América",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Bolivia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ecuador",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Jamaica",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Venezuela",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Peru",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Costa Rica",
+    "why": "Was not invited."
+   },
+   {
+    "name": "United States",
+    "why": "Was not invited."
+   },
+   {
+    "name": "Japan",
+    "why": "Was not invited."
+   }
+  ]
+ }
+]

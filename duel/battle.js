@@ -98,7 +98,7 @@ function resultCard(a){const k=eob(seg(a,0,.35));if(k<=0)return;g.globalAlpha=.5
  const E=O.elo;if(E&&a>1.5){const k2=seg(a,1.5,2.3),now=Math.round(E.b+(E.a-E.b)*k2),d=E.a-E.b;
   px(`${duelTier(now,E.g)}${E.g<5?'':' · '+now}`,W/2,688,24,'#06041a',{out:false,font:'mono'});
   if(k2>=1)px(d===0?'±0':(d>0?'+':'')+d+(d>0?' ▲':' ▼'),W/2,712,24,d>0?'#1f9a3a':d<0?'#d12a2a':'#5a4a2a',{out:false,font:'mono'})}}
-function frame(now){if(!cv.isConnected)return;let r=paused?pausedAt:(now-t0)/1000;if(RM)r=TOTAL-.1;if(r>=TOTAL-.05){r=TOTAL-.05;if(!ended){ended=true;onEnd&&onEnd()}}
+function frame(now){if(!cv.isConnected)return;let r=paused?pausedAt:(now-t0)/1000;if(RM)r=TOTAL-.1;if(r>=TOTAL-.05){r=TOTAL-.05;if(!ended){ended=true;skipBtn(false);onEnd&&onEnd()}}
  const t=warp(r);g.setTransform(1,0,0,1,0,0);const ri=Math.min(N,Math.floor(Math.max(0,t-INTRO)/RD)),lt=t-INTRO-ri*RD,inR=t>=INTRO&&ri<N,end=t-INTRO-RD*N;
  const [q,yo,op]=R[Math.min(ri,N-1)],blk=inR&&!!yo[0]&&yo[0]===op[0];
  const hit=inR&&lt>HIT&&lt<HIT+.5;let shake=hit&&!blk?7*(1-(lt-HIT)/.5)*(yo[1]==='SCREAMER'||op[1]==='SCREAMER'?2:1):0;if(O.intro==='vs'&&t>1.38&&t<1.52)shake=9*(1-seg(t,1.38,1.52));
@@ -209,5 +209,8 @@ function introFX(t){if(!O.intro||t>=INTRO)return;const out=1-seg(t,INTRO-.35,INT
   if(t>2.4){g.globalAlpha=out;const b=1+.08*Math.pow(Math.max(0,Math.sin(t*Math.PI*2.4)),4);g.save();g.translate(W/2,640);g.scale(b,b);px('SUDDEN DEATH',0,0,64,'#ff3b30');g.restore();px('ONE QUESTION AT A TIME. GET AHEAD TO WIN.',W/2,690,22,'#ffffff',{font:'mono'});g.globalAlpha=1}}}
 function flash(a){if(a<=0)return;g.globalAlpha=a;g.fillStyle='#ffffff';g.fillRect(0,0,W,H);g.globalAlpha=1}
 
-window.startBattle=(canvas,rounds,p1,p2,done,opts={})=>{O=opts;cv=canvas;g=cv.getContext('2d');g.imageSmoothingEnabled=false;R=rounds;P1=p1;P2=p2;onEnd=done;ended=false;setup();t0=performance.now();paused=false;
+// the Skip button (#bat-skip on the page) shows while a battle plays and jumps straight to the result
+const skipBtn=on=>{const b=document.getElementById('bat-skip');if(b)b.hidden=!on};
+window.skipBattle=()=>{if(ended||!cv)return;t0=performance.now()-(TOTAL-.1)*1000;paused=false;skipBtn(false)};
+window.startBattle=(canvas,rounds,p1,p2,done,opts={})=>{skipBtn(true);O=opts;cv=canvas;g=cv.getContext('2d');g.imageSmoothingEnabled=false;R=rounds;P1=p1;P2=p2;onEnd=done;ended=false;setup();t0=performance.now();paused=false;
  [P1,P2].forEach(p=>{if(!ATK[p.kit||'classic'])p.atk='classic';else p.atk=p.kit||'classic'});const my=++RUN;TICK=n=>{if(my===RUN)frame(n)};requestAnimationFrame(TICK)};
