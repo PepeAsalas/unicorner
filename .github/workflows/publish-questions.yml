@@ -1,12 +1,12 @@
 name: Publish routine questions
 
 # The weekly routines push new questions to claude/daily-questions and
-# claude/duel-questions. This checks them and, if every check passes, merges
+# claude/duel-questions, and question fixes from player feedback to claude/feedback-fixes. This checks them and, if every check passes, merges
 # them into main so they go live without anyone saying "push".
 on:
   workflow_dispatch:
   push:
-    branches: [claude/daily-questions, claude/duel-questions]
+    branches: [claude/daily-questions, claude/duel-questions, claude/feedback-fixes]
 
 permissions:
   contents: write
@@ -32,7 +32,7 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git fetch origin "$GITHUB_REF_NAME"
           # only question files may go live this way
-          bad=$(git diff --name-only HEAD...FETCH_HEAD | grep -Ev '^(daily/[0-9]{4}-[0-9]{2}-[0-9]{2}\.json|duel/bank\.json|duel/new/.*\.json)$' || true)
+          bad=$(git diff --name-only HEAD...FETCH_HEAD | grep -Ev '^(daily/[0-9]{4}-[0-9]{2}-[0-9]{2}\.json|duel/bank\.json|duel/new/.*\.json|rosco/[0-9]{4}-[0-9]{2}-[0-9]{2}\.json)$' || true)
           if [ -n "$bad" ]; then echo "Not publishing: the branch changes files other than questions:"; echo "$bad"; exit 1; fi
           if [ -z "$(git diff --name-only HEAD...FETCH_HEAD)" ]; then echo 'Nothing new to publish'; exit 0; fi
           if ! git merge --no-edit FETCH_HEAD -m "Publish questions from $GITHUB_REF_NAME"; then
