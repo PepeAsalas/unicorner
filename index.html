@@ -2086,7 +2086,7 @@ const streakLine=info=>{const n=info.count;
  if(n>0)return `<b>${n}-day streak</b> — play today to make it ${n+1}`;
  if(info.ever)return 'Your streak ended — start a new one today';
  return 'Start a streak today — play every day to keep the flame lit'};
-const streakStrip=(info,cls)=>`<div class="tk-streak ${cls||''}${info.count?' lit':''}"><i class="pixel-flame${info.count?' flicker':' off'}" aria-hidden="true"></i><span class="tk-streak-txt">${streakLine(info)}</span>${streakBoxes(info)}</div>`;
+const streakStrip=(info,cls)=>`<div class="tk-streak ${cls||''}${info.count?' lit':''}"><i class="pixel-flame${info.count?' flicker':' off'}" aria-hidden="true"></i><span class="tk-streak-txt">${cls==='short'?(info.count?L(`${info.count}-day streak`,`Racha de ${info.count} días`):L('No streak yet','Aún sin racha')):streakLine(info)}</span>${streakBoxes(info)}</div>`;
 // "37 fans played today · top score 480" on the ticket
 async function liveLine(){const day=amsterdamDay(),h={apikey:SB_KEY,Authorization:'Bearer '+SB_KEY};
  const [c,t]=await Promise.all([fetch(SB_URL+'/rest/v1/scores?select=score&day=eq.'+day,{method:'HEAD',headers:{...h,Prefer:'count=exact'}}),fetch(SB_URL+'/rest/v1/scores?select=score&day=eq.'+day+'&order=score.desc&limit=1',{headers:h})]);
@@ -2137,25 +2137,28 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
   </div>
  </section>
 
+ <div class="lx-h">${L('Today','Hoy')} <small>${L('new games every day at midnight','juegos nuevos cada día a medianoche')}</small></div>
+ <div class="lx-today">
  <div class="tk-wrap"><section class="tk${played?' tk-done':''}" aria-label="${L("Today's game",'El partido de hoy')}">
   <div class="tk-main">
    <div class="tk-stub" aria-hidden="true"><span>${tkDate[0]}</span><b>${tkDate[1]}</b><span>${tkDate[2]}</span></div>
    <div class="tk-body">
-    <div class="tk-meta"><span>${played?L('Your result','Tu resultado'):L('Matchday ticket','Entrada del partido')}</span><span>${played?L('Played ✓','Jugado ✓'):Q.length+L(' prompts · 3 min',' preguntas · 3 min')}</span></div>
+    <div class="tk-meta"><span>${played?L('Daily 5 · played ✓','Diario 5 · jugado ✓'):L('Daily 5','Diario 5')}</span>${played?'':`<button type="button" class="tk-howlink" id="how">${L('How to play','Cómo se juega')}</button>`}</div>
     ${played?`<div class="tk-score"><b>${played.score}</b><span>/${MAX} · ${zl(zoneOf(played.score))}</span></div>
     ${played.remote?`<p class="tk-live">${L('Played on another device ✓ · next game in','Jugado en otro dispositivo ✓ · próximo partido en')} <b class="flapclock" data-flap>${untilMidnight()}</b></p>`:`<button type="button" class="cta tk-play" id="go">${L("View today's result",'Resultados de hoy')}</button>
     <p class="tk-live">${L('Next game in','Próximo partido en')} <b class="flapclock" data-flap>${untilMidnight()}</b></p>`}`
-    :`<div class="tk-actions"><button type="button" class="cta tk-play" id="go">${L("Play today's game",'Jugar el partido de hoy')}</button><button type="button" class="ghost tk-how" id="how">${L('How to play','Cómo se juega')}</button></div>
-    <p class="tk-live" id="tkLive"><i class="tk-dot"></i><span>${L("Today's game is live · free, no sign-up",'El partido de hoy ya está en juego · gratis, sin registro')}</span></p>`}
+    :`<div class="tk-actions"><button type="button" class="cta tk-play" id="go">${L("Play today's game",'Jugar el partido de hoy')}</button></div>
+    <p class="tk-live" id="tkLive"><i class="tk-dot"></i><span>${Q.length+L(' questions · 3 min',' preguntas · 3 min')}</span></p>`}
    </div>
   </div>
-  ${streakStrip(sInfo)}
-  ${signedOut()?`<p class="tk-back"><button type="button" data-lg="back">${L('Played on another device? Sign in to bring your streak back','¿Has jugado en otro dispositivo? Entra y recupera tu racha')} →</button></p>`:''}
+  ${streakStrip(sInfo,'short')}
  </section></div>
- <section class="modes" aria-label="${L('Game modes','Modos de juego')}"><div class="modes-head"><span>${L('Game modes','Modos de juego')}</span><i></i></div>
+ <a class="lx-ro" href="${ES?'/es/rosco.html':'/rosco.html'}" data-track="rosco_card"><span class="lx-ro-top"><span>Rosco ${L('No.','n.º')} ${Math.max(1,Math.round((Date.parse(amsterdamDay())-Date.parse('2026-10-30'))/864e5)+1)}</span><b>${L('New','Nuevo')}</b></span><span class="lx-ro-mid"><span><b class="lx-ro-t">Rosco</b><small>${L('24 letters · 5 minutes','24 letras · 5 minutos')}</small><span class="lx-abc">${'ABCDEFGHIJKLMNOPRSTUVWYZ'.split('').map((c,i)=>`<i${i===0?' class="on"':''}>${c}</i>`).join('')}</span></span><img src="/rosco/host/point.png" alt="" width="128" height="128"></span><span class="lx-ro-go">${L('Play the Rosco','Jugar el Rosco')}</span></a>
+ </div>
+ <div class="lx-h">${L('Anytime','Cuando quieras')} <small>${L('no daily limit','sin límite diario')}</small></div>
+ <section class="modes" aria-label="${L('Game modes','Modos de juego')}">
   <button type="button" class="mode m-inf" data-infinite><span class="m-pic"><span class="m-sym">∞</span><i class="inf-uni" style="background-image:${(()=>{try{return spriteDraw('wow',0,false,KITS.find(k=>k.id==='shadow')).replace(/"/g,"'")}catch{return'none'}})()}"></i></span><span class="m-txt"><b>${L('Infinity','Infinito')}</b><small>${L('Unlimited questions, out in space','Preguntas ilimitadas, en el espacio')}</small></span><span class="m-go">${L('Press start','Pulsa start')}</span></button>
   <a class="mode m-duel" id="lp-duel" href="/duel.html"><span class="m-pic"><i class="duel-spr fo-a"></i><span class="m-vs">VS</span><i class="duel-spr fo-b"></i></span><span class="m-txt"><b>${L('Duels','Duelos')}</b><small id="lp-duel-sub">${L('1v1 a mate. Rarer answers hit harder','Reta a un amigo. Las respuestas raras pegan más')}</small><span class="m-rec" id="lp-duel-rec" hidden></span></span><span class="m-go" id="lp-duel-go">${L('Challenge','Retar')}</span></a>
-  <a class="mode m-rosco" href="${ES?'/es/rosco.html':'/rosco.html'}" data-track="rosco_card"><span class="m-tag">${L('New','Nuevo')}</span><span class="m-pic"><img src="/rosco/host/point.png" alt="" width="64" height="64"></span><span class="m-txt"><b>Rosco</b><small>${L('One clue for every letter. Hosted by Horacio Herradura','Una pista por letra. Presenta Horacio Herradura')}</small><span class="mr-abc">${'ABCDEFG'.split('').map((c,i)=>`<i${i===0?' class="on"':''}>${c}</i>`).join('')}</span></span><span class="m-go">${L('Play','Jugar')}</span></a>
   <a class="mode m-tyc" href="/tycoon/" data-track="tycoon_card"><span class="m-tag">${L('New','Nuevo')}</span><span class="m-pic"><img src="/tycoon/art/building-stadium-4.webp" alt="" loading="lazy" width="150" height="76"></span><span class="m-txt"><b>Chairman</b><small>${L('Kick the unicorn. Buy the club a stadium','Patea al unicornio. Cómprale un estadio al club')}</small><span class="m-sum">€1,204,330.50 ▲</span></span><span class="m-go">${L('Take over','Al mando')}</span></a>
  </section>
 
@@ -2178,7 +2181,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
   const go=document.getElementById('go');if(go)go.onclick=()=>{if(!played&&window.ucHowToNeeded?.())return window.ucHowTo(play,'first');play()};
   try{if(sessionStorage.getItem('uc-reopen')==='results'){sessionStorage.removeItem('uc-reopen');if(played&&go)setTimeout(()=>go.click(),0)}}catch{}
   const hw=document.getElementById('how');if(hw)hw.onclick=()=>{track('how_click',{from:'ticket'});if(window.ucHowTo)return window.ucHowTo(played?null:play,'button');const st=document.getElementById('steps');st.scrollIntoView({behavior:'smooth',block:'center'});st.classList.remove('flash');void st.offsetWidth;st.classList.add('flash')};
-  if(!played)liveLine().then(({n,top})=>{const el=document.querySelector('#tkLive span');if(el&&n)el.innerHTML=ES?`<b>${n} aficionado${n===1?'':'s'}</b> ${n===1?'ha':'han'} jugado hoy · récord <b>${top}</b>`:`<b>${n} fan${n===1?'':'s'}</b> played today · top score <b>${top}</b>`;else if(el)el.textContent=L('Be the first to play today','Sé el primero en jugar hoy')}).catch(()=>{});
+  if(!played)liveLine().then(({n,top})=>{const el=document.querySelector('#tkLive span');if(el&&n)el.innerHTML=ES?`<b>${n}</b> han jugado hoy · récord <b>${top}</b>`:`<b>${n}</b> played today · top <b>${top}</b>`}).catch(()=>{});
   const otdLink=document.getElementById('otdLink');if(otdLink)otdLink.onclick=()=>track('on_this_day_click',{date:octDay,url:onThisDay.url});
   const lm=document.getElementById('landingMascot');
   if(isLeafWindow){const art=lm&&lm.closest('.lp-art');if(art)spawnOctLeaves(art)}
@@ -3535,7 +3538,7 @@ setTimeout(async()=>{if(linkVerify)await linkVerify;renderSlots();syncScore();sy
 const SKY={classic:['linear-gradient(#3f8cff,#9fd2ff)','#5b6a8f','#43a83d'],golden:['linear-gradient(#ff8a50,#ffe0a3)','#8a6a52','#6aa64a'],floodlit:['linear-gradient(#232a6b,#6b3f9a,#ff8f6b)','#4e4f72','#3f9a3a'],night:['linear-gradient(#03061a,#16205a)','#262c45','#2c6e2a'],rain:['linear-gradient(#0d1424,#2c3b55)','#2c3346','#2e5e33'],snow:['linear-gradient(#8c9bb3,#dfe5ee)','#8a91a3','#9fc79a'],neon:['linear-gradient(#12002b,#7a1f8f)','#3d2350','#2a5a3a'],derby:['linear-gradient(#03061a,#16205a)','#4a2430','#2c6e2a'],final:['linear-gradient(#03061a,#16205a)','#5a4a20','#2c6e2a']};
 const LIST=[['classic',L('Classic','Clásico'),0],['golden',L('Golden hour','Hora dorada'),1],['floodlit',L('Floodlit evening','Tarde con focos'),3],['night',L('Night match','Partido nocturno'),5],['rain',L('Rainy night','Noche de lluvia'),7],['snow',L('Snow match','Partido con nieve'),10],['neon',L('Unicorn neon','Unicornio neón'),15],['derby',L('Derby night','Noche de derbi'),20],['final',L('Cup final','Final de copa'),30]];
 // more backgrounds (plain colours free; patterns unlock by games played; scenes by best streak): [id, en, es, req, light, css]
-const BGX=[["c-cream", "Cream", "Crema", null, 1, "#f3e6bf"], ["c-navy", "Midnight navy", "Azul noche", null, 0, "#12275a"], ["c-pitch", "Pitch green", "Verde césped", null, 0, "#2f7d32"], ["c-red", "Club red", "Rojo club", null, 0, "#a51f27"], ["c-char", "Charcoal", "Carbón", null, 0, "#26232e"], ["c-gold", "Trophy gold", "Oro trofeo", null, 1, "#e0ad2c"], ["p-stripes", "Mowed stripes", "Césped cortado", ["games", 3], 0, "repeating-linear-gradient(180deg,#2f8f2f 0 90px,#2a842a 90px 180px)"], ["p-checks", "Cream checks", "Cuadros crema", ["games", 5], 1, "#f3e6bf;background-image:conic-gradient(#ead9a8 25%,transparent 0 50%,#ead9a8 0 75%,transparent 0);background-size:48px 48px"], ["p-halftone", "Programme dots", "Puntos de programa", ["games", 10], 1, "#f6efdc;background-image:radial-gradient(rgba(215,38,46,.16) 1.6px,transparent 2px);background-size:10px 10px"], ["p-scarf", "Scarf stripes", "Rayas de bufanda", ["games", 15], 0, "repeating-linear-gradient(135deg,#7e1d23 0 46px,#e9dcc0 46px 92px)"], ["p-grid", "Graph paper", "Papel cuadriculado", ["games", 20], 0, "#14204a;background-image:linear-gradient(rgba(255,255,255,.07) 2px,transparent 2px),linear-gradient(90deg,rgba(255,255,255,.07) 2px,transparent 2px);background-size:32px 32px"], ["p-tactics", "Tactics board", "Pizarra táctica", ["games", 25], 0, "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 1300' fill='none' stroke-linecap='square'%3E %3Cg stroke='%23f4f1e6' stroke-opacity='.34' stroke-width='6'%3E %3Crect x='60' y='60' width='780' height='1180'/%3E%3Cline x1='60' y1='650' x2='840' y2='650'/%3E%3Ccircle cx='450' cy='650' r='110'/%3E %3Crect x='250' y='60' width='400' height='190'/%3E%3Crect x='350' y='60' width='200' height='70'/%3E%3Cpath d='M370 250 A90 90 0 0 0 530 250'/%3E %3Crect x='250' y='1050' width='400' height='190'/%3E%3Crect x='350' y='1170' width='200' height='70'/%3E%3Cpath d='M370 1050 A90 90 0 0 1 530 1050'/%3E%3C/g%3E %3Cg stroke='%23f4f1e6' stroke-opacity='.5' stroke-width='6' stroke-dasharray='18 14'%3E%3Cpath d='M300 900 C 260 760 330 640 470 560'/%3E%3C/g%3E %3Cpath d='M455 545 l30 8 -18 24' stroke='%23f4f1e6' stroke-opacity='.5' stroke-width='6'/%3E %3Cg stroke='%2306041a' stroke-width='4' opacity='.6'%3E%3Cg fill='%23c8303a'%3E%3Ccircle cx='450' cy='1170' r='22'/%3E%3Ccircle cx='250' cy='980' r='22'/%3E%3Ccircle cx='650' cy='980' r='22'/%3E%3Ccircle cx='300' cy='900' r='22'/%3E%3Ccircle cx='600' cy='820' r='22'/%3E%3Ccircle cx='450' cy='760' r='22'/%3E%3C/g%3E %3Cg fill='%23f2c230'%3E%3Ccircle cx='470' cy='420' r='22'/%3E%3Ccircle cx='300' cy='360' r='22'/%3E%3Ccircle cx='620' cy='380' r='22'/%3E%3Ccircle cx='450' cy='130' r='22'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\") center/min(900px,92vw) auto no-repeat,radial-gradient(circle at 30% 20%,rgba(255,255,255,.05),transparent 40%),radial-gradient(circle at 75% 70%,rgba(255,255,255,.04),transparent 35%),radial-gradient(ellipse at 50% 40%,#2b5a40,#16301f 75%)"], ["p-terrace", "Concrete terrace", "Grada de cemento", ["games", 30], 0, "#8d8a86;background-image:repeating-linear-gradient(180deg,#9b9893 0 34px,#7d7a76 34px 40px,#6c6965 40px 42px)"], ["s-sunset", "Stadium sunset", "Estadio al atardecer", ["streak", 2], 0, "img:sunset"], ["s-golden", "Training ground", "Campo de entrenamiento", ["streak", 4], 0, "img:golden"], ["s-rain", "Rainy night", "Noche de lluvia", ["streak", 6], 0, "img:rain"], ["s-snow", "Snow park", "Parque nevado", ["streak", 9], 0, "img:snow"], ["s-floodlit", "Floodlit night", "Noche con focos", ["streak", 12], 0, "img:floodlit"], ["s-street", "Street cage", "Jaula urbana", ["streak", 16], 0, "img:street"], ["s-rooftop", "Rooftop five-a-side", "Fútbol en la azotea", ["streak", 20], 0, "img:rooftop"], ["s-beach", "Beach football", "Fútbol playa", ["streak", 25], 0, "img:beach"], ["s-space", "Space pitch", "Campo espacial", ["streak", 35], 0, "img:space"], ["s-retro", "Retro sunset", "Atardecer retro", ["streak", 50], 0, "img:retro"]];
+const BGX=[["d-pitch", "Pitch", "Césped", null, 0, "img:pitch"], ["c-cream", "Cream", "Crema", null, 1, "#f3e6bf"], ["c-navy", "Midnight navy", "Azul noche", null, 0, "#12275a"], ["c-pitch", "Pitch green", "Verde césped", null, 0, "#2f7d32"], ["c-red", "Club red", "Rojo club", null, 0, "#a51f27"], ["c-char", "Charcoal", "Carbón", null, 0, "#26232e"], ["c-gold", "Trophy gold", "Oro trofeo", null, 1, "#e0ad2c"], ["p-stripes", "Mowed stripes", "Césped cortado", ["games", 3], 0, "repeating-linear-gradient(180deg,#2f8f2f 0 90px,#2a842a 90px 180px)"], ["p-checks", "Cream checks", "Cuadros crema", ["games", 5], 1, "#f3e6bf;background-image:conic-gradient(#ead9a8 25%,transparent 0 50%,#ead9a8 0 75%,transparent 0);background-size:48px 48px"], ["p-halftone", "Programme dots", "Puntos de programa", ["games", 10], 1, "#f6efdc;background-image:radial-gradient(rgba(215,38,46,.16) 1.6px,transparent 2px);background-size:10px 10px"], ["p-scarf", "Scarf stripes", "Rayas de bufanda", ["games", 15], 0, "repeating-linear-gradient(135deg,#7e1d23 0 46px,#e9dcc0 46px 92px)"], ["p-grid", "Graph paper", "Papel cuadriculado", ["games", 20], 0, "#14204a;background-image:linear-gradient(rgba(255,255,255,.07) 2px,transparent 2px),linear-gradient(90deg,rgba(255,255,255,.07) 2px,transparent 2px);background-size:32px 32px"], ["p-tactics", "Tactics board", "Pizarra táctica", ["games", 25], 0, "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 1300' fill='none' stroke-linecap='square'%3E %3Cg stroke='%23f4f1e6' stroke-opacity='.34' stroke-width='6'%3E %3Crect x='60' y='60' width='780' height='1180'/%3E%3Cline x1='60' y1='650' x2='840' y2='650'/%3E%3Ccircle cx='450' cy='650' r='110'/%3E %3Crect x='250' y='60' width='400' height='190'/%3E%3Crect x='350' y='60' width='200' height='70'/%3E%3Cpath d='M370 250 A90 90 0 0 0 530 250'/%3E %3Crect x='250' y='1050' width='400' height='190'/%3E%3Crect x='350' y='1170' width='200' height='70'/%3E%3Cpath d='M370 1050 A90 90 0 0 1 530 1050'/%3E%3C/g%3E %3Cg stroke='%23f4f1e6' stroke-opacity='.5' stroke-width='6' stroke-dasharray='18 14'%3E%3Cpath d='M300 900 C 260 760 330 640 470 560'/%3E%3C/g%3E %3Cpath d='M455 545 l30 8 -18 24' stroke='%23f4f1e6' stroke-opacity='.5' stroke-width='6'/%3E %3Cg stroke='%2306041a' stroke-width='4' opacity='.6'%3E%3Cg fill='%23c8303a'%3E%3Ccircle cx='450' cy='1170' r='22'/%3E%3Ccircle cx='250' cy='980' r='22'/%3E%3Ccircle cx='650' cy='980' r='22'/%3E%3Ccircle cx='300' cy='900' r='22'/%3E%3Ccircle cx='600' cy='820' r='22'/%3E%3Ccircle cx='450' cy='760' r='22'/%3E%3C/g%3E %3Cg fill='%23f2c230'%3E%3Ccircle cx='470' cy='420' r='22'/%3E%3Ccircle cx='300' cy='360' r='22'/%3E%3Ccircle cx='620' cy='380' r='22'/%3E%3Ccircle cx='450' cy='130' r='22'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\") center/min(900px,92vw) auto no-repeat,radial-gradient(circle at 30% 20%,rgba(255,255,255,.05),transparent 40%),radial-gradient(circle at 75% 70%,rgba(255,255,255,.04),transparent 35%),radial-gradient(ellipse at 50% 40%,#2b5a40,#16301f 75%)"], ["p-terrace", "Concrete terrace", "Grada de cemento", ["games", 30], 0, "#8d8a86;background-image:repeating-linear-gradient(180deg,#9b9893 0 34px,#7d7a76 34px 40px,#6c6965 40px 42px)"], ["s-sunset", "Stadium sunset", "Estadio al atardecer", ["streak", 2], 0, "img:sunset"], ["s-golden", "Training ground", "Campo de entrenamiento", ["streak", 4], 0, "img:golden"], ["s-rain", "Rainy night", "Noche de lluvia", ["streak", 6], 0, "img:rain"], ["s-snow", "Snow park", "Parque nevado", ["streak", 9], 0, "img:snow"], ["s-floodlit", "Floodlit night", "Noche con focos", ["streak", 12], 0, "img:floodlit"], ["s-street", "Street cage", "Jaula urbana", ["streak", 16], 0, "img:street"], ["s-rooftop", "Rooftop five-a-side", "Fútbol en la azotea", ["streak", 20], 0, "img:rooftop"], ["s-beach", "Beach football", "Fútbol playa", ["streak", 25], 0, "img:beach"], ["s-space", "Space pitch", "Campo espacial", ["streak", 35], 0, "img:space"], ["s-retro", "Retro sunset", "Atardecer retro", ["streak", 50], 0, "img:retro"]];
 // scenes are ChatGPT pictures (bg/NAME-wide.webp and -tall.webp); everything else is plain CSS
 const bgxCss=c=>c.startsWith('img:')?`--w:url(/bg/${c.slice(4)}-wide.webp);--t:url(/bg/${c.slice(4)}-tall.webp)`:'background:'+c;
 const bgxSw=c=>c.startsWith('img:')?`background:#111 url(/bg/${c.slice(4)}-wide.webp) center/cover`:'background:'+c;
@@ -3574,8 +3577,8 @@ window.ucLook=()=>{const st=kitStats();return{kit:UC_KIT&&UC_KIT.id!=='rainbow'?
 let pTab='kits',pkSame=false;
 // favourite kits show first in the Kits tab (saved on this device)
 const kitFavs=()=>{try{const v=JSON.parse(ls('uc-kit-fav')||'[]');return Array.isArray(v)?v:[]}catch{return[]}};
-function apply(){const q=new URLSearchParams(location.search).get('bg');let k=q||ls('uc-bg')||'classic';
- if(k!=='classic'&&!q&&!unlocked(k)){ls('uc-bg',null);k='classic'}
+function apply(){const q=new URLSearchParams(location.search).get('bg');let k=q||ls('uc-bg')||'d-pitch';
+ if(k!=='classic'&&!q&&!unlocked(k)){ls('uc-bg',null);k='d-pitch'}
  const x=BGX.find(b=>b[0]===k),de=document.documentElement;   // a colour, pattern or scene replaces the stadium
  if(x){bgxEl.style.cssText=bgxCss(x[5]);   // cssText: patterns carry background-image/-size after the colour
   de.dataset.bgx=x[0][0];de.classList.toggle('bg-light',!!x[4]);delete scene.dataset.bg;return}
@@ -3585,7 +3588,7 @@ const sw=k=>{const c=SKY[k];return `<span class="st-sw" style="--sky:${c[0]};--c
 function dot(){const best=bestStreak(),top=Math.max(0,...LIST.filter(t=>best>=t[2]).map(t=>t[2])),st=kitStats(),kits=KITS.filter(k=>kitHas(k,st)).length;btn.classList.toggle('has-new',top>+(ls('uc-bg-seen')||0)||kits>+(ls('uc-kit-seen')||1)||BGX.filter(b=>b[3]&&bgxReq(b[3])).length>+(ls('uc-bgx-seen')||0))}
 document.body.insertAdjacentHTML('beforeend','<dialog id="dlg-stadium"><div class="st-body" id="st-body"></div></dialog>');
 const dlg=document.getElementById('dlg-stadium');
-function openPicker(){const g0=document.querySelector('#st-body .st-grid'),y0=pkSame&&g0?g0.scrollTop:0,d0=pkSame?dlg.scrollTop:0;pkSame=false;const best=bestStreak(),cur=document.documentElement.dataset.bgx?ls('uc-bg'):scene.dataset.bg||'classic',next=LIST.find(t=>t[2]>best);
+function openPicker(){const g0=document.querySelector('#st-body .st-grid'),y0=pkSame&&g0?g0.scrollTop:0,d0=pkSame?dlg.scrollTop:0;pkSame=false;const best=bestStreak(),cur=document.documentElement.dataset.bgx?(ls('uc-bg')||'d-pitch'):scene.dataset.bg||'classic',next=LIST.find(t=>t[2]>best);
  const st=kitStats(),have=KITS.filter(k=>kitHas(k,st)).length,total=KITS.filter(k=>kitShow(k,st)).length;ls('uc-kit-seen',have);
  ls('uc-bg-seen',Math.max(0,...LIST.filter(t=>best>=t[2]).map(t=>t[2])));ls('uc-bgx-seen',BGX.filter(b=>b[3]&&bgxReq(b[3])).length);dot();
  const tabs=`<div class="pk-tabs" role="tablist"><button type="button" role="tab" data-st="tab" data-t="kits" aria-selected="${pTab==='kits'}">${L('Kits','Equipaciones')}</button><button type="button" role="tab" data-st="tab" data-t="stadiums" aria-selected="${pTab==='stadiums'}">${L('Backgrounds','Fondos')}</button><button type="button" role="tab" data-st="tab" data-t="trophies" aria-selected="${pTab==='trophies'}">${L('Trophies','Trofeos')}</button></div>`;
@@ -3620,7 +3623,7 @@ dlg.addEventListener('click',e=>{const b=e.target.closest('[data-st]');if(!b){if
  if(b.dataset.st==='kit'){const k=KITS.find(x=>x.id===b.dataset.k);if(!k)return;if(!kitHas(k,kitStats())){b.animate([{translate:'0'},{translate:'-4px'},{translate:'4px'},{translate:'0'}],{duration:260});return}
   wearKit(k);track('kit_pick',{kit:k.id});pkSame=true;return openPicker()}
  if(b.dataset.st==='pick'){const k=b.dataset.k;if(!unlocked(k)){const x=BGX.find(t=>t[0]===k);showToast(x&&x[3][0]==='games'?L('Keep playing to unlock this one 🎮','Sigue jugando para desbloquear este 🎮'):L('Keep your streak going to unlock this one 🔥','Mantén tu racha para desbloquear este 🔥'));return}
-  ls('uc-bg',k==='classic'?null:k);apply();track('stadium_pick',{bg:k});pkSame=true;openPicker()}});
+  ls('uc-bg',k==='d-pitch'?null:k);apply();track('stadium_pick',{bg:k});pkSame=true;openPicker()}});
 // Kit unlocks get a card pack on the results screen. Each kit has an answer level (same names and colours as scoring).
 const KLV={'hw-stripes':0,'hw-candy':1,'hw-night':2,'hw-slime':3,'hw-skeleton':3,'hw-lantern':4,stripes:0,hoops:0,ref:0,candy:0,keeper:0,sash:1,halves:1,night:1,pin:1,quarters:1,fire:1,shadow:1,checks:2,hat3:2,dots:2,toxic:2,ice:2,perfect:2,leopard:3,zebra:3,galaxy:3,ocean:3,sunset:3,camo:3,lava:3,chrome:4,rainbow:4,tiedye:4,gold:4,mud:0,bee:0,tartan:1,retro:1,straw:2,aurora:3,matrix:3,glitch:3,royal:4,goat:5};
 const KLC=TIER_COLS.concat('#ff7ac8'),KLN=TIERS.map(t=>t[1]).concat('Mythic');window.ucKitInfo={KLV,KLC,KLN};
@@ -4215,5 +4218,77 @@ html body .modes .m-duel .duel-spr{bottom:18%;width:62px;height:52px;z-index:1}
 html body .modes .m-duel .fo-a{left:8%;transform:none!important}html body .modes .m-duel .fo-b{right:8%;transform:scaleX(-1)!important}
 html body .modes .m-duel .m-vs{position:absolute;left:50%;top:14%;translate:-50% 0;margin:0;font-size:34px;z-index:2}
 @media (max-width:560px){.inf-uni{width:62px;height:52px}html body .mode.m-inf .m-sym{font-size:30px}html body .modes .m-duel .duel-spr{width:42px;height:36px}html body .modes .m-duel .m-vs{font-size:24px;top:10%}}
+</style>
+<style id="landing-v2">/* Landing, tidied: one border (3px ink), one straight-down shadow, one label font. Today (Daily 5 + Rosco) then Anytime (3 equal tiles). */
+html[data-bgx=d] .bgx{background:#2a6b43 var(--w) center top/cover no-repeat;filter:none;image-rendering:pixelated;inset:0}
+@media (max-aspect-ratio:4/5){html[data-bgx=d] .bgx{background-image:var(--t)}}
+body.landing .wrap{max-width:1060px!important}
+body.landing .tb-split{box-shadow:0 4px 0 #1d1a2b!important}
+body.landing .landing-wrap{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:22px!important}
+body.landing .landing-wrap>*{min-width:0!important;margin-top:0!important;margin-bottom:0!important}
+.lx-h{display:flex;align-items:center;gap:12px;font:400 20px/1 "Jersey 10",monospace;letter-spacing:.08em;text-transform:uppercase;color:#fbf6e8;text-shadow:0 2px 0 #1d1a2b;margin:6px 0 -8px!important}
+.lx-h small{font:400 17px/1 VT323,monospace;letter-spacing:.02em;color:rgba(251,246,232,.8);text-transform:none}
+.lx-h::after{content:"";flex:1;height:3px;background:repeating-linear-gradient(90deg,rgba(251,246,232,.55) 0 8px,transparent 8px 14px)}
+/* Today */
+.lx-today{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:16px;align-items:stretch}
+body.landing .lx-today .tk-wrap{margin:0!important}
+body.landing .lx-today .tk-wrap::before,body.landing .lx-today .tk-wrap::after{display:none!important}
+body.landing .lx-today .tk{height:100%;display:flex!important;flex-direction:column!important;box-shadow:0 4px 0 #1d1a2b!important;border:3px solid #1d1a2b!important;clip-path:none!important}
+body.landing .lx-today .tk-main{flex:1 0 auto}
+body.landing .tk-meta{align-items:baseline!important;font-size:17px!important}
+.tk-howlink{all:unset;cursor:pointer;margin-left:auto;font:400 18px/1 VT323,monospace;color:#1d1a2b;text-decoration:underline;text-underline-offset:3px;text-transform:none}
+.tk-howlink:focus-visible{outline:2px solid #1d1a2b;outline-offset:2px}
+body.landing .tk .tk-meta .tk-howlink{background:none!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0 0 0 auto!important;width:auto!important;height:auto!important;min-height:0!important;font:400 18px/1 VT323,monospace!important;color:#1d1a2b!important;text-decoration:underline!important;text-underline-offset:3px;text-transform:none!important;letter-spacing:.02em!important}
+body.landing .tk .tk-play{box-shadow:0 4px 0 #1d1a2b!important;border:3px solid #1d1a2b!important;font-family:"Jersey 10",monospace!important;font-size:30px!important;letter-spacing:.04em;padding:12px!important;transition:transform .12s cubic-bezier(.23,1,.32,1)}
+body.landing .tk .tk-play:active{transform:translateY(2px) scale(.99)}
+body.landing .tk-streak{padding:8px 14px!important}
+.lx-ro{position:relative;display:grid;grid-template-rows:auto 1fr auto;background:#1d4486;color:#fbf6e8;border:3px solid #1d1a2b;box-shadow:0 4px 0 #1d1a2b;text-decoration:none;overflow:hidden}
+.lx-ro-top{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#16356b;border-bottom:3px dashed rgba(251,246,232,.4);font:400 17px/1 VT323,monospace;letter-spacing:.06em;text-transform:uppercase;color:rgba(251,246,232,.85)}
+.lx-ro-top b{font:400 14px/1 "Jersey 10",monospace;font-weight:400;background:#f2c230;color:#1d1a2b;padding:3px 6px;letter-spacing:.06em}
+.lx-ro-mid{display:grid;grid-template-columns:minmax(0,1fr) 112px;align-items:end;padding:12px 0 0 14px;gap:6px}
+.lx-ro-mid>span{display:flex;flex-direction:column;min-width:0}
+.lx-ro-t{font:400 40px/.9 "Jersey 10",monospace;font-weight:400;letter-spacing:.02em}
+.lx-ro small{margin-top:6px;font:400 18px/1.05 VT323,monospace;color:rgba(251,246,232,.85)}
+.lx-abc{display:flex;flex-wrap:wrap;gap:3px;margin:10px 0 12px}
+.lx-abc i{width:18px;height:18px;display:grid;place-items:center;font:400 13px/1 "Jersey 10",monospace;font-style:normal;background:rgba(251,246,232,.12);color:#fbf6e8}
+.lx-abc i.on{background:#f2c230;color:#1d1a2b}
+.lx-ro img{width:128px;height:auto;margin:0 0 -4px -10px;image-rendering:pixelated}
+.lx-ro-go{display:block;margin:0 14px 14px;text-align:center;background:#f2c230;color:#1d1a2b;border:3px solid #1d1a2b;box-shadow:0 4px 0 #1d1a2b;font:400 26px/1 "Jersey 10",monospace;letter-spacing:.04em;padding:9px;transition:transform .12s cubic-bezier(.23,1,.32,1)}
+.lx-ro:active .lx-ro-go{transform:translateY(2px)}
+/* Anytime */
+body.landing .landing-wrap .modes{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:16px!important}
+body.landing .landing-wrap .modes .mode.mode.mode{height:auto!important;min-height:0!important;flex-direction:column!important;border:3px solid #1d1a2b!important;box-shadow:0 4px 0 #1d1a2b!important;background:#1d1a2b!important;color:#fbf6e8!important}
+body.landing .landing-wrap .modes .mode.mode .m-pic.m-pic{width:100%!important;flex:none!important;height:150px!important;border-right:0!important;border-bottom:3px solid #1d1a2b!important}
+body.landing .landing-wrap .modes .mode .m-txt{padding:12px 14px 70px!important;background:#1d1a2b!important;gap:4px!important;justify-content:flex-start!important}
+body.landing .landing-wrap .modes .mode .m-txt b{font:400 32px/1 "Jersey 10",monospace!important;color:#fbf6e8!important;text-shadow:none!important}
+body.landing .landing-wrap .modes .mode .m-txt small{font:400 18px/1.05 VT323,monospace!important;color:rgba(251,246,232,.78)!important;white-space:normal!important}
+body.landing .landing-wrap .modes .mode .m-sum{font:400 18px/1 VT323,monospace!important;color:#7ee08f!important}
+body.landing .landing-wrap .modes .mode .m-go.m-go{display:block!important;top:auto!important;bottom:14px!important;left:14px!important;right:14px!important;width:auto!important;translate:none!important;text-align:center!important;font:400 24px/1 "Jersey 10",monospace!important;letter-spacing:.04em!important;padding:8px!important;border:3px solid #1d1a2b!important;box-shadow:0 4px 0 #000!important;background:#f2c230!important;color:#1d1a2b!important;text-transform:uppercase!important}
+body.landing .landing-wrap .modes .mode.m-tyc .m-pic{background:repeating-linear-gradient(90deg,#c8473b 0 14px,#b13b30 14px 28px)!important}
+body.landing .landing-wrap .modes .mode.m-tyc .m-pic img{width:200px!important;height:auto!important}
+body.landing .landing-wrap .modes .mode.m-inf .m-pic .inf-uni{width:110px!important;height:92px!important}
+body.landing .landing-wrap .modes .mode .m-tag{top:8px!important;left:8px!important}
+body.landing .landing-wrap #hb-home.hb{width:100%!important;max-width:none!important;height:120px!important;border:3px solid #1d1a2b!important;box-shadow:0 4px 0 #1d1a2b!important}
+@media (max-width:700px){
+ .lx-today{grid-template-columns:1fr;gap:14px}
+ .lx-ro-mid{grid-template-columns:minmax(0,1fr) 92px}
+ .lx-ro img{width:104px}
+ .lx-ro-t{font-size:36px}
+ .lx-abc{gap:2px}.lx-abc i{width:15px;height:16px;font-size:11px}
+ .lx-h{font-size:18px}
+ body.landing .tk-meta{font-size:15px!important}
+ body.landing .landing-wrap .modes{gap:10px!important}
+ body.landing .landing-wrap .modes .mode.mode .m-pic.m-pic{height:92px!important}
+ body.landing .landing-wrap .modes .mode .m-txt{padding:8px 8px 52px!important}
+ body.landing .landing-wrap .modes .mode .m-txt b{font-size:24px!important}
+ body.landing .landing-wrap .modes .mode .m-txt small,body.landing .landing-wrap .modes .mode .m-sum,body.landing .landing-wrap .modes .mode .m-rec{display:none!important}
+ body.landing .landing-wrap .modes .mode .m-go.m-go{left:8px!important;right:8px!important;bottom:8px!important;font-size:0!important;padding:7px 0!important}
+ body.landing .landing-wrap .modes .mode .m-go.m-go::after{content:"PLAY";font:400 19px/1 "Jersey 10",monospace;letter-spacing:.04em}
+ html[lang=es] body.landing .landing-wrap .modes .mode .m-go.m-go::after{content:"JUGAR"}
+ body.landing .landing-wrap .modes .mode.m-tyc .m-pic img{width:120px!important}
+ body.landing .landing-wrap .modes .mode.m-inf .m-pic .inf-uni{width:76px!important;height:64px!important}
+ body.landing .landing-wrap .m-duel .duel-spr{width:40px!important;height:34px!important}
+ body.landing .landing-wrap #hb-home.hb{height:96px!important}
+}
 </style>
 </body></html>
