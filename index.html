@@ -2472,17 +2472,17 @@ www.unicornergame.lol`};
   <div class="rx-ft"><div class="rx-ft-main">
    <div class="tk-stub" aria-hidden="true">${(()=>{const t=new Date(amsterdamDay()+'T12:00:00Z').toLocaleDateString(LOC,{weekday:'short',day:'numeric',month:'short',timeZone:'UTC'}).replace(/[,.]/g,'').split(' ');return`<span>${t[0]}</span><b>${t[1]}</b><span>${t[2]}</span>`})()}</div>
    <div class="rx-ft-body">
-    <div class="hero"><div class="sprite big-sprite bob" data-mood="${results.some(r=>r.pts===100)?'scream':score/MAX>=.44?'wow':score/MAX>=.15?'happy':'sad'}"></div><div><div class="mute">${L('Full time · Daily 5','Final · Diario 5')}</div><div class="tier" id="fs">0</div></div><div class="motm" id="motm" hidden><div class="ribbon-img" id="ribbonImg"></div><span>${L('Man of the Match','Jugador del partido')}</span></div></div>
-    <div class="pts">${zl(zoneOf(score))}</div>
+    <div class="rx-top"><span>${L('Full time · Daily 5','Final · Diario 5')}</span><span>${zl(zoneOf(score))}</span></div>
+    <div class="hero"><div class="tier" id="fs">0</div><span class="rx-max">/${MAX}</span><div class="sprite big-sprite bob" data-mood="${results.some(r=>r.pts===100)?'scream':score/MAX>=.44?'wow':score/MAX>=.15?'happy':'sad'}"></div><div class="motm" id="motm" hidden><div class="ribbon-img" id="ribbonImg"></div><span>${L('Man of the Match','Jugador del partido')}</span></div></div>
+    <ol class="rx-shots">${rows.map(r=>`<li style="--c:${r.pts?TCOL[r.pts]:'#5b5470'}"><i style="height:${r.pts?Math.max(18,r.pts):8}%"></i><b>${r.pts?'+'+r.pts:'–'}</b><span>${r.pts?tl(tierName(r.pts)):L('Miss','Fallo')}</span></li>`).join('')}</ol>
     <div class="result-share-row"><button class="cta" id="copy-result">${L('Copy result','Copiar resultado')}</button><button type="button" class="ghost" id="share-result">${L('Share','Compartir')}</button></div>
    </div></div>
    ${streakStrip(streakInfo(),'rs short')}
   </div>
   ${spicyResult()}
   <div class="dist" id="dist"><div class="mute">${L("Comparing with today's players…",'Comparando con los jugadores de hoy…')}</div></div>
+  <section class="result-section rx-answers"><div class="result-section-head"><h2>${L('Your answers','Tus respuestas')}</h2><p class="mute">${L('Tap one to see every answer','Toca una para ver todas')}</p></div><div class="result-list">${rows.map(r=>resultItem(r,!r.ans)).join('')}</div></section>
   <section class="jb" id="compete-results" data-compete><div class="jb-frame"><div class="jb-screen"><p class="jb-empty">GLOBAL RANKING · LOADING…</p></div></div></section>
-  ${hits.length?`<section class="result-section"><div class="result-section-head"><h2>${L('Your match highlights','Lo mejor de tu partido')}</h2><p class="mute">${L('Best answers first','Primero las mejores respuestas')}</p></div><div class="result-list">${hits.map(r=>resultItem(r,false)).join('')}</div></section>`:''}
-  ${misses.length?`<div class="result-nearly"><section class="result-section"><div class="result-section-head"><h2>${L('Nearly had it','Casi')}</h2><p class="mute">${ES?(misses.length===1?'1 respuesta':misses.length+' respuestas')+' para aprender para mañana':(misses.length===1?'1 answer':misses.length+' answers')+' to learn for tomorrow'}</p></div><div class="result-list">${misses.map(r=>resultItem(r,true)).join('')}</div></section></div>`:''}
   <div class="lx-h">${L('Up next','Y ahora')} <small>${L('more games','más juegos')}</small></div>
   <a class="lx-ro rx-ro-next" href="${ES?'/es/rosco.html':'/rosco.html'}" data-track="rosco_card"><span class="lx-ro-top"><span>Rosco ${L('No.','n.º')} ${Math.max(1,Math.round((Date.parse(amsterdamDay())-Date.parse('2026-10-30'))/864e5)+1)}</span><b>${L('Today','Hoy')}</b></span><span class="lx-ro-mid"><span><b class="lx-ro-t">Rosco</b><small>${L('24 letters · 5 minutes','24 letras · 5 minutos')}</small></span><img src="/rosco/host/point.png" alt="" width="128" height="128"></span><span class="lx-ro-go">${L('Play the Rosco','Jugar el Rosco')}</span></a>
   <div class="modes res-modes lx-modes">
@@ -4300,6 +4300,26 @@ body.landing .landing-wrap #hb-home.hb{width:100%!important;max-width:none!impor
 }
 </style>
 <style id="results-v2">
+html body #screen .rx-ft .hero{flex-wrap:nowrap!important}
+html body #screen .rx-ft .hero .big-sprite{width:84px!important;height:70px!important}
+@media (max-width:560px){.rx-top{flex-direction:column;gap:6px}html body #screen .rx-ft .hero .big-sprite{width:64px!important;height:54px!important}.rx-max{font-size:20px}}
+
+.rx-top{display:flex;justify-content:space-between;gap:10px;font:400 17px/1 VT323,monospace;color:#5b5470;text-transform:uppercase;letter-spacing:.06em}
+.rx-top span:last-child{color:#1d1a2b;font:400 22px/1 "Jersey 10",monospace;text-transform:none;letter-spacing:.02em}
+html body #screen .rx-ft .hero{display:flex!important;align-items:flex-end!important;gap:8px!important}
+html body #screen .rx-ft .hero .big-sprite{margin-left:auto!important}
+.rx-max{font:400 26px/1 "Jersey 10",monospace;color:#5b5470;padding-bottom:6px}
+.rx-shots{list-style:none;margin:2px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.rx-shots li{display:grid;grid-template-rows:64px auto auto;gap:3px;text-align:center;min-width:0}
+.rx-shots i{align-self:end;display:block;background:var(--c);border:3px solid #1d1a2b;min-height:8px;transform-origin:bottom;animation:rxGrow .5s cubic-bezier(.23,1,.32,1) both}
+.rx-shots li:nth-child(2) i{animation-delay:.06s}.rx-shots li:nth-child(3) i{animation-delay:.12s}.rx-shots li:nth-child(4) i{animation-delay:.18s}.rx-shots li:nth-child(5) i{animation-delay:.24s}
+.rx-shots b{font:400 20px/1 "Jersey 10",monospace;color:#1d1a2b}
+.rx-shots span{font:400 14px/1 VT323,monospace;color:#5b5470;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@keyframes rxGrow{from{transform:scaleY(.2);opacity:.4}}
+@media (prefers-reduced-motion:reduce){.rx-shots i{animation:none}}
+html body #screen .result-screen .st-unlock{padding:8px 12px!important;min-height:0!important}
+html body #screen .result-screen .st-unlock .st-sw{width:56px!important;height:34px!important}
+
 html body #screen .result-screen .dist{width:100%!important;max-width:none!important;box-sizing:border-box}
 
 html body #screen .rs-frame .card.result-screen.result-screen{background:transparent!important}
