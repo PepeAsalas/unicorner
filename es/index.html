@@ -2088,7 +2088,7 @@ const streakLine=info=>{const n=info.count;
  if(n>0)return `<b>${n}-day streak</b> — play today to make it ${n+1}`;
  if(info.ever)return 'Your streak ended — start a new one today';
  return 'Start a streak today — play every day to keep the flame lit'};
-const streakStrip=(info,cls)=>`<div class="tk-streak ${cls||''}${info.count?' lit':''}"><i class="pixel-flame${info.count?' flicker':' off'}" aria-hidden="true"></i><span class="tk-streak-txt">${cls==='short'?(info.count?L(`${info.count}-day streak`,`Racha de ${info.count} días`):L('No streak yet','Aún sin racha')):streakLine(info)}</span>${streakBoxes(info)}</div>`;
+const streakStrip=(info,cls)=>`<div class="tk-streak ${cls||''}${info.count?' lit':''}"><i class="pixel-flame${info.count?' flicker':' off'}" aria-hidden="true"></i><span class="tk-streak-txt">${cls==='short'?(info.count?L(`${info.count}-day streak`,`Racha de ${info.count} día${info.count===1?'':'s'}`):L('No streak yet','Aún sin racha')):streakLine(info)}</span>${streakBoxes(info)}</div>`;
 // "37 fans played today · top score 480" on the ticket
 async function liveLine(){const day=amsterdamDay(),h={apikey:SB_KEY,Authorization:'Bearer '+SB_KEY};
  const [c,t]=await Promise.all([fetch(SB_URL+'/rest/v1/scores?select=score&day=eq.'+day,{method:'HEAD',headers:{...h,Prefer:'count=exact'}}),fetch(SB_URL+'/rest/v1/scores?select=score&day=eq.'+day+'&order=score.desc&limit=1',{headers:h})]);
@@ -3672,9 +3672,9 @@ function kitCelebrate(){const fresh=kitsNow().filter(id=>!kitDone.includes(id));
 // results: celebrate a new unlock and switch to it straight away
 function celebrate(){const rs=document.querySelector('.result-screen');if(!rs||rs.dataset.stDone)return;rs.dataset.stDone='1';kitCelebrate();
  const best=bestStreak(),done=+(ls('uc-bg-celebrated')||0),fresh=LIST.filter(t=>t[2]>done&&best>=t[2]&&t[2]>0).pop();if(!fresh)return;
- ls('uc-bg-celebrated',fresh[2]);ls('uc-bg',fresh[0]);apply();dot();track('stadium_unlock',{bg:fresh[0],best});
+ ls('uc-bg-celebrated',fresh[2]);dot();track('stadium_unlock',{bg:fresh[0],best});
  const at=rs.querySelector('.tk-streak.rs')||rs.querySelector('.pts');
- at.insertAdjacentHTML('afterend',`<div class="st-unlock" role="status">${sw(fresh[0])}<div><small>${L('NEW STADIUM UNLOCKED!','¡NUEVO ESTADIO DESBLOQUEADO!')}</small><b>${fresh[1]}</b><small>${L('Your background just changed — swap any time with the 🏟️ button up top.','Tu fondo acaba de cambiar — cámbialo cuando quieras con el botón 🏟️ de arriba.')}</small></div></div>`)}
+ at.insertAdjacentHTML('afterend',`<div class="st-unlock" role="status">${sw(fresh[0])}<div><small>${L('NEW STADIUM UNLOCKED!','¡NUEVO ESTADIO DESBLOQUEADO!')}</small><b>${fresh[1]}</b><small>${L('Use it any time from the 🏟️ button up top.','Úsalo cuando quieras con el botón 🏟️ de arriba.')}</small></div></div>`)}
 new MutationObserver(()=>setTimeout(celebrate,50)).observe(document.getElementById('screen'),{childList:true});
 apply();dot();
 })();
