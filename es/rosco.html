@@ -82,6 +82,7 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
  <div class="host"><div class="face" id="face0"><img alt="" width="64" height="64"></div><div class="say" id="say0" role="status"></div></div>
  <button class="btn grass" id="go" style="width:100%" data-es="Empezar el Rosco">Start the Rosco</button>
  <p class="note" id="avg0"></p>
+ <p class="note" id="sync0" hidden><a id="syncA" href="/" data-es="Inicia sesión (en la clasificación) para guardar tu Rosco en todos tus dispositivos.">Sign in (on the leaderboard) to keep your Rosco on all your devices.</a></p>
  <div class="card"><h1 data-es="Cómo se juega">How it works</h1><ul class="rules">
   <li><b class="gold">A</b><span data-es="Una pista por letra. El <strong>apellido</strong> de la respuesta empieza por esa letra (en clubes y selecciones, el nombre). Lionel Messi va en la M.">One clue per letter. The answer's <strong>surname</strong> starts with that letter (for clubs and countries, the name). Lionel Messi goes under M.</span></li>
   <li><b class="paper">»</b><span data-es="<strong>Pasapalabra</strong> salta una letra. Vuelve en la siguiente vuelta."><strong>Pasapalabra</strong> skips a letter. It comes back on the next lap.</span></li>
@@ -165,7 +166,16 @@ const hit=(typed,fs)=>fs.some(f=>f===typed||(typed.length>=5&&f.length>=5&&lev(t
 
 // ── state ──
 let R=null,S=null,tick=0;
-const save=()=>ls(KEY,JSON.stringify(S));
+const save=()=>{ls(KEY,JSON.stringify(S));cloud()};
+// signed-in players keep their Rosco on every device (supabase/rosco_results.sql), like their leaderboard spot
+async function tok(){try{let s=JSON.parse(localStorage.getItem('uc-player-session')||'null');if(!s||!s.access_token)return null;
+ if(s.exp<Date.now()+60000){const r=await fetch(SB_URL+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:s.refresh_token})});const j=await r.json();if(!r.ok||!j.access_token)return null;
+  s={...s,access_token:j.access_token,refresh_token:j.refresh_token||s.refresh_token,exp:Date.now()+Math.max(60,(+j.expires_in||3600))*1000};localStorage.setItem('uc-player-session',JSON.stringify(s))}return s.access_token}catch{return null}}
+async function rpc(fn,body){const t=await tok();if(!t)return undefined;const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok)throw 0;return r.json()}
+let cloudT=0;function cloud(now){clearTimeout(cloudT);if(!S||!S.start)return;const send=()=>{const c=counts();rpc('rosco_save',{p_day:DAY,p_state:S,p_done:!!S.done,p_score:S.done?c.ok:null,p_total:R.letters.length}).catch(()=>{})};if(now||S.done)send();else cloudT=setTimeout(send,1500)}
+async function fromCloud(){try{const m=await rpc('rosco_mine',{p_day:DAY});if(m===undefined){$('sync0').hidden=false;if(ES)$('syncA').href='/es/';return}
+ const st=m&&m.state;if(st&&st.start&&(st.done||!S||!S.done&&(Object.keys(st.res||{}).length>Object.keys(S.res||{}).length||st.start<S.start))){S=st;ls(KEY,JSON.stringify(S))}
+ else if(S&&S.start)cloud(true)}catch{}}
 const left=()=>Math.max(0,R.seconds-Math.floor((Date.now()-S.start)/1000));
 const fmt=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
 function drawRing(id,cur){const r=$(id);r.querySelectorAll('.l').forEach(e=>e.remove());const on=new Set(R.letters.map(x=>x.letter));
@@ -181,6 +191,7 @@ async function dayAvg(mine){try{const r=await fetch(SB_URL+'/rest/v1/rpc/rosco_d
  ['avg0','avg2'].forEach(id=>{if($(id))$(id).textContent=t})}catch{}}
 async function load(){let r;try{r=await fetch(`/rosco/${DAY}.json`,{cache:'no-cache'});if(!r.ok)throw 0;R=await r.json()}catch{$('s-load').innerHTML=`<p class="note">${L('No Rosco today yet. Come back soon!','Aún no hay Rosco hoy. ¡Vuelve pronto!')}</p>`;return}
  $('tag').textContent=`ROSCO #${NO}`;try{S=JSON.parse(ls(KEY)||'null')}catch{S=null}
+ await fromCloud();
  if(S&&S.done)return end(false);if(S&&S.start)return play();
  show('s-intro');drawRing('ring0','A');$('clock0').textContent=fmt(R.seconds);$('count0').textContent=L(`${R.letters.length} LETTERS`,`${R.letters.length} LETRAS`)+(R.letters.length<26?L(` · ${26-R.letters.length} SKIPPED`,` · ${26-R.letters.length} FUERA`):'');
  host.intro=host.intro||Host($('face0'));say($('say0'),host.intro,L(`Welcome to the Rosco! I'm Horacio Herradura. ${R.letters.length} letters, five minutes, and the clock doesn't stop. Shall we?`,`¡Bienvenidos al Rosco! Soy Horacio Herradura. ${R.letters.length} letras, cinco minutos, y el reloj no se para. ¿Empezamos?`),'happy-1');track('rosco_intro',{});dayAvg()}
