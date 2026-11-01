@@ -16,6 +16,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .top{display:flex;justify-content:space-between;align-items:center}
 .logo{font:400 22px var(--disp);color:var(--ink);background:var(--paper);border:2px solid var(--ink);padding:1px 8px;box-shadow:2px 2px 0 var(--ink);text-decoration:none}
 .top-r{display:flex;align-items:center;gap:8px}
+.exit.snd{cursor:pointer;font-size:16px;padding:0}
 .exit{width:36px;height:36px;display:grid;place-items:center;font:400 22px/1 var(--disp);color:var(--ink);background:var(--paper);border:2px solid var(--ink);box-shadow:2px 2px 0 var(--ink);text-decoration:none}
 .exit:active{transform:translate(2px,2px);box-shadow:none}
 .tag{font:20px var(--mono);background:var(--ink);padding:2px 8px;border:2px solid var(--paper)}
@@ -73,7 +74,7 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
 .ans small{display:block;color:#5d566b}
 @media (prefers-reduced-motion:reduce){.l.now,.face.pop img,.l.pop,.inp.shake,.clock.low,.say .more{animation:none}}
 </style></head><body><main>
-<div class="top"><a class="logo" href="/">UNICORNER</a><span class="top-r"><span class="tag" id="tag">ROSCO</span><a class="exit" id="exit" href="/" aria-label="Back to Unicorner" title="Back to Unicorner">✕</a></span></div>
+<div class="top"><a class="logo" href="/">UNICORNER</a><span class="top-r"><span class="tag" id="tag">ROSCO</span><button type="button" class="exit snd" id="snd" aria-label="Sound" title="Sound">🔊</button><a class="exit" id="exit" href="/" aria-label="Back to Unicorner" title="Back to Unicorner">✕</a></span></div>
 
 <section id="s-load"><p class="note" data-es="Cargando el Rosco de hoy…">Loading today's Rosco…</p></section>
 
@@ -124,6 +125,13 @@ const DAY=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'num
 const FIRST='2026-10-30',NO=Math.round((Date.parse(DAY)-Date.parse(FIRST))/864e5)+1,KEY='uc-rosco-v3-'+DAY,ABC='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 if(!ls('uc-visitor'))ls('uc-visitor',Math.random().toString(36).slice(2)+Date.now().toString(36));
 const VISITOR=ls('uc-visitor'),SID=Math.random().toString(36).slice(2);
+// 8-bit sounds made live in the browser (no files); follows the site's sound switch (localStorage 'unicorner-sound')
+const sndOn=()=>{try{return localStorage.getItem('unicorner-sound')!=='off'}catch{return true}};let actx=null;
+function tone(f,d,o={}){if(!sndOn())return;try{actx=actx||new(window.AudioContext||window.webkitAudioContext)();if(actx.state==='suspended')actx.resume();const t=actx.currentTime+(o.at||0),os=actx.createOscillator(),g=actx.createGain();os.type=o.type||'square';os.frequency.setValueAtTime(f,t);if(o.slide)os.frequency.exponentialRampToValueAtTime(o.slide,t+d);g.gain.setValueAtTime(o.vol||.1,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);os.connect(g).connect(actx.destination);os.start(t);os.stop(t+d+.02)}catch{}}
+function whoosh(){if(!sndOn())return;try{actx=actx||new(window.AudioContext||window.webkitAudioContext)();const c=actx,t=c.currentTime,d=.22,n=c.createBufferSource(),b=c.createBuffer(1,c.sampleRate*d,c.sampleRate),x=b.getChannelData(0);for(let i=0;i<x.length;i++)x[i]=Math.random()*2-1;n.buffer=b;const f=c.createBiquadFilter();f.type='bandpass';f.frequency.setValueAtTime(2600,t);f.frequency.exponentialRampToValueAtTime(400,t+d);const g=c.createGain();g.gain.setValueAtTime(.07,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);n.connect(f).connect(g).connect(c.destination);n.start(t);n.stop(t+d)}catch{}}
+const SFX={ok:()=>{tone(988,.08);tone(1319,.16,{at:.07})},streak:()=>{SFX.ok();[1047,1319,1568,2093].forEach((f,i)=>tone(f,.07,{at:.2+i*.05,vol:.07}))},
+ no:()=>{tone(150,.28,{type:'sawtooth',vol:.08,slide:90});tone(110,.28,{vol:.04})},pass:whoosh,var:()=>{tone(660,.06,{type:'triangle',vol:.13});tone(660,.06,{type:'triangle',vol:.13,at:.12})},
+ tick:()=>tone(1800,.03,{vol:.045}),end:()=>{[523,659,784,1047].forEach((f,i)=>tone(f,.12,{at:i*.1}));tone(1319,.38,{at:.42,vol:.09});tone(659,.38,{at:.42,type:'triangle',vol:.09})}};
 function track(name,data){try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,session:SID,visitor:VISITOR,seconds:0,game_day:DAY,event_version:2,data:{language:ES?'es':'en',page:'rosco',rosco:NO,...(data||{})}})}).catch(()=>{})}catch{}}
 
 // ── the presenter: 20 hand-picked 64x64 frames in rosco/host. He blinks when idle and moves his mouth while his text types out ──
@@ -200,7 +208,7 @@ $('go').onclick=()=>{S={start:Date.now(),res:{},typed:{},passed:[],queue:R.lette
 
 const clue=q=>ES&&q.prompt_es?q.prompt_es:q.prompt;
 const cur=()=>R.letters.find(x=>x.letter===S.queue[0]);
-function play(){show('s-play');render(true);clearInterval(tick);tick=setInterval(()=>{const s=left();$('clock').textContent=fmt(s);$('clock').classList.toggle('low',s<=30);if(s<=30&&!S.warned){S.warned=1;react('nervous',L('30 seconds left!','¡Quedan 30 segundos!'))}if(s<=0)finish('time')},250);setTimeout(()=>$('in').focus(),50)}
+function play(){show('s-play');render(true);clearInterval(tick);tick=setInterval(()=>{const s=left();$('clock').textContent=fmt(s);$('clock').classList.toggle('low',s<=30);if(s<=30&&s>0&&s!==window._lt){window._lt=s;SFX.tick()}if(s<=30&&!S.warned){S.warned=1;react('nervous',L('30 seconds left!','¡Quedan 30 segundos!'))}if(s<=0)finish('time')},250);setTimeout(()=>$('in').focus(),50)}
 function render(first){const q=cur();if(!q)return finish('all');S.seen=S.seen||[];
  if(S.seen.includes(q.letter)){S.lap++;S.seen=[];if(!first)setTimeout(()=>react('wink',pick(LINES.lap)),0)}S.seen.push(q.letter);save();drawRing('ring',q.letter);const c=counts();
  $('count').innerHTML=`<b>${c.ok} ✓</b> · <i>${c.no} ✕</i> · `+L(`${S.queue.length} left`,`quedan ${S.queue.length}`);$('clock').textContent=fmt(left());
@@ -214,16 +222,18 @@ function next(){S.queue.shift();if(!S.queue.length)return finish('all');save();r
 
 function answer(){const q=cur(),raw=$('in').value.trim();if(!q)return;if(!raw)return pass();
  const t=norm(raw),good=q.answers.find(a=>hit(t,forms(a.name,a.aliases)));
- if(good){S.res[q.letter]='ok';S.typed[q.letter]=good.name;S.run=(S.run||0)+1;S.miss=0;react(S.run>=5&&S.run%5===0?'excited':S.run>=3?'laugh':'happy-1',(S.run>=3?L(S.run+' in a row! ','¡'+S.run+' seguidas! '):'')+pick(LINES.ok)+' '+good.name);popLetter(q.letter);track('rosco_answer',{letter:q.letter,ok:true})}
- else if((q.others||[]).some(n=>hit(t,forms(n)))){$('var').textContent=L(`VAR: right answer, but it doesn't start with ${q.letter}. Try another!`,`VAR: respuesta válida, pero no empieza por la ${q.letter}. ¡Prueba otra!`);host.play.set('think');$('in').select();return}
- else{S.res[q.letter]='no';S.typed[q.letter]=raw;S.run=0;S.miss=(S.miss||0)+1;react(S.miss>=3?'facepalm':S.miss===2?'annoyed':'sad',pick(LINES.no(q.answers[0].name)));shake();track('rosco_answer',{letter:q.letter,ok:false})}
+ if(good){S.res[q.letter]='ok';S.typed[q.letter]=good.name;S.run=(S.run||0)+1;S.miss=0;react(S.run>=5&&S.run%5===0?'excited':S.run>=3?'laugh':'happy-1',(S.run>=3?L(S.run+' in a row! ','¡'+S.run+' seguidas! '):'')+pick(LINES.ok)+' '+good.name);popLetter(q.letter);(S.run>=3&&S.run%3===0?SFX.streak:SFX.ok)();track('rosco_answer',{letter:q.letter,ok:true})}
+ else if((q.others||[]).some(n=>hit(t,forms(n)))){$('var').textContent=L(`VAR: right answer, but it doesn't start with ${q.letter}. Try another!`,`VAR: respuesta válida, pero no empieza por la ${q.letter}. ¡Prueba otra!`);host.play.set('think');SFX.var();shake();$('in').select();return}
+ else{S.res[q.letter]='no';S.typed[q.letter]=raw;S.run=0;S.miss=(S.miss||0)+1;react(S.miss>=3?'facepalm':S.miss===2?'annoyed':'sad',pick(LINES.no(q.answers[0].name)));shake();SFX.no();track('rosco_answer',{letter:q.letter,ok:false})}
  S.passed=S.passed.filter(x=>x!==q.letter);$('in').value='';next();$('in').focus()}
 function pass(){const q=cur();if(!q)return;if(!S.passed.includes(q.letter))S.passed.push(q.letter);
- S.queue.push(S.queue.shift());react('pasapalabra',pick(LINES.pass));$('in').value='';track('rosco_pass',{letter:q.letter});save();render();$('in').focus()}
+ S.queue.push(S.queue.shift());react('pasapalabra',pick(LINES.pass));SFX.pass();$('in').value='';track('rosco_pass',{letter:q.letter});save();render();$('in').focus()}
+{const b=$('snd'),paint=()=>{b.textContent=sndOn()?'🔊':'🔇'};paint();b.onclick=()=>{try{localStorage.setItem('unicorner-sound',sndOn()?'off':'on')}catch{}paint();if(sndOn())SFX.ok()}}
 $('f').onsubmit=e=>{e.preventDefault();answer()};$('enter').onclick=answer;$('pass').onclick=pass;
 
 function finish(why){clearInterval(tick);if(S.done)return;S.done=true;S.left=left();S.why=why;R.letters.forEach(x=>{if(!S.res[x.letter])S.res[x.letter]='miss'});save();
- const c=counts();track('rosco_finish',{score:c.ok,wrong:c.no,total:R.letters.length,left:S.left,why});end(true)}
+ const c=counts();track('rosco_finish',{score:c.ok,wrong:c.no,total:R.letters.length,left:S.left,why});if(c.ok)SFX.end();end(true);ringSweep()}
+function ringSweep(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;setTimeout(()=>document.querySelectorAll('#ring2 .l.ok').forEach((e,i)=>e.animate([{transform:'scale(1)'},{transform:'scale(1.3)'},{transform:'scale(1)'}],{duration:300,delay:i*45,easing:'cubic-bezier(.23,1,.32,1)'})),60)}
 function end(fresh){show('s-end');feedback();const c=counts(),n=R.letters.length;setTimeout(()=>dayAvg(c.ok),fresh?1500:0);drawRing('ring2');$('score').innerHTML=`${c.ok}<span>/${n}</span>`;
  $('left').textContent=S.why==='time'?L('TIME UP','¡TIEMPO!'):L(fmt(S.left||0)+' LEFT','SOBRAN '+fmt(S.left||0));
  const mood=c.ok>=19?'celebrate':c.ok>=15?'excited':c.ok>=11?'wink':c.ok>=7?'sad':'facepalm';host.end=host.end||Host($('face2'));
