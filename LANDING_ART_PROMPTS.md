@@ -93,3 +93,38 @@ Style block (paste first, with the pitch background attached as the reference):
 Tall version of each (reply after each wide one):
 > Same scene, same style, as a tall banner 160 × 600 (or 480 × 1800 and I'll shrink it): the scene in the bottom half,
 > empty pitch in the top half for the words.
+
+## Pattern backgrounds (Kits & stadiums → Patterns)
+
+Seven calm backgrounds that replace the CSS patterns. Same rule as the pitch: they sit behind text and cards, so they
+must be quiet, even and low-contrast, with no focal point. Make each in two sizes (tall 1080 × 1920, wide 1920 × 1080)
+in one chat, after the style block. Send me the PNGs and I'll swap them in.
+
+Style block (paste first, attach the pitch background as the reference):
+
+> I'm making a set of background images for a pixel-art football website, in the same style as the attached pitch
+> image. Rules for all of them: 16-bit pixel art, big crisp pixels, flat colours, no blur, no gradients, no text, no
+> letters, no logos, no characters, no focal point. They go behind text and cards, so keep them calm, even and
+> low-contrast across the whole image (like wallpaper). Palette: ink #1d1a2b, cream #fbf6e8, sand #e9dfc2, gold #f2c230,
+> marine #1d4486, pitch greens #2f7a4f and #2a6b43, clay red #c8473b. Portrait 1080 × 1920 first; I'll ask for the wide
+> version after.
+
+Then one at a time:
+
+1. **Mowed stripes:** A football pitch seen from straight above, very close up: wide mowing stripes in two greens,
+   tiny grass-blade pixels, no lines, no markings.
+2. **Cream checks:** A vintage cream-and-sand checked tablecloth / retro shirt fabric, small squares, faint woven texture
+   pixels.
+3. **Programme dots:** An old matchday programme printed page: cream paper with a soft halftone dot pattern in sand,
+   slightly uneven like old printing.
+4. **Scarf stripes:** A close-up of a knitted football scarf filling the whole image: broad horizontal stripes in marine
+   and gold with a visible knit-stitch pixel texture.
+5. **Graph paper:** A scout's notebook page: cream paper with a light sand grid, a faint margin line in clay red at one
+   side, a few tiny pencil dots.
+6. **Tactics board:** A dark green-black tactics chalkboard with faint chalk smudges and very light, half-erased chalk
+   lines (no X or O symbols, no arrows).
+7. **Concrete terrace:** Old stadium terrace steps seen from straight above: grey-blue concrete rows with small cracks,
+   a thin gold crush-barrier line every few rows.
+
+After each one:
+> Same image as a wide version, 1920 × 1080, same pattern scale.
