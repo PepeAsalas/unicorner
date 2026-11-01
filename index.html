@@ -2144,7 +2144,8 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
    <div class="tk-stub" aria-hidden="true"><span>${tkDate[0]}</span><b>${tkDate[1]}</b><span>${tkDate[2]}</span></div>
    <div class="tk-body">
     <div class="tk-meta"><span>${played?L('Daily 5 · played ✓','Diario 5 · jugado ✓'):L('Daily 5','Diario 5')}</span>${played?'':`<button type="button" class="tk-howlink" id="how">${L('How to play','Cómo se juega')}</button>`}</div>
-    ${played?`<div class="tk-score"><b>${played.score}</b><span>/${MAX} · ${zl(zoneOf(played.score))}</span></div>
+    ${played?`<div class="tk-score lx-score"><span class="lx-digits">${String(played.score).split('').map(d=>`<i>${d}</i>`).join('')}</span><span class="rx-max">/${MAX}</span><b class="lx-zone">${zl(zoneOf(played.score))}</b></div>
+    ${Array.isArray(played.picks)&&played.picks.length?`<ol class="rx-shots lx-shots">${played.picks.filter(Array.isArray).map(x=>`<li style="--c:${x[2]?TCOL[x[2]]:'#5b5470'}"><i style="height:${x[2]?Math.max(18,x[2]):8}%"></i><b>${x[2]?'+'+x[2]:'–'}</b><span>${x[2]?tl(tierName(x[2])):L('Miss','Fallo')}</span></li>`).join('')}</ol>`:''}
     ${played.remote?`<p class="tk-live">${L('Played on another device ✓ · next game in','Jugado en otro dispositivo ✓ · próximo partido en')} <b class="flapclock" data-flap>${untilMidnight()}</b></p>`:`<button type="button" class="cta tk-play" id="go">${L("View today's result",'Resultados de hoy')}</button>
     <p class="tk-live">${L('Next game in','Próximo partido en')} <b class="flapclock" data-flap>${untilMidnight()}</b></p>`}`
     :`<div class="tk-actions"><button type="button" class="cta tk-play" id="go">${L("Play today's game",'Jugar el partido de hoy')}</button></div>
@@ -4230,7 +4231,13 @@ html body .modes .m-duel .fo-a{left:8%;transform:none!important}html body .modes
 html body .modes .m-duel .m-vs{position:absolute;left:50%;top:14%;translate:-50% 0;margin:0;font-size:34px;z-index:2}
 @media (max-width:560px){.inf-uni{width:62px;height:52px}html body .mode.m-inf .m-sym{font-size:30px}html body .modes .m-duel .duel-spr{width:42px;height:36px}html body .modes .m-duel .m-vs{font-size:24px;top:10%}}
 </style>
-<style id="landing-v2">/* Landing, tidied: one border (3px ink), one straight-down shadow, one label font. Today (Daily 5 + Rosco) then Anytime (3 equal tiles). */
+<style id="landing-v2">
+.lx-score{display:flex!important;align-items:flex-end;gap:8px;flex-wrap:wrap}
+.lx-digits{display:flex;gap:5px}
+body.landing .tk .lx-digits i{font:400 32px/1 "Jersey 10",monospace;font-style:normal;color:#f2c230;background:#1d1a2b;border:2px solid #1d1a2b;padding:6px 8px 4px;min-width:38px;text-align:center}
+body.landing .tk .lx-score b.lx-zone{margin-left:auto;font:400 22px/1 "Jersey 10",monospace;color:#1d1a2b;padding-bottom:6px}
+body.landing .tk ol.lx-shots li{grid-template-rows:44px auto auto}
+/* Landing, tidied: one border (3px ink), one straight-down shadow, one label font. Today (Daily 5 + Rosco) then Anytime (3 equal tiles). */
 html[data-bgx=d] .bgx{background:#2a6b43 var(--w) center top/cover no-repeat;filter:none;image-rendering:pixelated;inset:0}
 @media (max-aspect-ratio:4/5){html[data-bgx=d] .bgx{background-image:var(--t)}}
 body.landing .wrap{max-width:1060px!important}
