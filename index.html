@@ -4312,6 +4312,17 @@ body.landing .landing-wrap #hb-home.hb{width:100%!important;max-width:none!impor
  body.landing .landing-wrap #hb-home.hb{height:96px!important}
 }
 </style>
+<style id="rosco-card-v2">/* Rosco card on desktop: stats boxes grow to fill the card, Horacio sits beside them */@media(min-width:701px){
+html body .lx-ro{grid-template-rows:auto 1fr auto}
+html body .lx-ro .lx-ro-mid{align-items:stretch!important;grid-template-columns:minmax(0,1fr) 128px;gap:10px;padding:12px 0 0 14px}
+html body .lx-ro .lx-ro-mid>span{display:flex;flex-direction:column;gap:10px;padding-bottom:12px}
+html body .lx-ro .lx-stats{margin:0;flex:1;min-height:76px}
+html body .lx-ro .lx-stats>span{display:flex;flex-direction:column;justify-content:center;gap:6px}
+html body .lx-ro .lx-stats b{font-size:40px}
+html body .lx-ro .lx-abc.lx-grid{margin:0}
+html body .lx-ro .lx-ro-mid img{align-self:end;width:128px;margin:0 0 -4px 0}
+}
+</style>
 <style id="hb-v2">/* wide banners: show the whole picture (scene on the right), pitch colour fills the rest */
 html body a.hb.hb::before{content:"";position:absolute;inset:0;z-index:-1;background:repeating-linear-gradient(90deg,#2d7549 0 26px,#296a42 26px 52px)}
 html body a.hb.hb::after{content:"";position:absolute;inset:0;z-index:-1;background-image:inherit;background-size:auto 100%;background-position:right center;background-repeat:no-repeat;image-rendering:pixelated}
