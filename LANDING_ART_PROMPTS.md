@@ -60,3 +60,36 @@ Then, one at a time:
 > with both front hooves, a football at its feet. Nothing else.
 
 If one comes out too detailed, reply: "Simpler: fewer, bigger pixels, fewer colours, keep only the main subject."
+
+## Banners (v2): TikTok, LinkedIn, Reddit
+
+The banners sit under the game tiles and on the results screen. The site writes the words on top ("Follow on TikTok",
+"Join the board", ...) on the **left**, so the left 40% of each picture must be plain pitch. Two sizes each: wide
+1200 × 300 (computers and phones) and tall 160 × 600 (side rail). Make them in one chat, after the style block below.
+
+Style block (paste first, with the pitch background attached as the reference):
+
+> I'm making three ad banners for a pixel-art football site. Use the attached pitch image as the style and colour
+> reference. Rules for all three: 16-bit pixel art, big crisp pixels, thick dark outline #1d1a2b around characters and
+> objects, flat colours with at most one shade per colour, no blur, no gradients, no text, no letters, no logos. The
+> background is the same top-down pitch with vertical mowing stripes in #2f7a4f and #2a6b43, with nothing else on it.
+> Extra colours only: white, cream #fbf6e8, ink #1d1a2b, gold #f2c230, marine #1d4486, clay red #c8473b. The unicorn is
+> chunky and cute, side view: white body, dark navy mane and tail, gold horn, gold hooves, a football at its feet.
+> Keep the LEFT 40% of the image empty pitch (text goes there); put the scene in the right half. Size 1200 × 300.
+
+**TikTok** (wide)
+> The unicorn doing keepy-ups with the football, looking proud, filmed by a small pixel phone on a tripod standing
+> in front of it, with a tiny red recording dot on the phone. Three little gold sparkle pixels around the ball.
+
+**LinkedIn** (wide)
+> The unicorn in a marine-blue suit and gold tie, sitting behind a small wooden desk on the pitch, shaking hooves with
+> a second unicorn in a clay-red suit across the desk; a contract paper and a gold pen on the desk.
+
+**Reddit** (wide)
+> A row of four small unicorns sitting on a simple wooden bench like a dugout, arguing happily: one points at the
+> ball, one holds up a tiny chalkboard with a drawn arrow (no writing), one raises a hoof, one shrugs. A football on
+> the grass in front of them.
+
+Tall version of each (reply after each wide one):
+> Same scene, same style, as a tall banner 160 × 600 (or 480 × 1800 and I'll shrink it): the scene in the bottom half,
+> empty pitch in the top half for the words.
