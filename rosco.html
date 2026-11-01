@@ -103,7 +103,8 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
  <div class="ring" id="ring2"><div class="mid"><div class="big" id="score"></div><div class="sc" id="left"></div></div></div>
  <div class="host"><div class="face" id="face2"><img alt="" width="64" height="64"></div><div class="say" id="say2" role="status"></div></div>
  <div class="grid" id="grid"></div>
- <button class="btn gold" id="copy" style="width:100%" data-es="Copiar resultado">Copy result</button>
+ <button class="btn gold" id="shareimg" style="width:100%" data-es="Compartir imagen">Share image</button>
+ <button class="btn paper" id="copy" style="width:100%" data-es="Copiar resultado">Copy result</button>
  <div class="row"><button class="btn paper" id="share" hidden data-es="Compartir">Share</button><button class="btn paper" id="show" data-es="Ver respuestas">See answers</button></div>
  <ul class="ans" id="ans" hidden></ul>
  <div class="card fb" id="fb" hidden><p class="fb-q" data-es="<b>¿Qué tal el Rosco de hoy?</b> Es nuevo, así que cuéntanos."><b>How was today's Rosco?</b> It's brand new, so tell us.</p>
@@ -256,6 +257,29 @@ $('copy').onclick=async()=>{const c=counts(),t=resultText();track('rosco_copy',{
  try{await navigator.clipboard.writeText(t)}catch{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch{}a.remove()}
  $('copy').textContent=L('Copied! Paste it anywhere','¡Copiado! Pégalo donde quieras');setTimeout(()=>$('copy').textContent=L('Copy result','Copiar resultado'),1800)};
 if(navigator.share)$('share').hidden=false;
+// share image: the wheel in your colours, the score and Horacio, 1080x1350 (fits Instagram, WhatsApp, TikTok)
+async function roscoImage(){const W=1080,H=1350,c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d');g.imageSmoothingEnabled=false;
+ try{await document.fonts.load('80px "Jersey 10"');await document.fonts.load('40px VT323')}catch{}
+ for(let x=0;x<W;x+=90){g.fillStyle=(x/90)%2?'#16356b':'#1d4486';g.fillRect(x,0,90,H)}
+ const ink='#1d1a2b',cr='#fbf6e8',gold='#f2c230',c0=counts(),n=R.letters.length,on=new Set(R.letters.map(x=>x.letter));
+ g.fillStyle=ink;g.fillRect(0,0,W,120);g.fillStyle=gold;g.font='64px "Jersey 10",monospace';g.textBaseline='middle';g.fillText('UNICORNER',48,64);
+ g.fillStyle=cr;g.textAlign='right';g.font='44px VT323,monospace';g.fillText(`ROSCO #${NO} · ${DAY}`,W-48,64);g.textAlign='center';
+ const cx=W/2,cy=600,r=380,t=78;ABC.forEach((ch,i)=>{const a=-Math.PI/2+i*2*Math.PI/ABC.length,x=cx+r*Math.cos(a),y=cy+r*Math.sin(a),st=S.res[ch];
+  g.fillStyle=ink;g.fillRect(x-t/2-6,y-t/2-6,t+12,t+12);g.fillStyle=!on.has(ch)?'#2a2540':st==='ok'?'#2fbf71':st==='no'?'#c8473b':'#5b5470';g.fillRect(x-t/2,y-t/2,t,t);
+  g.fillStyle=st==='ok'?ink:cr;g.font='56px "Jersey 10",monospace';g.fillText(on.has(ch)?ch:'–',x,y+4)});
+ g.fillStyle=ink;g.font='200px "Jersey 10",monospace';g.fillText(`${c0.ok}`,cx+6,cy-90+8);g.fillStyle=gold;g.fillText(`${c0.ok}`,cx,cy-90);
+ g.fillStyle=cr;g.font='56px "Jersey 10",monospace';g.fillText(L(`OUT OF ${n}`,`DE ${n}`),cx,cy+20);
+ const pose=c0.ok>=n*.6?'celebrate':c0.ok>=n*.3?'happy-1':'facepalm';
+ try{const im=new Image();im.src='/rosco/host/'+pose+'.png';await im.decode();g.drawImage(im,cx-120,cy+60,240,240)}catch{}
+ const line=c0.ok>=n*.6?L('What a Rosco!','¡Qué Rosco!'):c0.ok>=n*.3?L('Not bad at all!','¡Nada mal!'):L('Tomorrow is another day…','Mañana será otro día…');
+ g.font='46px VT323,monospace';const bw=g.measureText('"'+line+'" — Horacio Herradura').width+60;g.fillStyle=ink;g.fillRect(cx-bw/2-6,1060-6,bw+12,96);g.fillStyle=cr;g.fillRect(cx-bw/2,1060,bw,84);g.fillStyle=ink;g.fillText('"'+line+'" — Horacio Herradura',cx,1104);
+ g.fillStyle=ink;g.fillRect(0,H-130,W,130);g.fillStyle=cr;g.font='52px "Jersey 10",monospace';g.fillText(L(`${c0.ok} ✓  ${c0.no} ✕   Can you beat me?`,`${c0.ok} ✓  ${c0.no} ✕   ¿Me superas?`),cx,H-84);g.fillStyle=gold;g.font='40px VT323,monospace';g.fillText(ES?'unicornergame.lol/es/rosco':'unicornergame.lol/rosco',cx,H-36);
+ return new Promise(res=>c.toBlob(res,'image/png'))}
+$('shareimg').onclick=async()=>{const b=$('shareimg');b.disabled=true;track('rosco_share_image',{score:counts().ok});
+ try{const blob=await roscoImage(),f=new File([blob],`rosco-${DAY}.png`,{type:'image/png'});
+  if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],text:resultText()})}catch{}}
+  else{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=f.name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);b.textContent=L('Saved! Post it anywhere','¡Guardada! Publícala donde quieras');setTimeout(()=>b.textContent=L('Share image','Compartir imagen'),2200)}}catch{}
+ b.disabled=false};
 $('share').onclick=async()=>{track('rosco_share',{score:counts().ok});try{await navigator.share({text:resultText()})}catch{}};
 load();
 </script></body></html>
