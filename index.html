@@ -2144,9 +2144,9 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
    <div class="tk-stub" aria-hidden="true"><span>${tkDate[0]}</span><b>${tkDate[1]}</b><span>${tkDate[2]}</span></div>
    <div class="tk-body">
     <div class="tk-meta"><span>${played?L('Daily 5 · played ✓','Diario 5 · jugado ✓'):L('Daily 5','Diario 5')}</span>${played?'':`<button type="button" class="tk-howlink" id="how">${L('How to play','Cómo se juega')}</button>`}</div>
-    ${played?`<div class="tk-score"><b>${played.score}</b><span>/${MAX} · ${zl(zoneOf(played.score))}</span></div>
-    ${played.remote?`<p class="tk-live">${L('Played on another device ✓ · next game in','Jugado en otro dispositivo ✓ · próximo partido en')} <b class="flapclock" data-flap>${untilMidnight()}</b></p>`:`<button type="button" class="cta tk-play" id="go">${L("View today's result",'Resultados de hoy')}</button>
-    <p class="tk-live">${L('Next game in','Próximo partido en')} <b class="flapclock" data-flap>${untilMidnight()}</b></p>`}`
+    ${played?`<div class="tk-score lx-score"><span class="lx-digits">${String(played.score).split('').map(d=>`<i>${d}</i>`).join('')}</span><span class="rx-max">/${MAX}</span><b class="lx-zone">${zl(zoneOf(played.score))}</b></div>
+    ${Array.isArray(played.picks)&&played.picks.length?`<ol class="rx-shots lx-shots">${played.picks.filter(Array.isArray).map(x=>`<li style="--c:${x[2]?TCOL[x[2]]:'#5b5470'}"><i style="height:${x[2]?Math.max(18,x[2]):8}%"></i><b>${x[2]?'+'+x[2]:'–'}</b><span>${x[2]?tl(tierName(x[2])):L('Miss','Fallo')}</span></li>`).join('')}</ol>`:''}
+    ${played.remote?`<p class="tk-live">${L('Played on another device ✓ · next game in','Jugado en otro dispositivo ✓ · próximo partido en')} <b class="flapclock" data-flap>${untilMidnight()}</b></p>`:`<button type="button" class="cta tk-play" id="go">${L("View today's result",'Resultados de hoy')}</button>`}`
     :`<div class="tk-actions"><button type="button" class="cta tk-play" id="go">${L("Play today's game",'Jugar el partido de hoy')}</button></div>
     <p class="tk-live" id="tkLive"><i class="tk-dot"></i><span>${Q.length+L(' questions · 3 min',' preguntas · 3 min')}</span></p>`}
    </div>
@@ -4220,7 +4220,22 @@ html body .modes .m-duel .m-vs{position:absolute;left:50%;top:14%;translate:-50%
 @media (max-width:560px){.inf-uni{width:62px;height:52px}html body .mode.m-inf .m-sym{font-size:30px}html body .modes .m-duel .duel-spr{width:42px;height:36px}html body .modes .m-duel .m-vs{font-size:24px;top:10%}}
 </style>
 <style id="dist-v2">html body #screen .result-screen .dist{width:100%!important;max-width:none!important;box-sizing:border-box;border:3px solid #1d1a2b!important;box-shadow:0 4px 0 #1d1a2b!important;border-radius:0!important}</style>
-<style id="landing-v2">/* Landing, tidied: one border (3px ink), one straight-down shadow, one label font. Today (Daily 5 + Rosco) then Anytime (3 equal tiles). */
+<style id="landing-v2">
+.lx-score{display:flex!important;align-items:flex-end;gap:8px;flex-wrap:wrap}
+.lx-digits{display:flex;gap:5px}
+body.landing .tk .lx-digits i{font:400 32px/1 "Jersey 10",monospace;font-style:normal;color:#f2c230;background:#1d1a2b;border:2px solid #1d1a2b;padding:6px 8px 4px;min-width:38px;text-align:center}
+body.landing .tk .lx-score b.lx-zone{margin-left:auto;font:400 22px/1 "Jersey 10",monospace;color:#1d1a2b;padding-bottom:6px}
+body.landing .tk ol.lx-shots li{grid-template-rows:44px auto auto}
+.rx-max{font:400 26px/1 "Jersey 10",monospace;color:#5b5470;padding-bottom:6px}
+.rx-shots{list-style:none;margin:2px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.rx-shots li{display:grid;grid-template-rows:64px auto auto;gap:3px;text-align:center;min-width:0}
+.rx-shots i{align-self:end;display:block;background:var(--c);border:3px solid #1d1a2b;min-height:8px;transform-origin:bottom;animation:rxGrow .5s cubic-bezier(.23,1,.32,1) both}
+.rx-shots li:nth-child(2) i{animation-delay:.06s}.rx-shots li:nth-child(3) i{animation-delay:.12s}.rx-shots li:nth-child(4) i{animation-delay:.18s}.rx-shots li:nth-child(5) i{animation-delay:.24s}
+.rx-shots b{font:400 20px/1 "Jersey 10",monospace;color:#1d1a2b}
+.rx-shots span{font:400 14px/1 VT323,monospace;color:#5b5470;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@keyframes rxGrow{from{transform:scaleY(.2);opacity:.4}}
+@media (prefers-reduced-motion:reduce){.rx-shots i{animation:none}}
+/* Landing, tidied: one border (3px ink), one straight-down shadow, one label font. Today (Daily 5 + Rosco) then Anytime (3 equal tiles). */
 html[data-bgx=d] .bgx{background:#2a6b43 var(--w) center top/cover no-repeat;filter:none;image-rendering:pixelated;inset:0}
 @media (max-aspect-ratio:4/5){html[data-bgx=d] .bgx{background-image:var(--t)}}
 body.landing .wrap{max-width:1060px!important}
