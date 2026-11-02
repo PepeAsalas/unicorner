@@ -103,6 +103,7 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
  <div class="ring" id="ring2"><div class="mid"><div class="big" id="score"></div><div class="sc" id="left"></div></div></div>
  <div class="host"><div class="face" id="face2"><img alt="" width="64" height="64"></div><div class="say" id="say2" role="status"></div></div>
  <div class="grid" id="grid"></div>
+ <p class="note" id="rank2" style="margin:0;font-size:20px"></p>
  <div class="row"><button class="btn gold" id="shareimg" data-es="Compartir imagen">Share image</button><button class="btn paper" id="dlimg" data-es="Descargar imagen">⬇ Download image</button></div>
  <button class="btn paper" id="copy" style="width:100%" data-es="Copiar resultado">Copy result</button>
  <div class="row"><button class="btn paper" id="share" hidden data-es="Compartir">Share</button><button class="btn paper" id="show" data-es="Ver respuestas">See answers</button></div>
@@ -235,7 +236,11 @@ $('f').onsubmit=e=>{e.preventDefault();answer()};$('enter').onclick=answer;$('pa
 function finish(why){clearInterval(tick);if(S.done)return;S.done=true;S.left=left();S.why=why;R.letters.forEach(x=>{if(!S.res[x.letter])S.res[x.letter]='miss'});save();
  const c=counts();track('rosco_finish',{score:c.ok,wrong:c.no,total:R.letters.length,left:S.left,why});if(c.ok)SFX.end();end(true);ringSweep()}
 function ringSweep(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;setTimeout(()=>document.querySelectorAll('#ring2 .l.ok').forEach((e,i)=>e.animate([{transform:'scale(1)'},{transform:'scale(1.3)'},{transform:'scale(1)'}],{duration:300,delay:i*45,easing:'cubic-bezier(.23,1,.32,1)'})),60)}
-function end(fresh){show('s-end');feedback();const c=counts(),n=R.letters.length;setTimeout(()=>dayAvg(c.ok),fresh?1500:0);drawRing('ring2');$('score').innerHTML=`${c.ok}<span>/${n}</span>`;
+// your place on today's Rosco board (signed-in players only; supabase/rosco_board.sql)
+async function myRank(){const el=$('rank2');if(!el)return;try{const g=await rpc('rosco_board',{p_day:DAY});
+ if(g===undefined){el.innerHTML=`<a href="${ES?'/es/#signin':'/#signin'}">${L('Sign in to get on the Rosco board','Inicia sesión para entrar en el ranking del Rosco')}</a>`;return}
+ if(g&&g.me)el.innerHTML=L(`🏆 You're <b>#${g.me.rank}</b> of ${g.players} on today's Rosco board`,`🏆 Vas <b>${g.me.rank}º</b> de ${g.players} en el ranking del Rosco de hoy`)}catch{}}
+function end(fresh){show('s-end');feedback();const c=counts(),n=R.letters.length;setTimeout(()=>dayAvg(c.ok),fresh?1500:0);setTimeout(myRank,fresh?2200:300);drawRing('ring2');$('score').innerHTML=`${c.ok}<span>/${n}</span>`;
  $('left').textContent=S.why==='time'?L('TIME UP','¡TIEMPO!'):L(fmt(S.left||0)+' LEFT','SOBRAN '+fmt(S.left||0));
  const mood=c.ok>=19?'celebrate':c.ok>=15?'excited':c.ok>=11?'wink':c.ok>=7?'sad':'facepalm';host.end=host.end||Host($('face2'));
  say($('say2'),host.end,ES?(c.ok>=19?`¡${c.ok}! Menudo Rosco. Saluda al público.`:c.ok>=13?`${c.ok} aciertos. Eso es saber de fútbol.`:c.ok>=8?`${c.ok} hoy. El Rosco es duro, ¡vuelve mañana!`:`Solo ${c.ok}... todos tenemos un mal día. ¡Mañana, Rosco nuevo!`):(c.ok>=19?`${c.ok}! That's a huge Rosco. Take a bow.`:c.ok>=13?`${c.ok} correct. Solid ball knowledge, that.`:c.ok>=8?`${c.ok} today. The Rosco is a tough one, come back tomorrow!`:`Only ${c.ok}... we all have off days. New Rosco tomorrow!`),mood);

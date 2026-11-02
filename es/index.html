@@ -3301,17 +3301,18 @@ async function infMembers(rows){const want=[...new Set((rows||[]).map(r=>String(
 const infTag=r=>{const n=String(r.nickname||'').toLowerCase();return(r.me&&!r.ghost&&lsGet('uc-inf-sub')==='1')||(n&&INFM.has(n))?`<i class="inf-tag" title="${L('Infinity mode member','Miembro del Modo Infinito')}" aria-label="${L('Infinity mode member','Miembro del Modo Infinito')}">∞</i>`:''};
 const nmOf=r=>(r.ghost?esc(ghostName()):r.me?L('YOU','TÚ'):esc(r.nickname.toUpperCase()))+crewTag(r)+infTag(r)+trTag(r);
 function ucwPod(top){if(!top.length)return'';const ord=[1,0,2].filter(i=>top[i]);
- return`<div class="ucw-pod"><div class="ucw-trio">${ord.map(i=>{const r=top[i];return`<div class="p${i+1}${r.ghost?' ghost'+(draft.nick.trim()?' named':''):''}"${cardAttr(r)}>${uni(r)}<span class="ucw-pn">${nmOf(r)}</span><div class="ucw-blk"><b>${i+1}</b><span>${r.score??'—'} ${L('pts','pts')}</span></div></div>`}).join('')}</div></div>`}
+ return`<div class="ucw-pod"><div class="ucw-trio">${ord.map(i=>{const r=top[i];return`<div class="p${i+1}${r.ghost?' ghost'+(draft.nick.trim()?' named':''):''}"${cardAttr(r)}>${uni(r)}<span class="ucw-pn">${nmOf(r)}</span><div class="ucw-blk"><b>${i+1}</b><span>${r.score??'—'} ${UNIT||L('pts','pts')}</span></div></div>`}).join('')}</div></div>`}
+let UNIT=null; // the Rosco tab counts letters, not points
 const ucwRow=(r,extra='')=>`<div class="ucw-r${r.me?' me':''}${r.ghost?' ghost'+(draft.nick.trim()?' named':''):''}${extra}"${cardAttr(r)}><span>${r.rank||'–'}</span>${uni(r)}<span class="ucw-n">${nmOf(r)}</span><span class="ucw-s">${r.score??'—'}</span></div>`;
 function ucwList(list,mine){const top=list.filter(r=>r.rank&&r.rank<=3).slice(0,3),rest=list.filter(r=>!top.includes(r));
- return ucwPod(top)+`<div class="ucw-grid"><div class="ucw-r h"><span>${L('Pos','Pos')}</span><span></span><span>${L('Player','Jugador')}</span><span class="ucw-s">Pts</span></div>${rest.map(r=>ucwRow(r)).join('')}${mine||''}</div>`}
+ return ucwPod(top)+`<div class="ucw-grid"><div class="ucw-r h"><span>${L('Pos','Pos')}</span><span></span><span>${L('Player','Jugador')}</span><span class="ucw-s">${UNIT?'✓':'Pts'}</span></div>${rest.map(r=>ucwRow(r)).join('')}${mine||''}</div>`}
 function champStrip(y){if(!y?.nickname)return'';const beat=(+y.players||1)>1?+y.players:0,n=`<b>${esc(y.nickname)}</b>`;
  const line=beat?L(`${n} beat ${beat} player${beat===1?'':'s'} with ${y.score}`,`${n} ganó a ${beat} jugador${beat===1?'':'es'} con ${y.score}`):L(`${n} won with ${y.score}`,`${n} ganó con ${y.score}`);
  return`<div class="ucw-champ"${cardAttr({...y,rank:0})}>${uni(y)}<span><small>${L("Yesterday's WINNER",'El GANADOR de ayer')}</small>${line}</span><i class="ucw-star" aria-hidden="true">★</i></div>`}
-function competeShell(title,body,foot,status){const tab=gScope==='league'?'league':gTab==='week'?'week':'today';
+function competeShell(title,body,foot,status){const tab=gScope==='league'?'league':gTab==='week'?'week':gTab==='rosco'?'rosco':'today';
  const tb=(k,t)=>`<button type="button" role="tab" data-lg="wtab" data-t="${k}" aria-selected="${tab===k}" class="${tab===k?'on':''}">${t}</button>`;
  return `<div class="ucw-o"><div class="ucw"><div class="ucw-bar"><span>${title}</span><i aria-hidden="true">x</i></div>
-  <div class="ucw-tabs" role="tablist">${tb('today',L('Today','Hoy'))}${tb('week',L('Week','Semana'))}</div>
+  <div class="ucw-tabs" role="tablist">${tb('today',L('Today','Hoy'))}${tb('week',L('Week','Semana'))}${tb('rosco','Rosco')}</div>
   ${body}<div class="ucw-st">${foot}</div></div></div>
   ${status?`<div class="jb-status">${status}</div>`:''}`}
 const ucwEmpty=t=>`<div class="ucw-grid"><p class="ucw-empty">${t}</p></div>`;
@@ -3325,7 +3326,16 @@ function leagueBox(){cardRows=[];const create=`<div class="g-cta"><p class="g-yo
  const sw=`<button type="button" class="ucw-mini${gTab==='day'?' on':''}" data-lg="gtab" data-tab="day">${L('Today','Hoy')}</button><button type="button" class="ucw-mini${gTab==='week'?' on':''}" data-lg="gtab" data-tab="week">${L('Week','Semana')}</button>`;
  return competeShell(esc(board.name.toUpperCase()),ucwList(list),sw+' · '+L('Week resets Monday','La semana empieza el lunes'),
   `<div class="lg-row jb-actions"><button type="button" class="cta" data-lg="copy" data-code="${esc(board.code)}">🔗 Copy invite link</button><button type="button" class="ghost" data-lg="open" data-from="card">Open league</button></div>`)}
-async function globalBox(){cardRows=[];let g;try{g=await loadGlobal()}catch{return competeShell('UNICORNER LEAGUE',ucwEmpty(L('Ranking unavailable right now. Try again later.','Ranking no disponible ahora. Inténtalo más tarde.')),L('New game every day at midnight','Partido nuevo cada día a medianoche'),'')}
+// Rosco tab: today's Rosco ranking for signed-in players (supabase/rosco_board.sql)
+let rboard=null,rAt=0;
+async function roscoBox(){cardRows=[];let g;try{if(!rboard||Date.now()-rAt>60000){rboard=await pubRpc('rosco_board',{p_day:amsterdamDay()});rAt=Date.now()}g=rboard}catch{return competeShell('ROSCO LEAGUE',ucwEmpty(L('Ranking unavailable right now. Try again later.','Ranking no disponible ahora. Inténtalo más tarde.')),'','')}
+ const rows=(g.rows||[]).map(r=>({...r})),mine=g.me&&!rows.some(r=>r.me)?ucwRow({rank:g.me.rank,score:g.me.score,nickname:me?.profile?.nickname||'',me:true,kits:myLook()?.kits,streak:myLook()?.streak,games:myLook()?.games},' gap'):'';
+ infMembers(rows);UNIT=L('letters','letras');
+ const champ=champStrip(g.yesterday),body=rows.length?champ+ucwList(rows,mine):champ+ucwEmpty(L("No one on today's Rosco board yet. Be the first!",'Nadie en el ranking del Rosco hoy. ¡Sé el primero!'));UNIT=null;
+ const foot=`<span>${g.players?g.players+' '+L('players today','jugadores hoy')+' · ':''}<a href="${ES?'/es/rosco.html':'/rosco.html'}">${L('Play the Rosco','Jugar el Rosco')} ▸</a></span>`;
+ const status=g.me?'':`<p class="jb-empty" style="margin:0">${sess?L('Finish today\'s Rosco to get on the board.','Termina el Rosco de hoy para entrar en el ranking.'):L('Sign in and finish the Rosco to get on the board.','Inicia sesión y termina el Rosco para entrar en el ranking.')}</p>`;
+ return competeShell('ROSCO LEAGUE',body,foot,status)}
+async function globalBox(){if(gTab==='rosco')return roscoBox();cardRows=[];let g;try{g=await loadGlobal()}catch{return competeShell('UNICORNER LEAGUE',ucwEmpty(L('Ranking unavailable right now. Try again later.','Ranking no disponible ahora. Inténtalo más tarde.')),L('New game every day at midnight','Partido nuevo cada día a medianoche'),'')}
  cardRows=[];const wk=gTab==='week',part=wk?g.week:g.day,rows=(part.rows||[]).map(r=>({...r}));
  if(!part.me&&!rows.some(r=>r.me)){const n=knownNick();const r=n&&rows.find(x=>String(x.nickname||'').toLowerCase()===n);if(r){r.me=true;part._mine=r.nickname}}
  const mine=part.me&&!rows.some(r=>r.me)?ucwRow({rank:part.me.rank,score:part.me.score,nickname:me?.profile?.nickname||'',me:true,kits:myLook()?.kits,streak:myLook()?.streak,games:myLook()?.games},' gap'):'';
@@ -3490,7 +3500,7 @@ document.addEventListener('click',async e=>{const b=e.target.closest('[data-lg]'
  if(a==='global')return viewGlobal(true);
  if(a==='led'){const n=(ledIdx()+1)%LEDS.length;lsSet('uc-led',LEDS[n][0]);track('led_colour',{colour:LEDS[n][0]});return applyLed()}
  if(a==='gtab'){gTab=b.dataset.tab;return renderGlobal()}
- if(a==='wtab'){const t=b.dataset.t;if(t==='league'){gScope='league';track('compete_scope',{scope:'league'});if(sess&&me?.leagues?.length&&!board)loadBoard().then(renderGlobal).catch(()=>{})}else{gScope='global';gTab=t==='week'?'week':'day'}return renderGlobal()}
+ if(a==='wtab'){const t=b.dataset.t;if(t==='league'){gScope='league';track('compete_scope',{scope:'league'});if(sess&&me?.leagues?.length&&!board)loadBoard().then(renderGlobal).catch(()=>{})}else{gScope='global';gTab=t==='week'?'week':t==='rosco'?'rosco':'day';if(t==='rosco')track('compete_scope',{scope:'rosco'})}return renderGlobal()}
  if(a==='card'){const r=cardRows[+b.dataset.i];if(r)playerCard(r);return}
  if(a==='full')return openFull(b.dataset.scope);
  if(a==='gscope'){gScope=b.dataset.scope;track('compete_scope',{scope:gScope});if(gScope==='league'&&sess&&me?.leagues?.length&&!board)loadBoard().then(renderGlobal).catch(()=>{});return renderGlobal()}
@@ -3533,7 +3543,7 @@ document.addEventListener('submit',async e=>{const f=e.target;if(!f.id?.startsWi
 
 // Re-render the cards whenever the game swaps screens, and push today's score when it appears
 let t0;new MutationObserver(()=>{clearTimeout(t0);t0=setTimeout(()=>{renderSlots();syncScore()},120)}).observe($('screen'),{childList:true});
-setTimeout(async()=>{if(linkVerify)await linkVerify;renderSlots();syncScore();syncDays();if(fresh&&!lsGet(LG_PENDING)&&pendingNick())autoClaim();else if(fresh||lsGet(LG_PENDING)||oauthError)open(fresh?'login':'invite')},400);
+setTimeout(async()=>{if(linkVerify)await linkVerify;renderSlots();syncScore();syncDays();if(fresh&&!lsGet(LG_PENDING)&&pendingNick())autoClaim();else if(fresh||lsGet(LG_PENDING)||oauthError)open(fresh?'login':'invite');else if(location.hash==='#signin'&&!sess)open('login')},400);
 })();
 </script>
 <script>
