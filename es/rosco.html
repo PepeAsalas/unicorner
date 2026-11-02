@@ -86,7 +86,7 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
  <p class="note" id="sync0" hidden><a id="syncA" href="/" data-es="Inicia sesión (en la clasificación) para guardar tu Rosco en todos tus dispositivos.">Sign in (on the leaderboard) to keep your Rosco on all your devices.</a></p>
  <div class="card"><h1 data-es="Cómo se juega">How it works</h1><ul class="rules">
   <li><b class="gold">A</b><span data-es="Una pista por letra. El <strong>apellido</strong> de la respuesta empieza por esa letra (en clubes y selecciones, el nombre). Lionel Messi va en la M. Algunas letras dicen <strong>«contiene»</strong>: ahí vale cualquier respuesta que lleve esa letra.">One clue per letter. The answer's <strong>surname</strong> starts with that letter (for clubs and countries, the name). Lionel Messi goes under M. A few letters say <strong>"contains"</strong>: then any answer with that letter in it counts.</span></li>
-  <li><b class="paper">»</b><span data-es="<strong>Pasapalabra</strong> salta una letra. Vuelve en la siguiente vuelta."><strong>Pasapalabra</strong> skips a letter. It comes back on the next lap.</span></li>
+  <li><b class="paper">»</b><span data-es="<strong>Pasapalabra</strong> salta una letra. Vuelve en la siguiente vuelta."><strong>Pass</strong> skips a letter. It comes back on the next lap.</span></li>
   <li><b style="background:var(--clay);color:#fff">✕</b><span data-es="Una respuesta incorrecta bloquea esa letra. No hay segundas oportunidades.">A wrong answer locks that letter. No second tries.</span></li>
   <li><b class="grass" style="color:#fff">5</b><span data-es="Cinco minutos de reloj. El mismo Rosco para todos, nuevo cada día.">Five minutes on the clock. The same Rosco for everyone, new every day.</span></li></ul></div>
 </section>
@@ -96,7 +96,7 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
  <div class="host"><div class="face" id="face"><img alt="" width="64" height="64"></div><div class="clue" style="flex:1"><span class="chip" id="chip">Starts with A</span><p id="prompt"></p><small id="sub"></small></div></div>
  <form id="f" autocomplete="off"><input class="inp" id="in" placeholder="Type your answer" enterkeyhint="send" autocapitalize="words" spellcheck="false"></form>
  <p class="var" id="var" role="status"></p>
- <div class="row"><button class="btn gold" id="pass" type="button">Pasapalabra</button><button class="btn grass" id="enter" type="button" data-es="Enviar">Enter</button></div>
+ <div class="row"><button class="btn gold" id="pass" type="button" data-es="Pasapalabra">Pass</button><button class="btn grass" id="enter" type="button" data-es="Enviar">Enter</button></div>
 </section>
 
 <section id="s-end" hidden style="display:flex;flex-direction:column;gap:12px">
@@ -163,7 +163,7 @@ const LINES=ES?{ok:['¡Golazo!','¡Correcto!','¡A la escuadra!','¡Eso es saber
  no:w=>[`¡No! Era ${w}.`,`Uy, esa no. Era ${w}.`,`Fallo, era ${w}.`],pass:['¡Pasapalabra!','¡Siguiente letra!','Ya volveremos a ella.'],
  lap:['Segunda vuelta. Vuelven las que pasaste.','¡Otra vuelta!']}
  :{ok:['Golazo!','Correct!','Top bins.','Ball knowledge!','Lovely stuff.','That\'s the one.'],
- no:w=>[`No! It was ${w}.`,`Ooh, not that. It was ${w}.`,`Wrong one, it was ${w}.`],pass:['Pasapalabra!','Next letter!','We\'ll come back to it.'],
+ no:w=>[`No! It was ${w}.`,`Ooh, not that. It was ${w}.`,`Wrong one, it was ${w}.`],pass:['Pass!','Next letter!','We\'ll come back to it.'],
  lap:['Lap two. The ones you passed are back.','Round we go again!']};
 
 // ── answer checking: full name, any alias, or any surname; one typo allowed in longer names ──
