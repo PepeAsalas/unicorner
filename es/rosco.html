@@ -106,7 +106,7 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
  <p class="note" id="rank2" style="margin:0;font-size:20px"></p>
  <div class="row"><button class="btn gold" id="shareimg" data-es="Compartir imagen">Share image</button><button class="btn paper" id="dlimg" data-es="Descargar imagen">⬇ Download image</button></div>
  <button class="btn paper" id="copy" style="width:100%" data-es="Copiar resultado">Copy result</button>
- <div class="row"><button class="btn paper" id="share" hidden data-es="Compartir">Share</button><button class="btn paper" id="show" data-es="Ver respuestas">See answers</button></div>
+ <button class="btn paper" id="show" style="width:100%" data-es="Ver respuestas">See answers</button>
  <ul class="ans" id="ans" hidden></ul>
  <div class="card fb" id="fb" hidden><p class="fb-q" data-es="<b>¿Qué tal el Rosco de hoy?</b> Es nuevo, así que cuéntanos."><b>How was today's Rosco?</b> It's brand new, so tell us.</p>
   <div class="r10" id="r10"></div>
@@ -261,7 +261,6 @@ const resultText=()=>{const c=counts();return L('Unicorner Rosco','Rosco Unicorn
 $('copy').onclick=async()=>{const c=counts(),t=resultText();track('rosco_copy',{score:c.ok});
  try{await navigator.clipboard.writeText(t)}catch{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch{}a.remove()}
  $('copy').textContent=L('Copied! Paste it anywhere','¡Copiado! Pégalo donde quieras');setTimeout(()=>$('copy').textContent=L('Copy result','Copiar resultado'),1800)};
-if(navigator.share)$('share').hidden=false;
 // share image: the wheel in your colours, the score and Horacio, 1080x1350 (fits Instagram, WhatsApp, TikTok)
 async function roscoImage(){const W=1080,H=1350,c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d');g.imageSmoothingEnabled=false;
  try{await document.fonts.load('80px "Jersey 10"');await document.fonts.load('40px VT323')}catch{}
@@ -287,6 +286,6 @@ $('shareimg').onclick=async()=>{const b=$('shareimg');b.disabled=true;track('ros
   if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],text:resultText()})}catch{}}
   else{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=f.name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);b.textContent=L('Saved! Post it anywhere','¡Guardada! Publícala donde quieras');setTimeout(()=>b.textContent=L('Share image','Compartir imagen'),2200)}}catch{}
  b.disabled=false};
-$('share').onclick=async()=>{track('rosco_share',{score:counts().ok});try{await navigator.share({text:resultText()})}catch{}};
+
 load();
 </script></body></html>
