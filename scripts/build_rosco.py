@@ -21,6 +21,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ORDER = 'ABCDEFGHIJKLMNOPRSTUVWYZ'  # no Q or X: too few fair clues
 MAX_LETTERS = 25
 EASY = 9  # letters per Rosco with a better-known answer
+CONTAINS = 5  # letters per Rosco that ask 'contains the letter' instead of 'starts with' (easier: more answers fit)
 CLUB_PREFIX = re.compile(r'^(FC|AFC|SC|AC|AS|SS|CF|CD|UD|RC|SL|SV|VfB|VfL|1\. ?FC|Real|Club|Sporting|Atlético|Athletic|Deportivo)\s+', re.I)
 # open-ended prompts ("a Brazilian left-back") are risky: our lists can't be complete. A clue needs a clear limit.
 BOUNDED = re.compile(r'\d|squad|won|winning|captain|final|scorer|top three|ballon|golden|cup|champion|title', re.I)
@@ -83,9 +84,18 @@ def bank(today):
 
 
 def candidates(questions):
-    by_letter = {}
+    by_letter, contains = {}, {}
     for q in questions:
         kind = q.get('answer_type', 'player')
+        if kind == 'country' or not q.get('prompt_es') or (q.get('subtitle') and not q.get('subtitle_es')):
+            continue  # country names start with different letters in Spanish (USA / Estados Unidos); every clue needs its Spanish text
+        for letter in ORDER:
+            # 'contains': the letter is somewhere in the surname (club: main name) but it doesn't start with it
+            inside = [a for a in q['answers'] if obvious(a['name'], kind) and letter in norm(surnames(a['name'])[-1] if kind in ('player', 'manager') else CLUB_PREFIX.sub('', a['name']))[1:]]
+            if 1 <= len(inside) <= 3 and len(q['answers']) >= 8:
+                fame = sum((a.get('fame') or 3) for a in inside) / len(inside)
+                if 3.5 <= fame <= 5.5:
+                    contains.setdefault(letter, []).append((q, inside, fame))
         for letter in ORDER:
             # targets: answers known by that letter; anyone else with a surname on that letter also counts, so the cap includes them
             # (clean 'first name + surname' only, so the clue is always about the surname: no full legal names, no one-name players like Xavi)
@@ -98,23 +108,35 @@ def candidates(questions):
             if any((a.get('fame') or 3) >= 6 for a in answers) or fame > (5.5 if kind in ('player', 'manager') else 4):
                 continue
             by_letter.setdefault(letter, []).append((q, fair, fame))
-    return by_letter
+    return by_letter, contains
 
 
 def build(day, questions, recent):
     rng = random.Random('rosco-' + day)
-    by_letter = candidates(questions)
+    by_letter, contains = candidates(questions)
     used, items = set(), []
+    # a few letters ask 'contains' instead: prefer the letters with the fewest 'starts with' clues
+    cl = [l for l in ORDER if contains.get(l)]
+    cl.sort(key=lambda l: (len(by_letter.get(l, [])), rng.random()))
+    inside = set(rng.sample(cl[:10], min(CONTAINS, len(cl[:10]))))
     # most letters are hard; EASY of them get a better-known answer (a well-known player, not a superstar)
     easy = set(rng.sample([l for l in ORDER if by_letter.get(l)], EASY))
     for letter in ORDER:
+        if letter in inside:
+            pool = [c for c in contains[letter] if c[0]['prompt'] not in used and c[0]['prompt'] not in recent] or contains[letter]
+            q, answers, _ = rng.choice(pool)
+            used.add(q['prompt'])
+            items.append({'letter': letter, 'mode': 'contains', 'prompt': q['prompt'], 'subtitle': q.get('subtitle') or '',
+                          'prompt_es': q.get('prompt_es') or '', 'subtitle_es': q.get('subtitle_es') or '', 'answer_type': q.get('answer_type', 'player'),
+                          'answers': [{'name': a['name'], 'aliases': a.get('aliases') or []} for a in answers],
+                          'others': [a['name'] for a in q['answers'] if a not in answers][:400]})
+            continue
         pool = [c for c in by_letter.get(letter, []) if c[0]['prompt'] not in used and c[0]['prompt'] not in recent]
         def known(c):
             return c[0].get('answer_type', 'player') in ('player', 'manager') and 4.5 <= c[2] <= 5.5 or c[0].get('answer_type') in ('club', 'country') and 3 <= c[2] <= 4
         def hard(c):
             return c[0].get('answer_type', 'player') in ('player', 'manager') and 2 <= c[2] <= 4 or c[0].get('answer_type') in ('club', 'country') and c[2] <= 2
         pool = [c for c in pool if (known if letter in easy else hard)(c)] or [c for c in pool if hard(c)] or pool
-        pool = [c for c in pool if c[0].get('prompt_es')] or pool  # Spanish players get the clue in Spanish
         if not pool:
             continue
         q, answers, _ = rng.choice(pool)
