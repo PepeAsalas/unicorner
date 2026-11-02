@@ -134,7 +134,9 @@ function whoosh(){if(!sndOn())return;try{actx=actx||new(window.AudioContext||win
 const SFX={ok:()=>{tone(988,.08);tone(1319,.16,{at:.07})},streak:()=>{SFX.ok();[1047,1319,1568,2093].forEach((f,i)=>tone(f,.07,{at:.2+i*.05,vol:.07}))},
  no:()=>{tone(150,.28,{type:'sawtooth',vol:.08,slide:90});tone(110,.28,{vol:.04})},pass:whoosh,var:()=>{tone(660,.06,{type:'triangle',vol:.13});tone(660,.06,{type:'triangle',vol:.13,at:.12})},
  tick:()=>tone(1800,.03,{vol:.045}),end:()=>{[523,659,784,1047].forEach((f,i)=>tone(f,.12,{at:i*.1}));tone(1319,.38,{at:.42,vol:.09});tone(659,.38,{at:.42,type:'triangle',vol:.09})}};
-function track(name,data){try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,session:SID,visitor:VISITOR,seconds:0,game_day:DAY,event_version:2,data:{language:ES?'es':'en',page:'rosco',rosco:NO,...(data||{})}})}).catch(()=>{})}catch{}}
+// noisy events we never look at: not logged, to save database Disk IO (game_finish, question_result, rejected etc. still are)
+const NO_LOG=new Set(['answer_attempt','question_view','leave','banner_view','awards_view','crowd_share_shown','howto_step','rosco_answer','rosco_pass']);
+function track(name,data){if(NO_LOG.has(name))return;try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,session:SID,visitor:VISITOR,seconds:0,game_day:DAY,event_version:2,data:{language:ES?'es':'en',page:'rosco',rosco:NO,...(data||{})}})}).catch(()=>{})}catch{}}
 
 // ── the presenter: 20 hand-picked 64x64 frames in rosco/host. He blinks when idle and moves his mouth while his text types out ──
 const POSES=['idle-1','idle-2','talk-1','talk-2','talk-3','happy-1','happy-talk','laugh','excited','wink','point','think','surprised','nervous','sad','sad-talk','annoyed','facepalm','pasapalabra','celebrate'];
