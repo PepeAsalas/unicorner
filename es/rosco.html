@@ -103,7 +103,7 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
  <div class="ring" id="ring2"><div class="mid"><div class="big" id="score"></div><div class="sc" id="left"></div></div></div>
  <div class="host"><div class="face" id="face2"><img alt="" width="64" height="64"></div><div class="say" id="say2" role="status"></div></div>
  <div class="grid" id="grid"></div>
- <button class="btn gold" id="shareimg" style="width:100%" data-es="Compartir imagen">Share image</button>
+ <div class="row"><button class="btn gold" id="shareimg" data-es="Compartir imagen">Share image</button><button class="btn paper" id="dlimg" data-es="Descargar imagen">⬇ Download image</button></div>
  <button class="btn paper" id="copy" style="width:100%" data-es="Copiar resultado">Copy result</button>
  <div class="row"><button class="btn paper" id="share" hidden data-es="Compartir">Share</button><button class="btn paper" id="show" data-es="Ver respuestas">See answers</button></div>
  <ul class="ans" id="ans" hidden></ul>
@@ -275,6 +275,8 @@ async function roscoImage(){const W=1080,H=1350,c=document.createElement('canvas
  g.font='46px VT323,monospace';const bw=g.measureText('"'+line+'" — Horacio Herradura').width+60;g.fillStyle=ink;g.fillRect(cx-bw/2-6,1060-6,bw+12,96);g.fillStyle=cr;g.fillRect(cx-bw/2,1060,bw,84);g.fillStyle=ink;g.fillText('"'+line+'" — Horacio Herradura',cx,1104);
  g.fillStyle=ink;g.fillRect(0,H-130,W,130);g.fillStyle=cr;g.font='52px "Jersey 10",monospace';g.fillText(L(`${c0.ok} ✓  ${c0.no} ✕   Can you beat me?`,`${c0.ok} ✓  ${c0.no} ✕   ¿Me superas?`),cx,H-84);g.fillStyle=gold;g.font='40px VT323,monospace';g.fillText(ES?'unicornergame.lol/es/rosco':'unicornergame.lol/rosco',cx,H-36);
  return new Promise(res=>c.toBlob(res,'image/png'))}
+const dlImg=blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`rosco-${DAY}.png`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)};
+$('dlimg').onclick=async()=>{const b=$('dlimg');b.disabled=true;track('rosco_download_image',{score:counts().ok});try{dlImg(await roscoImage());b.textContent=L('Saved ✓','Guardada ✓');setTimeout(()=>b.textContent=L('⬇ Download image','⬇ Descargar imagen'),2000)}catch{}b.disabled=false};
 $('shareimg').onclick=async()=>{const b=$('shareimg');b.disabled=true;track('rosco_share_image',{score:counts().ok});
  try{const blob=await roscoImage(),f=new File([blob],`rosco-${DAY}.png`,{type:'image/png'});
   if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],text:resultText()})}catch{}}
