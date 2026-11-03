@@ -1,10 +1,116 @@
-{"day":"2026-11-04","questions":[
-{"q":"Who won the 2010 World Cup?","q_es":"¿Quién ganó el Mundial de 2010?","o":["Netherlands","Spain","Germany","Uruguay"],"o_es":["Países Bajos","España","Alemania","Uruguay"],"a":1},
-{"q":"Which club has won the most European Cups / Champions Leagues?","q_es":"¿Qué club tiene más Copas de Europa / Champions?","o":["AC Milan","Bayern Munich","Real Madrid","Liverpool"],"a":2},
-{"q":"Who scored the 'Hand of God' goal?","q_es":"¿Quién marcó el gol de la 'Mano de Dios'?","o":["Pelé","Diego Maradona","Zico","Mario Kempes"],"a":1},
-{"q":"Which country hosted the 1998 World Cup?","q_es":"¿Qué país organizó el Mundial de 1998?","o":["Italy","USA","France"],"o_es":["Italia","EE. UU.","Francia"],"a":2},
-{"q":"Who has won the most Ballon d'Or awards?","q_es":"¿Quién ha ganado más Balones de Oro?","o":["Lionel Messi","Cristiano Ronaldo","Michel Platini"],"a":0},
-{"q":"At which club did Zinedine Zidane end his playing career?","q_es":"¿En qué club se retiró Zinedine Zidane como jugador?","o":["Juventus","Bordeaux","Real Madrid"],"o_es":["Juventus","Burdeos","Real Madrid"],"a":2},
-{"q":"Who won Euro 2004?","q_es":"¿Quién ganó la Euro 2004?","o":["Portugal","Greece","Czech Republic"],"o_es":["Portugal","Grecia","Chequia"],"a":1},
-{"q":"Which Japanese club did Andrés Iniesta join in 2018?","q_es":"¿En qué club japonés fichó Andrés Iniesta en 2018?","o":["Vissel Kobe","Urawa Red Diamonds"],"a":0}
-]}
+{
+ "day": "2026-11-04",
+ "questions": [
+  {
+   "q": "Which of these goalkeepers NEVER won the Champions League?",
+   "q_es": "¿Cuál de estos porteros NUNCA ganó la Champions?",
+   "o": [
+    "Gianluigi Buffon",
+    "Iker Casillas",
+    "Edwin van der Sar",
+    "Oliver Kahn"
+   ],
+   "a": 0,
+   "why": "Buffon lost three finals with Juventus and never won it.",
+   "why_es": "Buffon perdió tres finales con la Juventus y nunca la ganó.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who was top scorer at Euro 2004?",
+   "q_es": "¿Quién fue el máximo goleador de la Euro 2004?",
+   "o": [
+    "Wayne Rooney",
+    "Ruud van Nistelrooy",
+    "Henrik Larsson",
+    "Milan Baroš"
+   ],
+   "a": 3,
+   "why": "Baroš scored 5; Rooney and Van Nistelrooy scored 4.",
+   "why_es": "Baroš marcó 5; Rooney y Van Nistelrooy marcaron 4.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which club did Luís Figo NEVER play for?",
+   "q_es": "¿En qué club NUNCA jugó Luís Figo?",
+   "o": [
+    "Sporting CP",
+    "Inter",
+    "Benfica",
+    "Barcelona"
+   ],
+   "a": 2,
+   "why": "Figo came through at Sporting, Benfica's rivals.",
+   "why_es": "Figo se formó en el Sporting, el rival del Benfica.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "In which season did Leicester City win the Premier League?",
+   "q_es": "¿En qué temporada ganó el Leicester City la Premier League?",
+   "o": [
+    "2014-15",
+    "2015-16",
+    "2016-17"
+   ],
+   "a": 1,
+   "why": "Ranieri's Leicester won it in 2015-16 at 5000-1.",
+   "why_es": "El Leicester de Ranieri la ganó en 2015-16, pagándose 5000 a 1.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who did Manchester United beat in the 1999 Champions League final?",
+   "q_es": "¿A quién ganó el Manchester United en la final de la Champions de 1999?",
+   "o": [
+    "Juventus",
+    "Bayern Munich",
+    "Valencia"
+   ],
+   "a": 1,
+   "why": "2-1 against Bayern in Barcelona, both goals in stoppage time.",
+   "why_es": "2-1 al Bayern en Barcelona, con los dos goles en el descuento.",
+   "src": "own knowledge",
+   "o_es": [
+    "Juventus",
+    "Bayern de Múnich",
+    "Valencia"
+   ]
+  },
+  {
+   "q": "Which goalkeeper scored the most career goals?",
+   "q_es": "¿Qué portero marcó más goles en su carrera?",
+   "o": [
+    "Rogério Ceni",
+    "José Luis Chilavert",
+    "Jorge Campos"
+   ],
+   "a": 0,
+   "why": "Ceni scored over 130 for São Paulo, about double Chilavert.",
+   "why_es": "Ceni marcó más de 130 con el São Paulo, el doble que Chilavert.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "At which club did Gabriel Batistuta end his career?",
+   "q_es": "¿En qué club terminó su carrera Gabriel Batistuta?",
+   "o": [
+    "Roma",
+    "Inter",
+    "Al-Arabi"
+   ],
+   "a": 2,
+   "why": "After Inter in 2003 he finished at Al-Arabi in Qatar.",
+   "why_es": "Tras el Inter en 2003, se retiró en el Al-Arabi de Catar.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who scored more World Cup goals: Miroslav Klose or Ronaldo Nazário?",
+   "q_es": "¿Quién marcó más goles en Mundiales: Miroslav Klose o Ronaldo Nazário?",
+   "o": [
+    "Miroslav Klose",
+    "Ronaldo Nazário"
+   ],
+   "a": 0,
+   "why": "Klose 16, Ronaldo 15.",
+   "why_es": "Klose 16, Ronaldo 15.",
+   "src": "own knowledge"
+  }
+ ]
+}
