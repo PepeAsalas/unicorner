@@ -76,7 +76,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .big{font:400 84px/1 var(--disp);text-shadow:4px 4px 0 var(--ink)}.big span{font-size:40px;color:var(--sand)}
 /* the clue */
 .clue{background:var(--paper);color:var(--ink);border:3px solid var(--ink);box-shadow:4px 4px 0 rgba(0,0,0,.35);padding:12px 14px}
-.chip{display:inline-block;font:400 22px/1 var(--disp);background:var(--gold);border:2px solid var(--ink);padding:3px 8px;margin-bottom:6px}
+.chip{display:inline-block;font:400 22px/1 var(--disp);background:var(--gold);border:2px solid var(--ink);padding:3px 8px;margin-bottom:6px}.chip.has{background:#b48cff}.hasn{font-style:normal;font-size:12px;background:#b48cff;color:var(--ink);border:1px solid var(--ink);padding:0 4px;margin-right:4px;vertical-align:1px}
 .clue p{margin:0;font:700 19px/1.25 Barlow}.clue small{display:block;margin-top:4px;color:#5d566b;font-size:13px}
 .inp{width:100%;height:52px;border:3px solid var(--ink);background:#fff;color:var(--ink);font:400 24px var(--disp);padding:8px 12px;outline:none;border-radius:0}
 .inp:focus{box-shadow:0 0 0 3px var(--gold)}
@@ -100,6 +100,8 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
 }
 /* the sign-in hint under Start: readable on the dark studio (links were default blue) */
 .note a{color:var(--gold);text-decoration:underline;text-underline-offset:3px}
+/* "contains" letters: a purple corner on the ring */
+.ring .l.has::after{content:"";position:absolute;right:-3px;top:-3px;width:9px;height:9px;background:#b48cff;border:2px solid var(--ink)}
 /* letters you can still play are buttons: tap one to jump to it */
 .ring .l.jump{cursor:pointer;transition:transform 140ms cubic-bezier(.23,1,.32,1),filter 140ms ease}
 @media (hover:hover) and (pointer:fine){.ring .l.jump:hover{transform:scale(1.12);filter:brightness(1.2)}}
@@ -119,7 +121,7 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
  <p class="note" id="avg0"></p>
  <p class="note" id="sync0" hidden><a id="syncA" href="/" data-es="Inicia sesión (en la clasificación) para guardar tu Rosco en todos tus dispositivos.">Sign in (on the leaderboard) to keep your Rosco on all your devices.</a></p>
  <div class="card"><h1 data-es="Cómo se juega">How it works</h1><ul class="rules">
-  <li><b class="gold">A</b><span data-es="Una pista por letra. El <strong>apellido</strong> de la respuesta empieza por esa letra (en clubes y selecciones, el nombre). Lionel Messi va en la M. Algunas letras dicen <strong>«contiene»</strong>: ahí vale cualquier respuesta que lleve esa letra.">One clue per letter. The answer's <strong>surname</strong> starts with that letter (for clubs and countries, the name). Lionel Messi goes under M. A few letters say <strong>"contains"</strong>: then any answer with that letter in it counts.</span></li>
+  <li><b class="gold">A</b><span data-es="Una pista por letra. El <strong>apellido</strong> de la respuesta empieza por esa letra (en clubes y selecciones, el nombre). Lionel Messi va en la M. Algunas letras, marcadas en <strong style=&quot;color:#b48cff&quot;>morado</strong>, dicen <strong>«contiene»</strong>: ahí vale cualquier respuesta que lleve esa letra en lo que escribes.">One clue per letter. The answer's <strong>surname</strong> starts with that letter (for clubs and countries, the name). Lionel Messi goes under M. A few letters, marked <strong style="color:#b48cff">purple</strong>, say <strong>"contains"</strong>: then any answer counts as long as what you type has that letter in it.</span></li>
   <li><b class="paper">»</b><span data-es="<strong>Pasapalabra</strong> salta una letra. Vuelve en la siguiente vuelta."><strong>Pass</strong> skips a letter. It comes back on the next lap.</span></li>
   <li><b style="background:var(--clay);color:#fff">✕</b><span data-es="Una respuesta incorrecta bloquea esa letra. No hay segundas oportunidades.">A wrong answer locks that letter. No second tries.</span></li>
   <li><b class="grass" style="color:#fff">5</b><span data-es="Cinco minutos de reloj. El mismo Rosco para todos, nuevo cada día.">Five minutes on the clock. The same Rosco for everyone, new every day.</span></li></ul></div>
@@ -230,6 +232,7 @@ const fmt=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
 function drawRing(id,cur){const r=$(id);r.querySelectorAll('.l').forEach(e=>e.remove());const on=new Set(R.letters.map(x=>x.letter));
  ABC.forEach((ch,i)=>{const a=-Math.PI/2+i*2*Math.PI/ABC.length,e=document.createElement('div'),st=S&&S.res[ch];
   e.className='l'+(!on.has(ch)?' off':st==='ok'?' ok':st==='no'?' no':(S&&S.passed.includes(ch)?' pass':''))+(ch===cur?' now':'');e.textContent=on.has(ch)?ch:'–';
+  if(R.letters.some(x=>x.letter===ch&&x.mode==='contains'))e.classList.add('has');
   if(id==='ring'&&S&&!S.done&&S.queue.includes(ch)&&ch!==cur){e.classList.add('jump');e.dataset.l=ch;e.setAttribute('role','button');e.tabIndex=0;e.setAttribute('aria-label',L(`Go to ${ch}`,`Ir a la ${ch}`))}
   e.style.left=50+43.5*Math.cos(a)+'%';e.style.top=50+43.5*Math.sin(a)+'%';r.appendChild(e)})}
 const counts=()=>{const v=Object.values(S.res);return{ok:v.filter(x=>x==='ok').length,no:v.filter(x=>x==='no').length}};
@@ -259,7 +262,7 @@ function play(){show('s-play');render(true);clearInterval(tick);tick=setInterval
 function render(first){const q=cur();if(!q)return finish('all');S.seen=S.seen||[];
  if(S.seen.includes(q.letter)){S.lap++;S.seen=[];if(!first)setTimeout(()=>react('wink',pick(LINES.lap)),0)}S.seen.push(q.letter);save();drawRing('ring',q.letter);const c=counts();
  $('count').innerHTML=`<b>${c.ok} ✓</b> · <i>${c.no} ✕</i> · `+L(`${S.queue.length} left`,`quedan ${S.queue.length}`);$('clock').textContent=fmt(left());
- const has=q.mode==='contains',ty=q.answer_type==='club'?L('Club','Club'):q.answer_type==='country'?L('Country','Selección'):L('Surname','Apellido');$('chip').textContent=has?L(`${ty} contains ${q.letter}`,`Contiene la ${q.letter}`):ES?`${ty} por la ${q.letter}`:`${ty} starts with ${q.letter}`;$('chip').classList.toggle('has',has);$('prompt').textContent=clue(q);$('sub').textContent=(ES&&q.prompt_es?q.subtitle_es:q.subtitle)||'';
+ const has=q.mode==='contains',ty=q.answer_type==='club'?L('Club','Club'):q.answer_type==='country'?L('Country','Selección'):L('Surname','Apellido');$('chip').classList.toggle('has',has);$('chip').textContent=has?L(`Contains ${q.letter} · anywhere in the name`,`Contiene la ${q.letter} · en cualquier parte`):ES?`${ty} por la ${q.letter}`:`${ty} starts with ${q.letter}`;$('chip').classList.toggle('has',has);$('prompt').textContent=clue(q);$('sub').textContent=(ES&&q.prompt_es?q.subtitle_es:q.subtitle)||'';
  $('in').placeholder=ES?(q.answer_type==='club'?'Escribe un club':q.answer_type==='country'?'Escribe una selección':q.answer_type==='manager'?'Escribe un entrenador':'Escribe un jugador'):(q.answer_type==='club'?'Type a club':q.answer_type==='country'?'Type a country':q.answer_type==='manager'?'Type a manager':'Type a player');
  if(first){host.play=host.play||Host($('face'));host.play.set('point')}}
 function react(pose,text){host.play.set(pose);$('var').textContent=text;host.play.talk(650)}
@@ -268,9 +271,11 @@ function shake(){const i=$('in');i.classList.remove('shake');void i.offsetWidth;
 function next(){S.queue.shift();if(!S.queue.length)return finish('all');save();render()}
 
 function answer(){const q=cur(),raw=$('in').value.trim();if(!q)return;if(!raw)return pass();
- const t=norm(raw),good=q.answers.find(a=>hit(t,forms(a.name,a.aliases)));
+ const t=norm(raw),L0=q.letter.toLowerCase(),con=q.mode==='contains',okf=a=>forms(a.name,a.aliases).filter(f=>!con||f.includes(L0));
+ // contains letters: what you type has to have the letter in it (Ronaldo Nazário counts for I, plain Ronaldo doesn't)
+ const good=(!con||t.includes(L0))?q.answers.find(a=>hit(t,okf(a))):null;
  if(good){S.res[q.letter]='ok';S.typed[q.letter]=good.name;S.run=(S.run||0)+1;S.miss=0;react(S.run>=5&&S.run%5===0?'excited':S.run>=3?'laugh':'happy-1',(S.run>=3?L(S.run+' in a row! ','¡'+S.run+' seguidas! '):'')+pick(LINES.ok)+' '+good.name);popLetter(q.letter);(S.run>=3&&S.run%3===0?SFX.streak:SFX.ok)();track('rosco_answer',{letter:q.letter,ok:true})}
- else if((q.others||[]).some(n=>hit(t,forms(n)))){$('var').textContent=q.mode==='contains'?L(`VAR: right answer, but it doesn't have a ${q.letter}. Try another!`,`VAR: respuesta válida, pero no lleva la ${q.letter}. ¡Prueba otra!`):L(`VAR: right answer, but it doesn't start with ${q.letter}. Try another!`,`VAR: respuesta válida, pero no empieza por la ${q.letter}. ¡Prueba otra!`);host.play.set('think');SFX.var();shake();$('in').select();return}
+ else if((q.others||[]).some(n=>hit(t,forms(n)))||(con&&q.answers.some(a=>hit(t,forms(a.name,a.aliases))))){$('var').textContent=q.mode==='contains'?L(`VAR: right answer, but there's no ${q.letter} in it. Try the full name or another one!`,`VAR: respuesta válida, pero no lleva la ${q.letter}. ¡Prueba el nombre completo u otra!`):L(`VAR: right answer, but it doesn't start with ${q.letter}. Try another!`,`VAR: respuesta válida, pero no empieza por la ${q.letter}. ¡Prueba otra!`);host.play.set('think');SFX.var();shake();$('in').select();return}
  else{S.res[q.letter]='no';S.typed[q.letter]=raw;S.run=0;S.miss=(S.miss||0)+1;react(S.miss>=3?'facepalm':S.miss===2?'annoyed':'sad',pick(LINES.no(q.answers[0].name)));shake();SFX.no();track('rosco_answer',{letter:q.letter,ok:false})}
  S.passed=S.passed.filter(x=>x!==q.letter);$('in').value='';next();$('in').focus()}
 function pass(){const q=cur();if(!q)return;if(!S.passed.includes(q.letter))S.passed.push(q.letter);
@@ -295,7 +300,7 @@ function end(fresh){show('s-end');CH&&CH.end($('chal2'),counts().ok,fresh);feedb
  say($('say2'),host.end,ES?(c.ok>=19?`¡${c.ok}! Menudo Rosco. Saluda al público.`:c.ok>=13?`${c.ok} aciertos. Eso es saber de fútbol.`:c.ok>=8?`${c.ok} hoy. El Rosco es duro, ¡vuelve mañana!`:`Solo ${c.ok}... todos tenemos un mal día. ¡Mañana, Rosco nuevo!`):(c.ok>=19?`${c.ok}! That's a huge Rosco. Take a bow.`:c.ok>=13?`${c.ok} correct. Solid ball knowledge, that.`:c.ok>=8?`${c.ok} today. The Rosco is a tough one, come back tomorrow!`:`Only ${c.ok}... we all have off days. New Rosco tomorrow!`),mood);
  $('grid').textContent=gridText();
  $('ans').innerHTML=R.letters.map(x=>{const st=S.res[x.letter],col=st==='ok'?'var(--grass)':st==='no'?'var(--clay)':'#6b6878';
-  return`<li><b style="background:${col}">${x.letter}</b><div><strong>${esc(clue(x))}</strong><small>${st==='ok'?'✓ '+esc(S.typed[x.letter]):st==='no'?L('✕ You said ','✕ Dijiste ')+esc(S.typed[x.letter]):L('Not answered','Sin responder')} · ${x.answers.length>1?L('Answers','Respuestas'):L('Answer','Respuesta')}: ${x.answers.map(a=>esc(a.name)).join(', ')}</small></div></li>`}).join('');
+  return`<li><b style="background:${col}">${x.letter}</b><div><strong>${x.mode==='contains'?`<em class="hasn">${L('contains','contiene')} ${x.letter}</em> `:''}${esc(clue(x))}</strong><small>${st==='ok'?'✓ '+esc(S.typed[x.letter]):st==='no'?L('✕ You said ','✕ Dijiste ')+esc(S.typed[x.letter]):L('Not answered','Sin responder')} · ${x.answers.length>1?L('Answers','Respuestas'):L('Answer','Respuesta')}: ${x.answers.map(a=>esc(a.name)).join(', ')}</small></div></li>`}).join('');
  const nx=()=>{const now=new Date(),am=new Date(now.toLocaleString('en-US',{timeZone:'Europe/Amsterdam'})),ms=(24*3600-am.getHours()*3600-am.getMinutes()*60-am.getSeconds())*1000;$('next').textContent=L('New Rosco in ','Nuevo Rosco en ')+`${Math.floor(ms/36e5)}h ${Math.floor(ms%36e5/6e4)}m`};nx();setInterval(nx,30000)}
 // feedback after a round: 1-10 and an optional note, once per day (sent as an event)
 function feedback(){const k='uc-rosco-fb-'+DAY;if(ls(k))return;let rating=0;$('fb').hidden=false;

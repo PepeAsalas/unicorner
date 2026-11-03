@@ -511,9 +511,9 @@
      ]
     },
     {
-     "name": "Ronaldo",
+     "name": "Ronaldo Nazário",
      "aliases": [
-      "Ronaldo Nazário",
+      "Ronaldo",
       "Ronaldo Nazario",
       "R9"
      ]
@@ -539,10 +539,10 @@
      ]
     },
     {
-     "name": "Neymar",
+     "name": "Neymar Junior",
      "aliases": [
-      "Neymar Jr",
-      "Neymar Junior"
+      "Neymar",
+      "Neymar Jr"
      ]
     },
     {
@@ -587,9 +587,9 @@
      ]
     },
     {
-     "name": "Malcom",
+     "name": "Malcom Oliveira",
      "aliases": [
-      "Malcom Oliveira"
+      "Malcom"
      ]
     },
     {
@@ -606,9 +606,9 @@
      ]
     },
     {
-     "name": "Sonny Anderson",
+     "name": "Anderson da Silva",
      "aliases": [
-      "Anderson da Silva",
+      "Sonny Anderson",
       "Sonny"
      ]
     },
@@ -619,10 +619,10 @@
      ]
     },
     {
-     "name": "Emerson Royal",
+     "name": "Emerson Aparecido",
      "aliases": [
-      "Emerson",
-      "Emerson Aparecido"
+      "Emerson Royal",
+      "Emerson"
      ]
     },
     {
@@ -647,9 +647,9 @@
      ]
     },
     {
-     "name": "Douglas",
+     "name": "Douglas Pereira",
      "aliases": [
-      "Douglas Pereira"
+      "Douglas"
      ]
     }
    ],
@@ -971,11 +971,11 @@
      "aliases": []
     },
     {
-     "name": "Vitinha",
+     "name": "Vítor Manuel Carvalho Oliveira",
      "aliases": [
+      "Vitinha",
       "Vítor Oliveira",
       "Vitor Oliveira",
-      "Vítor Manuel Carvalho Oliveira",
       "Vitor Manuel Carvalho Oliveira"
      ]
     },
@@ -1461,95 +1461,39 @@
   {
    "letter": "U",
    "mode": "starts",
-   "prompt": "Name a player who played for Germany at a World Cup from 2006 to 2022",
-   "subtitle": "",
-   "prompt_es": "Nombra un jugador que haya jugado con Alemania en un Mundial entre 2006 y 2022",
-   "subtitle_es": "",
-   "answer_type": "player",
+   "prompt": "Name a club that played in Serie A in 2024-25",
+   "subtitle": "The 20 clubs of that season",
+   "prompt_es": "Nombra un club que jugó en la Serie A 2024-25",
+   "subtitle_es": "Los 20 clubes de esa temporada",
+   "answer_type": "club",
    "answers": [
     {
-     "name": "Deniz Undav",
-     "aliases": []
+     "name": "Udinese",
+     "aliases": [
+      "Udinese Calcio"
+     ]
     }
    ],
    "others": [
-    "Miroslav Klose",
-    "Manuel Neuer",
-    "Thomas Müller",
-    "Mesut Özil",
-    "Bastian Schweinsteiger",
-    "Philipp Lahm",
-    "Toni Kroos",
-    "Michael Ballack",
-    "Lukas Podolski",
-    "Ilkay Gündogan",
-    "Mario Götze",
-    "Kai Havertz",
-    "Jamal Musiala",
-    "Joshua Kimmich",
-    "Per Mertesacker",
-    "Jérôme Boateng",
-    "Mats Hummels",
-    "Christoph Metzelder",
-    "Jens Lehmann",
-    "Arne Friedrich",
-    "Torsten Frings",
-    "Bernd Schneider",
-    "David Odonkor",
-    "Tim Borowski",
-    "Oliver Neuville",
-    "Sebastian Kehl",
-    "Robert Huth",
-    "Marcell Jansen",
-    "Gerald Asamoah",
-    "Mike Hanke",
-    "Oliver Kahn",
-    "Sami Khedira",
-    "Holger Badstuber",
-    "Piotr Trochowski",
-    "Marko Marin",
-    "Serdar Tasci",
-    "Dennis Aogo",
-    "Stefan Kießling",
-    "Hans-Jörg Butt",
-    "André Schürrle",
-    "Julian Draxler",
-    "Benedikt Höwedes",
-    "Shkodran Mustafi",
-    "Christoph Kramer",
-    "Marco Reus",
-    "Julian Brandt",
-    "Leon Goretzka",
-    "Niklas Süle",
-    "Antonio Rüdiger",
-    "Jonas Hector",
-    "Marvin Plattenhardt",
-    "Sebastian Rudy",
-    "Timo Werner",
-    "Mario Gómez",
-    "David Raum",
-    "Nico Schlotterbeck",
-    "Thilo Kehrer",
-    "Serge Gnabry",
-    "Niclas Füllkrug",
-    "Youssoufa Moukoko",
-    "Karim Adeyemi",
-    "Jonas Hofmann",
-    "Leroy Sané",
-    "Jonathan Tah",
-    "Florian Wirtz",
-    "Nathaniel Brown",
-    "Aleksandar Pavlović",
-    "Felix Nmecha",
-    "Waldemar Anton",
-    "Angelo Stiller",
-    "Malick Thiaw",
-    "Nadiem Amiri",
-    "Nick Woltemade",
-    "Jamie Leweling",
-    "Maximilian Beier",
-    "Pascal Groß",
-    "Matthias Ginter"
+    "Juventus",
+    "Inter Milan",
+    "AC Milan",
+    "Napoli",
+    "Roma",
+    "Atalanta",
+    "Lazio",
+    "Fiorentina",
+    "Bologna",
+    "Torino",
+    "Genoa",
+    "Hellas Verona",
+    "Parma",
+    "Cagliari",
+    "Lecce",
+    "Como",
+    "Empoli",
+    "Monza",
+    "Venezia"
    ]
   },
   {

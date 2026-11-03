@@ -127,11 +127,19 @@ def build(day, questions, recent):
             q, _, _ = rng.choice(pool)
             used.add(q['prompt'])
             # every valid answer with the letter anywhere in its name counts (Rivaldo for I, Zlatan for Z), not just the picked targets
-            answers = [a for a in q['answers'] if any(letter in norm(n) for n in [a['name']] + (a.get('aliases') or []))]
+            answers = []
+            for a in q['answers']:
+                # the shown (and accepted) name must contain the letter: if only an alias has it, that alias is the name
+                if letter in norm(a['name']):
+                    answers.append(a)
+                else:
+                    al = next((x for x in (a.get('aliases') or []) if letter in norm(x)), None)
+                    if al:
+                        answers.append({**a, 'name': al, 'aliases': [a['name']] + [x for x in a['aliases'] if x != al]})
             items.append({'letter': letter, 'mode': 'contains', 'prompt': q['prompt'], 'subtitle': q.get('subtitle') or '',
                           'prompt_es': q.get('prompt_es') or '', 'subtitle_es': q.get('subtitle_es') or '', 'answer_type': q.get('answer_type', 'player'),
                           'answers': [{'name': a['name'], 'aliases': a.get('aliases') or []} for a in answers],
-                          'others': [a['name'] for a in q['answers'] if a not in answers][:400]})
+                          'others': [n for n in (a['name'] for a in q['answers']) if n not in {x['name'] for x in answers} and n not in {y for x in answers for y in x.get('aliases', [])}][:400]})
             continue
         pool = [c for c in by_letter.get(letter, []) if c[0]['prompt'] not in used and c[0]['prompt'] not in recent]
         def known(c):
