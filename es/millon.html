@@ -4,10 +4,10 @@
 <link rel="icon" href="/favicon-32.png" sizes="32x32">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <style>
-/* Millions: start with 1,000,000, spread it over the answers, keep only what sits on the right one. Content: millon/YYYY-MM-DD.json. Placeholder look until the ChatGPT art. */
+/* Millions: start with 1,000,000, spread it over the answers, keep only what sits on the right one. Content: millon/YYYY-MM-DD.json. Art: millon/art/ (studio, trapdoor, money, stopwatch, button, marquee). */
 :root{--paper:#fbf6e8;--sand:#e9dfc2;--ink:#1d1a2b;--gold:#f2c230;--grass:#2f9a62;--clay:#c8473b;--marine:#1d4486;--marine2:#2d5aa0;--disp:"Jersey 10",monospace;--mono:"VT323",monospace;--ease:cubic-bezier(.23,1,.32,1)}
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:#14121c;color:var(--paper);font:500 16px/1.4 Barlow,system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%;background:#1d1a2b;color:var(--paper);font:500 16px/1.4 Barlow,system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
 main{max-width:460px;margin:0 auto;padding:12px 16px 28px;display:flex;flex-direction:column;gap:12px;min-height:100dvh}
 button{font:inherit;color:inherit;cursor:pointer}
 .top{display:flex;justify-content:space-between;align-items:center}
@@ -41,16 +41,37 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
 .bar{grid-column:1/-1;height:6px;background:rgba(0,0,0,.3)}.bar i{display:block;height:100%;background:var(--gold);width:0;transition:width 160ms var(--ease)}
 .opt.win{background:var(--grass)}.opt.lose{background:var(--clay)}
 .opt.lose .m b{text-decoration:line-through;opacity:.7}
-.note{font:18px var(--mono);color:var(--sand);text-align:center;margin:0}
+.msg-note{font:18px var(--mono);color:var(--sand);text-align:center;margin:0}
 .rules{margin:8px 0 0;padding-left:18px;display:grid;gap:6px;font-size:15px}
 .big{font:400 64px/1 var(--disp);color:var(--gold);text-shadow:4px 4px 0 var(--ink);text-align:center}
 .grid{font:22px/1 monospace;text-align:center;letter-spacing:2px}
-@media (prefers-reduced-motion:reduce){.btn,.bar i,.opt{transition:none}}
+body{background:linear-gradient(rgba(29,26,43,.55),rgba(29,26,43,.8)),url(/millon/art/studio-portrait.png) center/cover fixed #1d1a2b;image-rendering:pixelated}
+@media (min-aspect-ratio:1/1){body{background-image:linear-gradient(rgba(29,26,43,.55),rgba(29,26,43,.8)),url(/millon/art/studio-landscape.png)}}
+main,.card,.q,.say{image-rendering:auto}
+/* marquee title */
+.mq{position:relative;aspect-ratio:3/1;background:url(/millon/art/marquee.png) center/100% 100% no-repeat;image-rendering:pixelated;display:grid;place-items:center}
+.mq h1{font-size:clamp(44px,13vw,64px)}
+/* sprites */
+.spr{display:block;background:url(/millon/art/money-sheet.png) no-repeat;background-size:640px 160px;width:40px;height:40px;image-rendering:pixelated}
+.door{grid-row:1/4;position:relative;width:64px;height:64px;align-self:center;background:url(/millon/art/trapdoor-sheet.png) 0 0/320px 64px no-repeat;image-rendering:pixelated}
+.door .spr{position:absolute;left:12px;bottom:18px;transition:opacity 160ms ease}
+.opt{grid-template-columns:64px minmax(0,1fr) auto}
+.opt .t{grid-column:2/4}.opt .m,.opt .bar{grid-column:2/4}
+.opt.lose .door,.opt.x .door{animation:door 420ms steps(4) forwards}
+@keyframes door{to{background-position:-256px 0}}
+.opt.lose .door .spr{animation:fall 520ms cubic-bezier(.55,0,1,.45) 120ms forwards}
+@keyframes fall{to{transform:translateY(46px) scale(.55);opacity:0}}
+.note{position:fixed;top:-48px;z-index:9;pointer-events:none;width:40px;height:40px;background:url(/millon/art/money-sheet.png) no-repeat;background-size:640px 160px;image-rendering:pixelated}
+.watch{display:inline-block;width:32px;height:32px;vertical-align:-4px;margin-right:6px;background:url(/millon/art/stopwatch-sheet.png) 0 0/128px 32px no-repeat;image-rendering:pixelated}
+#lock{display:flex;align-items:center;justify-content:center;gap:10px}
+#lock::before{content:"";width:40px;height:40px;margin:-6px 0;background:url(/millon/art/button-normal.png) center/contain no-repeat;image-rendering:pixelated}
+#lock:active::before{background-image:url(/millon/art/button-pressed.png)}
+@media (prefers-reduced-motion:reduce){.btn,.bar i,.opt{transition:none}.opt.lose .door .spr{animation:none;opacity:0}.note{display:none}}
 </style></head><body><main>
 <div class="top"><a class="logo" href="/">UNICORNER</a><span class="tag" data-es="MILLONES">MILLIONS</span></div>
 <div class="host"><div class="face"><img id="face" alt="" src="/rosco/host/happy-talk.png"></div><p class="say"><span class="who">Horacio Herradura</span><span id="say"></span></p></div>
 
-<section id="s-intro" hidden><div class="card"><h1 data-es="Millones">Millions</h1>
+<section id="s-intro" hidden><div class="mq"><h1 data-es="Millones">Millions</h1></div><div class="card">
  <ol class="rules"><li data-es="Empiezas con <b>1.000.000</b>.">You start with <b>1,000,000</b>.</li>
  <li data-es="En cada pregunta reparte el dinero entre las respuestas. Solo te quedas lo que esté en la correcta.">Each question, spread your money over the answers. You only keep what sits on the right one.</li>
  <li data-es="Deja siempre al menos una respuesta vacía. En la última, todo a una.">Always leave at least one answer empty. On the last one, it's all on one.</li>
@@ -59,16 +80,16 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
 
 <section id="s-play" hidden>
  <div class="steps" id="steps"></div>
- <div class="hud"><span><span data-es="Sin colocar">To place</span> <b class="bank" id="left"></b></span><span class="clock" id="clock">60</span></div>
+ <div class="hud"><span><span data-es="Sin colocar">To place</span> <b class="bank" id="left"></b></span><span><i class="watch" id="watch"></i><span class="clock" id="clock">60</span></span></div>
  <div class="q" id="q"></div>
  <div class="opts" id="opts"></div>
  <button class="btn gold" id="lock" data-es="¡Cerrar apuesta!">Lock it in!</button>
  <button class="btn grass" id="next" hidden data-es="Siguiente">Next</button>
 </section>
 
-<section id="s-end" hidden><div class="card"><p class="note" data-es="Te llevas">You keep</p><div class="big" id="final"></div><div class="grid" id="grid"></div></div>
+<section id="s-end" hidden><div class="card"><p class="msg-note" data-es="Te llevas">You keep</p><div class="big" id="final"></div><div class="grid" id="grid"></div></div>
  <button class="btn gold" id="share" data-es="Compartir">Share</button></section>
-<p class="note" id="msg" hidden></p>
+<p class="msg-note" id="msg" hidden></p>
 </main>
 <script>
 const SB_URL="https://yujhjepukzdahsppntua.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1amhqZXB1a3pkYWhzcHBudHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2NDMzNDcsImV4cCI6MjEwNTIxOTM0N30.YIOdtL7tJnNLPFPy19QuXe6w3Dcnz6Xedw0tFGdV_CE";
@@ -87,7 +108,7 @@ const save=()=>{try{localStorage.setItem(KEY,JSON.stringify({bank,hist,done:true
 function maxOn(n){return n-1} // answers that may hold money: always leave one empty
 function render(){const Q=D.questions[i],opts=ES&&Q.o_es?Q.o_es:Q.o,placed=bets.reduce((a,b)=>a+b,0),left=bank-placed,used=bets.filter(b=>b>0).length,last=i===D.questions.length-1;
  $('left').textContent=fmt(left);
- $('opts').innerHTML=opts.map((o,k)=>`<div class="opt" id="o${k}"><span class="t">${String.fromCharCode(65+k)}. ${o}</span><div class="m"><button data-k="${k}" data-d="-1" aria-label="-" ${bets[k]?'':'disabled'}>−</button><b>${fmt(bets[k])}</b><button data-k="${k}" data-d="1" aria-label="+" ${left&&(bets[k]||used<maxOn(opts.length))?'':'disabled'}>+</button><button data-k="${k}" data-d="all" aria-label="all">⇈</button></div><div class="bar"><i style="width:${bank?bets[k]/bank*100:0}%"></i></div></div>`).join('');
+ $('opts').innerHTML=opts.map((o,k)=>`<div class="opt" id="o${k}"><span class="door">${bets[k]?`<i class="spr" style="background-position:${-40*Math.min(5,Math.ceil(bets[k]/START*6)-1)}px -40px"></i>`:''}</span><span class="t">${String.fromCharCode(65+k)}. ${o}</span><div class="m"><button data-k="${k}" data-d="-1" aria-label="-" ${bets[k]?'':'disabled'}>−</button><b>${fmt(bets[k])}</b><button data-k="${k}" data-d="1" aria-label="+" ${left&&(bets[k]||used<maxOn(opts.length))?'':'disabled'}>+</button><button data-k="${k}" data-d="all" aria-label="all">⇈</button></div><div class="bar"><i style="width:${bank?bets[k]/bank*100:0}%"></i></div></div>`).join('');
  $('lock').disabled=last&&left>0;}
 $('opts').onclick=e=>{const b=e.target.closest('button[data-k]');if(!b||timer===null)return;const k=+b.dataset.k,n=bets.length,placed=bets.reduce((a,c)=>a+c,0),left=bank-placed;
  if(b.dataset.d==='all'){const others=bets.filter((v,j)=>j!==k&&v>0).length;if(!bets[k]&&others>=maxOn(n))return;bets[k]+=left}
@@ -97,13 +118,19 @@ function ask(){const Q=D.questions[i],n=Q.o.length;bets=Array(n).fill(0);t=SECS;
  $('q').innerHTML=`<small>${L('Question','Pregunta')} ${i+1}/${D.questions.length} · ${n} ${L('answers','respuestas')}</small>${ES&&Q.q_es?Q.q_es:Q.q}`;
  $('lock').hidden=false;$('next').hidden=true;$('clock').textContent=t;$('clock').classList.remove('low');
  say(i===D.questions.length-1?L('Last question. Everything on one answer. No pressure!','Última pregunta. Todo a una respuesta. ¡Sin presión!'):n===4?L('Four answers. Leave at least one empty.','Cuatro respuestas. Deja al menos una vacía.'):L('Three answers now. Leave one empty.','Ahora tres respuestas. Deja una vacía.'),'talk-1');
- render();clearInterval(timer);timer=setInterval(()=>{t--;$('clock').textContent=t;$('clock').classList.toggle('low',t<=10);if(t<=0)lock()},1000)}
+ render();clearInterval(timer);timer=setInterval(()=>{t--;$('clock').textContent=t;$('watch').style.backgroundPosition=`${-32*((SECS-t)%4)}px 0`;$('clock').classList.toggle('low',t<=10);if(t<=0)lock()},1000)}
 function lock(){clearInterval(timer);timer=null;const Q=D.questions[i],kept=bets[Q.a],lost=bank-kept;
  hist.push(kept>0?(kept===bank?'🟩':'🟨'):'🟥');bank=kept;
  bets.forEach((v,k)=>$('o'+k).classList.add(k===Q.a?'win':v?'lose':'x'));$('opts').querySelectorAll('button').forEach(b=>b.disabled=true);
- $('left').textContent=fmt(bank);$('lock').hidden=true;
+ $('left').textContent=fmt(bank);$('lock').hidden=true;if(kept===bank&&kept)shower(18);else if(lost)bets.forEach((v,k)=>{if(v&&k!==Q.a)drop($('o'+k))});
  say(!kept?L('Ay, ay, ay... it all falls through the trapdoor.','Ay, ay, ay... todo se va por la trampilla.'):lost?L(`Right answer! But ${fmt(lost)} drops away.`,`¡Correcta! Pero ${fmt(lost)} se van por la trampilla.`):L('All of it on the right one. Bravo!','Todo en la correcta. ¡Bravo!'),!kept?'facepalm':lost?'nervous':'celebrate');
  if(!kept||i===D.questions.length-1){save();setTimeout(end,1600)}else $('next').hidden=false}
+// banknotes: flutter frames are row 3 of the money sheet; short, rare moments so they can be a little showy
+function note(x,y,dist,dur){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;const n=document.createElement('i');n.className='note';n.style.left=x+'px';n.style.top=y+'px';document.body.appendChild(n);
+ const f=Math.floor(Math.random()*8);n.style.backgroundPosition=`${-40*f}px -80px`;const sway=(Math.random()-.5)*80;
+ n.animate([{transform:'translate(0,0) rotate(0)',opacity:1},{transform:`translate(${sway}px,${dist}px) rotate(${sway*2}deg)`,opacity:0}],{duration:dur,easing:'cubic-bezier(.55,0,1,.45)',fill:'forwards'}).onfinish=()=>n.remove()}
+function drop(el){const r=el.querySelector('.door').getBoundingClientRect();for(let j=0;j<4;j++)setTimeout(()=>note(r.left+12+Math.random()*16,r.top+8,90,600),120+j*70)}
+function shower(n){for(let j=0;j<n;j++)setTimeout(()=>note(Math.random()*(innerWidth-40),-40,innerHeight*.9,1100+Math.random()*500),j*45)}
 function end(){show('end');$('final').textContent=fmt(bank);$('grid').textContent=hist.join('');track('millon_finish',{score:bank,steps:hist.length});
  say(bank?L(`You walk away with ${fmt(bank)}. Same game tomorrow, new questions!`,`Te llevas ${fmt(bank)}. ¡Mañana, preguntas nuevas!`):L('Nothing left today. Come back tomorrow!','Hoy te quedas a cero. ¡Vuelve mañana!'),bank?'happy-talk':'sad-talk')}
 $('lock').onclick=lock;$('next').onclick=()=>{i++;ask()};
