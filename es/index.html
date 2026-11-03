@@ -1498,7 +1498,7 @@ body.kit-myth .sprite,.ucw-u.myth,.pcd-u.myth,.kit-tile.myth:not(.locked) .kit-p
 /* kit unlock: card pack on the results screen; beams climb the five answer levels and stop on the kit's level */
 .kp{position:fixed;inset:0;z-index:9000;display:grid;place-items:center;padding:16px;background:rgba(5,3,15,.88);animation:kp-in .3s ease}
 @keyframes kp-in{from{opacity:0}}
-.kp-box{width:min(360px,100%)}
+.kp-box{width:min(360px,100%)}.kp-top{display:flex;justify-content:flex-end;margin-bottom:8px}.kp-skip{font-family:var(--lab);font-size:16px;color:#fff;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.5);border-radius:6px;padding:6px 10px;cursor:pointer;transition:background-color 150ms ease,transform 120ms ease}.kp-skip:active{transform:scale(.97)}@media (hover:hover){.kp-skip:hover{background:rgba(255,255,255,.18)}}
 .kp-stage{position:relative;height:min(440px,72vh);border:3px solid #fff;outline:3px solid #000;border-radius:12px;overflow:hidden;background:#05030f;isolation:isolate;--tc:#cfd8e6}
 .kp-glow{position:absolute;left:50%;bottom:-120px;width:420px;height:420px;margin-left:-210px;border-radius:50%;background:radial-gradient(var(--tc),transparent 65%);opacity:0;z-index:0;transition:opacity .4s}
 .kp-beam{position:absolute;bottom:0;width:60px;height:520px;z-index:1;opacity:0;transform-origin:bottom center;filter:blur(2px);background:linear-gradient(transparent,var(--tc))}
@@ -3694,7 +3694,7 @@ if(!Array.isArray(kitDone)){kitDone=kitsNow();ls('uc-kit-done',JSON.stringify(ki
 function kitPack(queue){const k=queue.shift();if(!k)return;const t=KLV[k.id]??0,rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
  const ov=document.createElement('div');ov.className='kp';ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-label',L('New kit unlocked','Nueva equipación desbloqueada'));
  const n=L(k.en,k.es),lab=t===5?L('MYTHIC!!!','¡MÍTICO!'):t===4?L('SCREAMER!!!','¡QUÉ CHICHARRO!'):tl(KLN[t]).toUpperCase();
- ov.innerHTML=`<div class="kp-box"><div class="kp-stage"><div class="kp-glow"></div>${[0,1,2,3,4].map(i=>`<i class="kp-beam" style="left:calc(50% - 30px + ${(i-2)*30}px)"></i>`).join('')}
+ ov.innerHTML=`<div class="kp-box"><div class="kp-top"><button type="button" class="kp-skip" data-kp="skip">${queue.length?L(`Skip all (${queue.length+1}) ✕`,`Saltar todas (${queue.length+1}) ✕`):L('Skip ✕','Saltar ✕')}</button></div><div class="kp-stage"><div class="kp-glow"></div>${[0,1,2,3,4].map(i=>`<i class="kp-beam" style="left:calc(50% - 30px + ${(i-2)*30}px)"></i>`).join('')}
  <div class="kp-title"><small>${L('NEW KIT!','¡NUEVA EQUIPACIÓN!')}</small>${n.toUpperCase()}</div>
  <div class="kp-card${t>=4?' scr':''}"><span class="kp-rar">${lab}</span><div class="kp-in"><div class="kp-b">∞</div><div class="kp-f"><i class="kp-art" style="background-image:${sprite('happy',0,false,k).replace(/"/g,"'")}"></i><div class="kp-nm">${n}</div></div></div></div>
  <div class="kp-meter">${KLC.map(c=>`<i style="--c:${c}"></i>`).join('')}</div>
@@ -3713,7 +3713,7 @@ function kitPack(queue){const k=queue.shift();if(!k)return;const t=KLV[k.id]??0,
   at(400,()=>{ov.querySelector('.kp-why').classList.add('kp-fade');ov.querySelector('.kp-btns').classList.add('on');ov.querySelector('[data-kp=wear]').focus({preventScroll:true})})});
  const done=wear=>{timers.forEach(clearTimeout);document.removeEventListener('keydown',esc);ov.remove();if(wear){wearKit(k);track('kit_wear_from_pack',{kit:k.id})}if(queue.length)setTimeout(()=>kitPack(queue),250)};
  const esc=e=>{if(e.key==='Escape')done(false)};document.addEventListener('keydown',esc);
- ov.addEventListener('click',e=>{const b=e.target.closest('[data-kp]');if(b)done(b.dataset.kp==='wear')});
+ ov.addEventListener('click',e=>{const b=e.target.closest('[data-kp]');if(!b)return;if(b.dataset.kp==='skip'){track('kit_skip_all',{kit:k.id,left:queue.length});queue.length=0}done(b.dataset.kp==='wear')});
  track('kit_unlock',{kit:k.id,level:t})}
 // signed in on another device: kits unlocked there count here too, and this device wears the account's kit
 window.ucAdoptLook=p=>{if(!p)return;
@@ -3731,8 +3731,8 @@ function kitCelebrate(){const fresh=kitsNow().filter(id=>!kitDone.includes(id));
 function celebrate(){const rs=document.querySelector('.result-screen');if(!rs||rs.dataset.stDone)return;rs.dataset.stDone='1';kitCelebrate();
  const best=bestStreak(),done=+(ls('uc-bg-celebrated')||0),fresh=LIST.filter(t=>t[2]>done&&best>=t[2]&&t[2]>0).pop();if(!fresh)return;
  ls('uc-bg-celebrated',fresh[2]);dot();track('stadium_unlock',{bg:fresh[0],best});
- const at=rs.querySelector('.tk-streak.rs')||rs.querySelector('.pts');
- at.insertAdjacentHTML('afterend',`<div class="st-unlock" role="status">${sw(fresh[0])}<div><small>${L('NEW STADIUM UNLOCKED!','¡NUEVO ESTADIO DESBLOQUEADO!')}</small><b>${fresh[1]}</b><small>${L('Use it any time from the 🏟️ button up top.','Úsalo cuando quieras con el botón 🏟️ de arriba.')}</small></div></div>`)}
+ // no card on the results screen (too much space): a short note, and the 🏟️ button gets its dot
+ setTimeout(()=>{try{showToast(L(`New stadium unlocked: ${fresh[1]} (🏟️ up top)`,`Nuevo estadio: ${fresh[1]} (🏟️ arriba)`))}catch{}},2600)}
 new MutationObserver(()=>setTimeout(celebrate,50)).observe(document.getElementById('screen'),{childList:true});
 apply();dot();
 })();
