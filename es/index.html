@@ -805,6 +805,12 @@ body.playing .brand-home{cursor:default}
 .duel-txt{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.15;margin-left:4px}.duel-txt b{font-size:16px}.duel-txt small{font-size:13px;color:#5a4a2a}
 .duel-go{font-weight:800;font-size:14px;background:#f2c230;border:2px solid #1d1a2b;padding:6px 10px;white-space:nowrap}
 .result-screen .result-share-row{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;margin:14px 0 24px}
+.chal-box{display:grid;gap:8px;margin:16px 0 0;text-align:center}.chal-box .chal-go{width:100%;font-size:1.15em;padding:16px 14px}.chal-box small{opacity:.75}
+.chal-name{display:grid;gap:6px;text-align:left}.chal-name[hidden]{display:none}.chal-name label{font-size:.9em}.chal-name div{display:flex;gap:8px}.chal-name input{flex:1;min-width:0;font:inherit;padding:10px 12px;border:3px solid #1d1a2b;border-radius:0}
+.chal-vs{margin:14px 0 0;padding:12px 14px;border:3px solid #1d1a2b;background:#f6eed8;color:#1d1a2b;font-weight:600;text-align:center}.chal-vs.won{background:#7fe0a8}.chal-vs.lost{background:#f0c4bd}.chal-vs b{font-size:1.25em}
+.chal-banner{display:flex;align-items:center;gap:12px;margin:0 0 14px;padding:12px 14px;background:#fbf6e8;color:#1d1a2b;border:3px solid #1d1a2b;box-shadow:0 4px 0 #1d1a2b}.chal-banner>b{font-size:26px;line-height:1}.chal-banner span{flex:1;min-width:0}
+.chal-banner.hot{background:#f2c230}.chal-banner .cta{flex:none;white-space:nowrap}
+@media(max-width:560px){.chal-banner.hot{flex-wrap:wrap}.chal-banner.hot .cta{width:100%}}
 .result-screen .result-share-row .cta{flex:2 1 0;justify-content:center;font-size:20px;padding:14px 18px}
 .result-screen .result-share-row .ghost{flex:1 1 0;justify-content:center;font-size:15px;padding:14px 10px;min-width:0;background:#c9a8ff!important;color:#1b1030!important;border-color:#000!important}
 .result-screen .result-share-note{flex-basis:100%;text-align:center;margin:7px 0 0;font-size:13px}
@@ -2157,6 +2163,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
   </div>
  </section>
 
+ ${chalBanner(played)}
  <div class="lx-h">${L('Today','Hoy')} <small>${L('new games every day at midnight','juegos nuevos cada día a medianoche')}</small></div>
  <div class="lx-today">
  <div class="tk-wrap"><section class="tk${played?' tk-done':''}" aria-label="${L("Today's game",'El partido de hoy')}">
@@ -2200,6 +2207,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
  </div>`,()=>{window.ucAwards?.();const play=async()=>{if(!played&&window.ucCheckRemote&&await window.ucCheckRemote())return start();document.body.classList.remove('landing');if(played){try{restore(played);setMeter();end(true)}catch(x){track('results_view_error',{message:String(x&&x.message||x).slice(0,200),stack:String(x&&x.stack||'').slice(0,600),score:played.score,picks:played.picks});start()}}else ask()};
   {const lpd=()=>lpDuels(!!played);if(document.readyState==='loading')addEventListener('DOMContentLoaded',lpd,{once:true});else lpd()}
   const go=document.getElementById('go');if(go)go.onclick=()=>{if(!played&&window.ucHowToNeeded?.())return window.ucHowTo(play,'first');play()};
+  const cp=document.getElementById('chal-play');if(cp)cp.onclick=()=>{track('challenge_play_click',{cid:CHAL&&CHAL.i});document.getElementById('go')?.click()};
   try{if(sessionStorage.getItem('uc-reopen')==='results'){sessionStorage.removeItem('uc-reopen');if(played&&go)setTimeout(()=>go.click(),0)}}catch{}
   const hw=document.getElementById('how');if(hw)hw.onclick=()=>{track('how_click',{from:'ticket'});if(window.ucHowTo)return window.ucHowTo(played?null:play,'button');const st=document.getElementById('steps');st.scrollIntoView({behavior:'smooth',block:'center'});st.classList.remove('flash');void st.offsetWidth;st.classList.add('flash')};
   if(!played)liveLine().then(({n,top})=>{const el=document.querySelector('#tkLive span');if(el&&n)el.innerHTML=ES?`<b>${n}</b> han jugado hoy · récord <b>${top}</b>`:`<b>${n}</b> played today · top <b>${top}</b>`}).catch(()=>{});
@@ -2496,7 +2504,11 @@ www.unicornergame.lol`};
   ${spicyResult()}
   ${streakStrip(streakInfo(),'rs')}
   <div class="dist" id="dist"><div class="mute">${L("Comparing with today's players…",'Comparando con los jugadores de hoy…')}</div></div>
-  <div class="result-share-row"><button class="cta" id="copy-result">${L('Copy result','Copiar resultado')}</button><button type="button" class="ghost" id="share-result">${L('Share','Compartir')}</button></div>
+  ${CHAL&&!CHAL.old?`<div class="chal-vs ${score>CHAL.s?'won':score===CHAL.s?'draw':'lost'}">${score>CHAL.s?L(`🏆 You beat ${chalWho()}! <b>${score}</b> vs ${CHAL.s}`,`🏆 ¡Has ganado a ${chalWho()}! <b>${score}</b> a ${CHAL.s}`):score===CHAL.s?L(`🤝 A draw with ${chalWho()}: <b>${score}</b> each`,`🤝 Empate con ${chalWho()}: <b>${score}</b> cada uno`):L(`${chalWho()} wins this one: <b>${CHAL.s}</b> vs your ${score}`,`${chalWho()} gana esta: <b>${CHAL.s}</b> a tus ${score}`)}</div>`:''}
+  <div class="chal-box"><button type="button" class="cta chal-go" id="chal-go">⚔ ${L(`Challenge a friend to beat ${score}`,`Reta a un amigo a superar tus ${score}`)}</button>
+   <div class="chal-name" id="chal-name" hidden><label for="chal-nick">${L('Your name, so they know who to beat','Tu nombre, para que sepan a quién ganar')}</label><div><input id="chal-nick" maxlength="16" autocomplete="nickname" placeholder="${L('e.g. Pepo','p. ej. Pepo')}"><button type="button" class="cta" id="chal-ok">${L('Send','Enviar')}</button></div></div>
+   <small>${L('They get the same 5 questions and see your score.','Le tocan las mismas 5 preguntas y ve tu puntuación.')}</small></div>
+  <div class="result-share-row"><button class="ghost" id="copy-result">${L('Copy result','Copiar resultado')}</button><button type="button" class="ghost" id="share-result">${L('Share','Compartir')}</button></div>
   <section class="jb" id="compete-results" data-compete><div class="jb-frame"><div class="jb-screen"><p class="jb-empty">GLOBAL RANKING · LOADING…</p></div></div></section>
   ${hits.length?`<section class="result-section"><div class="result-section-head"><h2>${L('Your match highlights','Lo mejor de tu partido')}</h2><p class="mute">${L('Best answers first','Primero las mejores respuestas')}</p></div><div class="result-list">${hits.map(r=>resultItem(r,false)).join('')}</div></section>`:''}
   ${misses.length?`<div class="result-nearly"><section class="result-section"><div class="result-section-head"><h2>${L('Nearly had it','Casi')}</h2><p class="mute">${ES?(misses.length===1?'1 respuesta':misses.length+' respuestas')+' para aprender para mañana':(misses.length===1?'1 answer':misses.length+' answers')+' to learn for tomorrow'}</p></div><div class="result-list">${misses.map(r=>resultItem(r,true)).join('')}</div></section></div>`:''}
@@ -2513,6 +2525,20 @@ www.unicornergame.lol`};
   document.getElementById('copy-result').onclick=async e=>{const share=shareText();track('copy_click',{score,set_id:dailySetId()});const copied=navigator.clipboard?.writeText?await navigator.clipboard.writeText(share).then(()=>true).catch(()=>false):false;if(copied)showToast(L('Copied to clipboard!','¡Copiado!'));e.target.textContent=copied?L('Copied!','¡Copiado!'):L('Copy failed','No se pudo copiar')};
   const shareBtn=document.getElementById('share-result');
   if(navigator.share){shareBtn.onclick=async e=>{const share=shareText();track('share_click',{score,set_id:dailySetId()});try{await navigator.share({title:'Unicorner',text:share})}catch{}}}else{shareBtn.remove()}
+  // friend challenge: a link with my name, score and today's date; the friend plays the same 5 questions
+  const chalLink=()=>{const cid=Math.random().toString(36).slice(2,10).padEnd(8,'0');let nm='';try{nm=localStorage.getItem('uc-nick')||localStorage.getItem('uc-chal-name')||''}catch{}
+   const code=btoa(unescape(encodeURIComponent(JSON.stringify({n:nm.slice(0,16),s:score,d:amsterdamDay(),i:cid})))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+   try{localStorage.setItem('uc-chal-sent',JSON.stringify([...chalSent(),cid].slice(-30)))}catch{}
+   return{cid,url:`https://unicornergame.lol${ES?'/es/':'/'}?c=${code}`}};
+  const chalSend=async()=>{const {cid,url}=chalLink(),text=`${L(`🦄 I scored ${score}/${MAX} on today's Unicorner. Can you beat me?`,`🦄 He hecho ${score}/${MAX} en el Unicorner de hoy. ¿Me superas?`)}\n${scoreGrid}\n${url}`;
+   let how='copy';if(navigator.share){try{await navigator.share({text});how='share'}catch(e){if(e&&e.name==='AbortError'){track('challenge_cancel',{cid,score});return}how='copy'}}
+   if(how==='copy'){const ok=navigator.clipboard?.writeText?await navigator.clipboard.writeText(text).then(()=>true).catch(()=>false):false;showToast(ok?L('Challenge link copied! Send it to a friend','¡Enlace del reto copiado! Mándaselo a un amigo'):url)}
+   track('challenge_sent',{cid,score,method:how,parent:CHAL&&!CHAL.old?CHAL.i:null,set_id:dailySetId()})};
+  const hasName=()=>{try{return!!(localStorage.getItem('uc-nick')||localStorage.getItem('uc-chal-name'))}catch{return true}};
+  document.getElementById('chal-go').onclick=()=>{if(hasName())return chalSend();const box=document.getElementById('chal-name');box.hidden=false;document.getElementById('chal-nick').focus()};
+  const okName=()=>{const v=document.getElementById('chal-nick').value.replace(/[<>&"'`]/g,'').trim().slice(0,16);try{localStorage.setItem('uc-chal-name',v||'-')}catch{}if(v==='')try{localStorage.setItem('uc-chal-name','')}catch{}document.getElementById('chal-name').hidden=true;chalSend()};
+  document.getElementById('chal-ok').onclick=okName;document.getElementById('chal-nick').onkeydown=e=>{if(e.key==='Enter')okName()};
+  if(!restored&&CHAL&&!CHAL.old){try{const k='uc-chal-done-'+CHAL.i;if(!localStorage.getItem(k)){localStorage.setItem(k,'1');track('challenge_finish',{cid:CHAL.i,score,from_score:CHAL.s,won:score>CHAL.s,draw:score===CHAL.s})}}catch{}}
   document.getElementById('home').onclick=()=>{track('home_click',{from:'results',score,set_id:dailySetId()});window.scrollTo({top:0,behavior:'smooth'});start()};
  })}
 
@@ -2632,7 +2658,7 @@ let toastTimer;function showToast(msg){const t=document.getElementById('toast');
 const SRC=(()=>{const clean=v=>String(v||'').toLowerCase().replace(/[^a-z0-9._-]/g,'').slice(0,40);
  const MAP=[[/tiktok/,'tiktok'],[/reddit|redd\.it/,'reddit'],[/instagram/,'instagram'],[/facebook|fb\.(com|me)/,'facebook'],[/^t\.co$|twitter|^x\.com$/,'x'],[/linkedin|lnkd/,'linkedin'],[/youtube|youtu\.be/,'youtube'],[/whatsapp/,'whatsapp'],[/chatgpt|openai/,'chatgpt'],[/perplexity/,'perplexity'],[/google\./,'google'],[/bing\./,'bing'],[/duckduckgo/,'duckduckgo']];
  const name=v=>v?(MAP.find(([r])=>r.test(v))||[0,v])[1]:'';
- let p=null,utm='',ref='';try{p=new URLSearchParams(location.search);utm=name(clean(p.get('utm_source')))}catch{}
+ let p=null,utm='',ref='';try{p=new URLSearchParams(location.search);utm=name(clean(p.get('utm_source')))||(p.get('c')?'challenge':'')}catch{}
  try{const h=new URL(document.referrer).hostname.replace(/^(www|m|l|lm|out)\./,'');if(h&&!/(^|\.)unicornergame\.lol$/.test(h))ref=name(clean(h))}catch{}
  const now=utm||ref;let first='',last='',sess='';
  try{first=localStorage.getItem('uc-src-first')||'';if(!first&&now){first=now;localStorage.setItem('uc-src-first',now)}if(now)localStorage.setItem('uc-src',now);last=localStorage.getItem('uc-src')||''}catch{last=now}
@@ -2675,6 +2701,24 @@ async function duelInboxStrip(){const el=document.getElementById('duel-strip');i
 const NO_LOG=new Set(['answer_attempt','question_view','leave','banner_view','awards_view','crowd_share_shown','howto_step','rosco_answer','rosco_pass']);
 function track(name,data){if(NO_LOG.has(name))return;try{if(document.body.classList.contains('inf-mode'))data={...(data||{}),mode:'infinity'};let language=null;try{language=LANG}catch{}const body=JSON.stringify({name,session:SID,visitor:VISITOR,seconds:Math.round((Date.now()-T0)/1000),game_day:amsterdamDay(),event_version:2,data:{language,browser_language:(navigator.language||'').slice(0,12),src:SRC.src,src_first:SRC.src_first,...(data||{})}});fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body}).catch(()=>{})}catch{}}
 track('view',{ref:(document.referrer||'').slice(0,120),path:location.pathname,src_how:SRC.src_how,...DEVICE});
+// ---- friend challenge: "beat my score on today's game" links (?c=…, made on the results screen).
+// Funnel, tied by the link id (cid): challenge_sent → challenge_open → challenge_finish. A challenge counts for the day it was made.
+const chalSent=()=>{try{return JSON.parse(localStorage.getItem('uc-chal-sent')||'[]')}catch{return[]}};
+const CHAL=(()=>{let c=null,fresh=false;try{const q=new URLSearchParams(location.search),raw=q.get('c');
+ if(raw){try{const j=JSON.parse(decodeURIComponent(escape(atob(raw.replace(/-/g,'+').replace(/_/g,'/')))));
+   if(j&&/^\d{4}-\d\d-\d\d$/.test(j.d)&&Number.isInteger(j.s)&&j.s>=0&&j.s<=MAX&&/^[a-z0-9]{6,12}$/.test(j.i)){c={n:String(j.n||'').replace(/[<>&"'`]/g,'').trim().slice(0,16),s:j.s,d:j.d,i:j.i};fresh=true;localStorage.setItem('uc-chal',JSON.stringify(c))}}catch{}
+  q.delete('c');history.replaceState(history.state,'',location.pathname+(q.toString()?'?'+q:'')+location.hash)}
+ if(!c)c=JSON.parse(localStorage.getItem('uc-chal')||'null')}catch{}
+ if(!c||chalSent().includes(c.i))return null; // my own link
+ const old=c.d!==amsterdamDay();if(old&&!fresh)return null;
+ if(fresh)track('challenge_open',{cid:c.i,from_score:c.s,same_day:!old,played_already:!old&&!!getPlayed()});
+ return{...c,old}})();
+const chalWho=()=>CHAL&&CHAL.n?esc(CHAL.n):L('Your friend','Tu amigo');
+// the landing banner for someone who opened a challenge link
+function chalBanner(played){if(!CHAL)return'';const who=chalWho();
+ if(CHAL.old)return`<div class="chal-banner"><b>⚔</b><span>${L(`${who} challenged you on an earlier game. Today's game is new: play it and challenge ${CHAL.n?esc(CHAL.n):'them'} back!`,`${who} te retó en un partido anterior. El de hoy es nuevo: juégalo y devuélvele el reto.`)}</span></div>`;
+ if(played)return`<div class="chal-banner"><b>⚔</b><span>${(+played.score>CHAL.s)?L(`You beat ${who}: ${played.score} vs ${CHAL.s}!`,`¡Has ganado a ${who}: ${played.score} a ${CHAL.s}!`):(+played.score===CHAL.s)?L(`A draw with ${who}: ${CHAL.s} each.`,`Empate con ${who}: ${CHAL.s} cada uno.`):L(`${who} wins this one: ${CHAL.s} vs your ${played.score}.`,`${who} gana esta: ${CHAL.s} a tus ${played.score}.`)}</span></div>`;
+ return`<div class="chal-banner hot"><b>⚔</b><span><strong>${L(`${who} scored ${CHAL.s} on today's game.`,`${who} ha hecho ${CHAL.s} puntos en el partido de hoy.`)}</strong> ${L('Same 5 questions. Can you beat it?','Las mismas 5 preguntas. ¿Le superas?')}</span><button type="button" class="cta" id="chal-play">${L('Play now','Jugar ya')}</button></div>`}
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&Date.now()-lastBeat>5000){lastBeat=Date.now();track('leave',{reason:'hidden'})}});
 window.addEventListener('pagehide',()=>track('leave',{reason:'pagehide'}));
 // ---- question bank
