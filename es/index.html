@@ -1665,7 +1665,25 @@ body.playing .topbar .tb-split .sound-toggle+.sound-toggle{border-left:0!importa
 .lp-title{font-family:"Jersey 15","Jersey 10",monospace!important;font-weight:400!important;letter-spacing:.02em;-webkit-text-stroke:0!important;text-shadow:3px 0 0 #000,-3px 0 0 #000,0 3px 0 #000,0 -3px 0 #000,6px 6px 0 #000!important;-webkit-font-smoothing:none}
 .lp-title .uni-word{-webkit-text-stroke:0!important}
 </style><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9034426912596924" crossorigin="anonymous"></script>
-</head><body><div class="sp" id="sp" aria-hidden="true"><div class="sp-s"></div><div class="sp-t">UNICORNER</div><div class="sp-run"><div class="sp-bar"><div class="sp-fill"><i class="sp-u"></i></div></div></div><div class="sp-m"><span class="sp-en">Warming up on the touchline…</span><span class="sp-es">Calentando en la banda…</span></div></div>
+<style id="horacio-games">/* Horacio's games: Rosco + Millions in one panel beside the daily game; Horacio stands in the left strip */
+.hz3{display:grid;grid-template-columns:118px minmax(0,1fr);background:#1d4486;color:#fbf6e8;border:3px solid #1d1a2b;box-shadow:0 4px 0 #1d1a2b;overflow:hidden;min-width:0}
+.hz3-side{background:#16356b;border-right:3px solid #1d1a2b;display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding:14px 6px 0;text-align:center;gap:8px}
+.hz3-side b{font:400 22px/.95 "Jersey 10",monospace;font-weight:400;color:#f2c230;letter-spacing:.04em}
+.hz3-side img{width:112px;height:auto;display:block;image-rendering:pixelated;margin-bottom:-4px}
+.hz3-rows{display:flex;flex-direction:column}
+.hz3-row{flex:1;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:14px;color:inherit;text-decoration:none;transition:background-color 160ms ease}
+.hz3-row+.hz3-row{border-top:3px solid #1d1a2b}
+@media (hover:hover) and (pointer:fine){.hz3-row:hover{background:#2d5aa0}}
+.hz3-row>span:first-child{display:flex;flex-direction:column;gap:4px;min-width:0}
+.hz3-t{font:400 34px/.9 "Jersey 10",monospace;font-weight:400}
+.hz3-t i{font:400 14px/1 "Jersey 10",monospace;font-style:normal;background:#f2c230;color:#1d1a2b;padding:3px 6px;vertical-align:middle;letter-spacing:.06em}
+.hz3-row small{font:400 18px/1.05 VT323,monospace;color:rgba(251,246,232,.85);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hz3-go{background:#f2c230;color:#1d1a2b;border:3px solid #1d1a2b;box-shadow:0 4px 0 #1d1a2b;font:400 22px/1 "Jersey 10",monospace;padding:8px 14px;transition:transform 120ms cubic-bezier(.23,1,.32,1),box-shadow 120ms cubic-bezier(.23,1,.32,1)}
+.hz3-go.g{background:#2fbf71}
+.hz3-row:active .hz3-go{transform:translateY(3px);box-shadow:0 1px 0 #1d1a2b}
+@media(max-width:700px){.hz3{grid-template-columns:96px minmax(0,1fr)}.hz3-side img{width:92px}.hz3-side b{font-size:19px}.hz3-t{font-size:30px}.hz3-row{padding:14px 12px;min-height:96px}}
+@media (prefers-reduced-motion:reduce){.hz3-row,.hz3-go{transition:none}}
+</style></head><body><div class="sp" id="sp" aria-hidden="true"><div class="sp-s"></div><div class="sp-t">UNICORNER</div><div class="sp-run"><div class="sp-bar"><div class="sp-fill"><i class="sp-u"></i></div></div></div><div class="sp-m"><span class="sp-en">Warming up on the touchline…</span><span class="sp-es">Calentando en la banda…</span></div></div>
 <script>
 // loading screen: always shown, lifts once the page and its fonts are ready (at least ~1s so it never just flickers), then the landing intro plays
 window.ucSplash=new Promise(res=>{const t0=performance.now(),sp=document.getElementById('sp');let gone=false;
@@ -2156,7 +2174,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
   </div>
   ${streakStrip(sInfo,'short')}
  </section></div>
- <a class="lx-ro" href="${ES?'/es/rosco.html':'/rosco.html'}" data-track="rosco_card"><span class="lx-ro-top"><span>Rosco ${L('No.','n.º')} ${Math.max(1,Math.round((Date.parse(amsterdamDay())-Date.parse('2026-10-30'))/864e5)+1)}</span><b>${L('New','Nuevo')}</b></span><span class="lx-ro-mid"><span><b class="lx-ro-t">Rosco</b><span class="lx-stats" id="lx-ro-stats"><span>${L('Letters','Letras')}<b>24</b></span><span>${L('Minutes','Minutos')}<b>5</b></span></span><span class="lx-abc lx-grid">${'ABCDEFGHIJKLMNOPRSTUVWYZ'.split('').map((c,i)=>`<i${i===0?' class="on"':''}>${c}</i>`).join('')}</span></span><img src="/rosco/host/point.png" alt="" width="128" height="128"></span><span class="lx-ro-go">${L('Play the Rosco','Jugar el Rosco')}</span></a>
+ <div class="hz3"><div class="hz3-side"><b>${L("HORACIO'S<br>GAMES","LOS JUEGOS<br>DE HORACIO")}</b><img src="/rosco/host/point.png" alt="" width="128" height="128"></div><div class="hz3-rows"><a class="hz3-row" href="${ES?'/es/rosco.html':'/rosco.html'}" data-track="rosco_card"><span><b class="hz3-t">Rosco</b><small>${L('No.','n.º')} ${Math.max(1,Math.round((Date.parse(amsterdamDay())-Date.parse('2026-10-30'))/864e5)+1)} · ${L('24 letters','24 letras')}</small></span><span class="hz3-go">${L('Play','Jugar')}</span></a><a class="hz3-row" href="${ES?'/es/millon.html':'/millon.html'}" data-track="millon_card"><span><b class="hz3-t">${L('Millions','Millones')} <i>${L('New','Nuevo')}</i></b><small>${L('Start with 1,000,000','Con 1.000.000 €')}</small></span><span class="hz3-go g">${L('Play','Jugar')}</span></a></div></div>
  </div>
  <div class="lx-h">${L('Anytime','Cuando quieras')} <small>${L('no daily limit','sin límite diario')}</small></div>
  <section class="modes" aria-label="${L('Game modes','Modos de juego')}">
