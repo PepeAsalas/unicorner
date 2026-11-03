@@ -16,6 +16,21 @@ The player must WANT to split the money. A question where everyone knows the ans
   "Who scored more / Which came first?"; numbers and years with close options ("How many league titles…: 19 / 20 / 22").
 - No trick wording, no "all of the above", no fact that changes after the date in the question. Scope every question to a finished season.
 
+## Too easy: never use these
+- The scorer of a famous final or famous goal (Götze 2014, Hurst 1966, Drogba 2012, Iniesta 2010, Zidane 2002…).
+- Ballon d'Or / Golden Ball / Golden Boot winners of the last 20 years, unless the option set is three near-equal contenders.
+- Who won a big recent trophy (Champions League, World Cup, Euro, top-5 league in the last 15 years).
+- "Which of these has never won X" where the right option is a famous non-winner everyone knows (Zlatan / Ballon d'Or).
+- Two famous options where any fan knows the answer (Messi vs Ronaldo goals).
+- The same question shape as one already used in millon/ (e.g. "where did X end his career").
+Test: if a casual fan who watches every weekend would put everything on one answer within 5 seconds, it is too easy.
+
+## The difficulty ramp
+Q1-Q3 (4 options): medium, a fan should be torn between two.
+Q4-Q7 (3 options): hard, a fan should be torn between all three.
+Q8 (2 options, all-in): the hardest of the day, a true 50/50 for most fans (close numbers, two similar careers).
+At least two number or year questions per day, and at least two "which of these never…" questions.
+
 ## The library (use it first)
 - daily/*.json: each question has a full answer list with fame 1-6 (6 = superstar, 1 = almost nobody knows) and "traps":
   famous WRONG answers with the reason why. A trap is a ready-made, verified wrong option.

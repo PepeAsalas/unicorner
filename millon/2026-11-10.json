@@ -1,10 +1,128 @@
-{"day":"2026-11-10","questions":[
-{"q": "Who won the Golden Ball at the 2018 World Cup?", "q_es": "¿Quién ganó el Balón de Oro del Mundial 2018?", "o": ["Luka Modrić", "Eden Hazard", "Kylian Mbappé", "Antoine Griezmann"], "a": 0, "why": "Modrić won it ahead of Hazard (silver) and Griezmann (bronze).", "why_es": "Modrić lo ganó por delante de Hazard (plata) y Griezmann (bronce).", "src": "own knowledge (cross-checked)"},
-{"q": "Which club has won the most UEFA Cup / Europa League titles?", "q_es": "¿Qué club tiene más títulos de la Copa UEFA / Europa League?", "o": ["Inter", "Sevilla", "Liverpool", "Atlético Madrid"], "o_es": ["Inter", "Sevilla", "Liverpool", "Atlético de Madrid"], "a": 1, "why": "Sevilla have won it seven times (2006, 07, 14, 15, 16, 20, 23).", "why_es": "El Sevilla la ha ganado siete veces (2006, 07, 14, 15, 16, 20, 23).", "src": "own knowledge (cross-checked)"},
-{"q": "Who scored France's third goal in the 1998 World Cup final?", "q_es": "¿Quién marcó el tercer gol de Francia en la final del Mundial 1998?", "o": ["Youri Djorkaeff", "Thierry Henry", "Emmanuel Petit", "Didier Deschamps"], "a": 2, "why": "Zidane scored twice, Petit added the 3-0 in stoppage time.", "why_es": "Zidane marcó dos y Petit el 3-0 en el descuento.", "src": "own knowledge (cross-checked)"},
-{"q": "How many goals did Pelé score at World Cups?", "q_es": "¿Cuántos goles marcó Pelé en Mundiales?", "o": ["10", "11", "12"], "a": 2, "why": "6 in 1958, 1 in 1962, 1 in 1966, 4 in 1970.", "why_es": "6 en 1958, 1 en 1962, 1 en 1966, 4 en 1970.", "src": "own knowledge (cross-checked)"},
-{"q": "Who won La Liga in 2003-04?", "q_es": "¿Quién ganó La Liga 2003-04?", "o": ["Valencia", "Deportivo La Coruña", "Real Madrid"], "o_es": ["Valencia", "Deportivo de La Coruña", "Real Madrid"], "a": 0, "why": "Valencia, under Rafa Benítez, won the league and the UEFA Cup.", "why_es": "El Valencia de Rafa Benítez ganó Liga y Copa UEFA.", "src": "own knowledge (cross-checked)"},
-{"q": "Who coached Greece to the Euro 2004 title?", "q_es": "¿Quién entrenó a Grecia campeona de la Euro 2004?", "o": ["Luiz Felipe Scolari", "Otto Rehhagel", "Guus Hiddink"], "a": 1, "why": "Rehhagel, German; Scolari coached the beaten finalists Portugal.", "why_es": "Rehhagel, alemán; Scolari dirigía a Portugal, finalista.", "src": "own knowledge (cross-checked)"},
-{"q": "Who won the 2019-20 Champions League?", "q_es": "¿Quién ganó la Champions 2019-20?", "o": ["Paris Saint-Germain", "Bayern Munich", "Manchester City"], "o_es": ["Paris Saint-Germain", "Bayern de Múnich", "Manchester City"], "a": 1, "why": "Bayern beat PSG 1-0 in the Lisbon final.", "why_es": "El Bayern ganó 1-0 al PSG en la final de Lisboa.", "src": "own knowledge (cross-checked)"},
-{"q": "Who won more Premier League titles as a player: Ryan Giggs or Paul Scholes?", "q_es": "¿Quién ganó más Premier League como jugador: Ryan Giggs o Paul Scholes?", "o": ["Ryan Giggs", "Paul Scholes"], "a": 0, "why": "Giggs won 13, Scholes 11.", "why_es": "Giggs ganó 13, Scholes 11.", "src": "own knowledge (cross-checked)"}
-]}
+{
+ "day": "2026-11-10",
+ "questions": [
+  {
+   "q": "Which of these clubs did Fernando Torres NEVER play for?",
+   "q_es": "¿En qué club NUNCA jugó Fernando Torres?",
+   "o": [
+    "Chelsea",
+    "AC Milan",
+    "Sagan Tosu",
+    "Valencia"
+   ],
+   "a": 3,
+   "why": "Torres never played for Valencia; he ended at Sagan Tosu in Japan.",
+   "why_es": "Torres nunca jugó en el Valencia; se retiró en el Sagan Tosu japonés.",
+   "src": "own knowledge",
+   "o_es": [
+    "Chelsea",
+    "Milan",
+    "Sagan Tosu",
+    "Valencia"
+   ]
+  },
+  {
+   "q": "Who was England's manager at the 1990 World Cup?",
+   "q_es": "¿Quién era el seleccionador de Inglaterra en el Mundial de 1990?",
+   "o": [
+    "Bobby Robson",
+    "Graham Taylor",
+    "Terry Venables",
+    "Glenn Hoddle"
+   ],
+   "a": 0,
+   "why": "Bobby Robson; Taylor took over after the tournament.",
+   "why_es": "Bobby Robson; Taylor le sustituyó después del torneo.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which club won the first Champions League under that name, in 1992-93?",
+   "q_es": "¿Qué club ganó la primera Champions con ese nombre, en 1992-93?",
+   "o": [
+    "AC Milan",
+    "Barcelona",
+    "Marseille",
+    "Ajax"
+   ],
+   "a": 2,
+   "why": "Marseille beat Milan 1-0 in Munich.",
+   "why_es": "El Marsella ganó 1-0 al Milan en Múnich.",
+   "src": "own knowledge",
+   "o_es": [
+    "Milan",
+    "Barcelona",
+    "Marsella",
+    "Ajax"
+   ]
+  },
+  {
+   "q": "How many goals did Hungary score at the 1954 World Cup?",
+   "q_es": "¿Cuántos goles marcó Hungría en el Mundial de 1954?",
+   "o": [
+    "25",
+    "27",
+    "29"
+   ],
+   "a": 1,
+   "why": "27 in five games, still the record for one tournament.",
+   "why_es": "27 en cinco partidos, todavía el récord de un Mundial.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which club did Diego Maradona join after leaving Napoli?",
+   "q_es": "¿A qué club fue Maradona después de dejar el Nápoles?",
+   "o": [
+    "Sevilla",
+    "Boca Juniors",
+    "Newell's Old Boys"
+   ],
+   "a": 0,
+   "why": "Sevilla in 1992; then Newell's, then back to Boca.",
+   "why_es": "El Sevilla en 1992; después Newell's y luego vuelta a Boca.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "In which year did Ronaldinho win the Ballon d'Or?",
+   "q_es": "¿En qué año ganó Ronaldinho el Balón de Oro?",
+   "o": [
+    "2004",
+    "2005",
+    "2006"
+   ],
+   "a": 1,
+   "why": "2005; Shevchenko won in 2004, Cannavaro in 2006.",
+   "why_es": "2005; Shevchenko lo ganó en 2004 y Cannavaro en 2006.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which of these countries has NEVER hosted the World Cup?",
+   "q_es": "¿Cuál de estos países NUNCA ha organizado un Mundial?",
+   "o": [
+    "Sweden",
+    "Switzerland",
+    "Netherlands"
+   ],
+   "a": 2,
+   "why": "Sweden hosted in 1958, Switzerland in 1954; never the Netherlands.",
+   "why_es": "Suecia lo organizó en 1958 y Suiza en 1954; Países Bajos nunca.",
+   "src": "own knowledge",
+   "o_es": [
+    "Suecia",
+    "Suiza",
+    "Países Bajos"
+   ]
+  },
+  {
+   "q": "Who scored more Champions League goals: Raúl or Karim Benzema?",
+   "q_es": "¿Quién marcó más goles en la Champions: Raúl o Karim Benzema?",
+   "o": [
+    "Raúl",
+    "Karim Benzema"
+   ],
+   "a": 1,
+   "why": "Benzema 90, Raúl 71.",
+   "why_es": "Benzema 90, Raúl 71.",
+   "src": "own knowledge"
+  }
+ ]
+}

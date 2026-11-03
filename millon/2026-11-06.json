@@ -1,10 +1,129 @@
-{"day":"2026-11-06","questions":[
-{"q": "Which of these players has NEVER won the Ballon d'Or?", "q_es": "¿Cuál de estos jugadores NUNCA ha ganado el Balón de Oro?", "o": ["Kaká", "Ronaldinho", "Zlatan Ibrahimović", "Luka Modrić"], "a": 2, "why": "Zlatan never won it; Kaká (2007), Ronaldinho (2005) and Modrić (2018) did.", "why_es": "Zlatan nunca lo ganó; Kaká (2007), Ronaldinho (2005) y Modrić (2018) sí.", "src": "own knowledge (cross-checked)"},
-{"q": "Who scored the winning goal in the 2014 World Cup final?", "q_es": "¿Quién marcó el gol decisivo de la final del Mundial 2014?", "o": ["André Schürrle", "Mario Götze", "Thomas Müller", "Miroslav Klose"], "a": 1, "why": "Götze volleyed in Schürrle's cross in the 113th minute (Germany 1-0 Argentina).", "why_es": "Götze remató un centro de Schürrle en el minuto 113 (Alemania 1-0 Argentina).", "src": "own knowledge (cross-checked)"},
-{"q": "Which of these clubs has NEVER won the European Cup / Champions League?", "q_es": "¿Cuál de estos clubes NUNCA ha ganado la Copa de Europa / Champions?", "o": ["Atlético Madrid", "Borussia Dortmund", "Olympique de Marseille", "Feyenoord"], "o_es": ["Atlético de Madrid", "Borussia Dortmund", "Olympique de Marsella", "Feyenoord"], "a": 0, "why": "Atlético lost three finals; Dortmund won in 1997, Marseille in 1993 and Feyenoord in 1970.", "why_es": "El Atlético perdió tres finales; el Dortmund ganó en 1997, el Marsella en 1993 y el Feyenoord en 1970.", "src": "own knowledge (cross-checked)"},
-{"q": "How many Premier League titles did Arsenal win under Arsène Wenger (1996-2018)?", "q_es": "¿Cuántas Premier League ganó el Arsenal con Arsène Wenger (1996-2018)?", "o": ["2", "3", "4"], "a": 1, "why": "1997-98, 2001-02 and 2003-04.", "why_es": "1997-98, 2001-02 y 2003-04.", "src": "own knowledge (cross-checked)"},
-{"q": "Which of these clubs did Thierry Henry play for?", "q_es": "¿En cuál de estos clubes jugó Thierry Henry?", "o": ["Chelsea", "Juventus", "Olympique de Marseille"], "o_es": ["Chelsea", "Juventus", "Olympique de Marsella"], "a": 1, "why": "Henry played for Monaco, Juventus, Arsenal, Barcelona and New York Red Bulls.", "why_es": "Henry jugó en Mónaco, Juventus, Arsenal, Barcelona y New York Red Bulls.", "src": "own knowledge (cross-checked)"},
-{"q": "Who won the 2006 Ballon d'Or?", "q_es": "¿Quién ganó el Balón de Oro de 2006?", "o": ["Gianluigi Buffon", "Thierry Henry", "Fabio Cannavaro"], "a": 2, "why": "Cannavaro, captain of World Cup winners Italy, won it ahead of Buffon and Henry.", "why_es": "Cannavaro, capitán de la Italia campeona del mundo, lo ganó por delante de Buffon y Henry.", "src": "own knowledge (cross-checked)"},
-{"q": "Which country won Euro 1992?", "q_es": "¿Qué selección ganó la Euro 1992?", "o": ["Denmark", "Germany", "Netherlands"], "o_es": ["Dinamarca", "Alemania", "Países Bajos"], "a": 0, "why": "Denmark, who entered late replacing Yugoslavia, beat Germany 2-0 in the final.", "why_es": "Dinamarca, que entró tarde por Yugoslavia, ganó 2-0 a Alemania en la final.", "src": "own knowledge (cross-checked)"},
-{"q": "Who scored more goals for Real Madrid in all competitions: Raúl or Karim Benzema?", "q_es": "¿Quién marcó más goles con el Real Madrid en todas las competiciones: Raúl o Karim Benzema?", "o": ["Raúl", "Karim Benzema"], "a": 1, "why": "Benzema finished with 354 goals, Raúl with 323.", "why_es": "Benzema acabó con 354 goles, Raúl con 323.", "src": "own knowledge (cross-checked)"}
-]}
+{
+ "day": "2026-11-06",
+ "questions": [
+  {
+   "q": "Which of these clubs did Ronaldo Nazário NEVER play for?",
+   "q_es": "¿En qué club NUNCA jugó Ronaldo Nazário?",
+   "o": [
+    "PSV",
+    "Atlético Madrid",
+    "Barcelona",
+    "AC Milan"
+   ],
+   "a": 1,
+   "why": "Ronaldo played for Real Madrid, never Atlético.",
+   "why_es": "Ronaldo jugó en el Real Madrid, nunca en el Atlético.",
+   "src": "own knowledge",
+   "o_es": [
+    "PSV",
+    "Atlético de Madrid",
+    "Barcelona",
+    "Milan"
+   ]
+  },
+  {
+   "q": "Which club did Didier Drogba join Chelsea from in 2004?",
+   "q_es": "¿De qué club llegó Didier Drogba al Chelsea en 2004?",
+   "o": [
+    "Marseille",
+    "Guingamp",
+    "Le Mans",
+    "Lyon"
+   ],
+   "a": 0,
+   "why": "Le Mans, then Guingamp, then one season at Marseille before Chelsea.",
+   "why_es": "Le Mans, luego Guingamp y una temporada en el Marsella antes del Chelsea.",
+   "src": "own knowledge",
+   "o_es": [
+    "Marsella",
+    "Guingamp",
+    "Le Mans",
+    "Lyon"
+   ]
+  },
+  {
+   "q": "Which country has won the most Copa América titles?",
+   "q_es": "¿Qué país ha ganado más Copas América?",
+   "o": [
+    "Uruguay",
+    "Brazil",
+    "Chile",
+    "Argentina"
+   ],
+   "a": 3,
+   "why": "Argentina's 2024 win made it 16, one more than Uruguay.",
+   "why_es": "El título de 2024 le dio a Argentina 16, uno más que Uruguay.",
+   "src": "own knowledge",
+   "o_es": [
+    "Uruguay",
+    "Brasil",
+    "Chile",
+    "Argentina"
+   ]
+  },
+  {
+   "q": "How many Premier League goals did Alan Shearer score?",
+   "q_es": "¿Cuántos goles de Premier League marcó Alan Shearer?",
+   "o": [
+    "250",
+    "260",
+    "270"
+   ],
+   "a": 1,
+   "why": "260, still the record.",
+   "why_es": "260, todavía el récord.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who was Barcelona's manager just before Pep Guardiola?",
+   "q_es": "¿Quién entrenó al Barcelona justo antes que Pep Guardiola?",
+   "o": [
+    "Frank Rijkaard",
+    "Louis van Gaal",
+    "Bobby Robson"
+   ],
+   "a": 0,
+   "why": "Rijkaard, 2003 to 2008.",
+   "why_es": "Rijkaard, de 2003 a 2008.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "In which year was the Bosman ruling?",
+   "q_es": "¿En qué año fue la sentencia Bosman?",
+   "o": [
+    "1995",
+    "1993",
+    "1997"
+   ],
+   "a": 0,
+   "why": "December 1995, at the European Court of Justice.",
+   "why_es": "Diciembre de 1995, en el Tribunal de Justicia de la UE.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which of these players NEVER won the Premier League?",
+   "q_es": "¿Cuál de estos jugadores NUNCA ganó la Premier League?",
+   "o": [
+    "Robbie Fowler",
+    "Teddy Sheringham",
+    "Andy Cole"
+   ],
+   "a": 0,
+   "why": "Fowler never won it; Sheringham and Cole won it with Man United.",
+   "why_es": "Fowler nunca la ganó; Sheringham y Cole la ganaron con el Man United.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who scored more Premier League goals: Thierry Henry or Frank Lampard?",
+   "q_es": "¿Quién marcó más goles en la Premier: Thierry Henry o Frank Lampard?",
+   "o": [
+    "Thierry Henry",
+    "Frank Lampard"
+   ],
+   "a": 1,
+   "why": "Lampard 177, Henry 175.",
+   "why_es": "Lampard 177, Henry 175.",
+   "src": "own knowledge"
+  }
+ ]
+}
