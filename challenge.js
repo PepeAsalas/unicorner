@@ -11,6 +11,7 @@
    ch.intro(el)            -> fills el with the friend's banner (nothing if no challenge)
    ch.end(el, score, fresh)-> fills el with the comparison + the "challenge a friend" button */
 (function(){
+const SEND='<svg class="px-send" width="24" height="24" viewBox="0 0 8 8" aria-hidden="true" shape-rendering="crispEdges"><rect x="4" y="0" width="1.02" height="1.02" fill="#1d1a2b"/><rect x="4" y="1" width="1.02" height="1.02" fill="#1d1a2b"/><rect x="5" y="1" width="1.02" height="1.02" fill="#1d1a2b"/><rect x="0" y="2" width="1.02" height="1.02" fill="#1d1a2b"/><rect x="1" y="2" width="1.02" height="1.02" fill="#1d1a2b"/><rect x="2" y="2" width="1.02" height="1.02" fill="#1d1a2b"/><rect x="3" y="2" width="1.02" height="1.02" fill="#1d1a2b"/><rect x="4" y="2" width="1.02" height="1.02" fill="#1d1a2b"/><rect x="5" y="2" width="1.02" height="1.02" fill="#fbf6e8"/><rect x="6" y="2" width="1.02" height="1.02" fill="#1d1a2b"/><rect x="0" y="3" width="1.02" height="1.02" fill="#1d1a2b"/><rect x="1" y="3" width="1.02" height="1.02" fill="#fbf6e8"/><rect x="2" y="3" width="1.02" height="1.02" fill="#fbf6e8"/><rect x="3" y="3" width="1.02" height="1.02" fill="#fbf6e8"/><rect x="4" y="3" width="1.02" height="1.02" fill="#fbf6e8"/><rect x="5" y="3" width="1.02" height="1.02" fill="#fbf6e8"/><rect x="6" y="3" width="1.02" height="1.02" fill="#fbf6e8"/><rect x="7" y="3" width="1.02" height="1.02" fill="#1d1a2b"/><rect x="0" y="4" width="1.02" height="1.02" fill="#1d1a2b"/><rect x="1" y="4" width="1.02" height="1.02" fill="#fbf6e8"/><rect x="2" y="4" width="1.02" height="1.02" fill="#fbf6e8"/><rect x="3" y="4" width="1.02" height="1.02" fill="#fbf6e8"/><rect x="4" y="4" width="1.02" height="1.02" fill="#fbf6e8"/><rect x="5" y="4" width="1.02" height="1.02" fill="#fbf6e8"/><rect x="6" y="4" width="1.02" height="1.02" fill="#fbf6e8"/><rect x="7" y="4" width="1.02" height="1.02" fill="#1d1a2b"/><rect x="0" y="5" width="1.02" height="1.02" fill="#1d1a2b"/><rect x="1" y="5" width="1.02" height="1.02" fill="#1d1a2b"/><rect x="2" y="5" width="1.02" height="1.02" fill="#1d1a2b"/><rect x="3" y="5" width="1.02" height="1.02" fill="#1d1a2b"/><rect x="4" y="5" width="1.02" height="1.02" fill="#1d1a2b"/><rect x="5" y="5" width="1.02" height="1.02" fill="#fbf6e8"/><rect x="6" y="5" width="1.02" height="1.02" fill="#1d1a2b"/><rect x="4" y="6" width="1.02" height="1.02" fill="#1d1a2b"/><rect x="5" y="6" width="1.02" height="1.02" fill="#1d1a2b"/><rect x="4" y="7" width="1.02" height="1.02" fill="#1d1a2b"/></svg>';
 const esc=t=>String(t??'').replace(/[&<>"'`]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','`':'&#96;'}[c]));
 const ls={get:k=>{try{return localStorage.getItem(k)}catch{return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch{}}};
 const sentList=()=>{try{return JSON.parse(ls.get('uc-chal-sent')||'[]')}catch{return[]}};
@@ -21,7 +22,7 @@ const unb64=t=>JSON.parse(decodeURIComponent(escape(atob(t.replace(/-/g,'+').rep
 let styled=false;
 function style(){if(styled)return;styled=true;const s=document.createElement('style');s.textContent=`
 .uc-ch{display:grid;gap:8px;text-align:center}
-.uc-ch-go{width:100%;min-height:56px;border:3px solid var(--ink,#1d1a2b);box-shadow:0 4px 0 var(--ink,#1d1a2b);background:var(--gold,#f2c230);color:var(--ink,#1d1a2b);font:400 22px/1.1 var(--disp,"Jersey 10",monospace);padding:10px 12px;cursor:pointer;transition:transform 120ms cubic-bezier(.23,1,.32,1),box-shadow 120ms cubic-bezier(.23,1,.32,1)}
+.uc-ch-go{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:56px;border:3px solid var(--ink,#1d1a2b);box-shadow:0 4px 0 var(--ink,#1d1a2b);background:var(--gold,#f2c230);color:var(--ink,#1d1a2b);font:400 22px/1.1 var(--disp,"Jersey 10",monospace);padding:10px 12px;cursor:pointer;transition:transform 120ms cubic-bezier(.23,1,.32,1),box-shadow 120ms cubic-bezier(.23,1,.32,1)}
 .uc-ch-go:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink,#1d1a2b)}
 .uc-ch small{font:17px/1.2 var(--mono,"VT323",monospace);color:var(--sand,#e9dfc2)}
 .uc-ch-name{display:grid;gap:6px;text-align:left}.uc-ch-name[hidden],.uc-ch-url[hidden]{display:none}
@@ -30,7 +31,7 @@ function style(){if(styled)return;styled=true;const s=document.createElement('st
 .uc-ch-name button{border:3px solid var(--ink,#1d1a2b);background:var(--gold,#f2c230);color:var(--ink,#1d1a2b);font:400 20px var(--disp,"Jersey 10",monospace);padding:0 14px;cursor:pointer}
 .uc-ch-vs{padding:10px 12px;border:3px solid var(--ink,#1d1a2b);background:var(--paper,#fbf6e8);color:var(--ink,#1d1a2b);font:600 16px/1.3 Barlow,system-ui,sans-serif}.uc-ch-vs.won{background:#7fe0a8}.uc-ch-vs.lost{background:#f0c4bd}.uc-ch-vs b{font-size:1.2em}
 .uc-ch-banner{display:flex;gap:10px;align-items:center;padding:10px 12px;background:var(--gold,#f2c230);color:var(--ink,#1d1a2b);border:3px solid var(--ink,#1d1a2b);box-shadow:0 4px 0 var(--ink,#1d1a2b);font:600 15px/1.3 Barlow,system-ui,sans-serif;text-align:left}
-.uc-ch-banner.cool{background:var(--paper,#fbf6e8)}.uc-ch-banner>b{font-size:24px;line-height:1}`;document.head.appendChild(s)}
+.uc-ch .px-send,.uc-ch-banner .px-send{flex:none}.uc-ch-banner.cool{background:var(--paper,#fbf6e8)}.uc-ch-banner>b{font-size:24px;line-height:1}`;document.head.appendChild(s)}
 
 window.ucChallenge=function(o){
  const L=(en,es)=>o.es?es:en,device=()=>coarse()?'mobile':'desktop';
@@ -49,13 +50,13 @@ window.ucChallenge=function(o){
  const api={c};
 
  api.intro=el=>{if(!el)return;if(!c){el.innerHTML='';return}style();
-  if(c.old){el.innerHTML=`<div class="uc-ch-banner cool"><b>⚔</b><span>${L(`${who()} challenged you on an earlier game. Today's is new: play it and challenge them back!`,`${who()} te retó en un juego anterior. El de hoy es nuevo: juégalo y devuélvele el reto.`)}</span></div>`;return}
-  const t=o.banner(who(),c.s);el.innerHTML=`<div class="uc-ch-banner"><b>⚔</b><span>${L(t.en,t.es)}</span></div>`};
+  if(c.old){el.innerHTML=`<div class="uc-ch-banner cool">${SEND}<span>${L(`${who()} challenged you on an earlier game. Today's is new: play it and challenge them back!`,`${who()} te retó en un juego anterior. El de hoy es nuevo: juégalo y devuélvele el reto.`)}</span></div>`;return}
+  const t=o.banner(who(),c.s);el.innerHTML=`<div class="uc-ch-banner">${SEND}<span>${L(t.en,t.es)}</span></div>`};
 
  api.end=(el,score,isFresh)=>{if(!el)return;style();
   const vs=c&&!c.old?`<div class="uc-ch-vs ${score>c.s?'won':score===c.s?'':'lost'}">${score>c.s?L(`🏆 You beat ${who()}! <b>${o.fmt(score)}</b> vs ${o.fmt(c.s)}`,`🏆 ¡Has ganado a ${who()}! <b>${o.fmt(score)}</b> a ${o.fmt(c.s)}`):score===c.s?L(`🤝 A draw with ${who()}: <b>${o.fmt(score)}</b> each`,`🤝 Empate con ${who()}: <b>${o.fmt(score)}</b> cada uno`):L(`${who()} wins this one: <b>${o.fmt(c.s)}</b> vs your ${o.fmt(score)}`,`${who()} gana esta: <b>${o.fmt(c.s)}</b> a tu ${o.fmt(score)}`)}</div>`:'';
   const mob=mobileShare();
-  el.innerHTML=`${vs}<div class="uc-ch"><button type="button" class="uc-ch-go">⚔ ${mob?L(`Challenge a friend to beat ${o.fmt(score)}`,`Reta a un amigo a superar tu ${o.fmt(score)}`):L(`Copy a challenge link · beat my ${o.fmt(score)}`,`Copiar enlace de reto · supera mi ${o.fmt(score)}`)}</button>
+  el.innerHTML=`${vs}<div class="uc-ch"><button type="button" class="uc-ch-go">${SEND}<span>${mob?L(`Challenge a friend to beat ${o.fmt(score)}`,`Reta a un amigo a superar tu ${o.fmt(score)}`):L(`Copy a challenge link · beat my ${o.fmt(score)}`,`Copiar enlace de reto · supera mi ${o.fmt(score)}`)}</span></button>
    <div class="uc-ch-name" hidden><label>${L('Your name, so they know who to beat','Tu nombre, para que sepan a quién ganar')}</label><div><input maxlength="16" autocomplete="nickname" aria-label="${L('Your name','Tu nombre')}" placeholder="${L('e.g. Pepo','p. ej. Pepo')}"><button type="button">${L('Send','Enviar')}</button></div></div>
    <input class="uc-ch-url" readonly hidden aria-label="${L('Challenge link','Enlace del reto')}">
    <small>${mob?L('They get the same game and see your score.','Le toca el mismo juego y ve tu resultado.'):L('Paste it in WhatsApp, Discord or any chat. They get the same game.','Pégalo en WhatsApp, Discord o cualquier chat. Le toca el mismo juego.')}</small></div>`;
@@ -66,7 +67,7 @@ window.ucChallenge=function(o){
    const link=o.url(b64({g:o.game,n:name().slice(0,16),s:score,d:o.day,i:cid})),text=o.share(score,link);
    let how='copy';if(mobileShare()){try{await navigator.share({text});how='share'}catch(e){if(e&&e.name==='AbortError'){o.track('challenge_cancel',{game:o.game,cid,score,device:device()});return}}}
    if(how==='copy'){const ok=navigator.clipboard?.writeText?await navigator.clipboard.writeText(text).then(()=>true).catch(()=>false):false;
-    if(ok){const t=go.textContent;go.textContent=L('✓ Link copied! Paste it in any chat','✓ ¡Enlace copiado! Pégalo en cualquier chat');setTimeout(()=>{go.textContent=t},2400)}
+    if(ok){const sp=go.querySelector('span'),t=sp.textContent;sp.textContent=L('Link copied! Paste it in any chat','¡Enlace copiado! Pégalo en cualquier chat');setTimeout(()=>{sp.textContent=t},2400)}
     else{url.value=link;url.hidden=false;url.focus();url.select();how='manual'}}
    o.track('challenge_sent',{game:o.game,cid,score,method:how,device:device(),parent:c&&!c.old?c.i:null})};
   const ok=()=>{const v=inp.value.replace(/[<>&"'`]/g,'').trim().slice(0,16);ls.set('uc-chal-name',v);ls.set('uc-chal-asked','1');box.hidden=true;send()};
