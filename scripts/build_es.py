@@ -88,6 +88,9 @@ def build():
     sub_re(r'<meta property="og:description" content="[^"]*">', f'<meta property="og:description" content="{OG_DESC}">')
     sub_re(r'<meta name="twitter:title" content="[^"]*">', f'<meta name="twitter:title" content="{OG_TITLE}">')
     sub_re(r'<meta name="twitter:description" content="[^"]*">', f'<meta name="twitter:description" content="{OG_DESC}">')
+    # the Spanish link preview (title in Spanish)
+    sub('https://unicornergame.lol/og-daily.jpg', 'https://unicornergame.lol/og-daily-es.jpg', 4)
+    sub_re(r'<meta property="og:image:alt" content="[^"]*">', '<meta property="og:image:alt" content="Unicorner: ¿Cuánto sabes de fútbol? Trivia de fútbol diaria.">')
     sub('<meta property="og:locale" content="en_GB">\n<meta property="og:locale:alternate" content="es_ES">',
         '<meta property="og:locale" content="es_ES">\n<meta property="og:locale:alternate" content="en_GB">')
     for en, es in TEXT.items():
