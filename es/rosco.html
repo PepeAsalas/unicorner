@@ -102,6 +102,12 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
 .note a{color:var(--gold);text-decoration:underline;text-underline-offset:3px}
 /* "contains" letters: a purple corner on the ring */
 .ring .l.has::after{content:"";position:absolute;right:-3px;top:-3px;width:9px;height:9px;background:#b48cff;border:2px solid var(--ink)}
+.rk-link{display:grid;place-items:center;text-decoration:none;color:var(--ink)}
+/* hint: a small button under the answer box; the hint shows in the clue card */
+.hintb{align-self:center;background:none;border:2px dashed rgba(251,246,232,.55);color:var(--paper);font:20px var(--mono);padding:4px 12px;cursor:pointer;transition:background-color 150ms ease,transform 120ms ease}
+.hintb:active{transform:scale(.97)}.hintb:disabled{opacity:.4;cursor:default}
+@media (hover:hover) and (pointer:fine){.hintb:not(:disabled):hover{background:rgba(251,246,232,.1)}}
+.hintx{display:block;margin-top:6px;font:400 24px/1 var(--disp);letter-spacing:.12em;color:var(--marine)}
 /* letters you can still play are buttons: tap one to jump to it */
 .ring .l.jump{cursor:pointer;transition:transform 140ms cubic-bezier(.23,1,.32,1),filter 140ms ease}
 @media (hover:hover) and (pointer:fine){.ring .l.jump:hover{transform:scale(1.12);filter:brightness(1.2)}}
@@ -129,9 +135,10 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
 
 <section id="s-play" hidden style="display:flex;flex-direction:column;gap:12px">
  <div class="ring" id="ring"><div class="mid"><div class="clock" id="clock">3:00</div><div class="sc" id="count"></div></div></div>
- <div class="host"><div class="face" id="face"><img alt="" width="64" height="64"></div><div class="clue" style="flex:1"><span class="chip" id="chip">Starts with A</span><p id="prompt"></p><small id="sub"></small></div></div>
+ <div class="host"><div class="face" id="face"><img alt="" width="64" height="64"></div><div class="clue" style="flex:1"><span class="chip" id="chip">Starts with A</span><p id="prompt"></p><small id="sub"></small><b class="hintx" id="hintx" hidden></b></div></div>
  <form id="f" autocomplete="off"><input class="inp" id="in" placeholder="Type your answer" enterkeyhint="send" autocapitalize="words" spellcheck="false"></form>
  <p class="var" id="var" role="status"></p>
+ <button type="button" class="hintb" id="hint" data-es="Pista (−15 s)">Hint (−15 s)</button>
  <div class="row"><button class="btn gold" id="pass" type="button" data-es="Pasapalabra">Pass</button><button class="btn grass" id="enter" type="button" data-es="Enviar">Enter</button></div>
 </section>
 
@@ -140,6 +147,7 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
  <div class="host"><div class="face" id="face2"><img alt="" width="64" height="64"></div><div class="say" id="say2" role="status"></div></div>
  <div class="grid" id="grid"></div>
  <p class="note" id="rank2" style="margin:0;font-size:20px"></p>
+ <a class="btn paper rk-link" id="rklink" href="/#ranking-rosco" data-es="Ver el ranking del Rosco de hoy">See today's Rosco ranking</a>
  <div id="chal2"></div>
  <div class="row"><button class="btn gold" id="shareimg" data-es="Compartir imagen">Share image</button><button class="btn paper" id="dlimg" data-es="Descargar imagen">⬇ Download image</button></div>
  <button class="btn paper" id="copy" style="width:100%" data-es="Copiar resultado">Copy result</button>
@@ -206,7 +214,8 @@ const LINES=ES?{ok:['¡Golazo!','¡Correcto!','¡A la escuadra!','¡Eso es saber
  lap:['Lap two. The ones you passed are back.','Round we go again!']};
 
 // ── answer checking: full name, any alias, or any surname; one typo allowed in longer names ──
-const norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/ø/g,'o').replace(/ß/g,'ss').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+const norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/ø/g,'o').replace(/ß/g,'ss').replace(/ı/g,'i').replace(/ł/g,'l').replace(/đ/g,'d').replace(/æ/g,'ae').replace(/œ/g,'oe').replace(/þ/g,'th').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+const CPRE=new Set(['fc','ac','as','sc','cf','cd','ud','sd','rc','ss','us','afc','vfb','vfl','tsv','fk','sv','bk','if','sk','nk','real','club','the','de','1','1.']);
 const PART=new Set(['van','de','der','den','di','da','dos','das','del','le','la','von','el','al','ter','ten']);
 function forms(name,aliases=[]){const out=new Set([norm(name),...aliases.map(norm)]);const w=norm(name).split(' ').filter(x=>!PART.has(x));
  if(w.length>1){w.slice(1).forEach(x=>{if(x.length>=3)out.add(x)});out.add(w.slice(-2).join(' '))}
@@ -262,7 +271,7 @@ function play(){show('s-play');render(true);clearInterval(tick);tick=setInterval
 function render(first){const q=cur();if(!q)return finish('all');S.seen=S.seen||[];
  if(S.seen.includes(q.letter)){S.lap++;S.seen=[];if(!first)setTimeout(()=>react('wink',pick(LINES.lap)),0)}S.seen.push(q.letter);save();drawRing('ring',q.letter);const c=counts();
  $('count').innerHTML=`<b>${c.ok} ✓</b> · <i>${c.no} ✕</i> · `+L(`${S.queue.length} left`,`quedan ${S.queue.length}`);$('clock').textContent=fmt(left());
- const has=q.mode==='contains',ty=q.answer_type==='club'?L('Club','Club'):q.answer_type==='country'?L('Country','Selección'):L('Surname','Apellido');$('chip').classList.toggle('has',has);$('chip').textContent=has?L(`Contains ${q.letter} · anywhere in the name`,`Contiene la ${q.letter} · en cualquier parte`):ES?`${ty} por la ${q.letter}`:`${ty} starts with ${q.letter}`;$('chip').classList.toggle('has',has);$('prompt').textContent=clue(q);$('sub').textContent=(ES&&q.prompt_es?q.subtitle_es:q.subtitle)||'';
+ const has=q.mode==='contains',ty=q.answer_type==='club'?L('Club','Club'):q.answer_type==='country'?L('Country','Selección'):L('Surname','Apellido');$('chip').classList.toggle('has',has);$('chip').textContent=has?L(`Contains ${q.letter} · anywhere in the name`,`Contiene la ${q.letter} · en cualquier parte`):ES?`${ty} por la ${q.letter}`:`${ty} starts with ${q.letter}`;$('chip').classList.toggle('has',has);$('prompt').textContent=clue(q);$('sub').textContent=(ES&&q.prompt_es?q.subtitle_es:q.subtitle)||'';showHint(q);
  $('in').placeholder=ES?(q.answer_type==='club'?'Escribe un club':q.answer_type==='country'?'Escribe una selección':q.answer_type==='manager'?'Escribe un entrenador':'Escribe un jugador'):(q.answer_type==='club'?'Type a club':q.answer_type==='country'?'Type a country':q.answer_type==='manager'?'Type a manager':'Type a player');
  if(first){host.play=host.play||Host($('face'));host.play.set('point')}}
 function react(pose,text){host.play.set(pose);$('var').textContent=text;host.play.talk(650)}
@@ -273,14 +282,28 @@ function next(){S.queue.shift();if(!S.queue.length)return finish('all');save();r
 function answer(){const q=cur(),raw=$('in').value.trim();if(!q)return;if(!raw)return pass();
  const t=norm(raw),L0=q.letter.toLowerCase(),con=q.mode==='contains',okf=a=>forms(a.name,a.aliases).filter(f=>!con||f.includes(L0));
  // contains letters: what you type has to have the letter in it (Ronaldo Nazário counts for I, plain Ronaldo doesn't)
- const good=(!con||t.includes(L0))?q.answers.find(a=>hit(t,okf(a))):null;
+ let good=(!con||t.includes(L0))?q.answers.find(a=>hit(t,okf(a))):null;
+ // clubs: the first real word is enough when only one club in the list starts with it (Werder, Wolverhampton, Eintracht, Atlético)
+ let firstOther=false;
+ if(!good&&q.answer_type!=='player'&&q.answer_type!=='manager'&&t.length>=4&&!t.includes(' ')){const fw=n=>norm(n).split(' ').find(w=>w.length>=3&&!CPRE.has(w))||'';
+  const near=n=>{const w=fw(n);return w&&(w===t||(t.length>=5&&lev(t,w)<=1))},inA=q.answers.filter(a=>near(a.name)),inO=(q.others||[]).filter(near);
+  if(inA.length+inO.length===1){if(inA.length&&(!con||okf(inA[0]).length&&fw(inA[0].name).includes(L0)))good=inA[0];else firstOther=true}
+  else if(inA.length+inO.length>1){$('var').textContent=L('More than one club starts like that. Type the full name!','Hay más de un club que empieza así. ¡Escribe el nombre completo!');host.play.set('think');SFX.var();shake();$('in').select();return}}
  if(good){S.res[q.letter]='ok';S.typed[q.letter]=good.name;S.run=(S.run||0)+1;S.miss=0;react(S.run>=5&&S.run%5===0?'excited':S.run>=3?'laugh':'happy-1',(S.run>=3?L(S.run+' in a row! ','¡'+S.run+' seguidas! '):'')+pick(LINES.ok)+' '+good.name);popLetter(q.letter);(S.run>=3&&S.run%3===0?SFX.streak:SFX.ok)();track('rosco_answer',{letter:q.letter,ok:true})}
- else if((q.others||[]).some(n=>hit(t,forms(n)))||(con&&q.answers.some(a=>hit(t,forms(a.name,a.aliases))))){$('var').textContent=q.mode==='contains'?L(`VAR: right answer, but there's no ${q.letter} in it. Try the full name or another one!`,`VAR: respuesta válida, pero no lleva la ${q.letter}. ¡Prueba el nombre completo u otra!`):L(`VAR: right answer, but it doesn't start with ${q.letter}. Try another!`,`VAR: respuesta válida, pero no empieza por la ${q.letter}. ¡Prueba otra!`);host.play.set('think');SFX.var();shake();$('in').select();return}
+ else if(firstOther||(q.others||[]).some(n=>hit(t,forms(n)))||(con&&q.answers.some(a=>hit(t,forms(a.name,a.aliases))))){$('var').textContent=q.mode==='contains'?L(`VAR: right answer, but there's no ${q.letter} in it. Try the full name or another one!`,`VAR: respuesta válida, pero no lleva la ${q.letter}. ¡Prueba el nombre completo u otra!`):L(`VAR: right answer, but it doesn't start with ${q.letter}. Try another!`,`VAR: respuesta válida, pero no empieza por la ${q.letter}. ¡Prueba otra!`);host.play.set('think');SFX.var();shake();$('in').select();return}
  else{S.res[q.letter]='no';S.typed[q.letter]=raw;S.run=0;S.miss=(S.miss||0)+1;react(S.miss>=3?'facepalm':S.miss===2?'annoyed':'sad',pick(LINES.no(q.answers[0].name)));shake();SFX.no();track('rosco_answer',{letter:q.letter,ok:false})}
  S.passed=S.passed.filter(x=>x!==q.letter);$('in').value='';next();$('in').focus()}
 function pass(){const q=cur();if(!q)return;if(!S.passed.includes(q.letter))S.passed.push(q.letter);
  S.queue.push(S.queue.shift());react('pasapalabra',pick(LINES.pass));SFX.pass();$('in').value='';track('rosco_pass',{letter:q.letter});save();render();$('in').focus()}
 {const b=$('snd'),paint=()=>{b.textContent=sndOn()?'🔊':'🔇'};paint();b.onclick=()=>{try{localStorage.setItem('unicorner-sound',sndOn()?'off':'on')}catch{}paint();if(sndOn())SFX.ok()}}
+// the hint for a letter: first two letters of one answer's surname (the word the letter is about), the rest as blanks
+function hintFor(q){const a=q.answers[0];if(!a)return'';const words=a.name.split(' ').filter(w=>!PART.has(norm(w)));
+ let w=q.mode==='contains'?words.find(x=>norm(x).includes(q.letter.toLowerCase()))||a.name:words.find(x=>norm(x).startsWith(q.letter.toLowerCase()))||words[words.length-1]||a.name;
+ const shown=w.slice(0,2);return shown+'_'.repeat(Math.max(0,w.length-2))+'  ·  '+L(`${w.length} letters`,`${w.length} letras`)}
+function hint(){const q=cur();if(!q||S.done)return;S.hints=S.hints||{};if(S.hints[q.letter])return;
+ S.hints[q.letter]=hintFor(q);S.start-=15000;$('clock').textContent=fmt(left());SFX.pass();track('rosco_hint',{letter:q.letter});save();showHint(q);$('in').focus()}
+function showHint(q){const h=S.hints&&S.hints[q.letter],x=$('hintx');x.hidden=!h;x.textContent=h||'';$('hint').disabled=!!h}
+$('hint').onclick=hint;
 function jump(ch){const i=S?S.queue.indexOf(ch):-1;if(i<=0||S.done)return;const q=cur();if(q&&!S.passed.includes(q.letter))S.passed.push(q.letter);
  S.queue=S.queue.slice(i).concat(S.queue.slice(0,i));if(S.seen)S.seen=S.seen.filter(x=>x!==ch);SFX.pass();$('in').value='';$('var').textContent='';save();render();$('in').focus()}
 $('ring').addEventListener('click',e=>{const l=e.target.closest('.l.jump');if(l)jump(l.dataset.l)});
@@ -294,7 +317,7 @@ function ringSweep(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)re
 async function myRank(){const el=$('rank2');if(!el)return;try{const g=await rpc('rosco_board',{p_day:DAY});
  if(g===undefined){el.innerHTML=`<a href="${ES?'/es/#signin':'/#signin'}">${L('Sign in to get on the Rosco board','Inicia sesión para entrar en el ranking del Rosco')}</a>`;return}
  if(g&&g.me)el.innerHTML=L(`🏆 You're <b>#${g.me.rank}</b> of ${g.players} on today's Rosco board`,`🏆 Vas <b>${g.me.rank}º</b> de ${g.players} en el ranking del Rosco de hoy`)}catch{}}
-function end(fresh){show('s-end');CH&&CH.end($('chal2'),counts().ok,fresh);feedback();const c=counts(),n=R.letters.length;setTimeout(()=>dayAvg(c.ok),fresh?1500:0);setTimeout(myRank,fresh?2200:300);drawRing('ring2');$('score').innerHTML=`${c.ok}<span>/${n}</span>`;
+function end(fresh){show('s-end');if(ES)$('rklink').href='/es/#ranking-rosco';CH&&CH.end($('chal2'),counts().ok,fresh);feedback();const c=counts(),n=R.letters.length;setTimeout(()=>dayAvg(c.ok),fresh?1500:0);setTimeout(myRank,fresh?2200:300);drawRing('ring2');$('score').innerHTML=`${c.ok}<span>/${n}</span>`;
  $('left').textContent=S.why==='time'?L('TIME UP','¡TIEMPO!'):L(fmt(S.left||0)+' LEFT','SOBRAN '+fmt(S.left||0));
  const mood=c.ok>=19?'celebrate':c.ok>=15?'excited':c.ok>=11?'wink':c.ok>=7?'sad':'facepalm';host.end=host.end||Host($('face2'));
  say($('say2'),host.end,ES?(c.ok>=19?`¡${c.ok}! Menudo Rosco. Saluda al público.`:c.ok>=13?`${c.ok} aciertos. Eso es saber de fútbol.`:c.ok>=8?`${c.ok} hoy. El Rosco es duro, ¡vuelve mañana!`:`Solo ${c.ok}... todos tenemos un mal día. ¡Mañana, Rosco nuevo!`):(c.ok>=19?`${c.ok}! That's a huge Rosco. Take a bow.`:c.ok>=13?`${c.ok} correct. Solid ball knowledge, that.`:c.ok>=8?`${c.ok} today. The Rosco is a tough one, come back tomorrow!`:`Only ${c.ok}... we all have off days. New Rosco tomorrow!`),mood);

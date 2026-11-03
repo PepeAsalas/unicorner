@@ -3339,6 +3339,9 @@ const ledIdx=()=>Math.max(0,LEDS.findIndex(l=>l[0]===lsGet('uc-led')));
 function applyLed(){const l=LEDS[ledIdx()];document.querySelectorAll('.otd-fact').forEach(el=>el.style.setProperty('--led',l[1]));document.querySelectorAll('[data-compete]').forEach(el=>{el.style.setProperty('--led',l[1]);const b=el.querySelector('.jb-led');if(b)b.setAttribute('aria-label',L('Change LED colour (now '+l[0]+')','Cambiar el color del LED'))})}
 // ── Compete box: the global ranking and your league in one window, with each player's unicorn in their kit ──
 let gScope='global';
+// /#ranking-rosco and /#ranking-millon (from those games' end screens) open the leaderboard on that game's tab
+(()=>{const m=/^#ranking-(rosco|millon)$/.exec(location.hash);if(!m)return;gTab=m[1];history.replaceState(null,'',location.pathname+location.search);
+ const go=(n=0)=>{const el=document.getElementById('global-rank-slot');if(el&&el.querySelector('.ucw'))el.scrollIntoView({behavior:'smooth',block:'center'});else if(n<20)setTimeout(()=>go(n+1),300)};setTimeout(go,600);track('ranking_deeplink',{game:m[1]})})();
 const myLook=()=>{try{return window.ucLook?.()||null}catch{return null}};
 const kitOf=r=>{const id=r.me||r.ghost?myLook()?.kit:r.kit;return KITS.find(k=>k.id===id)||KITS[0]};
 const uniBg=k=>sprite('happy',0,false,k.id==='classic'?null:k).replace(/"/g,"'");
