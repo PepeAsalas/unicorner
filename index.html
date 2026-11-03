@@ -1230,6 +1230,13 @@ body.inf-mode .seo-info,body.inf-mode footer{display:none}
 .ip-price{display:flex;align-items:baseline;gap:8px;margin-top:6px}
 .ip-price b{font:400 64px/.9 var(--px);color:#fff;text-shadow:0 0 22px rgba(176,107,255,.55)}
 .ip-price span{font:400 18px var(--lab);color:#e9dfc2}
+.ip-plans{display:grid;grid-template-columns:1fr 1.15fr;gap:10px;margin:4px 0 12px;align-items:end}
+.ip-plan{position:relative;display:grid;gap:2px;justify-items:center;padding:12px 8px;border:3px solid #1d1a2b;border-radius:10px;background:#fbf6e8;color:#1d1a2b;cursor:pointer;opacity:.8;transition:transform 140ms cubic-bezier(.23,1,.32,1),opacity 140ms ease,box-shadow 140ms ease}
+.ip-plan b{font:400 30px/1 var(--px,"Jersey 10",monospace)}.ip-plan span{font-weight:700;font-size:14px}.ip-plan small{font-size:12px;opacity:.75;text-align:center}
+.inf-pay .ip-plan.best{padding:16px 8px;background:#f2c230!important}.inf-pay .ip-plan{background:#fbf6e8;color:#1d1a2b}.inf-pay:has(.ip-plans) .ip-price{display:none}.ip-plan.best b{font-size:38px}
+.ip-plan.best i{position:absolute;top:-12px;font:400 13px/1 var(--px,"Jersey 10",monospace);font-style:normal;background:#1d1a2b;color:#f2c230;padding:4px 8px;border-radius:5px;letter-spacing:.06em}
+.ip-plan[aria-checked="true"]{opacity:1;box-shadow:0 0 0 3px #fff,0 0 0 6px #1d1a2b;transform:translateY(-2px)}
+.ip-plan:active{transform:scale(.97)}
 .inf-pay .ip-buy{width:100%;min-height:60px;font-size:24px!important}
 .ip-fine{margin:0!important;font:400 12px/1.4 var(--lab);color:#8f86c2;text-wrap:balance}.ip-fine a{color:#e9dfc2}
 .ip-back{background:none!important;border:0!important;box-shadow:none!important;color:#e9dfc2!important;text-decoration:underline;font-size:14px!important;padding:6px!important}
@@ -2236,7 +2243,9 @@ const infKey=()=>'uc-inf-'+amsterdamDay();
 const infDone=()=>{try{return localStorage.getItem(infKey())!==null}catch{return false}};
 // Payment: a Stripe Payment Link, $4.99 once. The link carries the player's account id (client_reference_id), so the stripe-webhook function knows who paid.
 // Set paused:true to close checkout again: the Infinity wall then collects waitlist emails instead.
-const INF_PAY={paused:false,link:'https://buy.stripe.com/00w8wP4mTcOv3lU02j83C01',portal:'',price:'$4.99'};
+// monthly: the Payment Link for the $2.99/month price (price_1UXl2FDFAbPfdyNHwhCMKLuq); empty = only the one-time option shows
+const INF_PAY={paused:false,link:'https://buy.stripe.com/00w8wP4mTcOv3lU02j83C01',monthly:'',portal:'',price:'$4.99',priceM:'$2.99'};
+let infPlan='once';
 const INF_FIRST='2026-09-18'; // first day with a daily file; Infinity plays every day before today
 let INF_SUB=null;
 async function infSub(force){if(!window.ucSignedIn?.())return{active:false,signed:false};if(INF_SUB&&!force)return INF_SUB;
@@ -2324,7 +2333,7 @@ async function infBuy(){const msg=document.getElementById('inf-msg');
  if(!window.ucSignedIn?.()){track('infinity_signin',{});return window.ucInfLogin?.()}
  const sub=await infSub(true);if(sub.active)return infEndless();
  const uid=await window.ucUserId?.();if(!uid||!INF_PAY.link){if(msg)msg.textContent=L('Something went wrong. Sign out and in again, then try once more.','Algo ha fallado. Cierra sesión, vuelve a entrar e inténtalo otra vez.');else infWall(true);return}
- track('infinity_checkout',{});const u=new URL(INF_PAY.link);u.searchParams.set('client_reference_id',uid);const em=window.ucSignedEmail?.();if(em)u.searchParams.set('prefilled_email',em);location.href=u.toString()}
+ const monthly=INF_PAY.monthly&&infPlan==='month';track('infinity_checkout',{plan:monthly?'month':'once'});const u=new URL(monthly?INF_PAY.monthly:INF_PAY.link);u.searchParams.set('client_reference_id',uid);const em=window.ucSignedEmail?.();if(em)u.searchParams.set('prefilled_email',em);location.href=u.toString()}
 // back from Stripe: the webhook usually lands within seconds, so check a few times before opening the door
 async function infPaid(){if(INF)return;INF={Q,qi,score,results};document.body.classList.add('inf-mode');document.body.classList.remove('landing');window.scrollTo({top:0});
  swap(`<div class="card inf-load"><div class="inf-big">∞</div><p>${L('Unlocking Infinity mode…','Desbloqueando el Modo Infinito…')}</p></div>`);
@@ -2352,11 +2361,15 @@ function infWall(again){document.body.classList.remove('playing');const signed=!
   <p class="ip-sub">${INF_PAY.paused?L('Endless questions, no waiting for tomorrow. We are putting the finishing touches on it.','Preguntas sin fin, sin esperar a mañana. Le estamos dando los últimos retoques.'):L("Don't wait for tomorrow. Keep playing for as long as you like.",'No esperes a mañana. Sigue jugando todo lo que quieras.')}</p>
   <ul class="ip-perks"><li><b>∞</b><span><strong>${L('Every past daily question','Todas las preguntas anteriores')}</strong>${L('Hundreds of them, 5 more every day','Cientos, y 5 más cada día')}</span></li><li><b>★</b><span><strong>${L('The Infinity kit','La equipación Infinito')}</strong>${L('Wear it on every leaderboard','Lúcela en todos los rankings')}</span></li><li><b>✓</b><span><strong>${L('Your daily game stays free','El juego diario sigue gratis')}</strong>${L('This is extra, nothing is taken away','Es un extra, no quitamos nada')}</span></li></ul>
   ${INF_PAY.paused?`<div class="ip-wait ip-soon">${(()=>{let n='';try{n=localStorage.getItem('uc-inf-notified')||''}catch{}const em=window.ucSignedEmail?.()||'';return n&&(!em||n===em)?`<p class="ip-ok">✓ ${L("You're on the list. We'll email you the moment Infinity opens.",'Ya estás en la lista. Te avisaremos en cuanto abra el Infinito.')}</p>`:`<b>${L('Not ready yet','Aún no está listo')}</b><p>${L("Leave your email and you'll be the first in when it opens.",'Deja tu email y serás el primero en entrar cuando abra.')}</p><form class="ip-notify" id="ip-notify"><input type="email" required value="${esc(em)}" placeholder="${L('Your email','Tu email')}" aria-label="${L('Your email','Tu email')}"><button type="submit">${L('Notify me','Avísame')}</button></form>`})()}</div>`:`<div class="ip-price"><b>${INF_PAY.price}</b><span>${L('once · yours forever','un solo pago · para siempre')}</span></div>
-  <button type="button" class="cta ip-buy" id="inf-buy">${signed?L('Unlock Infinity','Desbloquear Infinito'):L('Sign in to unlock','Inicia sesión para desbloquear')}</button>
-  <p class="ip-fine">${L('One payment, no subscription · Secure checkout by Stripe','Un solo pago, sin suscripción · Pago seguro con Stripe')} · <a href="terms.html">${L('Terms & refunds','Condiciones y reembolsos')}</a></p>`}
+  ${INF_PAY.monthly?`<div class="ip-plans" role="radiogroup" aria-label="${L('Choose how to pay','Elige cómo pagar')}">
+   <button type="button" class="ip-plan" role="radio" data-plan="month" aria-checked="${infPlan==='month'}"><b>${INF_PAY.priceM}</b><span>${L('a month','al mes')}</span><small>${L('Cancel any time','Cancela cuando quieras')}</small></button>
+   <button type="button" class="ip-plan best" role="radio" data-plan="once" aria-checked="${infPlan==='once'}"><i>${L('BEST VALUE','MEJOR OPCIÓN')}</i><b>${INF_PAY.price}</b><span>${L('once, forever','una vez, para siempre')}</span><small>${L('Less than 2 months of monthly','Menos que 2 meses del mensual')}</small></button></div>`:''}
+  <button type="button" class="cta ip-buy" id="inf-buy">${signed?(INF_PAY.monthly?(infPlan==='month'?L(`Unlock for ${INF_PAY.priceM}/month`,`Desbloquear por ${INF_PAY.priceM}/mes`):L(`Unlock forever for ${INF_PAY.price}`,`Desbloquear para siempre por ${INF_PAY.price}`)):L('Unlock Infinity','Desbloquear Infinito')):L('Sign in to unlock','Inicia sesión para desbloquear')}</button>
+  <p class="ip-fine">${INF_PAY.monthly?(infPlan==='month'?L('Monthly, cancel any time','Mensual, cancela cuando quieras'):L('One payment, no subscription','Un solo pago, sin suscripción')):L('One payment, no subscription','Un solo pago, sin suscripción')} · ${L('Secure checkout by Stripe','Pago seguro con Stripe')} · <a href="terms.html">${L('Terms & refunds','Condiciones y reembolsos')}</a></p>`}
   <p class="inf-msg" id="inf-msg" role="status"></p>
   <button type="button" class="ip-back" id="inf-home">${L("Back to today's game",'Volver al partido de hoy')}</button></div>`,()=>{
-  track('infinity_wall',{again,signed,waitlist:INF_PAY.paused});
+  track('infinity_wall',{again,signed,waitlist:INF_PAY.paused,plans:INF_PAY.monthly?2:1});
+  document.querySelectorAll('.ip-plan').forEach(b=>b.onclick=()=>{infPlan=b.dataset.plan;track('infinity_plan',{plan:infPlan});infWall(again)});
   const bb=document.getElementById('inf-buy');if(bb)bb.onclick=e=>{e.currentTarget.disabled=true;infBuy().finally(()=>{const b=document.getElementById('inf-buy');if(b)b.disabled=false})};
   const nf=document.getElementById('ip-notify');if(nf)nf.onsubmit=e=>{e.preventDefault();const v=nf.querySelector('input').value.trim();if(!v)return;window.ucJoinWaitlist?.(v,'infinity_wall','Hit the Infinity wall after the free taster');try{localStorage.setItem('uc-inf-notified',v)}catch{}track('infinity_notify',{from:'wall'});nf.closest('.ip-wait').innerHTML=`<p class="ip-ok">✓ ${L("You're on the list! We'll email you the moment Infinity opens.",'¡Estás en la lista! Te avisaremos en cuanto abra el Infinito.')}</p>`};
   document.getElementById('inf-home').onclick=()=>{track('home_click',{from:'infinity'});start()};
