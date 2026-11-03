@@ -136,7 +136,7 @@ const ES=location.pathname.startsWith('/es/'),L=(en,es)=>ES?es:en;
 const DAY=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
 // Spanish at /es/millon.html (build_es.py copies it)
 if(ES){document.querySelectorAll('[data-es]').forEach(e=>e.innerHTML=e.dataset.es);document.querySelectorAll('[data-es-ph]').forEach(e=>e.placeholder=e.dataset.esPh)}
-const $=id=>document.getElementById(id),START=1000000,CHIP=25000,SECS=60,KEY='millon-'+DAY;
+const $=id=>document.getElementById(id),START=1000000,CHIP=25000,SECS=60,KEY='millon-'+DAY+(DAY==='2026-11-03'?'-r1':'');
 const fmt=n=>n.toLocaleString(ES?'es-ES':'en-GB');
 const say=(t,pose)=>{$('say').textContent=t;if(pose)$('face').src='/rosco/host/'+pose+'.png'};
 const VISITOR=(()=>{try{let v=localStorage.getItem('uc-visitor');if(!v){v=crypto.randomUUID();localStorage.setItem('uc-visitor',v)}return v}catch{return null}})();
