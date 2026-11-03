@@ -2244,7 +2244,7 @@ const infDone=()=>{try{return localStorage.getItem(infKey())!==null}catch{return
 // Payment: a Stripe Payment Link, $4.99 once. The link carries the player's account id (client_reference_id), so the stripe-webhook function knows who paid.
 // Set paused:true to close checkout again: the Infinity wall then collects waitlist emails instead.
 // monthly: the Payment Link for the $2.99/month price (price_1UXl2FDFAbPfdyNHwhCMKLuq); empty = only the one-time option shows
-const INF_PAY={paused:false,link:'https://buy.stripe.com/00w8wP4mTcOv3lU02j83C01',monthly:'',portal:'',price:'$4.99',priceM:'$2.99'};
+const INF_PAY={paused:false,link:'https://buy.stripe.com/00w8wP4mTcOv3lU02j83C01',monthly:'https://buy.stripe.com/5kQ5kD4mT4hZcWuaGX83C02',portal:'https://billing.stripe.com/p/login/28E7sL06DeWD09IdT983C00',price:'$4.99',priceM:'$2.99'};
 let infPlan='once';
 const INF_FIRST='2026-09-18'; // first day with a daily file; Infinity plays every day before today
 let INF_SUB=null;
