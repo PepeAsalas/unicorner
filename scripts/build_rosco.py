@@ -124,8 +124,10 @@ def build(day, questions, recent):
     for letter in ORDER:
         if letter in inside:
             pool = [c for c in contains[letter] if c[0]['prompt'] not in used and c[0]['prompt'] not in recent] or contains[letter]
-            q, answers, _ = rng.choice(pool)
+            q, _, _ = rng.choice(pool)
             used.add(q['prompt'])
+            # every valid answer with the letter anywhere in its name counts (Rivaldo for I, Zlatan for Z), not just the picked targets
+            answers = [a for a in q['answers'] if any(letter in norm(n) for n in [a['name']] + (a.get('aliases') or []))]
             items.append({'letter': letter, 'mode': 'contains', 'prompt': q['prompt'], 'subtitle': q.get('subtitle') or '',
                           'prompt_es': q.get('prompt_es') or '', 'subtitle_es': q.get('subtitle_es') or '', 'answer_type': q.get('answer_type', 'player'),
                           'answers': [{'name': a['name'], 'aliases': a.get('aliases') or []} for a in answers],
