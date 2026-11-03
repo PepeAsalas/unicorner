@@ -79,7 +79,7 @@ main,.card,.q,.say{image-rendering:auto}
  <ol class="rules"><li data-es="Empiezas con <b>1.000.000</b>.">You start with <b>1,000,000</b>.</li>
  <li data-es="En cada pregunta reparte el dinero entre las respuestas. Solo te quedas lo que esté en la correcta.">Each question, spread your money over the answers. You only keep what sits on the right one.</li>
  <li data-es="Deja siempre al menos una respuesta vacía. En la última, todo a una.">Always leave at least one answer empty. On the last one, it's all on one.</li>
- <li data-es="60 segundos por pregunta. El dinero sin colocar se pierde.">60 seconds per question. Money you don't place is lost.</li></ol></div>
+ <li data-es="Tienes que colocarlo todo. 60 segundos por pregunta: si se acaba el tiempo, lo que no hayas colocado va a la respuesta con más dinero.">You have to place it all. 60 seconds per question: if time runs out, whatever you haven't placed goes on the answer with the most money.</li></ol></div>
  <button class="btn grass" id="go" data-es="Empezar">Start</button></section>
 
 <section id="s-play" hidden>
@@ -114,7 +114,7 @@ function maxOn(n){return n-1} // answers that may hold money: always leave one e
 function render(){const Q=D.questions[i],opts=ES&&Q.o_es?Q.o_es:Q.o,placed=bets.reduce((a,b)=>a+b,0),left=bank-placed,used=bets.filter(b=>b>0).length,last=i===D.questions.length-1;
  $('left').textContent=fmt(left);
  $('opts').innerHTML=opts.map((o,k)=>`<div class="opt" id="o${k}"><span class="door">${bets[k]?`<i class="spr" style="background-position:${-40*Math.min(5,Math.ceil(bets[k]/START*6)-1)}px -40px"></i>`:''}</span><span class="t">${String.fromCharCode(65+k)}. ${o}</span><b class="amt">${fmt(bets[k])}</b><div class="m"><button data-k="${k}" data-d="none" ${bets[k]?'':'disabled'} aria-label="${L('Take all off','Quitar todo')}">${L('CLEAR','NADA')}</button><button data-k="${k}" data-d="-1" ${bets[k]?'':'disabled'} aria-label="${L('Take off 25,000','Quitar 25.000')}">−25K</button><button data-k="${k}" data-d="1" ${left&&(bets[k]||used<maxOn(opts.length))?'':'disabled'} aria-label="${L('Add 25,000','Añadir 25.000')}">+25K</button><button data-k="${k}" data-d="all" ${left&&(bets[k]||used<maxOn(opts.length))?'':'disabled'} aria-label="${L('Put all the rest here','Poner aquí todo lo que queda')}">${L('ALL','TODO')}</button></div><div class="bar"><i style="width:${bank?bets[k]/bank*100:0}%"></i></div></div>`).join('');
- $('lock').disabled=last&&left>0;}
+ $('lock').disabled=left>0;$('lock').textContent=left>0?L(`Place ${fmt(left)} more`,`Coloca ${fmt(left)} más`):L('Lock it in!','¡Cerrar apuesta!');}
 $('opts').onclick=e=>{const b=e.target.closest('button[data-k]');if(!b||timer===null)return;const k=+b.dataset.k,n=bets.length,placed=bets.reduce((a,c)=>a+c,0),left=bank-placed;
  if(b.dataset.d==='none')bets[k]=0;
  else if(b.dataset.d==='all'){const others=bets.filter((v,j)=>j!==k&&v>0).length;if(!bets[k]&&others>=maxOn(n))return;bets[k]+=left}
@@ -125,11 +125,15 @@ function ask(){const Q=D.questions[i],n=Q.o.length;bets=Array(n).fill(0);t=SECS;
  $('lock').hidden=false;$('next').hidden=true;$('clock').textContent=t;$('clock').classList.remove('low');
  say(i===D.questions.length-1?L('Last question. Everything on one answer. No pressure!','Última pregunta. Todo a una respuesta. ¡Sin presión!'):n===4?L('Four answers. Leave at least one empty.','Cuatro respuestas. Deja al menos una vacía.'):L('Three answers now. Leave one empty.','Ahora tres respuestas. Deja una vacía.'),'talk-1');
  render();clearInterval(timer);timer=setInterval(()=>{t--;$('clock').textContent=t;$('watch').style.backgroundPosition=`${-32*((SECS-t)%4)}px 0`;$('clock').classList.toggle('low',t<=10);if(t<=0)lock()},1000)}
-function lock(){clearInterval(timer);timer=null;const Q=D.questions[i],kept=bets[Q.a],lost=bank-kept;
+function lock(){clearInterval(timer);timer=null;let pre='';
+ // time ran out with money still unplaced: it goes on the answer holding the most (a random one of them on a tie)
+ const rest=bank-bets.reduce((a,b)=>a+b,0);if(rest>0){const top=Math.max(...bets),c=bets.map((v,k)=>v===top?k:-1).filter(k=>k>=0),k=c[Math.floor(Math.random()*c.length)];bets[k]+=rest;render();
+  pre=L(`Time! The ${fmt(rest)} you didn't place went on ${String.fromCharCode(65+k)}. `,`¡Tiempo! Los ${fmt(rest)} sin colocar fueron a la ${String.fromCharCode(65+k)}. `)}
+ const Q=D.questions[i],kept=bets[Q.a],lost=bank-kept;
  hist.push(kept>0?(kept===bank?'🟩':'🟨'):'🟥');bank=kept;
  bets.forEach((v,k)=>$('o'+k).classList.add(k===Q.a?'win':v?'lose':'x'));$('opts').querySelectorAll('button').forEach(b=>b.disabled=true);
  $('left').textContent=fmt(bank);$('lock').hidden=true;if(kept===bank&&kept)shower(18);else if(lost)bets.forEach((v,k)=>{if(v&&k!==Q.a)drop($('o'+k))});
- say(!kept?L('Ay, ay, ay... it all falls through the trapdoor.','Ay, ay, ay... todo se va por la trampilla.'):lost?L(`Right answer! But ${fmt(lost)} drops away.`,`¡Correcta! Pero ${fmt(lost)} se van por la trampilla.`):L('All of it on the right one. Bravo!','Todo en la correcta. ¡Bravo!'),!kept?'facepalm':lost?'nervous':'celebrate');
+ say(pre+(!kept?L('Ay, ay, ay... it all falls through the trapdoor.','Ay, ay, ay... todo se va por la trampilla.'):lost?L(`Right answer! But ${fmt(lost)} drops away.`,`¡Correcta! Pero ${fmt(lost)} se van por la trampilla.`):L('All of it on the right one. Bravo!','Todo en la correcta. ¡Bravo!')),!kept?'facepalm':lost?'nervous':'celebrate');
  if(!kept||i===D.questions.length-1){save();setTimeout(end,1600)}else $('next').hidden=false}
 // banknotes: flutter frames are row 3 of the money sheet; short, rare moments so they can be a little showy
 function note(x,y,dist,dur){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;const n=document.createElement('i');n.className='note';n.style.left=x+'px';n.style.top=y+'px';document.body.appendChild(n);
