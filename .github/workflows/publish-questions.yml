@@ -6,7 +6,7 @@ name: Publish routine questions
 on:
   workflow_dispatch:
   push:
-    branches: [claude/daily-questions, claude/duel-questions, claude/feedback-fixes]
+    branches: [claude/daily-questions, claude/duel-questions, claude/feedback-fixes, claude/millon-questions]
 
 permissions:
   contents: write
@@ -32,7 +32,7 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git fetch origin "$GITHUB_REF_NAME"
           # only question files may go live this way
-          bad=$(git diff --name-only HEAD...FETCH_HEAD | grep -Ev '^(daily/[0-9]{4}-[0-9]{2}-[0-9]{2}\.json|duel/bank\.json|duel/new/.*\.json|rosco/[0-9]{4}-[0-9]{2}-[0-9]{2}\.json)$' || true)
+          bad=$(git diff --name-only HEAD...FETCH_HEAD | grep -Ev '^(daily/[0-9]{4}-[0-9]{2}-[0-9]{2}\.json|duel/bank\.json|duel/new/.*\.json|rosco/[0-9]{4}-[0-9]{2}-[0-9]{2}\.json|millon/[0-9]{4}-[0-9]{2}-[0-9]{2}\.json)$' || true)
           if [ -n "$bad" ]; then echo "Not publishing: the branch changes files other than questions:"; echo "$bad"; exit 1; fi
           if [ -z "$(git diff --name-only HEAD...FETCH_HEAD)" ]; then echo 'Nothing new to publish'; exit 0; fi
           if ! git merge --no-edit FETCH_HEAD -m "Publish questions from $GITHUB_REF_NAME"; then
@@ -52,5 +52,6 @@ jobs:
           python scripts/check_daily.py
           python scripts/check_duel_bank.py | tail -1
           python scripts/check_duel_bank.py > /dev/null
+          python scripts/check_millon.py
       - name: Go live
         run: git push origin HEAD:main
