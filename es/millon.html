@@ -1,6 +1,24 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Millones · Unicorner</title>
-<meta name="description" content="Start with a million, spread it over the answers, keep what lands on the right one. Daily football game.">
+<!--seo--><title>Millones – El quiz diario de fútbol con un millón en juego | Unicorner</title>
+<meta name="description" content="Empiezas con 1.000.000 y lo repartes entre las respuestas de 8 preguntas de fútbol. Solo te llevas lo que caiga en la correcta. Gratis y nuevo cada día.">
+<link rel="canonical" href="https://unicornergame.lol/es/millon.html">
+<link rel="alternate" hreflang="en" href="https://unicornergame.lol/millon.html">
+<link rel="alternate" hreflang="es" href="https://unicornergame.lol/es/millon.html">
+<link rel="alternate" hreflang="x-default" href="https://unicornergame.lol/millon.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Unicorner">
+<meta property="og:url" content="https://unicornergame.lol/es/millon.html">
+<meta property="og:title" content="Millones – El quiz diario de fútbol con un millón en juego | Unicorner">
+<meta property="og:description" content="Empiezas con 1.000.000 y lo repartes entre las respuestas de 8 preguntas de fútbol. Solo te llevas lo que caiga en la correcta. Gratis y nuevo cada día.">
+<meta property="og:image" content="https://unicornergame.lol/og-millon-es.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Millones – El quiz diario de fútbol con un millón en juego | Unicorner">
+<meta name="twitter:description" content="Empiezas con 1.000.000 y lo repartes entre las respuestas de 8 preguntas de fútbol. Solo te llevas lo que caiga en la correcta. Gratis y nuevo cada día.">
+<meta name="twitter:image" content="https://unicornergame.lol/og-millon-es.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"VideoGame","name":"Millones","url":"https://unicornergame.lol/es/millon.html","description":"Empiezas con 1.000.000 y lo repartes entre las respuestas de 8 preguntas de fútbol. Solo te llevas lo que caiga en la correcta. Gratis y nuevo cada día.","inLanguage":"es","genre":["Trivia","Quiz","Sports"],"gamePlatform":"Web browser","applicationCategory":"Game","operatingSystem":"Any","isAccessibleForFree":true,"image":"https://unicornergame.lol/og-millon-es.jpg","publisher":{"@id":"https://unicornergame.lol/#org"},"isPartOf":{"@id":"https://unicornergame.lol/#website"},"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Unicorner","item":"https://unicornergame.lol/es/"},{"@type":"ListItem","position":2,"name":"Millones","item":"https://unicornergame.lol/es/millon.html"}]}]}</script><!--/seo-->
 <link rel="icon" href="/favicon-32.png" sizes="32x32">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <style>
@@ -99,6 +117,7 @@ main,.card,.q,.say{image-rendering:auto}
  .mq{max-width:560px;width:100%;margin:0 auto}
 }
 @media (prefers-reduced-motion:reduce){.btn,.bar i,.opt{transition:none}#lock.press{transform:none}.opt.lose,.opt.win,.why{animation:none}.opt.lose .door .spr{animation:none;opacity:0}.note{display:none}}
+.about{margin-top:auto;padding-top:18px;font:15px/1.45 Barlow,system-ui,sans-serif;color:rgba(251,246,232,.7)}.about h2{font:400 22px/1 "Jersey 10",monospace;color:var(--sand);margin:0 0 6px;font-weight:400}.about p{margin:0 0 8px}.about a{color:var(--gold)}
 </style></head><body><main>
 <div class="top"><a class="logo" href="/">UNICORNER</a><span class="top-r"><span class="tag" data-es="MILLONES">MILLIONS</span><button type="button" class="snd" id="snd" aria-label="Sound" title="Sound">🔊</button></span></div>
 <div class="host"><div class="face"><img id="face" alt="" src="/rosco/host/happy-talk.png"></div><p class="say"><span class="who">Horacio Herradura</span><span id="say"></span></p></div>
@@ -130,6 +149,7 @@ main,.card,.q,.say{image-rendering:auto}
   <textarea id="fb-t" maxlength="500" rows="2" placeholder="Too hard? Too easy? A wrong answer? (optional)" data-es-ph="¿Muy difícil? ¿Muy fácil? ¿Alguna respuesta mal? (opcional)"></textarea>
   <button class="btn gold" id="fb-send" disabled data-es="Enviar">Send</button><p class="fb-ok" id="fb-ok" hidden data-es="¡Gracias! Horacio lo ha apuntado.">Thanks! Horacio has noted it down.</p></div></section>
 <p class="msg-note" id="msg" hidden></p>
+<section class="about"><h2 data-es="Sobre Millones">About Millions</h2><p data-es="Millones es un quiz diario y gratis de fútbol de Unicorner, presentado por Horacio Herradura. Empiezas con 1.000.000 y tienes 8 preguntas de fútbol. Reparte el dinero entre las respuestas: solo te llevas lo que esté en la correcta, así que si dudas, divídelo. Un juego nuevo cada día a medianoche, las mismas preguntas para todos y con ranking diario.">Millions is a free daily football quiz from Unicorner, hosted by Horacio Herradura. You start with 1,000,000 and get 8 football questions. Spread your money over the answers: you keep only what sits on the right one, so when you are not sure, split it. A new game every day at midnight, the same questions for everyone, with a daily ranking.</p><p data-es="Más juegos diarios de fútbol: <a href=&quot;/es/&quot;>el Diario 5</a> y <a href=&quot;/es/rosco.html&quot;>el Rosco de fútbol</a>.">More daily football games: <a href="/">the Daily 5</a> and <a href="/rosco.html">the football Rosco</a>.</p></section>
 </main>
 <script>
 const SB_URL="https://yujhjepukzdahsppntua.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1amhqZXB1a3pkYWhzcHBudHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2NDMzNDcsImV4cCI6MjEwNTIxOTM0N30.YIOdtL7tJnNLPFPy19QuXe6w3Dcnz6Xedw0tFGdV_CE";
