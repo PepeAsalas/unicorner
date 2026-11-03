@@ -100,6 +100,7 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
 <section id="s-intro" hidden>
  <div class="ring" id="ring0"><div class="mid"><div class="clock" id="clock0">3:00</div><div class="sc" id="count0"></div></div></div>
  <div class="host"><div class="face" id="face0"><img alt="" width="64" height="64"></div><div class="say" id="say0" role="status"></div></div>
+ <div id="chal0"></div>
  <button class="btn grass" id="go" style="width:100%" data-es="Empezar el Rosco">Start the Rosco</button>
  <p class="note" id="avg0"></p>
  <p class="note" id="sync0" hidden><a id="syncA" href="/" data-es="Inicia sesión (en la clasificación) para guardar tu Rosco en todos tus dispositivos.">Sign in (on the leaderboard) to keep your Rosco on all your devices.</a></p>
@@ -123,6 +124,7 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
  <div class="host"><div class="face" id="face2"><img alt="" width="64" height="64"></div><div class="say" id="say2" role="status"></div></div>
  <div class="grid" id="grid"></div>
  <p class="note" id="rank2" style="margin:0;font-size:20px"></p>
+ <div id="chal2"></div>
  <div class="row"><button class="btn gold" id="shareimg" data-es="Compartir imagen">Share image</button><button class="btn paper" id="dlimg" data-es="Descargar imagen">⬇ Download image</button></div>
  <button class="btn paper" id="copy" style="width:100%" data-es="Copiar resultado">Copy result</button>
  <button class="btn paper" id="show" style="width:100%" data-es="Ver respuestas">See answers</button>
@@ -137,6 +139,7 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
 <section class="about"><h2 data-es="Sobre el Rosco">About the Rosco</h2><p data-es="El Rosco de fútbol es un juego diario y gratis de Unicorner, presentado por Horacio Herradura: una pista por cada letra del abecedario, sobre jugadores, clubes y entrenadores, con cinco minutos de reloj. Pasa una letra para volver a ella en la siguiente vuelta. Un Rosco nuevo cada día a medianoche y con ranking diario.">The football Rosco is a free daily A-to-Z quiz from Unicorner, hosted by Horacio Herradura: one clue for every letter, about players, clubs and managers, with five minutes on the clock. Pass a letter to come back to it on the next lap. A new Rosco every day at midnight, with a daily ranking.</p><p data-es="Más juegos diarios de fútbol: <a href=&quot;/es/&quot;>el Diario 5</a> y <a href=&quot;/es/millon.html&quot;>Millones</a>.">More daily football games: <a href="/">the Daily 5</a> and <a href="/millon.html">Millions</a>.</p></section>
 </main>
 <script src="/duel/sprites.js"></script>
+<script src="/challenge.js"></script>
 <script>
 const SB_URL="https://yujhjepukzdahsppntua.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1amhqZXB1a3pkYWhzcHBudHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2NDMzNDcsImV4cCI6MjEwNTIxOTM0N30.YIOdtL7tJnNLPFPy19QuXe6w3Dcnz6Xedw0tFGdV_CE";
 // Spanish at /es/rosco.html (a copy made by scripts/build_es.py): static text from data-es, the rest through L(en, es)
@@ -197,7 +200,7 @@ function lev(a,b){if(Math.abs(a.length-b.length)>1)return 2;const d=Array.from({
 const hit=(typed,fs)=>fs.some(f=>f===typed||(typed.length>=5&&f.length>=5&&lev(typed,f)<=1));
 
 // ── state ──
-let R=null,S=null,tick=0;
+let R=null,S=null,tick=0,CH=null;
 const save=()=>{ls(KEY,JSON.stringify(S));cloud()};
 // signed-in players keep their Rosco on every device (supabase/rosco_results.sql), like their leaderboard spot
 async function tok(){try{let s=JSON.parse(localStorage.getItem('uc-player-session')||'null');if(!s||!s.access_token)return null;
@@ -224,8 +227,13 @@ async function dayAvg(mine){try{const r=await fetch(SB_URL+'/rest/v1/rpc/rosco_d
 async function load(){let r;try{r=await fetch(`/rosco/${DAY}.json`,{cache:'no-cache'});if(!r.ok)throw 0;R=await r.json()}catch{$('s-load').innerHTML=`<p class="note">${L('No Rosco today yet. Come back soon!','Aún no hay Rosco hoy. ¡Vuelve pronto!')}</p>`;return}
  $('tag').textContent=`ROSCO #${NO}`;try{S=JSON.parse(ls(KEY)||'null')}catch{S=null}
  await fromCloud();
+ // friend challenge (challenge.js): "beat my score on today's Rosco"
+ const n0=R.letters.length;CH=window.ucChallenge?ucChallenge({game:'rosco',day:DAY,max:n0,es:ES,track,played:()=>S&&S.done?counts().ok:null,fmt:v=>`${v}/${n0}`,
+  banner:(who,v)=>({en:`<strong>${who} got ${v}/${n0} on today's Rosco.</strong> Same letters, same clues. Can you beat it?`,es:`<strong>${who} ha acertado ${v}/${n0} en el Rosco de hoy.</strong> Mismas letras, mismas pistas. ¿Le superas?`}),
+  share:(v,u)=>`${L('Unicorner Rosco','Rosco Unicorner')} #${NO}: ${v}/${n0}\n${gridText()}\n${L('Can you beat me?','¿Me superas?')}\n${u}`,
+  url:code=>`https://unicornergame.lol${ES?'/es':''}/rosco.html?c=${code}`}):null;
  if(S&&S.done)return end(false);if(S&&S.start)return play();
- show('s-intro');drawRing('ring0','A');$('clock0').textContent=fmt(R.seconds);$('count0').textContent=L(`${R.letters.length} LETTERS`,`${R.letters.length} LETRAS`)+(R.letters.length<26?L(` · ${26-R.letters.length} SKIPPED`,` · ${26-R.letters.length} FUERA`):'');
+ show('s-intro');CH&&CH.intro($('chal0'));drawRing('ring0','A');$('clock0').textContent=fmt(R.seconds);$('count0').textContent=L(`${R.letters.length} LETTERS`,`${R.letters.length} LETRAS`)+(R.letters.length<26?L(` · ${26-R.letters.length} SKIPPED`,` · ${26-R.letters.length} FUERA`):'');
  host.intro=host.intro||Host($('face0'));say($('say0'),host.intro,L(`Welcome to the Rosco! I'm Horacio Herradura. ${R.letters.length} letters, five minutes, and the clock doesn't stop. Shall we?`,`¡Bienvenidos al Rosco! Soy Horacio Herradura. ${R.letters.length} letras, cinco minutos, y el reloj no se para. ¿Empezamos?`),'happy-1');track('rosco_intro',{});dayAvg()}
 
 $('go').onclick=()=>{S={start:Date.now(),res:{},typed:{},passed:[],queue:R.letters.map(x=>x.letter),lap:1,done:false};save();track('rosco_start',{});play()};
@@ -262,7 +270,7 @@ function ringSweep(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)re
 async function myRank(){const el=$('rank2');if(!el)return;try{const g=await rpc('rosco_board',{p_day:DAY});
  if(g===undefined){el.innerHTML=`<a href="${ES?'/es/#signin':'/#signin'}">${L('Sign in to get on the Rosco board','Inicia sesión para entrar en el ranking del Rosco')}</a>`;return}
  if(g&&g.me)el.innerHTML=L(`🏆 You're <b>#${g.me.rank}</b> of ${g.players} on today's Rosco board`,`🏆 Vas <b>${g.me.rank}º</b> de ${g.players} en el ranking del Rosco de hoy`)}catch{}}
-function end(fresh){show('s-end');feedback();const c=counts(),n=R.letters.length;setTimeout(()=>dayAvg(c.ok),fresh?1500:0);setTimeout(myRank,fresh?2200:300);drawRing('ring2');$('score').innerHTML=`${c.ok}<span>/${n}</span>`;
+function end(fresh){show('s-end');CH&&CH.end($('chal2'),counts().ok,fresh);feedback();const c=counts(),n=R.letters.length;setTimeout(()=>dayAvg(c.ok),fresh?1500:0);setTimeout(myRank,fresh?2200:300);drawRing('ring2');$('score').innerHTML=`${c.ok}<span>/${n}</span>`;
  $('left').textContent=S.why==='time'?L('TIME UP','¡TIEMPO!'):L(fmt(S.left||0)+' LEFT','SOBRAN '+fmt(S.left||0));
  const mood=c.ok>=19?'celebrate':c.ok>=15?'excited':c.ok>=11?'wink':c.ok>=7?'sad':'facepalm';host.end=host.end||Host($('face2'));
  say($('say2'),host.end,ES?(c.ok>=19?`¡${c.ok}! Menudo Rosco. Saluda al público.`:c.ok>=13?`${c.ok} aciertos. Eso es saber de fútbol.`:c.ok>=8?`${c.ok} hoy. El Rosco es duro, ¡vuelve mañana!`:`Solo ${c.ok}... todos tenemos un mal día. ¡Mañana, Rosco nuevo!`):(c.ok>=19?`${c.ok}! That's a huge Rosco. Take a bow.`:c.ok>=13?`${c.ok} correct. Solid ball knowledge, that.`:c.ok>=8?`${c.ok} today. The Rosco is a tough one, come back tomorrow!`:`Only ${c.ok}... we all have off days. New Rosco tomorrow!`),mood);

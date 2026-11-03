@@ -127,6 +127,7 @@ main,.card,.q,.say{image-rendering:auto}
  <li data-es="En cada pregunta reparte el dinero entre las respuestas. Solo te quedas lo que esté en la correcta.">Each question, spread your money over the answers. You only keep what sits on the right one.</li>
  <li data-es="Deja siempre al menos una respuesta vacía. En la última, todo a una.">Always leave at least one answer empty. On the last one, it's all on one.</li>
  <li data-es="Tienes que colocarlo todo. 60 segundos por pregunta: si se acaba el tiempo, lo que no hayas colocado va a la respuesta con más dinero.">You have to place it all. 60 seconds per question: if time runs out, whatever you haven't placed goes on the answer with the most money.</li></ol></div>
+ <div id="chal0"></div>
  <p class="msg-note" id="avg0"></p>
  <button class="btn grass" id="go" data-es="Empezar">Start</button></section>
 
@@ -141,6 +142,7 @@ main,.card,.q,.say{image-rendering:auto}
 </section>
 
 <section id="s-end" hidden><div class="card"><p class="msg-note" data-es="Te llevas">You keep</p><div class="big" id="final"></div><div class="grid" id="grid"></div><p class="msg-note" id="avg2" style="margin-top:8px"></p></div>
+ <div id="chal2"></div>
  <div class="card lb" id="lb" hidden></div>
  <div class="row2"><button class="btn gold" id="shareimg" data-es="Compartir imagen">Share image</button><button class="btn paper" id="dlimg" data-es="⬇ Descargar imagen">⬇ Download image</button></div>
  <button class="btn paper" id="copy" data-es="Copiar resultado">Copy result</button>
@@ -151,6 +153,7 @@ main,.card,.q,.say{image-rendering:auto}
 <p class="msg-note" id="msg" hidden></p>
 <section class="about"><h2 data-es="Sobre Millones">About Millions</h2><p data-es="Millones es un quiz diario y gratis de fútbol de Unicorner, presentado por Horacio Herradura. Empiezas con 1.000.000 y tienes 8 preguntas de fútbol. Reparte el dinero entre las respuestas: solo te llevas lo que esté en la correcta, así que si dudas, divídelo. Un juego nuevo cada día a medianoche, las mismas preguntas para todos y con ranking diario.">Millions is a free daily football quiz from Unicorner, hosted by Horacio Herradura. You start with 1,000,000 and get 8 football questions. Spread your money over the answers: you keep only what sits on the right one, so when you are not sure, split it. A new game every day at midnight, the same questions for everyone, with a daily ranking.</p><p data-es="Más juegos diarios de fútbol: <a href=&quot;/es/&quot;>el Diario 5</a> y <a href=&quot;/es/rosco.html&quot;>el Rosco de fútbol</a>.">More daily football games: <a href="/">the Daily 5</a> and <a href="/rosco.html">the football Rosco</a>.</p></section>
 </main>
+<script src="/challenge.js"></script>
 <script>
 const SB_URL="https://yujhjepukzdahsppntua.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1amhqZXB1a3pkYWhzcHBudHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2NDMzNDcsImV4cCI6MjEwNTIxOTM0N30.YIOdtL7tJnNLPFPy19QuXe6w3Dcnz6Xedw0tFGdV_CE";
 const ES=location.pathname.startsWith('/es/'),L=(en,es)=>ES?es:en;
@@ -190,7 +193,7 @@ const SFX={
  jackpot:()=>{[1047,1319,1568,2093,2637].forEach((f,k)=>tone(f,.1,{at:k*.06,vol:.07}));for(let k=0;k<6;k++)noise(.07,6000,3000,{at:.3+k*.09,vol:.025})},
  bust:()=>[392,370,349,262].forEach((f,k)=>tone(f,k===3?.5:.18,{at:k*.2,type:'sawtooth',vol:.05})),
  tick:()=>tone(1800,.03,{vol:.04})};
-let D,i=0,bank=START,bets=[],t=SECS,timer=null,hist=[];
+let CH=null,D,i=0,bank=START,bets=[],t=SECS,timer=null,hist=[];
 const show=s=>['intro','play','end'].forEach(x=>$('s-'+x).hidden=x!==s);
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify({bank,hist,done:true}))}catch{}};
 function maxOn(n){return n-1}
@@ -239,7 +242,7 @@ function note(x,y,dist,dur){if(matchMedia('(prefers-reduced-motion:reduce)').mat
  n.animate([{transform:'translate(0,0) rotate(0)',opacity:1},{transform:`translate(${sway}px,${dist}px) rotate(${sway*2}deg)`,opacity:0}],{duration:dur,easing:'cubic-bezier(.55,0,1,.45)',fill:'forwards'}).onfinish=()=>n.remove()}
 function drop(el){const r=el.querySelector('.door').getBoundingClientRect();for(let j=0;j<4;j++)setTimeout(()=>note(r.left+12+Math.random()*16,r.top+8,90,600),120+j*70)}
 function shower(n){for(let j=0;j<n;j++)setTimeout(()=>note(Math.random()*(innerWidth-40),-40,innerHeight*.9,1100+Math.random()*500),j*45)}
-function end(restored){show('end');feedback();if(!restored)rpc('millon_save',{p_day:DAY,p_score:bank,p_hist:hist.join('')}).catch(()=>{}).finally(()=>board());else board();dayAvg();$('final').textContent=fmt(bank);$('grid').textContent=hist.join('');if(!restored)track('millon_finish',{score:bank,steps:hist.length});
+function end(restored){show('end');CH&&CH.end($('chal2'),bank,!restored);feedback();if(!restored)rpc('millon_save',{p_day:DAY,p_score:bank,p_hist:hist.join('')}).catch(()=>{}).finally(()=>board());else board();dayAvg();$('final').textContent=fmt(bank);$('grid').textContent=hist.join('');if(!restored)track('millon_finish',{score:bank,steps:hist.length});
  say(bank?L(`You walk away with ${fmt(bank)}. Same game tomorrow, new questions!`,`Te llevas ${fmt(bank)}. ¡Mañana, preguntas nuevas!`):L('Nothing left today. Come back tomorrow!','Hoy te quedas a cero. ¡Vuelve mañana!'),bank?'happy-talk':'sad-talk')}
 $('lock').onclick=()=>{if(timer===null)return;clearInterval(timer);const b=$('lock');b.classList.add('press');SFX.press();setTimeout(()=>{b.classList.remove('press');lock()},450)};$('next').onclick=()=>{i++;ask()};
 $('go').onclick=()=>{show('play');ask();track('millon_start')};
@@ -279,7 +282,13 @@ $('copy').onclick=()=>{navigator.clipboard.writeText(resultText()).then(()=>{$('
 (async()=>{try{const r=await fetch(`/millon/${DAY}.json`,{cache:'no-cache'});if(!r.ok)throw 0;D=await r.json()}catch{say(L('No game today yet. Come back soon!','Aún no hay juego hoy. ¡Vuelve pronto!'),'sad');return}
  let s=null;try{s=JSON.parse(localStorage.getItem(KEY))}catch{}
  if(!(s&&s.done)){try{const m=await rpc('millon_mine',{p_day:DAY});if(m&&m.score!=null)s={bank:m.score,hist:[...m.hist],done:true}}catch{}}
+ // friend challenge (challenge.js): "keep more than me on today's Millions"
+ CH=window.ucChallenge?ucChallenge({game:'millon',day:DAY,max:START,es:ES,track,played:()=>s&&s.done?s.bank:null,fmt:v=>fmt(v),
+  banner:(who,v)=>({en:`<strong>${who} kept ${fmt(v)} on today's Millions.</strong> Same 8 questions. Can you keep more?`,es:`<strong>${who} se llevó ${fmt(v)} en Millones de hoy.</strong> Las mismas 8 preguntas. ¿Te llevas más?`}),
+  share:(v,u)=>`Unicorner ${L('Millions','Millones')} ${DAY}\n${hist.join('')}\n💰 ${fmt(v)}\n${L('Can you keep more?','¿Te llevas más?')}\n${u}`,
+  url:code=>`https://unicornergame.lol${ES?'/es':''}/millon.html?c=${code}`}):null;
  if(s&&s.done){bank=s.bank;hist=s.hist;save();end(true);return}
+ CH&&CH.intro($('chal0'));
  dayAvg();
  say(L('Welcome! Here is a million. Let\'s see how much of it you keep.','¡Bienvenido! Aquí tienes un millón. A ver cuánto te llevas.'),'happy-talk');show('intro')})();
 </script></body></html>
