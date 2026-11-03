@@ -1,0 +1,116 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Millones · Unicorner</title>
+<meta name="description" content="Start with a million, spread it over the answers, keep what lands on the right one. Daily football game.">
+<link rel="icon" href="/favicon-32.png" sizes="32x32">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<style>
+/* Millions: start with 1,000,000, spread it over the answers, keep only what sits on the right one. Content: millon/YYYY-MM-DD.json. Placeholder look until the ChatGPT art. */
+:root{--paper:#fbf6e8;--sand:#e9dfc2;--ink:#1d1a2b;--gold:#f2c230;--grass:#2f9a62;--clay:#c8473b;--marine:#1d4486;--marine2:#2d5aa0;--disp:"Jersey 10",monospace;--mono:"VT323",monospace;--ease:cubic-bezier(.23,1,.32,1)}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#14121c;color:var(--paper);font:500 16px/1.4 Barlow,system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
+main{max-width:460px;margin:0 auto;padding:12px 16px 28px;display:flex;flex-direction:column;gap:12px;min-height:100dvh}
+button{font:inherit;color:inherit;cursor:pointer}
+.top{display:flex;justify-content:space-between;align-items:center}
+.logo{font:400 22px var(--disp);color:var(--ink);background:var(--paper);border:2px solid var(--ink);padding:1px 8px;box-shadow:2px 2px 0 var(--ink);text-decoration:none}
+.tag{font:20px var(--mono);background:var(--ink);padding:2px 8px;border:2px solid var(--paper)}
+.card{background:var(--marine);border:3px solid var(--ink);box-shadow:4px 4px 0 rgba(0,0,0,.35);padding:14px}
+.btn{height:52px;border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink);font:400 24px var(--disp);color:var(--ink);transition:transform 120ms var(--ease),box-shadow 120ms var(--ease)}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}.btn:disabled{opacity:.45}
+.gold{background:var(--gold)}.grass{background:var(--grass);color:#fff}.paper{background:var(--paper)}
+section{display:flex;flex-direction:column;gap:12px}
+[hidden]{display:none!important}
+.host{display:flex;gap:10px;align-items:flex-end}
+.face{flex:none;width:84px;height:84px;background:linear-gradient(#2d5aa0,#1d4486);border:3px solid var(--ink);overflow:hidden;position:relative}
+.face img{position:absolute;inset:auto 0 0 0;width:100%;image-rendering:pixelated}
+.say{flex:1;min-height:72px;background:var(--paper);color:var(--ink);border:3px solid var(--ink);padding:8px 12px;font:600 15px/1.35 Barlow}
+.say .who{display:block;font:400 18px/1 var(--mono);color:var(--marine)}
+h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 var(--ink)}
+.hud{display:flex;justify-content:space-between;align-items:center;font:22px var(--mono)}
+.bank{font:400 34px/1 var(--disp);color:var(--gold);text-shadow:2px 2px 0 var(--ink)}
+.clock{font:400 34px/1 var(--disp)}.clock.low{color:#f0a097}
+.steps{display:flex;gap:4px}.steps i{flex:1;height:8px;background:rgba(251,246,232,.2)}.steps i.on{background:var(--gold)}.steps i.done{background:var(--grass)}
+.q{background:var(--paper);color:var(--ink);border:3px solid var(--ink);padding:12px 14px;font:700 19px/1.25 Barlow}
+.q small{display:block;font:400 18px var(--mono);color:#5d566b}
+.opts{display:grid;gap:8px}
+.opt{display:grid;grid-template-columns:1fr auto;gap:6px 10px;align-items:center;background:var(--marine2);border:3px solid var(--ink);padding:10px 12px;transition:background 200ms}
+.opt .t{font:700 17px Barlow}
+.opt .m{grid-column:1/-1;display:flex;align-items:center;gap:8px}
+.opt .m b{flex:1;font:400 26px var(--disp);color:var(--gold)}
+.opt .m button{width:44px;height:40px;border:2px solid var(--ink);background:var(--paper);color:var(--ink);font:400 26px/1 var(--disp)}
+.opt .m button:disabled{opacity:.35}
+.bar{grid-column:1/-1;height:6px;background:rgba(0,0,0,.3)}.bar i{display:block;height:100%;background:var(--gold);width:0;transition:width 160ms var(--ease)}
+.opt.win{background:var(--grass)}.opt.lose{background:var(--clay)}
+.opt.lose .m b{text-decoration:line-through;opacity:.7}
+.note{font:18px var(--mono);color:var(--sand);text-align:center;margin:0}
+.rules{margin:8px 0 0;padding-left:18px;display:grid;gap:6px;font-size:15px}
+.big{font:400 64px/1 var(--disp);color:var(--gold);text-shadow:4px 4px 0 var(--ink);text-align:center}
+.grid{font:22px/1 monospace;text-align:center;letter-spacing:2px}
+@media (prefers-reduced-motion:reduce){.btn,.bar i,.opt{transition:none}}
+</style></head><body><main>
+<div class="top"><a class="logo" href="/">UNICORNER</a><span class="tag" data-es="MILLONES">MILLIONS</span></div>
+<div class="host"><div class="face"><img id="face" alt="" src="/rosco/host/happy-talk.png"></div><p class="say"><span class="who">Horacio Herradura</span><span id="say"></span></p></div>
+
+<section id="s-intro" hidden><div class="card"><h1 data-es="Millones">Millions</h1>
+ <ol class="rules"><li data-es="Empiezas con <b>1.000.000</b>.">You start with <b>1,000,000</b>.</li>
+ <li data-es="En cada pregunta reparte el dinero entre las respuestas. Solo te quedas lo que esté en la correcta.">Each question, spread your money over the answers. You only keep what sits on the right one.</li>
+ <li data-es="Deja siempre al menos una respuesta vacía. En la última, todo a una.">Always leave at least one answer empty. On the last one, it's all on one.</li>
+ <li data-es="60 segundos por pregunta. El dinero sin colocar se pierde.">60 seconds per question. Money you don't place is lost.</li></ol></div>
+ <button class="btn grass" id="go" data-es="Empezar">Start</button></section>
+
+<section id="s-play" hidden>
+ <div class="steps" id="steps"></div>
+ <div class="hud"><span><span data-es="Sin colocar">To place</span> <b class="bank" id="left"></b></span><span class="clock" id="clock">60</span></div>
+ <div class="q" id="q"></div>
+ <div class="opts" id="opts"></div>
+ <button class="btn gold" id="lock" data-es="¡Cerrar apuesta!">Lock it in!</button>
+ <button class="btn grass" id="next" hidden data-es="Siguiente">Next</button>
+</section>
+
+<section id="s-end" hidden><div class="card"><p class="note" data-es="Te llevas">You keep</p><div class="big" id="final"></div><div class="grid" id="grid"></div></div>
+ <button class="btn gold" id="share" data-es="Compartir">Share</button></section>
+<p class="note" id="msg" hidden></p>
+</main>
+<script>
+const SB_URL="https://yujhjepukzdahsppntua.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1amhqZXB1a3pkYWhzcHBudHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2NDMzNDcsImV4cCI6MjEwNTIxOTM0N30.YIOdtL7tJnNLPFPy19QuXe6w3Dcnz6Xedw0tFGdV_CE";
+const ES=location.pathname.startsWith('/es/'),L=(en,es)=>ES?es:en;
+const DAY=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+// Spanish at /es/millon.html (build_es.py copies it)
+if(ES)document.querySelectorAll('[data-es]').forEach(e=>e.innerHTML=e.dataset.es);
+const $=id=>document.getElementById(id),START=1000000,CHIP=25000,SECS=60,KEY='millon-'+DAY;
+const fmt=n=>n.toLocaleString(ES?'es-ES':'en-GB');
+const say=(t,pose)=>{$('say').textContent=t;if(pose)$('face').src='/rosco/host/'+pose+'.png'};
+const VISITOR=(()=>{try{let v=localStorage.getItem('uc-visitor');if(!v){v=crypto.randomUUID();localStorage.setItem('uc-visitor',v)}return v}catch{return null}})();
+function track(name,data){try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,visitor:VISITOR,seconds:0,game_day:DAY,event_version:2,data:{language:ES?'es':'en',page:'millon',...(data||{})}})}).catch(()=>{})}catch{}}
+let D,i=0,bank=START,bets=[],t=SECS,timer=null,hist=[];
+const show=s=>['intro','play','end'].forEach(x=>$('s-'+x).hidden=x!==s);
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify({bank,hist,done:true}))}catch{}};
+function maxOn(n){return n-1} // answers that may hold money: always leave one empty
+function render(){const Q=D.questions[i],opts=ES&&Q.o_es?Q.o_es:Q.o,placed=bets.reduce((a,b)=>a+b,0),left=bank-placed,used=bets.filter(b=>b>0).length,last=i===D.questions.length-1;
+ $('left').textContent=fmt(left);
+ $('opts').innerHTML=opts.map((o,k)=>`<div class="opt" id="o${k}"><span class="t">${String.fromCharCode(65+k)}. ${o}</span><div class="m"><button data-k="${k}" data-d="-1" aria-label="-" ${bets[k]?'':'disabled'}>−</button><b>${fmt(bets[k])}</b><button data-k="${k}" data-d="1" aria-label="+" ${left&&(bets[k]||used<maxOn(opts.length))?'':'disabled'}>+</button><button data-k="${k}" data-d="all" aria-label="all">⇈</button></div><div class="bar"><i style="width:${bank?bets[k]/bank*100:0}%"></i></div></div>`).join('');
+ $('lock').disabled=last&&left>0;}
+$('opts').onclick=e=>{const b=e.target.closest('button[data-k]');if(!b||timer===null)return;const k=+b.dataset.k,n=bets.length,placed=bets.reduce((a,c)=>a+c,0),left=bank-placed;
+ if(b.dataset.d==='all'){const others=bets.filter((v,j)=>j!==k&&v>0).length;if(!bets[k]&&others>=maxOn(n))return;bets[k]+=left}
+ else if(b.dataset.d==='1')bets[k]+=Math.min(CHIP,left);else bets[k]=Math.max(0,bets[k]-CHIP);render()};
+function ask(){const Q=D.questions[i],n=Q.o.length;bets=Array(n).fill(0);t=SECS;
+ $('steps').innerHTML=D.questions.map((_,j)=>`<i class="${j<i?'done':j===i?'on':''}"></i>`).join('');
+ $('q').innerHTML=`<small>${L('Question','Pregunta')} ${i+1}/${D.questions.length} · ${n} ${L('answers','respuestas')}</small>${ES&&Q.q_es?Q.q_es:Q.q}`;
+ $('lock').hidden=false;$('next').hidden=true;$('clock').textContent=t;$('clock').classList.remove('low');
+ say(i===D.questions.length-1?L('Last question. Everything on one answer. No pressure!','Última pregunta. Todo a una respuesta. ¡Sin presión!'):n===4?L('Four answers. Leave at least one empty.','Cuatro respuestas. Deja al menos una vacía.'):L('Three answers now. Leave one empty.','Ahora tres respuestas. Deja una vacía.'),'talk-1');
+ render();clearInterval(timer);timer=setInterval(()=>{t--;$('clock').textContent=t;$('clock').classList.toggle('low',t<=10);if(t<=0)lock()},1000)}
+function lock(){clearInterval(timer);timer=null;const Q=D.questions[i],kept=bets[Q.a],lost=bank-kept;
+ hist.push(kept>0?(kept===bank?'🟩':'🟨'):'🟥');bank=kept;
+ bets.forEach((v,k)=>$('o'+k).classList.add(k===Q.a?'win':v?'lose':'x'));$('opts').querySelectorAll('button').forEach(b=>b.disabled=true);
+ $('left').textContent=fmt(bank);$('lock').hidden=true;
+ say(!kept?L('Ay, ay, ay... it all falls through the trapdoor.','Ay, ay, ay... todo se va por la trampilla.'):lost?L(`Right answer! But ${fmt(lost)} drops away.`,`¡Correcta! Pero ${fmt(lost)} se van por la trampilla.`):L('All of it on the right one. Bravo!','Todo en la correcta. ¡Bravo!'),!kept?'facepalm':lost?'nervous':'celebrate');
+ if(!kept||i===D.questions.length-1){save();setTimeout(end,1600)}else $('next').hidden=false}
+function end(){show('end');$('final').textContent=fmt(bank);$('grid').textContent=hist.join('');track('millon_finish',{score:bank,steps:hist.length});
+ say(bank?L(`You walk away with ${fmt(bank)}. Same game tomorrow, new questions!`,`Te llevas ${fmt(bank)}. ¡Mañana, preguntas nuevas!`):L('Nothing left today. Come back tomorrow!','Hoy te quedas a cero. ¡Vuelve mañana!'),bank?'happy-talk':'sad-talk')}
+$('lock').onclick=lock;$('next').onclick=()=>{i++;ask()};
+$('go').onclick=()=>{show('play');ask();track('millon_start')};
+$('share').onclick=()=>{const txt=`Unicorner ${L('Millions','Millones')} ${DAY}\n${hist.join('')}\n💰 ${fmt(bank)}\nunicornergame.lol${ES?'/es':''}/millon.html`;navigator.share?navigator.share({text:txt}).catch(()=>{}):navigator.clipboard.writeText(txt).then(()=>say(L('Copied!','¡Copiado!')))};
+(async()=>{try{const r=await fetch(`/millon/${DAY}.json`,{cache:'no-cache'});if(!r.ok)throw 0;D=await r.json()}catch{say(L('No game today yet. Come back soon!','Aún no hay juego hoy. ¡Vuelve pronto!'),'sad');return}
+ let s=null;try{s=JSON.parse(localStorage.getItem(KEY))}catch{}
+ if(s&&s.done){bank=s.bank;hist=s.hist;end();return}
+ say(L('Welcome! Here is a million. Let\'s see how much of it you keep.','¡Bienvenido! Aquí tienes un millón. A ver cuánto te llevas.'),'happy-talk');show('intro')})();
+</script></body></html>

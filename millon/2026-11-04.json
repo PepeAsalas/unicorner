@@ -1,0 +1,10 @@
+{"day":"2026-11-04","questions":[
+{"q":"Who won the 2010 World Cup?","q_es":"¿Quién ganó el Mundial de 2010?","o":["Netherlands","Spain","Germany","Uruguay"],"o_es":["Países Bajos","España","Alemania","Uruguay"],"a":1},
+{"q":"Which club has won the most European Cups / Champions Leagues?","q_es":"¿Qué club tiene más Copas de Europa / Champions?","o":["AC Milan","Bayern Munich","Real Madrid","Liverpool"],"a":2},
+{"q":"Who scored the 'Hand of God' goal?","q_es":"¿Quién marcó el gol de la 'Mano de Dios'?","o":["Pelé","Diego Maradona","Zico","Mario Kempes"],"a":1},
+{"q":"Which country hosted the 1998 World Cup?","q_es":"¿Qué país organizó el Mundial de 1998?","o":["Italy","USA","France"],"o_es":["Italia","EE. UU.","Francia"],"a":2},
+{"q":"Who has won the most Ballon d'Or awards?","q_es":"¿Quién ha ganado más Balones de Oro?","o":["Lionel Messi","Cristiano Ronaldo","Michel Platini"],"a":0},
+{"q":"At which club did Zinedine Zidane end his playing career?","q_es":"¿En qué club se retiró Zinedine Zidane como jugador?","o":["Juventus","Bordeaux","Real Madrid"],"o_es":["Juventus","Burdeos","Real Madrid"],"a":2},
+{"q":"Who won Euro 2004?","q_es":"¿Quién ganó la Euro 2004?","o":["Portugal","Greece","Czech Republic"],"o_es":["Portugal","Grecia","Chequia"],"a":1},
+{"q":"Which Japanese club did Andrés Iniesta join in 2018?","q_es":"¿En qué club japonés fichó Andrés Iniesta en 2018?","o":["Vissel Kobe","Urawa Red Diamonds"],"a":0}
+]}
