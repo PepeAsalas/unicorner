@@ -2563,7 +2563,12 @@ const coll=p=>{
   doc:id=>({set:async d=>{const{approved,...rest}=d;await sb('/rest/v1/questions',{method:'POST',headers:{Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify({id,data:rest,approved:!!approved,updated_at:new Date().toISOString()})})},
    delete:async()=>{await sb('/rest/v1/questions?id=eq.'+encodeURIComponent(id),{method:'DELETE',headers:{Prefer:'return=minimal'}})}})};
  if(p==='daily')return{doc:day=>({collection:()=>({add:async d=>{await sb('/rest/v1/scores',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify({score:d.score,day})})},
-  get:async()=>{const rows=await sb('/rest/v1/scores?select=score&day=eq.'+day+'&limit=5000');return{docs:rows.map(r=>({data:()=>r}))}}})})};
+  // every score of the day: the database sends at most 1000 rows per request, so ask for a count per score
+  // (supabase/day_score_counts.sql); until that exists, page through the rows 1000 at a time
+  get:async()=>{let rows=[];
+   try{const c=await sb('/rest/v1/rpc/day_score_counts',{method:'POST',body:JSON.stringify({p_day:day})});if(Array.isArray(c)){c.forEach(r=>{for(let i=0;i<+r.n;i++)rows.push({score:+r.score})});return{docs:rows.map(r=>({data:()=>r}))}}}catch{}
+   for(let off=0;off<50000;off+=1000){const page=await sb('/rest/v1/scores?select=score&day=eq.'+day+'&order=id&limit=1000&offset='+off);rows=rows.concat(page);if(page.length<1000)break}
+   return{docs:rows.map(r=>({data:()=>r}))}}})})};
  throw new Error('unknown collection '+p)};
 const dbP=Promise.resolve({collection:coll});
 
