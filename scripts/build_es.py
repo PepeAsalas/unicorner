@@ -116,3 +116,7 @@ if __name__ == '__main__':
     r = r.replace('<html lang="en">', '<html lang="es">', 1).replace('<title>Unicorner Rosco</title>', '<title>Rosco de fútbol · Unicorner</title>', 1)
     r = re.sub(r'<meta name="description" content="[^"]*">', '<meta name="description" content="El Rosco diario de fútbol: una pista por cada letra, contra el reloj. Gratis y nuevo cada día.">', r, count=1)
     (SRC.parent / 'es' / 'rosco.html').write_text(r, encoding='utf-8')
+    # Millions: the same page in Spanish too
+    m = (SRC.parent / 'millon.html').read_text(encoding='utf-8')
+    m = m.replace('<html lang="en">', '<html lang="es">', 1).replace('<title>Unicorner Millions</title>', '<title>Millones · Unicorner</title>', 1)
+    (SRC.parent / 'es' / 'millon.html').write_text(m, encoding='utf-8')
