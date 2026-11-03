@@ -2663,7 +2663,11 @@ window.addEventListener('pagehide',()=>track('leave',{reason:'pagehide'}));
 const FAME_PTS_V1={6:PTS[0],5:PTS[0],4:PTS[1],3:PTS[2],2:PTS[3],1:PTS[4]},FAME_PTS_V2={6:PTS[0],5:PTS[1],4:PTS[2],3:PTS[2],2:PTS[3],1:PTS[4]};
 const famePoints=(q,f)=>((q?.scoring_version||1)>=2?FAME_PTS_V2:FAME_PTS_V1)[f]||PTS[3];
 const slug=t=>norm(t).replace(/ /g,'-').slice(0,120)||('q'+Date.now());
-const toGame=b=>({id:b._id,prompt:b.prompt,sub:b.subtitle||'',prompt_es:b.prompt_es||'',sub_es:b.subtitle_es||'',by:b.by||'',clash:b.clash_note||'',difficulty:b.difficulty||'unknown',answer_type:String(b.answer_type||'player').toLowerCase(),scoring_version:b.scoring_version||1,answers:(b.answers||[]).map(a=>({name:a.name,name_es:a.name_es||'',aliases:a.aliases||[],detail:a.detail||'',pts:famePoints(b,a.fame)})),traps:(Array.isArray(b.traps)?b.traps:[]).filter(x=>x&&x.name&&x.why).map(x=>({name:x.name,aliases:x.aliases||[],why:x.why,why_es:x.why_es||''}))});
+// every question has at least one Screamer: if no answer is fame 1, the rarest answers on the list score Screamer (from 4 Nov, so today's board stays fair)
+const SCREAMER_FROM='2026-11-04';
+const withScreamer=g=>{if(amsterdamDay()<SCREAMER_FROM||!g.answers.length||g.answers.some(a=>a.pts===PTS[4]))return g;
+ const low=Math.min(...g.answers.map(a=>a.fame||3));g.answers.forEach(a=>{if((a.fame||3)===low)a.pts=PTS[4]});return g};
+const toGame=b=>withScreamer({id:b._id,prompt:b.prompt,sub:b.subtitle||'',prompt_es:b.prompt_es||'',sub_es:b.subtitle_es||'',by:b.by||'',clash:b.clash_note||'',difficulty:b.difficulty||'unknown',answer_type:String(b.answer_type||'player').toLowerCase(),scoring_version:b.scoring_version||1,answers:(b.answers||[]).map(a=>({name:a.name,name_es:a.name_es||'',aliases:a.aliases||[],detail:a.detail||'',fame:a.fame,pts:famePoints(b,a.fame)})),traps:(Array.isArray(b.traps)?b.traps:[]).filter(x=>x&&x.name&&x.why).map(x=>({name:x.name,aliases:x.aliases||[],why:x.why,why_es:x.why_es||''}))});
 function hashStr(t){let h=2166136261;for(const c of t){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
 function gameDayNumber(){const [y,m,d]=amsterdamDay().split('-').map(Number);return Math.floor(Date.UTC(y,m-1,d)/864e5)}
 function todaysSet(bank){const day=gameDayNumber();const srt=l=>[...l].sort((a,b)=>hashStr(a._id)-hashStr(b._id)||a._id.localeCompare(b._id));
