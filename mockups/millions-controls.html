@@ -1,0 +1,55 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Millions Controls</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jersey+10&family=VT323&display=swap">
+<style>
+/* Four ways to place money, same Millions look. Each card is a live demo with 1,000,000 and four answers. */
+:root{--paper:#fbf6e8;--sand:#e9dfc2;--ink:#1d1a2b;--gold:#f2c230;--grass:#2f9a62;--clay:#c8473b;--marine:#1d4486;--marine2:#2d5aa0;--disp:"Jersey 10",monospace;--mono:"VT323",monospace;--ease:cubic-bezier(.23,1,.32,1)}
+*{box-sizing:border-box}body{margin:0;background:#14121c;color:var(--paper);font:20px/1.25 var(--mono);padding:20px 16px 48px}
+h1{font:400 44px/1 var(--disp);margin:0 0 6px;color:var(--gold)}header p{margin:0 0 18px;color:#c9c2d8;max-width:70ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:22px;max-width:1500px}
+.demo h2{font:400 30px/1 var(--disp);margin:0 0 4px}.demo>p{margin:0 0 10px;color:#c9c2d8;font-size:18px}
+.box{background:#211d33;border:3px solid var(--ink);padding:12px;display:grid;gap:8px}
+.hud{display:flex;justify-content:space-between;align-items:baseline}.hud b{font:400 28px var(--disp);color:var(--gold);font-weight:400}.taps{color:#a69fb8;font-size:17px}
+.opt{background:var(--marine2);border:3px solid var(--ink);padding:8px 10px;display:grid;gap:6px}
+.top{display:flex;justify-content:space-between;align-items:baseline;font:700 16px system-ui}.top b{font:400 24px var(--disp);color:var(--gold);font-weight:400}
+.row{display:grid;gap:6px}.row button{height:42px;border:2px solid var(--ink);box-shadow:0 3px 0 var(--ink);background:var(--paper);color:var(--ink);font:400 19px/1 var(--disp);padding:0;cursor:pointer;transition:transform 100ms var(--ease),box-shadow 100ms var(--ease)}
+.row button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}.row button:disabled{opacity:.35}
+.row button.g{background:var(--gold)}.row button.c{background:#f0c4bd}
+input[type=range]{width:100%;height:36px;accent-color:var(--gold);cursor:pointer}
+.bar{height:6px;background:rgba(0,0,0,.3)}.bar i{display:block;height:100%;background:var(--gold);transition:width 140ms var(--ease)}
+.split{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.split button{height:40px;border:2px solid var(--ink);background:var(--sand);font:400 18px var(--disp);cursor:pointer}
+.reset{justify-self:start;background:none;border:0;color:var(--sand);text-decoration:underline;font:18px var(--mono);cursor:pointer}
+.pick{color:var(--gold)}
+</style></head><body>
+<header><h1>Millions: placing money with fewer taps</h1><p>Each box is a working demo: 1,000,000 to spread over four answers. Try putting 600K / 300K / 100K on three answers and watch the tap counter.</p></header>
+<div class="grid" id="grid"></div>
+<script>
+const START=1e6,fmt=n=>n.toLocaleString('en-GB'),K=n=>n>=1e6?'1M':Math.round(n/1e3)+'K';
+const DEMOS=[
+ {k:'smart',n:'A · Smart steps',d:'Same buttons, but the step grows with your pile: 10% of what you have, rounded (1M → 100K, 400K → 50K, 80K → 10K). Fewest changes from today.'},
+ {k:'slider',n:'B · Sliders',d:'Drag a bar on each answer. It snaps to 25K and can never go over what you have left. One drag per answer.'},
+ {k:'split',n:'C · Quick splits',d:'Tap ½ or ALL of what is still unplaced, plus +/− in smart steps for fine tuning. "Split evenly" spreads it over the answers you pick.'},
+ {k:'hold',n:'D · Hold to speed up',d:'Today\'s ±25K buttons, but holding one keeps adding, faster and faster. Quick taps stay precise.'}];
+const grid=document.getElementById('grid');
+DEMOS.forEach(D=>{const el=document.createElement('section');el.className='demo';el.innerHTML=`<h2>${D.n}</h2><p>${D.d}</p><div class="box"></div>`;grid.appendChild(el);make(D.k,el.querySelector('.box'))});
+function make(kind,box){let bets=[0,0,0,0],taps=0,picked=new Set();const step=()=>{const b=START;const raw=b*.1;return raw>=100000?100000:raw>=50000?50000:raw>=25000?25000:10000};
+ const left=()=>START-bets.reduce((a,b)=>a+b,0);
+ const add=(k,v)=>{const max=bets[k]+left();bets[k]=Math.max(0,Math.min(max,bets[k]+v))};
+ function draw(){const L=left();box.innerHTML=`<div class="hud"><span>To place <b>${fmt(L)}</b></span><span class="taps">taps: ${taps}</span></div>`+
+  ['Michael Owen','Jonathan Woodgate','Steve McManaman','Michael Ballack'].map((n,k)=>`<div class="opt"><div class="top"><span>${'ABCD'[k]}. ${n}</span><b>${fmt(bets[k])}</b></div>${ctrl(k,L)}<div class="bar"><i style="width:${bets[k]/START*100}%"></i></div></div>`).join('')+
+  (kind==='split'?`<button class="reset" data-a="even">Split evenly over ${picked.size?[...picked].map(k=>'ABCD'[k]).join(', '):'(tap answer letters below)'}</button><div class="split">${[0,1,2,3].map(k=>`<button data-a="pick" data-k="${k}" class="${picked.has(k)?'pick':''}">${'ABCD'[k]}${picked.has(k)?' ✓':''}</button>`).join('')}</div>`:'')+
+  `<button class="reset" data-a="reset">Reset</button>`;
+  box.querySelectorAll('input[type=range]').forEach(r=>{r.oninput=()=>{const k=+r.dataset.k;bets[k]=0;add(k,Math.round(+r.value/25000)*25000);r.value=bets[k];upd()};r.onchange=()=>{taps++;draw()}})}
+ function upd(){box.querySelector('.hud b').textContent=fmt(left());box.querySelectorAll('.opt').forEach((o,k)=>{o.querySelector('.top b').textContent=fmt(bets[k]);o.querySelector('.bar i').style.width=bets[k]/START*100+'%'})}
+ function ctrl(k,L){const s=kind==='smart'||kind==='split'?step():25000;
+  if(kind==='slider')return`<input type="range" min="0" max="${START}" step="25000" value="${bets[k]}" data-k="${k}" aria-label="Money on ${'ABCD'[k]}">`;
+  if(kind==='split')return`<div class="row" style="grid-template-columns:repeat(5,1fr)"><button class="c" data-a="set" data-k="${k}" data-v="0">0</button><button data-a="add" data-k="${k}" data-v="${-s}">−${K(s)}</button><button data-a="add" data-k="${k}" data-v="${s}">+${K(s)}</button><button data-a="frac" data-k="${k}" data-v=".5">½</button><button class="g" data-a="frac" data-k="${k}" data-v="1">ALL</button></div>`;
+  return`<div class="row" style="grid-template-columns:repeat(4,1fr)"><button class="c" data-a="set" data-k="${k}" data-v="0">CLEAR</button><button data-a="add" data-k="${k}" data-v="${-s}" ${kind==='hold'?'data-hold':''}>−${K(s)}</button><button data-a="add" data-k="${k}" data-v="${s}" ${kind==='hold'?'data-hold':''}>+${K(s)}</button><button class="g" data-a="frac" data-k="${k}" data-v="1">ALL</button></div>`}
+ function act(b){const a=b.dataset.a,k=+b.dataset.k,v=+b.dataset.v;taps++;
+  if(a==='reset'){bets=[0,0,0,0];taps=0;picked.clear()}else if(a==='set')bets[k]=0;else if(a==='add')add(k,v);else if(a==='frac')add(k,Math.round(left()*v/25000)*25000);
+  else if(a==='pick'){picked.has(k)?picked.delete(k):picked.add(k)}else if(a==='even'&&picked.size){const ks=[...picked],each=Math.floor(left()/ks.length/25000)*25000;ks.forEach(x=>add(x,each));add(ks[0],left())}
+  draw()}
+ let hold=null;box.addEventListener('pointerdown',e=>{const b=e.target.closest('button[data-hold]');if(!b)return;e.preventDefault();act(b);let n=0;const go=()=>{n++;const k=+b.dataset.k,v=+b.dataset.v;add(k,v*(n>12?4:n>5?2:1));upd();hold=setTimeout(go,n>5?60:120)};hold=setTimeout(go,350)});
+ ['pointerup','pointerleave','pointercancel'].forEach(t=>box.addEventListener(t,()=>{if(hold===null)return;clearTimeout(hold);hold=null;draw()}));
+ box.addEventListener('click',e=>{const b=e.target.closest('button[data-a]');if(!b||b.hasAttribute('data-hold'))return;act(b)});draw()}
+</script></body></html>
