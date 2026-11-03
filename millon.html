@@ -38,6 +38,7 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
 .opt .amt{font:400 26px/1 var(--disp);color:var(--gold);text-align:right;white-space:nowrap}
 .opt .m b{flex:1;font:400 26px var(--disp);color:var(--gold)}
 .opt .m button{height:44px;border:2px solid var(--ink);box-shadow:0 3px 0 var(--ink);background:var(--paper);color:var(--ink);font:400 20px/1 var(--disp);letter-spacing:.03em;padding:0;transition:transform 100ms var(--ease),box-shadow 100ms var(--ease)}
+.opt .m button{user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
 .opt .m button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
 .opt .m button[data-d="all"]{background:var(--gold)}.opt .m button[data-d="none"]{background:#f0c4bd}
 .opt .m button:disabled{opacity:.35}
@@ -114,7 +115,7 @@ main,.card,.q,.say{image-rendering:auto}
  <div class="steps" id="steps"></div>
  <div class="hud"><span><span data-es="Sin colocar">To place</span> <b class="bank" id="left"></b></span><span><i class="watch" id="watch"></i><span class="clock" id="clock">60</span></span></div>
  <div class="q" id="q"></div>
- <p class="help" data-es="<b>+25K</b> / <b>−25K</b> mueven 25.000 · <b>TODO</b> pone aquí todo lo que te queda · <b>NADA</b> lo quita todo"><b>+25K</b> / <b>−25K</b> move 25,000 · <b>ALL</b> puts all your remaining money here · <b>CLEAR</b> takes it all off</p>
+ <p class="help" data-es="<b>+</b> / <b>−</b> mueven dinero (mantén pulsado para ir más rápido) · <b>TODO</b> pone aquí todo lo que te queda · <b>NADA</b> lo quita todo"><b>+</b> / <b>−</b> move money (hold to go faster) · <b>ALL</b> puts all your remaining money here · <b>CLEAR</b> takes it all off</p>
  <div class="opts" id="opts"></div>
  <button class="btn gold" id="lock" data-es="¡Cerrar apuesta!">Lock it in!</button>
  <button class="btn grass" id="next" hidden data-es="Siguiente">Next</button>
@@ -136,7 +137,7 @@ const ES=location.pathname.startsWith('/es/'),L=(en,es)=>ES?es:en;
 const DAY=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
 // Spanish at /es/millon.html (build_es.py copies it)
 if(ES){document.querySelectorAll('[data-es]').forEach(e=>e.innerHTML=e.dataset.es);document.querySelectorAll('[data-es-ph]').forEach(e=>e.placeholder=e.dataset.esPh)}
-const $=id=>document.getElementById(id),START=1000000,CHIP=25000,SECS=60,KEY='millon-'+DAY+(DAY==='2026-11-03'?'-r1':'');
+const $=id=>document.getElementById(id),START=1000000,SECS=60,KEY='millon-'+DAY+(DAY==='2026-11-03'?'-r1':'');
 const fmt=n=>n.toLocaleString(ES?'es-ES':'en-GB');
 const say=(t,pose)=>{$('say').textContent=t;if(pose)$('face').src='/rosco/host/'+pose+'.png'};
 const VISITOR=(()=>{try{let v=localStorage.getItem('uc-visitor');if(!v){v=crypto.randomUUID();localStorage.setItem('uc-visitor',v)}return v}catch{return null}})();
@@ -172,17 +173,28 @@ const SFX={
 let D,i=0,bank=START,bets=[],t=SECS,timer=null,hist=[];
 const show=s=>['intro','play','end'].forEach(x=>$('s-'+x).hidden=x!==s);
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify({bank,hist,done:true}))}catch{}};
-function maxOn(n){return n-1} // answers that may hold money: always leave one empty
+function maxOn(n){return n-1}
+// smart steps: about 10% of the pile you start the question with (1M -> 100K, 400K -> 25K/50K, 80K -> 5K)
+const stepNow=()=>[100000,50000,25000,10000,5000,1000].find(v=>v<=bank*.1)||1000;
+const K=n=>n>=1e6?(n/1e6)+'M':n>=1e3?(n/1e3)+'K':String(n); // answers that may hold money: always leave one empty
 function render(){const Q=D.questions[i],opts=ES&&Q.o_es?Q.o_es:Q.o,placed=bets.reduce((a,b)=>a+b,0),left=bank-placed,used=bets.filter(b=>b>0).length,last=i===D.questions.length-1;
  $('left').textContent=fmt(left);
- $('opts').innerHTML=opts.map((o,k)=>`<div class="opt" id="o${k}"><span class="door">${bets[k]?`<i class="spr" style="background-position:${-40*Math.min(5,Math.ceil(bets[k]/START*6)-1)}px -40px"></i>`:''}</span><span class="t">${String.fromCharCode(65+k)}. ${o}</span><b class="amt">${fmt(bets[k])}</b><div class="m"><button data-k="${k}" data-d="none" ${bets[k]?'':'disabled'} aria-label="${L('Take all off','Quitar todo')}">${L('CLEAR','NADA')}</button><button data-k="${k}" data-d="-1" ${bets[k]?'':'disabled'} aria-label="${L('Take off 25,000','Quitar 25.000')}">−25K</button><button data-k="${k}" data-d="1" ${left&&(bets[k]||used<maxOn(opts.length))?'':'disabled'} aria-label="${L('Add 25,000','Añadir 25.000')}">+25K</button><button data-k="${k}" data-d="all" ${left&&(bets[k]||used<maxOn(opts.length))?'':'disabled'} aria-label="${L('Put all the rest here','Poner aquí todo lo que queda')}">${L('ALL','TODO')}</button></div><div class="bar"><i style="width:${bank?bets[k]/bank*100:0}%"></i></div></div>`).join('');
+ $('opts').innerHTML=opts.map((o,k)=>`<div class="opt" id="o${k}"><span class="door">${bets[k]?`<i class="spr" style="background-position:${-40*Math.min(5,Math.ceil(bets[k]/START*6)-1)}px -40px"></i>`:''}</span><span class="t">${String.fromCharCode(65+k)}. ${o}</span><b class="amt">${fmt(bets[k])}</b><div class="m"><button data-k="${k}" data-d="none" ${bets[k]?'':'disabled'} aria-label="${L('Take all off','Quitar todo')}">${L('CLEAR','NADA')}</button><button data-k="${k}" data-d="-1" ${bets[k]?'':'disabled'} aria-label="${L('Take off ','Quitar ')+fmt(stepNow())}">−${K(stepNow())}</button><button data-k="${k}" data-d="1" ${left&&(bets[k]||used<maxOn(opts.length))?'':'disabled'} aria-label="${L('Add ','Añadir ')+fmt(stepNow())}">+${K(stepNow())}</button><button data-k="${k}" data-d="all" ${left&&(bets[k]||used<maxOn(opts.length))?'':'disabled'} aria-label="${L('Put all the rest here','Poner aquí todo lo que queda')}">${L('ALL','TODO')}</button></div><div class="bar"><i style="width:${bank?bets[k]/bank*100:0}%"></i></div></div>`).join('');
  $('lock').disabled=left>0;$('lock').textContent=left>0?L(`Place ${fmt(left)} more`,`Coloca ${fmt(left)} más`):L('Lock it in!','¡Cerrar apuesta!');}
-$('opts').onclick=e=>{const b=e.target.closest('button[data-k]');if(!b||timer===null)return;const k=+b.dataset.k,n=bets.length,placed=bets.reduce((a,c)=>a+c,0),left=bank-placed;
- const was=bets[k];
- if(b.dataset.d==='none')bets[k]=0;
- else if(b.dataset.d==='all'){const others=bets.filter((v,j)=>j!==k&&v>0).length;if(!bets[k]&&others>=maxOn(n))return;bets[k]+=left}
- else if(b.dataset.d==='1')bets[k]+=Math.min(CHIP,left);else bets[k]=Math.max(0,bets[k]-CHIP);
- if(bets[k]!==was)SFX[{none:'clear',all:'all','1':'add','-1':'sub'}[b.dataset.d]]();render()};
+// one change to answer k; returns true if anything moved
+function bump(k,d,mult=1){const n=bets.length,left=bank-bets.reduce((a,c)=>a+c,0),was=bets[k],st=stepNow()*mult;
+ const open=bets[k]>0||bets.filter((v,j)=>j!==k&&v>0).length<maxOn(n);
+ if(d==='none')bets[k]=0;
+ else if(d==='all'){if(!open)return false;bets[k]+=left}
+ else if(d==='1'){if(!open)return false;bets[k]+=Math.min(st,left)}else bets[k]=Math.max(0,bets[k]-st);
+ return bets[k]!==was}
+// hold + or − to keep going, faster and faster; a quick tap stays one step
+let holdT=null,held=false;
+$('opts').addEventListener('pointerdown',e=>{const b=e.target.closest('button[data-d="1"],button[data-d="-1"]');if(!b||timer===null)return;held=false;const k=+b.dataset.k,d=b.dataset.d;let n=0;
+ const go=()=>{n++;held=true;if(bump(k,d,n>10?4:n>4?2:1)){SFX[d==='1'?'add':'sub']();render()}holdT=setTimeout(go,n>4?70:130)};clearTimeout(holdT);holdT=setTimeout(go,380)});
+['pointerup','pointercancel'].forEach(t=>document.addEventListener(t,()=>{clearTimeout(holdT);holdT=null}));
+$('opts').onclick=e=>{const b=e.target.closest('button[data-k]');if(!b||timer===null)return;if(held){held=false;return}const k=+b.dataset.k;
+ if(bump(k,b.dataset.d))SFX[{none:'clear',all:'all','1':'add','-1':'sub'}[b.dataset.d]]();render()};
 function ask(){const Q=D.questions[i],n=Q.o.length;bets=Array(n).fill(0);t=SECS;
  $('steps').innerHTML=D.questions.map((_,j)=>`<i class="${j<i?'done':j===i?'on':''}"></i>`).join('');
  $('q').innerHTML=`<small>${L('Question','Pregunta')} ${i+1}/${D.questions.length} · ${n} ${L('answers','respuestas')}</small>${ES&&Q.q_es?Q.q_es:Q.q}`;
