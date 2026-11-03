@@ -37,13 +37,13 @@ begin
              order by s.payload->>'sentAt')
       from submissions s
       where s.kind in ('report', 'question', 'contact') and (s.payload->>'sentAt')::timestamptz >= since), '[]'::jsonb),
-    -- feedback boxes in the games (Rosco, Duels)
+    -- feedback boxes in the games (Rosco, Millions, Duels)
     'events', coalesce((
       select jsonb_agg(jsonb_build_object('name', e.name, 'at', e.created_at,
                'rating', e.data->>'rating', 'score', e.data->>'score', 'text', feedback_scrub(e.data->>'text'), 'language', e.data->>'language')
              order by e.created_at)
       from events e
-      where e.name in ('rosco_feedback', 'duel_feedback', 'duel_feedback_text') and e.created_at >= since), '[]'::jsonb),
+      where e.name in ('rosco_feedback', 'millon_feedback', 'duel_feedback', 'duel_feedback_text') and e.created_at >= since), '[]'::jsonb),
     -- Chairman's 1-10 rating and comment (the email column is never returned)
     'chairman', coalesce((
       select jsonb_agg(jsonb_build_object('at', t.created_at, 'rating', t.rating, 'comment', feedback_scrub(t.comment)) order by t.created_at)
