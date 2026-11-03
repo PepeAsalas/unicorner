@@ -61,16 +61,32 @@ main,.card,.q,.say{image-rendering:auto}
 .door .spr{position:absolute;left:12px;bottom:18px;transition:opacity 160ms ease}
 .opt{grid-template-columns:64px minmax(0,1fr) auto}
 .opt .t{grid-column:2/3}.opt .amt{grid-column:3/4}.opt .m,.opt .bar{grid-column:2/4}
-.opt.lose .door,.opt.x .door{animation:door 420ms steps(4) forwards}
+.opt.lose .door,.opt.x .door{animation:door 650ms steps(4) forwards}
 @keyframes door{to{background-position:-256px 0}}
-.opt.lose .door .spr{animation:fall 520ms cubic-bezier(.55,0,1,.45) 120ms forwards}
+.opt.lose .door .spr{animation:fall 650ms cubic-bezier(.55,0,1,.45) 180ms forwards}
 @keyframes fall{to{transform:translateY(46px) scale(.55);opacity:0}}
 .note{position:fixed;top:-48px;z-index:9;pointer-events:none;width:40px;height:40px;background:url(/millon/art/money-sheet.png) no-repeat;background-size:640px 160px;image-rendering:pixelated}
 .watch{display:inline-block;width:32px;height:32px;vertical-align:-4px;margin-right:6px;background:url(/millon/art/stopwatch-sheet.png) 0 0/128px 32px no-repeat;image-rendering:pixelated}
 #lock{display:flex;align-items:center;justify-content:center;gap:10px}
 #lock::before{content:"";width:40px;height:40px;margin:-6px 0;background:url(/millon/art/button-normal.png) center/contain no-repeat;image-rendering:pixelated}
-#lock:active::before{background-image:url(/millon/art/button-pressed.png)}
-@media (prefers-reduced-motion:reduce){.btn,.bar i,.opt{transition:none}.opt.lose .door .spr{animation:none;opacity:0}.note{display:none}}
+#lock:active::before,#lock.press::before{background-image:url(/millon/art/button-pressed.png)}
+#lock.press{transform:translateY(4px);box-shadow:0 0 0 var(--ink);transition:transform 220ms var(--ease),box-shadow 220ms var(--ease)}
+.lb h2{font:400 26px/1 var(--disp);margin:0 0 8px;color:var(--gold)}.lb ol{list-style:none;margin:0;padding:0;display:grid;gap:4px;font:20px/1.1 var(--mono)}
+.lb li{display:grid;grid-template-columns:28px 1fr auto;gap:8px;padding:4px 8px;background:rgba(0,0,0,.2)}.lb li.me{background:var(--gold);color:var(--ink)}.lb li b{font-weight:400}
+.lb p{margin:8px 0 0;font:18px var(--mono);color:var(--sand)}.lb a{color:var(--gold)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (min-width:900px) and (min-height:560px){
+ main{max-width:1120px;padding:14px 24px;gap:10px}
+ #s-play{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);grid-template-areas:"steps steps" "hud opts" "q opts" "help opts" "lock opts" "next opts" ". opts";gap:10px 20px;align-items:start}
+ #steps{grid-area:steps}#s-play .hud{grid-area:hud}#q{grid-area:q}#s-play .help{grid-area:help;text-align:left;margin:0}#lock{grid-area:lock}#next{grid-area:next}
+ #opts{grid-area:opts;grid-template-columns:1fr 1fr;align-content:start}
+ #opts:has(.opt:nth-child(3):last-child) .opt:last-child,#opts:has(.opt:nth-child(1):nth-last-child(2)) .opt{grid-column:auto}
+ #s-intro,#s-end{max-width:560px;width:100%;margin:0 auto}
+ #q{font-size:23px}.opt .t{font-size:18px}
+ .host{max-width:1120px}
+ .mq{max-width:560px;width:100%;margin:0 auto}
+}
+@media (prefers-reduced-motion:reduce){.btn,.bar i,.opt{transition:none}#lock.press{transform:none}.opt.lose .door .spr{animation:none;opacity:0}.note{display:none}}
 </style></head><body><main>
 <div class="top"><a class="logo" href="/">UNICORNER</a><span class="tag" data-es="MILLONES">MILLIONS</span></div>
 <div class="host"><div class="face"><img id="face" alt="" src="/rosco/host/happy-talk.png"></div><p class="say"><span class="who">Horacio Herradura</span><span id="say"></span></p></div>
@@ -80,6 +96,7 @@ main,.card,.q,.say{image-rendering:auto}
  <li data-es="En cada pregunta reparte el dinero entre las respuestas. Solo te quedas lo que esté en la correcta.">Each question, spread your money over the answers. You only keep what sits on the right one.</li>
  <li data-es="Deja siempre al menos una respuesta vacía. En la última, todo a una.">Always leave at least one answer empty. On the last one, it's all on one.</li>
  <li data-es="Tienes que colocarlo todo. 60 segundos por pregunta: si se acaba el tiempo, lo que no hayas colocado va a la respuesta con más dinero.">You have to place it all. 60 seconds per question: if time runs out, whatever you haven't placed goes on the answer with the most money.</li></ol></div>
+ <p class="msg-note" id="avg0"></p>
  <button class="btn grass" id="go" data-es="Empezar">Start</button></section>
 
 <section id="s-play" hidden>
@@ -92,8 +109,9 @@ main,.card,.q,.say{image-rendering:auto}
  <button class="btn grass" id="next" hidden data-es="Siguiente">Next</button>
 </section>
 
-<section id="s-end" hidden><div class="card"><p class="msg-note" data-es="Te llevas">You keep</p><div class="big" id="final"></div><div class="grid" id="grid"></div></div>
- <button class="btn gold" id="share" data-es="Compartir">Share</button></section>
+<section id="s-end" hidden><div class="card"><p class="msg-note" data-es="Te llevas">You keep</p><div class="big" id="final"></div><div class="grid" id="grid"></div><p class="msg-note" id="avg2" style="margin-top:8px"></p></div>
+ <div class="card lb" id="lb" hidden></div>
+ <div class="row2"><button class="btn gold" id="share" data-es="Compartir">Share</button><button class="btn paper" id="copy" data-es="Copiar resultado">Copy result</button></div></section>
 <p class="msg-note" id="msg" hidden></p>
 </main>
 <script>
@@ -107,6 +125,17 @@ const fmt=n=>n.toLocaleString(ES?'es-ES':'en-GB');
 const say=(t,pose)=>{$('say').textContent=t;if(pose)$('face').src='/rosco/host/'+pose+'.png'};
 const VISITOR=(()=>{try{let v=localStorage.getItem('uc-visitor');if(!v){v=crypto.randomUUID();localStorage.setItem('uc-visitor',v)}return v}catch{return null}})();
 function track(name,data){try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,visitor:VISITOR,seconds:0,game_day:DAY,event_version:2,data:{language:ES?'es':'en',page:'millon',...(data||{})}})}).catch(()=>{})}catch{}}
+// signed-in players: one result per account per day, today's ranking (supabase/millon.sql)
+async function tok(){try{let s=JSON.parse(localStorage.getItem('uc-player-session')||'null');if(!s||!s.access_token)return null;
+ if(s.exp<Date.now()+60000){const r=await fetch(SB_URL+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:s.refresh_token})});const j=await r.json();if(!r.ok||!j.access_token)return null;
+  s={...s,access_token:j.access_token,refresh_token:j.refresh_token||s.refresh_token,exp:Date.now()+Math.max(60,(+j.expires_in||3600))*1000};localStorage.setItem('uc-player-session',JSON.stringify(s))}return s.access_token}catch{return null}}
+async function rpc(fn,body){const t=await tok();if(!t)return undefined;const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok)throw 0;return r.json()}
+async function pub(fn,body){const t=await tok();const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+(t||SB_KEY),'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok)throw 0;return r.json()}
+async function dayAvg(){try{const j=await pub('millon_day_stats',{p_day:DAY});const t=j&&j.players>=3?L(`Today's average: ${fmt(j.avg)} (${j.players} players)`,`Media de hoy: ${fmt(j.avg)} (${j.players} jugadores)`):L("Be one of the first to play today.",'Sé de los primeros en jugar hoy.');['avg0','avg2'].forEach(id=>$(id).textContent=t)}catch{}}
+async function board(){try{const g=await pub('millon_board',{p_day:DAY}),signed=!!(await tok());const rows=(g.rows||[]).slice(0,5);
+ $('lb').innerHTML=`<h2>${L("Today's ranking","Ranking de hoy")}</h2>`+(rows.length?`<ol>${rows.map(r=>`<li class="${r.me?'me':''}"><b>${r.rank}</b><span>${String(r.nickname).replace(/[<&>"]/g,'')}</span><b>${fmt(r.score)}</b></li>`).join('')}</ol>`:'')
+  +(g.me&&!rows.some(r=>r.me)?`<p>${L('You','Tú')}: #${g.me.rank} · ${fmt(g.me.score)}</p>`:'')+(signed?'':`<p><a href="${ES?'/es/':'/'}#signin">${L('Sign in','Inicia sesión')}</a> ${L('to get on the ranking.','para entrar en el ranking.')}</p>`)
+  +(g.players?`<p>${g.players} ${L('players on the ranking today','jugadores en el ranking hoy')}</p>`:'');$('lb').hidden=false}catch{}}
 let D,i=0,bank=START,bets=[],t=SECS,timer=null,hist=[];
 const show=s=>['intro','play','end'].forEach(x=>$('s-'+x).hidden=x!==s);
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify({bank,hist,done:true}))}catch{}};
@@ -141,13 +170,17 @@ function note(x,y,dist,dur){if(matchMedia('(prefers-reduced-motion:reduce)').mat
  n.animate([{transform:'translate(0,0) rotate(0)',opacity:1},{transform:`translate(${sway}px,${dist}px) rotate(${sway*2}deg)`,opacity:0}],{duration:dur,easing:'cubic-bezier(.55,0,1,.45)',fill:'forwards'}).onfinish=()=>n.remove()}
 function drop(el){const r=el.querySelector('.door').getBoundingClientRect();for(let j=0;j<4;j++)setTimeout(()=>note(r.left+12+Math.random()*16,r.top+8,90,600),120+j*70)}
 function shower(n){for(let j=0;j<n;j++)setTimeout(()=>note(Math.random()*(innerWidth-40),-40,innerHeight*.9,1100+Math.random()*500),j*45)}
-function end(){show('end');$('final').textContent=fmt(bank);$('grid').textContent=hist.join('');track('millon_finish',{score:bank,steps:hist.length});
+function end(restored){show('end');if(!restored)rpc('millon_save',{p_day:DAY,p_score:bank,p_hist:hist.join('')}).catch(()=>{}).finally(()=>board());else board();dayAvg();$('final').textContent=fmt(bank);$('grid').textContent=hist.join('');if(!restored)track('millon_finish',{score:bank,steps:hist.length});
  say(bank?L(`You walk away with ${fmt(bank)}. Same game tomorrow, new questions!`,`Te llevas ${fmt(bank)}. ¡Mañana, preguntas nuevas!`):L('Nothing left today. Come back tomorrow!','Hoy te quedas a cero. ¡Vuelve mañana!'),bank?'happy-talk':'sad-talk')}
-$('lock').onclick=lock;$('next').onclick=()=>{i++;ask()};
+$('lock').onclick=()=>{if(timer===null)return;clearInterval(timer);const b=$('lock');b.classList.add('press');setTimeout(()=>{b.classList.remove('press');lock()},450)};$('next').onclick=()=>{i++;ask()};
 $('go').onclick=()=>{show('play');ask();track('millon_start')};
-$('share').onclick=()=>{const txt=`Unicorner ${L('Millions','Millones')} ${DAY}\n${hist.join('')}\n💰 ${fmt(bank)}\nunicornergame.lol${ES?'/es':''}/millon.html`;navigator.share?navigator.share({text:txt}).catch(()=>{}):navigator.clipboard.writeText(txt).then(()=>say(L('Copied!','¡Copiado!')))};
+const resultText=()=>`Unicorner ${L('Millions','Millones')} ${DAY}\n${hist.join('')}\n💰 ${fmt(bank)}\nunicornergame.lol${ES?'/es':''}/millon.html`;
+$('share').onclick=()=>{const txt=resultText();navigator.share?navigator.share({text:txt}).catch(()=>{}):navigator.clipboard.writeText(txt).then(()=>say(L('Copied!','¡Copiado!')))};
+$('copy').onclick=()=>{navigator.clipboard.writeText(resultText()).then(()=>{$('copy').textContent=L('Copied!','¡Copiado!');setTimeout(()=>$('copy').textContent=L('Copy result','Copiar resultado'),1600)}).catch(()=>{})};
 (async()=>{try{const r=await fetch(`/millon/${DAY}.json`,{cache:'no-cache'});if(!r.ok)throw 0;D=await r.json()}catch{say(L('No game today yet. Come back soon!','Aún no hay juego hoy. ¡Vuelve pronto!'),'sad');return}
  let s=null;try{s=JSON.parse(localStorage.getItem(KEY))}catch{}
- if(s&&s.done){bank=s.bank;hist=s.hist;end();return}
+ if(!(s&&s.done)){try{const m=await rpc('millon_mine',{p_day:DAY});if(m&&m.score!=null)s={bank:m.score,hist:[...m.hist],done:true}}catch{}}
+ if(s&&s.done){bank=s.bank;hist=s.hist;save();end(true);return}
+ dayAvg();
  say(L('Welcome! Here is a million. Let\'s see how much of it you keep.','¡Bienvenido! Aquí tienes un millón. A ver cuánto te llevas.'),'happy-talk');show('intro')})();
 </script></body></html>
