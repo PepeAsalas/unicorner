@@ -56,7 +56,7 @@ Avoid: tiny lists, plain squad lists, "played for club X in season Y", and anyth
 - `format_family`: a short snake_case label for the angle (`career_clubs`, `oddity`, `final_scorer`, `letter_challenge`, ...).
 - `answer_count`: the number of answers.
 - `answers`: EVERY valid answer. `name` is the full name; `aliases` are what people actually type (surname, nickname, spelling without accents, short club name like "Spurs", "Man Utd", "Atleti"). For a club or country with a different Spanish name, add `"name_es"` and also put that name in the aliases.
-- `fame` (how obvious the answer is): 6 = first thing everyone says (10 points), 5 = well known (30), 4 or 3 = a real fan knows it (60), 2 = deep knowledge (85), 1 = almost nobody (100, a Screamer). Every question needs at least one fame 1 or 2 answer.
+- `fame` (how obvious the answer is): 6 = first thing everyone says (10 points), 5 = well known (30), 4 or 3 = a real fan knows it (60), 2 = deep knowledge (85), 1 = almost nobody (100, a Screamer). Every question needs at least one fame 1 answer (a Screamer), and ideally 2-4: a real, correct answer almost nobody thinks of. If a list has no such answer, widen the scope a little (still ending at a finished season) or pick another question; never mark a well-known answer as fame 1 just to pass.
 - `traps`: famous near-misses people will type. A VAR popup shows `why` (or `why_es`) and they can try again. They are never accepted.
 
 ## Rules every question must pass

@@ -35,7 +35,10 @@ def day_files():
     return sorted(glob.glob(os.path.join(DAILY, '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].json')))
 
 
-def check_question(q, e, w):
+SCREAMER_RULE = '2026-11-12'  # days from here on need a fame-1 answer (earlier days get one in the game from the rarest answers)
+
+
+def check_question(q, e, w, day=''):
     for k in REQUIRED:
         if k not in q:
             e(f'missing "{k}"')
@@ -79,7 +82,9 @@ def check_question(q, e, w):
     for k, names in keys.items():
         if len(set(names)) > 1:
             e(f'"{k}" matches more than one answer: {sorted(set(names))}')
-    if fames[1] + fames[2] == 0:
+    if day >= SCREAMER_RULE and fames[1] == 0:
+        e('no fame-1 answer: every question needs at least one Screamer (a real answer almost nobody thinks of)')
+    elif fames[1] + fames[2] == 0:
         e('no fame 1-2 answer: nobody can hit a Screamer')
     if len(ans) >= 10 and fames[6] == 0:
         w('no fame-6 answer (nothing obvious)')
@@ -134,7 +139,7 @@ def main(argv):
             warns.append(f'{name}: a day should have at least one easy and one hard question')
         for i, q in enumerate(qs):
             tag = f"{name} #{i + 1} {q.get('prompt', '?')[:55]}"
-            check_question(q, lambda m: errors.append(f'{tag}: {m}'), lambda m: warns.append(f'{tag}: {m}'))
+            check_question(q, lambda m: errors.append(f'{tag}: {m}'), lambda m: warns.append(f'{tag}: {m}'), name[:10])
             if len(seen_ids.get(q.get('id'), [])) > 1:
                 errors.append(f'{tag}: id {q.get("id")} used more than once')
             k = norm(q.get('prompt', '')) + '|' + norm(q.get('subtitle', ''))
