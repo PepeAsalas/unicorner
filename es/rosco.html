@@ -90,6 +90,18 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
 .ans li{display:grid;grid-template-columns:34px 1fr;gap:8px;align-items:start;background:var(--paper);color:var(--ink);border:2px solid var(--ink);padding:8px}
 .ans li>b{display:grid;place-items:center;height:30px;font:400 20px var(--disp);border:2px solid var(--ink);color:#fff}
 .ans small{display:block;color:#5d566b}
+/* desktop (layout A): the ring on the left, the clue / answer / buttons on the right, no scrolling during a game */
+@media (min-width:900px) and (min-height:560px){
+ main{max-width:1180px;padding:12px 28px 20px}
+ #s-intro:not([hidden]),#s-play:not([hidden]),#s-end:not([hidden]){position:relative;padding-left:calc(min(560px,74vh) + 40px);min-height:min(560px,74vh)}
+ #ring0,#ring,#ring2{position:absolute;left:0;top:0;width:min(560px,74vh)}
+ #s-play .host{margin-top:24px}#s-play .clue p{font-size:24px}#s-play .inp{height:60px;font-size:28px}#s-play .btn{height:58px}
+ #s-end .big{font-size:110px}
+}
+/* letters you can still play are buttons: tap one to jump to it */
+.ring .l.jump{cursor:pointer;transition:transform 140ms cubic-bezier(.23,1,.32,1),filter 140ms ease}
+@media (hover:hover) and (pointer:fine){.ring .l.jump:hover{transform:scale(1.12);filter:brightness(1.2)}}
+.ring .l.jump:active{transform:scale(.94)}
 @media (prefers-reduced-motion:reduce){.l.now,.face.pop img,.l.pop,.inp.shake,.clock.low,.say .more{animation:none}}
 .about{margin-top:auto;padding-top:18px;font:15px/1.45 Barlow,system-ui,sans-serif;color:rgba(251,246,232,.7)}.about h2{font:400 22px/1 "Jersey 10",monospace;color:var(--sand);margin:0 0 6px;font-weight:400}.about p{margin:0 0 8px}.about a{color:var(--gold)}
 </style></head><body><main>
@@ -216,6 +228,7 @@ const fmt=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
 function drawRing(id,cur){const r=$(id);r.querySelectorAll('.l').forEach(e=>e.remove());const on=new Set(R.letters.map(x=>x.letter));
  ABC.forEach((ch,i)=>{const a=-Math.PI/2+i*2*Math.PI/ABC.length,e=document.createElement('div'),st=S&&S.res[ch];
   e.className='l'+(!on.has(ch)?' off':st==='ok'?' ok':st==='no'?' no':(S&&S.passed.includes(ch)?' pass':''))+(ch===cur?' now':'');e.textContent=on.has(ch)?ch:'–';
+  if(id==='ring'&&S&&!S.done&&S.queue.includes(ch)&&ch!==cur){e.classList.add('jump');e.dataset.l=ch;e.setAttribute('role','button');e.tabIndex=0;e.setAttribute('aria-label',L(`Go to ${ch}`,`Ir a la ${ch}`))}
   e.style.left=50+43.5*Math.cos(a)+'%';e.style.top=50+43.5*Math.sin(a)+'%';r.appendChild(e)})}
 const counts=()=>{const v=Object.values(S.res);return{ok:v.filter(x=>x==='ok').length,no:v.filter(x=>x==='no').length}};
 function show(id){['s-load','s-intro','s-play','s-end'].forEach(x=>$(x).hidden=x!==id)}
@@ -261,6 +274,10 @@ function answer(){const q=cur(),raw=$('in').value.trim();if(!q)return;if(!raw)re
 function pass(){const q=cur();if(!q)return;if(!S.passed.includes(q.letter))S.passed.push(q.letter);
  S.queue.push(S.queue.shift());react('pasapalabra',pick(LINES.pass));SFX.pass();$('in').value='';track('rosco_pass',{letter:q.letter});save();render();$('in').focus()}
 {const b=$('snd'),paint=()=>{b.textContent=sndOn()?'🔊':'🔇'};paint();b.onclick=()=>{try{localStorage.setItem('unicorner-sound',sndOn()?'off':'on')}catch{}paint();if(sndOn())SFX.ok()}}
+function jump(ch){const i=S?S.queue.indexOf(ch):-1;if(i<=0||S.done)return;const q=cur();if(q&&!S.passed.includes(q.letter))S.passed.push(q.letter);
+ S.queue=S.queue.slice(i).concat(S.queue.slice(0,i));if(S.seen)S.seen=S.seen.filter(x=>x!==ch);SFX.pass();$('in').value='';$('var').textContent='';save();render();$('in').focus()}
+$('ring').addEventListener('click',e=>{const l=e.target.closest('.l.jump');if(l)jump(l.dataset.l)});
+$('ring').addEventListener('keydown',e=>{const l=e.target.closest('.l.jump');if(l&&(e.key==='Enter'||e.key===' ')){e.preventDefault();jump(l.dataset.l)}});
 $('f').onsubmit=e=>{e.preventDefault();answer()};$('enter').onclick=answer;$('pass').onclick=pass;
 
 function finish(why){clearInterval(tick);if(S.done)return;S.done=true;S.left=left();S.why=why;R.letters.forEach(x=>{if(!S.res[x.letter])S.res[x.letter]='miss'});save();
