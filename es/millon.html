@@ -230,12 +230,23 @@ function lock(){clearInterval(timer);timer=null;let pre='';
   pre=L(`Time! The ${fmt(rest)} you didn't place went on ${String.fromCharCode(65+k)}. `,`¡Tiempo! Los ${fmt(rest)} sin colocar fueron a la ${String.fromCharCode(65+k)}. `)}
  const Q=D.questions[i],kept=bets[Q.a],lost=bank-kept;
  hist.push(kept>0?(kept===bank?'🟩':'🟨'):'🟥');bank=kept;
- bets.forEach((v,k)=>$('o'+k).classList.add(k===Q.a?'win':v?'lose':'x'));$('opts').querySelectorAll('button').forEach(b=>b.disabled=true);
- $('left').textContent=fmt(bank);$('lock').hidden=true;
+ $('opts').querySelectorAll('button').forEach(b=>b.disabled=true);$('lock').hidden=true;
+ // suspense: empty doors open at once, then the wrong doors with money one by one (least first), with a pause before the last one. A tap skips it.
+ const all=bets.slice(),wrong=all.map((v,k)=>k).filter(k=>k!==Q.a&&all[k]).sort((x,y)=>all[x]-all[y]),ts=[];let t=0,fin=false;
+ all.forEach((v,k)=>{if(k!==Q.a&&!v)$('o'+k).classList.add('x')});
+ const openDoor=k=>{const o=$('o'+k);if(o.classList.contains('lose'))return;o.classList.add('lose');SFX.door();drop(o)};
+ if(pre)say(pre,'nervous');
+ if(wrong.length){t=pre?900:350;say(pre+L('Opening the doors…','Abriendo las trampillas…'),'nervous');
+  wrong.forEach((k,j)=>{if(j===wrong.length-1&&kept){const kk=k;ts.push(setTimeout(()=>say(L(`Two left. ${fmt(kept)} or ${fmt(all[kk])}…`,`Quedan dos. ¿${fmt(kept)} o ${fmt(all[kk])}…?`),'nervous'),t));t+=1000}
+   ts.push(setTimeout(()=>openDoor(k),t));t+=520})}
+ else t=pre?900:600;
+ const finish=()=>{if(fin)return;fin=true;ts.forEach(clearTimeout);document.removeEventListener('pointerdown',skip,true);wrong.forEach(openDoor);
+ $('o'+Q.a).classList.add('win');$('left').textContent=fmt(bank);
  const opts=ES&&Q.o_es?Q.o_es:Q.o,wy=ES?Q.why_es:Q.why;$('q').insertAdjacentHTML('beforeend',`<span class="why">${L('Answer','Respuesta')}: <b>${opts[Q.a]}</b>${wy?' · '+wy:''}</span>`);
- SFX.door();setTimeout(()=>(kept===bank?SFX.jackpot:kept?SFX.keep:SFX.bust)(),420);if(kept===bank&&kept)shower(18);else if(lost)bets.forEach((v,k)=>{if(v&&k!==Q.a)drop($('o'+k))});
+ if(!wrong.length)SFX.door();setTimeout(()=>(kept===bank&&lost===0&&kept?SFX.jackpot:kept?SFX.keep:SFX.bust)(),wrong.length?60:420);if(!lost&&kept)shower(18);
  say(pre+(!kept?L('Ay, ay, ay... it all falls through the trapdoor.','Ay, ay, ay... todo se va por la trampilla.'):lost?L(`Right answer! But ${fmt(lost)} drops away.`,`¡Correcta! Pero ${fmt(lost)} se van por la trampilla.`):L('All of it on the right one. Bravo!','Todo en la correcta. ¡Bravo!')),!kept?'facepalm':lost?'nervous':'celebrate');
  if(!kept||i===D.questions.length-1){save();setTimeout(end,3200)}else $('next').hidden=false}
+ const skip=e=>{if(e.target.closest&&e.target.closest('.snd'))return;finish()};setTimeout(()=>document.addEventListener('pointerdown',skip,true),50);ts.push(setTimeout(finish,t))}
 // banknotes: flutter frames are row 3 of the money sheet; short, rare moments so they can be a little showy
 function note(x,y,dist,dur){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;const n=document.createElement('i');n.className='note';n.style.left=x+'px';n.style.top=y+'px';document.body.appendChild(n);
  const f=Math.floor(Math.random()*8);n.style.backgroundPosition=`${-40*f}px -80px`;const sway=(Math.random()-.5)*80;
