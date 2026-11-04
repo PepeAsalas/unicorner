@@ -2194,7 +2194,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
   <div class="tk-main">
    <div class="tk-stub" aria-hidden="true"><span>${tkDate[0]}</span><b>${tkDate[1]}</b><span>${tkDate[2]}</span></div>
    <div class="tk-body">
-    <div class="tk-meta"><span>${played?L('Daily 5 · played ✓','Diario 5 · jugado ✓'):L('Daily 5','Diario 5')}</span>${played?'':`<button type="button" class="tk-howlink" id="how">${L('How to play','Cómo se juega')}</button>`}</div>
+    ${played?'':`<div class="tk-meta"><span>${L('Daily 5','Diario 5')}</span><button type="button" class="tk-howlink" id="how">${L('How to play','Cómo se juega')}</button></div>`}
     ${played?`<div class="tk-score lx-score"><span class="lx-digits">${String(played.score).split('').map(d=>`<i>${d}</i>`).join('')}</span><span class="rx-max">/${MAX}</span><b class="lx-zone">${zl(zoneOf(played.score))}</b></div>
     ${Array.isArray(played.picks)&&played.picks.length?`<ol class="rx-shots lx-shots">${played.picks.filter(Array.isArray).map(x=>`<li style="--c:${x[2]?TCOL[x[2]]:'#5b5470'}"><i style="height:${x[2]?Math.max(18,x[2]):8}%"></i><b>${x[2]?'+'+x[2]:'–'}</b><span>${x[2]?tl(tierName(x[2])):L('Miss','Fallo')}</span></li>`).join('')}</ol>`:''}
     ${played.remote?`<p class="tk-live">${L('Played on another device ✓ · next game in','Jugado en otro dispositivo ✓ · próximo partido en')} <b class="flapclock" data-flap>${untilMidnight()}</b></p>`:`<button type="button" class="cta tk-play" id="go">${L("View today's result",'Resultados de hoy')}</button>`}`
