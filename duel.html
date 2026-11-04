@@ -23,7 +23,7 @@ button.ghost{background:var(--panel);color:var(--cream)}
 button:disabled{opacity:.5;cursor:default}
 button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 .row{display:flex;gap:12px}.row>*{flex:1}
-.ans-all{margin-top:14px}.ans-all>button{width:100%}
+.ans-all{margin-top:14px}.aa-row{display:grid;gap:4px;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.12)}.ans-all>button{width:100%}
 #ans-list{display:grid;gap:8px;margin-top:12px}
 #ans-list details{background:var(--panel);border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink)}
 #ans-list summary{cursor:pointer;list-style:none;padding:10px 12px;display:grid;gap:4px}#ans-list summary::-webkit-details-marker{display:none}
@@ -399,7 +399,7 @@ body.prog-on.night .prog .ib-x{color:#e9dfc2}body.prog-on.night .prog .ib-off{co
    <div class="row"><button class="ghost" data-fb="up">👍 Loved it</button><button class="ghost" data-fb="down">👎 Meh</button></div>
    <textarea id="fb-t" maxlength="500" rows="2" placeholder="Anything to change? (optional)"></textarea><button id="fb-send" hidden>Send</button><p class="small" id="fb-ok" hidden>Thanks! 🦄</p></div>
   <div class="row" style="margin-top:14px"><button type="button" id="bat-skip" hidden onclick="skipBattle();track&&track('duel_skip',{})">Skip ⏭</button><button id="replay" class="ghost">Replay</button><button id="next" hidden>Play round 2</button><button id="rematch">Rematch</button></div>
-  <section class="ans-all" id="ans-all" hidden><button type="button" class="ghost" id="ans-tog" aria-expanded="false">See all the answers</button><div id="ans-list" hidden></div></section>
+  <section class="ans-all" id="ans-all" hidden><button type="button" class="ghost" id="ans-tog" aria-expanded="false">See your answers</button><div id="ans-list" hidden></div></section>
   <button class="ghost back" style="margin-top:14px">← Back to Unicorner</button>
    <a class="bat-ad" id="bat-ad" hidden target="_blank" rel="noopener"></a>
  </section>
@@ -720,19 +720,16 @@ async function battle(){const slot=D.me||1,me=D.players.find(p=>p.slot===slot),r
  const dl=elo&&elo.delta,myE=elo&&(dl?{r:dl['b'+slot],g:Math.max(0,dl['g'+slot]-1)}:elo['p'+slot]),rvE=elo&&(dl?{r:dl['b'+(3-slot)],g:Math.max(0,dl['g'+(3-slot)]-1)}:elo['p'+(3-slot)]);if(over&&D.me)try{const r=await rpc('duel_record',{p_token:TOKEN});if(r)rec=[r.w,r.d,r.l]}catch{}
  $('fb').hidden=true;if(over&&D.me){const res=hp[0]===hp[1]?'draw':hp[slot-1]>hp[2-slot]?'win':'loss';if(!ls('uc-duel-end-'+code)){ls('uc-duel-end-'+code,'1');track('duel_end',{code,result:res,questions:n})}fbFor=code}
  const opts={hp:hpAfter(A,B,s0),q0:s0,title:roundName(s0),final:over,rec,intro:s0===0?'vs':s0===15?'sd':null,next:n<15?'NO KO YET':'STILL LEVEL',elo:over&&D.me&&dl?{b:dl['b'+slot],a:dl['a'+slot],g:dl['g'+slot]}:null};
- $('ans-all').hidden=true;$('ans-list').hidden=true;$('ans-list').innerHTML='';$('ans-tog').setAttribute('aria-expanded','false');$('ans-tog').textContent='See all the answers';
+ $('ans-all').hidden=true;$('ans-list').hidden=true;$('ans-list').innerHTML='';$('ans-tog').setAttribute('aria-expanded','false');$('ans-tog').textContent='See your answers';
  const go=()=>{show('s-battle');$('next').hidden=true;batAd(true);startBattle($('bc'),R,{name:D.me?'YOU':me.name,kit:me.kit,rec:me.rec,elo:myE},{name:rv.name,kit:rv.kit,rec:rv.rec,elo:rvE},()=>{if(!over&&D.me){$('next').hidden=false;$('next').textContent=n<15?'Play round '+roundNo(n):'Sudden death'}batAd(false);if(over)ansAll(A,B,n,me,rv);if(over&&D.me&&!ls('uc-duel-fb-'+code)&&!isBot(code))$('fb').hidden=false;$('bot-note').hidden=!(over&&isBot(code))},opts)};$('v-title').textContent=over?'THE DUEL IS OVER':roundName(s0)+' IS IN';$('v-msg').textContent=over?'Full time. See who won.':"You've both played. See how it went.";$('v-go').onclick=go;$('replay').onclick=go;if(isBot(code))return go();show('s-view')}
 $('next').onclick=()=>play();
 // after a duel: every question with both answers and the full list of answers, grouped by tier (rarest first)
 async function ansAll(A,B,n,me,rv){const box=$('ans-all');if(!box.hidden)return;let qs;try{qs=await Promise.all(D.qset.slice(0,n).map(loadQ))}catch{return}
  const nm=a=>a.name.length<=24?a.name:(a.aliases.filter(x=>x.length<=24).sort((x,y)=>y.length-x.length)[0]||a.name),e=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
  const pick=(p,lab)=>{const[a,pts]=p||[null,0];return`<span>${lab}: ${a?e(a):'—'}${a&&pts?`<i style="background:${TCOL[pts]}">${TIER[pts]}</i>`:a?'<i style="background:#f0a097">WRONG</i>':''}</span>`};
- $('ans-list').innerHTML=qs.map((q,i)=>{const typed=[A[i]?.[0],B[i]?.[0]].filter(Boolean).map(x=>x.toLowerCase());
-  const tiers=[100,85,60,30,10].map(pt=>{const list=q.answers.filter(a=>a.pts===pt);if(!list.length)return'';
-   return`<p><b style="background:${TCOL[pt]}">${TIER[pt]}</b>${list.map(a=>{const t=nm(a);return typed.some(x=>[a.name,...a.aliases].some(y=>y.toLowerCase()===x))?`<mark>${e(t)}</mark>`:e(t)}).join(', ')}</p>`}).join('');
-  return`<details><summary><b>${i+1}. ${e(q.prompt)}</b><span class="who">${pick(A[i],D.me?'You':e(me.name))}${pick(B[i],e(rv.name))}</span></summary><div class="tiers">${tiers}</div></details>`}).join('');
+ $('ans-list').innerHTML=qs.map((q,i)=>`<div class="aa-row"><b>${i+1}. ${e(q.prompt)}</b><span class="who">${pick(A[i],D.me?'You':e(me.name))}${pick(B[i],e(rv.name))}</span></div>`).join('');
  box.hidden=false;track('duel_answers_shown',{code,questions:n})}
-$('ans-tog').onclick=()=>{const l=$('ans-list'),o=l.hidden;l.hidden=!o;$('ans-tog').setAttribute('aria-expanded',String(o));$('ans-tog').textContent=o?'Hide the answers':'See all the answers';if(o)track('duel_answers_open',{code})};
+$('ans-tog').onclick=()=>{const l=$('ans-list'),o=l.hidden;l.hidden=!o;$('ans-tog').setAttribute('aria-expanded',String(o));$('ans-tog').textContent=o?'Hide the answers':'See your answers';if(o)track('duel_answers_open',{code})};
 // while a battle plays on desktop: one of our own banners under the buttons (an AdSense square later); gone when the result comes in
 const BAT_B=[['reddit','https://www.reddit.com/r/Unicorner_Game/','Join the club','r/Unicorner_Game on Reddit'],['tiktok','https://www.tiktok.com/@unicornergame.lol','Follow on TikTok','@unicornergame.lol'],['linkedin','https://www.linkedin.com/company/unicorner-football-game','Join the board','Unicorner on LinkedIn']];
 let batShown=false;
