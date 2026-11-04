@@ -1295,6 +1295,10 @@ body.inf-mode .inf-price{font:400 34px/1 var(--px);color:#5ef0ff;margin:6px 0 2p
 @keyframes spicy-pulse{50%{color:#ff7a5c;text-shadow:0 3px 0 #000,0 0 26px rgba(255,59,48,.95);transform:scale(1.04)}}
 @media (prefers-reduced-motion:reduce){.spicy-h{animation:none}}
 .tk-streak.rs{margin:10px 0 14px;border:3px solid #000;border-radius:8px}
+.remind{display:flex;align-items:center;gap:12px;margin:-4px 0 14px;padding:10px 12px;border:3px dashed rgba(0,0,0,.45);border-radius:8px;font-size:14px;line-height:1.35;text-align:left}
+.remind span{flex:1;min-width:0}.remind.on{border-style:solid;opacity:.85}
+.result-screen .remind button{flex:none;width:auto;margin:0;padding:8px 14px;font-size:15px;border:3px solid #000;border-radius:6px;background:#f2c230;color:#1d1a2b;box-shadow:0 3px 0 #000;transition:transform 120ms cubic-bezier(.23,1,.32,1)}
+.result-screen .remind button:active{transform:translateY(2px)}.result-screen .remind.on button{background:transparent;color:inherit;box-shadow:none}
 .tk-back{margin:0;padding:0 14px 10px;background:#1d1a2b;text-align:center}
 .tk-back button,.g-back{background:none!important;border:0!important;box-shadow:none!important;padding:2px 0!important;color:#e9dfc2!important;font:400 18px var(--lab)!important;text-decoration:underline;text-underline-offset:3px;cursor:pointer;text-transform:none!important;letter-spacing:0!important}@media (hover:hover){.tk-back button:hover,.g-back:hover{color:#fff!important}}
 .g-back{display:block;margin:-6px auto 12px!important}
@@ -2118,7 +2122,7 @@ const getPlayed=()=>{try{return JSON.parse(localStorage.getItem(DAYKEY))}catch{r
 // today's game was first scored 10·25·40·70·100; anyone who played it before the switch gets their answers re-scored
 (()=>{if(PTS!==PTS_NEW)return;try{const r=getPlayed();if(!r||!Array.isArray(r.picks)||!r.picks.some(x=>Array.isArray(x)&&[25,40,70].includes(x[2])))return;
  const picks=r.picks.map(x=>Array.isArray(x)?[x[0],x[1],newPts(x[2]),...x.slice(3)]:x);localStorage.setItem(DAYKEY,JSON.stringify({...r,picks,score:picks.reduce((a,x)=>a+(Array.isArray(x)?x[2]:0),0)}))}catch{}})();
-const setPlayed=v=>{try{localStorage.setItem(DAYKEY,JSON.stringify(v))}catch{}};
+const setPlayed=v=>{try{localStorage.setItem(DAYKEY,JSON.stringify(v))}catch{}setTimeout(()=>pushPlayed(),0)};
 const previousGameDay=d=>{const [y,m,dd]=d.split('-').map(Number);return new Date(Date.UTC(y,m-1,dd)-864e5).toISOString().slice(0,10)};
 const currentStreak=()=>{try{let d=amsterdamDay(),n=0;while(localStorage.getItem('unicorner-played-'+d)){n++;d=previousGameDay(d)}return n}catch{return getPlayed()?1:0}};
 // Streak as the ticket shows it: consecutive days up to today, or up to yesterday if today isn't played yet
@@ -2532,6 +2536,7 @@ www.unicornergame.lol`};
   <div class="pts">${L('You reached:','Has llegado a:')} ${zl(zoneOf(score))}</div>
   ${spicyResult()}
   ${streakStrip(streakInfo(),'rs')}
+  ${remindHTML()}
   <div class="dist" id="dist"><div class="mute">${L("Comparing with today's players…",'Comparando con los jugadores de hoy…')}</div></div>
   ${CHAL&&!CHAL.old?`<div class="chal-vs ${score>CHAL.s?'won':score===CHAL.s?'draw':'lost'}">${score>CHAL.s?L(`🏆 You beat ${chalWho()}! <b>${score}</b> vs ${CHAL.s}`,`🏆 ¡Has ganado a ${chalWho()}! <b>${score}</b> a ${CHAL.s}`):score===CHAL.s?L(`🤝 A draw with ${chalWho()}: <b>${score}</b> each`,`🤝 Empate con ${chalWho()}: <b>${score}</b> cada uno`):L(`${chalWho()} wins this one: <b>${CHAL.s}</b> vs your ${score}`,`${chalWho()} gana esta: <b>${CHAL.s}</b> a tus ${score}`)}</div>`:''}
   <div class="chal-box"><button type="button" class="cta chal-go" id="chal-go">${SEND_SVG}<span>${chalMob()?L(`Challenge a friend to beat ${score}`,`Reta a un amigo a superar tus ${score}`):L(`Copy a challenge link · beat my ${score}`,`Copiar enlace de reto · supera mis ${score}`)}</span></button>
@@ -2581,6 +2586,24 @@ addEventListener('message',e=>{const f=document.querySelector('#relay-rail ifram
 
 // ---- community forms
 // ---- Supabase backend
+// ── streak reminders (web push, supabase/push.sql, sent by scripts/send_streak_push.py): off until VAPID_PUB is set ──
+const VAPID_PUB='';
+const pushOK=()=>!!VAPID_PUB&&'serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window;
+const pushEP=()=>{try{return localStorage.getItem('uc-push-ep')||''}catch{return''}};
+async function pushRpc(fn,args){return fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify(args)}).then(r=>{if(!r.ok)throw new Error('push '+r.status)})}
+function pushPlayed(){const ep=pushEP();if(!ep||!pushOK())return;pushRpc('push_played',{p_endpoint:ep,p_streak:currentStreak(),p_day:amsterdamDay()}).catch(()=>{})}
+function remindHTML(){if(!pushOK()||Notification.permission==='denied')return'';const on=!!pushEP()&&Notification.permission==='granted';
+ return`<div class="remind${on?' on':''}" id="remind"><span>🔔 ${on?L("We'll remind you in the evening if you haven't played, so your streak doesn't end.",'Te avisaremos por la tarde si aún no has jugado, para que no pierdas la racha.'):L('Get a reminder in the evening if you haven\'t played yet, so your streak never ends.','Recibe un aviso por la tarde si aún no has jugado, para que tu racha no se corte.')}</span><button type="button" id="remind-btn">${on?L('Turn off','Desactivar'):L('Remind me','Avísame')}</button></div>`}
+const b64u=s=>{const p='='.repeat((4-s.length%4)%4),b=atob((s+p).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(b,c=>c.charCodeAt(0))};
+document.addEventListener('click',async e=>{const b=e.target.closest('#remind-btn');if(!b)return;b.disabled=true;const box=document.getElementById('remind');
+ try{const reg=await navigator.serviceWorker.register('/sw.js');await navigator.serviceWorker.ready;
+  if(pushEP()&&Notification.permission==='granted'){const sub=await reg.pushManager.getSubscription();const ep=pushEP();if(sub)await sub.unsubscribe().catch(()=>{});await pushRpc('push_remove',{p_endpoint:ep}).catch(()=>{});try{localStorage.removeItem('uc-push-ep')}catch{}track('push_off',{});}
+  else{const perm=await Notification.requestPermission();if(perm!=='granted'){track('push_denied',{perm});box.outerHTML='';return}
+   const sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64u(VAPID_PUB)});const j=sub.toJSON();
+   await pushRpc('push_save',{p_sub:j,p_visitor:VISITOR,p_lang:ES?'es':'en',p_streak:currentStreak(),p_day:getPlayed()?amsterdamDay():null});
+   try{localStorage.setItem('uc-push-ep',j.endpoint)}catch{}track('push_on',{streak:currentStreak()})}
+  box.outerHTML=remindHTML()}
+ catch(err){track('push_error',{err:String(err&&err.message||err).slice(0,120)});b.disabled=false;const sp=box.querySelector('span');if(sp)sp.textContent=L("Couldn't turn on reminders in this browser. Try again later.",'No se han podido activar los avisos en este navegador. Inténtalo más tarde.')}});
 const SB_URL="https://yujhjepukzdahsppntua.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1amhqZXB1a3pkYWhzcHBudHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2NDMzNDcsImV4cCI6MjEwNTIxOTM0N30.YIOdtL7tJnNLPFPy19QuXe6w3Dcnz6Xedw0tFGdV_CE";
 let SB_TOKEN=null,SB_REFRESH=null,SB_EXP=0;try{SB_TOKEN=sessionStorage.getItem('uc-admin-token');SB_REFRESH=sessionStorage.getItem('uc-admin-refresh');SB_EXP=+(sessionStorage.getItem('uc-admin-exp')||0)}catch{}
 function saveAuth(j){SB_TOKEN=j.access_token;SB_REFRESH=j.refresh_token||SB_REFRESH;SB_EXP=Date.now()+Math.max(60,(j.expires_in||3600))*1000;try{sessionStorage.setItem('uc-admin-token',SB_TOKEN);if(SB_REFRESH)sessionStorage.setItem('uc-admin-refresh',SB_REFRESH);sessionStorage.setItem('uc-admin-exp',String(SB_EXP))}catch{}}
