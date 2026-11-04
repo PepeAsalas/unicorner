@@ -170,8 +170,9 @@ const SB_URL="https://yujhjepukzdahsppntua.supabase.co",SB_KEY="eyJhbGciOiJIUzI1
 const ES=location.pathname.startsWith('/es/'),L=(en,es)=>ES?es:en;
 if(ES){document.querySelectorAll('a.logo,#exit').forEach(a=>a.href='/es/');document.getElementById('exit').title=document.getElementById('exit').ariaLabel='Volver a Unicorner';document.querySelectorAll('[data-es]').forEach(e=>e.innerHTML=e.dataset.es);document.querySelectorAll('[data-es-ph]').forEach(e=>e.placeholder=e.dataset.esPh)}
 const $=id=>document.getElementById(id),ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch{return null}};
-const DAY=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
-const FIRST='2026-10-30',NO=Math.round((Date.parse(DAY)-Date.parse(FIRST))/864e5)+1,KEY='uc-rosco-v3-'+DAY,ABC='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+const TODAY=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+// ?day=YYYY-MM-DD plays a past Rosco from the Infinity archive: no ranking, no cloud save, no challenge
+const FIRST='2026-10-30',ARCH=(d=>/^\d{4}-\d{2}-\d{2}$/.test(d||'')&&d>=FIRST&&d<TODAY?d:null)(new URLSearchParams(location.search).get('day')),DAY=ARCH||TODAY,NO=Math.round((Date.parse(DAY)-Date.parse(FIRST))/864e5)+1,KEY='uc-rosco-v3-'+DAY,ABC='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 if(!ls('uc-visitor'))ls('uc-visitor',Math.random().toString(36).slice(2)+Date.now().toString(36));
 const VISITOR=ls('uc-visitor'),SID=Math.random().toString(36).slice(2);
 // 8-bit sounds made live in the browser (no files); follows the site's sound switch (localStorage 'unicorner-sound')
@@ -183,7 +184,7 @@ const SFX={ok:()=>{tone(988,.08);tone(1319,.16,{at:.07})},streak:()=>{SFX.ok();[
  tick:()=>tone(1800,.03,{vol:.045}),end:()=>{[523,659,784,1047].forEach((f,i)=>tone(f,.12,{at:i*.1}));tone(1319,.38,{at:.42,vol:.09});tone(659,.38,{at:.42,type:'triangle',vol:.09})}};
 // noisy events we never look at: not logged, to save database Disk IO (game_finish, question_result, rejected etc. still are)
 const NO_LOG=new Set(['answer_attempt','question_view','leave','banner_view','awards_view','crowd_share_shown','howto_step','rosco_answer','rosco_pass']);
-function track(name,data){if(NO_LOG.has(name))return;try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,session:SID,visitor:VISITOR,seconds:0,game_day:DAY,event_version:2,data:{language:ES?'es':'en',page:'rosco',rosco:NO,...(data||{})}})}).catch(()=>{})}catch{}}
+function track(name,data){if(NO_LOG.has(name))return;if(ARCH)data={...(data||{}),archive:true};try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,session:SID,visitor:VISITOR,seconds:0,game_day:DAY,event_version:2,data:{language:ES?'es':'en',page:'rosco',rosco:NO,...(data||{})}})}).catch(()=>{})}catch{}}
 
 // ── the presenter: 20 hand-picked 64x64 frames in rosco/host. He blinks when idle and moves his mouth while his text types out ──
 const POSES=['idle-1','idle-2','talk-1','talk-2','talk-3','happy-1','happy-talk','laugh','excited','wink','point','think','surprised','nervous','sad','sad-talk','annoyed','facepalm','pasapalabra','celebrate'];
@@ -232,8 +233,8 @@ async function tok(){try{let s=JSON.parse(localStorage.getItem('uc-player-sessio
  if(s.exp<Date.now()+60000){const r=await fetch(SB_URL+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:s.refresh_token})});const j=await r.json();if(!r.ok||!j.access_token)return null;
   s={...s,access_token:j.access_token,refresh_token:j.refresh_token||s.refresh_token,exp:Date.now()+Math.max(60,(+j.expires_in||3600))*1000};localStorage.setItem('uc-player-session',JSON.stringify(s))}return s.access_token}catch{return null}}
 async function rpc(fn,body){const t=await tok();if(!t)return undefined;const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok)throw 0;return r.json()}
-let cloudT=0;function cloud(now){clearTimeout(cloudT);if(!S||!S.start)return;const send=()=>{const c=counts();rpc('rosco_save',{p_day:DAY,p_state:S,p_done:!!S.done,p_score:S.done?c.ok:null,p_total:R.letters.length}).catch(()=>{})};if(now||S.done)send();else cloudT=setTimeout(send,1500)}
-async function fromCloud(){try{const m=await rpc('rosco_mine',{p_day:DAY});if(m===undefined){$('sync0').hidden=false;if(ES)$('syncA').href='/es/';return}
+let cloudT=0;function cloud(now){clearTimeout(cloudT);if(!S||!S.start||ARCH)return;const send=()=>{const c=counts();rpc('rosco_save',{p_day:DAY,p_state:S,p_done:!!S.done,p_score:S.done?c.ok:null,p_total:R.letters.length}).catch(()=>{})};if(now||S.done)send();else cloudT=setTimeout(send,1500)}
+async function fromCloud(){if(ARCH)return;try{const m=await rpc('rosco_mine',{p_day:DAY});if(m===undefined){$('sync0').hidden=false;if(ES)$('syncA').href='/es/';return}
  const st=m&&m.state;if(st&&st.start&&(st.done||!S||!S.done&&(Object.keys(st.res||{}).length>Object.keys(S.res||{}).length||st.start<S.start))){S=st;ls(KEY,JSON.stringify(S))}
  else if(S&&S.start)cloud(true)}catch{}}
 const left=()=>Math.max(0,R.seconds-Math.floor((Date.now()-S.start)/1000));
@@ -249,13 +250,13 @@ function show(id){['s-load','s-intro','s-play','s-end'].forEach(x=>$(x).hidden=x
 
 // today's average from everyone's finished Roscos (supabase/rosco_stats.sql); shown once a few people have played
 async function dayAvg(mine){try{const r=await fetch(SB_URL+'/rest/v1/rpc/rosco_day_stats',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({p_day:DAY})});if(!r.ok)throw 0;const j=await r.json();
- const t=j&&j.players>=5?L(`Today's average: ${j.avg} (${j.players} players)`,`Media de hoy: ${j.avg} (${j.players} jugadores)`)+(mine!=null?L(` · you: ${mine}`,` · tú: ${mine}`):''):L("Be one of the first to play today's Rosco.",'Sé de los primeros en jugar el Rosco de hoy.');
+ const t=ARCH?(j&&j.players>=5?L(`Average that day: ${j.avg} (${j.players} players)`,`Media de ese día: ${j.avg} (${j.players} jugadores)`)+(mine!=null?L(` · you: ${mine}`,` · tú: ${mine}`):''):''):j&&j.players>=5?L(`Today's average: ${j.avg} (${j.players} players)`,`Media de hoy: ${j.avg} (${j.players} jugadores)`)+(mine!=null?L(` · you: ${mine}`,` · tú: ${mine}`):''):L("Be one of the first to play today's Rosco.",'Sé de los primeros en jugar el Rosco de hoy.');
  ['avg0','avg2'].forEach(id=>{if($(id))$(id).textContent=t})}catch{}}
-async function load(){let r;try{r=await fetch(`/rosco/${DAY}.json`,{cache:'no-cache'});if(!r.ok)throw 0;R=await r.json()}catch{$('s-load').innerHTML=`<p class="note">${L('No Rosco today yet. Come back soon!','Aún no hay Rosco hoy. ¡Vuelve pronto!')}</p>`;return}
- $('tag').textContent=`ROSCO #${NO}`;try{S=JSON.parse(ls(KEY)||'null')}catch{S=null}
+async function load(){if(ARCH&&ls('uc-inf-sub')!=='1'){$('s-load').innerHTML=`<p class="note">${L('Past Roscos are part of Infinity mode.','Los Roscos anteriores son parte del Modo Infinito.')}</p><a class="btn paper" href="${ES?'/es/':'/'}?inf=open">${L('See Infinity','Ver el Infinito')}</a>`;track('rosco_archive_locked',{});return}let r;try{r=await fetch(`/rosco/${DAY}.json`,{cache:'no-cache'});if(!r.ok)throw 0;R=await r.json()}catch{$('s-load').innerHTML=`<p class="note">${L('No Rosco today yet. Come back soon!','Aún no hay Rosco hoy. ¡Vuelve pronto!')}</p>`;return}
+ $('tag').textContent=`ROSCO #${NO}`+(ARCH?' · '+L('ARCHIVE','ARCHIVO'):'');try{S=JSON.parse(ls(KEY)||'null')}catch{S=null}
  await fromCloud();
  // friend challenge (challenge.js): "beat my score on today's Rosco"
- const n0=R.letters.length;CH=window.ucChallenge?ucChallenge({game:'rosco',day:DAY,max:n0,es:ES,track,played:()=>S&&S.done?counts().ok:null,fmt:v=>`${v}/${n0}`,
+ const n0=R.letters.length;CH=window.ucChallenge&&!ARCH?ucChallenge({game:'rosco',day:DAY,max:n0,es:ES,track,played:()=>S&&S.done?counts().ok:null,fmt:v=>`${v}/${n0}`,
   banner:(who,v)=>({en:`<strong>${who} got ${v}/${n0} on today's Rosco.</strong> Same letters, same clues. Can you beat it?`,es:`<strong>${who} ha acertado ${v}/${n0} en el Rosco de hoy.</strong> Mismas letras, mismas pistas. ¿Le superas?`}),
   share:(v,u)=>`${L('Unicorner Rosco','Rosco Unicorner')} #${NO}: ${v}/${n0}\n${gridText()}\n${L('Can you beat me?','¿Me superas?')}\n${u}`,
   url:code=>`https://unicornergame.lol${ES?'/es':''}/rosco.html?c=${code}`}):null;
@@ -314,10 +315,10 @@ function finish(why){clearInterval(tick);if(S.done)return;S.done=true;S.left=lef
  const c=counts();track('rosco_finish',{score:c.ok,wrong:c.no,total:R.letters.length,left:S.left,why});if(c.ok)SFX.end();end(true);ringSweep()}
 function ringSweep(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;setTimeout(()=>document.querySelectorAll('#ring2 .l.ok').forEach((e,i)=>e.animate([{transform:'scale(1)'},{transform:'scale(1.3)'},{transform:'scale(1)'}],{duration:300,delay:i*45,easing:'cubic-bezier(.23,1,.32,1)'})),60)}
 // your place on today's Rosco board (signed-in players only; supabase/rosco_board.sql)
-async function myRank(){const el=$('rank2');if(!el)return;try{const g=await rpc('rosco_board',{p_day:DAY});
+async function myRank(){const el=$('rank2');if(!el||ARCH)return;try{const g=await rpc('rosco_board',{p_day:DAY});
  if(g===undefined){el.innerHTML=`<a href="${ES?'/es/#signin':'/#signin'}">${L('Sign in to get on the Rosco board','Inicia sesión para entrar en el ranking del Rosco')}</a>`;return}
  if(g&&g.me)el.innerHTML=L(`🏆 You're <b>#${g.me.rank}</b> of ${g.players} on today's Rosco board`,`🏆 Vas <b>${g.me.rank}º</b> de ${g.players} en el ranking del Rosco de hoy`)}catch{}}
-function end(fresh){show('s-end');if(ES)$('rklink').href='/es/#ranking-rosco';CH&&CH.end($('chal2'),counts().ok,fresh);feedback();const c=counts(),n=R.letters.length;setTimeout(()=>dayAvg(c.ok),fresh?1500:0);setTimeout(myRank,fresh?2200:300);drawRing('ring2');$('score').innerHTML=`${c.ok}<span>/${n}</span>`;
+function end(fresh){show('s-end');if(ES)$('rklink').href='/es/#ranking-rosco';if(ARCH){const a=$('rklink');a.href=(ES?'/es/':'/')+'?inf=open';a.textContent=L('Back to the archive','Volver al archivo')}CH&&CH.end($('chal2'),counts().ok,fresh);feedback();const c=counts(),n=R.letters.length;setTimeout(()=>dayAvg(c.ok),fresh?1500:0);setTimeout(myRank,fresh?2200:300);drawRing('ring2');$('score').innerHTML=`${c.ok}<span>/${n}</span>`;
  $('left').textContent=S.why==='time'?L('TIME UP','¡TIEMPO!'):L(fmt(S.left||0)+' LEFT','SOBRAN '+fmt(S.left||0));
  const mood=c.ok>=19?'celebrate':c.ok>=15?'excited':c.ok>=11?'wink':c.ok>=7?'sad':'facepalm';host.end=host.end||Host($('face2'));
  say($('say2'),host.end,ES?(c.ok>=19?`¡${c.ok}! Menudo Rosco. Saluda al público.`:c.ok>=13?`${c.ok} aciertos. Eso es saber de fútbol.`:c.ok>=8?`${c.ok} hoy. El Rosco es duro, ¡vuelve mañana!`:`Solo ${c.ok}... todos tenemos un mal día. ¡Mañana, Rosco nuevo!`):(c.ok>=19?`${c.ok}! That's a huge Rosco. Take a bow.`:c.ok>=13?`${c.ok} correct. Solid ball knowledge, that.`:c.ok>=8?`${c.ok} today. The Rosco is a tough one, come back tomorrow!`:`Only ${c.ok}... we all have off days. New Rosco tomorrow!`),mood);
@@ -326,7 +327,7 @@ function end(fresh){show('s-end');if(ES)$('rklink').href='/es/#ranking-rosco';CH
   return`<li><b style="background:${col}">${x.letter}</b><div><strong>${x.mode==='contains'?`<em class="hasn">${L('contains','contiene')} ${x.letter}</em> `:''}${esc(clue(x))}</strong><small>${st==='ok'?'✓ '+esc(S.typed[x.letter]):st==='no'?L('✕ You said ','✕ Dijiste ')+esc(S.typed[x.letter]):L('Not answered','Sin responder')} · ${x.answers.length>1?L('Answers','Respuestas'):L('Answer','Respuesta')}: ${x.answers.map(a=>esc(a.name)).join(', ')}</small></div></li>`}).join('');
  const nx=()=>{const now=new Date(),am=new Date(now.toLocaleString('en-US',{timeZone:'Europe/Amsterdam'})),ms=(24*3600-am.getHours()*3600-am.getMinutes()*60-am.getSeconds())*1000;$('next').textContent=L('New Rosco in ','Nuevo Rosco en ')+`${Math.floor(ms/36e5)}h ${Math.floor(ms%36e5/6e4)}m`};nx();setInterval(nx,30000)}
 // feedback after a round: 1-10 and an optional note, once per day (sent as an event)
-function feedback(){const k='uc-rosco-fb-'+DAY;if(ls(k))return;let rating=0;$('fb').hidden=false;
+function feedback(){const k='uc-rosco-fb-'+DAY;if(ls(k)||ARCH)return;let rating=0;$('fb').hidden=false;
  $('r10').innerHTML=Array.from({length:10},(_,i)=>`<button type="button" data-r="${i+1}">${i+1}</button>`).join('');
  $('r10').onclick=e=>{const b=e.target.closest('[data-r]');if(!b)return;rating=+b.dataset.r;$('r10').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));$('fb-send').disabled=false};
  $('fb-send').onclick=()=>{const t=$('fb-t').value.trim().slice(0,500),c=counts();track('rosco_feedback',{rating,text:t||null,score:c.ok});ls(k,'1');

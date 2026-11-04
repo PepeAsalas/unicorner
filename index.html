@@ -1249,6 +1249,20 @@ body.inf-mode .inf-price{font:400 34px/1 var(--px);color:#5ef0ff;margin:6px 0 2p
 .inf-wall,.inf-intro{text-align:center}
 .inf-intro h2{font-family:var(--px);font-size:clamp(44px,9vw,64px);line-height:.9;margin:8px 0 10px;color:#fff}
 .inf-intro p{max-width:44ch;margin:0 auto 12px;line-height:1.5}
+.inf-hub{display:grid;gap:14px;text-align:left}.inf-hub>.inf-big,.inf-hub>h2{text-align:center}
+.inf-hub h3{margin:0;font:400 26px/1 var(--px);color:#fff}
+.ih-daily{display:flex;align-items:center;gap:14px;padding:14px;border:2px solid #5ef0ff;border-radius:10px;background:rgba(94,240,255,.07)}
+.ih-daily>div{flex:1;min-width:0}.ih-daily p{margin:4px 0 0;font-size:14px;line-height:1.35;opacity:.85}.ih-daily .cta{flex:none;width:auto!important;min-width:150px;margin:0;padding-inline:22px}.inf-hub .inf-manage,.inf-hub .row{text-align:center;justify-content:center}
+.ih-arch{display:grid;gap:8px;min-width:0}.ih-arch header{display:flex;align-items:baseline;justify-content:space-between;gap:10px}.ih-arch header span{font-size:13px;opacity:.7;white-space:nowrap}
+.ih-days{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 10px;margin:0 -2px;scrollbar-width:thin;overscroll-behavior-x:contain}
+.ih-day{flex:none;scroll-snap-align:start;width:86px;display:grid;justify-items:center;gap:3px;padding:10px 6px;border:2px solid #b06bff;border-radius:8px;background:#1d1a2b;color:#fff;text-decoration:none;transition:transform 140ms cubic-bezier(.23,1,.32,1),background-color 150ms ease}
+.ih-millon .ih-day{border-color:#f2c230}
+.ih-day small{font:400 15px/1 var(--px);opacity:.65}.ih-day b{font:400 22px/1 var(--px);white-space:nowrap}
+.ih-day span{font-size:12px;font-weight:700;padding:2px 7px;border-radius:99px;background:#5ef0ff;color:#1d1a2b;white-space:nowrap}
+.ih-day.done{opacity:.7}.ih-day.done span{background:transparent;color:#5ef0ff;padding:2px 0}
+.ih-day:active{transform:scale(.96)}.ih-day:focus-visible{outline:3px solid #5ef0ff;outline-offset:2px}
+@media (hover:hover) and (pointer:fine){.ih-day:hover{background:#2a2350}}
+@media (max-width:480px){.ih-daily{flex-wrap:wrap}.ih-daily .cta{width:100%!important}}
 .inf-rules{list-style:none;padding:0;margin:14px auto 18px;max-width:420px;display:grid;gap:8px;text-align:left}
 .inf-rules li{display:flex;align-items:center;gap:12px;padding:9px 12px;border:2px solid #2d5aa0;border-radius:8px;background:#1d1a2b;line-height:1.3}
 .inf-rules b{flex:none;width:30px;text-align:center;font-family:var(--px);font-size:24px;color:#5ef0ff}
@@ -2318,11 +2332,23 @@ function infSummary(){document.body.classList.remove('playing');const rs=results
 async function infEndless(){INF.endless=true;let qs=[];try{qs=await infPool()}catch{}
  if(!qs.length)return swap(`<div class="card inf-wall"><div class="inf-big">∞</div><h2>${L('Lost in space','Perdidos en el espacio')}</h2><p>${L("We couldn't load the questions. Check your connection and try again.",'No hemos podido cargar las preguntas. Revisa tu conexión y vuelve a intentarlo.')}</p><div class="row"><button type="button" class="ghost" data-inf-exit>${L('Back to home','Volver al inicio')}</button></div></div>`);
  Q=qs;qi=0;score=0;results=[];lvlLast=-1;setMeter();
- swap(`<div class="card inf-intro"><div class="inf-big">∞</div><h2>${L('Infinity mode','Modo Infinito')}</h2>
-  <p>${L(`${qs.length} questions from past daily games are lined up. Play as many as you like and leave whenever you want.`,`Tienes ${qs.length} preguntas de días anteriores en cola. Juega las que quieras y sal cuando quieras.`)}</p>
-  <button type="button" class="cta" id="inf-go">${L('To infinity and beyond 🚀','Hasta el infinito y más allá 🚀')}</button>
+ swap(`<div class="card inf-intro inf-hub"><div class="inf-big">∞</div><h2>${L('Infinity mode','Modo Infinito')}</h2>
+  <section class="ih-daily"><div><h3>${L('Daily 5, endless','Daily 5, sin fin')}</h3><p>${L(`${qs.length} questions from past days lined up. Leave whenever you want.`,`${qs.length} preguntas de días anteriores en cola. Sal cuando quieras.`)}</p></div>
+  <button type="button" class="cta" id="inf-go">${L('Play','Jugar')} ▶</button></section>
+  ${infArchive('rosco')}${infArchive('millon')}
   <div class="row"><button type="button" class="ghost" data-inf-exit>${L('Back to home','Volver al inicio')}</button></div>
-  ${INF_PAY.portal?`<p class="inf-manage"><a href="${INF_PAY.portal}" target="_blank" rel="noopener">${L('Manage or cancel your subscription','Gestiona o cancela tu suscripción')}</a></p>`:''}</div>`,()=>{track('infinity_endless_intro',{left:qs.length});document.getElementById('inf-go').onclick=()=>{track('infinity_start',{endless:true});ask()}})}
+  ${INF_PAY.portal?`<p class="inf-manage"><a href="${INF_PAY.portal}" target="_blank" rel="noopener">${L('Manage or cancel your subscription','Gestiona o cancela tu suscripción')}</a></p>`:''}</div>`,()=>{track('infinity_endless_intro',{left:qs.length});document.getElementById('inf-go').onclick=()=>{track('infinity_start',{endless:true});ask()};
+  document.querySelectorAll('.ih-day').forEach(a=>a.onclick=()=>track('infinity_archive_open',{game:a.dataset.g,day:a.dataset.d}))})}
+// ── archives: every past Rosco and Millions, newest first, with what you scored on the ones you've played ──
+const INF_ARCH={rosco:{first:'2026-10-30',name:['Rosco archive','Archivo del Rosco'],page:'rosco.html',
+  st:d=>{try{const S=JSON.parse(localStorage.getItem('uc-rosco-v3-'+d));if(!S||!S.start)return null;const ok=Object.values(S.res||{}).filter(x=>x==='ok').length;return S.done?{done:1,t:L(`${ok} right`,`${ok} aciertos`)}:{t:L('Resume','Seguir')}}catch{return null}}},
+ millon:{first:'2026-11-03',name:['Millions archive','Archivo de Millones'],page:'millon.html',
+  st:d=>{try{const s=JSON.parse(localStorage.getItem('millon-'+d+(d==='2026-11-03'?'-r1':'')));if(!s||!s.done)return null;const b=s.bank;return{done:1,t:b>=1e6?'1M':b>=1e3?Math.round(b/1e3)+'k':String(b)}}catch{return null}}}};
+function infArchive(g){const A=INF_ARCH[g],today=amsterdamDay(),days=[];for(const d=new Date(A.first+'T12:00:00Z');;d.setUTCDate(d.getUTCDate()+1)){const k=d.toISOString().slice(0,10);if(k>=today)break;days.push(k)}
+ if(!days.length)return'';const fmtD=k=>new Date(k+'T12:00:00Z').toLocaleDateString(ES?'es-ES':'en-GB',{day:'numeric',month:'short',timeZone:'UTC'}).replace('.','');
+ const rows=days.map((k,i)=>({k,n:i+1,st:A.st(k)})).reverse(),played=rows.filter(r=>r.st&&r.st.done).length;
+ return`<section class="ih-arch ih-${g}"><header><h3>${L(...A.name)}</h3><span>${L(`${days.length} ${days.length===1?'day':'days'} · ${played} played`,`${days.length} ${days.length===1?'día':'días'} · ${played} ${played===1?'jugado':'jugados'}`)}</span></header>
+  <div class="ih-days" role="list">${rows.map(r=>`<a role="listitem" class="ih-day${r.st&&r.st.done?' done':''}" data-g="${g}" data-d="${r.k}" href="${ES?'/es/':'/'}${A.page}?day=${r.k}"><small>#${r.n}</small><b>${fmtD(r.k)}</b><span>${r.st?(r.st.done?'✓ ':'')+r.st.t:L('Play','Jugar')}</span></a>`).join('')}</div></section>`}
 // ── buying: sign in first (so the purchase follows the account), then off to Stripe ──
 async function infBuy(){const msg=document.getElementById('inf-msg');
  if(INF_PAY.paused){const email=window.ucSignedEmail?.()||'';track('infinity_buy_paused',{signed:!!email});
@@ -2342,6 +2368,7 @@ async function infPaid(){if(INF)return;INF={Q,qi,score,results};document.body.cl
   <button type="button" class="cta" id="inf-retry">${L('Try again','Reintentar')}</button><div class="row"><button type="button" class="ghost" data-inf-exit>${L('Back to home','Volver al inicio')}</button></div></div>`,()=>{document.getElementById('inf-retry').onclick=()=>{INF=null;document.body.classList.remove('inf-mode');infPaid()}})}
 window.ucInfResume=()=>{if(INF){INF=null}startInfinity({buy:true})};
 (window.ucSplash||Promise.resolve()).then(()=>{const q=new URLSearchParams(location.search);
+ if(q.get('inf')==='open'){q.delete('inf');history.replaceState(null,'',location.pathname+(q.toString()?'?'+q:'')+location.hash);return startInfinity()}
  if(q.get('inf')){const ok=q.get('inf')==='ok';q.delete('inf');history.replaceState(null,'',location.pathname+(q.toString()?'?'+q:'')+location.hash);if(ok)return infPaid()}
  if(window.ucSignedIn?.())infSub()});
 function infIntro(){swap(`<div class="card inf-intro"><div class="inf-big">∞</div><h2>${L('Infinity mode','Modo Infinito')}</h2>
@@ -2359,7 +2386,7 @@ function infWall(again){document.body.classList.remove('playing');const signed=!
   <span class="ip-eye">${again?L("TODAY'S FREE TASTER IS DONE",'YA HAS JUGADO LA PRUEBA DE HOY'):L('THAT WAS THE FREE TASTER','ESA ERA LA PRUEBA GRATIS')}${again?'':` · ${L('YOUR RUN','TU PARTIDA')} ${score}`}</span>
   <h2>${INF_PAY.paused?L('Infinity is coming','El Infinito llega pronto'):L('Go infinite','Pásate al infinito')}</h2>
   <p class="ip-sub">${INF_PAY.paused?L('Endless questions, no waiting for tomorrow. We are putting the finishing touches on it.','Preguntas sin fin, sin esperar a mañana. Le estamos dando los últimos retoques.'):L("Don't wait for tomorrow. Keep playing for as long as you like.",'No esperes a mañana. Sigue jugando todo lo que quieras.')}</p>
-  <ul class="ip-perks"><li><b>∞</b><span><strong>${L('Every past daily question','Todas las preguntas anteriores')}</strong>${L('Hundreds of them, 5 more every day','Cientos, y 5 más cada día')}</span></li><li><b>★</b><span><strong>${L('The Infinity kit','La equipación Infinito')}</strong>${L('Wear it on every leaderboard','Lúcela en todos los rankings')}</span></li><li><b>✓</b><span><strong>${L('Your daily game stays free','El juego diario sigue gratis')}</strong>${L('This is extra, nothing is taken away','Es un extra, no quitamos nada')}</span></li></ul>
+  <ul class="ip-perks"><li><b>∞</b><span><strong>${L('Every past daily question','Todas las preguntas anteriores')}</strong>${L('Hundreds of them, 5 more every day','Cientos, y 5 más cada día')}</span></li><li><b>◎</b><span><strong>${L('Every past Rosco and Millions','Todos los Roscos y Millones anteriores')}</strong>${L('Missed a day? Play it any time','¿Te perdiste un día? Juégalo cuando quieras')}</span></li><li><b>★</b><span><strong>${L('The Infinity kit','La equipación Infinito')}</strong>${L('Wear it on every leaderboard','Lúcela en todos los rankings')}</span></li><li><b>✓</b><span><strong>${L('Your daily game stays free','El juego diario sigue gratis')}</strong>${L('This is extra, nothing is taken away','Es un extra, no quitamos nada')}</span></li></ul>
   ${INF_PAY.paused?`<div class="ip-wait ip-soon">${(()=>{let n='';try{n=localStorage.getItem('uc-inf-notified')||''}catch{}const em=window.ucSignedEmail?.()||'';return n&&(!em||n===em)?`<p class="ip-ok">✓ ${L("You're on the list. We'll email you the moment Infinity opens.",'Ya estás en la lista. Te avisaremos en cuanto abra el Infinito.')}</p>`:`<b>${L('Not ready yet','Aún no está listo')}</b><p>${L("Leave your email and you'll be the first in when it opens.",'Deja tu email y serás el primero en entrar cuando abra.')}</p><form class="ip-notify" id="ip-notify"><input type="email" required value="${esc(em)}" placeholder="${L('Your email','Tu email')}" aria-label="${L('Your email','Tu email')}"><button type="submit">${L('Notify me','Avísame')}</button></form>`})()}</div>`:`<div class="ip-price"><b>${INF_PAY.price}</b><span>${L('once · yours forever','un solo pago · para siempre')}</span></div>
   ${INF_PAY.monthly?`<div class="ip-plans" role="radiogroup" aria-label="${L('Choose how to pay','Elige cómo pagar')}">
    <button type="button" class="ip-plan" role="radio" data-plan="month" aria-checked="${infPlan==='month'}"><b>${INF_PAY.priceM}</b><span>${L('a month','al mes')}</span><small>${L('Cancel any time','Cancela cuando quieras')}</small></button>

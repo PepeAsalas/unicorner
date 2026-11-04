@@ -146,6 +146,7 @@ main,.card,.q,.say{image-rendering:auto}
  <div class="card lb" id="lb" hidden></div>
  <div class="row2"><button class="btn gold" id="shareimg" data-es="Compartir imagen">Share image</button><button class="btn paper" id="dlimg" data-es="⬇ Descargar imagen">⬇ Download image</button></div>
  <button class="btn paper" id="copy" data-es="Copiar resultado">Copy result</button>
+ <a class="btn gold" id="archback" href="/?inf=open" hidden data-es="Volver al archivo">Back to the archive</a>
  <div class="card fb" id="fb" hidden><p class="fb-q" data-es="<b>¿Qué tal Millones hoy?</b> Es nuevo, así que cuéntanos."><b>How was Millions today?</b> It's brand new, so tell us.</p>
   <div class="r10" id="r10"></div>
   <textarea id="fb-t" maxlength="500" rows="2" placeholder="Too hard? Too easy? A wrong answer? (optional)" data-es-ph="¿Muy difícil? ¿Muy fácil? ¿Alguna respuesta mal? (opcional)"></textarea>
@@ -157,21 +158,23 @@ main,.card,.q,.say{image-rendering:auto}
 <script>
 const SB_URL="https://yujhjepukzdahsppntua.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1amhqZXB1a3pkYWhzcHBudHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2NDMzNDcsImV4cCI6MjEwNTIxOTM0N30.YIOdtL7tJnNLPFPy19QuXe6w3Dcnz6Xedw0tFGdV_CE";
 const ES=location.pathname.startsWith('/es/'),L=(en,es)=>ES?es:en;
-const DAY=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+const TODAY=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+// ?day=YYYY-MM-DD plays a past Millions from the Infinity archive: no ranking, no saved score, no challenge
+const ARCH=(d=>/^\d{4}-\d{2}-\d{2}$/.test(d||'')&&d>='2026-11-03'&&d<TODAY?d:null)(new URLSearchParams(location.search).get('day')),DAY=ARCH||TODAY;
 // Spanish at /es/millon.html (build_es.py copies it)
 if(ES){document.querySelectorAll('[data-es]').forEach(e=>e.innerHTML=e.dataset.es);document.querySelectorAll('[data-es-ph]').forEach(e=>e.placeholder=e.dataset.esPh)}
 const $=id=>document.getElementById(id),START=1000000,SECS=60,KEY='millon-'+DAY+(DAY==='2026-11-03'?'-r1':'');
 const fmt=n=>n.toLocaleString(ES?'es-ES':'en-GB');
 const say=(t,pose)=>{$('say').textContent=t;if(pose)$('face').src='/rosco/host/'+pose+'.png'};
 const VISITOR=(()=>{try{let v=localStorage.getItem('uc-visitor');if(!v){v=crypto.randomUUID();localStorage.setItem('uc-visitor',v)}return v}catch{return null}})();
-function track(name,data){try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,visitor:VISITOR,seconds:0,game_day:DAY,event_version:2,data:{language:ES?'es':'en',page:'millon',...(data||{})}})}).catch(()=>{})}catch{}}
+function track(name,data){try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,visitor:VISITOR,seconds:0,game_day:DAY,event_version:2,data:{language:ES?'es':'en',page:'millon',...(ARCH?{archive:true}:{}),...(data||{})}})}).catch(()=>{})}catch{}}
 // signed-in players: one result per account per day, today's ranking (supabase/millon.sql)
 async function tok(){try{let s=JSON.parse(localStorage.getItem('uc-player-session')||'null');if(!s||!s.access_token)return null;
  if(s.exp<Date.now()+60000){const r=await fetch(SB_URL+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:s.refresh_token})});const j=await r.json();if(!r.ok||!j.access_token)return null;
   s={...s,access_token:j.access_token,refresh_token:j.refresh_token||s.refresh_token,exp:Date.now()+Math.max(60,(+j.expires_in||3600))*1000};localStorage.setItem('uc-player-session',JSON.stringify(s))}return s.access_token}catch{return null}}
 async function rpc(fn,body){const t=await tok();if(!t)return undefined;const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok)throw 0;return r.json()}
 async function pub(fn,body){const t=await tok();const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+(t||SB_KEY),'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok)throw 0;return r.json()}
-async function dayAvg(){try{const j=await pub('millon_day_stats',{p_day:DAY});const t=j&&j.players>=3?L(`Today's average: ${fmt(j.avg)} (${j.players} players)`,`Media de hoy: ${fmt(j.avg)} (${j.players} jugadores)`):L("Be one of the first to play today.",'Sé de los primeros en jugar hoy.');['avg0','avg2'].forEach(id=>$(id).textContent=t)}catch{}}
+async function dayAvg(){try{const j=await pub('millon_day_stats',{p_day:DAY});const t=ARCH?(j&&j.players>=3?L(`Average that day: ${fmt(j.avg)} (${j.players} players)`,`Media de ese día: ${fmt(j.avg)} (${j.players} jugadores)`):''):j&&j.players>=3?L(`Today's average: ${fmt(j.avg)} (${j.players} players)`,`Media de hoy: ${fmt(j.avg)} (${j.players} jugadores)`):L("Be one of the first to play today.",'Sé de los primeros en jugar hoy.');['avg0','avg2'].forEach(id=>$(id).textContent=t)}catch{}}
 async function board(){try{const g=await pub('millon_board',{p_day:DAY}),signed=!!(await tok());const rows=(g.rows||[]).slice(0,5);
  $('lb').innerHTML=`<h2>${L("Today's ranking","Ranking de hoy")}</h2>`+(rows.length?`<ol>${rows.map(r=>`<li class="${r.me?'me':''}"><b>${r.rank}</b><span>${String(r.nickname).replace(/[<&>"]/g,'')}</span><b>${fmt(r.score)}</b></li>`).join('')}</ol>`:'')
   +(g.me&&!rows.some(r=>r.me)?`<p>${L('You','Tú')}: #${g.me.rank} · ${fmt(g.me.score)}</p>`:'')+(signed?'':`<p><a href="${ES?'/es/':'/'}#signin">${L('Sign in','Inicia sesión')}</a> ${L('to get on the ranking.','para entrar en el ranking.')}</p>`)
@@ -253,7 +256,8 @@ function note(x,y,dist,dur){if(matchMedia('(prefers-reduced-motion:reduce)').mat
  n.animate([{transform:'translate(0,0) rotate(0)',opacity:1},{transform:`translate(${sway}px,${dist}px) rotate(${sway*2}deg)`,opacity:0}],{duration:dur,easing:'cubic-bezier(.55,0,1,.45)',fill:'forwards'}).onfinish=()=>n.remove()}
 function drop(el){const r=el.querySelector('.door').getBoundingClientRect();for(let j=0;j<4;j++)setTimeout(()=>note(r.left+12+Math.random()*16,r.top+8,90,600),120+j*70)}
 function shower(n){for(let j=0;j<n;j++)setTimeout(()=>note(Math.random()*(innerWidth-40),-40,innerHeight*.9,1100+Math.random()*500),j*45)}
-function end(restored){show('end');CH&&CH.end($('chal2'),bank,!restored);feedback();if(!restored)rpc('millon_save',{p_day:DAY,p_score:bank,p_hist:hist.join('')}).catch(()=>{}).finally(()=>board());else board();dayAvg();$('final').textContent=fmt(bank);$('grid').textContent=hist.join('');if(!restored)track('millon_finish',{score:bank,steps:hist.length});
+function end(restored){show('end');if(ARCH){$('archback').hidden=false;$('archback').href=(ES?'/es/':'/')+'?inf=open';$('final').textContent=fmt(bank);$('grid').textContent=hist.join('');dayAvg();if(!restored)track('millon_finish',{score:bank,steps:hist.length});return say(bank?L(`You walk away with ${fmt(bank)}. Try another day from the archive!`,`Te llevas ${fmt(bank)}. ¡Prueba otro día del archivo!`):L('Nothing left. Try another day from the archive!','Te quedas a cero. ¡Prueba otro día del archivo!'),bank?'happy-talk':'sad-talk')}
+ CH&&CH.end($('chal2'),bank,!restored);feedback();if(!restored)rpc('millon_save',{p_day:DAY,p_score:bank,p_hist:hist.join('')}).catch(()=>{}).finally(()=>board());else board();dayAvg();$('final').textContent=fmt(bank);$('grid').textContent=hist.join('');if(!restored)track('millon_finish',{score:bank,steps:hist.length});
  say(bank?L(`You walk away with ${fmt(bank)}. Same game tomorrow, new questions!`,`Te llevas ${fmt(bank)}. ¡Mañana, preguntas nuevas!`):L('Nothing left today. Come back tomorrow!','Hoy te quedas a cero. ¡Vuelve mañana!'),bank?'happy-talk':'sad-talk')}
 $('lock').onclick=()=>{if(timer===null)return;clearInterval(timer);const b=$('lock');b.classList.add('press');SFX.press();setTimeout(()=>{b.classList.remove('press');lock()},450)};$('next').onclick=()=>{i++;ask()};
 $('go').onclick=()=>{show('play');ask();track('millon_start')};
@@ -290,16 +294,17 @@ $('shareimg').onclick=async()=>{const b=$('shareimg');b.disabled=true;track('mil
   else{dlImg(blob);b.textContent=L('Saved! Post it anywhere','¡Guardada! Publícala donde quieras');setTimeout(()=>b.textContent=L('Share image','Compartir imagen'),2200)}}catch{}
  b.disabled=false};
 $('copy').onclick=()=>{navigator.clipboard.writeText(resultText()).then(()=>{$('copy').textContent=L('Copied!','¡Copiado!');setTimeout(()=>$('copy').textContent=L('Copy result','Copiar resultado'),1600)}).catch(()=>{})};
-(async()=>{try{const r=await fetch(`/millon/${DAY}.json`,{cache:'no-cache'});if(!r.ok)throw 0;D=await r.json()}catch{say(L('No game today yet. Come back soon!','Aún no hay juego hoy. ¡Vuelve pronto!'),'sad');return}
+(async()=>{if(ARCH&&(()=>{try{return localStorage.getItem('uc-inf-sub')!=='1'}catch{return true}})()){say(L('Past games are part of Infinity mode.','Los juegos anteriores son parte del Modo Infinito.'),'nervous');document.querySelector('main')?.insertAdjacentHTML('beforeend',`<a class="btn gold" style="margin-top:12px" href="${ES?'/es/':'/'}?inf=open">${L('See Infinity','Ver el Infinito')}</a>`);track('millon_archive_locked',{});return}
+ try{const r=await fetch(`/millon/${DAY}.json`,{cache:'no-cache'});if(!r.ok)throw 0;D=await r.json()}catch{say(L('No game today yet. Come back soon!','Aún no hay juego hoy. ¡Vuelve pronto!'),'sad');return}
  let s=null;try{s=JSON.parse(localStorage.getItem(KEY))}catch{}
- if(!(s&&s.done)){try{const m=await rpc('millon_mine',{p_day:DAY});if(m&&m.score!=null)s={bank:m.score,hist:[...m.hist],done:true}}catch{}}
+ if(!(s&&s.done)&&!ARCH){try{const m=await rpc('millon_mine',{p_day:DAY});if(m&&m.score!=null)s={bank:m.score,hist:[...m.hist],done:true}}catch{}}
  // friend challenge (challenge.js): "keep more than me on today's Millions"
- CH=window.ucChallenge?ucChallenge({game:'millon',day:DAY,max:START,es:ES,track,played:()=>s&&s.done?s.bank:null,fmt:v=>fmt(v),
+ CH=window.ucChallenge&&!ARCH?ucChallenge({game:'millon',day:DAY,max:START,es:ES,track,played:()=>s&&s.done?s.bank:null,fmt:v=>fmt(v),
   banner:(who,v)=>({en:`<strong>${who} kept ${fmt(v)} on today's Millions.</strong> Same 8 questions. Can you keep more?`,es:`<strong>${who} se llevó ${fmt(v)} en Millones de hoy.</strong> Las mismas 8 preguntas. ¿Te llevas más?`}),
   share:(v,u)=>`Unicorner ${L('Millions','Millones')} ${DAY}\n${hist.join('')}\n💰 ${fmt(v)}\n${L('Can you keep more?','¿Te llevas más?')}\n${u}`,
   url:code=>`https://unicornergame.lol${ES?'/es':''}/millon.html?c=${code}`}):null;
  if(s&&s.done){bank=s.bank;hist=s.hist;save();end(true);return}
  CH&&CH.intro($('chal0'));
  dayAvg();
- say(L('Welcome! Here is a million. Let\'s see how much of it you keep.','¡Bienvenido! Aquí tienes un millón. A ver cuánto te llevas.'),'happy-talk');show('intro')})();
+ say(ARCH?L(`From the archive: the game of ${new Date(DAY+'T12:00:00Z').toLocaleDateString('en-GB',{day:'numeric',month:'long',timeZone:'UTC'})}. Here is a million. Let's see how much of it you keep.`,`Del archivo: el juego del ${new Date(DAY+'T12:00:00Z').toLocaleDateString('es-ES',{day:'numeric',month:'long',timeZone:'UTC'})}. Aquí tienes un millón. A ver cuánto te llevas.`):L('Welcome! Here is a million. Let\'s see how much of it you keep.','¡Bienvenido! Aquí tienes un millón. A ver cuánto te llevas.'),'happy-talk');show('intro')})();
 </script></body></html>
