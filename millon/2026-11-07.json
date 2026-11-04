@@ -1,0 +1,121 @@
+{
+ "day": "2026-11-07",
+ "questions": [
+  {
+   "q": "Which of these players NEVER played for Arsenal?",
+   "q_es": "¿Cuál de estos jugadores NUNCA jugó en el Arsenal?",
+   "o": [
+    "Nicolas Anelka",
+    "Emmanuel Petit",
+    "Marc Overmars",
+    "David Ginola"
+   ],
+   "a": 3,
+   "why": "Ginola played for Newcastle and Tottenham, never Arsenal.",
+   "why_es": "Ginola jugó en el Newcastle y el Tottenham, nunca en el Arsenal.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who was the first manager other than Alex Ferguson to win the Premier League?",
+   "q_es": "¿Quién fue el primer entrenador, aparte de Ferguson, en ganar la Premier?",
+   "o": [
+    "Kenny Dalglish",
+    "Arsène Wenger",
+    "Ray Harford",
+    "Kevin Keegan"
+   ],
+   "a": 0,
+   "why": "Dalglish with Blackburn in 1994-95.",
+   "why_es": "Dalglish con el Blackburn en 1994-95.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who was Florentino Pérez's first 'Galáctico' signing, in 2000?",
+   "q_es": "¿Quién fue el primer 'galáctico' de Florentino Pérez, en 2000?",
+   "o": [
+    "Zinedine Zidane",
+    "Ronaldo Nazário",
+    "Luís Figo",
+    "David Beckham"
+   ],
+   "a": 2,
+   "why": "Figo from Barcelona in 2000; Zidane 2001, Ronaldo 2002, Beckham 2003.",
+   "why_es": "Figo desde el Barcelona en 2000; Zidane en 2001, Ronaldo en 2002, Beckham en 2003.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "How many goals did Gerd Müller score for West Germany?",
+   "q_es": "¿Cuántos goles marcó Gerd Müller con la RFA?",
+   "o": [
+    "62",
+    "68",
+    "74"
+   ],
+   "a": 1,
+   "why": "68 goals in 62 games.",
+   "why_es": "68 goles en 62 partidos.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which country hosted the 1986 World Cup after Colombia pulled out?",
+   "q_es": "¿Qué país organizó el Mundial de 1986 tras la renuncia de Colombia?",
+   "o": [
+    "Mexico",
+    "USA",
+    "Brazil"
+   ],
+   "a": 0,
+   "why": "Mexico, its second World Cup after 1970.",
+   "why_es": "México, su segundo Mundial tras el de 1970.",
+   "src": "own knowledge",
+   "o_es": [
+    "México",
+    "EE. UU.",
+    "Brasil"
+   ]
+  },
+  {
+   "q": "In which season did Valencia last win La Liga?",
+   "q_es": "¿En qué temporada ganó el Valencia su última Liga?",
+   "o": [
+    "2001-02",
+    "2003-04",
+    "2005-06"
+   ],
+   "a": 1,
+   "why": "2003-04 under Rafa Benítez.",
+   "why_es": "2003-04 con Rafa Benítez.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which of these clubs has NEVER been relegated from Serie A?",
+   "q_es": "¿Cuál de estos clubes NUNCA ha descendido de la Serie A?",
+   "o": [
+    "Inter",
+    "AC Milan",
+    "Juventus"
+   ],
+   "a": 0,
+   "why": "Inter. Milan went down twice around 1980 and Juventus in 2006.",
+   "why_es": "El Inter. El Milan bajó dos veces hacia 1980 y la Juventus en 2006.",
+   "src": "own knowledge",
+   "o_es": [
+    "Inter",
+    "Milan",
+    "Juventus"
+   ]
+  },
+  {
+   "q": "Who scored more goals for Brazil: Ronaldo Nazário or Romário?",
+   "q_es": "¿Quién marcó más goles con Brasil: Ronaldo Nazário o Romário?",
+   "o": [
+    "Romário",
+    "Ronaldo Nazário"
+   ],
+   "a": 1,
+   "why": "Ronaldo 62, Romário 55.",
+   "why_es": "Ronaldo 62, Romário 55.",
+   "src": "own knowledge"
+  }
+ ]
+}

@@ -25,6 +25,12 @@
 - Infinity mode: endless practice with the same rules and no ranking (a short trial run is available now; the full version is coming soon).
 - Retro pixel-art, arcade style.
 
+## More daily games, hosted by Horacio Herradura
+
+- Rosco (https://unicornergame.lol/rosco.html): a daily A-to-Z football quiz. One clue for every letter (players, clubs, managers), five minutes on the clock, and you can pass a letter to come back to it later. Daily ranking for signed-in players.
+- Millions (https://unicornergame.lol/millon.html, also /million): a daily football money-drop quiz. You start with 1,000,000 and get 8 questions with 4, 3 and finally 2 options; spread the money over the answers and keep only what lands on the right one. Daily ranking and today's average.
+- Both are free, new every day at midnight (Amsterdam time), and in English and Spanish (/es/rosco.html, /es/millon.html).
+
 ## Good to know
 
 - Free to play. No app to install; works on phone and desktop browsers.
@@ -41,12 +47,14 @@
 
 ## En español
 
-Unicorner es un juego diario y gratis de trivia de fútbol en https://unicornergame.lol/es/. Cada día hay cinco preguntas de fútbol con 30 segundos cada una, y la respuesta obvia puntúa menos: cuanto más rara sea tu respuesta válida, más puntos vale. La respuesta más rara es un "Qué chicharro" (100 puntos). Hay ranking diario y semanal, ligas privadas con amigos, trofeos semanales y equipaciones para tu unicornio.
+Unicorner es un juego diario y gratis de trivia de fútbol en https://unicornergame.lol/es/. Cada día hay cinco preguntas de fútbol con 30 segundos cada una, y la respuesta obvia puntúa menos: cuanto más rara sea tu respuesta válida, más puntos vale. La respuesta más rara es un "Qué chicharro" (100 puntos). Hay ranking diario y semanal, ligas privadas con amigos, trofeos semanales y equipaciones para tu unicornio. También hay dos juegos diarios presentados por Horacio Herradura: el Rosco de fútbol (https://unicornergame.lol/es/rosco.html), una pista por cada letra contra el reloj, y Millones (https://unicornergame.lol/es/millon.html), donde empiezas con un millón y solo te llevas lo que caiga en la respuesta correcta.
 
 ## Links
 
 - Play (English): https://unicornergame.lol/
 - Play (Spanish): https://unicornergame.lol/es/
+- Rosco: https://unicornergame.lol/rosco.html
+- Millions: https://unicornergame.lol/millon.html
 - Privacy: https://unicornergame.lol/privacy.html
 - TikTok: https://www.tiktok.com/@unicornergame.lol
 - Reddit: https://www.reddit.com/r/Unicorner_Game/

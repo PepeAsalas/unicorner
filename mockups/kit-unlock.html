@@ -1,0 +1,124 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Kit Unlock Options</title>
+<link rel="stylesheet" href="/fonts/fonts.css">
+<style>
+/* Mock-ups: four new kit-unlock animations (pick one) and icon options for the challenge button. Live demos, replayable. */
+:root{--ink:#1d1a2b;--paper:#fbf6e8;--sand:#e9dfc2;--gold:#f2c230;--grass:#2f9a62;--marine:#1d4486;--marine2:#2d5aa0;--clay:#c8473b;
+ --disp:"Jersey 10",monospace;--mono:"VT323",monospace;--out:cubic-bezier(.23,1,.32,1);--inout:cubic-bezier(.77,0,.175,1);--drawer:cubic-bezier(.32,.72,0,1)}
+*{box-sizing:border-box}body{margin:0;background:#14121c;color:var(--paper);font:20px/1.3 var(--mono);padding:20px 16px 60px}
+h1{font:400 44px/1 var(--disp);color:var(--gold);margin:0 0 6px}h2{font:400 34px/1 var(--disp);margin:34px 0 6px}p.lead{margin:0 0 14px;color:#c9c2d8;max-width:80ch}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 18px}
+.bar button,.rp{font:400 20px var(--disp);border:3px solid var(--ink);box-shadow:0 3px 0 var(--ink);background:var(--paper);color:var(--ink);padding:6px 12px;cursor:pointer;transition:transform 120ms var(--out)}
+.bar button:active,.rp:active{transform:translateY(2px)}.bar button.on{background:var(--gold)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px;max-width:1400px}
+.demo h3{font:400 28px/1 var(--disp);margin:0 0 4px}.demo>p{margin:0 0 10px;color:#c9c2d8;font-size:18px;min-height:3.9em}
+.stage{position:relative;height:430px;border:3px solid #fff;outline:3px solid #000;border-radius:12px;overflow:hidden;background:#05030f;isolation:isolate}
+.skip{position:absolute;top:10px;right:10px;z-index:20;font:16px var(--mono);color:#fff;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.5);border-radius:6px;padding:3px 8px}
+.rp{margin-top:10px}
+.uni{width:150px;height:auto;image-rendering:pixelated;display:block}
+.chip{display:inline-block;font:400 18px/1 var(--disp);letter-spacing:.06em;padding:5px 9px;border:3px solid var(--ink);color:var(--ink)}
+.kname{font:400 30px/1 var(--disp);color:#fff;text-shadow:0 3px 0 #000}
+.btns{position:absolute;left:12px;right:12px;bottom:12px;display:flex;gap:8px;z-index:15;opacity:0}
+.btns b{flex:1;text-align:center;font:400 20px var(--disp);font-weight:400;padding:9px;border:3px solid var(--ink);background:var(--paper);color:var(--ink)}.btns b:first-child{background:var(--gold)}
+.p{position:absolute;pointer-events:none;z-index:12}
+/* A sticker */
+.album{position:absolute;inset:0;background:repeating-linear-gradient(0deg,#f3e9cc 0 26px,#eadfbe 26px 27px);}
+.slot{position:absolute;left:50%;top:70px;width:180px;height:220px;margin-left:-90px;border:3px dashed #b9a97c;border-radius:8px}
+.stk{position:absolute;left:50%;top:70px;width:180px;height:220px;margin-left:-90px;background:#fff;border:4px solid var(--ink);border-radius:8px;display:grid;place-items:center;box-shadow:4px 6px 0 rgba(0,0,0,.25);opacity:0}
+.stk .kname{position:absolute;bottom:8px;left:0;right:0;text-align:center;color:var(--ink);text-shadow:none;font-size:24px}
+.stamp{position:absolute;left:50%;top:44px;margin-left:30px;z-index:5;opacity:0}
+/* B locker */
+.lk{position:absolute;left:50%;top:40px;width:200px;height:290px;margin-left:-100px;background:#0b0920;border:5px solid #3a4a70;perspective:800px}
+.lk-in{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,var(--tc,#fff3) ,transparent 70%)}
+.door{position:absolute;inset:-5px;background:repeating-linear-gradient(0deg,#4d6390 0 8px,#3f5480 8px 10px),#4d6390;border:5px solid #2a3858;transform-origin:left center;z-index:3;display:grid;place-items:center}
+.door::before{content:"";width:60%;height:12px;background:repeating-linear-gradient(0deg,#22304e 0 3px,transparent 3px 6px);position:absolute;top:30px}
+.door i{position:absolute;right:16px;top:46%;width:10px;height:34px;background:#c9d2e6;border:2px solid #000}
+.hang{transform-origin:50% 0;opacity:0}
+.tag{position:absolute;left:50%;top:342px;translate:-50% 0;opacity:0;white-space:nowrap}
+/* C reel */
+.win{position:absolute;left:50%;top:60px;width:200px;height:200px;margin-left:-100px;border:5px solid var(--gold);background:#0b0920;overflow:hidden;box-shadow:0 0 0 4px #000}
+.strip{position:absolute;left:0;right:0;top:0;display:flex;flex-direction:column}
+.strip .uni{height:200px;width:200px;object-fit:contain;padding:25px}
+.strip .uni.sil{filter:brightness(0) opacity(.85)}
+.meter{position:absolute;left:50%;top:290px;translate:-50% 0;display:flex;gap:4px}.meter i{width:30px;height:10px;border:2px solid #000;background:#2a2450;transition:background .15s}
+.cname{position:absolute;left:0;right:0;top:318px;text-align:center;opacity:0}
+/* D sheet */
+.ghostbg{position:absolute;inset:0;background:linear-gradient(#1d4486,#16356b);opacity:.6}
+.ghostbg::before{content:"Your results…";position:absolute;left:16px;top:16px;font:400 28px var(--disp);color:#fff8}
+.sheet{position:absolute;left:0;right:0;bottom:0;height:250px;background:var(--paper);color:var(--ink);border-top:4px solid var(--ink);border-radius:16px 16px 0 0;padding:16px;display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:start;transform:translateY(100%);z-index:10}
+.sheet .uni{width:120px}
+.sheet .kname{color:var(--ink);text-shadow:none;font-size:30px;margin:6px 0}
+.sheet small{font:17px var(--mono);color:#5d566b}
+.sheet .row{grid-column:1/-1;display:flex;gap:8px}.sheet .row b{flex:1;text-align:center;font:400 20px var(--disp);padding:9px;border:3px solid var(--ink);background:#fff}.sheet .row b:first-child{background:var(--gold)}
+/* icons */
+.icons{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:18px;max-width:1400px}
+.ic h3{font:400 24px var(--disp);margin:0 0 8px}
+.cbtn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;min-height:58px;border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink);background:var(--gold);color:var(--ink);font:400 22px var(--disp);letter-spacing:.03em;padding:8px 12px}
+.cban{display:flex;align-items:center;gap:10px;margin-top:10px;padding:10px 12px;background:var(--gold);color:var(--ink);border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink);font:600 15px/1.3 Barlow,system-ui,sans-serif}
+.cban strong{font-weight:800}
+.pxi{image-rendering:pixelated;shape-rendering:crispEdges;flex:none}
+.vs{flex:none;font:400 20px/1 var(--disp);background:var(--ink);color:var(--gold);padding:4px 6px;border:2px solid var(--ink)}
+.duo{display:flex;flex:none}.duo img{width:46px;image-rendering:pixelated}.duo img:last-child{transform:scaleX(-1);margin-left:-6px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style></head><body>
+<h1>Kit unlocked: four new animations</h1>
+<p class="lead">Each stage is a live demo with the same kit. Pick a rarity, then replay. Rarer kits get more juice (more shake, more confetti), so a common kit is quick and a Screamer feels big. "Skip all" sits top-right in every version, from the first frame.</p>
+<div class="bar" id="tiers"></div>
+<div class="grid" id="grid"></div>
+
+<h2>The ⚔ on the challenge button: options</h2>
+<p class="lead">The same button and the friend's banner with each icon. All are drawn as pixel art to match the site (no emoji).</p>
+<div class="icons" id="icons"></div>
+
+<script>
+const T=[['TAP-IN','#cfd8e6'],['VOLLEY','#b48cff'],['BICYCLE KICK','#ff7ac8'],['SCREAMER!!!','#ffd23f'],['MYTHIC!!!','#ff7ac8']];let tier=3;
+const IMG='kit-uni.png',HUE=[0,200,290,40,320];const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const tb=document.getElementById('tiers');T.forEach(([n,c],i)=>{const b=document.createElement('button');b.textContent=n.replace(/!+/,'');b.style.borderColor='#000';b.onclick=()=>{tier=i;[...tb.children].forEach((x,j)=>x.classList.toggle('on',j===i));D.forEach(d=>d.play())};tb.appendChild(b)});tb.children[tier].classList.add('on');
+const kit=()=>`<img class="uni" src="${IMG}" alt="" style="filter:hue-rotate(${HUE[tier]}deg) saturate(${tier>=3?1.4:1})">`;
+const chip=()=>`<span class="chip" style="background:${T[tier][1]}">${T[tier][0]}</span>`;
+function burst(st,x,y,n,cols,dist=120){if(rm)return;for(let i=0;i<n;i++){const p=document.createElement('i');p.className='p';const z=4+Math.random()*6;p.style.cssText=`left:${x}px;top:${y}px;width:${z}px;height:${z}px;background:${cols[i%cols.length]}`;st.appendChild(p);const a=Math.random()*6.283,r=dist*(.4+Math.random());
+ p.animate([{transform:'none',opacity:1},{transform:`translate(${Math.cos(a)*r}px,${Math.sin(a)*r+40}px) rotate(${Math.random()*360}deg)`,opacity:0}],{duration:700+Math.random()*600,easing:'cubic-bezier(.1,.8,.3,1)'}).onfinish=()=>p.remove()}}
+const shake=(el,amt)=>!rm&&el.animate([{translate:'0 0'},{translate:`-${amt}px ${amt/2}px`},{translate:`${amt}px -${amt/2}px`},{translate:'0 0'}],{duration:220,iterations:tier>=3?2:1});
+const btns=st=>st.querySelector('.btns')?.animate([{opacity:0,transform:'translateY(8px)'},{opacity:1,transform:'none'}],{duration:220,delay:rm?0:250,fill:'forwards',easing:'cubic-bezier(.23,1,.32,1)'});
+const DEMOS=[
+ {n:'A · Sticker slap',d:'The kit is a sticker that slaps into your album: squash on impact, then the rarity stamp thumps down. About 0.9 s. Short, physical, very "collectible".',
+  html:()=>`<div class="album"></div><div class="slot"></div><div class="stk">${kit()}<span class="kname">GOLDEN HOUR</span></div><div class="stamp">${chip()}</div><div class="btns"><b>Wear it</b><b>Later</b></div>`,
+  run:st=>{const s=st.querySelector('.stk'),sp=st.querySelector('.stamp');
+   s.animate([{opacity:0,transform:'translateY(-260px) scale(1.5) rotate(-8deg)'},{opacity:1,transform:'translateY(0) scale(1.15,.85) rotate(2deg)',offset:.7},{opacity:1,transform:'scale(.96,1.04) rotate(-1deg)',offset:.85},{opacity:1,transform:'none'}],{duration:rm?1:520,easing:'cubic-bezier(.5,0,.75,0)',fill:'forwards'});
+   setTimeout(()=>{shake(st,2+tier*1.5);burst(st,st.clientWidth/2,190,8+tier*6,[T[tier][1],'#fff']);
+    sp.animate([{opacity:0,transform:'scale(1.6) rotate(-25deg)'},{opacity:1,transform:'scale(1) rotate(-12deg)'}],{duration:rm?1:220,delay:rm?0:180,easing:'cubic-bezier(.34,1.56,.64,1)',fill:'forwards'});btns(st)},rm?0:430)}},
+ {n:'B · Locker reveal',d:'A dressing-room locker swings open, light spills out and the new kit drops onto its hanger with a little swing. About 1.2 s. More "football".',
+  html:()=>`<div class="lk" style="--tc:${T[tier][1]}66"><div class="lk-in"><div class="hang">${kit()}</div></div><div class="door"><i></i></div></div><div class="tag">${chip()} <span class="kname" style="font-size:24px;margin-left:6px">GOLDEN HOUR</span></div><div class="btns"><b>Wear it</b><b>Later</b></div>`,
+  run:st=>{const dr=st.querySelector('.door'),h=st.querySelector('.hang'),tg=st.querySelector('.tag');
+   dr.animate([{transform:'perspective(800px) rotateY(0)'},{transform:'perspective(800px) rotateY(-6deg)',offset:.15},{transform:'perspective(800px) rotateY(-108deg)'}],{duration:rm?1:620,easing:'cubic-bezier(.77,0,.175,1)',fill:'forwards'});
+   setTimeout(()=>{h.animate([{opacity:0,transform:'translateY(-60px) rotate(0)'},{opacity:1,transform:'translateY(0) rotate(-9deg)',offset:.4},{transform:'rotate(6deg)',offset:.65},{transform:'rotate(-3deg)',offset:.85},{opacity:1,transform:'none'}],{duration:rm?1:700,easing:'ease-out',fill:'forwards'});
+    if(tier>=3)burst(st,st.clientWidth/2,180,30,[T[tier][1],'#fff'],140);
+    tg.animate([{opacity:0,transform:'translateY(8px)'},{opacity:1,transform:'none'}],{duration:220,delay:rm?0:350,fill:'forwards',easing:'cubic-bezier(.23,1,.32,1)'});btns(st)},rm?0:420)}},
+ {n:'C · Kit roulette',d:'An arcade reel spins through kit silhouettes, slows down and lands on yours; the colours flash in and the rarity bar fills in one sweep. About 1.4 s. Most suspense.',
+  html:()=>`<div class="win"><div class="strip">${Array.from({length:9},(_,i)=>`<img class="uni${i<8?' sil':''}" src="${IMG}" alt="" style="filter:${i<8?'brightness(0) opacity(.85)':`hue-rotate(${HUE[tier]}deg)`}">`).join('')}</div></div><div class="meter">${T.map(()=>'<i></i>').join('')}</div><div class="cname">${chip()} <span class="kname" style="font-size:24px;margin-left:6px">GOLDEN HOUR</span></div><div class="btns"><b>Wear it</b><b>Later</b></div>`,
+  run:st=>{const s=st.querySelector('.strip'),last=s.lastElementChild,m=[...st.querySelectorAll('.meter i')],nm=st.querySelector('.cname');
+   s.animate([{transform:'translateY(0)'},{transform:'translateY(-1600px)'}],{duration:rm?1:1100,easing:'cubic-bezier(.12,.8,.2,1)',fill:'forwards'});
+   setTimeout(()=>{last.animate([{filter:'brightness(3)'},{filter:`hue-rotate(${HUE[tier]}deg)`}],{duration:300,fill:'forwards'});st.querySelector('.win').animate([{boxShadow:`0 0 0 4px #000,0 0 40px ${T[tier][1]}`},{boxShadow:'0 0 0 4px #000'}],{duration:600});
+    m.forEach((b,i)=>{if(i<=tier)setTimeout(()=>b.style.background=T[i][1],rm?0:i*70)});burst(st,st.clientWidth/2,160,6+tier*8,[T[tier][1],'#fff']);if(tier>=3)shake(st,4);
+    nm.animate([{opacity:0,transform:'translateY(8px)'},{opacity:1,transform:'none'}],{duration:220,delay:rm?0:200,fill:'forwards',easing:'cubic-bezier(.23,1,.32,1)'});btns(st)},rm?0:1100)}},
+ {n:'D · Quick card',d:'No full-screen takeover: a card slides up from the bottom over your results, the kit pops, done. About 0.3 s. Best when people unlock kits often.',
+  html:()=>`<div class="ghostbg"></div><div class="sheet"><div>${kit()}</div><div>${chip()}<div class="kname">GOLDEN HOUR</div><small>Unlocked: 5-day streak</small></div><div class="row"><b>Wear it</b><b>Later</b></div></div>`,
+  run:st=>{const sh=st.querySelector('.sheet'),u=sh.querySelector('.uni');sh.animate([{transform:'translateY(100%)'},{transform:'none'}],{duration:rm?1:300,easing:'cubic-bezier(.32,.72,0,1)',fill:'forwards'});
+   u.animate([{transform:'scale(.85)'},{transform:'scale(1.08)',offset:.6},{transform:'none'}],{duration:rm?1:320,delay:rm?0:180,easing:'cubic-bezier(.34,1.56,.64,1)'});if(tier>=3)setTimeout(()=>burst(st,80,260,24,[T[tier][1],'#fff'],90),rm?0:300)}}];
+const grid=document.getElementById('grid');
+const D=DEMOS.map(dm=>{const el=document.createElement('section');el.className='demo';el.innerHTML=`<h3>${dm.n}</h3><p>${dm.d}</p><div class="stage"></div><button type="button" class="rp">↻ Replay</button>`;grid.appendChild(el);
+ const st=el.querySelector('.stage');const play=()=>{st.innerHTML=`<span class="skip">Skip all (3) ✕</span>`+dm.html();requestAnimationFrame(()=>dm.run(st))};el.querySelector('.rp').onclick=play;return{play}});
+D.forEach(d=>d.play());
+
+// pixel icons: each row of the grid is a string, '.' = empty, letters map to colours
+const PX=(rows,cols,size=28)=>{const h=rows.length,w=rows[0].length,s=size/Math.max(w,h);let r='';rows.forEach((row,y)=>[...row].forEach((ch,x)=>{if(ch!=='.')r+=`<rect x="${x}" y="${y}" width="1.02" height="1.02" fill="${cols[ch]}"/>`}));return`<svg class="pxi" width="${w*s}" height="${h*s}" viewBox="0 0 ${w} ${h}" aria-hidden="true">${r}</svg>`};
+const K='#1d1a2b',W='#fbf6e8',G='#f2c230',R='#c8473b',B='#2d5aa0';
+const BALL=PX(['..kkkkkk..','.kwwwwwwk.','kwwwkkwwwk','kwwkkkkwwk','kwwwkkwwwk','kkwwwwwwkk','kwkwwwwkwk','kwwkwwkwwk','.kwwwwwwk.','..kkkkkk..'],{k:K,w:W},30);
+const TROPHY=PX(['kkkkkkkk','kggggggk','kggggggk','.kggggk.','..kggk..','...kk...','..kggk..','.kkkkkk.'],{k:K,g:'#fff3a0'});
+const BOLT=PX(['....kkk.','...kwwk.','..kwwk..','.kwwwkkk','kkkwwwk.','..kwwk..','.kwwk...','.kkk....'],{k:K,w:W});
+const ARROW=PX(['....k...','....kk..','kkkkkwk.','kwwwwwwk','kwwwwwwk','kkkkkwk.','....kk..','....k...'],{k:K,w:W});
+const BOOT=PX(['..kkk...','..kwk...','..kwk...','..kwkk..','.kwwwwk.','kwwwwwwk','kkkkkkkk','.k.k.k..'],{k:K,w:W});
+const SWORDS=PX(['k......k','wk....kw','.wk..kw.','..wkkw..','...kk...','..wkkw..','.kk..kk.','kk....kk'],{k:K,w:W});
+const ICONS=[['Now: pixel crossed swords (cleaner ⚔)',SWORDS],['No icon (just the words)',''],['"VS" badge, like Duels','<span class="vs">VS</span>'],['Pixel football',BALL],['Pixel trophy',TROPHY],['Pixel lightning bolt',BOLT],['Pixel "send" arrow',ARROW],['Two unicorns face-off','<span class="duo"><img src="'+IMG+'" alt=""><img src="'+IMG+'" alt=""></span>']];
+document.getElementById('icons').innerHTML=ICONS.map(([n,ic],i)=>`<div class="ic"><h3>${i+1}. ${n}</h3><div class="cbtn">${ic}<span>CHALLENGE A FRIEND TO BEAT 340</span></div><div class="cban">${ic||''}<span><strong>Pepo scored 340 on today's game.</strong> Same 5 questions. Can you beat it?</span></div></div>`).join('');
+</script></body></html>
