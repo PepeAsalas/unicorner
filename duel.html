@@ -64,6 +64,18 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 }
 .cab canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
 .small{font-size:18px}
+.find{display:grid;gap:8px;margin:2px 0 14px}
+.find-l{font-family:var(--disp);font-size:22px;letter-spacing:1px}
+.find-box{position:relative}
+.find-box span{position:absolute;left:14px;top:50%;translate:0 -50%;z-index:1;font-size:26px;line-height:1;color:#1d1a2b;opacity:.55;pointer-events:none}
+.find-box input{padding-left:44px!important}
+.find-res{list-style:none;margin:0;padding:0;display:grid;gap:6px}.find-res:empty{display:none}
+.find-res li{display:flex;align-items:center;gap:10px;padding:4px 6px 4px 4px;background:rgba(29,26,43,.08);box-shadow:0 0 0 2px var(--ink)}
+.find-res .pr-uni{flex:none;width:44px;height:44px}
+.find-res b{flex:1;min-width:0;font:400 22px/1 var(--mono);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.find-res b small{display:block;font-size:16px;opacity:.65}
+.find-res button{width:auto;font-size:20px;padding:6px 12px;transition:transform 120ms cubic-bezier(.23,1,.32,1)}.find-res button:active{transform:scale(.97)}
+.find-note:empty{display:none}.find-note a{color:inherit}
+.find-or{display:flex;align-items:center;gap:10px;font:18px var(--mono);opacity:.75;margin-top:4px}.find-or::before,.find-or::after{content:"";flex:1;height:2px;background:currentColor;opacity:.4}
 .rules{display:grid;gap:6px;margin:4px 0 2px}.rl-lbl{font-family:var(--mono);font-size:19px;color:var(--muted)}
 .seg{display:flex;gap:8px;margin-bottom:6px}.seg button{flex:1;width:auto;font-size:22px;padding:7px 4px;background:#1d1a2b;color:var(--cream);box-shadow:0 0 0 3px var(--ink),0 4px 0 3px var(--ink);transition:transform .12s cubic-bezier(.23,1,.32,1)}
 .seg button.on{background:var(--gold);color:var(--ink)}.seg button:active{transform:translateY(2px)}
@@ -308,6 +320,13 @@ body.prog-on.night .prog .ib-x{color:#e9dfc2}body.prog-on.night .prog .ib-off{co
   <label for="nm">Your name<input id="nm" maxlength="16" autocomplete="nickname" placeholder="e.g. Pepo"></label>
   <div class="rules"><span class="rl-lbl">Questions per round</span><div class="seg" id="r-per" role="radiogroup" aria-label="Questions per round"><button type="button" data-v="3">3</button><button type="button" data-v="5">5</button><button type="button" data-v="15">All 15</button></div>
    <span class="rl-lbl">Seconds per question</span><div class="seg" id="r-secs" role="radiogroup" aria-label="Seconds per question"><button type="button" data-v="10">10</button><button type="button" data-v="15">15</button><button type="button" data-v="20">20</button><button type="button" data-v="30">30</button></div></div>
+  <div class="find" id="find" hidden>
+   <label for="find-q" class="find-l">Send it to a player</label>
+   <div class="find-box"><span aria-hidden="true">⌕</span><input id="find-q" type="search" autocomplete="off" spellcheck="false" maxlength="16" placeholder="Search a nickname" aria-controls="find-res"></div>
+   <ul class="find-res" id="find-res" role="list"></ul>
+   <p class="small find-note" id="find-note" role="status"></p>
+   <span class="find-or">or get a link to share</span>
+  </div>
   <button id="create">Create duel</button>
   <p class="small" id="home-rules">You get a link to send. You both start on 300 HP and play rounds of 5 questions, 15 seconds each, then watch the battle. Keep going until someone is KO'd.</p>
   <p class="small fresh">🆕 New duel questions every week. The bank keeps growing, so rematches stay fresh.</p>
@@ -521,6 +540,15 @@ function openIntro(from){inStep=0;introDraw();const d=$('dlg-intro');if(!d.open)
 function closeIntro(how){ls('uc-duel-intro','1');$('dlg-intro').close();track('duel_intro_done',{how,step:inStep+1})}
 $('in-next').onclick=()=>{if(inStep<DUEL_INTRO.length-1){inStep++;introDraw()}else closeIntro('done')};$('in-skip').onclick=()=>closeIntro('skip');
 $('dlg-intro').addEventListener('cancel',()=>ls('uc-duel-intro','1'));$('how-open').onclick=()=>openIntro('link');
+// find a player by nickname (supabase/player_search.sql) and send them a challenge: picking one opens ?vs=nick
+function findInit(signed){const box=$('find'),q=$('find-q'),res=$('find-res'),note=$('find-note');box.hidden=false;
+ if(!signed){q.disabled=true;q.placeholder='Sign in to search players';note.innerHTML='<a href="/#signin">Sign in on Unicorner</a> to send duels to players by name.';return}
+ let t=0,seq=0;q.oninput=()=>{clearTimeout(t);const v=q.value.trim();if(v.length<2){res.innerHTML='';note.textContent='';return}
+  t=setTimeout(async()=>{const my=++seq;let r=[];try{r=await rpc('player_search',{p_q:v})||[]}catch{if(my===seq)note.textContent="Search isn't working right now. Try again in a moment.";return}if(my!==seq)return;
+   note.textContent=r.length?'':`No player called "${v}". Players show up here once they've joined a leaderboard.`;
+   res.innerHTML=r.map(x=>`<li>${uni(KITS.find(k=>k.id===x.kit)||kitFor(x.nick))}<b>${esc(x.nick)}<small>${x.games?x.games+' game'+(x.games===1?'':'s')+' played':'New player'}</small></b><button type="button" data-nick="${esc(x.nick)}">Duel</button></li>`).join('');
+   track('duel_search',{len:v.length,found:r.length})},250)};
+ res.onclick=e=>{const b=e.target.closest('button[data-nick]');if(!b)return;track('duel_search_pick',{});location.href='duel.html?vs='+encodeURIComponent(b.dataset.nick)}}
 async function boot(){if(!ls('uc-duel-intro'))openIntro('first');sides();$('nm').value=$('nm2').value=ls('uc-nick')||ls('uc-duel-name')||'';
  // signed-in players already have a leaderboard nickname: use it, don't ask again
  if(ls('uc-nick'))for(const id of['nm','nm2']){const l=$(id).closest('label');if(l&&!l.dataset.nick){l.dataset.nick=1;l.hidden=true;const p=document.createElement('p');p.className='small';p.textContent='Playing as '+ls('uc-nick');l.after(p)}}
@@ -530,7 +558,7 @@ async function boot(){if(!ls('uc-duel-intro'))openIntro('first');sides();$('nm')
  if(VSN&&!code){if(!await userToken())return fail('Sign in on Unicorner (the league login) to challenge players.');if(!playedToday())return gate();
   $('h-title').textContent=`CHALLENGE ${VSN.toUpperCase().slice(0,16)}`;$('create').textContent='Send challenge';$('create').dataset.vs=VSN;
   $('home-rules').dataset.vs=VSN;homeRules();show('s-home');return}
- if(!code){if(!playedToday()){if(await userToken())$('g-inbox').hidden=false;return gate()}record('rec1');if(await userToken())$('to-inbox').hidden=$('h-quick').hidden=false;show('s-home');return}
+ if(!code){if(!playedToday()){if(await userToken())$('g-inbox').hidden=false;return gate()}record('rec1');const sg=!!(await userToken());if(sg)$('to-inbox').hidden=$('h-quick').hidden=false;findInit(sg);show('s-home');return}
  try{[D]=await Promise.all([rpc('duel_get',{p_code:code,p_token:TOKEN}),loadRules()])}catch(e){track('duel_load_error',{message:String(e&&e.message||e).slice(0,160)});return fail(navigator.onLine===false?'You seem to be offline. Check your connection and try again.':'Could not load this duel. Try again in a moment.'+(e&&e.message?' ('+String(e.message).slice(0,80)+')':''))}
  if(!D)return fail('That duel link does not exist.');
  const me=D.players.find(p=>p.slot===D.me),p1=D.players.find(p=>p.slot===1);
