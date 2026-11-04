@@ -2587,7 +2587,7 @@ addEventListener('message',e=>{const f=document.querySelector('#relay-rail ifram
 // ---- community forms
 // ---- Supabase backend
 // ── streak reminders (web push, supabase/push.sql, sent by scripts/send_streak_push.py): off until VAPID_PUB is set ──
-const VAPID_PUB='';
+const VAPID_PUB='BJogKtg-egdRvdz60-8NWT8usqSGDtapdxLqH-F1NVwkajk07epjtpfhT04gFgRdpRBrH_0IEm-L0pFZ_CxYwD8';
 const pushOK=()=>!!VAPID_PUB&&'serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window;
 const pushEP=()=>{try{return localStorage.getItem('uc-push-ep')||''}catch{return''}};
 async function pushRpc(fn,args){return fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify(args)}).then(r=>{if(!r.ok)throw new Error('push '+r.status)})}
