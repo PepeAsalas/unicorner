@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build answers/index.html: the questions and every valid answer from the last 7 finished days.
+"""Build answers/index.html (English) and es/respuestas/index.html (Spanish): the questions and every valid answer from the last 7 finished days.
 
 Only past days (Amsterdam time) are ever published, never today's game. Run daily by the Upkeep
 workflow after midnight; it also adds the page to sitemap.xml with today's date.
@@ -17,6 +17,18 @@ TIERS = {6: 'Tap-in', 5: 'Tap-in', 4: 'Header', 3: 'Volley', 2: 'Bicycle kick', 
 TIER_ORDER = ['Screamer', 'Bicycle kick', 'Volley', 'Header', 'Tap-in']
 TIER_CLASS = {'Screamer': 's', 'Bicycle kick': 'b', 'Volley': 'v', 'Header': 'h', 'Tap-in': 't'}
 e = html.escape
+TIER_ES = {'Screamer': 'Qué chicharro', 'Bicycle kick': 'Chilena', 'Volley': 'Volea', 'Header': 'Remate', 'Tap-in': 'Empujarla'}
+DIAS = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo']
+MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
+
+
+def fecha(d, weekday=True, year=True):
+    t = f'{d.day} de {MESES[d.month - 1]}' + (f' de {d.year}' if year else '')
+    return (DIAS[d.weekday()].capitalize() + ' ' + t) if weekday else t
+
+
+def tx(q, k, es):
+    return (q.get(k + '_es') or q.get(k) or '') if es else (q.get(k) or '')
 
 
 def load(day):
@@ -27,43 +39,48 @@ def load(day):
     return d['questions'] if isinstance(d, dict) else d
 
 
-def day_html(day, qs):
-    nice = day.strftime('%A %-d %B %Y')
+def day_html(day, qs, es=False):
+    nice = fecha(day) if es else day.strftime('%A %-d %B %Y')
     out = [f'<section class="day" id="{day.isoformat()}"><h2>{e(nice)}</h2>']
     for i, q in enumerate(qs, 1):
         groups = {}
         for a in q['answers']:
             groups.setdefault(TIERS.get(a.get('fame'), 'Volley'), []).append(a['name'])
-        sub = f'<p class="sub">{e(q["subtitle"])}</p>' if q.get('subtitle') else ''
-        out.append(f'<article class="q"><h3><span>Q{i}</span> {e(q["prompt"])}</h3>{sub}'
-                   f'<p class="n">{len(q["answers"])} valid answers</p>')
+        sub = f'<p class="sub">{e(tx(q, "subtitle", es))}</p>' if q.get('subtitle') else ''
+        out.append(f'<article class="q"><h3><span>{"P" if es else "Q"}{i}</span> {e(tx(q, "prompt", es))}</h3>{sub}'
+                   f'<p class="n">{len(q["answers"])} {"respuestas válidas" if es else "valid answers"}</p>')
         for t in TIER_ORDER:
             names = sorted(groups.get(t, []))
             if names:
-                out.append(f'<p class="tier {TIER_CLASS[t]}"><b>{t}</b> {", ".join(e(n) for n in names)}</p>')
+                out.append(f'<p class="tier {TIER_CLASS[t]}"><b>{TIER_ES[t] if es else t}</b> {", ".join(e(n) for n in names)}</p>')
         out.append('</article>')
     out.append('</section>')
     return '\n'.join(out)
 
 
-def main():
-    today = datetime.now(ZoneInfo('Europe/Amsterdam')).date()
-    days = [(d, load(d)) for d in (today - timedelta(n) for n in range(1, DAYS + 1))]
-    days = [(d, q) for d, q in days if q]
-    if not days:
-        return
+def build(days, es):
     latest = days[0][0]
-    prompts = ' '.join(q['prompt'].rstrip('.?') + '?' for q in days[0][1])
-    topics = ', '.join(q['prompt'].rstrip('.?') for q in days[0][1][:2])
+    prompts = ' '.join(tx(q, 'prompt', es).rstrip('.?') + '?' for q in days[0][1])
+    topics = ', '.join(tx(q, 'prompt', es).rstrip('.?') for q in days[0][1][:2])
     if len(topics) > 70:
         topics = topics[:67].rsplit(' ', 1)[0] + '…'
-    body = '\n'.join(day_html(d, q) for d, q in days)
-    nav = ' · '.join(f'<a href="#{d.isoformat()}">{d.strftime("%a %-d %b")}</a>' for d, _ in days)
-    page = f'''<!doctype html>
+    body = '\n'.join(day_html(d, q, es) for d, q in days)
+    nav = ' · '.join(f'<a href="#{d.isoformat()}">{(DIAS[d.weekday()][:3] + " " + str(d.day)) if es else d.strftime("%a %-d %b")}</a>' for d, _ in days)
+    page = (es_page if es else en_page)(latest, topics, prompts, days, body, nav)
+    out = os.path.join(ROOT, 'es', 'respuestas') if es else os.path.join(ROOT, 'answers')
+    os.makedirs(out, exist_ok=True)
+    open(os.path.join(out, 'index.html'), 'w', encoding='utf-8').write(page)
+
+
+
+
+def en_page(latest, topics, prompts, days, body, nav):
+    return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Unicorner answers {latest.strftime("%-d %B %Y")}: {e(topics)}</title>
 <meta name="description" content="All answers to Unicorner, {latest.strftime("%-d %B")}: {e(prompts)} Every valid answer from the last {len(days)} days of the daily football trivia game.">
 <link rel="canonical" href="https://unicornergame.lol/answers/">
+<link rel="alternate" hreflang="en" href="https://unicornergame.lol/answers/"><link rel="alternate" hreflang="es" href="https://unicornergame.lol/es/respuestas/">
 <link rel="icon" href="/favicon-32.png" sizes="32x32">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <style>
@@ -90,8 +107,52 @@ footer{{margin-top:30px;color:#e9dfc2;font-size:14px}}
 <div class="bar"><span>Think you know ball? Five new questions every day.</span><a class="play" href="/">Play ▶</a></div>
 </main></body></html>
 '''
-    os.makedirs(os.path.join(ROOT, 'answers'), exist_ok=True)
-    open(os.path.join(ROOT, 'answers', 'index.html'), 'w', encoding='utf-8').write(page)
+
+
+def es_page(latest, topics, prompts, days, body, nav):
+    return f'''<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Respuestas de Unicorner {fecha(latest, False)}: {e(topics)}</title>
+<meta name="description" content="Todas las respuestas de Unicorner del {fecha(latest, False, False)}: {e(prompts)} Cada respuesta válida de los últimos {len(days)} días del juego diario de preguntas de fútbol.">
+<link rel="canonical" href="https://unicornergame.lol/es/respuestas/">
+<link rel="alternate" hreflang="en" href="https://unicornergame.lol/answers/"><link rel="alternate" hreflang="es" href="https://unicornergame.lol/es/respuestas/">
+<link rel="icon" href="/favicon-32.png" sizes="32x32">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<style>
+*{{box-sizing:border-box}}body{{margin:0;background:#1d1a2b;color:#f3ead2;font:500 16px/1.5 Barlow,system-ui,sans-serif}}
+main{{max-width:760px;margin:0 auto;padding:24px 16px 48px}}a{{color:#f2c230}}
+h1{{font:400 44px/1 'Jersey 15',monospace;margin:0 0 8px;color:#f2c230;text-shadow:3px 3px 0 #1d1a2b}}
+.lead{{color:#e9dfc2;margin:0 0 16px}}.play{{display:inline-block;margin:0 0 18px;padding:12px 18px;background:#2f9a62;color:#fbf6e8;border:3px solid #1d1a2b;box-shadow:0 4px 0 #1d1a2b;font:400 24px/1 'Jersey 15',monospace;text-decoration:none}}
+nav{{font:18px VT323,monospace;margin:0 0 20px}}
+.day h2{{font:400 30px/1 'Jersey 15',monospace;margin:28px 0 10px;padding:8px 12px;background:#c8473b;color:#fff;border:3px solid #1d1a2b}}
+.q{{background:#fbf6e8;color:#1d1a2b;border:3px solid #1d1a2b;box-shadow:4px 4px 0 rgba(0,0,0,.4);padding:12px 14px;margin:0 0 12px}}
+.q h3{{margin:0;font:700 18px/1.3 Barlow,sans-serif}}.q h3 span{{font:400 20px 'Jersey 15',monospace;background:#f2c230;padding:0 6px;margin-right:4px}}
+.sub{{margin:2px 0 0;color:#5d566b;font-size:14px}}.n{{margin:6px 0;font:17px VT323,monospace;color:#5d566b}}
+.tier{{margin:4px 0;font-size:15px}}.tier b{{display:inline-block;min-width:96px;font:400 15px VT323,monospace;padding:0 6px;margin-right:6px;border:2px solid #1d1a2b;color:#fff}}
+.s b{{background:#c8473b}}.b b{{background:#ff6fb5}}.v b{{background:#7c4dff}}.h b{{background:#2f9a62}}.t b{{background:#6b6878}}
+footer{{margin-top:30px;color:#e9dfc2;font-size:14px}}
+.hero{{position:relative;display:flex;align-items:center;gap:14px;margin:-24px -16px 18px;padding:22px 16px;background:linear-gradient(rgba(27,21,48,.35),#1d1a2b),url(/bg/floodlit-wide.webp) center/cover;border-bottom:3px solid #1d1a2b;text-decoration:none}}.hero img{{width:72px;height:72px;image-rendering:pixelated;border:3px solid #1d1a2b;background:#fbf6e8}}.hero b{{font:400 34px/1 'Jersey 15',monospace;color:#f2c230;text-shadow:3px 3px 0 #1d1a2b}}.hero small{{display:block;font:18px VT323,monospace;color:#fff}}.bar{{position:sticky;bottom:0;display:flex;align-items:center;justify-content:space-between;gap:10px;margin:24px -16px -48px;padding:10px 16px;background:#fbf6e8;color:#1d1a2b;border-top:3px solid #1d1a2b;font:700 15px Barlow,sans-serif}}.bar .play{{white-space:nowrap;margin:0;font-size:20px;padding:8px 14px}}</style></head><body><main>
+<a class="hero" href="/es/"><img src="/favicon-512.png" alt="Unicorner"><span><b>Unicorner</b><small>trivia de fútbol diaria y gratis ▶ juega ya</small></span></a>
+<h1>Respuestas de Unicorner</h1>
+<p class="lead">Todas las respuestas válidas de los últimos {len(days)} días de Unicorner, el juego diario y gratis de preguntas de fútbol. Las respuestas más raras puntúan más: un «Qué chicharro» es una respuesta que casi nadie da.</p>
+<a class="play" href="/es/">Juega el partido de hoy ▶</a>
+<nav>{nav}</nav>
+{body}
+<footer>Las respuestas de hoy aparecen aquí después de medianoche (hora de Madrid). <a href="/es/">Volver a Unicorner</a></footer>
+<div class="bar"><span>¿Sabes de fútbol? Cinco preguntas nuevas cada día.</span><a class="play" href="/es/">Jugar ▶</a></div>
+</main></body></html>
+'''
+
+
+
+def main():
+    today = datetime.now(ZoneInfo('Europe/Amsterdam')).date()
+    days = [(d, load(d)) for d in (today - timedelta(n) for n in range(1, DAYS + 1))]
+    days = [(d, q) for d, q in days if q]
+    if not days:
+        return
+    for es in (False, True):
+        build(days, es)
 
     sm = os.path.join(ROOT, 'sitemap.xml')
     s = open(sm, encoding='utf-8').read()
@@ -101,6 +162,11 @@ footer{{margin-top:30px;color:#e9dfc2;font-size:14px}}
         s = re.sub(r'(<loc>https://unicornergame\.lol/answers/</loc>\s*<lastmod>)[^<]*', r'\g<1>' + today.isoformat(), s)
     else:
         s = s.replace('</urlset>', entry + '</urlset>')
+    for loc in ('https://unicornergame.lol/es/respuestas/',):
+        if f'<loc>{loc}</loc>' in s:
+            s = re.sub(r'(<loc>' + re.escape(loc) + r'</loc>\s*<lastmod>)[^<]*', r'\g<1>' + today.isoformat(), s)
+        else:
+            s = s.replace('</urlset>', f'  <url>\n    <loc>{loc}</loc>\n    <lastmod>{today.isoformat()}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>0.7</priority>\n  </url>\n</urlset>')
     open(sm, 'w', encoding='utf-8').write(s)
 
 
