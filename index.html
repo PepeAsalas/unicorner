@@ -1982,7 +1982,7 @@ const kSuit=o=>kPat((x,y)=>{if(kHead(x,y))return '#ffffff';if(y>=21)return o.leg
 const kShades=f=>{const K='#111111',G='#8fa6d6',R=[],r=(x,y,w,h,c)=>R.push([x,y,w,h,c]);r(19,6,15,1,K);r(24,7,5,2,K);r(25,9,3,1,K);r(29,7,2,1,K);r(31,7,4,2,K);r(32,9,2,1,K);r(25,7,2,1,G);r(32,7,1,1,G);return R};
 const KITS=[
  {id:'classic',en:'Club',es:'Club',req:null,pal:{}},
- {id:'rainbow',en:'Classic',es:'Clásico',req:null,pal:{}},
+ {id:'og',en:'Classic',es:'Clásico',req:null,pal:{}},
  {id:'stripes',en:'Home stripes',es:'Rayas',req:['games',3],pal:{P:'#1a1030',V:'#ff3b30',B:'#ffffff'},pat:kPat((x,y)=>x%4<2?'#ff3b30':'#ffffff')},
  {id:'hoops',en:'Blue hoops',es:'Aros azules',req:['streak',3],pal:{P:'#ffffff',V:'#2f6bff',B:'#ffffff'},pat:kPat((x,y)=>y%4<2?'#2f6bff':'#ffffff')},
  {id:'ref',en:'Referee',es:'Árbitro',req:['streak',4],pal:{W:'#2b2b2b',L:'#1c1c1c',P:'#ffd23f',V:'#ff3b30',B:'#ffd23f',w:'#2b2b2b',N:'#ffd23f'}},
@@ -2032,7 +2032,7 @@ const KITS=[
  {id:'hw-lantern',en:"Jack-o'-lantern",es:'Calabaza',req:['hw31',1],until:'2026-10-31',pal:{W:'#ff7a1a',L:'#c4501c',P:'#1a1030',V:'#3a2a1a',B:'#1a1030',w:'#ff7a1a',N:'#2fbf71',G:'#2fbf71',g:'#1f8a4c'},pat:kPat((x,y)=>{const f=(y>=8&&y<=10)&&((x>=11&&x<=13)||(x>=19&&x<=21))||(y===15&&x>=11&&x<=21)||(y===16&&x>=12&&x<=20&&x%2===0);return f?'#ffd23f':(x%5===0?'#c4501c':'#ff7a1a')})},
 ];
 let UC_KIT=(()=>{try{return KITS.find(k=>k.id===localStorage.getItem('uc-kit'))||null}catch{return null}})();
-// the free default kit (Club): charcoal mane and tail; the rainbow original is the 'rainbow' kit (Classic)
+// the free default kit (Club): charcoal mane and tail; the rainbow original is the 'og' kit (Classic); 'rainbow' is the 21-day-streak striped kit
 const CLUB={P:'#2b2b38',V:'#1d1a2b',v:'#14121e',B:'#2b2b38',N:'#d8cfb8'};
 const kitColor=(c,x,y,kit)=>{if(x>=27&&y>=21)return PAL[c];if(!kit||kit.id==='classic')return CLUB[c]||PAL[c];if(kit.pat&&(c==='W'||c==='L'))return kit.pat(x,y,c==='L');return kit.pal[c]||PAL[c]};
 const FRAMES=[["............................KGK.....", "...........................KGK......", ".......................K..KGgK......", ".....................KKWKKGgK.......", "....................KPPVWGgKKK......", "...................KPVVWWWWWWWK.....", "...................KVVBWWWWWWWK.....", "..................KVBBWWWWEwWWKK....", "..................KBBPWWWWEWWWWWK...", ".................KBPPWWWWWWWWWWWWK..", ".................KPPVWWWWWWWWWWNWK..", "................KPVVWWWWWWWWWWWWWK..", ".........KKKKKKKKVVBWWWWKKKWLLLLWK..", ".......KKWWWWWWWWWWWWWWK...KKKKKK...", "......KPWWWWWWWWWWWWWWWK............", ".....KPPWWWWWWWWWWWWWWWK............", "....KPPKWWWWWWWWWWWWWWWK............", "....KVVKWWWWWWWWWWWWWWWK............", "...KVVKKWWWWWWWWWWWWWWWK............", "...KVVKKWWWWWWWWWWWWWWWK............", "..KBBK..KLLLLLLLLLLLLLWK............", "..KBBK..KWWKWWKKKKWWKWWK............", "...KK...KWWKWWK..KWWKWWK......KK....", "........KWWKWWK..KWWKWWK.....KWWK...", "........KWWKWWK..KWWKWWK....KWKKWK..", "........KLLKLLK..KLLKLLK....KWKKWK..", "........KggKggK..KggKggK.....KWWK...", ".........KK.KK....KK.KK.......KK....", "....................................", "...................................."], ["............................KGK.....", "...........................KGK......", ".......................K..KGgK......", ".....................KKWKKGgK.......", "...................KKPPVWGgKKK......", "..................KPVVKWWWWWWWK.....", "..................KKVVBWWWWWWWK.....", ".................KVBBWWWWWEwWWKK....", ".................KKBBPWWWWEWWWWWK...", "................KBPPWWWWWWWWWWWWWK..", "................KKPPVWWWWWWWWWWNWK..", "...............KPVVWWWWWWWWWWWWWWK..", ".........KKKKKKKKVVBWWWWKKKWLLLLWK..", ".......KKWWWWWWWWWWWWWWK...KKKKKK...", "......KPWWWWWWWWWWWWWWWK............", ".....KPPWWWWWWWWWWWWWWWK............", "....KVVKWWWWWWWWWWWWWWWK............", "...KKVVKWWWWWWWWWWWWWWWK............", "..KVVKKKWWWWWWWWWWWWWWWK............", "..KBBK.KWWWWWWWWWWWWWWWK............", ".KBBK...KLLLLLLLLLLLLLWK............", ".KBBK..KWWKKKWWKKWWKKKWWK......KK...", "..KK...KWWK.KWWKKWWK.KWWK.....KWWK..", ".......KWWK.KWWKKWWK.KWWK....KWKKWK.", "......KWWK...KWWWWK...KWWK...KWKKWK.", "......KLLK...KLLLLK...KLLK....KWWK..", "......KggK...KggggK...KggK.....KK...", ".......KK.....KKKK.....KK...........", "....................................", "...................................."]];
@@ -2081,7 +2081,7 @@ const ucTrail=(()=>{const P=3,rnd=s=>{let x=Math.sin(s*127.1+311.7)*43758.5453;r
  // any other kit: its own pattern streaming backwards, or its mane colours waving
  const gen=k=>k.pat?(g,x1,y,h,t)=>{for(let x=0;x<x1;x+=P)for(let yy=0;yy<h;yy+=P){const px=((Math.floor((x+t*40)/P)%32)+32)%32,py=13+Math.floor(yy/P)%10;g.fillStyle=k.pat(px,py,false);g.fillRect(x,y+yy,P,P)}}
   :wave([k.pal.P,k.pal.P,k.pal.V,k.pal.V,k.pal.B||k.pal.P,k.pal.B||k.pal.P].map(c=>c||'#ffffff'));
- const cache=new Map();return k=>{const id=k?.id||'classic';if(!cache.has(id))cache.set(id,TR[id]?TR[id].draw:id==='classic'?TR.rainbow.draw:gen(k));return cache.get(id)}})();
+ const cache=new Map();return k=>{const id=k?.id||'classic';if(!cache.has(id))cache.set(id,TR[id]?TR[id].draw:id==='classic'||id==='og'?TR.rainbow.draw:gen(k));return cache.get(id)}})();
 const still=!!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
 let tickN=0;
 const paint=()=>document.querySelectorAll('.sprite').forEach(el=>{const set=SPR[el.dataset.mood]||SPR.happy;const sad=el.dataset.mood==='sad';
@@ -3702,8 +3702,10 @@ function kitProg(k,st){if(!k.req)return null;const[t,n]=k.req;if((t==='allfive'&
  const label=t==='level'?L('Now: ','Ahora: ')+zl(ZONES[have][1]):`${have} / ${n} ${u}`;return{have,n,frac:n?have/n:0,left:n-have,label}}
 const progBar=pr=>`<span class="kit-bar" aria-hidden="true"><i style="width:${Math.round(pr.frac*100)}%"></i></span><span class="kit-prog">${pr.label}</span>`;
 const kitPv=k=>`<span class="kit-pv"><i style="background-image:${sprite('happy',0,false,k).replace(/"/g,"'")}"></i></span>`;
+// Classic used to share the id 'rainbow' with the streak kit: a saved 'rainbow' without the 21-day streak was Classic
+try{if(localStorage.getItem('uc-kit')==='rainbow'&&!kitHas(KITS.find(k=>k.id==='rainbow'),kitStats())){localStorage.setItem('uc-kit','og');UC_KIT=KITS.find(k=>k.id==='og')}}catch{}
 function wearKit(k,fromAccount){UC_KIT=k.id==='classic'?null:k;ls('uc-kit',UC_KIT?k.id:null);buildSprites();paint();if(fromAccount)return;ls('uc-kit-dirty','1');window.ucLookSync?.()}
-window.ucLook=()=>{const st=kitStats();return{kit:UC_KIT&&UC_KIT.id!=='rainbow'?UC_KIT.id:'classic',kits:KITS.filter(k=>k.req&&kitHas(k,st)).map(k=>k.id),streak:st.streak,games:st.games}};
+window.ucLook=()=>{const st=kitStats();return{kit:UC_KIT&&UC_KIT.id!=='og'?UC_KIT.id:'classic',kits:KITS.filter(k=>k.req&&kitHas(k,st)).map(k=>k.id),streak:st.streak,games:st.games}};
 let pTab='kits',pkSame=false;
 // favourite kits show first in the Kits tab (saved on this device)
 const kitFavs=()=>{try{const v=JSON.parse(ls('uc-kit-fav')||'[]');return Array.isArray(v)?v:[]}catch{return[]}};

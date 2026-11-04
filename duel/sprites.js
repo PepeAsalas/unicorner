@@ -15,7 +15,7 @@ const kSuit=o=>kPat((x,y)=>{if(kHead(x,y))return '#ffffff';if(y>=21)return o.leg
 const kShades=f=>{const K='#111111',G='#8fa6d6',R=[],r=(x,y,w,h,c)=>R.push([x,y,w,h,c]);r(19,6,15,1,K);r(24,7,5,2,K);r(25,9,3,1,K);r(29,7,2,1,K);r(31,7,4,2,K);r(32,9,2,1,K);r(25,7,2,1,G);r(32,7,1,1,G);return R};
 const KITS=[
  {id:'classic',en:'Club',es:'Club',req:null,pal:{}},
- {id:'rainbow',en:'Classic',es:'Clásico',req:null,pal:{}},
+ {id:'og',en:'Classic',es:'Clásico',req:null,pal:{}},
  {id:'stripes',en:'Home stripes',es:'Rayas',req:['games',3],pal:{P:'#1a1030',V:'#ff3b30',B:'#ffffff'},pat:kPat((x,y)=>x%4<2?'#ff3b30':'#ffffff')},
  {id:'hoops',en:'Blue hoops',es:'Aros azules',req:['streak',3],pal:{P:'#ffffff',V:'#2f6bff',B:'#ffffff'},pat:kPat((x,y)=>y%4<2?'#2f6bff':'#ffffff')},
  {id:'ref',en:'Referee',es:'Árbitro',req:['streak',4],pal:{W:'#2b2b2b',L:'#1c1c1c',P:'#ffd23f',V:'#ff3b30',B:'#ffd23f',w:'#2b2b2b',N:'#ffd23f'}},
