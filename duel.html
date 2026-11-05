@@ -283,7 +283,7 @@ body.prog-on main>header:not(.pr-mast){display:none}
 .prog #ib-new{width:100%}.prog .ib-off{color:var(--ink);font:600 14px Barlow,sans-serif;margin:14px 0 0}
 .pr-tabs{display:none}
 @media (max-width:980px){
- .pr-cols{display:flex;flex-direction:column;align-items:stretch;gap:12px;padding:12px 10px}#s-inbox .pr-mast{padding-right:58px;flex-wrap:nowrap}#s-inbox .pr-mode{position:absolute;right:10px;top:10px;width:36px;height:36px;margin:0;display:grid;place-items:center;line-height:1}.pr-mast b{font-size:30px}.pr-me{width:48px;height:40px}.pr-iss{display:none}.pr-mast small{font-size:13px}
+ .pr-cols{display:flex;flex-direction:column;align-items:stretch;gap:12px;padding:12px 10px}#s-inbox .pr-mast{padding-right:102px;flex-wrap:nowrap}#s-inbox .pr-x{position:absolute;right:10px;top:10px;width:36px;height:36px;margin:0}#s-inbox .pr-mode{position:absolute;right:54px;top:10px;width:36px;height:36px;margin:0;display:grid;place-items:center;line-height:1}.pr-mast b{font-size:30px}.pr-me{width:48px;height:40px}.pr-iss{display:none}.pr-mast small{font-size:13px}
  .pr-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:24px 10px 0}.pr-tabs button{min-width:0;font-size:19px;padding:8px 4px;background:var(--pc);box-shadow:0 0 0 3px var(--ink),0 3px 0 3px var(--ink);transform:none!important}.pr-tabs button.on{background:#f2c230}
  .pr-tabs button i{font:15px/1 var(--mono);font-style:normal;margin-left:5px;background:#d7262e;color:#fff;padding:1px 5px;vertical-align:2px}
  #s-inbox .pr-pg{display:none}#s-inbox:not([data-tab]) .pr-pg[data-pg=m],#s-inbox[data-tab=m] .pr-pg[data-pg=m],#s-inbox[data-tab=y] .pr-pg[data-pg=y],#s-inbox[data-tab=l] .pr-pg[data-pg=l]{display:block}
@@ -292,6 +292,7 @@ body.prog-on main>header:not(.pr-mast){display:none}
 }
 
 /* dark mode: night-edition programme. Follows the device; the moon/sun button in the masthead overrides it */
+.pr-x{flex:none;margin-left:8px;width:40px;height:40px;display:grid;place-items:center;font:700 20px/1 system-ui,sans-serif;color:#fff;background:rgba(0,0,0,.25);box-shadow:0 0 0 2px #fff;text-decoration:none}.pr-x:active{transform:scale(.95)}
 .pr-mode{margin-left:10px;width:40px;height:40px;padding:0!important;font-size:20px!important;background:rgba(0,0,0,.25)!important;color:#fff!important;box-shadow:0 0 0 2px #fff!important;flex:none}
 .pr-mode:active{transform:scale(.94)!important}
 body.prog-on.night,html:has(body.prog-on.night){background:#1d1a2b}
@@ -347,7 +348,7 @@ body.prog-on.night .prog .ib-x{color:#e9dfc2}body.prog-on.night .prog .ib-off{co
   <div class="dpush" id="dpush1" hidden></div>
  </section>
  <section id="s-inbox" class="prog" hidden>
-  <header class="pr-mast"><i class="pr-me" id="pr-me"></i><div><small>OFFICIAL MATCHDAY PROGRAMME · <a href="/">← UNICORNER</a></small><b id="pr-title">My duels</b></div><div class="pr-iss" id="pr-iss"></div><button type="button" class="pr-mode" id="pr-mode" aria-label="Switch dark mode"></button></header>
+  <header class="pr-mast"><i class="pr-me" id="pr-me"></i><div><small>OFFICIAL MATCHDAY PROGRAMME · <a href="/">← UNICORNER</a></small><b id="pr-title">My duels</b></div><div class="pr-iss" id="pr-iss"></div><button type="button" class="pr-mode" id="pr-mode" aria-label="Switch dark mode"></button><a class="pr-x" href="/" aria-label="Close, back to Unicorner" title="Back to Unicorner">✕</a></header>
   <nav class="pr-tabs" id="pr-tabs"><button data-t="m" class="on">Matches<i id="pr-tab-n" hidden></i></button><button data-t="y">You</button><button data-t="l">League</button></nav>
   <div class="pr-cols">
    <div class="pr-pg" data-pg="y" style="--bc:#1d7a45">
