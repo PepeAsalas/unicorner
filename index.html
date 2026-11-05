@@ -1295,6 +1295,26 @@ body.inf-mode .inf-price{font:400 34px/1 var(--px);color:#5ef0ff;margin:6px 0 2p
 .tk-restore.tk-restore{all:unset;box-sizing:border-box;display:block;width:100%;margin:8px 0 0;padding:6px 4px;text-align:center;cursor:pointer;font:400 17px/1.25 VT323,monospace;color:#fbf6e8;text-shadow:0 2px 0 #1d1a2b}
 html body .tk-restore.tk-restore{display:block!important;width:100%!important;margin:0!important;padding:6px 14px 10px!important;background:#1d1a2b!important;color:#e9dfc2!important;border:0!important;border-radius:0!important;box-shadow:none!important;text-shadow:none!important;font:400 17px/1.25 VT323,monospace!important;text-align:left!important;text-transform:none!important;letter-spacing:.01em!important;min-height:0!important;height:auto!important}
 .tk-restore u{color:#f2c230;text-underline-offset:3px}
+/* sign-in card A: paper ticket */
+html body dialog#dlg-league.si-mode{background:#fbf6e8!important;color:#1d1a2b!important;border:3px solid #1d1a2b!important;box-shadow:0 6px 0 #1d1a2b!important;border-radius:0!important;overflow:visible!important;max-width:min(420px,calc(100vw - 24px))!important}
+html body dialog#dlg-league.si-mode .lg-x,html body dialog#dlg-league.si-mode [data-lg="close"]{background:#fbf6e8!important;color:#1d1a2b!important;border:3px solid #1d1a2b!important}
+.si{display:grid;gap:12px;padding-top:6px}
+.si-hero{display:flex;align-items:flex-end;gap:10px;padding-right:44px}
+.si-uni{flex:none;width:72px;height:72px;margin:0 0 -4px -4px;background-size:contain;background-repeat:no-repeat;background-position:center bottom;image-rendering:pixelated}
+.si h2{margin:0!important;font:400 30px/.95 "Jersey 10",monospace!important;color:#1d1a2b!important;text-wrap:balance}
+.si-sub{margin:0;font:600 15px/1.4 Barlow,sans-serif;color:#4b4560}
+.si-perks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.si-perks span{display:grid;justify-items:center;gap:3px;padding:8px 2px;background:#e9dfc2;border:2px solid #1d1a2b;font:15px/1.05 VT323,monospace;text-align:center;color:#1d1a2b}.si-perks b{font-size:20px;font-weight:400}
+.si form{display:grid;gap:8px;margin:2px 0 0}
+.si form label[for="lea-email"]{font:16px VT323,monospace;letter-spacing:.06em;color:#1d1a2b}
+html body .si #lea-email{width:100%!important;box-sizing:border-box;padding:12px!important;background:#fff!important;color:#1d1a2b!important;border:3px solid #1d1a2b!important;border-radius:0!important;font:600 16px Barlow,sans-serif!important;box-shadow:none!important}
+html body .si #lea-email:focus{outline:none!important;box-shadow:0 0 0 3px #f2c230!important}
+.si-tick{display:flex;gap:8px;align-items:center;font:15px/1.2 VT323,monospace;color:#1d1a2b}.si-tick input{width:18px;height:18px;accent-color:#2f9a62;margin:0}
+html body .si .si-cta{width:100%!important;margin:4px 0 0!important;padding:13px!important;background:#f2c230!important;color:#1d1a2b!important;border:3px solid #1d1a2b!important;border-radius:0!important;box-shadow:0 4px 0 #1d1a2b!important;font:400 24px/1 "Jersey 10",monospace!important;letter-spacing:.04em!important;text-transform:none!important;transition:transform 140ms cubic-bezier(.23,1,.32,1),box-shadow 140ms cubic-bezier(.23,1,.32,1)}
+html body .si .si-cta:active{transform:translateY(3px);box-shadow:0 1px 0 #1d1a2b!important}
+.si-fine{margin:0;font:15px/1.25 VT323,monospace;color:#5b5470}html body .si .si-fine a{color:#1d1a2b!important;text-decoration:underline}
+.si .lg-err:empty{display:none}.si-note{margin:0;font:600 14px Barlow,sans-serif;color:#c8473b}
+@media (prefers-reduced-motion:reduce){html body .si .si-cta{transition:none}}
 .lg-code{display:grid;gap:6px;margin:12px 0}.lg-code label{font-weight:700}.lg-code div{display:flex;gap:8px}.lg-code input{flex:1;min-width:0;font:400 28px/1 VT323,monospace;letter-spacing:.3em;text-align:center;padding:8px}.lg-code button{flex:none;width:auto}.lg-code .lg-err:empty{display:none}.tk-restore:focus-visible{outline:2px solid #f2c230;outline-offset:2px}
 .tk-streak.rs{margin:10px 0 14px;border:3px solid #000;border-radius:8px}
 .app-strip{position:fixed;left:50%;bottom:max(12px,env(safe-area-inset-bottom,0px));translate:-50% 0;z-index:60;width:min(520px,calc(100% - 24px));display:flex;align-items:center;gap:10px;padding:10px 10px 10px 12px;background:#fbf6e8;color:#1d1a2b;border:3px solid #1d1a2b;box-shadow:0 4px 0 #1d1a2b;animation:asin 320ms cubic-bezier(.23,1,.32,1)}
@@ -3264,7 +3284,7 @@ const dlg=$('dlg-league');
 const GOOGLE='<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>';
 const X='<button type="button" class="lg-x" data-lg="close" aria-label="Close">×</button>';
 const err=m=>{const e=$('lea-err');if(e)e.textContent=m||''};
-const show=html=>{$('lea-body').innerHTML=X+html;if(!dlg.open)dlg.showModal()};
+const show=html=>{$('lea-body').innerHTML=X+html;dlg.classList.toggle('si-mode',html.startsWith('<div class="si"'));if(!dlg.open)dlg.showModal()};
 const activeId=()=>{const a=lsGet(LG_ACTIVE),l=me?.leagues||[];return(l.find(x=>x.id===a)||l[0])?.id||null};
 const inviteLink=c=>location.origin+location.pathname.replace(/index\.html$/,'')+'?league='+c;
 
@@ -3281,19 +3301,23 @@ function boardTable(b,tab,limit){
  return `<table class="lg-board"><thead><tr><th class="rk">#</th><th>${L('Player','Jugador')}</th><th class="n">${tab==='week'?L('This week','Esta semana'):L('Today','Hoy')}</th></tr></thead><tbody>${shown.map(r=>{const i=rows.indexOf(r);const v=tab==='week'?r.week_total:r.today_score;return `<tr class="${r.me?'me':''}"><td class="rk">${tab==='today'&&r.today_score==null?'–':i+1}</td><td>${esc(r.nickname)}${r.me?L(' (you)',' (tú)'):''}</td><td class="n">${v==null?`<span class="mute">${L('not played','sin jugar')}</span>`:v}</td></tr>`}).join('')}</tbody></table>`}
 
 // ── Dialog views ──
-function viewLogin(note){const g=lsGet(LG_INTENT)==='global',inf=lsGet(LG_INTENT)==='infinity';show(`${inf?`<h2>∞ ${L('Infinity mode','Modo Infinito')}</h2>
- <p class="mute">${L('Sign in first, so your purchase is tied to your account and works on any device. Just your email, no password.','Primero inicia sesión, así tu compra va con tu cuenta y funciona en cualquier dispositivo. Solo tu email, sin contraseña.')}</p>`:backMode?`<h2>👋 ${L('Welcome back','Hola de nuevo')}</h2>
- <p class="mute">${L("Type the email you signed up with. We'll send you a link and your nickname and streak come back with you.",'Escribe el email con el que te registraste. Te mandamos un enlace y vuelven tu nombre y tu racha.')}</p>`:g?`<h2>🌍 Get on the ranking</h2>
- <p class="mute">Add a nickname and your score shows on the global ranking. Just your email — no password.</p>`:`<h2>🏆 Leagues</h2>
- <p class="mute">Play against your mates in a private league. Sign in once and your leagues follow you on any device.</p>`}
- ${note?`<p>${esc(note)}</p>`:''}
- ${LG_GOOGLE?`<button type="button" class="lg-google" data-lg="google">${GOOGLE}<span>Continue with Google</span></button>
- <div class="lg-or">or use your email</div>`:''}
- <form id="lea-email-form"><label for="lea-email">Email</label><input id="lea-email" type="email" required maxlength="120" autocomplete="email" value="${esc(signInEmail)}">
- ${backMode?'':`<label class="check"><input type="checkbox" id="lea-optout-signup" ${lsGet(LG_OPTOUT)==='1'?'checked':''}> <span>I don't want reminders or Unicorner news</span></label>`}
- <div class="lg-row"><button type="submit">Email me a sign-in link</button></div></form>
+function viewLogin(note){const g=lsGet(LG_INTENT)==='global',inf=lsGet(LG_INTENT)==='infinity';
+ // sign-in card "A": paper ticket, the unicorn peeking over, three reasons, one email box, a code (title follows why it opened)
+ const [h,sub]=inf?[L('Unlock Infinity','Desbloquea el Infinito'),L('Sign in first so your purchase stays with your account on any device.','Primero inicia sesión, así tu compra va con tu cuenta en cualquier dispositivo.')]
+  :backMode?[L('Welcome back','Hola de nuevo'),L('Type the email you signed up with. Your nickname, scores and streak come back with you.','Escribe el email con el que te registraste. Vuelven tu nombre, tus puntos y tu racha.')]
+  :g?[L('Get on the ranking','Entra en el ranking'),L('Sign in and your score shows on the global ranking, with your scores and streak on any phone.','Inicia sesión y tu puntuación sale en el ranking global, con tus puntos y tu racha en cualquier móvil.')]
+  :[L('Never lose your streak','No pierdas nunca tu racha'),L('Sign in and your scores, streak and kits follow you to any phone.','Inicia sesión y tus puntos, tu racha y tus equipaciones te siguen a cualquier móvil.')];
+ let uni='';try{const css=spriteDraw('happy',0,false,(typeof UC_KIT!=='undefined'&&UC_KIT)||KITS.find(k=>k.id==='classic'));uni=`<i class="si-uni" style="background-image:${css.replace(/"/g,"'")}"></i>`}catch{}
+ show(`<div class="si"><div class="si-hero">${uni}<h2>${h}</h2></div>
+ <p class="si-sub">${sub}</p>
+ <div class="si-perks"><span><b>🔥</b>${L('Streak saved','Racha guardada')}</span><span><b>🏆</b>${L('Global ranking','Ranking global')}</span><span><b>⚔️</b>${L('Duels by name','Duelos por nombre')}</span></div>
+ ${note?`<p class="si-note">${esc(note)}</p>`:''}
+ ${LG_GOOGLE?`<button type="button" class="lg-google" data-lg="google">${GOOGLE}<span>Continue with Google</span></button><div class="lg-or">or use your email</div>`:''}
+ <form id="lea-email-form"><label for="lea-email">${L('YOUR EMAIL','TU EMAIL')}</label><input id="lea-email" type="email" required maxlength="120" autocomplete="email" placeholder="you@email.com" value="${esc(signInEmail)}">
+ ${backMode?'':`<label class="si-tick"><input type="checkbox" id="lea-news" ${lsGet(LG_OPTOUT)==='1'?'':'checked'}> <span>${L('Remind me about my streak and new games','Avísame de mi racha y de juegos nuevos')}</span></label>`}
+ <button type="submit" class="si-cta">${L('Send me a code','Envíame un código')}</button></form>
  <p class="lg-err" id="lea-err" role="status">${esc(oauthError)}</p>
- <p class="mute lg-small">The daily game stays free with no sign-up — this is only for the rankings and leagues. <a href="/privacy.html">Privacy</a>.</p>`);oauthError=''}
+ <p class="si-fine">${L('No password. The daily game stays free without signing in.','Sin contraseña. El juego diario sigue gratis sin iniciar sesión.')} <a href="/privacy.html">${L('Privacy','Privacidad')}</a></p></div>`);oauthError=''}
 function viewCheckEmail(){show(`<h2>Check your email 📬</h2>
  <p>We sent a sign-in link and code to <b>${esc(signInEmail)}</b>.</p>
  <form class="lg-code" id="lg-code" autocomplete="one-time-code"><label for="lg-code-in">Type the code from the email</label><div><input id="lg-code-in" inputmode="numeric" pattern="[0-9]*" maxlength="10" autocomplete="one-time-code" placeholder="123456" aria-describedby="lg-code-msg"><button type="submit">Sign in</button></div><p class="lg-err" id="lg-code-msg" role="status"></p></form>
@@ -3739,7 +3763,7 @@ document.addEventListener('submit',async e=>{const f=e.target;if(!f.classList?.c
  }catch(x){say(x.message);btn.disabled=false}finally{busy=false}});
 document.addEventListener('submit',async e=>{const f=e.target;if(!f.id?.startsWith('lea-'))return;e.preventDefault();if(busy)return;busy=true;const btn=f.querySelector('[type=submit]');if(btn)btn.disabled=true;err('');
  try{
-  if(f.id==='lea-email-form'){signInEmail=$('lea-email').value.trim();await sendLink(signInEmail,$('lea-optout-signup')?$('lea-optout-signup').checked:lsGet(LG_OPTOUT)==='1');if($('lea-infwait')?.checked)joinWaitlist(signInEmail,'league_signup');track('league_login_start',{method:'email'});viewCheckEmail()}
+  if(f.id==='lea-email-form'){signInEmail=$('lea-email').value.trim();await sendLink(signInEmail,$('lea-news')?!$('lea-news').checked:lsGet(LG_OPTOUT)==='1');if($('lea-infwait')?.checked)joinWaitlist(signInEmail,'league_signup');track('league_login_start',{method:'email'});viewCheckEmail()}
   else if(f.id==='lea-profile-form'){const nick=$('lea-nick').value.trim();if(/fuck|shit|cunt|nigg|fagg|hitler|nazi/i.test(nick))throw new Error('Pick a different nickname');const first=!me?.profile;await rpc('lg_save_profile',{p_nickname:nick,p_news_opt_out:first?lsGet(LG_OPTOUT)==='1':$('lea-optout').checked});await loadMe();lsSet(LG_NICK,null);lsSet(LG_SENT,null);track('league_profile',{first});busy=false;await syncScore();if(first){const pending=lsGet(LG_PENDING);if(pending)await viewJoin(pending);else if(lsGet(LG_INTENT)==='global'){lsSet(LG_INTENT,null);await viewGlobal(true)}else await viewHome()}else await viewHome();renderSlots()}
   else if(f.id==='lea-create-form'){if((me?.leagues?.length||0)>=LG_MAX){busy=false;return viewMore()}const l=await rpc('lg_create_league',{p_name:$('lea-name').value.trim()});track('league_create',{});lsSet(LG_ACTIVE,l.id);await loadMe();board=null;await viewHome();renderSlots();showToast('League created — now invite your mates!')}
  }catch(x){err(x.message);if(btn)btn.disabled=false}finally{busy=false}});
