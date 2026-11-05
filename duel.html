@@ -568,7 +568,7 @@ const pushOK=()=>'serviceWorker' in navigator&&'PushManager' in window&&'Notific
 const pushEP=()=>ls('uc-push-ep')||'';
 const b64u=x=>{const p='='.repeat((4-x.length%4)%4),b=atob((x+p).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(b,c=>c.charCodeAt(0))};
 async function duelPush(c){try{const t=await userToken();if(!t||!c)return;fetch(SB_URL+'/functions/v1/duel-push',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:JSON.stringify({code:c})}).catch(()=>{})}catch{}}
-function pushBox(id){const el=$(id);if(!el||!pushOK())return;const on=!!pushEP()&&Notification.permission==='granted';el.hidden=false;el.className='dpush'+(on?' on':'');
+function pushBox(id){const el=$(id);if(!el||!pushOK())return;const on=!!pushEP()&&Notification.permission==='granted';if(on){el.hidden=true;return}el.hidden=false;el.className='dpush'+(on?' on':'');
  el.innerHTML=`<span>🔔 ${on?"You'll get a notification when someone challenges you.":'Get a notification when someone challenges you to a duel.'}</span><button type="button">${on?'Turn off':'Turn on'}</button>`;
  el.querySelector('button').onclick=async e=>{e.target.disabled=true;try{const reg=await navigator.serviceWorker.register('/sw.js');await navigator.serviceWorker.ready;
   if(on){const sub=await reg.pushManager.getSubscription();const ep=pushEP();if(sub)await sub.unsubscribe().catch(()=>{});await fetch(SB_URL+'/rest/v1/rpc/push_remove',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({p_endpoint:ep})}).catch(()=>{});try{localStorage.removeItem('uc-push-ep')}catch{}track('duel_push_off',{})}

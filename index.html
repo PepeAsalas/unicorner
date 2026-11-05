@@ -2653,7 +2653,7 @@ const pushOK=()=>!!VAPID_PUB&&'serviceWorker' in navigator&&'PushManager' in win
 const pushEP=()=>{try{return localStorage.getItem('uc-push-ep')||''}catch{return''}};
 async function pushRpc(fn,args){return fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify(args)}).then(r=>{if(!r.ok)throw new Error('push '+r.status)})}
 function pushPlayed(){const ep=pushEP();if(!ep||!pushOK())return;pushRpc('push_played',{p_endpoint:ep,p_streak:currentStreak(),p_day:amsterdamDay()}).catch(()=>{})}
-function remindHTML(){if(!pushOK()||Notification.permission==='denied')return'';const on=!!pushEP()&&Notification.permission==='granted';
+function remindHTML(){if(!pushOK()||Notification.permission==='denied')return'';const on=!!pushEP()&&Notification.permission==='granted';if(on)return'';
  return`<div class="remind${on?' on':''}" id="remind"><span>🔔 ${on?L("We'll remind you in the evening if you haven't played, so your streak doesn't end.",'Te avisaremos por la tarde si aún no has jugado, para que no pierdas la racha.'):L('Get a reminder in the evening if you haven\'t played yet, so your streak never ends.','Recibe un aviso por la tarde si aún no has jugado, para que tu racha no se corte.')}</span><button type="button" id="remind-btn">${on?L('Turn off','Desactivar'):L('Remind me','Avísame')}</button></div>`}
 // key change: a sign-up made with an older key is renewed with the current one, keeping its streak and day
 addEventListener('load',()=>setTimeout(async()=>{try{if(!pushOK()||!pushEP()||Notification.permission!=='granted')return;const reg=await navigator.serviceWorker.ready;const sub=await reg.pushManager.getSubscription();
