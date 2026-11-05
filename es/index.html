@@ -1294,6 +1294,9 @@ body.inf-mode .inf-price{font:400 34px/1 var(--px);color:#5ef0ff;margin:6px 0 2p
 .spicy small{display:block;margin-top:6px;font-family:var(--lab);font-size:15px;color:#e9dfc2;line-height:1.35}
 @keyframes spicy-pulse{50%{color:#ff7a5c;text-shadow:0 3px 0 #000,0 0 26px rgba(255,59,48,.95);transform:scale(1.04)}}
 @media (prefers-reduced-motion:reduce){.spicy-h{animation:none}}
+.tk-restore.tk-restore{all:unset;box-sizing:border-box;display:block;width:100%;margin:8px 0 0;padding:6px 4px;text-align:center;cursor:pointer;font:400 17px/1.25 VT323,monospace;color:#fbf6e8;text-shadow:0 2px 0 #1d1a2b}
+html body .tk-restore.tk-restore{display:block!important;width:100%!important;margin:0!important;padding:6px 14px 10px!important;background:#1d1a2b!important;color:#e9dfc2!important;border:0!important;border-radius:0!important;box-shadow:none!important;text-shadow:none!important;font:400 17px/1.25 VT323,monospace!important;text-align:left!important;text-transform:none!important;letter-spacing:.01em!important;min-height:0!important;height:auto!important}
+.tk-restore u{color:#f2c230;text-underline-offset:3px}.tk-restore:focus-visible{outline:2px solid #f2c230;outline-offset:2px}
 .tk-streak.rs{margin:10px 0 14px;border:3px solid #000;border-radius:8px}
 .app-strip{position:fixed;left:50%;bottom:max(12px,env(safe-area-inset-bottom,0px));translate:-50% 0;z-index:60;width:min(520px,calc(100% - 24px));display:flex;align-items:center;gap:10px;padding:10px 10px 10px 12px;background:#fbf6e8;color:#1d1a2b;border:3px solid #1d1a2b;box-shadow:0 4px 0 #1d1a2b;animation:asin 320ms cubic-bezier(.23,1,.32,1)}
 @keyframes asin{from{opacity:0;transform:translateY(16px)}}
@@ -2156,6 +2159,10 @@ const streakLine=info=>{const n=info.count;
  if(n>0)return `<b>${n}-day streak</b> — play today to make it ${n+1}`;
  if(info.ever)return 'Your streak ended — start a new one today';
  return 'Start a streak today — play every day to keep the flame lit'};
+// landing: someone who played on another phone can sign in to get today's score and streak back (synced by syncDays/syncScore)
+const restoreLink=played=>{if(played)return'';try{if(localStorage.getItem('uc-player-session'))return''}catch{}
+ return`<button type="button" class="tk-restore" data-restore>${L('Played on another phone? <u>Sign in</u> to get your score and streak back','¿Jugaste en otro móvil? <u>Inicia sesión</u> para recuperar tu puntuación y tu racha')}</button>`};
+document.addEventListener('click',e=>{if(!e.target.closest('[data-restore]'))return;track('restore_click',{});window.ucOpenLogin?.()});
 const streakStrip=(info,cls)=>`<div class="tk-streak ${cls||''}${info.count?' lit':''}"><i class="pixel-flame${info.count?' flicker':' off'}" aria-hidden="true"></i><span class="tk-streak-txt">${cls==='short'?(info.count?L(`${info.count}-day streak`,`Racha de ${info.count} día${info.count===1?'':'s'}`):L('No streak yet','Aún sin racha')):streakLine(info)}</span>${streakBoxes(info)}</div>`;
 // "37 fans played today · top score 480" on the ticket
 async function liveLine(){const day=amsterdamDay(),h={apikey:SB_KEY,Authorization:'Bearer '+SB_KEY};
@@ -2224,6 +2231,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
    </div>
   </div>
   ${streakStrip(sInfo,'short')}
+  ${restoreLink(played)}
  </section></div>
  <div class="hz3"><div class="hz3-side"><b>${L("HORACIO'S<br>GAMES","LOS JUEGOS<br>DE HORACIO")}</b><img src="/rosco/host/point.png" alt="" width="128" height="128"></div><div class="hz3-rows"><a class="hz3-row" href="${ES?'/es/rosco.html':'/rosco.html'}" data-track="rosco_card"><span><b class="hz3-t">Rosco</b><small>${L('No.','n.º')} ${Math.max(1,Math.round((Date.parse(amsterdamDay())-Date.parse('2026-10-30'))/864e5)+1)} · ${L('24 letters','24 letras')}</small></span><span class="hz3-go">${L('Play','Jugar')}</span></a><a class="hz3-row" href="${ES?'/es/millon.html':'/millon.html'}" data-track="millon_card"><span><b class="hz3-t">${L('Millions','Millones')} <i>${L('New','Nuevo')}</i></b><small>${L('Start with 1,000,000','Con 1.000.000 €')}</small></span><span class="hz3-go g">${L('Play','Jugar')}</span></a></div></div>
  </div>
@@ -3330,7 +3338,7 @@ function viewMore(join){moreJoin=join||null;const cur=me?.leagues?.[0],email=ses
 function joinWaitlist(email,from,note){if(!email||lsGet(LG_INF)===email)return;
  dbP.then(db=>db&&db.collection('submissions').add({kind:'infinite-waitlist',email,from,note:note||'Ticked the waitlist box when signing up',newsletter:lsGet(LG_OPTOUT)!=='1',privacyNoticeVersion:'2026-09-18',sentAt:new Date().toISOString()})).catch(()=>{});
  lsSet(LG_INF,email);track('infinite_waitlist',{from})}
-window.ucJoinWaitlist=joinWaitlist;window.ucInfLogin=()=>{lsSet(LG_INTENT,'infinity');backMode=false;viewLogin()};window.ucUserId=async()=>{const t=await token();try{return JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'))).sub||''}catch{return ''}};window.ucSignedEmail=()=>sess?.email||'';window.ucRpc=rpc;window.ucPubRpc=pubRpc;window.ucSignedIn=()=>!!sess;window.ucToken=()=>token();
+window.ucJoinWaitlist=joinWaitlist;window.ucOpenLogin=()=>open('restore');window.ucInfLogin=()=>{lsSet(LG_INTENT,'infinity');backMode=false;viewLogin()};window.ucUserId=async()=>{const t=await token();try{return JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'))).sub||''}catch{return ''}};window.ucSignedEmail=()=>sess?.email||'';window.ucRpc=rpc;window.ucPubRpc=pubRpc;window.ucSignedIn=()=>!!sess;window.ucToken=()=>token();
 async function notifyInfinity(){const email=sess?.email;if(!email)throw new Error('Please sign in again');
  const data={email,from:'leagues',note:'Wants more leagues',newsletter:!me?.profile?.news_opt_out,privacyNoticeVersion:'2026-09-18'};
  fetch('https://formsubmit.co/ajax/joseasalasnl@gmail.com',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({_subject:'Unicorner: Infinity mode waitlist',_template:'table',_captcha:'false',_replyto:email,type:'Infinity mode waitlist',...Object.fromEntries(Object.entries(data).map(([k,v])=>[k,String(v)])),sent:new Date().toLocaleString('en-GB')})}).catch(()=>{});
