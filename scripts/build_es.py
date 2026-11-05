@@ -64,7 +64,7 @@ for (q, a), (qe, ae) in zip(FAQ_EN_NEW, FAQ[4:]):
 def build():
     s = SRC.read_text(encoding='utf-8')
     s = s.replace('<a class="privacy-link lang-link" href="/es/" hreflang="es">Español</a>', '<a class="privacy-link lang-link" href="/" hreflang="en">English</a>', 1)
-    s = s.replace('href="/answers/">Past answers</a>', 'href="/es/respuestas/">Past answers</a>', 1).replace('href="/football-trivia-questions/">Trivia questions</a>', 'href="/es/preguntas-futbol/">Preguntas de fútbol</a>', 1).replace('>How to play</a>', '>Cómo se juega</a>', 1)
+    s = s.replace('href="/answers/">Past answers</a>', 'href="/es/respuestas/">Past answers</a>', 1).replace('href="/football-trivia-questions/">Trivia questions</a>', 'href="/es/preguntas-futbol/">Preguntas de fútbol</a>', 1).replace('>How to play</a>', '>Cómo se juega</a>', 1).replace('>📲 Get the app</a>', '>📲 Descarga la app</a>', 1)
     s = s.replace('>Past answers</a>', '>Respuestas anteriores</a>', 1).replace('href="/duel.html">Duels</a>', 'href="/duel.html">Duelos</a>', 1)
 
     def sub(old, new, count=1):
