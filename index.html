@@ -3376,7 +3376,12 @@ window.openLeagues=open;
 document.addEventListener('submit',async e=>{const f=e.target.closest('#lg-code');if(!f)return;e.preventDefault();const inp=$('lg-code-in'),msg=$('lg-code-msg'),btn=f.querySelector('button'),code=inp.value.replace(/\D/g,'');
  if(code.length<6){msg.textContent=L('Enter the code from the email.','Escribe el código del email.');return inp.focus()}
  btn.disabled=true;msg.textContent='';try{const j=await authPost('/auth/v1/verify',{type:'email',email:signInEmail,token:code});saveSess(j);track('league_login',{method:'email_code'});
-  renderSlots();syncScore();syncDays();if(pendingNick())return autoClaim();return open('login')}
+  renderSlots();syncScore();
+  // back to the game, not the leagues: restore past days and today's score, then show the home page (new players pick a nickname first)
+  try{await loadMe()}catch{}if(!me?.profile){if(pendingNick())return autoClaim();return viewProfile()}
+  if(dlg.open)dlg.close();await syncDays();const had=!!getPlayed();await window.ucCheckRemote();
+  if(document.body.classList.contains('landing')&&typeof start==='function')start();
+  showToast(!had&&getPlayed()?L("✅ Signed in. Today's score is back.",'✅ Sesión iniciada. Tu puntuación de hoy ha vuelto.'):L('✅ Signed in','✅ Sesión iniciada'))}
  catch{btn.disabled=false;msg.textContent=L("That code didn't work. Check it, or ask for a new email.",'Ese código no vale. Revísalo o pide otro email.');track('league_code_fail',{})}});
 async function sendLink(email,optout,nick){lsSet(LG_OPTOUT,optout?'1':'0');const back=new URLSearchParams({l:'1'});if(optout)back.set('optout','1');const inv=lsGet(LG_PENDING);if(inv)back.set('league',inv);if(lsGet(LG_INTENT)==='global')back.set('i','g');if(lsGet(LG_INTENT)==='infinity')back.set('i','inf');const pl=playedToday();if(pl){back.set('s',pl.score);back.set('d',pl.day)}if(nick){back.set('n',nick);lsSet(LG_NICK,nick)}
  const to=location.origin+location.pathname+(back.toString()?'?'+back:'');
