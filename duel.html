@@ -64,6 +64,8 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 }
 .cab canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
 .small{font-size:18px}
+.dpush{display:flex;align-items:center;gap:10px;margin-top:14px;padding:10px 12px;border:3px dashed rgba(29,26,43,.45);font:17px/1.25 var(--mono)}.dpush span{flex:1;min-width:0}
+.dpush button{width:auto;flex:none;font-size:18px;padding:6px 12px}.dpush.on{border-style:solid;opacity:.85}.dpush.on button{background:transparent;box-shadow:none;color:inherit;text-decoration:underline}
 .find{display:grid;gap:8px;margin:2px 0 14px}
 .find-l{font-family:var(--disp);font-size:22px;letter-spacing:1px}
 .find-box{position:relative}
@@ -342,6 +344,7 @@ body.prog-on.night .prog .ib-x{color:#e9dfc2}body.prog-on.night .prog .ib-off{co
   <button class="qm-btn" id="h-quick" hidden style="margin-top:12px">⚡ Quick match</button>
   <button class="ghost" id="h-bots" style="margin-top:12px">🤖 Practice vs bots</button>
   <button class="ghost" id="to-inbox" hidden style="margin-top:12px">My duels</button>
+  <div class="dpush" id="dpush1" hidden></div>
  </section>
  <section id="s-inbox" class="prog" hidden>
   <header class="pr-mast"><i class="pr-me" id="pr-me"></i><div><small>OFFICIAL MATCHDAY PROGRAMME · <a href="/">← UNICORNER</a></small><b id="pr-title">My duels</b></div><div class="pr-iss" id="pr-iss"></div><button type="button" class="pr-mode" id="pr-mode" aria-label="Switch dark mode"></button></header>
@@ -370,6 +373,7 @@ body.prog-on.night .prog .ib-x{color:#e9dfc2}body.prog-on.night .prog .ib-off{co
      <button id="ib-new" class="ghost">+ Challenge a mate</button>
      <button class="ghost" id="ib-bots" style="margin-top:12px">🤖 Practice vs bots</button>
      <label class="ib-off"><input type="checkbox" id="ib-allow"> Let other players challenge me</label>
+     <div class="dpush" id="dpush2" hidden></div>
     </div>
    </div>
    <div class="pr-pg" data-pg="l" style="--bc:#b8860b">
@@ -557,6 +561,20 @@ function findInit(signed){const box=$('find'),q=$('find-q'),res=$('find-res'),no
    res.innerHTML=r.map(x=>`<li>${uni(KITS.find(k=>k.id===x.kit)||kitFor(x.nick))}<b>${esc(x.nick)}<small>${x.games?x.games+' game'+(x.games===1?'':'s')+' played':'New player'}</small></b><button type="button" data-nick="${esc(x.nick)}">Duel</button></li>`).join('');
    track('duel_search',{len:v.length,found:r.length})},250)};
  res.onclick=e=>{const b=e.target.closest('button[data-nick]');if(!b)return;track('duel_search_pick',{});location.href='duel.html?vs='+encodeURIComponent(b.dataset.nick)}}
+// duel notifications: same web push as the daily streak reminder (sw.js, push.sql), tied to the account (push_duels.sql)
+const VAPID_PUB='BJogKtg-egdRvdz60-8NWT8usqSGDtapdxLqH-F1NVwkajk07epjtpfhT04gFgRdpRBrH_0IEm-L0pFZ_CxYwD8';
+const pushOK=()=>'serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window&&Notification.permission!=='denied';
+const pushEP=()=>ls('uc-push-ep')||'';
+const b64u=x=>{const p='='.repeat((4-x.length%4)%4),b=atob((x+p).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(b,c=>c.charCodeAt(0))};
+async function duelPush(c){try{const t=await userToken();if(!t||!c)return;fetch(SB_URL+'/functions/v1/duel-push',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:JSON.stringify({code:c})}).catch(()=>{})}catch{}}
+function pushBox(id){const el=$(id);if(!el||!pushOK())return;const on=!!pushEP()&&Notification.permission==='granted';el.hidden=false;el.className='dpush'+(on?' on':'');
+ el.innerHTML=`<span>🔔 ${on?"You'll get a notification when someone challenges you.":'Get a notification when someone challenges you to a duel.'}</span><button type="button">${on?'Turn off':'Turn on'}</button>`;
+ el.querySelector('button').onclick=async e=>{e.target.disabled=true;try{const reg=await navigator.serviceWorker.register('/sw.js');await navigator.serviceWorker.ready;
+  if(on){const sub=await reg.pushManager.getSubscription();const ep=pushEP();if(sub)await sub.unsubscribe().catch(()=>{});await fetch(SB_URL+'/rest/v1/rpc/push_remove',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({p_endpoint:ep})}).catch(()=>{});try{localStorage.removeItem('uc-push-ep')}catch{}track('duel_push_off',{})}
+  else{if(await Notification.requestPermission()!=='granted'){el.hidden=true;return}const sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64u(VAPID_PUB)});const j=sub.toJSON();
+   await fetch(SB_URL+'/rest/v1/rpc/push_save',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({p_sub:j,p_visitor:ls('uc-visitor'),p_lang:'en',p_streak:0,p_day:null})});
+   ls('uc-push-ep',j.endpoint);await rpc('push_link',{p_endpoint:j.endpoint}).catch(()=>{});track('duel_push_on',{})}
+  pushBox('dpush1');pushBox('dpush2')}catch(err){track('duel_push_error',{err:String(err&&err.message||err).slice(0,120)});e.target.disabled=false;el.querySelector('span').textContent="Couldn't turn on notifications in this browser."}}}
 async function boot(){if(!ls('uc-duel-intro'))openIntro('first');sides();$('nm').value=$('nm2').value=ls('uc-nick')||ls('uc-duel-name')||'';
  // signed-in players already have a leaderboard nickname: use it, don't ask again
  if(ls('uc-nick'))for(const id of['nm','nm2']){const l=$(id).closest('label');if(l&&!l.dataset.nick){l.dataset.nick=1;l.hidden=true;const p=document.createElement('p');p.className='small';p.textContent='Playing as '+ls('uc-nick');l.after(p)}}
@@ -566,7 +584,7 @@ async function boot(){if(!ls('uc-duel-intro'))openIntro('first');sides();$('nm')
  if(VSN&&!code){if(!await userToken())return fail('Sign in on Unicorner (the league login) to challenge players.');if(!playedToday())return gate();
   $('h-title').textContent=`CHALLENGE ${VSN.toUpperCase().slice(0,16)}`;$('create').textContent='Send challenge';$('create').dataset.vs=VSN;
   $('home-rules').dataset.vs=VSN;homeRules();show('s-home');return}
- if(!code){if(!playedToday()){if(await userToken())$('g-inbox').hidden=false;return gate()}record('rec1');const sg=!!(await userToken());if(sg)$('to-inbox').hidden=$('h-quick').hidden=false;findInit(sg);show('s-home');return}
+ if(!code){if(!playedToday()){if(await userToken())$('g-inbox').hidden=false;return gate()}record('rec1');const sg=!!(await userToken());if(sg){$('to-inbox').hidden=$('h-quick').hidden=false;pushBox('dpush1');if(pushEP())rpc('push_link',{p_endpoint:pushEP()}).catch(()=>{})}findInit(sg);show('s-home');return}
  try{[D]=await Promise.all([rpc('duel_get',{p_code:code,p_token:TOKEN}),loadRules()])}catch(e){track('duel_load_error',{message:String(e&&e.message||e).slice(0,160)});return fail(navigator.onLine===false?'You seem to be offline. Check your connection and try again.':'Could not load this duel. Try again in a moment.'+(e&&e.message?' ('+String(e.message).slice(0,80)+')':''))}
  if(!D)return fail('That duel link does not exist.');
  const me=D.players.find(p=>p.slot===D.me),p1=D.players.find(p=>p.slot===1);
@@ -634,7 +652,7 @@ let IBZ=null,IBREC=null,IBQ=new Set();
 async function inbox(){if(!await userToken())return fail('Sign in on Unicorner (the league login) to see your duels.');
  document.body.classList.add('prog-on');
  try{[IBR,IBZ,IBREC,IBQ]=await Promise.all([rpc('duel_inbox',{}),rpc('duel_season',{}).catch(()=>null),rpc('duel_record',{p_token:TOKEN}).catch(()=>null),rpc('duel_quick_mine',{}).catch(()=>[])]);IBR=IBR||{items:[]};IBQ=new Set(IBQ||[])}catch{return fail('Could not load your duels. Try again in a moment.')}
- track('duel_inbox',{n:IBR.items.length});$('ib-allow').checked=!IBR.off;ibDraw();show('s-inbox')}
+ track('duel_inbox',{n:IBR.items.length});$('ib-allow').checked=!IBR.off;pushBox('dpush2');ibDraw();show('s-inbox')}
 function pyramid(){const mi=IBZ&&IBZ.mine,el=$('pr-pyr');
  if(!mi){el.innerHTML='<p class="pr-note">Play rated duels (both players signed in) to get a league this season.</p>';$('pr-div-r').textContent='';return}
  const placing=mi.g<5,cur=placing?-1:PYR_TIERS.findLastIndex(t=>mi.r>=t[1]),nx=PYR_TIERS[cur+1];
@@ -690,7 +708,7 @@ $('ib-new').onclick=()=>{location.href='duel.html'};$('to-inbox').onclick=()=>{l
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 $('create').onclick=async e=>{const n=$('nm').value.trim();if(!n)return $('nm').focus();ls('uc-duel-name',n);e.target.disabled=true;e.target.textContent='Creating…';
  try{const qset=await pickQs();const vs=e.target.dataset.vs;const c=vs?await rpc('duel_challenge',{p_token:TOKEN,p_name:n,p_kit:KIT,p_qset:qset,p_nick:vs}):await rpc('duel_create',{p_token:TOKEN,p_name:n,p_kit:KIT,p_qset:qset});
-  const[rp,rs]=myRules();if(rp!==5||rs!==15)await rpc('duel_set_rules',{p_code:c,p_token:TOKEN,p_per:rp,p_secs:rs}).catch(err=>track('duel_rules_fail',{err:String(err.message).slice(0,120)}));track(vs?'duel_challenge':'duel_create',{code:c});location.href='duel.html?d='+c}catch(err){e.target.disabled=false;e.target.textContent='Create duel';fail('Could not create the duel: '+err.message)}};
+  const[rp,rs]=myRules();if(rp!==5||rs!==15)await rpc('duel_set_rules',{p_code:c,p_token:TOKEN,p_per:rp,p_secs:rs}).catch(err=>track('duel_rules_fail',{err:String(err.message).slice(0,120)}));if(vs)await duelPush(c);track(vs?'duel_challenge':'duel_create',{code:c});location.href='duel.html?d='+c}catch(err){e.target.disabled=false;e.target.textContent='Create duel';fail('Could not create the duel: '+err.message)}};
 $('join').onclick=async e=>{const n=$('nm2').value.trim();if(!n)return $('nm2').focus();ls('uc-duel-name',n);e.target.disabled=true;
  try{await rpc('duel_join',{p_code:code,p_token:TOKEN,p_name:n,p_kit:KIT});ls('uc-duel-pending','');track('duel_join',{code});play()}catch(err){fail(/someone else|declined|expired/.test(err.message)?'Could not join: '+err.message+'.':/duel yourself/.test(err.message)?"That's your own duel. Send the link to a mate.":err.message==='duel is full'?'This duel already has two players.':'Could not join: '+err.message)}};
 $('copy').onclick=async e=>{await copy(code);e.target.textContent='Copied ✓'};$('copy2').onclick=async e=>{await copy(code);e.target.textContent='Copied ✓'};
@@ -711,7 +729,7 @@ $('ib-bots').onclick=$('h-bots').onclick=botPicker;
 // rematch from results: send the challenge right away (same rules as last time) and play round 1
 document.addEventListener('click',async e=>{const b=e.target.closest('[data-re]');if(!b)return;b.disabled=true;b.textContent='Sending…';
  try{const[p,sx]=myRules(),qset=await pickQs(),c=await rpc('duel_challenge',{p_token:TOKEN,p_name:(ls('uc-nick')||'Player').slice(0,16),p_kit:KIT,p_qset:qset,p_nick:b.dataset.re});
-  if(p!==5||sx!==15)await rpc('duel_set_rules',{p_code:c,p_token:TOKEN,p_per:p,p_secs:sx}).catch(()=>{});track('duel_challenge',{code:c,from:'rematch'});location.href='duel.html?d='+c}
+  if(p!==5||sx!==15)await rpc('duel_set_rules',{p_code:c,p_token:TOKEN,p_per:p,p_secs:sx}).catch(()=>{});await duelPush(c);track('duel_challenge',{code:c,from:'rematch'});location.href='duel.html?d='+c}
  catch(err){b.disabled=false;b.textContent='Rematch';alert(/already have a duel/.test(err.message)?'You already have a duel going with this player.':'Could not send the rematch: '+err.message)}});
 $('go').onclick=()=>play();$('refresh').onclick=()=>location.reload();
 $('rematch').onclick=()=>{if(isBot(code))return botStart(botGet(code).bot);location.href='duel.html'};

@@ -2632,7 +2632,7 @@ document.addEventListener('click',async e=>{const b=e.target.closest('#remind-bt
   else{const perm=await Notification.requestPermission();if(perm!=='granted'){track('push_denied',{perm});box.outerHTML='';return}
    const sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64u(VAPID_PUB)});const j=sub.toJSON();
    await pushRpc('push_save',{p_sub:j,p_visitor:VISITOR,p_lang:ES?'es':'en',p_streak:currentStreak(),p_day:getPlayed()?amsterdamDay():null});
-   try{localStorage.setItem('uc-push-ep',j.endpoint)}catch{}track('push_on',{streak:currentStreak()})}
+   try{localStorage.setItem('uc-push-ep',j.endpoint)}catch{}window.ucPushLink?.(j.endpoint);track('push_on',{streak:currentStreak()})}
   box.outerHTML=remindHTML()}
  catch(err){track('push_error',{err:String(err&&err.message||err).slice(0,120)});b.disabled=false;const sp=box.querySelector('span');if(sp)sp.textContent=L("Couldn't turn on reminders in this browser. Try again later.",'No se han podido activar los avisos en este navegador. Inténtalo más tarde.')}});
 const SB_URL="https://yujhjepukzdahsppntua.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1amhqZXB1a3pkYWhzcHBudHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2NDMzNDcsImV4cCI6MjEwNTIxOTM0N30.YIOdtL7tJnNLPFPy19QuXe6w3Dcnz6Xedw0tFGdV_CE";
@@ -3002,6 +3002,10 @@ async function token(){if(!sess)return null;if(Date.now()>sess.exp-60000){
   finally{setTimeout(()=>{refreshing=null},0)}})();
  if(!await refreshing||!sess)return null}
  return sess.access_token}
+// duel notifications (supabase/push_duels.sql, functions/duel-push): tie this browser's push sign-up to the account, and ping the challenged player
+window.ucPushLink=ep=>{if(sess&&ep)rpc('push_link',{p_endpoint:ep}).catch(()=>{})};
+window.ucDuelPush=async code=>{try{const t=await token();if(!t||!code)return;fetch(SB_URL+'/functions/v1/duel-push',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:JSON.stringify({code})}).catch(()=>{})}catch{}};
+setTimeout(()=>{try{window.ucPushLink(localStorage.getItem('uc-push-ep'))}catch{}},4000);
 async function rpc(fn,args={}){const t=await token();if(!t)throw new Error('Please sign in');
  const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:JSON.stringify(args)});
  const txt=await r.text();let j=null;try{j=txt?JSON.parse(txt):null}catch{}
@@ -3585,7 +3589,7 @@ function pcdChallenge(btn,nick){const gl=k=>{try{return localStorage.getItem(k)}
  async function send(e){const b=e.currentTarget,msg=box.querySelector('.pcd-msg');b.disabled=true;b.textContent=L('Sending…','Enviando…');
   try{let tok=gl('uc-duel-token');if(!tok||tok.length<16){tok=[...crypto.getRandomValues(new Uint8Array(16))].map(x=>x.toString(16).padStart(2,'0')).join('');sl('uc-duel-token',tok)}
    const bank=await fetch('/duel/bank.json',{cache:'no-cache'}).then(x=>x.json()),ids=bank.map(q=>q.id);for(let i=ids.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[ids[i],ids[j]]=[ids[j],ids[i]]}
-   const name=(me?.profile?.nickname||gl('uc-nick')||gl('uc-duel-name')||'Player').slice(0,16),code=await rpc('duel_challenge',{p_token:tok,p_name:name,p_kit:gl('uc-kit')||'classic',p_qset:ids.slice(0,20),p_nick:nick});
+   const name=(me?.profile?.nickname||gl('uc-nick')||gl('uc-duel-name')||'Player').slice(0,16),code=await rpc('duel_challenge',{p_token:tok,p_name:name,p_kit:gl('uc-kit')||'classic',p_qset:ids.slice(0,20),p_nick:nick});window.ucDuelPush(code);
    if(per!==5||secs!==15)await rpc('duel_set_rules',{p_code:code,p_token:tok,p_per:per,p_secs:secs}).catch(()=>{});
    track('duel_challenge',{code,from:'card'});
    box.innerHTML=`<b>✓ ${L('Challenge sent to','Reto enviado a')} ${esc(nick)}</b><span>${L("It's in their duel inbox. Play your first round now, or later from My duels.","Está en su bandeja de duelos. Juega tu primera ronda ahora o luego desde Mis duelos.")}</span><a class="pcd-ch" href="/duel.html?d=${encodeURIComponent(code)}">${L('Play round 1 now ▶','Jugar ronda 1 ▶')}</a>`}
