@@ -4396,10 +4396,8 @@ html.polish .pz-count{font-variant-numeric:tabular-nums}
 </style>
 <script>
 // AdSense: hand-placed units only (Auto ads off). Under Game modes on home, under Infinity on the results page.
-// house banners (our own socials) in the ad spots until AdSense is on; each click is tracked as banner_click
-(()=>{const B=[['reddit','https://www.reddit.com/r/Unicorner_Game/',L('Join the club','Únete al club'),L('r/Unicorner_Game on Reddit','r/Unicorner_Game en Reddit')],
- ['tiktok','https://www.tiktok.com/@unicornergame.lol',L('Follow on TikTok','Síguenos en TikTok'),'@unicornergame.lol'],
- ['linkedin','https://www.linkedin.com/company/unicorner-football-game',L('Join the board','Únete a la directiva'),L('Unicorner on LinkedIn','Unicorner en LinkedIn')]];
+// house banners in the ad spots until AdSense is on (only Instagram for now); each click is tracked as banner_click
+(()=>{const B=[['instagram','https://www.instagram.com/unicornergame.lol/',L('Follow on Instagram','Síguenos en Instagram'),'@unicornergame.lol']];
  const pick=i=>B[(Math.floor(Date.now()/864e5)+i)%B.length];
  const go=(b,spot)=>{try{track('banner_click',{banner:b[0],spot})}catch{}};
  // banner_view: once per banner spot per visit, when at least half of it is on screen for a moment
