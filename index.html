@@ -3410,7 +3410,7 @@ document.addEventListener('submit',async e=>{const f=e.target.closest('#lg-code'
  catch{btn.disabled=false;msg.textContent=L("That code didn't work. Check it, or ask for a new email.",'Ese código no vale. Revísalo o pide otro email.');track('league_code_fail',{})}});
 // after signing in (Google, email link or code): new players pick a nickname; everyone else goes back to the game with their days and today's score restored
 async function afterSignIn(){try{await loadMe()}catch{}if(!me?.profile){if(pendingNick())return autoClaim();return viewProfile()}
- if(dlg.open)dlg.close();await syncDays();const had=!!getPlayed();await window.ucCheckRemote();
+ if(dlg.open)dlg.close();await syncDays();const had=!!getPlayed();await window.ucCheckRemote();window.ucKitQuiet?.();
  if(document.body.classList.contains('landing')&&typeof start==='function')start();
  showToast(!had&&getPlayed()?L("✅ Signed in. Today's score is back.",'✅ Sesión iniciada. Tu puntuación de hoy ha vuelto.'):L('✅ Signed in','✅ Sesión iniciada'))}
 async function sendLink(email,optout,nick){lsSet(LG_OPTOUT,optout?'1':'0');const back=new URLSearchParams({l:'1'});if(optout)back.set('optout','1');const inv=lsGet(LG_PENDING);if(inv)back.set('league',inv);if(lsGet(LG_INTENT)==='global')back.set('i','g');if(lsGet(LG_INTENT)==='infinity')back.set('i','inf');const pl=playedToday();if(pl){back.set('s',pl.score);back.set('d',pl.day)}if(nick){back.set('n',nick);lsSet(LG_NICK,nick)}
@@ -3461,7 +3461,7 @@ async function syncDays(){if(!sess)return;
  let r;try{r=await rpc('lg_sync_days',{p_days:mine})}catch{return}
  const today=amsterdamDay(),before=streakInfo().count;let added=0;
  for(const d of r?.days||[]){if(typeof d!=='string'||d>=today||playedOn(d))continue;try{localStorage.setItem('unicorner-played-'+d,'{"remote":true}');added++}catch{}}
- if(!added)return;const n=streakInfo().count;track('streak_restored',{days:added,streak:n});
+ if(!added)return;window.ucKitQuiet?.();const n=streakInfo().count;track('streak_restored',{days:added,streak:n});
  if(document.body.classList.contains('landing')&&typeof start==='function')start();
  if(n>before)showToast(L(`🔥 Your ${n}-day streak is back!`,`🔥 ¡Tu racha de ${n} días ha vuelto!`))}
 // Before a signed-in player starts a game, make sure they haven't already played today on another device
@@ -3914,8 +3914,11 @@ window.ucAdoptLook=p=>{if(!p)return;
  // favourites: this device's changes win until they're saved; otherwise the account's list is used (an empty account takes this device's list)
  if(Array.isArray(p.favs)){const local=kitFavs();if(ls('uc-fav-dirty')==='1'||(!p.favs.length&&local.length)){ls('uc-fav-dirty','1');window.ucFavSync?.()}else ls('uc-kit-fav',JSON.stringify(p.favs.filter(id=>KITS.some(k=>k.id===id))))}if(typeof p.wins==='number'){ls('uc-wins',p.wins);}if(typeof p.crew==='boolean'){ls('uc-crew',p.crew?'1':null);if(!p.crew&&UC_KIT?.crew)wearKit(KITS[0],true)}const acct=(Array.isArray(p.kits)?p.kits:[]).filter(id=>KITS.some(k=>k.id===id));
  const add=acct.filter(id=>!kitDone.includes(id));if(add.length){kitDone=kitDone.concat(add);ls('uc-kit-done',JSON.stringify(kitDone));dot()}
- if(ls('uc-kit-dirty')==='1'||!('kit' in p))return;const id=p.kit||'classic';if((UC_KIT?.id||'classic')===id)return;
+ kitQuiet();if(ls('uc-kit-dirty')==='1'||!('kit' in p))return;const id=p.kit||'classic';if((UC_KIT?.id||'classic')===id)return;
  const k=KITS.find(x=>x.id===id);if(k&&kitHas(k,kitStats()))wearKit(k,true)};
+// kits that come back from the account (restored past days, another device) were already earned: mark them seen, no pop-up
+function kitQuiet(){const now=kitsNow().filter(id=>!kitDone.includes(id));if(!now.length)return;kitDone=kitDone.concat(now);ls('uc-kit-done',JSON.stringify(kitDone));dot()}
+window.ucKitQuiet=kitQuiet;
 function kitCelebrate(){const fresh=kitsNow().filter(id=>!kitDone.includes(id));if(!fresh.length)return;
  kitDone=kitDone.concat(fresh);ls('uc-kit-done',JSON.stringify(kitDone));
  // best first, at most three packs in a row
