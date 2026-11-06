@@ -70,7 +70,8 @@ betting company behind it. It is paid for by a few ads and by the players who ch
 
 <h2>Get in touch</h2>
 <p>Questions, ideas, corrections or partnership requests: see the <a href="/contact.html">contact page</a> or email
-<a href="mailto:{EMAIL}">{EMAIL}</a>.</p>'''
+<a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
+<p>Follow Unicorner on <a href="https://www.instagram.com/unicornergame.lol/">Instagram</a>, <a href="https://www.tiktok.com/@unicornergame.lol">TikTok</a> and <a href="https://www.reddit.com/r/Unicorner_Game/">Reddit</a>.</p>'''
 
 CONTACT = f'''<h1>Contact</h1>
 <p>The quickest way to reach us is by email: <a href="mailto:{EMAIL}">{EMAIL}</a>. We read everything and usually
