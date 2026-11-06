@@ -114,9 +114,10 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
 .ring .l.jump:active{transform:scale(.94)}
 @media (prefers-reduced-motion:reduce){.l.now,.face.pop img,.l.pop,.inp.shake,.clock.low,.say .more{animation:none}}
 .about{margin-top:auto;padding-top:18px;font:15px/1.45 Barlow,system-ui,sans-serif;color:rgba(251,246,232,.7)}.about h2{font:400 22px/1 "Jersey 10",monospace;color:var(--sand);margin:0 0 6px;font-weight:400}.about p{margin:0 0 8px}.about a{color:var(--gold)}
+/* sound switch: the same pixel speaker as the home page */#snd{font-size:0!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 2h2v3H0zM2 1h1v5H2zM3 0h1v7H3zM5 2h1v3H5zM6 1h1v1H6zM6 5h1v1H6zM7 2h1v3H7z' fill='%231a1030'/%3E%3C/svg%3E")!important;background-position:center!important;background-size:18px auto!important;background-repeat:no-repeat!important;image-rendering:pixelated}#snd[data-on="0"]{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 2h2v3H0zM2 1h1v5H2zM3 0h1v7H3z' fill='%231a1030'/%3E%3Cpath d='M5 2h1v1H5zM7 2h1v1H7zM6 3h1v1H6zM5 4h1v1H5zM7 4h1v1H7z' fill='%23e3262f'/%3E%3C/svg%3E")!important}
 </style><link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#1d1a2b"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Unicorner"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="apple-touch-icon" href="/favicon-180.png">
 </head><body><main>
-<div class="top"><a class="logo" href="/">UNICORNER</a><span class="top-r"><span class="tag" id="tag">ROSCO</span><button type="button" class="exit snd" id="snd" aria-label="Sound" title="Sound">🔊</button><a class="exit" id="exit" href="/" aria-label="Back to Unicorner" title="Back to Unicorner">✕</a></span></div>
+<div class="top"><a class="logo" href="/">UNICORNER</a><span class="top-r"><span class="tag" id="tag">ROSCO</span><button type="button" class="exit snd" id="snd" aria-label="Sound" title="Sound"></button><a class="exit" id="exit" href="/" aria-label="Back to Unicorner" title="Back to Unicorner">✕</a></span></div>
 
 <section id="s-load"><p class="note" data-es="Cargando el Rosco de hoy…">Loading today's Rosco…</p></section>
 
@@ -150,7 +151,7 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
  <p class="note" id="rank2" style="margin:0;font-size:20px"></p>
  <a class="btn paper rk-link" id="rklink" href="/#ranking-rosco" data-es="Ver el ranking del Rosco de hoy">See today's Rosco ranking</a>
  <div id="chal2"></div>
- <div class="row"><button class="btn gold" id="shareimg" data-es="Compartir imagen">Share image</button><button class="btn paper" id="dlimg" data-es="Descargar imagen">⬇ Download image</button></div>
+ <div class="row"><button class="btn gold" id="shareimg" data-es="Compartir imagen">Share image</button><button class="btn paper" id="dlimg" data-es="↓ Descargar">↓ Download</button></div>
  <button class="btn paper" id="copy" style="width:100%" data-es="Copiar resultado">Copy result</button>
  <button class="btn paper" id="show" style="width:100%" data-es="Ver respuestas">See answers</button>
  <ul class="ans" id="ans" hidden></ul>
@@ -297,7 +298,7 @@ function answer(){const q=cur(),raw=$('in').value.trim();if(!q)return;if(!raw)re
  S.passed=S.passed.filter(x=>x!==q.letter);$('in').value='';next();$('in').focus()}
 function pass(){const q=cur();if(!q)return;if(!S.passed.includes(q.letter))S.passed.push(q.letter);
  S.queue.push(S.queue.shift());react('pasapalabra',pick(LINES.pass));SFX.pass();$('in').value='';track('rosco_pass',{letter:q.letter});save();render();$('in').focus()}
-{const b=$('snd'),paint=()=>{b.textContent=sndOn()?'🔊':'🔇'};paint();b.onclick=()=>{try{localStorage.setItem('unicorner-sound',sndOn()?'off':'on')}catch{}paint();if(sndOn())SFX.ok()}}
+{const b=$('snd'),paint=()=>{b.dataset.on=sndOn()?'1':'0';b.setAttribute('aria-pressed',String(sndOn()))};paint();b.onclick=()=>{try{localStorage.setItem('unicorner-sound',sndOn()?'off':'on')}catch{}paint();if(sndOn())SFX.ok()}}
 // the hint for a letter: first two letters of one answer's surname (the word the letter is about), the rest as blanks
 function hintFor(q){const a=q.answers[0];if(!a)return'';const words=a.name.split(' ').filter(w=>!PART.has(norm(w)));
  let w=q.mode==='contains'?words.find(x=>norm(x).includes(q.letter.toLowerCase()))||a.name:words.find(x=>norm(x).startsWith(q.letter.toLowerCase()))||words[words.length-1]||a.name;
@@ -359,7 +360,7 @@ async function roscoImage(){const W=1080,H=1350,c=document.createElement('canvas
  g.fillStyle=ink;g.fillRect(0,H-130,W,130);g.fillStyle=cr;g.font='52px "Jersey 10",monospace';g.fillText(L(`${c0.ok} ✓  ${c0.no} ✕   Can you beat me?`,`${c0.ok} ✓  ${c0.no} ✕   ¿Me superas?`),cx,H-84);g.fillStyle=gold;g.font='40px VT323,monospace';g.fillText(ES?'unicornergame.lol/es/rosco':'unicornergame.lol/rosco',cx,H-36);
  return new Promise(res=>c.toBlob(res,'image/png'))}
 const dlImg=blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`rosco-${DAY}.png`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)};
-$('dlimg').onclick=async()=>{const b=$('dlimg');b.disabled=true;track('rosco_download_image',{score:counts().ok});try{dlImg(await roscoImage());b.textContent=L('Saved ✓','Guardada ✓');setTimeout(()=>b.textContent=L('⬇ Download image','⬇ Descargar imagen'),2000)}catch{}b.disabled=false};
+$('dlimg').onclick=async()=>{const b=$('dlimg');b.disabled=true;track('rosco_download_image',{score:counts().ok});try{dlImg(await roscoImage());b.textContent=L('Saved ✓','Guardada ✓');setTimeout(()=>b.textContent=L('↓ Download','↓ Descargar'),2000)}catch{}b.disabled=false};
 $('shareimg').onclick=async()=>{const b=$('shareimg');b.disabled=true;track('rosco_share_image',{score:counts().ok});
  try{const blob=await roscoImage(),f=new File([blob],`rosco-${DAY}.png`,{type:'image/png'});
   if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],text:resultText()})}catch{}}

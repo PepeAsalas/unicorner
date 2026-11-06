@@ -118,9 +118,10 @@ main,.card,.q,.say{image-rendering:auto}
 }
 @media (prefers-reduced-motion:reduce){.btn,.bar i,.opt{transition:none}#lock.press{transform:none}.opt.lose,.opt.win,.why{animation:none}.opt.lose .door .spr{animation:none;opacity:0}.note{display:none}}
 .about{margin-top:auto;padding-top:18px;font:15px/1.45 Barlow,system-ui,sans-serif;color:rgba(251,246,232,.7)}.about h2{font:400 22px/1 "Jersey 10",monospace;color:var(--sand);margin:0 0 6px;font-weight:400}.about p{margin:0 0 8px}.about a{color:var(--gold)}
+/* sound switch: the same pixel speaker as the home page */#snd{font-size:0!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 2h2v3H0zM2 1h1v5H2zM3 0h1v7H3zM5 2h1v3H5zM6 1h1v1H6zM6 5h1v1H6zM7 2h1v3H7z' fill='%231a1030'/%3E%3C/svg%3E")!important;background-position:center!important;background-size:18px auto!important;background-repeat:no-repeat!important;image-rendering:pixelated}#snd[data-on="0"]{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 2h2v3H0zM2 1h1v5H2zM3 0h1v7H3z' fill='%231a1030'/%3E%3Cpath d='M5 2h1v1H5zM7 2h1v1H7zM6 3h1v1H6zM5 4h1v1H5zM7 4h1v1H7z' fill='%23e3262f'/%3E%3C/svg%3E")!important}
 </style><link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#1d1a2b"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Unicorner"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="apple-touch-icon" href="/favicon-180.png">
 </head><body><main>
-<div class="top"><a class="logo" href="/">UNICORNER</a><span class="top-r"><span class="tag" data-es="MILLONES">MILLIONS</span><button type="button" class="snd" id="snd" aria-label="Sound" title="Sound">🔊</button><a class="snd x-out" id="x-out" href="/" aria-label="Back to Unicorner" title="Back to Unicorner">✕</a></span></div>
+<div class="top"><a class="logo" href="/">UNICORNER</a><span class="top-r"><span class="tag" data-es="MILLONES">MILLIONS</span><button type="button" class="snd" id="snd" aria-label="Sound" title="Sound"></button><a class="snd x-out" id="x-out" href="/" aria-label="Back to Unicorner" title="Back to Unicorner">✕</a></span></div>
 <div class="host"><div class="face"><img id="face" alt="" src="/rosco/host/happy-talk.png"></div><p class="say"><span class="who">Horacio Herradura</span><span id="say"></span></p></div>
 
 <section id="s-intro" hidden><div class="mq"><h1 data-es="Millones">Millions</h1></div><div class="card">
@@ -145,7 +146,7 @@ main,.card,.q,.say{image-rendering:auto}
 <section id="s-end" hidden><div class="card"><p class="msg-note" data-es="Te llevas">You keep</p><div class="big" id="final"></div><div class="grid" id="grid"></div><p class="msg-note" id="avg2" style="margin-top:8px"></p></div>
  <div id="chal2"></div>
  <div class="card lb" id="lb" hidden></div>
- <div class="row2"><button class="btn gold" id="shareimg" data-es="Compartir imagen">Share image</button><button class="btn paper" id="dlimg" data-es="⬇ Descargar imagen">⬇ Download image</button></div>
+ <div class="row2"><button class="btn gold" id="shareimg" data-es="Compartir imagen">Share image</button><button class="btn paper" id="dlimg" data-es="↓ Descargar">↓ Download</button></div>
  <button class="btn paper" id="copy" data-es="Copiar resultado">Copy result</button>
  <a class="btn gold" id="archback" href="/?inf=open" hidden data-es="Volver al archivo">Back to the archive</a>
  <div class="card fb" id="fb" hidden><p class="fb-q" data-es="<b>¿Qué tal Millones hoy?</b> Es nuevo, así que cuéntanos."><b>How was Millions today?</b> It's brand new, so tell us.</p>
@@ -263,7 +264,7 @@ function end(restored){show('end');if(ARCH){$('archback').hidden=false;$('archba
 $('lock').onclick=()=>{if(timer===null)return;clearInterval(timer);const b=$('lock');b.classList.add('press');SFX.press();setTimeout(()=>{b.classList.remove('press');lock()},450)};$('next').onclick=()=>{i++;ask()};
 $('go').onclick=()=>{show('play');ask();track('millon_start')};
 const resultText=()=>`Unicorner ${L('Millions','Millones')} ${DAY}\n${hist.join('')}\n💰 ${fmt(bank)}\nunicornergame.lol${ES?'/es':''}/millon.html`;
-{const b=$('snd'),paint=()=>{b.textContent=sndOn()?'🔊':'🔇'};paint();b.onclick=()=>{try{localStorage.setItem('unicorner-sound',sndOn()?'off':'on')}catch{}paint();if(sndOn())SFX.keep()}}
+{const b=$('snd'),paint=()=>{b.dataset.on=sndOn()?'1':'0';b.setAttribute('aria-pressed',String(sndOn()))};paint();b.onclick=()=>{try{localStorage.setItem('unicorner-sound',sndOn()?'off':'on')}catch{}paint();if(sndOn())SFX.keep()}}
 // feedback after the game: 1-10 and an optional note, once per day (event millon_feedback, read by the weekly feedback digest)
 function feedback(){const k='uc-millon-fb-'+DAY;try{if(localStorage.getItem(k))return}catch{}let rating=0;$('fb').hidden=false;
  $('r10').innerHTML=Array.from({length:10},(_,n)=>`<button type="button" data-r="${n+1}">${n+1}</button>`).join('');
@@ -288,7 +289,7 @@ async function millonImage(){const W=1080,H=1350,c=document.createElement('canva
  g.fillStyle=ink;g.fillRect(0,H-130,W,130);g.fillStyle=cr;g.font='52px "Jersey 10",monospace';g.fillText(L('Can you keep more?','¿Te llevas más que yo?'),W/2,H-84);g.fillStyle=gold;g.font='40px VT323,monospace';g.fillText(ES?'unicornergame.lol/es/millon':'unicornergame.lol/millon',W/2,H-36);
  return new Promise(res=>c.toBlob(res,'image/png'))}
 const dlImg=blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`millions-${DAY}.png`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)};
-$('dlimg').onclick=async()=>{const b=$('dlimg');b.disabled=true;track('millon_download_image',{score:bank});try{dlImg(await millonImage());b.textContent=L('Saved ✓','Guardada ✓');setTimeout(()=>b.textContent=L('⬇ Download image','⬇ Descargar imagen'),2000)}catch{}b.disabled=false};
+$('dlimg').onclick=async()=>{const b=$('dlimg');b.disabled=true;track('millon_download_image',{score:bank});try{dlImg(await millonImage());b.textContent=L('Saved ✓','Guardada ✓');setTimeout(()=>b.textContent=L('↓ Download','↓ Descargar'),2000)}catch{}b.disabled=false};
 $('shareimg').onclick=async()=>{const b=$('shareimg');b.disabled=true;track('millon_share_image',{score:bank});
  try{const blob=await millonImage(),f=new File([blob],`millions-${DAY}.png`,{type:'image/png'});
   if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],text:resultText()})}catch{}}
