@@ -54,7 +54,7 @@ jobs:
       - name: Commit sitemap dates and answers page
         if: env.JOB == 'health' || env.JOB == 'answers'
         run: |
-          git add sitemap.xml millon/ answers/ football-trivia-questions/ football-trivia-mistakes/ es/respuestas/ es/preguntas-futbol/ es/errores-futbol/ rosco/ duel/bank.json
+          git add sitemap.xml daily/ millon/ answers/ football-trivia-questions/ football-trivia-mistakes/ es/respuestas/ es/preguntas-futbol/ es/errores-futbol/ rosco/ duel/bank.json
           if ! git diff --cached --quiet; then git commit -m 'Refresh sitemap dates and past answers' && git pull --rebase origin main && git push origin HEAD:main; fi
       - name: Report a failed health check
         if: env.JOB == 'health' && steps.health.outcome == 'failure'

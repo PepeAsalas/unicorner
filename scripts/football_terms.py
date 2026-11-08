@@ -39,6 +39,14 @@ TERMS = [
      'El Arsenal que pasó una temporada entera de Premier sin perder'),
     (r'European Cup(?! Winners)', "The Champions League's name until 1992", 'El nombre de la Champions hasta 1992'),
     (r'permanent (Premier League )?manager', "Caretaker and interim managers don't count", 'No cuentan los interinos'),
+    # 4th item: skip the term when the clue's own subtitle already explains it
+    (r'Intercontinental Cup', 'The old yearly match between the champions of Europe and South America',
+     'El antiguo partido anual entre los campeones de Europa y de Sudamérica', r'south america|sudam'),
+    (r'MLS Cup', 'The final that decides the Major League Soccer title in the USA and Canada',
+     'La final que decide el título de la liga de Estados Unidos y Canadá (MLS)', r'major league|estados unidos|usa'),
+    (r'Pusk[aá]s Award', "FIFA's award for the goal of the year", 'El premio de la FIFA al mejor gol del año', r'goal|gol'),
+    (r'Recopa', 'An old European competition for each country\'s cup winners',
+     'Un antiguo torneo europeo para los campeones de copa de cada país', r'cup winners|copa'),
 ]
 
 
@@ -52,11 +60,14 @@ ALREADY = {
 def explain(prompt, subtitle=''):
     """The explanations that apply to an English prompt: [(en, es), ...]. Terms only count in the prompt itself."""
     out = []
-    for pat, en, es in TERMS:
+    for t in TERMS:
+        pat, en, es = t[0], t[1], t[2]
         if not re.search(pat, prompt or '', re.I) or (en, es) in out:
             continue
         key = next((k for k in ALREADY if k.lower() in pat.lower()), None)
         if key and re.search(ALREADY[key], subtitle or '', re.I):
+            continue
+        if len(t) > 3 and re.search(t[3], subtitle or '', re.I):
             continue
         out.append((en, es))
     return out

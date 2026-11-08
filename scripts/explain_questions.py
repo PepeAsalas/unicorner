@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Add short explanations of tricky football terms to today's and future Rosco and Millions games.
+"""Add short explanations of tricky football terms to today's and future Daily 5, Rosco and Millions games.
 
-Rosco: appended to each clue's subtitle (English and Spanish).
+Daily 5 and Rosco: appended to each question's subtitle (English and Spanish).
 Millions: a note under the question ('n' / 'n_es'), shown by millon.html.
 Terms and wording live in football_terms.py. Safe to run again: it never adds the same explanation twice.
 Run by the Upkeep workflow every night, after the Rosco builder.
@@ -32,6 +32,19 @@ def main():
             if ex:
                 it['subtitle'] = merge(it.get('subtitle') or '', [en for en, _ in ex])
                 it['subtitle_es'] = merge(it.get('subtitle_es') or '', [es for _, es in ex])
+        if json.dumps(d, ensure_ascii=False) != before:
+            json.dump(d, open(f, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
+            changed.append(os.path.relpath(f, ROOT))
+    for f in sorted(glob.glob(os.path.join(ROOT, 'daily', '2*.json'))):
+        if os.path.basename(f)[:-5] < today:
+            continue
+        d = json.load(open(f, encoding='utf-8'))
+        before = json.dumps(d, ensure_ascii=False)
+        for q in (d['questions'] if isinstance(d, dict) else d):
+            ex = explain(q['prompt'], q.get('subtitle') or '')
+            if ex:
+                q['subtitle'] = merge(q.get('subtitle') or '', [en for en, _ in ex])
+                q['subtitle_es'] = merge(q.get('subtitle_es') or '', [es for _, es in ex])
         if json.dumps(d, ensure_ascii=False) != before:
             json.dump(d, open(f, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
             changed.append(os.path.relpath(f, ROOT))
