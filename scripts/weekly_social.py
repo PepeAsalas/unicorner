@@ -55,7 +55,7 @@ def build(d, K):
     lines.append(f'Hi Laken! Here is everything for this Monday\'s post: ONE post with 3 pictures, in this order.')
     lines.append('Templates are in Canva. Kit pictures are in the kits folder (file names below).')
     lines.append('')
-    lines.append(f'PICTURE 1 · HALL OF FAME (Canva: "Hall of Fame")')
+    lines.append(f'PICTURE 1 · HALL OF FAME (Canva page 1; page 4 is only the size guide for the unicorns, don\'t post it)')
     lines.append(f'  Week line: WEEK {wk} · DAILY 5')
     top = d.get('top3') or []
     if len(top) < 3:
@@ -70,19 +70,9 @@ def build(d, K):
         lines.append(f"  #{i + 1}  {p['nickname']}  ·  {n(p['points'])} PTS  ·  kit: {name}{note}  ·  file: {num}-{kid}-{mood}.png")
     lines.append('')
     s = d.get('screamer')
-    lines.append('PICTURE 2 · SCREAMER OF THE WEEK (Canva: "Screamer")')
-    if s:
-        lines.append(f"  Week line: WEEK {wk} · DAILY 5")
-        lines.append(f"  Question: {s['question']}")
-        lines.append(f"  Answer: {s['answer'].upper()}")
-        lines.append(f"  Line: Only 1 in {s['one_in']} players said it")
-    else:
-        warn.append('no Screamer with enough players last week: skip picture 2')
-        lines.append('  (not enough data this week: skip this picture)')
-    lines.append('')
     m = d.get('numbers') or {}
     h = m.get('hardest') or {}
-    lines.append('PICTURE 3 · THE WEEK IN NUMBERS (Canva: "Numbers")')
+    lines.append('PICTURE 2 · THE WEEK IN NUMBERS (Canva page 2)')
     lines.append(f"  Week line: WEEK {wk} · DAILY 5")
     lines.append(f"  {n(m.get('games', 0))}  games played")
     lines.append(f"  {n(m.get('average_score', 0))}  average score out of 500")
@@ -90,6 +80,16 @@ def build(d, K):
     if h:
         lines.append(f"  {h['pct_right']}%  got {h['weekday']}'s Q{h['position']} right")
         lines.append(f"  Hardest question: {h['question']}")
+    lines.append('')
+    lines.append('PICTURE 3 · SCREAMER OF THE WEEK (Canva page 3)')
+    if s:
+        lines.append(f"  Week line: WEEK {wk} · DAILY 5")
+        lines.append(f"  Question: {s['question']}")
+        lines.append(f"  Answer: {s['answer'].upper()}")
+        lines.append(f"  Line: Only 1 in {s['one_in']} players said it")
+    else:
+        warn.append('no Screamer with enough players last week: skip picture 3')
+        lines.append('  (not enough data this week: skip this picture)')
     lines.append('')
     champ = top[0]['nickname'] if top else 'our champion'
     rest = ' and '.join(p['nickname'] for p in top[1:]) if len(top) > 1 else ''
@@ -101,13 +101,19 @@ def build(d, K):
     lines.append('  ' + cap)
     lines.append('  #football #footballquiz #footballtrivia #soccer #unicorner')
     lines.append('')
+    lines.append('FONTS TO TRY')
+    lines.append('  Week line (WEEK 45 · DAILY 5): VT323, gold #F2C230, size ~42, wide letter spacing')
+    lines.append('  Player names and questions: Barlow ExtraBold, dark #1D1A2B')
+    lines.append('  Points, "Only 1 in X" line, small labels: VT323 (yellow #FFD23F for the numbers on dark)')
+    lines.append('  Big answer and big numbers: Jersey 10, or Pixelify Sans / Silkscreen if Canva does not have it')
+    lines.append('')
     lines.append('Nicknames are written exactly as players chose them: keep capitals, numbers and underscores.')
     if warn:
         lines.insert(0, '⚠️ Heads up: ' + '; '.join(warn) + '.\n')
     subject = f'🦄 Unicorner Monday post · Week {wk} ({span})'
     text = '\n'.join(lines)
     body = '<div style="font:15px/1.5 -apple-system,Segoe UI,Roboto,sans-serif;color:#1d1a2b;max-width:620px">' + ''.join(
-        (f'<h3 style="margin:22px 0 6px;font-size:16px">{html.escape(l)}</h3>' if l.startswith(('PICTURE', 'CAPTION'))
+        (f'<h3 style="margin:22px 0 6px;font-size:16px">{html.escape(l)}</h3>' if l.startswith(('PICTURE', 'CAPTION', 'FONTS'))
          else f'<div style="padding-left:12px">{html.escape(l.strip())}</div>' if l.startswith('  ')
          else f'<p style="margin:6px 0">{html.escape(l)}</p>' if l else '') for l in lines) + '</div>'
     return subject, text, body
