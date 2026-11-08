@@ -1,6 +1,24 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Unicorner Rosco</title>
-<meta name="description" content="The daily football Rosco: one clue for every letter, against the clock. Free, new every day.">
+<!--seo--><title>Football Rosco – Daily A–Z Football Quiz | Unicorner</title>
+<meta name="description" content="One football clue for every letter of the alphabet, against the clock: players, clubs and managers from A to Z. Free, new every day, in English and Spanish.">
+<link rel="canonical" href="https://unicornergame.lol/rosco.html">
+<link rel="alternate" hreflang="en" href="https://unicornergame.lol/rosco.html">
+<link rel="alternate" hreflang="es" href="https://unicornergame.lol/es/rosco.html">
+<link rel="alternate" hreflang="x-default" href="https://unicornergame.lol/rosco.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Unicorner">
+<meta property="og:url" content="https://unicornergame.lol/rosco.html">
+<meta property="og:title" content="Football Rosco – Daily A–Z Football Quiz | Unicorner">
+<meta property="og:description" content="One football clue for every letter of the alphabet, against the clock: players, clubs and managers from A to Z. Free, new every day, in English and Spanish.">
+<meta property="og:image" content="https://unicornergame.lol/og-rosco.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Football Rosco – Daily A–Z Football Quiz | Unicorner">
+<meta name="twitter:description" content="One football clue for every letter of the alphabet, against the clock: players, clubs and managers from A to Z. Free, new every day, in English and Spanish.">
+<meta name="twitter:image" content="https://unicornergame.lol/og-rosco.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"VideoGame","name":"Football Rosco","url":"https://unicornergame.lol/rosco.html","description":"One football clue for every letter of the alphabet, against the clock: players, clubs and managers from A to Z. Free, new every day, in English and Spanish.","inLanguage":"en","genre":["Trivia","Quiz","Sports"],"gamePlatform":"Web browser","applicationCategory":"Game","operatingSystem":"Any","isAccessibleForFree":true,"image":"https://unicornergame.lol/og-rosco.jpg","publisher":{"@id":"https://unicornergame.lol/#org"},"isPartOf":{"@id":"https://unicornergame.lol/#website"},"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Unicorner","item":"https://unicornergame.lol/"},{"@type":"ListItem","position":2,"name":"Football Rosco","item":"https://unicornergame.lol/rosco.html"}]}]}</script><!--/seo-->
 <link rel="icon" href="/favicon-32.png" sizes="32x32">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <style>
@@ -15,6 +33,10 @@ main{max-width:460px;margin:0 auto;padding:12px max(14px,env(safe-area-inset-lef
 button{font:inherit;color:inherit;cursor:pointer}
 .top{display:flex;justify-content:space-between;align-items:center}
 .logo{font:400 22px var(--disp);color:var(--ink);background:var(--paper);border:2px solid var(--ink);padding:1px 8px;box-shadow:2px 2px 0 var(--ink);text-decoration:none}
+.top-r{display:flex;align-items:center;gap:8px}
+.exit.snd{cursor:pointer;font-size:16px;padding:0}
+.exit{width:36px;height:36px;display:grid;place-items:center;font:400 22px/1 var(--disp);color:var(--ink);background:var(--paper);border:2px solid var(--ink);box-shadow:2px 2px 0 var(--ink);text-decoration:none}
+.exit:active{transform:translate(2px,2px);box-shadow:none}
 .tag{font:20px var(--mono);background:var(--ink);padding:2px 8px;border:2px solid var(--paper)}
 .card{background:var(--marine);border:3px solid var(--ink);box-shadow:4px 4px 0 rgba(0,0,0,.35);padding:14px}
 .btn{height:52px;border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink);font:400 24px var(--disp);color:var(--ink);transition:transform 120ms var(--ease),box-shadow 120ms var(--ease)}
@@ -54,7 +76,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .big{font:400 84px/1 var(--disp);text-shadow:4px 4px 0 var(--ink)}.big span{font-size:40px;color:var(--sand)}
 /* the clue */
 .clue{background:var(--paper);color:var(--ink);border:3px solid var(--ink);box-shadow:4px 4px 0 rgba(0,0,0,.35);padding:12px 14px}
-.chip{display:inline-block;font:400 22px/1 var(--disp);background:var(--gold);border:2px solid var(--ink);padding:3px 8px;margin-bottom:6px}
+.chip{display:inline-block;font:400 22px/1 var(--disp);background:var(--gold);border:2px solid var(--ink);padding:3px 8px;margin-bottom:6px}.chip.has{background:#b48cff}.hasn{font-style:normal;font-size:12px;background:#b48cff;color:var(--ink);border:1px solid var(--ink);padding:0 4px;margin-right:4px;vertical-align:1px}
 .clue p{margin:0;font:700 19px/1.25 Barlow}.clue small{display:block;margin-top:4px;color:#5d566b;font-size:13px}
 .inp{width:100%;height:52px;border:3px solid var(--ink);background:#fff;color:var(--ink);font:400 24px var(--disp);padding:8px 12px;outline:none;border-radius:0}
 .inp:focus{box-shadow:0 0 0 3px var(--gold)}
@@ -68,65 +90,113 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
 .ans li{display:grid;grid-template-columns:34px 1fr;gap:8px;align-items:start;background:var(--paper);color:var(--ink);border:2px solid var(--ink);padding:8px}
 .ans li>b{display:grid;place-items:center;height:30px;font:400 20px var(--disp);border:2px solid var(--ink);color:#fff}
 .ans small{display:block;color:#5d566b}
+/* desktop (layout A): the ring on the left, the clue / answer / buttons on the right, no scrolling during a game */
+@media (min-width:900px) and (min-height:560px){
+ main{max-width:1180px;padding:12px 28px 20px}
+ #s-intro:not([hidden]),#s-play:not([hidden]),#s-end:not([hidden]){position:relative;padding-left:calc(min(560px,74vh) + 40px);min-height:min(560px,74vh)}
+ #ring0,#ring,#ring2{position:absolute;left:0;top:0;width:min(560px,74vh)}
+ #s-play .host{margin-top:24px}#s-play .clue p{font-size:24px}#s-play .inp{height:60px;font-size:28px}#s-play .btn{height:58px}
+ #s-end .big{font-size:110px}
+}
+/* the sign-in hint under Start: readable on the dark studio (links were default blue) */
+.note a{color:var(--gold);text-decoration:underline;text-underline-offset:3px}
+/* "contains" letters: a purple corner on the ring */
+.ring .l.has::after{content:"";position:absolute;right:-3px;top:-3px;width:9px;height:9px;background:#b48cff;border:2px solid var(--ink)}
+.rk-link{display:grid;place-items:center;text-decoration:none;color:var(--ink)}
+/* hint: a small button under the answer box; the hint shows in the clue card */
+.hintb{align-self:center;background:none;border:2px dashed rgba(251,246,232,.55);color:var(--paper);font:20px var(--mono);padding:4px 12px;cursor:pointer;transition:background-color 150ms ease,transform 120ms ease}
+.hintb:active{transform:scale(.97)}.hintb:disabled{opacity:.4;cursor:default}
+@media (hover:hover) and (pointer:fine){.hintb:not(:disabled):hover{background:rgba(251,246,232,.1)}}
+.hintx{display:block;margin-top:6px;font:400 24px/1 var(--disp);letter-spacing:.12em;color:var(--marine)}
+/* letters you can still play are buttons: tap one to jump to it */
+.ring .l.jump{cursor:pointer;transition:transform 140ms cubic-bezier(.23,1,.32,1),filter 140ms ease}
+@media (hover:hover) and (pointer:fine){.ring .l.jump:hover{transform:scale(1.12);filter:brightness(1.2)}}
+.ring .l.jump:active{transform:scale(.94)}
 @media (prefers-reduced-motion:reduce){.l.now,.face.pop img,.l.pop,.inp.shake,.clock.low,.say .more{animation:none}}
-</style></head><body><main>
-<div class="top"><a class="logo" href="/">UNICORNER</a><span class="tag" id="tag">ROSCO</span></div>
+.about{margin-top:auto;padding-top:18px;font:15px/1.45 Barlow,system-ui,sans-serif;color:rgba(251,246,232,.7)}.about h2{font:400 22px/1 "Jersey 10",monospace;color:var(--sand);margin:0 0 6px;font-weight:400}.about p{margin:0 0 8px}.about a{color:var(--gold)}
+/* sound switch: the same pixel speaker as the home page */#snd{font-size:0!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 2h2v3H0zM2 1h1v5H2zM3 0h1v7H3zM5 2h1v3H5zM6 1h1v1H6zM6 5h1v1H6zM7 2h1v3H7z' fill='%231a1030'/%3E%3C/svg%3E")!important;background-position:center!important;background-size:18px auto!important;background-repeat:no-repeat!important;image-rendering:pixelated}#snd[data-on="0"]{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 2h2v3H0zM2 1h1v5H2zM3 0h1v7H3z' fill='%231a1030'/%3E%3Cpath d='M5 2h1v1H5zM7 2h1v1H7zM6 3h1v1H6zM5 4h1v1H5zM7 4h1v1H7z' fill='%23e3262f'/%3E%3C/svg%3E")!important}
+</style><link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#1d1a2b"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Unicorner"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="apple-touch-icon" href="/favicon-180.png">
+</head><body><main>
+<div class="top"><a class="logo" href="/">UNICORNER</a><span class="top-r"><span class="tag" id="tag">ROSCO</span><button type="button" class="exit snd" id="snd" aria-label="Sound" title="Sound"></button><a class="exit" id="exit" href="/" aria-label="Back to Unicorner" title="Back to Unicorner">✕</a></span></div>
 
-<section id="s-load"><p class="note">Loading today's Rosco…</p></section>
+<section id="s-load"><p class="note" data-es="Cargando el Rosco de hoy…">Loading today's Rosco…</p></section>
 
 <section id="s-intro" hidden>
  <div class="ring" id="ring0"><div class="mid"><div class="clock" id="clock0">3:00</div><div class="sc" id="count0"></div></div></div>
  <div class="host"><div class="face" id="face0"><img alt="" width="64" height="64"></div><div class="say" id="say0" role="status"></div></div>
- <button class="btn grass" id="go" style="width:100%">Start the Rosco</button>
- <p class="note">Most players get 12–16. A 19 is a great day.</p>
- <div class="card"><h1>How it works</h1><ul class="rules">
-  <li><b class="gold">A</b><span>One clue per letter. The answer's <strong>surname</strong> starts with that letter (for clubs and countries, the name). Lionel Messi goes under M.</span></li>
-  <li><b class="paper">»</b><span><strong>Pasapalabra</strong> skips a letter. It comes back on the next lap.</span></li>
-  <li><b style="background:var(--clay);color:#fff">✕</b><span>A wrong answer locks that letter. No second tries.</span></li>
-  <li><b class="grass" style="color:#fff">5</b><span>Five minutes on the clock. The same Rosco for everyone, new every day.</span></li></ul></div>
+ <div id="chal0"></div>
+ <button class="btn grass" id="go" style="width:100%" data-es="Empezar el Rosco">Start the Rosco</button>
+ <p class="note" id="avg0"></p>
+ <p class="note" id="sync0" hidden><a id="syncA" href="/" data-es="Inicia sesión (en la clasificación) para guardar tu Rosco en todos tus dispositivos.">Sign in (on the leaderboard) to keep your Rosco on all your devices.</a></p>
+ <div class="card"><h1 data-es="Cómo se juega">How it works</h1><ul class="rules">
+  <li><b class="gold">A</b><span data-es="Una pista por letra. El <strong>apellido</strong> de la respuesta empieza por esa letra (en clubes y selecciones, el nombre). Lionel Messi va en la M. Algunas letras, marcadas en <strong style=&quot;color:#b48cff&quot;>morado</strong>, dicen <strong>«contiene»</strong>: ahí vale cualquier respuesta que lleve esa letra en lo que escribes.">One clue per letter. The answer's <strong>surname</strong> starts with that letter (for clubs and countries, the name). Lionel Messi goes under M. A few letters, marked <strong style="color:#b48cff">purple</strong>, say <strong>"contains"</strong>: then any answer counts as long as what you type has that letter in it.</span></li>
+  <li><b class="paper">»</b><span data-es="<strong>Pasapalabra</strong> salta una letra. Vuelve en la siguiente vuelta."><strong>Pass</strong> skips a letter. It comes back on the next lap.</span></li>
+  <li><b style="background:var(--clay);color:#fff">✕</b><span data-es="Una respuesta incorrecta bloquea esa letra. No hay segundas oportunidades.">A wrong answer locks that letter. No second tries.</span></li>
+  <li><b class="grass" style="color:#fff">5</b><span data-es="Cinco minutos de reloj. El mismo Rosco para todos, nuevo cada día.">Five minutes on the clock. The same Rosco for everyone, new every day.</span></li></ul></div>
 </section>
 
 <section id="s-play" hidden style="display:flex;flex-direction:column;gap:12px">
  <div class="ring" id="ring"><div class="mid"><div class="clock" id="clock">3:00</div><div class="sc" id="count"></div></div></div>
- <div class="host"><div class="face" id="face"><img alt="" width="64" height="64"></div><div class="clue" style="flex:1"><span class="chip" id="chip">Starts with A</span><p id="prompt"></p><small id="sub"></small></div></div>
+ <div class="host"><div class="face" id="face"><img alt="" width="64" height="64"></div><div class="clue" style="flex:1"><span class="chip" id="chip">Starts with A</span><p id="prompt"></p><small id="sub"></small><b class="hintx" id="hintx" hidden></b></div></div>
  <form id="f" autocomplete="off"><input class="inp" id="in" placeholder="Type your answer" enterkeyhint="send" autocapitalize="words" spellcheck="false"></form>
  <p class="var" id="var" role="status"></p>
- <div class="row"><button class="btn gold" id="pass" type="button">Pasapalabra</button><button class="btn grass" id="enter" type="button">Enter</button></div>
+ <button type="button" class="hintb" id="hint" data-es="Pista (−15 s)">Hint (−15 s)</button>
+ <div class="row"><button class="btn gold" id="pass" type="button" data-es="Pasapalabra">Pass</button><button class="btn grass" id="enter" type="button" data-es="Enviar">Enter</button></div>
 </section>
 
 <section id="s-end" hidden style="display:flex;flex-direction:column;gap:12px">
  <div class="ring" id="ring2"><div class="mid"><div class="big" id="score"></div><div class="sc" id="left"></div></div></div>
  <div class="host"><div class="face" id="face2"><img alt="" width="64" height="64"></div><div class="say" id="say2" role="status"></div></div>
  <div class="grid" id="grid"></div>
- <button class="btn gold" id="copy" style="width:100%">Copy result</button>
- <div class="row"><button class="btn paper" id="share" hidden>Share</button><button class="btn paper" id="show">See answers</button></div>
+ <p class="note" id="rank2" style="margin:0;font-size:20px"></p>
+ <a class="btn paper rk-link" id="rklink" href="/#ranking-rosco" data-es="Ver el ranking del Rosco de hoy">See today's Rosco ranking</a>
+ <div id="chal2"></div>
+ <div class="row"><button class="btn gold" id="shareimg" data-es="Compartir imagen">Share image</button><button class="btn paper" id="dlimg" data-es="↓ Descargar">↓ Download</button></div>
+ <button class="btn paper" id="copy" style="width:100%" data-es="Copiar resultado">Copy result</button>
+ <button class="btn paper" id="show" style="width:100%" data-es="Ver respuestas">See answers</button>
  <ul class="ans" id="ans" hidden></ul>
- <div class="card fb" id="fb" hidden><p class="fb-q"><b>How was today's Rosco?</b> It's brand new, so tell us.</p>
+ <div class="card fb" id="fb" hidden><p class="fb-q" data-es="<b>¿Qué tal el Rosco de hoy?</b> Es nuevo, así que cuéntanos."><b>How was today's Rosco?</b> It's brand new, so tell us.</p>
   <div class="r10" id="r10"></div>
-  <textarea id="fb-t" maxlength="500" rows="2" placeholder="Too hard? Too easy? A clue that was wrong? (optional)"></textarea>
-  <button class="btn gold" id="fb-send" disabled style="width:100%">Send</button><p class="fb-ok" id="fb-ok" hidden>Thanks! Horacio has noted it down.</p></div>
+  <textarea id="fb-t" maxlength="500" rows="2" placeholder="Too hard? Too easy? A clue that was wrong? (optional)" data-es-ph="¿Muy difícil? ¿Muy fácil? ¿Alguna pista mal? (opcional)"></textarea>
+  <button class="btn gold" id="fb-send" disabled style="width:100%" data-es="Enviar">Send</button><p class="fb-ok" id="fb-ok" hidden data-es="¡Gracias! Horacio lo ha apuntado.">Thanks! Horacio has noted it down.</p></div>
+ <p class="note" id="avg2"></p>
  <p class="note" id="next"></p>
 </section>
+<section class="about"><h2 data-es="Sobre el Rosco">About the Rosco</h2><p data-es="El Rosco de fútbol es un juego diario y gratis de Unicorner, presentado por Horacio Herradura: una pista por cada letra del abecedario, sobre jugadores, clubes y entrenadores, con cinco minutos de reloj. Pasa una letra para volver a ella en la siguiente vuelta. Un Rosco nuevo cada día a medianoche y con ranking diario.">The football Rosco is a free daily A-to-Z quiz from Unicorner, hosted by Horacio Herradura: one clue for every letter, about players, clubs and managers, with five minutes on the clock. Pass a letter to come back to it on the next lap. A new Rosco every day at midnight, with a daily ranking.</p><p data-es="Más juegos diarios de fútbol: <a href=&quot;/es/&quot;>el Diario 5</a> y <a href=&quot;/es/millon.html&quot;>Millones</a>.">More daily football games: <a href="/">the Daily 5</a> and <a href="/millon.html">Millions</a>.</p></section>
 </main>
-<script src="duel/sprites.js"></script>
+<script src="/duel/sprites.js"></script>
+<script src="/challenge.js"></script>
 <script>
 const SB_URL="https://yujhjepukzdahsppntua.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1amhqZXB1a3pkYWhzcHBudHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2NDMzNDcsImV4cCI6MjEwNTIxOTM0N30.YIOdtL7tJnNLPFPy19QuXe6w3Dcnz6Xedw0tFGdV_CE";
+// Spanish at /es/rosco.html (a copy made by scripts/build_es.py): static text from data-es, the rest through L(en, es)
+const ES=location.pathname.startsWith('/es/'),L=(en,es)=>ES?es:en;
+if(ES){document.querySelectorAll('a.logo,#exit').forEach(a=>a.href='/es/');document.getElementById('exit').title=document.getElementById('exit').ariaLabel='Volver a Unicorner';document.querySelectorAll('[data-es]').forEach(e=>e.innerHTML=e.dataset.es);document.querySelectorAll('[data-es-ph]').forEach(e=>e.placeholder=e.dataset.esPh)}
 const $=id=>document.getElementById(id),ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch{return null}};
-const DAY=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
-const FIRST='2026-10-30',NO=Math.round((Date.parse(DAY)-Date.parse(FIRST))/864e5)+1,KEY='uc-rosco-v3-'+DAY,ABC='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+const TODAY=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+// ?day=YYYY-MM-DD plays a past Rosco from the Infinity archive: no ranking, no cloud save, no challenge
+const FIRST='2026-10-30',ARCH=(d=>/^\d{4}-\d{2}-\d{2}$/.test(d||'')&&d>=FIRST&&d<TODAY?d:null)(new URLSearchParams(location.search).get('day')),DAY=ARCH||TODAY,NO=Math.round((Date.parse(DAY)-Date.parse(FIRST))/864e5)+1,KEY='uc-rosco-v3-'+DAY,ABC='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 if(!ls('uc-visitor'))ls('uc-visitor',Math.random().toString(36).slice(2)+Date.now().toString(36));
 const VISITOR=ls('uc-visitor'),SID=Math.random().toString(36).slice(2);
-function track(name,data){try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,session:SID,visitor:VISITOR,seconds:0,game_day:DAY,event_version:2,data:{language:'en',page:'rosco',rosco:NO,...(data||{})}})}).catch(()=>{})}catch{}}
+// 8-bit sounds made live in the browser (no files); follows the site's sound switch (localStorage 'unicorner-sound')
+const sndOn=()=>{try{return localStorage.getItem('unicorner-sound')!=='off'}catch{return true}};let actx=null;
+function tone(f,d,o={}){if(!sndOn())return;try{actx=actx||new(window.AudioContext||window.webkitAudioContext)();if(actx.state==='suspended')actx.resume();const t=actx.currentTime+(o.at||0),os=actx.createOscillator(),g=actx.createGain();os.type=o.type||'square';os.frequency.setValueAtTime(f,t);if(o.slide)os.frequency.exponentialRampToValueAtTime(o.slide,t+d);g.gain.setValueAtTime(o.vol||.1,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);os.connect(g).connect(actx.destination);os.start(t);os.stop(t+d+.02)}catch{}}
+function whoosh(){if(!sndOn())return;try{actx=actx||new(window.AudioContext||window.webkitAudioContext)();const c=actx,t=c.currentTime,d=.22,n=c.createBufferSource(),b=c.createBuffer(1,c.sampleRate*d,c.sampleRate),x=b.getChannelData(0);for(let i=0;i<x.length;i++)x[i]=Math.random()*2-1;n.buffer=b;const f=c.createBiquadFilter();f.type='bandpass';f.frequency.setValueAtTime(2600,t);f.frequency.exponentialRampToValueAtTime(400,t+d);const g=c.createGain();g.gain.setValueAtTime(.07,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);n.connect(f).connect(g).connect(c.destination);n.start(t);n.stop(t+d)}catch{}}
+const SFX={ok:()=>{tone(988,.08);tone(1319,.16,{at:.07})},streak:()=>{SFX.ok();[1047,1319,1568,2093].forEach((f,i)=>tone(f,.07,{at:.2+i*.05,vol:.07}))},
+ no:()=>{tone(150,.28,{type:'sawtooth',vol:.08,slide:90});tone(110,.28,{vol:.04})},pass:whoosh,var:()=>{tone(660,.06,{type:'triangle',vol:.13});tone(660,.06,{type:'triangle',vol:.13,at:.12})},
+ tick:()=>tone(1800,.03,{vol:.045}),end:()=>{[523,659,784,1047].forEach((f,i)=>tone(f,.12,{at:i*.1}));tone(1319,.38,{at:.42,vol:.09});tone(659,.38,{at:.42,type:'triangle',vol:.09})}};
+// noisy events we never look at: not logged, to save database Disk IO (game_finish, question_result, rejected etc. still are)
+const NO_LOG=new Set(['answer_attempt','question_view','leave','banner_view','awards_view','crowd_share_shown','howto_step','rosco_answer','rosco_pass']);
+function track(name,data){if(NO_LOG.has(name))return;if(ARCH)data={...(data||{}),archive:true};try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,session:SID,visitor:VISITOR,seconds:0,game_day:DAY,event_version:2,data:{language:ES?'es':'en',page:'rosco',rosco:NO,...(data||{})}})}).catch(()=>{})}catch{}}
 
 // ── the presenter: 20 hand-picked 64x64 frames in rosco/host. He blinks when idle and moves his mouth while his text types out ──
 const POSES=['idle-1','idle-2','talk-1','talk-2','talk-3','happy-1','happy-talk','laugh','excited','wink','point','think','surprised','nervous','sad','sad-talk','annoyed','facepalm','pasapalabra','celebrate'];
-POSES.forEach(n=>{const i=new Image();i.src=`rosco/host/${n}.png`});
+POSES.forEach(n=>{const i=new Image();i.src=`/rosco/host/${n}.png`});
 // while talking, a pose flips between its mouth frames; poses without talking frames hold still
 const MOUTH={'idle-1':['idle-1','talk-1','talk-2','talk-3'],'happy-1':['happy-1','happy-talk'],'sad':['sad','sad-talk']};
 const REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const host={};
 function Host(box){const img=box.querySelector('img');let pose='idle-1',talkT=0,blinkT=0;
- const show=n=>{img.src=`rosco/host/${n}.png`};
+ const show=n=>{img.src=`/rosco/host/${n}.png`};
  const blink=()=>{clearTimeout(blinkT);blinkT=setTimeout(()=>{if(pose==='idle-1'&&!talkT){show('idle-2');setTimeout(()=>{if(pose==='idle-1'&&!talkT)show('idle-1')},130)}blink()},2600+Math.random()*2600)};
  const api={set(n){if(n!==pose){box.classList.remove('pop');void box.offsetWidth;if(!REDUCE)box.classList.add('pop')}pose=n;show(n)},
   talk(ms){clearInterval(talkT);talkT=0;const f=MOUTH[pose];if(!f||REDUCE)return;let i=0;
@@ -139,12 +209,16 @@ function say(el,h,text,pose='idle-1',more=false){clearInterval(typing);h.set(pos
  if(REDUCE){t.textContent=text;el.querySelector('.more')?.removeAttribute('hidden');return}
  h.talk(text.length*22);typing=setInterval(()=>{t.textContent=text.slice(0,++i);if(i>=text.length){clearInterval(typing);h.hush();el.querySelector('.more')?.removeAttribute('hidden')}},22)}
 const pick=a=>a[Math.floor(Math.random()*a.length)];
-const LINES={ok:['Golazo!','Correct!','Top bins.','Ball knowledge!','Lovely stuff.','That\'s the one.'],
- no:w=>[`No! It was ${w}.`,`Ooh, not that. It was ${w}.`,`Wrong one, it was ${w}.`],pass:['Pasapalabra!','Next letter!','We\'ll come back to it.'],
+const LINES=ES?{ok:['¡Golazo!','¡Correcto!','¡A la escuadra!','¡Eso es saber de fútbol!','¡Muy bien!','¡Esa es!'],
+ no:w=>[`¡No! Era ${w}.`,`Uy, esa no. Era ${w}.`,`Fallo, era ${w}.`],pass:['¡Pasapalabra!','¡Siguiente letra!','Ya volveremos a ella.'],
+ lap:['Segunda vuelta. Vuelven las que pasaste.','¡Otra vuelta!']}
+ :{ok:['Golazo!','Correct!','Top bins.','Ball knowledge!','Lovely stuff.','That\'s the one.'],
+ no:w=>[`No! It was ${w}.`,`Ooh, not that. It was ${w}.`,`Wrong one, it was ${w}.`],pass:['Pass!','Next letter!','We\'ll come back to it.'],
  lap:['Lap two. The ones you passed are back.','Round we go again!']};
 
 // ── answer checking: full name, any alias, or any surname; one typo allowed in longer names ──
-const norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/ø/g,'o').replace(/ß/g,'ss').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+const norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/ø/g,'o').replace(/ß/g,'ss').replace(/ı/g,'i').replace(/ł/g,'l').replace(/đ/g,'d').replace(/æ/g,'ae').replace(/œ/g,'oe').replace(/þ/g,'th').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+const CPRE=new Set(['fc','ac','as','sc','cf','cd','ud','sd','rc','ss','us','afc','vfb','vfl','tsv','fk','sv','bk','if','sk','nk','real','club','the','de','1','1.']);
 const PART=new Set(['van','de','der','den','di','da','dos','das','del','le','la','von','el','al','ter','ten']);
 function forms(name,aliases=[]){const out=new Set([norm(name),...aliases.map(norm)]);const w=norm(name).split(' ').filter(x=>!PART.has(x));
  if(w.length>1){w.slice(1).forEach(x=>{if(x.length>=3)out.add(x)});out.add(w.slice(-2).join(' '))}
@@ -154,32 +228,54 @@ function lev(a,b){if(Math.abs(a.length-b.length)>1)return 2;const d=Array.from({
 const hit=(typed,fs)=>fs.some(f=>f===typed||(typed.length>=5&&f.length>=5&&lev(typed,f)<=1));
 
 // ── state ──
-let R=null,S=null,tick=0;
-const save=()=>ls(KEY,JSON.stringify(S));
+let R=null,S=null,tick=0,CH=null;
+const save=()=>{ls(KEY,JSON.stringify(S));cloud()};
+// signed-in players keep their Rosco on every device (supabase/rosco_results.sql), like their leaderboard spot
+async function tok(){try{let s=JSON.parse(localStorage.getItem('uc-player-session')||'null');if(!s||!s.access_token)return null;
+ if(s.exp<Date.now()+60000){const r=await fetch(SB_URL+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:s.refresh_token})});const j=await r.json();if(!r.ok||!j.access_token)return null;
+  s={...s,access_token:j.access_token,refresh_token:j.refresh_token||s.refresh_token,exp:Date.now()+Math.max(60,(+j.expires_in||3600))*1000};localStorage.setItem('uc-player-session',JSON.stringify(s))}return s.access_token}catch{return null}}
+async function rpc(fn,body){const t=await tok();if(!t)return undefined;const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok)throw 0;return r.json()}
+let cloudT=0;function cloud(now){clearTimeout(cloudT);if(!S||!S.start||ARCH)return;const send=()=>{const c=counts();rpc('rosco_save',{p_day:DAY,p_state:S,p_done:!!S.done,p_score:S.done?c.ok:null,p_total:R.letters.length}).catch(()=>{})};if(now||S.done)send();else cloudT=setTimeout(send,1500)}
+async function fromCloud(){if(ARCH)return;try{const m=await rpc('rosco_mine',{p_day:DAY});if(m===undefined){$('sync0').hidden=false;if(ES)$('syncA').href='/es/';return}
+ const st=m&&m.state;if(st&&st.start&&(st.done||!S||!S.done&&(Object.keys(st.res||{}).length>Object.keys(S.res||{}).length||st.start<S.start))){S=st;ls(KEY,JSON.stringify(S))}
+ else if(S&&S.start)cloud(true)}catch{}}
 const left=()=>Math.max(0,R.seconds-Math.floor((Date.now()-S.start)/1000));
 const fmt=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
 function drawRing(id,cur){const r=$(id);r.querySelectorAll('.l').forEach(e=>e.remove());const on=new Set(R.letters.map(x=>x.letter));
  ABC.forEach((ch,i)=>{const a=-Math.PI/2+i*2*Math.PI/ABC.length,e=document.createElement('div'),st=S&&S.res[ch];
   e.className='l'+(!on.has(ch)?' off':st==='ok'?' ok':st==='no'?' no':(S&&S.passed.includes(ch)?' pass':''))+(ch===cur?' now':'');e.textContent=on.has(ch)?ch:'–';
+  if(R.letters.some(x=>x.letter===ch&&x.mode==='contains'))e.classList.add('has');
+  if(id==='ring'&&S&&!S.done&&S.queue.includes(ch)&&ch!==cur){e.classList.add('jump');e.dataset.l=ch;e.setAttribute('role','button');e.tabIndex=0;e.setAttribute('aria-label',L(`Go to ${ch}`,`Ir a la ${ch}`))}
   e.style.left=50+43.5*Math.cos(a)+'%';e.style.top=50+43.5*Math.sin(a)+'%';r.appendChild(e)})}
 const counts=()=>{const v=Object.values(S.res);return{ok:v.filter(x=>x==='ok').length,no:v.filter(x=>x==='no').length}};
 function show(id){['s-load','s-intro','s-play','s-end'].forEach(x=>$(x).hidden=x!==id)}
 
-async function load(){let r;try{r=await fetch(`rosco/${DAY}.json`,{cache:'no-cache'});if(!r.ok)throw 0;R=await r.json()}catch{$('s-load').innerHTML='<p class="note">No Rosco today yet. Come back soon!</p>';return}
- $('tag').textContent=`ROSCO #${NO}`;try{S=JSON.parse(ls(KEY)||'null')}catch{S=null}
+// today's average from everyone's finished Roscos (supabase/rosco_stats.sql); shown once a few people have played
+async function dayAvg(mine){try{const r=await fetch(SB_URL+'/rest/v1/rpc/rosco_day_stats',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({p_day:DAY})});if(!r.ok)throw 0;const j=await r.json();
+ const t=ARCH?(j&&j.players>=5?L(`Average that day: ${j.avg} (${j.players} players)`,`Media de ese día: ${j.avg} (${j.players} jugadores)`)+(mine!=null?L(` · you: ${mine}`,` · tú: ${mine}`):''):''):j&&j.players>=5?L(`Today's average: ${j.avg} (${j.players} players)`,`Media de hoy: ${j.avg} (${j.players} jugadores)`)+(mine!=null?L(` · you: ${mine}`,` · tú: ${mine}`):''):L("Be one of the first to play today's Rosco.",'Sé de los primeros en jugar el Rosco de hoy.');
+ ['avg0','avg2'].forEach(id=>{if($(id))$(id).textContent=t})}catch{}}
+async function load(){if(ARCH&&ls('uc-inf-sub')!=='1'){$('s-load').innerHTML=`<p class="note">${L('Past Roscos are part of Infinity mode.','Los Roscos anteriores son parte del Modo Infinito.')}</p><a class="btn paper" href="${ES?'/es/':'/'}?inf=open">${L('See Infinity','Ver el Infinito')}</a>`;track('rosco_archive_locked',{});return}let r;try{r=await fetch(`/rosco/${DAY}.json`,{cache:'no-cache'});if(!r.ok)throw 0;R=await r.json()}catch{$('s-load').innerHTML=`<p class="note">${L('No Rosco today yet. Come back soon!','Aún no hay Rosco hoy. ¡Vuelve pronto!')}</p>`;return}
+ $('tag').textContent=`ROSCO #${NO}`+(ARCH?' · '+L('ARCHIVE','ARCHIVO'):'');try{S=JSON.parse(ls(KEY)||'null')}catch{S=null}
+ await fromCloud();
+ // friend challenge (challenge.js): "beat my score on today's Rosco"
+ const n0=R.letters.length;CH=window.ucChallenge&&!ARCH?ucChallenge({game:'rosco',day:DAY,max:n0,es:ES,track,played:()=>S&&S.done?counts().ok:null,fmt:v=>`${v}/${n0}`,
+  banner:(who,v)=>({en:`<strong>${who} got ${v}/${n0} on today's Rosco.</strong> Same letters, same clues. Can you beat it?`,es:`<strong>${who} ha acertado ${v}/${n0} en el Rosco de hoy.</strong> Mismas letras, mismas pistas. ¿Le superas?`}),
+  share:(v,u)=>`${L('Unicorner Rosco','Rosco Unicorner')} #${NO}: ${v}/${n0}\n${gridText()}\n${L('Can you beat me?','¿Me superas?')}\n${u}`,
+  url:code=>`https://unicornergame.lol${ES?'/es':''}/rosco.html?c=${code}`}):null;
  if(S&&S.done)return end(false);if(S&&S.start)return play();
- show('s-intro');drawRing('ring0','A');$('clock0').textContent=fmt(R.seconds);$('count0').textContent=`${R.letters.length} LETTERS`+(R.letters.length<26?` · ${26-R.letters.length} SKIPPED`:'');
- host.intro=host.intro||Host($('face0'));say($('say0'),host.intro,`Welcome to the Rosco! I'm Horacio Herradura. ${R.letters.length} letters, five minutes, and the clock doesn't stop. Shall we?`,'happy-1');track('rosco_intro',{})}
+ show('s-intro');CH&&CH.intro($('chal0'));drawRing('ring0','A');$('clock0').textContent=fmt(R.seconds);$('count0').textContent=L(`${R.letters.length} LETTERS`,`${R.letters.length} LETRAS`)+(R.letters.length<26?L(` · ${26-R.letters.length} SKIPPED`,` · ${26-R.letters.length} FUERA`):'');
+ host.intro=host.intro||Host($('face0'));say($('say0'),host.intro,L(`Welcome to the Rosco! I'm Horacio Herradura. ${R.letters.length} letters, five minutes, and the clock doesn't stop. Shall we?`,`¡Bienvenidos al Rosco! Soy Horacio Herradura. ${R.letters.length} letras, cinco minutos, y el reloj no se para. ¿Empezamos?`),'happy-1');track('rosco_intro',{});dayAvg()}
 
 $('go').onclick=()=>{S={start:Date.now(),res:{},typed:{},passed:[],queue:R.letters.map(x=>x.letter),lap:1,done:false};save();track('rosco_start',{});play()};
 
+const clue=q=>ES&&q.prompt_es?q.prompt_es:q.prompt;
 const cur=()=>R.letters.find(x=>x.letter===S.queue[0]);
-function play(){show('s-play');render(true);clearInterval(tick);tick=setInterval(()=>{const s=left();$('clock').textContent=fmt(s);$('clock').classList.toggle('low',s<=30);if(s<=30&&!S.warned){S.warned=1;react('nervous','30 seconds left!')}if(s<=0)finish('time')},250);setTimeout(()=>$('in').focus(),50)}
+function play(){show('s-play');render(true);clearInterval(tick);tick=setInterval(()=>{const s=left();$('clock').textContent=fmt(s);$('clock').classList.toggle('low',s<=30);if(s<=30&&s>0&&s!==window._lt){window._lt=s;SFX.tick()}if(s<=30&&!S.warned){S.warned=1;react('nervous',L('30 seconds left!','¡Quedan 30 segundos!'))}if(s<=0)finish('time')},250);setTimeout(()=>$('in').focus(),50)}
 function render(first){const q=cur();if(!q)return finish('all');S.seen=S.seen||[];
  if(S.seen.includes(q.letter)){S.lap++;S.seen=[];if(!first)setTimeout(()=>react('wink',pick(LINES.lap)),0)}S.seen.push(q.letter);save();drawRing('ring',q.letter);const c=counts();
- $('count').innerHTML=`<b>${c.ok} ✓</b> · <i>${c.no} ✕</i> · ${S.queue.length} left`;$('clock').textContent=fmt(left());
- $('chip').textContent=(q.answer_type==='club'?'Club':q.answer_type==='country'?'Country':'Surname')+` starts with ${q.letter}`;$('prompt').textContent=q.prompt;$('sub').textContent=q.subtitle||'';
- $('in').placeholder=q.answer_type==='club'?'Type a club':q.answer_type==='country'?'Type a country':q.answer_type==='manager'?'Type a manager':'Type a player';
+ $('count').innerHTML=`<b>${c.ok} ✓</b> · <i>${c.no} ✕</i> · `+L(`${S.queue.length} left`,`quedan ${S.queue.length}`);$('clock').textContent=fmt(left());
+ const has=q.mode==='contains',ty=q.answer_type==='club'?L('Club','Club'):q.answer_type==='country'?L('Country','Selección'):L('Surname','Apellido');$('chip').classList.toggle('has',has);$('chip').textContent=has?L(`Contains ${q.letter} · anywhere in the name`,`Contiene la ${q.letter} · en cualquier parte`):ES?`${ty} por la ${q.letter}`:`${ty} starts with ${q.letter}`;$('chip').classList.toggle('has',has);$('prompt').textContent=clue(q);$('sub').textContent=(ES&&q.prompt_es?q.subtitle_es:q.subtitle)||'';showHint(q);
+ $('in').placeholder=ES?(q.answer_type==='club'?'Escribe un club':q.answer_type==='country'?'Escribe una selección':q.answer_type==='manager'?'Escribe un entrenador':'Escribe un jugador'):(q.answer_type==='club'?'Type a club':q.answer_type==='country'?'Type a country':q.answer_type==='manager'?'Type a manager':'Type a player');
  if(first){host.play=host.play||Host($('face'));host.play.set('point')}}
 function react(pose,text){host.play.set(pose);$('var').textContent=text;host.play.talk(650)}
 function popLetter(l){setTimeout(()=>{const e=[...$('ring').querySelectorAll('.l')].find(x=>x.textContent===l);if(e&&!REDUCE){e.classList.add('pop')}},0)}
@@ -187,39 +283,89 @@ function shake(){const i=$('in');i.classList.remove('shake');void i.offsetWidth;
 function next(){S.queue.shift();if(!S.queue.length)return finish('all');save();render()}
 
 function answer(){const q=cur(),raw=$('in').value.trim();if(!q)return;if(!raw)return pass();
- const t=norm(raw),good=q.answers.find(a=>hit(t,forms(a.name,a.aliases)));
- if(good){S.res[q.letter]='ok';S.typed[q.letter]=good.name;S.run=(S.run||0)+1;S.miss=0;react(S.run>=5&&S.run%5===0?'excited':S.run>=3?'laugh':'happy-1',(S.run>=3?S.run+' in a row! ':'')+pick(LINES.ok)+' '+good.name);popLetter(q.letter);track('rosco_answer',{letter:q.letter,ok:true})}
- else if((q.others||[]).some(n=>hit(t,forms(n)))){$('var').textContent=`VAR: right answer, but it doesn't start with ${q.letter}. Try another!`;host.play.set('think');$('in').select();return}
- else{S.res[q.letter]='no';S.typed[q.letter]=raw;S.run=0;S.miss=(S.miss||0)+1;react(S.miss>=3?'facepalm':S.miss===2?'annoyed':'sad',pick(LINES.no(q.answers[0].name)));shake();track('rosco_answer',{letter:q.letter,ok:false})}
+ const t=norm(raw),L0=q.letter.toLowerCase(),con=q.mode==='contains',okf=a=>forms(a.name,a.aliases).filter(f=>!con||f.includes(L0));
+ // contains letters: what you type has to have the letter in it (Ronaldo Nazário counts for I, plain Ronaldo doesn't)
+ let good=(!con||t.includes(L0))?q.answers.find(a=>hit(t,okf(a))):null;
+ // clubs: the first real word is enough when only one club in the list starts with it (Werder, Wolverhampton, Eintracht, Atlético)
+ let firstOther=false;
+ if(!good&&q.answer_type!=='player'&&q.answer_type!=='manager'&&t.length>=4&&!t.includes(' ')){const fw=n=>norm(n).split(' ').find(w=>w.length>=3&&!CPRE.has(w))||'';
+  const near=n=>{const w=fw(n);return w&&(w===t||(t.length>=5&&lev(t,w)<=1))},inA=q.answers.filter(a=>near(a.name)),inO=(q.others||[]).filter(near);
+  if(inA.length+inO.length===1){if(inA.length&&(!con||okf(inA[0]).length&&fw(inA[0].name).includes(L0)))good=inA[0];else firstOther=true}
+  else if(inA.length+inO.length>1){$('var').textContent=L('More than one club starts like that. Type the full name!','Hay más de un club que empieza así. ¡Escribe el nombre completo!');host.play.set('think');SFX.var();shake();$('in').select();return}}
+ if(good){S.res[q.letter]='ok';S.typed[q.letter]=good.name;S.run=(S.run||0)+1;S.miss=0;react(S.run>=5&&S.run%5===0?'excited':S.run>=3?'laugh':'happy-1',(S.run>=3?L(S.run+' in a row! ','¡'+S.run+' seguidas! '):'')+pick(LINES.ok)+' '+good.name);popLetter(q.letter);(S.run>=3&&S.run%3===0?SFX.streak:SFX.ok)();track('rosco_answer',{letter:q.letter,ok:true})}
+ else if(firstOther||(q.others||[]).some(n=>hit(t,forms(n)))||(con&&q.answers.some(a=>hit(t,forms(a.name,a.aliases))))){$('var').textContent=q.mode==='contains'?L(`VAR: right answer, but there's no ${q.letter} in it. Try the full name or another one!`,`VAR: respuesta válida, pero no lleva la ${q.letter}. ¡Prueba el nombre completo u otra!`):L(`VAR: right answer, but it doesn't start with ${q.letter}. Try another!`,`VAR: respuesta válida, pero no empieza por la ${q.letter}. ¡Prueba otra!`);host.play.set('think');SFX.var();shake();$('in').select();return}
+ else{S.res[q.letter]='no';S.typed[q.letter]=raw;track('rosco_reject',{letter:q.letter,typed:raw.slice(0,60),prompt:q.prompt.slice(0,120),mode:q.mode});S.run=0;S.miss=(S.miss||0)+1;react(S.miss>=3?'facepalm':S.miss===2?'annoyed':'sad',pick(LINES.no(q.answers[0].name)));shake();SFX.no();track('rosco_answer',{letter:q.letter,ok:false})}
  S.passed=S.passed.filter(x=>x!==q.letter);$('in').value='';next();$('in').focus()}
 function pass(){const q=cur();if(!q)return;if(!S.passed.includes(q.letter))S.passed.push(q.letter);
- S.queue.push(S.queue.shift());react('pasapalabra',pick(LINES.pass));$('in').value='';track('rosco_pass',{letter:q.letter});save();render();$('in').focus()}
+ S.queue.push(S.queue.shift());react('pasapalabra',pick(LINES.pass));SFX.pass();$('in').value='';track('rosco_pass',{letter:q.letter});save();render();$('in').focus()}
+{const b=$('snd'),paint=()=>{b.dataset.on=sndOn()?'1':'0';b.setAttribute('aria-pressed',String(sndOn()))};paint();b.onclick=()=>{try{localStorage.setItem('unicorner-sound',sndOn()?'off':'on')}catch{}paint();if(sndOn())SFX.ok()}}
+// the hint for a letter: first two letters of one answer's surname (the word the letter is about), the rest as blanks
+function hintFor(q){const a=q.answers[0];if(!a)return'';const words=a.name.split(' ').filter(w=>!PART.has(norm(w)));
+ let w=q.mode==='contains'?words.find(x=>norm(x).includes(q.letter.toLowerCase()))||a.name:words.find(x=>norm(x).startsWith(q.letter.toLowerCase()))||words[words.length-1]||a.name;
+ const shown=w.slice(0,2);return shown+'_'.repeat(Math.max(0,w.length-2))+'  ·  '+L(`${w.length} letters`,`${w.length} letras`)}
+function hint(){const q=cur();if(!q||S.done)return;S.hints=S.hints||{};if(S.hints[q.letter])return;
+ S.hints[q.letter]=hintFor(q);S.start-=15000;$('clock').textContent=fmt(left());SFX.pass();track('rosco_hint',{letter:q.letter});save();showHint(q);$('in').focus()}
+function showHint(q){const h=S.hints&&S.hints[q.letter],x=$('hintx');x.hidden=!h;x.textContent=h||'';$('hint').disabled=!!h}
+$('hint').onclick=hint;
+function jump(ch){const i=S?S.queue.indexOf(ch):-1;if(i<=0||S.done)return;const q=cur();if(q&&!S.passed.includes(q.letter))S.passed.push(q.letter);
+ S.queue=S.queue.slice(i).concat(S.queue.slice(0,i));if(S.seen)S.seen=S.seen.filter(x=>x!==ch);SFX.pass();$('in').value='';$('var').textContent='';save();render();$('in').focus()}
+$('ring').addEventListener('click',e=>{const l=e.target.closest('.l.jump');if(l)jump(l.dataset.l)});
+$('ring').addEventListener('keydown',e=>{const l=e.target.closest('.l.jump');if(l&&(e.key==='Enter'||e.key===' ')){e.preventDefault();jump(l.dataset.l)}});
 $('f').onsubmit=e=>{e.preventDefault();answer()};$('enter').onclick=answer;$('pass').onclick=pass;
 
 function finish(why){clearInterval(tick);if(S.done)return;S.done=true;S.left=left();S.why=why;R.letters.forEach(x=>{if(!S.res[x.letter])S.res[x.letter]='miss'});save();
- const c=counts();track('rosco_finish',{score:c.ok,wrong:c.no,total:R.letters.length,left:S.left,why});end(true)}
-function end(fresh){show('s-end');feedback();const c=counts(),n=R.letters.length;drawRing('ring2');$('score').innerHTML=`${c.ok}<span>/${n}</span>`;
- $('left').textContent=S.why==='time'?'TIME UP':fmt(S.left||0)+' LEFT';
+ const c=counts();track('rosco_finish',{score:c.ok,wrong:c.no,total:R.letters.length,left:S.left,why});if(c.ok)SFX.end();end(true);ringSweep()}
+function ringSweep(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;setTimeout(()=>document.querySelectorAll('#ring2 .l.ok').forEach((e,i)=>e.animate([{transform:'scale(1)'},{transform:'scale(1.3)'},{transform:'scale(1)'}],{duration:300,delay:i*45,easing:'cubic-bezier(.23,1,.32,1)'})),60)}
+// your place on today's Rosco board (signed-in players only; supabase/rosco_board.sql)
+async function myRank(){const el=$('rank2');if(!el||ARCH)return;try{const g=await rpc('rosco_board',{p_day:DAY});
+ if(g===undefined){el.innerHTML=`<a href="${ES?'/es/#signin':'/#signin'}">${L('Sign in to get on the Rosco board','Inicia sesión para entrar en el ranking del Rosco')}</a>`;return}
+ if(g&&g.me)el.innerHTML=L(`🏆 You're <b>#${g.me.rank}</b> of ${g.players} on today's Rosco board`,`🏆 Vas <b>${g.me.rank}º</b> de ${g.players} en el ranking del Rosco de hoy`)}catch{}}
+function end(fresh){show('s-end');if(ES)$('rklink').href='/es/#ranking-rosco';if(ARCH){const a=$('rklink');a.href=(ES?'/es/':'/')+'?inf=open';a.textContent=L('Back to the archive','Volver al archivo')}CH&&CH.end($('chal2'),counts().ok,fresh);feedback();const c=counts(),n=R.letters.length;setTimeout(()=>dayAvg(c.ok),fresh?1500:0);setTimeout(myRank,fresh?2200:300);drawRing('ring2');$('score').innerHTML=`${c.ok}<span>/${n}</span>`;
+ $('left').textContent=S.why==='time'?L('TIME UP','¡TIEMPO!'):L(fmt(S.left||0)+' LEFT','SOBRAN '+fmt(S.left||0));
  const mood=c.ok>=19?'celebrate':c.ok>=15?'excited':c.ok>=11?'wink':c.ok>=7?'sad':'facepalm';host.end=host.end||Host($('face2'));
- say($('say2'),host.end,c.ok>=19?`${c.ok}! That's a huge Rosco. Take a bow.`:c.ok>=13?`${c.ok} correct. Solid ball knowledge, that.`:c.ok>=8?`${c.ok} today. The Rosco is a tough one, come back tomorrow!`:`Only ${c.ok}... we all have off days. New Rosco tomorrow!`,mood);
+ say($('say2'),host.end,ES?(c.ok>=19?`¡${c.ok}! Menudo Rosco. Saluda al público.`:c.ok>=13?`${c.ok} aciertos. Eso es saber de fútbol.`:c.ok>=8?`${c.ok} hoy. El Rosco es duro, ¡vuelve mañana!`:`Solo ${c.ok}... todos tenemos un mal día. ¡Mañana, Rosco nuevo!`):(c.ok>=19?`${c.ok}! That's a huge Rosco. Take a bow.`:c.ok>=13?`${c.ok} correct. Solid ball knowledge, that.`:c.ok>=8?`${c.ok} today. The Rosco is a tough one, come back tomorrow!`:`Only ${c.ok}... we all have off days. New Rosco tomorrow!`),mood);
  $('grid').textContent=gridText();
  $('ans').innerHTML=R.letters.map(x=>{const st=S.res[x.letter],col=st==='ok'?'var(--grass)':st==='no'?'var(--clay)':'#6b6878';
-  return`<li><b style="background:${col}">${x.letter}</b><div><strong>${esc(x.prompt)}</strong><small>${st==='ok'?'✓ '+esc(S.typed[x.letter]):st==='no'?'✕ You said '+esc(S.typed[x.letter]):'Not answered'} · ${x.answers.length>1?'Answers':'Answer'}: ${x.answers.map(a=>esc(a.name)).join(', ')}</small></div></li>`}).join('');
- const nx=()=>{const now=new Date(),am=new Date(now.toLocaleString('en-US',{timeZone:'Europe/Amsterdam'})),ms=(24*3600-am.getHours()*3600-am.getMinutes()*60-am.getSeconds())*1000;$('next').textContent=`New Rosco in ${Math.floor(ms/36e5)}h ${Math.floor(ms%36e5/6e4)}m`};nx();setInterval(nx,30000)}
+  return`<li><b style="background:${col}">${x.letter}</b><div><strong>${x.mode==='contains'?`<em class="hasn">${L('contains','contiene')} ${x.letter}</em> `:''}${esc(clue(x))}</strong><small>${st==='ok'?'✓ '+esc(S.typed[x.letter]):st==='no'?L('✕ You said ','✕ Dijiste ')+esc(S.typed[x.letter]):L('Not answered','Sin responder')} · ${x.answers.length>1?L('Answers','Respuestas'):L('Answer','Respuesta')}: ${x.answers.map(a=>esc(a.name)).join(', ')}</small></div></li>`}).join('');
+ const nx=()=>{const now=new Date(),am=new Date(now.toLocaleString('en-US',{timeZone:'Europe/Amsterdam'})),ms=(24*3600-am.getHours()*3600-am.getMinutes()*60-am.getSeconds())*1000;$('next').textContent=L('New Rosco in ','Nuevo Rosco en ')+`${Math.floor(ms/36e5)}h ${Math.floor(ms%36e5/6e4)}m`};nx();setInterval(nx,30000)}
 // feedback after a round: 1-10 and an optional note, once per day (sent as an event)
-function feedback(){const k='uc-rosco-fb-'+DAY;if(ls(k))return;let rating=0;$('fb').hidden=false;
+function feedback(){const k='uc-rosco-fb-'+DAY;if(ls(k)||ARCH)return;let rating=0;$('fb').hidden=false;
  $('r10').innerHTML=Array.from({length:10},(_,i)=>`<button type="button" data-r="${i+1}">${i+1}</button>`).join('');
  $('r10').onclick=e=>{const b=e.target.closest('[data-r]');if(!b)return;rating=+b.dataset.r;$('r10').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));$('fb-send').disabled=false};
  $('fb-send').onclick=()=>{const t=$('fb-t').value.trim().slice(0,500),c=counts();track('rosco_feedback',{rating,text:t||null,score:c.ok});ls(k,'1');
   $('r10').hidden=$('fb-t').hidden=$('fb-send').hidden=true;$('fb-ok').hidden=false}}
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const gridText=()=>ABC.map(ch=>{if(!R.letters.some(x=>x.letter===ch))return'⬛';const s=S.res[ch];return s==='ok'?'🟩':s==='no'?'🟥':'⬜'}).join('');
-$('show').onclick=()=>{$('ans').hidden=!$('ans').hidden;$('show').textContent=$('ans').hidden?'See answers':'Hide answers'};
-const resultText=()=>{const c=counts();return`Unicorner Rosco #${NO}: ${c.ok}/${R.letters.length}\n${gridText()}\nunicornergame.lol/rosco.html`};
+$('show').onclick=()=>{$('ans').hidden=!$('ans').hidden;$('show').textContent=$('ans').hidden?L('See answers','Ver respuestas'):L('Hide answers','Ocultar respuestas')};
+const resultText=()=>{const c=counts();return L('Unicorner Rosco','Rosco Unicorner')+` #${NO}: ${c.ok}/${R.letters.length}\n${gridText()}\nunicornergame.lol/`+L('rosco.html','es/rosco.html')};
 $('copy').onclick=async()=>{const c=counts(),t=resultText();track('rosco_copy',{score:c.ok});
  try{await navigator.clipboard.writeText(t)}catch{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch{}a.remove()}
- $('copy').textContent='Copied! Paste it anywhere';setTimeout(()=>$('copy').textContent='Copy result',1800)};
-if(navigator.share)$('share').hidden=false;
-$('share').onclick=async()=>{track('rosco_share',{score:counts().ok});try{await navigator.share({text:resultText()})}catch{}};
+ $('copy').textContent=L('Copied! Paste it anywhere','¡Copiado! Pégalo donde quieras');setTimeout(()=>$('copy').textContent=L('Copy result','Copiar resultado'),1800)};
+// share image: the wheel in your colours, the score and Horacio, 1080x1350 (fits Instagram, WhatsApp, TikTok)
+async function roscoImage(){const W=1080,H=1350,c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d');g.imageSmoothingEnabled=false;
+ try{await document.fonts.load('80px "Jersey 10"');await document.fonts.load('40px VT323')}catch{}
+ for(let x=0;x<W;x+=90){g.fillStyle=(x/90)%2?'#16356b':'#1d4486';g.fillRect(x,0,90,H)}
+ const ink='#1d1a2b',cr='#fbf6e8',gold='#f2c230',c0=counts(),n=R.letters.length,on=new Set(R.letters.map(x=>x.letter));
+ g.fillStyle=ink;g.fillRect(0,0,W,120);g.fillStyle=gold;g.font='64px "Jersey 10",monospace';g.textBaseline='middle';g.fillText('UNICORNER',48,64);
+ g.fillStyle=cr;g.textAlign='right';g.font='44px VT323,monospace';g.fillText(`ROSCO #${NO} · ${DAY}`,W-48,64);g.textAlign='center';
+ const cx=W/2,cy=600,r=380,t=78;ABC.forEach((ch,i)=>{const a=-Math.PI/2+i*2*Math.PI/ABC.length,x=cx+r*Math.cos(a),y=cy+r*Math.sin(a),st=S.res[ch];
+  g.fillStyle=ink;g.fillRect(x-t/2-6,y-t/2-6,t+12,t+12);g.fillStyle=!on.has(ch)?'#2a2540':st==='ok'?'#2fbf71':st==='no'?'#c8473b':'#5b5470';g.fillRect(x-t/2,y-t/2,t,t);
+  g.fillStyle=st==='ok'?ink:cr;g.font='56px "Jersey 10",monospace';g.fillText(on.has(ch)?ch:'–',x,y+4)});
+ g.fillStyle=ink;g.font='200px "Jersey 10",monospace';g.fillText(`${c0.ok}`,cx+6,cy-90+8);g.fillStyle=gold;g.fillText(`${c0.ok}`,cx,cy-90);
+ g.fillStyle=cr;g.font='56px "Jersey 10",monospace';g.fillText(L(`OUT OF ${n}`,`DE ${n}`),cx,cy+20);
+ const pose=c0.ok>=n*.6?'celebrate':c0.ok>=n*.3?'happy-1':'facepalm';
+ try{const im=new Image();im.src='/rosco/host/'+pose+'.png';await im.decode();g.drawImage(im,cx-120,cy+60,240,240)}catch{}
+ const line=c0.ok>=n*.6?L('What a Rosco!','¡Qué Rosco!'):c0.ok>=n*.3?L('Not bad at all!','¡Nada mal!'):L('Tomorrow is another day…','Mañana será otro día…');
+ g.font='46px VT323,monospace';const bw=g.measureText('"'+line+'" — Horacio Herradura').width+60;g.fillStyle=ink;g.fillRect(cx-bw/2-6,1060-6,bw+12,96);g.fillStyle=cr;g.fillRect(cx-bw/2,1060,bw,84);g.fillStyle=ink;g.fillText('"'+line+'" — Horacio Herradura',cx,1104);
+ g.fillStyle=ink;g.fillRect(0,H-130,W,130);g.fillStyle=cr;g.font='52px "Jersey 10",monospace';g.fillText(L(`${c0.ok} ✓  ${c0.no} ✕   Can you beat me?`,`${c0.ok} ✓  ${c0.no} ✕   ¿Me superas?`),cx,H-84);g.fillStyle=gold;g.font='40px VT323,monospace';g.fillText(ES?'unicornergame.lol/es/rosco':'unicornergame.lol/rosco',cx,H-36);
+ return new Promise(res=>c.toBlob(res,'image/png'))}
+const dlImg=blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`rosco-${DAY}.png`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)};
+$('dlimg').onclick=async()=>{const b=$('dlimg');b.disabled=true;track('rosco_download_image',{score:counts().ok});try{dlImg(await roscoImage());b.textContent=L('Saved ✓','Guardada ✓');setTimeout(()=>b.textContent=L('↓ Download','↓ Descargar'),2000)}catch{}b.disabled=false};
+$('shareimg').onclick=async()=>{const b=$('shareimg');b.disabled=true;track('rosco_share_image',{score:counts().ok});
+ try{const blob=await roscoImage(),f=new File([blob],`rosco-${DAY}.png`,{type:'image/png'});
+  if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],text:resultText()})}catch{}}
+  else{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=f.name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);b.textContent=L('Saved! Post it anywhere','¡Guardada! Publícala donde quieras');setTimeout(()=>b.textContent=L('Share image','Compartir imagen'),2200)}}catch{}
+ b.disabled=false};
+
 load();
 </script></body></html>

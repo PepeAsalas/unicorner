@@ -1,0 +1,122 @@
+{
+ "day": "2026-11-05",
+ "questions": [
+  {
+   "q": "Which of these clubs has Carlo Ancelotti NEVER managed?",
+   "q_es": "¿Qué club NUNCA ha entrenado Carlo Ancelotti?",
+   "o": [
+    "Juventus",
+    "Chelsea",
+    "Inter",
+    "Everton"
+   ],
+   "a": 2,
+   "why": "He managed Milan, never their city rivals Inter.",
+   "why_es": "Entrenó al Milan, nunca a su vecino el Inter.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who won the 2010 Ballon d'Or?",
+   "q_es": "¿Quién ganó el Balón de Oro de 2010?",
+   "o": [
+    "Andrés Iniesta",
+    "Xavi",
+    "Lionel Messi",
+    "Wesley Sneijder"
+   ],
+   "a": 2,
+   "why": "Messi won it, with Iniesta and Xavi second and third in a World Cup year.",
+   "why_es": "Lo ganó Messi, con Iniesta y Xavi segundo y tercero en año de Mundial.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which country has lost the most World Cup finals without ever winning one?",
+   "q_es": "¿Qué país ha perdido más finales del Mundial sin ganar ninguna?",
+   "o": [
+    "Hungary",
+    "Czechoslovakia",
+    "Netherlands",
+    "Sweden"
+   ],
+   "a": 2,
+   "why": "The Netherlands lost in 1974, 1978 and 2010.",
+   "why_es": "Países Bajos perdió en 1974, 1978 y 2010.",
+   "src": "own knowledge",
+   "o_es": [
+    "Hungría",
+    "Checoslovaquia",
+    "Países Bajos",
+    "Suecia"
+   ]
+  },
+  {
+   "q": "How many La Liga goals did Lionel Messi score in 2011-12?",
+   "q_es": "¿Cuántos goles de Liga marcó Leo Messi en la 2011-12?",
+   "o": [
+    "46",
+    "50",
+    "52"
+   ],
+   "a": 1,
+   "why": "50, the La Liga record for one season.",
+   "why_es": "50, el récord de goles en una temporada de Liga.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who was the first African player to win the Ballon d'Or?",
+   "q_es": "¿Quién fue el primer africano en ganar el Balón de Oro?",
+   "o": [
+    "George Weah",
+    "Samuel Eto'o",
+    "Didier Drogba"
+   ],
+   "a": 0,
+   "why": "Weah in 1995; he is still the only one.",
+   "why_es": "Weah en 1995; sigue siendo el único.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which club won the first Europa League under that name, in 2009-10?",
+   "q_es": "¿Qué club ganó la primera Europa League con ese nombre, en 2009-10?",
+   "o": [
+    "Atlético Madrid",
+    "Fulham",
+    "Sevilla"
+   ],
+   "a": 0,
+   "why": "Atlético beat Fulham 2-1 after extra time in Hamburg.",
+   "why_es": "El Atlético ganó 2-1 al Fulham en la prórroga en Hamburgo.",
+   "src": "own knowledge",
+   "o_es": [
+    "Atlético de Madrid",
+    "Fulham",
+    "Sevilla"
+   ]
+  },
+  {
+   "q": "Who scored the winning goal in the Euro 2004 final?",
+   "q_es": "¿Quién marcó el gol de la victoria en la final de la Euro 2004?",
+   "o": [
+    "Angelos Charisteas",
+    "Theodoros Zagorakis",
+    "Giorgos Karagounis"
+   ],
+   "a": 0,
+   "why": "Charisteas headed it in against Portugal.",
+   "why_es": "Charisteas lo marcó de cabeza ante Portugal.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who played more Premier League games: Gareth Barry or Ryan Giggs?",
+   "q_es": "¿Quién jugó más partidos de Premier League: Gareth Barry o Ryan Giggs?",
+   "o": [
+    "Ryan Giggs",
+    "Gareth Barry"
+   ],
+   "a": 1,
+   "why": "Barry played 653, Giggs 632.",
+   "why_es": "Barry jugó 653, Giggs 632.",
+   "src": "own knowledge"
+  }
+ ]
+}

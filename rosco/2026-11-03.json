@@ -1,1 +1,1904 @@
-{"date":"2026-11-03","seconds":300,"letters":[{"letter":"A","mode":"starts","prompt":"Name a club that won the Europa League, 2010-2026","subtitle":"Finals held from 2010 through 2026","prompt_es":"","subtitle_es":"","answer_type":"club","answers":[{"name":"Atalanta","aliases":["Atalanta BC"]},{"name":"Aston Villa","aliases":["Villa"]}],"others":["Sevilla","Chelsea","Man United","Atlético Madrid","Spurs","Porto","Villarreal","Eintracht Frankfurt"]},{"letter":"B","mode":"starts","prompt":"Name an Italian who played for Chelsea","subtitle":"Premier League, 1992–2025","prompt_es":"Nombra un italiano que haya jugado en el Chelsea","subtitle_es":"Premier League, 1992–2025","answer_type":"player","answers":[{"name":"Samuele Dalla Bona","aliases":["Dalla Bona"]},{"name":"Fabio Borini","aliases":["Borini"]}],"others":["Gianfranco Zola","Gianluca Vialli","Roberto Di Matteo","Jorginho","Carlo Cudicini","Emerson","Davide Zappacosta","Pierluigi Casiraghi","Gabriele Ambrosetti","Marco Ambrosio","Christian Panucci","Cesare Casadei"]},{"letter":"C","mode":"starts","prompt":"Name an Italian player who played for Chelsea up to 2025-26","subtitle":"","prompt_es":"","subtitle_es":"","answer_type":"player","answers":[{"name":"Carlo Cudicini","aliases":["Cudicini"]},{"name":"Pierluigi Casiraghi","aliases":["Casiraghi"]},{"name":"Cesare Casadei","aliases":["Casadei"]}],"others":["Gianfranco Zola","Gianluca Vialli","Roberto Di Matteo","Jorge Luiz Frello Filho","Christian Panucci","Davide Zappacosta","Emerson Palmieri dos Santos","Fabio Borini","Samuele Dalla Bona","Marco Palestra","Gabriele Ambrosetti","Marco Ambrosio","Luca Percassi"]},{"letter":"D","mode":"starts","prompt":"Name a player who played for both Liverpool and Real Madrid up to 2025-26","subtitle":"","prompt_es":"","subtitle_es":"","answer_type":"player","answers":[{"name":"Jerzy Dudek","aliases":["Dudek"]}],"others":["Trent John Alexander-Arnold","Xabier Alonso Olano","Michael Owen","Steve McManaman","Fernando Morientes Sánchez","Nicolas Anelka","Ibrahima Konaté","Álvaro Arbeloa Coca","Fábio Henrique Tavares","Nuri Şahin","Antonio Núñez Tena"]},{"letter":"E","mode":"starts","prompt":"Name a right-back who played in the Premier League between 2005-06 and 2025-26","subtitle":"","prompt_es":"","subtitle_es":"","answer_type":"player","answers":[{"name":"Ahmed Elmohamady","aliases":[]},{"name":"Emmanuel Eboué","aliases":["Emmanuel Eboue"]}],"others":["Gary Neville","Kyle Walker","Trent Alexander-Arnold","Branislav Ivanović","Pablo Zabaleta","César Azpilicueta","Bacary Sagna","Héctor Bellerín","Reece James","João Cancelo","Diogo Dalot","Aaron Wan-Bissaka","Rafael da Silva","Antonio Valencia","Glen Johnson","Álvaro Arbeloa","Steve Finnan","Nathaniel Clyne","Séamus Coleman","Tony Hibbert","Phil Neville","Kyle Naughton","Emerson Royal","Matt Doherty","Pedro Porro","Vedran Ćorluka","Alan Hutton","Luke Young","Stephen Carr","Habib Beye","Mathieu Debuchy","Daryl Janmaat","DeAndre Yedlin","Vladimír Coufal","Ryan Fredericks","Carl Jenkinson","Matty Cash","Frédéric Guilbert","Ritchie De Laet","Danny Simpson","Ricardo Pereira","Timothy Castagne","James Justin","Luke Ayling","Rasmus Kristensen","Sascha Riether","Kenny Tete","Cédric Soares","Calum Chambers","Tino Livramento","Kyle Walker-Peters","Yan Valery","Joel Ward","Neco Williams","Martin Kelly","Nathan Ferguson","Max Aarons","Sam Byram","Russell Martin","Steven Whittaker","Martín Montoya","Bruno Saltor","Tariq Lamptey","Joël Veltman","Malo Gusto","Ola Aina","Gonzalo Montiel","Djed Spence","Pedro Pereira","Mads Roerslev","Jayden Bogle","George Baldock","Kieron Freeman","Matthew Lowton","Phil Bardsley","Stephen Darby","Tony McMahon","Billy Jones","Andre Wisdom","Jon Flanagan","Kevin Foley","Ronnie Stam","Emmerson Boyce","Pascal Chimbonda","Lauren","Justin Hoyte","Kerrea Gilbert","Moritz Volz","Mario Melchiot","José Bosingwa","Matteo Darmian","Timothy Fosu-Mensah","Guillermo Varela","Daniel Muñoz","Noussair Mazraoui","Yukinari Sugawara","Nathan Patterson","Ben Johnson","James Bree","Kieran Trippier","Ben White","Joe Gomez","Paulo Ferreira","Juliano Belletti","Micah Richards","Serge Aurier","Nélson Semedo","Wes Brown","John O'Shea","Ashley Young","Javier Manquillo","Jonny Otto","Djibril Sidibé"]},{"letter":"F","mode":"starts","prompt":"Named in Spain's Euro 2024 squad","subtitle":"Final 26-player UEFA Euro 2024 squad","prompt_es":"","subtitle_es":"","answer_type":"player","answers":[{"name":"Nacho Fernández","aliases":["Nacho"]}],"others":["David Raya","Alejandro Remiro","Unai Simón","Dani Carvajal","Marc Cucurella","Alejandro Grimaldo","Aymeric Laporte","Robin Le Normand","Dani Vivian","Álex Baena","Mikel Merino","Mikel Oyarzabal","Pedri","Rodri","Fabián Ruiz","Nico Williams","Martín Zubimendi","Joselu","Fermín López","Álvaro Morata","Jesús Navas","Dani Olmo","Ayoze Pérez","Ferran Torres","Lamine Yamal"]},{"letter":"G","mode":"starts","prompt":"Name a player who played for Portugal at a Euro from 2012 to 2024","subtitle":"","prompt_es":"","subtitle_es":"","answer_type":"player","answers":[{"name":"Raphaël Guerreiro","aliases":["Raphael Guerreiro"]},{"name":"André Gomes","aliases":["Andre Gomes"]}],"others":["Cristiano Ronaldo","Pepe","Nani","João Moutinho","Bruno Fernandes","Bernardo Silva","Rui Patrício","Ricardo Quaresma","Rúben Dias","Diogo Costa","Fábio Coentrão","João Pereira","Bruno Alves","Miguel Veloso","Raul Meireles","Hélder Postiga","Hugo Almeida","Nélson Oliveira","Silvestre Varela","Custódio","Rolando","Ricardo Costa","Cédric Soares","José Fonte","William Carvalho","Adrien Silva","João Mário","Renato Sanches","Éder","Rafa Silva","Vieirinha","Eliseu","Ricardo Carvalho","Danilo Pereira","Diogo Jota","André Silva","João Félix","João Palhinha","Diogo Dalot","Sérgio Oliveira","João Cancelo","Nuno Mendes","Vitinha","Rafael Leão","Francisco Conceição","Pedro Neto","Gonçalo Ramos","João Neves","Nélson Semedo","Gonçalo Inácio","António Silva","Rúben Neves"]},{"letter":"H","mode":"starts","prompt":"Name a Portuguese player who played in the Premier League between 2000-01 and 2025-26","subtitle":"","prompt_es":"","subtitle_es":"","answer_type":"player","answers":[{"name":"Henrique Hilário","aliases":["Henrique Hilario","Hilario"]}],"others":["Cristiano Ronaldo","Bruno Fernandes","Bernardo Silva","Nani","Ricardo Carvalho","João Cancelo","Rúben Dias","Diogo Jota","Deco","João Félix","Rúben Neves","João Moutinho","Pedro Neto","João Palhinha","Diogo Dalot","José Bosingwa","Luís Boa Morte","Paulo Ferreira","Raul Meireles","José Fonte","Rui Patrício","Ricardo Quaresma","Maniche","Renato Sanches","Matheus Nunes","André Gomes","Gonçalo Guedes","Cédric Soares","Ricardo Pereira","Nélson Semedo","Daniel Podence","Francisco Trincão","Hélder Postiga","Tiago Mendes","Hugo Viana","Nuno Valente","Éder","Manuel Fernandes","Pedro Mendes","Nélson Oliveira","Fábio Carvalho","Fábio Vieira","Fábio Silva","Nuno Tavares","Adrien Silva","João Mário","José Sá","Ricardo Vaz Tê","Ivan Cavaleiro","Dário Essugo","Mateus Fernandes","Florentino Luís","João Carlos Teixeira","Silvestre Varela","Renato Veiga","Rúben Vinagre","Vitinha","Abel Xavier","Ricardo Rocha","Ivo Pinto","Daniel Carriço","Jorge Costa","Gedson Fernandes","Bruno Jordão","Ariza Makukula","Nuno Morais","Filipe Oliveira","Joel Pereira","Orlando Sá","Domingos Quina","Jota Silva","Xande Silva","Sidnei Tavares","Filipe Teixeira","João Virgínia","Bruno Andrade","Amaury Bischoff","Cafú","Rafael Camacho","Youssef Chermiti","Chiquinho","Costinha","Carlos Forbs","Rodrigo Gomes","Toti Gomes","Jordão","Mateus Mané","Pablo Felipe Pereira de Jesus","Rodrigo Ribeiro","Geovany Quenda","António Silva"]},{"letter":"I","mode":"starts","prompt":"Name a player who scored 10+ goals for Spain between 2000-01 and 2025-26","subtitle":"","prompt_es":"","subtitle_es":"","answer_type":"player","answers":[{"name":"Andrés Iniesta","aliases":["Andres Iniesta","Iniesta"]},{"name":"Isco","aliases":["Francisco Alarcon","Francisco Roman Alarcon"]}],"others":["David Villa","Raúl González","Fernando Torres","Álvaro Morata","David Silva","Mikel Oyarzabal","Fernando Morientes","Ferran Torres","Sergio Ramos","Pedro Rodríguez","Xabi Alonso","Mikel Merino","Santi Cazorla","Cesc Fàbregas","Xavi Hernández","Dani Olmo","Paco Alcácer","Lamine Yamal","Diego Costa","Juan Mata","Álvaro Negredo"]},{"letter":"J","mode":"starts","prompt":"Name a goalkeeper who played for Arsenal up to 2025-26","subtitle":"","prompt_es":"","subtitle_es":"","answer_type":"player","answers":[{"name":"Pat Jennings","aliases":["Jennings"]}],"others":["David Seaman","Jens Lehmann","Petr Čech","David Raya Martín","Aaron Ramsdale","Wojciech Szczęsny","Bernd Leno","Łukasz Fabiański","Manuel Almunia","David Ospina Ramírez","Emiliano Martínez","Kepa Arrizabalaga Revuelta","John Lukic","Bob Wilson","Jimmy Rimmer","Alex Manninger","Richard Wright","Stuart Taylor","Vito Mannone","Matt Ryan","Matt Turner","Alex Rúnarsson","Karl Hein","Jack Porter","Tommy Setford","Matt Macey","Rami Shaaban","Mart Poom","Graham Stack","Vince Bartram","Alan Miller","George Wood","Paul Barron","Rhys Wilmot","Geoff Barnett","Malcolm Webster","Tony Burns","Jim Furnell","Jack McClelland","Ian McKechnie","Jack Kelsey","Jim Standen","Con Sullivan","Ted Platt","George Swindin","Alex Wilson","Frank Boulton","Frank Moss","Bill Harper","Charlie Preedy","Dan Lewis","Ernest Williamson","Gerrit Keizer","Jock Robson","Tim Williamson","Jimmy Ashcroft","Hugh McDonald","Teddy Bateup","Harry Storer","Leigh Roose","Fred Beardsley"]},{"letter":"K","mode":"starts","prompt":"Name a player who played for both Chelsea and Inter up to 2025-26","subtitle":"","prompt_es":"","subtitle_es":"","answer_type":"player","answers":[{"name":"Mateo Kovačić","aliases":["Mateo Kovacic","Kovačić","Kovacic"]}],"others":["Hernán Jorge Crespo","Juan Guillermo Cuadrado Bello","Samuel Eto'o Fils","Romelu Menama Lukaku Bolingoli","Nuno Ricardo de Oliveira Ribeiro","Victor Moses","Adrian Mutu","Christian Panucci","Ricardo Andrade Quaresma Bernardo","Juan Sebastián Verón"]},{"letter":"L","mode":"starts","prompt":"Name a Spanish club that played in the Champions League group or league phase between 2000-01 and 2025-26","subtitle":"","prompt_es":"","subtitle_es":"","answer_type":"club","answers":[{"name":"Deportivo La Coruña","aliases":["Deportivo","Depor","Deportivo de La Coruna"]}],"others":["Real Madrid","FC Barcelona","Atlético Madrid","Valencia","Sevilla","Villarreal","Real Sociedad","Athletic Club","Málaga","Real Betis","Celta Vigo","RCD Mallorca","Girona"]},{"letter":"M","mode":"starts","prompt":"Name a club that played in Ligue 1 in 2025-26","subtitle":"","prompt_es":"","subtitle_es":"","answer_type":"club","answers":[{"name":"AS Monaco","aliases":["Monaco"]},{"name":"FC Metz","aliases":["Metz"]}],"others":["Paris Saint-Germain","Olympique de Marseille","Olympique Lyonnais","LOSC Lille","OGC Nice","Stade Rennais","RC Lens","RC Strasbourg","Toulouse FC","FC Nantes","Stade Brestois 29","Le Havre AC","AJ Auxerre","Angers SCO","FC Lorient","Paris FC"]},{"letter":"N","mode":"starts","prompt":"Name a player who played for England at a World Cup from 2006 to 2022","subtitle":"","prompt_es":"","subtitle_es":"","answer_type":"player","answers":[{"name":"Gary Neville","aliases":[]}],"others":["David Beckham","Wayne Rooney","Steven Gerrard","Frank Lampard","Harry Kane","Jude Bellingham","Bukayo Saka","John Terry","Rio Ferdinand","Ashley Cole","Jordan Pickford","Raheem Sterling","Michael Owen","Peter Crouch","Joe Cole","Owen Hargreaves","Paul Robinson","Jamie Carragher","Aaron Lennon","Stewart Downing","Sol Campbell","Jermaine Jenas","David James","Robert Green","Glen Johnson","Matthew Upson","Ledley King","Gareth Barry","James Milner","Jermain Defoe","Emile Heskey","Shaun Wright-Phillips","Joe Hart","Gary Cahill","Phil Jagielka","Leighton Baines","Jordan Henderson","Danny Welbeck","Daniel Sturridge","Ross Barkley","Adam Lallana","Jack Wilshere","Rickie Lambert","Luke Shaw","Chris Smalling","Phil Jones","Ben Foster","Kieran Trippier","Kyle Walker","John Stones","Harry Maguire","Dele Alli","Jesse Lingard","Marcus Rashford","Jamie Vardy","Ruben Loftus-Cheek","Eric Dier","Fabian Delph","Danny Rose","Trent Alexander-Arnold","Phil Foden","Declan Rice","Mason Mount","Jack Grealish","Callum Wilson","Conor Coady","Kalvin Phillips","Conor Gallagher","Marc Guéhi","Ezri Konsa","Nico O'Reilly","Elliot Anderson","Djed Spence","Anthony Gordon","Morgan Rogers","Reece James","Noni Madueke","Eberechi Eze","Jarell Quansah","Dean Henderson","Ivan Toney","Ollie Watkins","Dan Burn","Trevoh Chalobah"]},{"letter":"O","mode":"starts","prompt":"Name a Colombian who played in Serie A between 2000-01 and 2025-26","subtitle":"","prompt_es":"","subtitle_es":"","answer_type":"player","answers":[{"name":"David Ospina","aliases":["Ospina"]}],"others":["Juan Cuadrado","Duván Zapata","Luis Muriel","Iván Córdoba","Carlos Bacca","Mario Yepes","Yerry Mina","Cristián Zapata","Pablo Armero","Fredy Guarín","Juan Fernando Quintero","Víctor Ibarbo","Jeison Murillo","Jhon Lucumí","Johan Mojica","Carlos Sánchez","Juan Camilo Zúñiga","Abel Aguilar","Kevin Agudelo","Jorge Bolaño","Miguel Borja","Juan Cabal","Carlos Carbonero","Damir Ceter","Óscar Córdoba","Gonzalo Martínez","Johnnier Montaño","Daniel Mosquera","Jonny Mosquera","Dorlan Pabón","Brayan Perea","Nelson Rivas","Jorge Horacio Serna","Andrés Tello","Fernando Uribe","Juan Manuel Valencia","Devis Vásquez","Brayan Vera","Alexis Zapata","Juan David Arizala"]},{"letter":"P","mode":"starts","prompt":"Played for three or more top-five league clubs","subtitle":"Senior league appearances for 3+ different clubs","prompt_es":"","subtitle_es":"","answer_type":"player","answers":[{"name":"Ivan Perišić","aliases":[]},{"name":"Kevin-Prince Boateng","aliases":[]}],"others":["Zlatan Ibrahimović","Thierry Henry","Nicolas Anelka","Pierre-Emerick Aubameyang","Arjen Robben","Luis Suárez","Henrikh Mkhitaryan","Mario Balotelli","Ángel Di María","James Rodríguez","Edinson Cavani","Álvaro Morata","Romelu Lukaku","Alexis Sánchez","Arturo Vidal","Christian Eriksen","João Cancelo","Olivier Giroud","Fernando Torres","Philippe Coutinho","Samuel Eto'o","Cesc Fàbregas","Carlos Tevez","David Luiz","Antoine Griezmann","Sergio Ramos","Ousmane Dembélé","Lucas Digne","Loïc Rémy"]},{"letter":"R","mode":"starts","prompt":"Name a Moroccan who played in La Liga between 2000-01 and 2025-26","subtitle":"","prompt_es":"","subtitle_es":"","answer_type":"player","answers":[{"name":"Chadi Riad","aliases":["Riad"]},{"name":"Walid Regragui","aliases":["Regragui"]}],"others":["Achraf Hakimi","Yassine Bounou","Brahim Díaz","Youssef En-Nesyri","Sofyan Amrabat","Munir El Haddadi","Abde Ezzalzouli","Nordin Amrabat","Noureddine Naybet","Sofiane Boufal","Fayçal Fajr","Youssef El-Arabi","Nabil El Zhar","Nabil Baha","Abdelaziz Barrada","Mehdi Carcela-González","Zouhair Feddal","Mustapha Hadji","Ilias Akhomach","Nayef Aguerd","Selim Amallah","Adam Aznou","Zakarya Bergdich","Sofian Chakla","Walid Cheddira","Issam El Adoua","Mounir El Hamdaoui","Omar El Hilali","Jawad El Yamiq","Oussama Idrissi","Azzedine Ounahi","Maroan Sannadi","Abdel Abqar","Nabil Aberdin","Ismael Bekhoucha","Adam Boayar","Ilyas Chaira","Couhaib Driouech","Jones El-Abdellaoui","Mourad El Ghezouani","Salim El Jebari","Rachad Fettal","Ali Houary","Abderrahman Kabous","Hachim Mastour","Mohammed El Yaagoubi","Yacine Qasmi","Oussama Tannane","Adnane Tighadouini","Nabil Touaizi","Anuar Tuhami","Yassir Zabiri","Ezzaki Badou","Haitam Abaida"]},{"letter":"S","mode":"starts","prompt":"In Italy's Euro 2020 squad","subtitle":"Final 26-player squad","prompt_es":"Convocado por Italia en la Euro 2020","subtitle_es":"Lista final de 26 jugadores","answer_type":"player","answers":[{"name":"Salvatore Sirigu","aliases":[]},{"name":"Leonardo Spinazzola","aliases":[]}],"others":["Gianluigi Donnarumma","Alex Meret","Francesco Acerbi","Alessandro Bastoni","Leonardo Bonucci","Giorgio Chiellini","Giovanni Di Lorenzo","Emerson Palmieri","Alessandro Florenzi","Rafael Toloi","Nicolò Barella","Bryan Cristante","Jorginho","Manuel Locatelli","Gaetano Castrovilli","Matteo Pessina","Marco Verratti","Andrea Belotti","Domenico Berardi","Federico Bernardeschi","Federico Chiesa","Ciro Immobile","Lorenzo Insigne","Giacomo Raspadori"]},{"letter":"T","mode":"starts","prompt":"Name a player who played for France at a Euro from 2012 to 2024","subtitle":"","prompt_es":"","subtitle_es":"","answer_type":"player","answers":[{"name":"Corentin Tolisso","aliases":[]},{"name":"Marcus Thuram","aliases":[]},{"name":"Aurélien Tchouaméni","aliases":["Aurelien Tchouameni"]}],"others":["Kylian Mbappé","Antoine Griezmann","Karim Benzema","Paul Pogba","N'Golo Kanté","Olivier Giroud","Hugo Lloris","Franck Ribéry","Samir Nasri","Yohan Cabaye","Patrice Evra","Mathieu Debuchy","Adil Rami","Philippe Mexès","Gaël Clichy","Yann M'Vila","Alou Diarra","Florent Malouda","Jérémy Ménez","Mathieu Valbuena","Hatem Ben Arfa","Laurent Koscielny","Marvin Martin","Bacary Sagna","Dimitri Payet","Blaise Matuidi","Moussa Sissoko","Kingsley Coman","Anthony Martial","André-Pierre Gignac","Samuel Umtiti","Raphaël Varane","Benjamin Pavard","Presnel Kimpembe","Lucas Hernandez","Adrien Rabiot","Ousmane Dembélé","Jules Koundé","Clément Lenglet","Thomas Lemar","Mike Maignan","William Saliba","Dayot Upamecano","Theo Hernández","Randal Kolo Muani","Bradley Barcola","Eduardo Camavinga","Youssouf Fofana","Lucas Digne"]},{"letter":"U","mode":"starts","prompt":"Name a French player who played for Chelsea up to 2025-26","subtitle":"","prompt_es":"","subtitle_es":"","answer_type":"player","answers":[{"name":"Lesley Ugochukwu","aliases":["Ugochukwu"]}],"others":["N'Golo Kanté","Claude Makélélé","Marcel Desailly","Nicolas Anelka","Olivier Giroud","William Gallas","Florent Malouda","Frank Leboeuf","Didier Deschamps","Christopher Nkunku","Kurt Zouma","Loïc Rémy","Tiemoué Bakayoko","Lassana Diarra","Malo Gusto","Wesley Fofana","Benoît Badiashile","Axel Disasi","Maxence Guy Lacroix","Malang Sarr","Mathis Amougou","Laurent Charvet","Bernard Lambourde"]},{"letter":"V","mode":"starts","prompt":"Name a club that won the Copa del Rey, 2010 to 2026","subtitle":"Final editions labelled 2010 through 2026","prompt_es":"","subtitle_es":"","answer_type":"club","answers":[{"name":"Valencia","aliases":["Valencia CF"]}],"others":["Barcelona","Real Madrid","Atlético Madrid","Sevilla","Athletic Club","Real Sociedad","Real Betis"]},{"letter":"W","mode":"starts","prompt":"Played for Newcastle in the 2023-24 Champions League run","subtitle":"2023-24 UEFA Champions League group stage","prompt_es":"Jugó con el Newcastle en la Champions 2023-24","subtitle_es":"Fase de grupos de la Champions 2023-24","answer_type":"player","answers":[{"name":"Callum Wilson","aliases":[]},{"name":"Joe Willock","aliases":[]}],"others":["Alexander Isak","Bruno Guimarães","Kieran Trippier","Anthony Gordon","Sandro Tonali","Nick Pope","Joelinton","Fabian Schär","Miguel Almirón","Dan Burn","Sean Longstaff","Sven Botman","Harvey Barnes","Jamaal Lascelles","Tino Livramento","Jacob Murphy","Lewis Miley","Matt Targett","Elliot Anderson","Lewis Hall","Martin Dúbravka"]},{"letter":"Y","mode":"starts","prompt":"Name a player with 50+ Premier League assists up to 2025-26","subtitle":"","prompt_es":"","subtitle_es":"","answer_type":"player","answers":[{"name":"Ashley Young","aliases":[]},{"name":"Dwight Yorke","aliases":[]}],"others":["Ryan Giggs","Kevin De Bruyne","Cesc Fàbregas","Wayne Rooney","Frank Lampard","Dennis Bergkamp","Mohamed Salah","David Silva","Steven Gerrard","James Milner","David Beckham","Christian Eriksen","Teddy Sheringham","Thierry Henry","Andy Cole","Bruno Fernandes","Son Heung-min","Darren Anderton","Raheem Sterling","Gareth Barry","Alan Shearer","Trent Alexander-Arnold","Matt Le Tissier","Nolberto Solano","Riyad Mahrez","Andrew Robertson","Stewart Downing","Steve McManaman","Peter Crouch","Jimmy Floyd Hasselbaink","Jordan Henderson","Eric Cantona","Theo Walcott","Kevin Davies","Didier Drogba","Damien Duff","Steed Malbranque","Danny Murphy","Paul Scholes","Eden Hazard","Juan Mata","Mesut Özil","Leighton Baines","Emile Heskey","Robin van Persie","Pascal Groß","Roberto Firmino","Nick Barmby","Aaron Lennon","Gylfi Sigurðsson","Bernardo Silva","Bukayo Saka"]},{"letter":"Z","mode":"starts","prompt":"Name a country that has won the Africa Cup of Nations up to 2023","subtitle":"","prompt_es":"","subtitle_es":"","answer_type":"country","answers":[{"name":"Zambia","aliases":[]}],"others":["Egypt","Cameroon","Nigeria","Ghana","Algeria","Ivory Coast","Senegal","Morocco","Tunisia","South Africa","DR Congo","Congo","Sudan","Ethiopia"]}]}
+{
+ "date": "2026-11-03",
+ "seconds": 300,
+ "letters": [
+  {
+   "letter": "A",
+   "mode": "starts",
+   "prompt": "Name a Brazilian striker who played in Serie A up to 2025-26",
+   "subtitle": "",
+   "prompt_es": "Nombra un delantero brasileño que haya jugado en la Serie A hasta 2025-26",
+   "subtitle_es": "",
+   "answer_type": "player",
+   "answers": [
+    {
+     "name": "Adriano",
+     "aliases": [
+      "Adriano Leite Ribeiro",
+      "Adriano Imperador"
+     ]
+    },
+    {
+     "name": "Márcio Amoroso",
+     "aliases": [
+      "Márcio Amoroso dos Santos",
+      "Marcio Amoroso",
+      "Amoroso"
+     ]
+    },
+    {
+     "name": "Adaílton",
+     "aliases": [
+      "Adaílton Martins Bolzan",
+      "Adailton"
+     ]
+    },
+    {
+     "name": "Luiz Adriano",
+     "aliases": []
+    }
+   ],
+   "others": [
+    "Ronaldo",
+    "Alexandre Pato",
+    "Ricardo Oliveira",
+    "Mário Jardel",
+    "Edmundo",
+    "Keirrison",
+    "Kaio Jorge",
+    "Gabriel Barbosa",
+    "Pedro",
+    "Piá",
+    "Jeda",
+    "Arthur Cabral",
+    "Giovane",
+    "Brenner",
+    "Paulinho",
+    "Barreto",
+    "Adriano Pereira",
+    "Adriano Louzada",
+    "Jonathas",
+    "Nenê",
+    "Ryder Matos",
+    "Zé Love",
+    "Reginaldo",
+    "Mikael",
+    "Felipe Vizeu",
+    "Ewandro Costa",
+    "Isaac"
+   ]
+  },
+  {
+   "letter": "B",
+   "mode": "starts",
+   "prompt": "Name a player who has captained England",
+   "subtitle": "Senior men's matches, 2000 to 2025",
+   "prompt_es": "Nombra un jugador que haya sido capitán de Inglaterra",
+   "subtitle_es": "Partidos de la selección absoluta, de 2000 a 2025",
+   "answer_type": "player",
+   "answers": [
+    {
+     "name": "David Beckham",
+     "aliases": [
+      "Beckham"
+     ]
+    },
+    {
+     "name": "Gareth Barry",
+     "aliases": [
+      "Barry"
+     ]
+    }
+   ],
+   "others": [
+    "Harry Kane",
+    "Wayne Rooney",
+    "Steven Gerrard",
+    "John Terry",
+    "Jordan Henderson",
+    "Rio Ferdinand",
+    "Frank Lampard",
+    "Michael Owen",
+    "Gary Cahill",
+    "Harry Maguire",
+    "Declan Rice",
+    "Kyle Walker",
+    "Raheem Sterling",
+    "John Stones",
+    "Alan Shearer",
+    "Tony Adams",
+    "Sol Campbell",
+    "Joe Hart",
+    "Eric Dier",
+    "Kieran Trippier",
+    "Marcus Rashford",
+    "Ashley Cole",
+    "Scott Parker",
+    "James Milner",
+    "Gary Neville",
+    "Phil Neville",
+    "Michael Carrick",
+    "Jamie Carragher",
+    "Gareth Southgate",
+    "Martin Keown",
+    "Phil Jagielka",
+    "Chris Smalling",
+    "Fabian Delph",
+    "Joleon Lescott",
+    "David James",
+    "Emile Heskey",
+    "Robbie Fowler",
+    "Danny Mills"
+   ]
+  },
+  {
+   "letter": "C",
+   "mode": "starts",
+   "prompt": "Name a club that played in the Premier League in 2015-16",
+   "subtitle": "",
+   "prompt_es": "Nombra un club que haya jugado en la Premier League en 2015-16",
+   "subtitle_es": "",
+   "answer_type": "club",
+   "answers": [
+    {
+     "name": "Chelsea",
+     "aliases": []
+    },
+    {
+     "name": "Crystal Palace",
+     "aliases": [
+      "Palace"
+     ]
+    }
+   ],
+   "others": [
+    "Leicester City",
+    "Arsenal",
+    "Tottenham Hotspur",
+    "Manchester City",
+    "Manchester United",
+    "Southampton",
+    "West Ham United",
+    "Liverpool",
+    "Stoke City",
+    "Everton",
+    "Swansea City",
+    "Watford",
+    "West Bromwich Albion",
+    "AFC Bournemouth",
+    "Sunderland",
+    "Newcastle United",
+    "Norwich City",
+    "Aston Villa"
+   ]
+  },
+  {
+   "letter": "D",
+   "mode": "starts",
+   "prompt": "Name a player who scored 20+ Premier League goals in a single season up to 2025-26",
+   "subtitle": "",
+   "prompt_es": "Nombra un jugador que haya marcado 20+ goles de Premier League en una sola temporada hasta 2025-26",
+   "subtitle_es": "",
+   "answer_type": "player",
+   "answers": [
+    {
+     "name": "Didier Drogba",
+     "aliases": []
+    }
+   ],
+   "others": [
+    "Erling Haaland",
+    "Raheem Sterling",
+    "Sergio Agüero",
+    "Yaya Touré",
+    "Carlos Tevez",
+    "Pierre-Emerick Aubameyang",
+    "Alexis Sánchez",
+    "Robin van Persie",
+    "Emmanuel Adebayor",
+    "Thierry Henry",
+    "Ian Wright",
+    "Mohamed Salah",
+    "Sadio Mané",
+    "Luis Suárez",
+    "Daniel Sturridge",
+    "Fernando Torres",
+    "Robbie Fowler",
+    "Wayne Rooney",
+    "Dimitar Berbatov",
+    "Cristiano Ronaldo",
+    "Ruud van Nistelrooy",
+    "Dwight Yorke",
+    "Son Heung-min",
+    "Harry Kane",
+    "Gareth Bale",
+    "Jürgen Klinsmann",
+    "Teddy Sheringham",
+    "Alexander Isak",
+    "Alan Shearer",
+    "Les Ferdinand",
+    "Andy Cole",
+    "Peter Beardsley",
+    "Cole Palmer",
+    "Diego Costa",
+    "Frank Lampard",
+    "Jimmy Floyd Hasselbaink",
+    "Ivan Toney",
+    "Bryan Mbeumo",
+    "Igor Thiago",
+    "Danny Ings",
+    "James Beattie",
+    "Matt Le Tissier",
+    "Jamie Vardy",
+    "Stan Collymore",
+    "Chris Wood",
+    "Darren Bent",
+    "Kevin Phillips",
+    "Romelu Lukaku",
+    "Andy Johnson",
+    "Mark Viduka",
+    "Chris Sutton",
+    "Louis Saha"
+   ]
+  },
+  {
+   "letter": "E",
+   "mode": "contains",
+   "prompt": "Name a left-back who played for Barcelona up to 2025-26",
+   "subtitle": "",
+   "prompt_es": "Nombra un lateral izquierdo que haya jugado en el Barcelona hasta 2025-26",
+   "subtitle_es": "",
+   "answer_type": "player",
+   "answers": [
+    {
+     "name": "Lucas Digne",
+     "aliases": [
+      "Digne"
+     ]
+    },
+    {
+     "name": "Jérémy Mathieu",
+     "aliases": [
+      "Jeremy Mathieu",
+      "Mathieu"
+     ]
+    },
+    {
+     "name": "Éric Abidal",
+     "aliases": [
+      "Eric Abidal",
+      "Abidal"
+     ]
+    },
+    {
+     "name": "Alejandro Balde Martínez",
+     "aliases": [
+      "Alejandro Balde",
+      "Balde"
+     ]
+    },
+    {
+     "name": "Sergi Barjuán Esclusa",
+     "aliases": [
+      "Sergi Barjuán",
+      "Sergi Barjuan",
+      "Barjuán",
+      "Barjuan"
+     ]
+    },
+    {
+     "name": "Sylvio Mendes Campos Júnior",
+     "aliases": [
+      "Sylvinho",
+      "Silvinho"
+     ]
+    },
+    {
+     "name": "Maxwell Scherrer Cabelino Andrade",
+     "aliases": [
+      "Maxwell"
+     ]
+    },
+    {
+     "name": "Adriano Correia Claro",
+     "aliases": [
+      "Adriano",
+      "Adriano Correia"
+     ]
+    },
+    {
+     "name": "Marcos Alonso Mendoza",
+     "aliases": [
+      "Marcos Alonso",
+      "Alonso"
+     ]
+    },
+    {
+     "name": "Gerard Martín Langreo",
+     "aliases": [
+      "Gerard Martín",
+      "Gerard Martin"
+     ]
+    },
+    {
+     "name": "Marc Cucurella Saseta",
+     "aliases": [
+      "Marc Cucurella",
+      "Cucurella"
+     ]
+    },
+    {
+     "name": "Juan Miranda González",
+     "aliases": [
+      "Juan Miranda",
+      "Miranda"
+     ]
+    },
+    {
+     "name": "Fernando Navarro Corbacho",
+     "aliases": [
+      "Fernando Navarro",
+      "Navarro"
+     ]
+    },
+    {
+     "name": "Miquel Soler Sarasols",
+     "aliases": [
+      "Miquel Soler",
+      "Soler"
+     ]
+    },
+    {
+     "name": "Juan Carlos Rodríguez Moreno",
+     "aliases": [
+      "Juan Carlos",
+      "Juan Carlos Rodríguez",
+      "Juan Carlos Rodriguez"
+     ]
+    },
+    {
+     "name": "Julio Alberto Moreno Casas",
+     "aliases": [
+      "Julio Alberto",
+      "Julio Alberto Moreno"
+     ]
+    },
+    {
+     "name": "Eladio Silvestre Graells",
+     "aliases": [
+      "Eladio",
+      "Eladio Silvestre"
+     ]
+    }
+   ],
+   "others": [
+    "Jordi Alba Ramos",
+    "Giovanni van Bronckhorst",
+    "Junior Firpo",
+    "Sígfrid Gràcia Royo"
+   ]
+  },
+  {
+   "letter": "F",
+   "mode": "starts",
+   "prompt": "Scored 10+ goals in a single Champions League season",
+   "subtitle": "2000–01 to 2024–25, qualifying rounds excluded",
+   "prompt_es": "Marcó 10 o más goles en una sola temporada de Champions",
+   "subtitle_es": "De 2000–01 a 2024–25, sin contar las rondas previas",
+   "answer_type": "player",
+   "answers": [
+    {
+     "name": "Roberto Firmino",
+     "aliases": [
+      "Firmino",
+      "Bobby Firmino"
+     ]
+    }
+   ],
+   "others": [
+    "Cristiano Ronaldo",
+    "Lionel Messi",
+    "Robert Lewandowski",
+    "Erling Haaland",
+    "Karim Benzema",
+    "Neymar",
+    "Mohamed Salah",
+    "Harry Kane",
+    "Ruud van Nistelrooy",
+    "Zlatan Ibrahimovic",
+    "Sadio Mane",
+    "Kaka",
+    "Mario Gomez",
+    "Raphinha",
+    "Filippo Inzaghi",
+    "Sebastien Haller",
+    "Serhou Guirassy"
+   ]
+  },
+  {
+   "letter": "G",
+   "mode": "starts",
+   "prompt": "Name a player who scored 25+ La Liga goals in a single season between 2000-01 and 2025-26",
+   "subtitle": "",
+   "prompt_es": "Nombra un jugador que haya marcado 25+ goles de LaLiga en una sola temporada entre 2000-01 y 2025-26",
+   "subtitle_es": "",
+   "answer_type": "player",
+   "answers": [
+    {
+     "name": "Dani Güiza",
+     "aliases": [
+      "Dani Guiza"
+     ]
+    }
+   ],
+   "others": [
+    "Roy Makaay",
+    "Diego Forlán",
+    "Samuel Eto'o",
+    "David Villa",
+    "Ruud van Nistelrooy",
+    "Lionel Messi",
+    "Gonzalo Higuaín",
+    "Cristiano Ronaldo",
+    "Radamel Falcao",
+    "Diego Costa",
+    "Luis Suárez",
+    "Karim Benzema",
+    "Robert Lewandowski",
+    "Kylian Mbappé"
+   ]
+  },
+  {
+   "letter": "H",
+   "mode": "starts",
+   "prompt": "Name a player who played for both Man United and Real Madrid up to 2025-26",
+   "subtitle": "",
+   "prompt_es": "Nombra un jugador que haya jugado en el Man United y en el Real Madrid hasta 2025-26",
+   "subtitle_es": "",
+   "answer_type": "player",
+   "answers": [
+    {
+     "name": "Carlos Henrique Casimiro",
+     "aliases": [
+      "Casemiro"
+     ]
+    },
+    {
+     "name": "Javier Hernández Balcázar",
+     "aliases": [
+      "Javier Hernández",
+      "Javier Hernandez",
+      "Chicharito"
+     ]
+    },
+    {
+     "name": "Gabriel Heinze",
+     "aliases": [
+      "Heinze"
+     ]
+    }
+   ],
+   "others": [
+    "Cristiano Ronaldo dos Santos Aveiro",
+    "David Robert Joseph Beckham",
+    "Ángel Fabián Di María",
+    "Ruud van Nistelrooy",
+    "Raphaël Varane",
+    "Michael Owen",
+    "Laurence Paul Cunningham",
+    "Sergio Reguilón Rodríguez"
+   ]
+  },
+  {
+   "letter": "I",
+   "mode": "contains",
+   "prompt": "Name a Brazilian who played for Barcelona",
+   "subtitle": "Competitive first-team games, 1990–2025",
+   "prompt_es": "Nombra un brasileño que haya jugado en el Barcelona",
+   "subtitle_es": "Partidos oficiales con el primer equipo, 1990–2025",
+   "answer_type": "player",
+   "answers": [
+    {
+     "name": "Philippe Coutinho",
+     "aliases": [
+      "Coutinho"
+     ]
+    },
+    {
+     "name": "Romário",
+     "aliases": [
+      "Romario"
+     ]
+    },
+    {
+     "name": "Ronaldo Nazário",
+     "aliases": [
+      "Ronaldo",
+      "Ronaldo Nazario",
+      "R9"
+     ]
+    },
+    {
+     "name": "Rivaldo",
+     "aliases": [
+      "Rivaldo Vítor Borba Ferreira"
+     ]
+    },
+    {
+     "name": "Ronaldinho",
+     "aliases": [
+      "Ronaldinho Gaúcho",
+      "Ronaldinho Gaucho"
+     ]
+    },
+    {
+     "name": "Dani Alves",
+     "aliases": [
+      "Daniel Alves",
+      "Dani"
+     ]
+    },
+    {
+     "name": "Neymar Junior",
+     "aliases": [
+      "Neymar",
+      "Neymar Jr"
+     ]
+    },
+    {
+     "name": "Raphinha",
+     "aliases": [
+      "Raphael Dias Belloli"
+     ]
+    },
+    {
+     "name": "Edmílson",
+     "aliases": [
+      "Edmilson",
+      "José Edmílson",
+      "Jose Edmilson"
+     ]
+    },
+    {
+     "name": "Sylvinho",
+     "aliases": [
+      "Silvinho",
+      "Sylvio Mendes"
+     ]
+    },
+    {
+     "name": "Belletti",
+     "aliases": [
+      "Juliano Belletti"
+     ]
+    },
+    {
+     "name": "Rafinha",
+     "aliases": [
+      "Rafinha Alcântara",
+      "Rafinha Alcantara"
+     ]
+    },
+    {
+     "name": "Paulinho",
+     "aliases": [
+      "José Paulo Bezerra Maciel Júnior",
+      "Jose Paulo Bezerra Maciel Junior"
+     ]
+    },
+    {
+     "name": "Malcom Oliveira",
+     "aliases": [
+      "Malcom"
+     ]
+    },
+    {
+     "name": "Vitor Roque",
+     "aliases": [
+      "Roque",
+      "Tigrinho"
+     ]
+    },
+    {
+     "name": "Giovanni",
+     "aliases": [
+      "Giovanni Silva de Oliveira"
+     ]
+    },
+    {
+     "name": "Anderson da Silva",
+     "aliases": [
+      "Sonny Anderson",
+      "Sonny"
+     ]
+    },
+    {
+     "name": "Adriano",
+     "aliases": [
+      "Adriano Correia"
+     ]
+    },
+    {
+     "name": "Emerson Aparecido",
+     "aliases": [
+      "Emerson Royal",
+      "Emerson"
+     ]
+    },
+    {
+     "name": "Aloísio",
+     "aliases": [
+      "Aloisio",
+      "Aloísio Pires",
+      "Aloisio Pires"
+     ]
+    },
+    {
+     "name": "Geovanni",
+     "aliases": [
+      "Geovanni Deiberson"
+     ]
+    },
+    {
+     "name": "Fábio Rochemback",
+     "aliases": [
+      "Fabio Rochemback",
+      "Rochemback"
+     ]
+    },
+    {
+     "name": "Douglas Pereira",
+     "aliases": [
+      "Douglas"
+     ]
+    }
+   ],
+   "others": [
+    "Maxwell",
+    "Arthur",
+    "Neto",
+    "Marlon",
+    "Matheus Fernandes"
+   ]
+  },
+  {
+   "letter": "J",
+   "mode": "contains",
+   "prompt": "Name a player who played for Argentina at a World Cup from 2006 to 2022",
+   "subtitle": "",
+   "prompt_es": "Nombra un jugador que haya jugado con Argentina en un Mundial entre 2006 y 2022",
+   "subtitle_es": "",
+   "answer_type": "player",
+   "answers": [
+    {
+     "name": "Marcos Rojo",
+     "aliases": []
+    },
+    {
+     "name": "Javier Mascherano",
+     "aliases": []
+    },
+    {
+     "name": "Julián Álvarez",
+     "aliases": [
+      "Julian Alvarez"
+     ]
+    },
+    {
+     "name": "Juan Román Riquelme",
+     "aliases": [
+      "Juan Roman Riquelme"
+     ]
+    },
+    {
+     "name": "Juan Pablo Sorín",
+     "aliases": [
+      "Juan Pablo Sorin"
+     ]
+    },
+    {
+     "name": "Javier Saviola",
+     "aliases": []
+    },
+    {
+     "name": "Julio Cruz",
+     "aliases": []
+    },
+    {
+     "name": "Jonás Gutiérrez",
+     "aliases": [
+      "Jonas Gutierrez"
+     ]
+    },
+    {
+     "name": "Juan Sebastián Verón",
+     "aliases": [
+      "Juan Sebastian Veron"
+     ]
+    },
+    {
+     "name": "Javier Pastore",
+     "aliases": []
+    },
+    {
+     "name": "José María Basanta",
+     "aliases": [
+      "Jose Maria Basanta"
+     ]
+    },
+    {
+     "name": "Juan Foyth",
+     "aliases": []
+    },
+    {
+     "name": "José Manuel López",
+     "aliases": [
+      "Jose Manuel Lopez"
+     ]
+    }
+   ],
+   "others": [
+    "Lionel Messi",
+    "Ángel Di María",
+    "Sergio Agüero",
+    "Gonzalo Higuaín",
+    "Lautaro Martínez",
+    "Emiliano Martínez",
+    "Carlos Tevez",
+    "Hernán Crespo",
+    "Pablo Aimar",
+    "Alexis Mac Allister",
+    "Enzo Fernández",
+    "Rodrigo De Paul",
+    "Nicolás Otamendi",
+    "Cristian Romero",
+    "Lisandro Martínez",
+    "Walter Samuel",
+    "Gabriel Heinze",
+    "Roberto Ayala",
+    "Esteban Cambiasso",
+    "Maxi Rodríguez",
+    "Nicolás Burdisso",
+    "Lionel Scaloni",
+    "Fabricio Coloccini",
+    "Leandro Cufré",
+    "Lucho González",
+    "Gabriel Milito",
+    "Rodrigo Palacio",
+    "Roberto Abbondanzieri",
+    "Leo Franco",
+    "Sergio Romero",
+    "Martín Demichelis",
+    "Mario Bolatti",
+    "Martín Palermo",
+    "Diego Milito",
+    "Clemente Rodríguez",
+    "Nicolás Tagliafico",
+    "Pablo Zabaleta",
+    "Ezequiel Garay",
+    "Federico Fernández",
+    "Fernando Gago",
+    "Lucas Biglia",
+    "Ezequiel Lavezzi",
+    "Enzo Pérez",
+    "Hugo Campagnaro",
+    "Ricardo Álvarez",
+    "Augusto Fernández",
+    "Willy Caballero",
+    "Franco Armani",
+    "Gabriel Mercado",
+    "Eduardo Salvio",
+    "Maximiliano Meza",
+    "Cristian Pavón",
+    "Paulo Dybala",
+    "Éver Banega",
+    "Marcos Acuña",
+    "Federico Fazio",
+    "Nahuel Molina",
+    "Gonzalo Montiel",
+    "Germán Pezzella",
+    "Leandro Paredes",
+    "Papu Gómez",
+    "Exequiel Palacios",
+    "Guido Rodríguez",
+    "Ángel Correa",
+    "Thiago Almada",
+    "Facundo Medina",
+    "Nicolás González",
+    "Giuliano Simeone",
+    "Marcos Senesi",
+    "Nico Paz",
+    "Giovani Lo Celso",
+    "Valentín Barco"
+   ]
+  },
+  {
+   "letter": "K",
+   "mode": "starts",
+   "prompt": "Name a striker who played for Milan between 2000-01 and 2025-26",
+   "subtitle": "",
+   "prompt_es": "Nombra un delantero que haya jugado en el Milan entre 2000-01 y 2025-26",
+   "subtitle_es": "",
+   "answer_type": "player",
+   "answers": [
+    {
+     "name": "Nikola Kalinić",
+     "aliases": [
+      "Nikola Kalinic",
+      "Kalinić",
+      "Kalinic"
+     ]
+    }
+   ],
+   "others": [
+    "Andriy Shevchenko",
+    "Zlatan Ibrahimović",
+    "Filippo Inzaghi",
+    "Ronaldo Luís Nazário de Lima",
+    "Olivier Giroud",
+    "Alexandre Pato",
+    "Mario Balotelli",
+    "Gonzalo Higuaín",
+    "Fernando Torres",
+    "Christian Vieri",
+    "Oliver Bierhoff",
+    "Antonio Cassano",
+    "Alberto Gilardino",
+    "Carlos Bacca",
+    "Giampaolo Pazzini",
+    "Klaas-Jan Huntelaar",
+    "Santiago Giménez",
+    "Tammy Abraham",
+    "Gonçalo Ramos",
+    "Christopher Nkunku",
+    "João Félix",
+    "Niclas Füllkrug",
+    "Luka Jović",
+    "Divock Origi",
+    "Krzysztof Piątek",
+    "Patrick Cutrone",
+    "André Silva",
+    "Gianluca Lapadula",
+    "Luiz Adriano",
+    "Mattia Destro",
+    "Alessandro Matri",
+    "Marco Borriello",
+    "Jon Dahl Tomasson",
+    "José Mari Romero Poyón",
+    "Ricardo Oliveira",
+    "Márcio Amoroso",
+    "Gianni Comandini",
+    "Javi Moreno",
+    "M'Baye Niang",
+    "Andrea Petagna",
+    "Alberto Paloschi",
+    "Lorenzo Colombo",
+    "Mario Mandžukić",
+    "Pietro Pellegri",
+    "Francesco Camarda",
+    "Giacomo Beretta",
+    "Marko Lazetić",
+    "George Weah",
+    "Maurizio Ganz"
+   ]
+  },
+  {
+   "letter": "L",
+   "mode": "starts",
+   "prompt": "In France's 2018 World Cup squad",
+   "subtitle": "Final 23-man squad",
+   "prompt_es": "Convocado por Francia en el Mundial 2018",
+   "subtitle_es": "Lista final de 23 jugadores",
+   "answer_type": "player",
+   "answers": [
+    {
+     "name": "Hugo Lloris",
+     "aliases": []
+    },
+    {
+     "name": "Thomas Lemar",
+     "aliases": []
+    }
+   ],
+   "others": [
+    "Steve Mandanda",
+    "Alphonse Areola",
+    "Djibril Sidibé",
+    "Benjamin Pavard",
+    "Samuel Umtiti",
+    "Raphaël Varane",
+    "Presnel Kimpembe",
+    "Adil Rami",
+    "Benjamin Mendy",
+    "Lucas Hernandez",
+    "Paul Pogba",
+    "Corentin Tolisso",
+    "Blaise Matuidi",
+    "N'Golo Kanté",
+    "Steven Nzonzi",
+    "Antoine Griezmann",
+    "Olivier Giroud",
+    "Kylian Mbappé",
+    "Ousmane Dembélé",
+    "Florian Thauvin",
+    "Nabil Fekir"
+   ]
+  },
+  {
+   "letter": "M",
+   "mode": "contains",
+   "prompt": "Played for Marseille in 2023-24",
+   "subtitle": "All senior competitions, 2023-24",
+   "prompt_es": "Jugó en el Olympique de Marsella en 2023-24",
+   "subtitle_es": "Todas las competiciones, 2023-24",
+   "answer_type": "player",
+   "answers": [
+    {
+     "name": "Chancel Mbemba",
+     "aliases": []
+    },
+    {
+     "name": "Faris Moumbagna",
+     "aliases": [
+      "Faris Pemi Moumbagna"
+     ]
+    },
+    {
+     "name": "Pierre-Emerick Aubameyang",
+     "aliases": [
+      "Aubameyang",
+      "Auba"
+     ]
+    },
+    {
+     "name": "Mattéo Guendouzi",
+     "aliases": []
+    },
+    {
+     "name": "Amine Harit",
+     "aliases": []
+    },
+    {
+     "name": "Iliman Ndiaye",
+     "aliases": []
+    },
+    {
+     "name": "Ismaïla Sarr",
+     "aliases": []
+    },
+    {
+     "name": "Samuel Gigot",
+     "aliases": []
+    },
+    {
+     "name": "Vítor Manuel Carvalho Oliveira",
+     "aliases": [
+      "Vitinha",
+      "Vítor Oliveira",
+      "Vitor Oliveira",
+      "Vitor Manuel Carvalho Oliveira"
+     ]
+    },
+    {
+     "name": "Michael Amir Murillo",
+     "aliases": [
+      "Michael Murillo",
+      "Amir Murillo"
+     ]
+    },
+    {
+     "name": "Quentin Merlin",
+     "aliases": []
+    },
+    {
+     "name": "Bamo Meïté",
+     "aliases": []
+    },
+    {
+     "name": "François Mughe",
+     "aliases": [
+      "François-Régis Mughe"
+     ]
+    },
+    {
+     "name": "Emran Soglo",
+     "aliases": []
+    },
+    {
+     "name": "Raimane Daou",
+     "aliases": []
+    },
+    {
+     "name": "Noam Mayoka-Tika",
+     "aliases": []
+    }
+   ],
+   "others": [
+    "Jonathan Clauss",
+    "Geoffrey Kondogbia",
+    "Jordan Veretout",
+    "Azzedine Ounahi",
+    "Leonardo Balerdi",
+    "Pau López",
+    "Valentin Rongier",
+    "Renan Lodi",
+    "Pape Gueye",
+    "Joaquín Correa",
+    "Luis Henrique",
+    "Ulisses Garcia",
+    "Jean Onana",
+    "Rubén Blanco",
+    "Bilal Nadir",
+    "Sofiane Sidi Ali",
+    "Gaël Lafont",
+    "Keyliane Abdallah"
+   ]
+  },
+  {
+   "letter": "N",
+   "mode": "starts",
+   "prompt": "Name a player who played for Valencia in the 2000s",
+   "subtitle": "",
+   "prompt_es": "Nombra un jugador que haya jugado en el Valencia en la década de 2000",
+   "subtitle_es": "",
+   "answer_type": "player",
+   "answers": [
+    {
+     "name": "David Navarro",
+     "aliases": []
+    },
+    {
+     "name": "Fernando Navarro",
+     "aliases": []
+    },
+    {
+     "name": "Aaron Ñíguez",
+     "aliases": [
+      "Aaron Niguez"
+     ]
+    }
+   ],
+   "others": [
+    "David Villa",
+    "David Silva",
+    "Gaizka Mendieta",
+    "Santiago Cañizares",
+    "Pablo Aimar",
+    "Rubén Baraja",
+    "Vicente Rodríguez",
+    "Roberto Ayala",
+    "Miguel Ángel Angulo",
+    "Carlos Marchena",
+    "Joaquín Sánchez",
+    "Juan Mata",
+    "Raúl Albiol",
+    "Jordi Alba",
+    "Éver Banega",
+    "Pablo Hernández",
+    "Fernando Morientes",
+    "Mista",
+    "John Carew",
+    "Claudio López",
+    "Kily González",
+    "Francisco Farinós",
+    "Gerard López",
+    "Miroslav Đukić",
+    "Amedeo Carboni",
+    "Mauricio Pellegrino",
+    "Jocelyn Angloma",
+    "Didier Deschamps",
+    "Adrian Ilie",
+    "Juan Sánchez",
+    "Salva Ballesta",
+    "Zlatko Zahovič",
+    "Gonzalo de los Santos",
+    "Fábio Aurélio",
+    "Curro Torres",
+    "Momo Sissoko",
+    "Marco Di Vaio",
+    "Stefano Fiore",
+    "Bernardo Corradi",
+    "Emiliano Moretti",
+    "Ludovic Butelle",
+    "Patrick Kluivert",
+    "Edu Gaspar",
+    "Hugo Viana",
+    "Jorge López",
+    "Mario Regueiro",
+    "Miguel Brito",
+    "Asier del Horno",
+    "Nikola Žigić",
+    "Manuel Fernandes",
+    "Alexis Ruano",
+    "Hedwiges Maduro",
+    "Sunny",
+    "Renan Brito",
+    "César Sánchez",
+    "Miguel Ángel Moyà",
+    "Bruno Saltor",
+    "Jérémy Mathieu",
+    "Dealbert",
+    "David Albelda",
+    "Nacho González",
+    "Alejandro Domínguez",
+    "Vicente Guaita",
+    "Michel Herrero",
+    "Jaime Gavilán",
+    "Xisco Muñoz"
+   ]
+  },
+  {
+   "letter": "O",
+   "mode": "starts",
+   "prompt": "Name a Spanish defender who played in the Premier League up to 2025-26",
+   "subtitle": "",
+   "prompt_es": "Nombra un defensa español que haya jugado en la Premier League hasta 2025-26",
+   "subtitle_es": "",
+   "answer_type": "player",
+   "answers": [
+    {
+     "name": "Jonny Otto",
+     "aliases": []
+    }
+   ],
+   "others": [
+    "Gerard Piqué",
+    "Fernando Hierro",
+    "César Azpilicueta",
+    "Míchel Salgado",
+    "Iván Campo",
+    "Asier del Horno",
+    "Albert Ferrer",
+    "Aymeric Laporte",
+    "Dean Huijsen",
+    "Marc Cucurella",
+    "Pau Torres",
+    "Marcos Alonso",
+    "Pedro Porro",
+    "Óscar Mingueza",
+    "Raúl Bravo",
+    "Pablo Ibáñez",
+    "Marcelino",
+    "Josémi",
+    "Héctor Bellerín",
+    "Cristhian Mosquera",
+    "Eric García",
+    "Angeliño",
+    "Sergio Reguilón",
+    "Diego Llorente",
+    "Álex Jiménez",
+    "Pep Chavarría",
+    "Juanlu Sánchez",
+    "César Martín",
+    "Cala",
+    "Álex Moreno",
+    "Sergio Gómez",
+    "Nacho Monreal",
+    "Alberto Moreno",
+    "Martín Montoya",
+    "Jesús Vallejo",
+    "José Enrique",
+    "Hugo Bueno",
+    "Álvaro Arbeloa",
+    "Diego Rico",
+    "Carlos Cuéllar",
+    "Jorge Cuenca",
+    "Javier Manquillo",
+    "Kiko Femenía",
+    "Ángel Rangel",
+    "Andrés García",
+    "Pablo Marí",
+    "Juan Larios",
+    "Chico Flores",
+    "Bruno Saltor",
+    "Iván Ramis",
+    "Jesús Gámez",
+    "Marc Muniesa",
+    "Antonio Barragán",
+    "Ignasi Miquel",
+    "Javier Garrido",
+    "Daniel Ayala",
+    "Luis Hernández",
+    "José Crespo",
+    "Antonio Luna",
+    "Adrián López",
+    "Edu Campabadal",
+    "Román Golobart"
+   ]
+  },
+  {
+   "letter": "P",
+   "mode": "starts",
+   "prompt": "Name a club that has won the European Cup or Champions League",
+   "subtitle": "1956 to 2025",
+   "prompt_es": "Nombra un club que haya ganado la Copa de Europa o la Champions",
+   "subtitle_es": "De 1956 a 2025",
+   "answer_type": "club",
+   "answers": [
+    {
+     "name": "Paris Saint-Germain",
+     "aliases": [
+      "PSG",
+      "Paris SG"
+     ]
+    },
+    {
+     "name": "Porto",
+     "aliases": [
+      "FC Porto"
+     ]
+    },
+    {
+     "name": "PSV Eindhoven",
+     "aliases": [
+      "PSV"
+     ]
+    }
+   ],
+   "others": [
+    "Real Madrid",
+    "AC Milan",
+    "Liverpool",
+    "FC Barcelona",
+    "Bayern Munich",
+    "Manchester United",
+    "Chelsea",
+    "Inter",
+    "Juventus",
+    "Manchester City",
+    "Ajax",
+    "Borussia Dortmund",
+    "Benfica",
+    "Nottingham Forest",
+    "Celtic",
+    "Aston Villa",
+    "Marseille",
+    "Hamburger SV",
+    "Feyenoord",
+    "Red Star Belgrade",
+    "Steaua București"
+   ]
+  },
+  {
+   "letter": "R",
+   "mode": "starts",
+   "prompt": "Scored 5+ goals at one World Cup",
+   "subtitle": "Men's World Cups 1990 to 2022",
+   "prompt_es": "Marcó 5 o más goles en un mismo Mundial",
+   "subtitle_es": "Mundiales masculinos de 1990 a 2022",
+   "answer_type": "player",
+   "answers": [
+    {
+     "name": "James Rodríguez",
+     "aliases": [
+      "James",
+      "James Rodriguez"
+     ]
+    },
+    {
+     "name": "Romário",
+     "aliases": [
+      "Romario"
+     ]
+    },
+    {
+     "name": "Rivaldo",
+     "aliases": []
+    }
+   ],
+   "others": [
+    "Lionel Messi",
+    "Kylian Mbappé",
+    "Ronaldo Nazário",
+    "Harry Kane",
+    "Miroslav Klose",
+    "Thomas Müller",
+    "Hristo Stoichkov",
+    "Roberto Baggio",
+    "Gabriel Batistuta",
+    "David Villa",
+    "Diego Forlán",
+    "Salvatore Schillaci",
+    "Jürgen Klinsmann",
+    "Davor Šuker",
+    "Christian Vieri",
+    "Wesley Sneijder",
+    "Oleg Salenko",
+    "Tomáš Skuhravý",
+    "Kennet Andersson"
+   ]
+  },
+  {
+   "letter": "S",
+   "mode": "starts",
+   "prompt": "Name a German club that played in the Champions League group or league phase between 2001-02 and 2025-26",
+   "subtitle": "",
+   "prompt_es": "Nombra un club alemán que haya jugado la fase de grupos o la liguilla de la Champions League entre 2001-02 y 2025-26",
+   "subtitle_es": "",
+   "answer_type": "club",
+   "answers": [
+    {
+     "name": "Schalke 04",
+     "aliases": [
+      "Schalke"
+     ]
+    },
+    {
+     "name": "VfB Stuttgart",
+     "aliases": [
+      "Stuttgart"
+     ]
+    }
+   ],
+   "others": [
+    "Bayern Munich",
+    "Borussia Dortmund",
+    "Bayer Leverkusen",
+    "Werder Bremen",
+    "VfL Wolfsburg",
+    "Hamburger SV",
+    "Borussia Mönchengladbach",
+    "RB Leipzig",
+    "Eintracht Frankfurt",
+    "TSG Hoffenheim",
+    "Union Berlin"
+   ]
+  },
+  {
+   "letter": "T",
+   "mode": "starts",
+   "prompt": "Name a player with 100+ Serie A goals up to 2025-26",
+   "subtitle": "",
+   "prompt_es": "Nombra un jugador con 100+ goles de Serie A hasta 2025-26",
+   "subtitle_es": "",
+   "answer_type": "player",
+   "answers": [
+    {
+     "name": "Francesco Totti",
+     "aliases": []
+    },
+    {
+     "name": "Luca Toni",
+     "aliases": []
+    },
+    {
+     "name": "David Trezeguet",
+     "aliases": []
+    }
+   ],
+   "others": [
+    "Silvio Piola",
+    "Gunnar Nordahl",
+    "Giuseppe Meazza",
+    "José Altafini",
+    "Antonio Di Natale",
+    "Roberto Baggio",
+    "Ciro Immobile",
+    "Kurt Hamrin",
+    "Giuseppe Signori",
+    "Alessandro Del Piero",
+    "Alberto Gilardino",
+    "Gabriel Batistuta",
+    "Fabio Quagliarella",
+    "Giampiero Boniperti",
+    "Amedeo Amadei",
+    "Giuseppe Savoldi",
+    "Guglielmo Gabetto",
+    "Roberto Boninsegna",
+    "Zlatan Ibrahimović",
+    "Gigi Riva",
+    "Filippo Inzaghi",
+    "Roberto Mancini",
+    "Luís Vinício",
+    "Carlo Reguzzoni",
+    "István Nyers",
+    "Hernán Crespo",
+    "Adriano Bassetto",
+    "Omar Sívori",
+    "Christian Vieri",
+    "Benito Lorenzi",
+    "Marco Di Vaio",
+    "Paolo Pulici",
+    "Vincenzo Montella",
+    "John Hansen",
+    "Enrico Chiesa",
+    "Sergio Brighenti",
+    "Roberto Pruzzo",
+    "Lautaro Martínez",
+    "Alessandro Altobelli",
+    "Felice Borel",
+    "Domenico Berardi",
+    "Paulo Dybala",
+    "Ezio Pascutti",
+    "Francesco Graziani",
+    "Roberto Bettega",
+    "Gianni Rivera",
+    "Andriy Shevchenko",
+    "Duván Zapata",
+    "Gonzalo Higuaín",
+    "Pietro Ferraris II",
+    "Gianluca Vialli",
+    "Renzo Burini",
+    "Mauro Icardi",
+    "Cristiano Lucarelli",
+    "Ettore Puricelli",
+    "Gino Pivatelli",
+    "Abel Balbo",
+    "Andrea Belotti",
+    "Alessandro Mazzola",
+    "Giampaolo Pazzini",
+    "Dries Mertens",
+    "Nicola Amoruso",
+    "Edinson Cavani",
+    "Sergio Pellissier",
+    "Riccardo Carapellese",
+    "Antonio Cassano",
+    "Lorenzo Bettini",
+    "Carlo Galli",
+    "Giovanni Ferrari",
+    "Giuseppe Baldini",
+    "Angelo Schiavio",
+    "Bruno Giordano",
+    "Aldo Boffi",
+    "Eddie Firmani",
+    "Edin Džeko",
+    "Dino Da Costa",
+    "Antonio Vojak",
+    "Pietro Anastasi",
+    "Gino Armano",
+    "Gino Cappello",
+    "Fabrizio Miccoli",
+    "Adrian Mutu",
+    "Luis Muriel",
+    "Sergio Clerici",
+    "Oliver Bierhoff",
+    "Tommaso Rocchi",
+    "Pietro Paolo Virdis",
+    "Goran Pandev",
+    "Pierino Prati"
+   ]
+  },
+  {
+   "letter": "U",
+   "mode": "starts",
+   "prompt": "Name a club that played in Serie A in 2024-25",
+   "subtitle": "The 20 clubs of that season",
+   "prompt_es": "Nombra un club que jugó en la Serie A 2024-25",
+   "subtitle_es": "Los 20 clubes de esa temporada",
+   "answer_type": "club",
+   "answers": [
+    {
+     "name": "Udinese",
+     "aliases": [
+      "Udinese Calcio"
+     ]
+    }
+   ],
+   "others": [
+    "Juventus",
+    "Inter Milan",
+    "AC Milan",
+    "Napoli",
+    "Roma",
+    "Atalanta",
+    "Lazio",
+    "Fiorentina",
+    "Bologna",
+    "Torino",
+    "Genoa",
+    "Hellas Verona",
+    "Parma",
+    "Cagliari",
+    "Lecce",
+    "Como",
+    "Empoli",
+    "Monza",
+    "Venezia"
+   ]
+  },
+  {
+   "letter": "V",
+   "mode": "starts",
+   "prompt": "Name a defensive midfielder who played in the Premier League between 2005-06 and 2025-26",
+   "subtitle": "",
+   "prompt_es": "Nombra un mediocentro defensivo que haya jugado en la Premier League entre 2005-06 y 2025-26",
+   "subtitle_es": "",
+   "answer_type": "player",
+   "answers": [
+    {
+     "name": "Patrick Vieira",
+     "aliases": []
+    }
+   ],
+   "others": [
+    "N'Golo Kanté",
+    "Rodri",
+    "Casemiro",
+    "Fernandinho",
+    "Claude Makélélé",
+    "Michael Essien",
+    "Nemanja Matić",
+    "Declan Rice",
+    "Jorginho",
+    "Fabinho",
+    "Javier Mascherano",
+    "Gilberto Silva",
+    "Roy Keane",
+    "Moisés Caicedo",
+    "Thomas Partey",
+    "Bruno Guimarães",
+    "Lucas Leiva",
+    "Michael Carrick",
+    "Gareth Barry",
+    "Nigel de Jong",
+    "John Obi Mikel",
+    "Scott Parker",
+    "Sandro",
+    "Victor Wanyama",
+    "Eric Dier",
+    "Etienne Capoue",
+    "Cheick Tioté",
+    "Idrissa Gueye",
+    "Morgan Schneiderlin",
+    "Oriol Romeu",
+    "Pierre-Emile Højbjerg",
+    "João Palhinha",
+    "André-Frank Zambo Anguissa",
+    "Harrison Reed",
+    "Sasa Lukić",
+    "Sander Berge",
+    "Oliver Norwood",
+    "Kalvin Phillips",
+    "Tyler Adams",
+    "Wilfred Ndidi",
+    "Boubakary Soumaré",
+    "Nampalys Mendy",
+    "Yves Bissouma",
+    "Carlos Baleba",
+    "Mats Wieffer",
+    "Romeo Lavia",
+    "Lesley Ugochukwu",
+    "Manuel Ugarte",
+    "Sofyan Amrabat",
+    "Owen Hargreaves",
+    "Darron Gibson",
+    "Lucas Torreira",
+    "Granit Xhaka",
+    "Mohamed Elneny",
+    "Francis Coquelin",
+    "Mathieu Flamini",
+    "Alex Song",
+    "Denílson",
+    "Edu Gaspar",
+    "Javi García",
+    "Fernando Reges",
+    "Jack Rodwell",
+    "Fabian Delph",
+    "Douglas Luiz",
+    "Boubacar Kamara",
+    "Marvelous Nakamba",
+    "Leander Dendoncker",
+    "Rúben Neves",
+    "João Gomes",
+    "Mario Lemina",
+    "James McCarthy",
+    "Lee Cattermole",
+    "Lorik Cana",
+    "Mohamed Diamé",
+    "Jack Colback",
+    "Isaac Hayden",
+    "Tom Huddlestone",
+    "Jake Livermore",
+    "David Meyler",
+    "Dean Marney",
+    "Karl Henry",
+    "Lee Carsley",
+    "Papa Bouba Diop",
+    "Mile Jedinak",
+    "Luka Milivojević",
+    "Jefferson Lerma",
+    "Lewis Cook",
+    "Edson Álvarez",
+    "Stéphane Mbia",
+    "Wilson Palacios",
+    "Lassana Diarra",
+    "Tiémoué Bakayoko",
+    "Denis Zakaria",
+    "Amadou Onana",
+    "Ibrahim Sangaré",
+    "Gary Medel",
+    "Claudio Yacob",
+    "Valon Behrami",
+    "Oghenekaro Etebo",
+    "Mikel Arteta",
+    "Yaya Touré",
+    "Jordan Henderson",
+    "Wataru Endo",
+    "Darren Fletcher",
+    "Rodrigo Bentancur",
+    "Mousa Dembélé",
+    "Abdoulaye Doucouré",
+    "Danny Drinkwater",
+    "Tomás Soucek",
+    "Steven N'Zonzi",
+    "Glenn Whelan",
+    "Joe Allen",
+    "Marc Roca",
+    "Conor Gallagher",
+    "Enzo Fernández",
+    "Cheick Doucouré",
+    "Didier Zokora",
+    "Cheikhou Kouyaté",
+    "Mark Noble",
+    "Mateo Kovačić",
+    "Sean Longstaff",
+    "Jonjo Shelvey",
+    "Fernando",
+    "Jack Cork",
+    "Ashley Westwood",
+    "Steven Defour",
+    "Josh Brownhill",
+    "Hamza Choudhury",
+    "Harry Winks",
+    "Adam Wharton",
+    "Will Hughes",
+    "Nathaniel Chalobah",
+    "Mikel Merino",
+    "Moussa Sissoko",
+    "Benjamin Stambouli",
+    "Allan Marques Loureiro",
+    "Xabi Alonso",
+    "Nicolás González Iglesias",
+    "Dietmar Hamann"
+   ]
+  },
+  {
+   "letter": "W",
+   "mode": "starts",
+   "prompt": "Name a player who won the Premier League with Man United between 2000-01 and 2025-26",
+   "subtitle": "",
+   "prompt_es": "Nombra un jugador que haya ganado la Premier League con el Man United entre 2000-01 y 2025-26",
+   "subtitle_es": "",
+   "answer_type": "player",
+   "answers": [
+    {
+     "name": "Ronnie Wallwork",
+     "aliases": [
+      "Wallwork"
+     ]
+    },
+    {
+     "name": "Danny Welbeck",
+     "aliases": [
+      "Welbeck"
+     ]
+    },
+    {
+     "name": "Scott Wootton",
+     "aliases": [
+      "Wootton"
+     ]
+    }
+   ],
+   "others": [
+    "Ryan Giggs",
+    "Paul Scholes",
+    "Wayne Rooney",
+    "Cristiano Ronaldo",
+    "Roy Keane",
+    "David Beckham",
+    "Gary Neville",
+    "Rio Ferdinand",
+    "Nemanja Vidić",
+    "Edwin van der Sar",
+    "Ruud van Nistelrooy",
+    "Robin van Persie",
+    "Ole Gunnar Solskjær",
+    "Peter Schmeichel",
+    "Fabien Barthez",
+    "Denis Irwin",
+    "Jaap Stam",
+    "Nicky Butt",
+    "Andy Cole",
+    "Teddy Sheringham",
+    "Phil Neville",
+    "Dwight Yorke",
+    "Wes Brown",
+    "Mikaël Silvestre",
+    "John O'Shea",
+    "Quinton Fortune",
+    "Ronny Johnsen",
+    "Raimond van der Gouw",
+    "Luke Chadwick",
+    "Jonathan Greening",
+    "Michael Stewart",
+    "Paul Rachubka",
+    "David Healy",
+    "Bojan Djordjic",
+    "David May",
+    "Andy Goram",
+    "Laurent Blanc",
+    "Juan Sebastián Verón",
+    "Diego Forlán",
+    "Roy Carroll",
+    "Ricardo López",
+    "Darren Fletcher",
+    "Kieran Richardson",
+    "Patrice Evra",
+    "Michael Carrick",
+    "Louis Saha",
+    "Alan Smith",
+    "Ji-sung Park",
+    "Henrik Larsson",
+    "Tomasz Kuszczak",
+    "Gabriel Heinze",
+    "Dong Fangzhuo",
+    "Chris Eagles",
+    "Kieran Lee",
+    "Nani",
+    "Anderson Luís de Abreu Oliveira",
+    "Carlos Tevez",
+    "Owen Hargreaves",
+    "Gerard Piqué",
+    "Danny Simpson",
+    "Ben Foster",
+    "Rafael da Silva",
+    "Fábio da Silva",
+    "Jonny Evans",
+    "Darron Gibson",
+    "Federico Macheda",
+    "Rodrigo Possebon",
+    "Manucho",
+    "Michael Owen",
+    "Javier Hernández",
+    "Chris Smalling",
+    "Antonio Valencia",
+    "Gabriel Obertan",
+    "Bebé",
+    "David de Gea",
+    "Phil Jones",
+    "Ashley Young",
+    "Shinji Kagawa",
+    "Alexander Büttner",
+    "Nick Powell",
+    "Michael Keane",
+    "Ryan Tunnicliffe",
+    "Marnick Vermijl",
+    "Anders Lindegaard",
+    "Dimitar Berbatov"
+   ]
+  },
+  {
+   "letter": "Y",
+   "mode": "starts",
+   "prompt": "Name a player who played for England at a Euro from 2012 to 2024",
+   "subtitle": "",
+   "prompt_es": "Nombra un jugador que haya jugado con Inglaterra en una Eurocopa entre 2012 y 2024",
+   "subtitle_es": "",
+   "answer_type": "player",
+   "answers": [
+    {
+     "name": "Ashley Young",
+     "aliases": []
+    }
+   ],
+   "others": [
+    "Wayne Rooney",
+    "Steven Gerrard",
+    "Harry Kane",
+    "Raheem Sterling",
+    "Jude Bellingham",
+    "Bukayo Saka",
+    "Jordan Pickford",
+    "Joe Hart",
+    "John Terry",
+    "Ashley Cole",
+    "Glen Johnson",
+    "Joleon Lescott",
+    "Scott Parker",
+    "James Milner",
+    "Danny Welbeck",
+    "Andy Carroll",
+    "Theo Walcott",
+    "Alex Oxlade-Chamberlain",
+    "Jordan Henderson",
+    "Jermain Defoe",
+    "Kyle Walker",
+    "Gary Cahill",
+    "Chris Smalling",
+    "Danny Rose",
+    "Eric Dier",
+    "Dele Alli",
+    "Adam Lallana",
+    "Jamie Vardy",
+    "Daniel Sturridge",
+    "Marcus Rashford",
+    "Jack Wilshere",
+    "Ryan Bertrand",
+    "Nathaniel Clyne",
+    "John Stones",
+    "Harry Maguire",
+    "Kieran Trippier",
+    "Tyrone Mings",
+    "Reece James",
+    "Declan Rice",
+    "Kalvin Phillips",
+    "Mason Mount",
+    "Phil Foden",
+    "Jack Grealish",
+    "Jadon Sancho",
+    "Dominic Calvert-Lewin",
+    "Marc Guéhi",
+    "Kobbie Mainoo",
+    "Cole Palmer",
+    "Ollie Watkins",
+    "Ivan Toney",
+    "Anthony Gordon",
+    "Conor Gallagher",
+    "Trent Alexander-Arnold",
+    "Eberechi Eze",
+    "Luke Shaw",
+    "Ezri Konsa",
+    "Jarrod Bowen"
+   ]
+  },
+  {
+   "letter": "Z",
+   "mode": "contains",
+   "prompt": "Name a player who played for both PSG and Milan up to 2025-26",
+   "subtitle": "",
+   "prompt_es": "Nombra un jugador que haya jugado en el PSG y en el Milan hasta 2025-26",
+   "subtitle_es": "",
+   "answer_type": "player",
+   "answers": [
+    {
+     "name": "Jérémy Ménez",
+     "aliases": [
+      "Jeremy Menez",
+      "Ménez",
+      "Menez"
+     ]
+    },
+    {
+     "name": "Alessandro Florenzi",
+     "aliases": [
+      "Florenzi"
+     ]
+    },
+    {
+     "name": "Mario Alberto Yepes Díaz",
+     "aliases": [
+      "Mario Yepes",
+      "Yepes"
+     ]
+    },
+    {
+     "name": "Zlatan Ibrahimović",
+     "aliases": [
+      "Zlatan Ibrahimovic",
+      "Zlatan",
+      "Ibrahimović",
+      "Ibrahimovic"
+     ]
+    }
+   ],
+   "others": [
+    "Raymond Colin Wilkins",
+    "George Manneh Oppong Weah",
+    "Bruno N'Gotty",
+    "Leonardo Nascimento de Araújo",
+    "Marco Simone",
+    "Ronaldo de Assis Moreira",
+    "Vikash Dhorasoo",
+    "Alex Rodrigo Dias da Costa",
+    "Thiago Emiliano da Silva",
+    "David Robert Joseph Beckham",
+    "Gianluigi Donnarumma",
+    "Yacine Adli",
+    "Christopher Alan Nkunku",
+    "Adrien Rabiot",
+    "Gonçalo Matias Ramos"
+   ]
+  }
+ ]
+}

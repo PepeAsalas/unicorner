@@ -1,0 +1,24 @@
+{
+  "name": "Unicorner: daily football trivia",
+  "short_name": "Unicorner",
+  "description": "Five football questions a day. The rarer your answer, the more it scores. Plus Rosco, Millions and Duels.",
+  "id": "/",
+  "start_url": "/?source=app",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#2f7a4f",
+  "theme_color": "#1d1a2b",
+  "lang": "en",
+  "categories": ["games", "sports", "entertainment"],
+  "icons": [
+    {"src": "/favicon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "/favicon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ],
+  "shortcuts": [
+    {"name": "Rosco", "url": "/rosco.html?source=app", "icons": [{"src": "/favicon-192.png", "sizes": "192x192"}]},
+    {"name": "Millions", "url": "/millon.html?source=app", "icons": [{"src": "/favicon-192.png", "sizes": "192x192"}]},
+    {"name": "Duels", "url": "/duel.html?source=app", "icons": [{"src": "/favicon-192.png", "sizes": "192x192"}]}
+  ]
+}

@@ -1,0 +1,129 @@
+{
+ "day": "2026-11-06",
+ "questions": [
+  {
+   "q": "Which of these clubs did Ronaldo Nazário NEVER play for?",
+   "q_es": "¿En qué club NUNCA jugó Ronaldo Nazário?",
+   "o": [
+    "PSV",
+    "Atlético Madrid",
+    "Barcelona",
+    "AC Milan"
+   ],
+   "a": 1,
+   "why": "Ronaldo played for Real Madrid, never Atlético.",
+   "why_es": "Ronaldo jugó en el Real Madrid, nunca en el Atlético.",
+   "src": "own knowledge",
+   "o_es": [
+    "PSV",
+    "Atlético de Madrid",
+    "Barcelona",
+    "Milan"
+   ]
+  },
+  {
+   "q": "Which club did Didier Drogba join Chelsea from in 2004?",
+   "q_es": "¿De qué club llegó Didier Drogba al Chelsea en 2004?",
+   "o": [
+    "Marseille",
+    "Guingamp",
+    "Le Mans",
+    "Lyon"
+   ],
+   "a": 0,
+   "why": "Le Mans, then Guingamp, then one season at Marseille before Chelsea.",
+   "why_es": "Le Mans, luego Guingamp y una temporada en el Marsella antes del Chelsea.",
+   "src": "own knowledge",
+   "o_es": [
+    "Marsella",
+    "Guingamp",
+    "Le Mans",
+    "Lyon"
+   ]
+  },
+  {
+   "q": "Which country has won the most Copa América titles?",
+   "q_es": "¿Qué país ha ganado más Copas América?",
+   "o": [
+    "Uruguay",
+    "Brazil",
+    "Chile",
+    "Argentina"
+   ],
+   "a": 3,
+   "why": "Argentina's 2024 win made it 16, one more than Uruguay.",
+   "why_es": "El título de 2024 le dio a Argentina 16, uno más que Uruguay.",
+   "src": "own knowledge",
+   "o_es": [
+    "Uruguay",
+    "Brasil",
+    "Chile",
+    "Argentina"
+   ]
+  },
+  {
+   "q": "How many Premier League goals did Alan Shearer score?",
+   "q_es": "¿Cuántos goles de Premier League marcó Alan Shearer?",
+   "o": [
+    "250",
+    "260",
+    "270"
+   ],
+   "a": 1,
+   "why": "260, still the record.",
+   "why_es": "260, todavía el récord.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who was Barcelona's manager just before Pep Guardiola?",
+   "q_es": "¿Quién entrenó al Barcelona justo antes que Pep Guardiola?",
+   "o": [
+    "Frank Rijkaard",
+    "Louis van Gaal",
+    "Bobby Robson"
+   ],
+   "a": 0,
+   "why": "Rijkaard, 2003 to 2008.",
+   "why_es": "Rijkaard, de 2003 a 2008.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "In which year was the Bosman ruling?",
+   "q_es": "¿En qué año fue la sentencia Bosman?",
+   "o": [
+    "1995",
+    "1993",
+    "1997"
+   ],
+   "a": 0,
+   "why": "December 1995, at the European Court of Justice.",
+   "why_es": "Diciembre de 1995, en el Tribunal de Justicia de la UE.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which of these players NEVER won the Premier League?",
+   "q_es": "¿Cuál de estos jugadores NUNCA ganó la Premier League?",
+   "o": [
+    "Robbie Fowler",
+    "Teddy Sheringham",
+    "Andy Cole"
+   ],
+   "a": 0,
+   "why": "Fowler never won it; Sheringham and Cole won it with Man United.",
+   "why_es": "Fowler nunca la ganó; Sheringham y Cole la ganaron con el Man United.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who scored more Premier League goals: Thierry Henry or Frank Lampard?",
+   "q_es": "¿Quién marcó más goles en la Premier: Thierry Henry o Frank Lampard?",
+   "o": [
+    "Thierry Henry",
+    "Frank Lampard"
+   ],
+   "a": 1,
+   "why": "Lampard 177, Henry 175.",
+   "why_es": "Lampard 177, Henry 175.",
+   "src": "own knowledge"
+  }
+ ]
+}

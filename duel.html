@@ -23,6 +23,17 @@ button.ghost{background:var(--panel);color:var(--cream)}
 button:disabled{opacity:.5;cursor:default}
 button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 .row{display:flex;gap:12px}.row>*{flex:1}
+.ans-all{margin-top:14px}.aa-row{display:grid;gap:4px;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.12)}.ans-all>button{width:100%}
+#ans-list{display:grid;gap:8px;margin-top:12px}
+#ans-list details{background:var(--panel);border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink)}
+#ans-list summary{cursor:pointer;list-style:none;padding:10px 12px;display:grid;gap:4px}#ans-list summary::-webkit-details-marker{display:none}
+#ans-list summary b{font:400 18px/1.15 var(--disp);color:var(--cream)}
+#ans-list .who{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:15px}
+#ans-list .who span{white-space:nowrap}#ans-list .who i{font-style:normal;font-family:var(--disp);font-size:13px;color:var(--ink);padding:1px 5px;margin-left:4px}
+#ans-list .tiers{padding:0 12px 12px;display:grid;gap:6px;font-size:14px;line-height:1.35}
+#ans-list .tiers p{margin:0}#ans-list .tiers p>b{font-family:var(--disp);font-weight:400;font-size:13px;color:var(--ink);padding:1px 5px;margin-right:6px}
+#ans-list mark{background:none;color:var(--gold);text-decoration:underline}
+
 .link{font-family:var(--mono);font-size:22px;background:#1d1a2b;padding:10px 12px;border:3px dashed var(--muted);word-break:break-all;user-select:all}
 .vs{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .pl{display:grid;justify-items:center;gap:4px;font-family:var(--disp);font-size:26px;min-width:0}
@@ -53,6 +64,20 @@ button:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 }
 .cab canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
 .small{font-size:18px}
+.dpush{display:flex;align-items:center;gap:10px;margin-top:14px;padding:10px 12px;border:3px dashed rgba(29,26,43,.45);font:17px/1.25 var(--mono)}.dpush span{flex:1;min-width:0}
+.dpush button{width:auto;flex:none;font-size:18px;padding:6px 12px}.dpush.on{border-style:solid;opacity:.85}.dpush.on button{background:transparent;box-shadow:none;color:inherit;text-decoration:underline}
+.find{display:grid;gap:8px;margin:2px 0 14px}
+.find-l{font-family:var(--disp);font-size:22px;letter-spacing:1px}
+.find-box{position:relative}
+.find-box span{position:absolute;left:14px;top:50%;translate:0 -50%;z-index:1;font-size:26px;line-height:1;color:#1d1a2b;opacity:.55;pointer-events:none}
+.find-box input{padding-left:44px!important}
+.find-res{list-style:none;margin:0;padding:0;display:grid;gap:6px}.find-res:empty{display:none}
+.find-res li{display:flex;align-items:center;gap:10px;padding:4px 6px 4px 4px;background:rgba(29,26,43,.08);box-shadow:0 0 0 2px var(--ink)}
+.find-res .pr-uni{flex:none;width:44px;height:44px}
+.find-res b{flex:1;min-width:0;font:400 22px/1 var(--mono);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.find-res b small{display:block;font-size:16px;opacity:.65}
+.find-res button{width:auto;font-size:20px;padding:6px 12px;transition:transform 120ms cubic-bezier(.23,1,.32,1)}.find-res button:active{transform:scale(.97)}
+.find-note:empty{display:none}.find-note a{color:inherit}
+.find-or{display:flex;align-items:center;gap:10px;font:18px var(--mono);opacity:.75;margin-top:4px}.find-or::before,.find-or::after{content:"";flex:1;height:2px;background:currentColor;opacity:.4}
 .rules{display:grid;gap:6px;margin:4px 0 2px}.rl-lbl{font-family:var(--mono);font-size:19px;color:var(--muted)}
 .seg{display:flex;gap:8px;margin-bottom:6px}.seg button{flex:1;width:auto;font-size:22px;padding:7px 4px;background:#1d1a2b;color:var(--cream);box-shadow:0 0 0 3px var(--ink),0 4px 0 3px var(--ink);transition:transform .12s cubic-bezier(.23,1,.32,1)}
 .seg button.on{background:var(--gold);color:var(--ink)}.seg button:active{transform:translateY(2px)}
@@ -120,6 +145,13 @@ dialog.intro[open]{animation:dlgin 220ms cubic-bezier(.23,1,.32,1)}
  .side-l{right:calc(50% + 300px)}.side-r{left:calc(50% + 300px)}
 }
 @media (max-width:1199px){.side{display:none!important}}
+/* duel backgrounds: five pixel-art arenas (bg/duel-[a-e]-tall|wide.webp), one per duel, picked from the duel code so both players see the same one */
+.stadium.stadium{display:block;position:fixed;inset:0;z-index:0;pointer-events:none;background:#1d1a2b var(--dbg-t,none) center/cover no-repeat;image-rendering:pixelated}
+@media (min-aspect-ratio:1/1){.stadium.stadium{background-image:var(--dbg-w,none)}}
+.stadium.stadium::after{content:'';position:absolute;inset:0;background:rgba(10,8,24,.28)}
+.stadium .st-crowd,.stadium .st-pitch{display:none}
+main>header .how-link.how-link{color:#fbf6e8;text-shadow:0 2px 0 #1d1a2b}body.paper main>header h1{color:#fbf6e8}
+main{position:relative;z-index:1}
 .sp-panel{background:#f3ead2;color:var(--ink);border:4px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:14px;display:flex;flex-direction:column;gap:10px;font-family:var(--ui)}
 .sp-panel.dark{background:var(--ink);color:var(--cream);box-shadow:6px 6px 0 var(--panel2)}
 .sp-lbl{font-family:var(--mono);font-size:13px}
@@ -133,7 +165,7 @@ dialog.intro[open]{animation:dlgin 220ms cubic-bezier(.23,1,.32,1)}
 /* paper: every screen around a duel (create, join, ready, waiting, results-in, errors) in the matchday-programme style of My duels:
    cream page, a red title band, ink borders. The question screen and the battle keep the dark arena. */
 html:has(body.paper),body.paper{background:#efe3c1}
-body.paper .stadium{display:none!important}
+
 body.paper main>header h1{color:var(--ink);text-shadow:3px 3px 0 #f2c230}
 body.paper main>header .how-link{color:#5b5070}
 body.paper .card{--pp:#fbf6e6;background:var(--pp);background-image:radial-gradient(rgba(6,4,26,.07) 1px,transparent 1.5px);background-size:10px 10px;color:var(--ink);box-shadow:none;border:4px solid var(--ink);box-shadow:8px 8px 0 rgba(6,4,26,.35);padding:0 18px 20px;overflow:hidden}
@@ -251,7 +283,7 @@ body.prog-on main>header:not(.pr-mast){display:none}
 .prog #ib-new{width:100%}.prog .ib-off{color:var(--ink);font:600 14px Barlow,sans-serif;margin:14px 0 0}
 .pr-tabs{display:none}
 @media (max-width:980px){
- .pr-cols{display:flex;flex-direction:column;align-items:stretch;gap:12px;padding:12px 10px}#s-inbox .pr-mast{padding-right:58px;flex-wrap:nowrap}#s-inbox .pr-mode{position:absolute;right:10px;top:10px;width:36px;height:36px;margin:0;display:grid;place-items:center;line-height:1}.pr-mast b{font-size:30px}.pr-me{width:48px;height:40px}.pr-iss{display:none}.pr-mast small{font-size:13px}
+ .pr-cols{display:flex;flex-direction:column;align-items:stretch;gap:12px;padding:12px 10px}#s-inbox .pr-mast{padding-right:102px;flex-wrap:nowrap}#s-inbox .pr-x{position:absolute;right:10px;top:10px;width:36px;height:36px;margin:0}#s-inbox .pr-mode{position:absolute;right:54px;top:10px;width:36px;height:36px;margin:0;display:grid;place-items:center;line-height:1}.pr-mast b{font-size:30px}.pr-me{width:48px;height:40px}.pr-iss{display:none}.pr-mast small{font-size:13px}
  .pr-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:24px 10px 0}.pr-tabs button{min-width:0;font-size:19px;padding:8px 4px;background:var(--pc);box-shadow:0 0 0 3px var(--ink),0 3px 0 3px var(--ink);transform:none!important}.pr-tabs button.on{background:#f2c230}
  .pr-tabs button i{font:15px/1 var(--mono);font-style:normal;margin-left:5px;background:#d7262e;color:#fff;padding:1px 5px;vertical-align:2px}
  #s-inbox .pr-pg{display:none}#s-inbox:not([data-tab]) .pr-pg[data-pg=m],#s-inbox[data-tab=m] .pr-pg[data-pg=m],#s-inbox[data-tab=y] .pr-pg[data-pg=y],#s-inbox[data-tab=l] .pr-pg[data-pg=l]{display:block}
@@ -260,6 +292,7 @@ body.prog-on main>header:not(.pr-mast){display:none}
 }
 
 /* dark mode: night-edition programme. Follows the device; the moon/sun button in the masthead overrides it */
+.pr-x{flex:none;margin-left:8px;width:40px;height:40px;display:grid;place-items:center;font:700 20px/1 system-ui,sans-serif;color:#fff;background:rgba(0,0,0,.25);box-shadow:0 0 0 2px #fff;text-decoration:none}.pr-x:active{transform:scale(.95)}
 .pr-mode{margin-left:10px;width:40px;height:40px;padding:0!important;font-size:20px!important;background:rgba(0,0,0,.25)!important;color:#fff!important;box-shadow:0 0 0 2px #fff!important;flex:none}
 .pr-mode:active{transform:scale(.94)!important}
 body.prog-on.night,html:has(body.prog-on.night){background:#1d1a2b}
@@ -281,6 +314,7 @@ body.prog-on.night .pr-fx.hot{background:linear-gradient(90deg,rgba(255,107,107,
 body.prog-on.night .prog .ib-x{color:#e9dfc2}body.prog-on.night .prog .ib-off{color:#f3ead2}
 @media (prefers-reduced-motion:no-preference){.prog,.prog *{transition:background-color .2s ease,color .2s ease,border-color .2s ease}}
 </style><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9034426912596924" crossorigin="anonymous"></script>
+<link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#1d1a2b"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Unicorner"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="apple-touch-icon" href="/favicon-180.png">
 </head><body><script>/* arrived from Unicorner on the gallop: the gold curtain it pulled across slides away */
 (()=>{let on=false;try{on=sessionStorage.getItem('uc-gallop')==='1';sessionStorage.removeItem('uc-gallop')}catch{}if(!on||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
  const c=document.createElement('div');c.style.cssText='position:fixed;inset:0;z-index:10000;background:#f2c230;pointer-events:none';document.body.appendChild(c);
@@ -297,6 +331,13 @@ body.prog-on.night .prog .ib-x{color:#e9dfc2}body.prog-on.night .prog .ib-off{co
   <label for="nm">Your name<input id="nm" maxlength="16" autocomplete="nickname" placeholder="e.g. Pepo"></label>
   <div class="rules"><span class="rl-lbl">Questions per round</span><div class="seg" id="r-per" role="radiogroup" aria-label="Questions per round"><button type="button" data-v="3">3</button><button type="button" data-v="5">5</button><button type="button" data-v="15">All 15</button></div>
    <span class="rl-lbl">Seconds per question</span><div class="seg" id="r-secs" role="radiogroup" aria-label="Seconds per question"><button type="button" data-v="10">10</button><button type="button" data-v="15">15</button><button type="button" data-v="20">20</button><button type="button" data-v="30">30</button></div></div>
+  <div class="find" id="find" hidden>
+   <label for="find-q" class="find-l">Send it to a player</label>
+   <div class="find-box"><span aria-hidden="true">⌕</span><input id="find-q" type="search" autocomplete="off" spellcheck="false" maxlength="16" placeholder="Search a nickname" aria-controls="find-res"></div>
+   <ul class="find-res" id="find-res" role="list"></ul>
+   <p class="small find-note" id="find-note" role="status"></p>
+   <span class="find-or">or get a link to share</span>
+  </div>
   <button id="create">Create duel</button>
   <p class="small" id="home-rules">You get a link to send. You both start on 300 HP and play rounds of 5 questions, 15 seconds each, then watch the battle. Keep going until someone is KO'd.</p>
   <p class="small fresh">🆕 New duel questions every week. The bank keeps growing, so rematches stay fresh.</p>
@@ -304,9 +345,10 @@ body.prog-on.night .prog .ib-x{color:#e9dfc2}body.prog-on.night .prog .ib-off{co
   <button class="qm-btn" id="h-quick" hidden style="margin-top:12px">⚡ Quick match</button>
   <button class="ghost" id="h-bots" style="margin-top:12px">🤖 Practice vs bots</button>
   <button class="ghost" id="to-inbox" hidden style="margin-top:12px">My duels</button>
+  <div class="dpush" id="dpush1" hidden></div>
  </section>
  <section id="s-inbox" class="prog" hidden>
-  <header class="pr-mast"><i class="pr-me" id="pr-me"></i><div><small>OFFICIAL MATCHDAY PROGRAMME · <a href="/">← UNICORNER</a></small><b id="pr-title">My duels</b></div><div class="pr-iss" id="pr-iss"></div><button type="button" class="pr-mode" id="pr-mode" aria-label="Switch dark mode"></button></header>
+  <header class="pr-mast"><i class="pr-me" id="pr-me"></i><div><small>OFFICIAL MATCHDAY PROGRAMME · <a href="/">← UNICORNER</a></small><b id="pr-title">My duels</b></div><div class="pr-iss" id="pr-iss"></div><button type="button" class="pr-mode" id="pr-mode" aria-label="Switch dark mode"></button><a class="pr-x" href="/" aria-label="Close, back to Unicorner" title="Back to Unicorner">✕</a></header>
   <nav class="pr-tabs" id="pr-tabs"><button data-t="m" class="on">Matches<i id="pr-tab-n" hidden></i></button><button data-t="y">You</button><button data-t="l">League</button></nav>
   <div class="pr-cols">
    <div class="pr-pg" data-pg="y" style="--bc:#1d7a45">
@@ -332,6 +374,7 @@ body.prog-on.night .prog .ib-x{color:#e9dfc2}body.prog-on.night .prog .ib-off{co
      <button id="ib-new" class="ghost">+ Challenge a mate</button>
      <button class="ghost" id="ib-bots" style="margin-top:12px">🤖 Practice vs bots</button>
      <label class="ib-off"><input type="checkbox" id="ib-allow"> Let other players challenge me</label>
+     <div class="dpush" id="dpush2" hidden></div>
     </div>
    </div>
    <div class="pr-pg" data-pg="l" style="--bc:#b8860b">
@@ -388,6 +431,7 @@ body.prog-on.night .prog .ib-x{color:#e9dfc2}body.prog-on.night .prog .ib-off{co
    <div class="row"><button class="ghost" data-fb="up">👍 Loved it</button><button class="ghost" data-fb="down">👎 Meh</button></div>
    <textarea id="fb-t" maxlength="500" rows="2" placeholder="Anything to change? (optional)"></textarea><button id="fb-send" hidden>Send</button><p class="small" id="fb-ok" hidden>Thanks! 🦄</p></div>
   <div class="row" style="margin-top:14px"><button type="button" id="bat-skip" hidden onclick="skipBattle();track&&track('duel_skip',{})">Skip ⏭</button><button id="replay" class="ghost">Replay</button><button id="next" hidden>Play round 2</button><button id="rematch">Rematch</button></div>
+  <section class="ans-all" id="ans-all" hidden><button type="button" class="ghost" id="ans-tog" aria-expanded="false">See your answers</button><div id="ans-list" hidden></div></section>
   <button class="ghost back" style="margin-top:14px">← Back to Unicorner</button>
    <a class="bat-ad" id="bat-ad" hidden target="_blank" rel="noopener"></a>
  </section>
@@ -462,17 +506,21 @@ userToken().then(t=>{if(!t)return;for(const b of document.querySelectorAll('.bac
 const fail=(m,t)=>{$('e-msg').textContent=m;$('e-t').textContent=t||'OOPS';show('s-err')};
 const spBg=(kit,mood='happy')=>{const k=KITS.find(x=>x.id===kit);return spriteDraw(mood,0,false,k&&k.id!=='classic'?k:null).replace(/"/g,"'")};
 // answer matching: the same rules as the daily game
-const norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/ø/g,'o').replace(/ı/g,'i').replace(/[^a-zA-Z0-9 ]/g,' ').toLowerCase().replace(/\s+/g,' ').trim();
-function lev(a,b){const m=[...Array(b.length+1).keys()];for(let i=1;i<=a.length;i++){let p=m[0];m[0]=i;for(let j=1;j<=b.length;j++){const t=m[j];m[j]=Math.min(m[j]+1,m[j-1]+1,p+(a[i-1]===b[j-1]?0:1));p=t}}return m[b.length]}
+const norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/ø/g,'o').replace(/ı/g,'i').replace(/[łŁ]/g,'l').replace(/[đĐ]/g,'d').replace(/[æÆ]/g,'ae').replace(/[œŒ]/g,'oe').replace(/ß/g,'ss').replace(/[þÞ]/g,'th').replace(/[^a-zA-Z0-9 ]/g,' ').toLowerCase().replace(/\s+/g,' ').trim();
+// edit distance where swapping two neighbouring letters counts as one typo (Lewandwoski), not two
+function lev(a,b){if(Math.abs(a.length-b.length)>2)return 3;const d=Array.from({length:a.length+1},(_,i)=>[i,...Array(b.length).fill(0)]);for(let j=1;j<=b.length;j++)d[0][j]=j;
+ for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++){d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));if(i>1&&j>1&&a[i-1]===b[j-2]&&a[i-2]===b[j-1])d[i][j]=Math.min(d[i][j],d[i-2][j-2]+1)}return d[a.length][b.length]}
 const PERSON=new Set(['player','person','manager','coach','referee']);
 function match(input,answers,type){const x=norm(input);if(!x)return null;const person=PERSON.has(type);
  const keys=answers.map(a=>{const n=norm(a.name),parts=n.split(' ');return{a,n,al:(a.aliases||[]).map(norm).filter(v=>v.length>=2),last:parts.length>1?parts.slice(1).join(' '):n,lastWord:parts[parts.length-1]}});
  const uniq=arr=>[...new Set(arr.map(k=>k.a))],one=h=>h.length===1?h[0]:h.length>1?'ambiguous':null;let r;
  if(r=one(uniq(keys.filter(k=>k.n===x||k.al.includes(x)))))return r;
  if(person&&(r=one(uniq(keys.filter(k=>k.last===x||k.lastWord===x)))))return r;
- const t=v=>v.length<6?0:v.length<9?1:2;
+ const t=v=>v.length<5?0:v.length<8?1:2;
  if(r=one(uniq(keys.filter(k=>lev(k.n,x)<=t(k.n)||k.al.some(v=>v.length>=6&&lev(v,x)<=t(v))))))return r;
- if(person&&(r=one(uniq(keys.filter(k=>k.last!==k.n&&k.last.length>=6&&lev(k.last,x)<=t(k.last))))))return r;
+ if(person&&(r=one(uniq(keys.filter(k=>k.last!==k.n&&k.last.length>=5&&lev(k.last,x)<=t(k.last))))))return r;
+ // the surname on its own, with typos (Lewandoski, Szczesny)
+ if(person&&(r=one(uniq(keys.filter(k=>k.lastWord!==k.n&&k.lastWord.length>=5&&lev(k.lastWord,x)<=t(k.lastWord))))))return r;
  return null}
 // questions come from duel/bank.json: a duel stores 20 ids in play order (15 for three rounds + 5 for sudden death)
 let BANK=null;
@@ -489,7 +537,7 @@ const rulesTxt=(p,s)=>`${p===15?'all 15 questions in one go':'rounds of '+p+' qu
 function hpAfter(a,b,n){let h=[300,300];for(let i=0;i<n&&h[0]&&h[1];i++){const x=a[i]||[null,0],y=b[i]||[null,0];if(x[0]&&x[0]===y[0])continue;h=[Math.max(0,h[0]-y[1]),Math.max(0,h[1]-x[1])]}return h}
 const roundName=n=>n<15?(PER===15?'THE 15':'ROUND '+roundNo(n)):'SUDDEN DEATH';
 // ── flow ──
-const QS=new URLSearchParams(location.search),code=QS.get('d'),VSN=QS.get('vs'),INBOX=QS.has('inbox');
+const QS=new URLSearchParams(location.search),code=QS.get('d'),DBG=(()=>{const c=QS.get('d');let k;if(c){let h=0;for(const ch of c)h=h*31+ch.charCodeAt(0)|0;k=Math.abs(h)%5}else k=Math.floor(Math.random()*5);const l='abcde'[k],r=document.documentElement.style;r.setProperty('--dbg-t',`url(/bg/duel-${l}-tall.webp)`);r.setProperty('--dbg-w',`url(/bg/duel-${l}-wide.webp)`);return l})(),VSN=QS.get('vs'),INBOX=QS.has('inbox');
 const link=c=>location.origin+location.pathname+'?d='+c;
 async function copy(c){try{await navigator.clipboard.writeText(link(c))}catch{}}
 let D=null,Q=[];
@@ -505,6 +553,29 @@ function openIntro(from){inStep=0;introDraw();const d=$('dlg-intro');if(!d.open)
 function closeIntro(how){ls('uc-duel-intro','1');$('dlg-intro').close();track('duel_intro_done',{how,step:inStep+1})}
 $('in-next').onclick=()=>{if(inStep<DUEL_INTRO.length-1){inStep++;introDraw()}else closeIntro('done')};$('in-skip').onclick=()=>closeIntro('skip');
 $('dlg-intro').addEventListener('cancel',()=>ls('uc-duel-intro','1'));$('how-open').onclick=()=>openIntro('link');
+// find a player by nickname (supabase/player_search.sql) and send them a challenge: picking one opens ?vs=nick
+function findInit(signed){const box=$('find'),q=$('find-q'),res=$('find-res'),note=$('find-note');box.hidden=false;
+ if(!signed){q.disabled=true;q.placeholder='Sign in to search players';note.innerHTML='<a href="/#signin">Sign in on Unicorner</a> to send duels to players by name.';return}
+ let t=0,seq=0;q.oninput=()=>{clearTimeout(t);const v=q.value.trim();if(v.length<2){res.innerHTML='';note.textContent='';return}
+  t=setTimeout(async()=>{const my=++seq;let r=[];try{r=await rpc('player_search',{p_q:v})||[]}catch{if(my===seq)note.textContent="Search isn't working right now. Try again in a moment.";return}if(my!==seq)return;
+   note.textContent=r.length?'':`No player called "${v}". Players show up here once they've joined a leaderboard.`;
+   res.innerHTML=r.map(x=>`<li>${uni(KITS.find(k=>k.id===x.kit)||kitFor(x.nick))}<b>${esc(x.nick)}<small>${x.games?x.games+' game'+(x.games===1?'':'s')+' played':'New player'}</small></b><button type="button" data-nick="${esc(x.nick)}">Duel</button></li>`).join('');
+   track('duel_search',{len:v.length,found:r.length})},250)};
+ res.onclick=e=>{const b=e.target.closest('button[data-nick]');if(!b)return;track('duel_search_pick',{});location.href='duel.html?vs='+encodeURIComponent(b.dataset.nick)}}
+// duel notifications: same web push as the daily streak reminder (sw.js, push.sql), tied to the account (push_duels.sql)
+const VAPID_PUB='BJEpwgfhvJQ6swBMTtNNy8GAjdiYDkMkzIj8F4KHl2wsm62rNk7IBR9dIkfMI2fA1PEWWWtQMfddNWqpn7aL4AI';
+const pushOK=()=>'serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window&&Notification.permission!=='denied';
+const pushEP=()=>ls('uc-push-ep')||'';
+const b64u=x=>{const p='='.repeat((4-x.length%4)%4),b=atob((x+p).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(b,c=>c.charCodeAt(0))};
+async function duelPush(c){try{const t=await userToken();if(!t||!c)return;fetch(SB_URL+'/functions/v1/duel-push',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:JSON.stringify({code:c})}).catch(()=>{})}catch{}}
+function pushBox(id){const el=$(id);if(!el||!pushOK())return;const on=!!pushEP()&&Notification.permission==='granted';if(on){el.hidden=true;return}el.hidden=false;el.className='dpush'+(on?' on':'');
+ el.innerHTML=`<span>🔔 ${on?"You'll get a notification when someone challenges you.":'Get a notification when someone challenges you to a duel.'}</span><button type="button">${on?'Turn off':'Turn on'}</button>`;
+ el.querySelector('button').onclick=async e=>{e.target.disabled=true;try{const reg=await navigator.serviceWorker.register('/sw.js');await navigator.serviceWorker.ready;
+  if(on){const sub=await reg.pushManager.getSubscription();const ep=pushEP();if(sub)await sub.unsubscribe().catch(()=>{});await fetch(SB_URL+'/rest/v1/rpc/push_remove',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({p_endpoint:ep})}).catch(()=>{});try{localStorage.removeItem('uc-push-ep')}catch{}track('duel_push_off',{})}
+  else{if(await Notification.requestPermission()!=='granted'){el.hidden=true;return}const sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64u(VAPID_PUB)});const j=sub.toJSON();
+   await fetch(SB_URL+'/rest/v1/rpc/push_save',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({p_sub:j,p_visitor:ls('uc-visitor'),p_lang:'en',p_streak:0,p_day:null})});
+   ls('uc-push-ep',j.endpoint);await rpc('push_link',{p_endpoint:j.endpoint}).catch(()=>{});track('duel_push_on',{})}
+  pushBox('dpush1');pushBox('dpush2')}catch(err){track('duel_push_error',{err:String(err&&err.message||err).slice(0,120)});e.target.disabled=false;el.querySelector('span').textContent="Couldn't turn on notifications in this browser."}}}
 async function boot(){if(!ls('uc-duel-intro'))openIntro('first');sides();$('nm').value=$('nm2').value=ls('uc-nick')||ls('uc-duel-name')||'';
  // signed-in players already have a leaderboard nickname: use it, don't ask again
  if(ls('uc-nick'))for(const id of['nm','nm2']){const l=$(id).closest('label');if(l&&!l.dataset.nick){l.dataset.nick=1;l.hidden=true;const p=document.createElement('p');p.className='small';p.textContent='Playing as '+ls('uc-nick');l.after(p)}}
@@ -514,7 +585,7 @@ async function boot(){if(!ls('uc-duel-intro'))openIntro('first');sides();$('nm')
  if(VSN&&!code){if(!await userToken())return fail('Sign in on Unicorner (the league login) to challenge players.');if(!playedToday())return gate();
   $('h-title').textContent=`CHALLENGE ${VSN.toUpperCase().slice(0,16)}`;$('create').textContent='Send challenge';$('create').dataset.vs=VSN;
   $('home-rules').dataset.vs=VSN;homeRules();show('s-home');return}
- if(!code){if(!playedToday()){if(await userToken())$('g-inbox').hidden=false;return gate()}record('rec1');if(await userToken())$('to-inbox').hidden=$('h-quick').hidden=false;show('s-home');return}
+ if(!code){if(!playedToday()){if(await userToken())$('g-inbox').hidden=false;return gate()}record('rec1');const sg=!!(await userToken());if(sg){$('to-inbox').hidden=$('h-quick').hidden=false;pushBox('dpush1');if(pushEP())rpc('push_link',{p_endpoint:pushEP()}).catch(()=>{})}findInit(sg);show('s-home');return}
  try{[D]=await Promise.all([rpc('duel_get',{p_code:code,p_token:TOKEN}),loadRules()])}catch(e){track('duel_load_error',{message:String(e&&e.message||e).slice(0,160)});return fail(navigator.onLine===false?'You seem to be offline. Check your connection and try again.':'Could not load this duel. Try again in a moment.'+(e&&e.message?' ('+String(e.message).slice(0,80)+')':''))}
  if(!D)return fail('That duel link does not exist.');
  const me=D.players.find(p=>p.slot===D.me),p1=D.players.find(p=>p.slot===1);
@@ -582,7 +653,7 @@ let IBZ=null,IBREC=null,IBQ=new Set();
 async function inbox(){if(!await userToken())return fail('Sign in on Unicorner (the league login) to see your duels.');
  document.body.classList.add('prog-on');
  try{[IBR,IBZ,IBREC,IBQ]=await Promise.all([rpc('duel_inbox',{}),rpc('duel_season',{}).catch(()=>null),rpc('duel_record',{p_token:TOKEN}).catch(()=>null),rpc('duel_quick_mine',{}).catch(()=>[])]);IBR=IBR||{items:[]};IBQ=new Set(IBQ||[])}catch{return fail('Could not load your duels. Try again in a moment.')}
- track('duel_inbox',{n:IBR.items.length});$('ib-allow').checked=!IBR.off;ibDraw();show('s-inbox')}
+ track('duel_inbox',{n:IBR.items.length});$('ib-allow').checked=!IBR.off;pushBox('dpush2');ibDraw();show('s-inbox')}
 function pyramid(){const mi=IBZ&&IBZ.mine,el=$('pr-pyr');
  if(!mi){el.innerHTML='<p class="pr-note">Play rated duels (both players signed in) to get a league this season.</p>';$('pr-div-r').textContent='';return}
  const placing=mi.g<5,cur=placing?-1:PYR_TIERS.findLastIndex(t=>mi.r>=t[1]),nx=PYR_TIERS[cur+1];
@@ -638,7 +709,7 @@ $('ib-new').onclick=()=>{location.href='duel.html'};$('to-inbox').onclick=()=>{l
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 $('create').onclick=async e=>{const n=$('nm').value.trim();if(!n)return $('nm').focus();ls('uc-duel-name',n);e.target.disabled=true;e.target.textContent='Creating…';
  try{const qset=await pickQs();const vs=e.target.dataset.vs;const c=vs?await rpc('duel_challenge',{p_token:TOKEN,p_name:n,p_kit:KIT,p_qset:qset,p_nick:vs}):await rpc('duel_create',{p_token:TOKEN,p_name:n,p_kit:KIT,p_qset:qset});
-  const[rp,rs]=myRules();if(rp!==5||rs!==15)await rpc('duel_set_rules',{p_code:c,p_token:TOKEN,p_per:rp,p_secs:rs}).catch(err=>track('duel_rules_fail',{err:String(err.message).slice(0,120)}));track(vs?'duel_challenge':'duel_create',{code:c});location.href='duel.html?d='+c}catch(err){e.target.disabled=false;e.target.textContent='Create duel';fail('Could not create the duel: '+err.message)}};
+  const[rp,rs]=myRules();if(rp!==5||rs!==15)await rpc('duel_set_rules',{p_code:c,p_token:TOKEN,p_per:rp,p_secs:rs}).catch(err=>track('duel_rules_fail',{err:String(err.message).slice(0,120)}));if(vs)await duelPush(c);track(vs?'duel_challenge':'duel_create',{code:c});location.href='duel.html?d='+c}catch(err){e.target.disabled=false;e.target.textContent='Create duel';fail('Could not create the duel: '+err.message)}};
 $('join').onclick=async e=>{const n=$('nm2').value.trim();if(!n)return $('nm2').focus();ls('uc-duel-name',n);e.target.disabled=true;
  try{await rpc('duel_join',{p_code:code,p_token:TOKEN,p_name:n,p_kit:KIT});ls('uc-duel-pending','');track('duel_join',{code});play()}catch(err){fail(/someone else|declined|expired/.test(err.message)?'Could not join: '+err.message+'.':/duel yourself/.test(err.message)?"That's your own duel. Send the link to a mate.":err.message==='duel is full'?'This duel already has two players.':'Could not join: '+err.message)}};
 $('copy').onclick=async e=>{await copy(code);e.target.textContent='Copied ✓'};$('copy2').onclick=async e=>{await copy(code);e.target.textContent='Copied ✓'};
@@ -659,7 +730,7 @@ $('ib-bots').onclick=$('h-bots').onclick=botPicker;
 // rematch from results: send the challenge right away (same rules as last time) and play round 1
 document.addEventListener('click',async e=>{const b=e.target.closest('[data-re]');if(!b)return;b.disabled=true;b.textContent='Sending…';
  try{const[p,sx]=myRules(),qset=await pickQs(),c=await rpc('duel_challenge',{p_token:TOKEN,p_name:(ls('uc-nick')||'Player').slice(0,16),p_kit:KIT,p_qset:qset,p_nick:b.dataset.re});
-  if(p!==5||sx!==15)await rpc('duel_set_rules',{p_code:c,p_token:TOKEN,p_per:p,p_secs:sx}).catch(()=>{});track('duel_challenge',{code:c,from:'rematch'});location.href='duel.html?d='+c}
+  if(p!==5||sx!==15)await rpc('duel_set_rules',{p_code:c,p_token:TOKEN,p_per:p,p_secs:sx}).catch(()=>{});await duelPush(c);track('duel_challenge',{code:c,from:'rematch'});location.href='duel.html?d='+c}
  catch(err){b.disabled=false;b.textContent='Rematch';alert(/already have a duel/.test(err.message)?'You already have a duel going with this player.':'Could not send the rematch: '+err.message)}});
 $('go').onclick=()=>play();$('refresh').onclick=()=>location.reload();
 $('rematch').onclick=()=>{if(isBot(code))return botStart(botGet(code).bot);location.href='duel.html'};
@@ -704,8 +775,16 @@ async function battle(){const slot=D.me||1,me=D.players.find(p=>p.slot===slot),r
  const dl=elo&&elo.delta,myE=elo&&(dl?{r:dl['b'+slot],g:Math.max(0,dl['g'+slot]-1)}:elo['p'+slot]),rvE=elo&&(dl?{r:dl['b'+(3-slot)],g:Math.max(0,dl['g'+(3-slot)]-1)}:elo['p'+(3-slot)]);if(over&&D.me)try{const r=await rpc('duel_record',{p_token:TOKEN});if(r)rec=[r.w,r.d,r.l]}catch{}
  $('fb').hidden=true;if(over&&D.me){const res=hp[0]===hp[1]?'draw':hp[slot-1]>hp[2-slot]?'win':'loss';if(!ls('uc-duel-end-'+code)){ls('uc-duel-end-'+code,'1');track('duel_end',{code,result:res,questions:n})}fbFor=code}
  const opts={hp:hpAfter(A,B,s0),q0:s0,title:roundName(s0),final:over,rec,intro:s0===0?'vs':s0===15?'sd':null,next:n<15?'NO KO YET':'STILL LEVEL',elo:over&&D.me&&dl?{b:dl['b'+slot],a:dl['a'+slot],g:dl['g'+slot]}:null};
- const go=()=>{show('s-battle');$('next').hidden=true;batAd(true);startBattle($('bc'),R,{name:D.me?'YOU':me.name,kit:me.kit,rec:me.rec,elo:myE},{name:rv.name,kit:rv.kit,rec:rv.rec,elo:rvE},()=>{if(!over&&D.me){$('next').hidden=false;$('next').textContent=n<15?'Play round '+roundNo(n):'Sudden death'}batAd(false);if(over&&D.me&&!ls('uc-duel-fb-'+code)&&!isBot(code))$('fb').hidden=false;$('bot-note').hidden=!(over&&isBot(code))},opts)};$('v-title').textContent=over?'THE DUEL IS OVER':roundName(s0)+' IS IN';$('v-msg').textContent=over?'Full time. See who won.':"You've both played. See how it went.";$('v-go').onclick=go;$('replay').onclick=go;if(isBot(code))return go();show('s-view')}
+ $('ans-all').hidden=true;$('ans-list').hidden=true;$('ans-list').innerHTML='';$('ans-tog').setAttribute('aria-expanded','false');$('ans-tog').textContent='See your answers';
+ const go=()=>{show('s-battle');$('next').hidden=true;batAd(true);startBattle($('bc'),R,{name:D.me?'YOU':me.name,kit:me.kit,rec:me.rec,elo:myE},{name:rv.name,kit:rv.kit,rec:rv.rec,elo:rvE},()=>{if(!over&&D.me){$('next').hidden=false;$('next').textContent=n<15?'Play round '+roundNo(n):'Sudden death'}batAd(false);if(over)ansAll(A,B,n,me,rv);if(over&&D.me&&!ls('uc-duel-fb-'+code)&&!isBot(code))$('fb').hidden=false;$('bot-note').hidden=!(over&&isBot(code))},opts)};$('v-title').textContent=over?'THE DUEL IS OVER':roundName(s0)+' IS IN';$('v-msg').textContent=over?'Full time. See who won.':"You've both played. See how it went.";$('v-go').onclick=go;$('replay').onclick=go;if(isBot(code))return go();show('s-view')}
 $('next').onclick=()=>play();
+// after a duel: every question with both answers and the full list of answers, grouped by tier (rarest first)
+async function ansAll(A,B,n,me,rv){const box=$('ans-all');if(!box.hidden)return;let qs;try{qs=await Promise.all(D.qset.slice(0,n).map(loadQ))}catch{return}
+ const nm=a=>a.name.length<=24?a.name:(a.aliases.filter(x=>x.length<=24).sort((x,y)=>y.length-x.length)[0]||a.name),e=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+ const pick=(p,lab)=>{const[a,pts]=p||[null,0];return`<span>${lab}: ${a?e(a):'—'}${a&&pts?`<i style="background:${TCOL[pts]}">${TIER[pts]}</i>`:a?'<i style="background:#f0a097">WRONG</i>':''}</span>`};
+ $('ans-list').innerHTML=qs.map((q,i)=>`<div class="aa-row"><b>${i+1}. ${e(q.prompt)}</b><span class="who">${pick(A[i],D.me?'You':e(me.name))}${pick(B[i],e(rv.name))}</span></div>`).join('');
+ box.hidden=false;track('duel_answers_shown',{code,questions:n})}
+$('ans-tog').onclick=()=>{const l=$('ans-list'),o=l.hidden;l.hidden=!o;$('ans-tog').setAttribute('aria-expanded',String(o));$('ans-tog').textContent=o?'Hide the answers':'See your answers';if(o)track('duel_answers_open',{code})};
 // while a battle plays on desktop: one of our own banners under the buttons (an AdSense square later); gone when the result comes in
 const BAT_B=[['reddit','https://www.reddit.com/r/Unicorner_Game/','Join the club','r/Unicorner_Game on Reddit'],['tiktok','https://www.tiktok.com/@unicornergame.lol','Follow on TikTok','@unicornergame.lol'],['linkedin','https://www.linkedin.com/company/unicorner-football-game','Join the board','Unicorner on LinkedIn']];
 let batShown=false;

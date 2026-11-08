@@ -1,0 +1,312 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!--seo--><title>Millions – Daily Football Money Drop Quiz | Unicorner</title>
+<meta name="description" content="Start with 1,000,000 and spread it over the answers to 8 football questions. You keep only what lands on the right one. A free football quiz, new every day.">
+<link rel="canonical" href="https://unicornergame.lol/millon.html">
+<link rel="alternate" hreflang="en" href="https://unicornergame.lol/millon.html">
+<link rel="alternate" hreflang="es" href="https://unicornergame.lol/es/millon.html">
+<link rel="alternate" hreflang="x-default" href="https://unicornergame.lol/millon.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Unicorner">
+<meta property="og:url" content="https://unicornergame.lol/millon.html">
+<meta property="og:title" content="Millions – Daily Football Money Drop Quiz | Unicorner">
+<meta property="og:description" content="Start with 1,000,000 and spread it over the answers to 8 football questions. You keep only what lands on the right one. A free football quiz, new every day.">
+<meta property="og:image" content="https://unicornergame.lol/og-millon.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Millions – Daily Football Money Drop Quiz | Unicorner">
+<meta name="twitter:description" content="Start with 1,000,000 and spread it over the answers to 8 football questions. You keep only what lands on the right one. A free football quiz, new every day.">
+<meta name="twitter:image" content="https://unicornergame.lol/og-millon.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"VideoGame","name":"Millions","url":"https://unicornergame.lol/millon.html","description":"Start with 1,000,000 and spread it over the answers to 8 football questions. You keep only what lands on the right one. A free football quiz, new every day.","inLanguage":"en","genre":["Trivia","Quiz","Sports"],"gamePlatform":"Web browser","applicationCategory":"Game","operatingSystem":"Any","isAccessibleForFree":true,"image":"https://unicornergame.lol/og-millon.jpg","publisher":{"@id":"https://unicornergame.lol/#org"},"isPartOf":{"@id":"https://unicornergame.lol/#website"},"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Unicorner","item":"https://unicornergame.lol/"},{"@type":"ListItem","position":2,"name":"Millions","item":"https://unicornergame.lol/millon.html"}]}]}</script><!--/seo-->
+<link rel="icon" href="/favicon-32.png" sizes="32x32">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<style>
+/* Millions: start with 1,000,000, spread it over the answers, keep only what sits on the right one. Content: millon/YYYY-MM-DD.json. Art: millon/art/ (studio, trapdoor, money, stopwatch, button, marquee). */
+:root{--paper:#fbf6e8;--sand:#e9dfc2;--ink:#1d1a2b;--gold:#f2c230;--grass:#2f9a62;--clay:#c8473b;--marine:#1d4486;--marine2:#2d5aa0;--disp:"Jersey 10",monospace;--mono:"VT323",monospace;--ease:cubic-bezier(.23,1,.32,1)}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#1d1a2b;color:var(--paper);font:500 16px/1.4 Barlow,system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
+main{max-width:460px;margin:0 auto;padding:12px 16px 28px;display:flex;flex-direction:column;gap:12px;min-height:100dvh}
+button{font:inherit;color:inherit;cursor:pointer}
+.top{display:flex;justify-content:space-between;align-items:center}
+.logo{font:400 22px var(--disp);color:var(--ink);background:var(--paper);border:2px solid var(--ink);padding:1px 8px;box-shadow:2px 2px 0 var(--ink);text-decoration:none}
+.tag{font:20px var(--mono);background:var(--ink);padding:2px 8px;border:2px solid var(--paper)}
+.card{background:var(--marine);border:3px solid var(--ink);box-shadow:4px 4px 0 rgba(0,0,0,.35);padding:14px}
+.btn{height:52px;border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink);font:400 24px var(--disp);color:var(--ink);transition:transform 120ms var(--ease),box-shadow 120ms var(--ease)}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}.btn:disabled{opacity:.45}
+.gold{background:var(--gold)}.grass{background:var(--grass);color:#fff}.paper{background:var(--paper)}
+section{display:flex;flex-direction:column;gap:12px}
+[hidden]{display:none!important}
+.host{display:flex;gap:10px;align-items:flex-end}
+.face{flex:none;width:84px;height:84px;background:linear-gradient(#2d5aa0,#1d4486);border:3px solid var(--ink);overflow:hidden;position:relative}
+.face img{position:absolute;inset:auto 0 0 0;width:100%;image-rendering:pixelated}
+.say{flex:1;min-height:72px;background:var(--paper);color:var(--ink);border:3px solid var(--ink);padding:8px 12px;font:600 15px/1.35 Barlow}
+.say .who{display:block;font:400 18px/1 var(--mono);color:var(--marine)}
+h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 var(--ink)}
+.hud{display:flex;justify-content:space-between;align-items:center;font:22px var(--mono)}
+.bank{font:400 34px/1 var(--disp);color:var(--gold);text-shadow:2px 2px 0 var(--ink)}
+.clock{font:400 34px/1 var(--disp)}.clock.low{color:#f0a097}
+.steps{display:flex;gap:4px}.steps i{flex:1;height:8px;background:rgba(251,246,232,.2)}.steps i.on{background:var(--gold)}.steps i.done{background:var(--grass)}
+.q{background:var(--paper);color:var(--ink);border:3px solid var(--ink);padding:12px 14px;font:700 19px/1.25 Barlow}
+.q small{display:block;font:400 18px var(--mono);color:#5d566b}
+.opts{display:grid;gap:8px}
+.opt{display:grid;grid-template-columns:1fr auto;gap:6px 10px;align-items:center;background:var(--marine2);border:3px solid var(--ink);padding:10px 12px;transition:background 200ms}
+.opt .t{font:700 17px Barlow}
+.opt .m{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.opt .amt{font:400 26px/1 var(--disp);color:var(--gold);text-align:right;white-space:nowrap}
+.opt .m b{flex:1;font:400 26px var(--disp);color:var(--gold)}
+.opt .m button{height:44px;border:2px solid var(--ink);box-shadow:0 3px 0 var(--ink);background:var(--paper);color:var(--ink);font:400 20px/1 var(--disp);letter-spacing:.03em;padding:0;transition:transform 100ms var(--ease),box-shadow 100ms var(--ease)}
+.opt .m button{user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
+.opt .m button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.opt .m button[data-d="all"]{background:var(--gold)}.opt .m button[data-d="none"]{background:#f0c4bd}
+.opt .m button:disabled{opacity:.35}
+.bar{grid-column:1/-1;height:6px;background:rgba(0,0,0,.3)}.bar i{display:block;height:100%;background:var(--gold);width:0;transition:width 160ms var(--ease)}
+.opt.win{background:var(--grass)}.opt.lose{background:var(--clay)}
+.opt.lose .amt{text-decoration:line-through;opacity:.7}
+.help{margin:-4px 0 0;font:17px/1.2 var(--mono);color:var(--sand);text-align:center}.help b{font-weight:400;color:var(--gold)}
+.msg-note{font:18px var(--mono);color:var(--sand);text-align:center;margin:0}
+.rules{margin:8px 0 0;padding-left:18px;display:grid;gap:6px;font-size:15px}
+.big{font:400 64px/1 var(--disp);color:var(--gold);text-shadow:4px 4px 0 var(--ink);text-align:center}
+.grid{font:22px/1 monospace;text-align:center;letter-spacing:2px}
+body{background:linear-gradient(rgba(29,26,43,.55),rgba(29,26,43,.8)),url(/millon/art/studio-portrait.png) center/cover fixed #1d1a2b;image-rendering:pixelated}
+@media (min-aspect-ratio:1/1){body{background-image:linear-gradient(rgba(29,26,43,.55),rgba(29,26,43,.8)),url(/millon/art/studio-landscape.png)}}
+main,.card,.q,.say{image-rendering:auto}
+/* marquee title */
+.mq{position:relative;aspect-ratio:3/1;background:url(/millon/art/marquee.png) center/100% 100% no-repeat;image-rendering:pixelated;display:grid;place-items:center}
+.mq h1{font-size:clamp(44px,13vw,64px)}
+/* sprites */
+.spr{display:block;background:url(/millon/art/money-sheet.png) no-repeat;background-size:640px 160px;width:40px;height:40px;image-rendering:pixelated}
+.door{grid-row:1/4;position:relative;width:64px;height:64px;align-self:center;background:url(/millon/art/trapdoor-sheet.png) 0 0/320px 64px no-repeat;image-rendering:pixelated}
+.door .spr{position:absolute;left:12px;bottom:18px;transition:opacity 160ms ease}
+.opt{grid-template-columns:64px minmax(0,1fr) auto}
+.opt .t{grid-column:2/3}.opt .amt{grid-column:3/4}.opt .m,.opt .bar{grid-column:2/4}
+.opt.lose .door,.opt.x .door{animation:door 650ms steps(4) forwards}
+@keyframes door{to{background-position:-256px 0}}
+.opt.lose .door .spr{animation:fall 650ms cubic-bezier(.55,0,1,.45) 180ms forwards}
+@keyframes fall{to{transform:translateY(46px) scale(.55);opacity:0}}
+.note{position:fixed;top:-48px;z-index:9;pointer-events:none;width:40px;height:40px;background:url(/millon/art/money-sheet.png) no-repeat;background-size:640px 160px;image-rendering:pixelated}
+.watch{display:inline-block;width:32px;height:32px;vertical-align:-4px;margin-right:6px;background:url(/millon/art/stopwatch-sheet.png) 0 0/128px 32px no-repeat;image-rendering:pixelated}
+#lock{display:flex;align-items:center;justify-content:center;gap:10px}
+#lock::before{content:"";width:40px;height:40px;margin:-6px 0;background:url(/millon/art/button-normal.png) center/contain no-repeat;image-rendering:pixelated}
+#lock:active::before,#lock.press::before{background-image:url(/millon/art/button-pressed.png)}
+#lock.press{transform:translateY(4px);box-shadow:0 0 0 var(--ink);transition:transform 220ms var(--ease),box-shadow 220ms var(--ease)}
+.lb h2{font:400 26px/1 var(--disp);margin:0 0 8px;color:var(--gold)}.lb ol{list-style:none;margin:0;padding:0;display:grid;gap:4px;font:20px/1.1 var(--mono)}
+.lb li{display:grid;grid-template-columns:28px 1fr auto;gap:8px;padding:4px 8px;background:rgba(0,0,0,.2)}.lb li.me{background:var(--gold);color:var(--ink)}.lb li b{font-weight:400}
+.lb p{margin:8px 0 0;font:18px var(--mono);color:var(--sand)}.lb a{color:var(--gold)}
+.top-r{display:flex;align-items:center;gap:8px}
+.x-out{font:400 20px/1 system-ui,sans-serif;color:var(--ink);text-decoration:none}.snd{width:36px;height:36px;display:grid;place-items:center;font-size:16px;padding:0;background:var(--paper);border:2px solid var(--ink);box-shadow:2px 2px 0 var(--ink)}
+.why{display:block;margin-top:8px;padding-top:8px;border-top:2px dashed var(--sand);font:600 15px/1.3 Barlow,sans-serif;color:#3a3450}
+.why b{color:var(--grass)}
+.why{animation:whyin 260ms var(--ease)}@keyframes whyin{from{opacity:0;transform:translateY(4px)}}
+.fb{display:grid;gap:10px}.fb-q{margin:0}.fb-q b{color:var(--gold)}
+.r10{display:grid;grid-template-columns:repeat(10,1fr);gap:4px}.r10 button{height:38px;font:400 20px var(--disp);color:var(--ink);background:var(--paper);border:2px solid var(--ink);padding:0}.r10 button.on{background:var(--gold)}
+.fb textarea{width:100%;border:3px solid var(--ink);background:#fff;color:var(--ink);font:16px/1.3 VT323,monospace;padding:8px;border-radius:0;resize:vertical}
+.fb-ok{margin:0;color:var(--gold);font:20px var(--mono)}
+.opt.lose{animation:shake 300ms 150ms}@keyframes shake{25%{translate:-5px 0}50%{translate:4px 0}75%{translate:-2px 0}}
+.opt.win{animation:winpop 320ms cubic-bezier(.34,1.56,.64,1)}@keyframes winpop{0%{transform:scale(.97)}100%{transform:none}}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (min-width:900px) and (min-height:560px){
+ main{max-width:1120px;padding:14px 24px;gap:10px}
+ #s-play{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);grid-template-areas:"steps steps" "hud opts" "q opts" "help opts" "lock opts" "next opts" ". opts";gap:10px 20px;align-items:start}
+ #steps{grid-area:steps}#s-play .hud{grid-area:hud}#q{grid-area:q}#s-play .help{grid-area:help;text-align:left;margin:0}#lock{grid-area:lock}#next{grid-area:next}
+ #opts{grid-area:opts;grid-template-columns:1fr 1fr;align-content:start}
+ #opts:has(.opt:nth-child(3):last-child) .opt:last-child,#opts:has(.opt:nth-child(1):nth-last-child(2)) .opt{grid-column:auto}
+ #s-intro,#s-end{max-width:560px;width:100%;margin:0 auto}
+ #q{font-size:23px}.opt .t{font-size:18px}
+ .host{max-width:1120px}
+ .mq{max-width:560px;width:100%;margin:0 auto}
+}
+@media (prefers-reduced-motion:reduce){.btn,.bar i,.opt{transition:none}#lock.press{transform:none}.opt.lose,.opt.win,.why{animation:none}.opt.lose .door .spr{animation:none;opacity:0}.note{display:none}}
+.about{margin-top:auto;padding-top:18px;font:15px/1.45 Barlow,system-ui,sans-serif;color:rgba(251,246,232,.7)}.about h2{font:400 22px/1 "Jersey 10",monospace;color:var(--sand);margin:0 0 6px;font-weight:400}.about p{margin:0 0 8px}.about a{color:var(--gold)}
+/* sound switch: the same pixel speaker as the home page */#snd{font-size:0!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 2h2v3H0zM2 1h1v5H2zM3 0h1v7H3zM5 2h1v3H5zM6 1h1v1H6zM6 5h1v1H6zM7 2h1v3H7z' fill='%231a1030'/%3E%3C/svg%3E")!important;background-position:center!important;background-size:18px auto!important;background-repeat:no-repeat!important;image-rendering:pixelated}#snd[data-on="0"]{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 2h2v3H0zM2 1h1v5H2zM3 0h1v7H3z' fill='%231a1030'/%3E%3Cpath d='M5 2h1v1H5zM7 2h1v1H7zM6 3h1v1H6zM5 4h1v1H5zM7 4h1v1H7z' fill='%23e3262f'/%3E%3C/svg%3E")!important}
+</style><link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#1d1a2b"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Unicorner"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="apple-touch-icon" href="/favicon-180.png">
+</head><body><main>
+<div class="top"><a class="logo" href="/">UNICORNER</a><span class="top-r"><span class="tag" data-es="MILLONES">MILLIONS</span><button type="button" class="snd" id="snd" aria-label="Sound" title="Sound"></button><a class="snd x-out" id="x-out" href="/" aria-label="Back to Unicorner" title="Back to Unicorner">✕</a></span></div>
+<div class="host"><div class="face"><img id="face" alt="" src="/rosco/host/happy-talk.png"></div><p class="say"><span class="who">Horacio Herradura</span><span id="say"></span></p></div>
+
+<section id="s-intro" hidden><div class="mq"><h1 data-es="Millones">Millions</h1></div><div class="card">
+ <ol class="rules"><li data-es="Empiezas con <b>1.000.000</b>.">You start with <b>1,000,000</b>.</li>
+ <li data-es="En cada pregunta reparte el dinero entre las respuestas. Solo te quedas lo que esté en la correcta.">Each question, spread your money over the answers. You only keep what sits on the right one.</li>
+ <li data-es="Deja siempre al menos una respuesta vacía. En la última, todo a una.">Always leave at least one answer empty. On the last one, it's all on one.</li>
+ <li data-es="Tienes que colocarlo todo. 60 segundos por pregunta: si se acaba el tiempo, lo que no hayas colocado va a la respuesta con más dinero.">You have to place it all. 60 seconds per question: if time runs out, whatever you haven't placed goes on the answer with the most money.</li></ol></div>
+ <div id="chal0"></div>
+ <p class="msg-note" id="avg0"></p>
+ <button class="btn grass" id="go" data-es="Empezar">Start</button></section>
+
+<section id="s-play" hidden>
+ <div class="steps" id="steps"></div>
+ <div class="hud"><span><span data-es="Sin colocar">To place</span> <b class="bank" id="left"></b></span><span><i class="watch" id="watch"></i><span class="clock" id="clock">60</span></span></div>
+ <div class="q" id="q"></div>
+ <p class="help" data-es="<b>+</b> / <b>−</b> mueven dinero (mantén pulsado para ir más rápido) · <b>TODO</b> pone aquí todo lo que te queda · <b>NADA</b> lo quita todo"><b>+</b> / <b>−</b> move money (hold to go faster) · <b>ALL</b> puts all your remaining money here · <b>CLEAR</b> takes it all off</p>
+ <div class="opts" id="opts"></div>
+ <button class="btn gold" id="lock" data-es="¡Cerrar apuesta!">Lock it in!</button>
+ <button class="btn grass" id="next" hidden data-es="Siguiente">Next</button>
+</section>
+
+<section id="s-end" hidden><div class="card"><p class="msg-note" data-es="Te llevas">You keep</p><div class="big" id="final"></div><div class="grid" id="grid"></div><p class="msg-note" id="avg2" style="margin-top:8px"></p></div>
+ <div id="chal2"></div>
+ <div class="card lb" id="lb" hidden></div>
+ <div class="row2"><button class="btn gold" id="shareimg" data-es="Compartir imagen">Share image</button><button class="btn paper" id="dlimg" data-es="↓ Descargar">↓ Download</button></div>
+ <button class="btn paper" id="copy" data-es="Copiar resultado">Copy result</button>
+ <a class="btn gold" id="archback" href="/?inf=open" hidden data-es="Volver al archivo">Back to the archive</a>
+ <div class="card fb" id="fb" hidden><p class="fb-q" data-es="<b>¿Qué tal Millones hoy?</b> Es nuevo, así que cuéntanos."><b>How was Millions today?</b> It's brand new, so tell us.</p>
+  <div class="r10" id="r10"></div>
+  <textarea id="fb-t" maxlength="500" rows="2" placeholder="Too hard? Too easy? A wrong answer? (optional)" data-es-ph="¿Muy difícil? ¿Muy fácil? ¿Alguna respuesta mal? (opcional)"></textarea>
+  <button class="btn gold" id="fb-send" disabled data-es="Enviar">Send</button><p class="fb-ok" id="fb-ok" hidden data-es="¡Gracias! Horacio lo ha apuntado.">Thanks! Horacio has noted it down.</p></div></section>
+<p class="msg-note" id="msg" hidden></p>
+<section class="about"><h2 data-es="Sobre Millones">About Millions</h2><p data-es="Millones es un quiz diario y gratis de fútbol de Unicorner, presentado por Horacio Herradura. Empiezas con 1.000.000 y tienes 8 preguntas de fútbol. Reparte el dinero entre las respuestas: solo te llevas lo que esté en la correcta, así que si dudas, divídelo. Un juego nuevo cada día a medianoche, las mismas preguntas para todos y con ranking diario.">Millions is a free daily football quiz from Unicorner, hosted by Horacio Herradura. You start with 1,000,000 and get 8 football questions. Spread your money over the answers: you keep only what sits on the right one, so when you are not sure, split it. A new game every day at midnight, the same questions for everyone, with a daily ranking.</p><p data-es="Más juegos diarios de fútbol: <a href=&quot;/es/&quot;>el Diario 5</a> y <a href=&quot;/es/rosco.html&quot;>el Rosco de fútbol</a>.">More daily football games: <a href="/">the Daily 5</a> and <a href="/rosco.html">the football Rosco</a>.</p></section>
+</main>
+<script src="/challenge.js"></script>
+<script>
+const SB_URL="https://yujhjepukzdahsppntua.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1amhqZXB1a3pkYWhzcHBudHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2NDMzNDcsImV4cCI6MjEwNTIxOTM0N30.YIOdtL7tJnNLPFPy19QuXe6w3Dcnz6Xedw0tFGdV_CE";
+const ES=location.pathname.startsWith('/es/'),L=(en,es)=>ES?es:en;
+const TODAY=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+// ?day=YYYY-MM-DD plays a past Millions from the Infinity archive: no ranking, no saved score, no challenge
+const ARCH=(d=>/^\d{4}-\d{2}-\d{2}$/.test(d||'')&&d>='2026-11-03'&&d<TODAY?d:null)(new URLSearchParams(location.search).get('day')),DAY=ARCH||TODAY;
+// Spanish at /es/millon.html (build_es.py copies it)
+if(ES){const xo=document.getElementById('x-out');if(xo){xo.href='/es/';xo.title=xo.ariaLabel='Volver a Unicorner'}document.querySelectorAll('[data-es]').forEach(e=>e.innerHTML=e.dataset.es);document.querySelectorAll('[data-es-ph]').forEach(e=>e.placeholder=e.dataset.esPh)}
+const $=id=>document.getElementById(id),START=1000000,SECS=60,KEY='millon-'+DAY+(DAY==='2026-11-03'?'-r1':'');
+const fmt=n=>n.toLocaleString(ES?'es-ES':'en-GB');
+const say=(t,pose)=>{$('say').textContent=t;if(pose)$('face').src='/rosco/host/'+pose+'.png'};
+const VISITOR=(()=>{try{let v=localStorage.getItem('uc-visitor');if(!v){v=crypto.randomUUID();localStorage.setItem('uc-visitor',v)}return v}catch{return null}})();
+function track(name,data){try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,visitor:VISITOR,seconds:0,game_day:DAY,event_version:2,data:{language:ES?'es':'en',page:'millon',...(ARCH?{archive:true}:{}),...(data||{})}})}).catch(()=>{})}catch{}}
+// signed-in players: one result per account per day, today's ranking (supabase/millon.sql)
+async function tok(){try{let s=JSON.parse(localStorage.getItem('uc-player-session')||'null');if(!s||!s.access_token)return null;
+ if(s.exp<Date.now()+60000){const r=await fetch(SB_URL+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:s.refresh_token})});const j=await r.json();if(!r.ok||!j.access_token)return null;
+  s={...s,access_token:j.access_token,refresh_token:j.refresh_token||s.refresh_token,exp:Date.now()+Math.max(60,(+j.expires_in||3600))*1000};localStorage.setItem('uc-player-session',JSON.stringify(s))}return s.access_token}catch{return null}}
+async function rpc(fn,body){const t=await tok();if(!t)return undefined;const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok)throw 0;return r.json()}
+async function pub(fn,body){const t=await tok();const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+(t||SB_KEY),'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok)throw 0;return r.json()}
+async function dayAvg(){try{const j=await pub('millon_day_stats',{p_day:DAY});const t=ARCH?(j&&j.players>=3?L(`Average that day: ${fmt(j.avg)} (${j.players} players)`,`Media de ese día: ${fmt(j.avg)} (${j.players} jugadores)`):''):j&&j.players>=3?L(`Today's average: ${fmt(j.avg)} (${j.players} players)`,`Media de hoy: ${fmt(j.avg)} (${j.players} jugadores)`):L("Be one of the first to play today.",'Sé de los primeros en jugar hoy.');['avg0','avg2'].forEach(id=>$(id).textContent=t)}catch{}}
+async function board(){try{const g=await pub('millon_board',{p_day:DAY}),signed=!!(await tok());const rows=(g.rows||[]).slice(0,5);
+ $('lb').innerHTML=`<h2>${L("Today's ranking","Ranking de hoy")}</h2>`+(rows.length?`<ol>${rows.map(r=>`<li class="${r.me?'me':''}"><b>${r.rank}</b><span>${String(r.nickname).replace(/[<&>"]/g,'')}</span><b>${fmt(r.score)}</b></li>`).join('')}</ol>`:'')
+  +(g.me&&!rows.some(r=>r.me)?`<p>${L('You','Tú')}: #${g.me.rank} · ${fmt(g.me.score)}</p>`:'')+(signed?'':`<p><a href="${ES?'/es/':'/'}#signin">${L('Sign in','Inicia sesión')}</a> ${L('to get on the ranking.','para entrar en el ranking.')}</p>`)
+  +(g.players?`<p>${g.players} ${L('players on the ranking today','jugadores en el ranking hoy')}</p>`:'');$('lb').hidden=false}catch{}}
+// 8-bit sounds made live (no files), following the site's sound switch (localStorage 'unicorner-sound').
+// Tiers: small = chip ticks, medium = lock thunk / trapdoor, large = keeping the whole pile.
+const sndOn=()=>{try{return localStorage.getItem('unicorner-sound')!=='off'}catch{return true}};let actx=null;
+const ac=()=>{actx=actx||new(window.AudioContext||window.webkitAudioContext)();if(actx.state==='suspended')actx.resume();return actx};
+function tone(f,d,o={}){if(!sndOn())return;try{const c=ac(),t=c.currentTime+(o.at||0),os=c.createOscillator(),g=c.createGain();os.type=o.type||'square';os.frequency.setValueAtTime(f,t);if(o.slide)os.frequency.exponentialRampToValueAtTime(o.slide,t+d);g.gain.setValueAtTime(o.vol||.08,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);os.connect(g).connect(c.destination);os.start(t);os.stop(t+d+.02)}catch{}}
+function noise(d,f1,f2,o={}){if(!sndOn())return;try{const c=ac(),t=c.currentTime+(o.at||0),n=c.createBufferSource(),b=c.createBuffer(1,c.sampleRate*d,c.sampleRate),x=b.getChannelData(0);for(let k=0;k<x.length;k++)x[k]=Math.random()*2-1;n.buffer=b;const f=c.createBiquadFilter();f.type=o.type||'bandpass';f.frequency.setValueAtTime(f1,t);f.frequency.exponentialRampToValueAtTime(f2,t+d);const g=c.createGain();g.gain.setValueAtTime(o.vol||.08,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);n.connect(f).connect(g).connect(c.destination);n.start(t);n.stop(t+d)}catch{}}
+const SFX={
+ add:()=>{tone(1320,.04,{vol:.05});noise(.05,5000,3000,{vol:.03})},
+ sub:()=>tone(880,.04,{vol:.05}),
+ all:()=>[880,1175,1568].forEach((f,k)=>tone(f,.05,{at:k*.035,vol:.05})),
+ clear:()=>tone(700,.12,{slide:260,vol:.05}),
+ press:()=>{tone(150,.16,{slide:55,vol:.13});noise(.08,900,200,{vol:.06})},
+ door:()=>{noise(.35,1400,120,{vol:.09});tone(110,.3,{slide:40,type:'triangle',vol:.14,at:.18})},
+ keep:()=>[784,988,1175].forEach((f,k)=>tone(f,.12,{at:k*.07})),
+ jackpot:()=>{[1047,1319,1568,2093,2637].forEach((f,k)=>tone(f,.1,{at:k*.06,vol:.07}));for(let k=0;k<6;k++)noise(.07,6000,3000,{at:.3+k*.09,vol:.025})},
+ bust:()=>[392,370,349,262].forEach((f,k)=>tone(f,k===3?.5:.18,{at:k*.2,type:'sawtooth',vol:.05})),
+ tick:()=>tone(1800,.03,{vol:.04})};
+let CH=null,D,i=0,bank=START,bets=[],t=SECS,timer=null,hist=[];
+const show=s=>['intro','play','end'].forEach(x=>$('s-'+x).hidden=x!==s);
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify({bank,hist,done:true}))}catch{}};
+function maxOn(n){return n-1}
+// smart steps: about 10% of the pile you start the question with (1M -> 100K, 400K -> 25K/50K, 80K -> 5K)
+const stepNow=()=>[100000,50000,25000,10000,5000,1000].find(v=>v<=bank*.1)||1000;
+const K=n=>n>=1e6?(n/1e6)+'M':n>=1e3?(n/1e3)+'K':String(n); // answers that may hold money: always leave one empty
+function render(){const Q=D.questions[i],opts=ES&&Q.o_es?Q.o_es:Q.o,placed=bets.reduce((a,b)=>a+b,0),left=bank-placed,used=bets.filter(b=>b>0).length,last=i===D.questions.length-1;
+ $('left').textContent=fmt(left);
+ $('opts').innerHTML=opts.map((o,k)=>`<div class="opt" id="o${k}"><span class="door">${bets[k]?`<i class="spr" style="background-position:${-40*Math.min(5,Math.ceil(bets[k]/START*6)-1)}px -40px"></i>`:''}</span><span class="t">${String.fromCharCode(65+k)}. ${o}</span><b class="amt">${fmt(bets[k])}</b><div class="m"><button data-k="${k}" data-d="none" ${bets[k]?'':'disabled'} aria-label="${L('Take all off','Quitar todo')}">${L('CLEAR','NADA')}</button><button data-k="${k}" data-d="-1" ${bets[k]?'':'disabled'} aria-label="${L('Take off ','Quitar ')+fmt(stepNow())}">−${K(stepNow())}</button><button data-k="${k}" data-d="1" ${left&&(bets[k]||used<maxOn(opts.length))?'':'disabled'} aria-label="${L('Add ','Añadir ')+fmt(stepNow())}">+${K(stepNow())}</button><button data-k="${k}" data-d="all" ${left&&(bets[k]||used<maxOn(opts.length))?'':'disabled'} aria-label="${L('Put all the rest here','Poner aquí todo lo que queda')}">${L('ALL','TODO')}</button></div><div class="bar"><i style="width:${bank?bets[k]/bank*100:0}%"></i></div></div>`).join('');
+ $('lock').disabled=left>0;$('lock').textContent=left>0?L(`Place ${fmt(left)} more`,`Coloca ${fmt(left)} más`):L('Lock it in!','¡Cerrar apuesta!');}
+// one change to answer k; returns true if anything moved
+function bump(k,d,mult=1){const n=bets.length,left=bank-bets.reduce((a,c)=>a+c,0),was=bets[k],st=stepNow()*mult;
+ const open=bets[k]>0||bets.filter((v,j)=>j!==k&&v>0).length<maxOn(n);
+ if(d==='none')bets[k]=0;
+ else if(d==='all'){if(!open)return false;bets[k]+=left}
+ else if(d==='1'){if(!open)return false;bets[k]+=Math.min(st,left)}else bets[k]=Math.max(0,bets[k]-st);
+ return bets[k]!==was}
+// hold + or − to keep going, faster and faster; a quick tap stays one step
+let holdT=null,held=false;
+$('opts').addEventListener('pointerdown',e=>{const b=e.target.closest('button[data-d="1"],button[data-d="-1"]');if(!b||timer===null)return;held=false;const k=+b.dataset.k,d=b.dataset.d;let n=0;
+ const go=()=>{n++;held=true;if(bump(k,d,n>10?4:n>4?2:1)){SFX[d==='1'?'add':'sub']();render()}holdT=setTimeout(go,n>4?70:130)};clearTimeout(holdT);holdT=setTimeout(go,380)});
+['pointerup','pointercancel'].forEach(t=>document.addEventListener(t,()=>{clearTimeout(holdT);holdT=null}));
+$('opts').onclick=e=>{const b=e.target.closest('button[data-k]');if(!b||timer===null)return;if(held){held=false;return}const k=+b.dataset.k;
+ if(bump(k,b.dataset.d))SFX[{none:'clear',all:'all','1':'add','-1':'sub'}[b.dataset.d]]();render()};
+function ask(){const Q=D.questions[i],n=Q.o.length;bets=Array(n).fill(0);t=SECS;
+ $('steps').innerHTML=D.questions.map((_,j)=>`<i class="${j<i?'done':j===i?'on':''}"></i>`).join('');
+ $('q').innerHTML=`<small>${L('Question','Pregunta')} ${i+1}/${D.questions.length} · ${n} ${L('answers','respuestas')}</small>${ES&&Q.q_es?Q.q_es:Q.q}`;
+ $('lock').hidden=false;$('next').hidden=true;$('clock').textContent=t;$('clock').classList.remove('low');
+ say(i===D.questions.length-1?L('Last question. Everything on one answer. No pressure!','Última pregunta. Todo a una respuesta. ¡Sin presión!'):n===4?L('Four answers. Leave at least one empty.','Cuatro respuestas. Deja al menos una vacía.'):L('Three answers now. Leave one empty.','Ahora tres respuestas. Deja una vacía.'),'talk-1');
+ render();clearInterval(timer);timer=setInterval(()=>{t--;$('clock').textContent=t;$('watch').style.backgroundPosition=`${-32*((SECS-t)%4)}px 0`;$('clock').classList.toggle('low',t<=10);if(t<=10&&t>0)SFX.tick();if(t<=0)lock()},1000)}
+function lock(){clearInterval(timer);timer=null;let pre='';
+ // time ran out with money still unplaced: it goes on the answer holding the most (a random one of them on a tie)
+ const rest=bank-bets.reduce((a,b)=>a+b,0);if(rest>0){const top=Math.max(...bets),c=bets.map((v,k)=>v===top?k:-1).filter(k=>k>=0),k=c[Math.floor(Math.random()*c.length)];bets[k]+=rest;render();
+  pre=L(`Time! The ${fmt(rest)} you didn't place went on ${String.fromCharCode(65+k)}. `,`¡Tiempo! Los ${fmt(rest)} sin colocar fueron a la ${String.fromCharCode(65+k)}. `)}
+ const Q=D.questions[i],kept=bets[Q.a],lost=bank-kept;
+ hist.push(kept>0?(kept===bank?'🟩':'🟨'):'🟥');bank=kept;
+ $('opts').querySelectorAll('button').forEach(b=>b.disabled=true);$('lock').hidden=true;
+ // suspense: empty doors open at once, then the wrong doors with money one by one (least first), with a pause before the last one. A tap skips it.
+ const all=bets.slice(),wrong=all.map((v,k)=>k).filter(k=>k!==Q.a&&all[k]).sort((x,y)=>all[x]-all[y]),ts=[];let t=0,fin=false;
+ all.forEach((v,k)=>{if(k!==Q.a&&!v)$('o'+k).classList.add('x')});
+ const openDoor=k=>{const o=$('o'+k);if(o.classList.contains('lose'))return;o.classList.add('lose');SFX.door();drop(o)};
+ if(pre)say(pre,'nervous');
+ if(wrong.length){t=pre?900:350;say(pre+L('Opening the doors…','Abriendo las trampillas…'),'nervous');
+  wrong.forEach((k,j)=>{if(j===wrong.length-1&&kept){const kk=k;ts.push(setTimeout(()=>say(L(`Two left. ${fmt(kept)} or ${fmt(all[kk])}…`,`Quedan dos. ¿${fmt(kept)} o ${fmt(all[kk])}…?`),'nervous'),t));t+=1000}
+   ts.push(setTimeout(()=>openDoor(k),t));t+=520})}
+ else t=pre?900:600;
+ const finish=()=>{if(fin)return;fin=true;ts.forEach(clearTimeout);document.removeEventListener('pointerdown',skip,true);wrong.forEach(openDoor);
+ $('o'+Q.a).classList.add('win');$('left').textContent=fmt(bank);
+ const opts=ES&&Q.o_es?Q.o_es:Q.o,wy=ES?Q.why_es:Q.why;$('q').insertAdjacentHTML('beforeend',`<span class="why">${L('Answer','Respuesta')}: <b>${opts[Q.a]}</b>${wy?' · '+wy:''}</span>`);
+ if(!wrong.length)SFX.door();setTimeout(()=>(kept===bank&&lost===0&&kept?SFX.jackpot:kept?SFX.keep:SFX.bust)(),wrong.length?60:420);if(!lost&&kept)shower(18);
+ say(pre+(!kept?L('Ay, ay, ay... it all falls through the trapdoor.','Ay, ay, ay... todo se va por la trampilla.'):lost?L(`Right answer! But ${fmt(lost)} drops away.`,`¡Correcta! Pero ${fmt(lost)} se van por la trampilla.`):L('All of it on the right one. Bravo!','Todo en la correcta. ¡Bravo!')),!kept?'facepalm':lost?'nervous':'celebrate');
+ if(!kept||i===D.questions.length-1){save();setTimeout(end,3200)}else $('next').hidden=false}
+ const skip=e=>{if(e.target.closest&&e.target.closest('.snd'))return;finish()};setTimeout(()=>document.addEventListener('pointerdown',skip,true),50);ts.push(setTimeout(finish,t))}
+// banknotes: flutter frames are row 3 of the money sheet; short, rare moments so they can be a little showy
+function note(x,y,dist,dur){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;const n=document.createElement('i');n.className='note';n.style.left=x+'px';n.style.top=y+'px';document.body.appendChild(n);
+ const f=Math.floor(Math.random()*8);n.style.backgroundPosition=`${-40*f}px -80px`;const sway=(Math.random()-.5)*80;
+ n.animate([{transform:'translate(0,0) rotate(0)',opacity:1},{transform:`translate(${sway}px,${dist}px) rotate(${sway*2}deg)`,opacity:0}],{duration:dur,easing:'cubic-bezier(.55,0,1,.45)',fill:'forwards'}).onfinish=()=>n.remove()}
+function drop(el){const r=el.querySelector('.door').getBoundingClientRect();for(let j=0;j<4;j++)setTimeout(()=>note(r.left+12+Math.random()*16,r.top+8,90,600),120+j*70)}
+function shower(n){for(let j=0;j<n;j++)setTimeout(()=>note(Math.random()*(innerWidth-40),-40,innerHeight*.9,1100+Math.random()*500),j*45)}
+function end(restored){show('end');if(ARCH){$('archback').hidden=false;$('archback').href=(ES?'/es/':'/')+'?inf=open';$('final').textContent=fmt(bank);$('grid').textContent=hist.join('');dayAvg();if(!restored)track('millon_finish',{score:bank,steps:hist.length});return say(bank?L(`You walk away with ${fmt(bank)}. Try another day from the archive!`,`Te llevas ${fmt(bank)}. ¡Prueba otro día del archivo!`):L('Nothing left. Try another day from the archive!','Te quedas a cero. ¡Prueba otro día del archivo!'),bank?'happy-talk':'sad-talk')}
+ CH&&CH.end($('chal2'),bank,!restored);feedback();if(!restored)rpc('millon_save',{p_day:DAY,p_score:bank,p_hist:hist.join('')}).catch(()=>{}).finally(()=>board());else board();dayAvg();$('final').textContent=fmt(bank);$('grid').textContent=hist.join('');if(!restored)track('millon_finish',{score:bank,steps:hist.length});
+ say(bank?L(`You walk away with ${fmt(bank)}. Same game tomorrow, new questions!`,`Te llevas ${fmt(bank)}. ¡Mañana, preguntas nuevas!`):L('Nothing left today. Come back tomorrow!','Hoy te quedas a cero. ¡Vuelve mañana!'),bank?'happy-talk':'sad-talk')}
+$('lock').onclick=()=>{if(timer===null)return;clearInterval(timer);const b=$('lock');b.classList.add('press');SFX.press();setTimeout(()=>{b.classList.remove('press');lock()},450)};$('next').onclick=()=>{i++;ask()};
+$('go').onclick=()=>{show('play');ask();track('millon_start')};
+const resultText=()=>`Unicorner ${L('Millions','Millones')} ${DAY}\n${hist.join('')}\n💰 ${fmt(bank)}\nunicornergame.lol${ES?'/es':''}/millon.html`;
+{const b=$('snd'),paint=()=>{b.dataset.on=sndOn()?'1':'0';b.setAttribute('aria-pressed',String(sndOn()))};paint();b.onclick=()=>{try{localStorage.setItem('unicorner-sound',sndOn()?'off':'on')}catch{}paint();if(sndOn())SFX.keep()}}
+// feedback after the game: 1-10 and an optional note, once per day (event millon_feedback, read by the weekly feedback digest)
+function feedback(){const k='uc-millon-fb-'+DAY;try{if(localStorage.getItem(k))return}catch{}let rating=0;$('fb').hidden=false;
+ $('r10').innerHTML=Array.from({length:10},(_,n)=>`<button type="button" data-r="${n+1}">${n+1}</button>`).join('');
+ $('r10').onclick=e=>{const b=e.target.closest('[data-r]');if(!b)return;rating=+b.dataset.r;$('r10').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));$('fb-send').disabled=false};
+ $('fb-send').onclick=()=>{const t=$('fb-t').value.trim().slice(0,500);track('millon_feedback',{rating,text:t||null,score:bank});try{localStorage.setItem(k,'1')}catch{}
+  $('r10').hidden=$('fb-t').hidden=$('fb-send').hidden=true;$('fb-ok').hidden=false}}
+// share image, 1080x1350: the studio, the marquee, what you kept, your row of results and Horacio
+async function millonImage(){const W=1080,H=1350,c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d');g.imageSmoothingEnabled=false;
+ try{await document.fonts.load('80px "Jersey 10"');await document.fonts.load('40px VT323')}catch{}
+ const img=async u=>{const m=new Image();m.src=u;await m.decode();return m};const ink='#1d1a2b',cr='#fbf6e8',gold='#f2c230';
+ try{g.drawImage(await img('/millon/art/studio-portrait.png'),0,-200,W,1920)}catch{g.fillStyle=ink;g.fillRect(0,0,W,H)}
+ g.fillStyle='rgba(29,26,43,.55)';g.fillRect(0,0,W,H);
+ g.fillStyle=ink;g.fillRect(0,0,W,120);g.fillStyle=gold;g.font='64px "Jersey 10",monospace';g.textBaseline='middle';g.fillText('UNICORNER',48,64);
+ g.fillStyle=cr;g.textAlign='right';g.font='44px VT323,monospace';g.fillText(`${L('MILLIONS','MILLONES')} · ${DAY}`,W-48,64);g.textAlign='center';
+ try{g.drawImage(await img('/millon/art/marquee.png'),90,170,900,300)}catch{}
+ g.fillStyle=gold;g.font='120px "Jersey 10",monospace';g.fillText(L('MILLIONS','MILLONES'),W/2,322);
+ g.fillStyle=cr;g.font='56px VT323,monospace';g.fillText(L('I KEPT','ME LLEVO'),W/2,560);
+ g.fillStyle=ink;g.font='170px "Jersey 10",monospace';g.fillText(fmt(bank),W/2+8,690+8);g.fillStyle=bank?gold:'#f0a097';g.fillText(fmt(bank),W/2,690);
+ const cols={'🟩':'#2fbf71','🟨':gold,'🟥':'#c8473b'},sz=86,gap=16,tot=8*sz+7*gap;
+ for(let k=0;k<8;k++){const x=W/2-tot/2+k*(sz+gap),y=810;g.fillStyle=ink;g.fillRect(x-5,y-5,sz+10,sz+10);g.fillStyle=cols[hist[k]]||'#3a3450';g.fillRect(x,y,sz,sz);g.fillStyle=hist[k]?ink:'#6b6878';g.font='48px "Jersey 10",monospace';g.fillText(String(k+1),x+sz/2,y+sz/2+4)}
+ try{g.drawImage(await img('/rosco/host/'+(bank>=500000?'celebrate':bank?'happy-1':'facepalm')+'.png'),W/2-110,930,220,220)}catch{}
+ g.fillStyle=ink;g.fillRect(0,H-130,W,130);g.fillStyle=cr;g.font='52px "Jersey 10",monospace';g.fillText(L('Can you keep more?','¿Te llevas más que yo?'),W/2,H-84);g.fillStyle=gold;g.font='40px VT323,monospace';g.fillText(ES?'unicornergame.lol/es/millon':'unicornergame.lol/millon',W/2,H-36);
+ return new Promise(res=>c.toBlob(res,'image/png'))}
+const dlImg=blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`millions-${DAY}.png`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)};
+$('dlimg').onclick=async()=>{const b=$('dlimg');b.disabled=true;track('millon_download_image',{score:bank});try{dlImg(await millonImage());b.textContent=L('Saved ✓','Guardada ✓');setTimeout(()=>b.textContent=L('↓ Download','↓ Descargar'),2000)}catch{}b.disabled=false};
+$('shareimg').onclick=async()=>{const b=$('shareimg');b.disabled=true;track('millon_share_image',{score:bank});
+ try{const blob=await millonImage(),f=new File([blob],`millions-${DAY}.png`,{type:'image/png'});
+  if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],text:resultText()})}catch{}}
+  else{dlImg(blob);b.textContent=L('Saved! Post it anywhere','¡Guardada! Publícala donde quieras');setTimeout(()=>b.textContent=L('Share image','Compartir imagen'),2200)}}catch{}
+ b.disabled=false};
+$('copy').onclick=()=>{navigator.clipboard.writeText(resultText()).then(()=>{$('copy').textContent=L('Copied!','¡Copiado!');setTimeout(()=>$('copy').textContent=L('Copy result','Copiar resultado'),1600)}).catch(()=>{})};
+(async()=>{if(ARCH&&(()=>{try{return localStorage.getItem('uc-inf-sub')!=='1'}catch{return true}})()){say(L('Past games are part of Infinity mode.','Los juegos anteriores son parte del Modo Infinito.'),'nervous');document.querySelector('main')?.insertAdjacentHTML('beforeend',`<a class="btn gold" style="margin-top:12px" href="${ES?'/es/':'/'}?inf=open">${L('See Infinity','Ver el Infinito')}</a>`);track('millon_archive_locked',{});return}
+ try{const r=await fetch(`/millon/${DAY}.json`,{cache:'no-cache'});if(!r.ok)throw 0;D=await r.json()}catch{say(L('No game today yet. Come back soon!','Aún no hay juego hoy. ¡Vuelve pronto!'),'sad');return}
+ let s=null;try{s=JSON.parse(localStorage.getItem(KEY))}catch{}
+ if(!(s&&s.done)&&!ARCH){try{const m=await rpc('millon_mine',{p_day:DAY});if(m&&m.score!=null)s={bank:m.score,hist:[...m.hist],done:true}}catch{}}
+ // friend challenge (challenge.js): "keep more than me on today's Millions"
+ CH=window.ucChallenge&&!ARCH?ucChallenge({game:'millon',day:DAY,max:START,es:ES,track,played:()=>s&&s.done?s.bank:null,fmt:v=>fmt(v),
+  banner:(who,v)=>({en:`<strong>${who} kept ${fmt(v)} on today's Millions.</strong> Same 8 questions. Can you keep more?`,es:`<strong>${who} se llevó ${fmt(v)} en Millones de hoy.</strong> Las mismas 8 preguntas. ¿Te llevas más?`}),
+  share:(v,u)=>`Unicorner ${L('Millions','Millones')} ${DAY}\n${hist.join('')}\n💰 ${fmt(v)}\n${L('Can you keep more?','¿Te llevas más?')}\n${u}`,
+  url:code=>`https://unicornergame.lol${ES?'/es':''}/millon.html?c=${code}`}):null;
+ if(s&&s.done){bank=s.bank;hist=s.hist;save();end(true);return}
+ CH&&CH.intro($('chal0'));
+ dayAvg();
+ say(ARCH?L(`From the archive: the game of ${new Date(DAY+'T12:00:00Z').toLocaleDateString('en-GB',{day:'numeric',month:'long',timeZone:'UTC'})}. Here is a million. Let's see how much of it you keep.`,`Del archivo: el juego del ${new Date(DAY+'T12:00:00Z').toLocaleDateString('es-ES',{day:'numeric',month:'long',timeZone:'UTC'})}. Aquí tienes un millón. A ver cuánto te llevas.`):L('Welcome! Here is a million. Let\'s see how much of it you keep.','¡Bienvenido! Aquí tienes un millón. A ver cuánto te llevas.'),'happy-talk');show('intro')})();
+</script></body></html>

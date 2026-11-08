@@ -1,0 +1,122 @@
+{
+ "day": "2026-11-08",
+ "questions": [
+  {
+   "q": "Which of these clubs did Samuel Eto'o NEVER play for?",
+   "q_es": "¿En qué club NUNCA jugó Samuel Eto'o?",
+   "o": [
+    "Real Madrid",
+    "Mallorca",
+    "Chelsea",
+    "Liverpool"
+   ],
+   "a": 3,
+   "why": "He played for Everton on Merseyside, never Liverpool.",
+   "why_es": "Jugó en el Everton, nunca en el Liverpool.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who managed Liverpool to the 2005 Champions League?",
+   "q_es": "¿Quién entrenaba al Liverpool cuando ganó la Champions de 2005?",
+   "o": [
+    "Gérard Houllier",
+    "Rafael Benítez",
+    "Roy Evans",
+    "Kenny Dalglish"
+   ],
+   "a": 1,
+   "why": "Benítez, in his first season.",
+   "why_es": "Benítez, en su primera temporada.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which of these teams reached the semi-finals of the 2002 World Cup?",
+   "q_es": "¿Cuál de estas selecciones llegó a semifinales del Mundial 2002?",
+   "o": [
+    "Senegal",
+    "USA",
+    "Spain",
+    "Turkey"
+   ],
+   "a": 3,
+   "why": "Turkey; the other three went out in the quarter-finals.",
+   "why_es": "Turquía; las otras tres cayeron en cuartos.",
+   "src": "own knowledge",
+   "o_es": [
+    "Senegal",
+    "EE. UU.",
+    "España",
+    "Turquía"
+   ]
+  },
+  {
+   "q": "How many Bundesliga goals did Robert Lewandowski score in 2020-21?",
+   "q_es": "¿Cuántos goles de Bundesliga marcó Lewandowski en 2020-21?",
+   "o": [
+    "40",
+    "41",
+    "43"
+   ],
+   "a": 1,
+   "why": "41, one more than Gerd Müller's old record of 40.",
+   "why_es": "41, uno más que el récord de 40 de Gerd Müller.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who did Spain beat 4-0 in the Euro 2012 final?",
+   "q_es": "¿A quién goleó España 4-0 en la final de la Euro 2012?",
+   "o": [
+    "Italy",
+    "Germany",
+    "Portugal"
+   ],
+   "a": 0,
+   "why": "Italy, in Kyiv.",
+   "why_es": "Italia, en Kiev.",
+   "src": "own knowledge",
+   "o_es": [
+    "Italia",
+    "Alemania",
+    "Portugal"
+   ]
+  },
+  {
+   "q": "In which year did Zinedine Zidane join Real Madrid?",
+   "q_es": "¿En qué año fichó Zidane por el Real Madrid?",
+   "o": [
+    "2000",
+    "2001",
+    "2002"
+   ],
+   "a": 1,
+   "why": "Summer 2001, from Juventus.",
+   "why_es": "En el verano de 2001, desde la Juventus.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which of these NEVER managed Barcelona?",
+   "q_es": "¿Cuál de estos NUNCA entrenó al Barcelona?",
+   "o": [
+    "Johan Cruyff",
+    "Bobby Robson",
+    "Fabio Capello"
+   ],
+   "a": 2,
+   "why": "Capello managed Real Madrid twice, never Barcelona.",
+   "why_es": "Capello entrenó dos veces al Real Madrid, nunca al Barcelona.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which club won its first English league title first: Chelsea or Manchester City?",
+   "q_es": "¿Quién ganó antes su primera liga inglesa: el Chelsea o el Manchester City?",
+   "o": [
+    "Chelsea",
+    "Manchester City"
+   ],
+   "a": 1,
+   "why": "City in 1936-37; Chelsea in 1954-55.",
+   "why_es": "El City en 1936-37; el Chelsea en 1954-55.",
+   "src": "own knowledge"
+  }
+ ]
+}

@@ -1,4 +1,9 @@
-// Stripe → Supabase: records each one-time Infinity purchase in public.infinity_subs (status 'paid', no end date).
+// Stripe → Supabase: records Infinity purchases in public.infinity_subs.
+//  - one-time ($4.99, forever): status 'paid', no end date
+//  - monthly ($2.99): status from the subscription (active / past_due / cancelled) with period_end = paid until.
+//    A 'paid' (forever) row is never downgraded by a monthly subscription.
+// Events to send from Stripe: checkout.session.completed, checkout.session.async_payment_succeeded, charge.refunded,
+// customer.subscription.updated, customer.subscription.deleted.
 // The Payment Link carries the player's account id as client_reference_id, so we know who paid.
 // Deploy with JWT verification OFF (Stripe can't send a Supabase login); every request is checked against the webhook signing secret instead.
 // Secret: STRIPE_WEBHOOK_SECRET (the whsec_... shown on the webhook endpoint in Stripe). SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are provided by Supabase.
@@ -41,6 +46,21 @@ Deno.serve(async (req) => {
         console.error("paid checkout without an account id", o.id);
         return new Response("ok");
       }
+      if (o.mode === "subscription") {
+        // monthly: keep a forever purchase if they already have one
+        const { data: cur } = await db.from("infinity_subs").select("status").eq("user_id", uid).maybeSingle();
+        if (cur?.status === "paid") return new Response("ok");
+        const { error } = await db.from("infinity_subs").upsert({
+          user_id: uid,
+          stripe_customer: String(o.customer ?? o.customer_details?.email ?? ""),
+          stripe_sub: String(o.subscription), // the subscription, so its updates can find this row
+          status: "active",
+          period_end: new Date(Date.now() + 35 * 864e5).toISOString(), // corrected by customer.subscription.updated
+          updated_at: new Date().toISOString(),
+        }, { onConflict: "user_id" });
+        if (error) throw error;
+        return new Response("ok");
+      }
       const { error } = await db.from("infinity_subs").upsert({
         user_id: uid,
         stripe_customer: String(o.customer ?? o.customer_details?.email ?? ""),
@@ -49,6 +69,17 @@ Deno.serve(async (req) => {
         period_end: null, // one-time purchase: never runs out
         updated_at: new Date().toISOString(),
       }, { onConflict: "user_id" });
+      if (error) throw error;
+    } else if (ev.type === "customer.subscription.updated" || ev.type === "customer.subscription.deleted") {
+      // monthly renewals, failed payments and cancellations: update the row that holds this subscription
+      const st = ev.type === "customer.subscription.deleted" ? "cancelled"
+        : o.cancel_at_period_end ? "cancelled" : ({ active: "active", trialing: "trialing", past_due: "past_due", unpaid: "past_due", canceled: "cancelled" } as Record<string, string>)[o.status] ?? "cancelled";
+      const end = o.current_period_end ?? o.items?.data?.[0]?.current_period_end;
+      const { error } = await db.from("infinity_subs").update({
+        status: st,
+        period_end: end ? new Date(end * 1000).toISOString() : new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      }).eq("stripe_sub", String(o.id)).neq("status", "paid");
       if (error) throw error;
     } else if (ev.type === "charge.refunded" && o.refunded && o.payment_intent) {
       const { error } = await db.from("infinity_subs").update({ status: "refunded", updated_at: new Date().toISOString() }).eq("stripe_sub", String(o.payment_intent));

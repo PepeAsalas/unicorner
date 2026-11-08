@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /mockups/
 
 # AI assistants and AI search are welcome to read and cite Unicorner
 User-agent: GPTBot
