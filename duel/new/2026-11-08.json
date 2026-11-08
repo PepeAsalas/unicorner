@@ -1,0 +1,3191 @@
+[
+ {
+  "id": "d18-name-a-club-that-played-in-a-european-cup-or-champions-league-final-between-1992-93-and-2025-26",
+  "template": 18,
+  "prompt": "Name a club that played in a European Cup or Champions League final between 1992-93 and 2025-26",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Olympique de Marseille",
+    "aliases": [
+     "Marseille",
+     "OM",
+     "Olympique Marseille",
+     "Olympique de Marseille"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "AC Milan",
+    "aliases": [
+     "AC Milan",
+     "Milan",
+     "Milano"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "FC Barcelona",
+    "aliases": [
+     "Barcelona",
+     "Barca",
+     "Barça"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "AFC Ajax",
+    "aliases": [
+     "Ajax",
+     "Ajax Amsterdam"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Juventus FC",
+    "aliases": [
+     "Juventus",
+     "Juve"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Borussia Dortmund",
+    "aliases": [
+     "Dortmund",
+     "BVB",
+     "Borussia"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Real Madrid CF",
+    "aliases": [
+     "Real Madrid",
+     "Real",
+     "Madrid"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Manchester United FC",
+    "aliases": [
+     "Manchester United",
+     "Man United",
+     "Man Utd",
+     "Man U",
+     "United",
+     "MUFC"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "FC Bayern Munich",
+    "aliases": [
+     "Bayern Munich",
+     "Bayern",
+     "Bayern Munchen",
+     "FC Bayern",
+     "Bayern München"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Valencia CF",
+    "aliases": [
+     "Valencia"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Bayer 04 Leverkusen",
+    "aliases": [
+     "Leverkusen",
+     "Bayer Leverkusen",
+     "Bayer",
+     "Bayer 04"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "FC Porto",
+    "aliases": [
+     "Porto",
+     "FC Porto"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "AS Monaco",
+    "aliases": [
+     "Monaco",
+     "AS Monaco"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Liverpool FC",
+    "aliases": [
+     "Liverpool",
+     "LFC"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Arsenal FC",
+    "aliases": [
+     "Arsenal",
+     "Gunners"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Chelsea FC",
+    "aliases": [
+     "Chelsea"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "FC Internazionale Milano",
+    "aliases": [
+     "Inter Milan",
+     "Inter",
+     "Internazionale",
+     "Inter Milano"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Atlético de Madrid",
+    "aliases": [
+     "Atletico Madrid",
+     "Atletico",
+     "Atlético",
+     "Atleti",
+     "Atletico de Madrid"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Tottenham Hotspur FC",
+    "aliases": [
+     "Tottenham",
+     "Spurs",
+     "Tottenham Hotspur"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Paris Saint-Germain FC",
+    "aliases": [
+     "Paris Saint-Germain",
+     "PSG",
+     "Paris SG",
+     "Paris",
+     "Paris Saint Germain"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Manchester City FC",
+    "aliases": [
+     "Manchester City",
+     "Man City",
+     "City",
+     "MCFC"
+    ],
+    "fame": 5
+   }
+  ],
+  "traps": [
+   {
+    "name": "Sampdoria",
+    "why": "Lost the 1991-92 final, before this range."
+   },
+   {
+    "name": "Leeds United",
+    "why": "Reached only the 2000-01 semi-finals."
+   },
+   {
+    "name": "Roma",
+    "why": "Lost the 1984 final, before this range."
+   },
+   {
+    "name": "Celtic",
+    "why": "Never reached a Champions League final in this range."
+   },
+   {
+    "name": "Benfica",
+    "why": "Last played a European Cup final in 1990."
+   }
+  ]
+ },
+ {
+  "id": "d18-name-a-club-that-played-in-a-uefa-cup-or-europa-league-final-between-2000-01-and-2025-26",
+  "template": 18,
+  "prompt": "Name a club that played in a UEFA Cup or Europa League final between 2000-01 and 2025-26",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Liverpool FC",
+    "aliases": [
+     "Liverpool",
+     "LFC"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Deportivo Alavés",
+    "aliases": [
+     "Alaves",
+     "Alavés",
+     "Deportivo Alaves"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Feyenoord Rotterdam",
+    "aliases": [
+     "Feyenoord"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Borussia Dortmund",
+    "aliases": [
+     "Dortmund",
+     "BVB",
+     "Borussia"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "FC Porto",
+    "aliases": [
+     "Porto",
+     "FC Porto"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Celtic FC",
+    "aliases": [
+     "Celtic"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Valencia CF",
+    "aliases": [
+     "Valencia"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Olympique de Marseille",
+    "aliases": [
+     "Marseille",
+     "OM",
+     "Olympique Marseille",
+     "Olympique de Marseille"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "PFC CSKA Moscow",
+    "aliases": [
+     "CSKA Moscow",
+     "CSKA",
+     "CSKA Moskva"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Sporting Clube de Portugal",
+    "aliases": [
+     "Sporting",
+     "Sporting CP",
+     "Sporting Lisbon",
+     "Sporting Lisboa"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Sevilla FC",
+    "aliases": [
+     "Sevilla"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Middlesbrough FC",
+    "aliases": [
+     "Middlesbrough",
+     "Boro"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "RCD Espanyol",
+    "aliases": [
+     "Espanyol",
+     "Espanyol Barcelona",
+     "RCD Espanyol"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Zenit Saint Petersburg",
+    "aliases": [
+     "Zenit",
+     "Zenit St Petersburg",
+     "Zenit Saint-Petersburg",
+     "Zenit St. Petersburg"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Rangers FC",
+    "aliases": [
+     "Rangers",
+     "Glasgow Rangers"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Shakhtar Donetsk",
+    "aliases": [
+     "Shakhtar",
+     "Shakhtar Donetsk",
+     "Shakhtyor",
+     "Shaktar"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "SV Werder Bremen",
+    "aliases": [
+     "Werder Bremen",
+     "Werder",
+     "Bremen"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Atlético de Madrid",
+    "aliases": [
+     "Atletico Madrid",
+     "Atletico",
+     "Atlético",
+     "Atleti",
+     "Atletico de Madrid"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Fulham FC",
+    "aliases": [
+     "Fulham"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Sporting Clube de Braga",
+    "aliases": [
+     "Braga",
+     "Sporting Braga",
+     "SC Braga"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Athletic Club",
+    "aliases": [
+     "Athletic Bilbao",
+     "Athletic Club",
+     "Athletic",
+     "Bilbao"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Chelsea FC",
+    "aliases": [
+     "Chelsea"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Sport Lisboa e Benfica",
+    "aliases": [
+     "Benfica",
+     "SL Benfica"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "FC Dnipro Dnipropetrovsk",
+    "aliases": [
+     "Dnipro",
+     "Dnipro Dnipropetrovsk",
+     "Dnepr"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Manchester United FC",
+    "aliases": [
+     "Manchester United",
+     "Man United",
+     "Man Utd",
+     "Man U",
+     "United",
+     "MUFC"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "AFC Ajax",
+    "aliases": [
+     "Ajax",
+     "Ajax Amsterdam"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Arsenal FC",
+    "aliases": [
+     "Arsenal",
+     "Gunners"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "FC Internazionale Milano",
+    "aliases": [
+     "Inter Milan",
+     "Inter",
+     "Internazionale",
+     "Inter Milano"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Villarreal CF",
+    "aliases": [
+     "Villarreal",
+     "Villareal"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Eintracht Frankfurt",
+    "aliases": [
+     "Eintracht Frankfurt",
+     "Frankfurt",
+     "Eintracht"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "AS Roma",
+    "aliases": [
+     "Roma",
+     "AS Roma"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Atalanta BC",
+    "aliases": [
+     "Atalanta",
+     "Atalanta Bergamo"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Bayer 04 Leverkusen",
+    "aliases": [
+     "Leverkusen",
+     "Bayer Leverkusen",
+     "Bayer",
+     "Bayer 04"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Tottenham Hotspur FC",
+    "aliases": [
+     "Tottenham",
+     "Spurs",
+     "Tottenham Hotspur"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Aston Villa FC",
+    "aliases": [
+     "Aston Villa",
+     "Villa"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "SC Freiburg",
+    "aliases": [
+     "Freiburg",
+     "SC Freiburg"
+    ],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Juventus",
+    "why": "Played UEFA Cup finals in the 1990s, but none between 2000-01 and 2025-26."
+   },
+   {
+    "name": "Napoli",
+    "why": "Never reached a final in this range."
+   },
+   {
+    "name": "Lazio",
+    "why": "Last UEFA Cup final was 1997-98."
+   },
+   {
+    "name": "Barcelona",
+    "why": "Never reached a UEFA Cup or Europa League final in this range."
+   },
+   {
+    "name": "Lyon",
+    "why": "Never reached a UEFA Cup or Europa League final."
+   }
+  ]
+ },
+ {
+  "id": "d18-name-a-club-that-reached-the-champions-league-semi-finals-between-2000-01-and-2025-26",
+  "template": 18,
+  "prompt": "Name a club that reached the Champions League semi-finals between 2000-01 and 2025-26",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "FC Bayern Munich",
+    "aliases": [
+     "Bayern Munich",
+     "Bayern",
+     "Bayern Munchen",
+     "FC Bayern",
+     "Bayern München"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Real Madrid CF",
+    "aliases": [
+     "Real Madrid",
+     "Real",
+     "Madrid"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Valencia CF",
+    "aliases": [
+     "Valencia"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Leeds United AFC",
+    "aliases": [
+     "Leeds",
+     "Leeds United"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "FC Barcelona",
+    "aliases": [
+     "Barcelona",
+     "Barca",
+     "Barça"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Manchester United FC",
+    "aliases": [
+     "Manchester United",
+     "Man United",
+     "Man Utd",
+     "Man U",
+     "United",
+     "MUFC"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Bayer 04 Leverkusen",
+    "aliases": [
+     "Leverkusen",
+     "Bayer Leverkusen",
+     "Bayer",
+     "Bayer 04"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Juventus FC",
+    "aliases": [
+     "Juventus",
+     "Juve"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "AC Milan",
+    "aliases": [
+     "AC Milan",
+     "Milan",
+     "Milano"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "FC Internazionale Milano",
+    "aliases": [
+     "Inter Milan",
+     "Inter",
+     "Internazionale",
+     "Inter Milano"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "FC Porto",
+    "aliases": [
+     "Porto",
+     "FC Porto"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "RC Deportivo de La Coruña",
+    "aliases": [
+     "Deportivo",
+     "Deportivo La Coruna",
+     "Depor",
+     "La Coruna",
+     "Deportivo de La Coruña"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "AS Monaco",
+    "aliases": [
+     "Monaco",
+     "AS Monaco"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Chelsea FC",
+    "aliases": [
+     "Chelsea"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Liverpool FC",
+    "aliases": [
+     "Liverpool",
+     "LFC"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "PSV Eindhoven",
+    "aliases": [
+     "PSV",
+     "PSV Eindhoven"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Arsenal FC",
+    "aliases": [
+     "Arsenal",
+     "Gunners"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Villarreal CF",
+    "aliases": [
+     "Villarreal",
+     "Villareal"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Olympique Lyonnais",
+    "aliases": [
+     "Lyon",
+     "OL",
+     "Olympique Lyonnais",
+     "Olympique Lyon"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "FC Schalke 04",
+    "aliases": [
+     "Schalke",
+     "Schalke 04",
+     "S04"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Borussia Dortmund",
+    "aliases": [
+     "Dortmund",
+     "BVB",
+     "Borussia"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Atlético de Madrid",
+    "aliases": [
+     "Atletico Madrid",
+     "Atletico",
+     "Atlético",
+     "Atleti",
+     "Atletico de Madrid"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Manchester City FC",
+    "aliases": [
+     "Manchester City",
+     "Man City",
+     "City",
+     "MCFC"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "AS Roma",
+    "aliases": [
+     "Roma",
+     "AS Roma"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Tottenham Hotspur FC",
+    "aliases": [
+     "Tottenham",
+     "Spurs",
+     "Tottenham Hotspur"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "AFC Ajax",
+    "aliases": [
+     "Ajax",
+     "Ajax Amsterdam"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "RB Leipzig",
+    "aliases": [
+     "Leipzig",
+     "RB Leipzig",
+     "RasenBallsport Leipzig"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Paris Saint-Germain FC",
+    "aliases": [
+     "Paris Saint-Germain",
+     "PSG",
+     "Paris SG",
+     "Paris",
+     "Paris Saint Germain"
+    ],
+    "fame": 5
+   }
+  ],
+  "traps": [
+   {
+    "name": "Napoli",
+    "why": "Best Champions League result in this range was the quarter-finals."
+   },
+   {
+    "name": "Galatasaray",
+    "why": "Reached the quarter-finals only."
+   },
+   {
+    "name": "Benfica",
+    "why": "Reached the quarter-finals only in this range."
+   },
+   {
+    "name": "Sevilla",
+    "why": "Reached the quarter-finals only."
+   },
+   {
+    "name": "Newcastle United",
+    "why": "Never reached the semi-finals in this range."
+   }
+  ]
+ },
+ {
+  "id": "d18-name-a-club-that-reached-the-champions-league-quarter-finals-between-2008-09-and-2025-26",
+  "template": 18,
+  "prompt": "Name a club that reached the Champions League quarter-finals between 2008-09 and 2025-26",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "FC Barcelona",
+    "aliases": [
+     "Barcelona",
+     "Barca",
+     "Barça"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "FC Bayern Munich",
+    "aliases": [
+     "Bayern Munich",
+     "Bayern",
+     "Bayern Munchen",
+     "FC Bayern",
+     "Bayern München"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Liverpool FC",
+    "aliases": [
+     "Liverpool",
+     "LFC"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Chelsea FC",
+    "aliases": [
+     "Chelsea"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Manchester United FC",
+    "aliases": [
+     "Manchester United",
+     "Man United",
+     "Man Utd",
+     "Man U",
+     "United",
+     "MUFC"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "FC Porto",
+    "aliases": [
+     "Porto",
+     "FC Porto"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Villarreal CF",
+    "aliases": [
+     "Villarreal",
+     "Villareal"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Arsenal FC",
+    "aliases": [
+     "Arsenal",
+     "Gunners"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Olympique Lyonnais",
+    "aliases": [
+     "Lyon",
+     "OL",
+     "Olympique Lyonnais",
+     "Olympique Lyon"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "FC Girondins de Bordeaux",
+    "aliases": [
+     "Bordeaux",
+     "Girondins",
+     "Girondins de Bordeaux"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "FC Internazionale Milano",
+    "aliases": [
+     "Inter Milan",
+     "Inter",
+     "Internazionale",
+     "Inter Milano"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "PFC CSKA Moscow",
+    "aliases": [
+     "CSKA Moscow",
+     "CSKA",
+     "CSKA Moskva"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Real Madrid CF",
+    "aliases": [
+     "Real Madrid",
+     "Real",
+     "Madrid"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Tottenham Hotspur FC",
+    "aliases": [
+     "Tottenham",
+     "Spurs",
+     "Tottenham Hotspur"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Shakhtar Donetsk",
+    "aliases": [
+     "Shakhtar",
+     "Shakhtar Donetsk",
+     "Shakhtyor",
+     "Shaktar"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "FC Schalke 04",
+    "aliases": [
+     "Schalke",
+     "Schalke 04",
+     "S04"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Olympique de Marseille",
+    "aliases": [
+     "Marseille",
+     "OM",
+     "Olympique Marseille",
+     "Olympique de Marseille"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "APOEL FC",
+    "aliases": [
+     "APOEL",
+     "APOEL Nicosia"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Sport Lisboa e Benfica",
+    "aliases": [
+     "Benfica",
+     "SL Benfica"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "AC Milan",
+    "aliases": [
+     "AC Milan",
+     "Milan",
+     "Milano"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Málaga CF",
+    "aliases": [
+     "Malaga",
+     "Málaga",
+     "Malaga CF"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Borussia Dortmund",
+    "aliases": [
+     "Dortmund",
+     "BVB",
+     "Borussia"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Galatasaray SK",
+    "aliases": [
+     "Galatasaray",
+     "Gala"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Juventus FC",
+    "aliases": [
+     "Juventus",
+     "Juve"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Paris Saint-Germain FC",
+    "aliases": [
+     "Paris Saint-Germain",
+     "PSG",
+     "Paris SG",
+     "Paris",
+     "Paris Saint Germain"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Atlético de Madrid",
+    "aliases": [
+     "Atletico Madrid",
+     "Atletico",
+     "Atlético",
+     "Atleti",
+     "Atletico de Madrid"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "AS Monaco",
+    "aliases": [
+     "Monaco",
+     "AS Monaco"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Manchester City FC",
+    "aliases": [
+     "Manchester City",
+     "Man City",
+     "City",
+     "MCFC"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "VfL Wolfsburg",
+    "aliases": [
+     "Wolfsburg",
+     "VfL Wolfsburg"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Leicester City FC",
+    "aliases": [
+     "Leicester",
+     "Leicester City"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Sevilla FC",
+    "aliases": [
+     "Sevilla"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "AS Roma",
+    "aliases": [
+     "Roma",
+     "AS Roma"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "AFC Ajax",
+    "aliases": [
+     "Ajax",
+     "Ajax Amsterdam"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "RB Leipzig",
+    "aliases": [
+     "Leipzig",
+     "RB Leipzig",
+     "RasenBallsport Leipzig"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Atalanta BC",
+    "aliases": [
+     "Atalanta",
+     "Atalanta Bergamo"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "SSC Napoli",
+    "aliases": [
+     "Napoli",
+     "SSC Napoli"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Aston Villa FC",
+    "aliases": [
+     "Aston Villa",
+     "Villa"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Sporting Clube de Portugal",
+    "aliases": [
+     "Sporting",
+     "Sporting CP",
+     "Sporting Lisbon",
+     "Sporting Lisboa"
+    ],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "Olympiacos",
+    "why": "Never reached the quarter-finals in this range."
+   },
+   {
+    "name": "Celtic",
+    "why": "Never reached the quarter-finals in this range."
+   },
+   {
+    "name": "Bayer Leverkusen",
+    "why": "Never reached the quarter-finals in this range."
+   },
+   {
+    "name": "Valencia",
+    "why": "Last reached the quarter-finals before 2008-09."
+   },
+   {
+    "name": "Newcastle United",
+    "why": "Reached the round of 16 only."
+   }
+  ]
+ },
+ {
+  "id": "d18-name-a-club-that-reached-the-europa-league-semi-finals-between-2009-10-and-2025-26",
+  "template": 18,
+  "prompt": "Name a club that reached the Europa League semi-finals between 2009-10 and 2025-26",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Atlético de Madrid",
+    "aliases": [
+     "Atletico Madrid",
+     "Atletico",
+     "Atlético",
+     "Atleti",
+     "Atletico de Madrid"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Liverpool FC",
+    "aliases": [
+     "Liverpool",
+     "LFC"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Hamburger SV",
+    "aliases": [
+     "Hamburg",
+     "Hamburger SV",
+     "HSV",
+     "Hamburger"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Fulham FC",
+    "aliases": [
+     "Fulham"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "FC Porto",
+    "aliases": [
+     "Porto",
+     "FC Porto"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Villarreal CF",
+    "aliases": [
+     "Villarreal",
+     "Villareal"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Sport Lisboa e Benfica",
+    "aliases": [
+     "Benfica",
+     "SL Benfica"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Sporting Clube de Braga",
+    "aliases": [
+     "Braga",
+     "Sporting Braga",
+     "SC Braga"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Valencia CF",
+    "aliases": [
+     "Valencia"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Sporting Clube de Portugal",
+    "aliases": [
+     "Sporting",
+     "Sporting CP",
+     "Sporting Lisbon",
+     "Sporting Lisboa"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Athletic Club",
+    "aliases": [
+     "Athletic Bilbao",
+     "Athletic Club",
+     "Athletic",
+     "Bilbao"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Fenerbahçe SK",
+    "aliases": [
+     "Fenerbahce",
+     "Fenerbahçe",
+     "Fener"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "FC Basel",
+    "aliases": [
+     "Basel",
+     "FC Basel"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Chelsea FC",
+    "aliases": [
+     "Chelsea"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Sevilla FC",
+    "aliases": [
+     "Sevilla"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Juventus FC",
+    "aliases": [
+     "Juventus",
+     "Juve"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "SSC Napoli",
+    "aliases": [
+     "Napoli",
+     "SSC Napoli"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "FC Dnipro Dnipropetrovsk",
+    "aliases": [
+     "Dnipro",
+     "Dnipro Dnipropetrovsk",
+     "Dnepr"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "ACF Fiorentina",
+    "aliases": [
+     "Fiorentina",
+     "Viola"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Shakhtar Donetsk",
+    "aliases": [
+     "Shakhtar",
+     "Shakhtar Donetsk",
+     "Shakhtyor",
+     "Shaktar"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "AFC Ajax",
+    "aliases": [
+     "Ajax",
+     "Ajax Amsterdam"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Olympique Lyonnais",
+    "aliases": [
+     "Lyon",
+     "OL",
+     "Olympique Lyonnais",
+     "Olympique Lyon"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "RC Celta de Vigo",
+    "aliases": [
+     "Celta Vigo",
+     "Celta",
+     "Celta de Vigo"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Manchester United FC",
+    "aliases": [
+     "Manchester United",
+     "Man United",
+     "Man Utd",
+     "Man U",
+     "United",
+     "MUFC"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Olympique de Marseille",
+    "aliases": [
+     "Marseille",
+     "OM",
+     "Olympique Marseille",
+     "Olympique de Marseille"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "FC Red Bull Salzburg",
+    "aliases": [
+     "Red Bull Salzburg",
+     "Salzburg",
+     "RB Salzburg"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Arsenal FC",
+    "aliases": [
+     "Arsenal",
+     "Gunners"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Eintracht Frankfurt",
+    "aliases": [
+     "Eintracht Frankfurt",
+     "Frankfurt",
+     "Eintracht"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "FC Internazionale Milano",
+    "aliases": [
+     "Inter Milan",
+     "Inter",
+     "Internazionale",
+     "Inter Milano"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "AS Roma",
+    "aliases": [
+     "Roma",
+     "AS Roma"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "West Ham United FC",
+    "aliases": [
+     "West Ham",
+     "West Ham United",
+     "Hammers"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "RB Leipzig",
+    "aliases": [
+     "Leipzig",
+     "RB Leipzig",
+     "RasenBallsport Leipzig"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Rangers FC",
+    "aliases": [
+     "Rangers",
+     "Glasgow Rangers"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Bayer 04 Leverkusen",
+    "aliases": [
+     "Leverkusen",
+     "Bayer Leverkusen",
+     "Bayer",
+     "Bayer 04"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Atalanta BC",
+    "aliases": [
+     "Atalanta",
+     "Atalanta Bergamo"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Tottenham Hotspur FC",
+    "aliases": [
+     "Tottenham",
+     "Spurs",
+     "Tottenham Hotspur"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "FK Bodø/Glimt",
+    "aliases": [
+     "Bodo/Glimt",
+     "Bodø/Glimt",
+     "Bodo Glimt",
+     "Glimt",
+     "Bodo"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "SC Freiburg",
+    "aliases": [
+     "Freiburg",
+     "SC Freiburg"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Nottingham Forest FC",
+    "aliases": [
+     "Nottingham Forest",
+     "Forest",
+     "Notts Forest"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Aston Villa FC",
+    "aliases": [
+     "Aston Villa",
+     "Villa"
+    ],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "Borussia Dortmund",
+    "why": "Never reached the Europa League semi-finals in this range."
+   },
+   {
+    "name": "Barcelona",
+    "why": "Never reached a Europa League semi-final in this range."
+   },
+   {
+    "name": "Lazio",
+    "why": "Never reached a Europa League semi-final in this range."
+   },
+   {
+    "name": "Newcastle United",
+    "why": "Reached the quarter-finals only."
+   },
+   {
+    "name": "Real Betis",
+    "why": "Reached the quarter-finals only."
+   }
+  ]
+ },
+ {
+  "id": "d18-name-a-club-that-reached-the-europa-league-quarter-finals-between-2009-10-and-2025-26",
+  "template": 18,
+  "prompt": "Name a club that reached the Europa League quarter-finals between 2009-10 and 2025-26",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Valencia CF",
+    "aliases": [
+     "Valencia"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Atlético de Madrid",
+    "aliases": [
+     "Atletico Madrid",
+     "Atletico",
+     "Atlético",
+     "Atleti",
+     "Atletico de Madrid"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Sport Lisboa e Benfica",
+    "aliases": [
+     "Benfica",
+     "SL Benfica"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Liverpool FC",
+    "aliases": [
+     "Liverpool",
+     "LFC"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Hamburger SV",
+    "aliases": [
+     "Hamburg",
+     "Hamburger SV",
+     "HSV",
+     "Hamburger"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Standard Liège",
+    "aliases": [
+     "Standard Liege",
+     "Standard Liège",
+     "Standard"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Fulham FC",
+    "aliases": [
+     "Fulham"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "VfL Wolfsburg",
+    "aliases": [
+     "Wolfsburg",
+     "VfL Wolfsburg"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "FC Porto",
+    "aliases": [
+     "Porto",
+     "FC Porto"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "FC Spartak Moscow",
+    "aliases": [
+     "Spartak Moscow",
+     "Spartak",
+     "Spartak Moskva"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Villarreal CF",
+    "aliases": [
+     "Villarreal",
+     "Villareal"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "FC Twente",
+    "aliases": [
+     "Twente",
+     "FC Twente"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "PSV Eindhoven",
+    "aliases": [
+     "PSV",
+     "PSV Eindhoven"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "FC Dynamo Kyiv",
+    "aliases": [
+     "Dynamo Kyiv",
+     "Dynamo Kiev",
+     "Dinamo Kiev",
+     "Dinamo Kyiv"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Sporting Clube de Braga",
+    "aliases": [
+     "Braga",
+     "Sporting Braga",
+     "SC Braga"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Hannover 96",
+    "aliases": [
+     "Hannover",
+     "Hanover",
+     "Hannover 96"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "AZ Alkmaar",
+    "aliases": [
+     "AZ",
+     "AZ Alkmaar",
+     "Alkmaar"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Sporting Clube de Portugal",
+    "aliases": [
+     "Sporting",
+     "Sporting CP",
+     "Sporting Lisbon",
+     "Sporting Lisboa"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Metalist Kharkiv",
+    "aliases": [
+     "Metalist",
+     "Metalist Kharkiv",
+     "Metalist Kharkov"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "FC Schalke 04",
+    "aliases": [
+     "Schalke",
+     "Schalke 04",
+     "S04"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Athletic Club",
+    "aliases": [
+     "Athletic Bilbao",
+     "Athletic Club",
+     "Athletic",
+     "Bilbao"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Fenerbahçe SK",
+    "aliases": [
+     "Fenerbahce",
+     "Fenerbahçe",
+     "Fener"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "SS Lazio",
+    "aliases": [
+     "Lazio",
+     "SS Lazio"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Newcastle United FC",
+    "aliases": [
+     "Newcastle",
+     "Newcastle United",
+     "Toon"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Tottenham Hotspur FC",
+    "aliases": [
+     "Tottenham",
+     "Spurs",
+     "Tottenham Hotspur"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "FC Basel",
+    "aliases": [
+     "Basel",
+     "FC Basel"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Chelsea FC",
+    "aliases": [
+     "Chelsea"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Rubin Kazan",
+    "aliases": [
+     "Rubin",
+     "Rubin Kazan"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Sevilla FC",
+    "aliases": [
+     "Sevilla"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Olympique Lyonnais",
+    "aliases": [
+     "Lyon",
+     "OL",
+     "Olympique Lyonnais",
+     "Olympique Lyon"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Juventus FC",
+    "aliases": [
+     "Juventus",
+     "Juve"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "SSC Napoli",
+    "aliases": [
+     "Napoli",
+     "SSC Napoli"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Club Brugge KV",
+    "aliases": [
+     "Club Brugge",
+     "Brugge",
+     "Bruges",
+     "Club Bruges"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "FC Dnipro Dnipropetrovsk",
+    "aliases": [
+     "Dnipro",
+     "Dnipro Dnipropetrovsk",
+     "Dnepr"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Zenit Saint Petersburg",
+    "aliases": [
+     "Zenit",
+     "Zenit St Petersburg",
+     "Zenit Saint-Petersburg",
+     "Zenit St. Petersburg"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "ACF Fiorentina",
+    "aliases": [
+     "Fiorentina",
+     "Viola"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "AC Sparta Prague",
+    "aliases": [
+     "Sparta Prague",
+     "Sparta",
+     "Sparta Praha"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Borussia Dortmund",
+    "aliases": [
+     "Dortmund",
+     "BVB",
+     "Borussia"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Shakhtar Donetsk",
+    "aliases": [
+     "Shakhtar",
+     "Shakhtar Donetsk",
+     "Shakhtyor",
+     "Shaktar"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "AFC Ajax",
+    "aliases": [
+     "Ajax",
+     "Ajax Amsterdam"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Beşiktaş JK",
+    "aliases": [
+     "Besiktas",
+     "Beşiktaş",
+     "Besiktas JK"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "RC Celta de Vigo",
+    "aliases": [
+     "Celta Vigo",
+     "Celta",
+     "Celta de Vigo"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "KRC Genk",
+    "aliases": [
+     "Genk",
+     "KRC Genk"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "RSC Anderlecht",
+    "aliases": [
+     "Anderlecht"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Manchester United FC",
+    "aliases": [
+     "Manchester United",
+     "Man United",
+     "Man Utd",
+     "Man U",
+     "United",
+     "MUFC"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "RB Leipzig",
+    "aliases": [
+     "Leipzig",
+     "RB Leipzig",
+     "RasenBallsport Leipzig"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Olympique de Marseille",
+    "aliases": [
+     "Marseille",
+     "OM",
+     "Olympique Marseille",
+     "Olympique de Marseille"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "FC Red Bull Salzburg",
+    "aliases": [
+     "Red Bull Salzburg",
+     "Salzburg",
+     "RB Salzburg"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Arsenal FC",
+    "aliases": [
+     "Arsenal",
+     "Gunners"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "PFC CSKA Moscow",
+    "aliases": [
+     "CSKA Moscow",
+     "CSKA",
+     "CSKA Moskva"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Eintracht Frankfurt",
+    "aliases": [
+     "Eintracht Frankfurt",
+     "Frankfurt",
+     "Eintracht"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "SK Slavia Prague",
+    "aliases": [
+     "Slavia Prague",
+     "Slavia",
+     "Slavia Praha"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Wolverhampton Wanderers FC",
+    "aliases": [
+     "Wolves",
+     "Wolverhampton",
+     "Wolverhampton Wanderers"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "FC Copenhagen",
+    "aliases": [
+     "Copenhagen",
+     "FC Copenhagen",
+     "FC Kobenhavn",
+     "Kobenhavn",
+     "København"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "FC Internazionale Milano",
+    "aliases": [
+     "Inter Milan",
+     "Inter",
+     "Internazionale",
+     "Inter Milano"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Bayer 04 Leverkusen",
+    "aliases": [
+     "Leverkusen",
+     "Bayer Leverkusen",
+     "Bayer",
+     "Bayer 04"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "GNK Dinamo Zagreb",
+    "aliases": [
+     "Dinamo Zagreb",
+     "Dynamo Zagreb",
+     "Zagreb"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Granada CF",
+    "aliases": [
+     "Granada"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "AS Roma",
+    "aliases": [
+     "Roma",
+     "AS Roma"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "West Ham United FC",
+    "aliases": [
+     "West Ham",
+     "West Ham United",
+     "Hammers"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "FC Barcelona",
+    "aliases": [
+     "Barcelona",
+     "Barca",
+     "Barça"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Atalanta BC",
+    "aliases": [
+     "Atalanta",
+     "Atalanta Bergamo"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Rangers FC",
+    "aliases": [
+     "Rangers",
+     "Glasgow Rangers"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Feyenoord Rotterdam",
+    "aliases": [
+     "Feyenoord"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Royale Union Saint-Gilloise",
+    "aliases": [
+     "Union Saint-Gilloise",
+     "Union SG",
+     "Union Saint Gilloise",
+     "Royale Union SG"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "AC Milan",
+    "aliases": [
+     "AC Milan",
+     "Milan",
+     "Milano"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "FK Bodø/Glimt",
+    "aliases": [
+     "Bodo/Glimt",
+     "Bodø/Glimt",
+     "Bodo Glimt",
+     "Glimt",
+     "Bodo"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Real Betis Balompié",
+    "aliases": [
+     "Real Betis",
+     "Betis"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "SC Freiburg",
+    "aliases": [
+     "Freiburg",
+     "SC Freiburg"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Nottingham Forest FC",
+    "aliases": [
+     "Nottingham Forest",
+     "Forest",
+     "Notts Forest"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Bologna FC 1909",
+    "aliases": [
+     "Bologna"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Aston Villa FC",
+    "aliases": [
+     "Aston Villa",
+     "Villa"
+    ],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "Everton",
+    "why": "Never reached the Europa League quarter-finals."
+   },
+   {
+    "name": "Celtic",
+    "why": "Never reached the Europa League quarter-finals in this range."
+   },
+   {
+    "name": "Brighton & Hove Albion",
+    "why": "Never reached the Europa League quarter-finals."
+   },
+   {
+    "name": "Leicester City",
+    "why": "Played Europa League but never reached the quarter-finals."
+   },
+   {
+    "name": "Real Sociedad",
+    "why": "Never reached the Europa League quarter-finals."
+   }
+  ]
+ },
+ {
+  "id": "d21-name-a-club-promoted-to-the-bundesliga-in-the-summers-of-2011-to-2025-automatic-promotion-or-play-offs",
+  "template": 21,
+  "prompt": "Name a club promoted to the Bundesliga in the summers of 2011 to 2025 (automatic promotion or play-offs)",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "1. FC Heidenheim",
+    "aliases": [
+     "Heidenheim",
+     "FC Heidenheim"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "1. FC Köln",
+    "aliases": [
+     "Koln",
+     "Köln",
+     "Cologne",
+     "FC Koln",
+     "FC Köln"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "1. FC Nürnberg",
+    "aliases": [
+     "Nurnberg",
+     "Nürnberg",
+     "Nuremberg",
+     "FC Nurnberg",
+     "FC Nürnberg"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "DSC Arminia Bielefeld",
+    "aliases": [
+     "Arminia Bielefeld",
+     "Bielefeld",
+     "Arminia"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "SV Darmstadt 98",
+    "aliases": [
+     "Darmstadt",
+     "Darmstadt 98",
+     "SV Darmstadt"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Eintracht Braunschweig",
+    "aliases": [
+     "Braunschweig",
+     "Eintracht Braunschweig"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Eintracht Frankfurt",
+    "aliases": [
+     "Eintracht Frankfurt",
+     "Frankfurt",
+     "Eintracht"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "FC Augsburg",
+    "aliases": [
+     "Augsburg"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "FC Ingolstadt 04",
+    "aliases": [
+     "Ingolstadt",
+     "FC Ingolstadt"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "FC St. Pauli",
+    "aliases": [
+     "St Pauli",
+     "St. Pauli",
+     "FC St Pauli",
+     "Sankt Pauli"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Fortuna Düsseldorf",
+    "aliases": [
+     "Fortuna Dusseldorf",
+     "Düsseldorf",
+     "Dusseldorf",
+     "F95"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "SpVgg Greuther Fürth",
+    "aliases": [
+     "Greuther Furth",
+     "Greuther Fürth",
+     "Fürth",
+     "Furth",
+     "Fuerth"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Hamburger SV",
+    "aliases": [
+     "Hamburg",
+     "Hamburger SV",
+     "HSV",
+     "Hamburger"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Hannover 96",
+    "aliases": [
+     "Hannover",
+     "Hanover",
+     "Hannover 96"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Hertha BSC",
+    "aliases": [
+     "Hertha",
+     "Hertha Berlin",
+     "Hertha BSC Berlin"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Holstein Kiel",
+    "aliases": [
+     "Kiel",
+     "Holstein",
+     "Holstein Kiel"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "RB Leipzig",
+    "aliases": [
+     "Leipzig",
+     "RB Leipzig",
+     "RasenBallsport Leipzig"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "SC Freiburg",
+    "aliases": [
+     "Freiburg",
+     "SC Freiburg"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "SC Paderborn 07",
+    "aliases": [
+     "Paderborn",
+     "SC Paderborn"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "FC Schalke 04",
+    "aliases": [
+     "Schalke",
+     "Schalke 04",
+     "S04"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "1. FC Union Berlin",
+    "aliases": [
+     "Union Berlin",
+     "Union"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "VfB Stuttgart",
+    "aliases": [
+     "Stuttgart",
+     "VfB Stuttgart",
+     "VfB"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "VfL Bochum",
+    "aliases": [
+     "Bochum",
+     "VfL Bochum"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "SV Werder Bremen",
+    "aliases": [
+     "Werder Bremen",
+     "Werder",
+     "Bremen"
+    ],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "Borussia Mönchengladbach",
+    "why": "Not promoted in this period."
+   },
+   {
+    "name": "Fortuna Köln",
+    "why": "Never promoted to the Bundesliga."
+   },
+   {
+    "name": "1. FC Kaiserslautern",
+    "why": "Not promoted in this period."
+   }
+  ]
+ },
+ {
+  "id": "d21-name-a-club-promoted-to-serie-a-in-the-summers-of-2011-to-2025-automatic-promotion-or-play-offs",
+  "template": 21,
+  "prompt": "Name a club promoted to Serie A in the summers of 2011 to 2025 (automatic promotion or play-offs)",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Atalanta BC",
+    "aliases": [
+     "Atalanta",
+     "Atalanta Bergamo"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Benevento Calcio",
+    "aliases": [
+     "Benevento"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Bologna FC 1909",
+    "aliases": [
+     "Bologna"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Brescia Calcio",
+    "aliases": [
+     "Brescia"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Cagliari Calcio",
+    "aliases": [
+     "Cagliari"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Carpi FC 1909",
+    "aliases": [
+     "Carpi"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "AC Cesena",
+    "aliases": [
+     "Cesena"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Como 1907",
+    "aliases": [
+     "Como"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "US Cremonese",
+    "aliases": [
+     "Cremonese"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "FC Crotone",
+    "aliases": [
+     "Crotone"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Empoli FC",
+    "aliases": [
+     "Empoli"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Frosinone Calcio",
+    "aliases": [
+     "Frosinone"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Genoa CFC",
+    "aliases": [
+     "Genoa"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Hellas Verona FC",
+    "aliases": [
+     "Hellas Verona",
+     "Verona"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "US Lecce",
+    "aliases": [
+     "Lecce"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "AS Livorno Calcio",
+    "aliases": [
+     "Livorno"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "AC Monza",
+    "aliases": [
+     "Monza"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Novara Calcio",
+    "aliases": [
+     "Novara"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Palermo FC",
+    "aliases": [
+     "Palermo"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Parma Calcio 1913",
+    "aliases": [
+     "Parma"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Delfino Pescara 1936",
+    "aliases": [
+     "Pescara"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Pisa SC",
+    "aliases": [
+     "Pisa"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "SPAL",
+    "aliases": [
+     "SPAL",
+     "Spal Ferrara",
+     "Ferrara"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "US Salernitana 1919",
+    "aliases": [
+     "Salernitana"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "UC Sampdoria",
+    "aliases": [
+     "Sampdoria",
+     "Samp"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "US Sassuolo Calcio",
+    "aliases": [
+     "Sassuolo"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "AC Siena",
+    "aliases": [
+     "Siena"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Spezia Calcio",
+    "aliases": [
+     "Spezia"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Torino FC",
+    "aliases": [
+     "Torino",
+     "Toro"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Venezia FC",
+    "aliases": [
+     "Venezia",
+     "Venice"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Bari",
+    "why": "Not promoted in this period."
+   },
+   {
+    "name": "Chievo",
+    "why": "Not promoted in this period."
+   },
+   {
+    "name": "Udinese",
+    "why": "Not promoted in this period."
+   }
+  ]
+ },
+ {
+  "id": "d21-name-a-club-promoted-to-la-liga-in-the-summers-of-2011-to-2025-automatic-promotion-or-play-offs",
+  "template": 21,
+  "prompt": "Name a club promoted to La Liga in the summers of 2011 to 2025 (automatic promotion or play-offs)",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Deportivo Alavés",
+    "aliases": [
+     "Alaves",
+     "Alavés",
+     "Deportivo Alaves"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "UD Almería",
+    "aliases": [
+     "Almeria",
+     "Almería",
+     "UD Almeria"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Real Betis Balompié",
+    "aliases": [
+     "Real Betis",
+     "Betis"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "RC Celta de Vigo",
+    "aliases": [
+     "Celta Vigo",
+     "Celta",
+     "Celta de Vigo"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Cádiz CF",
+    "aliases": [
+     "Cadiz",
+     "Cádiz"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Córdoba CF",
+    "aliases": [
+     "Cordoba",
+     "Córdoba"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "RC Deportivo de La Coruña",
+    "aliases": [
+     "Deportivo",
+     "Deportivo La Coruna",
+     "Depor",
+     "La Coruna",
+     "Deportivo de La Coruña"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "SD Eibar",
+    "aliases": [
+     "Eibar"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Elche CF",
+    "aliases": [
+     "Elche"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "RCD Espanyol",
+    "aliases": [
+     "Espanyol",
+     "Espanyol Barcelona",
+     "RCD Espanyol"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Getafe CF",
+    "aliases": [
+     "Getafe"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Girona FC",
+    "aliases": [
+     "Girona"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Granada CF",
+    "aliases": [
+     "Granada"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "SD Huesca",
+    "aliases": [
+     "Huesca"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "UD Las Palmas",
+    "aliases": [
+     "Las Palmas"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "CD Leganés",
+    "aliases": [
+     "Leganes",
+     "Leganés"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Levante UD",
+    "aliases": [
+     "Levante"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "RCD Mallorca",
+    "aliases": [
+     "Mallorca"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "CA Osasuna",
+    "aliases": [
+     "Osasuna"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Real Oviedo",
+    "aliases": [
+     "Oviedo",
+     "Real Oviedo"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Rayo Vallecano",
+    "aliases": [
+     "Rayo",
+     "Rayo Vallecano"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Real Sporting de Gijón",
+    "aliases": [
+     "Sporting Gijon",
+     "Sporting de Gijón",
+     "Gijon",
+     "Gijón",
+     "Sporting"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Real Valladolid CF",
+    "aliases": [
+     "Valladolid",
+     "Real Valladolid"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Villarreal CF",
+    "aliases": [
+     "Villarreal",
+     "Villareal"
+    ],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "Real Zaragoza",
+    "why": "Not promoted in this period."
+   },
+   {
+    "name": "Málaga",
+    "why": "Not promoted in this period."
+   },
+   {
+    "name": "Sevilla",
+    "why": "Not promoted in this period."
+   }
+  ]
+ },
+ {
+  "id": "d21-name-a-club-promoted-to-ligue-1-in-the-summers-of-2011-to-2025-automatic-promotion-or-play-offs",
+  "template": 21,
+  "prompt": "Name a club promoted to Ligue 1 in the summers of 2011 to 2025 (automatic promotion or play-offs)",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "AC Ajaccio",
+    "aliases": [
+     "Ajaccio",
+     "AC Ajaccio"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Amiens SC",
+    "aliases": [
+     "Amiens"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Angers SCO",
+    "aliases": [
+     "Angers",
+     "Angers SCO"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "AJ Auxerre",
+    "aliases": [
+     "Auxerre",
+     "AJA"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "SC Bastia",
+    "aliases": [
+     "Bastia",
+     "SC Bastia"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Stade Brestois 29",
+    "aliases": [
+     "Brest",
+     "Stade Brestois"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "SM Caen",
+    "aliases": [
+     "Caen",
+     "SM Caen"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Clermont Foot 63",
+    "aliases": [
+     "Clermont",
+     "Clermont Foot"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Dijon FCO",
+    "aliases": [
+     "Dijon"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Gazélec Ajaccio",
+    "aliases": [
+     "Gazelec Ajaccio",
+     "Gazélec",
+     "Gazelec",
+     "GFC Ajaccio"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "EA Guingamp",
+    "aliases": [
+     "Guingamp"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Le Havre AC",
+    "aliases": [
+     "Le Havre",
+     "HAC"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "RC Lens",
+    "aliases": [
+     "Lens",
+     "RC Lens"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "FC Lorient",
+    "aliases": [
+     "Lorient"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "FC Metz",
+    "aliases": [
+     "Metz"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "AS Monaco",
+    "aliases": [
+     "Monaco",
+     "AS Monaco"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "AS Nancy-Lorraine",
+    "aliases": [
+     "Nancy",
+     "AS Nancy"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "FC Nantes",
+    "aliases": [
+     "Nantes"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Nîmes Olympique",
+    "aliases": [
+     "Nimes",
+     "Nîmes",
+     "Nimes Olympique"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Paris FC",
+    "aliases": [
+     "Paris FC"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Stade de Reims",
+    "aliases": [
+     "Reims",
+     "Stade de Reims"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "AS Saint-Étienne",
+    "aliases": [
+     "Saint-Etienne",
+     "Saint-Étienne",
+     "St Etienne",
+     "ASSE",
+     "St-Etienne"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "RC Strasbourg Alsace",
+    "aliases": [
+     "Strasbourg",
+     "RC Strasbourg"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Toulouse FC",
+    "aliases": [
+     "Toulouse",
+     "TFC"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "ESTAC Troyes",
+    "aliases": [
+     "Troyes",
+     "ESTAC"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Thonon Évian Grand Genève FC",
+    "aliases": [
+     "Evian",
+     "Évian",
+     "Evian TG",
+     "Thonon Evian"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Bordeaux",
+    "why": "Not promoted in this period."
+   },
+   {
+    "name": "Sochaux",
+    "why": "Not promoted in this period."
+   },
+   {
+    "name": "Lille",
+    "why": "Not promoted in this period."
+   }
+  ]
+ }
+]
