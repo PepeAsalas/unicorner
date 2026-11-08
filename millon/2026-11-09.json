@@ -84,7 +84,9 @@
     "Marsella",
     "Estrella Roja",
     "Steaua de Bucarest"
-   ]
+   ],
+   "n": "The Champions League's name until 1992",
+   "n_es": "El nombre de la Champions hasta 1992"
   },
   {
    "q": "In which season were Arsenal 'The Invincibles'?",
@@ -97,7 +99,9 @@
    "a": 1,
    "why": "2003-04: 26 wins and 12 draws, no defeats.",
    "why_es": "2003-04: 26 victorias y 12 empates, ninguna derrota.",
-   "src": "own knowledge"
+   "src": "own knowledge",
+   "n": "The Arsenal team that went a whole Premier League season unbeaten",
+   "n_es": "El Arsenal que pasó una temporada entera de Premier sin perder"
   },
   {
    "q": "Which of these players NEVER played in the Premier League?",
@@ -122,7 +126,9 @@
    "a": 1,
    "why": "Maldini 5, all with Milan; Seedorf 4 with three clubs.",
    "why_es": "Maldini 5, todas con el Milan; Seedorf 4 con tres clubes.",
-   "src": "own knowledge"
+   "src": "own knowledge",
+   "n": "The Champions League's name until 1992",
+   "n_es": "El nombre de la Champions hasta 1992"
   }
  ]
 }

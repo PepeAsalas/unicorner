@@ -95,6 +95,7 @@ main,.card,.q,.say{image-rendering:auto}
 .lb p{margin:8px 0 0;font:18px var(--mono);color:var(--sand)}.lb a{color:var(--gold)}
 .top-r{display:flex;align-items:center;gap:8px}
 .x-out{font:400 20px/1 system-ui,sans-serif;color:var(--ink);text-decoration:none}.snd{width:36px;height:36px;display:grid;place-items:center;font-size:16px;padding:0;background:var(--paper);border:2px solid var(--ink);box-shadow:2px 2px 0 var(--ink)}
+.qn{display:block;margin-top:6px;font:500 14px/1.35 Barlow,sans-serif;color:#5b5470}
 .why{display:block;margin-top:8px;padding-top:8px;border-top:2px dashed var(--sand);font:600 15px/1.3 Barlow,sans-serif;color:#3a3450}
 .why b{color:var(--grass)}
 .why{animation:whyin 260ms var(--ease)}@keyframes whyin{from{opacity:0;transform:translateY(4px)}}
@@ -225,7 +226,7 @@ $('opts').onclick=e=>{const b=e.target.closest('button[data-k]');if(!b||timer===
  if(bump(k,b.dataset.d))SFX[{none:'clear',all:'all','1':'add','-1':'sub'}[b.dataset.d]]();render()};
 function ask(){const Q=D.questions[i],n=Q.o.length;bets=Array(n).fill(0);t=SECS;
  $('steps').innerHTML=D.questions.map((_,j)=>`<i class="${j<i?'done':j===i?'on':''}"></i>`).join('');
- $('q').innerHTML=`<small>${L('Question','Pregunta')} ${i+1}/${D.questions.length} · ${n} ${L('answers','respuestas')}</small>${ES&&Q.q_es?Q.q_es:Q.q}`;
+ const note=ES?(Q.n_es||''):(Q.n||'');$('q').innerHTML=`<small>${L('Question','Pregunta')} ${i+1}/${D.questions.length} · ${n} ${L('answers','respuestas')}</small>${ES&&Q.q_es?Q.q_es:Q.q}${note?`<span class="qn">ⓘ ${note}</span>`:''}`;
  $('lock').hidden=false;$('next').hidden=true;$('clock').textContent=t;$('clock').classList.remove('low');
  say(i===D.questions.length-1?L('Last question. Everything on one answer. No pressure!','Última pregunta. Todo a una respuesta. ¡Sin presión!'):n===4?L('Four answers. Leave at least one empty.','Cuatro respuestas. Deja al menos una vacía.'):L('Three answers now. Leave one empty.','Ahora tres respuestas. Deja una vacía.'),'talk-1');
  render();clearInterval(timer);timer=setInterval(()=>{t--;$('clock').textContent=t;$('watch').style.backgroundPosition=`${-32*((SECS-t)%4)}px 0`;$('clock').classList.toggle('low',t<=10);if(t<=10&&t>0)SFX.tick();if(t<=0)lock()},1000)}

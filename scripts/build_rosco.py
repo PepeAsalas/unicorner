@@ -17,6 +17,9 @@ import unicodedata
 from datetime import date, datetime, timedelta
 from zoneinfo import ZoneInfo
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from football_terms import explain, merge  # noqa: E402
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ORDER = 'ABCDEFGHIJKLMNOPRSTUVWYZ'  # no Q or X: too few fair clues
 MAX_LETTERS = 25
@@ -179,6 +182,12 @@ def build(day, questions, recent):
             # every other valid answer to the question: typed one of these and it's right, just the wrong letter
             'others': [a['name'] for a in q['answers'] if a not in answers][:400],
         })
+    # explain trophies, foreign leagues and cups that many players won't know (scripts/football_terms.py)
+    for it in items:
+        ex = explain(it['prompt'], it['subtitle'])
+        if ex:
+            it['subtitle'] = merge(it['subtitle'], [en for en, _ in ex])
+            it['subtitle_es'] = merge(it['subtitle_es'], [es for _, es in ex])
     # the hardest letters go first when there are too many
     while len(items) > MAX_LETTERS:
         items.remove(min((i for i in items if i['letter'] in 'KQWXY'), key=lambda i: i['letter'], default=items[-1]))
