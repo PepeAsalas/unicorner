@@ -13,7 +13,9 @@
    "a": 2,
    "why": "Brian Clough's Forest; Liverpool won in 1977, 1978 and 1981.",
    "why_es": "El Forest de Brian Clough; el Liverpool ganó en 1977, 1978 y 1981.",
-   "src": "own knowledge"
+   "src": "own knowledge",
+   "n": "The Champions League's name until 1992",
+   "n_es": "El nombre de la Champions hasta 1992"
   },
   {
    "q": "Which of these players NEVER played for Juventus?",
@@ -69,7 +71,9 @@
    "a": 2,
    "why": "Happel won it with Feyenoord in 1970 and Hamburg in 1983.",
    "why_es": "Happel la ganó con el Feyenoord en 1970 y con el Hamburgo en 1983.",
-   "src": "own knowledge"
+   "src": "own knowledge",
+   "n": "The Champions League's name until 1992",
+   "n_es": "El nombre de la Champions hasta 1992"
   },
   {
    "q": "In which year did Barcelona win their first European Cup?",
@@ -82,7 +86,9 @@
    "a": 1,
    "why": "1992 at Wembley, Koeman's free kick beat Sampdoria.",
    "why_es": "1992 en Wembley, la falta de Koeman ante la Sampdoria.",
-   "src": "own knowledge"
+   "src": "own knowledge",
+   "n": "The Champions League's name until 1992",
+   "n_es": "El nombre de la Champions hasta 1992"
   },
   {
    "q": "Which of these clubs did Hernán Crespo NEVER play for?",
