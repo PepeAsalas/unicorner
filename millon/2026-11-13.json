@@ -1,0 +1,125 @@
+{
+ "day": "2026-11-13",
+ "questions": [
+  {
+   "q": "Which country won Euro 1988?",
+   "q_es": "¿Qué selección ganó la Eurocopa 1988?",
+   "o": [
+    "Netherlands",
+    "USSR",
+    "Italy",
+    "England"
+   ],
+   "a": 0,
+   "why": "The Netherlands beat the USSR 2-0 in Munich.",
+   "why_es": "Países Bajos ganó 2-0 a la URSS en Múnich.",
+   "src": "own knowledge",
+   "o_es": [
+    "Países Bajos",
+    "URSS",
+    "Italia",
+    "Inglaterra"
+   ]
+  },
+  {
+   "q": "Which of these players NEVER played for Roma?",
+   "q_es": "¿Cuál de estos jugadores NUNCA jugó en la Roma?",
+   "o": [
+    "Gabriel Batistuta",
+    "Cafu",
+    "Walter Samuel",
+    "Christian Vieri"
+   ],
+   "a": 3,
+   "why": "Vieri played for Juventus, Lazio, Inter and Milan, among others, never Roma.",
+   "why_es": "Vieri jugó en Juventus, Lazio, Inter y Milan, entre otros, nunca en la Roma.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which country has won the most Africa Cup of Nations titles?",
+   "q_es": "¿Qué selección ha ganado más Copas de África?",
+   "o": [
+    "Cameroon",
+    "Ghana",
+    "Nigeria",
+    "Egypt"
+   ],
+   "a": 3,
+   "why": "Egypt, with seven titles up to 2010.",
+   "why_es": "Egipto, con siete títulos hasta 2010.",
+   "src": "own knowledge",
+   "o_es": [
+    "Camerún",
+    "Ghana",
+    "Nigeria",
+    "Egipto"
+   ],
+   "n": "The African national teams' championship, held every two years",
+   "n_es": "El campeonato de selecciones africanas, cada dos años"
+  },
+  {
+   "q": "How many Premier League titles did Manchester United win under Sir Alex Ferguson?",
+   "q_es": "¿Cuántas Premier League ganó el Manchester United con Sir Alex Ferguson?",
+   "o": [
+    "14",
+    "12",
+    "13"
+   ],
+   "a": 2,
+   "why": "13, from 1992-93 to 2012-13.",
+   "why_es": "13, de 1992-93 a 2012-13.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "How many Premier League goals did Erling Haaland score in 2022-23?",
+   "q_es": "¿Cuántos goles marcó Erling Haaland en la Premier League 2022-23?",
+   "o": [
+    "34",
+    "36",
+    "38"
+   ],
+   "a": 1,
+   "why": "36, a record for a 38-game season.",
+   "why_es": "36, récord en una temporada de 38 jornadas.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which of these players NEVER won the Champions League?",
+   "q_es": "¿Cuál de estos jugadores NUNCA ganó la Champions League?",
+   "o": [
+    "Dennis Bergkamp",
+    "Patrick Kluivert",
+    "Edgar Davids"
+   ],
+   "a": 0,
+   "why": "Kluivert and Davids won it with Ajax in 1995; Bergkamp never did.",
+   "why_es": "Kluivert y Davids la ganaron con el Ajax en 1995; Bergkamp nunca.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who was top scorer at the 1990 World Cup?",
+   "q_es": "¿Quién fue el máximo goleador del Mundial de 1990?",
+   "o": [
+    "Gary Lineker",
+    "Tomáš Skuhravý",
+    "Salvatore Schillaci"
+   ],
+   "a": 2,
+   "why": "Schillaci scored 6; Skuhravý 5 and Lineker 4.",
+   "why_es": "Schillaci marcó 6; Skuhravý 5 y Lineker 4.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who scored more Serie A goals: Francesco Totti or Silvio Piola?",
+   "q_es": "¿Quién marcó más goles en la Serie A: Francesco Totti o Silvio Piola?",
+   "o": [
+    "Francesco Totti",
+    "Silvio Piola"
+   ],
+   "a": 1,
+   "why": "Piola 274, Totti 250.",
+   "why_es": "Piola 274, Totti 250.",
+   "src": "own knowledge"
+  }
+ ]
+}

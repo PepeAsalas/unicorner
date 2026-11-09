@@ -1,0 +1,115 @@
+{
+ "day": "2026-11-15",
+ "questions": [
+  {
+   "q": "Which club won the 1999 Cup Winners' Cup, the last edition?",
+   "q_es": "¿Qué club ganó la Recopa de 1999, la última edición?",
+   "o": [
+    "Parma",
+    "Chelsea",
+    "Mallorca",
+    "Lazio"
+   ],
+   "a": 3,
+   "why": "Lazio beat Mallorca 2-1 in Birmingham.",
+   "why_es": "El Lazio ganó 2-1 al Mallorca en Birmingham.",
+   "src": "own knowledge",
+   "n": "The old European cup for national cup winners, ended in 1999",
+   "n_es": "La antigua copa europea para los campeones de copa nacionales, desaparecida en 1999"
+  },
+  {
+   "q": "Which of these players NEVER played for Bayern Munich?",
+   "q_es": "¿Cuál de estos jugadores NUNCA jugó en el Bayern de Múnich?",
+   "o": [
+    "Luca Toni",
+    "Giovane Élber",
+    "Roy Makaay",
+    "Ruud van Nistelrooy"
+   ],
+   "a": 3,
+   "why": "Van Nistelrooy played for PSV, Manchester United, Real Madrid, Hamburg and Málaga.",
+   "why_es": "Van Nistelrooy jugó en PSV, Manchester United, Real Madrid, Hamburgo y Málaga.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who won the Golden Ball at the 2002 World Cup?",
+   "q_es": "¿Quién ganó el Balón de Oro del Mundial de 2002?",
+   "o": [
+    "Ronaldo",
+    "Rivaldo",
+    "Oliver Kahn",
+    "Michael Ballack"
+   ],
+   "a": 2,
+   "why": "Goalkeeper Oliver Kahn; Ronaldo won the Golden Boot.",
+   "why_es": "El portero Oliver Kahn; Ronaldo ganó la Bota de Oro.",
+   "src": "own knowledge",
+   "n": "The award for the best player of the tournament",
+   "n_es": "El premio al mejor jugador del torneo"
+  },
+  {
+   "q": "How many European Cups/Champions Leagues has AC Milan won?",
+   "q_es": "¿Cuántas Copas de Europa/Champions ha ganado el AC Milan?",
+   "o": [
+    "6",
+    "7",
+    "8"
+   ],
+   "a": 1,
+   "why": "7: 1963, 1969, 1989, 1990, 1994, 2003 and 2007.",
+   "why_es": "7: 1963, 1969, 1989, 1990, 1994, 2003 y 2007.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which of these clubs did Roberto Baggio play for?",
+   "q_es": "¿En cuál de estos clubes jugó Roberto Baggio?",
+   "o": [
+    "Roma",
+    "Bologna",
+    "Napoli"
+   ],
+   "a": 1,
+   "why": "Baggio played for Vicenza, Fiorentina, Juventus, Milan, Bologna, Inter and Brescia.",
+   "why_es": "Baggio jugó en Vicenza, Fiorentina, Juventus, Milan, Bologna, Inter y Brescia.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "In which year did Italy win their first European Championship?",
+   "q_es": "¿En qué año ganó Italia su primera Eurocopa?",
+   "o": [
+    "1976",
+    "1972",
+    "1968"
+   ],
+   "a": 2,
+   "why": "1968, at home, in a replay against Yugoslavia.",
+   "why_es": "1968, en casa, en la repetición ante Yugoslavia.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which of these managers NEVER managed Real Madrid?",
+   "q_es": "¿Cuál de estos entrenadores NUNCA dirigió al Real Madrid?",
+   "o": [
+    "Fabio Capello",
+    "Jupp Heynckes",
+    "Louis van Gaal"
+   ],
+   "a": 2,
+   "why": "Van Gaal managed Barcelona, never Real Madrid.",
+   "why_es": "Van Gaal dirigió al Barcelona, nunca al Real Madrid.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who scored more World Cup goals: Gerd Müller or Just Fontaine?",
+   "q_es": "¿Quién marcó más goles en los Mundiales: Gerd Müller o Just Fontaine?",
+   "o": [
+    "Just Fontaine",
+    "Gerd Müller"
+   ],
+   "a": 1,
+   "why": "Müller 14 (10 in 1970, 4 in 1974), Fontaine 13.",
+   "why_es": "Müller 14 (10 en 1970, 4 en 1974), Fontaine 13.",
+   "src": "own knowledge"
+  }
+ ]
+}

@@ -1,0 +1,113 @@
+{
+ "day": "2026-11-12",
+ "questions": [
+  {
+   "q": "Which English club won the European Cup in both 1979 and 1980?",
+   "q_es": "¿Qué club inglés ganó la Copa de Europa en 1979 y en 1980?",
+   "o": [
+    "Liverpool",
+    "Aston Villa",
+    "Nottingham Forest",
+    "Manchester United"
+   ],
+   "a": 2,
+   "why": "Brian Clough's Forest; Liverpool won in 1977, 1978 and 1981.",
+   "why_es": "El Forest de Brian Clough; el Liverpool ganó en 1977, 1978 y 1981.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which of these players NEVER played for Juventus?",
+   "q_es": "¿Cuál de estos jugadores NUNCA jugó en la Juventus?",
+   "o": [
+    "Zlatan Ibrahimović",
+    "Edgar Davids",
+    "Pavel Nedvěd",
+    "Davor Šuker"
+   ],
+   "a": 3,
+   "why": "Šuker played for Sevilla, Real Madrid, Arsenal and West Ham, not Juventus.",
+   "why_es": "Šuker jugó en Sevilla, Real Madrid, Arsenal y West Ham, no en la Juventus.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who won the Premier League Golden Boot in 2008-09?",
+   "q_es": "¿Quién ganó el Pichichi de la Premier League en 2008-09?",
+   "o": [
+    "Steven Gerrard",
+    "Fernando Torres",
+    "Nicolas Anelka",
+    "Dimitar Berbatov"
+   ],
+   "a": 2,
+   "why": "Anelka scored 19 for Chelsea; Gerrard had 16.",
+   "why_es": "Anelka marcó 19 con el Chelsea; Gerrard 16.",
+   "src": "own knowledge",
+   "n": "The award for the top scorer of the Premier League season",
+   "n_es": "El premio al máximo goleador de la Premier League en la temporada"
+  },
+  {
+   "q": "How many World Cup finals has Brazil played?",
+   "q_es": "¿Cuántas finales de un Mundial ha jugado Brasil?",
+   "o": [
+    "6",
+    "7",
+    "8"
+   ],
+   "a": 1,
+   "why": "7: 1950, 1958, 1962, 1970, 1994, 1998 and 2002.",
+   "why_es": "7: 1950, 1958, 1962, 1970, 1994, 1998 y 2002.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who was the first manager to win the European Cup with two different clubs?",
+   "q_es": "¿Quién fue el primer entrenador en ganar la Copa de Europa con dos clubes distintos?",
+   "o": [
+    "Ottmar Hitzfeld",
+    "Jupp Heynckes",
+    "Ernst Happel"
+   ],
+   "a": 2,
+   "why": "Happel won it with Feyenoord in 1970 and Hamburg in 1983.",
+   "why_es": "Happel la ganó con el Feyenoord en 1970 y con el Hamburgo en 1983.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "In which year did Barcelona win their first European Cup?",
+   "q_es": "¿En qué año ganó el Barcelona su primera Copa de Europa?",
+   "o": [
+    "1991",
+    "1992",
+    "1993"
+   ],
+   "a": 1,
+   "why": "1992 at Wembley, Koeman's free kick beat Sampdoria.",
+   "why_es": "1992 en Wembley, la falta de Koeman ante la Sampdoria.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which of these clubs did Hernán Crespo NEVER play for?",
+   "q_es": "¿En cuál de estos clubes NUNCA jugó Hernán Crespo?",
+   "o": [
+    "Lazio",
+    "Genoa",
+    "Roma"
+   ],
+   "a": 2,
+   "why": "Crespo played for Parma, Lazio, Inter, Chelsea, Milan and Genoa, not Roma.",
+   "why_es": "Crespo jugó en Parma, Lazio, Inter, Chelsea, Milan y Genoa, no en la Roma.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who scored more World Cup goals: Pelé or Jürgen Klinsmann?",
+   "q_es": "¿Quién marcó más goles en los Mundiales: Pelé o Jürgen Klinsmann?",
+   "o": [
+    "Jürgen Klinsmann",
+    "Pelé"
+   ],
+   "a": 1,
+   "why": "Pelé 12, Klinsmann 11.",
+   "why_es": "Pelé 12, Klinsmann 11.",
+   "src": "own knowledge"
+  }
+ ]
+}
