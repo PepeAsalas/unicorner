@@ -135,7 +135,8 @@ nickname, or use Quick match to be paired with someone. Both players start on 30
 questions, each on their own time.</p>
 <p>Every answer you get right hits your rival for the points it is worth, so rare answers hit harder. If you both give
 the same answer, it is blocked and nobody takes damage. After each round you watch the battle. The duel ends with a KO
-at 0 HP, or after 15 questions, when the higher HP wins; a draw goes to sudden death, one question at a time. You can
+at 0 HP, or after 15 questions, when the higher HP wins. If it is still level, it goes to extra time, one question at a time:
+if you both get it right and are still level, the faster answer wins. You can
 choose how many questions per round and how many seconds per question when you create a duel. Duels open once you have
 played the day's Daily 5.</p>
 

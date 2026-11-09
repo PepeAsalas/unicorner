@@ -51,7 +51,7 @@ const R_DEMO=[
  ['PLAYED FOR INTER IN A TITLE SEASON, 2020-21 OR 2023-24',['TAJON BUCHANAN','SCREAMER',100],['LAUTARO MARTINEZ','TAP-IN',10]],
 ];
 const RD=5;let INTRO=1.6;
-function setup(){INTRO=O.intro==='vs'?3.6:O.intro==='sd'?3.8:1.6;N=R.length;HP=[(O.hp||[300,300]).slice()];for(let i=0;i<N;i++){const[a,b]=HP[i],[,y,o]=R[i];const blk=!!y[0]&&y[0]===o[0];HP.push([Math.max(0,a-(blk?0:o[2])),Math.max(0,b-(blk?0:y[2]))]);if(!HP[i+1][0]||!HP[i+1][1]){N=i+1;R=R.slice(0,N);break}}
+function setup(){INTRO=O.intro==='vs'?3.6:O.intro==='sd'?3.8:1.6;N=R.length;HP=[(O.hp||[300,300]).slice()];for(let i=0;i<N;i++){const[a,b]=HP[i],[,y,o]=R[i];const blk=!!y[0]&&y[0]===o[0];HP.push([Math.max(0,a-(blk?0:o[2])),Math.max(0,b-(blk?0:y[2]))]);{const h=HP[i+1];if((O.q0||0)+i>=15&&h[0]&&h[0]===h[1]&&(blk||y[2]===o[2])&&y[2]>0&&o[2]>0&&y[3]>0&&o[3]>0&&y[3]!==o[3])h[y[3]>o[3]?0:1]-=1}/* extra time: the slower right answer loses 1 HP */if(!HP[i+1][0]||!HP[i+1][1]){N=i+1;R=R.slice(0,N);break}}
  KO=!!O.final&&(!HP[N][0]||!HP[N][1]);TOTAL=INTRO+RD*N+(KO?5.6+(SW/SLOW-SW):O.final?3.4:3)}
 function px(s,x,y,size,col,{align='center',out=true,font='disp'}={}){g.font=`${size}px ${font==='disp'?'"Jersey 10","Pixelify Sans"':'VT323'},monospace`;g.textAlign=align;g.textBaseline='alphabetic';
  if(out){g.fillStyle='#06041a';const o=Math.max(2,Math.round(size*.06));for(const[dx,dy]of[[-o,0],[o,0],[0,-o],[0,o],[o,o],[-o,o],[0,o*2],[o,o*2]])g.fillText(s,x+dx,y+dy)}g.fillStyle=col;g.fillText(s,x,y)}
