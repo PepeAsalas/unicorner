@@ -76,8 +76,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .big{font:400 84px/1 var(--disp);text-shadow:4px 4px 0 var(--ink)}.big span{font-size:40px;color:var(--sand)}
 /* the clue */
 .clue{background:var(--paper);color:var(--ink);border:3px solid var(--ink);box-shadow:4px 4px 0 rgba(0,0,0,.35);padding:12px 14px}
-.chip{display:inline-block;font:400 22px/1 var(--disp);background:var(--gold);border:2px solid var(--ink);padding:3px 8px;margin-bottom:6px}.chip.has{background:#b48cff}
-.hlL{color:#7c3fd6;font-weight:800;text-decoration:underline;text-decoration-thickness:2px}.hasn{font-style:normal;font-size:12px;background:#b48cff;color:var(--ink);border:1px solid var(--ink);padding:0 4px;margin-right:4px;vertical-align:1px}
+.chip{display:inline-block;font:400 22px/1 var(--disp);background:var(--gold);border:2px solid var(--ink);padding:3px 8px;margin-bottom:6px}.chip.has{background:#b48cff}.hasn{font-style:normal;font-size:12px;background:#b48cff;color:var(--ink);border:1px solid var(--ink);padding:0 4px;margin-right:4px;vertical-align:1px}
 .clue p{margin:0;font:700 19px/1.25 Barlow}.clue small{display:block;margin-top:4px;color:#5d566b;font-size:13px}
 .inp{width:100%;height:52px;border:3px solid var(--ink);background:#fff;color:var(--ink);font:400 24px var(--disp);padding:8px 12px;outline:none;border-radius:0}
 .inp:focus{box-shadow:0 0 0 3px var(--gold)}
@@ -297,8 +296,6 @@ function answer(){const q=cur(),raw=$('in').value.trim();if(!q)return;if(!raw)re
  else if(firstOther||(q.others||[]).some(n=>hit(t,forms(n)))||(con&&q.answers.some(a=>hit(t,forms(a.name,a.aliases))))){$('var').textContent=q.mode==='contains'?L(`VAR: right answer, but there's no ${q.letter} in it. Try the full name or another one!`,`VAR: respuesta válida, pero no lleva la ${q.letter}. ¡Prueba el nombre completo u otra!`):L(`VAR: right answer, but it doesn't start with ${q.letter}. Try another!`,`VAR: respuesta válida, pero no empieza por la ${q.letter}. ¡Prueba otra!`);host.play.set('think');SFX.var();shake();$('in').select();return}
  else{S.res[q.letter]='no';S.typed[q.letter]=raw;track('rosco_reject',{letter:q.letter,typed:raw.slice(0,60),prompt:q.prompt.slice(0,120),mode:q.mode});S.run=0;S.miss=(S.miss||0)+1;react(S.miss>=3?'facepalm':S.miss===2?'annoyed':'sad',pick(LINES.no(q.answers[0].name)));shake();SFX.no();track('rosco_answer',{letter:q.letter,ok:false})}
  S.passed=S.passed.filter(x=>x!==q.letter);$('in').value='';next();$('in').focus()}
-// contains letters: show where the letter is in each answer (Rival<u>i</u>do style), so 'Rivaldo for I' makes sense
-function hlL(n,l){const lo=l.toLowerCase(),i=[...n].findIndex(c=>c.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()===lo);if(i<0)return esc(n);const a=[...n];return esc(a.slice(0,i).join(''))+'<b class="hlL">'+esc(a[i])+'</b>'+esc(a.slice(i+1).join(''))}
 function pass(){const q=cur();if(!q)return;if(!S.passed.includes(q.letter))S.passed.push(q.letter);
  S.queue.push(S.queue.shift());react('pasapalabra',pick(LINES.pass));SFX.pass();$('in').value='';track('rosco_pass',{letter:q.letter});save();render();$('in').focus()}
 {const b=$('snd'),paint=()=>{b.dataset.on=sndOn()?'1':'0';b.setAttribute('aria-pressed',String(sndOn()))};paint();b.onclick=()=>{try{localStorage.setItem('unicorner-sound',sndOn()?'off':'on')}catch{}paint();if(sndOn())SFX.ok()}}
@@ -329,7 +326,7 @@ function end(fresh){show('s-end');if(ES)$('rklink').href='/es/#ranking-rosco';if
  say($('say2'),host.end,ES?(c.ok>=19?`¡${c.ok}! Menudo Rosco. Saluda al público.`:c.ok>=13?`${c.ok} aciertos. Eso es saber de fútbol.`:c.ok>=8?`${c.ok} hoy. El Rosco es duro, ¡vuelve mañana!`:`Solo ${c.ok}... todos tenemos un mal día. ¡Mañana, Rosco nuevo!`):(c.ok>=19?`${c.ok}! That's a huge Rosco. Take a bow.`:c.ok>=13?`${c.ok} correct. Solid ball knowledge, that.`:c.ok>=8?`${c.ok} today. The Rosco is a tough one, come back tomorrow!`:`Only ${c.ok}... we all have off days. New Rosco tomorrow!`),mood);
  $('grid').textContent=gridText();
  $('ans').innerHTML=R.letters.map(x=>{const st=S.res[x.letter],col=st==='ok'?'var(--grass)':st==='no'?'var(--clay)':'#6b6878';
-  return`<li><b style="background:${col}">${x.letter}</b><div><strong>${x.mode==='contains'?`<em class="hasn">${L('contains','contiene')} ${x.letter}</em> `:''}${esc(clue(x))}</strong><small>${st==='ok'?'✓ '+esc(S.typed[x.letter]):st==='no'?L('✕ You said ','✕ Dijiste ')+esc(S.typed[x.letter]):L('Not answered','Sin responder')} · ${x.answers.length>1?L('Answers','Respuestas'):L('Answer','Respuesta')}: ${x.answers.map(a=>x.mode==='contains'?hlL(a.name,x.letter):esc(a.name)).join(', ')}</small></div></li>`}).join('');
+  return`<li><b style="background:${col}">${x.letter}</b><div><strong>${x.mode==='contains'?`<em class="hasn">${L('contains','contiene')} ${x.letter}</em> `:''}${esc(clue(x))}</strong><small>${st==='ok'?'✓ '+esc(S.typed[x.letter]):st==='no'?L('✕ You said ','✕ Dijiste ')+esc(S.typed[x.letter]):L('Not answered','Sin responder')} · ${x.answers.length>1?L('Answers','Respuestas'):L('Answer','Respuesta')}: ${x.answers.map(a=>esc(a.name)).join(', ')}</small></div></li>`}).join('');
  const nx=()=>{const now=new Date(),am=new Date(now.toLocaleString('en-US',{timeZone:'Europe/Amsterdam'})),ms=(24*3600-am.getHours()*3600-am.getMinutes()*60-am.getSeconds())*1000;$('next').textContent=L('New Rosco in ','Nuevo Rosco en ')+`${Math.floor(ms/36e5)}h ${Math.floor(ms%36e5/6e4)}m`};nx();setInterval(nx,30000)}
 // feedback after a round: 1-10 and an optional note, once per day (sent as an event)
 function feedback(){const k='uc-rosco-fb-'+DAY;if(ls(k)||ARCH)return;let rating=0;$('fb').hidden=false;
@@ -340,7 +337,7 @@ function feedback(){const k='uc-rosco-fb-'+DAY;if(ls(k)||ARCH)return;let rating=
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const gridText=()=>ABC.map(ch=>{if(!R.letters.some(x=>x.letter===ch))return'⬛';const s=S.res[ch];return s==='ok'?'🟩':s==='no'?'🟥':'⬜'}).join('');
 $('show').onclick=()=>{$('ans').hidden=!$('ans').hidden;$('show').textContent=$('ans').hidden?L('See answers','Ver respuestas'):L('Hide answers','Ocultar respuestas')};
-const resultText=()=>{const c=counts();return L('Unicorner Rosco','Rosco Unicorner')+` #${NO}: ${c.ok}/${R.letters.length}\n${gridText()}\nhttps://unicornergame.lol/`+L('rosco.html','es/rosco.html')};
+const resultText=()=>{const c=counts();return L('Unicorner Rosco','Rosco Unicorner')+` #${NO}: ${c.ok}/${R.letters.length}\n${gridText()}\nunicornergame.lol/`+L('rosco.html','es/rosco.html')};
 $('copy').onclick=async()=>{const c=counts(),t=resultText();track('rosco_copy',{score:c.ok});
  try{await navigator.clipboard.writeText(t)}catch{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch{}a.remove()}
  $('copy').textContent=L('Copied! Paste it anywhere','¡Copiado! Pégalo donde quieras');setTimeout(()=>$('copy').textContent=L('Copy result','Copiar resultado'),1800)};

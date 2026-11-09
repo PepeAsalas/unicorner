@@ -735,10 +735,7 @@ panel.addEventListener('click', e => {
 
 // ---------- academy sales and stars ----------
 const club = () => C.clubs[Math.random() * C.clubs.length | 0];
-// priced on the club's steady income: no frenzy, no events and no idle-crowd dip, so a star doesn't lose value just because
-// you left the tab alone or a 3x frenzy ended (only his own form, age and loans move him)
-const frenzyX = () => BUFF && BUFF.kind === 'frenzy' && performance.now() < BUFF.until ? 3 : 1;
-const starPrice = () => Math.max(2000, rates(true).total / (frenzyX() * crowd()) * 150);
+const starPrice = () => Math.max(2000, rates().total * 150);
 // ---------- the squad market: a kept star's value wanders like a share price (form, injuries, nights out) ----------
 const starValue = s => starPrice() * (s.m || 1) * (phase(s) === 'peak' ? 1.5 : 1);
 // a kept star rises for a few minutes, peaks, then declines and retires: the reason to sell
