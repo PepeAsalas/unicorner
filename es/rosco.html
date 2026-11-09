@@ -337,7 +337,7 @@ function feedback(){const k='uc-rosco-fb-'+DAY;if(ls(k)||ARCH)return;let rating=
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const gridText=()=>ABC.map(ch=>{if(!R.letters.some(x=>x.letter===ch))return'⬛';const s=S.res[ch];return s==='ok'?'🟩':s==='no'?'🟥':'⬜'}).join('');
 $('show').onclick=()=>{$('ans').hidden=!$('ans').hidden;$('show').textContent=$('ans').hidden?L('See answers','Ver respuestas'):L('Hide answers','Ocultar respuestas')};
-const resultText=()=>{const c=counts();return L('Unicorner Rosco','Rosco Unicorner')+` #${NO}: ${c.ok}/${R.letters.length}\n${gridText()}\nunicornergame.lol/`+L('rosco.html','es/rosco.html')};
+const resultText=()=>{const c=counts();return L('Unicorner Rosco','Rosco Unicorner')+` #${NO}: ${c.ok}/${R.letters.length}\n${gridText()}\nhttps://unicornergame.lol/`+L('rosco.html','es/rosco.html')};
 $('copy').onclick=async()=>{const c=counts(),t=resultText();track('rosco_copy',{score:c.ok});
  try{await navigator.clipboard.writeText(t)}catch{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch{}a.remove()}
  $('copy').textContent=L('Copied! Paste it anywhere','¡Copiado! Pégalo donde quieras');setTimeout(()=>$('copy').textContent=L('Copy result','Copiar resultado'),1800)};
