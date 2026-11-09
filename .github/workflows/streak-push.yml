@@ -1,0 +1,34 @@
+name: Streak reminders
+
+# Every evening: a browser notification to players who turned reminders on, played yesterday and not yet today.
+# Needs repository secrets SUPABASE_SERVICE_ROLE_KEY and VAPID_PRIVATE_KEY.
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Only list who would get a reminder'
+        type: boolean
+        default: true
+  schedule:
+    - cron: '43 17 * * *'   # 18:43 Amsterdam in winter, 19:43 in summer (GitHub can start it a little late)
+
+permissions:
+  contents: read
+
+concurrency:
+  group: streak-push
+  cancel-in-progress: false
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - run: pip install "pywebpush>=2,<3"
+      - env:
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
+        run: python scripts/send_streak_push.py ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}

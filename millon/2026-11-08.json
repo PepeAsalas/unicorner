@@ -1,10 +1,122 @@
-{"day":"2026-11-08","questions":[
-{"q": "Who scored Chelsea's equaliser in the 2012 Champions League final?", "q_es": "¿Quién marcó el empate del Chelsea en la final de Champions 2012?", "o": ["Didier Drogba", "Frank Lampard", "Fernando Torres", "Juan Mata"], "a": 0, "why": "Drogba equalised in the 88th minute and scored the winning penalty.", "why_es": "Drogba empató en el minuto 88 y marcó el penalti decisivo.", "src": "own knowledge (cross-checked)"},
-{"q": "Which of these managers has NEVER won the Champions League?", "q_es": "¿Cuál de estos entrenadores NUNCA ha ganado la Champions?", "o": ["Jürgen Klopp", "Arsène Wenger", "Alex Ferguson", "José Mourinho"], "a": 1, "why": "Wenger lost the 2006 final; the others have all won it.", "why_es": "Wenger perdió la final de 2006; los demás la han ganado.", "src": "own knowledge (cross-checked)"},
-{"q": "Who was top scorer at the 2002 World Cup?", "q_es": "¿Quién fue máximo goleador del Mundial 2002?", "o": ["Ronaldo", "Rivaldo", "Miroslav Klose", "Christian Vieri"], "a": 0, "why": "Ronaldo scored 8, Rivaldo and Klose 5.", "why_es": "Ronaldo marcó 8; Rivaldo y Klose 5.", "src": "own knowledge (cross-checked)"},
-{"q": "How many Champions League titles had Real Madrid won after the 2023-24 season?", "q_es": "¿Cuántas Champions había ganado el Real Madrid tras la temporada 2023-24?", "o": ["14", "15", "16"], "a": 1, "why": "The 2024 final win over Dortmund was their 15th.", "why_es": "La final de 2024 ante el Dortmund fue la 15ª.", "src": "own knowledge (cross-checked)"},
-{"q": "Which of these countries has NEVER won the World Cup?", "q_es": "¿Cuál de estas selecciones NUNCA ha ganado el Mundial?", "o": ["Uruguay", "Hungary", "Argentina"], "o_es": ["Uruguay", "Hungría", "Argentina"], "a": 1, "why": "Hungary lost the 1938 and 1954 finals; Uruguay and Argentina have won it.", "why_es": "Hungría perdió las finales de 1938 y 1954; Uruguay y Argentina lo han ganado.", "src": "own knowledge (cross-checked)"},
-{"q": "Who won Serie A in 2020-21?", "q_es": "¿Quién ganó la Serie A 2020-21?", "o": ["Juventus", "AC Milan", "Inter"], "a": 2, "why": "Inter ended Juventus's run of nine straight titles.", "why_es": "El Inter cortó la racha de nueve títulos seguidos de la Juventus.", "src": "own knowledge (cross-checked)"},
-{"q": "Which club won the first Premier League season (1992-93)?", "q_es": "¿Qué club ganó la primera temporada de la Premier League (1992-93)?", "o": ["Manchester United", "Blackburn Rovers", "Arsenal"], "a": 0, "why": "United won the first title, Aston Villa finished second.", "why_es": "El United ganó el primer título; el Aston Villa fue segundo.", "src": "own knowledge (cross-checked)"},
-{"q": "Who scored more Premier League goals in total: Wayne Rooney or Harry Kane (up to 2023)?", "q_es": "¿Quién marcó más goles en la Premier en total: Wayne Rooney o Harry Kane (hasta 2023)?", "o": ["Wayne Rooney", "Harry Kane"], "a": 1, "why": "Kane left Spurs in 2023 with 213 goals; Rooney scored 208.", "why_es": "Kane dejó el Tottenham en 2023 con 213 goles; Rooney marcó 208.", "src": "own knowledge (cross-checked)"}
-]}
+{
+ "day": "2026-11-08",
+ "questions": [
+  {
+   "q": "Which of these clubs did Samuel Eto'o NEVER play for?",
+   "q_es": "¿En qué club NUNCA jugó Samuel Eto'o?",
+   "o": [
+    "Real Madrid",
+    "Mallorca",
+    "Chelsea",
+    "Liverpool"
+   ],
+   "a": 3,
+   "why": "He played for Everton on Merseyside, never Liverpool.",
+   "why_es": "Jugó en el Everton, nunca en el Liverpool.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who managed Liverpool to the 2005 Champions League?",
+   "q_es": "¿Quién entrenaba al Liverpool cuando ganó la Champions de 2005?",
+   "o": [
+    "Gérard Houllier",
+    "Rafael Benítez",
+    "Roy Evans",
+    "Kenny Dalglish"
+   ],
+   "a": 1,
+   "why": "Benítez, in his first season.",
+   "why_es": "Benítez, en su primera temporada.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which of these teams reached the semi-finals of the 2002 World Cup?",
+   "q_es": "¿Cuál de estas selecciones llegó a semifinales del Mundial 2002?",
+   "o": [
+    "Senegal",
+    "USA",
+    "Spain",
+    "Turkey"
+   ],
+   "a": 3,
+   "why": "Turkey; the other three went out in the quarter-finals.",
+   "why_es": "Turquía; las otras tres cayeron en cuartos.",
+   "src": "own knowledge",
+   "o_es": [
+    "Senegal",
+    "EE. UU.",
+    "España",
+    "Turquía"
+   ]
+  },
+  {
+   "q": "How many Bundesliga goals did Robert Lewandowski score in 2020-21?",
+   "q_es": "¿Cuántos goles de Bundesliga marcó Lewandowski en 2020-21?",
+   "o": [
+    "40",
+    "41",
+    "43"
+   ],
+   "a": 1,
+   "why": "41, one more than Gerd Müller's old record of 40.",
+   "why_es": "41, uno más que el récord de 40 de Gerd Müller.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who did Spain beat 4-0 in the Euro 2012 final?",
+   "q_es": "¿A quién goleó España 4-0 en la final de la Euro 2012?",
+   "o": [
+    "Italy",
+    "Germany",
+    "Portugal"
+   ],
+   "a": 0,
+   "why": "Italy, in Kyiv.",
+   "why_es": "Italia, en Kiev.",
+   "src": "own knowledge",
+   "o_es": [
+    "Italia",
+    "Alemania",
+    "Portugal"
+   ]
+  },
+  {
+   "q": "In which year did Zinedine Zidane join Real Madrid?",
+   "q_es": "¿En qué año fichó Zidane por el Real Madrid?",
+   "o": [
+    "2000",
+    "2001",
+    "2002"
+   ],
+   "a": 1,
+   "why": "Summer 2001, from Juventus.",
+   "why_es": "En el verano de 2001, desde la Juventus.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which of these NEVER managed Barcelona?",
+   "q_es": "¿Cuál de estos NUNCA entrenó al Barcelona?",
+   "o": [
+    "Johan Cruyff",
+    "Bobby Robson",
+    "Fabio Capello"
+   ],
+   "a": 2,
+   "why": "Capello managed Real Madrid twice, never Barcelona.",
+   "why_es": "Capello entrenó dos veces al Real Madrid, nunca al Barcelona.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which club won its first English league title first: Chelsea or Manchester City?",
+   "q_es": "¿Quién ganó antes su primera liga inglesa: el Chelsea o el Manchester City?",
+   "o": [
+    "Chelsea",
+    "Manchester City"
+   ],
+   "a": 1,
+   "why": "City in 1936-37; Chelsea in 1954-55.",
+   "why_es": "El City en 1936-37; el Chelsea en 1954-55.",
+   "src": "own knowledge"
+  }
+ ]
+}

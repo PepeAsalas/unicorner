@@ -1,0 +1,738 @@
+[
+ {
+  "id": "d24-name-a-manager-who-won-the-europa-league-or-uefa-cup-between-2000-01-and-2024-25",
+  "template": 24,
+  "prompt": "Name a manager who won the Europa League or UEFA Cup between 2000-01 and 2024-25",
+  "time": 15,
+  "answer_type": "manager",
+  "answers": [
+   {
+    "name": "Gérard Houllier",
+    "aliases": [
+     "Houllier"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Bert van Marwijk",
+    "aliases": [
+     "Van Marwijk",
+     "Marwijk"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "José Mourinho",
+    "aliases": [
+     "Mourinho",
+     "Jose Mourinho"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Rafael Benítez",
+    "aliases": [
+     "Benitez",
+     "Rafa Benitez",
+     "Rafa Benítez"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Valeri Gazzaev",
+    "aliases": [
+     "Gazzaev",
+     "Gazzayev"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Juande Ramos",
+    "aliases": [
+     "Ramos"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Dick Advocaat",
+    "aliases": [
+     "Advocaat"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Mircea Lucescu",
+    "aliases": [
+     "Lucescu"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Quique Sánchez Flores",
+    "aliases": [
+     "Quique Sanchez Flores",
+     "Quique Flores",
+     "Sanchez Flores"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "André Villas-Boas",
+    "aliases": [
+     "Villas-Boas",
+     "Villas Boas",
+     "AVB",
+     "Andre Villas-Boas"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Diego Simeone",
+    "aliases": [
+     "Simeone",
+     "Cholo Simeone",
+     "Diego Pablo Simeone"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Unai Emery",
+    "aliases": [
+     "Emery"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Maurizio Sarri",
+    "aliases": [
+     "Sarri"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Julen Lopetegui",
+    "aliases": [
+     "Lopetegui"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Oliver Glasner",
+    "aliases": [
+     "Glasner"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "José Luis Mendilibar",
+    "aliases": [
+     "Mendilibar",
+     "Jose Luis Mendilibar"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Gian Piero Gasperini",
+    "aliases": [
+     "Gasperini"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Ange Postecoglou",
+    "aliases": [
+     "Postecoglou",
+     "Ange Postecoglu"
+    ],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "Jürgen Klopp",
+    "why": "Lost the 2016 Europa League final with Liverpool and never won the competition."
+   },
+   {
+    "name": "Arsène Wenger",
+    "why": "Never won the UEFA Cup or Europa League."
+   },
+   {
+    "name": "Pep Guardiola",
+    "why": "Never won the UEFA Cup or Europa League."
+   },
+   {
+    "name": "Carlo Ancelotti",
+    "why": "Never won the UEFA Cup or Europa League."
+   },
+   {
+    "name": "Roberto Mancini",
+    "why": "Never won the UEFA Cup or Europa League in the period."
+   }
+  ]
+ },
+ {
+  "id": "d24-name-a-manager-who-won-the-fa-cup-between-2000-01-and-2024-25",
+  "template": 24,
+  "prompt": "Name a manager who won the FA Cup between 2000-01 and 2024-25",
+  "time": 15,
+  "answer_type": "manager",
+  "answers": [
+   {
+    "name": "Gérard Houllier",
+    "aliases": [
+     "Houllier"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Arsène Wenger",
+    "aliases": [
+     "Wenger"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Alex Ferguson",
+    "aliases": [
+     "Ferguson",
+     "Sir Alex Ferguson",
+     "Alex Ferguson"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Rafael Benítez",
+    "aliases": [
+     "Benitez",
+     "Rafa Benitez"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "José Mourinho",
+    "aliases": [
+     "Mourinho"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Harry Redknapp",
+    "aliases": [
+     "Redknapp"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Guus Hiddink",
+    "aliases": [
+     "Hiddink"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Carlo Ancelotti",
+    "aliases": [
+     "Ancelotti"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Roberto Mancini",
+    "aliases": [
+     "Mancini"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Roberto Di Matteo",
+    "aliases": [
+     "Di Matteo",
+     "Dimatteo"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Roberto Martínez",
+    "aliases": [
+     "Martinez",
+     "Roberto Martinez"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Louis van Gaal",
+    "aliases": [
+     "Van Gaal"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Antonio Conte",
+    "aliases": [
+     "Conte"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Pep Guardiola",
+    "aliases": [
+     "Guardiola"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Mikel Arteta",
+    "aliases": [
+     "Arteta"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Brendan Rodgers",
+    "aliases": [
+     "Rodgers"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Jürgen Klopp",
+    "aliases": [
+     "Klopp",
+     "Jurgen Klopp"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Erik ten Hag",
+    "aliases": [
+     "Ten Hag",
+     "Erik Ten Hag"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Oliver Glasner",
+    "aliases": [
+     "Glasner"
+    ],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Thomas Tuchel",
+    "why": "Lost the 2021 FA Cup final with Chelsea; no FA Cup win in the period."
+   },
+   {
+    "name": "Frank Lampard",
+    "why": "Lost the 2020 FA Cup final with Chelsea."
+   },
+   {
+    "name": "Mauricio Pochettino",
+    "why": "Never won the FA Cup."
+   },
+   {
+    "name": "David Moyes",
+    "why": "Won no FA Cup in the period (lost the 2009 final with Everton)."
+   },
+   {
+    "name": "Ole Gunnar Solskjær",
+    "why": "Never won the FA Cup as a manager."
+   }
+  ]
+ },
+ {
+  "id": "d24-name-a-manager-who-won-the-english-league-cup-between-2000-01-and-2024-25",
+  "template": 24,
+  "prompt": "Name a manager who won the English League Cup between 2000-01 and 2024-25",
+  "time": 15,
+  "answer_type": "manager",
+  "answers": [
+   {
+    "name": "Gérard Houllier",
+    "aliases": [
+     "Houllier"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Graeme Souness",
+    "aliases": [
+     "Souness"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Steve McClaren",
+    "aliases": [
+     "McClaren",
+     "Steve Mcclaren"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "José Mourinho",
+    "aliases": [
+     "Mourinho"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Alex Ferguson",
+    "aliases": [
+     "Ferguson",
+     "Sir Alex Ferguson"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Juande Ramos",
+    "aliases": [
+     "Ramos"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Alex McLeish",
+    "aliases": [
+     "McLeish",
+     "Alex Mcleish"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Kenny Dalglish",
+    "aliases": [
+     "Dalglish"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Michael Laudrup",
+    "aliases": [
+     "Laudrup"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Manuel Pellegrini",
+    "aliases": [
+     "Pellegrini"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Pep Guardiola",
+    "aliases": [
+     "Guardiola"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Jürgen Klopp",
+    "aliases": [
+     "Klopp",
+     "Jurgen Klopp"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Erik ten Hag",
+    "aliases": [
+     "Ten Hag"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Eddie Howe",
+    "aliases": [
+     "Howe"
+    ],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "Arsène Wenger",
+    "why": "Lost the 2007 League Cup final with Arsenal; never won the competition."
+   },
+   {
+    "name": "Rafael Benítez",
+    "why": "Never won the League Cup in England."
+   },
+   {
+    "name": "Mauricio Pochettino",
+    "why": "Lost the 2015 League Cup final with Tottenham; never won it."
+   },
+   {
+    "name": "Thomas Tuchel",
+    "why": "Lost the 2022 League Cup final with Chelsea; never won it."
+   },
+   {
+    "name": "Roberto Mancini",
+    "why": "Never won the League Cup."
+   }
+  ]
+ },
+ {
+  "id": "d24-name-a-manager-who-won-the-copa-del-rey-between-2000-01-and-2024-25",
+  "template": 24,
+  "prompt": "Name a manager who won the Copa del Rey between 2000-01 and 2024-25",
+  "time": 15,
+  "answer_type": "manager",
+  "answers": [
+   {
+    "name": "Víctor Fernández",
+    "aliases": [
+     "Victor Fernandez"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Javier Irureta",
+    "aliases": [
+     "Irureta"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Gregorio Manzano",
+    "aliases": [
+     "Manzano"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Paco Flores",
+    "aliases": [
+     "Flores",
+     "Francisco Flores"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Lorenzo Serra Ferrer",
+    "aliases": [
+     "Serra Ferrer"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Miguel Ángel Lotina",
+    "aliases": [
+     "Lotina",
+     "Miguel Angel Lotina"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Juande Ramos",
+    "aliases": [
+     "Ramos"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Ronald Koeman",
+    "aliases": [
+     "Koeman"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Pep Guardiola",
+    "aliases": [
+     "Guardiola"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Manolo Jiménez",
+    "aliases": [
+     "Manolo Jimenez",
+     "Jimenez"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "José Mourinho",
+    "aliases": [
+     "Mourinho"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Diego Simeone",
+    "aliases": [
+     "Simeone"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Carlo Ancelotti",
+    "aliases": [
+     "Ancelotti"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Luis Enrique",
+    "aliases": [
+     "Luis Enrique Martinez"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Ernesto Valverde",
+    "aliases": [
+     "Valverde"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Marcelino",
+    "aliases": [
+     "Marcelino Garcia Toral",
+     "Marcelino García Toral"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Imanol Alguacil",
+    "aliases": [
+     "Alguacil",
+     "Imanol"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Manuel Pellegrini",
+    "aliases": [
+     "Pellegrini"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Hansi Flick",
+    "aliases": [
+     "Flick",
+     "Hans-Dieter Flick"
+    ],
+    "fame": 5
+   }
+  ],
+  "traps": [
+   {
+    "name": "Vicente del Bosque",
+    "why": "Won La Liga and the Champions League but no Copa del Rey in the period."
+   },
+   {
+    "name": "Zinedine Zidane",
+    "why": "Never won the Copa del Rey as a manager."
+   },
+   {
+    "name": "Rafael Benítez",
+    "why": "Never won the Copa del Rey."
+   }
+  ]
+ },
+ {
+  "id": "d19-name-a-club-from-london-that-played-in-the-premier-league-between-2000-01-and-2025-26",
+  "template": 19,
+  "prompt": "Name a club from London that played in the Premier League between 2000-01 and 2025-26",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Arsenal FC",
+    "aliases": [
+     "Arsenal",
+     "Gunners"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Chelsea FC",
+    "aliases": [
+     "Chelsea"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Tottenham Hotspur",
+    "aliases": [
+     "Tottenham",
+     "Spurs"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "West Ham United",
+    "aliases": [
+     "West Ham",
+     "Hammers"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Fulham FC",
+    "aliases": [
+     "Fulham"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Crystal Palace",
+    "aliases": [
+     "Palace",
+     "Crystal Palace FC"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Charlton Athletic",
+    "aliases": [
+     "Charlton"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Queens Park Rangers",
+    "aliases": [
+     "QPR",
+     "Queens Park Rangers FC"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Brentford FC",
+    "aliases": [
+     "Brentford"
+    ],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "Watford",
+    "why": "Based in Hertfordshire, not London."
+   },
+   {
+    "name": "Wimbledon",
+    "why": "Relegated in 2000 and not in the Premier League from 2000-01."
+   },
+   {
+    "name": "Millwall",
+    "why": "Never played in the Premier League."
+   },
+   {
+    "name": "Leyton Orient",
+    "why": "Never played in the Premier League."
+   },
+   {
+    "name": "Luton Town",
+    "why": "Bedfordshire, not London."
+   }
+  ]
+ }
+]

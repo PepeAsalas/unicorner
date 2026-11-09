@@ -1,0 +1,1558 @@
+[
+ {
+  "id": "d22-name-a-country-that-played-at-the-2007-copa-america",
+  "template": 22,
+  "prompt": "Name a country that played at the 2007 Copa América",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Ecuador",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Peru",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Venezuela",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Bolivia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "United States",
+    "aliases": [
+     "USA",
+     "US",
+     "USMNT",
+     "United States of America"
+    ],
+    "fame": 5
+   }
+  ],
+  "traps": [
+   {
+    "name": "Costa Rica",
+    "why": "Was not in the 2007 tournament (played in 2004)."
+   },
+   {
+    "name": "Japan",
+    "why": "Played in 1999, not in 2007."
+   },
+   {
+    "name": "Honduras",
+    "why": "Was not in the 2007 tournament."
+   }
+  ],
+  "prompt_es": "Nombra una selección que jugó la Copa América 2007"
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2004-copa-america",
+  "template": 22,
+  "prompt": "Name a country that played at the 2004 Copa América",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Bolivia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Costa Rica",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Ecuador",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Peru",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Venezuela",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "United States",
+    "why": "Did not play in 2004 (played in 2007)."
+   },
+   {
+    "name": "Honduras",
+    "why": "Was not in the 2004 tournament."
+   },
+   {
+    "name": "Japan",
+    "why": "Played in 1999, not in 2004."
+   }
+  ],
+  "prompt_es": "Nombra una selección que jugó la Copa América 2004"
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2013-africa-cup-of-nations",
+  "template": 22,
+  "prompt": "Name a country that played at the 2013 Africa Cup of Nations",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "South Africa",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Cape Verde",
+    "aliases": [
+     "Cabo Verde"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Angola",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ghana",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Mali",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Niger",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "DR Congo",
+    "aliases": [
+     "Congo DR",
+     "DRC",
+     "Democratic Republic of Congo",
+     "Congo"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Nigeria",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Burkina Faso",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Zambia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ethiopia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Ivory Coast",
+    "aliases": [
+     "Cote d'Ivoire",
+     "Côte d'Ivoire"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Tunisia",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Algeria",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Togo",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Egypt",
+    "why": "Failed to qualify for 2013."
+   },
+   {
+    "name": "Cameroon",
+    "why": "Failed to qualify for 2013."
+   },
+   {
+    "name": "Senegal",
+    "why": "Failed to qualify for 2013."
+   }
+  ],
+  "prompt_es": "Nombra una selección que jugó la Copa Africana de Naciones 2013"
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2012-africa-cup-of-nations",
+  "template": 22,
+  "prompt": "Name a country that played at the 2012 Africa Cup of Nations",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Equatorial Guinea",
+    "aliases": [
+     "Eq Guinea"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Libya",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Senegal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Zambia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Gabon",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Niger",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Tunisia",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Ghana",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Botswana",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Mali",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Guinea",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ivory Coast",
+    "aliases": [
+     "Cote d'Ivoire",
+     "Côte d'Ivoire"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Sudan",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Angola",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Burkina Faso",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Egypt",
+    "why": "Failed to qualify for 2012."
+   },
+   {
+    "name": "Nigeria",
+    "why": "Failed to qualify for 2012."
+   },
+   {
+    "name": "Cameroon",
+    "why": "Failed to qualify for 2012."
+   },
+   {
+    "name": "Algeria",
+    "why": "Failed to qualify for 2012."
+   }
+  ],
+  "prompt_es": "Nombra una selección que jugó la Copa Africana de Naciones 2012"
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2010-africa-cup-of-nations",
+  "template": 22,
+  "prompt": "Name a country that played at the 2010 Africa Cup of Nations",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Angola",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Mali",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Malawi",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Algeria",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Ivory Coast",
+    "aliases": [
+     "Cote d'Ivoire",
+     "Côte d'Ivoire"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Burkina Faso",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ghana",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Togo",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Egypt",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Nigeria",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Benin",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Mozambique",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Cameroon",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Gabon",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Zambia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Tunisia",
+    "aliases": [],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "South Africa",
+    "why": "Failed to qualify for 2010."
+   },
+   {
+    "name": "Senegal",
+    "why": "Failed to qualify for 2010."
+   },
+   {
+    "name": "Morocco",
+    "why": "Failed to qualify for 2010."
+   }
+  ],
+  "prompt_es": "Nombra una selección que jugó la Copa Africana de Naciones 2010"
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2008-africa-cup-of-nations",
+  "template": 22,
+  "prompt": "Name a country that played at the 2008 Africa Cup of Nations",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Ghana",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Guinea",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Namibia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Ivory Coast",
+    "aliases": [
+     "Cote d'Ivoire",
+     "Côte d'Ivoire"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Nigeria",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Mali",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Benin",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Egypt",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Cameroon",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Sudan",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Zambia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Tunisia",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Senegal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Angola",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "South Africa",
+    "aliases": [],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "Algeria",
+    "why": "Failed to qualify for 2008."
+   },
+   {
+    "name": "Burkina Faso",
+    "why": "Failed to qualify for 2008."
+   },
+   {
+    "name": "Togo",
+    "why": "Failed to qualify for 2008."
+   }
+  ],
+  "prompt_es": "Nombra una selección que jugó la Copa Africana de Naciones 2008"
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2011-afc-asian-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 2011 AFC Asian Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Qatar",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Uzbekistan",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "China",
+    "aliases": [
+     "China PR",
+     "People's Republic of China"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Kuwait",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Australia",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "South Korea",
+    "aliases": [
+     "Korea Republic",
+     "Korea",
+     "Republic of Korea"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "India",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Bahrain",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Japan",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Jordan",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Saudi Arabia",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Syria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Iran",
+    "aliases": [
+     "IR Iran"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Iraq",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "United Arab Emirates",
+    "aliases": [
+     "UAE"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "North Korea",
+    "aliases": [
+     "Korea DPR",
+     "DPR Korea"
+    ],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Oman",
+    "why": "Did not qualify for 2011."
+   },
+   {
+    "name": "Thailand",
+    "why": "Did not qualify for 2011."
+   },
+   {
+    "name": "Vietnam",
+    "why": "Did not qualify for 2011."
+   }
+  ],
+  "prompt_es": "Nombra una selección que jugó la Copa Asiática 2011"
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2007-afc-asian-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 2007 AFC Asian Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Indonesia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Bahrain",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "South Korea",
+    "aliases": [
+     "Korea Republic",
+     "Korea",
+     "Republic of Korea"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Saudi Arabia",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Japan",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Vietnam",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Qatar",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "United Arab Emirates",
+    "aliases": [
+     "UAE"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Australia",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Iraq",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Thailand",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Oman",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Iran",
+    "aliases": [
+     "IR Iran"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Uzbekistan",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "China",
+    "aliases": [
+     "China PR",
+     "People's Republic of China"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Malaysia",
+    "aliases": [],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Kuwait",
+    "why": "Did not qualify for 2007."
+   },
+   {
+    "name": "Syria",
+    "why": "Did not qualify for 2007."
+   },
+   {
+    "name": "North Korea",
+    "why": "Did not qualify for 2007."
+   }
+  ],
+  "prompt_es": "Nombra una selección que jugó la Copa Asiática 2007"
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2017-fifa-confederations-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 2017 FIFA Confederations Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Russia",
+    "aliases": [
+     "Russian Federation"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "New Zealand",
+    "aliases": [
+     "NZ"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Cameroon",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Australia",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Germany",
+    "aliases": [],
+    "fame": 6
+   }
+  ],
+  "traps": [
+   {
+    "name": "Brazil",
+    "why": "Did not qualify (hosted and won 2013)."
+   },
+   {
+    "name": "Argentina",
+    "why": "Did not qualify for 2017."
+   },
+   {
+    "name": "Japan",
+    "why": "Did not qualify for 2017."
+   }
+  ],
+  "prompt_es": "Nombra una selección que jugó la Copa Confederaciones 2017"
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2013-fifa-confederations-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 2013 FIFA Confederations Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Japan",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Tahiti",
+    "aliases": [
+     "French Polynesia"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Nigeria",
+    "aliases": [],
+    "fame": 5
+   }
+  ],
+  "traps": [
+   {
+    "name": "Argentina",
+    "why": "Did not qualify for 2013."
+   },
+   {
+    "name": "Germany",
+    "why": "Did not qualify for 2013."
+   },
+   {
+    "name": "Cameroon",
+    "why": "Did not qualify for 2013."
+   }
+  ],
+  "prompt_es": "Nombra una selección que jugó la Copa Confederaciones 2013"
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2009-fifa-confederations-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 2009 FIFA Confederations Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "South Africa",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Iraq",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "New Zealand",
+    "aliases": [
+     "NZ"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "United States",
+    "aliases": [
+     "USA",
+     "US",
+     "USMNT",
+     "United States of America"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Egypt",
+    "aliases": [],
+    "fame": 5
+   }
+  ],
+  "traps": [
+   {
+    "name": "Argentina",
+    "why": "Did not qualify for 2009."
+   },
+   {
+    "name": "Germany",
+    "why": "Did not qualify for 2009."
+   },
+   {
+    "name": "Australia",
+    "why": "Did not qualify for 2009."
+   }
+  ],
+  "prompt_es": "Nombra una selección que jugó la Copa Confederaciones 2009"
+ },
+ {
+  "id": "d17-name-a-club-that-played-in-ligue-1-in-2015-16",
+  "template": 17,
+  "prompt": "Name a club that played in Ligue 1 in 2015-16",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Paris Saint-Germain",
+    "aliases": [
+     "PSG",
+     "Paris SG",
+     "Paris"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Olympique Lyonnais",
+    "aliases": [
+     "Lyon",
+     "OL"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "AS Monaco",
+    "aliases": [
+     "Monaco"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "OGC Nice",
+    "aliases": [
+     "Nice"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "LOSC Lille",
+    "aliases": [
+     "Lille",
+     "LOSC"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "AS Saint-Étienne",
+    "aliases": [
+     "Saint-Etienne",
+     "St Etienne",
+     "ASSE",
+     "Saint Etienne"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Stade Rennais",
+    "aliases": [
+     "Rennes",
+     "Stade Rennais FC"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "En Avant Guingamp",
+    "aliases": [
+     "Guingamp"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Montpellier HSC",
+    "aliases": [
+     "Montpellier"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "FC Nantes",
+    "aliases": [
+     "Nantes"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Girondins de Bordeaux",
+    "aliases": [
+     "Bordeaux",
+     "FC Girondins de Bordeaux"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Olympique de Marseille",
+    "aliases": [
+     "Marseille",
+     "OM"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Angers SCO",
+    "aliases": [
+     "Angers"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Toulouse FC",
+    "aliases": [
+     "Toulouse"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "FC Lorient",
+    "aliases": [
+     "Lorient"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Stade de Reims",
+    "aliases": [
+     "Reims"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "SC Bastia",
+    "aliases": [
+     "Bastia"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "SM Caen",
+    "aliases": [
+     "Caen",
+     "Stade Malherbe Caen"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "ESTAC Troyes",
+    "aliases": [
+     "Troyes"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Gazélec Ajaccio",
+    "aliases": [
+     "Gazelec Ajaccio",
+     "Gazelec",
+     "GFC Ajaccio"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Dijon",
+    "why": "Promoted in 2016, not in the 2015-16 Ligue 1."
+   },
+   {
+    "name": "Lens",
+    "why": "Relegated in 2015, not in the 2015-16 Ligue 1."
+   },
+   {
+    "name": "Metz",
+    "why": "Promoted in 2016, not in the 2015-16 Ligue 1."
+   },
+   {
+    "name": "Évian Thonon Gaillard",
+    "why": "Relegated in 2015, not in the 2015-16 Ligue 1."
+   }
+  ],
+  "prompt_es": "Nombra un club que jugó la Ligue 1 en 2015-16"
+ },
+ {
+  "id": "d17-name-a-club-that-played-in-the-primeira-liga-in-2015-16",
+  "template": 17,
+  "prompt": "Name a club that played in the Primeira Liga in 2015-16",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "SL Benfica",
+    "aliases": [
+     "Benfica",
+     "Sport Lisboa e Benfica"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Sporting CP",
+    "aliases": [
+     "Sporting",
+     "Sporting Lisbon",
+     "Sporting Clube de Portugal"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "FC Porto",
+    "aliases": [
+     "Porto"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "SC Braga",
+    "aliases": [
+     "Braga",
+     "Sporting de Braga"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Rio Ave FC",
+    "aliases": [
+     "Rio Ave"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Vitória SC",
+    "aliases": [
+     "Vitoria Guimaraes",
+     "Guimarães",
+     "Vitória de Guimarães",
+     "Vitoria SC",
+     "Guimaraes"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Boavista FC",
+    "aliases": [
+     "Boavista"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "GD Estoril Praia",
+    "aliases": [
+     "Estoril"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "FC Arouca",
+    "aliases": [
+     "Arouca"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Moreirense FC",
+    "aliases": [
+     "Moreirense"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "CD Nacional",
+    "aliases": [
+     "Nacional",
+     "Nacional da Madeira"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "CS Marítimo",
+    "aliases": [
+     "Maritimo",
+     "Marítimo"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "CF Os Belenenses",
+    "aliases": [
+     "Belenenses"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "CD Tondela",
+    "aliases": [
+     "Tondela"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Académica de Coimbra",
+    "aliases": [
+     "Academica",
+     "Académica",
+     "Briosa"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "FC Paços de Ferreira",
+    "aliases": [
+     "Pacos de Ferreira",
+     "Paços de Ferreira",
+     "Pacos"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Vitória FC",
+    "aliases": [
+     "Vitoria Setubal",
+     "Vitória de Setúbal",
+     "Setúbal",
+     "Setubal"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "União da Madeira",
+    "aliases": [
+     "Uniao da Madeira",
+     "União Madeira"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "CD Feirense",
+    "why": "Promoted in 2016, not in the 2015-16 Primeira Liga."
+   },
+   {
+    "name": "Chaves",
+    "why": "Promoted in 2016, not in the 2015-16 Primeira Liga."
+   },
+   {
+    "name": "Penafiel",
+    "why": "Not in the 2015-16 Primeira Liga."
+   }
+  ],
+  "prompt_es": "Nombra un club que jugó la Primeira Liga en 2015-16"
+ },
+ {
+  "id": "d17-name-a-club-that-played-in-the-primeira-liga-in-2025-26",
+  "template": 17,
+  "prompt": "Name a club that played in the Primeira Liga in 2025-26",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "SL Benfica",
+    "aliases": [
+     "Benfica"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Sporting CP",
+    "aliases": [
+     "Sporting",
+     "Sporting Lisbon"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "FC Porto",
+    "aliases": [
+     "Porto"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "SC Braga",
+    "aliases": [
+     "Braga",
+     "Sporting de Braga"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Vitória SC",
+    "aliases": [
+     "Vitoria Guimaraes",
+     "Guimarães",
+     "Vitória de Guimarães",
+     "Guimaraes"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "FC Famalicão",
+    "aliases": [
+     "Famalicao",
+     "Famalicão"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "GD Estoril Praia",
+    "aliases": [
+     "Estoril"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Gil Vicente FC",
+    "aliases": [
+     "Gil Vicente"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Moreirense FC",
+    "aliases": [
+     "Moreirense"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Rio Ave FC",
+    "aliases": [
+     "Rio Ave"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "FC Arouca",
+    "aliases": [
+     "Arouca"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Casa Pia AC",
+    "aliases": [
+     "Casa Pia"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "CD Santa Clara",
+    "aliases": [
+     "Santa Clara"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "CD Nacional",
+    "aliases": [
+     "Nacional",
+     "Nacional da Madeira"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "FC Alverca",
+    "aliases": [
+     "Alverca"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "CD Tondela",
+    "aliases": [
+     "Tondela"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "CF Estrela da Amadora",
+    "aliases": [
+     "Estrela da Amadora",
+     "Estrela Amadora"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "AVS Futebol SAD",
+    "aliases": [
+     "AVS",
+     "Aves"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Farense",
+    "why": "Relegated in 2025, not in the 2025-26 Primeira Liga."
+   },
+   {
+    "name": "Boavista",
+    "why": "Relegated in 2025, not in the 2025-26 Primeira Liga."
+   }
+  ],
+  "prompt_es": "Nombra un club que jugó la Primeira Liga en 2025-26"
+ }
+]

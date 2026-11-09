@@ -64,6 +64,7 @@ for (q, a), (qe, ae) in zip(FAQ_EN_NEW, FAQ[4:]):
 def build():
     s = SRC.read_text(encoding='utf-8')
     s = s.replace('<a class="privacy-link lang-link" href="/es/" hreflang="es">Español</a>', '<a class="privacy-link lang-link" href="/" hreflang="en">English</a>', 1)
+    s = s.replace('href="/answers/">Past answers</a>', 'href="/es/respuestas/">Past answers</a>', 1).replace('href="/football-trivia-questions/">Trivia questions</a>', 'href="/es/preguntas-futbol/">Preguntas de fútbol</a>', 1).replace('>How to play</a>', '>Cómo se juega</a>', 1).replace('>📲 Get the app</a>', '>📲 Descarga la app</a>', 1).replace('href="/football-trivia-mistakes/">Football trivia mistakes</a>', 'href="/es/errores-futbol/">Errores de fútbol</a>', 1)
     s = s.replace('>Past answers</a>', '>Respuestas anteriores</a>', 1).replace('href="/duel.html">Duels</a>', 'href="/duel.html">Duelos</a>', 1)
 
     def sub(old, new, count=1):
@@ -88,6 +89,9 @@ def build():
     sub_re(r'<meta property="og:description" content="[^"]*">', f'<meta property="og:description" content="{OG_DESC}">')
     sub_re(r'<meta name="twitter:title" content="[^"]*">', f'<meta name="twitter:title" content="{OG_TITLE}">')
     sub_re(r'<meta name="twitter:description" content="[^"]*">', f'<meta name="twitter:description" content="{OG_DESC}">')
+    # the Spanish link preview (title in Spanish)
+    sub('https://unicornergame.lol/og-daily.jpg', 'https://unicornergame.lol/og-daily-es.jpg', 4)
+    sub_re(r'<meta property="og:image:alt" content="[^"]*">', '<meta property="og:image:alt" content="Unicorner: ¿Cuánto sabes de fútbol? Trivia de fútbol diaria.">')
     sub('<meta property="og:locale" content="en_GB">\n<meta property="og:locale:alternate" content="es_ES">',
         '<meta property="og:locale" content="es_ES">\n<meta property="og:locale:alternate" content="en_GB">')
     for en, es in TEXT.items():
@@ -107,6 +111,65 @@ def build():
         print('wrote es/index.html')
 
 
+# ── SEO for the side games (Rosco, Millions): title, description, canonical, hreflang, share tags and structured
+# data, written into the English source and its Spanish copy. Rewritten on every build, so edit it here. ──
+SEO = {
+    'rosco': {
+        'en': ('Football Rosco – Daily A–Z Football Quiz | Unicorner',
+               'One football clue for every letter of the alphabet, against the clock: players, clubs and managers from A to Z. Free, new every day, in English and Spanish.',
+               'Football Rosco'),
+        'es': ('Rosco de fútbol – El rosco diario de preguntas | Unicorner',
+               'Una pista de fútbol por cada letra del abecedario, contra el reloj: jugadores, clubes y entrenadores de la A a la Z. Gratis y nuevo cada día.',
+               'Rosco de fútbol')},
+    'millon': {
+        'en': ('Millions – Daily Football Money Drop Quiz | Unicorner',
+               'Start with 1,000,000 and spread it over the answers to 8 football questions. You keep only what lands on the right one. A free football quiz, new every day.',
+               'Millions'),
+        'es': ('Millones – El quiz diario de fútbol con un millón en juego | Unicorner',
+               'Empiezas con 1.000.000 y lo repartes entre las respuestas de 8 preguntas de fútbol. Solo te llevas lo que caiga en la correcta. Gratis y nuevo cada día.',
+               'Millones')}}
+
+
+def seo_block(game, lang):
+    import json as _j
+    base = 'https://unicornergame.lol'
+    url = {l: f'{base}{"/es" if l == "es" else ""}/{game}.html' for l in ('en', 'es')}
+    title, desc, name = SEO[game][lang]
+    img = f'{base}/og-{game}{"-es" if lang == "es" else ""}.jpg'
+    esc = lambda t: t.replace('&', '&amp;').replace('"', '&quot;')
+    ld = {'@context': 'https://schema.org', '@graph': [
+        {'@type': 'VideoGame', 'name': name, 'url': url[lang], 'description': desc, 'inLanguage': lang,
+         'genre': ['Trivia', 'Quiz', 'Sports'], 'gamePlatform': 'Web browser', 'applicationCategory': 'Game', 'operatingSystem': 'Any',
+         'isAccessibleForFree': True, 'image': img, 'publisher': {'@id': base + '/#org'}, 'isPartOf': {'@id': base + '/#website'},
+         'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'EUR'}},
+        {'@type': 'BreadcrumbList', 'itemListElement': [
+            {'@type': 'ListItem', 'position': 1, 'name': 'Unicorner', 'item': base + ('/es/' if lang == 'es' else '/')},
+            {'@type': 'ListItem', 'position': 2, 'name': name, 'item': url[lang]}]}]}
+    return ('<!--seo-->'
+            f'<title>{esc(title)}</title>\n<meta name="description" content="{esc(desc)}">\n'
+            f'<link rel="canonical" href="{url[lang]}">\n'
+            f'<link rel="alternate" hreflang="en" href="{url["en"]}">\n<link rel="alternate" hreflang="es" href="{url["es"]}">\n<link rel="alternate" hreflang="x-default" href="{url["en"]}">\n'
+            f'<meta property="og:type" content="website">\n<meta property="og:site_name" content="Unicorner">\n<meta property="og:url" content="{url[lang]}">\n'
+            f'<meta property="og:title" content="{esc(title)}">\n<meta property="og:description" content="{esc(desc)}">\n'
+            f'<meta property="og:image" content="{img}">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n'
+            f'<meta property="og:locale" content="{"es_ES" if lang == "es" else "en_GB"}">\n'
+            f'<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:title" content="{esc(title)}">\n<meta name="twitter:description" content="{esc(desc)}">\n<meta name="twitter:image" content="{img}">\n'
+            f'<script type="application/ld+json">{_j.dumps(ld, ensure_ascii=False, separators=(",", ":"))}</script>'
+            '<!--/seo-->')
+
+
+def seo_games():
+    for game in ('rosco', 'millon'):
+        for lang, path in (('en', SRC.parent / f'{game}.html'), ('es', SRC.parent / 'es' / f'{game}.html')):
+            h = path.read_text(encoding='utf-8')
+            if '<!--seo-->' in h:
+                h = re.sub(r'<!--seo-->.*?<!--/seo-->', lambda m: seo_block(game, lang), h, count=1, flags=re.S)
+            else:  # first run: replace the plain title and description
+                h = re.sub(r'<title>[^<]*</title>\n?', '', h, count=1)
+                h = re.sub(r'<meta name="description" content="[^"]*">', lambda m: seo_block(game, lang), h, count=1)
+            path.write_text(h, encoding='utf-8')
+
+
 if __name__ == '__main__':
     build()
     import build_sprites  # Duels draws the same kits as the main game
@@ -120,3 +183,4 @@ if __name__ == '__main__':
     m = (SRC.parent / 'millon.html').read_text(encoding='utf-8')
     m = m.replace('<html lang="en">', '<html lang="es">', 1).replace('<title>Unicorner Millions</title>', '<title>Millones · Unicorner</title>', 1)
     (SRC.parent / 'es' / 'millon.html').write_text(m, encoding='utf-8')
+    seo_games()
