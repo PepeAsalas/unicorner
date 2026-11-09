@@ -264,7 +264,7 @@ function end(restored){show('end');if(ARCH){$('archback').hidden=false;$('archba
  say(bank?L(`You walk away with ${fmt(bank)}. Same game tomorrow, new questions!`,`Te llevas ${fmt(bank)}. ¡Mañana, preguntas nuevas!`):L('Nothing left today. Come back tomorrow!','Hoy te quedas a cero. ¡Vuelve mañana!'),bank?'happy-talk':'sad-talk')}
 $('lock').onclick=()=>{if(timer===null)return;clearInterval(timer);const b=$('lock');b.classList.add('press');SFX.press();setTimeout(()=>{b.classList.remove('press');lock()},450)};$('next').onclick=()=>{i++;ask()};
 $('go').onclick=()=>{show('play');ask();track('millon_start')};
-const resultText=()=>`Unicorner ${L('Millions','Millones')} ${DAY}\n${hist.join('')}\n💰 ${fmt(bank)}\nunicornergame.lol${ES?'/es':''}/millon.html`;
+const resultText=()=>`Unicorner ${L('Millions','Millones')} ${DAY}\n${hist.join('')}\n💰 ${fmt(bank)}\nhttps://unicornergame.lol${ES?'/es':''}/millon.html`;
 {const b=$('snd'),paint=()=>{b.dataset.on=sndOn()?'1':'0';b.setAttribute('aria-pressed',String(sndOn()))};paint();b.onclick=()=>{try{localStorage.setItem('unicorner-sound',sndOn()?'off':'on')}catch{}paint();if(sndOn())SFX.keep()}}
 // feedback after the game: 1-10 and an optional note, once per day (event millon_feedback, read by the weekly feedback digest)
 function feedback(){const k='uc-millon-fb-'+DAY;try{if(localStorage.getItem(k))return}catch{}let rating=0;$('fb').hidden=false;
