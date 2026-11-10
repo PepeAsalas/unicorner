@@ -1,5 +1,6 @@
 -- Profiles v2: correct "games played" and streaks, and one function for the player card.
--- Paste this whole file into Supabase -> SQL Editor -> New query -> Run. Safe to run more than once. Run after squad.sql.
+-- Paste this whole file into Supabase -> SQL Editor -> New query -> Run. Safe to run more than once. Run after squad.sql
+-- (and after kit_rules.sql, so the recount at the end also fills in kits).
 --
 -- What was wrong: an account's "games played" (and best streak) was the highest number any ONE device had sent, or the
 -- days scored while signed in. Someone who plays on a phone and a laptop never had one device that knew all their
@@ -9,6 +10,16 @@
 -- changes, and everyone is recounted once at the end of this file.
 -- sq_profile(nickname) gives the player card everything fresh from the database.
 
+-- kits the database can see were earned (empty until kit_rules.sql has been run)
+create or replace function public.lg_server_kits_safe(u uuid)
+returns text[] language plpgsql stable security definer set search_path = public as $$
+declare k text[] := '{}';
+begin
+  if to_regprocedure('public.lg_server_kits(uuid)') is not null then execute 'select public.lg_server_kits($1)' into k using u; end if;
+  return coalesce(k, '{}');
+end $$;
+revoke all on function public.lg_server_kits_safe(uuid) from public, anon, authenticated;
+
 -- all days a player has played the Daily 5, on any device
 create or replace function public.lg_days_of(u uuid)
 returns table (day date) language sql stable security definer set search_path = public as $$
@@ -17,17 +28,21 @@ returns table (day date) language sql stable security definer set search_path = 
   select ps.day from player_scores ps where ps.user_id = u and not ps.removed
 $$;
 
--- recount games and best streak from every day played: exactly that, so a wrong number (too low or too high) is corrected
+-- recount games and best streak from every day played: exactly that, so a wrong number (too low or too high) is corrected;
+-- and add every kit the database can see was earned (kit_rules.sql), so an account never shows fewer kits than it has
 create or replace function public.lg_stats_from_scores(u uuid)
-returns void language sql volatile security definer set search_path = public as $$
+returns void language plpgsql volatile security definer set search_path = public as $$
+declare extra text[] := lg_server_kits_safe(u);
+begin
   with d as (select day from lg_days_of(u)),
        g as (select day, day - (row_number() over (order by day))::int as grp from d),
        runs as (select count(*) as n from g group by grp)
   update player_profiles p
      set games = (select count(*) from d)::int,
-         best_streak = coalesce((select max(n) from runs), 0)::int
-   where p.user_id = u
-$$;
+         best_streak = coalesce((select max(n) from runs), 0)::int,
+         kits = coalesce((select array_agg(distinct x order by x) from unnest(coalesce(p.kits, '{}') || coalesce(extra, '{}')) x), '{}')
+   where p.user_id = u;
+end $$;
 revoke all on function public.lg_days_of(uuid), public.lg_stats_from_scores(uuid) from public, anon, authenticated;
 
 -- days synced from a device (including days played before signing in) recount too (same function as before, plus the recount)
@@ -67,7 +82,8 @@ begin
                 else 'none' end;
   end if;
   return json_build_object(
-    'nickname', p.nickname, 'kit', coalesce(p.kit, 'classic'), 'kits', coalesce(array_length(p.kits, 1), 0),
+    'nickname', p.nickname, 'kit', coalesce(p.kit, 'classic'),
+    'kits', coalesce((select array_agg(distinct x order by x) from unnest(coalesce(p.kits, '{}') || coalesce(lg_server_kits_safe(them), '{}')) x), '{}'),
     'games', days, 'best_streak', best, 'streak', cur,
     'wins', lg_wins(them),
     'trophies', (select count(*) from weekly_awards w where w.user_id = them),

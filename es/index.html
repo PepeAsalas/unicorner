@@ -3643,12 +3643,26 @@ function playerCard(r){const k=kitOf(r),info=window.ucKitInfo||{},t=info.KLV?.[k
  d.style.setProperty('--tc',col);
  d.innerHTML=`<div class="pcd-art"><span class="pcd-lv">${lv}</span><button type="button" class="pcd-x" data-pc-x aria-label="${L('Close','Cerrar')}">×</button><i class="pcd-u${k.gold?' gold':''}${k.myth?' myth':''}" style="background-image:${uniBg(k)}"></i></div>
  <div class="pcd-b"><div class="pcd-hd"><div class="pcd-nm">${r.me?esc(me?.profile?.nickname||L('You','Tú')):esc(r.nickname)}</div>${k.crew?`<i class="crew-tag">${L('CREW','EQUIPO')}</i>`:''}</div><div class="pcd-kit">${L('Wearing','Lleva')}: ${esc(L(k.en,k.es))}</div>
- <div class="pcd-st"><div><b>${games}</b>${L('games','partidos')}</div><div><b>${streak}</b>${L('best streak','mejor racha')}</div></div>
+ <div class="pcd-st"><div><b data-pf="games">${games}</b>${L('games','partidos')}</div><div><b data-pf="best">${streak}</b>${L('best streak','mejor racha')}</div></div>
  ${(()=>{const nk=(r.me?me?.profile?.nickname:r.nickname)||'';return nk&&!r.ghost?`<div class="pcd-tr" data-tn="${esc(String(nk).toLowerCase())}" hidden></div>`:''})()}
- <div class="pcd-kh"><span>${L('Kits','Equipaciones')}</span><b>${n}/${all.length}</b><i class="pcd-bar" aria-hidden="true"><i style="width:${Math.round(n/Math.max(1,all.length)*100)}%"></i></i></div>
- <div class="pcd-shelf" aria-label="${n} ${L('kits owned','equipaciones')}">${all.map(x=>`<i class="${own.has(x.id)?'':'no'}" title="${esc(L(x.en,x.es))}" style="background-image:${uniBg(x)}"></i>`).join('')}</div></div>`;
- if(!d.open)d.showModal();track('player_card',{me:!!r.me});duelRec(d,(r.me?me?.profile?.nickname:r.nickname)||'');duelElo(d,(r.me?me?.profile?.nickname:r.nickname)||'');
+ <div class="pcd-kh"><span>${L('Kits','Equipaciones')}</span><b data-pf="kn">${n}/${all.length}</b><i class="pcd-bar" aria-hidden="true"><i style="width:${Math.round(n/Math.max(1,all.length)*100)}%"></i></i></div>
+ <div class="pcd-shelf" aria-label="${n} ${L('kits owned','equipaciones')}">${all.map(x=>`<i data-kid="${x.id}" class="${own.has(x.id)?'':'no'}" title="${esc(L(x.en,x.es))}" style="background-image:${uniBg(x)}"></i>`).join('')}</div></div>`;
+ if(!d.open)d.showModal();track('player_card',{me:!!r.me});pcdFresh(d,(r.me?me?.profile?.nickname:r.nickname)||'',!!r.ghost);duelRec(d,(r.me?me?.profile?.nickname:r.nickname)||'');duelElo(d,(r.me?me?.profile?.nickname:r.nickname)||'');
  if(!ES&&sess&&!r.me&&!r.ghost&&r.nickname){const b=document.createElement('button');b.type='button';b.className='pcd-ch';b.textContent='⚔️ CHALLENGE TO A DUEL';b.onclick=()=>{track('duel_card_challenge',{});pcdChallenge(b,r.nickname)};d.querySelector('.pcd-b')?.appendChild(b)}}
+// every card shows the account's own numbers, the same for everyone who opens it (Socials uses the same sq_profile)
+let pcdSeq=0;
+async function pcdFresh(d,nick,ghost){if(!nick||ghost)return;const seq=++pcdSeq;let p;try{p=await pubRpc('sq_profile',{p_nick:nick})}catch{return}
+ if(seq!==pcdSeq||!d.open||!p)return;const all=KITS.filter(x=>x.req),own=new Set(Array.isArray(p.kits)?p.kits:[]),n=all.filter(x=>own.has(x.id)).length;
+ const q=s2=>d.querySelector(`[data-pf="${s2}"]`);if(q('games'))q('games').textContent=p.games;if(q('best'))q('best').textContent=p.best_streak;if(q('kn'))q('kn').textContent=n+'/'+all.length;
+ const bar=d.querySelector('.pcd-bar>i');if(bar)bar.style.width=Math.round(n/Math.max(1,all.length)*100)+'%';
+ d.querySelectorAll('.pcd-shelf [data-kid]').forEach(i=>i.classList.toggle('no',!own.has(i.dataset.kid)));
+ // friends: add from the card (signed in, someone else)
+ const rel=p.relation;if(!sess||!me?.profile||rel==='me'||d.querySelector('.pcd-fr'))return;
+ const b=document.createElement('button');b.type='button';b.className='pcd-ch pcd-fr';
+ const lab={friend:L('✓ FRIENDS','✓ AMIGOS'),sent:L('REQUEST SENT','SOLICITUD ENVIADA'),incoming:L('ACCEPT FRIEND REQUEST','ACEPTAR SOLICITUD'),none:L('+ ADD FRIEND','+ AÑADIR AMIGO')};
+ b.textContent=lab[rel]||lab.none;b.disabled=rel==='friend'||rel==='sent';
+ b.onclick=async()=>{b.disabled=true;try{const res=rel==='incoming'?await rpc('sq_respond',{p_nick:nick,p_accept:true}):await rpc('sq_request',{p_nick:nick});b.textContent=res==='friends'?lab.friend:lab.sent;track('player_card_friend',{a:rel})}catch(e){b.disabled=false;showToast(e.message)}};
+ d.querySelector('.pcd-b')?.insertBefore(b,d.querySelector('.pcd-b .pcd-ch')||null)}
 // challenge straight from the player card: pick the rules, send it, and stay on the leaderboard (play your round now or later from My duels)
 function pcdChallenge(btn,nick){const gl=k=>{try{return localStorage.getItem(k)}catch{return null}},sl=(k,v)=>{try{localStorage.setItem(k,v)}catch{}};
  let per=+gl('uc-duel-per')||5,secs=+gl('uc-duel-secs')||15;const box=document.createElement('div');box.className='pcd-duel';btn.replaceWith(box);
@@ -4060,7 +4074,7 @@ dialog.pcd .pcd-shelf{display:grid;grid-template-columns:repeat(10,minmax(0,1fr)
 dialog.pcd .pcd-shelf i{width:100%;height:auto;aspect-ratio:36/30;background-size:contain;background-repeat:no-repeat;image-rendering:pixelated}
 dialog.pcd .pcd-shelf i.no{filter:brightness(0);opacity:.42}
 dialog.pcd .pcd-duel{display:grid;gap:6px;margin-top:6px;padding:10px;border:3px solid #1d1a2b;background:#fbf6e8;color:#1d1a2b}dialog.pcd .pcd-duel b{font:400 22px/1 var(--px,var(--lab))}dialog.pcd .pcd-duel span{font:15px/1.2 var(--lab)}
-dialog.pcd .pcd-seg{display:flex;gap:6px}dialog.pcd .pcd-seg button{flex:1;padding:6px 2px;font:400 18px/1 var(--px,var(--lab));background:#fffaf0;color:#1d1a2b;border:2px solid #1d1a2b;box-shadow:0 3px 0 #1d1a2b;cursor:pointer}dialog.pcd .pcd-seg button.on{background:#f2c230!important;color:#1d1a2b!important;box-shadow:0 1px 0 #1d1a2b!important;transform:translateY(2px)}dialog.pcd .pcd-seg button.on::before{content:'✓ '}dialog.pcd .pcd-msg{margin:0;font:15px var(--lab);color:#b03030}dialog.pcd button.pcd-ch{width:100%;cursor:pointer}
+dialog.pcd .pcd-seg{display:flex;gap:6px}dialog.pcd .pcd-seg button{flex:1;padding:6px 2px;font:400 18px/1 var(--px,var(--lab));background:#fffaf0;color:#1d1a2b;border:2px solid #1d1a2b;box-shadow:0 3px 0 #1d1a2b;cursor:pointer}dialog.pcd .pcd-seg button.on{background:#f2c230!important;color:#1d1a2b!important;box-shadow:0 1px 0 #1d1a2b!important;transform:translateY(2px)}dialog.pcd .pcd-seg button.on::before{content:'✓ '}dialog.pcd .pcd-msg{margin:0;font:15px var(--lab);color:#b03030}dialog.pcd button.pcd-ch{width:100%;cursor:pointer}.pcd-fr{background:#fbf6e8;margin-top:10px}.pcd-fr[disabled]{cursor:default;opacity:.85}
 dialog.pcd .pcd-ch{display:block;margin:4px 0 0!important;padding:11px!important;text-align:center;text-decoration:none;font:400 24px/1 var(--px,var(--lab));white-space:nowrap;background:#f2c230;color:#1d1a2b;border:3px solid #1d1a2b;box-shadow:4px 4px 0 #1d1a2b;transition:transform 100ms ease-out,box-shadow 100ms ease-out}
 dialog.pcd .pcd-ch:active{transform:translate(2px,2px);box-shadow:2px 2px 0 #1d1a2b}
 .pcd-ti{font-style:normal;font-size:13px;background:#1d4486;border:2px solid #000;padding:0 5px}
