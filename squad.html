@@ -138,6 +138,17 @@ svg.i{width:18px;height:18px;shape-rendering:crispEdges;flex:none}
 .form2{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:8px}
 .note{font-size:15px;color:var(--mut);margin:8px 2px 0}
 
+.row[data-i]{cursor:pointer}
+@media (hover:hover) and (pointer:fine){.row[data-i]:hover{background:#fff6d6}}
+.pc{padding:4px;border:0;background:var(--w0);width:min(340px,calc(100vw - 32px));box-shadow:inset 2px 2px 0 var(--wl),inset -2px -2px 0 var(--wd),8px 8px 0 rgba(0,0,0,.4);color:var(--ink);opacity:1;transform:none;transition:opacity 180ms var(--ease),transform 180ms var(--ease)}
+@starting-style{.pc[open]{opacity:0;transform:scale(.96)}}
+.pc::backdrop{background:rgba(29,26,43,.55)}
+.pc .bar .more{color:var(--ink);background:var(--paper)}
+.lrow{grid-template-columns:minmax(0,1fr)}
+.lrow .acts{flex-wrap:wrap}
+.lrow b{white-space:normal}
+.acts{align-items:center}
+.acts .tag{padding:3px 6px 2px}
 /* toast */
 .toast{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translate(-50%,0);background:var(--ink);color:var(--paper);border:3px solid #000;box-shadow:4px 4px 0 #000;padding:10px 14px 8px;font-size:19px;z-index:20;max-width:calc(100vw - 32px);
  transition:opacity 180ms var(--ease),transform 180ms var(--ease)}
@@ -262,14 +273,14 @@ async function loadBoard(){const seq=++boardSeq;drawControls();ls('uc-squad-view
  $('list').innerHTML='<div class="skel"></div><div class="skel"></div><div class="skel"></div>';$('pin').hidden=true;$('count').textContent='';
  let d;try{d=await call('sq_board',{p_game:S.game,p_scope:S.scope,p_filter:S.filter},S.filter!=='all')}catch(e){if(seq!==boardSeq)return;$('list').innerHTML=`<p class="empty">${esc(e.message)}</p>`;return}
  if(seq!==boardSeq)return;lastBoard=d;drawBoard(d)}
-function rowHtml(r,g){const cls='row'+(r.rank<=3?' r'+r.rank:'')+(r.me?' me':'');
+function rowHtml(r,g,i){const cls='row'+(r.rank<=3?' r'+r.rank:'')+(r.me?' me':'');
  const tag=r.me?`<span class="tag you">${L('YOU','TÚ')}</span>`:r.friend?`<span class="tag">${L('FRIEND','AMIGO')}</span>`:'';
  const sub=S.scope==='week'&&r.played?`<small>${r.played} ${r.played===1?L('day','día'):L('days','días')}</small>`:'';
- return`<div class="${cls}"${r.me?' id="mine"':''}><span class="rk">${r.rank}</span><span class="u" style="background-image:${uni(r.kit)}"></span><span class="nm"><b>${esc(r.nickname)}${tag}</b>${sub}</span><span class="sc">${esc(fmt(g,r.score))}</span></div>`}
+ return`<div class="${cls}"${r.me?' id="mine"':''}${i!=null?` data-i="${i}" tabindex="0" role="button" aria-label="${esc(r.nickname)}"`:''}><span class="rk">${r.rank}</span><span class="u" style="background-image:${uni(r.kit)}"></span><span class="nm"><b>${esc(r.nickname)}${tag}</b>${sub}</span><span class="sc">${esc(fmt(g,r.score))}</span></div>`}
 function drawBoard(d){const g=d.game,rows=d.rows||[];
  if(!rows.length){const who=S.filter==='friends'?L('None of your friends has played yet.','Ninguno de tus amigos ha jugado todavía.'):L('No one on this board yet. Be the first!','Aún no hay nadie aquí. ¡Sé el primero!');
   $('list').innerHTML=`<p class="empty">${who}<br><br><a class="btn s" href="${GAMES[g].url}">${esc(GAMES[g].play)} ▶</a></p>`}
- else $('list').innerHTML=rows.map(r=>rowHtml(r,g)).join('');
+ else $('list').innerHTML=rows.map((r,i)=>rowHtml(r,g,i)).join('');
  $('count').textContent=d.players?`${d.players} ${d.players===1?L('player','jugador'):L('players','jugadores')}`:'';
  const mine=d.me&&!rows.some(r=>r.me);const meRow=d.me?{rank:d.me.rank,score:d.me.score,nickname:S.me?.profile?.nickname||L('You','Tú'),kit:S.me?.profile?.kit,me:true}:null;
  $('pin').hidden=!meRow;if(meRow)$('pin').innerHTML=rowHtml(meRow,g);pinState();
@@ -328,26 +339,65 @@ $('friends').addEventListener('click',async e=>{const b=e.target.closest('button
  if(b.dataset.rm){if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent=L('Tap again to remove','Pulsa otra vez para quitar');return}return act('sq_remove',{p_nick:b.dataset.rm},L('Removed','Quitado'))}
  if(b.dataset.more){S.open=S.open===b.dataset.more?null:b.dataset.more;drawFriends()}});
 
-// ── leagues (the existing private leagues) ──
+// ── leagues (the existing private leagues; one per player for now, like on the home page) ──
+const LG_MAX=1;let lgOpen=null,lgData={};
+async function loadLeague(id){try{lgData[id]=await call('sq_league',{p_league:id},true)}catch(e){lgData[id]={error:e.message}}drawLeagues()}
+function leagueManage(l){const d=lgData[l.id];if(!d)return'<div class="skel"></div>';if(d.error)return`<p class="note">${esc(d.error)}</p>`;
+ const known=new Set((S.home?.friends||[]).map(f=>f.nickname.toLowerCase())),sent=new Set((S.home?.outgoing||[]).map(n=>n.toLowerCase()));
+ let h=`<p class="sec">${L('Members','Miembros')}<small>${d.members.length}</small></p><div class="well">`+d.members.map(m=>{
+  const rel=m.me?'':m.friend||known.has(m.nickname.toLowerCase())?`<span class="tag">${L('FRIEND','AMIGO')}</span>`:sent.has(m.nickname.toLowerCase())?`<span class="note" style="margin:0">${L('sent','enviada')}</span>`:`<button class="btn s w" data-add="${esc(m.nickname)}">+ ${L('Friend','Amigo')}</button>`;
+  const kick=d.is_owner&&!m.me?`<button class="more" data-kick="${esc(m.nickname)}" aria-label="${L('Remove','Quitar')} ${esc(m.nickname)}">✕</button>`:'';
+  return`<div class="frow${m.me?' me':''}"><span class="u" style="background-image:${uni(m.kit)}"></span><span class="nm"><b>${esc(m.me?L('You','Tú'):m.nickname)}${m.owner?` <small style="display:inline;color:#b8860f">★ ${L('owner','creador')}</small>`:''}</b></span><span class="acts">${rel}${kick}</span></div>`}).join('')+'</div>';
+ if(d.is_owner)h+=`<p class="sec">${L('Rename','Cambiar nombre')}</p><form class="form2" data-rename="${esc(l.id)}"><label class="sr" for="rn">${L('League name','Nombre de la liga')}</label><input class="field" id="rn" maxlength="30" minlength="2" required value="${esc(d.name)}"><button class="btn">${L('Save','Guardar')}</button></form>`;
+ h+=`<div class="drop" style="margin-top:12px"><button class="btn s w" data-leave="${esc(l.id)}">${L('Leave league','Salir de la liga')}</button>${d.is_owner?`<button class="btn s w" style="color:var(--clay)" data-del="${esc(l.id)}">${L('Delete league','Borrar liga')}</button>`:''}</div>`;
+ return h}
 function drawLeagues(){const box=$('leagues');
  if(!sess()){box.innerHTML=signInCard(L('Sign in to create a private league with your mates.','Inicia sesión para crear una liga privada con tus amigos.'));$('lg-count').textContent='';return}
  if(S.me&&!S.me.profile){box.innerHTML=signInCard(L('Pick a nickname first, then you can make a league.','Elige un apodo primero y luego podrás crear una liga.'));return}
  if(!S.me){box.innerHTML='<div class="skel"></div>';return}
  const lgs=S.me.leagues||[];$('lg-count').textContent=lgs.length?lgs.length+'':'';
- let html=lgs.length?`<div class="well">${lgs.map(l=>`<div class="lrow"><span><b>${esc(l.name)}</b><small>${l.members} ${l.members===1?L('player','jugador'):L('players','jugadores')} · ${L('code','código')} ${esc(l.code)}</small></span>
-  <span class="acts"><button class="btn s" data-view="${esc(l.id)}">${L('Table','Tabla')}</button><button class="btn s w" data-inv="${esc(l.code)}">${L('Invite','Invitar')}</button></span></div>`).join('')}</div>`
+ let html=lgs.length?lgs.map(l=>{const open=lgOpen===l.id;return`<div class="well" style="margin-bottom:8px"><div class="lrow"><span><b>${esc(l.name)}</b><small>${l.members} ${l.members===1?L('player','jugador'):L('players','jugadores')} · ${L('code','código')} ${esc(l.code)}${l.is_owner?' · ★ '+L('yours','tuya'):''}</small></span>
+  <span class="acts"><button class="btn s" data-view="${esc(l.id)}">${L('Table','Tabla')}</button><button class="btn s w" data-inv="${esc(l.code)}">${L('Invite','Invitar')}</button><button class="more" data-manage="${esc(l.id)}" aria-expanded="${open}" aria-label="${L('Manage','Gestionar')} ${esc(l.name)}">⋯</button></span></div>
+  ${open?`<div style="padding:0 6px 8px">${leagueManage(l)}</div>`:''}</div>`}).join('')
   :`<p class="empty" style="padding:12px 8px">${L('Make a league for your group chat, your office or your 5-a-side team. Everyone plays the same games and you get your own table.','Crea una liga para tu grupo, tu oficina o tu equipo de fútbol 5. Todos jugáis lo mismo y tenéis vuestra propia tabla.')}</p>`;
- html+=`<p class="sec">${L('New league','Nueva liga')}</p><form class="form2" id="mk"><label class="sr" for="mkn">${L('League name','Nombre de la liga')}</label><input class="field" id="mkn" maxlength="30" minlength="2" required placeholder="${L('League name','Nombre de la liga')}"><button class="btn">${L('Create','Crear')}</button></form>
+ if(lgs.length>=LG_MAX)html+=`<p class="note">${L('You can be in one league at a time. Leave yours to create or join another.','Puedes estar en una liga a la vez. Sal de la tuya para crear o unirte a otra.')}</p>`;
+ else html+=`<p class="sec">${L('New league','Nueva liga')}</p><form class="form2" id="mk"><label class="sr" for="mkn">${L('League name','Nombre de la liga')}</label><input class="field" id="mkn" maxlength="30" minlength="2" required placeholder="${L('League name','Nombre de la liga')}"><button class="btn">${L('Create','Crear')}</button></form>
   <p class="sec">${L('Got a code?','¿Tienes un código?')}</p><form class="form2" id="jn"><label class="sr" for="jnc">${L('League code','Código de liga')}</label><input class="field" id="jnc" maxlength="12" required placeholder="${L('League code','Código de liga')}" style="text-transform:uppercase"><button class="btn w">${L('Join','Unirme')}</button></form>`;
  box.innerHTML=html}
-$('leagues').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;
+async function leaguesChanged(){await loadMe();lgData={};if(lgOpen&&!(S.me?.leagues||[]).some(l=>l.id===lgOpen))lgOpen=null;if(lgOpen)loadLeague(lgOpen);drawControls();drawLeagues();loadBoard()}
+$('leagues').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b||b.closest('form'))return;
  if(b.dataset.view){S.filter=b.dataset.view;S.scope='week';setTab('rank');loadBoard();$('p-rank').scrollIntoView({block:'start'});return}
+ if(b.dataset.manage){lgOpen=lgOpen===b.dataset.manage?null:b.dataset.manage;drawLeagues();if(lgOpen)loadLeague(lgOpen);return}
  if(b.dataset.inv){const link=location.origin+HOME+'?league='+b.dataset.inv;if(navigator.share){try{await navigator.share({title:'Unicorner',text:L('Join my Unicorner league:','Únete a mi liga de Unicorner:'),url:link})}catch{}return}
-  try{await navigator.clipboard.writeText(link);toast(L('League link copied','Enlace de la liga copiado'))}catch{toast(link)}}});
+  try{await navigator.clipboard.writeText(link);toast(L('League link copied','Enlace de la liga copiado'))}catch{toast(link)}return}
+ const twice=msg=>{if(b.dataset.sure==='1')return true;b.dataset.sure='1';b.textContent=msg;return false};
+ const go=async(fn,body,msg,after)=>{b.disabled=true;try{await call(fn,body,true);toast(msg);track('squad_league',{a:fn});await (after||leaguesChanged)()}catch(x){toast(x.message);b.disabled=false}};
+ if(b.dataset.add)return go('sq_request',{p_nick:b.dataset.add},L('Request sent','Solicitud enviada'),async()=>{await loadHome();drawLeagues()});
+ if(b.dataset.kick){if(!twice(L('Sure?','¿Seguro?')))return;return go('sq_league_kick',{p_league:lgOpen,p_nick:b.dataset.kick},L('Removed from the league','Quitado de la liga'))}
+ if(b.dataset.leave){if(!twice(L('Tap again to leave','Pulsa otra vez para salir')))return;return go('sq_league_leave',{p_league:b.dataset.leave},L('You left the league','Has salido de la liga'))}
+ if(b.dataset.del){if(!twice(L('Tap again: deletes it for everyone','Pulsa otra vez: se borra para todos')))return;return go('sq_league_delete',{p_league:b.dataset.del},L('League deleted','Liga borrada'))}});
 $('leagues').addEventListener('submit',async e=>{e.preventDefault();const f=e.target,btn=f.querySelector('button');btn.disabled=true;
- try{if(f.id==='mk'){const l=await call('lg_create_league',{p_name:$('mkn').value.trim()},true);toast(L('League created. Now invite your mates!','Liga creada. ¡Ahora invita a tus amigos!'));track('squad_league',{a:'create'});await loadMe();if(l?.id){S.filter=l.id}}
-  else{await call('lg_join_league',{p_code:$('jnc').value.trim().toUpperCase()},true);toast(L('You joined the league!','¡Te has unido a la liga!'));track('squad_league',{a:'join'});await loadMe()}
-  drawControls();drawLeagues();loadBoard()}catch(x){toast(x.message);btn.disabled=false}});
+ try{if(f.dataset.rename){await call('sq_league_rename',{p_league:f.dataset.rename,p_name:$('rn').value},true);toast(L('Name saved','Nombre guardado'))}
+  else if(f.id==='mk'){const l=await call('lg_create_league',{p_name:$('mkn').value},true);toast(L('League created. Now invite your mates!','Liga creada. ¡Ahora invita a tus amigos!'));track('squad_league',{a:'create'});if(l?.id)S.filter=l.id}
+  else{await call('lg_join_league',{p_code:$('jnc').value.trim().toUpperCase()},true);toast(L('You joined the league!','¡Te has unido a la liga!'));track('squad_league',{a:'join'})}
+  await leaguesChanged()}catch(x){toast(x.message);btn.disabled=false}});
+
+// ── tap anyone in a ranking: their unicorn, and add them as a friend ──
+function relation(nick){const n=nick.toLowerCase(),h=S.home;if(!h)return'none';if((h.friends||[]).some(f=>!f.me&&f.nickname.toLowerCase()===n))return'friend';
+ if((h.incoming||[]).some(r=>r.nickname.toLowerCase()===n))return'incoming';if((h.outgoing||[]).some(x=>x.toLowerCase()===n))return'sent';return'none'}
+function playerCard(r){let d=$('pc');if(!d){document.body.insertAdjacentHTML('beforeend','<dialog id="pc" class="pc" aria-labelledby="pc-n"></dialog>');d=$('pc');
+  d.addEventListener('click',async e=>{if(e.target===d||e.target.closest('[data-pc=close]'))return d.close();const b=e.target.closest('[data-pcadd],[data-pcacc]');if(!b)return;b.disabled=true;
+   try{const acc=!!b.dataset.pcacc,res=acc?await call('sq_respond',{p_nick:b.dataset.pcacc,p_accept:true},true):await call('sq_request',{p_nick:b.dataset.pcadd},true);
+    toast(acc||res==='friends'?L('You are friends now!','¡Ya sois amigos!'):L('Request sent','Solicitud enviada'));track('squad_card_add',{});await loadHome();if(lastBoard)drawBoard(lastBoard);d.close()}catch(x){toast(x.message);b.disabled=false}})}
+ const k=(typeof KITS!=='undefined'&&KITS.find(x=>x.id===(r.kit||'classic')))||null,kitName=k?(ES&&k.es||k.en):'';
+ let act;if(r.me)act=`<p class="note" style="text-align:center">${L("That's you!",'¡Eres tú!')}</p>`;
+ else if(!sess()||!S.me?.profile)act=`<a class="btn full" data-signin href="${signinUrl()}">${L('Sign in to add friends','Inicia sesión para añadir amigos')}</a>`;
+ else{const rel=r.friend?'friend':relation(r.nickname);act=rel==='friend'?`<p class="note" style="text-align:center"><span class="tag">${L('FRIEND','AMIGO')}</span></p>`:rel==='sent'?`<p class="note" style="text-align:center">${L('Friend request sent','Solicitud enviada')}</p>`:rel==='incoming'?`<button class="btn g full" data-pcacc="${esc(r.nickname)}">${L('Accept friend request','Aceptar solicitud')}</button>`:`<button class="btn full" data-pcadd="${esc(r.nickname)}">+ ${L('Add friend','Añadir amigo')}</button>`}
+ d.innerHTML=`<div class="bar"><span id="pc-n">${esc(r.nickname)}</span><button class="more" data-pc="close" aria-label="${L('Close','Cerrar')}" style="width:30px;height:30px">✕</button></div><div class="inner" style="text-align:center">
+  <div class="u" style="width:150px;height:125px;margin:6px auto;background-image:${uni(r.kit,'wow')}"></div><p style="margin:0 0 4px;font-size:18px;color:var(--mut)">${esc(kitName)}${r.streak>=2?` · 🔥${r.streak}`:''}${r.games?` · ${r.games} ${L('games','partidos')}`:''}</p>${act}</div>`;
+ if(!d.open)d.showModal()}
+$('list').addEventListener('click',e=>{const row=e.target.closest('.row[data-i]');if(row&&lastBoard){const r=lastBoard.rows[+row.dataset.i];if(r)playerCard(r)}});
+$('list').addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('.row[data-i]')){e.preventDefault();e.target.click()}});
 
 // ── start ──
 async function loadMe(){if(!sess()){S.me=null;return}try{S.me=await call('lg_me',{},true)}catch{S.me=null}}

@@ -3129,8 +3129,9 @@ const css=`
 .jb-lights{display:flex;justify-content:space-between;width:80%;max-width:480px}
 .jb-lights span{display:grid;grid-template-columns:repeat(3,16px);gap:4px;padding:5px;background:#3a3a3a;border:3px solid #000}
 .jb-lights i{height:12px;background:#fbf6e8;box-shadow:0 0 10px #fbf6e8}
-.sq-bar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;margin:-14px 0 26px;padding:10px 12px;background:#1d4486;color:#fbf6e8;border:4px solid #000;box-shadow:inset 0 0 0 3px #2d5aa0,8px 8px 0 rgba(0,0,0,.35);text-decoration:none;transition:transform 140ms cubic-bezier(.23,1,.32,1)}
-.sq-bar:active{transform:scale(.98)}.sq-bar:focus-visible{outline:3px solid #f2c230;outline-offset:3px}
+.sq-bar{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;margin:-14px 0 26px;padding:10px 12px;background:#1d4486;color:#fbf6e8;border:4px solid #000;box-shadow:inset 0 0 0 3px #2d5aa0,8px 8px 0 rgba(0,0,0,.35);text-decoration:none;transition:transform 140ms cubic-bezier(.23,1,.32,1)}
+.sq-bar:active{transform:scale(.98)}
+.sq-pip{position:absolute;top:-10px;right:-10px;min-width:26px;padding:3px 6px 1px;background:#c8473b;color:#fff;border:3px solid #000;font:400 18px/1 'VT323',monospace;font-style:normal;text-align:center}.sq-bar:focus-visible{outline:3px solid #f2c230;outline-offset:3px}
 .sq-dots{display:grid;grid-template-columns:repeat(3,10px);gap:4px}.sq-dots i{width:10px;height:22px;border:2px solid #000;display:block}
 .sq-txt{min-width:0}.sq-txt b{display:block;font:400 24px/1 'Jersey 10',var(--px);letter-spacing:.06em;color:#f2c230}.sq-txt small{display:block;font:400 16px/1.15 'VT323',monospace;color:#e9dfc2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sq-go{font:400 19px/1 'Jersey 10',var(--px);background:#f2c230;color:#1d1a2b;border:3px solid #000;padding:8px 12px 5px;white-space:nowrap}
@@ -3673,10 +3674,13 @@ function duelRec(d,nick){if(!nick||ES)return;fetch(SB_URL+'/rest/v1/rpc/duel_rec
 // Send this player's kit and kit count to their account so everyone sees their unicorn on the boards
 let lookBusy=false;
 async function syncLook(){if(!sess||!me?.profile||lookBusy)return;const l=myLook();if(!l)return;
- const key=(sess.email||'1')+JSON.stringify(l)+(lsGet('uc-kit-dirty')||'');if(lsGet('uc-look-sent')===key)return;lookBusy=true;
+ const key=(sess.email||'1')+JSON.stringify(l)+(lsGet('uc-kit-dirty')||'')+(lsGet('uc-kit-at')||'');if(lsGet('uc-look-sent')===key)return;lookBusy=true;
  // the kit only goes up when it was picked on this device; otherwise the account's kit stays and this device follows it
  const dirty=lsGet('uc-kit-dirty')==='1';
- try{await rpc('lg_set_look',{p_kit:dirty?l.kit:null,p_kits:l.kits,p_streak:l.streak,p_games:l.games});lsSet('uc-look-sent',key);if(dirty)lsSet('uc-kit-dirty',null);gboard=null;renderGlobal()}catch{}finally{lookBusy=false}}
+ try{const r=await rpc('lg_set_look',{p_kit:dirty?l.kit:null,p_kits:l.kits,p_streak:l.streak,p_games:l.games,p_kit_at:dirty?(+lsGet('uc-kit-at')||1):null});lsSet('uc-look-sent',key);if(dirty)lsSet('uc-kit-dirty',null);
+  // the account keeps the newest pick: if another device picked later, wear that one here too
+  if(r&&r.kit){if(me?.profile){me.profile.kit=r.kit;me.profile.kit_at=r.kit_at}window.ucAdoptLook?.({kit:r.kit,kit_at:r.kit_at})}
+  gboard=null;renderGlobal()}catch{}finally{lookBusy=false}}
 window.ucLookSync=()=>{renderGlobal();syncLook()};
 // favourite kits go to the account so every device shows the same ones
 window.ucFavSync=async()=>{if(!sess||!me?.profile)return;let f=[];try{f=JSON.parse(lsGet('uc-kit-fav')||'[]')}catch{}
@@ -3696,7 +3700,14 @@ async function viewGlobal(fresh){show('<h2>🌍 Global ranking</h2><p class="mut
 
 // ── Cards on the results screen and the home page ──
 let slotsBusy=false;
+// friend requests waiting: a red number on the Socials bar (checked at most once a minute)
+let sqBadgeAt=0,sqBadgeN=0;
+async function sqBadge(){const paint=()=>document.querySelectorAll('.sq-bar').forEach(el=>{let p=el.querySelector('.sq-pip');if(!sqBadgeN){p?.remove();return}
+  if(!p){p=document.createElement('i');p.className='sq-pip';el.appendChild(p)}p.textContent=sqBadgeN;p.setAttribute('aria-label',sqBadgeN+' '+L('friend requests','solicitudes de amistad'))});
+ if(!sess||!me?.profile){sqBadgeN=0;return paint()}if(Date.now()-sqBadgeAt<60000)return paint();sqBadgeAt=Date.now();
+ try{sqBadgeN=+(await rpc('sq_badge',{}))||0}catch{}paint()}
 async function renderSlots(){
+ sqBadge();
  if(sess&&!slotsBusy){slotsBusy=true;try{if(!me)await loadMe();if(me?.profile&&me.leagues.length&&!board)await loadBoard()}catch{}finally{slotsBusy=false}syncLook()}
  renderGlobal()}
 
@@ -3831,8 +3842,8 @@ const progBar=pr=>`<span class="kit-bar" aria-hidden="true"><i style="width:${Ma
 const kitPv=k=>`<span class="kit-pv"><i style="background-image:${sprite('happy',0,false,k).replace(/"/g,"'")}"></i></span>`;
 // Classic used to share the id 'rainbow' with the streak kit: a saved 'rainbow' without the 21-day streak was Classic
 try{if(localStorage.getItem('uc-kit')==='rainbow'&&!kitHas(KITS.find(k=>k.id==='rainbow'),kitStats())){localStorage.setItem('uc-kit','og');UC_KIT=KITS.find(k=>k.id==='og')}}catch{}
-function wearKit(k,fromAccount){UC_KIT=k.id==='classic'?null:k;ls('uc-kit',UC_KIT?k.id:null);buildSprites();paint();if(fromAccount)return;ls('uc-kit-dirty','1');window.ucLookSync?.()}
-window.ucLook=()=>{const st=kitStats();return{kit:UC_KIT&&UC_KIT.id!=='og'?UC_KIT.id:'classic',kits:KITS.filter(k=>k.req&&kitHas(k,st)).map(k=>k.id),streak:st.streak,games:st.games}};
+function wearKit(k,fromAccount){UC_KIT=k.id==='classic'?null:k;ls('uc-kit',UC_KIT?k.id:null);buildSprites();paint();if(fromAccount)return;ls('uc-kit-dirty','1');ls('uc-kit-at',String(Date.now()));window.ucLookSync?.()}
+window.ucLook=()=>{const st=kitStats();return{kit:UC_KIT?UC_KIT.id:'classic',kits:KITS.filter(k=>k.req&&kitHas(k,st)).map(k=>k.id),streak:st.streak,games:st.games}};
 let pTab='kits',pkSame=false;
 // favourite kits show first in the Kits tab (saved on this device)
 const kitFavs=()=>{try{const v=JSON.parse(ls('uc-kit-fav')||'[]');return Array.isArray(v)?v:[]}catch{return[]}};
@@ -3924,7 +3935,9 @@ window.ucAdoptLook=p=>{if(!p)return;
  // favourites: this device's changes win until they're saved; otherwise the account's list is used (an empty account takes this device's list)
  if(Array.isArray(p.favs)){const local=kitFavs();if(ls('uc-fav-dirty')==='1'||(!p.favs.length&&local.length)){ls('uc-fav-dirty','1');window.ucFavSync?.()}else ls('uc-kit-fav',JSON.stringify(p.favs.filter(id=>KITS.some(k=>k.id===id))))}if(typeof p.wins==='number'){ls('uc-wins',p.wins);}if(typeof p.crew==='boolean'){ls('uc-crew',p.crew?'1':null);if(!p.crew&&UC_KIT?.crew)wearKit(KITS[0],true)}const acct=(Array.isArray(p.kits)?p.kits:[]).filter(id=>KITS.some(k=>k.id===id));
  const add=acct.filter(id=>!kitDone.includes(id));if(add.length){kitDone=kitDone.concat(add);ls('uc-kit-done',JSON.stringify(kitDone));dot()}
- kitQuiet();if(ls('uc-kit-dirty')==='1'||!('kit' in p))return;const id=p.kit||'classic';if((UC_KIT?.id||'classic')===id)return;
+ kitQuiet();if(!('kit' in p))return;const accAt=+p.kit_at||0,myAt=+ls('uc-kit-at')||0;
+ if(ls('uc-kit-dirty')==='1'){if(accAt>myAt)ls('uc-kit-dirty',null);else return}   // an unsaved pick here waits to be saved, unless the account has a newer one
+ if(accAt)ls('uc-kit-at',String(accAt));const id=p.kit||'classic';if((UC_KIT?.id||'classic')===id)return;
  const k=KITS.find(x=>x.id===id);if(k&&kitHas(k,kitStats()))wearKit(k,true)};
 // kits that come back from the account (restored past days, another device) were already earned: mark them seen, no pop-up
 function kitQuiet(){const now=kitsNow().filter(id=>!kitDone.includes(id));if(!now.length)return;kitDone=kitDone.concat(now);ls('uc-kit-done',JSON.stringify(kitDone));dot()}
