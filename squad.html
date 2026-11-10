@@ -143,6 +143,11 @@ svg.i{width:18px;height:18px;shape-rendering:crispEdges;flex:none}
 .pc{padding:4px;border:0;background:var(--w0);width:min(340px,calc(100vw - 32px));box-shadow:inset 2px 2px 0 var(--wl),inset -2px -2px 0 var(--wd),8px 8px 0 rgba(0,0,0,.4);color:var(--ink);opacity:1;transform:none;transition:opacity 180ms var(--ease),transform 180ms var(--ease)}
 @starting-style{.pc[open]{opacity:0;transform:scale(.96)}}
 .pc::backdrop{background:rgba(29,26,43,.55)}
+.pcg{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
+.pcs{background:var(--paper);box-shadow:inset 2px 2px 0 var(--wd),inset -2px -2px 0 var(--wl);padding:8px 4px 6px}
+.pcs b{display:block;font:400 30px/1 var(--disp)}.pcs span{font-size:15px;color:var(--mut)}
+[data-nick]{cursor:pointer}
+@media (hover:hover) and (pointer:fine){[data-nick]:hover{background:#fff6d6}}
 .pc .bar .more{color:var(--ink);background:var(--paper)}
 .lrow{grid-template-columns:minmax(0,1fr)}
 .lrow .acts{flex-wrap:wrap}
@@ -310,10 +315,10 @@ function drawFriends(){const box=$('friends');
  const link=location.origin+(ES?'/es/':'/')+'squad.html?add='+h.code;
  const sorted=fr.slice().sort((a,b)=>(b.daily??-1)-(a.daily??-1)||(b.week||0)-(a.week||0));
  let html='';
- if(inc.length)html+=`<p class="sec">${L('Friend requests','Solicitudes')}<small>${inc.length}</small></p><div class="req">${inc.map(r=>`<div class="frow"><span class="u" style="background-image:${uni(r.kit)}"></span><span class="nm"><b>${esc(r.nickname)}</b><small>${r.games||0} ${L('games played','partidos')}</small></span><span class="acts"><button class="btn g s" data-acc="${esc(r.nickname)}">${L('Accept','Aceptar')}</button><button class="more" data-dec="${esc(r.nickname)}" aria-label="${L('Decline','Rechazar')} ${esc(r.nickname)}">✕</button></span></div>`).join('')}</div>`;
+ if(inc.length)html+=`<p class="sec">${L('Friend requests','Solicitudes')}<small>${inc.length}</small></p><div class="req">${inc.map(r=>`<div class="frow" data-nick="${esc(r.nickname)}" data-kit="${esc(r.kit||'')}" tabindex="0" role="button"><span class="u" style="background-image:${uni(r.kit)}"></span><span class="nm"><b>${esc(r.nickname)}</b><small>${r.games||0} ${L('games played','partidos')}</small></span><span class="acts"><button class="btn g s" data-acc="${esc(r.nickname)}">${L('Accept','Aceptar')}</button><button class="more" data-dec="${esc(r.nickname)}" aria-label="${L('Decline','Rechazar')} ${esc(r.nickname)}">✕</button></span></div>`).join('')}</div>`;
  html+=`<p class="sec">${L('Today','Hoy')}<small>${L('sorted by Daily 5','por Daily 5')}</small></p><div class="well">`;
  html+=sorted.map(f=>{const open=S.open===f.nickname&&!f.me;
-  return`<div class="frow${f.me?' me':''}"><span class="u" style="background-image:${uni(f.kit)}"></span><span class="nm"><b>${esc(f.me?L('You','Tú'):f.nickname)}${f.streak>=3?` <small style="display:inline;color:var(--clay)">🔥${f.streak}</small>`:''}</b><span class="gl">${line(f)}</span></span>
+  return`<div class="frow${f.me?' me':''}" data-nick="${esc(f.nickname)}" data-kit="${esc(f.kit||'')}" tabindex="0" role="button"><span class="u" style="background-image:${uni(f.kit)}"></span><span class="nm"><b>${esc(f.me?L('You','Tú'):f.nickname)}${f.streak>=3?` <small style="display:inline;color:var(--clay)">🔥${f.streak}</small>`:''}</b><span class="gl">${line(f)}</span></span>
   <span class="acts">${f.me?`<span class="sc" title="${L('This week','Esta semana')}">${f.week||0}</span>`:`<span class="sc" title="${L('This week','Esta semana')}">${f.week||0}</span><button class="more" data-more="${esc(f.nickname)}" aria-expanded="${open}" aria-label="${L('More for','Más para')} ${esc(f.nickname)}">⋯</button>`}</span>
   ${open?`<div class="drop"><a class="btn s w" href="/duel.html">⚔ ${L('Duel','Duelo')}</a><button class="btn s w" data-rm="${esc(f.nickname)}">${L('Remove friend','Quitar amigo')}</button></div>`:''}</div>`}).join('');
  if(!others.length)html+=`<p class="empty" style="padding:14px 8px">${L('No friends yet. Send your link below: whoever opens it becomes your friend.','Aún no tienes amigos. Manda tu enlace: quien lo abra será tu amigo.')}</p>`;
@@ -326,7 +331,7 @@ function drawFriends(){const box=$('friends');
 async function loadHome(){if(!sess()||!S.me?.profile)return drawFriends();try{S.home=await call('sq_home',{},true)}catch(e){$('friends').innerHTML=`<p class="empty">${esc(e.message)}</p>`;return}drawFriends()}
 let findT;$('friends').addEventListener('input',e=>{if(e.target.id!=='find')return;clearTimeout(findT);const q=e.target.value.trim();if(q.length<2){$('found').innerHTML='';return}
  findT=setTimeout(async()=>{let r=[];try{r=await call('player_search',{p_q:q},true)||[]}catch{}const known=new Set((S.home?.friends||[]).map(f=>f.nickname.toLowerCase()));
-  $('found').innerHTML=r.length?`<div class="well" style="margin-top:6px">${r.map(p=>`<div class="frow"><span class="u" style="background-image:${uni(p.kit)}"></span><span class="nm"><b>${esc(p.nick)}</b><small>${p.games||0} ${L('games played','partidos')}</small></span><span class="acts">${known.has(p.nick.toLowerCase())?`<span class="tag">${L('FRIEND','AMIGO')}</span>`:`<button class="btn s" data-add="${esc(p.nick)}">+ ${L('Add','Añadir')}</button>`}</span></div>`).join('')}</div>`:`<p class="note">${L('No player with that name.','Ningún jugador con ese nombre.')}</p>`},250)});
+  $('found').innerHTML=r.length?`<div class="well" style="margin-top:6px">${r.map(p=>`<div class="frow" data-nick="${esc(p.nick)}" data-kit="${esc(p.kit||'')}" tabindex="0" role="button"><span class="u" style="background-image:${uni(p.kit)}"></span><span class="nm"><b>${esc(p.nick)}</b><small>${p.games||0} ${L('games played','partidos')}</small></span><span class="acts">${known.has(p.nick.toLowerCase())?`<span class="tag">${L('FRIEND','AMIGO')}</span>`:`<button class="btn s" data-add="${esc(p.nick)}">+ ${L('Add','Añadir')}</button>`}</span></div>`).join('')}</div>`:`<p class="note">${L('No player with that name.','Ningún jugador con ese nombre.')}</p>`},250)});
 $('friends').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;
  if(b.id==='share'){const link=$('inv').value,text=L("Add me on Unicorner, the daily football trivia game:",'Agrégame en Unicorner, el juego diario de trivia de fútbol:');
   if(navigator.share){try{await navigator.share({title:'Unicorner',text,url:link});track('squad_invite',{how:'share'})}catch{}return}
@@ -347,7 +352,7 @@ function leagueManage(l){const d=lgData[l.id];if(!d)return'<div class="skel"></d
  let h=`<p class="sec">${L('Members','Miembros')}<small>${d.members.length}</small></p><div class="well">`+d.members.map(m=>{
   const rel=m.me?'':m.friend||known.has(m.nickname.toLowerCase())?`<span class="tag">${L('FRIEND','AMIGO')}</span>`:sent.has(m.nickname.toLowerCase())?`<span class="note" style="margin:0">${L('sent','enviada')}</span>`:`<button class="btn s w" data-add="${esc(m.nickname)}">+ ${L('Friend','Amigo')}</button>`;
   const kick=d.is_owner&&!m.me?`<button class="more" data-kick="${esc(m.nickname)}" aria-label="${L('Remove','Quitar')} ${esc(m.nickname)}">✕</button>`:'';
-  return`<div class="frow${m.me?' me':''}"><span class="u" style="background-image:${uni(m.kit)}"></span><span class="nm"><b>${esc(m.me?L('You','Tú'):m.nickname)}${m.owner?` <small style="display:inline;color:#b8860f">★ ${L('owner','creador')}</small>`:''}</b></span><span class="acts">${rel}${kick}</span></div>`}).join('')+'</div>';
+  return`<div class="frow${m.me?' me':''}" data-nick="${esc(m.nickname)}" data-kit="${esc(m.kit||'')}" tabindex="0" role="button"><span class="u" style="background-image:${uni(m.kit)}"></span><span class="nm"><b>${esc(m.me?L('You','Tú'):m.nickname)}${m.owner?` <small style="display:inline;color:#b8860f">★ ${L('owner','creador')}</small>`:''}</b></span><span class="acts">${rel}${kick}</span></div>`}).join('')+'</div>';
  if(d.is_owner)h+=`<p class="sec">${L('Rename','Cambiar nombre')}</p><form class="form2" data-rename="${esc(l.id)}"><label class="sr" for="rn">${L('League name','Nombre de la liga')}</label><input class="field" id="rn" maxlength="30" minlength="2" required value="${esc(d.name)}"><button class="btn">${L('Save','Guardar')}</button></form>`;
  h+=`<div class="drop" style="margin-top:12px"><button class="btn s w" data-leave="${esc(l.id)}">${L('Leave league','Salir de la liga')}</button>${d.is_owner?`<button class="btn s w" style="color:var(--clay)" data-del="${esc(l.id)}">${L('Delete league','Borrar liga')}</button>`:''}</div>`;
  return h}
@@ -385,18 +390,37 @@ $('leagues').addEventListener('submit',async e=>{e.preventDefault();const f=e.ta
 // ── tap anyone in a ranking: their unicorn, and add them as a friend ──
 function relation(nick){const n=nick.toLowerCase(),h=S.home;if(!h)return'none';if((h.friends||[]).some(f=>!f.me&&f.nickname.toLowerCase()===n))return'friend';
  if((h.incoming||[]).some(r=>r.nickname.toLowerCase()===n))return'incoming';if((h.outgoing||[]).some(x=>x.toLowerCase()===n))return'sent';return'none'}
-function playerCard(r){let d=$('pc');if(!d){document.body.insertAdjacentHTML('beforeend','<dialog id="pc" class="pc" aria-labelledby="pc-n"></dialog>');d=$('pc');
+// the player card: always loads the player's real numbers from the database (sq_profile)
+let pcSeq=0;
+function pcStat(v,l){return`<div class="pcs"><b>${v}</b><span>${l}</span></div>`}
+async function playerCard(nick,kitHint){let d=$('pc');if(!d){document.body.insertAdjacentHTML('beforeend','<dialog id="pc" class="pc" aria-labelledby="pc-n"></dialog>');d=$('pc');
   d.addEventListener('click',async e=>{if(e.target===d||e.target.closest('[data-pc=close]'))return d.close();const b=e.target.closest('[data-pcadd],[data-pcacc]');if(!b)return;b.disabled=true;
    try{const acc=!!b.dataset.pcacc,res=acc?await call('sq_respond',{p_nick:b.dataset.pcacc,p_accept:true},true):await call('sq_request',{p_nick:b.dataset.pcadd},true);
-    toast(acc||res==='friends'?L('You are friends now!','¡Ya sois amigos!'):L('Request sent','Solicitud enviada'));track('squad_card_add',{});await loadHome();if(lastBoard)drawBoard(lastBoard);d.close()}catch(x){toast(x.message);b.disabled=false}})}
- const k=(typeof KITS!=='undefined'&&KITS.find(x=>x.id===(r.kit||'classic')))||null,kitName=k?(ES&&k.es||k.en):'';
- let act;if(r.me)act=`<p class="note" style="text-align:center">${L("That's you!",'¡Eres tú!')}</p>`;
- else if(!sess()||!S.me?.profile)act=`<a class="btn full" data-signin href="${signinUrl()}">${L('Sign in to add friends','Inicia sesión para añadir amigos')}</a>`;
- else{const rel=r.friend?'friend':relation(r.nickname);act=rel==='friend'?`<p class="note" style="text-align:center"><span class="tag">${L('FRIEND','AMIGO')}</span></p>`:rel==='sent'?`<p class="note" style="text-align:center">${L('Friend request sent','Solicitud enviada')}</p>`:rel==='incoming'?`<button class="btn g full" data-pcacc="${esc(r.nickname)}">${L('Accept friend request','Aceptar solicitud')}</button>`:`<button class="btn full" data-pcadd="${esc(r.nickname)}">+ ${L('Add friend','Añadir amigo')}</button>`}
- d.innerHTML=`<div class="bar"><span id="pc-n">${esc(r.nickname)}</span><button class="more" data-pc="close" aria-label="${L('Close','Cerrar')}" style="width:30px;height:30px">✕</button></div><div class="inner" style="text-align:center">
-  <div class="u" style="width:150px;height:125px;margin:6px auto;background-image:${uni(r.kit,'wow')}"></div><p style="margin:0 0 4px;font-size:18px;color:var(--mut)">${esc(kitName)}${r.streak>=2?` · 🔥${r.streak}`:''}${r.games?` · ${r.games} ${L('games','partidos')}`:''}</p>${act}</div>`;
- if(!d.open)d.showModal()}
-$('list').addEventListener('click',e=>{const row=e.target.closest('.row[data-i]');if(row&&lastBoard){const r=lastBoard.rows[+row.dataset.i];if(r)playerCard(r)}});
+    toast(acc||res==='friends'?L('You are friends now!','¡Ya sois amigos!'):L('Request sent','Solicitud enviada'));track('squad_card_add',{});await loadHome();if(lastBoard)drawBoard(lastBoard);playerCard(b.dataset.pcacc||b.dataset.pcadd)}catch(x){toast(x.message);b.disabled=false}})}
+ const seq=++pcSeq,head=`<div class="bar"><span id="pc-n">${esc(nick)}</span><button class="more" data-pc="close" aria-label="${L('Close','Cerrar')}" style="width:30px;height:30px">✕</button></div>`;
+ d.innerHTML=head+`<div class="inner" style="text-align:center"><div class="u" style="width:150px;height:125px;margin:6px auto;background-image:${uni(kitHint,'wow')}"></div><div class="skel"></div><div class="skel"></div></div>`;
+ if(!d.open)d.showModal();track('squad_card',{});
+ let p;try{p=await call('sq_profile',{p_nick:nick})}catch(x){if(seq===pcSeq)d.querySelector('.inner').innerHTML=`<p class="empty">${esc(x.message)}</p>`;return}
+ if(seq!==pcSeq)return;
+ const k=(typeof KITS!=='undefined'&&KITS.find(x=>x.id===(p.kit||'classic')))||null,kitName=k?(ES&&k.es||k.en):'';
+ const signed=sess()&&S.me?.profile,rel=signed?p.relation:'out',td=p.today||{};
+ const act=rel==='me'?`<p class="note" style="text-align:center">${L("That's you!",'¡Eres tú!')}</p>`
+  :rel==='out'?`<a class="btn full" data-signin href="${signinUrl()}">${L('Sign in to add friends','Inicia sesión para añadir amigos')}</a>`
+  :rel==='friend'?`<p class="note" style="text-align:center;margin-top:10px"><span class="tag">${L('FRIEND','AMIGO')}</span></p>`
+  :rel==='sent'?`<p class="note" style="text-align:center;margin-top:10px">${L('Friend request sent','Solicitud enviada')}</p>`
+  :rel==='incoming'?`<button class="btn g full" data-pcacc="${esc(p.nickname)}">${L('Accept friend request','Aceptar solicitud')}</button>`
+  :`<button class="btn full" data-pcadd="${esc(p.nickname)}">+ ${L('Add friend','Añadir amigo')}</button>`;
+ const since=p.since?new Date(p.since+'T12:00:00Z').toLocaleDateString(ES?'es-ES':'en-GB',{month:'short',year:'numeric',timeZone:'UTC'}):'';
+ d.innerHTML=head+`<div class="inner" style="text-align:center">
+  <div class="u" style="width:150px;height:125px;margin:6px auto 2px;background-image:${uni(p.kit,'wow')}"></div>
+  <p style="margin:0 0 10px;font-size:18px;color:var(--mut)">${esc(kitName)}${since?' · '+L('playing since ','juega desde ')+esc(since):''}</p>
+  <div class="pcg">${pcStat(p.games,L('games played','partidos jugados'))}${pcStat((p.streak?'🔥':'')+p.streak,L('day streak','racha actual'))}${pcStat(p.best_streak,L('best streak','mejor racha'))}${pcStat(p.trophies,L('trophies','trofeos'))}</div>
+  <p class="sec" style="justify-content:center;margin-top:12px">${L('Today','Hoy')}</p><p class="gl" style="justify-content:center;font-size:17px;margin:0 0 10px">${line({daily:td.daily,rosco:td.rosco,rosco_total:td.rosco_total,millon:td.millon})}</p>
+  ${act}</div>`}
+$('list').addEventListener('click',e=>{const row=e.target.closest('.row[data-i]');if(row&&lastBoard){const r=lastBoard.rows[+row.dataset.i];if(r)playerCard(r.nickname,r.kit)}});
+// friends, requests and league members open the same card (but not when a button in the row was tapped)
+for(const id of ['friends','leagues'])$(id).addEventListener('click',e=>{if(e.target.closest('button,a,input,form'))return;const row=e.target.closest('[data-nick]');if(row)playerCard(row.dataset.nick,row.dataset.kit)});
+for(const id of ['friends','leagues'])$(id).addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('[data-nick]')){e.preventDefault();playerCard(e.target.dataset.nick,e.target.dataset.kit)}});
 $('list').addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('.row[data-i]')){e.preventDefault();e.target.click()}});
 
 // ── start ──

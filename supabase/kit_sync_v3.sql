@@ -1,5 +1,6 @@
 -- Kits v3: one kit per account, the same on every device, on Socials and on every ranking.
 -- Paste this whole file into Supabase -> SQL Editor -> New query -> Run. Safe to run more than once.
+-- Run it after profile_v2.sql (it uses lg_stats_from_scores from there).
 --
 -- What was wrong: lg_set_look checked every kit against a fixed list that missed 'og' (Classic) and the six Halloween
 -- kits. Anyone owning one of those had every save rejected, so the account kept an old kit (what Socials shows) and
@@ -42,10 +43,10 @@ begin
 
   update player_profiles
      set kits = ks,
-         best_streak = greatest(best_streak, least(greatest(coalesce(p_streak, 0), 0), 5000)),
-         games = greatest(games, least(greatest(coalesce(p_games, 0), 0), 5000)),
          kit = case when kit = 'boardroom' and not crew then null else kit end
    where user_id = uid;
+  -- games played and best streak are counted by the database from every day played (profile_v2.sql), not taken from a device
+  perform lg_stats_from_scores(uid);
 
   -- the kit itself: only a change newer than the one the account has (an old app sends no time: it only fills an empty account)
   if p_kit is not null and p_kit ~ '^[a-z0-9-]{1,24}$' then
