@@ -1,0 +1,113 @@
+{
+ "day": "2026-11-11",
+ "questions": [
+  {
+   "q": "Which of these players NEVER played for Barcelona?",
+   "q_es": "¿Cuál de estos jugadores NUNCA jugó en el Barcelona?",
+   "o": [
+    "Ronald Koeman",
+    "Michael Laudrup",
+    "Patrick Kluivert",
+    "Clarence Seedorf"
+   ],
+   "a": 3,
+   "why": "Seedorf played for Ajax, Sampdoria, Real Madrid, Inter and Milan, never Barcelona.",
+   "why_es": "Seedorf jugó en Ajax, Sampdoria, Real Madrid, Inter y Milan, nunca en el Barcelona.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which club won the 1999-2000 UEFA Cup?",
+   "q_es": "¿Qué club ganó la Copa de la UEFA 1999-2000?",
+   "o": [
+    "Parma",
+    "Arsenal",
+    "Galatasaray",
+    "Valencia"
+   ],
+   "a": 2,
+   "why": "Galatasaray beat Arsenal on penalties in Copenhagen.",
+   "why_es": "El Galatasaray ganó al Arsenal en los penaltis en Copenhague.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who was top scorer at the 2006 World Cup?",
+   "q_es": "¿Quién fue el máximo goleador del Mundial de 2006?",
+   "o": [
+    "Ronaldo",
+    "Miroslav Klose",
+    "Thierry Henry",
+    "Hernán Crespo"
+   ],
+   "a": 1,
+   "why": "Klose scored 5; Ronaldo, Crespo and Henry scored 3 or fewer.",
+   "why_es": "Klose marcó 5; Ronaldo, Crespo y Henry marcaron 3 o menos.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "How many times did Real Madrid win the European Cup/Champions League up to the end of 2024-25?",
+   "q_es": "¿Cuántas veces ganó el Real Madrid la Copa de Europa/Champions hasta el final de 2024-25?",
+   "o": [
+    "14",
+    "15",
+    "16"
+   ],
+   "a": 1,
+   "why": "15, the latest in 2023-24 against Dortmund.",
+   "why_es": "15, la última en 2023-24 contra el Dortmund.",
+   "src": "own knowledge",
+   "n": "The Champions League's name until 1992",
+   "n_es": "El nombre de la Champions hasta 1992"
+  },
+  {
+   "q": "Which of these players won the Ballon d'Or?",
+   "q_es": "¿Cuál de estos jugadores ganó el Balón de Oro?",
+   "o": [
+    "Raúl",
+    "Thierry Henry",
+    "Pavel Nedvěd"
+   ],
+   "a": 2,
+   "why": "Nedvěd won it in 2003; Raúl and Henry never did.",
+   "why_es": "Nedvěd lo ganó en 2003; Raúl y Henry nunca lo ganaron.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "How many goals did Spain score at Euro 2012?",
+   "q_es": "¿Cuántos goles marcó España en la Eurocopa 2012?",
+   "o": [
+    "10",
+    "12",
+    "14"
+   ],
+   "a": 1,
+   "why": "12 in six games: 1-1, 4-0, 1-0, 2-0, 0-0 (pens) and 4-0.",
+   "why_es": "12 en seis partidos: 1-1, 4-0, 1-0, 2-0, 0-0 (pen.) y 4-0.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which of these clubs did Eric Cantona NEVER play for?",
+   "q_es": "¿En cuál de estos clubes NUNCA jugó Eric Cantona?",
+   "o": [
+    "Nîmes",
+    "Montpellier",
+    "Lyon"
+   ],
+   "a": 2,
+   "why": "Cantona played for Auxerre, Marseille, Bordeaux, Montpellier, Nîmes, Leeds and Manchester United, not Lyon.",
+   "why_es": "Cantona jugó en Auxerre, Marsella, Burdeos, Montpellier, Nîmes, Leeds y Manchester United, no en el Lyon.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who scored more Premier League goals: Andy Cole or Sergio Agüero?",
+   "q_es": "¿Quién marcó más goles en la Premier League: Andy Cole o Sergio Agüero?",
+   "o": [
+    "Andy Cole",
+    "Sergio Agüero"
+   ],
+   "a": 0,
+   "why": "Cole 187, Agüero 184.",
+   "why_es": "Cole 187, Agüero 184.",
+   "src": "own knowledge"
+  }
+ ]
+}

@@ -1,0 +1,118 @@
+{
+ "day": "2026-11-16",
+ "questions": [
+  {
+   "q": "Which of these players NEVER played for Liverpool?",
+   "q_es": "¿Cuál de estos jugadores NUNCA jugó en el Liverpool?",
+   "o": [
+    "Michael Owen",
+    "Robbie Fowler",
+    "Jermain Defoe",
+    "Peter Crouch"
+   ],
+   "a": 2,
+   "why": "Defoe played for West Ham, Tottenham, Portsmouth, Sunderland and Bournemouth, never Liverpool.",
+   "why_es": "Defoe jugó en West Ham, Tottenham, Portsmouth, Sunderland y Bournemouth, nunca en el Liverpool.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who was top scorer at the 1986 World Cup?",
+   "q_es": "¿Quién fue el máximo goleador del Mundial de 1986?",
+   "o": [
+    "Diego Maradona",
+    "Emilio Butragueño",
+    "Careca",
+    "Gary Lineker"
+   ],
+   "a": 3,
+   "why": "Lineker scored 6; Maradona and Careca 5.",
+   "why_es": "Lineker marcó 6; Maradona y Careca 5.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "How many Ballon d'Or awards did Marco van Basten win?",
+   "q_es": "¿Cuántos Balones de Oro ganó Marco van Basten?",
+   "o": [
+    "2",
+    "3",
+    "4",
+    "5"
+   ],
+   "a": 1,
+   "why": "Three: 1988, 1989 and 1992.",
+   "why_es": "Tres: 1988, 1989 y 1992.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who won the 2006 Ballon d'Or?",
+   "q_es": "¿Quién ganó el Balón de Oro de 2006?",
+   "o": [
+    "Fabio Cannavaro",
+    "Gianluigi Buffon",
+    "Zinedine Zidane"
+   ],
+   "a": 0,
+   "why": "Cannavaro, ahead of Buffon and Zidane.",
+   "why_es": "Cannavaro, por delante de Buffon y Zidane.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "How many Premier League goals did Wayne Rooney score?",
+   "q_es": "¿Cuántos goles marcó Wayne Rooney en la Premier League?",
+   "o": [
+    "196",
+    "208",
+    "220"
+   ],
+   "a": 1,
+   "why": "208 in 491 games.",
+   "why_es": "208 en 491 partidos.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which of these countries has NEVER won the European Championship?",
+   "q_es": "¿Cuál de estos países NUNCA ha ganado la Eurocopa?",
+   "o": [
+    "Denmark",
+    "Greece",
+    "Belgium"
+   ],
+   "a": 2,
+   "why": "Denmark won in 1992, Greece in 2004; Belgium lost the 1980 final.",
+   "why_es": "Dinamarca ganó en 1992 y Grecia en 2004; Bélgica perdió la final de 1980.",
+   "src": "own knowledge",
+   "o_es": [
+    "Dinamarca",
+    "Grecia",
+    "Bélgica"
+   ]
+  },
+  {
+   "q": "In which year did Manchester United win their first European Cup?",
+   "q_es": "¿En qué año ganó el Manchester United su primera Copa de Europa?",
+   "o": [
+    "1966",
+    "1968",
+    "1970"
+   ],
+   "a": 1,
+   "why": "1968, beating Benfica 4-1 at Wembley.",
+   "why_es": "1968, ganando 4-1 al Benfica en Wembley.",
+   "src": "own knowledge",
+   "n": "The Champions League's name until 1992",
+   "n_es": "El nombre de la Champions hasta 1992"
+  },
+  {
+   "q": "Who won more caps for England: Wayne Rooney or Peter Shilton?",
+   "q_es": "¿Quién tiene más partidos con Inglaterra: Wayne Rooney o Peter Shilton?",
+   "o": [
+    "Wayne Rooney",
+    "Peter Shilton"
+   ],
+   "a": 1,
+   "why": "Shilton 125, Rooney 120.",
+   "why_es": "Shilton 125, Rooney 120.",
+   "src": "own knowledge"
+  }
+ ]
+}

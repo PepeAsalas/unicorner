@@ -1,0 +1,121 @@
+{
+ "day": "2026-11-14",
+ "questions": [
+  {
+   "q": "Which of these clubs has NEVER won the European Cup/Champions League (up to 2024-25)?",
+   "q_es": "¿Cuál de estos clubes NUNCA ha ganado la Copa de Europa/Champions (hasta 2024-25)?",
+   "o": [
+    "Celtic",
+    "Atlético Madrid",
+    "PSV Eindhoven",
+    "Steaua Bucharest"
+   ],
+   "a": 1,
+   "why": "Atlético lost three finals; Celtic won in 1967, PSV in 1988 and Steaua in 1986.",
+   "why_es": "El Atlético perdió tres finales; el Celtic ganó en 1967, el PSV en 1988 y el Steaua en 1986.",
+   "src": "own knowledge",
+   "o_es": [
+    "Celtic",
+    "Atlético de Madrid",
+    "PSV Eindhoven",
+    "Steaua de Bucarest"
+   ],
+   "n": "The Champions League's name until 1992",
+   "n_es": "El nombre de la Champions hasta 1992"
+  },
+  {
+   "q": "Who won the 1994 Ballon d'Or?",
+   "q_es": "¿Quién ganó el Balón de Oro de 1994?",
+   "o": [
+    "Roberto Baggio",
+    "Paolo Maldini",
+    "Hristo Stoichkov",
+    "Romário"
+   ],
+   "a": 2,
+   "why": "Stoichkov; Baggio won in 1993.",
+   "why_es": "Stoichkov; Baggio lo ganó en 1993.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who was Chelsea's manager when they won their first Champions League, in 2012?",
+   "q_es": "¿Quién era el entrenador del Chelsea cuando ganó su primera Champions, en 2012?",
+   "o": [
+    "Carlo Ancelotti",
+    "André Villas-Boas",
+    "Guus Hiddink",
+    "Roberto Di Matteo"
+   ],
+   "a": 3,
+   "why": "Di Matteo took over from Villas-Boas in March 2012.",
+   "why_es": "Di Matteo sustituyó a Villas-Boas en marzo de 2012.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who finished second in the first Premier League season, 1992-93?",
+   "q_es": "¿Quién fue subcampeón en la primera temporada de la Premier League, 1992-93?",
+   "o": [
+    "Aston Villa",
+    "Norwich City",
+    "Blackburn Rovers"
+   ],
+   "a": 0,
+   "why": "Aston Villa, 10 points behind Manchester United.",
+   "why_es": "El Aston Villa, a 10 puntos del Manchester United.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who won the outright Premier League Golden Boot in 1999-2000?",
+   "q_es": "¿Quién ganó en solitario el Pichichi de la Premier League en 1999-2000?",
+   "o": [
+    "Kevin Phillips",
+    "Alan Shearer",
+    "Thierry Henry"
+   ],
+   "a": 0,
+   "why": "Phillips scored 30 for Sunderland.",
+   "why_es": "Phillips marcó 30 con el Sunderland.",
+   "src": "own knowledge",
+   "n": "The award for the top scorer of the Premier League season",
+   "n_es": "El premio al máximo goleador de la Premier League en la temporada"
+  },
+  {
+   "q": "How many goals did Thierry Henry score for Arsenal in all competitions?",
+   "q_es": "¿Cuántos goles marcó Thierry Henry con el Arsenal en todas las competiciones?",
+   "o": [
+    "215",
+    "228",
+    "240"
+   ],
+   "a": 1,
+   "why": "228 in 377 games.",
+   "why_es": "228 en 377 partidos.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "In which season did Cruyff's Barcelona win the first of four straight La Liga titles?",
+   "q_es": "¿En qué temporada ganó el Barcelona de Cruyff el primero de cuatro títulos de Liga seguidos?",
+   "o": [
+    "1991-92",
+    "1989-90",
+    "1990-91"
+   ],
+   "a": 2,
+   "why": "1990-91, then 1991-92, 1992-93 and 1993-94.",
+   "why_es": "1990-91, luego 1991-92, 1992-93 y 1993-94.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who scored more Premier League goals: Harry Kane or Wayne Rooney?",
+   "q_es": "¿Quién marcó más goles en la Premier League: Harry Kane o Wayne Rooney?",
+   "o": [
+    "Harry Kane",
+    "Wayne Rooney"
+   ],
+   "a": 0,
+   "why": "Kane 213, Rooney 208.",
+   "why_es": "Kane 213, Rooney 208.",
+   "src": "own knowledge"
+  }
+ ]
+}
