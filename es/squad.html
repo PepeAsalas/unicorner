@@ -34,6 +34,7 @@ a{color:inherit}
 .top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 0 14px}
 .logo{font:400 26px/1 var(--disp);text-transform:uppercase;text-decoration:none;color:var(--ink);background:var(--paper);border:3px solid #000;box-shadow:4px 4px 0 #000;padding:5px 10px 3px}
 .chipbtn{font:400 20px/1 var(--disp);text-decoration:none;color:var(--ink);background:var(--paper);border:3px solid #000;box-shadow:3px 3px 0 #000;padding:8px 12px 5px;display:inline-flex;gap:6px;align-items:center;min-height:44px}
+.topr{display:flex;gap:10px}.xbtn{width:44px;justify-content:center;padding:6px 0 3px;font-size:24px}
 .hero{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:2px 0 14px}
 .hero h1{margin:0;font:400 54px/.9 var(--disp);color:var(--paper);text-shadow:0 4px 0 #000,3px 0 0 #000,-3px 0 0 #000,0 -3px 0 #000;letter-spacing:.02em}
 .hero p{margin:6px 0 0;color:#fff;font-size:21px;text-shadow:0 2px 0 #000}
@@ -169,7 +170,7 @@ svg.i{width:18px;height:18px;shape-rendering:crispEdges;flex:none}
  <symbol id="i-shd" viewBox="0 0 10 10"><path d="M1 1h8v5H8v1H7v1H6v1H4V8H3V7H2V6H1z" fill="currentColor"/><path d="M4 3h2v3H4z" fill="#fbf6e8"/></symbol>
 </defs></svg>
 <div class="wrap">
- <header class="top"><a class="logo" id="home" href="/">Unicorner</a><a class="chipbtn" id="playLink" href="/">▶ <span data-t="play">Play</span></a></header>
+ <header class="top"><a class="logo" id="home" href="/">Unicorner</a><span class="topr"><a class="chipbtn" id="playLink" href="/">▶ <span data-t="play">Play</span></a><a class="chipbtn xbtn" id="closeX" href="/" aria-label="Close">✕</a></span></header>
  <div class="hero"><div><h1 data-t="h1">SOCIALS</h1><p data-t="sub">Rankings, friends and leagues</p></div></div>
 
  <div class="tabs" role="tablist" aria-label="Socials">
@@ -223,7 +224,7 @@ const ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);v==null?loc
 const T={h1:['SOCIALS','SOCIAL'],play:['Play','Jugar'],sub:['Rankings, friends and leagues','Rankings, amigos y ligas'],t_rank:['Rankings','Rankings'],t_friends:['Friends','Amigos'],t_leagues:['Leagues','Ligas'],
  t_rank_bar:['RANKINGS','RANKINGS'],t_friends_bar:['FRIENDS','AMIGOS'],t_leagues_bar:['LEAGUES','LIGAS'],millions:['Millions','Millones'],today:['Today','Hoy'],week:['This week','Esta semana']};
 if(ES){document.documentElement.lang='es';document.querySelectorAll('[data-t]').forEach(e=>{const t=T[e.dataset.t];if(t)e.textContent=t[1]})}
-$('home').href=HOME;$('playLink').href=HOME;
+$('home').href=HOME;$('playLink').href=HOME;$('closeX').href=HOME;$('closeX').setAttribute('aria-label',L('Close','Cerrar'));
 const GAMES={daily:{name:'Daily 5',url:HOME,play:L("Play today's Daily 5",'Jugar el Daily 5 de hoy')},
  rosco:{name:'Rosco',url:ES?'/es/rosco.html':'/rosco.html',play:L("Play today's Rosco",'Jugar el Rosco de hoy')},
  millon:{name:L('Millions','Millones'),url:ES?'/es/millon.html':'/millon.html',play:L("Play today's Millions",'Jugar a Millones hoy')}};
