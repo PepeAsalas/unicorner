@@ -183,4 +183,11 @@ if __name__ == '__main__':
     m = (SRC.parent / 'millon.html').read_text(encoding='utf-8')
     m = m.replace('<html lang="en">', '<html lang="es">', 1).replace('<title>Unicorner Millions</title>', '<title>Millones · Unicorner</title>', 1)
     (SRC.parent / 'es' / 'millon.html').write_text(m, encoding='utf-8')
+    # Squad (rankings, friends, leagues): the same page in Spanish
+    q = (SRC.parent / 'squad.html').read_text(encoding='utf-8')
+    q = q.replace('<html lang="en">', '<html lang="es">', 1)
+    q = q.replace('<title>Squad · Rankings, friends and leagues | Unicorner</title>', '<title>Squad · Rankings, amigos y ligas | Unicorner</title>', 1)
+    q = re.sub(r'<meta name="description" content="[^"]*">', '<meta name="description" content="Todos los rankings de Unicorner en un sitio: Daily 5, Rosco y Millones, hoy y esta semana. Añade a tus amigos y crea ligas privadas.">', q, count=1)
+    q = q.replace('<link rel="canonical" href="https://unicornergame.lol/squad.html">', '<link rel="canonical" href="https://unicornergame.lol/es/squad.html">', 1)
+    (SRC.parent / 'es' / 'squad.html').write_text(q, encoding='utf-8')
     seo_games()

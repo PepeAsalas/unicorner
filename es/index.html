@@ -2269,6 +2269,8 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
 
  ${compete}
 
+ <a class="sq-bar" href="${ES?'/es/squad.html':'/squad.html'}" data-track="squad_bar"><span class="sq-dots" aria-hidden="true"><i style="background:#c8473b"></i><i style="background:#1d4486"></i><i style="background:#1f8a4c"></i></span><span class="sq-txt"><b>SQUAD</b><small>${L('Rankings · friends · leagues','Rankings · amigos · ligas')}</small></span><span class="sq-go">${L('Open','Abrir')} ▸</span></a>
+
  <div id="uc-awards" hidden></div>
 
  <section class="card lp2-how man" id="steps">
@@ -3129,6 +3131,12 @@ const css=`
 .jb-lights{display:flex;justify-content:space-between;width:80%;max-width:480px}
 .jb-lights span{display:grid;grid-template-columns:repeat(3,16px);gap:4px;padding:5px;background:#3a3a3a;border:3px solid #000}
 .jb-lights i{height:12px;background:#fbf6e8;box-shadow:0 0 10px #fbf6e8}
+.sq-bar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;margin:-14px 0 26px;padding:10px 12px;background:#1d1a2b;color:#fbf6e8;border:4px solid #000;box-shadow:inset 0 0 0 3px #3a3550,8px 8px 0 rgba(0,0,0,.35);text-decoration:none;transition:transform 140ms cubic-bezier(.23,1,.32,1)}
+.sq-bar:active{transform:scale(.98)}.sq-bar:focus-visible{outline:3px solid #f2c230;outline-offset:3px}
+.sq-dots{display:grid;grid-template-columns:repeat(3,10px);gap:4px}.sq-dots i{width:10px;height:22px;border:2px solid #000;display:block}
+.sq-txt{min-width:0}.sq-txt b{display:block;font:400 24px/1 'Jersey 10',var(--px);letter-spacing:.06em;color:#f2c230}.sq-txt small{display:block;font:400 16px/1.15 'VT323',monospace;color:#e9dfc2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sq-go{font:400 19px/1 'Jersey 10',var(--px);background:#f2c230;color:#1d1a2b;border:3px solid #000;padding:8px 12px 5px;white-space:nowrap}
+@media (hover:hover) and (pointer:fine){.sq-bar:hover .sq-go{background:#ffd84a}}
 .jb-frame{width:100%;box-sizing:border-box;padding:10px;background:#6b6b6b;border:4px solid #000;box-shadow:inset 0 0 0 4px #8d8d8d,8px 8px 0 rgba(0,0,0,.35)}
 .jb-screen{padding:14px;background:#1d1a2b;border:3px solid #000;background-image:radial-gradient(color-mix(in srgb,var(--led) 9%,transparent) 1px,transparent 1.5px);background-size:5px 5px}
 .jb-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
@@ -3411,7 +3419,9 @@ document.addEventListener('submit',async e=>{const f=e.target.closest('#lg-code'
   if(lsGet(LG_INTENT)||lsGet(LG_PENDING))return open('login');return afterSignIn()}
  catch{btn.disabled=false;msg.textContent=L("That code didn't work. Check it, or ask for a new email.",'Ese código no vale. Revísalo o pide otro email.');track('league_code_fail',{})}});
 // after signing in (Google, email link or code): new players pick a nickname; everyone else goes back to the game with their days and today's score restored
-async function afterSignIn(){try{await loadMe()}catch{}if(!me?.profile){if(pendingNick())return autoClaim();return viewProfile()}
+// players who tapped "Sign in" on the Squad page go back there once they're in (with a nickname)
+function goReturn(){const r=lsGet('uc-return');if(!r||!/^\/(es\/)?squad\.html/.test(r))return false;lsSet('uc-return',null);location.href=r;return true}
+async function afterSignIn(){try{await loadMe()}catch{}if(!me?.profile){if(pendingNick())return autoClaim();return viewProfile()}if(goReturn())return;
  if(dlg.open)dlg.close();await syncDays();const had=!!getPlayed();await window.ucCheckRemote();window.ucKitQuiet?.();
  if(document.body.classList.contains('landing')&&typeof start==='function')start();
  showToast(!had&&getPlayed()?L("✅ Signed in. Today's score is back.",'✅ Sesión iniciada. Tu puntuación de hoy ha vuelto.'):L('✅ Signed in','✅ Sesión iniciada'))}
@@ -3772,13 +3782,13 @@ document.addEventListener('submit',async e=>{const f=e.target;if(!f.classList?.c
 document.addEventListener('submit',async e=>{const f=e.target;if(!f.id?.startsWith('lea-'))return;e.preventDefault();if(busy)return;busy=true;const btn=f.querySelector('[type=submit]');if(btn)btn.disabled=true;err('');
  try{
   if(f.id==='lea-email-form'){signInEmail=$('lea-email').value.trim();await sendLink(signInEmail,$('lea-news')?!$('lea-news').checked:lsGet(LG_OPTOUT)==='1');if($('lea-infwait')?.checked)joinWaitlist(signInEmail,'league_signup');track('league_login_start',{method:'email'});viewCheckEmail()}
-  else if(f.id==='lea-profile-form'){const nick=$('lea-nick').value.trim();if(/fuck|shit|cunt|nigg|fagg|hitler|nazi/i.test(nick))throw new Error('Pick a different nickname');const first=!me?.profile;await rpc('lg_save_profile',{p_nickname:nick,p_news_opt_out:first?lsGet(LG_OPTOUT)==='1':$('lea-optout').checked});await loadMe();lsSet(LG_NICK,null);lsSet(LG_SENT,null);track('league_profile',{first});busy=false;await syncScore();if(first){const pending=lsGet(LG_PENDING);if(pending)await viewJoin(pending);else if(lsGet(LG_INTENT)==='global'){lsSet(LG_INTENT,null);await viewGlobal(true)}else await viewHome()}else await viewHome();renderSlots()}
+  else if(f.id==='lea-profile-form'){const nick=$('lea-nick').value.trim();if(/fuck|shit|cunt|nigg|fagg|hitler|nazi/i.test(nick))throw new Error('Pick a different nickname');const first=!me?.profile;await rpc('lg_save_profile',{p_nickname:nick,p_news_opt_out:first?lsGet(LG_OPTOUT)==='1':$('lea-optout').checked});await loadMe();lsSet(LG_NICK,null);lsSet(LG_SENT,null);track('league_profile',{first});busy=false;await syncScore();if(goReturn())return;if(first){const pending=lsGet(LG_PENDING);if(pending)await viewJoin(pending);else if(lsGet(LG_INTENT)==='global'){lsSet(LG_INTENT,null);await viewGlobal(true)}else await viewHome()}else await viewHome();renderSlots()}
   else if(f.id==='lea-create-form'){if((me?.leagues?.length||0)>=LG_MAX){busy=false;return viewMore()}const l=await rpc('lg_create_league',{p_name:$('lea-name').value.trim()});track('league_create',{});lsSet(LG_ACTIVE,l.id);await loadMe();board=null;await viewHome();renderSlots();showToast('League created — now invite your mates!')}
  }catch(x){err(x.message);if(btn)btn.disabled=false}finally{busy=false}});
 
 // Re-render the cards whenever the game swaps screens, and push today's score when it appears
 let t0;new MutationObserver(()=>{clearTimeout(t0);t0=setTimeout(()=>{renderSlots();syncScore()},120)}).observe($('screen'),{childList:true});
-setTimeout(async()=>{if(linkVerify)await linkVerify;renderSlots();syncScore();syncDays();if(fresh&&!lsGet(LG_PENDING)&&pendingNick())autoClaim();else if(fresh&&!lsGet(LG_PENDING)&&!lsGet(LG_INTENT))afterSignIn();else if(fresh||lsGet(LG_PENDING)||oauthError)open(fresh?'login':'invite');else if(location.hash==='#signin'&&!sess)open('login')},400);
+setTimeout(async()=>{if(linkVerify)await linkVerify;renderSlots();syncScore();syncDays();if(fresh&&!lsGet(LG_PENDING)&&pendingNick())autoClaim();else if(fresh&&!lsGet(LG_PENDING)&&!lsGet(LG_INTENT))afterSignIn();else if(fresh||lsGet(LG_PENDING)||oauthError)open(fresh?'login':'invite');else if(location.hash==='#signin'&&(!sess||!me?.profile))open('login')},400);
 })();
 </script>
 <script>
