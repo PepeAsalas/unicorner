@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Black Jockey · Horacio's football blackjack | Unicorner</title>
+<meta name="description" content="A daily football blackjack hosted by Horacio Herradura. Reach the target number with your answers, but the values stay face down until the end. Go over and you bust.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<meta name="theme-color" content="#14402b">
+<style>
+@font-face{font-family:'Jersey 10';src:url(/fonts/jersey10.woff2) format('woff2');font-display:swap}
+@font-face{font-family:'VT323';src:url(/fonts/vt323.woff2) format('woff2');font-display:swap}
+/* Black Jockey: a casino table in the site palette. Felt = grass, cards = paper, chips = gold, Horacio deals. */
+:root{--ink:#1d1a2b;--paper:#fbf6e8;--sand:#e9dfc2;--gold:#f2c230;--grass:#2f9a62;--felt:#1f6b45;--felt2:#17573a;--clay:#c8473b;--navy:#1d4486;
+ --disp:'Jersey 10',monospace;--px:'VT323',monospace;--ease:cubic-bezier(.23,1,.32,1)}
+*{box-sizing:border-box}
+html{background:var(--felt2)}
+body{margin:0;min-height:100vh;color:var(--paper);font:400 20px/1.25 var(--px);image-rendering:pixelated;
+ background:radial-gradient(ellipse 90% 70% at 50% 35%,var(--felt) 0 60%,var(--felt2) 100%);
+ padding:max(10px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(24px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left))}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(rgba(0,0,0,.12) 1px,transparent 1.5px) 0 0/6px 6px}
+button,input{font:inherit;color:inherit}button{cursor:pointer}
+.wrap{max-width:720px;margin:0 auto;position:relative}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.logo{font:400 24px/1 var(--disp);text-transform:uppercase;text-decoration:none;color:var(--ink);background:var(--paper);border:3px solid #000;box-shadow:4px 4px 0 #000;padding:5px 10px 3px}
+.x{width:44px;height:44px;display:grid;place-items:center;font:400 24px/1 var(--disp);text-decoration:none;color:var(--ink);background:var(--paper);border:3px solid #000;box-shadow:3px 3px 0 #000}
+h1{margin:4px 0 0;text-align:center;font:400 52px/.9 var(--disp);color:var(--gold);text-shadow:0 4px 0 #000,3px 0 0 #000,-3px 0 0 #000,0 -3px 0 #000;letter-spacing:.03em}
+.sub{text-align:center;margin:4px 0 10px;color:var(--sand)}
+
+/* the croupier */
+.dealer{display:grid;grid-template-columns:110px 1fr;gap:10px;align-items:end;margin:6px 0 8px}
+.dealer img{width:110px;height:110px;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 4px 0 rgba(0,0,0,.35))}
+.bub{position:relative;background:var(--paper);color:var(--ink);border:3px solid #000;box-shadow:4px 4px 0 #000;padding:10px 12px 8px;font-size:20px;line-height:1.15;min-height:64px}
+.bub::before{content:"";position:absolute;left:-12px;bottom:16px;border:6px solid transparent;border-right:6px solid #000;border-left:0;width:0;height:0}
+.bub b{font:400 15px var(--disp);letter-spacing:.06em;color:var(--navy);display:block;margin-bottom:2px}
+
+/* target plaque */
+.target{display:flex;justify-content:center;align-items:center;gap:12px;margin:8px 0 12px}
+.chip{width:58px;height:58px;border-radius:50%;background:var(--gold);border:4px solid #000;box-shadow:inset 0 0 0 5px #fff3c4,inset 0 0 0 9px var(--gold),inset 0 0 0 11px #b8860f,0 4px 0 #000;display:grid;place-items:center;font:400 22px var(--disp);color:var(--ink)}
+.tbox{text-align:center}.tbox small{display:block;color:var(--sand);font-size:17px;letter-spacing:.1em}
+.tbox b{font:400 46px/1 var(--disp);color:#fff;text-shadow:0 3px 0 #000;letter-spacing:.03em}
+
+/* the hand */
+.hand{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;min-height:132px;margin:6px 0 12px;perspective:700px}
+.card{width:92px;height:124px;position:relative;transform-style:preserve-3d;transition:transform 420ms var(--ease)}
+.card .f,.card .b{position:absolute;inset:0;backface-visibility:hidden;border:3px solid #000;box-shadow:3px 3px 0 rgba(0,0,0,.45);display:flex;flex-direction:column;justify-content:space-between;padding:6px}
+.card .b{background:var(--navy);background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.12) 0 4px,transparent 4px 9px);color:var(--paper);align-items:center;justify-content:center;text-align:center}
+.card .b span{font:400 15px/1.05 var(--px);background:var(--paper);color:var(--ink);padding:3px 4px;border:2px solid #000;max-width:100%;overflow-wrap:anywhere}
+.card .b i{font-style:normal;font:400 30px var(--disp);color:var(--gold);margin-top:6px}
+.card .f{background:var(--paper);color:var(--ink);transform:rotateY(180deg)}
+.card .f small{font-size:14px;line-height:1;color:#6b6480;overflow-wrap:anywhere}
+.card .f b{font:400 22px/1 var(--disp);text-align:center;font-variant-numeric:tabular-nums}
+.card .f em{font-style:normal;font-size:13px;text-align:right;color:#6b6480}
+.card.up{transform:rotateY(180deg)}
+.card.deal{animation:deal 320ms var(--ease) both}
+@keyframes deal{from{opacity:0;transform:translate(0,-60px) rotate(-8deg) scale(.95)}to{opacity:1;transform:none}}
+.slot{width:92px;height:124px;border:3px dashed rgba(251,246,232,.35)}
+
+/* the round */
+.panel{background:rgba(0,0,0,.22);border:3px solid #000;box-shadow:inset 0 0 0 3px rgba(255,255,255,.06);padding:12px}
+.cat{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+.cat b{font:400 26px/1 var(--disp);color:#fff}.cat span{font-size:17px;color:var(--sand);white-space:nowrap}
+.clock{height:8px;background:rgba(0,0,0,.35);border:2px solid #000;margin-bottom:10px}.clock i{display:block;height:100%;background:var(--gold);transition:width 1s linear}
+.row{display:grid;grid-template-columns:1fr auto;gap:8px}
+.field{width:100%;border:3px solid #000;background:#fff;color:var(--ink);padding:10px;font-size:21px;min-height:48px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:3px solid #000;box-shadow:3px 3px 0 #000;background:var(--gold);color:var(--ink);padding:10px 16px 7px;font:400 22px/1 var(--disp);min-height:48px;text-decoration:none;transition:transform 140ms var(--ease)}
+.btn:active{transform:scale(.97)}.btn.w{background:var(--paper)}.btn.r{background:var(--clay);color:#fff}.btn[disabled]{opacity:.5;cursor:default}
+.msg{min-height:24px;margin:8px 2px 0;color:var(--sand);font-size:18px}
+.msg.bad{color:#ffb3a8}
+.choice{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.choice .btn{min-height:58px;font-size:24px}
+.hint{font-size:16px;color:var(--sand);text-align:center;margin-top:8px}
+
+/* result */
+.res{text-align:center}
+.total{font:400 64px/1 var(--disp);color:#fff;text-shadow:0 4px 0 #000;font-variant-numeric:tabular-nums}
+.verdict{display:inline-block;font:400 30px/1 var(--disp);padding:8px 16px 5px;border:3px solid #000;box-shadow:4px 4px 0 #000;margin:10px 0 6px;color:var(--ink);background:var(--gold);transform:rotate(-2deg)}
+.verdict.bust{background:var(--clay);color:#fff}
+.share{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.note{font-size:15px;color:var(--sand);opacity:.85;text-align:center;margin-top:14px}
+.rules{margin-top:14px;font-size:17px;color:var(--sand)}.rules summary{cursor:pointer;color:#fff}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:420px){.card,.slot{width:76px;height:106px}.card .f b{font-size:18px}.dealer{grid-template-columns:86px 1fr}.dealer img{width:86px;height:86px}h1{font-size:44px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <div class="top"><a class="logo" href="/">Unicorner</a><a class="x" href="/" aria-label="Close">✕</a></div>
+ <h1>BLACK JOCKEY</h1>
+ <p class="sub" id="date"></p>
+ <div class="dealer"><img id="host" src="/rosco/host/idle-1.png" alt="Horacio Herradura"><div class="bub" aria-live="polite"><b>HORACIO HERRADURA</b><span id="say"></span></div></div>
+ <div class="target"><span class="chip">🐴</span><div class="tbox"><small>TODAY'S TARGET</small><b id="target"></b></div></div>
+ <div class="hand" id="hand" aria-label="Your cards"></div>
+ <div class="panel" id="panel"></div>
+ <details class="rules"><summary>How to play</summary>
+  <p>Horacio deals one football category at a time. Name something that fits: it becomes a card, <b>face down</b>. Each card is worth a number (a stadium's capacity, the year a club was founded, a player's goals…), but you only see the numbers at the end.</p>
+  <p>After each card, <b>take another</b> or <b>stand</b>. Get as close to the target as you can. Go over and you <b>bust</b>: 0. Hit it exactly and it's a <b>Black Jockey</b>. Up to 6 cards, 45 seconds each. Same table for everyone today.</p>
+ </details>
+ <p class="note">Prototype · the numbers come from public records and will be fact-checked before launch.</p>
+</div>
+<script>
+(()=>{
+// ── the decks: every answer has the exact number it's worth (public records; to be fact-checked by the routine before launch) ──
+const DECKS={
+ stadium:{q:'Stadium capacity',ask:'Name the home stadium of a club in a top-5 league',unit:'seats',cards:[
+  ['Santiago Bernabéu',83186,['bernabeu','santiago bernabeu']],['Signal Iduna Park',81365,['westfalenstadion','signal iduna']],
+  ['San Siro',75817,['giuseppe meazza','meazza']],['Allianz Arena',75024,['allianz']],['Old Trafford',74310,[]],
+  ['Stadio Olimpico',70634,['olimpico']],['Metropolitano',70460,['wanda metropolitano','civitas metropolitano']],
+  ['Orange Vélodrome',67394,['velodrome','stade velodrome']],['Tottenham Hotspur Stadium',62850,['tottenham stadium','spurs stadium']],
+  ['Anfield',61276,[]],['Emirates Stadium',60704,['emirates']],['London Stadium',62500,['olympic stadium london']],
+  ['Veltins-Arena',62271,['veltins','arena aufschalke']],['Etihad Stadium',53400,['etihad']],['St James\' Park',52305,['st james park']],
+  ['Mestalla',49430,[]],['Parc des Princes',47929,[]],['Juventus Stadium',41507,['allianz stadium turin']],
+  ['Stamford Bridge',40343,[]],['Villa Park',42640,[]],['Goodison Park',39414,['goodison']],['Ramón Sánchez-Pizjuán',43883,['sanchez pizjuan','pizjuan']]]},
+ founded:{q:'Year founded',ask:'Name a big European club: when was it founded?',unit:'founded',cards:[
+  ['Manchester United',1878,['man united','man utd','newton heath']],['Everton',1878,[]],['Manchester City',1880,['man city']],
+  ['Tottenham',1882,['spurs','tottenham hotspur']],['Arsenal',1886,[]],['Celtic',1887,[]],['Liverpool',1892,[]],
+  ['Juventus',1897,['juve']],['Barcelona',1899,['barca','fc barcelona']],['AC Milan',1899,['milan']],['Bayern Munich',1900,['bayern']],
+  ['Ajax',1900,[]],['Real Madrid',1902,[]],['Atlético Madrid',1903,['atletico']],['Benfica',1904,[]],['Chelsea',1905,[]],
+  ['Inter',1908,['inter milan','internazionale']],['Borussia Dortmund',1909,['dortmund','bvb']],['PSG',1970,['paris saint germain','paris sg']]]},
+ plgoals:{q:'Premier League goals (career)',ask:'Name a retired Premier League striker: how many PL goals did he score?',unit:'PL goals',cards:[
+  ['Alan Shearer',260,['shearer']],['Wayne Rooney',208,['rooney']],['Andrew Cole',187,['andy cole','cole']],['Sergio Agüero',184,['aguero']],
+  ['Frank Lampard',177,['lampard']],['Thierry Henry',175,['henry']],['Robbie Fowler',163,['fowler']],['Jermain Defoe',162,['defoe']],
+  ['Michael Owen',150,['owen']],['Les Ferdinand',149,['ferdinand']],['Teddy Sheringham',146,['sheringham']],['Robin van Persie',144,['van persie','rvp']],
+  ['Robbie Keane',126,['keane']],['Nicolas Anelka',125,['anelka']],['Dwight Yorke',123,['yorke']],['Ian Wright',113,['wright']],
+  ['Dion Dublin',111,['dublin']],['Emile Heskey',110,['heskey']],['Didier Drogba',104,['drogba']],['Matt Le Tissier',100,['le tissier']]]},
+ wcgoals:{q:'World Cup goals',ask:'Name a player who scored at a men\'s World Cup: how many World Cup goals in total?',unit:'WC goals',cards:[
+  ['Miroslav Klose',16,['klose']],['Ronaldo Nazário',15,['ronaldo nazario','r9']],['Gerd Müller',14,['gerd muller']],['Lionel Messi',13,['messi']],
+  ['Just Fontaine',13,['fontaine']],['Pelé',12,['pele']],['Kylian Mbappé',12,['mbappe']],['Jürgen Klinsmann',11,['klinsmann']],
+  ['Sándor Kocsis',11,['kocsis']],['Thomas Müller',10,['thomas muller']],['Gary Lineker',10,['lineker']],['Gabriel Batistuta',10,['batistuta']],
+  ['Diego Maradona',8,['maradona']],['Cristiano Ronaldo',8,['cristiano']],['Harry Kane',8,['kane']],['Zinedine Zidane',5,['zidane']]]},
+ ucl:{q:'European Cups won',ask:'Name a club that has won the European Cup / Champions League: how many times?',unit:'titles',cards:[
+  ['Real Madrid',15,[]],['AC Milan',7,['milan']],['Bayern Munich',6,['bayern']],['Liverpool',6,[]],['Barcelona',5,['barca']],['Ajax',4,[]],
+  ['Inter',3,['inter milan','internazionale']],['Manchester United',3,['man united','man utd']],['Juventus',2,['juve']],['Benfica',2,[]],
+  ['Chelsea',2,[]],['Nottingham Forest',2,['forest']],['Porto',2,[]],['Celtic',1,[]],['Aston Villa',1,['villa']],['PSV',1,['psv eindhoven']],
+  ['Marseille',1,['olympique marseille']],['Dortmund',1,['borussia dortmund','bvb']],['Manchester City',1,['man city']],['PSG',1,['paris saint germain']]]},
+ ballon:{q:'Ballon d\'Or wins',ask:'Name a Ballon d\'Or winner: how many did he win?',unit:'Ballons d\'Or',cards:[
+  ['Lionel Messi',8,['messi']],['Cristiano Ronaldo',5,['ronaldo','cristiano']],['Michel Platini',3,['platini']],['Johan Cruyff',3,['cruyff']],
+  ['Marco van Basten',3,['van basten']],['Franz Beckenbauer',2,['beckenbauer']],['Alfredo Di Stéfano',2,['di stefano']],['Kevin Keegan',2,['keegan']],
+  ['Karl-Heinz Rummenigge',2,['rummenigge']],['Ronaldo Nazário',2,['ronaldo nazario']],['Zinedine Zidane',1,['zidane']],['Kaká',1,['kaka']],
+  ['Luka Modrić',1,['modric']],['Karim Benzema',1,['benzema']],['Rodri',1,[]],['Ousmane Dembélé',1,['dembele']]]}};
+
+// ── today's table: the same for everyone (Amsterdam date) ──
+const DAY=new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Amsterdam'});
+let seed=[...DAY].reduce((h,c)=>Math.imul(h^c.charCodeAt(0),16777619)>>>0,2166136261);
+const rnd=()=>{seed=Math.imul(seed^(seed>>>15),2246822507)>>>0;seed=Math.imul(seed^(seed>>>13),3266489909)>>>0;return((seed^=seed>>>16)>>>0)/4294967296};
+const TARGET=Math.round((95000+rnd()*70000)/50)*50;          // 95,000 – 165,000
+const order=['stadium','stadium','founded','plgoals','wcgoals','ucl','ballon'];
+for(let i=order.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[order[i],order[j]]=[order[j],order[i]]}
+// the two stadium rounds come first and second-ish: big cards early, small ones late (that's where the skill is)
+const ROUNDS=['stadium'].concat(order.filter((x,i)=>!(x==='stadium'&&order.indexOf('stadium')===i))).slice(0,6);
+const MAXC=6,SECS=45;
+
+// ── helpers ──
+const $=id=>document.getElementById(id),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt=n=>n.toLocaleString('en-GB'),norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+const KEY='uc-bj-'+DAY,ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch{return null}};
+const host=(pose,line)=>{$('host').src='/rosco/host/'+pose+'.png';if(line!=null)$('say').textContent=line};
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+$('date').textContent=new Date(DAY+'T12:00:00Z').toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',timeZone:'UTC'});
+$('target').textContent=fmt(TARGET);
+
+// ?new starts today's table again (for testing the prototype)
+if(new URLSearchParams(location.search).has('new')){try{localStorage.removeItem(KEY)}catch{}history.replaceState(null,'',location.pathname)}
+let S=null;try{S=JSON.parse(ls(KEY)||'null')}catch{}
+if(!S)S={hand:[],round:0,done:false};
+const save=()=>ls(KEY,JSON.stringify(S));
+const total=()=>S.hand.reduce((a,c)=>a+c.v,0);
+
+function drawHand(revealN){const h=$('hand');h.innerHTML='';
+ S.hand.forEach((c,i)=>{const up=revealN!=null&&i<revealN;h.insertAdjacentHTML('beforeend',`<div class="card${up?' up':''}" data-i="${i}"><div class="b"><span>${esc(c.name)}</span><i>?</i></div><div class="f"><small>${esc(c.name)}</small><b>${fmt(c.v)}</b><em>${esc(c.unit)}</em></div></div>`)});
+ if(!S.done)for(let i=S.hand.length;i<Math.min(MAXC,S.hand.length+1);i++)h.insertAdjacentHTML('beforeend','<div class="slot" aria-hidden="true"></div>')}
+
+// ── a round: one category, one answer, 45 seconds ──
+let timer=null,left=SECS;
+function ask(){const d=DECKS[ROUNDS[S.round]];clearInterval(timer);left=SECS;
+ $('panel').innerHTML=`<div class="cat"><b>${esc(d.q)}</b><span>Card ${S.hand.length+1} of ${MAXC}</span></div><div class="clock"><i id="clk" style="width:100%"></i></div>
+  <form id="f" class="row" autocomplete="off"><label class="sr" for="a" style="position:absolute;left:-9999px">${esc(d.ask)}</label><input class="field" id="a" placeholder="${esc(d.ask)}" autocomplete="off" autocapitalize="off" spellcheck="false"><button class="btn">Deal</button></form><p class="msg" id="m"></p>`;
+ host(pick(['talk-1','talk-2','point']),pick([`${d.ask.split(':')[0]}. Careful now…`,`Next card: ${d.q.toLowerCase()}. Choose wisely, amigo.`,`${d.q}. I won't tell you the number. Not yet.`]));
+ $('a').focus();
+ $('f').onsubmit=e=>{e.preventDefault();answer(d)};
+ timer=setInterval(()=>{left--;$('clk').style.width=Math.max(0,left/SECS*100)+'%';if(left<=0){clearInterval(timer);timeUp()}},1000)}
+function find(d,t){const q=norm(t);if(q.length<2)return null;
+ const all=d.cards.map(([n,v,al])=>({n,v,keys:[norm(n),...al.map(norm)]}));
+ const exact=all.filter(c=>c.keys.includes(q));if(exact.length)return exact[0];
+ const part=all.filter(c=>c.keys.some(k=>q.length>=4&&(k.startsWith(q)||k.split(' ').includes(q))));return part.length===1?part[0]:part.length>1?'many':null}
+function answer(d){const v=$('a').value,c=find(d,v);
+ if(c==='many'){$('m').className='msg bad';$('m').textContent='More than one fits. Add more of the name.';return}
+ if(!c){$('m').className='msg bad';$('m').textContent='Horacio doesn\'t know that one. Try another.';host('think');return}
+ if(S.hand.some(h=>h.name===c.n&&h.cat===ROUNDS[S.round])){$('m').className='msg bad';$('m').textContent='Already on the table. Another one.';return}
+ clearInterval(timer);S.hand.push({name:c.n,v:c.v,unit:d.unit,cat:ROUNDS[S.round]});S.round++;save();
+ drawHand();const last=$('hand').querySelector(`.card[data-i="${S.hand.length-1}"]`);last?.classList.add('deal');
+ if(S.hand.length>=MAXC)return reveal();choose()}
+function timeUp(){S.round++;save();host('sad-talk','Time! No card this round.');if(S.round>=ROUNDS.length||S.hand.length>=MAXC)return reveal();choose(true)}
+function choose(missed){
+ $('panel').innerHTML=`<div class="cat"><b>${S.hand.length} card${S.hand.length===1?'':'s'} face down</b><span>Target ${fmt(TARGET)}</span></div>
+  <div class="choice"><button class="btn" id="hit">Another card</button><button class="btn w" id="stand">Stand</button></div>
+  <p class="hint">Over ${fmt(TARGET)} and you bust. You only see the numbers at the end.</p>`;
+ if(!missed)host(pick(['wink','idle-2','happy-talk','nervous']),pick(['Face down. Another card, or do you stand?','Hmm. Feeling lucky?','The house is listening…','One more, amigo? Or is that enough?']));
+ $('hit').onclick=()=>{if(S.round>=ROUNDS.length)return reveal();ask()};$('stand').onclick=()=>reveal();$('hit').focus()}
+
+// ── the reveal: Horacio turns the cards one by one ──
+async function reveal(){clearInterval(timer);S.done=true;save();
+ const tot=total(),bust=tot>TARGET,exact=tot===TARGET;
+ $('panel').innerHTML=`<div class="res"><p style="margin:0;color:var(--sand)">Horacio turns the cards…</p><div class="total" id="run">0</div></div>`;
+ host('surprised','Let\'s see what you\'ve got…');drawHand(0);
+ const slow=!matchMedia('(prefers-reduced-motion:reduce)').matches,wait=ms=>new Promise(r=>setTimeout(r,slow?ms:0));
+ let run=0;for(let i=0;i<S.hand.length;i++){await wait(700);$('hand').querySelector(`.card[data-i="${i}"]`)?.classList.add('up');run+=S.hand[i].v;$('run').textContent=fmt(run);if(run>TARGET){$('run').style.color='#ffb3a8'}}
+ await wait(500);finish(tot,bust,exact)}
+function finish(tot,bust,exact){const pct=bust||!TARGET?0:Math.round(tot/TARGET*1000)/10,diff=TARGET-tot;
+ const v=!S.hand.length?['NO CARDS','',0]:bust?['BUST!','bust',0]:exact?['BLACK JOCKEY!','',100]:[pct>=99?'SO CLOSE!':pct>=95?'GREAT HAND':pct>=85?'DECENT HAND':'PLAYED SAFE','',pct];
+ host(bust?'facepalm':exact?'celebrate':pct>=95?'excited':pct>=85?'happy-1':'think',
+  bust?`Bust! ${fmt(tot-TARGET)} over. The house wins today.`:exact?'EXACTLY! A Black Jockey! I have never seen such a thing!':`${fmt(diff)} short. ${pct>=95?'Magnificent, amigo.':pct>=85?'Not bad at all.':'You were too careful, my friend.'}`);
+ $('panel').innerHTML=`<div class="res"><div class="total">${fmt(tot)}</div><p style="margin:2px 0 0;color:var(--sand)">of ${fmt(TARGET)}${bust?` · ${fmt(tot-TARGET)} over`:exact?'':` · ${fmt(diff)} short`}</p>
+  <span class="verdict${bust?' bust':''}">${v[0]}${!bust&&!exact&&S.hand.length?' · '+pct+'%':''}</span>
+  <div class="share"><button class="btn" id="share">Share</button><a class="btn w" href="/">Back to Unicorner</a></div>
+  <p class="hint">A new table tomorrow at midnight.</p></div>`;
+ drawHand(S.hand.length);
+ const txt=`Black Jockey 🐴 ${DAY}\n${S.hand.map(()=>'🂠').join('')} → ${fmt(tot)} / ${fmt(TARGET)}${bust?' 💥 BUST':exact?' 🎯':' ('+pct+'%)'}\nhttps://unicornergame.lol/blackjockey.html`;
+ $('share').onclick=async()=>{if(navigator.share){try{await navigator.share({text:txt})}catch{}return}try{await navigator.clipboard.writeText(txt);$('share').textContent='Copied!'}catch{}}}
+
+// ── start ──
+drawHand();
+if(S.done){const t=total();drawHand(S.hand.length);finish(t,t>TARGET,t===TARGET)}
+else if(S.hand.length)choose();
+else{host('excited','Welcome to my table! Get as close to the target as you can. Over it… and you lose everything.');
+ $('panel').innerHTML=`<div class="choice" style="grid-template-columns:1fr"><button class="btn" id="go">Deal me in</button></div><p class="hint">Up to ${MAXC} cards · ${SECS} seconds each · values stay face down</p>`;
+ $('go').onclick=()=>ask()}
+})();
+</script>
+</body>
+</html>
