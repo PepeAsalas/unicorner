@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Squad · Rankings, friends and leagues | Unicorner</title>
+<title>Socials · Rankings, friends and leagues | Unicorner</title>
 <meta name="description" content="Every Unicorner ranking in one place: Daily 5, Rosco and Millions, today and this week. Add your friends, compare scores and run private leagues.">
 <link rel="canonical" href="https://unicornergame.lol/squad.html">
 <link rel="alternate" hreflang="en" href="https://unicornergame.lol/squad.html">
@@ -15,9 +15,9 @@
 <style>
 @font-face{font-family:'Jersey 10';src:url(/fonts/jersey10.woff2) format('woff2');font-display:swap}
 @font-face{font-family:'VT323';src:url(/fonts/vt323.woff2) format('woff2');font-display:swap}
-/* Squad: the game's pitch background, and the same beveled "window" look as the ranking on the home page */
+/* Socials: the game's pitch background, and the same beveled "window" look as the ranking on the home page */
 :root{--ink:#1d1a2b;--paper:#fbf6e8;--w0:#f6eed8;--wl:#fffaf0;--wd:#b8ac8a;--navy:#1d4486;--gold:#f2c230;--grass:#2f9a62;--clay:#c8473b;
- --rosco:#1d4486;--millon:#1f8a4c;--daily:#c8473b;--mut:#6b6480;--line:#e3d9bd;
+ --rosco:#1d4486;--millon:#2f9a62;--marl:#2d5aa0;--daily:#c8473b;--mut:#6b6480;--line:#e3d9bd;
  --disp:'Jersey 10',monospace;--px:'VT323',monospace;--ease:cubic-bezier(.23,1,.32,1)}
 *{box-sizing:border-box}
 html{background:#1f5e39}
@@ -111,7 +111,7 @@ svg.i{width:18px;height:18px;shape-rendering:crispEdges;flex:none}
 .sec{font:400 19px/1 var(--disp);letter-spacing:.04em;margin:12px 2px 6px;display:flex;justify-content:space-between;align-items:center}
 .sec:first-child{margin-top:2px}
 .sec small{font:400 16px var(--px);color:var(--mut);letter-spacing:0}
-.invite{background:var(--ink);color:var(--paper);padding:12px;box-shadow:inset 2px 2px 0 #3a3550,inset -2px -2px 0 #000}
+.invite{background:var(--navy);color:var(--paper);padding:12px;box-shadow:inset 2px 2px 0 var(--marl),inset -2px -2px 0 #102a5a}
 .invite p{margin:0 0 8px;font-size:18px;color:#e9dfc2}
 .invite b{color:var(--gold);font-weight:400}
 .invite .two{display:grid;grid-template-columns:1fr auto;gap:8px}
@@ -154,9 +154,9 @@ svg.i{width:18px;height:18px;shape-rendering:crispEdges;flex:none}
 </defs></svg>
 <div class="wrap">
  <header class="top"><a class="logo" id="home" href="/">Unicorner</a><a class="chipbtn" id="playLink" href="/">▶ <span data-t="play">Play</span></a></header>
- <div class="hero"><div><h1>SQUAD</h1><p data-t="sub">Rankings, friends and leagues</p></div></div>
+ <div class="hero"><div><h1 data-t="h1">SOCIALS</h1><p data-t="sub">Rankings, friends and leagues</p></div></div>
 
- <div class="tabs" role="tablist" aria-label="Squad">
+ <div class="tabs" role="tablist" aria-label="Socials">
   <button role="tab" id="t-rank" data-tab="rank" aria-selected="true" aria-controls="p-rank"><svg class="i"><use href="#i-cup"/></svg><span data-t="t_rank">Rankings</span></button>
   <button role="tab" id="t-friends" data-tab="friends" aria-selected="false" aria-controls="p-friends"><svg class="i"><use href="#i-ppl"/></svg><span data-t="t_friends">Friends</span><span class="pip" id="pip" hidden></span></button>
   <button role="tab" id="t-leagues" data-tab="leagues" aria-selected="false" aria-controls="p-leagues"><svg class="i"><use href="#i-shd"/></svg><span data-t="t_leagues">Leagues</span></button>
@@ -204,7 +204,7 @@ const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,
 const ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch{return null}};
 
 // ── words ──
-const T={play:['Play','Jugar'],sub:['Rankings, friends and leagues','Rankings, amigos y ligas'],t_rank:['Rankings','Rankings'],t_friends:['Friends','Amigos'],t_leagues:['Leagues','Ligas'],
+const T={h1:['SOCIALS','SOCIAL'],play:['Play','Jugar'],sub:['Rankings, friends and leagues','Rankings, amigos y ligas'],t_rank:['Rankings','Rankings'],t_friends:['Friends','Amigos'],t_leagues:['Leagues','Ligas'],
  t_rank_bar:['RANKINGS','RANKINGS'],t_friends_bar:['FRIENDS','AMIGOS'],t_leagues_bar:['LEAGUES','LIGAS'],millions:['Millions','Millones'],today:['Today','Hoy'],week:['This week','Esta semana']};
 if(ES){document.documentElement.lang='es';document.querySelectorAll('[data-t]').forEach(e=>{const t=T[e.dataset.t];if(t)e.textContent=t[1]})}
 $('home').href=HOME;$('playLink').href=HOME;
@@ -317,7 +317,7 @@ let findT;$('friends').addEventListener('input',e=>{if(e.target.id!=='find')retu
  findT=setTimeout(async()=>{let r=[];try{r=await call('player_search',{p_q:q},true)||[]}catch{}const known=new Set((S.home?.friends||[]).map(f=>f.nickname.toLowerCase()));
   $('found').innerHTML=r.length?`<div class="well" style="margin-top:6px">${r.map(p=>`<div class="frow"><span class="u" style="background-image:${uni(p.kit)}"></span><span class="nm"><b>${esc(p.nick)}</b><small>${p.games||0} ${L('games played','partidos')}</small></span><span class="acts">${known.has(p.nick.toLowerCase())?`<span class="tag">${L('FRIEND','AMIGO')}</span>`:`<button class="btn s" data-add="${esc(p.nick)}">+ ${L('Add','Añadir')}</button>`}</span></div>`).join('')}</div>`:`<p class="note">${L('No player with that name.','Ningún jugador con ese nombre.')}</p>`},250)});
 $('friends').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;
- if(b.id==='share'){const link=$('inv').value,text=L("Join my squad on Unicorner, the daily football trivia game:",'Únete a mi equipo en Unicorner, el juego diario de trivia de fútbol:');
+ if(b.id==='share'){const link=$('inv').value,text=L("Add me on Unicorner, the daily football trivia game:",'Agrégame en Unicorner, el juego diario de trivia de fútbol:');
   if(navigator.share){try{await navigator.share({title:'Unicorner',text,url:link});track('squad_invite',{how:'share'})}catch{}return}
   try{await navigator.clipboard.writeText(link);toast(L('Link copied. Send it to your friends!','Enlace copiado. ¡Mándaselo a tus amigos!'));track('squad_invite',{how:'copy'})}catch{$('inv').select()}return}
  const act=async(fn,body,msg)=>{b.disabled=true;try{const r=await call(fn,body,true);if(msg)toast(typeof msg==='function'?msg(r):msg);S.open=null;await loadHome();if(S.filter==='friends')loadBoard()}catch(x){toast(x.message);b.disabled=false}};
@@ -353,7 +353,7 @@ $('leagues').addEventListener('submit',async e=>{e.preventDefault();const f=e.ta
 async function loadMe(){if(!sess()){S.me=null;return}try{S.me=await call('lg_me',{},true)}catch{S.me=null}}
 async function inviteFromLink(){const q=new URLSearchParams(location.search),code=q.get('add')||ls('uc-squad-add');if(!code)return;
  if(!sess()||!S.me?.profile){ls('uc-squad-add',code);setTab('friends');
-  $('friends').insertAdjacentHTML('afterbegin',`<div class="invite" style="margin-bottom:10px"><p><b>${L('A friend invited you to their squad.','Un amigo te ha invitado a su equipo.')}</b> ${L('Sign in to accept, it takes a few seconds.','Inicia sesión para aceptar, son unos segundos.')}</p></div>`);return}
+  $('friends').insertAdjacentHTML('afterbegin',`<div class="invite" style="margin-bottom:10px"><p><b>${L('A friend wants to add you on Unicorner.','Un amigo quiere agregarte en Unicorner.')}</b> ${L('Sign in to accept, it takes a few seconds.','Inicia sesión para aceptar, son unos segundos.')}</p></div>`);return}
  ls('uc-squad-add',null);try{history.replaceState(null,'',location.pathname+location.hash)}catch{}
  try{const nick=await call('sq_add_by_code',{p_code:code},true);toast(L('You and ','Tú y ')+nick+L(' are friends now!',' ya sois amigos!'));track('squad_invite_accept',{});setTab('friends');await loadHome()}catch(x){toast(x.message)}}
 (async()=>{drawControls();loadBoard();drawFriends();drawLeagues();

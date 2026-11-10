@@ -2267,7 +2267,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
 
  ${compete}
 
- <a class="sq-bar" href="${ES?'/es/squad.html':'/squad.html'}" data-track="squad_bar"><span class="sq-dots" aria-hidden="true"><i style="background:#c8473b"></i><i style="background:#1d4486"></i><i style="background:#1f8a4c"></i></span><span class="sq-txt"><b>SQUAD</b><small>${L('Rankings · friends · leagues','Rankings · amigos · ligas')}</small></span><span class="sq-go">${L('Open','Abrir')} ▸</span></a>
+ <a class="sq-bar" href="${ES?'/es/squad.html':'/squad.html'}" data-track="squad_bar"><span class="sq-dots" aria-hidden="true"><i style="background:#c8473b"></i><i style="background:#f2c230"></i><i style="background:#2f9a62"></i></span><span class="sq-txt"><b>${L('SOCIALS','SOCIAL')}</b><small>${L('Rankings · friends · leagues','Rankings · amigos · ligas')}</small></span><span class="sq-go">${L('Open','Abrir')} ▸</span></a>
 
  <div id="uc-awards" hidden></div>
 
@@ -3129,7 +3129,7 @@ const css=`
 .jb-lights{display:flex;justify-content:space-between;width:80%;max-width:480px}
 .jb-lights span{display:grid;grid-template-columns:repeat(3,16px);gap:4px;padding:5px;background:#3a3a3a;border:3px solid #000}
 .jb-lights i{height:12px;background:#fbf6e8;box-shadow:0 0 10px #fbf6e8}
-.sq-bar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;margin:-14px 0 26px;padding:10px 12px;background:#1d1a2b;color:#fbf6e8;border:4px solid #000;box-shadow:inset 0 0 0 3px #3a3550,8px 8px 0 rgba(0,0,0,.35);text-decoration:none;transition:transform 140ms cubic-bezier(.23,1,.32,1)}
+.sq-bar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;margin:-14px 0 26px;padding:10px 12px;background:#1d4486;color:#fbf6e8;border:4px solid #000;box-shadow:inset 0 0 0 3px #2d5aa0,8px 8px 0 rgba(0,0,0,.35);text-decoration:none;transition:transform 140ms cubic-bezier(.23,1,.32,1)}
 .sq-bar:active{transform:scale(.98)}.sq-bar:focus-visible{outline:3px solid #f2c230;outline-offset:3px}
 .sq-dots{display:grid;grid-template-columns:repeat(3,10px);gap:4px}.sq-dots i{width:10px;height:22px;border:2px solid #000;display:block}
 .sq-txt{min-width:0}.sq-txt b{display:block;font:400 24px/1 'Jersey 10',var(--px);letter-spacing:.06em;color:#f2c230}.sq-txt small{display:block;font:400 16px/1.15 'VT323',monospace;color:#e9dfc2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
