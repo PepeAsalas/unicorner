@@ -51,7 +51,7 @@ h1{margin:2px 0 0;text-align:center;font:400 46px/.9 var(--disp);color:var(--gol
 .mc{width:38px;height:52px;border:3px solid #000;box-shadow:2px 2px 0 rgba(0,0,0,.45);display:grid;place-items:center;font:400 17px var(--disp);color:var(--ink);background:var(--c,var(--paper))}
 .mc.down{background:var(--navy) var(--back,var(--pat)) center/cover}
 .mc.down::after{content:"🐴";font-size:15px}.art-back .mc.down::after{content:none}
-.art-host .house img{image-rendering:auto;filter:drop-shadow(0 4px 0 rgba(0,0,0,.35))}
+.art-host .house img{image-rendering:pixelated;filter:drop-shadow(0 4px 0 rgba(0,0,0,.35))}
 .htot{font:400 26px var(--disp);color:#fff;text-shadow:0 2px 0 #000;min-width:52px;text-align:center;font-variant-numeric:tabular-nums;transition:color 200ms ease}
 .htot.over{color:#ffb3a8}
 
@@ -113,7 +113,37 @@ form[inert]{opacity:.6}
 .recap details{background:rgba(0,0,0,.2);border:2px solid #000;margin-bottom:6px;padding:6px 8px}
 .recap summary{cursor:pointer;font-size:17px;color:#fff}
 .recap p{margin:4px 0;font-size:16px;color:var(--sand)}.recap p i{font-style:normal;display:inline-block;width:10px;height:10px;border:2px solid #000;margin-right:5px;vertical-align:-1px}
-.rules{margin-top:14px;font-size:17px;color:var(--sand)}.rules summary{cursor:pointer;color:#fff}
+.rules{margin:14px 0 0;text-align:center}
+/* the instruction booklet: five pages, swipe or tap through. Opens by itself the first time */
+.bk{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:16px;background:rgba(10,30,20,.72)}
+.bk[hidden]{display:none}
+.bk-book{width:100%;max-width:400px;background:var(--paper);color:var(--ink);border:3px solid #000;box-shadow:6px 6px 0 #000;overflow:hidden;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.bk-top{display:flex;align-items:center;gap:10px;background:var(--navy);color:var(--paper);border-bottom:3px solid #000;padding:6px 6px 6px 12px;font:400 17px/1 var(--disp);letter-spacing:.06em}
+.bk-top span:first-child{flex:1}.bk-top #bk-n{color:var(--gold)}
+.bk-x{width:34px;height:34px;border:2px solid #000;background:var(--paper);color:var(--ink);font:400 18px/1 var(--disp);padding:0}
+.bk-page{padding:12px 16px 4px;min-height:388px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.bk-page img{width:118px;height:118px;image-rendering:pixelated;margin:-4px 0 0}
+.bk-page h2{font:400 32px/1 var(--disp);margin:2px 0 6px;color:var(--ink)}
+.bk-page p{margin:0 0 8px;font-size:19px;line-height:1.18}
+.bk-page b{color:var(--navy);font-weight:400;font-family:var(--disp);font-size:21px}
+.bk-q{font:400 17px/1.1 var(--disp);background:var(--ink);color:#fff;padding:6px 8px 4px;margin:2px 0 8px;border:2px solid #000}
+.bk-cards{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin:2px 0 8px}
+.bkc{width:58px;height:80px;border:2px solid #000;box-shadow:2px 2px 0 rgba(0,0,0,.35);background:#fff;display:flex;flex-direction:column;text-align:left;position:relative}
+.bkc i{font:400 10px/1 var(--disp);background:var(--c);border-bottom:2px solid #000;padding:3px 3px 2px;font-style:normal;letter-spacing:.02em}
+.bkc span{font-size:12px;line-height:1;padding:3px;flex:1}
+.bkc strong{font:400 20px/1 var(--disp);text-align:right;padding:0 4px 3px;font-weight:400}
+.bkc.foul{background:var(--sand)}.bkc.foul strong{color:var(--clay)}
+.bkc.down{background:var(--navy) var(--back,var(--pat)) center/cover}
+.bkc.ok::after,.bkc.no::after{position:absolute;right:-8px;top:-9px;width:22px;height:22px;display:grid;place-items:center;border:2px solid #000;font:400 15px/1 var(--disp);color:#fff}
+.bkc.ok::after{content:"✓";background:var(--grass)}.bkc.no::after{content:"✕";background:var(--clay)}
+.bk-ladder{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;width:100%;margin:2px 0 8px}
+.bk-ladder div{border:2px solid #000;background:var(--c);font:400 13px/1 var(--disp);padding:5px 2px 3px}.bk-ladder div b{display:block;font-size:22px;color:var(--ink)}
+.bk-stamp{display:inline-block;font:400 22px/1 var(--disp);background:var(--gold);border:3px solid #000;box-shadow:3px 3px 0 #000;padding:6px 10px 3px;transform:rotate(-3deg);margin:4px 0 8px}
+.bk-stamp.red{background:var(--clay);color:#fff}
+.bk-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 12px 12px}
+.bk-nav .btn{min-width:96px}.bk-nav .btn[disabled]{visibility:hidden}
+.bk-dots{display:flex;gap:6px}.bk-dots i{width:10px;height:10px;border:2px solid #000;background:var(--sand);transition:background-color 160ms ease,transform 160ms var(--ease)}.bk-dots i.on{background:var(--gold);transform:scale(1.25)}
+@media (max-height:640px){.bk-page{min-height:0}.bk-page img{width:86px;height:86px}}
 .note{font-size:15px;color:var(--sand);opacity:.85;text-align:center;margin-top:12px}
 /* effects layer: confetti, chips and the bust flash. Never takes clicks */
 .fx{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden}
@@ -138,12 +168,15 @@ form[inert]{opacity:.6}
   <div class="legend"><span><i style="background:var(--t1)"></i>Tap-in 10</span><span><i style="background:var(--t2)"></i>Header 30</span><span><i style="background:var(--t3)"></i>Volley 60</span><span><i style="background:var(--t4)"></i>Bicycle 85</span><span><i style="background:var(--t5)"></i>Screamer 100</span></div></div>
  <div class="hand" id="hand" aria-label="Your cards"></div>
  <div class="panel" id="panel"></div>
- <details class="rules"><summary>How to play</summary>
-  <p>Every answer is a card worth its <b>rarity</b>: the more obvious the answer, the less it's worth. Tap-in 10 · Header 30 · Volley 60 · Bicycle kick 85 · Screamer 100.</p>
-  <p>Get as close to the target as you can in <b>up to 5 cards</b>. Over the target, you <b>bust</b>. A wrong answer or running out of time is a <b>foul</b>: 0 points, and the card is gone. You can <b>pass</b> one question.</p>
-  <p>Horacio plays a hand too: one card up, the rest face down. Stand when you think you've got him, then he turns his cards. Hit the target exactly and it's a <b>Full House</b>.</p>
- </details>
+ <p class="rules"><button type="button" class="btn w s" id="howto">📖 How to play</button></p>
  <p class="note">Prototype · questions and rarities come from the Duels question bank.</p>
+</div>
+<div class="bk" id="bk" hidden role="dialog" aria-modal="true" aria-labelledby="bk-h">
+ <div class="bk-book" id="bk-book">
+  <div class="bk-top"><span>HOW TO PLAY</span><span id="bk-n"></span><button type="button" class="bk-x" id="bk-x" aria-label="Close">✕</button></div>
+  <div class="bk-page" id="bk-page"></div>
+  <div class="bk-nav"><button type="button" class="btn w s" id="bk-prev">Back</button><span class="bk-dots" id="bk-dots"></span><button type="button" class="btn s" id="bk-next">Next</button></div>
+ </div>
 </div>
 <div class="fx" id="fx" aria-hidden="true"><div class="flash" id="flash"></div></div>
 <script>
@@ -156,11 +189,16 @@ const DAY=new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Amsterdam'});
 const fnv=s=>{let h=2166136261;for(const c of String(s))h=Math.imul(h^c.charCodeAt(0),16777619)>>>0;h^=h>>>16;h=Math.imul(h,2246822507)>>>0;h^=h>>>13;h=Math.imul(h,3266489909)>>>0;return(h^h>>>16)>>>0};
 let seed=fnv(DAY)||1;
 const rnd=()=>{seed=Math.imul(seed^(seed>>>15),2246822507)>>>0;seed=Math.imul(seed^(seed>>>13),3266489909)>>>0;return((seed^=seed>>>16)>>>0)/4294967296};
-// targets only from totals that 3 to 5 real cards can make
+// targets only from totals that 3 to 5 real cards can make, kept reachable: 120 to 240 (about four ordinary cards)
 const P=TIERS.map(t=>t.p),reach=new Set();(function walk(s,n,from){if(n>=3)reach.add(s);if(n===5)return;for(let i=from;i<P.length;i++)walk(s+P[i],n+1,i)})(0,0,0);
-const TARGETS=[...reach].filter(x=>x>=170&&x<=380).sort((a,b)=>a-b),TARGET=TARGETS[Math.floor(rnd()*TARGETS.length)];
-// the house: Horacio draws until he has at least 75% of the target (he can bust, too)
-const DEALER=(()=>{const h=[];let s=0;const w=[.2,.25,.25,.18,.12];while(s<TARGET*.75&&h.length<5){let r=rnd(),i=0;while(r>w[i]&&i<4){r-=w[i];i++}h.push(P[i]);s+=P[i]}return h})();
+// the house: Horacio draws until he has enough (he can bust, too)
+// (he stands at 70% with at least two cards and draws mostly ordinary cards: he busts about 1 day in 5)
+function table(lo,hi,old){seed=fnv(DAY)||1;const ts=[...reach].filter(x=>x>=lo&&x<=hi).sort((a,b)=>a-b),t=ts[Math.floor(rnd()*ts.length)];
+ const h=[];let s=0;const w=old?[.2,.25,.25,.18,.12]:[.25,.3,.25,.12,.08],stop=old?.75:.7,min=old?1:2;while((s<t*stop||h.length<min)&&h.length<5){let r=rnd(),i=0;while(r>w[i]&&i<4){r-=w[i];i++}h.push(P[i]);s+=P[i]}return{t,d:h}}
+// a table already started today keeps its target and house (saved with the game); one started before this version gets its old numbers back
+const SAVED=new URLSearchParams(location.search).has('new')?null:(()=>{try{return JSON.parse(localStorage.getItem('uc-rb-'+DAY))}catch{return null}})();
+const TBL=SAVED&&Number.isFinite(SAVED.t)&&Array.isArray(SAVED.d)&&SAVED.d.length?{t:SAVED.t,d:SAVED.d}:SAVED&&SAVED.hand&&SAVED.hand.length?table(170,380,true):table(120,240);
+const TARGET=TBL.t,DEALER=TBL.d;
 const DTOT=DEALER.reduce((a,b)=>a+b,0),SCALE=TARGET/.8;
 
 // ── helpers ──
@@ -238,6 +276,7 @@ function host(p,line){const img=$('host');
 let BANK=[],DECK=[];
 let S=null;try{S=JSON.parse(ls(KEY)||'null')}catch{}
 if(!S||!Array.isArray(S.hand))S={hand:[],qi:0,passed:false,done:false};
+S.t=TARGET;S.d=DEALER;
 const save=()=>ls(KEY,JSON.stringify(S));
 const total=()=>S.hand.reduce((a,c)=>a+c.p,0);
 $('date').textContent=new Date(DAY+'T12:00:00Z').toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',timeZone:'UTC'});
@@ -373,17 +412,59 @@ function confetti(n,from){if(REDUCE)return;const r=from.getBoundingClientRect(),
   const a=d.animate([{transform:'translate(-50%,-50%) scale(.6)',opacity:1},{transform:`translate(calc(-50% + ${vx}px),calc(-50% + ${vy}px)) rotate(${rot*.4}deg)`,opacity:1,offset:.3,easing:'cubic-bezier(.3,.6,.6,1)'},{opacity:1,offset:.8},{transform:`translate(calc(-50% + ${vx*1.5}px),calc(-50% + ${vy+innerHeight*.75}px)) rotate(${rot}deg)`,opacity:0}],{duration:dur,easing:'cubic-bezier(.2,.7,.4,1)'});
   a.onfinish=()=>d.remove()}}
 
+// ── which questions can be dealt: easy ones, where everybody knows some answers and can choose how famous to go.
+// About big clubs, the big leagues, World Cups and Euros; at least 2 obvious (10) and 2 well-known (30) answers, 4+ rarities, 18+ answers.
+// Not: goalkeepers, small nationality-in-league lists, Ballon d'Or, pre-2000 eras (too hard to pick from)
+const BIG=/Real Madrid|Barcelona|Man United|Man City|Liverpool|Chelsea|Arsenal|Juventus|Milan|Inter\b|Bayern|PSG|Paris|Atlético|Tottenham|Dortmund|Napoli|Premier League|La Liga|Serie A|Bundesliga|Champions League|World Cup|Euro/;
+const NICHE=/goalkeeper|Croatian|Serbian|Belgian|Colombian|Moroccan|Uruguayan|Spanish player who played in the Bundesliga|Ballon|between 19/i;
+function easy(q){if(!q||!q.id||!q.prompt||!Array.isArray(q.answers)||q.answers.length<18||!BIG.test(q.prompt)||NICHE.test(q.prompt))return false;
+ const n={};for(const a of q.answers){const p=FAME[a.fame];if(p)n[p]=(n[p]||0)+1}return(n[10]||0)>=2&&(n[30]||0)>=2&&Object.keys(n).length>=4}
 // ── today's deck: every question gets a number from (date, question id) and the lowest six are dealt.
 // The same for everyone, and adding questions to the bank later never reshuffles a day that already started ──
 function buildDeck(){const byId=new Map(BANK.map(q=>[q.id,q]));
  if(Array.isArray(S.deck)&&S.deck.length>=DECKN&&S.deck.every(id=>byId.has(id)))return S.deck.map(id=>byId.get(id));
- const good=BANK.filter(q=>q.id&&q.prompt&&Array.isArray(q.answers)&&new Set(q.answers.map(a=>FAME[a.fame])).size>=4&&q.answers.length>=12);
+ const good=BANK.filter(easy);
  const order=good.map(q=>[fnv(DAY+'|'+q.id),q]).sort((a,b)=>a[0]-b[0]||(a[1].id<b[1].id?-1:1)).map(x=>x[1]);
  // a hand started before this version keeps its questions in front
  const ids=[];for(const c of S.hand)if(c.q&&byId.has(c.q)&&!ids.includes(c.q))ids.push(c.q);
  for(const q of order){if(ids.length>=DECKN)break;if(!ids.includes(q.id))ids.push(q.id)}
  if(S.qi<S.hand.length)S.qi=S.hand.length;
  S.deck=ids;save();return ids.map(id=>byId.get(id))}
+
+// ── the instruction booklet ──
+const bkc=(n,p,t)=>t==='foul'?`<div class="bkc foul"><i style="--c:var(--sand)">FOUL</i><span>${n}</span><strong>0</strong></div>`:t==='down'?'<div class="bkc down"></div>'
+ :`<div class="bkc${t?' '+t:''}"><i style="--c:${tierOf(p).c}">${tierOf(p).n.toUpperCase()}</i><span>${n}</span><strong>${p}</strong></div>`;
+const PAGES=[
+ {pose:'clap',h:'Welcome to my table!',b:`<p>Every day I deal a <b>target number</b>. Get as close to it as you can with your cards… <b>without going over</b>.</p>
+  <div class="bk-ladder" style="grid-template-columns:1fr 1fr 1fr"><div style="--c:var(--sand)">TARGET<b>${TARGET}</b></div><div style="--c:var(--t2)">CARDS<b>1–5</b></div><div style="--c:var(--t4)">SECONDS<b>30</b></div></div><p>Same table for everyone, a new one every day.</p>`},
+ {pose:'show',h:'Every answer is a card',b:`<p>I ask a question with lots of right answers. <b>The more famous your answer, the less it's worth.</b></p>
+  <div class="bk-q">Name a player who played for Real Madrid in the 2010s</div>
+  <div class="bk-cards">${bkc('Cristiano Ronaldo',10)}${bkc('Luka Modrić',30)}${bkc('Marcelo',60)}${bkc('Theo Hernández',85)}${bkc('Diego López',100)}</div>`},
+ {pose:'think',h:'Choose your card',b:`<p>You decide what each card is worth. Need a lot? Go for a <b>deep cut</b>. Need a little? Play an <b>obvious</b> one.</p>
+  <div class="bk-ladder">${TIERS.map(t=>`<div style="--c:${t.c}">${t.n.replace(' kick','')}<b>${t.p}</b></div>`).join('')}</div>
+  <p>Target 150, you have 120: a Header (30) is perfect. A Screamer? <b>Bust.</b></p><div class="bk-cards">${bkc('Luka Modrić',30,'ok')}${bkc('Diego López',100,'no')}</div>`},
+ {pose:'shock',h:'Fouls and passes',b:`<p>A <b>wrong answer</b> or <b>running out of time</b> is a foul: 0 points, and that card is gone.</p>
+  <div class="bk-cards">${bkc('Neymar',0,'foul')}</div><p>Don't like a question? You can <b>pass once</b> per game. Go over the target and it's a <b>bust</b>.</p><span class="bk-stamp red">BUST!</span>`},
+ {pose:'wink',h:'Beat the house',b:`<p>I play too: <b>one card up</b>, the rest face down. Stop (<b>Stand</b>) when you think you beat me.</p>
+  <div class="bk-cards">${bkc('',DEALER[0])}${bkc('',0,'down')}${bkc('',0,'down')}</div>
+  <p>Closer to the target than me wins. Hit it <b>exactly</b> and it's a…</p><span class="bk-stamp">FULL HOUSE!</span>`}];
+let bkI=0,bkBack=null;
+function bkShow(i,dir){bkI=Math.max(0,Math.min(PAGES.length-1,i));const pg=PAGES[bkI],el=$('bk-page');
+ el.innerHTML=`<img src="/blackjack/art/horacio-${pg.pose}.png" alt="" onerror="this.src='/rosco/host/idle-1.png'"><h2 id="bk-h">${pg.h}</h2>${pg.b}`;
+ $('bk-n').textContent=`${bkI+1} / ${PAGES.length}`;$('bk-dots').innerHTML=PAGES.map((_,j)=>`<i class="${j===bkI?'on':''}"></i>`).join('');
+ $('bk-prev').disabled=bkI===0;const last=bkI===PAGES.length-1;$('bk-next').textContent=last?(S.done?'Got it':'Deal me in'):'Next';
+ if(dir)anim(el,[{opacity:0,transform:`translateX(${dir*28}px)`},{opacity:1,transform:'none'}],{duration:240,easing:EASE})}
+function bkOpen(){bkBack=document.activeElement;$('bk').hidden=false;bkShow(0);
+ anim($('bk'),[{opacity:0},{opacity:1}],{duration:200,easing:'ease-out'});anim($('bk-book'),[{opacity:0,transform:'translateY(14px) scale(.96)'},{opacity:1,transform:'none'}],{duration:280,easing:EASE});$('bk-next').focus()}
+function bkClose(play){ls('uc-rb-guide','1');const done=()=>{$('bk').hidden=true;if(play&&$('go'))$('go').click();else if(bkBack&&bkBack.focus)bkBack.focus()};
+ const a=anim($('bk-book'),[{opacity:1,transform:'none'},{opacity:0,transform:'translateY(10px) scale(.97)'}],{duration:160,easing:'ease-in'});anim($('bk'),[{opacity:1},{opacity:0}],{duration:160});if(a)a.onfinish=done;else done()}
+$('howto').onclick=bkOpen;$('bk-x').onclick=()=>bkClose(false);$('bk-prev').onclick=()=>bkShow(bkI-1,-1);
+$('bk-next').onclick=()=>bkI===PAGES.length-1?bkClose(true):bkShow(bkI+1,1);
+$('bk').addEventListener('click',e=>{if(e.target===$('bk'))bkClose(false)});
+$('bk').addEventListener('keydown',e=>{if(e.key==='Escape')bkClose(false);else if(e.key==='ArrowRight'&&bkI<PAGES.length-1)bkShow(bkI+1,1);else if(e.key==='ArrowLeft'&&bkI>0)bkShow(bkI-1,-1)});
+{let x0=null,y0=0;const bk=$('bk-book');bk.addEventListener('pointerdown',e=>{x0=e.clientX;y0=e.clientY});
+ bk.addEventListener('pointerup',e=>{if(x0==null)return;const dx=e.clientX-x0,dy=e.clientY-y0;x0=null;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3){if(dx<0&&bkI<PAGES.length-1)bkShow(bkI+1,1);else if(dx>0&&bkI>0)bkShow(bkI-1,-1)}});
+ bk.addEventListener('pointercancel',()=>{x0=null})}
 
 // ── start ──
 async function load(){for(let k=0;k<3;k++){try{const r=await fetch('/duel/bank.json',{cache:k?'reload':'default'});if(r.ok){const b=await r.json();if(Array.isArray(b)&&b.length)return b}}catch{}await wait(600*(k+1))}return null}
@@ -400,7 +481,8 @@ async function start(){drawDealer(false);drawHand(false);host('idle-1','Shufflin
  if(S.hand.length)return decide();
  host('excited',`Welcome to my table! Target ${TARGET}. Every answer is worth its rarity: obvious ones 10, deep cuts 100. Up to five cards. Go over… and you bust.`);
  $('panel').innerHTML=`<div class="choice" style="grid-template-columns:1fr"><button class="btn" id="go">Deal me in</button></div><p class="hint">The house shows ${DEALER[0]}. Beat it without going over ${TARGET}.</p>`;panelIn();
- $('go').onclick=()=>{if(lock)return;lock=true;ask()}}
+ $('go').onclick=()=>{if(lock||!$('bk').hidden)return;lock=true;ask()};
+ if(!ls('uc-rb-guide'))setTimeout(bkOpen,REDUCE?0:500)}
 start();
 })();
 </script>
