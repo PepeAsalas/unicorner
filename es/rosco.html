@@ -71,6 +71,11 @@ button{font:inherit;color:inherit;cursor:pointer}
 @keyframes glow{50%{box-shadow:0 0 0 6px rgba(242,194,48,.35),0 2px 0 var(--ink)}}
 .mid{position:absolute;inset:22%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
 .clock{font:400 clamp(48px,15vw,64px)/1 var(--disp);color:var(--gold);text-shadow:3px 3px 0 var(--ink)}
+.pzb{align-self:flex-end;font:400 18px/1 var(--disp);padding:7px 10px 4px;background:var(--paper,#fbf6e8);color:#1d1a2b;border:3px solid #1d1a2b;box-shadow:3px 3px 0 #1d1a2b;cursor:pointer;margin-bottom:-6px}
+.pzb:disabled{opacity:.45;cursor:default}
+.pzov{position:absolute;inset:-6px;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;background:#1d1a2b;border:3px solid #000;color:#fbf6e8}
+.pzov[hidden]{display:none}
+.pzov b{font:400 56px/1 var(--disp);color:var(--gold);text-shadow:3px 3px 0 #000}.pzov p{margin:0;font-size:22px}.pzov small{font-size:17px;opacity:.75}
 .clock.low{color:#f0a097;animation:tick 1s steps(2) infinite}@keyframes tick{50%{opacity:.6}}
 .sc{font:21px var(--mono);color:var(--sand)}.sc b{color:#7fd8a6;font-weight:400}.sc i{color:#f0a097;font-style:normal}
 .big{font:400 84px/1 var(--disp);text-shadow:4px 4px 0 var(--ink)}.big span{font-size:40px;color:var(--sand)}
@@ -135,7 +140,9 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
   <li><b class="grass" style="color:#fff">5</b><span data-es="Cinco minutos de reloj. El mismo Rosco para todos, nuevo cada día.">Five minutes on the clock. The same Rosco for everyone, new every day.</span></li></ul></div>
 </section>
 
-<section id="s-play" hidden style="display:flex;flex-direction:column;gap:12px">
+<section id="s-play" hidden style="display:flex;flex-direction:column;gap:12px;position:relative">
+ <button type="button" class="pzb" id="pzb" aria-label="Pause">⏸ <span data-es="Pausa">Pause</span></button>
+ <div class="pzov" id="pzov" hidden role="dialog" aria-modal="true" aria-labelledby="pzt"><b id="pzt" data-es="EN PAUSA">PAUSED</b><p id="pzl"></p><button type="button" class="btn gold" id="pzr" data-es="Seguir">Resume</button><small id="pzn"></small></div>
  <div class="ring" id="ring"><div class="mid"><div class="clock" id="clock">3:00</div><div class="sc" id="count"></div></div></div>
  <div class="host"><div class="face" id="face"><img alt="" width="64" height="64"></div><div class="clue" style="flex:1"><span class="chip" id="chip">Starts with A</span><p id="prompt"></p><small id="sub"></small><b class="hintx" id="hintx" hidden></b></div></div>
  <form id="f" autocomplete="off"><input class="inp" id="in" placeholder="Type your answer" enterkeyhint="send" autocapitalize="words" spellcheck="false"></form>
@@ -239,7 +246,8 @@ let cloudT=0;function cloud(now){clearTimeout(cloudT);if(!S||!S.start||ARCH)retu
 async function fromCloud(){if(ARCH)return;try{const m=await rpc('rosco_mine',{p_day:DAY});if(m===undefined){$('sync0').hidden=false;if(ES)$('syncA').href='/es/';return}
  const st=m&&m.state;if(st&&st.start&&(st.done||!S||!S.done&&(Object.keys(st.res||{}).length>Object.keys(S.res||{}).length||st.start<S.start))){S=st;ls(KEY,JSON.stringify(S))}
  else if(S&&S.start)cloud(true)}catch{}}
-const left=()=>Math.max(0,R.seconds-Math.floor((Date.now()-S.start)/1000));
+// a paused game is frozen at the moment it was paused (S.paused); resuming moves the start forward by the pause length
+const left=()=>Math.max(0,R.seconds-Math.floor(((S&&S.paused||Date.now())-S.start)/1000));
 const fmt=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
 function drawRing(id,cur){const r=$(id);r.querySelectorAll('.l').forEach(e=>e.remove());const on=new Set(R.letters.map(x=>x.letter));
  ABC.forEach((ch,i)=>{const a=-Math.PI/2+i*2*Math.PI/ABC.length,e=document.createElement('div'),st=S&&S.res[ch];
@@ -270,7 +278,14 @@ $('go').onclick=()=>{S={start:Date.now(),res:{},typed:{},passed:[],queue:R.lette
 
 const clue=q=>ES&&q.prompt_es?q.prompt_es:q.prompt;
 const cur=()=>R.letters.find(x=>x.letter===S.queue[0]);
-function play(){show('s-play');render(true);clearInterval(tick);tick=setInterval(()=>{const s=left();$('clock').textContent=fmt(s);$('clock').classList.toggle('low',s<=30);if(s<=30&&s>0&&s!==window._lt){window._lt=s;SFX.tick()}if(s<=30&&!S.warned){S.warned=1;react('nervous',L('30 seconds left!','¡Quedan 30 segundos!'))}if(s<=0)finish('time')},250);setTimeout(()=>$('in').focus(),50)}
+// pause: the clue, the letters and the answer box are hidden while paused, so a pause can't be used to look things up. 3 per game
+const PZMAX=3;
+function pzDraw(){const on=!!S.paused,n=PZMAX-(S.pz||0);$('pzov').hidden=!on;$('pzl').textContent=L(`${fmt(left())} left on the clock`,`Quedan ${fmt(left())}`);
+ $('pzn').textContent=L(`${n} pause${n===1?'':'s'} left`,`Te ${n===1?'queda':'quedan'} ${n} pausa${n===1?'':'s'}`);$('pzb').disabled=n<=0;$('pzb').querySelector('span').textContent=n>0?L('Pause','Pausa')+` (${n})`:L('No pauses left','Sin pausas');
+ $('in').disabled=on;if(on){$('in').blur();$('pzr').focus()}}
+$('pzb').onclick=()=>{if(S.paused||S.done||(S.pz||0)>=PZMAX)return;S.paused=Date.now();S.pz=(S.pz||0)+1;save();track('rosco_pause',{n:S.pz});pzDraw()};
+$('pzr').onclick=()=>{if(!S.paused)return;S.start+=Date.now()-S.paused;S.paused=0;save();pzDraw();setTimeout(()=>$('in').focus(),30)};
+function play(){show('s-play');render(true);pzDraw();clearInterval(tick);tick=setInterval(()=>{if(S.paused)return;const s=left();$('clock').textContent=fmt(s);$('clock').classList.toggle('low',s<=30);if(s<=30&&s>0&&s!==window._lt){window._lt=s;SFX.tick()}if(s<=30&&!S.warned){S.warned=1;react('nervous',L('30 seconds left!','¡Quedan 30 segundos!'))}if(s<=0)finish('time')},250);setTimeout(()=>$('in').focus(),50)}
 function render(first){const q=cur();if(!q)return finish('all');S.seen=S.seen||[];
  if(S.seen.includes(q.letter)){S.lap++;S.seen=[];if(!first)setTimeout(()=>react('wink',pick(LINES.lap)),0)}S.seen.push(q.letter);save();drawRing('ring',q.letter);const c=counts();
  $('count').innerHTML=`<b>${c.ok} ✓</b> · <i>${c.no} ✕</i> · `+L(`${S.queue.length} left`,`quedan ${S.queue.length}`);$('clock').textContent=fmt(left());

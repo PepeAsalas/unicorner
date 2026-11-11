@@ -318,7 +318,14 @@ let BANK=[],DECK=[];
 let S=null;try{S=JSON.parse(ls(KEY)||'null')}catch{}
 if(!S||!Array.isArray(S.hand))S={hand:[],qi:0,passed:false,done:false};
 S.t=TARGET;S.d=DEALER;
-const save=()=>ls(KEY,JSON.stringify(S));
+// signed in: the game is also saved on the account (supabase/stablehand.sql), so it continues on any device
+async function tok(){try{let x=JSON.parse(localStorage.getItem('uc-player-session')||'null');if(!x||!x.access_token)return null;
+ if((x.exp||0)<Date.now()+60000){const r=await fetch(SB_URL+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:x.refresh_token})});const j=await r.json();if(!r.ok||!j.access_token)return null;
+  x={...x,access_token:j.access_token,refresh_token:j.refresh_token||x.refresh_token,exp:Date.now()+Math.max(60,(+j.expires_in||3600))*1000};localStorage.setItem('uc-player-session',JSON.stringify(x))}return x.access_token}catch{return null}}
+async function rpc(fn,body){const t=await tok();if(!t)return undefined;const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok)throw 0;return r.json()}
+const progress=x=>!x||!Array.isArray(x.hand)?-1:(x.done?1000:0)+x.hand.length*10+Math.min(+x.qi||0,9);
+let pushT=0;const push=()=>{clearTimeout(pushT);pushT=setTimeout(()=>rpc('sh_save',{p_day:DAY,p_state:S}).catch(()=>{}),S.done?0:400)};
+const save=()=>{ls(KEY,JSON.stringify(S));push()};
 const total=()=>S.hand.reduce((a,c)=>a+c.p,0);
 $('date').textContent=new Date(DAY+'T12:00:00Z').toLocaleDateString(L('en-GB','es-ES'),{weekday:'long',day:'numeric',month:'long',timeZone:'UTC'});
 $('target').textContent=TARGET;
@@ -543,7 +550,12 @@ $('bk').addEventListener('keydown',e=>{if(e.key==='Escape')bkClose(false);else i
 
 // ── start ──
 async function load(){for(let k=0;k<3;k++){try{const r=await fetch('/duel/bank.json',{cache:k?'reload':'default'});if(r.ok){const b=await r.json();if(Array.isArray(b)&&b.length)return b}}catch{}await wait(600*(k+1))}return null}
-async function start(){drawDealer(false);drawHand(false);host('idle-1',L('Shuffling the deck…','Barajando…'));
+// the account's game is further along than this device's: take it (once per page load) and start again from it
+async function pull(){let srv=null;try{srv=await rpc('sh_mine',{p_day:DAY})}catch{}
+ if(!srv||typeof srv!=='object'||!Array.isArray(srv.hand))return false;if(progress(srv)<=progress(S))return false;
+ let k=null;try{k=sessionStorage.getItem('uc-sh-pulled')}catch{}if(k===DAY+':'+progress(srv))return false;
+ try{sessionStorage.setItem('uc-sh-pulled',DAY+':'+progress(srv))}catch{}ls(KEY,JSON.stringify(srv));location.reload();return true}
+async function start(){if(await pull())return;drawDealer(false);drawHand(false);host('idle-1',L('Shuffling the deck…','Barajando…'));
  if(!S.done&&!S.hand.length)[...$('dealer').children].forEach((el,i)=>{const[dx,dy]=fromShoe(el);anim(el,[{opacity:0,transform:`translate(${dx}px,${dy}px) rotate(20deg) scale(.6)`},{opacity:1,offset:.3},{opacity:1,transform:'none'}],{duration:420,delay:200+i*110,easing:EASE,fill:'backwards'});setTimeout(kickShoe,200+i*110)});
  const b=await load();
  if(!b){$('panel').innerHTML=`<p class="msg bad">${L("Couldn't load the cards. Check your connection.",'No se pudieron cargar las cartas. Revisa tu conexión.')}</p><div class="choice" style="grid-template-columns:1fr;margin-top:8px"><button class="btn" id="retry">${L('Try again','Reintentar')}</button></div>`;$('retry').onclick=start;host('nervous',L('The cards are stuck in the shoe…','Las cartas se han atascado…'));return}
