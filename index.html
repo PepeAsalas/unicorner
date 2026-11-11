@@ -2264,7 +2264,6 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
  <section class="modes" aria-label="${L('Game modes','Modos de juego')}">
   <button type="button" class="mode m-inf" data-infinite><span class="m-pic lx-thumb"><img class="lx-i" src="/bg/mode-inf-cut.png" alt="" width="720" height="330"></span><span class="m-txt"><b>${L('Infinity','Infinito')}</b><small>${L('Unlimited questions, out in space','Preguntas ilimitadas, en el espacio')}</small></span><span class="m-go">${L('Press start','Pulsa start')}</span></button>
   <a class="mode m-duel" id="lp-duel" href="/duel.html"><span class="m-pic lx-thumb"><img class="lx-i" src="/bg/mode-duel-cut.png" alt="" width="720" height="330"></span><span class="m-txt"><b>${L('Duels','Duelos')}</b><small id="lp-duel-sub">${L('1v1 a mate. Rarer answers hit harder','Reta a un amigo. Las respuestas raras pegan más')}</small><span class="m-rec" id="lp-duel-rec" hidden></span></span><span class="m-go" id="lp-duel-go">${L('Challenge','Retar')}</span></a>
-  <a class="mode m-tyc" href="/tycoon/" data-track="tycoon_card"><span class="m-tag">${L('New','Nuevo')}</span><span class="m-pic lx-thumb"><img class="lx-i" src="/bg/mode-tyc-cut.png" alt="" width="720" height="330"></span><span class="m-txt"><b>Chairman</b><small>${L('Kick the unicorn. Buy the club a stadium','Patea al unicornio. Cómprale un estadio al club')}</small><span class="m-sum">€1,204,330.50 ▲</span></span><span class="m-go">${L('Take over','Al mando')}</span></a>
  </section>
 
  ${compete}
@@ -4430,6 +4429,8 @@ html.polish .pz-count{font-variant-numeric:tabular-nums}
  .lp-title .uni-word{animation:goldShimmer 3.2s linear infinite!important;filter:drop-shadow(3px 3px 0 #000) drop-shadow(-1px -1px 0 #000) drop-shadow(1px -1px 0 #000) drop-shadow(-1px 1px 0 #000) drop-shadow(0 0 10px rgba(242,194,48,.45))!important}
  .lp-title .uni-word,.lp-title .lp-lead{-webkit-box-decoration-break:clone;box-decoration-break:clone}
 }
+/* landing: Chairman moved to the footer, so Infinity and Duels share the row */
+.modes:not(.res-modes){grid-template-columns:repeat(2,minmax(0,1fr))!important}
 </style>
 <script>
 // AdSense: hand-placed units only (Auto ads off). Under Game modes on home, under Infinity on the results page.
@@ -4579,7 +4580,7 @@ body.landing .tk-streak{padding:8px 14px!important}
 .lx-ro-go{display:block;margin:0 14px 14px;text-align:center;background:#f2c230;color:#1d1a2b;border:3px solid #1d1a2b;box-shadow:0 4px 0 #1d1a2b;font:400 26px/1 "Jersey 10",monospace;letter-spacing:.04em;padding:9px;transition:transform .12s cubic-bezier(.23,1,.32,1)}
 .lx-ro:active .lx-ro-go{transform:translateY(2px)}
 /* Anytime */
-body.landing .landing-wrap .modes{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:16px!important}
+body.landing .landing-wrap .modes{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px!important}
 body.landing .landing-wrap .modes .mode.mode.mode{height:auto!important;min-height:0!important;flex-direction:column!important;border:3px solid #1d1a2b!important;box-shadow:0 4px 0 #1d1a2b!important;background:#1d1a2b!important;color:#fbf6e8!important}
 body.landing .landing-wrap .modes .mode.mode .m-pic.m-pic{width:100%!important;flex:none!important;height:150px!important;border-right:0!important;border-bottom:3px solid #1d1a2b!important}
 body.landing .landing-wrap .modes .mode .m-txt{padding:12px 14px 70px!important;background:#1d1a2b!important;gap:4px!important;justify-content:flex-start!important}
