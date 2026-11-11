@@ -190,4 +190,11 @@ if __name__ == '__main__':
     q = re.sub(r'<meta name="description" content="[^"]*">', '<meta name="description" content="Todos los rankings de Unicorner en un sitio: Daily 5, Rosco y Millones, hoy y esta semana. Añade a tus amigos y crea ligas privadas.">', q, count=1)
     q = q.replace('<link rel="canonical" href="https://unicornergame.lol/squad.html">', '<link rel="canonical" href="https://unicornergame.lol/es/squad.html">', 1)
     (SRC.parent / 'es' / 'squad.html').write_text(q, encoding='utf-8')
+    # Stable Hand (Mano de Cuadra): the same page in Spanish
+    h = (SRC.parent / 'stablehand.html').read_text(encoding='utf-8')
+    h = h.replace('<html lang="en">', '<html lang="es">', 1)
+    h = re.sub(r'<title>[^<]*</title>', '<title>Mano de Cuadra · El blackjack futbolero de Horacio | Unicorner</title>', h, count=1)
+    h = re.sub(r'<meta name="description" content="[^"]*">', '<meta name="description" content="Mano de Cuadra: el blackjack futbolero diario de Horacio Herradura. Cada respuesta es una carta que vale según su rareza. Acércate al objetivo, gánale a la casa y no te pases.">', h, count=1)
+    h = h.replace('<link rel="canonical" href="https://unicornergame.lol/stablehand.html">', '<link rel="canonical" href="https://unicornergame.lol/es/stablehand.html">', 1)
+    (SRC.parent / 'es' / 'stablehand.html').write_text(h, encoding='utf-8')
     seo_games()

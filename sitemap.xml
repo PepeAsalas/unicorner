@@ -79,6 +79,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://unicornergame.lol/stablehand.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://unicornergame.lol/es/stablehand.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://unicornergame.lol/about.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mano de Cuadra · El blackjack futbolero de Horacio | Unicorner</title>
+<meta name="description" content="Mano de Cuadra: el blackjack futbolero diario de Horacio Herradura. Cada respuesta es una carta que vale según su rareza. Acércate al objetivo, gánale a la casa y no te pases.">
+<link rel="canonical" href="https://unicornergame.lol/es/stablehand.html">
+<link rel="alternate" hreflang="en" href="https://unicornergame.lol/stablehand.html">
+<link rel="alternate" hreflang="es" href="https://unicornergame.lol/es/stablehand.html">
+<link rel="alternate" hreflang="x-default" href="https://unicornergame.lol/stablehand.html">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<meta name="theme-color" content="#14402b">
+<style>
+@font-face{font-family:'Jersey 10';src:url(/fonts/jersey10.woff2) format('woff2');font-display:swap}
+@font-face{font-family:'VT323';src:url(/fonts/vt323.woff2) format('woff2');font-display:swap}
+/* Stable Hand (Mano de Cuadra in Spanish): Horacio's blackjack table in the site palette. Felt = grass, cards = paper with the five rarity colours, chips = gold.
+   Art from /blackjack/art/ is used when it exists (table, Horacio the croupier, card back, chip); until then the CSS draws everything. */
+:root{--ink:#1d1a2b;--paper:#fbf6e8;--sand:#e9dfc2;--gold:#f2c230;--grass:#2f9a62;--felt:#1f6b45;--felt2:#14402b;--clay:#c8473b;--navy:#1d4486;
+ --t1:#cfd8e6;--t2:#7fe0a8;--t3:#b48cff;--t4:#ff7ac8;--t5:#ffd23f;
+ --disp:'Jersey 10',monospace;--px:'VT323',monospace;--ease:cubic-bezier(.23,1,.32,1);
+ --pat:repeating-linear-gradient(45deg,rgba(255,255,255,.14) 0 4px,transparent 4px 9px)}
+*{box-sizing:border-box}
+html{background:var(--felt2);-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;min-height:100dvh;color:var(--paper);font:400 20px/1.25 var(--px);image-rendering:pixelated;-webkit-tap-highlight-color:transparent;overflow-x:hidden;
+ background:var(--felt2) var(--table,radial-gradient(ellipse 90% 70% at 50% 30%,var(--felt) 0 58%,var(--felt2) 100%)) center top/cover no-repeat fixed;
+ padding:max(10px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(24px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left))}
+body.noart::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(rgba(0,0,0,.12) 1px,transparent 1.5px) 0 0/6px 6px}
+button,input{font:inherit;color:inherit}button{cursor:pointer;touch-action:manipulation}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.wrap{max-width:720px;margin:0 auto;position:relative}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.top-r{display:flex;gap:8px}
+.logo{font:400 24px/1 var(--disp);text-transform:uppercase;text-decoration:none;color:var(--ink);background:var(--paper);border:3px solid #000;box-shadow:4px 4px 0 #000;padding:5px 10px 3px}
+.x{width:44px;height:44px;display:grid;place-items:center;font:400 24px/1 var(--disp);text-decoration:none;color:var(--ink);background:var(--paper);border:3px solid #000;box-shadow:3px 3px 0 #000;padding:0;transition:transform 140ms var(--ease)}
+.x:active{transform:scale(.94)}
+#snd{background:var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 2h2v3H0zM2 1h1v5H2zM3 0h1v7H3zM5 2h1v3H5zM6 1h1v1H6zM6 5h1v1H6zM7 2h1v3H7z' fill='%231a1030'/%3E%3C/svg%3E") center/18px auto no-repeat}
+#snd[data-on="0"]{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 2h2v3H0zM2 1h1v5H2zM3 0h1v7H3z' fill='%231a1030'/%3E%3Cpath d='M5 2h1v1H5zM7 2h1v1H7zM6 3h1v1H6zM5 4h1v1H5zM7 4h1v1H7z' fill='%23e3262f'/%3E%3C/svg%3E")}
+h1{margin:2px 0 0;text-align:center;font:400 46px/.9 var(--disp);color:var(--gold);text-shadow:0 4px 0 #000,3px 0 0 #000,-3px 0 0 #000,0 -3px 0 #000;letter-spacing:.03em}
+.sub{text-align:center;margin:4px 0 8px;color:var(--sand);font-size:18px}
+
+/* the house: Horacio and his hand */
+.house{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:end;margin:4px 0 6px}
+.hostw{display:block;width:136px;height:136px;margin:-14px -6px -4px -10px;animation:breathe 2.8s ease-in-out infinite}
+.house img{display:block;width:100%;height:100%;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 4px 0 rgba(0,0,0,.35));transform-origin:50% 100%}
+@keyframes breathe{50%{transform:translateY(-2px)}}
+.bub{position:relative;background:var(--paper);color:var(--ink);border:3px solid #000;box-shadow:4px 4px 0 #000;padding:9px 12px 7px;font-size:19px;line-height:1.15;min-height:60px}
+.bub::before{content:"";position:absolute;left:-12px;bottom:16px;border:6px solid transparent;border-right:6px solid #000;border-left:0}
+.bub b{font:400 14px var(--disp);letter-spacing:.06em;color:var(--navy);display:block;margin-bottom:2px}
+#say{display:block}
+.hrow{display:flex;align-items:center;gap:10px;justify-content:center;margin:4px 0 10px}
+.hrow small{color:var(--sand);font-size:16px;letter-spacing:.08em}
+.mini{display:flex;gap:5px;perspective:600px}
+.mc{width:38px;height:52px;border:3px solid #000;box-shadow:2px 2px 0 rgba(0,0,0,.45);display:grid;place-items:center;font:400 17px var(--disp);color:var(--ink);background:var(--c,var(--paper))}
+.mc.down{background:var(--navy) var(--back,var(--pat)) center/cover}
+.mc.down::after{content:"🐴";font-size:15px}.art-back .mc.down::after{content:none}
+.art-host .house img{image-rendering:pixelated;filter:drop-shadow(0 4px 0 rgba(0,0,0,.35))}
+.htot{font:400 26px var(--disp);color:#fff;text-shadow:0 2px 0 #000;min-width:52px;text-align:center;font-variant-numeric:tabular-nums;transition:color 200ms ease}
+.htot.over{color:#ffb3a8}
+
+/* target meter: the bar runs to 125% of the target, so a bust shows how far over you went */
+.meter{margin:2px 0 10px}
+.mtop{display:flex;justify-content:space-between;align-items:baseline}
+#score{position:relative}
+.mtop b{display:inline-block;font:400 44px/1 var(--disp);color:#fff;text-shadow:0 3px 0 #000;font-variant-numeric:tabular-nums;min-width:2.1ch;text-align:right;transition:color 200ms ease}
+.mtop b.over{color:#ffb3a8}.mtop b.exact{color:var(--gold)}
+.mtop span{color:var(--sand);font-size:18px}.mtop em{font-style:normal;color:var(--gold);font:400 30px var(--disp);text-shadow:0 2px 0 #000}
+.pop{position:absolute;right:100%;bottom:4px;margin-right:12px;font:400 28px/1 var(--disp);text-shadow:0 2px 0 #000,2px 0 0 #000,-2px 0 0 #000;pointer-events:none;white-space:nowrap}
+.bar{position:relative;height:22px;background:rgba(0,0,0,.35);border:3px solid #000;margin-top:6px;overflow:hidden}
+.bar::after{content:"";position:absolute;top:0;bottom:0;left:80%;right:0;background:repeating-linear-gradient(45deg,rgba(200,71,59,.4) 0 4px,transparent 4px 9px)}
+.bar i{position:absolute;top:0;bottom:0;left:0;transform-origin:0 50%;border-right:2px solid #000}
+.bar i.ov{background:var(--clay)!important}
+.bar .goal{position:absolute;top:0;bottom:0;width:3px;margin-left:-1px;background:var(--gold);left:80%;z-index:1}
+.legend{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;font-size:15px;color:var(--sand);margin-top:6px}
+.legend span{display:inline-flex;align-items:center;gap:4px}.legend i{width:12px;height:12px;border:2px solid #000;display:inline-block}
+
+/* your hand */
+.hand{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;min-height:132px;margin:4px 0 12px;perspective:900px}
+.card{width:110px;height:132px;border:3px solid #000;box-shadow:3px 3px 0 rgba(0,0,0,.45);background:var(--paper);color:var(--ink);display:flex;flex-direction:column;justify-content:space-between;padding:0;overflow:hidden;position:relative}
+.card::after{content:"";position:absolute;inset:0;background:var(--navy) var(--back,var(--pat)) center/cover;opacity:0;pointer-events:none}
+.card.back::after{opacity:1}
+.card .tier{background:var(--c);font:400 15px/1 var(--disp);padding:5px 6px 3px;border-bottom:3px solid #000;letter-spacing:.04em}
+.card .nm{padding:4px 6px;font-size:15px;line-height:1.05;overflow-wrap:anywhere;flex:1}
+.card .pts{font:400 32px/1 var(--disp);text-align:right;padding:0 6px 4px}
+.card.foul{background:#e9dfc2}.card.foul .pts{color:var(--clay)}.card.foul .nm.typed{text-decoration:line-through;text-decoration-thickness:2px}
+.card.over{box-shadow:0 0 0 3px var(--clay),3px 3px 0 rgba(0,0,0,.45)}
+.slot{width:110px;height:132px;border:3px dashed rgba(251,246,232,.3);display:grid;place-items:center;color:rgba(251,246,232,.35);font:400 18px var(--disp)}
+
+/* the round */
+.panel{background:rgba(0,0,0,.26);border:3px solid #000;box-shadow:inset 0 0 0 3px rgba(255,255,255,.06);padding:12px;scroll-margin-bottom:16px}
+.qhead{display:flex;justify-content:space-between;gap:8px;color:var(--sand);font-size:16px;margin-bottom:4px}
+.q{font:400 25px/1.1 var(--disp);color:#fff;margin:0 0 4px}
+.need{font-size:17px;color:var(--gold);margin:0 0 8px}
+.clock{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.clock div{flex:1;height:8px;background:rgba(0,0,0,.35);border:2px solid #000;overflow:hidden}
+.clock i{display:block;height:100%;background:var(--gold);transform-origin:0 50%;transition:transform 200ms linear,background-color 200ms ease}
+.clock span{font:400 20px/1 var(--disp);min-width:2ch;text-align:right;color:var(--sand);font-variant-numeric:tabular-nums}
+.clock.hurry i{background:var(--clay)}.clock.hurry span{color:#ffb3a8}
+.row{display:grid;grid-template-columns:1fr auto;gap:8px}
+.field{width:100%;border:3px solid #000;background:#fff;color:var(--ink);padding:10px;font-size:21px;min-height:48px;border-radius:0;-webkit-appearance:none;appearance:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:3px solid #000;box-shadow:3px 3px 0 #000;background:var(--gold);color:var(--ink);padding:10px 16px 7px;font:400 22px/1 var(--disp);min-height:48px;text-decoration:none;transition:transform 140ms var(--ease),box-shadow 140ms var(--ease);user-select:none;-webkit-user-select:none}
+.btn:active{transform:translate(2px,2px) scale(.98);box-shadow:1px 1px 0 #000}.btn.w{background:var(--paper)}.btn.s{font-size:17px;min-height:38px;padding:6px 10px 4px}.btn[disabled]{opacity:.45;cursor:default;transform:none;box-shadow:3px 3px 0 #000}
+.tools{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap}
+.msg{min-height:22px;margin:6px 2px 0;color:var(--sand);font-size:17px}.msg.bad{color:#ffb3a8}
+.choice{display:grid;grid-template-columns:1fr 1fr;gap:10px}.choice .btn{min-height:58px;font-size:24px}
+.hint{font-size:16px;color:var(--sand);text-align:center;margin-top:8px}
+form[inert]{opacity:.6}
+
+/* result */
+.res{text-align:center}
+.verdict{display:inline-block;font:400 32px/1 var(--disp);padding:9px 16px 6px;border:3px solid #000;box-shadow:4px 4px 0 #000;margin:4px 0 8px;color:var(--ink);background:var(--gold);transform:rotate(-2deg)}
+.verdict.lose{background:var(--clay);color:#fff}.verdict.push{background:var(--paper)}
+.vs{display:flex;justify-content:center;gap:18px;font-size:19px;color:var(--sand)}.vs b{display:block;font:400 34px var(--disp);color:#fff;font-variant-numeric:tabular-nums}
+.share{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.recap{margin-top:14px;text-align:left}
+.recap details{background:rgba(0,0,0,.2);border:2px solid #000;margin-bottom:6px;padding:6px 8px}
+.recap summary{cursor:pointer;font-size:17px;color:#fff}
+.recap p{margin:4px 0;font-size:16px;color:var(--sand)}.recap p i{font-style:normal;display:inline-block;width:10px;height:10px;border:2px solid #000;margin-right:5px;vertical-align:-1px}
+.rules{margin:14px 0 0;text-align:center}
+/* the instruction booklet: five pages, swipe or tap through. Opens by itself the first time */
+.bk{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:16px;background:rgba(10,30,20,.72)}
+.bk[hidden]{display:none}
+.bk-book{width:100%;max-width:400px;background:var(--paper);color:var(--ink);border:3px solid #000;box-shadow:6px 6px 0 #000;overflow:hidden;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.bk-top{display:flex;align-items:center;gap:10px;background:var(--navy);color:var(--paper);border-bottom:3px solid #000;padding:6px 6px 6px 12px;font:400 17px/1 var(--disp);letter-spacing:.06em}
+.bk-top span:first-child{flex:1}.bk-top #bk-n{color:var(--gold)}
+.bk-x{width:34px;height:34px;border:2px solid #000;background:var(--paper);color:var(--ink);font:400 18px/1 var(--disp);padding:0}
+.bk-page{padding:12px 16px 4px;min-height:388px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.bk-page img{width:118px;height:118px;image-rendering:pixelated;margin:-4px 0 0}
+.bk-page h2{font:400 32px/1 var(--disp);margin:2px 0 6px;color:var(--ink)}
+.bk-page p{margin:0 0 8px;font-size:19px;line-height:1.18}
+.bk-page b{color:var(--navy);font-weight:400;font-family:var(--disp);font-size:21px}
+.bk-q{font:400 17px/1.1 var(--disp);background:var(--ink);color:#fff;padding:6px 8px 4px;margin:2px 0 8px;border:2px solid #000}
+.bk-cards{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin:2px 0 8px}
+.bkc{width:58px;height:80px;border:2px solid #000;box-shadow:2px 2px 0 rgba(0,0,0,.35);background:#fff;display:flex;flex-direction:column;text-align:left;position:relative}
+.bkc i{font:400 10px/1 var(--disp);background:var(--c);border-bottom:2px solid #000;padding:3px 3px 2px;font-style:normal;letter-spacing:.02em}
+.bkc span{font-size:12px;line-height:1;padding:3px;flex:1}
+.bkc strong{font:400 20px/1 var(--disp);text-align:right;padding:0 4px 3px;font-weight:400}
+.bkc.foul{background:var(--sand)}.bkc.foul strong{color:var(--clay)}
+.bkc.down{background:var(--navy) var(--back,var(--pat)) center/cover}
+.bkc.ok::after,.bkc.no::after{position:absolute;right:-8px;top:-9px;width:22px;height:22px;display:grid;place-items:center;border:2px solid #000;font:400 15px/1 var(--disp);color:#fff}
+.bkc.ok::after{content:"✓";background:var(--grass)}.bkc.no::after{content:"✕";background:var(--clay)}
+.bk-ladder{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;width:100%;margin:2px 0 8px}
+.bk-ladder div{border:2px solid #000;background:var(--c);font:400 13px/1 var(--disp);padding:5px 2px 3px}.bk-ladder div b{display:block;font-size:22px;color:var(--ink)}
+.bk-stamp{display:inline-block;font:400 22px/1 var(--disp);background:var(--gold);border:3px solid #000;box-shadow:3px 3px 0 #000;padding:6px 10px 3px;transform:rotate(-3deg);margin:4px 0 8px}
+.bk-stamp.red{background:var(--clay);color:#fff}
+.bk-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 12px 12px}
+.bk-nav .btn{min-width:96px}.bk-nav .btn[disabled]{visibility:hidden}
+.bk-dots{display:flex;gap:6px}.bk-dots i{width:10px;height:10px;border:2px solid #000;background:var(--sand);transition:background-color 160ms ease,transform 160ms var(--ease)}.bk-dots i.on{background:var(--gold);transform:scale(1.25)}
+@media (max-height:640px){.bk-page{min-height:0}.bk-page img{width:86px;height:86px}}
+.note{font-size:15px;color:var(--sand);opacity:.85;text-align:center;margin-top:12px}
+/* effects layer: confetti, chips and the bust flash. Never takes clicks */
+.fx{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden}
+.cf{position:absolute;width:8px;height:12px;border:2px solid #000}
+.cf.chip{width:22px;height:22px;border:0;background:url(/blackjack/art/chip.png) center/contain no-repeat}
+.flash{position:absolute;inset:0;background:var(--clay);opacity:0}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:440px){.card,.slot{width:66px;height:104px}.card .tier{font-size:11px;padding:4px 3px 2px}.card .nm{font-size:12px;padding:3px}.card .pts{font-size:22px}
+ .hostw{width:110px;height:110px;margin:-10px -6px -2px -8px}h1{font-size:40px}.bub{font-size:17px}}
+@media (max-width:360px){.card,.slot{width:58px}.hand{gap:5px}}
+</style>
+</head>
+<body class="noart">
+<div class="wrap">
+ <div class="top"><a class="logo" id="home1" href="/">Unicorner</a><span class="top-r"><button type="button" class="x" id="snd" aria-label="Sound" title="Sound"></button><a class="x" id="home2" href="/" aria-label="Close">✕</a></span></div>
+ <h1 id="h1">STABLE HAND</h1>
+ <p class="sub" id="date"></p>
+ <div class="house"><span class="hostw"><img id="host" src="/blackjack/art/horacio-idle.png" alt="Horacio Herradura" width="136" height="136"></span><div class="bub" aria-live="polite"><b>HORACIO HERRADURA</b><span id="say"></span></div></div>
+ <div class="hrow"><small id="l-house">THE HOUSE</small><div class="mini" id="dealer"></div><span class="htot" id="dtot"></span></div>
+ <div class="meter" id="meter"><div class="mtop"><span id="l-hand">YOUR HAND</span><span id="score"><b id="tot">0</b> / <em id="target"></em></span></div><div class="bar" id="bar"><span class="goal"></span></div>
+  <div class="legend" id="legend"></div></div>
+ <div class="hand" id="hand" aria-label="Your cards"></div>
+ <div class="panel" id="panel"></div>
+ <p class="rules"><button type="button" class="btn w s" id="howto">📖 How to play</button></p>
+ <p class="note" id="note">Questions and rarities come from the Duels question bank.</p>
+</div>
+<div class="bk" id="bk" hidden role="dialog" aria-modal="true" aria-labelledby="bk-h">
+ <div class="bk-book" id="bk-book">
+  <div class="bk-top"><span id="bk-t">HOW TO PLAY</span><span id="bk-n"></span><button type="button" class="bk-x" id="bk-x" aria-label="Close">✕</button></div>
+  <div class="bk-page" id="bk-page"></div>
+  <div class="bk-nav"><button type="button" class="btn w s" id="bk-prev">Back</button><span class="bk-dots" id="bk-dots"></span><button type="button" class="btn s" id="bk-next">Next</button></div>
+ </div>
+</div>
+<div class="fx" id="fx" aria-hidden="true"><div class="flash" id="flash"></div></div>
+<script>
+(()=>{
+const ES=location.pathname.startsWith('/es/'),L=(en,es)=>ES?es:en,HOME=ES?'/es/':'/';
+// ── setup: everything about today's table comes from the date in Amsterdam, so everyone gets the same table ──
+const TIERS=[{p:10,n:L('Tap-in','Empujarla'),c:'var(--t1)',hex:'#cfd8e6',e:'⬜'},{p:30,n:L('Header','Remate'),c:'var(--t2)',hex:'#7fe0a8',e:'🟩'},{p:60,n:L('Volley','Volea'),c:'var(--t3)',hex:'#b48cff',e:'🟪'},{p:85,n:L('Bicycle kick','Chilena'),c:'var(--t4)',hex:'#ff7ac8',e:'🩷'},{p:100,n:L('Screamer','Qué chicharro'),s:L('Screamer','Chicharro'),c:'var(--t5)',hex:'#ffd23f',e:'🟨'}];
+const FAME={6:10,5:30,4:60,3:60,2:85,1:100},tierOf=p=>TIERS.find(t=>t.p===p)||TIERS[0],short=t=>t.s||t.n;
+const MAXC=5,SECS=30,DECKN=MAXC+1;
+const DAY=new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Amsterdam'});
+const fnv=s=>{let h=2166136261;for(const c of String(s))h=Math.imul(h^c.charCodeAt(0),16777619)>>>0;h^=h>>>16;h=Math.imul(h,2246822507)>>>0;h^=h>>>13;h=Math.imul(h,3266489909)>>>0;return(h^h>>>16)>>>0};
+let seed=fnv(DAY)||1;
+const rnd=()=>{seed=Math.imul(seed^(seed>>>15),2246822507)>>>0;seed=Math.imul(seed^(seed>>>13),3266489909)>>>0;return((seed^=seed>>>16)>>>0)/4294967296};
+// targets only from totals that 3 to 5 real cards can make, kept reachable: 120 to 240 (about four ordinary cards)
+const P=TIERS.map(t=>t.p),reach=new Set();(function walk(s,n,from){if(n>=3)reach.add(s);if(n===5)return;for(let i=from;i<P.length;i++)walk(s+P[i],n+1,i)})(0,0,0);
+// the house: Horacio draws until he has enough (he can bust, too)
+// (he stands at 70% with at least two cards and draws mostly ordinary cards: he busts about 1 day in 5)
+function table(lo,hi,old){seed=fnv(DAY)||1;const ts=[...reach].filter(x=>x>=lo&&x<=hi).sort((a,b)=>a-b),t=ts[Math.floor(rnd()*ts.length)];
+ const h=[];let s=0;const w=old?[.2,.25,.25,.18,.12]:[.25,.3,.25,.12,.08],stop=old?.75:.7,min=old?1:2;while((s<t*stop||h.length<min)&&h.length<5){let r=rnd(),i=0;while(r>w[i]&&i<4){r-=w[i];i++}h.push(P[i]);s+=P[i]}return{t,d:h}}
+// a table already started today keeps its target and house (saved with the game); one started before this version gets its old numbers back
+const SAVED=new URLSearchParams(location.search).has('new')?null:(()=>{try{return JSON.parse(localStorage.getItem('uc-rb-'+DAY))}catch{return null}})();
+const TBL=SAVED&&Number.isFinite(SAVED.t)&&Array.isArray(SAVED.d)&&SAVED.d.length?{t:SAVED.t,d:SAVED.d}:SAVED&&SAVED.hand&&SAVED.hand.length?table(170,380,true):table(120,240);
+const TARGET=TBL.t,DEALER=TBL.d;
+const DTOT=DEALER.reduce((a,b)=>a+b,0),SCALE=TARGET/.8;
+
+// ── helpers ──
+const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch{return null}};
+const KEY='uc-rb-'+DAY;if(new URLSearchParams(location.search).has('new')){ls(KEY,null);history.replaceState(null,'',location.pathname)}
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const REDUCE=matchMedia('(prefers-reduced-motion:reduce)').matches,EASE='cubic-bezier(.23,1,.32,1)';
+const anim=(el,kf,o)=>{if(REDUCE||!el||!el.animate)return null;try{return el.animate(kf,o)}catch{return null}};
+const wait=ms=>new Promise(r=>setTimeout(r,REDUCE?Math.min(ms,80):ms));
+const buzz=p=>{try{navigator.vibrate&&navigator.vibrate(p)}catch{}};
+// a number that counts to its new value instead of jumping
+function countTo(el,to,ms=420){const from=+(el.dataset.v||0);el.dataset.v=to;cancelAnimationFrame(el._raf);
+ if(REDUCE||from===to){el.textContent=to;return}const t0=performance.now();
+ const step=now=>{const k=Math.min(1,(now-t0)/ms),e=1-Math.pow(1-k,3);el.textContent=Math.round(from+(to-from)*e);if(k<1)el._raf=requestAnimationFrame(step)};el._raf=requestAnimationFrame(step)}
+const shake=(el,a=8)=>anim(el,[0,-a,a*.8,-a*.55,a*.35,-a*.15,0].map(x=>({transform:`translateX(${x}px)`})),{duration:420,easing:'linear'});
+const flash=(o=.32)=>anim($('flash'),[{opacity:0},{opacity:o,offset:.15},{opacity:0}],{duration:420,easing:'ease-out'});
+
+// 8-bit sounds made live (no files); follows the site's sound switch (localStorage 'unicorner-sound')
+const sndOn=()=>{try{return localStorage.getItem('unicorner-sound')!=='off'}catch{return true}};let actx=null;
+function tone(f,d,o={}){if(!sndOn())return;try{actx=actx||new(window.AudioContext||window.webkitAudioContext)();if(actx.state==='suspended')actx.resume();const t=actx.currentTime+(o.at||0),os=actx.createOscillator(),g=actx.createGain();os.type=o.type||'square';os.frequency.setValueAtTime(f,t);if(o.slide)os.frequency.exponentialRampToValueAtTime(o.slide,t+d);g.gain.setValueAtTime(o.vol||.1,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);os.connect(g).connect(actx.destination);os.start(t);os.stop(t+d+.02)}catch{}}
+const SFX={deal:()=>tone(420,.05,{type:'triangle',vol:.09,slide:700}),
+ card:p=>{const f={10:523,30:659,60:784,85:988,100:1175}[p]||523;tone(f,.07);tone(f*1.5,.12,{at:.06,vol:.07});if(p>=85)[1568,2093].forEach((x,i)=>tone(x,.06,{at:.16+i*.05,vol:.05}))},
+ foul:()=>{tone(150,.28,{type:'sawtooth',vol:.08,slide:90});tone(110,.28,{vol:.04})},
+ bust:()=>{tone(260,.12,{type:'sawtooth',vol:.09,slide:120});tone(120,.42,{vol:.07,at:.1,slide:50})},
+ tick:()=>tone(1800,.03,{vol:.04}),flip:()=>tone(880,.035,{type:'triangle',vol:.08}),pass:()=>tone(700,.12,{type:'triangle',vol:.07,slide:300}),
+ win:()=>[523,659,784,1047].forEach((f,i)=>tone(f,.12,{at:i*.09})),
+ full:()=>{SFX.win();[1319,1568,2093,2637].forEach((f,i)=>tone(f,.14,{at:.4+i*.07,vol:.08}))},
+ push:()=>{tone(660,.08,{type:'triangle'});tone(660,.08,{type:'triangle',at:.12})},
+ lose:()=>[392,330,262].forEach((f,i)=>tone(f,.16,{at:i*.13,vol:.08}))};
+{const b=$('snd'),paint=()=>{b.dataset.on=sndOn()?'1':'0';b.setAttribute('aria-pressed',String(sndOn()))};paint();b.onclick=()=>{ls('unicorner-sound',sndOn()?'off':'on');paint();if(sndOn())SFX.flip()}}
+
+// answer matching: the same rules as Duels and the daily game
+const norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/ø/g,'o').replace(/ı/g,'i').replace(/[łŁ]/g,'l').replace(/[đĐ]/g,'d').replace(/[æÆ]/g,'ae').replace(/[œŒ]/g,'oe').replace(/ß/g,'ss').replace(/[^a-zA-Z0-9 ]/g,' ').toLowerCase().replace(/\s+/g,' ').trim();
+function lev(a,b){if(Math.abs(a.length-b.length)>2)return 3;const d=Array.from({length:a.length+1},(_,i)=>[i,...Array(b.length).fill(0)]);for(let j=1;j<=b.length;j++)d[0][j]=j;
+ for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++){d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));if(i>1&&j>1&&a[i-1]===b[j-2]&&a[i-2]===b[j-1])d[i][j]=Math.min(d[i][j],d[i-2][j-2]+1)}return d[a.length][b.length]}
+const PERSON=new Set(['player','person','manager','coach','referee']);
+function match(input,answers,type){const x=norm(input);if(!x)return null;const person=PERSON.has(type);
+ const keys=answers.map(a=>{const n=norm(a.name),parts=n.split(' ');return{a,n,al:(a.aliases||[]).map(norm).filter(v=>v.length>=2),last:parts.length>1?parts.slice(1).join(' '):n,lastWord:parts[parts.length-1]}});
+ const uniq=arr=>[...new Set(arr.map(k=>k.a))],one=h=>h.length===1?h[0]:h.length>1?'ambiguous':null;let r;
+ if(r=one(uniq(keys.filter(k=>k.n===x||k.al.includes(x)))))return r;
+ if(person&&(r=one(uniq(keys.filter(k=>k.last===x||k.lastWord===x)))))return r;
+ const t=v=>v.length<5?0:v.length<8?1:2;
+ if(r=one(uniq(keys.filter(k=>lev(k.n,x)<=t(k.n)||k.al.some(v=>v.length>=6&&lev(v,x)<=t(v))))))return r;
+ if(person&&(r=one(uniq(keys.filter(k=>k.last!==k.n&&k.last.length>=5&&lev(k.last,x)<=t(k.last))))))return r;
+ if(person&&(r=one(uniq(keys.filter(k=>k.lastWord!==k.n&&k.lastWord.length>=5&&lev(k.lastWord,x)<=t(k.lastWord))))))return r;
+ return null}
+// a known wrong answer (a "trap" in the bank) gets its reason, so a foul teaches something
+const trapOf=(input,q)=>{const x=norm(input);return(q.traps||[]).find(t=>{const n=norm(t.name);return n===x||(n.length>=6&&lev(n,x)<=1)})||null};
+const qText=q=>ES&&q.prompt_es?q.prompt_es:q.prompt;
+const typeName=t=>ES?({player:'jugador',club:'club',country:'país',manager:'entrenador'}[t]||t):t;
+const shortName=a=>{const al=(a.aliases||[]).filter(x=>x.length<=20).sort((p,q)=>q.length-p.length);return a.name.length<=20?a.name:(al[0]||a.name)};
+
+// ── Horacio: changes pose with a little hop; his line fades in ──
+// Horacio's art is used from the first frame (no flash of the old host); if it can't load, the Rosco host steps in
+const ART={host:{}};let pose='';
+{const map={'idle-1':'idle','talk-1':'deal','talk-2':'deal','point':'show','think':'think','nervous':'think','wink':'wink','facepalm':'shock','surprised':'shock','laugh':'laugh','celebrate':'clap','excited':'clap','happy-talk':'wink'};
+ for(const k in map)ART.host[k]='/blackjack/art/horacio-'+map[k]+'.png';[...new Set(Object.values(ART.host))].forEach(u=>{const i=new Image();i.src=u});document.body.classList.add('art-host')}
+const POSES=['idle-1','talk-1','talk-2','point','think','wink','facepalm','surprised','laugh','celebrate','excited','happy-talk','nervous'];
+POSES.forEach(n=>{const i=new Image();i.src='/rosco/host/'+n+'.png'});
+function host(p,line){const img=$('host');
+ if(p&&p!==pose){pose=p;img.src=ART.host?.[p]||'/rosco/host/'+p+'.png';anim(img,[{transform:'none'},{transform:'translateY(-7px) scale(1.04,.96)',offset:.35},{transform:'translateY(1px) scale(.98,1.02)',offset:.7},{transform:'none'}],{duration:340,easing:EASE})}
+ if(line!=null){const s=$('say');if(s.textContent===line)return;s.textContent=line;anim(s,[{opacity:.15,transform:'translateY(3px)',filter:'blur(2px)'},{opacity:1,transform:'none',filter:'blur(0)'}],{duration:220,easing:EASE})}}
+
+// ── optional art (from the ChatGPT pack): used when the files exist ──
+(async()=>{const ok=u=>new Promise(r=>{const i=new Image();i.onload=()=>r(true);i.onerror=()=>r(false);i.src=u});
+ const tall=matchMedia('(max-width:760px)').matches?'/blackjack/art/table-tall.webp':'/blackjack/art/table-wide.webp';
+ const [t,b,c,h]=await Promise.all([ok(tall),ok('/blackjack/art/card-back.png'),ok('/blackjack/art/chip.png'),ok('/blackjack/art/horacio-idle.png')]);
+ if(t){document.body.style.setProperty('--table',`url(${tall})`);document.body.classList.remove('noart')}
+ if(b){document.documentElement.style.setProperty('--back','url(/blackjack/art/card-back.png)');document.body.classList.add('art-back')}
+ if(c)ART.chip=true;
+ if(!h){delete ART.host;document.body.classList.remove('art-host');const p=pose;pose='';host(p)}})();
+
+// ── state: saved after every move, so a reload (or a phone that kills the tab) continues exactly where you were ──
+// S.deck = today's question ids (fixed at the start, so a bank update during the day changes nothing);
+// S.cur = the question on the table and its deadline (a reload doesn't give you a new question or more time)
+let BANK=[],DECK=[];
+let S=null;try{S=JSON.parse(ls(KEY)||'null')}catch{}
+if(!S||!Array.isArray(S.hand))S={hand:[],qi:0,passed:false,done:false};
+S.t=TARGET;S.d=DEALER;
+const save=()=>ls(KEY,JSON.stringify(S));
+const total=()=>S.hand.reduce((a,c)=>a+c.p,0);
+$('date').textContent=new Date(DAY+'T12:00:00Z').toLocaleDateString(L('en-GB','es-ES'),{weekday:'long',day:'numeric',month:'long',timeZone:'UTC'});
+$('target').textContent=TARGET;
+$('legend').innerHTML=TIERS.map(t=>`<span><i style="background:${t.c}"></i>${t.n.replace(' kick','')} ${t.p}</span>`).join('');
+for(const id of['home1','home2'])$(id).href=HOME;
+if(ES){document.documentElement.lang='es';$('h1').textContent='MANO DE CUADRA';$('l-house').textContent='LA CASA';$('l-hand').textContent='TU MANO';$('bk-t').textContent='CÓMO SE JUEGA';
+ $('note').textContent='Las preguntas y las rarezas salen del banco de preguntas de los Duelos.';$('howto').textContent='📖 Cómo se juega';$('bk-prev').textContent='Atrás';$('snd').setAttribute('aria-label','Sonido');$('snd').title='Sonido';$('home2').setAttribute('aria-label','Cerrar');$('bk-x').setAttribute('aria-label','Cerrar')}
+let lock=false,clockT=null,revealing=false;
+window.__rb={TARGET,DEALER,DTOT,DAY,deck:()=>DECK.map(q=>q.id),state:()=>S};
+
+const miniCard=(p,up)=>up?`<span class="mc" style="--c:${tierOf(p).c}">${p}</span>`:'<span class="mc down"></span>';
+function drawDealer(open){$('dealer').innerHTML=DEALER.map((p,i)=>miniCard(p,open||i===0)).join('');
+ const d=$('dtot');d.textContent=open?DTOT:DEALER[0]+'+?';d.dataset.v=open?DTOT:DEALER[0];d.classList.toggle('over',open&&DTOT>TARGET)}
+function drawMeter(grow){const t=total(),b=$('bar'),tot=$('tot');
+ tot.classList.toggle('over',t>TARGET);tot.classList.toggle('exact',t===TARGET&&!S.done);
+ b.querySelectorAll('i').forEach(x=>x.remove());let x=0;const pieces=[];
+ S.hand.forEach((c,i)=>{if(!c.p)return;const last=i===S.hand.length-1;
+  // the part of a card below the target in its tier colour, the part over it in red
+  const under=Math.max(0,Math.min(c.p,TARGET-x)),over=c.p-under;
+  if(under)pieces.push({l:x,w:under,col:tierOf(c.p).c,last});if(over)pieces.push({l:x+under,w:over,ov:1,last});x+=c.p});
+ let d=0;for(const p of pieces){const i=document.createElement('i');i.style.left=Math.min(100,p.l/SCALE*100)+'%';i.style.width=Math.min(100-p.l/SCALE*100,p.w/SCALE*100)+'%';
+  i.style.background=p.col||'';if(p.ov)i.className='ov';b.append(i);
+  if(grow&&p.last){anim(i,[{transform:'scaleX(0)'},{transform:'scaleX(1)'}],{duration:p.ov?260:420,delay:180+d,easing:EASE,fill:'backwards'});d+=400}}}
+function drawHand(fresh){const h=$('hand'),n=S.hand.length;let over=0,run=0;
+ h.innerHTML=S.hand.map((c,i)=>{const t=tierOf(c.p);run+=c.p;const ov=run>TARGET&&c.p&&!over++;
+  return c.p?`<div class="card${ov?' over':''}" style="--c:${t.c}"><span class="tier">${short(t).toUpperCase()}</span><span class="nm">${esc(c.a)}</span><span class="pts">+${c.p}</span></div>`
+   :`<div class="card foul" style="--c:#e9dfc2"><span class="tier">${L('FOUL','FALTA')}</span><span class="nm${c.a?' typed':''}">${esc(c.a||L('No answer','Sin respuesta'))}</span><span class="pts">0</span></div>`}).join('')
+  +(S.done?'':Array.from({length:MAXC-n},(_,i)=>`<div class="slot">${n+i+1}</div>`).join(''));
+ if(fresh&&n)dealIn(h.children[n-1]);drawMeter(fresh)}
+// a card flies in face down from the shoe, turns over halfway, and lands with a small overshoot
+function dealIn(el){SFX.deal();if(REDUCE||!el.animate)return;el.classList.add('back');
+ const mid='translate(6px,-16px) rotate(3deg) rotateY(90deg) scale(.97)';
+ const a=el.animate([{transform:'translate(60px,-110px) rotate(16deg) rotateY(180deg) scale(.88)',opacity:0},{opacity:1,offset:.4},{transform:mid,opacity:1}],{duration:200,easing:'cubic-bezier(.4,0,.8,.6)'});
+ const land=()=>{el.classList.remove('back');el.animate([{transform:mid},{transform:'translateY(3px) rotate(-1deg) rotateY(-10deg) scale(1.05)',offset:.55},{transform:'none'}],{duration:360,easing:EASE})};
+ a.onfinish=land;a.oncancel=()=>el.classList.remove('back')}
+// the points float up from your total
+function popPts(p){const s=document.createElement('span');s.className='pop';s.textContent=p?'+'+p:'+0';s.style.color=p?tierOf(p).hex:'#ffb3a8';$('score').append(s);
+ const a=anim(s,[{opacity:0,transform:'translateY(10px) scale(.7)'},{opacity:1,transform:'translateY(-4px) scale(1.2)',offset:.22},{opacity:1,transform:'translateY(-12px) scale(1)',offset:.65},{opacity:0,transform:'translateY(-26px) scale(1)'}],{duration:1050,easing:'ease-out'});
+ if(a)a.onfinish=()=>s.remove();else setTimeout(()=>s.remove(),600)}
+function panelIn(){anim($('panel'),[{opacity:.3,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{duration:220,easing:EASE})}
+// keep what just changed on screen (on a phone the keyboard pushes things around)
+function into(el,block='nearest'){try{const r=el.getBoundingClientRect();if(r.top<0||r.bottom>innerHeight)el.scrollIntoView({block,behavior:REDUCE?'auto':'smooth'})}catch{}}
+
+// ── a card: one question, one answer, 30 seconds (counted from a deadline, so a background tab or a reload can't stretch it) ──
+function needLine(){const r=TARGET-total();if(r<=0)return'';const fits=TIERS.filter(t=>t.p<=r).map(t=>t.n);return L(`You need ${r} more. ${fits.length?'Safe cards now: '+fits.join(', ')+'.':''}`,`Te faltan ${r}. ${fits.length?'Cartas seguras: '+fits.join(', ')+'.':''}`)}
+function stopClock(){clearInterval(clockT);clockT=null}
+function ask(){stopClock();const q=DECK[S.qi];if(!q||S.hand.length>=MAXC)return reveal();
+ if(!S.cur||S.cur.qi!==S.qi){S.cur={qi:S.qi,until:Date.now()+SECS*1000};save()}
+ lock=false;
+ $('panel').innerHTML=`<div class="qhead"><span>${L('Card','Carta')} ${S.hand.length+1} ${L('of','de')} ${MAXC}</span><span>${q.answers.length} ${L('right answers','respuestas válidas')}</span></div>
+  <p class="q">${esc(qText(q))}</p><p class="need">${needLine()}</p><div class="clock" id="clock"><div><i id="clk"></i></div><span id="secs">${SECS}</span></div>
+  <form id="f" class="row" autocomplete="off"><label class="sr" for="a">${L('Your answer','Tu respuesta')}</label><input class="field" id="a" placeholder="${L('Type a ','Escribe un ')}${esc(typeName(q.answer_type))}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go" maxlength="60"><button class="btn">${L('Play','Jugar')}</button></form>
+  <div class="tools"><span class="msg" id="m" aria-live="polite"></span><button type="button" class="btn w s" id="pass" ${S.passed?'disabled':''}>${L('Pass','Pasar')} (${S.passed?0:1} ${L('left','más')})</button></div>`;
+ panelIn();
+ host(pick(['talk-1','talk-2','point']),S.hand.length?pick(L(['Another card, amigo. Do you need a Tap-in or a Screamer?','Careful now. Count before you play.',`${TARGET-total()} to go. Choose wisely…`],['Otra carta, amigo. ¿Necesitas una Empujarla o un Qué chicharro?','Con cuidado. Cuenta antes de jugar.',`Te faltan ${TARGET-total()}. Elige bien…`])):pick(L(['Here is your first card. Choose how famous your answer is…','Think: obvious answers are cheap, deep cuts are expensive.'],['Tu primera carta. Elige lo famosa que es tu respuesta…','Piensa: lo obvio vale poco, lo rebuscado vale mucho.'])));
+ const inp=$('a');inp.focus({preventScroll:true});into($('panel'),'end');
+ $('f').onsubmit=e=>{e.preventDefault();play(q)};
+ $('pass').onclick=()=>{if(lock||S.passed)return;lock=true;stopClock();S.passed=true;S.qi++;S.cur=null;save();SFX.pass();
+  anim($('panel'),[{opacity:1,transform:'none'},{opacity:0,transform:'translateX(-24px)'}],{duration:160,easing:'ease-in'});host('wink',L('Fine, another question. Only once!','Vale, otra pregunta. ¡Solo una vez!'));setTimeout(ask,REDUCE?0:160)};
+ startClock(q)}
+function startClock(q){stopClock();const until=S.cur.until;let lastSec=-1;
+ const step=()=>{const c=$('clk');if(!c)return stopClock();const ms=until-Date.now(),sec=Math.max(0,Math.ceil(ms/1000));
+  c.style.transform=`scaleX(${Math.max(0,Math.min(1,ms/(SECS*1000)))})`;if(sec!==lastSec){lastSec=sec;$('secs').textContent=sec;
+   if(sec<=5&&sec>0){$('clock').classList.add('hurry');SFX.tick();if(sec===5)host('nervous',L('Tick tock, amigo…','Tic tac, amigo…'))}}
+  if(ms<=0){stopClock();if(!lock){lock=true;foul(q,'',L('Time!','¡Tiempo!'))}}};
+ step();clockT=setInterval(step,200)}
+function play(q){if(lock)return;const inp=$('a'),v=inp.value.trim();if(!v){shake(inp,6);inp.focus();return}
+ const r=match(v,q.answers,q.answer_type);
+ if(r==='ambiguous'){$('m').className='msg bad';$('m').textContent=L('More than one fits. Add more of the name.','Encaja más de uno. Escribe más del nombre.');shake(inp,6);return}
+ lock=true;stopClock();$('f').inert=true;inp.blur();
+ if(!r){const tr=trapOf(v,q);return foul(q,v,tr?(ES?`¿${tr.name}? No cuenta.`:`${tr.name}? No: ${tr.why.replace(/\.$/,'')}.`):L('Not on the list!','¡No está en la lista!'))}
+ const p=FAME[r.fame]||10,before=total();S.hand.push({a:shortName(r),p,q:q.id});S.qi++;S.cur=null;save();
+ drawHand(true);into($('meter'),'start');setTimeout(()=>{popPts(p);countTo($('tot'),before+p);SFX.card(p)},200);
+ const t=total();
+ if(t>TARGET){$('panel').innerHTML=`<div class="res"><p class="need" style="font-size:22px;margin:6px 0">${L(`${t} is over ${TARGET}…`,`${t} se pasa de ${TARGET}…`)}</p></div>`;setTimeout(()=>{SFX.bust();flash();shake($('meter'),9);shake($('hand'),6);buzz([60,40,90]);host('laugh',L(`Bust! ${t-TARGET} over…`,`¡Te pasaste! ${t-TARGET} de más…`))},620);return setTimeout(()=>reveal(),1500)}
+ if(t===TARGET){setTimeout(()=>{buzz(30);anim(document.querySelector('.goal'),[{boxShadow:'0 0 0 0 rgba(242,194,48,.9)'},{boxShadow:'0 0 0 10px rgba(242,194,48,0)'}],{duration:700,iterations:2,easing:'ease-out'})},600);host('excited',L('EXACTLY ON TARGET! Stand, amigo, stand!','¡CLAVADO! ¡Plántate, amigo, plántate!'))}
+ else host(p>=85?'surprised':p<=10?'laugh':'happy-talk',p>=85?L(`A ${tierOf(p).n}! +${p}. Daring…`,`¡${tierOf(p).n}! +${p}. Qué valiente…`):p<=10?L('A Tap-in! Everyone knows that one. +10.','¡Empujarla! Esa la sabe todo el mundo. +10.'):L(`${tierOf(p).n}, +${p}. Nicely judged.`,`${tierOf(p).n}, +${p}. Bien medido.`));
+ if(S.hand.length>=MAXC)return setTimeout(()=>reveal(),900);
+ setTimeout(decide,REDUCE?0:450)}
+function foul(q,typed,why){S.hand.push({a:typed||'',p:0,q:q.id});S.qi++;S.cur=null;save();drawHand(true);into($('meter'),'start');
+ setTimeout(()=>{SFX.foul();popPts(0);shake($('hand').children[S.hand.length-1],5)},220);host('facepalm',L(`${why} Foul. That card is gone.`,`${why} Falta. Esa carta se pierde.`));
+ if(S.hand.length>=MAXC)return setTimeout(()=>reveal(),1000);setTimeout(decide,REDUCE?0:500)}
+function decide(){if(S.done)return;lock=false;const t=total(),exact=t===TARGET;
+ $('panel').innerHTML=`<div class="qhead"><span>${S.hand.length} ${L('of','de')} ${MAXC} ${L('cards','cartas')}</span><span>${L('House shows','La casa enseña')} ${DEALER[0]}</span></div>
+  <p class="need" style="font-size:19px">${needLine()||L('Right on target! Any card now is a bust.','¡Clavado! Cualquier carta más y te pasas.')}</p>
+  <div class="choice"><button class="btn${exact?' w':''}" id="hit">${L('Another card','Otra carta')}</button><button class="btn${exact?'':' w'}" id="stand">${L('Stand','Me planto')}</button></div>`;
+ panelIn();
+ $('hit').onclick=()=>{if(lock)return;lock=true;ask()};$('stand').onclick=()=>{if(lock)return;lock=true;reveal()};
+ $(exact?'stand':'hit').focus({preventScroll:true})}
+
+// ── showdown: Horacio turns his cards one by one ──
+function flipMini(i){const el=$('dealer').children[i],p=DEALER[i];if(!el)return;SFX.flip();
+ const up=()=>{el.className='mc';el.style.setProperty('--c',tierOf(p).c);el.textContent=p};
+ const a=anim(el,[{transform:'rotateY(0)'},{transform:'rotateY(90deg) translateY(-4px)'}],{duration:130,easing:'cubic-bezier(.4,0,.8,.6)'});
+ if(!a)return up();a.onfinish=()=>{up();anim(el,[{transform:'rotateY(-90deg) translateY(-4px)'},{transform:'rotateY(12deg) scale(1.12)',offset:.6},{transform:'none'}],{duration:300,easing:EASE})}}
+async function reveal(){if(revealing)return;revealing=true;lock=true;stopClock();S.cur=null;if(!S.done){S.done=true;save()}
+ const t=total(),bust=t>TARGET;drawHand(false);drawDealer(false);
+ $('panel').innerHTML=`<div class="res"><p style="margin:6px 0;color:var(--sand)">${L('Horacio turns his cards…','Horacio da la vuelta a sus cartas…')}</p></div>`;panelIn();into($('dealer'),'center');
+ host('point',bust?L('Bust… but let\'s see what the house had.','Te pasaste… pero veamos qué tenía la casa.'):L('Let\'s see what the house has…','Veamos qué tiene la casa…'));
+ const d=$('dtot');d.textContent=DEALER[0];d.dataset.v=DEALER[0];let run=DEALER[0];
+ for(let i=1;i<DEALER.length;i++){await wait(bust?380:i===DEALER.length-1?950:620);flipMini(i);run+=DEALER[i];countTo(d,run,300);
+  if(run>TARGET){d.classList.add('over');await wait(250);shake($('dealer'),6);host('surprised',L('¡Ay! Too many for the house!','¡Ay! ¡La casa se pasa!'))}
+  else if(!bust&&i<DEALER.length-1)host('think',pick(L(['Hmm…','One more…','Let\'s see…'],['Mmm…','Una más…','A ver…'])))}
+ await wait(bust?300:650);finish(t,true)}
+function finish(t,live){stopClock();drawDealer(true);drawHand(false);
+ const bust=t>TARGET,dbust=DTOT>TARGET,full=t===TARGET;
+ const res=bust?'lose':full?'full':dbust?'win':t>DTOT?'win':t===DTOT?'push':'lose';
+ const label=(ES?{full:'¡PLENO!',win:'LE GANAS A LA CASA',push:'EMPATE',lose:bust?'¡TE PASASTE!':'GANA LA CASA'}:{full:'FULL HOUSE!',win:'YOU BEAT THE HOUSE',push:'PUSH · A DRAW',lose:bust?'BUST!':'THE HOUSE WINS'})[res];
+ host(res==='full'?'celebrate':res==='win'?'excited':res==='push'?'think':bust?'facepalm':'laugh',
+  res==='full'?L('Exactly on target! A Full House! The house bows to you!','¡Clavado! ¡Pleno! La casa se rinde ante ti.'):res==='win'?(dbust?L('I bust! Ay, ay, ay. You win, amigo.','¡Me pasé! Ay, ay, ay. Ganas tú, amigo.'):L(`${t} beats ${DTOT}. Well played.`,`${t} gana a ${DTOT}. Bien jugado.`)):res==='push'?L('The same total. Nobody wins today.','El mismo total. Hoy no gana nadie.'):bust?L(`Bust! ${t-TARGET} over. The house always wins…`,`¡Te pasaste por ${t-TARGET}! La casa siempre gana…`):L(`${DTOT} beats ${t}. The house wins!`,`${DTOT} gana a ${t}. ¡Gana la casa!`));
+ const grid=S.hand.map(c=>c.p?tierOf(c.p).e:'❌').join('');
+ $('panel').innerHTML=`<div class="res"><span class="verdict ${res==='lose'?'lose':res==='push'?'push':''}" id="verdict">${label}</span>
+  <div class="vs"><span>${L('YOU','TÚ')}<b id="vy" style="${bust?'color:#ffb3a8':''}">${t}</b></span><span>${L('TARGET','OBJETIVO')}<b style="color:var(--gold)">${TARGET}</b></span><span>${L('HOUSE','CASA')}<b id="vh" style="${dbust?'color:#ffb3a8':''}">${DTOT}</b></span></div>
+  <div class="share"><button class="btn" id="share">${L('Share','Compartir')}</button><a class="btn w" href="${HOME}">${L('Back to Unicorner','Volver a Unicorner')}</a></div>
+  <div class="recap" id="recap"></div><p class="hint">${L('A new table tomorrow at midnight.','Mesa nueva mañana a medianoche.')}</p></div>`;
+ // what else you could have played, by rarity: you learn something every hand
+ $('recap').innerHTML=S.hand.map(c=>{const q=BANK.find(x=>x.id===c.q);if(!q)return'';const by=TIERS.map(tt=>{const ex=q.answers.filter(a=>(FAME[a.fame]||10)===tt.p).slice(0,3).map(shortName);return ex.length?`<p><i style="background:${tt.c}"></i>${tt.n}: ${esc(ex.join(', '))}</p>`:''}).join('');
+  return`<details><summary>${esc(qText(q))} · ${L('you','tú')}: ${esc(c.a||'—')} ${c.p?'+'+c.p:L('(foul)','(falta)')}</summary>${by}</details>`}).join('');
+ const txt=`${L('Stable Hand','Mano de Cuadra')} 🐴 ${DAY}\n${grid} → ${t}/${TARGET}${res==='full'?L(' FULL HOUSE',' PLENO'):bust?L(' BUST',' ME PASÉ'):''}\n${res==='win'||res==='full'?L('Beat the house','Le gané a la casa'):res==='push'?L('Push with the house','Empate con la casa'):L('House ','Casa ')+DTOT}\nhttps://unicornergame.lol${ES?'/es':''}/stablehand.html`;
+ $('share').onclick=async()=>{if(navigator.share){try{await navigator.share({text:txt})}catch{}return}try{await navigator.clipboard.writeText(txt);$('share').textContent=L('Copied!','¡Copiado!')}catch{}};
+ const v=$('verdict');
+ if(!live){anim(v,[{opacity:0,transform:'rotate(-2deg) scale(.94)'},{opacity:1,transform:'rotate(-2deg)'}],{duration:220,easing:EASE});return}
+ panelIn();into($('panel'),'center');
+ // the verdict is stamped on the table
+ anim(v,[{opacity:0,transform:'rotate(-9deg) scale(1.8)'},{opacity:1,transform:'rotate(-1deg) scale(.94)',offset:.55},{transform:'rotate(-2deg) scale(1)'}],{duration:440,easing:EASE});
+ for(const id of['vy','vh']){const b=$(id),to=+b.textContent;b.dataset.v=0;b.textContent=0;countTo(b,to,650)}
+ setTimeout(()=>{if(res==='full'){SFX.full();buzz([30,40,30,40,80]);confetti(90,v);setTimeout(()=>confetti(50,v),350)}
+  else if(res==='win'){SFX.win();buzz(40);confetti(45,v)}else if(res==='push')SFX.push();
+  else{SFX.lose();shake(v,7)}},240)}
+// confetti in the five rarity colours (and Horacio's chips, once the art is in)
+function confetti(n,from){if(REDUCE)return;const r=from.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,fx=$('fx');
+ const cols=TIERS.map(t=>t.hex).concat(['#f2c230','#fbf6e8']);
+ for(let i=0;i<n;i++){const d=document.createElement('i');d.className='cf'+(ART.chip&&i%5===0?' chip':'');if(!d.classList.contains('chip'))d.style.background=cols[i%cols.length];
+  d.style.left=cx+'px';d.style.top=cy+'px';fx.append(d);
+  const ang=-Math.PI/2+(Math.random()-.5)*Math.PI*1.4,sp=160+Math.random()*260,vx=Math.cos(ang)*sp,vy=Math.sin(ang)*sp,rot=(Math.random()-.5)*1080,dur=1300+Math.random()*900;
+  const a=d.animate([{transform:'translate(-50%,-50%) scale(.6)',opacity:1},{transform:`translate(calc(-50% + ${vx}px),calc(-50% + ${vy}px)) rotate(${rot*.4}deg)`,opacity:1,offset:.3,easing:'cubic-bezier(.3,.6,.6,1)'},{opacity:1,offset:.8},{transform:`translate(calc(-50% + ${vx*1.5}px),calc(-50% + ${vy+innerHeight*.75}px)) rotate(${rot}deg)`,opacity:0}],{duration:dur,easing:'cubic-bezier(.2,.7,.4,1)'});
+  a.onfinish=()=>d.remove()}}
+
+// ── which questions can be dealt: easy ones, where everybody knows some answers and can choose how famous to go.
+// About big clubs, the big leagues, World Cups and Euros; at least 2 obvious (10) and 2 well-known (30) answers, 4+ rarities, 18+ answers.
+// Every question needs its Spanish text too, so the English and Spanish pages deal the same table.
+// Not: goalkeepers, small nationality-in-league lists, Ballon d'Or, pre-2000 eras (too hard to pick from)
+const BIG=/Real Madrid|Barcelona|Man United|Man City|Liverpool|Chelsea|Arsenal|Juventus|Milan|Inter\b|Bayern|PSG|Paris|Atlético|Tottenham|Dortmund|Napoli|Premier League|La Liga|Serie A|Bundesliga|Champions League|World Cup|Euro/;
+const NICHE=/goalkeeper|Croatian|Serbian|Belgian|Colombian|Moroccan|Uruguayan|Spanish player who played in the Bundesliga|Ballon|between 19/i;
+function easy(q){if(!q||!q.id||!q.prompt||!q.prompt_es||!Array.isArray(q.answers)||q.answers.length<18||!BIG.test(q.prompt)||NICHE.test(q.prompt))return false;
+ const n={};for(const a of q.answers){const p=FAME[a.fame];if(p)n[p]=(n[p]||0)+1}return(n[10]||0)>=2&&(n[30]||0)>=2&&Object.keys(n).length>=4}
+// ── today's deck: every question gets a number from (date, question id) and the lowest six are dealt.
+// The same for everyone, and adding questions to the bank later never reshuffles a day that already started ──
+function buildDeck(){const byId=new Map(BANK.map(q=>[q.id,q]));
+ if(Array.isArray(S.deck)&&S.deck.length>=DECKN&&S.deck.every(id=>byId.has(id)))return S.deck.map(id=>byId.get(id));
+ const good=BANK.filter(easy);
+ const order=good.map(q=>[fnv(DAY+'|'+q.id),q]).sort((a,b)=>a[0]-b[0]||(a[1].id<b[1].id?-1:1)).map(x=>x[1]);
+ // a hand started before this version keeps its questions in front
+ const ids=[];for(const c of S.hand)if(c.q&&byId.has(c.q)&&!ids.includes(c.q))ids.push(c.q);
+ for(const q of order){if(ids.length>=DECKN)break;if(!ids.includes(q.id))ids.push(q.id)}
+ if(S.qi<S.hand.length)S.qi=S.hand.length;
+ S.deck=ids;save();return ids.map(id=>byId.get(id))}
+
+// ── the instruction booklet ──
+const bkc=(n,p,t)=>t==='foul'?`<div class="bkc foul"><i style="--c:var(--sand)">${L('FOUL','FALTA')}</i><span>${n}</span><strong>0</strong></div>`:t==='down'?'<div class="bkc down"></div>'
+ :`<div class="bkc${t?' '+t:''}"><i style="--c:${tierOf(p).c}">${short(tierOf(p)).toUpperCase()}</i><span>${n}</span><strong>${p}</strong></div>`;
+const PAGES=ES?[
+ {pose:'clap',h:'¡Bienvenido a mi mesa!',b:`<p>Cada día reparto un <b>número objetivo</b>. Acércate todo lo que puedas con tus cartas… <b>sin pasarte</b>.</p>
+  <div class="bk-ladder" style="grid-template-columns:1fr 1fr 1fr"><div style="--c:var(--sand)">OBJETIVO<b>${TARGET}</b></div><div style="--c:var(--t2)">CARTAS<b>1–5</b></div><div style="--c:var(--t4)">SEGUNDOS<b>30</b></div></div><p>La misma mesa para todos, una nueva cada día.</p>`},
+ {pose:'show',h:'Cada respuesta es una carta',b:`<p>Hago una pregunta con muchas respuestas válidas. <b>Cuanto más famosa tu respuesta, menos vale.</b></p>
+  <div class="bk-q">Nombra un jugador que haya jugado en el Real Madrid en la década de 2010</div>
+  <div class="bk-cards">${bkc('Cristiano Ronaldo',10)}${bkc('Luka Modrić',30)}${bkc('Marcelo',60)}${bkc('Theo Hernández',85)}${bkc('Diego López',100)}</div>`},
+ {pose:'think',h:'Elige tu carta',b:`<p>Tú decides cuánto vale cada carta. ¿Te falta mucho? Ve a por una <b>rebuscada</b>. ¿Te falta poco? Juega una <b>obvia</b>.</p>
+  <div class="bk-ladder">${TIERS.map(t=>`<div style="--c:${t.c}">${short(t)}<b>${t.p}</b></div>`).join('')}</div>
+  <p>Objetivo 150 y llevas 120: un Remate (30) es perfecto. ¿Un Qué chicharro? <b>Te pasas.</b></p><div class="bk-cards">${bkc('Luka Modrić',30,'ok')}${bkc('Diego López',100,'no')}</div>`},
+ {pose:'shock',h:'Faltas y pases',b:`<p>Una <b>respuesta incorrecta</b> o <b>quedarte sin tiempo</b> es falta: 0 puntos, y esa carta se pierde.</p>
+  <div class="bk-cards">${bkc('Neymar',0,'foul')}</div><p>¿No te gusta una pregunta? Puedes <b>pasar una vez</b> por partida. Si superas el objetivo, <b>te pasaste</b>.</p><span class="bk-stamp red">¡TE PASASTE!</span>`},
+ {pose:'wink',h:'Gánale a la casa',b:`<p>Yo también juego: <b>una carta boca arriba</b>, el resto boca abajo. <b>Plántate</b> cuando creas que me ganas.</p>
+  <div class="bk-cards">${bkc('',DEALER[0])}${bkc('',0,'down')}${bkc('',0,'down')}</div>
+  <p>Gana quien más se acerque al objetivo. Si lo clavas <b>exacto</b>, es…</p><span class="bk-stamp">¡PLENO!</span>`}]:[
+
+ {pose:'clap',h:'Welcome to my table!',b:`<p>Every day I deal a <b>target number</b>. Get as close to it as you can with your cards… <b>without going over</b>.</p>
+  <div class="bk-ladder" style="grid-template-columns:1fr 1fr 1fr"><div style="--c:var(--sand)">TARGET<b>${TARGET}</b></div><div style="--c:var(--t2)">CARDS<b>1–5</b></div><div style="--c:var(--t4)">SECONDS<b>30</b></div></div><p>Same table for everyone, a new one every day.</p>`},
+ {pose:'show',h:'Every answer is a card',b:`<p>I ask a question with lots of right answers. <b>The more famous your answer, the less it's worth.</b></p>
+  <div class="bk-q">Name a player who played for Real Madrid in the 2010s</div>
+  <div class="bk-cards">${bkc('Cristiano Ronaldo',10)}${bkc('Luka Modrić',30)}${bkc('Marcelo',60)}${bkc('Theo Hernández',85)}${bkc('Diego López',100)}</div>`},
+ {pose:'think',h:'Choose your card',b:`<p>You decide what each card is worth. Need a lot? Go for a <b>deep cut</b>. Need a little? Play an <b>obvious</b> one.</p>
+  <div class="bk-ladder">${TIERS.map(t=>`<div style="--c:${t.c}">${t.n.replace(' kick','')}<b>${t.p}</b></div>`).join('')}</div>
+  <p>Target 150, you have 120: a Header (30) is perfect. A Screamer? <b>Bust.</b></p><div class="bk-cards">${bkc('Luka Modrić',30,'ok')}${bkc('Diego López',100,'no')}</div>`},
+ {pose:'shock',h:'Fouls and passes',b:`<p>A <b>wrong answer</b> or <b>running out of time</b> is a foul: 0 points, and that card is gone.</p>
+  <div class="bk-cards">${bkc('Neymar',0,'foul')}</div><p>Don't like a question? You can <b>pass once</b> per game. Go over the target and it's a <b>bust</b>.</p><span class="bk-stamp red">BUST!</span>`},
+ {pose:'wink',h:'Beat the house',b:`<p>I play too: <b>one card up</b>, the rest face down. Stop (<b>Stand</b>) when you think you beat me.</p>
+  <div class="bk-cards">${bkc('',DEALER[0])}${bkc('',0,'down')}${bkc('',0,'down')}</div>
+  <p>Closer to the target than me wins. Hit it <b>exactly</b> and it's a…</p><span class="bk-stamp">FULL HOUSE!</span>`}];
+let bkI=0,bkBack=null;
+function bkShow(i,dir){bkI=Math.max(0,Math.min(PAGES.length-1,i));const pg=PAGES[bkI],el=$('bk-page');
+ el.innerHTML=`<img src="/blackjack/art/horacio-${pg.pose}.png" alt="" onerror="this.src='/rosco/host/idle-1.png'"><h2 id="bk-h">${pg.h}</h2>${pg.b}`;
+ $('bk-n').textContent=`${bkI+1} / ${PAGES.length}`;$('bk-dots').innerHTML=PAGES.map((_,j)=>`<i class="${j===bkI?'on':''}"></i>`).join('');
+ $('bk-prev').disabled=bkI===0;const last=bkI===PAGES.length-1;$('bk-next').textContent=last?(S.done?L('Got it','Entendido'):L('Deal me in','Reparte')):L('Next','Siguiente');
+ if(dir)anim(el,[{opacity:0,transform:`translateX(${dir*28}px)`},{opacity:1,transform:'none'}],{duration:240,easing:EASE})}
+function bkOpen(){bkBack=document.activeElement;$('bk').hidden=false;bkShow(0);
+ anim($('bk'),[{opacity:0},{opacity:1}],{duration:200,easing:'ease-out'});anim($('bk-book'),[{opacity:0,transform:'translateY(14px) scale(.96)'},{opacity:1,transform:'none'}],{duration:280,easing:EASE});$('bk-next').focus()}
+function bkClose(play){ls('uc-rb-guide','1');const done=()=>{$('bk').hidden=true;if(play&&$('go'))$('go').click();else if(bkBack&&bkBack.focus)bkBack.focus()};
+ const a=anim($('bk-book'),[{opacity:1,transform:'none'},{opacity:0,transform:'translateY(10px) scale(.97)'}],{duration:160,easing:'ease-in'});anim($('bk'),[{opacity:1},{opacity:0}],{duration:160});if(a)a.onfinish=done;else done()}
+$('howto').onclick=bkOpen;$('bk-x').onclick=()=>bkClose(false);$('bk-prev').onclick=()=>bkShow(bkI-1,-1);
+$('bk-next').onclick=()=>bkI===PAGES.length-1?bkClose(true):bkShow(bkI+1,1);
+$('bk').addEventListener('click',e=>{if(e.target===$('bk'))bkClose(false)});
+$('bk').addEventListener('keydown',e=>{if(e.key==='Escape')bkClose(false);else if(e.key==='ArrowRight'&&bkI<PAGES.length-1)bkShow(bkI+1,1);else if(e.key==='ArrowLeft'&&bkI>0)bkShow(bkI-1,-1)});
+{let x0=null,y0=0;const bk=$('bk-book');bk.addEventListener('pointerdown',e=>{x0=e.clientX;y0=e.clientY});
+ bk.addEventListener('pointerup',e=>{if(x0==null)return;const dx=e.clientX-x0,dy=e.clientY-y0;x0=null;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3){if(dx<0&&bkI<PAGES.length-1)bkShow(bkI+1,1);else if(dx>0&&bkI>0)bkShow(bkI-1,-1)}});
+ bk.addEventListener('pointercancel',()=>{x0=null})}
+
+// ── start ──
+async function load(){for(let k=0;k<3;k++){try{const r=await fetch('/duel/bank.json',{cache:k?'reload':'default'});if(r.ok){const b=await r.json();if(Array.isArray(b)&&b.length)return b}}catch{}await wait(600*(k+1))}return null}
+async function start(){drawDealer(false);drawHand(false);host('idle-1',L('Shuffling the deck…','Barajando…'));
+ if(!S.done&&!S.hand.length)[...$('dealer').children].forEach((el,i)=>anim(el,[{opacity:0,transform:'translate(30px,-30px) rotate(12deg)'},{opacity:1,transform:'none'}],{duration:320,delay:i*80,easing:EASE,fill:'backwards'}));
+ const b=await load();
+ if(!b){$('panel').innerHTML=`<p class="msg bad">${L("Couldn't load the cards. Check your connection.",'No se pudieron cargar las cartas. Revisa tu conexión.')}</p><div class="choice" style="grid-template-columns:1fr;margin-top:8px"><button class="btn" id="retry">${L('Try again','Reintentar')}</button></div>`;$('retry').onclick=start;host('nervous',L('The cards are stuck in the shoe…','Las cartas se han atascado…'));return}
+ BANK=b;DECK=buildDeck();$('tot').dataset.v=total();$('tot').textContent=total();
+ if(S.done)return finish(total(),false);
+ // a question was on the table when the page closed: if its time has run out it's a foul, otherwise it continues
+ if(S.cur&&S.cur.qi===S.qi&&DECK[S.qi]){if(Date.now()>=S.cur.until){lock=true;return foul(DECK[S.qi],'',L('Time ran out while you were away!','¡Se acabó el tiempo mientras no estabas!'))}return ask()}
+ S.cur=null;
+ if(S.hand.length>=MAXC||total()>TARGET)return reveal();
+ if(S.hand.length)return decide();
+ host('excited',L(`Welcome to my table! Target ${TARGET}. Every answer is worth its rarity: obvious ones 10, deep cuts 100. Up to five cards. Go over… and you bust.`,`¡Bienvenido a mi mesa! Objetivo ${TARGET}. Cada respuesta vale según su rareza: las obvias 10, las rebuscadas 100. Hasta cinco cartas. Si te pasas… pierdes.`));
+ $('panel').innerHTML=`<div class="choice" style="grid-template-columns:1fr"><button class="btn" id="go">${L('Deal me in','Reparte')}</button></div><p class="hint">${L('The house shows','La casa enseña')} ${DEALER[0]}. ${L(`Beat it without going over ${TARGET}.`,`Gánale sin pasarte de ${TARGET}.`)}</p>`;panelIn();
+ $('go').onclick=()=>{if(lock||!$('bk').hidden)return;lock=true;ask()};
+ if(!ls('uc-rb-guide'))setTimeout(bkOpen,REDUCE?0:500)}
+start();
+})();
+</script>
+</body>
+</html>
