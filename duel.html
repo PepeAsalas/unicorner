@@ -313,6 +313,59 @@ body.prog-on.night .pr-card.hot{background:#3a1626;box-shadow:inset 0 0 0 2px #c
 body.prog-on.night .pr-fx.hot{background:linear-gradient(90deg,rgba(255,107,107,.18),transparent)}
 body.prog-on.night .prog .ib-x{color:#e9dfc2}body.prog-on.night .prog .ib-off{color:#f3ead2}
 @media (prefers-reduced-motion:no-preference){.prog,.prog *{transition:background-color .2s ease,color .2s ease,border-color .2s ease}}
+/* ---------- the lobby (signed in): today's Duels cards over the stadium, reordered: PLAY, YOUR DUELS, YOU ---------- */
+body.lobby-on main{max-width:1140px}
+body.lobby-on .side{display:none!important}
+#s-inbox.lobby .pr-re{background:var(--pc)}#s-inbox.lobby #pr-div-r{display:none}.lb-chip{white-space:nowrap}@media (max-width:420px){.lb-chip{font-size:13px}.lb-elo{font-size:40px}}
+#s-inbox.lobby{background:none;border:0;box-shadow:none;color:var(--ink);font-family:var(--ui)}
+#s-inbox.lobby,body.lobby-on.night #s-inbox.lobby{--pp:#fbf6e6;--pc:#fffaf0;--pl:#b9ad8c;--pm:#5b5070;--pg:#fff3c4;--pdot:rgba(6,4,26,.07);--pt:#06041a}
+.lb-cols,.lb-col{display:grid;gap:22px;align-content:start;min-width:0}
+@media (min-width:900px){.lb-cols{grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);gap:26px;align-items:start}.lb-cols>.lb-col:first-child{position:sticky;top:16px}}
+#s-inbox.lobby .pr-pg{display:block;background:var(--pp) radial-gradient(var(--pdot) 1px,transparent 1.5px) 0 0/10px 10px;border:4px solid var(--ink);box-shadow:8px 8px 0 rgba(6,4,26,.35);overflow:hidden}
+#s-inbox.lobby .pr-band{position:relative;padding:13px 18px 11px;border-bottom:4px solid var(--ink);margin-bottom:10px}
+#s-inbox.lobby .pr-band::after{content:'';position:absolute;left:0;right:0;bottom:-10px;height:6px;background:repeating-linear-gradient(90deg,var(--ink) 0 12px,#f2c230 12px 24px)}
+#s-inbox.lobby .pr-band b{font:400 32px/.9 var(--disp);letter-spacing:1px;text-shadow:3px 3px 0 var(--ink)}
+#s-inbox.lobby .pr-band span{background:none;font:17px/1 var(--mono);color:#ffe3e0;padding:0}
+#s-inbox.lobby .pr-pg[style*="1d4486"] .pr-band span{color:#e9dfc2}
+#s-inbox.lobby .pr-in{padding:12px 18px 18px}
+.lb-vs{display:grid;grid-template-columns:1fr auto 1fr;align-items:end;text-align:center;margin:2px 0 12px}
+.lb-vs small{display:block;font:400 17px/1 var(--disp);margin-top:2px}
+.lb-vs b{font:400 34px/1 var(--disp);color:#d7262e;text-shadow:3px 3px 0 var(--ink);margin-bottom:24px}
+.lb-uni{display:block;margin:0 auto;width:min(118px,30vw);aspect-ratio:6/5;background:center/contain no-repeat;image-rendering:pixelated}
+.lb-myst{filter:brightness(0) opacity(.35);transform:scaleX(-1)}
+#s-inbox.lobby button.lb-qm{display:flex;flex-direction:column;align-items:center;gap:6px;width:100%;font-size:34px;padding:16px 14px 13px;color:#fff;text-shadow:2px 2px 0 var(--ink)}
+.lb-qm small{font:17px/1 var(--mono);color:#ffe3e0;text-shadow:none;letter-spacing:0}
+.lb-two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+#s-inbox.lobby .lb-two button{margin:0;font-size:21px;padding:11px 6px 9px}
+.lb-btn{display:flex;align-items:center;justify-content:center;font:400 20px/1 var(--disp);padding:11px 6px 9px;background:var(--pc);color:var(--ink);text-decoration:none;box-shadow:0 0 0 3px var(--ink),0 5px 0 3px var(--ink)}
+.lb-btn.gold{background:#f2c230}.lb-btn:active{transform:translateY(3px);box-shadow:0 0 0 3px var(--ink),0 2px 0 3px var(--ink)}
+.lb-fr-row{display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center;padding:7px 0;border-bottom:1px dashed var(--pl)}
+.lb-fr-row .pr-uni{width:44px;height:37px}
+.lb-fr-row b{display:block;font:400 22px/1 var(--disp)}.lb-fr-row small{font:15px var(--mono);color:var(--pm)}
+#s-inbox.lobby .lb-fr-row a{font:400 17px/1 var(--disp);color:var(--ink);background:var(--pc);padding:6px 9px 4px;text-decoration:none;box-shadow:0 0 0 2px var(--ink),0 3px 0 2px var(--ink)}
+.lb-me{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;margin-bottom:12px}
+.lb-me .lb-uni{width:64px}
+.lb-elo{display:block;font:400 46px/.85 var(--disp);font-variant-numeric:tabular-nums}
+.lb-chip{display:inline-block;font:400 15px/1 var(--disp);color:#fff;background:var(--c,#5b5070);border:3px solid var(--ink);padding:4px 6px 2px;margin-top:5px;text-shadow:1px 1px 0 var(--ink)}
+#s-inbox.lobby .pr-form i{width:22px;height:22px;font-size:15px}
+.lb-more{margin-top:14px;border:3px solid var(--ink);background:var(--pc);padding:8px 10px}
+.lb-more summary{cursor:pointer;font:400 19px/1.1 var(--disp)}
+.lb-more[open] summary{margin-bottom:8px}
+.lb-set{margin-top:12px}
+#s-inbox.lobby .ib-off{margin:0}
+.lb-close{display:none}
+#s-inbox.lobby button+button{margin-top:0}
+#s-inbox.lobby .pr-card .pr-go button+button{margin-top:0}
+@media (min-width:900px){.lb-play .lb-two{grid-template-columns:1fr}.lb-play #ib-new{display:none}.lb-vs .lb-uni{width:150px}#s-inbox.lobby button.lb-qm{font-size:42px;padding:20px 14px 16px}}
+/* phones: "A mate" opens the friends card as a sheet from the bottom */
+@media (max-width:899px){
+ .lb-mates{display:none!important}
+ .lb-mates.open{display:block!important;position:fixed;left:0;right:0;bottom:0;z-index:60;max-height:86vh;overflow:auto;border-bottom:0!important;box-shadow:none!important;padding-bottom:env(safe-area-inset-bottom,0px);transition:transform 280ms cubic-bezier(.32,.72,0,1)}
+ @starting-style{.lb-mates.open{transform:translateY(100%)}}
+ .lb-scrim{position:fixed;inset:0;z-index:59;background:rgba(6,4,26,.55)}
+ .lb-mates .pr-band span{display:none}
+ .lb-close{display:grid;place-items:center;margin-left:8px;width:34px!important;height:34px;padding:0!important;font-size:18px!important;background:var(--pc)!important;color:var(--ink)!important}
+}
 </style><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9034426912596924" crossorigin="anonymous"></script>
 <link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#1d1a2b"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Unicorner"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="apple-touch-icon" href="/favicon-180.png">
 </head><body><script>/* arrived from Unicorner on the gallop: the gold curtain it pulled across slides away */
@@ -347,44 +400,49 @@ body.prog-on.night .prog .ib-x{color:#e9dfc2}body.prog-on.night .prog .ib-off{co
   <button class="ghost" id="to-inbox" hidden style="margin-top:12px">My duels</button>
   <div class="dpush" id="dpush1" hidden></div>
  </section>
- <section id="s-inbox" class="prog" hidden>
-  <header class="pr-mast"><i class="pr-me" id="pr-me"></i><div><small>OFFICIAL MATCHDAY PROGRAMME · <a href="/">← UNICORNER</a></small><b id="pr-title">My duels</b></div><div class="pr-iss" id="pr-iss"></div><button type="button" class="pr-mode" id="pr-mode" aria-label="Switch dark mode"></button><a class="pr-x" href="/" aria-label="Close, back to Unicorner" title="Back to Unicorner">✕</a></header>
-  <nav class="pr-tabs" id="pr-tabs"><button data-t="m" class="on">Matches<i id="pr-tab-n" hidden></i></button><button data-t="y">You</button><button data-t="l">League</button></nav>
-  <div class="pr-cols">
-   <div class="pr-pg" data-pg="y" style="--bc:#1d7a45">
-    <div class="pr-band"><b>You</b><span id="pr-div-r"></span></div>
-    <div class="pr-in">
-     <div class="pr-lbl">Division</div><div class="pyr" id="pr-pyr"></div>
-     <div class="pr-lbl">Form · last 5</div><div class="pr-form" id="pr-form"></div>
-     <div class="pr-lbl">All-time</div><div class="pr-stat" id="pr-rec"></div>
-     <div id="pr-hof-w"><div class="pr-lbl">Hall of fame · <span id="pr-hof-m"></span></div><div class="pr-pod" id="pr-hof"></div></div>
+ <section id="s-inbox" class="prog lobby" hidden>
+  <!-- the lobby: PLAY first, then your duels, then you. Same cards as the rest of Duels (red = act now, navy = info) -->
+  <header class="pr-mast" hidden><i class="pr-me" id="pr-me"></i><div><small>MY DUELS</small><b id="pr-title">My duels</b></div><div class="pr-iss" id="pr-iss"></div><button type="button" class="pr-mode" id="pr-mode" aria-label="Switch dark mode"></button></header>
+  <nav class="pr-tabs" id="pr-tabs" hidden><button data-t="m" class="on">Matches<i id="pr-tab-n" hidden></i></button><button data-t="y">You</button><button data-t="l">League</button></nav>
+  <div class="lb-cols">
+   <div class="lb-col">
+    <div class="pr-pg lb-play" style="--bc:#d7262e">
+     <div class="pr-band"><b>PLAY</b></div>
+     <div class="pr-in">
+      <div class="lb-vs"><span><i class="lb-uni" id="lb-me"></i><small>YOU</small></span><b>VS</b><span><i class="lb-uni lb-myst" id="lb-rv"></i><small>?</small></span></div>
+      <button class="qm-btn lb-qm" id="ib-quick">⚡ Quick match<small>A rival near your rating</small></button>
+      <div class="lb-two"><button id="ib-new" class="ghost">⚔ A mate</button><button class="ghost" id="ib-bots">🤖 Bots</button></div>
+     </div>
+    </div>
+    <div class="lb-scrim" id="lb-scrim" hidden></div>
+    <div class="pr-pg lb-mates" id="lb-mates" style="--bc:#1d4486" role="dialog" aria-label="Challenge a mate">
+     <div class="pr-band"><b>CHALLENGE A MATE</b><span>friends from Socials</span><button type="button" class="lb-close" id="lb-close" aria-label="Close">✕</button></div>
+     <div class="pr-in"><div id="lb-friends"><p class="pr-note">Loading your friends…</p></div>
+      <div class="lb-two lb-links"><a class="lb-btn gold" href="duel.html?link">🔗 Send a link</a><a class="lb-btn" href="/squad.html#friends">+ Add friends</a></div>
+     </div>
     </div>
    </div>
-   <div class="pr-pg pr-mid" data-pg="m" style="--bc:#d7262e">
-    <div class="pr-band"><b>Matches</b><span id="pr-fx-n"></span></div>
-    <div class="pr-in"><div id="ib-list"></div>
-     <div class="pr-lbl">Results</div><div id="pr-results"></div>
+   <div class="lb-col">
+    <div class="pr-pg pr-mid" data-pg="m" style="--bc:#d7262e">
+     <div class="pr-band"><b>YOUR DUELS</b><span id="pr-fx-n"></span></div>
+     <div class="pr-in"><div id="ib-list"></div></div>
     </div>
-   </div>
-   <div class="pr-stack">
-   <div class="pr-pg pr-play" data-pg="m" style="--bc:#c8473b">
-    <div class="pr-band"><b>Play</b></div>
-    <div class="pr-in">
-     <button class="qm-btn" id="ib-quick">⚡ Quick match</button><p class="pr-note" style="margin:6px 0 12px;font:17px/1.15 var(--mono)">Paired with a player near your rating. Not live: play your round, your rival turns up in Matches.</p>
-     <button id="ib-new" class="ghost">+ Challenge a mate</button>
-     <button class="ghost" id="ib-bots" style="margin-top:12px">🤖 Practice vs bots</button>
-     <label class="ib-off"><input type="checkbox" id="ib-allow"> Let other players challenge me</label>
-     <div class="dpush" id="dpush2" hidden></div>
+    <div class="pr-pg" data-pg="y" style="--bc:#1d4486">
+     <div class="pr-band"><b>YOU</b><span id="pr-div-r"></span></div>
+     <div class="pr-in">
+      <div class="lb-me"><i class="lb-uni" id="lb-me2"></i><div><b class="lb-elo" id="lb-elo">–</b><span class="lb-chip" id="lb-chip"></span></div><div class="lb-fr"><div class="pr-form" id="pr-form"></div></div></div>
+      <div class="pr-stat" id="pr-rec"></div>
+      <div class="pr-lbl">Recent</div><div id="pr-results"></div>
+      <details class="lb-more" id="lb-league"><summary><span id="pr-tb-m"></span> table · division · hall of fame</summary>
+       <table class="pr-tbl" id="pr-table"></table><p class="pr-note">Top 3 win a season medal · <span id="pr-left"></span></p>
+       <div class="pr-lbl">Division</div><div class="pyr" id="pr-pyr"></div>
+       <div id="pr-hof-w"><div class="pr-lbl">Hall of fame · <span id="pr-hof-m"></span></div><div class="pr-pod" id="pr-hof"></div></div>
+       <div class="pr-news" id="pr-news" hidden></div>
+      </details>
+      <div class="lb-set"><label class="ib-off"><input type="checkbox" id="ib-allow"> Let other players challenge me</label><div class="dpush" id="dpush2" hidden></div></div>
+     </div>
     </div>
-   </div>
-   <div class="pr-pg" data-pg="l" style="--bc:#b8860b">
-    <div class="pr-band"><b>League</b><span id="pr-left"></span></div>
-    <div class="pr-in">
-     <div class="pr-lbl"><span id="pr-tb-m"></span> table</div><table class="pr-tbl" id="pr-table"></table><p class="pr-note">Top 3 win a season medal</p>
-     <div class="pr-lbl">Team news</div><div class="pr-news" id="pr-news"></div><div class="ad-box" hidden><span>Advertisement</span><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9034426912596924" data-ad-slot="8893978111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
-
-    </div>
-   </div>
+    <div class="ad-box" hidden><span>Advertisement</span><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9034426912596924" data-ad-slot="8893978111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
    </div>
   </div>
  </section>
@@ -539,7 +597,7 @@ const xt=(x,y)=>x[1]>0&&y[1]>0&&x[2]>0&&y[2]>0&&x[2]!==y[2]?(x[2]>y[2]?[1,0]:[0,
 function hpAfter(a,b,n){let h=[300,300];for(let i=0;i<n&&h[0]&&h[1];i++){const x=a[i]||[null,0],y=b[i]||[null,0];const same=x[0]&&x[0]===y[0];if(!same)h=[Math.max(0,h[0]-y[1]),Math.max(0,h[1]-x[1])];if(i>=15&&h[0]&&h[1]&&h[0]===h[1]&&(same||x[1]===y[1])){const[p,q]=xt(x,y);h=[h[0]-p,h[1]-q]}}return h}
 const roundName=n=>n<15?(PER===15?'THE 15':'ROUND '+roundNo(n)):'EXTRA TIME';
 // ── flow ──
-const QS=new URLSearchParams(location.search),code=QS.get('d'),DBG=(()=>{const c=QS.get('d');let k;if(c){let h=0;for(const ch of c)h=h*31+ch.charCodeAt(0)|0;k=Math.abs(h)%5}else k=Math.floor(Math.random()*5);const l='abcde'[k],r=document.documentElement.style;r.setProperty('--dbg-t',`url(/bg/duel-${l}-tall.webp)`);r.setProperty('--dbg-w',`url(/bg/duel-${l}-wide.webp)`);return l})(),VSN=QS.get('vs'),INBOX=QS.has('inbox');
+const QS=new URLSearchParams(location.search),code=QS.get('d'),DBG=(()=>{const c=QS.get('d');let k;if(c){let h=0;for(const ch of c)h=h*31+ch.charCodeAt(0)|0;k=Math.abs(h)%5}else k=Math.floor(Math.random()*5);const l='abcde'[k],r=document.documentElement.style;r.setProperty('--dbg-t',`url(/bg/duel-${l}-tall.webp)`);r.setProperty('--dbg-w',`url(/bg/duel-${l}-wide.webp)`);return l})(),VSN=QS.get('vs'),INBOX=QS.has('inbox'),LINK=QS.has('link');
 const link=c=>location.origin+location.pathname+'?d='+c;
 async function copy(c){try{await navigator.clipboard.writeText(link(c))}catch{}}
 let D=null,Q=[];
@@ -587,7 +645,7 @@ async function boot(){if(!ls('uc-duel-intro'))openIntro('first');sides();$('nm')
  if(VSN&&!code){if(!await userToken())return fail('Sign in on Unicorner (the league login) to challenge players.');if(!playedToday())return gate();
   $('h-title').textContent=`CHALLENGE ${VSN.toUpperCase().slice(0,16)}`;$('create').textContent='Send challenge';$('create').dataset.vs=VSN;
   $('home-rules').dataset.vs=VSN;homeRules();show('s-home');return}
- if(!code){if(!playedToday()){if(await userToken())$('g-inbox').hidden=false;return gate()}record('rec1');const sg=!!(await userToken());if(sg){$('to-inbox').hidden=$('h-quick').hidden=false;pushBox('dpush1');if(pushEP())rpc('push_link',{p_endpoint:pushEP()}).catch(()=>{})}findInit(sg);show('s-home');return}
+ if(!code){if(!playedToday()){if(await userToken())$('g-inbox').hidden=false;return gate()}if(!LINK&&await userToken())return inbox();record('rec1');const sg=!!(await userToken());if(sg){$('to-inbox').hidden=$('h-quick').hidden=false;pushBox('dpush1');if(pushEP())rpc('push_link',{p_endpoint:pushEP()}).catch(()=>{})}findInit(sg);show('s-home');return}
  try{[D]=await Promise.all([rpc('duel_get',{p_code:code,p_token:TOKEN}),loadRules()])}catch(e){track('duel_load_error',{message:String(e&&e.message||e).slice(0,160)});return fail(navigator.onLine===false?'You seem to be offline. Check your connection and try again.':'Could not load this duel. Try again in a moment.'+(e&&e.message?' ('+String(e.message).slice(0,80)+')':''))}
  if(!D)return fail('That duel link does not exist.');
  const me=D.players.find(p=>p.slot===D.me),p1=D.players.find(p=>p.slot===1);
@@ -653,7 +711,7 @@ const uni=(k,flip)=>`<i class="pr-uni${flip?' flip':''}" style="background-image
 const MONS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 let IBZ=null,IBREC=null,IBQ=new Set();
 async function inbox(){if(!await userToken())return fail('Sign in on Unicorner (the league login) to see your duels.');
- document.body.classList.add('prog-on');
+ document.body.classList.add('lobby-on');lbFriends();
  try{[IBR,IBZ,IBREC,IBQ]=await Promise.all([rpc('duel_inbox',{}),rpc('duel_season',{}).catch(()=>null),rpc('duel_record',{p_token:TOKEN}).catch(()=>null),rpc('duel_quick_mine',{}).catch(()=>[])]);IBR=IBR||{items:[]};IBQ=new Set(IBQ||[])}catch{return fail('Could not load your duels. Try again in a moment.')}
  track('duel_inbox',{n:IBR.items.length});$('ib-allow').checked=!IBR.off;pushBox('dpush2');ibDraw();show('s-inbox')}
 function pyramid(){const mi=IBZ&&IBZ.mine,el=$('pr-pyr');
@@ -665,6 +723,7 @@ function pyramid(){const mi=IBZ&&IBZ.mine,el=$('pr-pyr');
   +`<p class="pr-note">${placing?`Placement: ${mi.g}/5 rated duels played. Your league shows after 5.`:nx?`${nx[1]-mi.r} rating points to <b>${nx[0].toLowerCase().replace(/\b\w/g,c=>c.toUpperCase())}</b>.`:'Top of the pyramid. Stay there.'}</p>`}
 function ibDraw(){const all=IBR.items,act=all.filter(x=>!done(x)),arc=all.filter(done),nick=ls('uc-nick')||'My';
  $('pr-me').style.backgroundImage=spriteDraw('wow',0,false,myKit()).replace(/"/g,"'");
+ for(const id of['lb-me','lb-me2'])$(id).style.backgroundImage=spriteDraw('happy',0,false,myKit()).replace(/"/g,"'");$('lb-rv').style.backgroundImage=spriteDraw('happy',0,false,kitFor('rival')).replace(/"/g,"'");lbRating();
  $('pr-title').textContent=nick==='My'?'My duels':nick+"'s duels";
  if(IBZ){const[y,m]=IBZ.season.split('-'),days=Math.max(0,Math.ceil((new Date(IBZ.ends)-Date.now())/864e5));
   $('pr-iss').innerHTML=`ISSUE ${all.length||1}<br>${MONS[+m-1].toUpperCase()} SEASON · ${days} DAY${days===1?'':'S'} LEFT`;$('pr-tb-m').textContent=MONS[+m-1];$('pr-left').textContent=days+' day'+(days===1?'':'s')+' left';
@@ -699,6 +758,18 @@ function ibDraw(){const all=IBR.items,act=all.filter(x=>!done(x)),arc=all.filter
  for(const b of document.querySelectorAll('[data-rm]'))b.onclick=async()=>{const st=b.dataset.st,live=st==='your_turn'||st==='their_turn';
   if(!confirm(live?'Give up this duel? It counts as a loss.':st==='sent'?'Remove this duel? Your mate can still open the link.':'Remove this duel from your list?'))return;
   b.disabled=true;try{await rpc('duel_remove',{p_code:b.dataset.rm});track('duel_remove',{state:st})}catch{}inbox()}}
+// the YOU card headline: your rating, and your league (or placement)
+function lbRating(){const mi=IBZ&&IBZ.mine,el=$('lb-elo'),ch=$('lb-chip');
+ if(!mi){el.textContent='–';ch.textContent='Not rated yet';ch.style.setProperty('--c','#5b5070');return}
+ if(mi.g<5){el.textContent=mi.r;ch.textContent=`Placement ${mi.g}/5`;ch.style.setProperty('--c','#5b5070');return}
+ const t=PYR_TIERS[PYR_TIERS.findLastIndex(x=>mi.r>=x[1])];el.textContent=mi.r;ch.textContent=t[0]+(IBZ.me?' · '+ordN(IBZ.me.pos):'');ch.style.setProperty('--c',t[2])}
+// challenge a mate: your friends from Socials, each one a tap away (duel.html?vs=NICK is the existing named challenge)
+async function lbFriends(){const box=$('lb-friends');let h=null;try{h=await rpc('sq_home',{})}catch{}
+ const fr=((h&&h.friends)||[]).filter(f=>!f.me);
+ box.innerHTML=fr.length?fr.map(f=>`<div class="lb-fr-row">${uni(KITS.find(k=>k.id===f.kit)||null)}<span><b>${esc(f.nickname)}</b><small>${f.games||0} games</small></span><a href="duel.html?vs=${encodeURIComponent(f.nickname)}">⚔ Duel</a></div>`).join('')
+  :`<p class="pr-note">${h?'No friends yet. Add them in Socials, or send a link to anyone.':'Your friends from Socials show up here.'}</p>`}
+const lbSheet=on=>{$('lb-mates').classList.toggle('open',on);$('lb-scrim').hidden=!on};
+$('lb-scrim').onclick=()=>lbSheet(false);$('lb-close').onclick=()=>lbSheet(false);
 // dark mode: follow the device unless the player picked one (remembered)
 function prMode(){let pick=null;try{pick=localStorage.getItem('uc-duel-theme')}catch{}const night=pick?pick==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
  document.body.classList.toggle('night',night);$('pr-mode').textContent=night?'☀':'☾';$('pr-mode').setAttribute('aria-label',night?'Switch to light mode':'Switch to dark mode')}
@@ -707,7 +778,7 @@ matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',prMode);p
 // phones: one section at a time
 for(const t of document.querySelectorAll('#pr-tabs button'))t.onclick=()=>{for(const o of document.querySelectorAll('#pr-tabs button'))o.classList.toggle('on',o===t);document.querySelector('#s-inbox').dataset.tab=t.dataset.t};
 $('ib-allow').onchange=e=>rpc('duel_challenges_set',{p_off:!e.target.checked}).catch(()=>{});
-$('ib-new').onclick=()=>{location.href='duel.html'};$('to-inbox').onclick=()=>{location.href='duel.html?inbox'};
+$('ib-new').onclick=()=>lbSheet(true);$('to-inbox').onclick=()=>{location.href='duel.html?inbox'};
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 $('create').onclick=async e=>{const n=$('nm').value.trim();if(!n)return $('nm').focus();ls('uc-duel-name',n);e.target.disabled=true;e.target.textContent='Creating…';
  try{const qset=await pickQs();const vs=e.target.dataset.vs;const c=vs?await rpc('duel_challenge',{p_token:TOKEN,p_name:n,p_kit:KIT,p_qset:qset,p_nick:vs}):await rpc('duel_create',{p_token:TOKEN,p_name:n,p_kit:KIT,p_qset:qset});
