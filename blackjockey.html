@@ -37,8 +37,8 @@ h1{margin:2px 0 0;text-align:center;font:400 46px/.9 var(--disp);color:var(--gol
 .sub{text-align:center;margin:4px 0 8px;color:var(--sand);font-size:18px}
 
 /* the house: Horacio and his hand */
-.house{display:grid;grid-template-columns:104px 1fr;gap:10px;align-items:end;margin:4px 0 6px}
-.hostw{display:block;width:104px;height:104px;animation:breathe 2.8s ease-in-out infinite}
+.house{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:end;margin:4px 0 6px}
+.hostw{display:block;width:136px;height:136px;margin:-14px -6px -4px -10px;animation:breathe 2.8s ease-in-out infinite}
 .house img{display:block;width:100%;height:100%;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 4px 0 rgba(0,0,0,.35));transform-origin:50% 100%}
 @keyframes breathe{50%{transform:translateY(-2px)}}
 .bub{position:relative;background:var(--paper);color:var(--ink);border:3px solid #000;box-shadow:4px 4px 0 #000;padding:9px 12px 7px;font-size:19px;line-height:1.15;min-height:60px}
@@ -50,7 +50,8 @@ h1{margin:2px 0 0;text-align:center;font:400 46px/.9 var(--disp);color:var(--gol
 .mini{display:flex;gap:5px;perspective:600px}
 .mc{width:38px;height:52px;border:3px solid #000;box-shadow:2px 2px 0 rgba(0,0,0,.45);display:grid;place-items:center;font:400 17px var(--disp);color:var(--ink);background:var(--c,var(--paper))}
 .mc.down{background:var(--navy) var(--back,var(--pat)) center/cover}
-.mc.down::after{content:"🐴";font-size:15px}
+.mc.down::after{content:"🐴";font-size:15px}.art-back .mc.down::after{content:none}
+.art-host .house img{image-rendering:auto;filter:drop-shadow(0 4px 0 rgba(0,0,0,.35))}
 .htot{font:400 26px var(--disp);color:#fff;text-shadow:0 2px 0 #000;min-width:52px;text-align:center;font-variant-numeric:tabular-nums;transition:color 200ms ease}
 .htot.over{color:#ffb3a8}
 
@@ -122,7 +123,7 @@ form[inert]{opacity:.6}
 :focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media (max-width:440px){.card,.slot{width:66px;height:104px}.card .tier{font-size:11px;padding:4px 3px 2px}.card .nm{font-size:12px;padding:3px}.card .pts{font-size:22px}
- .house{grid-template-columns:84px 1fr}.hostw{width:84px;height:84px}h1{font-size:40px}.bub{font-size:17px}}
+ .hostw{width:110px;height:110px;margin:-10px -6px -2px -8px}h1{font-size:40px}.bub{font-size:17px}}
 @media (max-width:360px){.card,.slot{width:58px}.hand{gap:5px}}
 </style>
 </head>
@@ -131,7 +132,7 @@ form[inert]{opacity:.6}
  <div class="top"><a class="logo" href="/">Unicorner</a><span class="top-r"><button type="button" class="x" id="snd" aria-label="Sound" title="Sound"></button><a class="x" href="/" aria-label="Close">✕</a></span></div>
  <h1>HORACIO'S TABLE</h1>
  <p class="sub" id="date"></p>
- <div class="house"><span class="hostw"><img id="host" src="/rosco/host/idle-1.png" alt="Horacio Herradura, the croupier" width="104" height="104"></span><div class="bub" aria-live="polite"><b>HORACIO HERRADURA</b><span id="say"></span></div></div>
+ <div class="house"><span class="hostw"><img id="host" src="/blackjack/art/horacio-idle.png" alt="Horacio Herradura, the croupier" width="136" height="136"></span><div class="bub" aria-live="polite"><b>HORACIO HERRADURA</b><span id="say"></span></div></div>
  <div class="hrow"><small>THE HOUSE</small><div class="mini" id="dealer"></div><span class="htot" id="dtot"></span></div>
  <div class="meter" id="meter"><div class="mtop"><span>YOUR HAND</span><span id="score"><b id="tot">0</b> / <em id="target"></em></span></div><div class="bar" id="bar"><span class="goal"></span></div>
   <div class="legend"><span><i style="background:var(--t1)"></i>Tap-in 10</span><span><i style="background:var(--t2)"></i>Header 30</span><span><i style="background:var(--t3)"></i>Volley 60</span><span><i style="background:var(--t4)"></i>Bicycle 85</span><span><i style="background:var(--t5)"></i>Screamer 100</span></div></div>
@@ -212,7 +213,10 @@ const trapOf=(input,q)=>{const x=norm(input);return(q.traps||[]).find(t=>{const 
 const shortName=a=>{const al=(a.aliases||[]).filter(x=>x.length<=20).sort((p,q)=>q.length-p.length);return a.name.length<=20?a.name:(al[0]||a.name)};
 
 // ── Horacio: changes pose with a little hop; his line fades in ──
-const ART={};let pose='';
+// Horacio's art is used from the first frame (no flash of the old host); if it can't load, the Rosco host steps in
+const ART={host:{}};let pose='';
+{const map={'idle-1':'idle','talk-1':'deal','talk-2':'deal','point':'show','think':'think','nervous':'think','wink':'wink','facepalm':'shock','surprised':'shock','laugh':'laugh','celebrate':'clap','excited':'clap','happy-talk':'wink'};
+ for(const k in map)ART.host[k]='/blackjack/art/horacio-'+map[k]+'.png';[...new Set(Object.values(ART.host))].forEach(u=>{const i=new Image();i.src=u});document.body.classList.add('art-host')}
 const POSES=['idle-1','talk-1','talk-2','point','think','wink','facepalm','surprised','laugh','celebrate','excited','happy-talk','nervous'];
 POSES.forEach(n=>{const i=new Image();i.src='/rosco/host/'+n+'.png'});
 function host(p,line){const img=$('host');
@@ -224,10 +228,9 @@ function host(p,line){const img=$('host');
  const tall=matchMedia('(max-width:760px)').matches?'/blackjack/art/table-tall.webp':'/blackjack/art/table-wide.webp';
  const [t,b,c,h]=await Promise.all([ok(tall),ok('/blackjack/art/card-back.png'),ok('/blackjack/art/chip.png'),ok('/blackjack/art/horacio-idle.png')]);
  if(t){document.body.style.setProperty('--table',`url(${tall})`);document.body.classList.remove('noart')}
- if(b)document.documentElement.style.setProperty('--back','url(/blackjack/art/card-back.png)');
+ if(b){document.documentElement.style.setProperty('--back','url(/blackjack/art/card-back.png)');document.body.classList.add('art-back')}
  if(c)ART.chip=true;
- if(h){ART.host={};const map={'idle-1':'idle','talk-1':'deal','talk-2':'deal','point':'show','think':'think','nervous':'think','wink':'wink','facepalm':'shock','surprised':'shock','laugh':'laugh','celebrate':'clap','excited':'clap','happy-talk':'wink'};
-  for(const k in map)ART.host[k]='/blackjack/art/horacio-'+map[k]+'.png';const p=pose;pose='';host(p)}})();
+ if(!h){delete ART.host;document.body.classList.remove('art-host');const p=pose;pose='';host(p)}})();
 
 // ── state: saved after every move, so a reload (or a phone that kills the tab) continues exactly where you were ──
 // S.deck = today's question ids (fixed at the start, so a bank update during the day changes nothing);
