@@ -1,0 +1,3845 @@
+[
+ {
+  "id": "d12-name-a-senior-japan-international-who-played-in-the-premier-league-up-to-2025-26",
+  "template": 12,
+  "prompt": "Name a senior Japan international who played in the Premier League up to 2025-26",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Wataru Endo",
+    "aliases": [
+     "Endo"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Daiki Hashioka",
+    "aliases": [
+     "Hashioka"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Junichi Inamoto",
+    "aliases": [
+     "Inamoto"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Shinji Kagawa",
+    "aliases": [
+     "Kagawa"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Daichi Kamada",
+    "aliases": [
+     "Kamada"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Takumi Minamino",
+    "aliases": [
+     "Taki",
+     "Minamino"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Kaoru Mitoma",
+    "aliases": [
+     "Mitoma"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Ryo Miyaichi",
+    "aliases": [
+     "Miyaichi"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Yoshinori Muto",
+    "aliases": [
+     "Muto"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Hidetoshi Nakata",
+    "aliases": [
+     "Nakata"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Shinji Okazaki",
+    "aliases": [
+     "Okazaki"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Yukinari Sugawara",
+    "aliases": [
+     "Sugawara"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Ao Tanaka",
+    "aliases": [
+     "Tanaka"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Kazuyuki Toda",
+    "aliases": [
+     "Toda"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Takehiro Tomiyasu",
+    "aliases": [
+     "Tomi",
+     "Tomiyasu"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Maya Yoshida",
+    "aliases": [
+     "Yoshida"
+    ],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "Keisuke Honda",
+    "why": "Never played in the Premier League (CSKA, Milan, Pachuca...)."
+   },
+   {
+    "name": "Takefusa Kubo",
+    "why": "Played in Spain, never in the Premier League."
+   },
+   {
+    "name": "Takuma Asano",
+    "why": "Signed by Arsenal but never played a Premier League match for them."
+   },
+   {
+    "name": "Hiroki Sakai",
+    "why": "Played for Hannover and Marseille, never in the Premier League."
+   },
+   {
+    "name": "Daizen Maeda",
+    "why": "No Premier League appearance up to 2025-26."
+   }
+  ]
+ },
+ {
+  "id": "d12-name-a-senior-south-korea-international-who-played-in-the-premier-league-up-to-2025-26",
+  "template": 12,
+  "prompt": "Name a senior South Korea international who played in the Premier League up to 2025-26",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Cho Won-hee",
+    "aliases": [
+     "Won-hee Cho",
+     "Cho"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Hwang Hee-chan",
+    "aliases": [
+     "Hee-chan Hwang",
+     "Hwang"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Ji Dong-won",
+    "aliases": [
+     "Dong-won Ji",
+     "Ji"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Ki Sung-yueng",
+    "aliases": [
+     "Ki",
+     "Sung-yueng Ki"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Kim Bo-kyung",
+    "aliases": [
+     "Bo-kyung Kim"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Kim Do-heon",
+    "aliases": [
+     "Do-heon Kim"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Lee Chung-yong",
+    "aliases": [
+     "Bolt Lee",
+     "Chung-yong Lee"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Lee Dong-gook",
+    "aliases": [
+     "Dong-gook Lee"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Lee Young-pyo",
+    "aliases": [
+     "Young-pyo Lee"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Park Chu-young",
+    "aliases": [
+     "Chu-young Park"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Park Ji-sung",
+    "aliases": [
+     "Three-Lung Park",
+     "Ji-sung Park"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Seol Ki-hyeon",
+    "aliases": [
+     "Seol Ki-hyun",
+     "Ki-hyeon Seol",
+     "Seol"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Son Heung-min",
+    "aliases": [
+     "Sonny",
+     "Son Heungmin",
+     "Son",
+     "Heung-min Son"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Yun Suk-young",
+    "aliases": [
+     "Yoon Suk-young",
+     "Suk-young Yun",
+     "Yun"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Kim Ji-soo",
+    "why": "Played for Brentford but has no senior South Korea cap."
+   },
+   {
+    "name": "Lee Kang-in",
+    "why": "Played in Spain and France, never in the Premier League."
+   },
+   {
+    "name": "Kim Min-jae",
+    "why": "Played for Napoli and Bayern, never in the Premier League."
+   },
+   {
+    "name": "Hwang Ui-jo",
+    "why": "Signed by Nottingham Forest but never played a Premier League match."
+   }
+  ]
+ },
+ {
+  "id": "d12-name-a-senior-egypt-international-who-played-in-the-premier-league-up-to-2025-26",
+  "template": 12,
+  "prompt": "Name a senior Egypt international who played in the Premier League up to 2025-26",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Ahmed Elmohamady",
+    "aliases": [
+     "Mohamady",
+     "El Mohamady",
+     "Elmohamady"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Mohamed Elneny",
+    "aliases": [
+     "Elneny",
+     "El Neny"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Ahmed Fathy",
+    "aliases": [
+     "Fathy"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Gedo",
+    "aliases": [
+     "Mohamed Nagy"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Hossam Ghaly",
+    "aliases": [
+     "Ghaly"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Ahmed Hegazi",
+    "aliases": [
+     "Hegazy",
+     "Hegazi"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Omar Marmoush",
+    "aliases": [
+     "Marmoush"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Mido",
+    "aliases": [
+     "Ahmed Hossam"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Sam Morsy",
+    "aliases": [
+     "Morsy"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Mohamed Salah",
+    "aliases": [
+     "Mo Salah",
+     "Salah"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Mohamed Shawky",
+    "aliases": [
+     "Shawky"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Ramadan Sobhi",
+    "aliases": [
+     "Sobhi"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Trézéguet",
+    "aliases": [
+     "Mahmoud Hassan",
+     "Mahmoud Trezeguet"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Amr Zaki",
+    "aliases": [
+     "Zaki"
+    ],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Mohamed Abou Trika",
+    "why": "Never played in the Premier League."
+   },
+   {
+    "name": "Mostafa Mohamed",
+    "why": "Played in France and Turkey, never in the Premier League."
+   },
+   {
+    "name": "Ahmed Hassan",
+    "why": "Never played in the Premier League."
+   }
+  ]
+ },
+ {
+  "id": "d12-name-a-senior-mexico-international-who-played-in-the-premier-league-up-to-2025-26",
+  "template": 12,
+  "prompt": "Name a senior Mexico international who played in the Premier League up to 2025-26",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Edson Álvarez",
+    "aliases": [
+     "Álvarez"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Julián Araujo",
+    "aliases": [
+     "Araujo"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Pablo Barrera",
+    "aliases": [
+     "Barrera"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Jared Borgetti",
+    "aliases": [
+     "Borgetti"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Nery Castillo",
+    "aliases": [
+     "Castillo"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Giovani dos Santos",
+    "aliases": [
+     "Gio dos Santos",
+     "Giovani",
+     "dos Santos",
+     "Santos"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Guillermo Franco",
+    "aliases": [
+     "Franco"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Javier Hernández",
+    "aliases": [
+     "Chicharito",
+     "Hernández"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Raúl Jiménez",
+    "aliases": [
+     "Jiménez"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Miguel Layún",
+    "aliases": [
+     "Layún"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Carlos Salcido",
+    "aliases": [
+     "Salcido"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Carlos Vela",
+    "aliases": [
+     "Vela"
+    ],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "Héctor Herrera",
+    "why": "Played in Portugal, Spain and the MLS, never in the Premier League."
+   },
+   {
+    "name": "Hirving Lozano",
+    "why": "Never played in the Premier League (PSV, Napoli, MLS)."
+   },
+   {
+    "name": "Rafael Márquez",
+    "why": "Played for Barcelona, never in the Premier League."
+   },
+   {
+    "name": "Jonathan dos Santos",
+    "why": "Giovani's brother never played in the Premier League."
+   },
+   {
+    "name": "Santiago Giménez",
+    "why": "Never played in the Premier League up to 2025-26."
+   }
+  ]
+ },
+ {
+  "id": "d12-name-a-senior-canada-international-who-played-in-the-premier-league-up-to-2025-26",
+  "template": 12,
+  "prompt": "Name a senior Canada international who played in the Premier League up to 2025-26",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Scott Arfield",
+    "aliases": [
+     "Arfield"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Jim Brennan",
+    "aliases": [
+     "Brennan"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Theo Corbeanu",
+    "aliases": [
+     "Corbeanu"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Terry Dunfield",
+    "aliases": [
+     "Dunfield"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "David Edgar",
+    "aliases": [
+     "Edgar"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Craig Forrest",
+    "aliases": [
+     "Forrest"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Junior Hoilett",
+    "aliases": [
+     "David Junior Hoilett",
+     "Hoilett"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Simeon Jackson",
+    "aliases": [
+     "Jackson"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Daniel Jebbison",
+    "aliases": [
+     "Jebbison"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Tomasz Radzinski",
+    "aliases": [
+     "Radzinski"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Paul Stalteri",
+    "aliases": [
+     "Stalteri"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Frank Yallop",
+    "aliases": [
+     "Yallop"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Alphonso Davies",
+    "why": "Played for Bayern Munich, never in the Premier League."
+   },
+   {
+    "name": "Jonathan David",
+    "why": "Never played in the Premier League up to 2025-26."
+   },
+   {
+    "name": "Owen Hargreaves",
+    "why": "Born in Canada but capped by England, not Canada."
+   },
+   {
+    "name": "Asmir Begović",
+    "why": "Grew up in Canada but his senior caps are for Bosnia and Herzegovina."
+   },
+   {
+    "name": "Atiba Hutchinson",
+    "why": "Never played in the Premier League."
+   }
+  ]
+ },
+ {
+  "id": "d12-name-a-senior-chile-international-who-played-in-the-premier-league-up-to-2025-26",
+  "template": 12,
+  "prompt": "Name a senior Chile international who played in the Premier League up to 2025-26",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Clarence Acuña",
+    "aliases": [
+     "Acuña"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Jean Beausejour",
+    "aliases": [
+     "Beausejour"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Claudio Bravo",
+    "aliases": [
+     "Bravo"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Ben Brereton Díaz",
+    "aliases": [
+     "Brereton",
+     "Ben Brereton",
+     "Díaz"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Mark González",
+    "aliases": [
+     "González"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Ángelo Henríquez",
+    "aliases": [
+     "Henríquez"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Mauricio Isla",
+    "aliases": [
+     "Isla"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Gonzalo Jara",
+    "aliases": [
+     "Jara"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Luis Jiménez",
+    "aliases": [
+     "Jiménez"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Javier Margas",
+    "aliases": [
+     "Margas"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Gary Medel",
+    "aliases": [
+     "Medel"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "David Pizarro",
+    "aliases": [
+     "Pizarro"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Alexis Sánchez",
+    "aliases": [
+     "Alexis",
+     "Sánchez"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Francisco Sierralta",
+    "aliases": [
+     "Sierralta"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Eduardo Vargas",
+    "aliases": [
+     "Edu Vargas",
+     "Vargas"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Carlos Villanueva",
+    "aliases": [
+     "Villanueva"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Arturo Vidal",
+    "why": "Played in Germany, Italy and Spain, never in the Premier League."
+   },
+   {
+    "name": "Marcelo Salas",
+    "why": "Never played in the Premier League."
+   },
+   {
+    "name": "Iván Zamorano",
+    "why": "Never played in the Premier League."
+   },
+   {
+    "name": "Charles Aránguiz",
+    "why": "Played for Leverkusen, never in the Premier League."
+   }
+  ]
+ },
+ {
+  "id": "d12-name-a-senior-colombia-international-who-played-in-the-premier-league-up-to-2025-26",
+  "template": 12,
+  "prompt": "Name a senior Colombia international who played in the Premier League up to 2025-26",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Steven Alzate",
+    "aliases": [
+     "Alzate"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Juan Pablo Ángel",
+    "aliases": [
+     "Ángel"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Jhon Arias",
+    "aliases": [
+     "Arias"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Pablo Armero",
+    "aliases": [
+     "Armero"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Faustino Asprilla",
+    "aliases": [
+     "Tino Asprilla",
+     "Asprilla"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Juan Cuadrado",
+    "aliases": [
+     "Cuadrado"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Luis Díaz",
+    "aliases": [
+     "Lucho Díaz",
+     "Lucho",
+     "Díaz"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Jhon Durán",
+    "aliases": [
+     "Jhon Jader Durán",
+     "Durán"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Radamel Falcao",
+    "aliases": [
+     "Falcao"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Cucho Hernández",
+    "aliases": [
+     "Juan Camilo Hernández",
+     "Cucho",
+     "Hernández"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Víctor Ibarbo",
+    "aliases": [
+     "Ibarbo"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "José Izquierdo",
+    "aliases": [
+     "Izquierdo"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Jefferson Lerma",
+    "aliases": [
+     "Lerma"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Yerry Mina",
+    "aliases": [
+     "Mina"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Yerson Mosquera",
+    "aliases": [
+     "Mosquera"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Daniel Muñoz",
+    "aliases": [
+     "Muñoz"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "David Ospina",
+    "aliases": [
+     "Ospina"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Ian Poveda",
+    "aliases": [
+     "Poveda"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Hámilton Ricard",
+    "aliases": [
+     "Ricard"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Hugo Rodallega",
+    "aliases": [
+     "Rodallega"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "James Rodríguez",
+    "aliases": [
+     "James",
+     "Rodríguez"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Carlos Sánchez",
+    "aliases": [
+     "Carlos 'La Roca' Sánchez"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Davinson Sánchez",
+    "aliases": [
+     "Davinson"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Luis Sinisterra",
+    "aliases": [
+     "Sinisterra"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Jhon Viáfara",
+    "aliases": [
+     "Viáfara"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Juan Camilo Zúñiga",
+    "aliases": [
+     "Camilo Zúñiga",
+     "Zúñiga"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Carlos Valderrama",
+    "why": "Never played in the Premier League."
+   },
+   {
+    "name": "Jhon Córdoba",
+    "why": "Played in Spain, Germany and Russia, never in the Premier League."
+   },
+   {
+    "name": "Jackson Martínez",
+    "why": "Never played in the Premier League."
+   },
+   {
+    "name": "Bernardo Espinosa",
+    "why": "Played for Middlesbrough but never won a senior Colombia cap."
+   }
+  ]
+ },
+ {
+  "id": "d12-name-a-senior-uruguay-international-who-played-in-the-premier-league-up-to-2025-26",
+  "template": 12,
+  "prompt": "Name a senior Uruguay international who played in the Premier League up to 2025-26",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Rodrigo Bentancur",
+    "aliases": [
+     "Bentancur"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Santiago Bueno",
+    "aliases": [
+     "Bueno"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Martín Cáceres",
+    "aliases": [
+     "Cáceres"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Edinson Cavani",
+    "aliases": [
+     "Cavani"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Sebastián Coates",
+    "aliases": [
+     "Coates"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Diego Forlán",
+    "aliases": [
+     "Forlán"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Ignacio María González",
+    "aliases": [
+     "Nacho González",
+     "González"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Abel Hernández",
+    "aliases": [
+     "Hernández"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Walter Alberto López",
+    "aliases": [
+     "Walter López",
+     "López"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Diego Lugano",
+    "aliases": [
+     "Lugano"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Williams Martínez",
+    "aliases": [
+     "Martínez"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Darwin Núñez",
+    "aliases": [
+     "Núñez"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Walter Pandiani",
+    "aliases": [
+     "Pandiani"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Adrián Paz",
+    "aliases": [
+     "Paz"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Facundo Pellistri",
+    "aliases": [
+     "Pellistri"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Omar Pouso",
+    "aliases": [
+     "Pouso"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Gus Poyet",
+    "aliases": [
+     "Gustavo Poyet",
+     "Poyet"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Gastón Ramírez",
+    "aliases": [
+     "Ramírez"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Darío Silva",
+    "aliases": [
+     "Silva"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Gonzalo Sorondo",
+    "aliases": [
+     "Sorondo"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Cristhian Stuani",
+    "aliases": [
+     "Stuani"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Luis Suárez",
+    "aliases": [
+     "Suárez"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Lucas Torreira",
+    "aliases": [
+     "Torreira"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Manuel Ugarte",
+    "aliases": [
+     "Ugarte"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Guillermo Varela",
+    "aliases": [
+     "Varela"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Matías Viña",
+    "aliases": [
+     "Viña"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Diego Godín",
+    "why": "Played in Spain and Italy, never in the Premier League."
+   },
+   {
+    "name": "Federico Valverde",
+    "why": "Played for Real Madrid, never in the Premier League."
+   },
+   {
+    "name": "Ronald Araújo",
+    "why": "Played for Barcelona, never in the Premier League up to 2025-26."
+   },
+   {
+    "name": "Miguel Britos",
+    "why": "Played for Watford but was never capped by Uruguay."
+   },
+   {
+    "name": "Diego Poyet",
+    "why": "Played for West Ham but has no senior Uruguay cap."
+   }
+  ]
+ },
+ {
+  "id": "d12-name-a-senior-ecuador-international-who-played-in-the-premier-league-up-to-2025-26",
+  "template": 12,
+  "prompt": "Name a senior Ecuador international who played in the Premier League up to 2025-26",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Nilson Angulo",
+    "aliases": [
+     "Angulo"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Christian Benítez",
+    "aliases": [
+     "Chucho Benítez",
+     "Benítez"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Felipe Caicedo",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Moisés Caicedo",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Segundo Castillo",
+    "aliases": [
+     "Castillo"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Ulises de la Cruz",
+    "aliases": [
+     "de la Cruz",
+     "Cruz"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Agustín Delgado",
+    "aliases": [
+     "Tin Delgado",
+     "Delgado"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Pervis Estupiñán",
+    "aliases": [
+     "Estupiñán"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Fernando Guerrero",
+    "aliases": [
+     "Guerrero"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Piero Hincapié",
+    "aliases": [
+     "Hincapié"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Iván Kaviedes",
+    "aliases": [
+     "Kaviedes"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Jefferson Montero",
+    "aliases": [
+     "Montero"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Juan Carlos Paredes",
+    "aliases": [
+     "Paredes"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Jeremy Sarmiento",
+    "aliases": [
+     "Sarmiento"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Antonio Valencia",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Enner Valencia",
+    "aliases": [],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "Willian Pacho",
+    "why": "Played for Paris Saint-Germain, never in the Premier League up to 2025-26."
+   },
+   {
+    "name": "Kendry Páez",
+    "why": "Signed by Chelsea but no Premier League appearance up to 2025-26."
+   },
+   {
+    "name": "Alex Aguinaga",
+    "why": "Never played in the Premier League."
+   }
+  ]
+ },
+ {
+  "id": "d12-name-a-senior-paraguay-international-who-played-in-the-premier-league-up-to-2025-26",
+  "template": 12,
+  "prompt": "Name a senior Paraguay international who played in the Premier League up to 2025-26",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Antolín Alcaraz",
+    "aliases": [
+     "Alcaraz"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Omar Alderete",
+    "aliases": [
+     "Alderete"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Miguel Almirón",
+    "aliases": [
+     "Almirón"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Fabián Balbuena",
+    "aliases": [
+     "Balbuena"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Paulo da Silva",
+    "aliases": [
+     "da Silva",
+     "Silva"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Julio Enciso",
+    "aliases": [
+     "Enciso"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Diego Gavilán",
+    "aliases": [
+     "Gavilán"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Diego Gómez",
+    "aliases": [
+     "Gómez"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Enso González",
+    "aliases": [
+     "González"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Juan Iturbe",
+    "aliases": [
+     "Iturbe"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Cristian Riveros",
+    "aliases": [
+     "Riveros"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Roque Santa Cruz",
+    "aliases": [
+     "Cruz"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Ramón Sosa",
+    "aliases": [
+     "Sosa"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "José Luis Chilavert",
+    "why": "Never played in the Premier League."
+   },
+   {
+    "name": "Óscar Cardozo",
+    "why": "Played for Benfica, never in the Premier League."
+   },
+   {
+    "name": "Nelson Haedo Valdez",
+    "why": "Never played in the Premier League."
+   },
+   {
+    "name": "Carlos Gamarra",
+    "why": "Never played in the Premier League."
+   }
+  ]
+ },
+ {
+  "id": "d12-name-a-senior-croatia-international-who-played-in-the-premier-league-up-to-2025-26",
+  "template": 12,
+  "prompt": "Name a senior Croatia international who played in the Premier League up to 2025-26",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Aljoša Asanović",
+    "aliases": [
+     "Asanović"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Boško Balaban",
+    "aliases": [
+     "Balaban"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Slaven Bilić",
+    "aliases": [
+     "Bilić"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Igor Bišćan",
+    "aliases": [
+     "Bišćan"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Alen Bokšić",
+    "aliases": [
+     "Bokšić"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Duje Ćaleta-Car",
+    "aliases": [
+     "Caleta-Car"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Vedran Ćorluka",
+    "aliases": [
+     "Ćorluka"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Eduardo",
+    "aliases": [
+     "Eduardo da Silva"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Ivo Grbić",
+    "aliases": [
+     "Grbić"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Joško Gvardiol",
+    "aliases": [
+     "Gvardiol"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Nikica Jelavić",
+    "aliases": [
+     "Jelavić"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Nikola Jerkan",
+    "aliases": [
+     "Jerkan"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Nikola Kalinić",
+    "aliases": [
+     "Kalinić"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Ivan Klasnić",
+    "aliases": [
+     "Klasnić"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Mateo Kovačić",
+    "aliases": [
+     "Kovačić"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Andrej Kramarić",
+    "aliases": [
+     "Kramarić"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Niko Kranjčar",
+    "aliases": [
+     "Kranjčar"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Dejan Lovren",
+    "aliases": [
+     "Lovren"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Silvio Marić",
+    "aliases": [
+     "Marić"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Luka Modrić",
+    "aliases": [
+     "Modrić"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Ivica Mornar",
+    "aliases": [
+     "Mornar"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Mislav Oršić",
+    "aliases": [
+     "Oršić"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Ivan Perišić",
+    "aliases": [
+     "Perišić"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Mladen Petrić",
+    "aliases": [
+     "Petrić"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Borna Sosa",
+    "aliases": [
+     "Sosa"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Mario Stanić",
+    "aliases": [
+     "Stanić"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Igor Štimac",
+    "aliases": [
+     "Štimac"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Davor Šuker",
+    "aliases": [
+     "Šuker"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Nikola Vlašić",
+    "aliases": [
+     "Vlašić"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Boris Živković",
+    "aliases": [
+     "Živković"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Ivan Rakitić",
+    "why": "Played for Barcelona and Sevilla, never in the Premier League."
+   },
+   {
+    "name": "Mario Mandžukić",
+    "why": "Never played in the Premier League."
+   },
+   {
+    "name": "Robert Prosinečki",
+    "why": "Played for Portsmouth in the second tier, not the Premier League."
+   },
+   {
+    "name": "Marcelo Brozović",
+    "why": "Never played in the Premier League."
+   },
+   {
+    "name": "Luka Vušković",
+    "why": "No Premier League appearance up to 2025-26."
+   }
+  ]
+ },
+ {
+  "id": "d12-name-a-senior-morocco-international-who-played-in-the-premier-league-up-to-2025-26",
+  "template": 12,
+  "prompt": "Name a senior Morocco international who played in the Premier League up to 2025-26",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Amine Adli",
+    "aliases": [
+     "Adli"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Nayef Aguerd",
+    "aliases": [
+     "Aguerd"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Nordin Amrabat",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Sofyan Amrabat",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Oussama Assaidi",
+    "aliases": [
+     "Assaidi"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Sofiane Boufal",
+    "aliases": [
+     "Boufal"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Marouane Chamakh",
+    "aliases": [
+     "Chamakh"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Youssef Chippo",
+    "aliases": [
+     "Chippo"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Manuel da Costa",
+    "aliases": [
+     "da Costa",
+     "Costa"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Brahim Díaz",
+    "aliases": [
+     "Brahim",
+     "Díaz"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Issa Diop",
+    "aliases": [
+     "Diop"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Karim El Ahmadi",
+    "aliases": [
+     "El Ahmadi",
+     "Ahmadi"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Talal El Karkouri",
+    "aliases": [
+     "El Karkouri",
+     "Karkouri"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Tahar El Khalej",
+    "aliases": [
+     "El Khalej",
+     "Khalej"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Bilal El Khannouss",
+    "aliases": [
+     "El Khannouss",
+     "Khannouss"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Nabil El Zhar",
+    "aliases": [
+     "El Zhar",
+     "Zhar"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Mustapha Hadji",
+    "aliases": [
+     "Hadji"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Hassan Kachloul",
+    "aliases": [
+     "Kachloul"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Imrân Louza",
+    "aliases": [
+     "Louza"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Adam Masina",
+    "aliases": [
+     "Masina"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Noussair Mazraoui",
+    "aliases": [
+     "Mazraoui"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Noureddine Naybet",
+    "aliases": [
+     "Naybet"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Abdeslam Ouaddou",
+    "aliases": [
+     "Ouaddou"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Chadi Riad",
+    "aliases": [
+     "Riad"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Abdelhamid Sabiri",
+    "aliases": [
+     "Sabiri"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Youssef Safri",
+    "aliases": [
+     "Safri"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Romain Saïss",
+    "aliases": [
+     "Saïss"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Adel Taarabt",
+    "aliases": [
+     "Taarabt"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Chemsdine Talbi",
+    "aliases": [
+     "Talbi"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Anass Zaroury",
+    "aliases": [
+     "Zaroury"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Hakim Ziyech",
+    "aliases": [
+     "Ziyech"
+    ],
+    "fame": 6
+   }
+  ],
+  "traps": [
+   {
+    "name": "Achraf Hakimi",
+    "why": "Played in Spain, Germany, Italy and France, never in the Premier League."
+   },
+   {
+    "name": "Yassine Bounou",
+    "why": "Never played in the Premier League."
+   },
+   {
+    "name": "Mehdi Benatia",
+    "why": "Never played in the Premier League."
+   },
+   {
+    "name": "Marouane Fellaini",
+    "why": "Moroccan heritage, but his senior caps are for Belgium."
+   }
+  ]
+ },
+ {
+  "id": "d12-name-a-senior-austria-international-who-played-in-the-premier-league-up-to-2025-26",
+  "template": 12,
+  "prompt": "Name a senior Austria international who played in the Premier League up to 2025-26",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Marko Arnautović",
+    "aliases": [
+     "Arnie",
+     "Arnautović"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Daniel Bachmann",
+    "aliases": [
+     "Bachmann"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Moritz Bauer",
+    "aliases": [
+     "Bauer"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Carney Chukwuemeka",
+    "aliases": [
+     "Chukwuemeka"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Kevin Danso",
+    "aliases": [
+     "Danso"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Aleksandar Dragović",
+    "aliases": [
+     "Dragović"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Christian Fuchs",
+    "aliases": [
+     "Fuchs"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Martin Hiden",
+    "aliases": [
+     "Hiden"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Saša Kalajdžić",
+    "aliases": [
+     "Kalajdžić"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Valentino Lazaro",
+    "aliases": [
+     "Lazaro"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Jürgen Macho",
+    "aliases": [
+     "Macho"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Stefan Maierhofer",
+    "aliases": [
+     "Maierhofer"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Alex Manninger",
+    "aliases": [
+     "Manninger"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Christian Mayrleb",
+    "aliases": [
+     "Mayrleb"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Emanuel Pogatetz",
+    "aliases": [
+     "Pogatetz"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Sebastian Prödl",
+    "aliases": [
+     "Prödl"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Marcel Sabitzer",
+    "aliases": [
+     "Sabitzer"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Paul Scharner",
+    "aliases": [
+     "Scharner"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Markus Suttner",
+    "aliases": [
+     "Suttner"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Andreas Weimann",
+    "aliases": [
+     "Weimann"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Kevin Wimmer",
+    "aliases": [
+     "Wimmer"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Maximilian Wöber",
+    "aliases": [
+     "Wöber"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "David Alaba",
+    "why": "Played for Bayern and Real Madrid, never in the Premier League."
+   },
+   {
+    "name": "Konrad Laimer",
+    "why": "Played in Germany, never in the Premier League."
+   },
+   {
+    "name": "Ralph Hasenhüttl",
+    "why": "Managed in the Premier League but never played in it."
+   },
+   {
+    "name": "Toni Polster",
+    "why": "Never played in the Premier League."
+   }
+  ]
+ },
+ {
+  "id": "d16-name-a-brazilian-player-who-played-for-the-winning-team-in-a-champions-league-final-between-1992-93-and-2025-26-starter-or-substitute-who-came-on",
+  "template": 16,
+  "prompt": "Name a Brazilian player who played for the winning team in a Champions League final between 1992-93 and 2025-26 (starter or substitute who came on)",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Roberto Carlos",
+    "aliases": [
+     "Carlos"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Sávio",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Giovane Élber",
+    "aliases": [
+     "Elber"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Paulo Sérgio",
+    "aliases": [
+     "Sérgio"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Flávio Conceição",
+    "aliases": [
+     "Conceição"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Dida",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Roque Júnior",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Serginho",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Carlos Alberto",
+    "aliases": [
+     "Alberto"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Derlei",
+    "aliases": [
+     "Derlei Silva"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Edmílson",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Ronaldinho",
+    "aliases": [
+     "Ronaldinho Gaucho"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Juliano Belletti",
+    "aliases": [
+     "Belletti"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Kaká",
+    "aliases": [
+     "Ricardo Kaka"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Anderson",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Sylvinho",
+    "aliases": [
+     "Silvinho"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Júlio César",
+    "aliases": [
+     "César"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Maicon",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Lúcio",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Dani Alves",
+    "aliases": [
+     "Daniel Alves",
+     "Alves"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "David Luiz",
+    "aliases": [
+     "Luiz"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Dante",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Luiz Gustavo",
+    "aliases": [
+     "Gustavo"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Marcelo",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Neymar",
+    "aliases": [
+     "Neymar Jr"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Casemiro",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Danilo",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Alisson",
+    "aliases": [
+     "Alisson Becker"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Fabinho",
+    "aliases": [
+     "Fabio Henrique Tavares"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Roberto Firmino",
+    "aliases": [
+     "Firmino",
+     "Bobby Firmino"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Philippe Coutinho",
+    "aliases": [
+     "Coutinho"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Thiago Silva",
+    "aliases": [
+     "Silva"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Éder Militão",
+    "aliases": [
+     "Militao"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Vinícius Júnior",
+    "aliases": [
+     "Vinicius",
+     "Vinicius Jr",
+     "Vini Jr",
+     "Vini"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Rodrygo",
+    "aliases": [
+     "Rodrygo Goes"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Ederson",
+    "aliases": [
+     "Ederson Moraes"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Marquinhos",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Lucas Beraldo",
+    "aliases": [
+     "Beraldo"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Ronaldo",
+    "why": "Never won the Champions League."
+   },
+   {
+    "name": "Rivaldo",
+    "why": "Was an unused substitute in Milan's winning 2003 final."
+   },
+   {
+    "name": "Cafu",
+    "why": "Was an unused substitute in Milan's winning 2007 final; he lost the 2005 final."
+   },
+   {
+    "name": "Pepe",
+    "why": "Born in Brazil, but plays for Portugal."
+   },
+   {
+    "name": "Deco",
+    "why": "Born in Brazil, but played for Portugal."
+   },
+   {
+    "name": "Jorginho",
+    "why": "Born in Brazil, but plays for Italy."
+   },
+   {
+    "name": "Thiago Alcântara",
+    "why": "Born in Italy to a Brazilian father, but played for Spain."
+   },
+   {
+    "name": "Ramires",
+    "why": "Suspended for Chelsea's winning 2012 final."
+   },
+   {
+    "name": "Rafinha",
+    "why": "Never played in a winning Champions League final."
+   }
+  ]
+ },
+ {
+  "id": "d16-name-a-french-player-who-played-for-the-winning-team-in-a-champions-league-final-between-1992-93-and-2025-26-starter-or-substitute-who-came-on",
+  "template": 16,
+  "prompt": "Name a French player who played for the winning team in a Champions League final between 1992-93 and 2025-26 (starter or substitute who came on)",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Fabien Barthez",
+    "aliases": [
+     "Barthez"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Jocelyn Angloma",
+    "aliases": [
+     "Angloma"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Éric Di Meco",
+    "aliases": [
+     "Di Meco",
+     "Meco"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Basile Boli",
+    "aliases": [
+     "Boli"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Franck Sauzée",
+    "aliases": [
+     "Sauzée"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Marcel Desailly",
+    "aliases": [
+     "Desailly"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Jean-Jacques Eydelie",
+    "aliases": [
+     "Eydelie"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Didier Deschamps",
+    "aliases": [
+     "Deschamps"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Jean-Christophe Thomas",
+    "aliases": [
+     "JC Thomas",
+     "Thomas"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Jean-Philippe Durand",
+    "aliases": [
+     "JP Durand",
+     "Durand"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Christian Karembeu",
+    "aliases": [
+     "Karembeu"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Nicolas Anelka",
+    "aliases": [
+     "Anelka"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Willy Sagnol",
+    "aliases": [
+     "Sagnol"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Bixente Lizarazu",
+    "aliases": [
+     "Lizarazu"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Claude Makélélé",
+    "aliases": [
+     "Makelele"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Zinedine Zidane",
+    "aliases": [
+     "Zizou",
+     "Zidane"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Djibril Cissé",
+    "aliases": [
+     "Cisse"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Ludovic Giuly",
+    "aliases": [
+     "Giuly"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Patrice Evra",
+    "aliases": [
+     "Evra"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Thierry Henry",
+    "aliases": [
+     "Henry"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Eric Abidal",
+    "aliases": [
+     "Abidal"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Florent Malouda",
+    "aliases": [
+     "Malouda"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Franck Ribéry",
+    "aliases": [
+     "Ribery"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Raphaël Varane",
+    "aliases": [
+     "Varane"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Karim Benzema",
+    "aliases": [
+     "Benzema"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Jérémy Mathieu",
+    "aliases": [
+     "Mathieu"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Kingsley Coman",
+    "aliases": [
+     "Coman"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Corentin Tolisso",
+    "aliases": [
+     "Tolisso"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "N'Golo Kanté",
+    "aliases": [
+     "Kante",
+     "Ngolo Kante",
+     "N'Golo"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Ferland Mendy",
+    "aliases": [
+     "Mendy"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Eduardo Camavinga",
+    "aliases": [
+     "Camavinga"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Désiré Doué",
+    "aliases": [
+     "Doue"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Ousmane Dembélé",
+    "aliases": [
+     "Dembele"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Lucas Hernandez",
+    "aliases": [
+     "Hernandez"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Senny Mayulu",
+    "aliases": [
+     "Mayulu"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Warren Zaïre-Emery",
+    "aliases": [
+     "Zaire-Emery",
+     "WZE"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Bradley Barcola",
+    "aliases": [
+     "Barcola"
+    ],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Kylian Mbappé",
+    "why": "Has not won the Champions League up to 2025-26."
+   },
+   {
+    "name": "Olivier Giroud",
+    "why": "Was an unused substitute in Chelsea's winning 2021 final."
+   },
+   {
+    "name": "Benjamin Pavard",
+    "why": "Was an unused substitute in Bayern's winning 2020 final."
+   },
+   {
+    "name": "Aurélien Tchouaméni",
+    "why": "Was an unused substitute in Real Madrid's winning 2024 final."
+   },
+   {
+    "name": "Patrick Vieira",
+    "why": "Never won the Champions League."
+   },
+   {
+    "name": "Lilian Thuram",
+    "why": "Never won the Champions League."
+   },
+   {
+    "name": "Antoine Griezmann",
+    "why": "Lost the 2016 final; never won it."
+   },
+   {
+    "name": "Paul Pogba",
+    "why": "Lost the 2015 final; never won it."
+   },
+   {
+    "name": "Hugo Lloris",
+    "why": "Lost the 2019 final; never won it."
+   },
+   {
+    "name": "Kurt Zouma",
+    "why": "Did not play in Chelsea's winning 2021 final."
+   }
+  ]
+ },
+ {
+  "id": "d16-name-a-german-player-who-played-for-the-winning-team-in-a-champions-league-final-between-1992-93-and-2025-26-starter-or-substitute-who-came-on",
+  "template": 16,
+  "prompt": "Name a German player who played for the winning team in a Champions League final between 1992-93 and 2025-26 (starter or substitute who came on)",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Rudi Völler",
+    "aliases": [
+     "Voller",
+     "Rudi Voeller"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Stefan Klos",
+    "aliases": [
+     "Klos"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Matthias Sammer",
+    "aliases": [
+     "Sammer"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Jürgen Kohler",
+    "aliases": [
+     "Kohler"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Martin Kree",
+    "aliases": [
+     "Kree"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Stefan Reuter",
+    "aliases": [
+     "Reuter"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Jörg Heinrich",
+    "aliases": [
+     "Heinrich"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Andreas Möller",
+    "aliases": [
+     "Moller",
+     "Moeller"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Karl-Heinz Riedle",
+    "aliases": [
+     "Kalle Riedle",
+     "Riedle"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Michael Zorc",
+    "aliases": [
+     "Zorc"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Lars Ricken",
+    "aliases": [
+     "Ricken"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Heiko Herrlich",
+    "aliases": [
+     "Herrlich"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Bodo Illgner",
+    "aliases": [
+     "Illgner"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Oliver Kahn",
+    "aliases": [
+     "Kahn"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Thomas Linke",
+    "aliases": [
+     "Linke"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Stefan Effenberg",
+    "aliases": [
+     "Effenberg"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Mehmet Scholl",
+    "aliases": [
+     "Scholl"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Carsten Jancker",
+    "aliases": [
+     "Jancker"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Alexander Zickler",
+    "aliases": [
+     "Zickler"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Dietmar Hamann",
+    "aliases": [
+     "Hamann"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Manuel Neuer",
+    "aliases": [
+     "Neuer"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Philipp Lahm",
+    "aliases": [
+     "Lahm"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Jérôme Boateng",
+    "aliases": [
+     "Boateng"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Bastian Schweinsteiger",
+    "aliases": [
+     "Schweini",
+     "Schweinsteiger"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Thomas Müller",
+    "aliases": [
+     "Muller",
+     "Mueller"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Mario Gómez",
+    "aliases": [
+     "Gómez"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Sami Khedira",
+    "aliases": [
+     "Khedira"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Marc-André ter Stegen",
+    "aliases": [
+     "ter Stegen",
+     "MATS",
+     "Stegen"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Toni Kroos",
+    "aliases": [
+     "Kroos"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Joshua Kimmich",
+    "aliases": [
+     "Kimmich"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Leon Goretzka",
+    "aliases": [
+     "Goretzka"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Serge Gnabry",
+    "aliases": [
+     "Gnabry"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Niklas Süle",
+    "aliases": [
+     "Sule",
+     "Suele"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Antonio Rüdiger",
+    "aliases": [
+     "Rudiger",
+     "Ruediger",
+     "Toni Rudiger"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Kai Havertz",
+    "aliases": [
+     "Havertz"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Timo Werner",
+    "aliases": [
+     "Werner"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "İlkay Gündoğan",
+    "aliases": [
+     "Gundogan"
+    ],
+    "fame": 4
+   }
+  ],
+  "traps": [
+   {
+    "name": "Michael Ballack",
+    "why": "Lost the 2002 and 2008 finals; never won it."
+   },
+   {
+    "name": "Lothar Matthäus",
+    "why": "Lost the 1999 final; never won the Champions League."
+   },
+   {
+    "name": "Mario Götze",
+    "why": "Missed Bayern's winning 2013 final through injury."
+   },
+   {
+    "name": "Marco Reus",
+    "why": "Lost the 2024 final; never won it."
+   },
+   {
+    "name": "Mats Hummels",
+    "why": "Lost the 2013 and 2024 finals."
+   },
+   {
+    "name": "Jens Lehmann",
+    "why": "Lost the 2006 final; never won it."
+   },
+   {
+    "name": "Miroslav Klose",
+    "why": "Never won the Champions League."
+   },
+   {
+    "name": "Leroy Sané",
+    "why": "Never played in a winning Champions League final."
+   }
+  ]
+ },
+ {
+  "id": "d16-name-an-english-player-who-played-for-the-winning-team-in-a-champions-league-final-between-1992-93-and-2025-26-starter-or-substitute-who-came-on",
+  "template": 16,
+  "prompt": "Name an English player who played for the winning team in a Champions League final between 1992-93 and 2025-26 (starter or substitute who came on)",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Gary Neville",
+    "aliases": [
+     "Neville"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "David Beckham",
+    "aliases": [
+     "Beckham"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Nicky Butt",
+    "aliases": [
+     "Butt"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Andy Cole",
+    "aliases": [
+     "Andrew Cole"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Teddy Sheringham",
+    "aliases": [
+     "Sheringham"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Steve McManaman",
+    "aliases": [
+     "Macca",
+     "McManaman"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Owen Hargreaves",
+    "aliases": [
+     "Hargreaves"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Jamie Carragher",
+    "aliases": [
+     "Carragher"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Steven Gerrard",
+    "aliases": [
+     "Gerrard"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Wes Brown",
+    "aliases": [
+     "Brown"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Rio Ferdinand",
+    "aliases": [
+     "Ferdinand"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Paul Scholes",
+    "aliases": [
+     "Scholes"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Michael Carrick",
+    "aliases": [
+     "Carrick"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Wayne Rooney",
+    "aliases": [
+     "Rooney"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Gary Cahill",
+    "aliases": [
+     "Cahill"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Ashley Cole",
+    "aliases": [
+     "Ash Cole"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Frank Lampard",
+    "aliases": [
+     "Lampard"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Ryan Bertrand",
+    "aliases": [
+     "Bertrand"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Trent Alexander-Arnold",
+    "aliases": [
+     "Trent",
+     "TAA",
+     "Alexander-Arnold"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Jordan Henderson",
+    "aliases": [
+     "Henderson"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Joe Gomez",
+    "aliases": [
+     "Gomez"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "James Milner",
+    "aliases": [
+     "Milner"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Reece James",
+    "aliases": [
+     "James"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Ben Chilwell",
+    "aliases": [
+     "Chilwell"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Mason Mount",
+    "aliases": [
+     "Mount"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "John Stones",
+    "aliases": [
+     "Stones"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Jack Grealish",
+    "aliases": [
+     "Grealish"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Kyle Walker",
+    "aliases": [
+     "Walker"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Phil Foden",
+    "aliases": [
+     "Foden"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Jude Bellingham",
+    "aliases": [
+     "Jude",
+     "Bellingham"
+    ],
+    "fame": 5
+   }
+  ],
+  "traps": [
+   {
+    "name": "John Terry",
+    "why": "Suspended for Chelsea's winning 2012 final and lost the 2008 final."
+   },
+   {
+    "name": "Daniel Sturridge",
+    "why": "Unused substitute in the winning 2012 and 2019 finals."
+   },
+   {
+    "name": "Alex Oxlade-Chamberlain",
+    "why": "Unused substitute in Liverpool's winning 2019 final."
+   },
+   {
+    "name": "Kalvin Phillips",
+    "why": "Unused substitute in Man City's winning 2023 final."
+   },
+   {
+    "name": "Harry Kane",
+    "why": "Lost the 2019 final; never won it."
+   },
+   {
+    "name": "Raheem Sterling",
+    "why": "Lost the 2021 final; never won it."
+   },
+   {
+    "name": "Michael Owen",
+    "why": "Never won the Champions League."
+   },
+   {
+    "name": "Ryan Giggs",
+    "why": "Won it twice in a final, but played for Wales."
+   },
+   {
+    "name": "Gareth Bale",
+    "why": "Won it with Real Madrid, but played for Wales."
+   },
+   {
+    "name": "Phil Neville",
+    "why": "Was an unused substitute in Manchester United's winning 1999 final."
+   },
+   {
+    "name": "Callum Hudson-Odoi",
+    "why": "Unused substitute in Chelsea's winning 2021 final."
+   }
+  ]
+ },
+ {
+  "id": "d16-name-a-portuguese-player-who-played-for-the-winning-team-in-a-champions-league-final-between-1992-93-and-2025-26-starter-or-substitute-who-came-on",
+  "template": 16,
+  "prompt": "Name a Portuguese player who played for the winning team in a Champions League final between 1992-93 and 2025-26 (starter or substitute who came on)",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Paulo Sousa",
+    "aliases": [
+     "Sousa"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Luís Figo",
+    "aliases": [
+     "Figo"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Rui Costa",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Vítor Baía",
+    "aliases": [
+     "Baía"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Paulo Ferreira",
+    "aliases": [
+     "Ferreira"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Jorge Costa",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ricardo Carvalho",
+    "aliases": [
+     "Carvalho"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Nuno Valente",
+    "aliases": [
+     "Valente"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Costinha",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Pedro Mendes",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Maniche",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Deco",
+    "aliases": [
+     "Anderson Deco"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Pedro Emanuel",
+    "aliases": [
+     "Emanuel"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Cristiano Ronaldo",
+    "aliases": [
+     "Ronaldo",
+     "CR7",
+     "Cristiano"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Nani",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "José Bosingwa",
+    "aliases": [
+     "Bosingwa"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Fábio Coentrão",
+    "aliases": [
+     "Coentrao"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Pepe",
+    "aliases": [
+     "Kepler Laveran"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Rúben Dias",
+    "aliases": [
+     "Dias"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Bernardo Silva",
+    "aliases": [
+     "Bernardo",
+     "Silva"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Nuno Mendes",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "João Neves",
+    "aliases": [
+     "Neves"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Vitinha",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Gonçalo Ramos",
+    "aliases": [
+     "Ramos"
+    ],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "João Cancelo",
+    "why": "Never won the Champions League."
+   },
+   {
+    "name": "Bruno Fernandes",
+    "why": "Never won the Champions League."
+   },
+   {
+    "name": "Rui Patrício",
+    "why": "Never won the Champions League."
+   },
+   {
+    "name": "Ricardo Quaresma",
+    "why": "Never played in a winning Champions League final."
+   },
+   {
+    "name": "Diogo Jota",
+    "why": "Lost the 2022 final; never won it."
+   },
+   {
+    "name": "João Moutinho",
+    "why": "Never won the Champions League."
+   },
+   {
+    "name": "José Mourinho",
+    "why": "Won it as a manager, not as a player."
+   },
+   {
+    "name": "Raphaël Guerreiro",
+    "why": "Never won the Champions League up to 2025-26."
+   }
+  ]
+ },
+ {
+  "id": "d16-name-a-dutch-player-who-played-for-the-winning-team-in-a-champions-league-final-between-1992-93-and-2025-26-starter-or-substitute-who-came-on",
+  "template": 16,
+  "prompt": "Name a Dutch player who played for the winning team in a Champions League final between 1992-93 and 2025-26 (starter or substitute who came on)",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Edwin van der Sar",
+    "aliases": [
+     "Van der Sar",
+     "VDS",
+     "Sar"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Michael Reiziger",
+    "aliases": [
+     "Reiziger"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Danny Blind",
+    "aliases": [
+     "Blind"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Frank Rijkaard",
+    "aliases": [
+     "Rijkaard"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Frank de Boer",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Clarence Seedorf",
+    "aliases": [
+     "Seedorf"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Edgar Davids",
+    "aliases": [
+     "Davids"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Ronald de Boer",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Marc Overmars",
+    "aliases": [
+     "Overmars"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Patrick Kluivert",
+    "aliases": [
+     "Kluivert"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Jaap Stam",
+    "aliases": [
+     "Stam"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Giovanni van Bronckhorst",
+    "aliases": [
+     "Van Bronckhorst",
+     "Gio",
+     "Bronckhorst"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Mark van Bommel",
+    "aliases": [
+     "Van Bommel",
+     "Bommel"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Wesley Sneijder",
+    "aliases": [
+     "Sneijder"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Ibrahim Afellay",
+    "aliases": [
+     "Afellay"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Arjen Robben",
+    "aliases": [
+     "Robben"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Virgil van Dijk",
+    "aliases": [
+     "Van Dijk",
+     "VVD",
+     "Virgil",
+     "Dijk"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Georginio Wijnaldum",
+    "aliases": [
+     "Gini Wijnaldum",
+     "Gini",
+     "Wijnaldum"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Nathan Aké",
+    "aliases": [
+     "Ake"
+    ],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "Ronald Koeman",
+    "why": "Won the European Cup in 1992, before this range."
+   },
+   {
+    "name": "Ruud van Nistelrooy",
+    "why": "Never won the Champions League."
+   },
+   {
+    "name": "Dennis Bergkamp",
+    "why": "Never won the Champions League."
+   },
+   {
+    "name": "Robin van Persie",
+    "why": "Never won the Champions League."
+   },
+   {
+    "name": "Winston Bogarde",
+    "why": "Unused substitute in Ajax's winning 1995 final."
+   },
+   {
+    "name": "Dirk Kuyt",
+    "why": "Lost the 2007 final; never won it."
+   },
+   {
+    "name": "Frenkie de Jong",
+    "why": "Never won the Champions League."
+   },
+   {
+    "name": "Denzel Dumfries",
+    "why": "Lost the 2023 and 2025 finals."
+   },
+   {
+    "name": "Marco van Basten",
+    "why": "Won his European Cups before 1992-93 and lost the 1993 final."
+   }
+  ]
+ },
+ {
+  "id": "d16-name-an-argentine-player-who-played-for-the-winning-team-in-a-champions-league-final-between-1992-93-and-2025-26-starter-or-substitute-who-came-on",
+  "template": 16,
+  "prompt": "Name an Argentine player who played for the winning team in a Champions League final between 1992-93 and 2025-26 (starter or substitute who came on)",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Fernando Redondo",
+    "aliases": [
+     "Redondo"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Santiago Solari",
+    "aliases": [
+     "Santi Solari",
+     "Solari"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Carlos Tevez",
+    "aliases": [
+     "Tevez"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Lionel Messi",
+    "aliases": [
+     "Leo Messi",
+     "Messi"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Walter Samuel",
+    "aliases": [
+     "The Wall",
+     "Samuel"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Javier Zanetti",
+    "aliases": [
+     "Pupi",
+     "Zanetti"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Esteban Cambiasso",
+    "aliases": [
+     "Cambiasso"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Diego Milito",
+    "aliases": [
+     "El Principe",
+     "Milito"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Javier Mascherano",
+    "aliases": [
+     "Masche",
+     "Mascherano"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Ángel Di María",
+    "aliases": [
+     "Di Maria",
+     "Fideo",
+     "María"
+    ],
+    "fame": 5
+   }
+  ],
+  "traps": [
+   {
+    "name": "Julián Álvarez",
+    "why": "Unused substitute in Man City's winning 2023 final."
+   },
+   {
+    "name": "Hernán Crespo",
+    "why": "Lost the 2003 and 2005 finals; never won it."
+   },
+   {
+    "name": "Sergio Agüero",
+    "why": "Never won the Champions League."
+   },
+   {
+    "name": "Gabriel Batistuta",
+    "why": "Never won the Champions League."
+   },
+   {
+    "name": "Lautaro Martínez",
+    "why": "Lost the 2023 and 2025 finals."
+   },
+   {
+    "name": "Gonzalo Higuaín",
+    "why": "Lost the 2017 final; never won it."
+   },
+   {
+    "name": "Paulo Dybala",
+    "why": "Lost the 2017 final; never won it."
+   },
+   {
+    "name": "Gabriel Milito",
+    "why": "Missed Barcelona's winning 2009 final through injury."
+   },
+   {
+    "name": "Juan Sebastián Verón",
+    "why": "Never won the Champions League."
+   },
+   {
+    "name": "Martín Demichelis",
+    "why": "Lost the 2010 final; never won it."
+   }
+  ]
+ }
+]
