@@ -2271,7 +2271,7 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
 
  ${compete}
 
- <a class="sq-bar" href="${ES?'/es/squad.html':'/squad.html'}" data-track="squad_bar"><span class="sq-dots" aria-hidden="true"><i style="background:#c8473b"></i><i style="background:#f2c230"></i><i style="background:#2f9a62"></i></span><span class="sq-txt"><b>${L('SOCIALS','SOCIAL')}</b><small>${L('Rankings · friends · leagues','Rankings · amigos · ligas')}</small></span><span class="sq-go">${L('Open','Abrir')} ▸</span></a>
+ <a class="sq-bar" href="${ES?'/es/squad.html':'/squad.html'}" data-track="squad_bar"><img class="sq-emb" src="/social/socials-emblem.png" alt="" width="256" height="160"><span class="sq-txt"><b>${L('SOCIALS','SOCIAL')}</b><small>${L('Rankings · friends · leagues','Rankings · amigos · ligas')}</small></span><span class="sq-go">${L('Open','Abrir')} ▸</span></a>
 
  <div id="uc-awards" hidden></div>
 
@@ -3136,7 +3136,7 @@ const css=`
 .sq-bar{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;margin:-14px 0 26px;padding:10px 12px;background:#1d4486;color:#fbf6e8;border:4px solid #000;box-shadow:inset 0 0 0 3px #2d5aa0,8px 8px 0 rgba(0,0,0,.35);text-decoration:none;transition:transform 140ms cubic-bezier(.23,1,.32,1)}
 .sq-bar:active{transform:scale(.98)}
 .sq-pip{position:absolute;top:-10px;right:-10px;min-width:26px;padding:3px 6px 1px;background:#c8473b;color:#fff;border:3px solid #000;font:400 18px/1 'VT323',monospace;font-style:normal;text-align:center}.sq-bar:focus-visible{outline:3px solid #f2c230;outline-offset:3px}
-.sq-dots{display:grid;grid-template-columns:repeat(3,10px);gap:4px}.sq-dots i{width:10px;height:22px;border:2px solid #000;display:block}
+.sq-emb{width:84px;height:auto;margin:-22px 0 -10px -4px;filter:drop-shadow(2px 3px 0 rgba(0,0,0,.45))}.sq-dots{display:grid;grid-template-columns:repeat(3,10px);gap:4px}.sq-dots i{width:10px;height:22px;border:2px solid #000;display:block}
 .sq-txt{min-width:0}.sq-txt b{display:block;font:400 24px/1 'Jersey 10',var(--px);letter-spacing:.06em;color:#f2c230}.sq-txt small{display:block;font:400 16px/1.15 'VT323',monospace;color:#e9dfc2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sq-go{font:400 19px/1 'Jersey 10',var(--px);background:#f2c230;color:#1d1a2b;border:3px solid #000;padding:8px 12px 5px;white-space:nowrap}
 @media (hover:hover) and (pointer:fine){.sq-bar:hover .sq-go{background:#ffd84a}}

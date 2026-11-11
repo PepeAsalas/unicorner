@@ -55,6 +55,12 @@ a{color:inherit}
 .pip{font:400 15px/1 var(--px);background:var(--clay);color:#fff;border:2px solid #000;padding:1px 5px;min-width:22px}
 .pip[hidden]{display:none}
 svg.i{width:18px;height:18px;shape-rendering:crispEdges;flex:none}
+/* the pixel-art set: tab icons at exactly half size so the pixels stay crisp, the team emblem by the title, the duel boots */
+.tabs img.ti{width:32px;height:32px;image-rendering:pixelated;flex:none;margin:-6px 0 -5px}
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+.hero .emb{width:150px;height:auto;flex:none;margin:-8px -4px -6px 0;filter:drop-shadow(3px 3px 0 rgba(0,0,0,.45))}
+@media (max-width:420px){.hero .emb{width:112px}}@media (max-width:370px){.tabs img.ti{width:24px;height:24px;image-rendering:auto}}
+img.di{width:22px;height:22px;flex:none}
 .grid{display:block}
 @media (max-width:899px){.panel[data-hidden=true]{display:none}}
 @media (min-width:900px){.tabs{display:none}.grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:18px;align-items:start}}
@@ -171,12 +177,12 @@ svg.i{width:18px;height:18px;shape-rendering:crispEdges;flex:none}
 </defs></svg>
 <div class="wrap">
  <header class="top"><a class="logo" id="home" href="/">Unicorner</a><span class="topr"><a class="chipbtn" id="playLink" href="/">▶ <span data-t="play">Play</span></a><a class="chipbtn xbtn" id="closeX" href="/" aria-label="Close">✕</a></span></header>
- <div class="hero"><div><h1 data-t="h1">SOCIALS</h1><p data-t="sub">Rankings, friends and leagues</p></div></div>
+ <div class="hero"><div><h1 data-t="h1">SOCIALS</h1><p data-t="sub">Rankings, friends and leagues</p></div><img class="emb" src="/social/socials-emblem.png" alt="" width="256" height="160"></div>
 
  <div class="tabs" role="tablist" aria-label="Socials">
-  <button role="tab" id="t-rank" data-tab="rank" aria-selected="true" aria-controls="p-rank"><svg class="i"><use href="#i-cup"/></svg><span data-t="t_rank">Rankings</span></button>
-  <button role="tab" id="t-friends" data-tab="friends" aria-selected="false" aria-controls="p-friends"><svg class="i"><use href="#i-ppl"/></svg><span data-t="t_friends">Friends</span><span class="pip" id="pip" hidden></span></button>
-  <button role="tab" id="t-leagues" data-tab="leagues" aria-selected="false" aria-controls="p-leagues"><svg class="i"><use href="#i-shd"/></svg><span data-t="t_leagues">Leagues</span></button>
+  <button role="tab" id="t-rank" data-tab="rank" aria-selected="true" aria-controls="p-rank"><img class="ti" src="/social/icon-rankings.png" alt="" width="32" height="32"><span data-t="t_rank">Rankings</span></button>
+  <button role="tab" id="t-friends" data-tab="friends" aria-selected="false" aria-controls="p-friends"><img class="ti" src="/social/icon-friends.png" alt="" width="32" height="32"><span data-t="t_friends">Friends</span><span class="pip" id="pip" hidden></span></button>
+  <button role="tab" id="t-leagues" data-tab="leagues" aria-selected="false" aria-controls="p-leagues"><img class="ti" src="/social/icon-leagues.png" alt="" width="32" height="32"><span data-t="t_leagues">Leagues</span></button>
  </div>
 
  <div class="grid">
@@ -321,7 +327,7 @@ function drawFriends(){const box=$('friends');
  html+=sorted.map(f=>{const open=S.open===f.nickname&&!f.me;
   return`<div class="frow${f.me?' me':''}" data-nick="${esc(f.nickname)}" data-kit="${esc(f.kit||'')}" tabindex="0" role="button"><span class="u" style="background-image:${uni(f.kit)}"></span><span class="nm"><b>${esc(f.me?L('You','Tú'):f.nickname)}${f.streak>=3?` <small style="display:inline;color:var(--clay)">🔥${f.streak}</small>`:''}</b><span class="gl">${line(f)}</span></span>
   <span class="acts">${f.me?`<span class="sc" title="${L('This week','Esta semana')}">${f.week||0}</span>`:`<span class="sc" title="${L('This week','Esta semana')}">${f.week||0}</span><button class="more" data-more="${esc(f.nickname)}" aria-expanded="${open}" aria-label="${L('More for','Más para')} ${esc(f.nickname)}">⋯</button>`}</span>
-  ${open?`<div class="drop"><a class="btn s w" href="/duel.html">⚔ ${L('Duel','Duelo')}</a><button class="btn s w" data-rm="${esc(f.nickname)}">${L('Remove friend','Quitar amigo')}</button></div>`:''}</div>`}).join('');
+  ${open?`<div class="drop"><a class="btn s w" href="/duel.html"><img class="di" src="/social/icon-duel.png" alt="" width="64" height="64"> ${L('Duel','Duelo')}</a><button class="btn s w" data-rm="${esc(f.nickname)}">${L('Remove friend','Quitar amigo')}</button></div>`:''}</div>`}).join('');
  if(!others.length)html+=`<p class="empty" style="padding:14px 8px">${L('No friends yet. Send your link below: whoever opens it becomes your friend.','Aún no tienes amigos. Manda tu enlace: quien lo abra será tu amigo.')}</p>`;
  html+=`</div><p class="note" style="text-align:right">${L('Big number = points this week','Número grande = puntos esta semana')}</p>`;
  html+=`<p class="sec">${L('Add friends','Añadir amigos')}</p><div class="invite"><p>${L('Send your link. Whoever opens it and signs in is <b>your friend straight away</b>.','Manda tu enlace. Quien lo abra e inicie sesión es <b>tu amigo al momento</b>.')}</p>
