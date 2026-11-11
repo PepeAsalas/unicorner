@@ -3,230 +3,250 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Black Jockey · Horacio's football blackjack | Unicorner</title>
-<meta name="description" content="A daily football blackjack hosted by Horacio Herradura. Reach the target number with your answers, but the values stay face down until the end. Go over and you bust.">
+<title>Horacio's Table · rarity blackjack | Unicorner</title>
+<meta name="description" content="Horacio Herradura's daily football blackjack. Every answer is a card worth its rarity: Tap-in 10, Header 30, Volley 60, Bicycle kick 85, Screamer 100. Hit the target, beat the house, don't bust.">
 <meta name="robots" content="noindex">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <meta name="theme-color" content="#14402b">
 <style>
 @font-face{font-family:'Jersey 10';src:url(/fonts/jersey10.woff2) format('woff2');font-display:swap}
 @font-face{font-family:'VT323';src:url(/fonts/vt323.woff2) format('woff2');font-display:swap}
-/* Black Jockey: a casino table in the site palette. Felt = grass, cards = paper, chips = gold, Horacio deals. */
-:root{--ink:#1d1a2b;--paper:#fbf6e8;--sand:#e9dfc2;--gold:#f2c230;--grass:#2f9a62;--felt:#1f6b45;--felt2:#17573a;--clay:#c8473b;--navy:#1d4486;
+/* Horacio's Table: a blackjack table in the site palette. Felt = grass, cards = paper with the five rarity colours, chips = gold.
+   Art from /blackjack/art/ is used when it exists (table, Horacio the croupier, card back); until then the CSS draws everything. */
+:root{--ink:#1d1a2b;--paper:#fbf6e8;--sand:#e9dfc2;--gold:#f2c230;--grass:#2f9a62;--felt:#1f6b45;--felt2:#14402b;--clay:#c8473b;--navy:#1d4486;
+ --t1:#cfd8e6;--t2:#7fe0a8;--t3:#b48cff;--t4:#ff7ac8;--t5:#ffd23f;
  --disp:'Jersey 10',monospace;--px:'VT323',monospace;--ease:cubic-bezier(.23,1,.32,1)}
 *{box-sizing:border-box}
 html{background:var(--felt2)}
 body{margin:0;min-height:100vh;color:var(--paper);font:400 20px/1.25 var(--px);image-rendering:pixelated;
- background:radial-gradient(ellipse 90% 70% at 50% 35%,var(--felt) 0 60%,var(--felt2) 100%);
+ background:var(--felt2) var(--table,radial-gradient(ellipse 90% 70% at 50% 30%,var(--felt) 0 58%,var(--felt2) 100%)) center top/cover no-repeat fixed;
  padding:max(10px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(24px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left))}
-body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(rgba(0,0,0,.12) 1px,transparent 1.5px) 0 0/6px 6px}
+body.noart::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(rgba(0,0,0,.12) 1px,transparent 1.5px) 0 0/6px 6px}
 button,input{font:inherit;color:inherit}button{cursor:pointer}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .wrap{max-width:720px;margin:0 auto;position:relative}
-.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
 .logo{font:400 24px/1 var(--disp);text-transform:uppercase;text-decoration:none;color:var(--ink);background:var(--paper);border:3px solid #000;box-shadow:4px 4px 0 #000;padding:5px 10px 3px}
 .x{width:44px;height:44px;display:grid;place-items:center;font:400 24px/1 var(--disp);text-decoration:none;color:var(--ink);background:var(--paper);border:3px solid #000;box-shadow:3px 3px 0 #000}
-h1{margin:4px 0 0;text-align:center;font:400 52px/.9 var(--disp);color:var(--gold);text-shadow:0 4px 0 #000,3px 0 0 #000,-3px 0 0 #000,0 -3px 0 #000;letter-spacing:.03em}
-.sub{text-align:center;margin:4px 0 10px;color:var(--sand)}
+h1{margin:2px 0 0;text-align:center;font:400 46px/.9 var(--disp);color:var(--gold);text-shadow:0 4px 0 #000,3px 0 0 #000,-3px 0 0 #000,0 -3px 0 #000;letter-spacing:.03em}
+.sub{text-align:center;margin:4px 0 8px;color:var(--sand);font-size:18px}
 
-/* the croupier */
-.dealer{display:grid;grid-template-columns:110px 1fr;gap:10px;align-items:end;margin:6px 0 8px}
-.dealer img{width:110px;height:110px;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 4px 0 rgba(0,0,0,.35))}
-.bub{position:relative;background:var(--paper);color:var(--ink);border:3px solid #000;box-shadow:4px 4px 0 #000;padding:10px 12px 8px;font-size:20px;line-height:1.15;min-height:64px}
-.bub::before{content:"";position:absolute;left:-12px;bottom:16px;border:6px solid transparent;border-right:6px solid #000;border-left:0;width:0;height:0}
-.bub b{font:400 15px var(--disp);letter-spacing:.06em;color:var(--navy);display:block;margin-bottom:2px}
+/* the house: Horacio and his hand */
+.house{display:grid;grid-template-columns:104px 1fr;gap:10px;align-items:end;margin:4px 0 6px}
+.house img{width:104px;height:104px;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 4px 0 rgba(0,0,0,.35))}
+.bub{position:relative;background:var(--paper);color:var(--ink);border:3px solid #000;box-shadow:4px 4px 0 #000;padding:9px 12px 7px;font-size:19px;line-height:1.15;min-height:60px}
+.bub::before{content:"";position:absolute;left:-12px;bottom:16px;border:6px solid transparent;border-right:6px solid #000;border-left:0}
+.bub b{font:400 14px var(--disp);letter-spacing:.06em;color:var(--navy);display:block;margin-bottom:2px}
+.hrow{display:flex;align-items:center;gap:10px;justify-content:center;margin:4px 0 10px}
+.hrow small{color:var(--sand);font-size:16px;letter-spacing:.08em}
+.mini{display:flex;gap:5px}
+.mc{width:38px;height:52px;border:3px solid #000;box-shadow:2px 2px 0 rgba(0,0,0,.45);display:grid;place-items:center;font:400 17px var(--disp);color:var(--ink)}
+.mc.down{background:var(--navy) var(--back,repeating-linear-gradient(45deg,rgba(255,255,255,.14) 0 4px,transparent 4px 9px)) center/cover}
+.mc.down::after{content:"🐴";font-size:15px}
+.htot{font:400 26px var(--disp);color:#fff;text-shadow:0 2px 0 #000;min-width:52px;text-align:center}
 
-/* target plaque */
-.target{display:flex;justify-content:center;align-items:center;gap:12px;margin:8px 0 12px}
-.chip{width:58px;height:58px;border-radius:50%;background:var(--gold);border:4px solid #000;box-shadow:inset 0 0 0 5px #fff3c4,inset 0 0 0 9px var(--gold),inset 0 0 0 11px #b8860f,0 4px 0 #000;display:grid;place-items:center;font:400 22px var(--disp);color:var(--ink)}
-.tbox{text-align:center}.tbox small{display:block;color:var(--sand);font-size:17px;letter-spacing:.1em}
-.tbox b{font:400 46px/1 var(--disp);color:#fff;text-shadow:0 3px 0 #000;letter-spacing:.03em}
+/* target meter */
+.meter{margin:2px 0 10px}
+.mtop{display:flex;justify-content:space-between;align-items:baseline}
+.mtop b{font:400 44px/1 var(--disp);color:#fff;text-shadow:0 3px 0 #000;font-variant-numeric:tabular-nums}
+.mtop span{color:var(--sand);font-size:18px}.mtop em{font-style:normal;color:var(--gold);font:400 30px var(--disp);text-shadow:0 2px 0 #000}
+.bar{position:relative;height:22px;background:rgba(0,0,0,.35);border:3px solid #000;margin-top:6px;overflow:hidden}
+.bar i{position:absolute;top:0;bottom:0;left:0;transition:width 380ms var(--ease)}
+.bar .goal{position:absolute;top:-3px;bottom:-3px;width:3px;background:var(--gold);right:0}
+.legend{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;font-size:15px;color:var(--sand);margin-top:6px}
+.legend span{display:inline-flex;align-items:center;gap:4px}.legend i{width:12px;height:12px;border:2px solid #000;display:inline-block}
 
-/* the hand */
-.hand{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;min-height:132px;margin:6px 0 12px;perspective:700px}
-.card{width:92px;height:124px;position:relative;transform-style:preserve-3d;transition:transform 420ms var(--ease)}
-.card .f,.card .b{position:absolute;inset:0;backface-visibility:hidden;border:3px solid #000;box-shadow:3px 3px 0 rgba(0,0,0,.45);display:flex;flex-direction:column;justify-content:space-between;padding:6px}
-.card .b{background:var(--navy);background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.12) 0 4px,transparent 4px 9px);color:var(--paper);align-items:center;justify-content:center;text-align:center}
-.card .b span{font:400 15px/1.05 var(--px);background:var(--paper);color:var(--ink);padding:3px 4px;border:2px solid #000;max-width:100%;overflow-wrap:anywhere}
-.card .b i{font-style:normal;font:400 30px var(--disp);color:var(--gold);margin-top:6px}
-.card .f{background:var(--paper);color:var(--ink);transform:rotateY(180deg)}
-.card .f small{font-size:14px;line-height:1;color:#6b6480;overflow-wrap:anywhere}
-.card .f b{font:400 22px/1 var(--disp);text-align:center;font-variant-numeric:tabular-nums}
-.card .f em{font-style:normal;font-size:13px;text-align:right;color:#6b6480}
-.card.up{transform:rotateY(180deg)}
-.card.deal{animation:deal 320ms var(--ease) both}
-@keyframes deal{from{opacity:0;transform:translate(0,-60px) rotate(-8deg) scale(.95)}to{opacity:1;transform:none}}
-.slot{width:92px;height:124px;border:3px dashed rgba(251,246,232,.35)}
+/* your hand */
+.hand{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;min-height:132px;margin:4px 0 12px}
+.card{width:110px;height:132px;border:3px solid #000;box-shadow:3px 3px 0 rgba(0,0,0,.45);background:var(--paper);color:var(--ink);display:flex;flex-direction:column;justify-content:space-between;padding:0;overflow:hidden;position:relative}
+.card .tier{background:var(--c);font:400 15px/1 var(--disp);padding:5px 6px 3px;border-bottom:3px solid #000;letter-spacing:.04em}
+.card .nm{padding:4px 6px;font-size:15px;line-height:1.05;overflow-wrap:anywhere;flex:1}
+.card .pts{font:400 32px/1 var(--disp);text-align:right;padding:0 6px 4px}
+.card.foul{background:#e9dfc2}.card.foul .pts{color:var(--clay)}
+.card.new{animation:flip 360ms var(--ease) both}
+@keyframes flip{from{opacity:0;transform:translateY(-36px) rotateY(80deg) scale(.95)}to{opacity:1;transform:none}}
+.slot{width:110px;height:132px;border:3px dashed rgba(251,246,232,.3);display:grid;place-items:center;color:rgba(251,246,232,.35);font:400 18px var(--disp)}
 
 /* the round */
-.panel{background:rgba(0,0,0,.22);border:3px solid #000;box-shadow:inset 0 0 0 3px rgba(255,255,255,.06);padding:12px}
-.cat{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
-.cat b{font:400 26px/1 var(--disp);color:#fff}.cat span{font-size:17px;color:var(--sand);white-space:nowrap}
+.panel{background:rgba(0,0,0,.26);border:3px solid #000;box-shadow:inset 0 0 0 3px rgba(255,255,255,.06);padding:12px}
+.qhead{display:flex;justify-content:space-between;gap:8px;color:var(--sand);font-size:16px;margin-bottom:4px}
+.q{font:400 25px/1.1 var(--disp);color:#fff;margin:0 0 4px}
+.need{font-size:17px;color:var(--gold);margin:0 0 8px}
 .clock{height:8px;background:rgba(0,0,0,.35);border:2px solid #000;margin-bottom:10px}.clock i{display:block;height:100%;background:var(--gold);transition:width 1s linear}
 .row{display:grid;grid-template-columns:1fr auto;gap:8px}
 .field{width:100%;border:3px solid #000;background:#fff;color:var(--ink);padding:10px;font-size:21px;min-height:48px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:3px solid #000;box-shadow:3px 3px 0 #000;background:var(--gold);color:var(--ink);padding:10px 16px 7px;font:400 22px/1 var(--disp);min-height:48px;text-decoration:none;transition:transform 140ms var(--ease)}
-.btn:active{transform:scale(.97)}.btn.w{background:var(--paper)}.btn.r{background:var(--clay);color:#fff}.btn[disabled]{opacity:.5;cursor:default}
-.msg{min-height:24px;margin:8px 2px 0;color:var(--sand);font-size:18px}
-.msg.bad{color:#ffb3a8}
-.choice{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
-.choice .btn{min-height:58px;font-size:24px}
+.btn:active{transform:scale(.97)}.btn.w{background:var(--paper)}.btn.s{font-size:17px;min-height:38px;padding:6px 10px 4px}.btn[disabled]{opacity:.45;cursor:default}
+.tools{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap}
+.msg{min-height:22px;margin:6px 2px 0;color:var(--sand);font-size:17px}.msg.bad{color:#ffb3a8}
+.choice{display:grid;grid-template-columns:1fr 1fr;gap:10px}.choice .btn{min-height:58px;font-size:24px}
 .hint{font-size:16px;color:var(--sand);text-align:center;margin-top:8px}
 
 /* result */
 .res{text-align:center}
-.total{font:400 64px/1 var(--disp);color:#fff;text-shadow:0 4px 0 #000;font-variant-numeric:tabular-nums}
-.verdict{display:inline-block;font:400 30px/1 var(--disp);padding:8px 16px 5px;border:3px solid #000;box-shadow:4px 4px 0 #000;margin:10px 0 6px;color:var(--ink);background:var(--gold);transform:rotate(-2deg)}
-.verdict.bust{background:var(--clay);color:#fff}
+.verdict{display:inline-block;font:400 32px/1 var(--disp);padding:9px 16px 6px;border:3px solid #000;box-shadow:4px 4px 0 #000;margin:4px 0 8px;color:var(--ink);background:var(--gold);transform:rotate(-2deg)}
+.verdict.lose{background:var(--clay);color:#fff}.verdict.push{background:var(--paper)}
+.vs{display:flex;justify-content:center;gap:18px;font-size:19px;color:var(--sand)}.vs b{display:block;font:400 34px var(--disp);color:#fff}
 .share{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
-.note{font-size:15px;color:var(--sand);opacity:.85;text-align:center;margin-top:14px}
+.recap{margin-top:14px;text-align:left}
+.recap details{background:rgba(0,0,0,.2);border:2px solid #000;margin-bottom:6px;padding:6px 8px}
+.recap summary{cursor:pointer;font-size:17px;color:#fff}
+.recap p{margin:4px 0;font-size:16px;color:var(--sand)}.recap p i{font-style:normal;display:inline-block;width:10px;height:10px;border:2px solid #000;margin-right:5px;vertical-align:-1px}
 .rules{margin-top:14px;font-size:17px;color:var(--sand)}.rules summary{cursor:pointer;color:#fff}
+.note{font-size:15px;color:var(--sand);opacity:.85;text-align:center;margin-top:12px}
 :focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-@media (max-width:420px){.card,.slot{width:76px;height:106px}.card .f b{font-size:18px}.dealer{grid-template-columns:86px 1fr}.dealer img{width:86px;height:86px}h1{font-size:44px}}
+@media (max-width:440px){.card,.slot{width:66px;height:104px}.card .tier{font-size:11px;padding:4px 3px 2px}.card .nm{font-size:12px;padding:3px}.card .pts{font-size:22px}
+ .house{grid-template-columns:84px 1fr}.house img{width:84px;height:84px}h1{font-size:40px}}
 </style>
 </head>
-<body>
+<body class="noart">
 <div class="wrap">
  <div class="top"><a class="logo" href="/">Unicorner</a><a class="x" href="/" aria-label="Close">✕</a></div>
- <h1>BLACK JOCKEY</h1>
+ <h1>HORACIO'S TABLE</h1>
  <p class="sub" id="date"></p>
- <div class="dealer"><img id="host" src="/rosco/host/idle-1.png" alt="Horacio Herradura"><div class="bub" aria-live="polite"><b>HORACIO HERRADURA</b><span id="say"></span></div></div>
- <div class="target"><span class="chip">🐴</span><div class="tbox"><small>TODAY'S TARGET</small><b id="target"></b></div></div>
+ <div class="house"><img id="host" src="/rosco/host/idle-1.png" alt="Horacio Herradura, the croupier"><div class="bub" aria-live="polite"><b>HORACIO HERRADURA</b><span id="say"></span></div></div>
+ <div class="hrow"><small>THE HOUSE</small><div class="mini" id="dealer"></div><span class="htot" id="dtot"></span></div>
+ <div class="meter"><div class="mtop"><span>YOUR HAND</span><span><b id="tot">0</b> / <em id="target"></em></span></div><div class="bar" id="bar"><span class="goal"></span></div>
+  <div class="legend"><span><i style="background:var(--t1)"></i>Tap-in 10</span><span><i style="background:var(--t2)"></i>Header 30</span><span><i style="background:var(--t3)"></i>Volley 60</span><span><i style="background:var(--t4)"></i>Bicycle 85</span><span><i style="background:var(--t5)"></i>Screamer 100</span></div></div>
  <div class="hand" id="hand" aria-label="Your cards"></div>
  <div class="panel" id="panel"></div>
  <details class="rules"><summary>How to play</summary>
-  <p>Horacio deals one football category at a time. Name something that fits: it becomes a card, <b>face down</b>. Each card is worth a number (a stadium's capacity, the year a club was founded, a player's goals…), but you only see the numbers at the end.</p>
-  <p>After each card, <b>take another</b> or <b>stand</b>. Get as close to the target as you can. Go over and you <b>bust</b>: 0. Hit it exactly and it's a <b>Black Jockey</b>. Up to 6 cards, 45 seconds each. Same table for everyone today.</p>
+  <p>Every answer is a card worth its <b>rarity</b>: the more obvious the answer, the less it's worth. Tap-in 10 · Header 30 · Volley 60 · Bicycle kick 85 · Screamer 100.</p>
+  <p>Get as close to the target as you can in <b>up to 5 cards</b>. Over the target, you <b>bust</b>. A wrong answer or running out of time is a <b>foul</b>: 0 points, and the card is gone. You can <b>pass</b> one question.</p>
+  <p>Horacio plays a hand too: one card up, the rest face down. Stand when you think you've got him, then he turns his cards. Hit the target exactly and it's a <b>Full House</b>.</p>
  </details>
- <p class="note">Prototype · the numbers come from public records and will be fact-checked before launch.</p>
+ <p class="note">Prototype · questions and rarities come from the Duels question bank.</p>
 </div>
 <script>
 (()=>{
-// ── the decks: every answer has the exact number it's worth (public records; to be fact-checked by the routine before launch) ──
-const DECKS={
- stadium:{q:'Stadium capacity',ask:'Name the home stadium of a club in a top-5 league',unit:'seats',cards:[
-  ['Santiago Bernabéu',83186,['bernabeu','santiago bernabeu']],['Signal Iduna Park',81365,['westfalenstadion','signal iduna']],
-  ['San Siro',75817,['giuseppe meazza','meazza']],['Allianz Arena',75024,['allianz']],['Old Trafford',74310,[]],
-  ['Stadio Olimpico',70634,['olimpico']],['Metropolitano',70460,['wanda metropolitano','civitas metropolitano']],
-  ['Orange Vélodrome',67394,['velodrome','stade velodrome']],['Tottenham Hotspur Stadium',62850,['tottenham stadium','spurs stadium']],
-  ['Anfield',61276,[]],['Emirates Stadium',60704,['emirates']],['London Stadium',62500,['olympic stadium london']],
-  ['Veltins-Arena',62271,['veltins','arena aufschalke']],['Etihad Stadium',53400,['etihad']],['St James\' Park',52305,['st james park']],
-  ['Mestalla',49430,[]],['Parc des Princes',47929,[]],['Juventus Stadium',41507,['allianz stadium turin']],
-  ['Stamford Bridge',40343,[]],['Villa Park',42640,[]],['Goodison Park',39414,['goodison']],['Ramón Sánchez-Pizjuán',43883,['sanchez pizjuan','pizjuan']]]},
- founded:{q:'Year founded',ask:'Name a big European club: when was it founded?',unit:'founded',cards:[
-  ['Manchester United',1878,['man united','man utd','newton heath']],['Everton',1878,[]],['Manchester City',1880,['man city']],
-  ['Tottenham',1882,['spurs','tottenham hotspur']],['Arsenal',1886,[]],['Celtic',1887,[]],['Liverpool',1892,[]],
-  ['Juventus',1897,['juve']],['Barcelona',1899,['barca','fc barcelona']],['AC Milan',1899,['milan']],['Bayern Munich',1900,['bayern']],
-  ['Ajax',1900,[]],['Real Madrid',1902,[]],['Atlético Madrid',1903,['atletico']],['Benfica',1904,[]],['Chelsea',1905,[]],
-  ['Inter',1908,['inter milan','internazionale']],['Borussia Dortmund',1909,['dortmund','bvb']],['PSG',1970,['paris saint germain','paris sg']]]},
- plgoals:{q:'Premier League goals (career)',ask:'Name a retired Premier League striker: how many PL goals did he score?',unit:'PL goals',cards:[
-  ['Alan Shearer',260,['shearer']],['Wayne Rooney',208,['rooney']],['Andrew Cole',187,['andy cole','cole']],['Sergio Agüero',184,['aguero']],
-  ['Frank Lampard',177,['lampard']],['Thierry Henry',175,['henry']],['Robbie Fowler',163,['fowler']],['Jermain Defoe',162,['defoe']],
-  ['Michael Owen',150,['owen']],['Les Ferdinand',149,['ferdinand']],['Teddy Sheringham',146,['sheringham']],['Robin van Persie',144,['van persie','rvp']],
-  ['Robbie Keane',126,['keane']],['Nicolas Anelka',125,['anelka']],['Dwight Yorke',123,['yorke']],['Ian Wright',113,['wright']],
-  ['Dion Dublin',111,['dublin']],['Emile Heskey',110,['heskey']],['Didier Drogba',104,['drogba']],['Matt Le Tissier',100,['le tissier']]]},
- wcgoals:{q:'World Cup goals',ask:'Name a player who scored at a men\'s World Cup: how many World Cup goals in total?',unit:'WC goals',cards:[
-  ['Miroslav Klose',16,['klose']],['Ronaldo Nazário',15,['ronaldo nazario','r9']],['Gerd Müller',14,['gerd muller']],['Lionel Messi',13,['messi']],
-  ['Just Fontaine',13,['fontaine']],['Pelé',12,['pele']],['Kylian Mbappé',12,['mbappe']],['Jürgen Klinsmann',11,['klinsmann']],
-  ['Sándor Kocsis',11,['kocsis']],['Thomas Müller',10,['thomas muller']],['Gary Lineker',10,['lineker']],['Gabriel Batistuta',10,['batistuta']],
-  ['Diego Maradona',8,['maradona']],['Cristiano Ronaldo',8,['cristiano']],['Harry Kane',8,['kane']],['Zinedine Zidane',5,['zidane']]]},
- ucl:{q:'European Cups won',ask:'Name a club that has won the European Cup / Champions League: how many times?',unit:'titles',cards:[
-  ['Real Madrid',15,[]],['AC Milan',7,['milan']],['Bayern Munich',6,['bayern']],['Liverpool',6,[]],['Barcelona',5,['barca']],['Ajax',4,[]],
-  ['Inter',3,['inter milan','internazionale']],['Manchester United',3,['man united','man utd']],['Juventus',2,['juve']],['Benfica',2,[]],
-  ['Chelsea',2,[]],['Nottingham Forest',2,['forest']],['Porto',2,[]],['Celtic',1,[]],['Aston Villa',1,['villa']],['PSV',1,['psv eindhoven']],
-  ['Marseille',1,['olympique marseille']],['Dortmund',1,['borussia dortmund','bvb']],['Manchester City',1,['man city']],['PSG',1,['paris saint germain']]]},
- ballon:{q:'Ballon d\'Or wins',ask:'Name a Ballon d\'Or winner: how many did he win?',unit:'Ballons d\'Or',cards:[
-  ['Lionel Messi',8,['messi']],['Cristiano Ronaldo',5,['ronaldo','cristiano']],['Michel Platini',3,['platini']],['Johan Cruyff',3,['cruyff']],
-  ['Marco van Basten',3,['van basten']],['Franz Beckenbauer',2,['beckenbauer']],['Alfredo Di Stéfano',2,['di stefano']],['Kevin Keegan',2,['keegan']],
-  ['Karl-Heinz Rummenigge',2,['rummenigge']],['Ronaldo Nazário',2,['ronaldo nazario']],['Zinedine Zidane',1,['zidane']],['Kaká',1,['kaka']],
-  ['Luka Modrić',1,['modric']],['Karim Benzema',1,['benzema']],['Rodri',1,[]],['Ousmane Dembélé',1,['dembele']]]}};
-
-// ── today's table: the same for everyone (Amsterdam date) ──
+// ── setup ──
+const TIERS=[{p:10,n:'Tap-in',c:'var(--t1)',e:'⬜'},{p:30,n:'Header',c:'var(--t2)',e:'🟩'},{p:60,n:'Volley',c:'var(--t3)',e:'🟪'},{p:85,n:'Bicycle kick',c:'var(--t4)',e:'🩷'},{p:100,n:'Screamer',c:'var(--t5)',e:'🟨'}];
+const FAME={6:10,5:30,4:60,3:60,2:85,1:100},tierOf=p=>TIERS.find(t=>t.p===p)||null;
+const MAXC=5,SECS=30;
 const DAY=new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Amsterdam'});
 let seed=[...DAY].reduce((h,c)=>Math.imul(h^c.charCodeAt(0),16777619)>>>0,2166136261);
 const rnd=()=>{seed=Math.imul(seed^(seed>>>15),2246822507)>>>0;seed=Math.imul(seed^(seed>>>13),3266489909)>>>0;return((seed^=seed>>>16)>>>0)/4294967296};
-const TARGET=Math.round((95000+rnd()*70000)/50)*50;          // 95,000 – 165,000
-const order=['stadium','stadium','founded','plgoals','wcgoals','ucl','ballon'];
-for(let i=order.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[order[i],order[j]]=[order[j],order[i]]}
-// the two stadium rounds come first and second-ish: big cards early, small ones late (that's where the skill is)
-const ROUNDS=['stadium'].concat(order.filter((x,i)=>!(x==='stadium'&&order.indexOf('stadium')===i))).slice(0,6);
-const MAXC=6,SECS=45;
+// targets only from totals that 3 to 5 real cards can make
+const P=TIERS.map(t=>t.p),reach=new Set();(function walk(s,n,from){if(n>=3)reach.add(s);if(n===5)return;for(let i=from;i<P.length;i++)walk(s+P[i],n+1,i)})(0,0,0);
+const TARGETS=[...reach].filter(x=>x>=170&&x<=380).sort((a,b)=>a-b),TARGET=TARGETS[Math.floor(rnd()*TARGETS.length)];
+// the house: Horacio draws until he has at least 75% of the target (he can bust, too)
+const DEALER=(()=>{const h=[];let s=0;const w=[.2,.25,.25,.18,.12];while(s<TARGET*.75&&h.length<5){let r=rnd(),i=0;while(r>w[i]&&i<4){r-=w[i];i++}h.push(P[i]);s+=P[i]}return h})();
+const DTOT=DEALER.reduce((a,b)=>a+b,0);
 
 // ── helpers ──
-const $=id=>document.getElementById(id),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const fmt=n=>n.toLocaleString('en-GB'),norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
-const KEY='uc-bj-'+DAY,ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch{return null}};
-const host=(pose,line)=>{$('host').src='/rosco/host/'+pose+'.png';if(line!=null)$('say').textContent=line};
+const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch{return null}};
+const KEY='uc-rb-'+DAY;if(new URLSearchParams(location.search).has('new')){ls(KEY,null);history.replaceState(null,'',location.pathname)}
+const host=(pose,line)=>{$('host').src=ART.host?.[pose]||'/rosco/host/'+pose+'.png';if(line!=null)$('say').textContent=line};
 const pick=a=>a[Math.floor(Math.random()*a.length)];
-$('date').textContent=new Date(DAY+'T12:00:00Z').toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',timeZone:'UTC'});
-$('target').textContent=fmt(TARGET);
+// answer matching: the same rules as Duels and the daily game
+const norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/ø/g,'o').replace(/ı/g,'i').replace(/[łŁ]/g,'l').replace(/[đĐ]/g,'d').replace(/[æÆ]/g,'ae').replace(/[œŒ]/g,'oe').replace(/ß/g,'ss').replace(/[^a-zA-Z0-9 ]/g,' ').toLowerCase().replace(/\s+/g,' ').trim();
+function lev(a,b){if(Math.abs(a.length-b.length)>2)return 3;const d=Array.from({length:a.length+1},(_,i)=>[i,...Array(b.length).fill(0)]);for(let j=1;j<=b.length;j++)d[0][j]=j;
+ for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++){d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));if(i>1&&j>1&&a[i-1]===b[j-2]&&a[i-2]===b[j-1])d[i][j]=Math.min(d[i][j],d[i-2][j-2]+1)}return d[a.length][b.length]}
+const PERSON=new Set(['player','person','manager','coach','referee']);
+function match(input,answers,type){const x=norm(input);if(!x)return null;const person=PERSON.has(type);
+ const keys=answers.map(a=>{const n=norm(a.name),parts=n.split(' ');return{a,n,al:(a.aliases||[]).map(norm).filter(v=>v.length>=2),last:parts.length>1?parts.slice(1).join(' '):n,lastWord:parts[parts.length-1]}});
+ const uniq=arr=>[...new Set(arr.map(k=>k.a))],one=h=>h.length===1?h[0]:h.length>1?'ambiguous':null;let r;
+ if(r=one(uniq(keys.filter(k=>k.n===x||k.al.includes(x)))))return r;
+ if(person&&(r=one(uniq(keys.filter(k=>k.last===x||k.lastWord===x)))))return r;
+ const t=v=>v.length<5?0:v.length<8?1:2;
+ if(r=one(uniq(keys.filter(k=>lev(k.n,x)<=t(k.n)||k.al.some(v=>v.length>=6&&lev(v,x)<=t(v))))))return r;
+ if(person&&(r=one(uniq(keys.filter(k=>k.last!==k.n&&k.last.length>=5&&lev(k.last,x)<=t(k.last))))))return r;
+ if(person&&(r=one(uniq(keys.filter(k=>k.lastWord!==k.n&&k.lastWord.length>=5&&lev(k.lastWord,x)<=t(k.lastWord))))))return r;
+ return null}
+const shortName=a=>{const al=(a.aliases||[]).filter(x=>x.length<=20).sort((p,q)=>q.length-p.length);return a.name.length<=20?a.name:(al[0]||a.name)};
 
-// ?new starts today's table again (for testing the prototype)
-if(new URLSearchParams(location.search).has('new')){try{localStorage.removeItem(KEY)}catch{}history.replaceState(null,'',location.pathname)}
+// ── optional art (from the ChatGPT pack): used when the files exist ──
+const ART={};
+(async()=>{const ok=u=>new Promise(r=>{const i=new Image();i.onload=()=>r(true);i.onerror=()=>r(false);i.src=u});
+ const tall=matchMedia('(max-width:760px)').matches?'/blackjack/art/table-tall.webp':'/blackjack/art/table-wide.webp';
+ if(await ok(tall)){document.body.style.setProperty('--table',`url(${tall})`);document.body.classList.remove('noart')}
+ if(await ok('/blackjack/art/card-back.png'))document.documentElement.style.setProperty('--back','url(/blackjack/art/card-back.png)');
+ const poses=['idle','deal','show','think','wink','shock','laugh','clap'];if(await ok('/blackjack/art/horacio-idle.png')){ART.host={};
+  const map={'idle-1':'idle','idle-2':'idle','talk-1':'deal','talk-2':'deal','point':'show','think':'think','wink':'wink','nervous':'think','facepalm':'shock','surprised':'shock','laugh':'laugh','celebrate':'clap','excited':'clap','happy-1':'clap','sad-talk':'shock','happy-talk':'wink'};
+  for(const k in map)ART.host[k]='/blackjack/art/horacio-'+map[k]+'.png'}})();
+
+// ── state ──
+let BANK=[],DECK=[];
 let S=null;try{S=JSON.parse(ls(KEY)||'null')}catch{}
-if(!S)S={hand:[],round:0,done:false};
+if(!S)S={hand:[],qi:0,passed:false,done:false};
 const save=()=>ls(KEY,JSON.stringify(S));
-const total=()=>S.hand.reduce((a,c)=>a+c.v,0);
+const total=()=>S.hand.reduce((a,c)=>a+c.p,0);
+$('date').textContent=new Date(DAY+'T12:00:00Z').toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',timeZone:'UTC'});
+$('target').textContent=TARGET;
 
-function drawHand(revealN){const h=$('hand');h.innerHTML='';
- S.hand.forEach((c,i)=>{const up=revealN!=null&&i<revealN;h.insertAdjacentHTML('beforeend',`<div class="card${up?' up':''}" data-i="${i}"><div class="b"><span>${esc(c.name)}</span><i>?</i></div><div class="f"><small>${esc(c.name)}</small><b>${fmt(c.v)}</b><em>${esc(c.unit)}</em></div></div>`)});
- if(!S.done)for(let i=S.hand.length;i<Math.min(MAXC,S.hand.length+1);i++)h.insertAdjacentHTML('beforeend','<div class="slot" aria-hidden="true"></div>')}
+function drawDealer(open){$('dealer').innerHTML=DEALER.map((p,i)=>open||i===0?`<span class="mc" style="background:${tierOf(p).c}">${p}</span>`:'<span class="mc down"></span>').join('');
+ $('dtot').textContent=open?DTOT:DEALER[0]+'+?'}
+function drawMeter(){const t=total(),b=$('bar');$('tot').textContent=t;$('tot').style.color=t>TARGET?'#ffb3a8':'';
+ b.querySelectorAll('i').forEach(x=>x.remove());let x=0;
+ for(const c of S.hand){if(!c.p)continue;const w=Math.min(c.p,Math.max(0,TARGET-x))/TARGET*100,l=x/TARGET*100;if(w>0)b.insertAdjacentHTML('beforeend',`<i style="left:${l}%;width:${w}%;background:${tierOf(c.p).c};border-right:2px solid #000"></i>`);x+=c.p}}
+function drawHand(fresh){const h=$('hand');h.innerHTML=S.hand.map((c,i)=>{const t=tierOf(c.p);
+  return c.p?`<div class="card${fresh&&i===S.hand.length-1?' new':''}" style="--c:${t.c}"><span class="tier">${t.n.toUpperCase()}</span><span class="nm">${esc(c.a)}</span><span class="pts">+${c.p}</span></div>`
+   :`<div class="card foul${fresh&&i===S.hand.length-1?' new':''}" style="--c:#e9dfc2"><span class="tier">FOUL</span><span class="nm">${esc(c.a||'No answer')}</span><span class="pts">0</span></div>`}).join('')
+  +(S.done?'':Array.from({length:MAXC-S.hand.length},(_,i)=>`<div class="slot">${S.hand.length+i+1}</div>`).join(''));drawMeter()}
 
-// ── a round: one category, one answer, 45 seconds ──
+// ── a card: one question, one answer, 30 seconds ──
 let timer=null,left=SECS;
-function ask(){const d=DECKS[ROUNDS[S.round]];clearInterval(timer);left=SECS;
- $('panel').innerHTML=`<div class="cat"><b>${esc(d.q)}</b><span>Card ${S.hand.length+1} of ${MAXC}</span></div><div class="clock"><i id="clk" style="width:100%"></i></div>
-  <form id="f" class="row" autocomplete="off"><label class="sr" for="a" style="position:absolute;left:-9999px">${esc(d.ask)}</label><input class="field" id="a" placeholder="${esc(d.ask)}" autocomplete="off" autocapitalize="off" spellcheck="false"><button class="btn">Deal</button></form><p class="msg" id="m"></p>`;
- host(pick(['talk-1','talk-2','point']),pick([`${d.ask.split(':')[0]}. Careful now…`,`Next card: ${d.q.toLowerCase()}. Choose wisely, amigo.`,`${d.q}. I won't tell you the number. Not yet.`]));
- $('a').focus();
- $('f').onsubmit=e=>{e.preventDefault();answer(d)};
- timer=setInterval(()=>{left--;$('clk').style.width=Math.max(0,left/SECS*100)+'%';if(left<=0){clearInterval(timer);timeUp()}},1000)}
-function find(d,t){const q=norm(t);if(q.length<2)return null;
- const all=d.cards.map(([n,v,al])=>({n,v,keys:[norm(n),...al.map(norm)]}));
- const exact=all.filter(c=>c.keys.includes(q));if(exact.length)return exact[0];
- const part=all.filter(c=>c.keys.some(k=>q.length>=4&&(k.startsWith(q)||k.split(' ').includes(q))));return part.length===1?part[0]:part.length>1?'many':null}
-function answer(d){const v=$('a').value,c=find(d,v);
- if(c==='many'){$('m').className='msg bad';$('m').textContent='More than one fits. Add more of the name.';return}
- if(!c){$('m').className='msg bad';$('m').textContent='Horacio doesn\'t know that one. Try another.';host('think');return}
- if(S.hand.some(h=>h.name===c.n&&h.cat===ROUNDS[S.round])){$('m').className='msg bad';$('m').textContent='Already on the table. Another one.';return}
- clearInterval(timer);S.hand.push({name:c.n,v:c.v,unit:d.unit,cat:ROUNDS[S.round]});S.round++;save();
- drawHand();const last=$('hand').querySelector(`.card[data-i="${S.hand.length-1}"]`);last?.classList.add('deal');
- if(S.hand.length>=MAXC)return reveal();choose()}
-function timeUp(){S.round++;save();host('sad-talk','Time! No card this round.');if(S.round>=ROUNDS.length||S.hand.length>=MAXC)return reveal();choose(true)}
-function choose(missed){
- $('panel').innerHTML=`<div class="cat"><b>${S.hand.length} card${S.hand.length===1?'':'s'} face down</b><span>Target ${fmt(TARGET)}</span></div>
-  <div class="choice"><button class="btn" id="hit">Another card</button><button class="btn w" id="stand">Stand</button></div>
-  <p class="hint">Over ${fmt(TARGET)} and you bust. You only see the numbers at the end.</p>`;
- if(!missed)host(pick(['wink','idle-2','happy-talk','nervous']),pick(['Face down. Another card, or do you stand?','Hmm. Feeling lucky?','The house is listening…','One more, amigo? Or is that enough?']));
- $('hit').onclick=()=>{if(S.round>=ROUNDS.length)return reveal();ask()};$('stand').onclick=()=>reveal();$('hit').focus()}
+function needLine(){const r=TARGET-total();if(r<=0)return'';const fits=TIERS.filter(t=>t.p<=r).map(t=>t.n);return`You need ${r} more. ${fits.length?'Safe cards now: '+fits.join(', ')+'.':''}`}
+function ask(){const q=DECK[S.qi];if(!q)return reveal();clearInterval(timer);left=SECS;
+ $('panel').innerHTML=`<div class="qhead"><span>Card ${S.hand.length+1} of ${MAXC}</span><span>${q.answers.length} right answers</span></div>
+  <p class="q">${esc(q.prompt)}</p><p class="need">${needLine()}</p><div class="clock"><i id="clk" style="width:100%"></i></div>
+  <form id="f" class="row" autocomplete="off"><label class="sr" for="a">Your answer</label><input class="field" id="a" placeholder="Type a ${esc(q.answer_type)}" autocomplete="off" autocapitalize="off" spellcheck="false"><button class="btn">Play</button></form>
+  <div class="tools"><span class="msg" id="m"></span><button class="btn w s" id="pass" ${S.passed?'disabled':''}>Pass (${S.passed?0:1} left)</button></div>`;
+ host(pick(['talk-1','talk-2','point']),pick(['Here is your card. Choose how famous your answer is…','Think: do you need a Tap-in or a Screamer?','A new card, amigo. Aim carefully.']));
+ $('a').focus();$('f').onsubmit=e=>{e.preventDefault();play(q)};
+ $('pass').onclick=()=>{if(S.passed)return;S.passed=true;S.qi++;save();host('wink','Fine, another question. Only once!');ask()};
+ timer=setInterval(()=>{left--;const c=$('clk');if(c)c.style.width=Math.max(0,left/SECS*100)+'%';if(left<=0){clearInterval(timer);foul(q,null,'Time!')}},1000)}
+function play(q){const v=$('a').value.trim();if(!v)return;const r=match(v,q.answers,q.answer_type);
+ if(r==='ambiguous'){$('m').className='msg bad';$('m').textContent='More than one fits. Add more of the name.';return}
+ clearInterval(timer);if(!r)return foul(q,v,'Not on the list!');
+ const p=FAME[r.fame]||10;S.hand.push({a:shortName(r),p,q:q.id});S.qi++;save();drawHand(true);
+ const t=total();if(t>TARGET)return setTimeout(()=>reveal(),500);
+ if(t===TARGET){host('excited','EXACTLY ON TARGET! Stand, amigo, stand!')}else host(p>=85?'surprised':p<=10?'laugh':'happy-talk',
+  p>=85?`A ${tierOf(p).n}! +${p}. Daring…`:p<=10?'A Tap-in! Everyone knows that one. +10.':`${tierOf(p).n}, +${p}. Nicely judged.`);
+ if(S.hand.length>=MAXC)return setTimeout(()=>reveal(),600);decide()}
+function foul(q,typed,why){S.hand.push({a:typed||'',p:0,q:q.id});S.qi++;save();drawHand(true);host('facepalm',`${why} Foul. That card is gone.`);
+ if(S.hand.length>=MAXC)return setTimeout(()=>reveal(),700);decide()}
+function decide(){$('panel').innerHTML=`<div class="qhead"><span>${S.hand.length} of ${MAXC} cards</span><span>House shows ${DEALER[0]}</span></div>
+  <p class="need" style="font-size:19px">${needLine()||'Right on target!'}</p>
+  <div class="choice"><button class="btn" id="hit">Another card</button><button class="btn w" id="stand">Stand</button></div>`;
+ $('hit').onclick=ask;$('stand').onclick=reveal;$('hit').focus()}
 
-// ── the reveal: Horacio turns the cards one by one ──
-async function reveal(){clearInterval(timer);S.done=true;save();
- const tot=total(),bust=tot>TARGET,exact=tot===TARGET;
- $('panel').innerHTML=`<div class="res"><p style="margin:0;color:var(--sand)">Horacio turns the cards…</p><div class="total" id="run">0</div></div>`;
- host('surprised','Let\'s see what you\'ve got…');drawHand(0);
- const slow=!matchMedia('(prefers-reduced-motion:reduce)').matches,wait=ms=>new Promise(r=>setTimeout(r,slow?ms:0));
- let run=0;for(let i=0;i<S.hand.length;i++){await wait(700);$('hand').querySelector(`.card[data-i="${i}"]`)?.classList.add('up');run+=S.hand[i].v;$('run').textContent=fmt(run);if(run>TARGET){$('run').style.color='#ffb3a8'}}
- await wait(500);finish(tot,bust,exact)}
-function finish(tot,bust,exact){const pct=bust||!TARGET?0:Math.round(tot/TARGET*1000)/10,diff=TARGET-tot;
- const v=!S.hand.length?['NO CARDS','',0]:bust?['BUST!','bust',0]:exact?['BLACK JOCKEY!','',100]:[pct>=99?'SO CLOSE!':pct>=95?'GREAT HAND':pct>=85?'DECENT HAND':'PLAYED SAFE','',pct];
- host(bust?'facepalm':exact?'celebrate':pct>=95?'excited':pct>=85?'happy-1':'think',
-  bust?`Bust! ${fmt(tot-TARGET)} over. The house wins today.`:exact?'EXACTLY! A Black Jockey! I have never seen such a thing!':`${fmt(diff)} short. ${pct>=95?'Magnificent, amigo.':pct>=85?'Not bad at all.':'You were too careful, my friend.'}`);
- $('panel').innerHTML=`<div class="res"><div class="total">${fmt(tot)}</div><p style="margin:2px 0 0;color:var(--sand)">of ${fmt(TARGET)}${bust?` · ${fmt(tot-TARGET)} over`:exact?'':` · ${fmt(diff)} short`}</p>
-  <span class="verdict${bust?' bust':''}">${v[0]}${!bust&&!exact&&S.hand.length?' · '+pct+'%':''}</span>
+// ── showdown: Horacio turns his cards ──
+async function reveal(){clearInterval(timer);if(!S.done){S.done=true;save()}
+ const slow=!matchMedia('(prefers-reduced-motion:reduce)').matches,wait=ms=>new Promise(r=>setTimeout(r,slow?ms:0)),t=total();
+ drawHand();$('panel').innerHTML='<div class="res"><p style="margin:6px 0;color:var(--sand)">Horacio turns his cards…</p></div>';host('show','Let\'s see what the house has…');
+ for(let i=1;i<=DEALER.length;i++){await wait(650);$('dealer').innerHTML=DEALER.map((p,j)=>j<=i-1||j===0?`<span class="mc" style="background:${tierOf(p).c}">${p}</span>`:'<span class="mc down"></span>').join('');$('dtot').textContent=DEALER.slice(0,i).reduce((a,b)=>a+b,0)}
+ await wait(400);finish(t)}
+function finish(t){drawDealer(true);drawHand();
+ const bust=t>TARGET,dbust=DTOT>TARGET,full=t===TARGET;
+ const res=bust?'lose':full?'full':dbust?'win':t>DTOT?'win':t===DTOT?'push':'lose';
+ const label={full:'FULL HOUSE!',win:'YOU BEAT THE HOUSE',push:'PUSH · A DRAW',lose:bust?'BUST!':'THE HOUSE WINS'}[res];
+ host(res==='full'?'celebrate':res==='win'?'excited':res==='push'?'think':bust?'facepalm':'laugh',
+  res==='full'?'Exactly on target! A Full House! The house bows to you!':res==='win'?(dbust?'I bust! Ay, ay, ay. You win, amigo.':`${t} beats ${DTOT}. Well played.`):res==='push'?'The same total. Nobody wins today.':bust?`Bust! ${t-TARGET} over. The house always wins…`:`${DTOT} beats ${t}. The house wins!`);
+ const grid=S.hand.map(c=>c.p?tierOf(c.p).e:'❌').join('');
+ $('panel').innerHTML=`<div class="res"><span class="verdict ${res==='lose'?'lose':res==='push'?'push':''}">${label}</span>
+  <div class="vs"><span>YOU<b style="${bust?'color:#ffb3a8':''}">${t}</b></span><span>TARGET<b style="color:var(--gold)">${TARGET}</b></span><span>HOUSE<b style="${dbust?'color:#ffb3a8':''}">${DTOT}</b></span></div>
   <div class="share"><button class="btn" id="share">Share</button><a class="btn w" href="/">Back to Unicorner</a></div>
-  <p class="hint">A new table tomorrow at midnight.</p></div>`;
- drawHand(S.hand.length);
- const txt=`Black Jockey 🐴 ${DAY}\n${S.hand.map(()=>'🂠').join('')} → ${fmt(tot)} / ${fmt(TARGET)}${bust?' 💥 BUST':exact?' 🎯':' ('+pct+'%)'}\nhttps://unicornergame.lol/blackjockey.html`;
+  <div class="recap" id="recap"></div><p class="hint">A new table tomorrow at midnight.</p></div>`;
+ // what else you could have played, by rarity: you learn something every hand
+ $('recap').innerHTML=S.hand.map(c=>{const q=BANK.find(x=>x.id===c.q);if(!q)return'';const by=TIERS.map(tt=>{const ex=q.answers.filter(a=>(FAME[a.fame]||10)===tt.p).slice(0,3).map(shortName);return ex.length?`<p><i style="background:${tt.c}"></i>${tt.n}: ${esc(ex.join(', '))}</p>`:''}).join('');
+  return`<details><summary>${esc(q.prompt)} · you: ${esc(c.a||'—')} ${c.p?'+'+c.p:'(foul)'}</summary>${by}</details>`}).join('');
+ const txt=`Horacio's Table 🐴 ${DAY}\n${grid} → ${t}/${TARGET}${res==='full'?' FULL HOUSE':bust?' BUST':''}\n${res==='win'||res==='full'?'Beat the house':'House '+DTOT}\nhttps://unicornergame.lol/blackjockey.html`;
  $('share').onclick=async()=>{if(navigator.share){try{await navigator.share({text:txt})}catch{}return}try{await navigator.clipboard.writeText(txt);$('share').textContent='Copied!'}catch{}}}
 
-// ── start ──
-drawHand();
-if(S.done){const t=total();drawHand(S.hand.length);finish(t,t>TARGET,t===TARGET)}
-else if(S.hand.length)choose();
-else{host('excited','Welcome to my table! Get as close to the target as you can. Over it… and you lose everything.');
- $('panel').innerHTML=`<div class="choice" style="grid-template-columns:1fr"><button class="btn" id="go">Deal me in</button></div><p class="hint">Up to ${MAXC} cards · ${SECS} seconds each · values stay face down</p>`;
- $('go').onclick=()=>ask()}
+// ── start: load the bank, build today's deck (same order for everyone) ──
+(async()=>{drawDealer(false);drawHand();host('idle-1','Shuffling the deck…');
+ try{BANK=await (await fetch('/duel/bank.json')).json()}catch{$('panel').innerHTML='<p class="msg bad">Couldn\'t load the cards. Refresh to try again.</p>';return}
+ const good=BANK.filter(q=>new Set(q.answers.map(a=>FAME[a.fame])).size>=4&&q.answers.length>=12);
+ good.sort((a,b)=>a.id<b.id?-1:1);for(let i=good.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[good[i],good[j]]=[good[j],good[i]]}
+ DECK=good.slice(0,MAXC+1);
+ if(S.done)return finish(total());
+ if(S.hand.length)return decide();
+ host('excited',`Welcome to my table! Target ${TARGET}. Every answer is worth its rarity: obvious ones 10, deep cuts 100. Up to five cards. Go over… and you bust.`);
+ $('panel').innerHTML=`<div class="choice" style="grid-template-columns:1fr"><button class="btn" id="go">Deal me in</button></div><p class="hint">The house shows ${DEALER[0]}. Beat it without going over ${TARGET}.</p>`;
+ $('go').onclick=ask})();
 })();
 </script>
 </body>
