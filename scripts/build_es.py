@@ -114,6 +114,13 @@ def build():
 # ── SEO for the side games (Rosco, Millions): title, description, canonical, hreflang, share tags and structured
 # data, written into the English source and its Spanish copy. Rewritten on every build, so edit it here. ──
 SEO = {
+    'stablehand': {
+        'en': ('Stable Hand – Daily Football Blackjack Quiz | Unicorner',
+               "Horacio's daily football blackjack. Every answer is a card worth its rarity: obvious answers 10, deep cuts 100. Get close to the target, beat the house, don't bust. Free, new every day.",
+               'Stable Hand'),
+        'es': ('Mano de Cuadra – El blackjack diario de fútbol | Unicorner',
+               'El blackjack futbolero diario de Horacio. Cada respuesta es una carta que vale según su rareza: las obvias 10, las rebuscadas 100. Acércate al objetivo, gánale a la casa y no te pases. Gratis y nuevo cada día.',
+               'Mano de Cuadra')},
     'rosco': {
         'en': ('Football Rosco – Daily A–Z Football Quiz | Unicorner',
                'One football clue for every letter of the alphabet, against the clock: players, clubs and managers from A to Z. Free, new every day, in English and Spanish.',
@@ -159,7 +166,7 @@ def seo_block(game, lang):
 
 
 def seo_games():
-    for game in ('rosco', 'millon'):
+    for game in ('rosco', 'millon', 'stablehand'):
         for lang, path in (('en', SRC.parent / f'{game}.html'), ('es', SRC.parent / 'es' / f'{game}.html')):
             h = path.read_text(encoding='utf-8')
             if '<!--seo-->' in h:

@@ -3,12 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Mano de Cuadra · El blackjack futbolero de Horacio | Unicorner</title>
-<meta name="description" content="Mano de Cuadra: el blackjack futbolero diario de Horacio Herradura. Cada respuesta es una carta que vale según su rareza. Acércate al objetivo, gánale a la casa y no te pases.">
+<!--seo--><title>Mano de Cuadra – El blackjack diario de fútbol | Unicorner</title>
+<meta name="description" content="El blackjack futbolero diario de Horacio. Cada respuesta es una carta que vale según su rareza: las obvias 10, las rebuscadas 100. Acércate al objetivo, gánale a la casa y no te pases. Gratis y nuevo cada día.">
 <link rel="canonical" href="https://unicornergame.lol/es/stablehand.html">
 <link rel="alternate" hreflang="en" href="https://unicornergame.lol/stablehand.html">
 <link rel="alternate" hreflang="es" href="https://unicornergame.lol/es/stablehand.html">
 <link rel="alternate" hreflang="x-default" href="https://unicornergame.lol/stablehand.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Unicorner">
+<meta property="og:url" content="https://unicornergame.lol/es/stablehand.html">
+<meta property="og:title" content="Mano de Cuadra – El blackjack diario de fútbol | Unicorner">
+<meta property="og:description" content="El blackjack futbolero diario de Horacio. Cada respuesta es una carta que vale según su rareza: las obvias 10, las rebuscadas 100. Acércate al objetivo, gánale a la casa y no te pases. Gratis y nuevo cada día.">
+<meta property="og:image" content="https://unicornergame.lol/og-stablehand-es.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mano de Cuadra – El blackjack diario de fútbol | Unicorner">
+<meta name="twitter:description" content="El blackjack futbolero diario de Horacio. Cada respuesta es una carta que vale según su rareza: las obvias 10, las rebuscadas 100. Acércate al objetivo, gánale a la casa y no te pases. Gratis y nuevo cada día.">
+<meta name="twitter:image" content="https://unicornergame.lol/og-stablehand-es.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"VideoGame","name":"Mano de Cuadra","url":"https://unicornergame.lol/es/stablehand.html","description":"El blackjack futbolero diario de Horacio. Cada respuesta es una carta que vale según su rareza: las obvias 10, las rebuscadas 100. Acércate al objetivo, gánale a la casa y no te pases. Gratis y nuevo cada día.","inLanguage":"es","genre":["Trivia","Quiz","Sports"],"gamePlatform":"Web browser","applicationCategory":"Game","operatingSystem":"Any","isAccessibleForFree":true,"image":"https://unicornergame.lol/og-stablehand-es.jpg","publisher":{"@id":"https://unicornergame.lol/#org"},"isPartOf":{"@id":"https://unicornergame.lol/#website"},"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Unicorner","item":"https://unicornergame.lol/es/"},{"@type":"ListItem","position":2,"name":"Mano de Cuadra","item":"https://unicornergame.lol/es/stablehand.html"}]}]}</script><!--/seo-->
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <meta name="theme-color" content="#14402b">
 <style>
@@ -65,6 +79,8 @@ h1{margin:2px 0 0;text-align:center;font:400 46px/.9 var(--disp);color:var(--gol
 .mtop b{display:inline-block;font:400 44px/1 var(--disp);color:#fff;text-shadow:0 3px 0 #000;font-variant-numeric:tabular-nums;min-width:2.1ch;text-align:right;transition:color 200ms ease}
 .mtop b.over{color:#ffb3a8}.mtop b.exact{color:var(--gold)}
 .mtop span{color:var(--sand);font-size:18px}.mtop em{font-style:normal;color:var(--gold);font:400 30px var(--disp);text-shadow:0 2px 0 #000}
+.shoe{width:78px;height:auto;align-self:center;image-rendering:pixelated;filter:drop-shadow(0 3px 0 rgba(0,0,0,.35));margin:-14px 0 -8px;transform-origin:50% 100%}
+@media (max-width:440px){.shoe{width:64px}}
 .pop{position:absolute;right:100%;bottom:4px;margin-right:12px;font:400 28px/1 var(--disp);text-shadow:0 2px 0 #000,2px 0 0 #000,-2px 0 0 #000;pointer-events:none;white-space:nowrap}
 .bar{position:relative;height:22px;background:rgba(0,0,0,.35);border:3px solid #000;margin-top:6px;overflow:hidden}
 .bar::after{content:"";position:absolute;top:0;bottom:0;left:80%;right:0;background:repeating-linear-gradient(45deg,rgba(200,71,59,.4) 0 4px,transparent 4px 9px)}
@@ -167,7 +183,7 @@ form[inert]{opacity:.6}
  <p class="sub" id="date"></p>
  <div class="house"><span class="hostw"><img id="host" src="/blackjack/art/horacio-idle.png" alt="Horacio Herradura" width="136" height="136"></span><div class="bub" aria-live="polite"><b>HORACIO HERRADURA</b><span id="say"></span></div></div>
  <div class="hrow"><small id="l-house">THE HOUSE</small><div class="mini" id="dealer"></div><span class="htot" id="dtot"></span></div>
- <div class="meter" id="meter"><div class="mtop"><span id="l-hand">YOUR HAND</span><span id="score"><b id="tot">0</b> / <em id="target"></em></span></div><div class="bar" id="bar"><span class="goal"></span></div>
+ <div class="meter" id="meter"><div class="mtop"><span id="l-hand">YOUR HAND</span><img class="shoe" id="shoe" src="/blackjack/art/shoe.png" alt="" width="256" height="192" onerror="this.remove()"><span id="score"><b id="tot">0</b> / <em id="target"></em></span></div><div class="bar" id="bar"><span class="goal"></span></div>
   <div class="legend" id="legend"></div></div>
  <div class="hand" id="hand" aria-label="Your cards"></div>
  <div class="panel" id="panel"></div>
@@ -259,13 +275,21 @@ const shortName=a=>{const al=(a.aliases||[]).filter(x=>x.length<=20).sort((p,q)=
 // ── Horacio: changes pose with a little hop; his line fades in ──
 // Horacio's art is used from the first frame (no flash of the old host); if it can't load, the Rosco host steps in
 const ART={host:{}};let pose='';
-{const map={'idle-1':'idle','talk-1':'deal','talk-2':'deal','point':'show','think':'think','nervous':'think','wink':'wink','facepalm':'shock','surprised':'shock','laugh':'laugh','celebrate':'clap','excited':'clap','happy-talk':'wink'};
- for(const k in map)ART.host[k]='/blackjack/art/horacio-'+map[k]+'.png';[...new Set(Object.values(ART.host))].forEach(u=>{const i=new Image();i.src=u});document.body.classList.add('art-host')}
+const MAP={'idle-1':'idle','talk-1':'deal','talk-2':'deal','point':'show','think':'think','nervous':'think','wink':'wink','facepalm':'shock','surprised':'shock','laugh':'laugh','celebrate':'clap','excited':'clap','happy-talk':'wink'};
+// extra frames: he blinks now and then, and moves his mouth while his line appears
+const FRAMES={idle:{blink:'idle-blink',talk:'idle-talk'},deal:{talk:'deal-talk'},think:{blink:'think-blink'}};
+const artSrc=n=>'/blackjack/art/horacio-'+n+'.png';
+{for(const k in MAP)ART.host[k]=artSrc(MAP[k]);[...new Set(Object.values(MAP)),...Object.values(FRAMES).flatMap(f=>Object.values(f))].forEach(n=>{const i=new Image();i.src=artSrc(n)});document.body.classList.add('art-host')}
+let talkT=0,blinkT=0;
+const frames=()=>ART.host?FRAMES[MAP[pose]]||{}:{};
+function talk(chars){clearInterval(talkT);talkT=0;if(REDUCE||!frames().talk)return;let on=false;const end=Date.now()+Math.min(2600,350+chars*38);
+ talkT=setInterval(()=>{const f=frames().talk,img=$('host');if(!f||Date.now()>end){clearInterval(talkT);talkT=0;if(ART.host)img.src=ART.host[pose]||img.src;return}on=!on;img.src=artSrc(on?f:MAP[pose])},130)}
+(function blink(){blinkT=setTimeout(()=>{const b=frames().blink;if(b&&!talkT&&!REDUCE&&!document.hidden){const img=$('host'),p=pose;img.src=artSrc(b);setTimeout(()=>{if(!talkT&&pose===p)img.src=ART.host[p]},140)}blink()},2200+Math.random()*2800)})();
 const POSES=['idle-1','talk-1','talk-2','point','think','wink','facepalm','surprised','laugh','celebrate','excited','happy-talk','nervous'];
 POSES.forEach(n=>{const i=new Image();i.src='/rosco/host/'+n+'.png'});
 function host(p,line){const img=$('host');
  if(p&&p!==pose){pose=p;img.src=ART.host?.[p]||'/rosco/host/'+p+'.png';anim(img,[{transform:'none'},{transform:'translateY(-7px) scale(1.04,.96)',offset:.35},{transform:'translateY(1px) scale(.98,1.02)',offset:.7},{transform:'none'}],{duration:340,easing:EASE})}
- if(line!=null){const s=$('say');if(s.textContent===line)return;s.textContent=line;anim(s,[{opacity:.15,transform:'translateY(3px)',filter:'blur(2px)'},{opacity:1,transform:'none',filter:'blur(0)'}],{duration:220,easing:EASE})}}
+ if(line!=null){const s=$('say');if(s.textContent===line)return;s.textContent=line;talk(line.length);anim(s,[{opacity:.15,transform:'translateY(3px)',filter:'blur(2px)'},{opacity:1,transform:'none',filter:'blur(0)'}],{duration:220,easing:EASE})}}
 
 // ── optional art (from the ChatGPT pack): used when the files exist ──
 (async()=>{const ok=u=>new Promise(r=>{const i=new Image();i.onload=()=>r(true);i.onerror=()=>r(false);i.src=u});
@@ -292,7 +316,7 @@ for(const id of['home1','home2'])$(id).href=HOME;
 if(ES){document.documentElement.lang='es';$('h1').textContent='MANO DE CUADRA';$('l-house').textContent='LA CASA';$('l-hand').textContent='TU MANO';$('bk-t').textContent='CÓMO SE JUEGA';
  $('note').textContent='Las preguntas y las rarezas salen del banco de preguntas de los Duelos.';$('howto').textContent='📖 Cómo se juega';$('bk-prev').textContent='Atrás';$('snd').setAttribute('aria-label','Sonido');$('snd').title='Sonido';$('home2').setAttribute('aria-label','Cerrar');$('bk-x').setAttribute('aria-label','Cerrar')}
 let lock=false,clockT=null,revealing=false;
-window.__rb={TARGET,DEALER,DTOT,DAY,deck:()=>DECK.map(q=>q.id),state:()=>S};
+window.__rb={host,TARGET,DEALER,DTOT,DAY,deck:()=>DECK.map(q=>q.id),state:()=>S};
 
 const miniCard=(p,up)=>up?`<span class="mc" style="--c:${tierOf(p).c}">${p}</span>`:'<span class="mc down"></span>';
 function drawDealer(open){$('dealer').innerHTML=DEALER.map((p,i)=>miniCard(p,open||i===0)).join('');
@@ -314,9 +338,13 @@ function drawHand(fresh){const h=$('hand'),n=S.hand.length;let over=0,run=0;
   +(S.done?'':Array.from({length:MAXC-n},(_,i)=>`<div class="slot">${n+i+1}</div>`).join(''));
  if(fresh&&n)dealIn(h.children[n-1]);drawMeter(fresh)}
 // a card flies in face down from the shoe, turns over halfway, and lands with a small overshoot
-function dealIn(el){SFX.deal();if(REDUCE||!el.animate)return;el.classList.add('back');
- const mid='translate(6px,-16px) rotate(3deg) rotateY(90deg) scale(.97)';
- const a=el.animate([{transform:'translate(60px,-110px) rotate(16deg) rotateY(180deg) scale(.88)',opacity:0},{opacity:1,offset:.4},{transform:mid,opacity:1}],{duration:200,easing:'cubic-bezier(.4,0,.8,.6)'});
+// where a card starts: the mouth of the shoe (or just above, if the shoe isn't there)
+function fromShoe(el){const sh=$('shoe');if(!sh||!sh.isConnected)return[60,-110];const a=sh.getBoundingClientRect(),b=el.getBoundingClientRect();
+ if(!a.width)return[60,-110];return[Math.round(a.left+a.width*.3-(b.left+b.width/2)),Math.round(a.top+a.height*.45-(b.top+b.height/2))]}
+const kickShoe=()=>anim($('shoe'),[{transform:'none'},{transform:'translateY(2px) rotate(-4deg) scale(1.04,.96)',offset:.3},{transform:'none'}],{duration:260,easing:EASE});
+function dealIn(el){SFX.deal();if(REDUCE||!el.animate)return;el.classList.add('back');kickShoe();
+ const [dx,dy]=fromShoe(el),mid=`translate(${Math.round(dx*.12)}px,${Math.round(dy*.12)-14}px) rotate(3deg) rotateY(90deg) scale(.97)`;
+ const a=el.animate([{transform:`translate(${dx}px,${dy}px) rotate(18deg) rotateY(180deg) scale(.5)`,opacity:0},{opacity:1,offset:.25},{transform:mid,opacity:1}],{duration:280,easing:'cubic-bezier(.3,0,.7,.7)'});
  const land=()=>{el.classList.remove('back');el.animate([{transform:mid},{transform:'translateY(3px) rotate(-1deg) rotateY(-10deg) scale(1.05)',offset:.55},{transform:'none'}],{duration:360,easing:EASE})};
  a.onfinish=land;a.oncancel=()=>el.classList.remove('back')}
 // the points float up from your total
@@ -494,7 +522,7 @@ $('bk').addEventListener('keydown',e=>{if(e.key==='Escape')bkClose(false);else i
 // ── start ──
 async function load(){for(let k=0;k<3;k++){try{const r=await fetch('/duel/bank.json',{cache:k?'reload':'default'});if(r.ok){const b=await r.json();if(Array.isArray(b)&&b.length)return b}}catch{}await wait(600*(k+1))}return null}
 async function start(){drawDealer(false);drawHand(false);host('idle-1',L('Shuffling the deck…','Barajando…'));
- if(!S.done&&!S.hand.length)[...$('dealer').children].forEach((el,i)=>anim(el,[{opacity:0,transform:'translate(30px,-30px) rotate(12deg)'},{opacity:1,transform:'none'}],{duration:320,delay:i*80,easing:EASE,fill:'backwards'}));
+ if(!S.done&&!S.hand.length)[...$('dealer').children].forEach((el,i)=>{const[dx,dy]=fromShoe(el);anim(el,[{opacity:0,transform:`translate(${dx}px,${dy}px) rotate(20deg) scale(.6)`},{opacity:1,offset:.3},{opacity:1,transform:'none'}],{duration:420,delay:200+i*110,easing:EASE,fill:'backwards'});setTimeout(kickShoe,200+i*110)});
  const b=await load();
  if(!b){$('panel').innerHTML=`<p class="msg bad">${L("Couldn't load the cards. Check your connection.",'No se pudieron cargar las cartas. Revisa tu conexión.')}</p><div class="choice" style="grid-template-columns:1fr;margin-top:8px"><button class="btn" id="retry">${L('Try again','Reintentar')}</button></div>`;$('retry').onclick=start;host('nervous',L('The cards are stuck in the shoe…','Las cartas se han atascado…'));return}
  BANK=b;DECK=buildDeck();$('tot').dataset.v=total();$('tot').textContent=total();
