@@ -3421,7 +3421,7 @@ document.addEventListener('submit',async e=>{const f=e.target.closest('#lg-code'
  catch{btn.disabled=false;msg.textContent=L("That code didn't work. Check it, or ask for a new email.",'Ese código no vale. Revísalo o pide otro email.');track('league_code_fail',{})}});
 // after signing in (Google, email link or code): new players pick a nickname; everyone else goes back to the game with their days and today's score restored
 // players who tapped "Sign in" on the Squad page go back there once they're in (with a nickname)
-function goReturn(){const r=lsGet('uc-return');if(!r||!/^\/(es\/)?squad\.html/.test(r))return false;lsSet('uc-return',null);location.href=r;return true}
+function goReturn(){const r=lsGet('uc-return');if(!r||!/^\/(es\/)?(squad|duel)\.html/.test(r))return false;lsSet('uc-return',null);location.href=r;return true}
 async function afterSignIn(){try{await loadMe()}catch{}if(!me?.profile){if(pendingNick())return autoClaim();return viewProfile()}if(goReturn())return;
  if(dlg.open)dlg.close();await syncDays();const had=!!getPlayed();await window.ucCheckRemote();window.ucKitQuiet?.();
  if(document.body.classList.contains('landing')&&typeof start==='function')start();

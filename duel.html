@@ -316,6 +316,11 @@ body.prog-on.night .prog .ib-x{color:#e9dfc2}body.prog-on.night .prog .ib-off{co
 /* ---------- the lobby (signed in): today's Duels cards over the stadium, reordered: PLAY, YOUR DUELS, YOU ---------- */
 body.lobby-on main{max-width:1140px}
 body.lobby-on .side{display:none!important}
+#s-home .lb-card{padding-bottom:20px}#s-home .card>h2.nv{background:#1d4486}
+#s-home .lb-two button{margin:0;font-size:21px;padding:11px 6px 9px}
+.lb-signq{display:flex;flex-direction:column;align-items:center;gap:6px;font:400 34px/1 var(--disp);padding:16px 14px 13px;background:#c8473b;color:#fff;text-decoration:none;text-shadow:2px 2px 0 var(--ink);box-shadow:0 0 0 3px var(--ink),0 6px 0 3px var(--ink)}
+.lb-signq small{font:17px/1 var(--mono);color:#ffe3e0;text-shadow:none}.lb-signq:active{transform:translateY(3px)}
+@media (min-width:900px){#s-home #h-mate{display:none}#s-home .lb-two{grid-template-columns:1fr}#s-home .lb-vs .lb-uni{width:150px}.lb-signq{font-size:42px}}
 #s-inbox.lobby .pr-re{background:var(--pc)}#s-inbox.lobby #pr-div-r{display:none}.lb-chip{white-space:nowrap}@media (max-width:420px){.lb-chip{font-size:13px}.lb-elo{font-size:40px}}
 #s-inbox.lobby{background:none;border:0;box-shadow:none;color:var(--ink);font-family:var(--ui)}
 #s-inbox.lobby,body.lobby-on.night #s-inbox.lobby{--pp:#fbf6e6;--pc:#fffaf0;--pl:#b9ad8c;--pm:#5b5070;--pg:#fff3c4;--pdot:rgba(6,4,26,.07);--pt:#06041a}
@@ -379,8 +384,18 @@ body.lobby-on .side{display:none!important}
 <main>
  <a class="x-exit" id="x-exit" href="/" aria-label="Close duels, back to Unicorner" title="Back to Unicorner">✕</a>
  <header><h1>UNICORNER DUEL</h1><button type="button" class="how-link" id="how-open">? How duels work</button></header>
- <section id="s-home" class="card" hidden>
-  <h2 id="h-title">CHALLENGE A MATE</h2>
+ <section id="s-home" hidden>
+ <div class="lb-cols">
+  <div class="lb-col" id="h-playcol">
+   <div class="card lb-card"><h2>PLAY</h2>
+    <div class="lb-vs"><span><i class="lb-uni" id="h-me"></i><small>YOU</small></span><b>VS</b><span><i class="lb-uni lb-myst" id="h-rv"></i><small>?</small></span></div>
+    <a class="lb-signq" id="h-signq" href="/#signin">⚡ Quick match<small>Sign in free to play rated duels</small></a>
+    <div class="lb-two"><button class="ghost" type="button" id="h-mate">⚔ A mate</button><button class="ghost" type="button" id="h-bots2">🤖 Bots</button></div>
+   </div>
+  </div>
+  <div class="lb-col">
+ <div class="card lb-card" id="h-card">
+  <h2 id="h-title" class="nv">CHALLENGE A MATE</h2>
   <label for="nm">Your name<input id="nm" maxlength="16" autocomplete="nickname" placeholder="e.g. Pepo"></label>
   <div class="rules"><span class="rl-lbl">Questions per round</span><div class="seg" id="r-per" role="radiogroup" aria-label="Questions per round"><button type="button" data-v="3">3</button><button type="button" data-v="5">5</button><button type="button" data-v="15">All 15</button></div>
    <span class="rl-lbl">Seconds per question</span><div class="seg" id="r-secs" role="radiogroup" aria-label="Seconds per question"><button type="button" data-v="10">10</button><button type="button" data-v="15">15</button><button type="button" data-v="20">20</button><button type="button" data-v="30">30</button></div></div>
@@ -399,6 +414,9 @@ body.lobby-on .side{display:none!important}
   <button class="ghost" id="h-bots" style="margin-top:12px">🤖 Practice vs bots</button>
   <button class="ghost" id="to-inbox" hidden style="margin-top:12px">My duels</button>
   <div class="dpush" id="dpush1" hidden></div>
+ </div>
+  </div>
+ </div>
  </section>
  <section id="s-inbox" class="prog lobby" hidden>
   <!-- the lobby: PLAY first, then your duels, then you. Same cards as the rest of Duels (red = act now, navy = info) -->
@@ -643,9 +661,9 @@ async function boot(){if(!ls('uc-duel-intro'))openIntro('first');sides();$('nm')
  userToken().then(t=>{if(t)rpc('duel_claim',{p_token:TOKEN}).catch(()=>{})});
  if(INBOX)return inbox();
  if(VSN&&!code){if(!await userToken())return fail('Sign in on Unicorner (the league login) to challenge players.');if(!playedToday())return gate();
-  $('h-title').textContent=`CHALLENGE ${VSN.toUpperCase().slice(0,16)}`;$('create').textContent='Send challenge';$('create').dataset.vs=VSN;
+  $('h-playcol').hidden=true;$('h-title').textContent=`CHALLENGE ${VSN.toUpperCase().slice(0,16)}`;$('create').textContent='Send challenge';$('create').dataset.vs=VSN;
   $('home-rules').dataset.vs=VSN;homeRules();show('s-home');return}
- if(!code){if(!playedToday()){if(await userToken())$('g-inbox').hidden=false;return gate()}if(!LINK&&await userToken())return inbox();record('rec1');const sg=!!(await userToken());if(sg){$('to-inbox').hidden=$('h-quick').hidden=false;pushBox('dpush1');if(pushEP())rpc('push_link',{p_endpoint:pushEP()}).catch(()=>{})}findInit(sg);show('s-home');return}
+ if(!code){if(!playedToday()){if(await userToken())$('g-inbox').hidden=false;return gate()}if(!LINK&&await userToken())return inbox();record('rec1');const sg=!!(await userToken());$('h-playcol').hidden=sg;$('h-bots').hidden=!sg;if(!sg){document.body.classList.add('lobby-on');for(const id of['h-me'])$(id).style.backgroundImage=spriteDraw('happy',0,false,myKit()).replace(/"/g,"'");$('h-rv').style.backgroundImage=spriteDraw('happy',0,false,kitFor('rival')).replace(/"/g,"'")}if(sg){$('to-inbox').hidden=$('h-quick').hidden=false;pushBox('dpush1');if(pushEP())rpc('push_link',{p_endpoint:pushEP()}).catch(()=>{})}findInit(sg);show('s-home');return}
  try{[D]=await Promise.all([rpc('duel_get',{p_code:code,p_token:TOKEN}),loadRules()])}catch(e){track('duel_load_error',{message:String(e&&e.message||e).slice(0,160)});return fail(navigator.onLine===false?'You seem to be offline. Check your connection and try again.':'Could not load this duel. Try again in a moment.'+(e&&e.message?' ('+String(e.message).slice(0,80)+')':''))}
  if(!D)return fail('That duel link does not exist.');
  const me=D.players.find(p=>p.slot===D.me),p1=D.players.find(p=>p.slot===1);
@@ -799,7 +817,9 @@ async function quick(b){const t=b.textContent;b.disabled=true;b.textContent='Fin
   location.href='duel.html?d='+r.code+(r.matched?'':'&quick='+r.r)}
  catch(e){b.disabled=false;b.textContent=t;alert(/sign in/.test(e.message)?'Sign in on Unicorner to play quick match (it counts for your rating).':'Quick match failed: '+e.message)}}
 $('ib-quick').onclick=e=>quick(e.currentTarget);$('h-quick').onclick=e=>quick(e.currentTarget);
-$('ib-bots').onclick=$('h-bots').onclick=botPicker;
+$('ib-bots').onclick=$('h-bots').onclick=$('h-bots2').onclick=botPicker;
+$('h-mate').onclick=()=>{$('h-card').scrollIntoView({behavior:'smooth',block:'start'});setTimeout(()=>$('nm').focus({preventScroll:true}),400)};
+$('h-signq').onclick=()=>{try{localStorage.setItem('uc-return','/duel.html')}catch{}};
 // rematch from results: send the challenge right away (same rules as last time) and play round 1
 document.addEventListener('click',async e=>{const b=e.target.closest('[data-re]');if(!b)return;b.disabled=true;b.textContent='Sending…';
  try{const[p,sx]=myRules(),qset=await pickQs(),c=await rpc('duel_challenge',{p_token:TOKEN,p_name:(ls('uc-nick')||'Player').slice(0,16),p_kit:KIT,p_qset:qset,p_nick:b.dataset.re});
