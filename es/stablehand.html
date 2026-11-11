@@ -180,6 +180,21 @@ form[inert]{opacity:.6}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media (max-width:440px){.card,.slot{width:66px;height:104px}.card .tier{font-size:11px;padding:4px 3px 2px}.card .nm{font-size:12px;padding:3px}.card .pts{font-size:22px}
  .hostw{width:110px;height:110px;margin:-10px -6px -2px -8px}h1{font-size:40px}.bub{font-size:17px}}
+/* computers: the table on the left, the question and buttons on the right, everything on one screen */
+@media (min-width:1100px){
+.wrap{max-width:1240px;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(380px,.9fr);column-gap:36px;align-items:start}
+.wrap>.top,.wrap>h1,.wrap>.sub{grid-column:1/-1}
+.wrap>.house,.wrap>.hrow,.wrap>.meter,.wrap>.hand{grid-column:1}
+.wrap>.panel,.wrap>.rules,.wrap>.note{grid-column:2}
+.wrap>.panel{grid-row:4/span 4;position:sticky;top:24px;align-self:start;padding:22px}
+.wrap>.rules{grid-row:8}.wrap>.note{grid-row:9;text-align:left}
+h1{font-size:64px}.sub{margin-bottom:18px}
+.house{grid-template-columns:auto 1fr}.hostw{width:180px;height:180px}.bub{font-size:22px;min-height:96px}
+.hrow{justify-content:flex-start;margin:6px 0 18px}.mc{width:52px;height:70px;font-size:22px}.htot{font-size:34px}
+.mtop b{font-size:60px}.mtop em{font-size:40px}.bar{height:30px}
+.hand{justify-content:flex-start;gap:12px}.hand{flex-wrap:nowrap}.card,.slot{width:calc((100% - 48px)/5);height:auto;aspect-ratio:4/5}.card .tier{font-size:17px}.card .nm{font-size:18px}.card .pts{font-size:40px}
+.q{font-size:34px}.need{font-size:20px}.choice .btn{min-height:76px;font-size:30px}.field{font-size:24px;min-height:58px}
+}
 @media (max-width:360px){.card,.slot{width:58px}.hand{gap:5px}}
 </style>
 </head>
