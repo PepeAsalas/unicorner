@@ -372,6 +372,9 @@ body.lobby-on main>header .how-link{color:#fbf6e8!important;text-shadow:0 2px 0 
  .lb-mates .pr-band span{display:none}
  .lb-close{display:grid;place-items:center;margin-left:8px;width:34px!important;height:34px;padding:0!important;font-size:18px!important;background:var(--pc)!important;color:var(--ink)!important}
 }
+.ld-ball{width:34px;height:34px;margin:18px auto 8px;border-radius:50%;border:3px solid #000;background:radial-gradient(circle at 50% 50%,#000 0 18%,transparent 19%),repeating-conic-gradient(#fff 0 60deg,#e9e3d0 60deg 120deg);animation:ldb .7s cubic-bezier(.3,0,.7,1) infinite alternate}
+@keyframes ldb{to{transform:translateY(-18px) rotate(180deg)}}#s-load{text-align:center;padding:26px 16px}.ld-t{font-size:26px;margin:4px 0}.ld-dots::after{content:'';animation:ldd 1.2s steps(4) infinite}@keyframes ldd{0%{content:''}25%{content:'.'}50%{content:'..'}75%{content:'...'}}
+@media (prefers-reduced-motion:reduce){.ld-ball{animation:none}}
 </style><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9034426912596924" crossorigin="anonymous"></script>
 <link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#1d1a2b"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Unicorner"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="apple-touch-icon" href="/favicon-180.png">
 </head><body><script>/* arrived from Unicorner on the gallop: the gold curtain it pulled across slides away */
@@ -385,6 +388,7 @@ body.lobby-on main>header .how-link{color:#fbf6e8!important;text-shadow:0 2px 0 
 <main>
  <a class="x-exit" id="x-exit" href="/" aria-label="Close duels, back to Unicorner" title="Back to Unicorner">✕</a>
  <header><h1>UNICORNER DUEL</h1><button type="button" class="how-link" id="how-open">? How duels work</button></header>
+ <section id="s-load" class="card" aria-live="polite"><div class="ld-ball" aria-hidden="true"></div><p class="ld-t">Warming up<span class="ld-dots"></span></p><p class="small">Loading your duels</p></section>
  <section id="s-home" hidden>
  <div class="lb-cols">
   <div class="lb-col" id="h-playcol">
