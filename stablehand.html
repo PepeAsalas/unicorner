@@ -128,7 +128,7 @@ form[inert]{opacity:.6}
 .verdict.lose{background:var(--clay);color:#fff}.verdict.push{background:var(--paper)}
 .vs{display:flex;justify-content:center;gap:18px;font-size:19px;color:var(--sand)}.vs b{display:block;font:400 34px var(--disp);color:#fff;font-variant-numeric:tabular-nums}
 .share{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
-.recap{margin-top:14px;text-align:left}
+.recap{margin-top:14px;text-align:left}.recap.miss{background:rgba(0,0,0,.2);border:2px solid #000;padding:8px 10px}.recap.miss b{display:block;font-size:15px;color:var(--gold);letter-spacing:.04em;text-transform:uppercase}
 .recap details{background:rgba(0,0,0,.2);border:2px solid #000;margin-bottom:6px;padding:6px 8px}
 .recap summary{cursor:pointer;font-size:17px;color:#fff}
 .recap p{margin:4px 0;font-size:16px;color:var(--sand)}.recap p i{font-style:normal;display:inline-block;width:10px;height:10px;border:2px solid #000;margin-right:5px;vertical-align:-1px}
@@ -447,10 +447,14 @@ function play(q){if(lock)return;const inp=$('a'),v=inp.value.trim();if(!v){shake
 function foul(q,typed,why){S.hand.push({a:typed||'',p:0,q:q.id});S.qi++;S.cur=null;save();drawHand(true);into($('meter'),'start');
  setTimeout(()=>{SFX.foul();popPts(0);shake($('hand').children[S.hand.length-1],5)},220);host('facepalm',L(`${why} Foul. That card is gone.`,`${why} Falta. Esa carta se pierde.`));
  if(S.hand.length>=MAXC)return setTimeout(()=>reveal(),1000);setTimeout(decide,REDUCE?0:500)}
+// the answers you could have given to the question just played, a couple per rarity, so every card teaches something
+function missed(){const c=S.hand[S.hand.length-1],q=c&&BANK.find(x=>x.id===c.q);if(!q)return'';const me=norm(c.a||'');
+ const rows=TIERS.map(tt=>{const ex=q.answers.filter(a=>(FAME[a.fame]||10)===tt.p&&norm(a.name)!==me&&!(a.aliases||[]).some(v=>norm(v)===me)).slice(0,2).map(shortName);return ex.length?`<p><i style="background:${tt.c}"></i>${tt.n}: ${esc(ex.join(', '))}</p>`:''}).join('');
+ return rows?`<div class="recap miss"><b>${L('You could also have said','También valía')}</b>${rows}</div>`:''}
 function decide(){if(S.done)return;lock=false;const t=total(),exact=t===TARGET;
  $('panel').innerHTML=`<div class="qhead"><span>${S.hand.length} ${L('of','de')} ${MAXC} ${L('cards','cartas')}</span><span>${L('House shows','La casa enseña')} ${DEALER[0]}</span></div>
   <p class="need" style="font-size:19px">${needLine()||L('Right on target! Any card now is a bust.','¡Clavado! Cualquier carta más y te pasas.')}</p>
-  <div class="choice"><button class="btn${exact?' w':''}" id="hit">${L('Another card','Otra carta')}</button><button class="btn${exact?'':' w'}" id="stand">${L('Stand','Me planto')}</button></div>`;
+  <div class="choice"><button class="btn${exact?' w':''}" id="hit">${L('Another card','Otra carta')}</button><button class="btn${exact?'':' w'}" id="stand">${L('Stand','Me planto')}</button></div>${missed()}`;
  panelIn();
  $('hit').onclick=()=>{if(lock)return;lock=true;ask()};$('stand').onclick=()=>{if(lock)return;lock=true;reveal()};
  $(exact?'stand':'hit').focus({preventScroll:true})}

@@ -230,9 +230,9 @@ const PART=new Set(['van','de','der','den','di','da','dos','das','del','le','la'
 function forms(name,aliases=[]){const out=new Set([norm(name),...aliases.map(norm)]);const w=norm(name).split(' ').filter(x=>!PART.has(x));
  if(w.length>1){w.slice(1).forEach(x=>{if(x.length>=3)out.add(x)});out.add(w.slice(-2).join(' '))}
  const full=norm(name).split(' ');if(full.length>1)out.add(full.slice(1).join(' '));return[...out].filter(Boolean)}
-function lev(a,b){if(Math.abs(a.length-b.length)>1)return 2;const d=Array.from({length:a.length+1},(_,i)=>[i]);for(let j=1;j<=b.length;j++)d[0][j]=j;
- for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return d[a.length][b.length]}
-const hit=(typed,fs)=>fs.some(f=>f===typed||(typed.length>=5&&f.length>=5&&lev(typed,f)<=1));
+function lev(a,b){if(Math.abs(a.length-b.length)>2)return 3;const d=Array.from({length:a.length+1},(_,i)=>[i,...Array(b.length).fill(0)]);for(let j=1;j<=b.length;j++)d[0][j]=j;
+ for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++){d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));if(i>1&&j>1&&a[i-1]===b[j-2]&&a[i-2]===b[j-1])d[i][j]=Math.min(d[i][j],d[i-2][j-2]+1)}return d[a.length][b.length]}
+const tol=f=>f.length>=10?2:1,hit=(typed,fs)=>fs.some(f=>f===typed||(typed.length>=5&&f.length>=5&&lev(typed,f)<=tol(f)));
 
 // ── state ──
 let R=null,S=null,tick=0,CH=null;
@@ -304,7 +304,7 @@ function answer(){const q=cur(),raw=$('in').value.trim();if(!q)return;if(!raw)re
  // clubs: the first real word is enough when only one club in the list starts with it (Werder, Wolverhampton, Eintracht, Atlético)
  let firstOther=false;
  if(!good&&q.answer_type!=='player'&&q.answer_type!=='manager'&&t.length>=4&&!t.includes(' ')){const fw=n=>norm(n).split(' ').find(w=>w.length>=3&&!CPRE.has(w))||'';
-  const near=n=>{const w=fw(n);return w&&(w===t||(t.length>=5&&lev(t,w)<=1))},inA=q.answers.filter(a=>near(a.name)),inO=(q.others||[]).filter(near);
+  const near=n=>{const w=fw(n);return w&&(w===t||(t.length>=5&&lev(t,w)<=tol(w)))},inA=q.answers.filter(a=>near(a.name)),inO=(q.others||[]).filter(near);
   if(inA.length+inO.length===1){if(inA.length&&(!con||okf(inA[0]).length&&fw(inA[0].name).includes(L0)))good=inA[0];else firstOther=true}
   else if(inA.length+inO.length>1){$('var').textContent=L('More than one club starts like that. Type the full name!','Hay más de un club que empieza así. ¡Escribe el nombre completo!');host.play.set('think');SFX.var();shake();$('in').select();return}}
  if(good){S.res[q.letter]='ok';S.typed[q.letter]=good.name;S.run=(S.run||0)+1;S.miss=0;react(S.run>=5&&S.run%5===0?'excited':S.run>=3?'laugh':'happy-1',(S.run>=3?L(S.run+' in a row! ','¡'+S.run+' seguidas! '):'')+pick(LINES.ok)+' '+good.name);popLetter(q.letter);(S.run>=3&&S.run%3===0?SFX.streak:SFX.ok)();track('rosco_answer',{letter:q.letter,ok:true})}
