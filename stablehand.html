@@ -170,6 +170,13 @@ form[inert]{opacity:.6}
 .r10-l{display:flex;justify-content:space-between;font-size:15px;color:#6b6478;margin-top:-6px}
 .fb textarea{width:100%;border:3px solid #000;background:#fff;color:var(--ink);font:18px/1.2 var(--px);padding:8px;border-radius:0;resize:vertical;-webkit-appearance:none}
 .fb .btn{justify-self:start}.fb-ok{margin:0;font:400 22px var(--disp);color:var(--grass)}
+.lb{margin-top:14px;text-align:left;background:rgba(0,0,0,.28);border:3px solid #000;padding:12px}
+.lb h2{font:400 26px/1 var(--disp);margin:0 0 8px;color:var(--gold)}
+.lb ol{list-style:none;margin:0;padding:0;display:grid;gap:4px;font:20px/1.1 var(--px)}
+.lb li{display:grid;grid-template-columns:28px 1fr auto;gap:8px;padding:4px 8px;background:rgba(0,0,0,.25)}
+.lb li.me{background:var(--gold);color:var(--ink)}.lb li b{font-weight:400}
+.lb p{margin:8px 0 0;font-size:18px;color:var(--sand)}.lb a{color:var(--gold)}
+#chal2,#chal0{margin-top:12px}
 .note{font-size:15px;color:var(--sand);opacity:.85;text-align:center;margin-top:12px}
 /* effects layer: confetti, chips and the bust flash. Never takes clicks */
 .fx{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden}
@@ -220,6 +227,7 @@ h1{font-size:52px}.sub{margin-bottom:8px}
  </div>
 </div>
 <div class="fx" id="fx" aria-hidden="true"><div class="flash" id="flash"></div></div>
+<script src="/challenge.js"></script>
 <script>
 (()=>{
 const ES=location.pathname.startsWith('/es/'),L=(en,es)=>ES?es:en,HOME=ES?'/es/':'/';
@@ -338,6 +346,18 @@ async function tok(){try{let x=JSON.parse(localStorage.getItem('uc-player-sessio
  if((x.exp||0)<Date.now()+60000){const r=await fetch(SB_URL+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:x.refresh_token})});const j=await r.json();if(!r.ok||!j.access_token)return null;
   x={...x,access_token:j.access_token,refresh_token:j.refresh_token||x.refresh_token,exp:Date.now()+Math.max(60,(+j.expires_in||3600))*1000};localStorage.setItem('uc-player-session',JSON.stringify(x))}return x.access_token}catch{return null}}
 async function rpc(fn,body){const t=await tok();if(!t)return undefined;const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok)throw 0;return r.json()}
+async function pub(fn,body){const t=await tok();const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+(t||SB_KEY),'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok)throw 0;return r.json()}
+const fmtS=v=>`${v}/${TARGET}`;
+// today's table (supabase/stablehand_social.sql): top 5, you, how many are on it
+async function board(){try{const g=await pub('sh_board',{p_day:DAY}),signed=!!(await tok()),rows=(g.rows||[]).slice(0,5),nm=v=>String(v).replace(/[<&>"]/g,'');
+ $('lb').innerHTML=`<h2>${L("Today's ranking","Ranking de hoy")}</h2>`+(rows.length?`<ol>${rows.map(r=>`<li class="${r.me?'me':''}"><b>${r.rank}</b><span>${nm(r.nickname)}</span><b>${r.score===(r.target||TARGET)?'★ ':''}${r.score}/${r.target||TARGET}</b></li>`).join('')}</ol>`:'')
+  +(g.me&&!rows.some(r=>r.me)?`<p>${L('You','Tú')}: #${g.me.rank} · ${fmtS(g.me.score)}</p>`:'')+(signed?'':`<p><a href="${HOME}#signin">${L('Sign in','Inicia sesión')}</a> ${L('to get on the ranking.','para entrar en el ranking.')}</p>`)
+  +(g.players?`<p>${g.players} ${L('players on the ranking today','jugadores en el ranking hoy')} · <a href="${HOME}#ranking-stablehand">${L('See all','Ver todo')}</a></p>`:'')
+  +(g.yesterday?`<p>${L("Yesterday's winner","Ganador de ayer")}: <b style="color:var(--gold)">${nm(g.yesterday.nickname)}</b> · ${g.yesterday.score}/${g.yesterday.target||'?'}</p>`:'');$('lb').hidden=false}catch{}}
+// everyone who finished today: how many, and how many beat the house
+async function dayAvg(){try{const j=await pub('sh_day_stats',{p_day:DAY});const t=j&&j.players>=3?L(`${j.players} played today · ${Math.round(j.beat/j.players*100)}% beat the house · ${j.full} Full House${j.full===1?'':'s'}`,`${j.players} han jugado hoy · ${Math.round(j.beat/j.players*100)}% le ganó a la casa · ${j.full} pleno${j.full===1?'':'s'}`):L('Be one of the first to play today.','Sé de los primeros en jugar hoy.');
+ for(const id of['avg0','avg2'])if($(id))$(id).textContent=t}catch{}}
+let CH=null;
 const progress=x=>!x||!Array.isArray(x.hand)?-1:(x.done?1000:0)+x.hand.length*10+Math.min(+x.qi||0,9);
 let pushT=0;const push=()=>{clearTimeout(pushT);pushT=setTimeout(()=>rpc('sh_save',{p_day:DAY,p_state:S}).catch(()=>{}),S.done?0:400)};
 const save=()=>{ls(KEY,JSON.stringify(S));push()};
@@ -458,13 +478,14 @@ function finish(t,live){stopClock();drawDealer(true);drawHand(false);
  const grid=S.hand.map(c=>c.p?tierOf(c.p).e:'❌').join('');
  $('panel').innerHTML=`<div class="res"><span class="verdict ${res==='lose'?'lose':res==='push'?'push':''}" id="verdict">${label}</span>
   <div class="vs"><span>${L('YOU','TÚ')}<b id="vy" style="${bust?'color:#ffb3a8':''}">${t}</b></span><span>${L('TARGET','OBJETIVO')}<b style="color:var(--gold)">${TARGET}</b></span><span>${L('HOUSE','CASA')}<b id="vh" style="${dbust?'color:#ffb3a8':''}">${DTOT}</b></span></div>
-  <div class="share"><button class="btn" id="share">${L('Share','Compartir')}</button><a class="btn w" href="${HOME}">${L('Back to Unicorner','Volver a Unicorner')}</a></div>
-  <div class="recap" id="recap"></div><div class="fb" id="fb" hidden></div><p class="hint">${L('A new table tomorrow at midnight.','Mesa nueva mañana a medianoche.')}</p></div>`;
+  <p class="hint" id="avg2"></p><div class="share"><button class="btn" id="share">${L('Share','Compartir')}</button><a class="btn w" href="${HOME}">${L('Back to Unicorner','Volver a Unicorner')}</a></div>
+  <div id="chal2"></div><div class="lb" id="lb" hidden></div><div class="recap" id="recap"></div><div class="fb" id="fb" hidden></div><p class="hint">${L('A new table tomorrow at midnight.','Mesa nueva mañana a medianoche.')}</p></div>`;
  // what else you could have played, by rarity: you learn something every hand
  $('recap').innerHTML=S.hand.map(c=>{const q=BANK.find(x=>x.id===c.q);if(!q)return'';const by=TIERS.map(tt=>{const ex=q.answers.filter(a=>(FAME[a.fame]||10)===tt.p).slice(0,3).map(shortName);return ex.length?`<p><i style="background:${tt.c}"></i>${tt.n}: ${esc(ex.join(', '))}</p>`:''}).join('');
   return`<details><summary>${esc(qText(q))} · ${L('you','tú')}: ${esc(c.a||'—')} ${c.p?'+'+c.p:L('(foul)','(falta)')}</summary>${by}</details>`}).join('');
  const txt=`${L('Stable Hand','Mano de Cuadra')} 🐴 ${DAY}\n${grid} → ${t}/${TARGET}${res==='full'?L(' FULL HOUSE',' PLENO'):bust?L(' BUST',' ME PASÉ'):''}\n${res==='win'||res==='full'?L('Beat the house','Le gané a la casa'):res==='push'?L('Push with the house','Empate con la casa'):L('House ','Casa ')+DTOT}\nhttps://unicornergame.lol${ES?'/es':''}/stablehand.html`;
  $('share').onclick=async()=>{if(navigator.share){try{await navigator.share({text:txt})}catch{}return}try{await navigator.clipboard.writeText(txt);$('share').textContent=L('Copied!','¡Copiado!')}catch{}};
+const sc=t<=TARGET?t:0;CH&&CH.end($('chal2'),sc,live);board();dayAvg();
  feedback(res,t);if(live)track('stablehand_finish',{result:res,total:t,target:TARGET,house:DTOT,cards:S.hand.length,fouls:S.hand.filter(c=>!c.p).length,passed:!!S.passed});
  const v=$('verdict');
  if(!live){anim(v,[{opacity:0,transform:'rotate(-2deg) scale(.94)'},{opacity:1,transform:'rotate(-2deg)'}],{duration:220,easing:EASE});return}
@@ -570,7 +591,11 @@ async function pull(){let srv=null;try{srv=await rpc('sh_mine',{p_day:DAY})}catc
  if(!srv||typeof srv!=='object'||!Array.isArray(srv.hand))return false;if(progress(srv)<=progress(S))return false;
  let k=null;try{k=sessionStorage.getItem('uc-sh-pulled')}catch{}if(k===DAY+':'+progress(srv))return false;
  try{sessionStorage.setItem('uc-sh-pulled',DAY+':'+progress(srv))}catch{}ls(KEY,JSON.stringify(srv));location.reload();return true}
-async function start(){if(await pull())return;drawDealer(false);drawHand(false);host('idle-1',L('Shuffling the deck…','Barajando…'));
+async function start(){if(await pull())return;
+ if(!CH&&window.ucChallenge)CH=ucChallenge({game:'stablehand',day:DAY,max:TARGET,es:ES,track,played:()=>S.done?(total()<=TARGET?total():0):null,fmt:v=>fmtS(v),
+  banner:(who,v)=>({en:`<strong>${who} got ${fmtS(v)} on today's Stable Hand.</strong> Same target, same cards. Can you get closer?`,es:`<strong>${who} sacó ${fmtS(v)} en la Mano de Cuadra de hoy.</strong> Mismo objetivo, mismas cartas. ¿Te acercas más?`}),
+  share:(v,u)=>`${L('Stable Hand','Mano de Cuadra')} 🐴 ${DAY}\n${fmtS(v)}\n${L('Can you get closer without going over?','¿Te acercas más sin pasarte?')}\n${u}`,
+  url:c=>`https://unicornergame.lol${ES?'/es':''}/stablehand.html?c=${c}`});drawDealer(false);drawHand(false);host('idle-1',L('Shuffling the deck…','Barajando…'));
  if(!S.done&&!S.hand.length)[...$('dealer').children].forEach((el,i)=>{const[dx,dy]=fromShoe(el);anim(el,[{opacity:0,transform:`translate(${dx}px,${dy}px) rotate(20deg) scale(.6)`},{opacity:1,offset:.3},{opacity:1,transform:'none'}],{duration:420,delay:200+i*110,easing:EASE,fill:'backwards'});setTimeout(kickShoe,200+i*110)});
  const b=await load();
  if(!b){$('panel').innerHTML=`<p class="msg bad">${L("Couldn't load the cards. Check your connection.",'No se pudieron cargar las cartas. Revisa tu conexión.')}</p><div class="choice" style="grid-template-columns:1fr;margin-top:8px"><button class="btn" id="retry">${L('Try again','Reintentar')}</button></div>`;$('retry').onclick=start;host('nervous',L('The cards are stuck in the shoe…','Las cartas se han atascado…'));return}
@@ -582,7 +607,8 @@ async function start(){if(await pull())return;drawDealer(false);drawHand(false);
  if(S.hand.length>=MAXC||total()>TARGET)return reveal();
  if(S.hand.length)return decide();
  host('excited',L(`Welcome to my table! Target ${TARGET}. Every answer is worth its rarity: obvious ones 10, deep cuts 100. Up to five cards. Go over… and you bust.`,`¡Bienvenido a mi mesa! Objetivo ${TARGET}. Cada respuesta vale según su rareza: las obvias 10, las rebuscadas 100. Hasta cinco cartas. Si te pasas… pierdes.`));
- $('panel').innerHTML=`<div class="choice" style="grid-template-columns:1fr"><button class="btn" id="go">${L('Deal me in','Reparte')}</button></div><p class="hint">${L('The house shows','La casa enseña')} ${DEALER[0]}. ${L(`Beat it without going over ${TARGET}.`,`Gánale sin pasarte de ${TARGET}.`)}</p>`;panelIn();
+ $('panel').innerHTML=`<div class="choice" style="grid-template-columns:1fr"><button class="btn" id="go">${L('Deal me in','Reparte')}</button></div><div id="chal0"></div><p class="hint" id="avg0"></p><p class="hint">${L('The house shows','La casa enseña')} ${DEALER[0]}. ${L(`Beat it without going over ${TARGET}.`,`Gánale sin pasarte de ${TARGET}.`)}</p>`;panelIn();
+ CH&&CH.intro($('chal0'));dayAvg();
  $('go').onclick=()=>{if(lock||!$('bk').hidden)return;lock=true;track('stablehand_start',{target:TARGET});ask()};
  if(!ls('uc-rb-guide'))setTimeout(bkOpen,REDUCE?0:500)}
 start();

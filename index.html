@@ -3194,7 +3194,7 @@ const css=`
 .ucw-bar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 7px;background:#1d4486;color:#fbf6e8;font-size:10px;overflow:hidden;white-space:nowrap}
 .ucw-bar span{overflow:hidden;text-overflow:ellipsis}
 .ucw-bar i{font-style:normal;flex:none;background:var(--w0);color:#1d1a2b;padding:0 5px;box-shadow:inset 1px 1px 0 var(--wl),inset -1px -1px 0 var(--wd)}
-.ucw-tabs{display:flex;gap:4px;padding:6px 6px 0}
+.ucw-tabs{display:flex;flex-wrap:wrap;gap:4px;padding:6px 6px 0}
 .ucw .ucw-tabs button,.ucw .ucw-mini{font:400 9px/1 "Press Start 2P",var(--lab)!important;color:#1d1a2b!important;background:var(--w0)!important;padding:6px 10px 5px!important;border:0!important;border-radius:0!important;box-shadow:inset 1px 1px 0 var(--wl),inset -1px -1px 0 var(--wd)!important;text-transform:none!important;letter-spacing:0!important;min-height:0!important;transform:none!important;cursor:pointer}
 .ucw .ucw-tabs button.on{background:#f2c230!important;position:relative;top:1px}
 .ucw .ucw-mini{padding:3px 6px!important;font-size:8px!important}.ucw .ucw-mini.on{background:#1d4486!important;color:#fbf6e8!important}
@@ -3519,7 +3519,7 @@ function applyLed(){const l=LEDS[ledIdx()];document.querySelectorAll('.otd-fact'
 // ── Compete box: the global ranking and your league in one window, with each player's unicorn in their kit ──
 let gScope='global';
 // /#ranking-rosco and /#ranking-millon (from those games' end screens) open the leaderboard on that game's tab
-(()=>{const m=/^#ranking-(rosco|millon)$/.exec(location.hash);if(!m)return;gTab=m[1];history.replaceState(null,'',location.pathname+location.search);
+(()=>{const m=/^#ranking-(rosco|millon|stablehand)$/.exec(location.hash);if(!m)return;gTab=m[1];history.replaceState(null,'',location.pathname+location.search);
  const go=(n=0)=>{const el=document.getElementById('global-rank-slot');if(el&&el.querySelector('.ucw'))el.scrollIntoView({behavior:'smooth',block:'center'});else if(n<20)setTimeout(()=>go(n+1),300)};setTimeout(go,600);track('ranking_deeplink',{game:m[1]})})();
 const myLook=()=>{try{return window.ucLook?.()||null}catch{return null}};
 const kitOf=r=>{const id=r.me||r.ghost?myLook()?.kit:r.kit;return KITS.find(k=>k.id===id)||KITS[0]};
@@ -3545,10 +3545,10 @@ function ucwList(list,mine){const top=list.filter(r=>r.rank&&r.rank<=3).slice(0,
 function champStrip(y){if(!y?.nickname)return'';const beat=(+y.players||1)>1?+y.players:0,n=`<b>${esc(y.nickname)}</b>`;
  const line=beat?L(`${n} beat ${beat} player${beat===1?'':'s'} with ${y.score}`,`${n} ganó a ${beat} jugador${beat===1?'':'es'} con ${y.score}`):L(`${n} won with ${y.score}`,`${n} ganó con ${y.score}`);
  return`<div class="ucw-champ"${cardAttr({...y,rank:0})}>${uni(y)}<span><small>${L("Yesterday's WINNER",'El GANADOR de ayer')}</small>${line}</span><i class="ucw-star" aria-hidden="true">★</i></div>`}
-function competeShell(title,body,foot,status){const tab=gScope==='league'?'league':gTab==='week'?'week':gTab==='rosco'?'rosco':gTab==='millon'?'millon':'today';
+function competeShell(title,body,foot,status){const tab=gScope==='league'?'league':gTab==='week'?'week':gTab==='rosco'?'rosco':gTab==='millon'?'millon':gTab==='stablehand'?'stablehand':'today';
  const tb=(k,t)=>`<button type="button" role="tab" data-lg="wtab" data-t="${k}" aria-selected="${tab===k}" class="${tab===k?'on':''}">${t}</button>`;
  return `<div class="ucw-o"><div class="ucw"><div class="ucw-bar"><span>${title}</span><i aria-hidden="true">x</i></div>
-  <div class="ucw-tabs" role="tablist">${tb('today',L('Today','Hoy'))}${tb('week',L('Week','Semana'))}${tb('rosco','Rosco')}${tb('millon',L('Millions','Millones'))}</div>
+  <div class="ucw-tabs" role="tablist">${tb('today',L('Today','Hoy'))}${tb('week',L('Week','Semana'))}${tb('rosco','Rosco')}${tb('millon',L('Millions','Millones'))}${tb('stablehand',L('Stable Hand','Mano de Cuadra'))}</div>
   ${body}<div class="ucw-st">${foot}</div></div></div>
   ${status?`<div class="jb-status">${status}</div>`:''}`}
 const ucwEmpty=t=>`<div class="ucw-grid"><p class="ucw-empty">${t}</p></div>`;
@@ -3580,7 +3580,16 @@ async function millonBox(){cardRows=[];let g;try{if(!mboard||Date.now()-mAt>6000
  const foot=`<span>${g.players?g.players+' '+L('players today','jugadores hoy')+' · ':''}<a href="${ES?'/es/millon.html':'/millon.html'}">${L('Play Millions','Jugar a Millones')} ▸</a></span>`;
  const status=g.me?'':`<p class="jb-empty" style="margin:0">${sess?L("Finish today's Millions to get on the board.",'Termina Millones de hoy para entrar en el ranking.'):L('Sign in and finish Millions to get on the board.','Inicia sesión y termina Millones para entrar en el ranking.')}</p>`;
  return competeShell(L('MILLIONS LEAGUE','LIGA DE MILLONES'),body,foot,status)}
-async function globalBox(){if(gTab==='rosco')return roscoBox();if(gTab==='millon')return millonBox();cardRows=[];let g;try{g=await loadGlobal()}catch{return competeShell('UNICORNER LEAGUE',ucwEmpty(L('Ranking unavailable right now. Try again later.','Ranking no disponible ahora. Inténtalo más tarde.')),L('New game every day at midnight','Partido nuevo cada día a medianoche'),'')}
+// Stable Hand tab: today's table (supabase/stablehand_social.sql)
+let shboard=null,shAt=0;
+async function shBox(){cardRows=[];let g;try{if(!shboard||Date.now()-shAt>60000){shboard=await pubRpc('sh_board',{p_day:amsterdamDay()});shAt=Date.now()}g=shboard}catch{return competeShell('STABLE HAND',ucwEmpty(L('Ranking unavailable right now. Try again later.','Ranking no disponible ahora. Inténtalo más tarde.')),'','')}
+ const f=r=>(r.score===r.target?'★ ':'')+r.score+'/'+(r.target||'?'),rows=(g.rows||[]).map(r=>({...r,score:f(r)})),mine=g.me&&!rows.some(r=>r.me)?ucwRow({rank:g.me.rank,score:g.me.score,nickname:me?.profile?.nickname||'',me:true,kits:myLook()?.kits,streak:myLook()?.streak,games:myLook()?.games},' gap'):'';
+ infMembers(rows);
+ const champ=champStrip(g.yesterday&&{...g.yesterday,score:f(g.yesterday)}),body=rows.length?champ+ucwList(rows,mine):champ+ucwEmpty(L("No one on today's Stable Hand table yet. Be the first!",'Nadie en el ranking de Mano de Cuadra hoy. ¡Sé el primero!'));
+ const foot=`<span>${g.players?g.players+' '+L('players today','jugadores hoy')+' · ':''}<a href="${ES?'/es/stablehand.html':'/stablehand.html'}">${L('Play Stable Hand','Jugar a Mano de Cuadra')} ▸</a></span>`;
+ const status=g.me?'':`<p class="jb-empty" style="margin:0">${sess?L("Finish today's Stable Hand to get on the table.",'Termina la Mano de Cuadra de hoy para entrar en el ranking.'):L('Sign in and finish Stable Hand to get on the table.','Inicia sesión y termina Mano de Cuadra para entrar en el ranking.')}</p>`;
+ return competeShell(L('STABLE HAND LEAGUE','LIGA DE MANO DE CUADRA'),body,foot,status)}
+async function globalBox(){if(gTab==='rosco')return roscoBox();if(gTab==='millon')return millonBox();if(gTab==='stablehand')return shBox();cardRows=[];let g;try{g=await loadGlobal()}catch{return competeShell('UNICORNER LEAGUE',ucwEmpty(L('Ranking unavailable right now. Try again later.','Ranking no disponible ahora. Inténtalo más tarde.')),L('New game every day at midnight','Partido nuevo cada día a medianoche'),'')}
  cardRows=[];const wk=gTab==='week',part=wk?g.week:g.day,rows=(part.rows||[]).map(r=>({...r}));
  if(!part.me&&!rows.some(r=>r.me)){const n=knownNick();const r=n&&rows.find(x=>String(x.nickname||'').toLowerCase()===n);if(r){r.me=true;part._mine=r.nickname}}
  const mine=part.me&&!rows.some(r=>r.me)?ucwRow({rank:part.me.rank,score:part.me.score,nickname:me?.profile?.nickname||'',me:true,kits:myLook()?.kits,streak:myLook()?.streak,games:myLook()?.games},' gap'):'';
@@ -3769,7 +3778,7 @@ document.addEventListener('click',async e=>{const b=e.target.closest('[data-lg]'
  if(a==='global')return viewGlobal(true);
  if(a==='led'){const n=(ledIdx()+1)%LEDS.length;lsSet('uc-led',LEDS[n][0]);track('led_colour',{colour:LEDS[n][0]});return applyLed()}
  if(a==='gtab'){gTab=b.dataset.tab;return renderGlobal()}
- if(a==='wtab'){const t=b.dataset.t;if(t==='league'){gScope='league';track('compete_scope',{scope:'league'});if(sess&&me?.leagues?.length&&!board)loadBoard().then(renderGlobal).catch(()=>{})}else{gScope='global';gTab=t==='week'?'week':t==='rosco'?'rosco':t==='millon'?'millon':'day';if(t==='rosco'||t==='millon')track('compete_scope',{scope:t})}return renderGlobal()}
+ if(a==='wtab'){const t=b.dataset.t;if(t==='league'){gScope='league';track('compete_scope',{scope:'league'});if(sess&&me?.leagues?.length&&!board)loadBoard().then(renderGlobal).catch(()=>{})}else{gScope='global';gTab=t==='week'?'week':t==='rosco'?'rosco':t==='millon'?'millon':t==='stablehand'?'stablehand':'day';if(t==='rosco'||t==='millon'||t==='stablehand')track('compete_scope',{scope:t})}return renderGlobal()}
  if(a==='card'){const r=cardRows[+b.dataset.i];if(r)playerCard(r);return}
  if(a==='full')return openFull(b.dataset.scope);
  if(a==='gscope'){gScope=b.dataset.scope;track('compete_scope',{scope:gScope});if(gScope==='league'&&sess&&me?.leagues?.length&&!board)loadBoard().then(renderGlobal).catch(()=>{});return renderGlobal()}

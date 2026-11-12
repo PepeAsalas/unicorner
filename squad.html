@@ -17,7 +17,7 @@
 @font-face{font-family:'VT323';src:url(/fonts/vt323.woff2) format('woff2');font-display:swap}
 /* Socials: the game's pitch background, and the same beveled "window" look as the ranking on the home page */
 :root{--ink:#1d1a2b;--paper:#fbf6e8;--w0:#f6eed8;--wl:#fffaf0;--wd:#b8ac8a;--navy:#1d4486;--gold:#f2c230;--grass:#2f9a62;--clay:#c8473b;
- --rosco:#1d4486;--millon:#2f9a62;--marl:#2d5aa0;--daily:#c8473b;--mut:#6b6480;--line:#e3d9bd;
+ --rosco:#1d4486;--millon:#2f9a62;--sh:#b8860b;--marl:#2d5aa0;--daily:#c8473b;--mut:#6b6480;--line:#e3d9bd;
  --disp:'Jersey 10',monospace;--px:'VT323',monospace;--ease:cubic-bezier(.23,1,.32,1)}
 *{box-sizing:border-box}
 html{background:#1f5e39}
@@ -66,7 +66,7 @@ img.di{width:22px;height:22px;flex:none}
 @media (min-width:900px){.tabs{display:none}.grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:18px;align-items:start}}
 
 /* game picker: three big, obvious buttons */
-.games{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.games{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}@media (max-width:520px){.games{grid-template-columns:repeat(2,1fr)}}
 .game{border:3px solid #000;background:var(--paper);padding:9px 6px 7px;text-align:left;display:grid;gap:3px;box-shadow:3px 3px 0 #000;min-height:72px;transition:transform 140ms var(--ease)}
 .game b{font:400 22px/1 var(--disp);display:flex;align-items:center;gap:6px}
 .game b i{width:12px;height:12px;border:2px solid #000;flex:none;background:var(--c)}
@@ -193,6 +193,7 @@ img.di{width:22px;height:22px;flex:none}
      <button class="game" data-game="daily" aria-pressed="true" style="--c:var(--daily)"><b><i></i>Daily 5</b><span id="gs-daily">&nbsp;</span></button>
      <button class="game" data-game="rosco" aria-pressed="false" style="--c:var(--rosco)"><b><i></i>Rosco</b><span id="gs-rosco">&nbsp;</span></button>
      <button class="game" data-game="millon" aria-pressed="false" style="--c:var(--millon)"><b><i></i><span data-t="millions" style="color:inherit;font:inherit">Millions</span></b><span id="gs-millon">&nbsp;</span></button>
+     <button class="game" data-game="stablehand" aria-pressed="false" style="--c:var(--sh)"><b><i></i><span class="shn" style="color:inherit;font:inherit">Stable Hand</span></b><span id="gs-stablehand">&nbsp;</span></button>
     </div>
     <div class="ctrls">
      <div class="seg" role="group" aria-label="When"><button data-scope="day" aria-pressed="true" data-t="today">Today</button><button data-scope="week" aria-pressed="false" data-t="week">This week</button></div>
@@ -233,7 +234,8 @@ if(ES){document.documentElement.lang='es';document.querySelectorAll('[data-t]').
 $('home').href=HOME;$('playLink').href=HOME;$('closeX').href=HOME;$('closeX').setAttribute('aria-label',L('Close','Cerrar'));
 const GAMES={daily:{name:'Daily 5',url:HOME,play:L("Play today's Daily 5",'Jugar el Daily 5 de hoy')},
  rosco:{name:'Rosco',url:ES?'/es/rosco.html':'/rosco.html',play:L("Play today's Rosco",'Jugar el Rosco de hoy')},
- millon:{name:L('Millions','Millones'),url:ES?'/es/millon.html':'/millon.html',play:L("Play today's Millions",'Jugar a Millones hoy')}};
+ millon:{name:L('Millions','Millones'),url:ES?'/es/millon.html':'/millon.html',play:L("Play today's Millions",'Jugar a Millones hoy')},
+ stablehand:{name:L('Stable Hand','Mano de Cuadra'),url:ES?'/es/stablehand.html':'/stablehand.html',play:L("Play today's Stable Hand",'Jugar a Mano de Cuadra hoy')}};
 
 // ── Supabase: same session the game keeps in localStorage ──
 const sessionOf=()=>{try{const s=JSON.parse(ls('uc-player-session')||'null');return s&&s.access_token?s:null}catch{return null}};
@@ -250,9 +252,10 @@ const SID=Math.random().toString(36).slice(2);
 
 // ── little helpers ──
 let toastT;function toast(m){const e=$('toast');e.textContent=m;e.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>e.hidden=true,2600)}
+document.querySelectorAll('.shn').forEach(e=>e.textContent=L('Stable Hand','Mano de Cuadra'));
 const uni=(kit,mood='happy')=>{try{const k=(typeof KITS!=='undefined'&&KITS.find(x=>x.id===kit))||null;return spriteDraw(mood,0,false,k&&k.id!=='classic'?k:null).replace(/"/g,"'")}catch{return'none'}};
 const K=n=>n>=1e6?(n/1e6).toFixed(n%1e6?1:0).replace('.0','')+'M':n>=1e3?Math.round(n/1e3)+'K':String(n);
-const fmt=(g,s)=>g==='rosco'?s+' '+L('letters','letras'):g==='millon'?K(s)+' €':s+' '+L('pts','pts');
+const fmt=(g,s)=>g==='stablehand'?s+' '+L('pts','pts'):g==='rosco'?s+' '+L('letters','letras'):g==='millon'?K(s)+' €':s+' '+L('pts','pts');
 const short=(g,s)=>g==='millon'?K(s):String(s);
 const ord=n=>ES?n+'º':n+(n%100>=11&&n%100<=13?'th':['th','st','nd','rd'][n%10]||'th');
 const signinUrl=()=>HOME+'#signin';
@@ -312,7 +315,8 @@ function signInCard(what){return`<div class="signin"><p>${what}</p><a class="btn
 function line(f){const p=[],n='<span class="no">·</span>';
  p.push(f.daily!=null?`<span>Daily 5 <em>${f.daily}</em></span>`:`<span class="no">Daily 5 –</span>`);
  p.push(f.rosco!=null?`<span>Rosco <em>${f.rosco}/${f.rosco_total||24}</em></span>`:`<span class="no">Rosco –</span>`);
- p.push(f.millon!=null?`<span>${L('Millions','Millones')} <em>${K(f.millon)}</em></span>`:`<span class="no">${L('Millions','Millones')} –</span>`);return p.join(n)}
+ p.push(f.millon!=null?`<span>${L('Millions','Millones')} <em>${K(f.millon)}</em></span>`:`<span class="no">${L('Millions','Millones')} –</span>`);
+ p.push(f.stablehand!=null?`<span>${L('Stable Hand','Mano de Cuadra')} <em>${f.stablehand}/${f.stablehand_target||'?'}</em></span>`:`<span class="no">${L('Stable Hand','Mano de Cuadra')} –</span>`);return p.join(n)}
 function drawFriends(){const box=$('friends');
  if(!sess()){box.innerHTML=signInCard(L('Sign in to add friends and see how they did today.','Inicia sesión para añadir amigos y ver cómo les ha ido hoy.'));$('fr-count').textContent='';return}
  if(S.me&&!S.me.profile){box.innerHTML=signInCard(L('Pick a nickname first, then you can add friends.','Elige un apodo primero y luego podrás añadir amigos.'));return}
@@ -422,7 +426,7 @@ async function playerCard(nick,kitHint){let d=$('pc');if(!d){document.body.inser
   <div class="u" style="width:150px;height:125px;margin:6px auto 2px;background-image:${uni(p.kit,'wow')}"></div>
   <p style="margin:0 0 10px;font-size:18px;color:var(--mut)">${esc(kitName)}${since?' · '+L('playing since ','juega desde ')+esc(since):''}<br>${L('Kits','Equipaciones')}: <b style="font-weight:400;color:var(--ink)">${(Array.isArray(p.kits)?p.kits:[]).filter(id=>KITS.some(x=>x.id===id&&x.req)).length}/${KITS.filter(x=>x.req).length}</b></p>
   <div class="pcg">${pcStat(p.games,L('games played','partidos jugados'))}${pcStat((p.streak?'🔥':'')+p.streak,L('day streak','racha actual'))}${pcStat(p.best_streak,L('best streak','mejor racha'))}${pcStat(p.trophies,L('trophies','trofeos'))}</div>
-  <p class="sec" style="justify-content:center;margin-top:12px">${L('Today','Hoy')}</p><p class="gl" style="justify-content:center;font-size:17px;margin:0 0 10px">${line({daily:td.daily,rosco:td.rosco,rosco_total:td.rosco_total,millon:td.millon})}</p>
+  <p class="sec" style="justify-content:center;margin-top:12px">${L('Today','Hoy')}</p><p class="gl" style="justify-content:center;font-size:17px;margin:0 0 10px">${line({daily:td.daily,rosco:td.rosco,rosco_total:td.rosco_total,millon:td.millon,stablehand:td.stablehand,stablehand_target:td.stablehand_target})}</p>
   ${act}</div>`}
 $('list').addEventListener('click',e=>{const row=e.target.closest('.row[data-i]');if(row&&lastBoard){const r=lastBoard.rows[+row.dataset.i];if(r)playerCard(r.nickname,r.kit)}});
 // friends, requests and league members open the same card (but not when a button in the row was tapped)
