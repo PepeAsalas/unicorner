@@ -1264,7 +1264,7 @@ body.inf-mode .inf-price{font:400 34px/1 var(--px);color:#5ef0ff;margin:6px 0 2p
 .ih-arch{display:grid;gap:8px;min-width:0}.ih-arch header{display:flex;align-items:baseline;justify-content:space-between;gap:10px}.ih-arch header span{font-size:13px;opacity:.7;white-space:nowrap}
 .ih-days{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 10px;margin:0 -2px;scrollbar-width:thin;overscroll-behavior-x:contain}
 .ih-day{flex:none;scroll-snap-align:start;width:86px;display:grid;justify-items:center;gap:3px;padding:10px 6px;border:2px solid #b06bff;border-radius:8px;background:#1d1a2b;color:#fff;text-decoration:none;transition:transform 140ms cubic-bezier(.23,1,.32,1),background-color 150ms ease}
-.ih-millon .ih-day{border-color:#f2c230}
+.ih-millon .ih-day{border-color:#f2c230}.ih-stablehand .ih-day{border-color:#2f8f5b}
 .ih-day small{font:400 15px/1 var(--px);opacity:.65}.ih-day b{font:400 22px/1 var(--px);white-space:nowrap}
 .ih-day span{font-size:12px;font-weight:700;padding:2px 7px;border-radius:99px;background:#5ef0ff;color:#1d1a2b;white-space:nowrap}
 .ih-day.done{opacity:.7}.ih-day.done span{background:transparent;color:#5ef0ff;padding:2px 0}
@@ -2396,7 +2396,7 @@ async function infEndless(){INF.endless=true;let qs=[];try{qs=await infPool()}ca
  swap(`<div class="card inf-intro inf-hub"><div class="inf-big">∞</div><h2>${L('Infinity mode','Modo Infinito')}</h2>
   <section class="ih-daily"><div><h3>${L('Daily 5, endless','Daily 5, sin fin')}</h3><p>${L('Questions from every past day, shuffled. Leave whenever you want.','Preguntas de todos los días anteriores, mezcladas. Sal cuando quieras.')}</p></div>
   <button type="button" class="cta" id="inf-go">${L('Play','Jugar')} ▶</button></section>
-  ${infArchive('rosco')}${infArchive('millon')}
+  ${infArchive('rosco')}${infArchive('millon')}${infArchive('stablehand')}
   <div class="row"><button type="button" class="ghost" data-inf-exit>${L('Back to home','Volver al inicio')}</button></div>
   ${INF_PAY.portal?`<p class="inf-manage"><a href="${INF_PAY.portal}" target="_blank" rel="noopener">${L('Manage or cancel your subscription','Gestiona o cancela tu suscripción')}</a></p>`:''}</div>`,()=>{track('infinity_endless_intro',{left:qs.length});document.getElementById('inf-go').onclick=()=>{track('infinity_start',{endless:true});ask()};
   document.querySelectorAll('.ih-day').forEach(a=>a.onclick=()=>track('infinity_archive_open',{game:a.dataset.g,day:a.dataset.d}))})}
@@ -2404,7 +2404,9 @@ async function infEndless(){INF.endless=true;let qs=[];try{qs=await infPool()}ca
 const INF_ARCH={rosco:{first:'2026-10-30',name:['Rosco archive','Archivo del Rosco'],page:'rosco.html',
   st:d=>{try{const S=JSON.parse(localStorage.getItem('uc-rosco-v3-'+d));if(!S||!S.start)return null;const ok=Object.values(S.res||{}).filter(x=>x==='ok').length;return S.done?{done:1,t:L(`${ok} right`,`${ok} aciertos`)}:{t:L('Resume','Seguir')}}catch{return null}}},
  millon:{first:'2026-11-03',name:['Millions archive','Archivo de Millones'],page:'millon.html',
-  st:d=>{try{const s=JSON.parse(localStorage.getItem('millon-'+d+(d==='2026-11-03'?'-r1':'')));if(!s||!s.done)return null;const b=s.bank;return{done:1,t:b>=1e6?'1M':b>=1e3?Math.round(b/1e3)+'k':String(b)}}catch{return null}}}};
+  st:d=>{try{const s=JSON.parse(localStorage.getItem('millon-'+d+(d==='2026-11-03'?'-r1':'')));if(!s||!s.done)return null;const b=s.bank;return{done:1,t:b>=1e6?'1M':b>=1e3?Math.round(b/1e3)+'k':String(b)}}catch{return null}}},
+ stablehand:{first:'2026-11-10',name:['Stable Hand archive','Archivo de Mano de Cuadra'],page:'stablehand.html',
+  st:d=>{try{const S=JSON.parse(localStorage.getItem('uc-rb-'+d));if(!S||!(S.hand||[]).length)return null;const t=S.hand.reduce((a,c)=>a+(+c.p||0),0);return S.done?{done:1,t:S.t&&t>S.t?L('Bust','Te pasaste'):String(t)}:{t:L('Resume','Seguir')}}catch{return null}}}};
 function infArchive(g){const A=INF_ARCH[g],today=amsterdamDay(),days=[];for(const d=new Date(A.first+'T12:00:00Z');;d.setUTCDate(d.getUTCDate()+1)){const k=d.toISOString().slice(0,10);if(k>=today)break;days.push(k)}
  if(!days.length)return'';const fmtD=k=>new Date(k+'T12:00:00Z').toLocaleDateString(ES?'es-ES':'en-GB',{day:'numeric',month:'short',timeZone:'UTC'}).replace('.','');
  const rows=days.map((k,i)=>({k,n:i+1,st:A.st(k)})).reverse(),played=rows.filter(r=>r.st&&r.st.done).length;
