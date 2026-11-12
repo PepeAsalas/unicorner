@@ -372,12 +372,35 @@ body.lobby-on main>header .how-link{color:#fbf6e8!important;text-shadow:0 2px 0 
  .lb-mates .pr-band span{display:none}
  .lb-close{display:grid;place-items:center;margin-left:8px;width:34px!important;height:34px;padding:0!important;font-size:18px!important;background:var(--pc)!important;color:var(--ink)!important}
 }
-.ld-ball{width:34px;height:34px;margin:18px auto 8px;border-radius:50%;border:3px solid #000;background:radial-gradient(circle at 50% 50%,#000 0 18%,transparent 19%),repeating-conic-gradient(#fff 0 60deg,#e9e3d0 60deg 120deg);animation:ldb .7s cubic-bezier(.3,0,.7,1) infinite alternate}
-@keyframes ldb{to{transform:translateY(-18px) rotate(180deg)}}#s-load{text-align:center;padding:26px 16px}.ld-t{font-size:26px;margin:4px 0}.ld-dots::after{content:'';animation:ldd 1.2s steps(4) infinite}@keyframes ldd{0%{content:''}25%{content:'.'}50%{content:'..'}75%{content:'...'}}
-@media (prefers-reduced-motion:reduce){.ld-ball{animation:none}}
+
+.sp{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:radial-gradient(ellipse at 50% 40%,#fbf5e4 0%,#f6eed8 55%,#e6d9b4 100%);color:#1d1a2b;transition:opacity .45s ease,transform .45s ease}
+.sp.out{opacity:0;transform:scale(1.04);pointer-events:none}
+.sp-t{font:400 clamp(52px,14vw,84px)/1 var(--disp);letter-spacing:.03em;color:#f2c230;text-shadow:3px 0 0 #1d1a2b,-3px 0 0 #1d1a2b,0 3px 0 #1d1a2b,0 -3px 0 #1d1a2b,3px 3px 0 #1d1a2b,-3px 3px 0 #1d1a2b,3px -3px 0 #1d1a2b,-3px -3px 0 #1d1a2b,0 7px 0 #1d1a2b}
+.sp-t,.sp-m{opacity:0;transition:opacity .25s}.sp.f .sp-t,.sp.f .sp-m{opacity:1}
+.sp-run{position:relative;width:min(76vw,340px);height:118px}
+.sp-bar{position:absolute;left:0;right:0;bottom:6px;height:24px;background:#fffaf0;border:3px solid #1d1a2b;box-shadow:4px 4px 0 #1d1a2b}
+.sp-fill{position:absolute;left:0;top:0;bottom:0;width:4%;background:#f2c230;animation:spfill 1.8s cubic-bezier(.2,.7,.3,1) forwards}
+.sp.done .sp-fill{width:100%;animation:none;transition:width .3s ease-in}
+.sp-u{position:absolute;right:-62px;bottom:4px;width:108px;height:90px;image-rendering:pixelated;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAeCAYAAABE4bxTAAACXElEQVR4AbyXz4oTQRDG2xJBBFeDniqgRxFciNc96EXQt/AVfD1v6kXwoIsGxKNCvEn8AyLIku3fZirU1HQ2vUlmQr5U1dfVVV9qeiZE0sAvvTlZLD4+XmBLraVE9sVpFjN7cyONH/1K338eXyr1kRK5L06zAKuFj5iv718bVbRSZHckNQsBs/mHhAUm5ujFZO10aCt87BOaxYzGVxO4M36QEOXFpPwiJ5viW4rslqQ2Yn7P/yTwbTZdVjp8le4+XyzF5akhktzlYvtT2uHuEUKocjC6jrkw9iZI83QuX/ufEAKm07ctMePRw1ZMwB6sh/hgVx8htTW4bEDzF/F7xAfb+pqLcohtf5wOPM2xEfDsN17M2Ze1M1RT78vxy07azoK0mQ5CwOrO6rTqEvcmTzukdJgCobnpOpCOEGzpDHGYDeR8+vwjecB5iA+ir40QrvN5YCognh2E8JtlIH529CR5wLFuvcWcaDWL4aAiJK5tG9O4BF9PfGC+NmIsHtJKbKZOzHz2Ly73HkupA4cUlNb65lqCNE+Hxz9NT/5ewQwOGbzjhoYrQZqnw13Fs4Tp2N3AbemfG7X+hr5rl2Xtils4vH8rAZ4fWIDvAQfgsG77hdyVICbCXQXwa6qQB2pyY47mKwIiL56gOPBcH75mMTxwAb7vIT4YwtdGDGcTRFFSI8IOMrneJzZ43vu2XmurBB28u50ARbEA3wMOwGEBfgRHwibDdPDhLG+jIJL5LwWib0UiTy6Atxxv4REC8P3aRkEppbM/drYRC3wRfDgQfeISyAVxrUpQ3NRnfAoAAP//RIDFgAAAAAZJREFUAwDI1ZNMq9+OPgAAAABJRU5ErkJggg==) center/contain no-repeat;animation:spgal .44s steps(1) infinite}
+.sp-s{position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(3px 3px at 12% 22%,#f2c230 50%,transparent 51%),radial-gradient(3px 3px at 82% 18%,#fbf6e8 50%,transparent 51%),radial-gradient(3px 3px at 28% 74%,#f2c230 50%,transparent 51%),radial-gradient(4px 4px at 70% 66%,#f2c230 50%,transparent 51%),radial-gradient(3px 3px at 90% 44%,#fbf6e8 50%,transparent 51%),radial-gradient(3px 3px at 8% 52%,#fbf6e8 50%,transparent 51%),radial-gradient(3px 3px at 55% 12%,#39d353 50%,transparent 51%),radial-gradient(3px 3px at 44% 88%,#f2c230 50%,transparent 51%);animation:sptw 1.6s ease-in-out infinite alternate}
+.sp-m{font:400 15px/1.3 var(--mono);color:#6b5f86;letter-spacing:.06em;text-transform:uppercase;min-height:20px}
+html[lang=es] .sp-en,html:not([lang=es]) .sp-es{display:none}
+@keyframes spfill{to{width:82%}}@keyframes spgal{0%,100%{translate:0 0}25%,75%{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAeCAYAAABE4bxTAAACkklEQVR4AcSXwYoTQRCG2xJBBFeDniqgRxGyEI/uQS+CvoWv4Ot5Uy+CBw0aEI8K2ZtkVRBBJNa3mQo1PT1DzCTjsn+q6q/q6j+V7gmRNPCfXp+uVu8frrClraVEHopTE7N4dS2NH3xLp2ezC6V9pETui1MT4L3wEfP57UunilaKbE9STQhYLN8lLHAxJ8+mrdNhW+FlX9BKyGh8OYFb40lCVBST7I86M8V/KbI7kGpiEHHxyu/0ffkjLRe/0pfFfN3p+EW6/XS1FmdTQyT162T9VephvwgR3gFx7v+L3YsgtekwGUQcja6eT2Y+f13TMR7dq8UErMNGSAz6+H9+Xtosn0zub/w2h48NqL2ZWCMx2MVXa8hkAOuZDMCPYPMYuw9PD4/FnT42nh1u1ra9Ps2eN0p7CdJqOpwfbhaT2dysxlZN4s70cYOUBlMg1DYugdI4ndLZ4TA7qP/w8WuKgIuQGOS+VkL4nLvAVAATij0QwneWg/jJyaMUAUfe14k7uVUTw0FFSJ7bNWbjEmI/iYH7WonxeEgr+WZqYvyQxvOR1x0qlthYTUyM/4cvvqmaGCYDeOoCzw1pJW7G9xCA4/Bhh8a5ILXpcKPYnHPjYrBcy/jc2Nan1y6QrkVqQrn2x3dv1J4dxMCfJ/jAYyx9WUsP/BLIgZgTAibBZAA+XAldOa/fpoZard5sLlpIAhoB/ENDKzEcBxBFSdvmWi0izyIXiyWGpxHAhyOHjyXGJ08v/G0gXUV+gEs1nnPbVZPnXDBiAeLhqOsUdPTmZgIU5oCPyPPEnsfPgQCEAHzPtwqiiN9QAN8XYInhI+DIOYg9j+98tPAgcq2CKKL49GxW/MnrObfU5+jK5bUedwryoiHtXwAAAP//c1ovMQAAAAZJREFUAwDqpsVMG7LFUAAAAABJRU5ErkJggg==);translate:0 -3px}50%{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAeCAYAAABE4bxTAAACkklEQVR4AcSXwYoTQRCG2xJBBFeDniqgRxGyEI/uQS+CvoWv4Ot5Uy+CBw0aEI8K2ZtkVRBBJNa3mQo1PT1DzCTjsn+q6q/q6j+V7gmRNPCfXp+uVu8frrClraVEHopTE7N4dS2NH3xLp2ezC6V9pETui1MT4L3wEfP57UunilaKbE9STQhYLN8lLHAxJ8+mrdNhW+FlX9BKyGh8OYFb40lCVBST7I86M8V/KbI7kGpiEHHxyu/0ffkjLRe/0pfFfN3p+EW6/XS1FmdTQyT162T9VephvwgR3gFx7v+L3YsgtekwGUQcja6eT2Y+f13TMR7dq8UErMNGSAz6+H9+Xtosn0zub/w2h48NqL2ZWCMx2MVXa8hkAOuZDMCPYPMYuw9PD4/FnT42nh1u1ra9Ps2eN0p7CdJqOpwfbhaT2dysxlZN4s70cYOUBlMg1DYugdI4ndLZ4TA7qP/w8WuKgIuQGOS+VkL4nLvAVAATij0QwneWg/jJyaMUAUfe14k7uVUTw0FFSJ7bNWbjEmI/iYH7WonxeEgr+WZqYvyQxvOR1x0qlthYTUyM/4cvvqmaGCYDeOoCzw1pJW7G9xCA4/Bhh8a5ILXpcKPYnHPjYrBcy/jc2Nan1y6QrkVqQrn2x3dv1J4dxMCfJ/jAYyx9WUsP/BLIgZgTAibBZAA+XAldOa/fpoZard5sLlpIAhoB/ENDKzEcBxBFSdvmWi0izyIXiyWGpxHAhyOHjyXGJ08v/G0gXUV+gEs1nnPbVZPnXDBiAeLhqOsUdPTmZgIU5oCPyPPEnsfPgQCEAHzPtwqiiN9QAN8XYInhI+DIOYg9j+98tPAgcq2CKKL49GxW/MnrObfU5+jK5bUedwryoiHtXwAAAP//c1ovMQAAAAZJREFUAwDqpsVMG7LFUAAAAABJRU5ErkJggg==);translate:0 -8px}}@keyframes spbob{to{transform:translateY(-6px)}}@keyframes sptw{to{opacity:.35}}
+@media (prefers-reduced-motion:reduce){.sp-u,.sp-s{animation:none}}
 </style><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9034426912596924" crossorigin="anonymous"></script>
 <link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#1d1a2b"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Unicorner"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="apple-touch-icon" href="/favicon-180.png">
-</head><body><script>/* arrived from Unicorner on the gallop: the gold curtain it pulled across slides away */
+</head><body><div class="sp" id="sp" aria-hidden="true"><div class="sp-s"></div><div class="sp-t">UNICORNER</div><div class="sp-run"><div class="sp-bar"><div class="sp-fill"><i class="sp-u"></i></div></div></div><div class="sp-m"><span class="sp-en">Warming up on the touchline…</span><span class="sp-es">Calentando en la banda…</span></div></div>
+<script>
+// loading screen: always shown, lifts once the page and its fonts are ready (at least ~1s so it never just flickers), then the landing intro plays
+window.ucSplash=new Promise(res=>{const t0=performance.now(),sp=document.getElementById('sp');let gone=false;
+ // show the words once the pixel font is in, so they never swap from a plain font
+ const fin=()=>sp.classList.add('f');try{Promise.race([Promise.all([document.fonts.load('40px "Jersey 10"'),document.fonts.load('15px "Silkscreen"')]),new Promise(r=>setTimeout(r,1200))]).then(fin,fin)}catch(e){fin()}
+ const lift=()=>{if(gone)return;gone=true;sp.classList.add('done');setTimeout(()=>{sp.classList.add('out');res();setTimeout(()=>sp.remove(),500)},320)};
+ const ready=()=>{const fonts=document.fonts?Promise.race([document.fonts.ready,new Promise(r=>setTimeout(r,2500))]):Promise.resolve();
+  fonts.then(()=>setTimeout(lift,Math.max(0,1100-(performance.now()-t0))))};
+ window.ucSplashLift=()=>setTimeout(lift,Math.max(0,700-(performance.now()-t0)));
+ setTimeout(lift,12000)});
+</script><script>/* arrived from Unicorner on the gallop: the gold curtain it pulled across slides away */
 (()=>{let on=false;try{on=sessionStorage.getItem('uc-gallop')==='1';sessionStorage.removeItem('uc-gallop')}catch{}if(!on||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
  const c=document.createElement('div');c.style.cssText='position:fixed;inset:0;z-index:10000;background:#f2c230;pointer-events:none';document.body.appendChild(c);
  const off=()=>{if(!c.animate)return c.remove();c.animate([{clipPath:'inset(0 0 0 0)'},{clipPath:'inset(0 0 0 100%)'}],{duration:300,easing:'cubic-bezier(.23,1,.32,1)',fill:'forwards'}).finished.then(()=>c.remove(),()=>c.remove())};
@@ -388,7 +411,6 @@ body.lobby-on main>header .how-link{color:#fbf6e8!important;text-shadow:0 2px 0 
 <main>
  <a class="x-exit" id="x-exit" href="/" aria-label="Close duels, back to Unicorner" title="Back to Unicorner">✕</a>
  <header><h1>UNICORNER DUEL</h1><button type="button" class="how-link" id="how-open">? How duels work</button></header>
- <section id="s-load" class="card" aria-live="polite"><div class="ld-ball" aria-hidden="true"></div><p class="ld-t">Warming up<span class="ld-dots"></span></p><p class="small">Loading your duels</p></section>
  <section id="s-home" hidden>
  <div class="lb-cols">
   <div class="lb-col" id="h-playcol">
@@ -575,7 +597,7 @@ const rpc=async(fn,args)=>{if(args&&isBot(args.p_code))return botRpc(fn,args);co
  const t=await r.text();if(!r.ok){let m=t;try{m=JSON.parse(t).message||t}catch{}throw new Error(m||('HTTP '+r.status))}return t?JSON.parse(t):null};
 let curScr=null;const SCR_RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let adPushed=false;
-const show=(id,dir)=>{if(false&&id==='s-inbox'&&!adPushed){adPushed=true;setTimeout(()=>{try{(window.adsbygoogle=window.adsbygoogle||[]).push({})}catch{}},300)}for(const s of document.querySelectorAll('main>section'))s.hidden=s.id!==id;document.body.classList.toggle('playing',id==='s-play');document.body.classList.toggle('paper',!['s-play','s-battle','s-inbox'].includes(id));scrollTo(0,0);
+const show=(id,dir)=>{if(false&&id==='s-inbox'&&!adPushed){adPushed=true;setTimeout(()=>{try{(window.adsbygoogle=window.adsbygoogle||[]).push({})}catch{}},300)}for(const s of document.querySelectorAll('main>section'))s.hidden=s.id!==id;window.ucSplashLift&&ucSplashLift();document.body.classList.toggle('playing',id==='s-play');document.body.classList.toggle('paper',!['s-play','s-battle','s-inbox'].includes(id));scrollTo(0,0);
  const el=document.getElementById(id);if(el&&curScr!==id&&el.animate){if(!dir)try{dir=sessionStorage.getItem('uc-duel-dir');sessionStorage.removeItem('uc-duel-dir')}catch{}
   el.animate(SCR_RM?[{opacity:0},{opacity:1}]:[{opacity:0,transform:`translateX(${dir==='back'?-24:24}px)`},{opacity:1,transform:'none'}],{duration:SCR_RM?160:240,easing:'cubic-bezier(.32,.72,0,1)'})}
  curScr=id};
