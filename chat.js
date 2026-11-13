@@ -57,7 +57,7 @@ const CSS=`
 .ucc-h b{font:400 26px/1 "Jersey 10",Impact,sans-serif;color:#f2c230;letter-spacing:.04em}.ucc-h small{display:block;font:400 16px VT323,monospace;color:#bdb4dc;margin-top:2px}
 .ucc-x{all:unset;box-sizing:border-box;flex:none;cursor:pointer;width:38px;height:38px;display:grid;place-items:center;line-height:0;border:3px solid #fbf6e8;font:400 20px/1 "Jersey 10",sans-serif;color:#fbf6e8}.ucc-x:hover{background:#fbf6e8;color:#1d1a2b}.ucc-x svg{display:block}.ucc-x:focus-visible{outline:3px solid #4fd7ff}
 .ucc-rules{margin:0;padding:8px 12px;font-size:16px;color:#6b6480;border-bottom:3px solid #1d1a2b;background:#f3e6bf}
-.ucc-list{flex:1;overflow-y:auto;padding:4px 8px;scrollbar-width:thin;scrollbar-color:#c9a24a transparent}
+.ucc-list{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:4px 8px;scrollbar-width:thin;scrollbar-color:#c9a24a transparent}
 .ucc-list::-webkit-scrollbar{width:6px}.ucc-list::-webkit-scrollbar-thumb{background:#c9a24a}
 .ucc-empty{margin:40px 10px;text-align:center;color:#6b6480}
 .ucc-m{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:1px 8px;align-items:start;padding:7px 4px 8px;border-bottom:2px dashed #e3d9bd}
@@ -81,7 +81,8 @@ const CSS=`
 .ucc-err{margin:0 10px 8px;color:#c8473b;font-size:17px}
 .ucc-toast{position:absolute;left:12px;right:12px;bottom:80px;background:#1d1a2b;color:#fbf6e8;padding:8px 10px;font-size:18px;text-align:center}
 @media (max-width:700px){.ucc{width:100vw;border-left:0}.ucc-tab{top:auto;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:none;writing-mode:horizontal-tb;padding:10px 12px 8px;border-right:0;font-size:20px}}
-@media (prefers-reduced-motion:reduce){.ucc{transition:none}}`;
+@media (prefers-reduced-motion:reduce){.ucc{transition:none}}
+.ucc.kb .ucc-rules,.ucc.kb .ucc-h small{display:none}.ucc.kb .ucc-h{padding-top:8px;padding-bottom:8px}`;
 
 const C={rows:[],last:0,me:null,open:null,loaded:false,busy:false,isOpen:false,unread:0,seen:+(ls('uc-chat-seen')||0)};
 const tm=at=>new Date(at).toLocaleTimeString(ES?'es-ES':'en-GB',{hour:'2-digit',minute:'2-digit'});
@@ -109,7 +110,7 @@ async function poll(){if(C.busy||!C.loaded||document.hidden)return;C.busy=true;
   C.rows=C.rows.filter(r=>!gone.has(r.id)).concat(add).slice(-200);C.last=C.rows.reduce((a,m)=>Math.max(a,m.id),C.last);
   if(!C.isOpen)C.unread+=add.filter(m=>!m.mine).length;else markSeen();badge();if(add.length||C.rows.length!==n0)draw(true)}catch{}finally{C.busy=false}}
 function markSeen(){C.seen=C.last;ls('uc-chat-seen',String(C.seen));C.unread=0}
-function setOpen(on,how){C.isOpen=on;const p=$('ucc');p.dataset.open=on?'1':'0';p.inert=!on;ls('uc-chat-open',on?'1':null);$('ucc-tab').hidden=on;$('ucc-tab').setAttribute('aria-expanded',String(on));
+function setOpen(on,how){C.isOpen=on;if(matchMedia('(max-width:700px)').matches)document.documentElement.style.overflow=on?'hidden':'';const p=$('ucc');p.dataset.open=on?'1':'0';p.inert=!on;ls('uc-chat-open',on?'1':null);$('ucc-tab').hidden=on;$('ucc-tab').setAttribute('aria-expanded',String(on));
  if(on){markSeen();draw();if(how)track('chat_open',{how})}badge()}
 function playerOpen(nick,kit){if(typeof window.ucPlayerCard==='function'){if(matchMedia('(max-width:700px)').matches)setOpen(false);window.ucPlayerCard(nick,kit);return}location.href=HOME+'squad.html#player='+encodeURIComponent(nick)}
 function build(){const host=document.createElement('div');host.id='ucc-host';document.body.appendChild(host);ROOT=host.attachShadow({mode:'open'});const st=document.createElement('style');st.textContent=CSS;ROOT.appendChild(st);
@@ -130,6 +131,15 @@ function build(){const host=document.createElement('div');host.id='ucc-host';doc
    else if(k==='block'){await call('chat_block',{p_nick:b.dataset.nick,p_on:true});C.rows=C.rows.filter(m=>m.nick!==b.dataset.nick);toast(L("You won't see them in the chat any more.",'Ya no lo verás en el chat.'));track('chat_block',{})}
    else if(k==='mute'){await call('chat_mute',{p_nick:b.dataset.nick,p_hours:+b.dataset.h});C.rows=C.rows.filter(m=>m.nick!==b.dataset.nick);toast(b.dataset.nick+L(' is muted',' está silenciado'))}
    C.open=null;draw(true)}catch(err){toast(err.message)}});
+// phones: the keyboard covers the page instead of shrinking it, so size the chat to the space that's actually visible
+ // (above the keyboard) and keep the newest messages and the text box in view
+ const vv=window.visualViewport;
+ if(vv){const fit=()=>{if(!matchMedia('(max-width:700px)').matches){p.style.top=p.style.height='';return}
+   p.style.top=vv.offsetTop+'px';p.style.height=vv.height+'px';p.style.bottom='auto';p.classList.toggle('kb',vv.height<window.innerHeight*.8||vv.height<520);
+   if(C.isOpen&&ROOT.activeElement?.id==='ucc-in'){const l=$('ucc-list');if(l)l.scrollTop=l.scrollHeight}};
+  vv.addEventListener('resize',fit);vv.addEventListener('scroll',fit);fit()}
+ // while the chat is open on a phone, the page underneath doesn't scroll
+ ROOT.addEventListener('focusin',e=>{if(e.target.id==='ucc-in')setTimeout(()=>{const l=$('ucc-list');if(l)l.scrollTop=l.scrollHeight},300)});
  window.ucChatOpen=()=>setOpen(true,'link');
  // wide screens remember an open chat between pages; phones always start closed
  if(ls('uc-chat-open')==='1'&&matchMedia('(min-width:1200px)').matches)setOpen(true);
