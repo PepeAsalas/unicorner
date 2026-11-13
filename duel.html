@@ -566,7 +566,8 @@ const playedToday=()=>!!ls('unicorner-played-'+DAY);
 const VISITOR=ls('uc-visitor'),SID=Math.random().toString(36).slice(2);
 function track(name,data){try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,session:SID,visitor:VISITOR,seconds:0,game_day:DAY,event_version:2,data:{language:'en',page:'duel',...(data||{})}})}).catch(()=>{})}catch{}}
 // signed-in players (the game's league login, same browser) send their login, so duel records follow their account
-async function userToken(){let x;try{x=JSON.parse(localStorage.getItem('uc-player-session'))}catch{}if(!x?.access_token)return null;
+let UT_P=null;function userToken(){return UT_P||(UT_P=userToken0().finally(()=>setTimeout(()=>UT_P=null,0)))}
+async function userToken0(){let x;try{x=JSON.parse(localStorage.getItem('uc-player-session'))}catch{}if(!x?.access_token)return null;
  if(Date.now()>(x.exp||0)-60000){try{const r=await fetch(SB_URL+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:x.refresh_token})});const j=await r.json();if(!r.ok||!j.access_token)return null;
   x={...x,access_token:j.access_token,refresh_token:j.refresh_token||x.refresh_token,exp:Date.now()+Math.max(60,(+j.expires_in||3600))*1000};localStorage.setItem('uc-player-session',JSON.stringify(x))}catch{return null}}return x.access_token}
 // a stale league login (expired or revoked token) must not break the duel: on 401 retry signed out, and drop the dead session
@@ -755,10 +756,12 @@ const myKit=()=>{try{return KITS.find(k=>k.id===localStorage.getItem('uc-kit'))|
 const uni=(k,flip)=>`<i class="pr-uni${flip?' flip':''}" style="background-image:${spriteDraw('happy',0,false,k).replace(/"/g,"'")}"></i>`;
 const MONS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 let IBZ=null,IBREC=null,IBQ=new Set();
+const LBK=()=>'uc-duel-lobby-'+(ls('uc-nick')||'me');
+function lobbyCached(){try{const c=JSON.parse(localStorage.getItem(LBK()));if(!c||!c.r||Date.now()-c.t>3*864e5)return false;IBR=c.r;IBZ=c.z;IBREC=c.rec;IBQ=new Set(c.q||[]);ibDraw();show('s-inbox');return true}catch{return false}}
 async function inbox(){if(!await userToken())return fail('Sign in on Unicorner (the league login) to see your duels.');
- document.body.classList.add('lobby-on');lbFriends();
- try{[IBR,IBZ,IBREC,IBQ]=await Promise.all([rpc('duel_inbox',{}),rpc('duel_season',{}).catch(()=>null),rpc('duel_record',{p_token:TOKEN}).catch(()=>null),rpc('duel_quick_mine',{}).catch(()=>[])]);IBR=IBR||{items:[]};IBQ=new Set(IBQ||[])}catch{return fail('Could not load your duels. Try again in a moment.')}
- track('duel_inbox',{n:IBR.items.length});$('ib-allow').checked=!IBR.off;pushBox('dpush2');ibDraw();show('s-inbox')}
+ document.body.classList.add('lobby-on');lbFriends();const had=lobbyCached();
+ try{[IBR,IBZ,IBREC,IBQ]=await Promise.all([rpc('duel_inbox',{}),rpc('duel_season',{}).catch(()=>null),rpc('duel_record',{p_token:TOKEN}).catch(()=>null),rpc('duel_quick_mine',{}).catch(()=>[])]);IBR=IBR||{items:[]};try{localStorage.setItem(LBK(),JSON.stringify({t:Date.now(),r:IBR,z:IBZ,rec:IBREC,q:IBQ||[]}))}catch{}IBQ=new Set(IBQ||[])}catch{if(had)return;return fail('Could not load your duels. Try again in a moment.')}
+ track('duel_inbox',{n:IBR.items.length});$('ib-allow').checked=!IBR.off;pushBox('dpush2');ibDraw();if(!had)show('s-inbox')}
 function pyramid(){const mi=IBZ&&IBZ.mine,el=$('pr-pyr');
  if(!mi){el.innerHTML='<p class="pr-note">Play rated duels (both players signed in) to get a league this season.</p>';$('pr-div-r').textContent='';return}
  const placing=mi.g<5,cur=placing?-1:PYR_TIERS.findLastIndex(t=>mi.r>=t[1]),nx=PYR_TIERS[cur+1];
