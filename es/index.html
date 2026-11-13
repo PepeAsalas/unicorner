@@ -1673,6 +1673,28 @@ body.kit-gold .sprite{filter:drop-shadow(0 0 var(--kg) #f2c230) drop-shadow(0 0 
 .topbar #soundToggle[data-on="0"]{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 2h2v3H0zM2 1h1v5H2zM3 0h1v7H3z' fill='%231a1030'/%3E%3Cpath d='M5 2h1v1H5zM7 2h1v1H7zM6 3h1v1H6zM5 4h1v1H5zM7 4h1v1H7z' fill='%23e3262f'/%3E%3C/svg%3E")!important}
 body.playing .topbar .tb-split .sound-toggle+.sound-toggle{border-left:0!important}
 .topbar #stadiumToggle:active,.topbar .tb-split .sound-toggle:active{transform:translateY(2px)}
+/* locker room on a computer: a fixed-size room with a sidebar (title, tabs, what you're wearing, next unlock)
+   and a wide grid that scrolls on its own. Phones keep the single column: the two wrappers are display:contents there. */
+#dlg-stadium .st-side,#dlg-stadium .st-main{display:contents}
+#dlg-stadium .st-show{display:none}
+@media (min-width:1000px) and (min-height:620px){
+ #dlg-stadium{width:min(1180px,calc(100vw - 48px));height:min(820px,calc(100dvh - 48px));max-height:none;overflow:hidden}
+ #dlg-stadium .st-body{box-sizing:border-box;height:100%;display:grid;grid-template-columns:300px minmax(0,1fr);column-gap:28px;padding:26px 28px}
+ #dlg-stadium .st-side{display:flex;flex-direction:column;gap:14px;min-height:0;overflow-y:auto;padding:0 8px 8px 0;border-right:3px solid rgba(0,0,0,.35)}
+ #dlg-stadium .st-main{display:block;min-height:0;overflow-y:auto;padding:52px 10px 10px 0}
+ #dlg-stadium h2{font-size:18px!important;margin:2px 0 4px!important;padding-right:0}
+ #dlg-stadium .pk-tabs{display:grid!important;grid-template-columns:1fr!important;gap:10px!important;margin:0!important}
+ #dlg-stadium .pk-tabs button{height:54px!important;font-size:22px!important;text-align:left!important;padding:0 16px!important}
+ #dlg-stadium .st-sub{margin:0!important;font-size:18px!important;line-height:1.35}
+ #dlg-stadium .kit-next{margin:0!important}
+ #dlg-stadium .kit-next-row{flex-direction:column;align-items:flex-start}
+ #dlg-stadium .st-show{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 10px 12px;background:radial-gradient(ellipse at 50% 85%,rgba(242,194,48,.35),transparent 60%),#2a1d12;border:3px solid #000;box-shadow:inset 0 -10px 0 rgba(0,0,0,.25)}
+ #dlg-stadium .st-show .kit-pv{zoom:2.6;image-rendering:pixelated}
+ #dlg-stadium .st-show small{font:400 11px "Press Start 2P",var(--lab);color:#f2c230;text-transform:uppercase;margin-top:6px}
+ #dlg-stadium .st-show b{font:400 26px var(--px);color:#fbf6e8;text-shadow:0 2px 0 #000}
+ #dlg-stadium .st-main .st-grid,#dlg-stadium .st-main .kit-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))!important;max-height:none!important;overflow:visible!important;gap:14px!important}
+ #dlg-stadium .lg-x{top:22px!important;right:24px!important}
+}
 /* the locker button (kits, backgrounds, trophies) sits in the same strip as ES and sound */
 .topbar .tb-split{margin-left:auto}.topbar .tb-split #stadiumToggle{height:100%!important;width:44px!important;max-width:44px!important;margin:0!important;border:0!important;border-right:2px solid #1d1a2b!important;box-shadow:none!important;background:transparent!important}.topbar .tb-split #stadiumToggle svg{width:20px;height:18px}
 @media (hover:hover){.topbar .tb-split .sound-toggle:hover{background-color:#f3e6bf!important}}
@@ -3886,13 +3908,14 @@ const sw=k=>{const c=SKY[k];return `<span class="st-sw" style="--sky:${c[0]};--c
 function dot(){const best=bestStreak(),top=Math.max(0,...LIST.filter(t=>best>=t[2]).map(t=>t[2])),st=kitStats(),kits=KITS.filter(k=>kitHas(k,st)).length;btn.classList.toggle('has-new',top>+(ls('uc-bg-seen')||0)||kits>+(ls('uc-kit-seen')||1)||BGX.filter(b=>b[3]&&bgxReq(b[3])).length>+(ls('uc-bgx-seen')||0))}
 document.body.insertAdjacentHTML('beforeend','<dialog id="dlg-stadium"><div class="st-body" id="st-body"></div></dialog>');
 const dlg=document.getElementById('dlg-stadium');
-function openPicker(){const g0=document.querySelector('#st-body .st-grid'),y0=pkSame&&g0?g0.scrollTop:0,d0=pkSame?dlg.scrollTop:0;pkSame=false;const best=bestStreak(),cur=document.documentElement.dataset.bgx?(ls('uc-bg')||'d-pitch'):scene.dataset.bg||'classic',next=LIST.find(t=>t[2]>best);
+function openPicker(){const g0=document.querySelector('#st-body .st-grid'),y0=pkSame&&g0?g0.scrollTop:0,m0=document.querySelector('#st-body .st-main'),ym=pkSame&&m0?m0.scrollTop:0,d0=pkSame?dlg.scrollTop:0;pkSame=false;const best=bestStreak(),cur=document.documentElement.dataset.bgx?(ls('uc-bg')||'d-pitch'):scene.dataset.bg||'classic',next=LIST.find(t=>t[2]>best);
  const st=kitStats(),have=KITS.filter(k=>kitHas(k,st)).length,total=KITS.filter(k=>kitShow(k,st)).length;ls('uc-kit-seen',have);
  ls('uc-bg-seen',Math.max(0,...LIST.filter(t=>best>=t[2]).map(t=>t[2])));ls('uc-bgx-seen',BGX.filter(b=>b[3]&&bgxReq(b[3])).length);dot();
  const tabs=`<div class="pk-tabs" role="tablist"><button type="button" role="tab" data-st="tab" data-t="kits" aria-selected="${pTab==='kits'}">${L('Kits','Equipaciones')}</button><button type="button" role="tab" data-st="tab" data-t="stadiums" aria-selected="${pTab==='stadiums'}">${L('Backgrounds','Fondos')}</button><button type="button" role="tab" data-st="tab" data-t="trophies" aria-selected="${pTab==='trophies'}">${L('Trophies','Trofeos')}</button></div>`;
  const close=`<button type="button" class="lg-x" data-st="close" aria-label="Close" style="position:absolute;top:14px;right:14px;width:38px;height:38px;padding:0;background:#1d1a2b;color:#fff;border:3px solid #fff;border-radius:7px;font-size:24px;line-height:1;cursor:pointer">×</button>`;
  if(pTab==='kits'){const curK=UC_KIT?.id||'classic';
   document.getElementById('st-body').innerHTML=`${close}<h2>${L('Pick your kit','Elige tu equipación')}</h2>${tabs}
+  <div class="st-show">${kitPv(KITS.find(k=>k.id===curK)||KITS[0])}<small>${L('Wearing','Llevas')}</small><b>${L((KITS.find(k=>k.id===curK)||KITS[0]).en,(KITS.find(k=>k.id===curK)||KITS[0]).es)}</b></div>
   <p class="st-sub">${L(`${have} of ${total} unlocked. Play, find Screamers and keep your streak to unlock more.`,`${have} de ${total} desbloqueadas. Juega, consigue chicharros y mantén la racha para desbloquear más.`)}</p>
   ${(()=>{const nx=KITS.filter(k=>!kitHas(k,st)).map(k=>[k,kitProg(k,st)]).filter(([,p])=>p&&p.left>0).sort((a,b)=>(a[0].req[0]==='level')-(b[0].req[0]==='level')||b[1].frac-a[1].frac)[0];if(!nx)return'';const[k,pr]=nx;
    return`<div class="kit-next"><h3>${L('Next up','Lo próximo')}</h3><div class="kit-next-row">${kitPv(k)}<span><b>${L(k.en,k.es)}</b><small>${kitGoal(k.req)}</small><span class="kit-bar"><i style="width:${Math.round(pr.frac*100)}%"></i></span><small>${pr.label}${k.req[0]==='level'?'':' · '+L(`${pr.left} to go`,`faltan ${pr.left}`)}</small></span></div></div>`})()}
@@ -3910,7 +3933,9 @@ function openPicker(){const g0=document.querySelector('#st-body .st-grid'),y0=pk
   <p class="st-sub">${ES?(best?`Mejor racha: <b style="color:var(--gold)">${best} día${best===1?'':'s'}</b>`:'Juega hoy para desbloquear tu primer estadio')+(next?` · siguiente: ${next[1]} a los ${next[2]} días`:' · ¡todos los estadios desbloqueados!'):(best?`Best streak: <b style="color:var(--gold)">${best} day${best===1?'':'s'}</b>`:'Play today to unlock your first stadium')+(next?` · next: ${next[1]} at ${next[2]} days`:' · every stadium unlocked!')}</p>
   <div class="st-grid"><p class="kit-sec">${L('Stadiums · unlock with streaks','Estadios · se desbloquean con rachas')}</p>${LIST.map(([k,n,need])=>{const lock=best<need,on=k===cur;return `<button type="button" class="st-tile${on?' on':''}${lock?' locked':''}" data-st="pick" data-k="${k}" ${lock?'aria-disabled="true"':''} aria-label="${n}${lock?L(`, unlocks at a ${need}-day streak`,`, se desbloquea con una racha de ${need} días`):on?L(', in use',', en uso'):''}">${sw(k).replace('</span>',lock?'<i>🔒</i></span>':'</span>')}<span class="st-name">${n}</span><span class="st-need">${lock?`🔥 ${need} ${L('days','días')}`:on?L('✓ In use','✓ En uso'):need?L('Unlocked','Desbloqueado'):L('Default','Por defecto')}</span></button>`}).join('')}${[['d',L('Default','Por defecto')],['c',L('Plain colours · free','Colores lisos · gratis')],['p',L('Patterns · unlock by playing','Estampados · se desbloquean jugando')],['s',L('Scenes · unlock with streaks','Escenas · se desbloquean con rachas')]].map(([g,h])=>`<p class="kit-sec">${h}</p>`+BGX.filter(b=>b[0][0]===g).map(([k,en,es,req])=>{const n=L(en,es),lock=!bgxReq(req),on=k===cur;
    return `<button type="button" class="st-tile${on?' on':''}${lock?' locked':''}" data-st="pick" data-k="${k}" ${lock?'aria-disabled="true"':''} aria-label="${n}${lock?', '+bgxNeed(req):on?L(', in use',', en uso'):''}"><span class="st-sw bgx-sw" style="${bgxSw(BGX.find(b=>b[0]===k)[5]).replace(/"/g,"'")}">${lock?'<i>🔒</i>':''}</span><span class="st-name">${n}</span><span class="st-need">${lock?bgxNeed(req):on?L('✓ In use','✓ En uso'):req?L('Unlocked','Desbloqueado'):L('Free','Gratis')}</span></button>`}).join('')).join('')}</div>`;}
- if(!dlg.open)dlg.showModal();const g1=document.querySelector('#st-body .st-grid');if(g1)g1.scrollTop=y0;dlg.scrollTop=d0;track('stadium_open',{best})}
+ {const b=document.getElementById('st-body'),side=document.createElement('div'),main=document.createElement('div');side.className='st-side';main.className='st-main';
+  for(const el of [...b.children]){if(el.classList.contains('lg-x'))continue;(el.matches('h2,.pk-tabs,.st-sub,.kit-next,.st-show')?side:main).appendChild(el)}b.append(side,main)}
+ if(!dlg.open)dlg.showModal();const g1=document.querySelector('#st-body .st-grid');if(g1)g1.scrollTop=y0;const m1=document.querySelector('#st-body .st-main');if(m1)m1.scrollTop=ym;dlg.scrollTop=d0;track('stadium_open',{best})}
 btn.onclick=()=>{pTab='kits';openPicker()};
 window.ucOpenTrophies=()=>{pTab='trophies';openPicker()};
 if(UC_KIT&&!kitHas(UC_KIT,kitStats()))wearKit(KITS[0],true);
