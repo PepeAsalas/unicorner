@@ -3116,7 +3116,9 @@ async function rpc(fn,args={}){const t=await token();if(!t)throw new Error('Plea
  const txt=await r.text();let j=null;try{j=txt?JSON.parse(txt):null}catch{}
  if(r.status===401){dropSess();renderSlots();throw new Error('Please sign in again')}
  if(r.status===404&&j?.code==='PGRST202')throw new Error('Leagues are not switched on yet');
- if(!r.ok)throw new Error(j?.message||'Something went wrong — try again');return j}
+ if(!r.ok)throw new Error(j?.message||'Something went wrong — try again');
+ if(fn==='sq_request'&&j==='sent')window.ucFriendPush?.(args.p_nick);   // phone notification for the other player
+ if(fn==='sq_respond')window.ucInboxCheck?.();return j}
 
 async function pubRpc(fn,args={}){const t=sess?await token():null;
  const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+(t||SB_KEY),'Content-Type':'application/json'},body:JSON.stringify(args)});
@@ -3789,6 +3791,7 @@ async function viewGlobal(fresh){show('<h2>🌍 Global ranking</h2><p class="mut
 let slotsBusy=false;
 // friend requests waiting: a red number on the Socials bar (checked at most once a minute)
 let sqBadgeAt=0,sqBadgeN=0;
+window.addEventListener('uc-inbox',e=>{sqBadgeN=e.detail.n;sqBadgeAt=Date.now();sqBadge()});
 async function sqBadge(){const paint=()=>document.querySelectorAll('.sq-bar').forEach(el=>{let p=el.querySelector('.sq-pip');if(!sqBadgeN){p?.remove();return}
   if(!p){p=document.createElement('i');p.className='sq-pip';el.appendChild(p)}p.textContent=sqBadgeN;p.setAttribute('aria-label',sqBadgeN+' '+L('friend requests','solicitudes de amistad'))});
  if(!sess||!me?.profile){sqBadgeN=0;return paint()}if(Date.now()-sqBadgeAt<60000)return paint();sqBadgeAt=Date.now();
@@ -4721,4 +4724,5 @@ html body .landing-wrap .lp-title .lp-qm{margin-left:.02em}
 html body .landing-wrap .lp-art{height:auto!important;display:block!important}
 html body .landing-wrap .lp-sprite{width:clamp(130px,19vw,240px)!important;height:clamp(108px,15.8vw,200px)!important}
 @media(max-width:600px){html body .landing-wrap .lp-home-title-row{gap:8px!important}html body .landing-wrap .lp-title{font-size:clamp(44px,12.4vw,54px)!important}html body .landing-wrap .lp-title .lp-lead,html body .landing-wrap .lp-title .lp-qm,html body .landing-wrap .lp-title .uni-word{text-shadow:3px 0px 0 #1d1a2b,-3px 0px 0 #1d1a2b,0px 3px 0 #1d1a2b,0px -3px 0 #1d1a2b,3px 3px 0 #1d1a2b,-3px -3px 0 #1d1a2b,3px -3px 0 #1d1a2b,-3px 3px 0 #1d1a2b,0 5px 0 #1d1a2b!important}}</style>
+<script src="/notify.js" defer></script>
 </body></html>

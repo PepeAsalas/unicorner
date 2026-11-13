@@ -925,4 +925,5 @@ $('fb-send').onclick=()=>{const t=$('fb-t').value.trim();if(t)track('duel_feedba
 async function record(id){try{const r=await rpc('duel_record',{p_token:TOKEN});if(!r||r.w+r.d+r.l===0)return;$(id).textContent=`Your duel record: ${r.w}-${r.d}-${r.l} (W-D-L)`;$(id).hidden=false}catch{}}
 Promise.race([document.fonts.ready,new Promise(r=>setTimeout(r,300))]).then(boot);
 </script>
+<script src="/notify.js" defer></script>
 </body></html>
