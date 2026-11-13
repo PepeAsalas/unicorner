@@ -2286,8 +2286,8 @@ function start(){calmDown();if(INF){({Q,qi,score,results}=INF);INF=null;document
  </div>
  <div class="lx-h">${L('Anytime','Cuando quieras')} <small>${L('no daily limit','sin límite diario')}</small></div>
  <section class="modes" aria-label="${L('Game modes','Modos de juego')}">
-  <button type="button" class="mode m-inf" data-infinite><span class="m-pic lx-thumb"><img class="lx-i" src="/bg/mode-inf-cut.png" alt="" width="720" height="330"></span><span class="m-txt"><b>${L('Infinity','Infinito')}</b><small>${L('Unlimited questions, out in space','Preguntas ilimitadas, en el espacio')}</small></span><span class="m-go">${L('Press start','Pulsa start')}</span></button>
-  <a class="mode m-duel" id="lp-duel" href="/duel.html"><span class="m-pic lx-thumb"><img class="lx-i" src="/bg/mode-duel-cut.png" alt="" width="720" height="330"></span><span class="m-txt"><b>${L('Duels','Duelos')}</b><small id="lp-duel-sub">${L('1v1 a mate. Rarer answers hit harder','Reta a un amigo. Las respuestas raras pegan más')}</small><span class="m-rec" id="lp-duel-rec" hidden></span></span><span class="m-go" id="lp-duel-go">${L('Challenge','Retar')}</span></a>
+  <button type="button" class="mode m-inf" data-infinite><span class="m-pic lx-thumb"><img class="lx-i" src="/bg/mode-inf-v2.webp" alt="" width="1125" height="338"></span><span class="m-txt"><b>${L('Infinity','Infinito')}</b><small>${L('Unlimited questions, out in space','Preguntas ilimitadas, en el espacio')}</small></span><span class="m-go">${L('Press start','Pulsa start')}</span></button>
+  <a class="mode m-duel" id="lp-duel" href="/duel.html"><span class="m-pic lx-thumb"><img class="lx-i" src="/bg/mode-duel-v2.webp" alt="" width="843" height="253"></span><span class="m-txt"><b>${L('Duels','Duelos')}</b><small id="lp-duel-sub">${L('1v1 a mate. Rarer answers hit harder','Reta a un amigo. Las respuestas raras pegan más')}</small><span class="m-rec" id="lp-duel-rec" hidden></span></span><span class="m-go" id="lp-duel-go">${L('Challenge','Retar')}</span></a>
  </section>
 
  ${compete}
@@ -2620,7 +2620,7 @@ www.unicornergame.lol`};
   <section class="jb" id="compete-results" data-compete><div class="jb-frame"><div class="jb-screen"><p class="jb-empty">GLOBAL RANKING · LOADING…</p></div></div></section>
   ${hits.length?`<section class="result-section"><div class="result-section-head"><h2>${L('Your match highlights','Lo mejor de tu partido')}</h2><p class="mute">${L('Best answers first','Primero las mejores respuestas')}</p></div><div class="result-list">${hits.map(r=>resultItem(r,false)).join('')}</div></section>`:''}
   ${misses.length?`<div class="result-nearly"><section class="result-section"><div class="result-section-head"><h2>${L('Nearly had it','Casi')}</h2><p class="mute">${ES?(misses.length===1?'1 respuesta':misses.length+' respuestas')+' para aprender para mañana':(misses.length===1?'1 answer':misses.length+' answers')+' to learn for tomorrow'}</p></div><div class="result-list">${misses.map(r=>resultItem(r,true)).join('')}</div></section></div>`:''}
-  <div class="modes res-modes"><button type="button" class="mode m-inf" data-infinite><span class="m-pic lx-thumb"><img class="lx-i" src="/bg/mode-inf-cut.png" alt="" width="720" height="330"></span><span class="m-txt"><b>${L('Infinity','Infinito')}</b><small>${L('Unlimited questions, out in space','Preguntas ilimitadas, en el espacio')}</small></span><span class="m-go">${L('Press start','Pulsa start')}</span></button></div>
+  <div class="modes res-modes"><button type="button" class="mode m-inf" data-infinite><span class="m-pic lx-thumb"><img class="lx-i" src="/bg/mode-inf-v2.webp" alt="" width="1125" height="338"></span><span class="m-txt"><b>${L('Infinity','Infinito')}</b><small>${L('Unlimited questions, out in space','Preguntas ilimitadas, en el espacio')}</small></span><span class="m-go">${L('Press start','Pulsa start')}</span></button></div>
   <div class="row result-home-row"><button class="ghost" id="home">${L('Back to home','Volver al inicio')}</button></div>
   <div class="relay-rail" id="relay-rail"></div>
  </div></div>`,()=>{
@@ -4018,12 +4018,12 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 document.head.insertAdjacentHTML('beforeend',`<style>
 .crowd-pct{display:inline-block;margin-left:6px;padding:1px 5px;background:rgba(255,255,255,.1);color:#fff;letter-spacing:0;text-transform:none}
 .ans li .crowd-you{font:700 11px var(--lab);background:#1d1a2b;color:#fff;padding:2px 5px;border-radius:3px}
-.tr-ico{display:inline-block;flex:none;background-size:100% 100%;image-rendering:pixelated}
+.tr-ico{display:inline-block;flex:none;background:center/contain no-repeat;image-rendering:auto}
 .tr-cab{background:#5a3518;border:4px solid #000;box-shadow:inset 0 0 0 4px #7a4a22,6px 6px 0 rgba(0,0,0,.35);padding:14px 10px 10px;margin-top:12px}
 .tr-cab .ttl{font:12px "Press Start 2P",monospace;color:#ffe2a8;text-align:center;margin-bottom:12px;text-shadow:2px 2px 0 #000;line-height:1.4}
 .tr-shelf{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:8px 2px 0;border-bottom:8px solid #8a5a2a;box-shadow:0 4px 0 #3a2008;margin-bottom:16px;background:linear-gradient(#2a1608,#3e220c)}
 #tr-cab .tr-slot{display:grid!important;justify-items:center;align-content:end;gap:4px;min-height:96px;margin:0!important;padding:0 0 6px!important;text-align:center;background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;color:inherit;cursor:pointer;font:inherit;min-width:0;width:auto!important}
-.tr-slot .tr-ico{width:48px;height:48px}
+.tr-slot .tr-ico{width:64px;height:64px}
 .tr-slot.lock .tr-ico{filter:brightness(0) opacity(.45)}
 .tr-slot .w{font:10px var(--lab);color:#ffe2a8;line-height:1.1}
 .tr-slot .n{font:8px "Press Start 2P",monospace;background:#f2c230;color:#1d1a2b;padding:3px 4px 2px}
@@ -4169,7 +4169,7 @@ const ART={
  reliable:[['....SSS....','....S.S....','....SSS....','SSSSSSSSSSS','.....S.....','.....S.....','S....S....S','SS...S...SS','.SSSSSSSSS.','...SSSSS...'],{S:'#9fd8ff'}],
  ironman:[['.....S.....','....SS.....','....SSS....','...SSwS....','...SwwSS...','..SSwwwS...','..SwwMwwS..','.SSwMMMwSS.','.SwwMMMwwS.','.SSwwwwwSS.','..SSSSSSS..'],{S:'#9fd8ff',w:'#ffffff',M:'#fff6c0'}],
  spoon:[['.......TTT.','......TTTTT','......TTtTT','.......TTT.','......T....','.....T.....','....T......','...T.......','..T........','.T.........','T..........'],{T:'#c08850',t:'#8a5a2a'}]};
-const ICO={};const ico=k=>(ICO[k]=ICO[k]||bmp(...ART[k]));
+const ico=k=>`url(/trophies/${k}.png)`; // drawn trophies; the old pixel icons in ART stay as a reference
 const icoHtml=(k,css='')=>`<span class="tr-ico" style="background-image:${ico(k)};${css}" aria-hidden="true"></span>`;
 const TR=()=>[['champion',L('Champion','Campeón'),L('Most points in the week.','Más puntos de la semana.')],
  ['boot',L('Golden Boot','Bota de Oro'),L('Most Screamers in the week.','Más chicharros de la semana.')],
@@ -4629,7 +4629,7 @@ body.landing .landing-wrap .modes .mode .m-go.m-go{display:block!important;top:a
 body.landing .landing-wrap .modes .mode .m-tag{top:8px!important;left:8px!important}
 html body .modes .mode .m-pic.lx-thumb.lx-thumb{background:linear-gradient(transparent 78%,rgba(0,0,0,.22) 78%),linear-gradient(rgba(255,255,255,.07) 2px,transparent 2px) 0 0/24px 24px,linear-gradient(90deg,rgba(255,255,255,.07) 2px,transparent 2px) 0 0/24px 24px,#1d4486!important;overflow:hidden!important;display:block!important;position:relative!important;padding:0!important}
 html body .modes .mode .m-pic.lx-thumb.lx-thumb::before,html body .modes .mode .m-pic.lx-thumb.lx-thumb::after{display:none!important;content:none!important}
-html body .modes .mode.mode .m-pic.lx-thumb.lx-thumb img.lx-i,html body .modes .mode .m-pic.lx-thumb.lx-thumb img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;image-rendering:pixelated;margin:0!important}
+html body .modes .mode.mode .m-pic.lx-thumb.lx-thumb img.lx-i,html body .modes .mode .m-pic.lx-thumb.lx-thumb img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:78% 50%!important;image-rendering:pixelated;margin:0!important}
 body.landing .landing-wrap #hb-home.hb{width:100%!important;max-width:none!important;height:120px!important;border:3px solid #1d1a2b!important;box-shadow:0 4px 0 #1d1a2b!important}
 @media (max-width:700px){
  .lx-today{grid-template-columns:1fr;gap:14px}
