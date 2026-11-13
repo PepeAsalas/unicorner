@@ -1688,10 +1688,11 @@ body.playing .topbar .tb-split .sound-toggle+.sound-toggle{border-left:0!importa
  #dlg-stadium .st-sub{margin:0!important;font-size:18px!important;line-height:1.35}
  #dlg-stadium .kit-next{margin:0!important}
  #dlg-stadium .kit-next-row{flex-direction:column;align-items:flex-start}
- #dlg-stadium .st-show{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 10px 12px;background:radial-gradient(ellipse at 50% 85%,rgba(242,194,48,.35),transparent 60%),#2a1d12;border:3px solid #000;box-shadow:inset 0 -10px 0 rgba(0,0,0,.25)}
+ #dlg-stadium .st-show{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 10px 12px;background:#2a1d12;border:3px solid #000}
  #dlg-stadium .st-show .kit-pv{zoom:2.6;image-rendering:pixelated}
- #dlg-stadium .st-show small{font:400 11px "Press Start 2P",var(--lab);color:#f2c230;text-transform:uppercase;margin-top:6px}
+ #dlg-stadium .st-show small{font:400 14px var(--lab);color:#cdbf9e;text-transform:uppercase;letter-spacing:.18em;margin-top:8px}
  #dlg-stadium .st-show b{font:400 26px var(--px);color:#fbf6e8;text-shadow:0 2px 0 #000}
+ #dlg-stadium .st-show b::after{content:'';display:block;width:60%;height:3px;margin:6px auto 0;background:repeating-linear-gradient(90deg,#f2c230 0 6px,transparent 6px 10px)}
  #dlg-stadium .st-main .st-grid,#dlg-stadium .st-main .kit-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))!important;max-height:none!important;overflow:visible!important;gap:14px!important}
  #dlg-stadium .lg-x{top:22px!important;right:24px!important}
 }
