@@ -203,7 +203,7 @@ h1{font-size:52px}.sub{margin-bottom:8px}
 .q{font-size:34px}.need{font-size:20px}.choice .btn{min-height:76px;font-size:30px}.field{font-size:24px;min-height:58px}
 }
 @media (max-width:360px){.card,.slot{width:58px}.hand{gap:5px}}
-</style>
+</style><link rel="stylesheet" href="/endkit.css">
 </head>
 <body class="noart">
 <div class="wrap">
@@ -473,6 +473,21 @@ async function reveal(){if(revealing)return;revealing=true;lock=true;stopClock()
   if(run>TARGET){d.classList.add('over');await wait(250);shake($('dealer'),6);host('surprised',L('¡Ay! Too many for the house!','¡Ay! ¡La casa se pasa!'))}
   else if(!bust&&i<DEALER.length-1)host('think',pick(L(['Hmm…','One more…','Let\'s see…'],['Mmm…','Una más…','A ver…'])))}
  await wait(bust?300:650);finish(t,true)}
+async function shImage(t,res,label){try{await document.fonts.load('80px "Jersey 10"');await document.fonts.load('40px VT323')}catch{}
+ const W=1080,H=1350,c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d'),ink='#1d1a2b',cr='#fbf6e8',gold='#f2c230',cx=W/2;
+ g.fillStyle='#1c6b45';g.fillRect(0,0,W,H);g.fillStyle='rgba(0,0,0,.18)';for(let y=0;y<H;y+=8)g.fillRect(0,y,W,3);
+ g.strokeStyle=gold;g.lineWidth=10;g.strokeRect(30,30,W-60,H-60);g.textAlign='center';
+ g.fillStyle=gold;g.font='120px "Jersey 10",monospace';g.lineWidth=14;g.strokeStyle=ink;const ttl=L('STABLE HAND','MANO DE CUADRA');g.strokeText(ttl,cx,190);g.fillText(ttl,cx,190);
+ g.fillStyle=cr;g.font='46px VT323,monospace';g.fillText(new Date(DAY+'T12:00:00Z').toLocaleDateString(L('en-GB','es-ES'),{weekday:'long',day:'numeric',month:'long',timeZone:'UTC'}),cx,258);
+ const n=Math.max(S.hand.length,1),cw=170,gap=22,x0=cx-(n*cw+(n-1)*gap)/2;
+ S.hand.forEach((cd,i)=>{const x=x0+i*(cw+gap),y=330,tt=cd.p?tierOf(cd.p):null;g.fillStyle=ink;g.fillRect(x+8,y+8,cw,236);g.fillStyle=tt?tt.hex:'#5b5070';g.fillRect(x,y,cw,236);g.fillStyle=cr;g.fillRect(x+10,y+62,cw-20,164);
+  g.fillStyle=ink;g.font='34px "Jersey 10",monospace';g.fillText(tt?tt.n.toUpperCase().slice(0,10):L('FOUL','FALTA'),x+cw/2,y+44);g.font='76px "Jersey 10",monospace';g.fillText(cd.p?'+'+cd.p:'✕',x+cw/2,y+170)});
+ {g.textAlign='left';g.font='190px "Jersey 10",monospace';const w1=g.measureText(String(t)).width;g.font='90px "Jersey 10",monospace';const w2=g.measureText('/'+TARGET).width,x1=cx-(w1+12+w2)/2;
+ g.font='190px "Jersey 10",monospace';g.fillStyle=t>TARGET?'#ff8a7a':cr;g.lineWidth=16;g.strokeText(String(t),x1,800);g.fillText(String(t),x1,800);g.fillStyle=gold;g.font='90px "Jersey 10",monospace';g.fillText('/'+TARGET,x1+w1+12,800);g.textAlign='center'}
+ g.save();g.translate(cx,930);g.rotate(-.04);g.font='84px "Jersey 10",monospace';const vw=g.measureText(label).width+70;g.fillStyle=ink;g.fillRect(-vw/2+10,-70,vw,110);g.fillStyle=res==='lose'?'#c8473b':res==='push'?cr:gold;g.fillRect(-vw/2,-80,vw,110);g.fillStyle=res==='lose'?'#fff':ink;g.fillText(label,0,0);g.restore();
+ g.fillStyle=cr;g.font='48px VT323,monospace';g.fillText(L(`House ${DTOT}`,`Casa ${DTOT}`),cx,1060);
+ g.fillStyle=ink;g.fillRect(0,H-150,W,150);g.fillStyle=cr;g.font='56px "Jersey 10",monospace';g.fillText(L('Can you get closer?','¿Te acercas más?'),cx,H-92);g.fillStyle=gold;g.font='42px VT323,monospace';g.fillText(ES?'unicornergame.lol/es/stablehand':'unicornergame.lol/stablehand',cx,H-42);
+ return new Promise(r=>c.toBlob(r,'image/png'))}
 function finish(t,live){stopClock();drawDealer(true);drawHand(false);
  const bust=t>TARGET,dbust=DTOT>TARGET,full=t===TARGET;
  const res=bust?'lose':full?'full':dbust?'win':t>DTOT?'win':t===DTOT?'push':'lose';
@@ -482,13 +497,22 @@ function finish(t,live){stopClock();drawDealer(true);drawHand(false);
  const grid=S.hand.map(c=>c.p?tierOf(c.p).e:'❌').join('');
  $('panel').innerHTML=`<div class="res"><span class="verdict ${res==='lose'?'lose':res==='push'?'push':''}" id="verdict">${label}</span>
   <div class="vs"><span>${L('YOU','TÚ')}<b id="vy" style="${bust?'color:#ffb3a8':''}">${t}</b></span><span>${L('TARGET','OBJETIVO')}<b style="color:var(--gold)">${TARGET}</b></span><span>${L('HOUSE','CASA')}<b id="vh" style="${dbust?'color:#ffb3a8':''}">${DTOT}</b></span></div>
-  <p class="hint" id="avg2"></p><div class="share"><button class="btn" id="share">${L('Share','Compartir')}</button><a class="btn w" href="${HOME}">${L('Back to Unicorner','Volver a Unicorner')}</a></div>
-  <div id="chal2"></div><div class="lb" id="lb" hidden></div><div class="recap" id="recap"></div><div class="fb" id="fb" hidden></div><p class="hint">${L('A new table tomorrow at midnight.','Mesa nueva mañana a medianoche.')}</p></div>`;
+  <p class="hint" id="avg2"></p><div id="chal2"></div>
+  <div class="ek"><p class="ek-h">${L('Share your result','Comparte tu resultado')}</p><div class="ek-tiles"><button class="ek-t ek-img" id="shareimg">${L('Share image','Compartir imagen')}</button><button class="ek-t ek-dl" id="dlimg">${L('Save image','Guardar imagen')}</button><button class="ek-t ek-cp" id="copy">${L('Copy text','Copiar texto')}</button></div></div>
+  <div class="ek-links">${ARCH?'':`<a class="ek-l ek-rk" href="${ES?'/es/':'/'}#ranking-stablehand">${L("Today's ranking",'Ranking de hoy')}</a>`}<button class="ek-l ek-ans" id="show">${L('See answers','Ver respuestas')}</button></div>
+  <div class="lb" id="lb" hidden></div><div class="recap" id="recap"></div><div class="fb" id="fb" hidden></div><p class="hint">${L('A new table tomorrow at midnight.','Mesa nueva mañana a medianoche.')}</p></div>`;
  // what else you could have played, by rarity: you learn something every hand
  $('recap').innerHTML=S.hand.map(c=>{const q=BANK.find(x=>x.id===c.q);if(!q)return'';const by=TIERS.map(tt=>{const ex=q.answers.filter(a=>(FAME[a.fame]||10)===tt.p).slice(0,3).map(shortName);return ex.length?`<p><i style="background:${tt.c}"></i>${tt.n}: ${esc(ex.join(', '))}</p>`:''}).join('');
   return`<details><summary>${esc(qText(q))} · ${L('you','tú')}: ${esc(c.a||'—')} ${c.p?'+'+c.p:L('(foul)','(falta)')}</summary>${by}</details>`}).join('');
  const txt=`${L('Stable Hand','Mano de Cuadra')} 🐴 ${DAY}\n${grid} → ${t}/${TARGET}${res==='full'?L(' FULL HOUSE',' PLENO'):bust?L(' BUST',' ME PASÉ'):''}\n${res==='win'||res==='full'?L('Beat the house','Le gané a la casa'):res==='push'?L('Push with the house','Empate con la casa'):L('House ','Casa ')+DTOT}\nhttps://unicornergame.lol${ES?'/es':''}/stablehand.html`;
- $('share').onclick=async()=>{if(navigator.share){try{await navigator.share({text:txt})}catch{}return}try{await navigator.clipboard.writeText(txt);$('share').textContent=L('Copied!','¡Copiado!')}catch{}};
+ const flashT=(id,t,back)=>{$(id).textContent=t;setTimeout(()=>$(id).textContent=back,2000)},fname=`stable-hand-${DAY}.png`;
+ const save=blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fname;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)};
+ $('copy').onclick=async()=>{track('stablehand_copy',{total:t});try{await navigator.clipboard.writeText(txt);flashT('copy',L('Copied ✓','Copiado ✓'),L('Copy text','Copiar texto'))}catch{}};
+ $('dlimg').onclick=async()=>{const b=$('dlimg');b.disabled=true;track('stablehand_download_image',{total:t});try{save(await shImage(t,res,label));flashT('dlimg',L('Saved ✓','Guardada ✓'),L('Save image','Guardar imagen'))}catch{}b.disabled=false};
+ $('shareimg').onclick=async()=>{const b=$('shareimg');b.disabled=true;track('stablehand_share_image',{total:t});
+  try{const blob=await shImage(t,res,label),f=new File([blob],fname,{type:'image/png'});
+   if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],text:txt})}catch{}}else{save(blob);flashT('shareimg',L('Saved! Post it anywhere','¡Guardada! Publícala donde quieras'),L('Share image','Compartir imagen'))}}catch{}b.disabled=false};
+ $('show').onclick=()=>{const r=$('recap');const d=r.querySelector('details');if(d)d.open=true;r.scrollIntoView({behavior:REDUCE?'auto':'smooth',block:'start'})};
 const sc=t<=TARGET?t:0;CH&&CH.end($('chal2'),sc,live);board();dayAvg();
  feedback(res,t);if(live)track('stablehand_finish',{result:res,total:t,target:TARGET,house:DTOT,cards:S.hand.length,fouls:S.hand.filter(c=>!c.p).length,passed:!!S.passed});
  const v=$('verdict');

@@ -20,7 +20,7 @@
 <meta name="twitter:image" content="https://unicornergame.lol/og-rosco-es.jpg">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"VideoGame","name":"Rosco de fútbol","url":"https://unicornergame.lol/es/rosco.html","description":"Una pista de fútbol por cada letra del abecedario, contra el reloj: jugadores, clubes y entrenadores de la A a la Z. Gratis y nuevo cada día.","inLanguage":"es","genre":["Trivia","Quiz","Sports"],"gamePlatform":"Web browser","applicationCategory":"Game","operatingSystem":"Any","isAccessibleForFree":true,"image":"https://unicornergame.lol/og-rosco-es.jpg","publisher":{"@id":"https://unicornergame.lol/#org"},"isPartOf":{"@id":"https://unicornergame.lol/#website"},"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Unicorner","item":"https://unicornergame.lol/es/"},{"@type":"ListItem","position":2,"name":"Rosco de fútbol","item":"https://unicornergame.lol/es/rosco.html"}]}]}</script><!--/seo-->
 <link rel="icon" href="/favicon-32.png" sizes="32x32">
-<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/fonts/fonts.css"><link rel="stylesheet" href="/endkit.css">
 <style>
 /* The daily Rosco: one clue per letter, 3 minutes, "Pasapalabra" skips. Content: rosco/YYYY-MM-DD.json (scripts/build_rosco.py). */
 :root{--paper:#fbf6e8;--cream:#f6eed8;--sand:#e9dfc2;--ink:#1d1a2b;--gold:#f2c230;--grass:#2f9a62;--clay:#c8473b;--marine:#1d4486;--marine2:#2d5aa0;
@@ -156,11 +156,9 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
  <div class="host"><div class="face" id="face2"><img alt="" width="64" height="64"></div><div class="say" id="say2" role="status"></div></div>
  <div class="grid" id="grid"></div>
  <p class="note" id="rank2" style="margin:0;font-size:20px"></p>
- <a class="btn paper rk-link" id="rklink" href="/#ranking-rosco" data-es="Ver el ranking del Rosco de hoy">See today's Rosco ranking</a>
  <div id="chal2"></div>
- <div class="row"><button class="btn gold" id="shareimg" data-es="Compartir imagen">Share image</button><button class="btn paper" id="dlimg" data-es="↓ Descargar">↓ Download</button></div>
- <button class="btn paper" id="copy" style="width:100%" data-es="Copiar resultado">Copy result</button>
- <button class="btn paper" id="show" style="width:100%" data-es="Ver respuestas">See answers</button>
+ <div class="ek"><p class="ek-h" data-es="Comparte tu resultado">Share your result</p><div class="ek-tiles"><button class="ek-t ek-img" id="shareimg" data-es="Compartir imagen">Share image</button><button class="ek-t ek-dl" id="dlimg" data-es="Guardar imagen">Save image</button><button class="ek-t ek-cp" id="copy" data-es="Copiar texto">Copy text</button></div></div>
+ <div class="ek-links"><a class="ek-l ek-rk" id="rklink" href="/#ranking-rosco" data-es="Ranking de hoy">Today's ranking</a><button class="ek-l ek-ans" id="show" data-es="Ver respuestas">See answers</button></div>
  <ul class="ans" id="ans" hidden></ul>
  <div class="card fb" id="fb" hidden><p class="fb-q" data-es="<b>¿Qué tal el Rosco de hoy?</b> Es nuevo, así que cuéntanos."><b>How was today's Rosco?</b> It's brand new, so tell us.</p>
   <div class="r10" id="r10"></div>
@@ -355,7 +353,7 @@ $('show').onclick=()=>{$('ans').hidden=!$('ans').hidden;$('show').textContent=$(
 const resultText=()=>{const c=counts();return L('Unicorner Rosco','Rosco Unicorner')+` #${NO}: ${c.ok}/${R.letters.length}\n${gridText()}\nhttps://unicornergame.lol/`+L('rosco.html','es/rosco.html')};
 $('copy').onclick=async()=>{const c=counts(),t=resultText();track('rosco_copy',{score:c.ok});
  try{await navigator.clipboard.writeText(t)}catch{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch{}a.remove()}
- $('copy').textContent=L('Copied! Paste it anywhere','¡Copiado! Pégalo donde quieras');setTimeout(()=>$('copy').textContent=L('Copy result','Copiar resultado'),1800)};
+ $('copy').textContent=L('Copied! Paste it anywhere','¡Copiado! Pégalo donde quieras');setTimeout(()=>$('copy').textContent=L('Copy text','Copiar texto'),1800)};
 // share image: the wheel in your colours, the score and Horacio, 1080x1350 (fits Instagram, WhatsApp, TikTok)
 async function roscoImage(){const W=1080,H=1350,c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d');g.imageSmoothingEnabled=false;
  try{await document.fonts.load('80px "Jersey 10"');await document.fonts.load('40px VT323')}catch{}
@@ -375,7 +373,7 @@ async function roscoImage(){const W=1080,H=1350,c=document.createElement('canvas
  g.fillStyle=ink;g.fillRect(0,H-130,W,130);g.fillStyle=cr;g.font='52px "Jersey 10",monospace';g.fillText(L(`${c0.ok} ✓  ${c0.no} ✕   Can you beat me?`,`${c0.ok} ✓  ${c0.no} ✕   ¿Me superas?`),cx,H-84);g.fillStyle=gold;g.font='40px VT323,monospace';g.fillText(ES?'unicornergame.lol/es/rosco':'unicornergame.lol/rosco',cx,H-36);
  return new Promise(res=>c.toBlob(res,'image/png'))}
 const dlImg=blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`rosco-${DAY}.png`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)};
-$('dlimg').onclick=async()=>{const b=$('dlimg');b.disabled=true;track('rosco_download_image',{score:counts().ok});try{dlImg(await roscoImage());b.textContent=L('Saved ✓','Guardada ✓');setTimeout(()=>b.textContent=L('↓ Download','↓ Descargar'),2000)}catch{}b.disabled=false};
+$('dlimg').onclick=async()=>{const b=$('dlimg');b.disabled=true;track('rosco_download_image',{score:counts().ok});try{dlImg(await roscoImage());b.textContent=L('Saved ✓','Guardada ✓');setTimeout(()=>b.textContent=L('Save image','Guardar imagen'),2000)}catch{}b.disabled=false};
 $('shareimg').onclick=async()=>{const b=$('shareimg');b.disabled=true;track('rosco_share_image',{score:counts().ok});
  try{const blob=await roscoImage(),f=new File([blob],`rosco-${DAY}.png`,{type:'image/png'});
   if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],text:resultText()})}catch{}}

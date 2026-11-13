@@ -20,7 +20,7 @@
 <meta name="twitter:image" content="https://unicornergame.lol/og-millon-es.jpg">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"VideoGame","name":"Millones","url":"https://unicornergame.lol/es/millon.html","description":"Empiezas con 1.000.000 y lo repartes entre las respuestas de 8 preguntas de fútbol. Solo te llevas lo que caiga en la correcta. Gratis y nuevo cada día.","inLanguage":"es","genre":["Trivia","Quiz","Sports"],"gamePlatform":"Web browser","applicationCategory":"Game","operatingSystem":"Any","isAccessibleForFree":true,"image":"https://unicornergame.lol/og-millon-es.jpg","publisher":{"@id":"https://unicornergame.lol/#org"},"isPartOf":{"@id":"https://unicornergame.lol/#website"},"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Unicorner","item":"https://unicornergame.lol/es/"},{"@type":"ListItem","position":2,"name":"Millones","item":"https://unicornergame.lol/es/millon.html"}]}]}</script><!--/seo-->
 <link rel="icon" href="/favicon-32.png" sizes="32x32">
-<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/fonts/fonts.css"><link rel="stylesheet" href="/endkit.css">
 <style>
 /* Millions: start with 1,000,000, spread it over the answers, keep only what sits on the right one. Content: millon/YYYY-MM-DD.json. Art: millon/art/ (studio, trapdoor, money, stopwatch, button, marquee). */
 :root{--paper:#fbf6e8;--sand:#e9dfc2;--ink:#1d1a2b;--gold:#f2c230;--grass:#2f9a62;--clay:#c8473b;--marine:#1d4486;--marine2:#2d5aa0;--disp:"Jersey 10",monospace;--mono:"VT323",monospace;--ease:cubic-bezier(.23,1,.32,1)}
@@ -147,8 +147,8 @@ main,.card,.q,.say{image-rendering:auto}
 <section id="s-end" hidden><div class="card"><p class="msg-note" data-es="Te llevas">You keep</p><div class="big" id="final"></div><div class="grid" id="grid"></div><p class="msg-note" id="avg2" style="margin-top:8px"></p></div>
  <div id="chal2"></div>
  <div class="card lb" id="lb" hidden></div>
- <div class="row2"><button class="btn gold" id="shareimg" data-es="Compartir imagen">Share image</button><button class="btn paper" id="dlimg" data-es="↓ Descargar">↓ Download</button></div>
- <button class="btn paper" id="copy" data-es="Copiar resultado">Copy result</button>
+ <div class="ek"><p class="ek-h" data-es="Comparte tu resultado">Share your result</p><div class="ek-tiles"><button class="ek-t ek-img" id="shareimg" data-es="Compartir imagen">Share image</button><button class="ek-t ek-dl" id="dlimg" data-es="Guardar imagen">Save image</button><button class="ek-t ek-cp" id="copy" data-es="Copiar texto">Copy text</button></div></div>
+ <div class="ek-links"><a class="ek-l ek-rk" id="rklink" href="/#ranking-millon" data-es="Ranking de hoy">Today's ranking</a></div>
  <a class="btn gold" id="archback" href="/?inf=open" hidden data-es="Volver al archivo">Back to the archive</a>
  <div class="card fb" id="fb" hidden><p class="fb-q" data-es="<b>¿Qué tal Millones hoy?</b> Es nuevo, así que cuéntanos."><b>How was Millions today?</b> It's brand new, so tell us.</p>
   <div class="r10" id="r10"></div>
@@ -259,7 +259,7 @@ function note(x,y,dist,dur){if(matchMedia('(prefers-reduced-motion:reduce)').mat
  n.animate([{transform:'translate(0,0) rotate(0)',opacity:1},{transform:`translate(${sway}px,${dist}px) rotate(${sway*2}deg)`,opacity:0}],{duration:dur,easing:'cubic-bezier(.55,0,1,.45)',fill:'forwards'}).onfinish=()=>n.remove()}
 function drop(el){const r=el.querySelector('.door').getBoundingClientRect();for(let j=0;j<4;j++)setTimeout(()=>note(r.left+12+Math.random()*16,r.top+8,90,600),120+j*70)}
 function shower(n){for(let j=0;j<n;j++)setTimeout(()=>note(Math.random()*(innerWidth-40),-40,innerHeight*.9,1100+Math.random()*500),j*45)}
-function end(restored){show('end');if(ARCH){$('archback').hidden=false;$('archback').href=(ES?'/es/':'/')+'?inf=open';$('final').textContent=fmt(bank);$('grid').textContent=hist.join('');dayAvg();if(!restored)track('millon_finish',{score:bank,steps:hist.length});return say(bank?L(`You walk away with ${fmt(bank)}. Try another day from the archive!`,`Te llevas ${fmt(bank)}. ¡Prueba otro día del archivo!`):L('Nothing left. Try another day from the archive!','Te quedas a cero. ¡Prueba otro día del archivo!'),bank?'happy-talk':'sad-talk')}
+function end(restored){show('end');$('rklink').href=(ES?'/es/':'/')+'#ranking-millon';$('rklink').parentNode.hidden=!!ARCH;if(ARCH){$('archback').hidden=false;$('archback').href=(ES?'/es/':'/')+'?inf=open';$('final').textContent=fmt(bank);$('grid').textContent=hist.join('');dayAvg();if(!restored)track('millon_finish',{score:bank,steps:hist.length});return say(bank?L(`You walk away with ${fmt(bank)}. Try another day from the archive!`,`Te llevas ${fmt(bank)}. ¡Prueba otro día del archivo!`):L('Nothing left. Try another day from the archive!','Te quedas a cero. ¡Prueba otro día del archivo!'),bank?'happy-talk':'sad-talk')}
  CH&&CH.end($('chal2'),bank,!restored);feedback();if(!restored)rpc('millon_save',{p_day:DAY,p_score:bank,p_hist:hist.join('')}).catch(()=>{}).finally(()=>board());else board();dayAvg();$('final').textContent=fmt(bank);$('grid').textContent=hist.join('');if(!restored)track('millon_finish',{score:bank,steps:hist.length});
  say(bank?L(`You walk away with ${fmt(bank)}. Same game tomorrow, new questions!`,`Te llevas ${fmt(bank)}. ¡Mañana, preguntas nuevas!`):L('Nothing left today. Come back tomorrow!','Hoy te quedas a cero. ¡Vuelve mañana!'),bank?'happy-talk':'sad-talk')}
 $('lock').onclick=()=>{if(timer===null)return;clearInterval(timer);const b=$('lock');b.classList.add('press');SFX.press();setTimeout(()=>{b.classList.remove('press');lock()},450)};$('next').onclick=()=>{i++;ask()};
@@ -290,13 +290,13 @@ async function millonImage(){const W=1080,H=1350,c=document.createElement('canva
  g.fillStyle=ink;g.fillRect(0,H-130,W,130);g.fillStyle=cr;g.font='52px "Jersey 10",monospace';g.fillText(L('Can you keep more?','¿Te llevas más que yo?'),W/2,H-84);g.fillStyle=gold;g.font='40px VT323,monospace';g.fillText(ES?'unicornergame.lol/es/millon':'unicornergame.lol/millon',W/2,H-36);
  return new Promise(res=>c.toBlob(res,'image/png'))}
 const dlImg=blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`millions-${DAY}.png`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)};
-$('dlimg').onclick=async()=>{const b=$('dlimg');b.disabled=true;track('millon_download_image',{score:bank});try{dlImg(await millonImage());b.textContent=L('Saved ✓','Guardada ✓');setTimeout(()=>b.textContent=L('↓ Download','↓ Descargar'),2000)}catch{}b.disabled=false};
+$('dlimg').onclick=async()=>{const b=$('dlimg');b.disabled=true;track('millon_download_image',{score:bank});try{dlImg(await millonImage());b.textContent=L('Saved ✓','Guardada ✓');setTimeout(()=>b.textContent=L('Save image','Guardar imagen'),2000)}catch{}b.disabled=false};
 $('shareimg').onclick=async()=>{const b=$('shareimg');b.disabled=true;track('millon_share_image',{score:bank});
  try{const blob=await millonImage(),f=new File([blob],`millions-${DAY}.png`,{type:'image/png'});
   if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],text:resultText()})}catch{}}
   else{dlImg(blob);b.textContent=L('Saved! Post it anywhere','¡Guardada! Publícala donde quieras');setTimeout(()=>b.textContent=L('Share image','Compartir imagen'),2200)}}catch{}
  b.disabled=false};
-$('copy').onclick=()=>{navigator.clipboard.writeText(resultText()).then(()=>{$('copy').textContent=L('Copied!','¡Copiado!');setTimeout(()=>$('copy').textContent=L('Copy result','Copiar resultado'),1600)}).catch(()=>{})};
+$('copy').onclick=()=>{navigator.clipboard.writeText(resultText()).then(()=>{$('copy').textContent=L('Copied!','¡Copiado!');setTimeout(()=>$('copy').textContent=L('Copy text','Copiar texto'),1600)}).catch(()=>{})};
 (async()=>{if(ARCH&&(()=>{try{return localStorage.getItem('uc-inf-sub')!=='1'}catch{return true}})()){say(L('Past games are part of Infinity mode.','Los juegos anteriores son parte del Modo Infinito.'),'nervous');document.querySelector('main')?.insertAdjacentHTML('beforeend',`<a class="btn gold" style="margin-top:12px" href="${ES?'/es/':'/'}?inf=open">${L('See Infinity','Ver el Infinito')}</a>`);track('millon_archive_locked',{});return}
  try{const r=await fetch(`/millon/${DAY}.json`,{cache:'no-cache'});if(!r.ok)throw 0;D=await r.json()}catch{say(L('No game today yet. Come back soon!','Aún no hay juego hoy. ¡Vuelve pronto!'),'sad');return}
  let s=null;try{s=JSON.parse(localStorage.getItem(KEY))}catch{}
