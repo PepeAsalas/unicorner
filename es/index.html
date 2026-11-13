@@ -3714,7 +3714,7 @@ function playerCard(r){const k=kitOf(r),info=window.ucKitInfo||{},t=info.KLV?.[k
  let d=document.getElementById('dlg-player');if(!d){document.body.insertAdjacentHTML('beforeend','<dialog id="dlg-player" class="pcd" aria-label="Player card"></dialog>');d=document.getElementById('dlg-player');
   d.addEventListener('click',e=>{if(e.target===d||e.target.closest('[data-pc-x]'))d.close()})}
  d.style.setProperty('--tc',col);
- d.innerHTML=`<div class="pcd-art" style="--tc:${typeof kitTc=='function'?kitTc(k):'#cfd8e6'}"><span class="pcd-lv">${lv}</span><button type="button" class="pcd-x" data-pc-x aria-label="${L('Close','Cerrar')}">×</button><i class="pcd-u${k.gold?' gold':''}${k.myth?' myth':''}" style="background-image:${uniBg(k)}"></i></div>
+ d.innerHTML=`<div class="pcd-art" style="--tc:${col}"><span class="pcd-lv">${lv}</span><button type="button" class="pcd-x" data-pc-x aria-label="${L('Close','Cerrar')}">×</button><i class="pcd-u${k.gold?' gold':''}${k.myth?' myth':''}" style="background-image:${uniBg(k)}"></i></div>
  <div class="pcd-b"><div class="pcd-hd"><div class="pcd-nm">${r.me?esc(me?.profile?.nickname||L('You','Tú')):esc(r.nickname)}</div>${k.crew?`<i class="crew-tag">${L('CREW','EQUIPO')}</i>`:''}</div><div class="pcd-kit">${L('Wearing','Lleva')}: ${esc(L(k.en,k.es))}</div>
  <div class="pcd-st"><div><b data-pf="games">${games}</b>${L('games','partidos')}</div><div><b data-pf="best">${streak}</b>${L('best streak','mejor racha')}</div></div>
  ${(()=>{const nk=(r.me?me?.profile?.nickname:r.nickname)||'';return nk&&!r.ghost?`<div class="pcd-tr" data-tn="${esc(String(nk).toLowerCase())}" hidden></div>`:''})()}
@@ -3928,7 +3928,7 @@ function kitProg(k,st){if(!k.req)return null;const[t,n]=k.req;if((t==='allfive'&
  const u={games:L('games','partidos'),streak:L('day streak','días de racha'),scr:L('Screamers','chicharros'),scr1:L('Screamers in one game','chicharros en un partido'),best:L('points','puntos'),allfive:L('perfect games','partidos perfectos'),hw:L('Halloween games','partidos de Halloween'),hw31:L('on 31 Oct','el 31 de oct'),hwscr:L('Screamers','chicharros'),hwhi:L('points','puntos'),big:L(`games of ${BIG_SCORE}+`,`partidos de ${BIG_SCORE}+`)}[t];
  const label=t==='level'?L('Now: ','Ahora: ')+zl(ZONES[have][1]):`${have} / ${n} ${u}`;return{have,n,frac:n?have/n:0,left:n-have,label}}
 const progBar=pr=>`<span class="kit-bar" aria-hidden="true"><i style="width:${Math.round(pr.frac*100)}%"></i></span><span class="kit-prog">${pr.label}</span>`;
-const kitTc=k=>k.crew?'#5ef0ff':KLV[k.id]!=null?KLC[KLV[k.id]]:'#cfd8e6';
+const kitTc=k=>k.crew?'#5ef0ff':KLV[k.id]!=null?KLC[KLV[k.id]]:'#cfd8e6';window.ucKitTc=k=>{try{return kitTc(k)}catch{return'#cfd8e6'}};
 const kitPv=k=>`<span class="kit-pv" style="--tc:${kitTc(k)}"><i style="background-image:${sprite('happy',0,false,k).replace(/"/g,"'")}"></i></span>`;
 // Classic used to share the id 'rainbow' with the streak kit: a saved 'rainbow' without the 21-day streak was Classic
 try{if(localStorage.getItem('uc-kit')==='rainbow'&&!kitHas(KITS.find(k=>k.id==='rainbow'),kitStats())){localStorage.setItem('uc-kit','og');UC_KIT=KITS.find(k=>k.id==='og')}}catch{}
