@@ -1,0 +1,92 @@
+<!doctype html><meta charset="utf-8"><title>Locker polish · mock-ups</title>
+<style>
+@font-face{font-family:J;src:url(/fonts/jersey10.woff2)}@font-face{font-family:V;src:url(/fonts/vt323.woff2)}@font-face{font-family:P;src:url(/fonts/vt323.woff2)}
+:root{--ink:#1d1a2b;--paper:#fbf6e8;--gold:#f2c230;--wood:#3a2a1c;--wood2:#2a1d12}
+*{box-sizing:border-box}
+body{margin:0;padding:26px 34px 60px;font:19px V,monospace;color:var(--paper);background:#2a7a48}
+h1{font:400 42px J;margin:0;color:var(--gold);text-shadow:3px 3px 0 var(--ink)}
+h2{font:400 32px J;margin:30px 0 4px;color:var(--paper);text-shadow:2px 2px 0 var(--ink)}
+.opt{display:flex;gap:10px;align-items:baseline;margin:16px 0 8px}.opt b{font:400 26px J;background:var(--gold);color:var(--ink);padding:0 9px}.opt span{color:#e6f1e9}
+.row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1260px}
+.room{background:var(--wood);border:4px solid #000;box-shadow:6px 6px 0 rgba(0,0,0,.35);padding:14px;background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.14) 0 2px,transparent 2px 46px)}
+.lab{font:400 22px J;color:var(--gold);margin-bottom:8px}
+/* a fake scrolling list of tiles */
+.list{height:260px;overflow-y:scroll;display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-right:8px}
+.tile{height:118px;background:#8a9ab0;border:3px solid #000;box-shadow:0 3px 0 #000;display:grid;place-items:center}
+.tile img{width:84%;image-rendering:pixelated}
+
+/* S1 pixel rail: chunky square gold thumb on a dark wood groove */
+.s1{scrollbar-width:auto;scrollbar-color:var(--gold) var(--wood2)}
+.s1::-webkit-scrollbar{width:14px}.s1::-webkit-scrollbar-track{background:var(--wood2);border:3px solid #000}
+.s1::-webkit-scrollbar-thumb{background:var(--gold);border:3px solid #000;box-shadow:inset -3px -3px 0 #c98f12,inset 3px 3px 0 #fff0a6}
+.s1::-webkit-scrollbar-button{display:none}
+
+/* S2 no bar: fades top and bottom + a bouncing "more" arrow */
+.s2wrap{position:relative}
+.s2{scrollbar-width:none}.s2::-webkit-scrollbar{display:none}
+.s2wrap::before,.s2wrap::after{content:"";position:absolute;left:0;right:0;height:34px;pointer-events:none;z-index:2}
+.s2wrap::before{top:0;background:linear-gradient(var(--wood),transparent)}
+.s2wrap::after{bottom:0;background:linear-gradient(transparent,var(--wood))}
+.more{position:absolute;z-index:3;left:50%;bottom:4px;transform:translateX(-50%);font:400 18px J;color:var(--ink);background:var(--gold);border:3px solid #000;padding:2px 10px 0;animation:bob 1.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translate(-50%,-4px)}}
+
+/* S3 thin brass line: 6px, rounded off, only shows its colour, no arrows */
+.s3{scrollbar-width:thin;scrollbar-color:#c9a24a transparent}
+.s3::-webkit-scrollbar{width:6px}.s3::-webkit-scrollbar-track{background:rgba(0,0,0,.25)}.s3::-webkit-scrollbar-thumb{background:#c9a24a}
+.s3::-webkit-scrollbar-button{display:none}
+
+/* wearing plate options */
+.show{background:#2a1d12;border:3px solid #000;padding:14px 12px 0;display:flex;flex-direction:column;align-items:center}
+.pv{width:100%;aspect-ratio:6/5;max-width:260px;border:3px solid #000;display:grid;place-items:center;background:radial-gradient(ellipse 38% 9% at 50% 93%,rgba(0,0,0,.28),transparent 70%),repeating-conic-gradient(from 0deg at 50% 62%,#ff9fd6 0 10deg,#ff7ac8 10deg 20deg)}
+.pv img{width:90%;image-rendering:pixelated}
+.now{width:100%;margin-top:0;padding:12px 0 14px;text-align:center;background:radial-gradient(ellipse at 50% 85%,rgba(242,194,48,.35),transparent 60%)}
+.now small{display:block;font:400 18px V;color:var(--gold);letter-spacing:.12em}.now b{font:400 32px J;text-shadow:0 2px 0 #000}
+/* W1 brass name plate screwed under the picture */
+.w1{margin:12px 0 14px;position:relative;background:linear-gradient(#f6d77a,#d9a93c);color:var(--ink);border:3px solid #000;box-shadow:0 4px 0 #000;padding:6px 26px 4px;text-align:center}
+.w1::before,.w1::after{content:"";position:absolute;top:50%;width:6px;height:6px;margin-top:-3px;background:#7a5a1a;border-radius:50%;box-shadow:inset 1px 1px 0 #fff3}
+.w1::before{left:8px}.w1::after{right:8px}
+.w1 small{display:block;font:400 15px V;letter-spacing:.14em}.w1 b{font:400 30px/1 J}
+/* W2 ribbon banner across the bottom of the picture */
+.w2wrap{position:relative;width:100%;max-width:260px;margin-bottom:22px}
+.w2{position:absolute;left:-14px;right:-14px;bottom:-16px;background:#c8473b;color:#fff;border:3px solid #000;text-align:center;padding:4px 0 2px;font:400 28px/1 J;text-shadow:0 2px 0 #000}
+.w2::before,.w2::after{content:"";position:absolute;bottom:-11px;border:8px solid #7a1f2a;border-bottom-color:transparent}
+.w2::before{left:-3px;border-left-color:transparent}.w2::after{right:-3px;border-right-color:transparent}
+.w2 small{position:absolute;left:50%;top:-22px;transform:translateX(-50%);font:400 15px V;letter-spacing:.14em;color:var(--gold);background:#2a1d12;padding:0 6px}
+/* W3 scoreboard: black LED panel */
+.w3{width:100%;margin:12px 0 14px;background:#0d0b14;border:3px solid #000;box-shadow:inset 0 0 0 3px #2b2244;padding:8px 10px 6px;text-align:center}
+.w3 small{display:block;font:400 15px V;color:#ff8a5c;letter-spacing:.2em}
+.w3 b{font:400 30px/1 J;color:#ffd23f;text-shadow:0 0 6px rgba(255,210,63,.7);letter-spacing:.06em}
+.fake{position:relative}.fake .list{overflow:hidden;padding-right:24px}
+.rail{position:absolute;top:0;bottom:0;right:0}
+.r1{width:16px;background:#2a1d12;border:3px solid #000}.r1 i{position:absolute;left:0;right:0;top:22%;height:34%;background:#f2c230;border:3px solid #000;box-shadow:inset -3px -3px 0 #c98f12,inset 3px 3px 0 #fff0a6;margin:-3px}
+.r3{width:6px;right:4px;background:rgba(0,0,0,.25)}.r3 i{position:absolute;left:0;right:0;top:22%;height:34%;background:#c9a24a}
+</style>
+<h1>Locker polish · mock-ups</h1>
+
+<h2>Scrollbars</h2>
+<p style="margin:0;color:#e6f1e9">Also: on a computer the left sidebar shouldn't scroll at all. I'll shrink the preview so it always fits, so only the kit list keeps a scrollbar.</p>
+<div class="row" style="margin-top:12px">
+ <div><div class="opt"><b>S1</b><span>Pixel rail: chunky gold block on a dark groove</span></div>
+  <div class="room"><div class="lab">ALL KITS</div><div class="fake"><div class="list" id="l1"></div><div class="rail r1"><i></i></div></div></div></div>
+ <div><div class="opt"><b>S2</b><span>No bar: soft fades + a "more" arrow</span></div>
+  <div class="room"><div class="lab">ALL KITS</div><div class="s2wrap"><div class="list s2" id="l2"></div><span class="more">▼ more</span></div></div></div>
+ <div><div class="opt"><b>S3</b><span>Thin brass line, almost invisible</span></div>
+  <div class="room"><div class="lab">ALL KITS</div><div class="fake"><div class="list" id="l3"></div><div class="rail r3"><i></i></div></div></div></div>
+</div>
+
+<h2>The "Wearing" label</h2>
+<div class="row" style="margin-top:12px">
+ <div><div class="opt"><b>Now</b><span>Yellow glow gradient</span></div>
+  <div class="room"><div class="show"><div class="pv"><img src="kit-leopard.png" alt=""></div><div class="now"><small>WEARING</small><b>Leopard</b></div></div></div></div>
+ <div><div class="opt"><b>W1</b><span>Brass name plate, screwed on like a trophy plaque</span></div>
+  <div class="room"><div class="show"><div class="pv"><img src="kit-leopard.png" alt=""></div><div class="w1"><small>WEARING</small><b>Leopard</b></div></div></div></div>
+ <div><div class="opt"><b>W2</b><span>Red ribbon banner across the picture</span></div>
+  <div class="room"><div class="show"><div class="w2wrap"><div class="pv"><img src="kit-leopard.png" alt=""></div><div class="w2"><small>WEARING</small>Leopard</div></div></div></div></div>
+</div>
+<div class="row" style="margin-top:18px">
+ <div><div class="opt"><b>W3</b><span>Stadium scoreboard: glowing LED letters</span></div>
+  <div class="room"><div class="show"><div class="pv"><img src="kit-leopard.png" alt=""></div><div class="w3"><small>NOW WEARING</small><b>LEOPARD</b></div></div></div></div>
+</div>
+<script>
+for(const id of['l1','l2','l3'])document.getElementById(id).innerHTML=Array.from({length:10},(_,i)=>`<div class="tile"><img src="${i%2?'kit-zebra.png':'kit-leopard.png'}" alt=""></div>`).join('');
+</script>
