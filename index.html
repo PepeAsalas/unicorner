@@ -1693,6 +1693,20 @@ body.playing .topbar .tb-split .sound-toggle+.sound-toggle{border-left:0!importa
  #dlg-stadium .st-main .st-grid,#dlg-stadium .st-main .kit-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))!important;max-height:none!important;overflow:visible!important;gap:14px!important}
  #dlg-stadium .lg-x{top:22px!important;right:24px!important}
 }
+/* thin brass scrollbars in the locker */
+#dlg-stadium,#dlg-stadium *{scrollbar-width:thin;scrollbar-color:#c9a24a rgba(0,0,0,.25)}
+#dlg-stadium ::-webkit-scrollbar,#dlg-stadium::-webkit-scrollbar{width:6px;height:6px}
+#dlg-stadium ::-webkit-scrollbar-track,#dlg-stadium::-webkit-scrollbar-track{background:rgba(0,0,0,.25)}
+#dlg-stadium ::-webkit-scrollbar-thumb,#dlg-stadium::-webkit-scrollbar-thumb{background:#c9a24a;border-radius:0}
+#dlg-stadium ::-webkit-scrollbar-button,#dlg-stadium::-webkit-scrollbar-button{display:none;height:0}
+@media (min-width:1000px) and (min-height:620px){
+ #dlg-stadium .st-side{gap:10px!important}
+ #dlg-stadium .pk-tabs button{height:42px!important;font-size:20px!important}
+ #dlg-stadium .st-show{padding:10px 8px 8px!important}
+ #dlg-stadium .st-show .kit-pv{zoom:1.45!important}
+ #dlg-stadium .ek-note p{font-size:15px!important;line-height:1.3!important}
+ #dlg-stadium .st-sub{font-size:16px!important}
+}
 #dlg-stadium .ek-note p{margin:6px 0 0;font:400 17px/1.35 var(--lab);color:#1d1a2b}
 /* the locker button (kits, backgrounds, trophies) sits in the same strip as ES and sound */
 .topbar .tb-split{margin-left:auto}.topbar .tb-split #stadiumToggle{height:100%!important;width:44px!important;max-width:44px!important;margin:0!important;border:0!important;border-right:2px solid #1d1a2b!important;box-shadow:none!important;background:transparent!important}.topbar .tb-split #stadiumToggle svg{width:20px;height:18px}
@@ -1785,16 +1799,17 @@ body.playing .topbar .tb-split .sound-toggle+.sound-toggle{border-left:0!importa
 @media (prefers-reduced-motion:reduce){.hz3-row,.hz3-go{transition:none}}
 
 /* Anytime cards (Infinity, Duels) as arcade cabinets: the art plays on a small CRT screen, name plate and button underneath */
-html body .modes .mode.mode.mode:is(.m-inf,.m-duel){display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;grid-template-areas:"pic pic" "txt go"!important;align-items:center!important;column-gap:14px!important;row-gap:0!important;height:auto!important;min-height:0!important;padding:14px 14px 16px!important;background:#2b2244!important;border:4px solid #000!important;box-shadow:6px 6px 0 rgba(0,0,0,.35)!important;text-align:left!important}
-html body .modes .mode.mode.mode:is(.m-inf,.m-duel) .m-pic.lx-thumb.lx-thumb{grid-area:pic!important;height:clamp(120px,15vw,170px)!important;width:auto!important;margin:0!important;border:4px solid #000!important;outline:3px solid #4a3d73!important;outline-offset:-10px!important;background:#1d1a2b!important;border-radius:0!important}
-html body .modes .mode.mode.mode:is(.m-inf,.m-duel) .m-pic.lx-thumb.lx-thumb::after{display:block!important;content:""!important;position:absolute!important;inset:0!important;z-index:2!important;background:repeating-linear-gradient(transparent 0 3px,rgba(0,0,0,.18) 3px 4px)!important;pointer-events:none!important}
-html body .modes .mode.mode.mode:is(.m-inf,.m-duel) .m-txt{grid-area:txt!important;position:static!important;padding:14px 4px 0!important;margin:0!important;min-width:0!important;background:none!important}
-html body .modes .mode.mode.mode:is(.m-inf,.m-duel) .m-txt b{font-size:clamp(30px,3.2vw,40px)!important;line-height:1!important}
-html body .modes .mode.mode.mode:is(.m-inf,.m-duel) .m-txt small{color:#bdb4dc!important}
-html body .modes .mode.mode.mode:is(.m-inf,.m-duel) .m-go{grid-area:go!important;position:static!important;align-self:end!important;width:auto!important;margin:14px 0 0!important;padding:10px 18px 8px!important;white-space:nowrap!important}
-@media (max-width:700px){html body .modes .mode.mode.mode:is(.m-inf,.m-duel){grid-template-columns:minmax(0,1fr)!important;grid-template-areas:"pic" "txt" "go"!important;padding:10px 10px 12px!important}
- html body .modes .mode.mode.mode:is(.m-inf,.m-duel) .m-go{width:100%!important;margin-top:10px!important}
- html body .modes .mode.mode.mode:is(.m-inf,.m-duel) .m-txt{padding-top:10px!important}}
+html:root:root body .modes .mode.mode.mode.mode:is(.m-inf,.m-duel){display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;grid-template-areas:"pic pic" "txt go"!important;align-items:center!important;column-gap:14px!important;row-gap:0!important;height:auto!important;min-height:0!important;padding:14px 14px 16px!important;background:#2b2244!important;border:4px solid #000!important;box-shadow:6px 6px 0 rgba(0,0,0,.35)!important;text-align:left!important}
+html:root:root body .modes .mode.mode.mode.mode:is(.m-inf,.m-duel) .m-pic.lx-thumb.lx-thumb{grid-area:pic!important;height:clamp(120px,15vw,170px)!important;width:auto!important;margin:0!important;border:4px solid #000!important;outline:3px solid #4a3d73!important;outline-offset:-10px!important;background:#1d1a2b!important;border-radius:0!important}
+html:root:root body .modes .mode.mode.mode.mode:is(.m-inf,.m-duel) .m-pic.lx-thumb.lx-thumb::after{display:block!important;opacity:1!important;content:""!important;position:absolute!important;inset:0!important;z-index:2!important;background:repeating-linear-gradient(transparent 0 3px,rgba(0,0,0,.18) 3px 4px)!important;pointer-events:none!important}
+html:root:root body .modes .mode.mode.mode.mode:is(.m-inf,.m-duel) .m-pic.lx-thumb.lx-thumb::before{display:block!important;opacity:1!important;content:""!important;position:absolute!important;inset:6px!important;z-index:3!important;border:3px solid #4a3d73!important;background:none!important;pointer-events:none!important}
+html:root:root body .modes .mode.mode.mode.mode:is(.m-inf,.m-duel) .m-txt{grid-area:txt!important;position:static!important;padding:14px 4px 0!important;margin:0!important;min-width:0!important;background:none!important}
+html:root:root body .modes .mode.mode.mode.mode:is(.m-inf,.m-duel) .m-txt b{font-size:clamp(30px,3.2vw,40px)!important;line-height:1!important}
+html:root:root body .modes .mode.mode.mode.mode:is(.m-inf,.m-duel) .m-txt small{color:#bdb4dc!important}
+html:root:root body .modes .mode.mode.mode.mode:is(.m-inf,.m-duel) .m-go{grid-area:go!important;position:static!important;align-self:end!important;width:auto!important;margin:14px 0 0!important;padding:10px 18px 8px!important;white-space:nowrap!important}
+@media (max-width:700px){html:root:root body .modes .mode.mode.mode.mode:is(.m-inf,.m-duel){grid-template-columns:minmax(0,1fr)!important;grid-template-areas:"pic" "txt" "go"!important;padding:10px 10px 12px!important}
+ html:root:root body .modes .mode.mode.mode.mode:is(.m-inf,.m-duel) .m-go{width:100%!important;margin-top:10px!important}
+ html:root:root body .modes .mode.mode.mode.mode:is(.m-inf,.m-duel) .m-txt{padding-top:10px!important}}
 </style><link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#1d1a2b"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Unicorner"><meta name="apple-mobile-web-app-status-bar-style" content="black">
 </head><body><div class="sp" id="sp" aria-hidden="true"><div class="sp-s"></div><div class="sp-t">UNICORNER</div><div class="sp-run"><div class="sp-bar"><div class="sp-fill"><i class="sp-u"></i></div></div></div><div class="sp-m"><span class="sp-en">Warming up on the touchline…</span><span class="sp-es">Calentando en la banda…</span></div></div>
 <script>
