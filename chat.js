@@ -55,7 +55,7 @@ const CSS=`
 .ucc[data-open="1"]{transform:none}
 .ucc-h{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#1d1a2b;color:#fbf6e8;padding:calc(10px + env(safe-area-inset-top,0px)) 12px 10px 14px}
 .ucc-h b{font:400 26px/1 "Jersey 10",Impact,sans-serif;color:#f2c230;letter-spacing:.04em}.ucc-h small{display:block;font:400 16px VT323,monospace;color:#bdb4dc;margin-top:2px}
-.ucc-x{all:unset;cursor:pointer;width:34px;height:34px;display:grid;place-items:center;border:3px solid #fbf6e8;font:400 20px/1 "Jersey 10",sans-serif;color:#fbf6e8}.ucc-x:focus-visible{outline:3px solid #4fd7ff}
+.ucc-x{all:unset;box-sizing:border-box;flex:none;cursor:pointer;width:38px;height:38px;display:grid;place-items:center;line-height:0;border:3px solid #fbf6e8;font:400 20px/1 "Jersey 10",sans-serif;color:#fbf6e8}.ucc-x:hover{background:#fbf6e8;color:#1d1a2b}.ucc-x svg{display:block}.ucc-x:focus-visible{outline:3px solid #4fd7ff}
 .ucc-rules{margin:0;padding:8px 12px;font-size:16px;color:#6b6480;border-bottom:3px solid #1d1a2b;background:#f3e6bf}
 .ucc-list{flex:1;overflow-y:auto;padding:4px 8px;scrollbar-width:thin;scrollbar-color:#c9a24a transparent}
 .ucc-list::-webkit-scrollbar{width:6px}.ucc-list::-webkit-scrollbar-thumb{background:#c9a24a}
@@ -115,7 +115,7 @@ function playerOpen(nick,kit){if(typeof window.ucPlayerCard==='function'){if(mat
 function build(){const host=document.createElement('div');host.id='ucc-host';document.body.appendChild(host);ROOT=host.attachShadow({mode:'open'});const st=document.createElement('style');st.textContent=CSS;ROOT.appendChild(st);
  const tab=document.createElement('button');tab.type='button';tab.id='ucc-tab';tab.className='ucc-tab';tab.textContent=L('CHAT','CHAT');tab.setAttribute('aria-controls','ucc');tab.setAttribute('aria-expanded','false');
  const p=document.createElement('aside');p.id='ucc';p.className='ucc';p.setAttribute('aria-label',L('Global chat','Chat global'));p.dataset.open='0';p.inert=true;
- p.innerHTML=`<div class="ucc-h"><div><b>${L('GLOBAL CHAT','CHAT GLOBAL')}</b><small>${L("Keep it football. Today's Daily 5 answers show as SPOILER.",'De fútbol. Las respuestas del Daily 5 de hoy salen como SPOILER.')}</small></div><button type="button" class="ucc-x" id="ucc-x" aria-label="${L('Close chat','Cerrar chat')}">✕</button></div>
+ p.innerHTML=`<div class="ucc-h"><div><b>${L('GLOBAL CHAT','CHAT GLOBAL')}</b><small>${L("Keep it football. Today's Daily 5 answers show as SPOILER.",'De fútbol. Las respuestas del Daily 5 de hoy salen como SPOILER.')}</small></div><button type="button" class="ucc-x" id="ucc-x" aria-label="${L('Close chat','Cerrar chat')}"><svg viewBox="0 0 9 8" width="18" height="16" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M0 0h1v1H0zM0 7h1v1H0zM1 0h1v1H1zM1 1h1v1H1zM1 6h1v1H1zM1 7h1v1H1zM2 1h1v1H2zM2 2h1v1H2zM2 5h1v1H2zM2 6h1v1H2zM3 2h1v1H3zM3 3h1v1H3zM3 4h1v1H3zM3 5h1v1H3zM4 3h1v1H4zM4 4h1v1H4zM5 2h1v1H5zM5 3h1v1H5zM5 4h1v1H5zM5 5h1v1H5zM6 1h1v1H6zM6 2h1v1H6zM6 5h1v1H6zM6 6h1v1H6zM7 0h1v1H7zM7 1h1v1H7zM7 6h1v1H7zM7 7h1v1H7zM8 0h1v1H8zM8 7h1v1H8z"/></svg></button></div>
   <p class="ucc-rules">${L("Say what you want. Anything nasty: tap ⋯ and report it. Three reports and it's gone.",'Di lo que quieras. Si algo es ofensivo: toca ⋯ y denúncialo. Con tres denuncias desaparece.')}</p>
   <div class="ucc-list" id="ucc-list" aria-live="polite"></div><div id="ucc-c"></div>`;
  ROOT.append(tab,p);
