@@ -3709,6 +3709,7 @@ function pinFull(){const sc=document.getElementById('ft-scroll'),m=sc?.querySele
  if(!m){pin.classList.remove('show');return}const a=sc.getBoundingClientRect(),r=m.getBoundingClientRect();pin.classList.toggle('show',r.bottom<a.top+28||r.top>a.bottom-4)}
 function jumpFull(){const m=document.querySelector('#ft-scroll .ucw-r.me');if(m)m.scrollIntoView({block:'center'});pinFull()}
 // A player's card: their unicorn, the kit's level, their stats and every kit they own
+window.ucPlayerCard=(nick,kit)=>playerCard({nickname:nick,kit});
 function playerCard(r){const k=kitOf(r),info=window.ucKitInfo||{},t=info.KLV?.[k.id]??0,col=k.id==='classic'?'#cfd8e6':info.KLC?.[t]||'#ffd23f';
  const lv=k.id==='classic'?L('Starter','Inicial'):(t===5?L('MYTHIC','MÍTICO'):t===4?L('SCREAMER','QUÉ CHICHARRO'):tl(info.KLN?.[t]||'Tap-in').toUpperCase());
  const own=new Set(r.me?myLook()?.kits||[]:r.kits||[]),all=KITS.filter(x=>x.req&&(own.has(x.id)||(!x.crew&&!(x.until&&amsterdamDay()>x.until)))),n=all.filter(x=>own.has(x.id)).length;
@@ -4727,4 +4728,5 @@ html body .landing-wrap .lp-art{height:auto!important;display:block!important}
 html body .landing-wrap .lp-sprite{width:clamp(130px,19vw,240px)!important;height:clamp(108px,15.8vw,200px)!important}
 @media(max-width:600px){html body .landing-wrap .lp-home-title-row{gap:8px!important}html body .landing-wrap .lp-title{font-size:clamp(44px,12.4vw,54px)!important}html body .landing-wrap .lp-title .lp-lead,html body .landing-wrap .lp-title .lp-qm,html body .landing-wrap .lp-title .uni-word{text-shadow:3px 0px 0 #1d1a2b,-3px 0px 0 #1d1a2b,0px 3px 0 #1d1a2b,0px -3px 0 #1d1a2b,3px 3px 0 #1d1a2b,-3px -3px 0 #1d1a2b,3px -3px 0 #1d1a2b,-3px 3px 0 #1d1a2b,0 5px 0 #1d1a2b!important}}</style>
 <script src="/notify.js" defer></script>
+<script src="/chat.js" defer></script>
 </body></html>

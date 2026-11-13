@@ -48,7 +48,7 @@ a{color:inherit}
 .well{background:var(--paper);box-shadow:inset 2px 2px 0 var(--wd),inset -2px -2px 0 var(--wl);padding:4px}
 
 /* mobile tabs: the three panels; on desktop all three are on screen */
-.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:0 0 14px;border:3px solid #000;background:var(--paper);box-shadow:4px 4px 0 #000;position:sticky;top:max(6px,env(safe-area-inset-top));z-index:5}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:0 0 14px;border:3px solid #000;background:var(--paper);box-shadow:4px 4px 0 #000;position:sticky;top:max(6px,env(safe-area-inset-top));z-index:5}
 .tabs button{border:0;background:none;padding:10px 4px 7px;font:400 21px/1 var(--disp);display:flex;align-items:center;justify-content:center;gap:6px;min-height:46px;position:relative}
 .tabs button+button{border-left:3px solid #000}
 .tabs button[aria-selected=true]{background:var(--gold)}
@@ -168,33 +168,6 @@ img.di{width:22px;height:22px;flex:none}
 @media (hover:hover) and (pointer:fine){.btn:hover,.game:hover,.chipbtn:hover{filter:brightness(1.05)}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
-/* global chat */
-@media (min-width:900px){.chatp{grid-column:1/-1}}
-.ch-rules{margin:0 0 8px;font:400 16px/1.3 VT323,ui-monospace,monospace;color:var(--mut)}
-.ch-list{height:min(60vh,460px);overflow-y:auto;background:var(--paper);border:3px solid var(--ink);padding:6px 4px;scrollbar-width:thin;scrollbar-color:#c9a24a transparent}
-.ch-list::-webkit-scrollbar{width:6px}.ch-list::-webkit-scrollbar-thumb{background:#c9a24a}
-.ch-empty{margin:40px 10px;text-align:center;color:var(--mut)}
-.ch-m{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:2px 8px;align-items:start;padding:6px 6px 7px;border-bottom:2px dashed var(--line)}
-.ch-m:last-child{border-bottom:0}
-.ch-m.mine{background:#fff3c4}
-.ch-av{width:30px;height:26px;background-size:contain;background-repeat:no-repeat;background-position:center;image-rendering:pixelated;margin-top:2px}
-.ch-h{display:flex;gap:8px;align-items:baseline;min-width:0}
-.ch-n{all:unset;cursor:pointer;font:400 19px/1 var(--disp);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ch-n:hover{text-decoration:underline}.ch-n:focus-visible{outline:2px solid #4fd7ff}
-.ch-mod{font:400 12px/1 var(--disp);background:var(--clay);color:#fff;padding:2px 4px 1px}
-.ch-t{font:400 14px VT323,ui-monospace,monospace;color:var(--mut);flex:none}
-.ch-b{grid-column:2;font:400 21px/1.25 VT323,ui-monospace,monospace;color:var(--ink);overflow-wrap:anywhere;white-space:pre-wrap}
-.ch-more{all:unset;cursor:pointer;grid-row:1/span 2;grid-column:3;width:30px;height:30px;display:grid;place-items:center;font:400 20px/1 var(--disp);color:var(--mut)}
-.ch-more:hover{color:var(--ink);background:var(--line)}
-.ch-menu{grid-column:2/-1;display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
-.ch-menu button{font:400 16px/1 var(--disp);padding:7px 10px 5px;border:2px solid var(--ink);background:var(--paper);box-shadow:0 2px 0 var(--ink)}
-.ch-menu button.danger{background:var(--clay);color:#fff}
-.ch-form{display:flex;gap:8px;margin-top:10px}
-.ch-form input{flex:1;min-width:0;font:400 21px VT323,ui-monospace,monospace;padding:10px 10px 8px;border:3px solid var(--ink);background:#fff;color:var(--ink)}
-.ch-form button{font:400 22px/1 var(--disp);padding:0 18px;border:3px solid var(--ink);background:var(--gold);box-shadow:0 3px 0 var(--ink)}
-.ch-form button:disabled{opacity:.6}
-.ch-info{margin:10px 0 0;font:400 16px VT323,ui-monospace,monospace;color:var(--mut)}
-.ch-info.bad{color:var(--clay)}
 </style>
 </head>
 <body>
@@ -211,7 +184,6 @@ img.di{width:22px;height:22px;flex:none}
   <button role="tab" id="t-rank" data-tab="rank" aria-selected="true" aria-controls="p-rank"><img class="ti" src="/social/icon-rankings.png" alt="" width="32" height="32"><span data-t="t_rank">Rankings</span></button>
   <button role="tab" id="t-friends" data-tab="friends" aria-selected="false" aria-controls="p-friends"><span data-t="t_friends">Friends</span><span class="pip" id="pip" hidden></span></button>
   <button role="tab" id="t-leagues" data-tab="leagues" aria-selected="false" aria-controls="p-leagues"><span data-t="t_leagues">Leagues</span></button>
-  <button role="tab" id="t-chat" data-tab="chat" aria-selected="false" aria-controls="p-chat"><span data-t="t_chat">Chat</span></button>
  </div>
 
  <div class="grid">
@@ -244,14 +216,6 @@ img.di{width:22px;height:22px;flex:none}
     <div class="inner" id="leagues"></div>
    </section>
   </div>
-  <section class="win panel chatp" id="p-chat" role="tabpanel" aria-labelledby="t-chat" data-hidden="true">
-   <div class="bar"><span data-t="t_chat_bar">GLOBAL CHAT</span><small id="ch-note"></small></div>
-   <div class="inner">
-    <p class="ch-rules" data-t="ch_rules">Say what you want, keep it football. Anything nasty: tap ⋯ and report it. Three reports and it's gone.</p>
-    <div class="ch-list" id="ch-list" aria-live="polite" aria-label="Messages"></div>
-    <div id="ch-compose"></div>
-   </div>
-  </section>
  </div>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
@@ -309,8 +273,8 @@ try{const q=JSON.parse(ls('uc-squad-view')||'{}');if(GAMES[q.game])S.game=q.game
 function setTab(t){S.tab=t;document.querySelectorAll('.tabs [role=tab]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.tab===t)));
  document.querySelectorAll('.panel').forEach(p=>p.dataset.hidden=String(p.id!=='p-'+t));try{history.replaceState(null,'','#'+t)}catch{}}
 document.querySelector('.tabs').addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(b){setTab(b.dataset.tab);window.scrollTo({top:0})}});
-document.querySelector('.tabs').addEventListener('keydown',e=>{if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;const o=['rank','friends','leagues','chat'],i=o.indexOf(S.tab),n=o[(i+(e.key==='ArrowRight'?1:3))%4];setTab(n);$('t-'+n).focus()});
-setTab(['friends','leagues','chat'].includes(location.hash.slice(1))?location.hash.slice(1):'rank');
+document.querySelector('.tabs').addEventListener('keydown',e=>{if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;const o=['rank','friends','leagues'],i=o.indexOf(S.tab),n=o[(i+(e.key==='ArrowRight'?1:2))%3];setTab(n);$('t-'+n).focus()});
+setTab(['friends','leagues'].includes(location.hash.slice(1))?location.hash.slice(1):'rank');
 
 // ── rankings ──
 const dayLabel=()=>new Date().toLocaleDateString(ES?'es-ES':'en-GB',{weekday:'short',day:'numeric',month:'short',timeZone:'Europe/Amsterdam'});
@@ -468,41 +432,8 @@ async function playerCard(nick,kitHint){let d=$('pc');if(!d){document.body.inser
   <p class="sec" style="justify-content:center;margin-top:12px">${L('Today','Hoy')}</p><p class="gl" style="justify-content:center;font-size:17px;margin:0 0 10px">${line({daily:td.daily,rosco:td.rosco,rosco_total:td.rosco_total,millon:td.millon,stablehand:td.stablehand,stablehand_target:td.stablehand_target})}</p>
   ${act}</div>`}
 $('list').addEventListener('click',e=>{const row=e.target.closest('.row[data-i]');if(row&&lastBoard){const r=lastBoard.rows[+row.dataset.i];if(r)playerCard(r.nickname,r.kit)}});
-// ── global chat: reads for everyone, posting needs a nickname; checks for new messages every few seconds while it's on screen ──
-const CH={rows:[],last:0,me:null,open:null,timer:0,loaded:false,busy:false};
-const chTime=at=>new Date(at).toLocaleTimeString(ES?'es-ES':'en-GB',{hour:'2-digit',minute:'2-digit'});
-const chVisible=()=>!document.hidden&&(matchMedia('(min-width:900px)').matches||S.tab==='chat');
-function chRow(m){const open=CH.open===m.id,me=CH.me;
- const menu=open?`<div class="ch-menu">${m.mine?`<button type="button" data-ch="del" data-id="${m.id}">${L('Delete','Borrar')}</button>`:`<button type="button" data-ch="report" data-id="${m.id}">${L('Report','Denunciar')}</button><button type="button" data-ch="block" data-nick="${esc(m.nick)}">${L('Block','Bloquear')} ${esc(m.nick)}</button>`}
-  ${me?.mod&&!m.mine?`<button type="button" class="danger" data-ch="del" data-id="${m.id}">${L('Delete','Borrar')}</button><button type="button" class="danger" data-ch="mute" data-nick="${esc(m.nick)}" data-h="24">${L('Mute 24h','Silenciar 24h')}</button><button type="button" class="danger" data-ch="mute" data-nick="${esc(m.nick)}" data-h="9999">${L('Mute for good','Silenciar siempre')}</button>`:''}</div>`:'';
- return`<div class="ch-m${m.mine?' mine':''}" data-mid="${m.id}"><i class="ch-av" style="background-image:${uni(m.kit)}"></i><div class="ch-h"><button type="button" class="ch-n" data-nick="${esc(m.nick)}" data-kit="${esc(m.kit)}">${esc(m.nick)}</button>${m.mod?`<span class="ch-mod">MOD</span>`:''}<span class="ch-t">${chTime(m.at)}</span></div>
-  ${sess()?`<button type="button" class="ch-more" data-ch="menu" data-id="${m.id}" aria-label="${L('Options','Opciones')}" aria-expanded="${open}">⋯</button>`:''}<div class="ch-b">${esc(m.body)}</div>${menu}</div>`}
-function chDraw(keep){const el=$('ch-list'),near=el.scrollHeight-el.scrollTop-el.clientHeight<80;
- el.innerHTML=CH.rows.length?CH.rows.map(chRow).join(''):`<p class="ch-empty">${CH.loaded?L('No messages yet. Say hello!','Aún no hay mensajes. ¡Saluda!'):L('Loading the chat…','Cargando el chat…')}</p>`;
- if(!keep||near)el.scrollTop=el.scrollHeight}
-function chCompose(){const box=$('ch-compose'),me=CH.me;
- if(!sess()){box.innerHTML=signInCard(L('Sign in to chat with everyone.','Inicia sesión para chatear con todos.'));return}
- if(!me?.nick){box.innerHTML=`<p class="ch-info">${L('Pick a nickname on the home page to start chatting.','Elige un apodo en la página principal para chatear.')}</p>`;return}
- if(me.muted_until){box.innerHTML=`<p class="ch-info bad">${L('A moderator muted you until','Un moderador te ha silenciado hasta')} ${new Date(me.muted_until).toLocaleString(ES?'es-ES':'en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}.</p>`;return}
- if($('ch-in'))return;
- box.innerHTML=`<form class="ch-form" id="ch-form"><input id="ch-in" maxlength="280" autocomplete="off" placeholder="${L('Message as','Escribe como')} ${esc(me.nick)}" aria-label="${L('Message','Mensaje')}"><button type="submit" id="ch-send">${L('Send','Enviar')}</button></form><p class="ch-info" id="ch-err" hidden></p>`;
- $('ch-form').onsubmit=async e=>{e.preventDefault();const v=$('ch-in').value.trim();if(!v)return;$('ch-send').disabled=true;$('ch-err').hidden=true;
-  try{const m=await call('chat_send',{p_body:v},true);$('ch-in').value='';if(m&&!CH.rows.some(r=>r.id===m.id)){CH.rows.push(m);CH.last=Math.max(CH.last,m.id);chDraw()}track('chat_send',{len:v.length})}
-  catch(err){$('ch-err').textContent=err.message;$('ch-err').hidden=false}finally{$('ch-send').disabled=false;$('ch-in').focus()}}}
-async function chLoad(){try{const j=await call('chat_recent',{});CH.rows=j?.rows||[];CH.me=j?.me||null;CH.last=CH.rows.reduce((a,m)=>Math.max(a,m.id),0);CH.loaded=true;chDraw();chCompose()}catch{CH.loaded=true;chDraw()}}
-async function chPoll(){if(CH.busy||!CH.loaded||!chVisible())return;CH.busy=true;
- try{const j=await call('chat_since',{p_after:CH.last});const gone=new Set(j?.gone||[]),add=(j?.rows||[]).filter(m=>!CH.rows.some(r=>r.id===m.id));
-  const before=CH.rows.length;CH.rows=CH.rows.filter(r=>!gone.has(r.id)).concat(add).slice(-200);CH.last=CH.rows.reduce((a,m)=>Math.max(a,m.id),CH.last);
-  if(add.length||CH.rows.length!==before)chDraw(true)}catch{}finally{CH.busy=false}}
-$('ch-list').addEventListener('click',async e=>{const n=e.target.closest('.ch-n');if(n){playerCard(n.dataset.nick,n.dataset.kit);return}
- const b=e.target.closest('[data-ch]');if(!b)return;const k=b.dataset.ch,id=+b.dataset.id;
- if(k==='menu'){CH.open=CH.open===id?null:id;chDraw(true);return}
- try{if(k==='report'){const r=await call('chat_report',{p_id:id},true);toast(r==='hidden'?L('Removed. Thanks for reporting.','Eliminado. Gracias por avisar.'):L('Reported. Thanks.','Denunciado. Gracias.'));if(r==='hidden')CH.rows=CH.rows.filter(m=>m.id!==id);track('chat_report',{})}
-  else if(k==='del'){await call('chat_delete',{p_id:id},true);CH.rows=CH.rows.filter(m=>m.id!==id);toast(L('Deleted','Borrado'))}
-  else if(k==='block'){await call('chat_block',{p_nick:b.dataset.nick,p_on:true},true);CH.rows=CH.rows.filter(m=>m.nick!==b.dataset.nick);toast(L("You won't see ",'Ya no verás a ')+b.dataset.nick+L(' in the chat any more.',' en el chat.'));track('chat_block',{})}
-  else if(k==='mute'){await call('chat_mute',{p_nick:b.dataset.nick,p_hours:+b.dataset.h},true);CH.rows=CH.rows.filter(m=>m.nick!==b.dataset.nick||Date.now()-new Date(m.at)>864e5);toast(b.dataset.nick+L(' is muted',' está silenciado'))}
-  CH.open=null;chDraw(true)}catch(err){toast(err.message)}});
-chLoad();CH.timer=setInterval(chPoll,4000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)chPoll()});
+window.ucPlayerCard=(n,k)=>playerCard(n,k);
+{const m=location.hash.match(/^#player=(.+)$/);if(m)setTimeout(()=>playerCard(decodeURIComponent(m[1])),600)}
 // friends, requests and league members open the same card (but not when a button in the row was tapped)
 for(const id of ['friends','leagues'])$(id).addEventListener('click',e=>{if(e.target.closest('button,a,input,form'))return;const row=e.target.closest('[data-nick]');if(row)playerCard(row.dataset.nick,row.dataset.kit)});
 for(const id of ['friends','leagues'])$(id).addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('[data-nick]')){e.preventDefault();playerCard(e.target.dataset.nick,e.target.dataset.kit)}});
@@ -520,5 +451,6 @@ async function inviteFromLink(){const q=new URLSearchParams(location.search),cod
 })();
 </script>
 <script src="/notify.js" defer></script>
+<script src="/chat.js" defer></script>
 </body>
 </html>
