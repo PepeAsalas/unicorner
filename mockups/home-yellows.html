@@ -1,0 +1,55 @@
+<!doctype html><meta charset="utf-8"><title>Home colours · mock-ups</title>
+<style>
+@font-face{font-family:J;src:url(/fonts/jersey10.woff2)}@font-face{font-family:V;src:url(/fonts/vt323.woff2)}
+*{box-sizing:border-box}
+body{margin:0;padding:24px 30px 60px;font:19px V,monospace;color:#fbf6e8;background:#2a7a48;background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.07) 0 80px,transparent 80px 160px)}
+h1{font:400 42px J;margin:0;color:#f2c230;text-shadow:3px 3px 0 #1d1a2b}
+.opt{display:flex;gap:10px;align-items:baseline;margin:34px 0 10px}.opt b{font:400 28px J;background:#f2c230;color:#1d1a2b;padding:0 9px}.opt span{color:#e6f1e9;max-width:110ch}
+.sw{display:inline-flex;gap:4px;margin-left:8px;vertical-align:middle}.sw i{width:18px;height:18px;border:2px solid #000}
+.board{display:grid;grid-template-columns:1.45fr 1fr;gap:18px;max-width:1240px}
+.any{grid-column:1/-1;display:flex;align-items:center;gap:12px;font:400 18px V;margin:2px 0 -4px}.any b{font:400 20px J;letter-spacing:.06em}.any i{flex:1;border-top:3px dashed rgba(255,255,255,.5)}
+.cabs{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+/* every block reads its colours from the option's tokens */
+.box{border:4px solid #000;box-shadow:6px 6px 0 rgba(0,0,0,.35)}
+/* Daily 5 */
+.d5{display:grid;grid-template-columns:96px 1fr;background:var(--d5,#fbf6e8);color:#1d1a2b}
+.d5 .date{background:var(--acc);display:grid;place-content:center;text-align:center;border-right:3px dashed #1d1a2b;font:400 22px J}.d5 .date b{font:400 50px/1 J}
+.d5 .in{padding:14px}.d5 .top{display:flex;justify-content:space-between;align-items:center}
+.dig{display:flex;gap:6px}.dig i{font:normal 34px J;width:44px;height:52px;display:grid;place-items:center;background:#1d1a2b;color:var(--acc)}
+.bars{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;align-items:end;height:60px;margin:14px 0 6px}.bars i{border:3px solid #1d1a2b}
+.cta{display:block;text-align:center;font:400 28px J;padding:10px;background:var(--btn);color:var(--btnt,#1d1a2b);border:3px solid #1d1a2b;box-shadow:0 4px 0 #1d1a2b;margin-top:12px}
+.d5 .foot{grid-column:1/-1;background:#1d1a2b;color:#fbf6e8;padding:8px 14px;font-size:17px}
+/* Horacio */
+.hz{display:grid;grid-template-columns:130px 1fr;background:var(--hz);color:var(--hzt,#fbf6e8)}
+.hz .side{border-right:3px solid #000;display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding:12px 0 0;background:var(--hzs,rgba(0,0,0,.15))}
+.hz .side b{font:400 22px/1 J;color:var(--acc);text-align:center}.hz .side img{width:120px;image-rendering:pixelated}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-bottom:3px solid var(--hzline,#000)}.row:last-child{border:0}
+.row b{display:block;font:400 32px/1 J}.row small{font-size:16px;opacity:.85}
+.play{font:400 22px J;padding:8px 14px 6px;background:var(--btn);color:var(--btnt,#1d1a2b);border:3px solid #000;box-shadow:0 3px 0 #000}
+/* cabinets */
+.cab{background:var(--cab);color:var(--cabt,#fbf6e8);padding:12px 12px 14px}
+.scr{aspect-ratio:10/3;border:4px solid #000;background:#1d1a2b center/cover no-repeat;image-rendering:pixelated;position:relative}
+.scr::before{content:"";position:absolute;inset:3px;border:3px solid var(--bez,#4a3d73)}
+.scr::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(transparent 0 3px,rgba(0,0,0,.18) 3px 4px)}
+.plate{display:flex;justify-content:space-between;align-items:end;gap:10px;padding-top:12px}
+.plate b{display:block;font:400 34px/1 J}.plate small{font-size:16px;opacity:.85}
+.rec{display:inline-flex;gap:4px;margin-left:6px}.rec i{font:normal 13px J;padding:1px 5px;border:2px solid #000;color:#fff}
+</style>
+<h1>Shades of yellow</h1><p style="margin:4px 0 0;color:#e6f1e9">Same layout as now (cream daily games, ink anytime games). Only the shade of yellow changes: date stub, Horacio's side, the score digits and every button.</p><template id="tpl">
+ <div class="board">
+  <div class="box d5"><div class="date">FRI<b>13</b>NOV</div><div class="in"><div class="top"><span class="dig"><i>2</i><i>6</i><i>0</i></span><b style="font:400 22px J">Champions League</b></div>
+   <div class="bars"><i style="height:60%;background:#b48cff"></i><i style="height:15%;background:#cfd8e6"></i><i style="height:100%;background:#ffd23f"></i><i style="height:60%;background:#b48cff"></i><i style="height:30%;background:#7fe0a8"></i></div>
+   <span class="cta">VIEW TODAY'S RESULT</span></div><div class="foot">🔥 58-day streak</div></div>
+  <div class="box hz"><div class="side"><b>HORACIO'S<br>GAMES</b><img src="/rosco/host/point.png" alt=""></div><div>
+   <div class="row"><span><b>Rosco</b><small>No. 15 · 24 letters</small></span><span class="play">Play</span></div>
+   <div class="row"><span><b>Millions</b><small>Start with 1,000,000</small></span><span class="play">Play</span></div>
+   <div class="row"><span><b>Stable Hand</b><small>Football blackjack</small></span><span class="play">Play</span></div></div></div>
+  <div class="any"><b>ANYTIME</b> no daily limit <i></i></div>
+  <div class="cabs">
+   <div class="box cab"><div class="scr" style="background-image:url(/bg/mode-inf-v3.png)"></div><div class="plate"><span><b>Infinity</b><small>Unlimited questions, out in space</small></span><span class="play">Press start</span></div></div>
+   <div class="box cab"><div class="scr" style="background-image:url(/bg/mode-duel-v2.webp)"></div><div class="plate"><span><b>Duels</b><small>My duels · challenge a mate</small><span class="rec"><i style="background:#2f8f5b">28W</i><i style="background:#5b5070">6D</i><i style="background:#c8473b">14L</i></span></span><span class="play">Open</span></div></div>
+  </div>
+ </div>
+</template><div class="wrapg"><div><div class="opt"><b>Now</b><span>Today: #f2c230</span><span class="sw"><i style="background:#fbf6e8"></i><i style="background:#1d1a2b"></i><i style="background:#f2c230"></i></span></div><div class="slot" style="--acc:#f2c230;--btn:#f2c230;--btnt:#1d1a2b;--hz:#fbf6e8;--hzt:#1d1a2b;--hzs:#f2c230;--hzline:#1d1a2b;--cab:#1d1a2b;--bez:#3a3554"></div></div><div><div class="opt"><b>1</b><span>Sunflower: brighter, purer yellow</span><span class="sw"><i style="background:#fbf6e8"></i><i style="background:#1d1a2b"></i><i style="background:#ffd21f"></i></span></div><div class="slot" style="--acc:#ffd21f;--btn:#ffd21f;--btnt:#1d1a2b;--hz:#fbf6e8;--hzt:#1d1a2b;--hzs:#ffd21f;--hzline:#1d1a2b;--cab:#1d1a2b;--bez:#3a3554"></div></div><div><div class="opt"><b>2</b><span>Lemon: light and zesty</span><span class="sw"><i style="background:#fbf6e8"></i><i style="background:#1d1a2b"></i><i style="background:#ffe45c"></i></span></div><div class="slot" style="--acc:#ffe45c;--btn:#ffe45c;--btnt:#1d1a2b;--hz:#fbf6e8;--hzt:#1d1a2b;--hzs:#ffe45c;--hzline:#1d1a2b;--cab:#1d1a2b;--bez:#3a3554"></div></div><div><div class="opt"><b>3</b><span>Butter: soft and creamy, gentle on the eyes</span><span class="sw"><i style="background:#fbf6e8"></i><i style="background:#1d1a2b"></i><i style="background:#f7d774"></i></span></div><div class="slot" style="--acc:#f7d774;--btn:#f7d774;--btnt:#1d1a2b;--hz:#fbf6e8;--hzt:#1d1a2b;--hzs:#f7d774;--hzline:#1d1a2b;--cab:#1d1a2b;--bez:#3a3554"></div></div><div><div class="opt"><b>4</b><span>Marigold: warmer, a touch of orange</span><span class="sw"><i style="background:#fbf6e8"></i><i style="background:#1d1a2b"></i><i style="background:#ffb627"></i></span></div><div class="slot" style="--acc:#ffb627;--btn:#ffb627;--btnt:#1d1a2b;--hz:#fbf6e8;--hzt:#1d1a2b;--hzs:#ffb627;--hzline:#1d1a2b;--cab:#1d1a2b;--bez:#3a3554"></div></div><div><div class="opt"><b>5</b><span>Mustard: deeper and earthier, more retro</span><span class="sw"><i style="background:#fbf6e8"></i><i style="background:#1d1a2b"></i><i style="background:#d9a12b"></i></span></div><div class="slot" style="--acc:#d9a12b;--btn:#d9a12b;--btnt:#1d1a2b;--hz:#fbf6e8;--hzt:#1d1a2b;--hzs:#d9a12b;--hzline:#1d1a2b;--cab:#1d1a2b;--bez:#3a3554"></div></div><div><div class="opt"><b>6</b><span>Old gold: brass and trophies, matches the locker</span><span class="sw"><i style="background:#fbf6e8"></i><i style="background:#1d1a2b"></i><i style="background:#c9a24a"></i></span></div><div class="slot" style="--acc:#c9a24a;--btn:#c9a24a;--btnt:#1d1a2b;--hz:#fbf6e8;--hzt:#1d1a2b;--hzs:#c9a24a;--hzline:#1d1a2b;--cab:#1d1a2b;--bez:#3a3554"></div></div><div><div class="opt"><b>7</b><span>Pale straw: very light, almost cream</span><span class="sw"><i style="background:#fbf6e8"></i><i style="background:#1d1a2b"></i><i style="background:#f5e6a8"></i></span></div><div class="slot" style="--acc:#f5e6a8;--btn:#f5e6a8;--btnt:#1d1a2b;--hz:#fbf6e8;--hzt:#1d1a2b;--hzs:#f5e6a8;--hzline:#1d1a2b;--cab:#1d1a2b;--bez:#3a3554"></div></div></div><style>.wrapg{display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}.wrapg>div .slot{zoom:.5}.wrapg .opt{margin:14px 0 6px}
+.hz .side b{color:var(--sidet,#1d1a2b)!important}.d5 .date{color:var(--btnt)}.dig i{color:var(--acc)}.slot[style*="#1d1a2b;--btnt"] .dig i{color:#fbf6e8}</style>
+<script>const t=document.getElementById('tpl').innerHTML;document.querySelectorAll('.slot').forEach(s=>s.innerHTML=t)</script>
