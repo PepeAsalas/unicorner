@@ -3709,7 +3709,7 @@ function jumpFull(){const m=document.querySelector('#ft-scroll .ucw-r.me');if(m)
 // A player's card: their unicorn, the kit's level, their stats and every kit they own
 function playerCard(r){const k=kitOf(r),info=window.ucKitInfo||{},t=info.KLV?.[k.id]??0,col=k.id==='classic'?'#cfd8e6':info.KLC?.[t]||'#ffd23f';
  const lv=k.id==='classic'?L('Starter','Inicial'):(t===5?L('MYTHIC','MÍTICO'):t===4?L('SCREAMER','QUÉ CHICHARRO'):tl(info.KLN?.[t]||'Tap-in').toUpperCase());
- const own=new Set(r.me?myLook()?.kits||[]:r.kits||[]),all=KITS.filter(x=>x.req),n=all.filter(x=>own.has(x.id)).length;
+ const own=new Set(r.me?myLook()?.kits||[]:r.kits||[]),all=KITS.filter(x=>x.req&&(own.has(x.id)||(!x.crew&&!(x.until&&amsterdamDay()>x.until)))),n=all.filter(x=>own.has(x.id)).length;
  const st=r.me?myLook():r,games=+st?.games||0,streak=+st?.streak||0;
  let d=document.getElementById('dlg-player');if(!d){document.body.insertAdjacentHTML('beforeend','<dialog id="dlg-player" class="pcd" aria-label="Player card"></dialog>');d=document.getElementById('dlg-player');
   d.addEventListener('click',e=>{if(e.target===d||e.target.closest('[data-pc-x]'))d.close()})}
