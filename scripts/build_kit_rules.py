@@ -16,10 +16,11 @@ src = open(os.path.join(ROOT, 'index.html'), encoding='utf-8').read()
 block = src[src.index('const KITS=['):]
 block = block[:block.index('\n];')]
 
+gone = set(re.findall(r"'([a-z0-9-]+)'", re.search(r"KIT_GONE=new Set\(\[(.*?)\]\)", src).group(1)))
 rules = []
 for m in re.finditer(r"\{id:'([a-z0-9-]+)'[^\n]*?req:(null|\['([a-z0-9]+)',(\d+)\])", block):
     kid, req, typ, n = m.group(1), m.group(2), m.group(3), m.group(4)
-    if req != 'null':
+    if req != 'null' and kid not in gone:
         rules.append((kid, typ, int(n)))
 
 KNOWN = {'games', 'streak', 'scr', 'scr1', 'best', 'allfive', 'big', 'level', 'win', 'crew', 'inf', 'hw', 'hw31', 'hwscr', 'hwhi'}

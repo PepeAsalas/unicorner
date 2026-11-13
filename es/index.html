@@ -1,6 +1,6 @@
 <!doctype html>
 <!-- Generated from index.html by scripts/build_es.py — edit index.html, not this file. -->
-<html lang="es"><head><base href="/"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script>/* pick the background before first paint, so the old stadium never flashes */(function(){try{var k=new URLSearchParams(location.search).get("bg")||localStorage.getItem("uc-bg")||"d-pitch";if(/^[cpsd]-/.test(k)){var d=document.documentElement;d.dataset.bgx=k[0];if(k==="d-pitch")d.style.cssText+=";--w:url(/bg/pitch-wide.webp);--t:url(/bg/pitch-tall.webp)"}}catch(e){}})()</script>
+<html lang="es"><head><base href="/"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script>/* pick the background before first paint, so the old stadium never flashes */(function(){try{var k=new URLSearchParams(location.search).get("bg")||"d-pitch";if(/^[cpsd]-/.test(k)){var d=document.documentElement;d.dataset.bgx=k[0];if(k==="d-pitch")d.style.cssText+=";--w:url(/bg/pitch-wide.webp);--t:url(/bg/pitch-tall.webp)"}}catch(e){}})()</script>
 <title>Unicorner – Juego diario de trivia de fútbol | ¿Cuánto sabes de fútbol?</title>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Unicorner">
@@ -1695,6 +1695,7 @@ body.playing .topbar .tb-split .sound-toggle+.sound-toggle{border-left:0!importa
  #dlg-stadium .st-main .st-grid,#dlg-stadium .st-main .kit-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))!important;max-height:none!important;overflow:visible!important;gap:14px!important}
  #dlg-stadium .lg-x{top:22px!important;right:24px!important}
 }
+#dlg-stadium .ek-note p{margin:6px 0 0;font:400 17px/1.35 var(--lab);color:#1d1a2b}
 /* the locker button (kits, backgrounds, trophies) sits in the same strip as ES and sound */
 .topbar .tb-split{margin-left:auto}.topbar .tb-split #stadiumToggle{height:100%!important;width:44px!important;max-width:44px!important;margin:0!important;border:0!important;border-right:2px solid #1d1a2b!important;box-shadow:none!important;background:transparent!important}.topbar .tb-split #stadiumToggle svg{width:20px;height:18px}
 @media (hover:hover){.topbar .tb-split .sound-toggle:hover{background-color:#f3e6bf!important}}
@@ -2103,7 +2104,13 @@ const KITS=[
  {id:'hw-skeleton',en:'Skeleton',es:'Esqueleto',req:['hwhi',300],until:'2026-11-02',pal:{W:'#1a1030',L:'#000000',P:'#f3ead2',V:'#9a9a9a',B:'#f3ead2',w:'#1a1030',N:'#f3ead2',E:'#7dff3b'},pat:kPat((x,y)=>(y%3===0&&x>8&&x<24)||x===16?'#f3ead2':'#1a1030')},
  {id:'hw-lantern',en:"Jack-o'-lantern",es:'Calabaza',req:['hw31',1],until:'2026-10-31',pal:{W:'#ff7a1a',L:'#c4501c',P:'#1a1030',V:'#3a2a1a',B:'#1a1030',w:'#ff7a1a',N:'#2fbf71',G:'#2fbf71',g:'#1f8a4c'},pat:kPat((x,y)=>{const f=(y>=8&&y<=10)&&((x>=11&&x<=13)||(x>=19&&x<=21))||(y===15&&x>=11&&x<=21)||(y===16&&x>=12&&x<=20&&x%2===0);return f?'#ffd23f':(x%5===0?'#c4501c':'#ff7a1a')})},
 ];
-let UC_KIT=(()=>{try{return KITS.find(k=>k.id===localStorage.getItem('uc-kit'))||null}catch{return null}})();
+// kit clear-out (Nov 2026): fewer, rarer kits. Retired kits are gone for everyone (anyone wearing one is back in Club).
+// Infinity takes Galaxy's look; Cosmic GOAT is no longer Mythic.
+const KIT_GONE=new Set(['og','mud','candy','keeper','ref','quarters','night','fire','halves','pin','dots','toxic','hat3','perfect','glitch','aurora','lava','galaxy','rainbow','tiedye','chrome']);
+{const g=KITS.find(k=>k.id==='galaxy'),s=KITS.find(k=>k.id==='shadow');if(g&&s){s.pal=g.pal;s.pat=g.pat}const goat=KITS.find(k=>k.id==='goat');if(goat)delete goat.myth;
+ for(let i=KITS.length-1;i>=0;i--)if(KIT_GONE.has(KITS[i].id))KITS.splice(i,1)}
+
+let UC_KIT=(()=>{try{const id=localStorage.getItem('uc-kit');if(id&&KIT_GONE.has(id))localStorage.removeItem('uc-kit');return KITS.find(k=>k.id===id)||null}catch{return null}})();
 // the free default kit (Club): charcoal mane and tail; the rainbow original is the 'og' kit (Classic); 'rainbow' is the 21-day-streak striped kit
 const CLUB={P:'#2b2b38',V:'#1d1a2b',v:'#14121e',B:'#2b2b38',N:'#d8cfb8'};
 const kitColor=(c,x,y,kit)=>{if(x>=27&&y>=21)return PAL[c];if(!kit||kit.id==='classic')return CLUB[c]||PAL[c];if(kit.pat&&(c==='W'||c==='L'))return kit.pat(x,y,c==='L');return kit.pal[c]||PAL[c]};
@@ -3898,7 +3905,7 @@ window.ucLook=()=>{const st=kitStats();return{kit:UC_KIT?UC_KIT.id:'classic',kit
 let pTab='kits',pkSame=false;
 // favourite kits show first in the Kits tab (saved on this device)
 const kitFavs=()=>{try{const v=JSON.parse(ls('uc-kit-fav')||'[]');return Array.isArray(v)?v:[]}catch{return[]}};
-function apply(){const q=new URLSearchParams(location.search).get('bg');let k=q||ls('uc-bg')||'d-pitch';
+function apply(){const q=new URLSearchParams(location.search).get('bg');if(!q&&ls('uc-bg'))ls('uc-bg',null);let k=q||'d-pitch';
  if(k!=='classic'&&!q&&!unlocked(k)){ls('uc-bg',null);k='d-pitch'}
  const x=BGX.find(b=>b[0]===k),de=document.documentElement;   // a colour, pattern or scene replaces the stadium
  if(x){bgxEl.style.cssText=bgxCss(x[5]);   // cssText: patterns carry background-image/-size after the colour
@@ -3906,7 +3913,7 @@ function apply(){const q=new URLSearchParams(location.search).get('bg');let k=q|
  bgxEl.style.cssText='';delete de.dataset.bgx;de.classList.remove('bg-light');
  if(k==='classic')delete scene.dataset.bg;else scene.dataset.bg=k}
 const sw=k=>{const c=SKY[k];return `<span class="st-sw" style="--sky:${c[0]};--crowd:${c[1]};--grass:${c[2]}"></span>`};
-function dot(){const best=bestStreak(),top=Math.max(0,...LIST.filter(t=>best>=t[2]).map(t=>t[2])),st=kitStats(),kits=KITS.filter(k=>kitHas(k,st)).length;btn.classList.toggle('has-new',top>+(ls('uc-bg-seen')||0)||kits>+(ls('uc-kit-seen')||1)||BGX.filter(b=>b[3]&&bgxReq(b[3])).length>+(ls('uc-bgx-seen')||0))}
+function dot(){const best=bestStreak(),top=Math.max(0,...LIST.filter(t=>best>=t[2]).map(t=>t[2])),st=kitStats(),kits=KITS.filter(k=>kitHas(k,st)).length;btn.classList.toggle('has-new',kits>+(ls('uc-kit-seen')||1))}
 document.body.insertAdjacentHTML('beforeend','<dialog id="dlg-stadium"><div class="st-body" id="st-body"></div></dialog>');
 const dlg=document.getElementById('dlg-stadium');
 function openPicker(){const g0=document.querySelector('#st-body .st-grid'),y0=pkSame&&g0?g0.scrollTop:0,m0=document.querySelector('#st-body .st-main'),ym=pkSame&&m0?m0.scrollTop:0,d0=pkSame?dlg.scrollTop:0;pkSame=false;const best=bestStreak(),cur=document.documentElement.dataset.bgx?(ls('uc-bg')||'d-pitch'):scene.dataset.bg||'classic',next=LIST.find(t=>t[2]>best);
@@ -3917,6 +3924,7 @@ function openPicker(){const g0=document.querySelector('#st-body .st-grid'),y0=pk
  if(pTab==='kits'){const curK=UC_KIT?.id||'classic';
   document.getElementById('st-body').innerHTML=`${close}<h2>${L('Pick your kit','Elige tu equipación')}</h2>${tabs}
   <div class="st-show">${kitPv(KITS.find(k=>k.id===curK)||KITS[0])}<small>${L('Wearing','Llevas')}</small><b>${L((KITS.find(k=>k.id===curK)||KITS[0]).en,(KITS.find(k=>k.id===curK)||KITS[0]).es)}</b></div>
+  <div class="kit-next ek-note"><h3>${L('Kit room clear-out','Limpieza en el vestuario')}</h3><p>${L("The kitman put everything in one hot wash and half the kits didn't make it out. The ones left are rarer, shinier and much harder to get. Better things are coming, we promise. The washing machine has been sacked.","El utillero lo metió todo en un lavado a 90 grados y la mitad de las equipaciones no sobrevivió. Las que quedan son más raras, más bonitas y mucho más difíciles de conseguir. Viene algo mejor, prometido. La lavadora ha sido despedida.")}</p></div>
   <p class="st-sub">${L(`${have} of ${total} unlocked. Play, find Screamers and keep your streak to unlock more.`,`${have} de ${total} desbloqueadas. Juega, consigue chicharros y mantén la racha para desbloquear más.`)}</p>
   ${(()=>{const nx=KITS.filter(k=>!kitHas(k,st)).map(k=>[k,kitProg(k,st)]).filter(([,p])=>p&&p.left>0).sort((a,b)=>(a[0].req[0]==='level')-(b[0].req[0]==='level')||b[1].frac-a[1].frac)[0];if(!nx)return'';const[k,pr]=nx;
    return`<div class="kit-next"><h3>${L('Next up','Lo próximo')}</h3><div class="kit-next-row">${kitPv(k)}<span><b>${L(k.en,k.es)}</b><small>${kitGoal(k.req)}</small><span class="kit-bar"><i style="width:${Math.round(pr.frac*100)}%"></i></span><small>${pr.label}${k.req[0]==='level'?'':' · '+L(`${pr.left} to go`,`faltan ${pr.left}`)}</small></span></div></div>`})()}
@@ -3929,11 +3937,11 @@ function openPicker(){const g0=document.querySelector('#st-body .st-grid'),y0=pk
    return `<div class="st-grid kit-grid">${favKits.length?`<p class="kit-sec">★ ${L('Favourites','Favoritas')}</p>${favKits.map(cell).join('')}<p class="kit-sec">${L('All kits','Todas')}</p>`:''}${rest.map(cell).join('')}</div>`})()}`}
  else if(pTab==='trophies'){document.getElementById('st-body').innerHTML=`${close}<h2>${L('Trophy cabinet','Vitrina de trofeos')}</h2>${tabs}<div id="tr-cab"></div>`;window.ucTrophyCab?.(document.getElementById('tr-cab'))}
  else{
+ const px=BGX.find(b=>b[0]==='d-pitch');
  document.getElementById('st-body').innerHTML=`${close}
   <h2>${L('Pick your background','Elige tu fondo')}</h2>${tabs}
-  <p class="st-sub">${ES?(best?`Mejor racha: <b style="color:var(--gold)">${best} día${best===1?'':'s'}</b>`:'Juega hoy para desbloquear tu primer estadio')+(next?` · siguiente: ${next[1]} a los ${next[2]} días`:' · ¡todos los estadios desbloqueados!'):(best?`Best streak: <b style="color:var(--gold)">${best} day${best===1?'':'s'}</b>`:'Play today to unlock your first stadium')+(next?` · next: ${next[1]} at ${next[2]} days`:' · every stadium unlocked!')}</p>
-  <div class="st-grid"><p class="kit-sec">${L('Stadiums · unlock with streaks','Estadios · se desbloquean con rachas')}</p>${LIST.map(([k,n,need])=>{const lock=best<need,on=k===cur;return `<button type="button" class="st-tile${on?' on':''}${lock?' locked':''}" data-st="pick" data-k="${k}" ${lock?'aria-disabled="true"':''} aria-label="${n}${lock?L(`, unlocks at a ${need}-day streak`,`, se desbloquea con una racha de ${need} días`):on?L(', in use',', en uso'):''}">${sw(k).replace('</span>',lock?'<i>🔒</i></span>':'</span>')}<span class="st-name">${n}</span><span class="st-need">${lock?`🔥 ${need} ${L('days','días')}`:on?L('✓ In use','✓ En uso'):need?L('Unlocked','Desbloqueado'):L('Default','Por defecto')}</span></button>`}).join('')}${[['d',L('Default','Por defecto')],['c',L('Plain colours · free','Colores lisos · gratis')],['p',L('Patterns · unlock by playing','Estampados · se desbloquean jugando')],['s',L('Scenes · unlock with streaks','Escenas · se desbloquean con rachas')]].map(([g,h])=>`<p class="kit-sec">${h}</p>`+BGX.filter(b=>b[0][0]===g).map(([k,en,es,req])=>{const n=L(en,es),lock=!bgxReq(req),on=k===cur;
-   return `<button type="button" class="st-tile${on?' on':''}${lock?' locked':''}" data-st="pick" data-k="${k}" ${lock?'aria-disabled="true"':''} aria-label="${n}${lock?', '+bgxNeed(req):on?L(', in use',', en uso'):''}"><span class="st-sw bgx-sw" style="${bgxSw(BGX.find(b=>b[0]===k)[5]).replace(/"/g,"'")}">${lock?'<i>🔒</i>':''}</span><span class="st-name">${n}</span><span class="st-need">${lock?bgxNeed(req):on?L('✓ In use','✓ En uso'):req?L('Unlocked','Desbloqueado'):L('Free','Gratis')}</span></button>`}).join('')).join('')}</div>`;}
+  <div class="kit-next ek-note"><h3>${L('Groundworks in progress','Obras en el estadio')}</h3><p>${L("Our groundskeeper got a bit excited with the new lawnmower and flattened every stadium. Only the pitch survived. Shiny new grounds are on the way, we promise. Planning permission pending.","Nuestro jardinero se emocionó con el cortacésped nuevo y se llevó por delante todos los estadios. Solo sobrevivió el césped. Vienen fondos nuevos y mejores, prometido. Falta el permiso de obras.")}</p></div>
+  <div class="st-grid"><button type="button" class="st-tile on" data-st="pick" data-k="d-pitch" aria-label="${L('Pitch, in use','Césped, en uso')}"><span class="st-sw bgx-sw" style="${bgxSw(px[5]).replace(/"/g,"'")}"></span><span class="st-name">${L('Pitch','Césped')}</span><span class="st-need">${L('✓ In use','✓ En uso')}</span></button></div>`}
  {const b=document.getElementById('st-body'),side=document.createElement('div'),main=document.createElement('div');side.className='st-side';main.className='st-main';
   for(const el of [...b.children]){if(el.classList.contains('lg-x'))continue;(el.matches('h2,.pk-tabs,.st-sub,.kit-next,.st-show')?side:main).appendChild(el)}b.append(side,main)}
  if(!dlg.open)dlg.showModal();const g1=document.querySelector('#st-body .st-grid');if(g1)g1.scrollTop=y0;const m1=document.querySelector('#st-body .st-main');if(m1)m1.scrollTop=ym;dlg.scrollTop=d0;track('stadium_open',{best})}
@@ -3949,7 +3957,7 @@ dlg.addEventListener('click',e=>{const b=e.target.closest('[data-st]');if(!b){if
  if(b.dataset.st==='pick'){const k=b.dataset.k;if(!unlocked(k)){const x=BGX.find(t=>t[0]===k);showToast(x&&x[3][0]==='games'?L('Keep playing to unlock this one 🎮','Sigue jugando para desbloquear este 🎮'):L('Keep your streak going to unlock this one 🔥','Mantén tu racha para desbloquear este 🔥'));return}
   ls('uc-bg',k==='d-pitch'?null:k);apply();track('stadium_pick',{bg:k});pkSame=true;openPicker()}});
 // Kit unlocks get a card pack on the results screen. Each kit has an answer level (same names and colours as scoring).
-const KLV={'hw-stripes':0,'hw-candy':1,'hw-night':2,'hw-slime':3,'hw-skeleton':3,'hw-lantern':4,stripes:0,hoops:0,ref:0,candy:0,keeper:0,sash:1,halves:1,night:1,pin:1,quarters:1,fire:1,shadow:1,checks:2,hat3:2,dots:2,toxic:2,ice:2,perfect:2,leopard:3,zebra:3,galaxy:3,ocean:3,sunset:3,camo:3,lava:3,chrome:4,rainbow:4,tiedye:4,gold:4,mud:0,bee:0,tartan:1,retro:1,straw:2,aurora:3,matrix:3,glitch:3,royal:4,goat:5};
+const KLV={'hw-stripes':0,'hw-candy':1,'hw-night':2,'hw-slime':3,'hw-skeleton':3,'hw-lantern':4,stripes:0,hoops:0,ref:0,candy:0,keeper:0,sash:1,halves:1,night:1,pin:1,quarters:1,fire:1,shadow:4,checks:2,hat3:2,dots:2,toxic:2,ice:2,perfect:2,leopard:3,zebra:3,galaxy:3,ocean:3,sunset:3,camo:3,lava:3,chrome:4,rainbow:4,tiedye:4,gold:4,mud:0,bee:0,tartan:1,retro:1,straw:2,aurora:3,matrix:3,glitch:3,royal:4,goat:4};
 const KLC=TIER_COLS.concat('#ff7ac8'),KLN=TIERS.map(t=>t[1]).concat('Mythic');window.ucKitInfo={KLV,KLC,KLN};
 const kitsNow=()=>{const st=kitStats();return KITS.filter(k=>k.req&&kitHas(k,st)).map(k=>k.id)};
 let kitDone=null;try{kitDone=JSON.parse(ls('uc-kit-done')||'null')}catch{}
@@ -4003,6 +4011,7 @@ function kitCelebrate(){const fresh=kitsNow().filter(id=>!kitDone.includes(id));
  setTimeout(()=>kitPack(q),1600)}
 // results: celebrate a new unlock and switch to it straight away
 function celebrate(){const rs=document.querySelector('.result-screen');if(!rs||rs.dataset.stDone)return;rs.dataset.stDone='1';kitCelebrate();
+ return; // stadiums are retired for now: no unlock toasts
  const best=bestStreak(),done=+(ls('uc-bg-celebrated')||0),fresh=LIST.filter(t=>t[2]>done&&best>=t[2]&&t[2]>0).pop();if(!fresh)return;
  ls('uc-bg-celebrated',fresh[2]);dot();track('stadium_unlock',{bg:fresh[0],best});
  // no card on the results screen (too much space): a short note, and the 🏟️ button gets its dot
