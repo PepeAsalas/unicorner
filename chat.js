@@ -141,6 +141,9 @@ function build(){const host=document.createElement('div');host.id='ucc-host';doc
  // while the chat is open on a phone, the page underneath doesn't scroll
  ROOT.addEventListener('focusin',e=>{if(e.target.id==='ucc-in')setTimeout(()=>{const l=$('ucc-list');if(l)l.scrollTop=l.scrollHeight},300)});
  window.ucChatOpen=()=>setOpen(true,'link');
+ // out of the way during a round (Daily 5, Rosco, Millions, Duels): the tab hides and an open chat closes, then it comes back
+ const inRound=()=>document.body.classList.contains('playing')||!!document.querySelector('#s-play:not([hidden])');let wasRound=false;
+ setInterval(()=>{const r=inRound();if(r===wasRound)return;wasRound=r;document.getElementById('ucc-host').style.display=r?'none':'';if(r&&C.isOpen)setOpen(false)},500);
  // wide screens remember an open chat between pages; phones always start closed
  if(ls('uc-chat-open')==='1'&&matchMedia('(min-width:1200px)').matches)setOpen(true);
 }
