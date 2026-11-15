@@ -1824,6 +1824,15 @@ body.playing #screen .card .prompt{font-size:27px!important;line-height:1.08!imp
 body.playing #screen .card .mute{font-size:16px!important;line-height:1.3!important;padding:7px 10px!important;margin-bottom:10px!important}
 body.playing #screen .card .timer{margin:0 0 10px!important}
 body.playing #screen .card #in{font-size:22px!important;min-height:52px!important;height:52px!important}}</style>
+<style>/* computer: one wide question card while playing */
+@media (min-width:1000px){body.playing .wrap{max-width:1040px!important}body.playing .app-strip{display:none!important}
+body.playing .meter.lvl{padding:6px 12px!important;min-height:0!important;grid-template-columns:auto 1fr auto!important}
+body.playing .meter.lvl .lvl-path{display:none!important}body.playing .meter.lvl .lvl-crest{transform:scale(.7)}
+body.playing #screen .card{padding:34px 40px 26px!important}
+body.playing #screen .card .prompt{font-size:56px!important;line-height:1.02!important;margin:16px 0!important}
+body.playing #screen .card .mute{font-size:22px!important;padding:12px 16px!important}
+body.playing #screen .card #in{font-size:32px!important;height:76px!important}
+body.playing #screen .card .submitbtn{font-size:28px!important;height:76px!important;padding:0 34px!important}}</style>
 </head><body><div class="sp" id="sp" aria-hidden="true"><div class="sp-s"></div><div class="sp-t">UNICORNER</div><div class="sp-run"><div class="sp-bar"><div class="sp-fill"><i class="sp-u"></i></div></div></div><div class="sp-m"><span class="sp-en">Warming up on the touchline…</span><span class="sp-es">Calentando en la banda…</span></div></div>
 <script>
 // loading screen: always shown, lifts once the page and its fonts are ready (at least ~1s so it never just flickers), then the landing intro plays
