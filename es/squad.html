@@ -168,6 +168,7 @@ img.di{width:22px;height:22px;flex:none}
 @media (hover:hover) and (pointer:fine){.btn:hover,.game:hover,.chipbtn:hover{filter:brightness(1.05)}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
+.as{margin:4px 0 0;font:400 17px VT323,monospace;color:var(--paper)}.as b{color:var(--gold)}.as button{all:unset;cursor:pointer;text-decoration:underline;color:var(--paper);font:inherit}
 </style>
 </head>
 <body>
@@ -178,7 +179,7 @@ img.di{width:22px;height:22px;flex:none}
 </defs></svg>
 <div class="wrap">
  <header class="top"><a class="logo" id="home" href="/">Unicorner</a><span class="topr"><a class="chipbtn" id="playLink" href="/">▶ <span data-t="play">Play</span></a><a class="chipbtn xbtn" id="closeX" href="/" aria-label="Close">✕</a></span></header>
- <div class="hero"><div><h1 data-t="h1">SOCIALS</h1><p data-t="sub">Rankings, friends and leagues</p></div><img class="emb" src="/social/socials-emblem.png" alt="" width="256" height="160"></div>
+ <div class="hero"><div><h1 data-t="h1">SOCIALS</h1><p data-t="sub">Rankings, friends and leagues</p><p class="as" id="as-me" hidden></p></div><img class="emb" src="/social/socials-emblem.png" alt="" width="256" height="160"></div>
 
  <div class="tabs" role="tablist" aria-label="Socials">
   <button role="tab" id="t-rank" data-tab="rank" aria-selected="true" aria-controls="p-rank"><img class="ti" src="/social/icon-rankings.png" alt="" width="32" height="32"><span data-t="t_rank">Rankings</span></button>
@@ -342,6 +343,7 @@ function drawFriends(){const box=$('friends');
   ${out.length?`<p class="note">${L('Waiting for','Esperando a')}: ${out.map(n=>`${esc(n)} <button class="more" style="width:auto;height:auto;padding:0 4px;font-size:15px" data-cancel="${esc(n)}">${L('cancel','cancelar')}</button>`).join(', ')}</p>`:''}`;
  box.innerHTML=html}
 window.addEventListener('uc-friends-changed',()=>{loadHome()});
+function showMe(){const n=S.me?.profile?.nickname,e=$('as-me');if(!n||!e)return;e.innerHTML=`${L('Playing as','Juegas como')} <b>${esc(n)}</b> · <button type="button" onclick="window.ucChangeNick&&ucChangeNick()">${L('Change nickname','Cambiar apodo')}</button>`;e.hidden=false}
 async function loadHome(){if(!sess()||!S.me?.profile)return drawFriends();try{S.home=await call('sq_home',{},true)}catch(e){$('friends').innerHTML=`<p class="empty">${esc(e.message)}</p>`;return}drawFriends()}
 let findT;$('friends').addEventListener('input',e=>{if(e.target.id!=='find')return;clearTimeout(findT);const q=e.target.value.trim();if(q.length<2){$('found').innerHTML='';return}
  findT=setTimeout(async()=>{let r=[];try{r=await call('player_search',{p_q:q},true)||[]}catch{}const known=new Set((S.home?.friends||[]).map(f=>f.nickname.toLowerCase()));
@@ -418,7 +420,7 @@ async function playerCard(nick,kitHint){let d=$('pc');if(!d){document.body.inser
  if(seq!==pcSeq)return;
  const k=(typeof KITS!=='undefined'&&KITS.find(x=>x.id===(p.kit||'classic')))||null,kitName=k?(ES&&k.es||k.en):'';
  const signed=sess()&&S.me?.profile,rel=signed?p.relation:'out',td=p.today||{};
- const act=rel==='me'?`<p class="note" style="text-align:center">${L("That's you!",'¡Eres tú!')}</p>`
+ const act=rel==='me'?`<p class="note" style="text-align:center">${L("That's you!",'¡Eres tú!')}</p><button type="button" class="btn full" onclick="window.ucChangeNick&&ucChangeNick()">${L('✎ Change nickname','✎ Cambiar apodo')}</button>`
   :rel==='out'?`<a class="btn full" data-signin href="${signinUrl()}">${L('Sign in to add friends','Inicia sesión para añadir amigos')}</a>`
   :rel==='friend'?`<p class="note" style="text-align:center;margin-top:10px"><span class="tag">${L('FRIEND','AMIGO')}</span></p>`
   :rel==='sent'?`<p class="note" style="text-align:center;margin-top:10px">${L('Friend request sent','Solicitud enviada')}</p>`
@@ -440,7 +442,7 @@ for(const id of ['friends','leagues'])$(id).addEventListener('keydown',e=>{if((e
 $('list').addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('.row[data-i]')){e.preventDefault();e.target.click()}});
 
 // ── start ──
-async function loadMe(){if(!sess()){S.me=null;return}try{S.me=await call('lg_me',{},true)}catch{S.me=null}}
+async function loadMe(){if(!sess()){S.me=null;return}try{S.me=await call('lg_me',{},true)}catch{S.me=null}showMe()}
 async function inviteFromLink(){const q=new URLSearchParams(location.search),code=q.get('add')||ls('uc-squad-add');if(!code)return;
  if(!sess()||!S.me?.profile){ls('uc-squad-add',code);setTab('friends');
   $('friends').insertAdjacentHTML('afterbegin',`<div class="invite" style="margin-bottom:10px"><p><b>${L('A friend wants to add you on Unicorner.','Un amigo quiere agregarte en Unicorner.')}</b> ${L('Sign in to accept, it takes a few seconds.','Inicia sesión para aceptar, son unos segundos.')}</p></div>`);return}

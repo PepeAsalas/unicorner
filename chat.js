@@ -79,6 +79,8 @@ const CSS=`
 .ucc-f button:disabled{opacity:.6}
 .ucc-info{margin:0;padding:10px 12px;border-top:3px solid #1d1a2b;font-size:18px;color:#6b6480}.ucc-info a{color:#1d1a2b;font-weight:700}.ucc-info.bad{color:#c8473b}
 .ucc-err{margin:0 10px 8px;color:#c8473b;font-size:17px}
+.ucc-as{margin:0;padding:8px 12px 0;font-size:17px;color:#6b6480}.ucc-as b{color:#1d1a2b}
+.ucc-cn{all:unset;cursor:pointer;color:#1d1a2b;text-decoration:underline;font:inherit}.ucc-cn:focus-visible{outline:2px solid #4fd7ff}
 .ucc-toast{position:absolute;left:12px;right:12px;bottom:80px;background:#1d1a2b;color:#fbf6e8;padding:8px 10px;font-size:18px;text-align:center}
 @media (max-width:700px){.ucc{width:100vw;border-left:0}.ucc-tab{top:auto;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:none;writing-mode:horizontal-tb;padding:10px 12px 8px;border-right:0;font-size:20px}}
 @media (prefers-reduced-motion:reduce){.ucc{transition:none}}
@@ -97,7 +99,7 @@ function compose(){const box=$('ucc-c');if(!box)return;const me=C.me;
  if(!me?.nick){box.innerHTML=`<p class="ucc-info">${L('Pick a nickname on the','Elige un apodo en la')} <a href="${HOME}">${L('home page','página principal')}</a> ${L('to start chatting.','para chatear.')}</p>`;return}
  if(me.muted_until){box.innerHTML=`<p class="ucc-info bad">${L('A moderator muted you until','Un moderador te ha silenciado hasta')} ${new Date(me.muted_until).toLocaleString(ES?'es-ES':'en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}.</p>`;return}
  if($('ucc-in'))return;
- box.innerHTML=`<p class="ucc-err" id="ucc-err" hidden></p><form class="ucc-f" id="ucc-f"><input id="ucc-in" maxlength="280" autocomplete="off" enterkeyhint="send" placeholder="${L('Message as','Escribe como')} ${esc(me.nick)}" aria-label="${L('Message','Mensaje')}"><button type="submit" id="ucc-send">${L('Send','Enviar')}</button></form>`;
+ box.innerHTML=`<p class="ucc-as">${L('Chatting as','Chateas como')} <b>${esc(me.nick)}</b> · <button type="button" class="ucc-cn" data-c="nick">${L('Change','Cambiar')}</button></p><p class="ucc-err" id="ucc-err" hidden></p><form class="ucc-f" id="ucc-f"><input id="ucc-in" maxlength="280" autocomplete="off" enterkeyhint="send" placeholder="${L('Message as','Escribe como')} ${esc(me.nick)}" aria-label="${L('Message','Mensaje')}"><button type="submit" id="ucc-send">${L('Send','Enviar')}</button></form>`;
  $('ucc-f').onsubmit=async e=>{e.preventDefault();const v=$('ucc-in').value.trim();if(!v)return;$('ucc-send').disabled=true;$('ucc-err').hidden=true;
   try{const m=await call('chat_send',{p_body:v});$('ucc-in').value='';if(m&&!C.rows.some(r=>r.id===m.id)){C.rows.push(m);C.last=Math.max(C.last,m.id);draw()}track('chat_send',{len:v.length})}
   catch(err){$('ucc-err').textContent=err.message;$('ucc-err').hidden=false}finally{$('ucc-send').disabled=false;$('ucc-in').focus()}}}
@@ -122,7 +124,7 @@ function build(){const host=document.createElement('div');host.id='ucc-host';doc
  ROOT.append(tab,p);
  tab.onclick=()=>setOpen(true,'tab');$('ucc-x').onclick=()=>{setOpen(false);tab.focus()};
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&C.isOpen){setOpen(false);tab.focus()}});
- ROOT.addEventListener('click',e=>{if(e.target.closest('[data-uc-signin]'))ls('uc-return',location.pathname+location.search)});
+ ROOT.addEventListener('click',e=>{if(e.target.closest('[data-uc-signin]'))ls('uc-return',location.pathname+location.search);if(e.target.closest('[data-c=nick]'))window.ucChangeNick()});
  $('ucc-list').addEventListener('click',async e=>{const n=e.target.closest('.ucc-n');if(n){playerOpen(n.dataset.nick,n.dataset.kit);return}
   const b=e.target.closest('[data-c]');if(!b)return;const k=b.dataset.c,id=+b.dataset.id;
   if(k==='menu'){C.open=C.open===id?null:id;draw(true);return}
@@ -147,6 +149,34 @@ function build(){const host=document.createElement('div');host.id='ucc-host';doc
  // wide screens remember an open chat between pages; phones always start closed
  if(ls('uc-chat-open')==='1'&&matchMedia('(min-width:1200px)').matches)setOpen(true);
 }
+
+// ── change your nickname (once every 7 days, checked by the database: supabase/nick_change.sql) ──
+const NCSS=`.ucn-bg{position:fixed;inset:0;z-index:9500;background:rgba(10,8,20,.6);display:grid;place-items:center;padding:16px}
+.ucn{box-sizing:border-box;width:min(380px,100%);background:#fbf6e8;color:#1d1a2b;border:4px solid #1d1a2b;box-shadow:6px 6px 0 rgba(0,0,0,.45);padding:16px 16px 14px;font:400 19px/1.25 VT323,ui-monospace,monospace}
+.ucn h3{margin:0 0 4px;font:400 28px/1 "Jersey 10",Impact,sans-serif}.ucn p{margin:0 0 10px;color:#5b5070}
+.ucn input{box-sizing:border-box;width:100%;font:400 22px VT323,monospace;padding:9px 10px 7px;border:3px solid #1d1a2b;background:#fff;color:#1d1a2b;border-radius:0}
+.ucn .r{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
+.ucn button{all:unset;cursor:pointer;font:400 21px/1 "Jersey 10",Impact,sans-serif;padding:9px 14px 7px;border:3px solid #1d1a2b;box-shadow:0 3px 0 #1d1a2b;background:#fbf6e8}
+.ucn button.y{background:#f2c230}.ucn button:disabled{opacity:.55;cursor:default}.ucn button:focus-visible{outline:3px solid #4fd7ff}
+.ucn .e{color:#c8473b;margin:8px 0 0}.ucn .ok{color:#2f8f5b}`;
+window.ucChangeNick=async()=>{if(!sess()){location.href=HOME+'#signin';return}
+ const host=document.createElement('div');document.body.appendChild(host);const R=host.attachShadow({mode:'open'});
+ R.innerHTML=`<style>${NCSS}</style><div class="ucn-bg"><form class="ucn" role="dialog" aria-modal="true" aria-labelledby="ucn-h"><h3 id="ucn-h">${L('Change your nickname','Cambia tu apodo')}</h3><p id="ucn-p">${L('Loading…','Cargando…')}</p><input id="ucn-i" maxlength="16" autocomplete="nickname" aria-label="${L('New nickname','Nuevo apodo')}" disabled><p class="e" id="ucn-e" hidden></p><div class="r"><button type="button" id="ucn-x">${L('Cancel','Cancelar')}</button><button type="submit" class="y" id="ucn-s" disabled>${L('Save','Guardar')}</button></div></form></div>`;
+ const q=id=>R.getElementById(id),close=()=>host.remove();
+ q('ucn-x').onclick=close;R.querySelector('.ucn-bg').onclick=e=>{if(e.target.classList.contains('ucn-bg'))close()};
+ R.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+ let st=null;try{st=await call('lg_nick_status',{})}catch(e){q('ucn-p').textContent=e.message;return}
+ if(!st){q('ucn-p').textContent=L('Pick a nickname on the home page first.','Elige primero un apodo en la página principal.');return}
+ const when=st.next_change&&new Date(st.next_change).toLocaleDateString(ES?'es-ES':'en-GB',{day:'numeric',month:'long'});
+ q('ucn-i').value=st.nickname;
+ if(when){q('ucn-p').innerHTML=`${L("You're",'Eres')} <b>${esc(st.nickname)}</b>. ${L('You can change your nickname once a week: next time on','Puedes cambiar tu apodo una vez por semana: la próxima el')} <b>${esc(when)}</b>.`;return}
+ q('ucn-p').innerHTML=`${L('2–16 letters or numbers. You can only change it once a week, so pick a good one.','De 2 a 16 letras o números. Solo puedes cambiarlo una vez por semana, así que elige bien.')}`;
+ q('ucn-i').disabled=false;q('ucn-s').disabled=false;q('ucn-i').focus();q('ucn-i').select();
+ R.querySelector('form').onsubmit=async e=>{e.preventDefault();const v=q('ucn-i').value.trim();if(!v||v===st.nickname){close();return}
+  q('ucn-s').disabled=true;q('ucn-e').hidden=true;
+  try{const r=await call('lg_rename',{p_nickname:v});ls('uc-nick',r.nickname);track('nickname_change',{});
+   q('ucn-p').innerHTML=`<span class="ok">✓ ${L("You're now",'Ahora eres')} <b>${esc(r.nickname)}</b></span>`;R.querySelector('.r').innerHTML='';setTimeout(()=>location.reload(),1100)}
+  catch(err){q('ucn-e').textContent=err.message;q('ucn-e').hidden=false;q('ucn-s').disabled=false}}};
 async function start(){build();await Promise.all([loadSpoilers(),ensureSprites()]);await load();setInterval(()=>{if(C.isOpen||Date.now()%30000<4000)poll()},4000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)poll()})}
 document.readyState==='loading'?addEventListener('DOMContentLoaded',start,{once:true}):start();
 })();

@@ -3731,7 +3731,9 @@ async function pcdFresh(d,nick,ghost){if(!nick||ghost)return;const seq=++pcdSeq;
  const bar=d.querySelector('.pcd-bar>i');if(bar)bar.style.width=Math.round(n/Math.max(1,all.length)*100)+'%';
  d.querySelectorAll('.pcd-shelf [data-kid]').forEach(i=>i.classList.toggle('no',!own.has(i.dataset.kid)));
  // friends: add from the card (signed in, someone else)
- const rel=p.relation;if(!sess||!me?.profile||rel==='me'||d.querySelector('.pcd-fr'))return;
+ const rel=p.relation;
+ if(sess&&me?.profile&&rel==='me'&&!d.querySelector('.pcd-fr')){const c=document.createElement('button');c.type='button';c.className='pcd-ch pcd-fr';c.textContent=L('✎ CHANGE NICKNAME','✎ CAMBIAR APODO');c.onclick=()=>window.ucChangeNick?.();d.querySelector('.pcd-b')?.insertBefore(c,d.querySelector('.pcd-b .pcd-ch')||null);return}
+ if(!sess||!me?.profile||rel==='me'||d.querySelector('.pcd-fr'))return;
  const b=document.createElement('button');b.type='button';b.className='pcd-ch pcd-fr';
  const lab={friend:L('✓ FRIENDS','✓ AMIGOS'),sent:L('REQUEST SENT','SOLICITUD ENVIADA'),incoming:L('ACCEPT FRIEND REQUEST','ACEPTAR SOLICITUD'),none:L('+ ADD FRIEND','+ AÑADIR AMIGO')};
  b.textContent=lab[rel]||lab.none;b.disabled=rel==='friend'||rel==='sent';
