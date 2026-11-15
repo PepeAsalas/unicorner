@@ -1818,6 +1818,14 @@ html:root:root body .modes .mode.mode.mode.mode:is(.m-inf,.m-duel) .m-go{grid-ar
  html:root:root body .modes .mode.mode.mode.mode:is(.m-inf,.m-duel) .m-go{width:100%!important;margin-top:10px!important}
  html:root:root body .modes .mode.mode.mode.mode:is(.m-inf,.m-duel) .m-txt{padding-top:10px!important}}
 </style><link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#1d1a2b"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Unicorner"><meta name="apple-mobile-web-app-status-bar-style" content="black">
+<style>/* phone: tighter question screen while playing */
+@media (max-width:760px){body.playing .meter.lvl,body.playing .app-strip{display:none!important}
+body.playing #screen .card{padding:14px 14px 12px!important}
+body.playing #screen .card .q-progress{transform:scale(.85);transform-origin:left center;margin-bottom:4px!important}
+body.playing #screen .card .prompt{font-size:27px!important;line-height:1.08!important;margin:6px 0 8px!important}
+body.playing #screen .card .mute{font-size:16px!important;line-height:1.3!important;padding:7px 10px!important;margin-bottom:10px!important}
+body.playing #screen .card .timer{margin:0 0 10px!important}
+body.playing #screen .card #in{font-size:22px!important;min-height:52px!important;height:52px!important}}</style>
 </head><body><div class="sp" id="sp" aria-hidden="true"><div class="sp-s"></div><div class="sp-t">UNICORNER</div><div class="sp-run"><div class="sp-bar"><div class="sp-fill"><i class="sp-u"></i></div></div></div><div class="sp-m"><span class="sp-en">Warming up on the touchline…</span><span class="sp-es">Calentando en la banda…</span></div></div>
 <script>
 // loading screen: always shown, lifts once the page and its fonts are ready (at least ~1s so it never just flickers), then the landing intro plays
@@ -2693,15 +2701,7 @@ www.unicornergame.lol`};
 
 // relaydle rail: only on the results screen, inside its own frame so its script and styles can't touch the game; if it fails nothing shows
 function relayRail(el){if(!el)return;try{const f=document.createElement('iframe');f.title='relaydle';f.setAttribute('scrolling','no');f.style.cssText='display:block;width:100%;height:0;border:0;background:transparent';
- f.srcdoc=`<!doctype html><html><head><meta charset="utf-8"><base target="_blank"><style>html,body{margin:0;background:transparent;overflow:hidden}</style><style>/* phone: tighter question screen while playing */
-@media (max-width:760px){body.playing .meter.lvl,body.playing .app-strip{display:none!important}
-body.playing #screen .card{padding:14px 14px 12px!important}
-body.playing #screen .card .q-progress{transform:scale(.85);transform-origin:left center;margin-bottom:4px!important}
-body.playing #screen .card .prompt{font-size:27px!important;line-height:1.08!important;margin:6px 0 8px!important}
-body.playing #screen .card .mute{font-size:16px!important;line-height:1.3!important;padding:7px 10px!important;margin-bottom:10px!important}
-body.playing #screen .card .timer{margin:0 0 10px!important}
-body.playing #screen .card #in{font-size:22px!important;min-height:52px!important;height:52px!important}}</style>
-</head><body><div id="r"></div><script src="https://relaydle.com/w.js"><\/script><script>try{relaydle.render(document.getElementById('r'),{site:'unicornergame',placement:'win_card'})}catch(e){}var h=-1;function s(){var n=document.getElementById('r').offsetHeight;if(n!==h){h=n;parent.postMessage({relaydleH:n},'*')}}setInterval(s,500);s()<\/script></body></html>`;
+ f.srcdoc=`<!doctype html><html><head><meta charset="utf-8"><base target="_blank"><style>html,body{margin:0;background:transparent;overflow:hidden}</style></head><body><div id="r"></div><script src="https://relaydle.com/w.js"><\/script><script>try{relaydle.render(document.getElementById('r'),{site:'unicornergame',placement:'win_card'})}catch(e){}var h=-1;function s(){var n=document.getElementById('r').offsetHeight;if(n!==h){h=n;parent.postMessage({relaydleH:n},'*')}}setInterval(s,500);s()<\/script></body></html>`;
  el.appendChild(f)}catch{}}
 addEventListener('message',e=>{const f=document.querySelector('#relay-rail iframe');if(!f||e.source!==f.contentWindow||typeof e.data?.relaydleH!=='number')return;const h=Math.min(Math.max(0,e.data.relaydleH),600);f.style.height=h+'px';f.style.marginTop=h?'18px':'0'});
 
