@@ -17,7 +17,7 @@
 @font-face{font-family:'VT323';src:url(/fonts/vt323.woff2) format('woff2');font-display:swap}
 /* Socials: the game's pitch background, and the same beveled "window" look as the ranking on the home page */
 :root{--ink:#1d1a2b;--paper:#fbf6e8;--w0:#f6eed8;--wl:#fffaf0;--wd:#b8ac8a;--navy:#1d4486;--gold:#f2c230;--grass:#2f9a62;--clay:#c8473b;
- --rosco:#1d4486;--millon:#2f9a62;--marl:#2d5aa0;--daily:#c8473b;--mut:#6b6480;--line:#e3d9bd;
+ --rosco:#1d4486;--millon:#2f9a62;--sh:#b8860b;--marl:#2d5aa0;--daily:#c8473b;--mut:#6b6480;--line:#e3d9bd;
  --disp:'Jersey 10',monospace;--px:'VT323',monospace;--ease:cubic-bezier(.23,1,.32,1)}
 *{box-sizing:border-box}
 html{background:#1f5e39}
@@ -55,12 +55,18 @@ a{color:inherit}
 .pip{font:400 15px/1 var(--px);background:var(--clay);color:#fff;border:2px solid #000;padding:1px 5px;min-width:22px}
 .pip[hidden]{display:none}
 svg.i{width:18px;height:18px;shape-rendering:crispEdges;flex:none}
+/* the pixel-art set: tab icons at exactly half size so the pixels stay crisp, the team emblem by the title, the duel boots */
+.tabs img.ti{width:32px;height:32px;image-rendering:pixelated;flex:none;margin:-6px 0 -5px}
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+.hero .emb{width:150px;height:auto;flex:none;margin:-8px -4px -6px 0;filter:drop-shadow(3px 3px 0 rgba(0,0,0,.45))}
+@media (max-width:420px){.hero .emb{width:112px}}@media (max-width:370px){.tabs img.ti{width:24px;height:24px;image-rendering:auto}}
+img.di{width:22px;height:22px;flex:none}
 .grid{display:block}
 @media (max-width:899px){.panel[data-hidden=true]{display:none}}
 @media (min-width:900px){.tabs{display:none}.grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:18px;align-items:start}}
 
 /* game picker: three big, obvious buttons */
-.games{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.games{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}@media (max-width:520px){.games{grid-template-columns:repeat(2,1fr)}}
 .game{border:3px solid #000;background:var(--paper);padding:9px 6px 7px;text-align:left;display:grid;gap:3px;box-shadow:3px 3px 0 #000;min-height:72px;transition:transform 140ms var(--ease)}
 .game b{font:400 22px/1 var(--disp);display:flex;align-items:center;gap:6px}
 .game b i{width:12px;height:12px;border:2px solid #000;flex:none;background:var(--c)}
@@ -161,6 +167,7 @@ svg.i{width:18px;height:18px;shape-rendering:crispEdges;flex:none}
 .toast[hidden]{display:block;opacity:0;transform:translate(-50%,8px);pointer-events:none}
 @media (hover:hover) and (pointer:fine){.btn:hover,.game:hover,.chipbtn:hover{filter:brightness(1.05)}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
 </style>
 </head>
 <body>
@@ -171,12 +178,12 @@ svg.i{width:18px;height:18px;shape-rendering:crispEdges;flex:none}
 </defs></svg>
 <div class="wrap">
  <header class="top"><a class="logo" id="home" href="/">Unicorner</a><span class="topr"><a class="chipbtn" id="playLink" href="/">▶ <span data-t="play">Play</span></a><a class="chipbtn xbtn" id="closeX" href="/" aria-label="Close">✕</a></span></header>
- <div class="hero"><div><h1 data-t="h1">SOCIALS</h1><p data-t="sub">Rankings, friends and leagues</p></div></div>
+ <div class="hero"><div><h1 data-t="h1">SOCIALS</h1><p data-t="sub">Rankings, friends and leagues</p></div><img class="emb" src="/social/socials-emblem.png" alt="" width="256" height="160"></div>
 
  <div class="tabs" role="tablist" aria-label="Socials">
-  <button role="tab" id="t-rank" data-tab="rank" aria-selected="true" aria-controls="p-rank"><svg class="i"><use href="#i-cup"/></svg><span data-t="t_rank">Rankings</span></button>
-  <button role="tab" id="t-friends" data-tab="friends" aria-selected="false" aria-controls="p-friends"><svg class="i"><use href="#i-ppl"/></svg><span data-t="t_friends">Friends</span><span class="pip" id="pip" hidden></span></button>
-  <button role="tab" id="t-leagues" data-tab="leagues" aria-selected="false" aria-controls="p-leagues"><svg class="i"><use href="#i-shd"/></svg><span data-t="t_leagues">Leagues</span></button>
+  <button role="tab" id="t-rank" data-tab="rank" aria-selected="true" aria-controls="p-rank"><img class="ti" src="/social/icon-rankings.png" alt="" width="32" height="32"><span data-t="t_rank">Rankings</span></button>
+  <button role="tab" id="t-friends" data-tab="friends" aria-selected="false" aria-controls="p-friends"><span data-t="t_friends">Friends</span><span class="pip" id="pip" hidden></span></button>
+  <button role="tab" id="t-leagues" data-tab="leagues" aria-selected="false" aria-controls="p-leagues"><span data-t="t_leagues">Leagues</span></button>
  </div>
 
  <div class="grid">
@@ -187,6 +194,7 @@ svg.i{width:18px;height:18px;shape-rendering:crispEdges;flex:none}
      <button class="game" data-game="daily" aria-pressed="true" style="--c:var(--daily)"><b><i></i>Daily 5</b><span id="gs-daily">&nbsp;</span></button>
      <button class="game" data-game="rosco" aria-pressed="false" style="--c:var(--rosco)"><b><i></i>Rosco</b><span id="gs-rosco">&nbsp;</span></button>
      <button class="game" data-game="millon" aria-pressed="false" style="--c:var(--millon)"><b><i></i><span data-t="millions" style="color:inherit;font:inherit">Millions</span></b><span id="gs-millon">&nbsp;</span></button>
+     <button class="game" data-game="stablehand" aria-pressed="false" style="--c:var(--sh)"><b><i></i><span class="shn" style="color:inherit;font:inherit">Stable Hand</span></b><span id="gs-stablehand">&nbsp;</span></button>
     </div>
     <div class="ctrls">
      <div class="seg" role="group" aria-label="When"><button data-scope="day" aria-pressed="true" data-t="today">Today</button><button data-scope="week" aria-pressed="false" data-t="week">This week</button></div>
@@ -222,12 +230,13 @@ const ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);v==null?loc
 
 // ── words ──
 const T={h1:['SOCIALS','SOCIAL'],play:['Play','Jugar'],sub:['Rankings, friends and leagues','Rankings, amigos y ligas'],t_rank:['Rankings','Rankings'],t_friends:['Friends','Amigos'],t_leagues:['Leagues','Ligas'],
- t_rank_bar:['RANKINGS','RANKINGS'],t_friends_bar:['FRIENDS','AMIGOS'],t_leagues_bar:['LEAGUES','LIGAS'],millions:['Millions','Millones'],today:['Today','Hoy'],week:['This week','Esta semana']};
+ t_chat:['Chat','Chat'],t_chat_bar:['GLOBAL CHAT','CHAT GLOBAL'],ch_rules:["Say what you want, keep it football. Anything nasty: tap ⋯ and report it. Three reports and it's gone.",'Di lo que quieras, pero de fútbol. Si algo es ofensivo: toca ⋯ y denúncialo. Con tres denuncias desaparece.'],t_rank_bar:['RANKINGS','RANKINGS'],t_friends_bar:['FRIENDS','AMIGOS'],t_leagues_bar:['LEAGUES','LIGAS'],millions:['Millions','Millones'],today:['Today','Hoy'],week:['This week','Esta semana']};
 if(ES){document.documentElement.lang='es';document.querySelectorAll('[data-t]').forEach(e=>{const t=T[e.dataset.t];if(t)e.textContent=t[1]})}
 $('home').href=HOME;$('playLink').href=HOME;$('closeX').href=HOME;$('closeX').setAttribute('aria-label',L('Close','Cerrar'));
 const GAMES={daily:{name:'Daily 5',url:HOME,play:L("Play today's Daily 5",'Jugar el Daily 5 de hoy')},
  rosco:{name:'Rosco',url:ES?'/es/rosco.html':'/rosco.html',play:L("Play today's Rosco",'Jugar el Rosco de hoy')},
- millon:{name:L('Millions','Millones'),url:ES?'/es/millon.html':'/millon.html',play:L("Play today's Millions",'Jugar a Millones hoy')}};
+ millon:{name:L('Millions','Millones'),url:ES?'/es/millon.html':'/millon.html',play:L("Play today's Millions",'Jugar a Millones hoy')},
+ stablehand:{name:L('Stable Hand','Mano de Cuadra'),url:ES?'/es/stablehand.html':'/stablehand.html',play:L("Play today's Stable Hand",'Jugar a Mano de Cuadra hoy')}};
 
 // ── Supabase: same session the game keeps in localStorage ──
 const sessionOf=()=>{try{const s=JSON.parse(ls('uc-player-session')||'null');return s&&s.access_token?s:null}catch{return null}};
@@ -237,16 +246,18 @@ async function tok(){let s=sessionOf();if(!s)return null;
  return s.access_token}
 async function call(fn,body,needAuth){const t=await tok();if(needAuth&&!t)throw new Error(L('Sign in first','Inicia sesión primero'));
  const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+(t||SB_KEY),'Content-Type':'application/json'},body:JSON.stringify(body||{})});
- const j=await r.json().catch(()=>null);if(!r.ok)throw new Error((j&&(j.message||j.hint))||L('Something went wrong. Try again.','Algo ha fallado. Inténtalo de nuevo.'));return j}
+ const j=await r.json().catch(()=>null);if(!r.ok)throw new Error((j&&(j.message||j.hint))||L('Something went wrong. Try again.','Algo ha fallado. Inténtalo de nuevo.'));
+ if(fn==='sq_request'&&j==='sent')window.ucFriendPush?.(body.p_nick);if(fn==='sq_respond')window.ucInboxCheck?.();return j}
 const track=(name,data)=>{try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},
  body:JSON.stringify({name,session:SID,visitor:ls('uc-visitor'),seconds:0,game_day:new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Amsterdam'}),event_version:2,data:{page:'squad',language:ES?'es':'en',...(data||{})}})}).catch(()=>{})}catch{}};
 const SID=Math.random().toString(36).slice(2);
 
 // ── little helpers ──
 let toastT;function toast(m){const e=$('toast');e.textContent=m;e.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>e.hidden=true,2600)}
+document.querySelectorAll('.shn').forEach(e=>e.textContent=L('Stable Hand','Mano de Cuadra'));
 const uni=(kit,mood='happy')=>{try{const k=(typeof KITS!=='undefined'&&KITS.find(x=>x.id===kit))||null;return spriteDraw(mood,0,false,k&&k.id!=='classic'?k:null).replace(/"/g,"'")}catch{return'none'}};
 const K=n=>n>=1e6?(n/1e6).toFixed(n%1e6?1:0).replace('.0','')+'M':n>=1e3?Math.round(n/1e3)+'K':String(n);
-const fmt=(g,s)=>g==='rosco'?s+' '+L('letters','letras'):g==='millon'?K(s)+' €':s+' '+L('pts','pts');
+const fmt=(g,s)=>g==='stablehand'?s+' '+L('pts','pts'):g==='rosco'?s+' '+L('letters','letras'):g==='millon'?K(s)+' €':s+' '+L('pts','pts');
 const short=(g,s)=>g==='millon'?K(s):String(s);
 const ord=n=>ES?n+'º':n+(n%100>=11&&n%100<=13?'th':['th','st','nd','rd'][n%10]||'th');
 const signinUrl=()=>HOME+'#signin';
@@ -306,7 +317,8 @@ function signInCard(what){return`<div class="signin"><p>${what}</p><a class="btn
 function line(f){const p=[],n='<span class="no">·</span>';
  p.push(f.daily!=null?`<span>Daily 5 <em>${f.daily}</em></span>`:`<span class="no">Daily 5 –</span>`);
  p.push(f.rosco!=null?`<span>Rosco <em>${f.rosco}/${f.rosco_total||24}</em></span>`:`<span class="no">Rosco –</span>`);
- p.push(f.millon!=null?`<span>${L('Millions','Millones')} <em>${K(f.millon)}</em></span>`:`<span class="no">${L('Millions','Millones')} –</span>`);return p.join(n)}
+ p.push(f.millon!=null?`<span>${L('Millions','Millones')} <em>${K(f.millon)}</em></span>`:`<span class="no">${L('Millions','Millones')} –</span>`);
+ p.push(f.stablehand!=null?`<span>${L('Stable Hand','Mano de Cuadra')} <em>${f.stablehand}/${f.stablehand_target||'?'}</em></span>`:`<span class="no">${L('Stable Hand','Mano de Cuadra')} –</span>`);return p.join(n)}
 function drawFriends(){const box=$('friends');
  if(!sess()){box.innerHTML=signInCard(L('Sign in to add friends and see how they did today.','Inicia sesión para añadir amigos y ver cómo les ha ido hoy.'));$('fr-count').textContent='';return}
  if(S.me&&!S.me.profile){box.innerHTML=signInCard(L('Pick a nickname first, then you can add friends.','Elige un apodo primero y luego podrás añadir amigos.'));return}
@@ -321,7 +333,7 @@ function drawFriends(){const box=$('friends');
  html+=sorted.map(f=>{const open=S.open===f.nickname&&!f.me;
   return`<div class="frow${f.me?' me':''}" data-nick="${esc(f.nickname)}" data-kit="${esc(f.kit||'')}" tabindex="0" role="button"><span class="u" style="background-image:${uni(f.kit)}"></span><span class="nm"><b>${esc(f.me?L('You','Tú'):f.nickname)}${f.streak>=3?` <small style="display:inline;color:var(--clay)">🔥${f.streak}</small>`:''}</b><span class="gl">${line(f)}</span></span>
   <span class="acts">${f.me?`<span class="sc" title="${L('This week','Esta semana')}">${f.week||0}</span>`:`<span class="sc" title="${L('This week','Esta semana')}">${f.week||0}</span><button class="more" data-more="${esc(f.nickname)}" aria-expanded="${open}" aria-label="${L('More for','Más para')} ${esc(f.nickname)}">⋯</button>`}</span>
-  ${open?`<div class="drop"><a class="btn s w" href="/duel.html">⚔ ${L('Duel','Duelo')}</a><button class="btn s w" data-rm="${esc(f.nickname)}">${L('Remove friend','Quitar amigo')}</button></div>`:''}</div>`}).join('');
+  ${open?`<div class="drop"><a class="btn s w" href="/duel.html"><img class="di" src="/social/icon-duel.png" alt="" width="64" height="64"> ${L('Duel','Duelo')}</a><button class="btn s w" data-rm="${esc(f.nickname)}">${L('Remove friend','Quitar amigo')}</button></div>`:''}</div>`}).join('');
  if(!others.length)html+=`<p class="empty" style="padding:14px 8px">${L('No friends yet. Send your link below: whoever opens it becomes your friend.','Aún no tienes amigos. Manda tu enlace: quien lo abra será tu amigo.')}</p>`;
  html+=`</div><p class="note" style="text-align:right">${L('Big number = points this week','Número grande = puntos esta semana')}</p>`;
  html+=`<p class="sec">${L('Add friends','Añadir amigos')}</p><div class="invite"><p>${L('Send your link. Whoever opens it and signs in is <b>your friend straight away</b>.','Manda tu enlace. Quien lo abra e inicie sesión es <b>tu amigo al momento</b>.')}</p>
@@ -329,6 +341,7 @@ function drawFriends(){const box=$('friends');
   <div class="form2" style="grid-template-columns:1fr"><label class="sr" for="find">${L('Search a nickname','Busca un apodo')}</label><input class="field" id="find" type="search" autocomplete="off" placeholder="${L('…or search a nickname','…o busca un apodo')}"></div><div id="found"></div>
   ${out.length?`<p class="note">${L('Waiting for','Esperando a')}: ${out.map(n=>`${esc(n)} <button class="more" style="width:auto;height:auto;padding:0 4px;font-size:15px" data-cancel="${esc(n)}">${L('cancel','cancelar')}</button>`).join(', ')}</p>`:''}`;
  box.innerHTML=html}
+window.addEventListener('uc-friends-changed',()=>{loadHome()});
 async function loadHome(){if(!sess()||!S.me?.profile)return drawFriends();try{S.home=await call('sq_home',{},true)}catch(e){$('friends').innerHTML=`<p class="empty">${esc(e.message)}</p>`;return}drawFriends()}
 let findT;$('friends').addEventListener('input',e=>{if(e.target.id!=='find')return;clearTimeout(findT);const q=e.target.value.trim();if(q.length<2){$('found').innerHTML='';return}
  findT=setTimeout(async()=>{let r=[];try{r=await call('player_search',{p_q:q},true)||[]}catch{}const known=new Set((S.home?.friends||[]).map(f=>f.nickname.toLowerCase()));
@@ -414,11 +427,13 @@ async function playerCard(nick,kitHint){let d=$('pc');if(!d){document.body.inser
  const since=p.since?new Date(p.since+'T12:00:00Z').toLocaleDateString(ES?'es-ES':'en-GB',{month:'short',year:'numeric',timeZone:'UTC'}):'';
  d.innerHTML=head+`<div class="inner" style="text-align:center">
   <div class="u" style="width:150px;height:125px;margin:6px auto 2px;background-image:${uni(p.kit,'wow')}"></div>
-  <p style="margin:0 0 10px;font-size:18px;color:var(--mut)">${esc(kitName)}${since?' · '+L('playing since ','juega desde ')+esc(since):''}<br>${L('Kits','Equipaciones')}: <b style="font-weight:400;color:var(--ink)">${(Array.isArray(p.kits)?p.kits:[]).filter(id=>KITS.some(x=>x.id===id&&x.req)).length}/${KITS.filter(x=>x.req).length}</b></p>
+  <p style="margin:0 0 10px;font-size:18px;color:var(--mut)">${esc(kitName)}${since?' · '+L('playing since ','juega desde ')+esc(since):''}<br>${L('Kits','Equipaciones')}: <b style="font-weight:400;color:var(--ink)">${(()=>{const own=new Set(Array.isArray(p.kits)?p.kits:[]),day=new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Amsterdam'}),all=KITS.filter(x=>x.req&&(own.has(x.id)||(!x.crew&&!(x.until&&day>x.until))));return all.filter(x=>own.has(x.id)).length+'/'+all.length})()}</b></p>
   <div class="pcg">${pcStat(p.games,L('games played','partidos jugados'))}${pcStat((p.streak?'🔥':'')+p.streak,L('day streak','racha actual'))}${pcStat(p.best_streak,L('best streak','mejor racha'))}${pcStat(p.trophies,L('trophies','trofeos'))}</div>
-  <p class="sec" style="justify-content:center;margin-top:12px">${L('Today','Hoy')}</p><p class="gl" style="justify-content:center;font-size:17px;margin:0 0 10px">${line({daily:td.daily,rosco:td.rosco,rosco_total:td.rosco_total,millon:td.millon})}</p>
+  <p class="sec" style="justify-content:center;margin-top:12px">${L('Today','Hoy')}</p><p class="gl" style="justify-content:center;font-size:17px;margin:0 0 10px">${line({daily:td.daily,rosco:td.rosco,rosco_total:td.rosco_total,millon:td.millon,stablehand:td.stablehand,stablehand_target:td.stablehand_target})}</p>
   ${act}</div>`}
 $('list').addEventListener('click',e=>{const row=e.target.closest('.row[data-i]');if(row&&lastBoard){const r=lastBoard.rows[+row.dataset.i];if(r)playerCard(r.nickname,r.kit)}});
+window.ucPlayerCard=(n,k)=>playerCard(n,k);
+{const m=location.hash.match(/^#player=(.+)$/);if(m)setTimeout(()=>playerCard(decodeURIComponent(m[1])),600)}
 // friends, requests and league members open the same card (but not when a button in the row was tapped)
 for(const id of ['friends','leagues'])$(id).addEventListener('click',e=>{if(e.target.closest('button,a,input,form'))return;const row=e.target.closest('[data-nick]');if(row)playerCard(row.dataset.nick,row.dataset.kit)});
 for(const id of ['friends','leagues'])$(id).addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('[data-nick]')){e.preventDefault();playerCard(e.target.dataset.nick,e.target.dataset.kit)}});
@@ -435,5 +450,7 @@ async function inviteFromLink(){const q=new URLSearchParams(location.search),cod
  await loadMe();drawControls();drawLeagues();await loadHome();await inviteFromLink();if(S.filter!=='all')loadBoard();gameHints();track('squad_open',{signed:sess(),tab:S.tab})})();
 })();
 </script>
+<script src="/notify.js" defer></script>
+<script src="/chat.js" defer></script>
 </body>
 </html>

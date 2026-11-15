@@ -42,6 +42,8 @@ const ATK={
 const ORDER=['classic','fire','galaxy','ice','zebra','gold','matrix','lava','ref','keeper'];
 /* ── the duel ── */
 let cv,g;
+// the K.O.! burst stamped over the arena at a knockout (falls back to drawn letters if it hasn't loaded)
+const KOIMG=new Image();KOIMG.src='/duel/ko.png';
 let P1,P2,R,N,HP,TOTAL,KO=false,onEnd=null,ended=false,O={},RUN=0,TICK=null;
 const R_DEMO=[
  ['PLAYED FOR ENGLAND AT EURO 2024',['ANTHONY GORDON','SCREAMER',100],['HARRY KANE','TAP-IN',10]],
@@ -168,7 +170,7 @@ function frame(now){if(!cv.isConnected)return;let r=paused?pausedAt:(now-t0)/100
    const pop=landed?eob(seg(lt,LAND[k],LAND[k]+.25)):1;g.save();g.translate(x,y+56);g.scale(pop,pop);g.font='20px VT323,monospace';const w=g.measureText(lab).width+16;g.fillStyle=col;g.fillRect(-w/2,-12,w,24);px(lab,0,6,20,'#06041a',{out:false,font:'mono'});g.restore();
    if(landed&&a[1]==='SCREAMER'&&lt<LAND[k]+1.4)for(let i=0;i<22;i++){const e=((lt-LAND[k])*.9+rnd(i))%1;sq(g,x+(rnd(i+3)-.5)*230,660+e*120,6,i%2?'#ffd23f':'#fff3a0')}}}
  if(ri>=N){if(O.final){
-   if(KO){flash(1-seg(end,0,.3));['K','.','O','.'].forEach((c,i)=>{const a=seg(end,.5+i*.15,.75+i*.15);if(a>0)px(c,W/2-120+i*80,-100+eob(a)*370,150,i%2?'#ffffff':'#ff3b30')});resultCard(end-2.2)}
+   if(KO){flash(1-seg(end,0,.3));const ka=seg(end,.5,1.05);if(ka>0){if(KOIMG.complete&&KOIMG.naturalWidth){const s=eob(ka);g.save();g.translate(W/2,270);g.rotate(-.06-(1-Math.min(1,ka*1.4))*.35);g.scale(s,s);g.imageSmoothingEnabled=false;g.drawImage(KOIMG,-220,-110,440,220);g.restore()}else['K','.','O','.'].forEach((c,i)=>{const a=seg(end,.5+i*.15,.75+i*.15);if(a>0)px(c,W/2-120+i*80,-100+eob(a)*370,150,i%2?'#ffffff':'#ff3b30')})}resultCard(end-2.2)}
    else resultCard(end)}
   else{const s=eob(seg(end,0,.35));g.save();g.translate(W/2,630);g.scale(s,s);g.fillStyle='#06041a';g.fillRect(-230,-70,460,150);g.fillStyle='#ffd23f';g.fillRect(-222,-62,444,134);g.restore();
    if(s>.5){const a0=HP[N][0],b0=HP[N][1];px((O.next||'NO KO YET').toUpperCase(),W/2,625,66,'#06041a',{out:false});px(Math.round(a0)+' – '+Math.round(b0)+' HP',W/2,668,26,'#06041a',{out:false,font:'mono'})}}}

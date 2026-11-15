@@ -1,0 +1,249 @@
+{
+  "date": "2026-11-14",
+  "baseline_commit": "4e77222ceb174463bb1a33306984516a66c248bd",
+  "correction_commit": "3aabdc7da1c7e09db3911f5ba3b5889fca401017",
+  "previous_checkpoint": 1388979,
+  "last_scanned_event_id": 1460439,
+  "scanned_events": 6450,
+  "scan_pages": [
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    450
+  ],
+  "prior_pending_count": 32283,
+  "pending_count": 35173,
+  "excluded_new_records": {
+    "duplicate": 433,
+    "ambiguity": 199,
+    "blank_or_missing": 7
+  },
+  "additional_privacy_filtered_groups": 0,
+  "decision_counts": {
+    "pending": 35173,
+    "add_missing_player": 1,
+    "add_alias": 4,
+    "ignore_wrong": 4
+  },
+  "corrections": [
+    {
+      "question_id": "d2-name-a-centre-back-who-played-for-real-madrid-sinc",
+      "submitted_text": [
+        "gila"
+      ],
+      "decision": "add_missing_player",
+      "correction": {
+        "name": "Mario Gila Fuentes",
+        "aliases": [
+          "Mario Gila",
+          "Gila"
+        ],
+        "fame": 2
+      },
+      "evidence": "Real Madrid confirms his competitive La Liga debut against Espanyol on 30 April 2022. Milan gives his full name and describes his role in the centre of Lazio’s defence.",
+      "evidence_urls": [
+        "https://www.realmadrid.com/es-ES/noticias/futbol/primer-equipo/actualidad/gila-debuta-en-partido-oficial-con-el-real-madrid",
+        "https://www.acmilan.com/en/news/articles/focus/2026-07-12/mario-gila-focus-and-fun-facts"
+      ],
+      "correction_commit": "3aabdc7da1c7e09db3911f5ba3b5889fca401017"
+    },
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-roma-and-inter",
+      "submitted_text": [
+        "Batiusta"
+      ],
+      "decision": "add_alias",
+      "correction": {
+        "name": "Gabriel Omar Batistuta",
+        "added_aliases": [
+          "Batiusta"
+        ]
+      },
+      "evidence": "Roma documents competitive appearances including his final Serie A match for Roma. Inter records 12 appearances and two goals in 2002–03.",
+      "evidence_urls": [
+        "https://www.asroma.com/en/club/history/hall-of-fame/15233/gabriel-batistuta",
+        "https://www.inter.it/it/notizie/compleanno-gabriel-batistuta-2026"
+      ],
+      "correction_commit": "3aabdc7da1c7e09db3911f5ba3b5889fca401017"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2013-fifa-confederations-cup",
+      "submitted_text": [
+        "Brasile"
+      ],
+      "decision": "add_alias",
+      "correction": {
+        "name": "Brazil",
+        "added_aliases": [
+          "Brasile"
+        ]
+      },
+      "evidence": "The Italian federation names Brazil as Brasile and records Italy's 2–4 group-stage defeat against Brazil in the 2013 finals.",
+      "evidence_urls": [
+        "https://www.figc.it/it/full-html?path=%2Fnazionali%2Fpalmares-storia%2Fconfederations-cup%2F2013",
+        "https://www.uefa.com/european-qualifiers/news/020b-0e141a43d019-00a3ce81738b-1000--spain-lose-confederations-cup-final-to-brazil/"
+      ],
+      "correction_commit": "3aabdc7da1c7e09db3911f5ba3b5889fca401017"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1966-world-cup",
+      "submitted_text": [
+        "bresil"
+      ],
+      "decision": "add_alias",
+      "correction": {
+        "name": "Brazil",
+        "added_aliases": [
+          "Brésil"
+        ]
+      },
+      "evidence": "FIFA's French archive lists Portugal–Brésil as a finals group match in the 1966 World Cup.",
+      "evidence_urls": [
+        "https://www.plus.fifa.com/fr/showcase/contenu-par-langue-de-commentaire/1f2fb285-936d-4b06-a0b8-6703c9efe073",
+        "https://www.fifa.com/en/tournaments/mens/worldcup/articles/portugal-korea-dpr-eusebio-england-1966"
+      ],
+      "correction_commit": "3aabdc7da1c7e09db3911f5ba3b5889fca401017"
+    },
+    {
+      "question_id": "d8-name-a-left-back-who-played-in-the-premier-league-since-2005",
+      "submitted_text": [
+        "Antonee"
+      ],
+      "decision": "add_alias",
+      "correction": {
+        "name": "Antonee Robinson",
+        "added_aliases": [
+          "Antonee"
+        ]
+      },
+      "evidence": "The Premier League names Antonee Robinson as Fulham’s left-back in December 2024. The first name distinguishes him from Paul Robinson, who is also in the question’s bank.",
+      "evidence_urls": [
+        "https://www.premierleague.com/en/news/4213843"
+      ],
+      "correction_commit": "3aabdc7da1c7e09db3911f5ba3b5889fca401017"
+    }
+  ],
+  "validation": {
+    "bank_validator_errors": 0,
+    "preexisting_warnings": 564,
+    "new_warnings": 0,
+    "existing_forms_and_traps_checked": 552,
+    "observed_inputs_retested_on_edited_questions": 762,
+    "previously_accepted_and_ambiguous_forms_unchanged": true
+  },
+  "review_limit": "All grouped inputs and prior pending candidates were rechecked against the implemented matcher. Source research focused on likely omissions and repeated variants. Other unresolved submissions remain in state for retry. Rejection telemetry is untrusted.",
+  "decisions": [
+    {
+      "question_id": "d2-name-a-centre-back-who-played-for-real-madrid-sinc",
+      "input": "gila",
+      "event_count": 3,
+      "new_events": 0,
+      "decision": "add_missing_player",
+      "reason": "Real Madrid confirms his competitive La Liga debut against Espanyol on 30 April 2022. Milan gives his full name and describes his role in the centre of Lazio’s defence.",
+      "evidence_urls": [
+        "https://www.realmadrid.com/es-ES/noticias/futbol/primer-equipo/actualidad/gila-debuta-en-partido-oficial-con-el-real-madrid",
+        "https://www.acmilan.com/en/news/articles/focus/2026-07-12/mario-gila-focus-and-fun-facts"
+      ]
+    },
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-roma-and-inter",
+      "input": "Batiusta",
+      "event_count": 9,
+      "new_events": 9,
+      "decision": "add_alias",
+      "reason": "Roma documents competitive appearances including his final Serie A match for Roma. Inter records 12 appearances and two goals in 2002–03.",
+      "evidence_urls": [
+        "https://www.asroma.com/en/club/history/hall-of-fame/15233/gabriel-batistuta",
+        "https://www.inter.it/it/notizie/compleanno-gabriel-batistuta-2026"
+      ]
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2013-fifa-confederations-cup",
+      "input": "Brasile",
+      "event_count": 7,
+      "new_events": 7,
+      "decision": "add_alias",
+      "reason": "The Italian federation names Brazil as Brasile and records Italy's 2–4 group-stage defeat against Brazil in the 2013 finals.",
+      "evidence_urls": [
+        "https://www.figc.it/it/full-html?path=%2Fnazionali%2Fpalmares-storia%2Fconfederations-cup%2F2013",
+        "https://www.uefa.com/european-qualifiers/news/020b-0e141a43d019-00a3ce81738b-1000--spain-lose-confederations-cup-final-to-brazil/"
+      ]
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1980",
+      "input": "Sweden",
+      "event_count": 6,
+      "new_events": 6,
+      "decision": "ignore_wrong",
+      "reason": "UEFA lists the eight finalists. The Soviet Union, Yugoslavia and Sweden did not play in the finals.",
+      "evidence_urls": [
+        "https://www.uefa.com/uefaeuro/history/news/025a-0eb31cb2ddca-3522043e6fe9-1000--euro-1980-all-you-need-to-know/"
+      ]
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1980",
+      "input": "Yugoslavia",
+      "event_count": 5,
+      "new_events": 5,
+      "decision": "ignore_wrong",
+      "reason": "UEFA lists the eight finalists. The Soviet Union, Yugoslavia and Sweden did not play in the finals.",
+      "evidence_urls": [
+        "https://www.uefa.com/uefaeuro/history/news/025a-0eb31cb2ddca-3522043e6fe9-1000--euro-1980-all-you-need-to-know/"
+      ]
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1966-world-cup",
+      "input": "bresil",
+      "event_count": 5,
+      "new_events": 5,
+      "decision": "add_alias",
+      "reason": "FIFA's French archive lists Portugal–Brésil as a finals group match in the 1966 World Cup.",
+      "evidence_urls": [
+        "https://www.plus.fifa.com/fr/showcase/contenu-par-langue-de-commentaire/1f2fb285-936d-4b06-a0b8-6703c9efe073",
+        "https://www.fifa.com/en/tournaments/mens/worldcup/articles/portugal-korea-dpr-eusebio-england-1966"
+      ]
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1980",
+      "input": "Ussr",
+      "event_count": 4,
+      "new_events": 4,
+      "decision": "ignore_wrong",
+      "reason": "UEFA lists the eight finalists. The Soviet Union, Yugoslavia and Sweden did not play in the finals.",
+      "evidence_urls": [
+        "https://www.uefa.com/uefaeuro/history/news/025a-0eb31cb2ddca-3522043e6fe9-1000--euro-1980-all-you-need-to-know/"
+      ]
+    },
+    {
+      "question_id": "d8-name-a-left-back-who-played-in-the-premier-league-since-2005",
+      "input": "Antonee",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "add_alias",
+      "reason": "The Premier League names Antonee Robinson as Fulham’s left-back in December 2024. The first name distinguishes him from Paul Robinson, who is also in the question’s bank.",
+      "evidence_urls": [
+        "https://www.premierleague.com/en/news/4213843"
+      ]
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1980",
+      "input": "Soviet Union",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_wrong",
+      "reason": "UEFA lists the eight finalists. The Soviet Union, Yugoslavia and Sweden did not play in the finals.",
+      "evidence_urls": [
+        "https://www.uefa.com/uefaeuro/history/news/025a-0eb31cb2ddca-3522043e6fe9-1000--euro-1980-all-you-need-to-know/"
+      ]
+    }
+  ]
+}

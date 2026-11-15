@@ -1,0 +1,79 @@
+<!doctype html><meta charset="utf-8"><title>Daily 5 card · mock-ups</title>
+<style>
+@font-face{font-family:J;src:url(/fonts/jersey10.woff2)}@font-face{font-family:V;src:url(/fonts/vt323.woff2)}
+:root{--ink:#1d1a2b;--paper:#fbf6e8;--paper2:#f3e6bf;--gold:#f2c230;--gold2:#c98f12;--green:#2fbf71;--red:#c8473b;--mute:#5b5070}
+*{box-sizing:border-box}
+body{margin:0;padding:24px 30px 60px;font:19px V,monospace;color:var(--paper);background:#2a7a48;background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.07) 0 80px,transparent 80px 160px)}
+h1{font:400 42px J;margin:0;color:var(--gold);text-shadow:3px 3px 0 var(--ink)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:30px 26px;max-width:1260px;margin-top:10px}
+.opt{display:flex;gap:10px;align-items:baseline;margin:0 0 10px;min-height:46px}.opt b{font:400 26px J;background:var(--gold);color:var(--ink);padding:0 9px}.opt span{color:#e6f1e9;font-size:17px;line-height:1.15}
+.card{border:4px solid #000;box-shadow:6px 6px 0 rgba(0,0,0,.35);color:var(--ink);background:var(--paper)}
+.btn{display:block;text-align:center;font:400 30px/1 J;padding:14px 10px 12px;border:3px solid var(--ink);box-shadow:0 5px 0 var(--ink)}
+.slots{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.slot{height:44px;border:3px dashed var(--ink);background:repeating-linear-gradient(45deg,#efe2bd 0 6px,transparent 6px 12px)}
+.cap{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;text-align:center;font:400 15px V;color:var(--mute);margin-top:4px}
+.foot{background:var(--ink);color:var(--paper);padding:10px 16px;display:flex;justify-content:space-between;align-items:center;font-size:17px}
+.foot a{color:var(--gold)}.dots{display:flex;gap:3px}.dots i{width:11px;height:11px;border:2px solid #6a63a0}.dots i.on{background:#ff8a1f;border-color:#000}
+.meta{font-size:17px;color:var(--mute)}
+
+/* NOW */
+.now{display:grid;grid-template-columns:86px 1fr}
+.now .date{background:var(--gold);border-right:3px dashed var(--ink);display:grid;place-content:center;text-align:center;font:400 20px J}.now .date b{font:400 46px/1 J}
+.now .in{padding:14px 16px 14px}.now .head{display:flex;justify-content:space-between;font-size:16px;color:var(--mute);margin-bottom:10px}
+.now .foot{grid-column:1/-1}
+
+/* A: same card, gold button, icons in the slots */
+.a .btn{background:var(--gold)}
+.a .slot{display:grid;place-items:center;font:normal 22px J;color:var(--mute);border-style:solid;border-width:3px;background:var(--paper2)}
+
+/* B: match ticket. Ink stub with the date, perforation, cream body */
+.b{display:grid;grid-template-columns:104px 1fr;position:relative}
+.b .stub{background:var(--ink);color:var(--paper);display:grid;place-content:center;text-align:center;font:400 18px V;letter-spacing:.1em;position:relative}
+.b .stub b{display:block;font:400 54px/1 J;color:var(--gold);letter-spacing:0}
+.b .stub::after{content:"";position:absolute;right:-9px;top:0;bottom:0;width:18px;background:radial-gradient(circle at 9px 9px,#2a7a48 6px,transparent 6.5px) 0 0/18px 22px repeat-y;z-index:2}
+.b .in{padding:16px 16px 14px 22px}.b .lab{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}.b .lab b{font:400 30px J}
+.b .btn{background:var(--gold)}
+.b .foot{grid-column:1/-1}
+
+/* C: scoreboard header */
+.c .sb{background:var(--ink);color:var(--paper);display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:4px solid #000}
+.c .sb b{font:400 30px J;color:var(--gold);letter-spacing:.04em}.c .sb span{font:400 22px J;color:#ff8a5c;letter-spacing:.1em;text-shadow:0 0 6px rgba(255,138,92,.6)}
+.c .in{padding:16px}.c .btn{background:var(--green)}
+.c .slots{margin-top:14px}
+
+/* D: big date on the left, everything else stacked; streak inside the card */
+.d{padding:16px;display:grid;grid-template-columns:auto 1fr;gap:6px 16px;align-items:center}
+.d .day{grid-row:span 2;text-align:center;border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink);width:84px}
+.d .day i{display:block;font:normal 16px J;background:var(--red);color:#fff;padding:3px 0 1px;letter-spacing:.1em}.d .day b{display:block;font:400 46px/1.05 J}
+.d h3{margin:0;font:400 34px/1 J}.d .meta{margin:0}
+.d .btn{grid-column:1/-1;background:var(--gold);margin-top:10px}
+.d .bot{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-size:17px}
+</style>
+<h1>Daily 5 card · options</h1>
+<p style="margin:2px 0 14px;color:#e6f1e9">Shown before you play today. All in the new cream / ink / gold.</p>
+<div class="grid">
+ <div><div class="opt"><b>Now</b><span>Gold date stub, green button, dashed empty slots, ink streak bar.</span></div>
+  <div class="card now"><div class="date">FRI<b>13</b>NOV</div><div class="in"><div class="head"><span>DAILY 5</span><u>How to play</u></div><span class="btn" style="background:var(--green)">PLAY TODAY'S GAME</span>
+   <div class="slots" style="margin-top:14px"><i class="slot"></i><i class="slot"></i><i class="slot"></i><i class="slot"></i><i class="slot"></i></div><div class="cap"><span>CLUB</span><span>PLAYER</span><span>PLAYER</span><span>MANAGER</span><span>CLUB</span></div><p class="meta" style="margin:10px 0 0">● 5 questions · 3 min</p></div>
+   <div class="foot"><span>🔥 No streak yet</span><span class="dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div></div></div>
+
+ <div><div class="opt"><b>A</b><span>Same card, tidied: gold button like every other button, and each slot shows what's coming (shield, boot, clipboard; drawn as pixel icons in the real thing).</span></div>
+  <div class="card now a"><div class="date">FRI<b>13</b>NOV</div><div class="in"><div class="head"><span>DAILY 5</span><u>How to play</u></div><span class="btn">PLAY TODAY'S GAME</span>
+   <div class="slots" style="margin-top:14px"><i class="slot">⛨</i><i class="slot">👟</i><i class="slot">👟</i><i class="slot">📋</i><i class="slot">⛨</i></div><div class="cap"><span>CLUB</span><span>PLAYER</span><span>PLAYER</span><span>MANAGER</span><span>CLUB</span></div><p class="meta" style="margin:10px 0 0">5 questions · about 3 min</p></div>
+   <div class="foot"><span>🔥 No streak yet</span><span class="dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div></div></div>
+
+ <div><div class="opt"><b>B</b><span>Match ticket: an ink stub with a gold date, real perforation holes, "Daily 5" printed on the ticket.</span></div>
+  <div class="card b"><div class="stub">FRI<b>13</b>NOV</div><div class="in"><div class="lab"><b>Daily 5</b><u class="meta">How to play</u></div><span class="btn">PLAY TODAY'S GAME</span>
+   <div class="slots" style="margin-top:14px"><i class="slot"></i><i class="slot"></i><i class="slot"></i><i class="slot"></i><i class="slot"></i></div><div class="cap"><span>CLUB</span><span>PLAYER</span><span>PLAYER</span><span>MANAGER</span><span>CLUB</span></div></div>
+   <div class="foot"><span>🔥 No streak yet</span><span>5 questions · 3 min</span></div></div></div>
+
+ <div><div class="opt"><b>C</b><span>Scoreboard: an ink header with the date in glowing LED letters, keeps the green "go" button as the one green thing on the page.</span></div>
+  <div class="card c"><div class="sb"><b>DAILY 5</b><span>FRI 13 NOV</span></div><div class="in"><span class="btn">PLAY TODAY'S GAME</span>
+   <div class="slots"><i class="slot"></i><i class="slot"></i><i class="slot"></i><i class="slot"></i><i class="slot"></i></div><div class="cap"><span>CLUB</span><span>PLAYER</span><span>PLAYER</span><span>MANAGER</span><span>CLUB</span></div></div>
+   <div class="foot"><span>🔥 No streak yet</span><span class="dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div></div></div>
+
+ <div><div class="opt"><b>D</b><span>Calendar page: a tear-off calendar day with a red top, the title next to it, everything on cream. No dark bar at all.</span></div>
+  <div class="card d"><div class="day"><i>FRI</i><b>13</b></div><h3>Daily 5</h3><p class="meta">5 questions · Club, Player, Manager · 3 min</p>
+   <span class="btn">PLAY TODAY'S GAME</span>
+   <div class="bot"><span>🔥 No streak yet</span><u class="meta">How to play</u></div></div></div>
+</div>

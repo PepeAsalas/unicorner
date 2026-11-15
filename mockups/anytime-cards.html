@@ -1,0 +1,70 @@
+<!doctype html><meta charset="utf-8"><title>Anytime cards · mock-ups</title>
+<style>
+@font-face{font-family:J;src:url(/fonts/jersey10.woff2)}@font-face{font-family:V;src:url(/fonts/vt323.woff2)}
+:root{--ink:#1d1a2b;--paper:#fbf6e8;--gold:#f2c230;--navy:#1d1a2b;--ease:cubic-bezier(.23,1,.32,1)}
+*{box-sizing:border-box}
+body{margin:0;padding:28px 36px 60px;font:20px V,monospace;color:var(--paper);background:#2a7a48;background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.07) 0 80px,transparent 80px 160px)}
+h1{font:400 44px J;margin:0 0 4px;color:var(--gold);text-shadow:3px 3px 0 var(--ink)}
+.opt{margin:30px 0 8px;display:flex;gap:12px;align-items:baseline}
+.opt b{font:400 30px J;background:var(--gold);color:var(--ink);padding:0 10px}.opt span{color:#e8f2ea}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:1240px}
+.rec{display:inline-flex;gap:6px;margin-top:6px}.rec i{font:normal 15px J;padding:2px 6px;border:2px solid #000;color:#fff}.rw{background:#2f8f5b}.rd{background:#5b5070}.rl{background:#c8473b}.rec{align-items:flex-start;align-self:flex-start}
+.btn{font:400 22px J;letter-spacing:.06em;text-transform:uppercase;border:3px solid #000;background:var(--gold);color:var(--ink);box-shadow:0 4px 0 #000;padding:10px 18px 8px;cursor:pointer;transition:transform 140ms var(--ease),box-shadow 140ms var(--ease)}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 #000}
+
+/* A · Full-bleed art, title in the empty left side of the picture */
+.a{position:relative;height:250px;border:4px solid #000;box-shadow:6px 6px 0 rgba(0,0,0,.35);overflow:hidden;background:#1d1a2b right center/auto 100% no-repeat;image-rendering:pixelated;transition:transform 200ms var(--ease)}
+.a:hover{transform:translateY(-3px)}
+.a::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#1d1a2b 0 30%,rgba(29,26,43,.85) 42%,transparent 62%)}
+.a .t{position:absolute;left:24px;top:22px;bottom:22px;display:flex;flex-direction:column;justify-content:space-between;max-width:48%}
+.a h2{margin:0;font:400 56px/0.9 J;text-shadow:3px 3px 0 #000}.a p{margin:6px 0 0;color:#cfd3ef;font-size:20px}
+.a .btn{align-self:flex-start}
+
+/* B · Arcade cabinet: art in a bezel "screen", label plate underneath */
+.b{background:#2b2244;border:4px solid #000;box-shadow:6px 6px 0 rgba(0,0,0,.35);padding:14px 14px 0}
+.b .scr{height:170px;border:4px solid #000;outline:3px solid #4a3d73;outline-offset:-10px;background:#1d1a2b center/cover no-repeat;image-rendering:pixelated;position:relative}
+.b .scr::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(transparent 0 3px,rgba(0,0,0,.18) 3px 4px);pointer-events:none}
+.b .plate{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 4px 16px}
+.b h2{margin:0;font:400 40px/1 J}.b p{margin:2px 0 0;color:#bdb4dc;font-size:18px}
+.b .btn{white-space:nowrap}
+
+/* C · Compact row: square art crop left, text, arrow button right */
+.c{display:grid;grid-template-columns:180px 1fr auto;align-items:center;gap:18px;background:#1d1a2b;border:4px solid #000;box-shadow:6px 6px 0 rgba(0,0,0,.35);padding:12px 18px 12px 12px}
+.c .art{height:130px;border:3px solid #000;background:#1d1a2b 88% 50%/auto 100% no-repeat;image-rendering:pixelated}
+.c h2{margin:0;font:400 40px/1 J}.c p{margin:4px 0 0;color:#cfd3ef;font-size:18px}
+.c .go{width:64px;height:64px;display:grid;place-items:center;font:400 34px J;padding:0}
+
+/* D · Coloured hero card: each mode gets its own colour, art pops out of the frame */
+.d{position:relative;padding:22px 24px 22px;min-height:230px;border:4px solid #000;box-shadow:6px 6px 0 rgba(0,0,0,.35);overflow:visible}
+.d.inf{background:linear-gradient(#3b2a8a,#1d1a5a)}.d.duel{background:linear-gradient(#c8473b,#7a1f2a)}
+.d .art{position:absolute;right:-6px;top:-26px;width:62%;height:200px;background:center right/contain no-repeat;image-rendering:pixelated;filter:drop-shadow(4px 4px 0 rgba(0,0,0,.4))}
+.d h2{margin:0;font:400 58px/0.9 J;text-shadow:3px 3px 0 #000;position:relative}.d p{margin:8px 0 18px;color:#fff;opacity:.85;font-size:20px;position:relative;max-width:44%}
+.d .btn{position:relative}
+.d.inf .art{background-image:url(/mockups/inf-cut.png)}.d.duel .art{background-image:url(/mockups/duel-cut.png)}
+</style>
+<h1>Anytime cards · 4 options</h1>
+<p>Same art, same text. Hover A to feel the lift.</p>
+
+<div class="opt"><b>A</b><span>Full-bleed art. The title sits in the picture's empty left side, smaller button. Shortest card, art does the talking.</span></div>
+<div class="pair">
+ <div class="a" style="background-image:url(/bg/mode-inf-v3.png)"><div class="t"><div><h2>Infinity</h2><p>Unlimited questions, out in space</p></div><button class="btn">Press start ▶</button></div></div>
+ <div class="a" style="background-image:url(/bg/mode-duel-v2.webp)"><div class="t"><div><h2>Duels</h2><p>1v1 a mate. Rarer answers hit harder</p><span class="rec"><i class="rw">28W</i><i class="rd">6D</i><i class="rl">14L</i></span></div><button class="btn">Open ▶</button></div></div>
+</div>
+
+<div class="opt"><b>B</b><span>Arcade cabinet. The art plays on a little CRT screen, name plate and button underneath. Very "game".</span></div>
+<div class="pair">
+ <div class="b"><div class="scr" style="background-image:url(/bg/mode-inf-v3.png)"></div><div class="plate"><div><h2>Infinity</h2><p>Unlimited questions, out in space</p></div><button class="btn">Press start</button></div></div>
+ <div class="b"><div class="scr" style="background-image:url(/bg/mode-duel-v2.webp)"></div><div class="plate"><div><h2>Duels</h2><p>1v1 a mate <span class="rec"><i class="rw">28W</i><i class="rd">6D</i><i class="rl">14L</i></span></p></div><button class="btn">Open</button></div></div>
+</div>
+
+<div class="opt"><b>C</b><span>Compact row. Crop of the unicorns on the left, text, a square arrow button. Half the height, matches Horacio's Games rows.</span></div>
+<div class="pair">
+ <div class="c"><div class="art" style="background-image:url(/bg/mode-inf-v3.png)"></div><div><h2>Infinity</h2><p>Unlimited questions, out in space</p></div><button class="btn go">▶</button></div>
+ <div class="c"><div class="art" style="background-image:url(/bg/mode-duel-v2.webp)"></div><div><h2>Duels</h2><p>1v1 a mate</p><span class="rec"><i class="rw">28W</i><i class="rd">6D</i><i class="rl">14L</i></span></div><button class="btn go">▶</button></div>
+</div>
+
+<div class="opt"><b>D</b><span>Colour cards. Each mode has its own colour (Infinity purple, Duels red) and the art breaks out of the top of the frame.</span></div>
+<div class="pair" style="margin-top:34px">
+ <div class="d inf"><div class="art"></div><h2>Infinity</h2><p>Unlimited questions, out in space</p><button class="btn">Press start ▶</button></div>
+ <div class="d duel"><div class="art"></div><h2>Duels</h2><p>1v1 a mate. Rarer answers hit harder</p><button class="btn">Open ▶</button></div>
+</div>

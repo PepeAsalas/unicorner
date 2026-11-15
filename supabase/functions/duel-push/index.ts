@@ -27,8 +27,9 @@ Deno.serve(async (req) => {
   const { data: who } = await db.auth.getUser(jwt);
   const me = who?.user?.id;
   if (!me) return out(401, { error: "sign in" });
-  let code = "";
-  try { code = String((await req.json()).code || "").slice(0, 40); } catch { /* empty */ }
+  let code = "", friend = "";
+  try { const j = await req.json(); code = String(j.code || "").slice(0, 40); friend = String(j.friend || "").slice(0, 20); } catch { /* empty */ }
+  if (friend) return friendPush(me, friend);
   if (!code) return out(400, { error: "code" });
 
   // the duel: a fresh challenge from this caller, not yet notified
@@ -62,3 +63,35 @@ Deno.serve(async (req) => {
   }
   return out(200, { sent });
 });
+
+// "👋 X wants to be your friend": called right after a friend request is sent, with the other player's nickname.
+// Only for a request this caller made in the last 10 minutes, and only once per request (friend_requests.push_sent_at).
+async function friendPush(me: string, nick: string) {
+  const { data: them } = await db.from("player_profiles").select("user_id").ilike("nickname", nick.replace(/[%_\\]/g, "")).maybeSingle();
+  if (!them) return out(200, { sent: 0 });
+  const { data: rq } = await db.from("friend_requests").select("created_at, push_sent_at").eq("from_user", me).eq("to_user", them.user_id).maybeSingle();
+  if (!rq || rq.push_sent_at) return out(200, { sent: 0 });
+  if (Date.now() - new Date(rq.created_at).getTime() > 10 * 60 * 1000) return out(200, { sent: 0, reason: "old" });
+  const { data: claimed } = await db.from("friend_requests").update({ push_sent_at: new Date().toISOString() })
+    .eq("from_user", me).eq("to_user", them.user_id).is("push_sent_at", null).select("from_user");
+  if (!claimed?.length) return out(200, { sent: 0 });
+  const { data: mine } = await db.from("player_profiles").select("nickname").eq("user_id", me).maybeSingle();
+  const name = String(mine?.nickname || "Someone").slice(0, 16);
+  const { data: subs } = await db.from("push_subs").select("endpoint, sub, lang").eq("user_id", them.user_id);
+  let sent = 0;
+  for (const s of subs || []) {
+    const es = s.lang === "es";
+    const payload = JSON.stringify({
+      title: es ? `👋 ${name} quiere ser tu amigo` : `👋 ${name} wants to be your friend`,
+      body: es ? "Acepta y compara tus puntuaciones cada día." : "Accept and compare your scores every day.",
+      url: es ? "/es/squad.html#friends" : "/squad.html#friends",
+      tag: "friend-" + name,
+    });
+    try { await webpush.sendNotification(s.sub, payload, { TTL: 3 * 24 * 3600 }); sent++; }
+    catch (e) {
+      const st = (e as { statusCode?: number }).statusCode;
+      if (st === 404 || st === 410) await db.from("push_subs").delete().eq("endpoint", s.endpoint);
+    }
+  }
+  return out(200, { sent });
+}
