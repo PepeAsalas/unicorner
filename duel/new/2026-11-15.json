@@ -1,0 +1,4034 @@
+[
+ {
+  "id": "d14-name-a-portuguese-player-who-played-in-the-premier-league-for-wolves-up-to-2025-26",
+  "template": 14,
+  "prompt": "Name a Portuguese player who played in the Premier League for Wolves up to 2025-26",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Rúben Neves",
+    "aliases": [
+     "Neves"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "João Moutinho",
+    "aliases": [
+     "Moutinho"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Diogo Jota",
+    "aliases": [
+     "Jota"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Rui Patrício",
+    "aliases": [
+     "Patricio"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Pedro Neto",
+    "aliases": [
+     "Neto"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Nélson Semedo",
+    "aliases": [
+     "Semedo"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Daniel Podence",
+    "aliases": [
+     "Podence"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "José Sá",
+    "aliases": [
+     "Sá"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Matheus Nunes",
+    "aliases": [
+     "Nunes"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Fábio Silva",
+    "aliases": [
+     "Fabio"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Francisco Trincão",
+    "aliases": [
+     "Trincao",
+     "Trincão"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Gonçalo Guedes",
+    "aliases": [
+     "Guedes"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Ivan Cavaleiro",
+    "aliases": [
+     "Cavaleiro"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Rúben Vinagre",
+    "aliases": [
+     "Vinagre"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Toti Gomes",
+    "aliases": [
+     "Toti"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Rodrigo Gomes",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Chiquinho",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Vitinha",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Bruno Jordão",
+    "aliases": [
+     "Jordao",
+     "Jordão"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Carlos Forbs",
+    "aliases": [
+     "Forbs"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Mateus Mané",
+    "aliases": [
+     "Mane"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Silas",
+    "aliases": [],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Hélder Costa",
+    "why": "Played for Wolves in the Premier League, but he is an Angola international."
+   },
+   {
+    "name": "Nuno Espírito Santo",
+    "why": "Managed Wolves; never played for them."
+   },
+   {
+    "name": "Bruno Lage",
+    "why": "Managed Wolves; never played for them."
+   },
+   {
+    "name": "Vítor Pereira",
+    "why": "Managed Wolves; never played for them."
+   }
+  ]
+ },
+ {
+  "id": "d14-name-a-spanish-player-who-played-in-the-premier-league-for-arsenal-up-to-2025-26",
+  "template": 14,
+  "prompt": "Name a Spanish player who played in the Premier League for Arsenal up to 2025-26",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Cesc Fàbregas",
+    "aliases": [
+     "Fabregas",
+     "Cesc"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Santi Cazorla",
+    "aliases": [
+     "Cazorla"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Mikel Arteta",
+    "aliases": [
+     "Arteta"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Héctor Bellerín",
+    "aliases": [
+     "Bellerin"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "David Raya",
+    "aliases": [
+     "Raya"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "José Antonio Reyes",
+    "aliases": [
+     "Reyes"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Nacho Monreal",
+    "aliases": [
+     "Monreal"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Martín Zubimendi",
+    "aliases": [
+     "Zubimendi"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Mikel Merino",
+    "aliases": [
+     "Merino"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Manuel Almunia",
+    "aliases": [
+     "Almunia"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Dani Ceballos",
+    "aliases": [
+     "Ceballos"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Kepa Arrizabalaga",
+    "aliases": [
+     "Kepa",
+     "Arrizabalaga"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Pablo Marí",
+    "aliases": [
+     "Mari"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Lucas Pérez",
+    "aliases": [
+     "Perez"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Denis Suárez",
+    "aliases": [
+     "Denis",
+     "Suarez"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Cristhian Mosquera",
+    "aliases": [
+     "Mosquera"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Fran Mérida",
+    "aliases": [
+     "Merida"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Ignasi Miquel",
+    "aliases": [
+     "Miquel"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Unai Emery",
+    "why": "Managed Arsenal; never played for them."
+   },
+   {
+    "name": "Carlos Vela",
+    "why": "Played for Arsenal, but he is Mexican."
+   },
+   {
+    "name": "Lucas Torreira",
+    "why": "Played for Arsenal, but he is Uruguayan."
+   }
+  ]
+ },
+ {
+  "id": "d14-name-a-brazilian-player-who-played-in-the-premier-league-for-chelsea-up-to-2025-26",
+  "template": 14,
+  "prompt": "Name a Brazilian player who played in the Premier League for Chelsea up to 2025-26",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Willian",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Ramires",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Oscar",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "David Luiz",
+    "aliases": [
+     "Luiz"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Thiago Silva",
+    "aliases": [
+     "Silva"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Filipe Luís",
+    "aliases": [
+     "Filipe"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "João Pedro",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Estêvão Willian",
+    "aliases": [
+     "Estevao",
+     "Estêvão",
+     "Messinho"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Alex",
+    "aliases": [
+     "Alex Costa"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Juliano Belletti",
+    "aliases": [
+     "Belletti"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Alexandre Pato",
+    "aliases": [
+     "Pato"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Kenedy",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Andrey Santos",
+    "aliases": [
+     "Andrey"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Mineiro",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Lucas Piazon",
+    "aliases": [
+     "Piazon"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Emerson Thome",
+    "aliases": [
+     "Thome"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Deivid Washington",
+    "aliases": [
+     "Washington"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Jorginho",
+    "why": "Born in Brazil, but he plays for Italy."
+   },
+   {
+    "name": "Emerson Palmieri",
+    "why": "Born in Brazil, but he plays for Italy."
+   },
+   {
+    "name": "Diego Costa",
+    "why": "Born in Brazil, but he played for Spain."
+   },
+   {
+    "name": "Deco",
+    "why": "Born in Brazil, but he played for Portugal."
+   },
+   {
+    "name": "Luiz Felipe Scolari",
+    "why": "Managed Chelsea; never played for them."
+   }
+  ]
+ },
+ {
+  "id": "d14-name-an-argentine-who-played-in-the-premier-league-for-man-city-up-to-2025-26",
+  "template": 14,
+  "prompt": "Name an Argentine who played in the Premier League for Man City up to 2025-26",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Sergio Agüero",
+    "aliases": [
+     "Aguero",
+     "Kun Aguero",
+     "Kun"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Carlos Tevez",
+    "aliases": [
+     "Tevez"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Pablo Zabaleta",
+    "aliases": [
+     "Zabaleta"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Julián Álvarez",
+    "aliases": [
+     "Alvarez"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Nicolás Otamendi",
+    "aliases": [
+     "Otamendi"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Martín Demichelis",
+    "aliases": [
+     "Demichelis"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Willy Caballero",
+    "aliases": [
+     "Caballero"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Claudio Echeverri",
+    "aliases": [
+     "Echeverri"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Máximo Perrone",
+    "aliases": [
+     "Perrone"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Gabriel Heinze",
+    "why": "Played for Manchester United, not City."
+   },
+   {
+    "name": "Javier Mascherano",
+    "why": "Played for West Ham and Liverpool, not City."
+   }
+  ]
+ },
+ {
+  "id": "d14-name-a-spanish-player-who-played-in-the-premier-league-for-chelsea-up-to-2025-26",
+  "template": 14,
+  "prompt": "Name a Spanish player who played in the Premier League for Chelsea up to 2025-26",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "César Azpilicueta",
+    "aliases": [
+     "Azpilicueta",
+     "Azpi"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Cesc Fàbregas",
+    "aliases": [
+     "Fabregas",
+     "Cesc"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Fernando Torres",
+    "aliases": [
+     "Torres"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Diego Costa",
+    "aliases": [
+     "Costa"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Pedro",
+    "aliases": [
+     "Pedro Rodriguez"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Juan Mata",
+    "aliases": [
+     "Mata"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Marc Cucurella",
+    "aliases": [
+     "Cucurella"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Marcos Alonso",
+    "aliases": [
+     "Alonso"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Álvaro Morata",
+    "aliases": [
+     "Morata"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Kepa Arrizabalaga",
+    "aliases": [
+     "Kepa",
+     "Arrizabalaga"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Robert Sánchez",
+    "aliases": [
+     "Sanchez"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Saúl Ñíguez",
+    "aliases": [
+     "Saul",
+     "Saúl"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Oriol Romeu",
+    "aliases": [
+     "Romeu"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Asier del Horno",
+    "aliases": [
+     "Del Horno"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Albert Ferrer",
+    "aliases": [
+     "Ferrer"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Marc Guiu",
+    "aliases": [
+     "Guiu"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Enrique de Lucas",
+    "aliases": [
+     "De Lucas"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Rafael Benítez",
+    "why": "Managed Chelsea; never played for them."
+   },
+   {
+    "name": "Jorginho",
+    "why": "Played for Chelsea, but he is an Italy international."
+   }
+  ]
+ },
+ {
+  "id": "d14-name-an-argentine-who-played-in-the-premier-league-for-tottenham-up-to-2025-26",
+  "template": 14,
+  "prompt": "Name an Argentine who played in the Premier League for Tottenham up to 2025-26",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Cristian Romero",
+    "aliases": [
+     "Romero",
+     "Cuti Romero",
+     "Cuti"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Erik Lamela",
+    "aliases": [
+     "Lamela"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Giovani Lo Celso",
+    "aliases": [
+     "Lo Celso"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Juan Foyth",
+    "aliases": [
+     "Foyth"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Paulo Gazzaniga",
+    "aliases": [
+     "Gazzaniga"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Federico Fazio",
+    "aliases": [
+     "Fazio"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Mauricio Taricco",
+    "aliases": [
+     "Taricco"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Alejo Véliz",
+    "aliases": [
+     "Veliz"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Ossie Ardiles",
+    "why": "Played for Tottenham before the Premier League began in 1992 (he later managed them)."
+   },
+   {
+    "name": "Ricky Villa",
+    "why": "Played for Tottenham before the Premier League began in 1992."
+   },
+   {
+    "name": "Mauricio Pochettino",
+    "why": "Managed Tottenham; never played for them."
+   }
+  ]
+ },
+ {
+  "id": "d14-name-a-danish-player-who-played-in-the-premier-league-for-brentford-up-to-2025-26",
+  "template": 14,
+  "prompt": "Name a Danish player who played in the Premier League for Brentford up to 2025-26",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Christian Eriksen",
+    "aliases": [
+     "Eriksen"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Christian Nørgaard",
+    "aliases": [
+     "Norgaard",
+     "Nørgaard"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Mathias Jensen",
+    "aliases": [
+     "Jensen"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Mikkel Damsgaard",
+    "aliases": [
+     "Damsgaard"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Mathias Jørgensen",
+    "aliases": [
+     "Zanka",
+     "Jorgensen",
+     "Jørgensen"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Mads Roerslev",
+    "aliases": [
+     "Roerslev"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Jonas Lössl",
+    "aliases": [
+     "Lossl",
+     "Lössl"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Mads Bech Sørensen",
+    "aliases": [
+     "Bech",
+     "Sorensen",
+     "Mads Bech"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Mads Bidstrup",
+    "aliases": [
+     "Bidstrup"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Thomas Frank",
+    "why": "Managed Brentford; never played for them."
+   },
+   {
+    "name": "Kristoffer Ajer",
+    "why": "Played for Brentford, but he is Norwegian."
+   }
+  ]
+ },
+ {
+  "id": "d14-name-a-brazilian-player-who-played-in-the-premier-league-for-man-city-up-to-2025-26",
+  "template": 14,
+  "prompt": "Name a Brazilian player who played in the Premier League for Man City up to 2025-26",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Fernandinho",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Ederson",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Gabriel Jesus",
+    "aliases": [
+     "Jesus"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Robinho",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Elano",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Fernando",
+    "aliases": [
+     "Fernando Reges"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Danilo",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Jô",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Maicon",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Sylvinho",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Savinho",
+    "aliases": [
+     "Sávio",
+     "Savio"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Vitor Reis",
+    "aliases": [
+     "Reis"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Kayky",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Geovanni",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Gláuber",
+    "aliases": [],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Douglas Luiz",
+    "why": "Played in the Premier League for Aston Villa, never for City."
+   },
+   {
+    "name": "Roberto Firmino",
+    "why": "Played for Liverpool, not City."
+   }
+  ]
+ },
+ {
+  "id": "d14-name-a-portuguese-player-who-played-in-la-liga-for-valencia-between-2000-01-and-2025-26",
+  "template": 14,
+  "prompt": "Name a Portuguese player who played in La Liga for Valencia between 2000-01 and 2025-26",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "João Cancelo",
+    "aliases": [
+     "Cancelo"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Gonçalo Guedes",
+    "aliases": [
+     "Guedes"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "André Gomes",
+    "aliases": [
+     "Gomes"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Nani",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Miguel",
+    "aliases": [
+     "Miguel Monteiro"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Hélder Postiga",
+    "aliases": [
+     "Postiga"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Manuel Fernandes",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Hugo Viana",
+    "aliases": [
+     "Viana"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Ricardo Costa",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Thierry Correia",
+    "aliases": [
+     "Correia"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "João Pereira",
+    "aliases": [
+     "Pereira"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Rúben Vezo",
+    "aliases": [
+     "Vezo"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Marco Caneira",
+    "aliases": [
+     "Caneira"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Ferro",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "André Almeida",
+    "aliases": [
+     "Almeida"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Nuno Espírito Santo",
+    "why": "Managed Valencia; never played for them."
+   }
+  ]
+ },
+ {
+  "id": "d14-name-a-portuguese-player-who-played-in-la-liga-for-atletico-madrid-between-2000-01-and-2025-26",
+  "template": 14,
+  "prompt": "Name a Portuguese player who played in La Liga for Atlético Madrid between 2000-01 and 2025-26",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "João Félix",
+    "aliases": [
+     "Felix"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Tiago Mendes",
+    "aliases": [
+     "Tiago"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Simão Sabrosa",
+    "aliases": [
+     "Simao",
+     "Simão"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Maniche",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Gelson Martins",
+    "aliases": [
+     "Gelson"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Costinha",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Zé Castro",
+    "aliases": [
+     "Castro"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Pizzi",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Sílvio",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Dani Carvalho",
+    "aliases": [
+     "Dani"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Paulo Futre",
+    "why": "Played for Atlético before 2000 (1987-93 and 1997-98)."
+   },
+   {
+    "name": "Hugo Leal",
+    "why": "His Atlético La Liga games were in 1999-00, before the range."
+   }
+  ]
+ },
+ {
+  "id": "d14-name-a-french-player-who-played-in-la-liga-for-atletico-madrid-between-2000-01-and-2025-26",
+  "template": 14,
+  "prompt": "Name a French player who played in La Liga for Atlético Madrid between 2000-01 and 2025-26",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Antoine Griezmann",
+    "aliases": [
+     "Griezmann",
+     "Grizi"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Lucas Hernández",
+    "aliases": [
+     "Lucas"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Thomas Lemar",
+    "aliases": [
+     "Lemar"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Kevin Gameiro",
+    "aliases": [
+     "Gameiro"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Clément Lenglet",
+    "aliases": [
+     "Lenglet"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Grégory Coupet",
+    "aliases": [
+     "Coupet"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Peter Luccin",
+    "aliases": [
+     "Luccin"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Florent Sinama Pongolle",
+    "aliases": [
+     "Sinama Pongolle",
+     "Pongolle"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Moussa Dembélé",
+    "aliases": [
+     "Dembele"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Josuha Guilavogui",
+    "aliases": [
+     "Guilavogui"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Theo Hernández",
+    "why": "Was an Atlético player but never played a La Liga game for them (loaned to Alavés)."
+   },
+   {
+    "name": "Geoffrey Kondogbia",
+    "why": "Played for Atlético, but he is a Central African Republic international."
+   }
+  ]
+ },
+ {
+  "id": "d23-name-a-country-outside-the-uk-that-had-a-player-in-the-premier-league-for-arsenal-up-to-2025-26-his-national-team-or-country-of-birth-if-uncapped",
+  "template": 23,
+  "prompt": "Name a country outside the UK that had a player in the Premier League for Arsenal up to 2025-26 (his national team, or country of birth if uncapped)",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Armenia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Australia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Austria",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Belarus",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Bosnia and Herzegovina",
+    "aliases": [
+     "Bosnia"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Cameroon",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "China",
+    "aliases": [
+     "China PR"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Costa Rica",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Croatia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Czech Republic",
+    "aliases": [
+     "Czechia"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Denmark",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ecuador",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Egypt",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Estonia",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Gabon",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Germany",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Ghana",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Greece",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Guinea",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Iceland",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Israel",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Ivory Coast",
+    "aliases": [
+     "Côte d'Ivoire",
+     "Cote d Ivoire"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Japan",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "South Korea",
+    "aliases": [
+     "Korea",
+     "Korea Republic"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Latvia",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Liberia",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Lithuania",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Nigeria",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Norway",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Poland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Republic of Ireland",
+    "aliases": [
+     "Ireland",
+     "Eire",
+     "ROI"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Russia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Senegal",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Switzerland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Togo",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Trinidad and Tobago",
+    "aliases": [
+     "Trinidad"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Ukraine",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "United States",
+    "aliases": [
+     "USA",
+     "US",
+     "America",
+     "United States of America"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "England",
+    "why": "UK nations do not count in this question."
+   },
+   {
+    "name": "Scotland",
+    "why": "UK nations do not count in this question."
+   },
+   {
+    "name": "Wales",
+    "why": "UK nations do not count in this question."
+   },
+   {
+    "name": "Northern Ireland",
+    "why": "UK nations do not count in this question."
+   }
+  ]
+ },
+ {
+  "id": "d23-name-a-country-outside-the-uk-that-had-a-player-in-the-premier-league-for-chelsea-up-to-2025-26-his-national-team-or-country-of-birth-if-uncapped",
+  "template": 23,
+  "prompt": "Name a country outside the UK that had a player in the Premier League for Chelsea up to 2025-26 (his national team, or country of birth if uncapped)",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Albania",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Australia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Austria",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Bosnia and Herzegovina",
+    "aliases": [
+     "Bosnia"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Burkina Faso",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Cameroon",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Canada",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Croatia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Czech Republic",
+    "aliases": [
+     "Czechia"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "DR Congo",
+    "aliases": [
+     "Congo DR",
+     "Democratic Republic of the Congo",
+     "DRC"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Denmark",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ecuador",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Egypt",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Finland",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Gabon",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Georgia",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Germany",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Ghana",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Iceland",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Israel",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Ivory Coast",
+    "aliases": [
+     "Côte d'Ivoire",
+     "Cote d Ivoire"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Jamaica",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Liberia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Nigeria",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Norway",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Peru",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Republic of Ireland",
+    "aliases": [
+     "Ireland",
+     "Eire",
+     "ROI"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Romania",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Russia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Senegal",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Serbia",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Seychelles",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Slovakia",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Switzerland",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Ukraine",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "United States",
+    "aliases": [
+     "USA",
+     "US",
+     "America",
+     "United States of America"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "England",
+    "why": "UK nations do not count in this question."
+   },
+   {
+    "name": "Scotland",
+    "why": "UK nations do not count in this question."
+   },
+   {
+    "name": "Wales",
+    "why": "UK nations do not count in this question."
+   },
+   {
+    "name": "Northern Ireland",
+    "why": "UK nations do not count in this question."
+   }
+  ]
+ },
+ {
+  "id": "d23-name-a-country-outside-the-uk-that-had-a-player-in-the-premier-league-for-liverpool-up-to-2025-26-his-national-team-or-country-of-birth-if-uncapped",
+  "template": 23,
+  "prompt": "Name a country outside the UK that had a player in the Premier League for Liverpool up to 2025-26 (his national team, or country of birth if uncapped)",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Australia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Cameroon",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Croatia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Czech Republic",
+    "aliases": [
+     "Czechia"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Denmark",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Egypt",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Estonia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Finland",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Georgia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Germany",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Greece",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Guinea",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Hungary",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Israel",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ivory Coast",
+    "aliases": [
+     "Côte d'Ivoire",
+     "Cote d Ivoire"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Jamaica",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Japan",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Mali",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Nigeria",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Norway",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Poland",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Republic of Ireland",
+    "aliases": [
+     "Ireland",
+     "Eire",
+     "ROI"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Senegal",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Serbia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Sierra Leone",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Slovakia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Switzerland",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Turkey",
+    "aliases": [
+     "Türkiye",
+     "Turkiye"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Ukraine",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "United States",
+    "aliases": [
+     "USA",
+     "US",
+     "America",
+     "United States of America"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Zimbabwe",
+    "aliases": [],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "England",
+    "why": "UK nations do not count in this question."
+   },
+   {
+    "name": "Scotland",
+    "why": "UK nations do not count in this question."
+   },
+   {
+    "name": "Wales",
+    "why": "UK nations do not count in this question."
+   },
+   {
+    "name": "Northern Ireland",
+    "why": "UK nations do not count in this question."
+   }
+  ]
+ },
+ {
+  "id": "d23-name-a-country-outside-the-uk-that-had-a-player-in-the-premier-league-for-man-united-up-to-2025-26-his-national-team-or-country-of-birth-if-uncapped",
+  "template": 23,
+  "prompt": "Name a country outside the UK that had a player in the Premier League for Man United up to 2025-26 (his national team, or country of birth if uncapped)",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Angola",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Armenia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Australia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Austria",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Bulgaria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Cameroon",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Cape Verde",
+    "aliases": [
+     "Cabo Verde"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "China",
+    "aliases": [
+     "China PR"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Curaçao",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Czech Republic",
+    "aliases": [
+     "Czechia"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "DR Congo",
+    "aliases": [
+     "Congo DR",
+     "Democratic Republic of the Congo",
+     "DRC"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Denmark",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Ecuador",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Germany",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Gibraltar",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ivory Coast",
+    "aliases": [
+     "Côte d'Ivoire",
+     "Cote d Ivoire"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Japan",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "South Korea",
+    "aliases": [
+     "Korea",
+     "Korea Republic"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Nigeria",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Norway",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Poland",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Republic of Ireland",
+    "aliases": [
+     "Ireland",
+     "Eire",
+     "ROI"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Russia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Senegal",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Serbia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Slovenia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "South Africa",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Trinidad and Tobago",
+    "aliases": [
+     "Trinidad"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Tunisia",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Turkey",
+    "aliases": [
+     "Türkiye",
+     "Turkiye"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "United States",
+    "aliases": [
+     "USA",
+     "US",
+     "America",
+     "United States of America"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 3
+   }
+  ],
+  "traps": [
+   {
+    "name": "England",
+    "why": "UK nations do not count in this question."
+   },
+   {
+    "name": "Scotland",
+    "why": "UK nations do not count in this question."
+   },
+   {
+    "name": "Wales",
+    "why": "UK nations do not count in this question."
+   },
+   {
+    "name": "Northern Ireland",
+    "why": "UK nations do not count in this question."
+   }
+  ]
+ },
+ {
+  "id": "d23-name-a-country-outside-the-uk-that-had-a-player-in-the-premier-league-for-man-city-up-to-2025-26-his-national-team-or-country-of-birth-if-uncapped",
+  "template": 23,
+  "prompt": "Name a country outside the UK that had a player in the Premier League for Man City up to 2025-26 (his national team, or country of birth if uncapped)",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Algeria",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Australia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Bermuda",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Bosnia and Herzegovina",
+    "aliases": [
+     "Bosnia"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Bulgaria",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Cameroon",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Canada",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Chile",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "China",
+    "aliases": [
+     "China PR"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Costa Rica",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Croatia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Denmark",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ecuador",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Egypt",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Faroe Islands",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Georgia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Germany",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Ghana",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Greece",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Hungary",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Israel",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ivory Coast",
+    "aliases": [
+     "Côte d'Ivoire",
+     "Cote d Ivoire"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Jamaica",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Kosovo",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Liberia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Montenegro",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Nigeria",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Norway",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Republic of Ireland",
+    "aliases": [
+     "Ireland",
+     "Eire",
+     "ROI"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Romania",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Russia",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Serbia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Slovakia",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Switzerland",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Togo",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Tunisia",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Ukraine",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "United States",
+    "aliases": [
+     "USA",
+     "US",
+     "America",
+     "United States of America"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Uzbekistan",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Zimbabwe",
+    "aliases": [],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "England",
+    "why": "UK nations do not count in this question."
+   },
+   {
+    "name": "Scotland",
+    "why": "UK nations do not count in this question."
+   },
+   {
+    "name": "Wales",
+    "why": "UK nations do not count in this question."
+   },
+   {
+    "name": "Northern Ireland",
+    "why": "UK nations do not count in this question."
+   }
+  ]
+ },
+ {
+  "id": "d23-name-a-country-outside-the-uk-that-had-a-player-in-the-premier-league-for-tottenham-up-to-2025-26-his-national-team-or-country-of-birth-if-uncapped",
+  "template": 23,
+  "prompt": "Name a country outside the UK that had a player in the Premier League for Tottenham up to 2025-26 (his national team, or country of birth if uncapped)",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Algeria",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Austria",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Brazil",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Bulgaria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Cameroon",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Canada",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Croatia",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Czech Republic",
+    "aliases": [
+     "Czechia"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Denmark",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Egypt",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Finland",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Germany",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Ghana",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Honduras",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Iceland",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Israel",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Italy",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ivory Coast",
+    "aliases": [
+     "Côte d'Ivoire",
+     "Cote d Ivoire"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Japan",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Kenya",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "South Korea",
+    "aliases": [
+     "Korea",
+     "Korea Republic"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Mali",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Montserrat",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "New Zealand",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Norway",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Poland",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Republic of Ireland",
+    "aliases": [
+     "Ireland",
+     "Eire",
+     "ROI"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Romania",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Russia",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Senegal",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Serbia",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Sierra Leone",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Slovakia",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Slovenia",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "South Africa",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Spain",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Switzerland",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Togo",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Ukraine",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "United States",
+    "aliases": [
+     "USA",
+     "US",
+     "America",
+     "United States of America"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "England",
+    "why": "UK nations do not count in this question."
+   },
+   {
+    "name": "Scotland",
+    "why": "UK nations do not count in this question."
+   },
+   {
+    "name": "Wales",
+    "why": "UK nations do not count in this question."
+   },
+   {
+    "name": "Northern Ireland",
+    "why": "UK nations do not count in this question."
+   }
+  ]
+ },
+ {
+  "id": "d13-name-a-player-who-played-in-both-the-premier-league-and-the-a-league-men-up-to-2025-26-league-games-in-each",
+  "template": 13,
+  "prompt": "Name a player who played in both the Premier League and the A-League Men up to 2025-26 (league games in each)",
+  "time": 15,
+  "answer_type": "player",
+  "answers": [
+   {
+    "name": "Robbie Fowler",
+    "aliases": [
+     "Fowler"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Emile Heskey",
+    "aliases": [
+     "Heskey"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Dwight Yorke",
+    "aliases": [
+     "Yorke"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Juan Mata",
+    "aliases": [
+     "Mata"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Nani",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Harry Kewell",
+    "aliases": [
+     "Kewell"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Tim Cahill",
+    "aliases": [
+     "Cahill"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Daniel Sturridge",
+    "aliases": [
+     "Sturridge"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "William Gallas",
+    "aliases": [
+     "Gallas"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Damien Duff",
+    "aliases": [
+     "Duff"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Luis García",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Juninho Paulista",
+    "aliases": [
+     "Juninho"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Mark Bosnich",
+    "aliases": [
+     "Bosnich"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Mathew Ryan",
+    "aliases": [
+     "Mat Ryan",
+     "Maty Ryan",
+     "Ryan"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Morgan Schneiderlin",
+    "aliases": [
+     "Schneiderlin"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Mário Jardel",
+    "aliases": [
+     "Jardel"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "John Aloisi",
+    "aliases": [
+     "Aloisi"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Brett Emerton",
+    "aliases": [
+     "Emerton"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Lucas Neill",
+    "aliases": [
+     "Neill"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Aaron Mooy",
+    "aliases": [
+     "Mooy"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Mile Jedinak",
+    "aliases": [
+     "Jedinak"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Jack Rodwell",
+    "aliases": [
+     "Rodwell"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Carl Jenkinson",
+    "aliases": [
+     "Jenkinson"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Michael Bridges",
+    "aliases": [
+     "Bridges"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Charlie Austin",
+    "aliases": [
+     "Austin"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Francis Jeffers",
+    "aliases": [
+     "Jeffers"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Benito Carbone",
+    "aliases": [
+     "Carbone"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Alessandro Diamanti",
+    "aliases": [
+     "Diamanti"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Massimo Maccarone",
+    "aliases": [
+     "Maccarone"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Siem de Jong",
+    "aliases": [
+     "De Jong"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Ola Toivonen",
+    "aliases": [
+     "Toivonen"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Gary Hooper",
+    "aliases": [
+     "Hooper"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Steven Taylor",
+    "aliases": [
+     "Taylor"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Ryan Fraser",
+    "aliases": [
+     "Fraser"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Joe Ledley",
+    "aliases": [
+     "Ledley"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Kevin Muscat",
+    "aliases": [
+     "Muscat"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Thomas Sørensen",
+    "aliases": [
+     "Sorensen",
+     "Thomas Sorensen"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Craig Moore",
+    "aliases": [
+     "Moore"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Brad Jones",
+    "aliases": [
+     "Jones"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Ritchie De Laet",
+    "aliases": [
+     "De Laet"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Rudy Gestede",
+    "aliases": [
+     "Gestede"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Simon Cox",
+    "aliases": [
+     "Cox"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Wes Hoolahan",
+    "aliases": [
+     "Hoolahan"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Andy Keogh",
+    "aliases": [
+     "Keogh"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Liam Miller",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Roy O'Donovan",
+    "aliases": [
+     "O'Donovan",
+     "ODonovan"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Tomer Hemed",
+    "aliases": [
+     "Hemed"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Adrian Mariappa",
+    "aliases": [
+     "Mariappa"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Luciano Narsingh",
+    "aliases": [
+     "Narsingh"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Robert Koren",
+    "aliases": [
+     "Koren"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Ji Dong-won",
+    "aliases": [
+     "Dong-won"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Paul Ifill",
+    "aliases": [
+     "Ifill"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Malik Buari",
+    "aliases": [
+     "Buari"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Kalifa Cissé",
+    "aliases": [
+     "Cisse"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Bobby Petta",
+    "aliases": [
+     "Petta"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Maceo Rigters",
+    "aliases": [
+     "Rigters"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Gerald Sibon",
+    "aliases": [
+     "Sibon"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Dani Rodrigues",
+    "aliases": [
+     "Rodrigues"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Tony Warner",
+    "aliases": [
+     "Warner"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Jem Karacan",
+    "aliases": [
+     "Karacan"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Danny Allsopp",
+    "aliases": [
+     "Allsopp"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Jacob Burns",
+    "aliases": [
+     "Burns"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "David Carney",
+    "aliases": [
+     "Carney"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Chris Coyne",
+    "aliases": [
+     "Coyne"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Jason Davidson",
+    "aliases": [
+     "Davidson"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Ahmad Elrich",
+    "aliases": [
+     "Elrich"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Adam Federici",
+    "aliases": [
+     "Federici"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Hayden Foxe",
+    "aliases": [
+     "Foxe"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Richard Garcia",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Vince Grella",
+    "aliases": [
+     "Grella"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Chris Herd",
+    "aliases": [
+     "Herd"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Brett Holman",
+    "aliases": [
+     "Holman"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Richard Johnson",
+    "aliases": [
+     "Johnson"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Neil Kilkenny",
+    "aliases": [
+     "Kilkenny"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Stan Lazaridis",
+    "aliases": [
+     "Lazaridis"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Scott McDonald",
+    "aliases": [
+     "McDonald"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Jamie McMaster",
+    "aliases": [
+     "McMaster"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Paul Okon",
+    "aliases": [
+     "Okon"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Aiden O'Neill",
+    "aliases": [
+     "O'Neill",
+     "ONeill"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Andy Petterson",
+    "aliases": [
+     "Petterson"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Tony Popovic",
+    "aliases": [
+     "Popovic"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Josip Skoko",
+    "aliases": [
+     "Skoko"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Mile Sterjovski",
+    "aliases": [
+     "Sterjovski"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Danny Tiatto",
+    "aliases": [
+     "Tiatto"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Carl Veart",
+    "aliases": [
+     "Veart"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Tony Vidmar",
+    "aliases": [
+     "Vidmar"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Luke Wilkshire",
+    "aliases": [
+     "Wilkshire"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Ned Zelic",
+    "aliases": [
+     "Zelic"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Simon Elliott",
+    "aliases": [
+     "Elliott"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Danny Hay",
+    "aliases": [
+     "Hay"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Luke Amos",
+    "aliases": [
+     "Amos"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Wayne Brown",
+    "aliases": [
+     "Brown"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Terry Cooke",
+    "aliases": [
+     "Cooke"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "John Curtis",
+    "aliases": [
+     "Curtis"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Brian Deane",
+    "aliases": [
+     "Deane"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Matt Derbyshire",
+    "aliases": [
+     "Derbyshire"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Neil Emblen",
+    "aliases": [
+     "Emblen"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Dean Gordon",
+    "aliases": [
+     "Gordon"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Mark Hughes",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Joe Keenan",
+    "aliases": [
+     "Keenan"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Adam Le Fondre",
+    "aliases": [
+     "Le Fondre"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Joe Lolley",
+    "aliases": [
+     "Lolley"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Callum McManaman",
+    "aliases": [
+     "McManaman"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Jordon Mutch",
+    "aliases": [
+     "Mutch"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Craig Noone",
+    "aliases": [
+     "Noone"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Ryan Shotton",
+    "aliases": [
+     "Shotton"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Andy Todd",
+    "aliases": [
+     "Todd"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Ryan Tunnicliffe",
+    "aliases": [
+     "Tunnicliffe"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Aaron Hughes",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Chris Doig",
+    "aliases": [
+     "Doig"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Graham Dorrans",
+    "aliases": [
+     "Dorrans"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Scot Gemmill",
+    "aliases": [
+     "Gemmill"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Charlie Miller",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Nick Montgomery",
+    "aliases": [
+     "Montgomery"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Tom Lawrence",
+    "aliases": [
+     "Lawrence"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Bob Malcolm",
+    "aliases": [
+     "Malcolm"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Jay O'Shea",
+    "aliases": [
+     "O'Shea",
+     "OShea"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Alessandro Del Piero",
+    "why": "Played in the A-League for Sydney FC, but never in the Premier League."
+   },
+   {
+    "name": "David Villa",
+    "why": "Played in the A-League for Melbourne City, but never in the Premier League."
+   },
+   {
+    "name": "Keisuke Honda",
+    "why": "Played in the A-League for Melbourne Victory, but never in the Premier League."
+   },
+   {
+    "name": "Shinji Ono",
+    "why": "Played in the A-League for Western Sydney Wanderers, but never in the Premier League."
+   },
+   {
+    "name": "Mark Viduka",
+    "why": "Played in the Premier League, but never in the A-League."
+   },
+   {
+    "name": "Mark Schwarzer",
+    "why": "Played in the Premier League, but never in the A-League."
+   },
+   {
+    "name": "Ross McCormack",
+    "why": "Played in the A-League, but his English clubs were all outside the Premier League when he played for them."
+   }
+  ]
+ },
+ {
+  "id": "d20-name-a-club-that-played-in-la-liga-between-2000-01-and-2025-26-whose-traditional-home-shirt-is-blue-and-white-vertical-stripes",
+  "template": 20,
+  "prompt": "Name a club that played in La Liga between 2000-01 and 2025-26 whose traditional home shirt is blue and white vertical stripes",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "RCD Espanyol",
+    "aliases": [
+     "Espanyol",
+     "Espanol"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Real Sociedad",
+    "aliases": [
+     "La Real",
+     "Sociedad"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Deportivo de La Coruña",
+    "aliases": [
+     "Deportivo",
+     "Depor",
+     "Deportivo La Coruna"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Málaga CF",
+    "aliases": [
+     "Malaga"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Deportivo Alavés",
+    "aliases": [
+     "Alaves"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "CD Leganés",
+    "aliases": [
+     "Leganes"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Recreativo de Huelva",
+    "aliases": [
+     "Recreativo",
+     "Recre"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Hércules CF",
+    "aliases": [
+     "Hercules"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Real Oviedo",
+    "why": "Plays in plain blue, without stripes."
+   },
+   {
+    "name": "Getafe CF",
+    "why": "Plays in plain blue."
+   },
+   {
+    "name": "Celta de Vigo",
+    "why": "Plays in plain sky blue."
+   },
+   {
+    "name": "Real Valladolid",
+    "why": "Its stripes are violet and white."
+   },
+   {
+    "name": "SD Eibar",
+    "why": "Its stripes are blue and claret."
+   },
+   {
+    "name": "SD Huesca",
+    "why": "Its stripes are blue and claret."
+   },
+   {
+    "name": "FC Barcelona",
+    "why": "Its stripes are blue and claret (blaugrana)."
+   }
+  ]
+ },
+ {
+  "id": "d19-name-a-club-from-emilia-romagna-that-played-in-serie-a-between-2000-01-and-2025-26",
+  "template": 19,
+  "prompt": "Name a club from Emilia-Romagna that played in Serie A between 2000-01 and 2025-26",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Bologna FC 1909",
+    "aliases": [
+     "Bologna"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Parma Calcio 1913",
+    "aliases": [
+     "Parma"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "US Sassuolo",
+    "aliases": [
+     "Sassuolo"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Cesena FC",
+    "aliases": [
+     "Cesena",
+     "AC Cesena"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "SPAL",
+    "aliases": [
+     "Spal",
+     "SPAL Ferrara"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Modena FC",
+    "aliases": [
+     "Modena"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Piacenza Calcio",
+    "aliases": [
+     "Piacenza"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Carpi FC 1909",
+    "aliases": [
+     "Carpi"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Reggiana",
+    "why": "From Emilia-Romagna, but its last Serie A season was 1996-97."
+   },
+   {
+    "name": "Rimini",
+    "why": "From Emilia-Romagna, but it has not played in Serie A."
+   },
+   {
+    "name": "Fiorentina",
+    "why": "From Tuscany, not Emilia-Romagna."
+   },
+   {
+    "name": "Spezia",
+    "why": "From Liguria, not Emilia-Romagna."
+   }
+  ]
+ }
+]
