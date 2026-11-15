@@ -1,0 +1,256 @@
+{
+  "date": "2026-11-15",
+  "baseline_commit": "bc8eb5e69b6ad8b73ac9c8de8f36cb3853fa6da1",
+  "correction_commit": "b8f15f2b37f9efb588a519a7d4090c06a73c17a4",
+  "previous_checkpoint": 1460439,
+  "last_scanned_event_id": 1531810,
+  "scanned_events": 5076,
+  "scan_pages": [
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    276
+  ],
+  "prior_pending_count": 35173,
+  "pending_count": 37317,
+  "excluded_new_records": {
+    "ambiguous": 127,
+    "duplicate": 227,
+    "blank": 2
+  },
+  "decision_counts": {
+    "pending": 37317,
+    "ignore_wrong": 2,
+    "add_missing_player": 9,
+    "add_alias": 5
+  },
+  "corrections": [
+    {
+      "question_id": "d8-name-a-centre-back-who-played-in-la-liga-since-2010",
+      "submitted_text": [
+        "djene"
+      ],
+      "event_count": 24,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Djené Dakonam",
+        "added_aliases": [
+          "Djené"
+        ]
+      },
+      "evidence": "Getafe calls him a centre-back and uses Djené on its own; La Liga records his appearance against Athletic Club on 5 April 2026.",
+      "evidence_urls": [
+        "https://www.getafecf.com/noticias/comunicado-oficial-djene-dakonam-continuara-en-el-club-la-proxima-temporada",
+        "https://www.laliga.com/en-GB/match/temporada-2025-2026-laliga-ea-sports-getafe-cf-athletic-club-30"
+      ],
+      "correction_commit": "b8f15f2b37f9efb588a519a7d4090c06a73c17a4"
+    },
+    {
+      "question_id": "d8-name-a-centre-back-who-played-in-la-liga-since-2010",
+      "submitted_text": [
+        "Renato Veiga"
+      ],
+      "event_count": 10,
+      "decision": "add_missing_player",
+      "correction": {
+        "name": "Renato Palma Veiga",
+        "aliases": [
+          "Renato Veiga",
+          "Veiga"
+        ],
+        "fame": 3
+      },
+      "evidence": "Villarreal gives his full name, identifies him as a centre-back, and confirms he played in La Liga in 2025–26.",
+      "evidence_urls": [
+        "https://villarrealcf.es/en/renato-veiga-a-top-class-signing-for-villarreal-cf/",
+        "https://villarrealcf.es/es/renato-veiga-recibe-el-premio-al-jugador-mas-saludable-de-asisa/"
+      ],
+      "correction_commit": "b8f15f2b37f9efb588a519a7d4090c06a73c17a4"
+    },
+    {
+      "question_id": "d8-name-a-centre-back-who-played-in-la-liga-since-2010",
+      "submitted_text": [
+        "huijsen"
+      ],
+      "event_count": 4,
+      "decision": "add_missing_player",
+      "correction": {
+        "name": "Dean Huijsen",
+        "aliases": [
+          "Huijsen"
+        ],
+        "fame": 4
+      },
+      "evidence": "Real Madrid identifies him as a centre-back and La Liga records him playing against Osasuna on 19 August 2025.",
+      "evidence_urls": [
+        "https://www.realmadrid.com/en-US/news/football/first-team/latest-news/huijsen-nuevo-jugador-del-real-madrid-17-05-2025",
+        "https://www.laliga.com/en-GB/match/temporada-2025-2026-laliga-ea-sports-real-madrid-ca-osasuna-1"
+      ],
+      "correction_commit": "b8f15f2b37f9efb588a519a7d4090c06a73c17a4"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2017-africa-cup-of-nations",
+      "submitted_text": [
+        "morroco"
+      ],
+      "event_count": 17,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Morocco",
+        "added_aliases": [
+          "Morroco"
+        ]
+      },
+      "evidence": "CAF records Morocco reaching the quarter-finals at the 2017 finals.",
+      "evidence_urls": [
+        "https://www.cafonline.com/afcon2025/news/morocco-aims-for-a-second-continental-crown/",
+        "https://www.cafonline.com/caf-africa-cup-of-nations/news/match-facts-egypt-v-morocco"
+      ],
+      "correction_commit": "b8f15f2b37f9efb588a519a7d4090c06a73c17a4"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2013-africa-cup-of-nations",
+      "submitted_text": [
+        "morroco"
+      ],
+      "event_count": 4,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Morocco",
+        "added_aliases": [
+          "Morroco"
+        ]
+      },
+      "evidence": "CAF records Morocco playing in the first round at the 2013 finals.",
+      "evidence_urls": [
+        "https://www.cafonline.com/afcon2025/news/morocco-aims-for-a-second-continental-crown/"
+      ],
+      "correction_commit": "b8f15f2b37f9efb588a519a7d4090c06a73c17a4"
+    },
+    {
+      "question_id": "d19-name-a-club-from-north-west-england-that-played-in-the-premier-league-up-to-2025-26",
+      "submitted_text": [
+        "man u"
+      ],
+      "event_count": 4,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Manchester United",
+        "added_aliases": [
+          "Man U"
+        ]
+      },
+      "evidence": "The Premier League confirms United played in 2025–26 and gives Old Trafford as its home ground. The ONS places Trafford in Greater Manchester, in North West England.",
+      "evidence_urls": [
+        "https://www.premierleague.com/en/news/4668605/everything-thats-been-decided-in-202526-league",
+        "https://www.premierleague.com/en/clubs/1/manchester-united/overview",
+        "https://www.ons.gov.uk/visualisations/areas/E11000001/"
+      ],
+      "correction_commit": "b8f15f2b37f9efb588a519a7d4090c06a73c17a4"
+    }
+  ],
+  "validation": {
+    "bank_validator_errors": 0,
+    "preexisting_warnings": 564,
+    "new_warnings": 0,
+    "existing_forms_and_traps_checked": 365,
+    "observed_groups_retested_on_edited_questions": 504,
+    "new_rejection_events_now_accepted": 39,
+    "previously_accepted_and_ambiguous_forms_unchanged": true
+  },
+  "review_limit": "All grouped submissions and pending candidates were rechecked with the shipped matcher. Source research prioritized plausible omissions and recurrent variants; remaining candidates are retained for continued verification.",
+  "decisions": [
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-2000",
+      "input": "greece",
+      "event_count": 25,
+      "new_events": 11,
+      "decision": "ignore_wrong",
+      "reason": "UEFA records that Greece did not qualify for EURO 2000.",
+      "evidence_urls": [
+        "https://www.uefa.com/uefaeuro/history/news/0253-0d8226d05401-d97cc9db64a6-1000--uefa-european-championship-records-greece/"
+      ]
+    },
+    {
+      "question_id": "d8-name-a-centre-back-who-played-in-la-liga-since-2010",
+      "input": "Renato Veiga",
+      "event_count": 10,
+      "new_events": 1,
+      "decision": "add_missing_player",
+      "reason": "Villarreal gives his full name, identifies him as a centre-back, and confirms he played in La Liga in 2025–26.",
+      "evidence_urls": [
+        "https://villarrealcf.es/en/renato-veiga-a-top-class-signing-for-villarreal-cf/",
+        "https://villarrealcf.es/es/renato-veiga-recibe-el-premio-al-jugador-mas-saludable-de-asisa/"
+      ]
+    },
+    {
+      "question_id": "d8-name-a-centre-back-who-played-in-la-liga-since-2010",
+      "input": "djene",
+      "event_count": 24,
+      "new_events": 20,
+      "decision": "add_alias",
+      "reason": "Getafe calls him a centre-back and uses Djené on its own; La Liga records his appearance against Athletic Club on 5 April 2026.",
+      "evidence_urls": [
+        "https://www.getafecf.com/noticias/comunicado-oficial-djene-dakonam-continuara-en-el-club-la-proxima-temporada",
+        "https://www.laliga.com/en-GB/match/temporada-2025-2026-laliga-ea-sports-getafe-cf-athletic-club-30"
+      ]
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2017-africa-cup-of-nations",
+      "input": "morroco",
+      "event_count": 17,
+      "new_events": 15,
+      "decision": "add_alias",
+      "reason": "CAF records Morocco reaching the quarter-finals at the 2017 finals.",
+      "evidence_urls": [
+        "https://www.cafonline.com/afcon2025/news/morocco-aims-for-a-second-continental-crown/",
+        "https://www.cafonline.com/caf-africa-cup-of-nations/news/match-facts-egypt-v-morocco"
+      ]
+    },
+    {
+      "question_id": "d19-name-a-club-from-north-west-england-that-played-in-the-premier-league-up-to-2025-26",
+      "input": "man u",
+      "event_count": 4,
+      "new_events": 3,
+      "decision": "add_alias",
+      "reason": "The Premier League confirms United played in 2025–26 and gives Old Trafford as its home ground. The ONS places Trafford in Greater Manchester, in North West England.",
+      "evidence_urls": [
+        "https://www.premierleague.com/en/news/4668605/everything-thats-been-decided-in-202526-league",
+        "https://www.premierleague.com/en/clubs/1/manchester-united/overview",
+        "https://www.ons.gov.uk/visualisations/areas/E11000001/"
+      ]
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1934-world-cup",
+      "input": "uruguay",
+      "event_count": 9,
+      "new_events": 9,
+      "decision": "ignore_wrong",
+      "reason": "FIFA confirms Uruguay did not participate in the 1934 finals.",
+      "evidence_urls": [
+        "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/defending-champions-history-record"
+      ]
+    },
+    {
+      "question_id": "d8-name-a-winger-who-played-in-the-bundesliga-since-2010",
+      "input": "Tel",
+      "event_count": 13,
+      "new_events": 13,
+      "decision": "pending",
+      "reason": "Bayern confirms Bundesliga appearances and describes Tel as a striker in its debut article. Tottenham describes him as a left winger who can also play centrally. Verify his role in Bayern league matches before adding him to this position question.",
+      "evidence_urls": [
+        "https://fcbayern.com/en/news/2025/12/the-youngest-bundesliga-debutants-at-fc-bayern",
+        "https://www.tottenhamhotspur.com/news/1061382/wolves-vs-spurs-every-word-of-roberto-de-zerbi-s-pre-match-press-conference"
+      ]
+    }
+  ]
+}
