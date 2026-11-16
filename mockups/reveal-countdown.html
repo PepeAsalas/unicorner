@@ -121,7 +121,7 @@ const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const T=[{n:'TAP-IN',p:10,c:'var(--t0)',pct:41,th:'25%+'},{n:'HEADER',p:30,c:'var(--t1)',pct:17,th:'< 25%'},{n:'VOLLEY',p:60,c:'var(--t2)',pct:6.2,th:'< 10%'},{n:'BICYCLE',p:85,c:'var(--t3)',pct:2.3,th:'< 4%'},{n:'SCREAMER',p:100,c:'var(--t4)',pct:.4,th:'< 1%'}];
 const B=[100,25,10,4,1],BOT=.1;
 const wait=ms=>new Promise(r=>setTimeout(r,RM?0:ms));
-const fmt=v=>v>=10?String(Math.round(v)):v.toFixed(1);
+const fmt=v=>v>=9.95?String(Math.round(v)):v.toFixed(1);
 const big=v=>fmt(v)+'<sup>%</sup>';
 const ease=k=>1-Math.pow(1-k,3);
 function tween(from,to,ms,cb,e=ease){return new Promise(res=>{if(RM||ms<=0){cb(to);return res()}const t0=performance.now();(function s(n){const k=Math.min(1,(n-t0)/ms);cb(from+(to-from)*e(k));k<1?requestAnimationFrame(s):res()})(t0)})}
