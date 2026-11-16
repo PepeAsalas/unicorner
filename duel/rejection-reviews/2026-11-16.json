@@ -1,0 +1,384 @@
+{
+  "date": "2026-11-16",
+  "baseline_commit": "653bbc568a651f331b1fa558c53a595d0ba9bd0d",
+  "correction_commit": "0e476497bdb4e00bcfc4709c18a5214ab0a6abbc",
+  "previous_checkpoint": 1531810,
+  "last_scanned_event_id": 1598062,
+  "scanned_events": 3843,
+  "scan_pages": [
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    243
+  ],
+  "prior_pending_count": 37317,
+  "pending_count": 38802,
+  "excluded_records": {
+    "ambiguous": 111,
+    "duplicate": 115,
+    "blank": 4
+  },
+  "decision_counts": {
+    "pending": 38802,
+    "ignore_wrong": 2,
+    "already_handled": 184,
+    "add_missing_player": 6,
+    "add_alias": 1
+  },
+  "corrections": [
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-juventus-and-milan",
+      "submitted_text": [
+        "koni de winter"
+      ],
+      "event_count": 4,
+      "decision": "add_missing_player",
+      "correction": {
+        "name": "Koni De Winter",
+        "aliases": [
+          "De Winter"
+        ],
+        "fame": 3
+      },
+      "evidence": "AC Milan records his two 2021–22 Champions League appearances for Juventus and 29 competitive appearances for Milan in 2025–26.",
+      "evidence_urls": [
+        "https://www.acmilan.com/it/squadre/prima-squadra-maschile/giocatori/koni-de-winter",
+        "https://www.acmilan.com/en/match-center/2025-26-serie-a-roma-milan-g2558725"
+      ],
+      "correction_commit": "0e476497bdb4e00bcfc4709c18a5214ab0a6abbc"
+    },
+    {
+      "question_id": "d8-name-a-defensive-midfielder-who-played-in-the-premier-league-since-2005",
+      "submitted_text": [
+        "floretino"
+      ],
+      "event_count": 7,
+      "decision": "add_missing_player",
+      "correction": {
+        "name": "Florentino Luís",
+        "aliases": [
+          "Florentino"
+        ],
+        "fame": 3
+      },
+      "evidence": "The Premier League records his 2025–26 Burnley debut and a start in front of their back line; in Benfica’s interview Florentino identifies himself as a defensive midfielder.",
+      "evidence_urls": [
+        "https://www.premierleague.com/en/news/4445118/will-florentinos-grit-be-the-difference-for-burnley-against-wolves",
+        "https://www.premierleague.com/en/match/2561938/burnley-vs-nottingham-forest/commentary",
+        "https://www.slbenfica.pt/en-us/agora/noticias/2025/01/19/futebol-benfica-mistica-a-dois-florentino-e-fejsa"
+      ],
+      "correction_commit": "0e476497bdb4e00bcfc4709c18a5214ab0a6abbc"
+    },
+    {
+      "question_id": "d8-name-a-winger-who-played-in-the-bundesliga-since-2010",
+      "submitted_text": [
+        "Tel"
+      ],
+      "event_count": 13,
+      "decision": "add_missing_player",
+      "correction": {
+        "name": "Mathys Tel",
+        "aliases": [
+          "Tel"
+        ],
+        "fame": 3
+      },
+      "evidence": "The Premier League identifies left wing as his most common position for Bayern and attributes three 2023–24 league goals to that role. Bayern records 60 league appearances.",
+      "evidence_urls": [
+        "https://www.premierleague.com/en/news/4243171",
+        "https://fcbayern.com/en/news/2025/12/the-youngest-bundesliga-debutants-at-fc-bayern"
+      ],
+      "correction_commit": "0e476497bdb4e00bcfc4709c18a5214ab0a6abbc"
+    },
+    {
+      "question_id": "d4-name-a-player-who-won-the-bundesliga-with-bayern-since-2000",
+      "submitted_text": [
+        "Tel"
+      ],
+      "event_count": 1,
+      "decision": "add_missing_player",
+      "correction": {
+        "name": "Mathys Tel",
+        "aliases": [
+          "Tel"
+        ],
+        "fame": 3
+      },
+      "evidence": "Bayern records that Tel won two Bundesliga titles. Bayern also records league appearances and goals as early as 2022–23, his first title season.",
+      "evidence_urls": [
+        "https://fcbayern.com/en/news/2025/06/mathys-tel-joins-tottenham-from-bayern",
+        "https://fcbayern.com/en/news/2025/12/the-youngest-bundesliga-debutants-at-fc-bayern"
+      ],
+      "correction_commit": "0e476497bdb4e00bcfc4709c18a5214ab0a6abbc"
+    },
+    {
+      "question_id": "d4-name-a-player-who-won-the-bundesliga-with-bayern-since-2000",
+      "submitted_text": [
+        "Nueur"
+      ],
+      "event_count": 3,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Manuel Neuer",
+        "added_aliases": [
+          "Nueur"
+        ]
+      },
+      "evidence": "Bayern records Neuer captaining the club to the 2025–26 Bundesliga title and lists his league honours.",
+      "evidence_urls": [
+        "https://fcbayern.com/en/news/2026/04/who-are-bayern-most-decorated-players-in-the-bundesliga",
+        "https://fcbayern.com/en/teams/first-team/manuel-neuer"
+      ],
+      "correction_commit": "0e476497bdb4e00bcfc4709c18a5214ab0a6abbc"
+    }
+  ],
+  "validation": {
+    "bank_validator_errors": 0,
+    "preexisting_warnings": 568,
+    "new_warnings": 0,
+    "existing_forms_and_traps_checked": 1021,
+    "observed_groups_retested_on_edited_questions": 474,
+    "new_rejection_events_now_accepted": 16,
+    "previously_accepted_and_ambiguous_forms_unchanged": true
+  },
+  "review_limit": "All grouped submissions and pending candidates were rechecked with the shipped matcher. Source research prioritized plausible omissions and recurrent variants. Remaining candidates are retained, with shorter wording for repetitive verification reasons.",
+  "decisions": [
+    {
+      "question_id": "d9-name-a-player-who-scored-20-bundesliga-goals-in-a-single-season-since-2000",
+      "input": "olise",
+      "event_count": 22,
+      "new_events": 7,
+      "decision": "ignore_wrong",
+      "reason": "The Bundesliga records 12 goals in 2024–25 and 15 in 2025–26, his only two seasons through the cutoff.",
+      "evidence_urls": [
+        "https://www.bundesliga.com/en/bundesliga/news/vote-rookie-of-the-month-award-2024-25-best-young-player-sorare-29227/",
+        "https://www.bundesliga.com/en/bundesliga/news/player-of-the-month-2025-26-vote-winners-ea-sports-olise-34233"
+      ]
+    },
+    {
+      "question_id": "d2-name-a-goalkeeper-who-played-for-milan",
+      "input": "giroud",
+      "event_count": 8,
+      "new_events": 3,
+      "decision": "pending",
+      "reason": "Milan confirms Giroud kept goal as an emergency replacement in October 2023. The position template may reserve goalkeeper for players who normally play there; clarify whether emergency appearances count.",
+      "evidence_urls": [
+        "https://www.acmilan.com/en/news/articles/history/2026-05-15/time-machine-genoa-v-ac-milan"
+      ]
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-euro-2016",
+      "input": "island",
+      "event_count": 7,
+      "new_events": 1,
+      "decision": "already_handled",
+      "reason": "The current matcher accepts this spelling."
+    },
+    {
+      "question_id": "d22-name-a-country-that-has-won-the-european-championship-up-to-euro-2024",
+      "input": "grecia",
+      "event_count": 3,
+      "new_events": 1,
+      "decision": "already_handled",
+      "reason": "The current matcher accepts this spelling."
+    },
+    {
+      "question_id": "d22-name-a-country-that-reached-a-world-cup-quarter-final-between-1998-and-2022",
+      "input": "Belgica",
+      "event_count": 4,
+      "new_events": 2,
+      "decision": "already_handled",
+      "reason": "The current matcher accepts this spelling."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1934-world-cup",
+      "input": "españa",
+      "event_count": 2,
+      "new_events": 1,
+      "decision": "already_handled",
+      "reason": "The current matcher accepts this spelling."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2012-africa-cup-of-nations",
+      "input": "Maroco",
+      "event_count": 4,
+      "new_events": 3,
+      "decision": "already_handled",
+      "reason": "The current matcher accepts this spelling."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2017-africa-cup-of-nations",
+      "input": "Marruecos",
+      "event_count": 2,
+      "new_events": 1,
+      "decision": "already_handled",
+      "reason": "The current matcher accepts this spelling."
+    },
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-juventus-and-milan",
+      "input": "de winter",
+      "event_count": 2,
+      "new_events": 1,
+      "decision": "add_missing_player",
+      "reason": "AC Milan records his two 2021–22 Champions League appearances for Juventus and 29 competitive appearances for Milan in 2025–26.",
+      "evidence_urls": [
+        "https://www.acmilan.com/it/squadre/prima-squadra-maschile/giocatori/koni-de-winter",
+        "https://www.acmilan.com/en/match-center/2025-26-serie-a-roma-milan-g2558725"
+      ]
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1934-world-cup",
+      "input": "Uruguay",
+      "event_count": 4,
+      "new_events": 4,
+      "decision": "ignore_wrong",
+      "reason": "FIFA confirms Uruguay did not enter the 1934 finals.",
+      "evidence_urls": [
+        "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/defending-champions-history-record"
+      ]
+    },
+    {
+      "question_id": "d22-name-a-country-that-reached-the-euro-semi-finals-between-1996-and-2024",
+      "input": "danimarca",
+      "event_count": 2,
+      "new_events": 2,
+      "decision": "already_handled",
+      "reason": "The current matcher accepts this spelling."
+    },
+    {
+      "question_id": "d4-name-a-player-who-won-the-bundesliga-with-bayern-since-2000",
+      "input": "Tel",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "add_missing_player",
+      "reason": "Bayern records that Tel won two Bundesliga titles. Bayern also records league appearances and goals as early as 2022–23, his first title season.",
+      "evidence_urls": [
+        "https://fcbayern.com/en/news/2025/06/mathys-tel-joins-tottenham-from-bayern",
+        "https://fcbayern.com/en/news/2025/12/the-youngest-bundesliga-debutants-at-fc-bayern"
+      ]
+    },
+    {
+      "question_id": "d8-name-a-defensive-midfielder-who-played-in-the-premier-league-since-2005",
+      "input": "floretino",
+      "event_count": 7,
+      "new_events": 7,
+      "decision": "add_missing_player",
+      "reason": "The Premier League records his 2025–26 Burnley debut and a start in front of their back line; in Benfica’s interview Florentino identifies himself as a defensive midfielder.",
+      "evidence_urls": [
+        "https://www.premierleague.com/en/news/4445118/will-florentinos-grit-be-the-difference-for-burnley-against-wolves",
+        "https://www.premierleague.com/en/match/2561938/burnley-vs-nottingham-forest/commentary",
+        "https://www.slbenfica.pt/en-us/agora/noticias/2025/01/19/futebol-benfica-mistica-a-dois-florentino-e-fejsa"
+      ]
+    },
+    {
+      "question_id": "d4-name-a-player-who-won-the-bundesliga-with-bayern-since-2000",
+      "input": "Nueur",
+      "event_count": 3,
+      "new_events": 3,
+      "decision": "add_alias",
+      "reason": "Bayern records Neuer captaining the club to the 2025–26 Bundesliga title and lists his league honours.",
+      "evidence_urls": [
+        "https://fcbayern.com/en/news/2026/04/who-are-bayern-most-decorated-players-in-the-bundesliga",
+        "https://fcbayern.com/en/teams/first-team/manuel-neuer"
+      ]
+    },
+    {
+      "question_id": "d22-name-a-country-that-reached-a-world-cup-semi-final-between-1998-and-2022",
+      "input": "Turquie",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "already_handled",
+      "reason": "The current matcher accepts this spelling."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1934-world-cup",
+      "input": "alemania",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "already_handled",
+      "reason": "The current matcher accepts this spelling."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2002-world-cup",
+      "input": "francia",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "already_handled",
+      "reason": "The current matcher accepts this spelling."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1954-world-cup",
+      "input": "Italia",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "already_handled",
+      "reason": "The current matcher accepts this spelling."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2014-world-cup",
+      "input": "Italia",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "already_handled",
+      "reason": "The current matcher accepts this spelling."
+    },
+    {
+      "question_id": "d22-name-a-country-that-has-played-in-a-world-cup-final-up-to-2022",
+      "input": "Hlanda",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "already_handled",
+      "reason": "The current matcher accepts this spelling."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2006-world-cup",
+      "input": "Suíça",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "already_handled",
+      "reason": "The current matcher accepts this spelling."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2006-world-cup",
+      "input": "Suécia",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "already_handled",
+      "reason": "The current matcher accepts this spelling."
+    },
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-juventus-and-milan",
+      "input": "koni de winter",
+      "event_count": 4,
+      "new_events": 4,
+      "decision": "add_missing_player",
+      "reason": "AC Milan records his two 2021–22 Champions League appearances for Juventus and 29 competitive appearances for Milan in 2025–26.",
+      "evidence_urls": [
+        "https://www.acmilan.com/it/squadre/prima-squadra-maschile/giocatori/koni-de-winter",
+        "https://www.acmilan.com/en/match-center/2025-26-serie-a-roma-milan-g2558725"
+      ]
+    },
+    {
+      "question_id": "d23-name-a-country-outside-the-uk-that-had-a-player-in-the-premier-league-for-man-united-up-to-2025-26-his-national-team-or-country-of-birth-if-uncapped",
+      "input": "morroco",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "already_handled",
+      "reason": "The current matcher accepts this spelling."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1974-world-cup",
+      "input": "suecia",
+      "event_count": 2,
+      "new_events": 2,
+      "decision": "already_handled",
+      "reason": "The current matcher accepts this spelling."
+    }
+  ]
+}
