@@ -62,6 +62,7 @@ def build():
         sub_re(rf'<meta name="{k}" content="[^"]*">', f'<meta name="{k}" content="{v}">')
     sub('<meta property="og:locale" content="en_GB">', '<meta property="og:locale" content="pt_BR">')
     sub('<meta property="og:locale:alternate" content="pt_BR">', '<meta property="og:locale:alternate" content="en_GB">')
+    sub('<a class="privacy-link" href="/questions/">Question archive</a>', '<a class="privacy-link" href="/pt/perguntas/">Arquivo de perguntas</a>')
     sub('<a class="privacy-link" href="/how-to-play.html">How to play</a>', '<a class="privacy-link" href="/pt/como-jogar.html">Como jogar</a>')
     sub('<a class="privacy-link lang-link" href="/es/" hreflang="es">Español</a>', '<a class="privacy-link lang-link" href="/" hreflang="en">English</a>')
 

@@ -103,7 +103,7 @@ footer{{margin-top:30px;color:#e9dfc2;font-size:14px}}
 <a class="play" href="/">Play today's game ▶</a>
 <nav>{nav}</nav>
 {body}
-<footer>Today's answers appear here after midnight (Amsterdam time). <a href="/">Back to Unicorner</a></footer>
+<footer>Today's answers appear here after midnight (Amsterdam time). Older questions: <a href="/questions/">question archive</a>. <a href="/">Back to Unicorner</a></footer>
 <div class="bar"><span>Think you know ball? Five new questions every day.</span><a class="play" href="/">Play ▶</a></div>
 </main></body></html>
 '''
@@ -138,7 +138,7 @@ footer{{margin-top:30px;color:#e9dfc2;font-size:14px}}
 <a class="play" href="/es/">Juega el partido de hoy ▶</a>
 <nav>{nav}</nav>
 {body}
-<footer>Las respuestas de hoy aparecen aquí después de medianoche (hora de Madrid). <a href="/es/">Volver a Unicorner</a></footer>
+<footer>Las respuestas de hoy aparecen aquí después de medianoche (hora de Madrid). Preguntas anteriores: <a href="/es/preguntas/">archivo de preguntas</a>. <a href="/es/">Volver a Unicorner</a></footer>
 <div class="bar"><span>¿Sabes de fútbol? Cinco preguntas nuevas cada día.</span><a class="play" href="/es/">Jugar ▶</a></div>
 </main></body></html>
 '''
