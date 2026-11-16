@@ -47,7 +47,7 @@ def main():
         print('Set SUPABASE_SERVICE_ROLE_KEY and VAPID_PRIVATE_KEY (GitHub secrets).')
         sys.exit(1)
     now = datetime.now(ZoneInfo('Europe/Amsterdam'))
-    if not DRY and not 15 <= now.hour < 23:
+    if not DRY and not 15 <= now.hour < 23 and os.environ.get('GITHUB_EVENT_NAME') != 'workflow_dispatch':
         print(f'{now:%H:%M} Amsterdam: outside the 15:00-23:00 reminder window (GitHub started this run late), skipping.')
         return
     today = now.date().isoformat()
