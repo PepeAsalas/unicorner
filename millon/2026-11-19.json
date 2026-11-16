@@ -1,0 +1,140 @@
+{
+  "day": "2026-11-19",
+  "questions": [
+    {
+      "q": "Which of these clubs did David Beckham NEVER play for?",
+      "q_es": "¿En cuál de estos clubes NUNCA jugó David Beckham?",
+      "q_pt": "Em qual destes clubes David Beckham NUNCA jogou?",
+      "o": [
+        "Preston North End",
+        "AC Milan",
+        "Inter",
+        "Paris Saint-Germain"
+      ],
+      "a": 2,
+      "why": "Beckham played for Preston and Milan on loan and ended at PSG, but never for Inter.",
+      "why_es": "Beckham jugó cedido en el Preston y el Milan y se retiró en el PSG, pero nunca jugó en el Inter.",
+      "why_pt": "Beckham jogou emprestado no Preston e no Milan e encerrou a carreira no PSG, mas nunca jogou na Inter.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Who was top scorer at the 1998 World Cup?",
+      "q_es": "¿Quién fue el máximo goleador del Mundial de 1998?",
+      "q_pt": "Quem foi o artilheiro da Copa de 1998?",
+      "o": [
+        "Gabriel Batistuta",
+        "Davor Šuker",
+        "Christian Vieri",
+        "Ronaldo"
+      ],
+      "a": 1,
+      "why": "Šuker scored 6; Batistuta and Vieri 5, Ronaldo 4.",
+      "why_es": "Šuker marcó 6; Batistuta y Vieri 5, Ronaldo 4.",
+      "why_pt": "Šuker marcou 6; Batistuta e Vieri, 5, Ronaldo, 4.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "How many European Cups/Champions Leagues had Bayern Munich won up to the end of 2024-25?",
+      "q_es": "¿Cuántas Copas de Europa/Champions había ganado el Bayern de Múnich hasta el final de la 2024-25?",
+      "q_pt": "Quantas Copas dos Campeões/Champions League o Bayern de Munique tinha ganhado até o fim de 2024-25?",
+      "o": [
+        "5",
+        "8",
+        "7",
+        "6"
+      ],
+      "a": 3,
+      "why": "Six: 1974, 1975, 1976, 2001, 2013 and 2020.",
+      "why_es": "Seis: 1974, 1975, 1976, 2001, 2013 y 2020.",
+      "why_pt": "Seis: 1974, 1975, 1976, 2001, 2013 e 2020.",
+      "src": "own knowledge",
+      "n": "The Champions League's name until 1992",
+      "n_es": "El nombre de la Champions hasta 1992",
+      "n_pt": "O nome da Champions League até 1992"
+    },
+    {
+      "q": "Which country won the football gold medal at the 1992 Olympics in Barcelona?",
+      "q_es": "¿Qué país ganó el oro olímpico de fútbol en Barcelona 1992?",
+      "q_pt": "Qual país ganhou o ouro olímpico no futebol em Barcelona 1992?",
+      "o": [
+        "Poland",
+        "Ghana",
+        "Spain"
+      ],
+      "a": 2,
+      "why": "Spain beat Poland 3-2 in the final; Ghana took bronze.",
+      "why_es": "España ganó 3-2 a Polonia en la final; Ghana se llevó el bronce.",
+      "why_pt": "A Espanha venceu a Polônia por 3 a 2 na final; Gana ficou com o bronze.",
+      "src": "own knowledge",
+      "o_es": [
+        "Polonia",
+        "Ghana",
+        "España"
+      ],
+      "o_pt": [
+        "Polônia",
+        "Gana",
+        "Espanha"
+      ]
+    },
+    {
+      "q": "In which year did Diego Maradona join Napoli?",
+      "q_es": "¿En qué año fichó Diego Maradona por el Nápoles?",
+      "q_pt": "Em que ano Diego Maradona foi para o Napoli?",
+      "o": [
+        "1982",
+        "1984",
+        "1986"
+      ],
+      "a": 1,
+      "why": "He joined from Barcelona in the summer of 1984; he had gone to Barcelona in 1982.",
+      "why_es": "Llegó desde el Barcelona en el verano de 1984; había fichado por el Barça en 1982.",
+      "why_pt": "Chegou do Barcelona no meio de 1984; tinha ido para o Barça em 1982.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which of these players NEVER played for Inter?",
+      "q_es": "¿Cuál de estos jugadores NUNCA jugó en el Inter?",
+      "q_pt": "Qual destes jogadores NUNCA jogou na Inter?",
+      "o": [
+        "Gianfranco Zola",
+        "Roberto Baggio",
+        "Dennis Bergkamp"
+      ],
+      "a": 0,
+      "why": "Baggio (1998-2000) and Bergkamp (1993-95) both played for Inter; Zola never did.",
+      "why_es": "Baggio (1998-2000) y Bergkamp (1993-95) jugaron en el Inter; Zola nunca.",
+      "why_pt": "Baggio (1998-2000) e Bergkamp (1993-95) jogaram na Inter; Zola nunca.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Who coached Real Madrid to the 2002 Champions League?",
+      "q_es": "¿Quién entrenaba al Real Madrid cuando ganó la Champions de 2002?",
+      "q_pt": "Quem era o técnico do Real Madrid no título da Champions de 2002?",
+      "o": [
+        "Jupp Heynckes",
+        "Vicente del Bosque",
+        "Carlos Queiroz"
+      ],
+      "a": 1,
+      "why": "Del Bosque won it in 2000 and 2002; Heynckes won in 1998, Queiroz came in 2003.",
+      "why_es": "Del Bosque la ganó en 2000 y 2002; Heynckes en 1998 y Queiroz llegó en 2003.",
+      "why_pt": "Del Bosque ganhou em 2000 e 2002; Heynckes em 1998 e Queiroz chegou em 2003.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Who scored more Premier League goals: Robbie Fowler or Michael Owen?",
+      "q_es": "¿Quién marcó más goles en la Premier League: Robbie Fowler o Michael Owen?",
+      "q_pt": "Quem marcou mais gols na Premier League: Robbie Fowler ou Michael Owen?",
+      "o": [
+        "Robbie Fowler",
+        "Michael Owen"
+      ],
+      "a": 0,
+      "why": "Fowler scored 163, Owen 150.",
+      "why_es": "Fowler marcó 163; Owen 150.",
+      "why_pt": "Fowler marcou 163; Owen, 150.",
+      "src": "https://en.wikipedia.org/wiki/Premier_League_100_Club"
+    }
+  ]
+}
