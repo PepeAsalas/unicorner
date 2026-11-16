@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rarity countdown</title>
+<link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=VT323&display=swap" rel="stylesheet">
+<script src="/duel/sprites.js"></script>
+<style>
+:root{--ink:#1d1a2b;--ink2:#14121f;--ink3:#0c0b12;--line:#2e2a40;--cream:#fbf6e8;--mute:#8f88a6;--gold:#f2c230;
+ --t0:#c9cde0;--t1:#3fd17f;--t2:#3fb1ff;--t3:#a070ff;--t4:#f2c230;
+ --out:cubic-bezier(.23,1,.32,1);--pop:cubic-bezier(.34,1.56,.64,1);--s1:8px;--s2:16px;--s3:24px}
+*{box-sizing:border-box}
+body{margin:0;background:#0b2318;color:var(--cream);font:400 20px/1.25 VT323,monospace;padding:20px 16px 60px}
+h1{font:400 42px/1 'Jersey 10',sans-serif;color:var(--gold);margin:0 0 6px}
+.lead{color:#cfe8d6;max-width:900px;margin:0 0 20px;font-size:19px}
+.row{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}
+.col{width:390px;max-width:100%}
+.col>h2{font:400 28px/1 'Jersey 10',sans-serif;margin:0 0 4px}.col>p{margin:0 0 10px;color:#cfe8d6;font-size:18px;min-height:88px}
+.ctrl{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:0 0 10px}
+.ctrl button{font:400 15px/1 'Jersey 10',sans-serif;min-height:40px;border:2px solid #000;background:var(--cream);color:var(--ink);box-shadow:0 3px 0 #000;cursor:pointer;padding:0}
+.ctrl button:active{transform:translateY(2px);box-shadow:0 1px 0 #000}.ctrl button:last-child{background:var(--gold)}
+.phone{position:relative;display:flex;flex-direction:column;height:620px;border:4px solid #000;box-shadow:8px 8px 0 rgba(0,0,0,.4);overflow:hidden;background:var(--ink)}
+.uni{background-size:contain;background-repeat:no-repeat;background-position:bottom center;image-rendering:pixelated}
+.px{position:absolute;width:6px;height:6px;pointer-events:none;z-index:9}
+.shake1{animation:sh1 .16s steps(2)}.shake2{animation:sh2 .22s steps(3)}.shake3{animation:sh3 .36s steps(4)}
+@keyframes sh1{50%{transform:translate(1px,-1px)}}@keyframes sh2{33%{transform:translate(2px,-2px)}66%{transform:translate(-2px,1px)}}
+@keyframes sh3{25%{transform:translate(6px,-4px)}50%{transform:translate(-5px,3px)}75%{transform:translate(3px,3px)}}
+
+/* shared header */
+.hd{display:flex;align-items:center;justify-content:space-between;height:48px;padding:0 var(--s2);background:var(--ink3);border-bottom:3px solid #000}
+.pips{display:flex;gap:4px}.pips i{width:12px;height:12px;border:2px solid #000;background:var(--line)}.pips i.d{background:var(--gold)}.pips i.n{background:var(--cream)}
+.hd small{font:400 16px/1 'Jersey 10',sans-serif;color:var(--mute);letter-spacing:1px}
+.qa{padding:var(--s2) var(--s2) 0}
+.q{margin:0;font-size:17px;line-height:1.2;color:var(--mute)}
+.a{margin:var(--s1) 0 0;font:400 30px/1 'Jersey 10',sans-serif;letter-spacing:.5px}
+.lbl{font:400 14px/1 'Jersey 10',sans-serif;letter-spacing:1.5px;color:var(--mute)}
+.big{font:400 104px/.8 'Jersey 10',sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-2px;transition:color 120ms}
+.big sup{font-size:44px;vertical-align:top;position:relative;top:6px;margin-left:4px;letter-spacing:0}
+
+/* ============ A · the track ============ */
+#A .hero{padding:var(--s3) var(--s2) 0;display:flex;align-items:flex-end;justify-content:space-between;gap:var(--s2)}
+#A .hero .lbl{padding-bottom:10px;text-align:right;line-height:1.3}
+.trk{position:relative;margin:64px var(--s2) 0;height:22px;border:3px solid #000;background:var(--ink3);display:flex}
+.trk .seg{position:relative;height:100%;border-right:2px solid #000;overflow:hidden}.trk .seg:last-child{border-right:0}
+.trk .seg i{position:absolute;inset:0;transform-origin:0 50%;transform:scaleX(0)}
+.trk-uni{position:absolute;bottom:22px;left:0;width:52px;height:44px;margin-left:-26px;z-index:2}
+.trk-lab{display:flex;margin:6px var(--s2) 0}.trk-lab span{font:400 13px/1 'Jersey 10',sans-serif;color:#4a4560;text-align:center;letter-spacing:.5px;transition:color 150ms}
+.trk-lab span.on{color:var(--cream)}
+.res{margin:var(--s3) var(--s2) 0;padding:var(--s2);border:3px solid var(--line);display:grid;grid-template-columns:1fr auto;align-items:end;gap:var(--s1);min-height:112px}
+.res .tn{font:400 46px/.9 'Jersey 10',sans-serif;opacity:0;text-shadow:3px 3px 0 #000}
+.res .pt{font:400 40px/.9 'Jersey 10',sans-serif;color:var(--gold);opacity:0;text-align:right}
+.res .sub{grid-column:1/-1;font-size:17px;color:var(--mute);opacity:0}
+.nxt{margin:auto var(--s2) var(--s2);flex:none;height:52px;cursor:pointer;border:3px solid #000;background:var(--gold);box-shadow:0 4px 0 #000;font:400 24px/1 'Jersey 10',sans-serif;color:var(--ink);opacity:0}
+
+/* ============ B · the ladder ============ */
+#B .top{display:grid;grid-template-columns:1fr auto;align-items:end;gap:var(--s2);padding:var(--s2) var(--s2) 0}
+#B .big{font-size:84px}#B .big sup{font-size:36px}
+#B .top .lbl{text-align:right;line-height:1.3;padding-bottom:6px}
+.lad{display:grid;grid-template-columns:60px 1fr;gap:0 var(--s1);margin:var(--s2) var(--s2) 0}
+.lad-u{position:relative}.lad-u .uni{position:absolute;left:4px;width:56px;height:47px;transition:top 260ms var(--pop)}
+.rungs{display:flex;flex-direction:column-reverse;gap:6px}.rg .bg{z-index:0}
+.rg{position:relative;display:grid;grid-template-columns:22px 1fr auto 40px;align-items:center;gap:var(--s1);height:46px;padding:0 12px;border:3px solid var(--line);background:var(--ink2);overflow:hidden}
+.rg .bg{position:absolute;inset:0;transform-origin:0 50%;transform:scaleX(0)}
+.rg>*:not(.bg){position:relative}
+.rg .ck{width:16px;height:16px;border:2px solid #4a4560}
+.rg .nm{font:400 25px/1 'Jersey 10',sans-serif;color:#5d5776;letter-spacing:.5px}
+.rg .th{font:400 15px/1 VT323,monospace;color:#5d5776}
+.rg .pv{font:400 22px/1 'Jersey 10',sans-serif;color:#5d5776;text-align:right}
+.rg.on{border-color:#000}.rg.on .nm,.rg.on .pv{color:var(--ink)}.rg.on .th{color:rgba(29,26,43,.65)}
+.rg.on .ck{border-color:var(--ink);background:var(--ink);box-shadow:inset 0 0 0 3px var(--cc)}
+.rg.crown.on{box-shadow:0 0 0 3px #000,0 0 24px rgba(242,194,48,.55)}
+.tot{margin:auto var(--s2) var(--s2);flex:none;display:grid;grid-template-columns:1fr auto;align-items:center;height:60px;padding:0 var(--s2);border:3px solid #000;background:var(--ink3)}
+.tot span{font:400 18px/1 'Jersey 10',sans-serif;letter-spacing:1.5px;color:var(--mute)}.tot b{font:400 40px/1 'Jersey 10',sans-serif;color:var(--gold);font-weight:400}
+
+/* ============ C · the scoreboard ============ */
+#C{background:#0d0c13}
+#C .board{margin:var(--s2);border:4px solid #000;background:#000;box-shadow:inset 0 0 0 3px #2a2638;padding:var(--s2)}
+.reels{display:flex;align-items:flex-end;justify-content:center;gap:6px;height:118px}
+.reel{width:58px;height:96px;overflow:hidden;background:#15131d;border:2px solid #2a2638;position:relative}
+.reel::after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.55),transparent 30%,transparent 70%,rgba(0,0,0,.55));pointer-events:none}
+.reel .st{display:flex;flex-direction:column;will-change:transform}
+.reel.off .st{opacity:0}.reel .st span{height:96px;display:grid;place-items:center;font:400 92px/1 'Jersey 10',sans-serif;color:var(--gold);text-shadow:0 0 12px rgba(242,194,48,.45)}
+.dot,.pct{font:400 64px/1 'Jersey 10',sans-serif;color:var(--gold);padding-bottom:6px}.pct{font-size:44px;padding-bottom:14px}
+.blab{text-align:center;margin-top:10px}
+.flap{display:flex;justify-content:center;gap:3px;margin:var(--s3) 0 0}
+.flap span{width:32px;height:48px;display:grid;place-items:center;background:#1b1926;border:2px solid #2a2638;font:400 36px/1 'Jersey 10',sans-serif;color:var(--cream);position:relative}
+.flap span::after{content:'';position:absolute;left:0;right:0;top:50%;height:2px;background:#000}
+#C .meta{display:grid;grid-template-columns:1fr 1fr;gap:var(--s1);margin:var(--s2) var(--s2) 0}
+#C .meta div{border:3px solid #000;background:var(--ink);padding:12px var(--s2)}
+#C .meta b{display:block;font:400 34px/1 'Jersey 10',sans-serif;font-weight:400;margin-top:6px}
+#C .meta .pts b{color:var(--gold)}
+#C .bwrap{position:relative;margin:48px var(--s2) 0}#C .bwrap .board{margin:0}#C .uni-c{position:absolute;right:12px;top:-50px;width:60px;height:51px;z-index:3}
+
+@media (prefers-reduced-motion:reduce){.shake1,.shake2,.shake3{animation:none}}
+</style></head><body>
+<h1>Rarity countdown · 3 polished versions</h1>
+<p class="lead">All three tell the same story: a big number counts <b>down</b> the share of players who gave your answer, and every tier you pass is felt. Shake and sound rise with the tier, and gold only ever means Screamer. For a Screamer the count stalls just before the line, holds for a heartbeat, then breaks through. Example answer: Luis Suárez.</p>
+<div class="row">
+ <div class="col"><h2>A · The track</h2><p>Your unicorn runs along a rarity bar as the number drops. The bar is split into the five tiers, and each one lights up as you pass it. The result card sits underneath.</p><div class="ctrl" data-v="A"></div>
+  <div class="phone" id="A"><div class="hd"><div class="pips"><i class="d"></i><i class="d"></i><i class="n"></i><i></i><i></i></div><small>Q3 OF 5</small></div>
+   <div class="qa"><p class="q">Named in Uruguay's 2010 World Cup squad</p><p class="a" data-a>LUIS SUÁREZ</p></div>
+   <div class="hero"><div class="big" data-n>100<sup>%</sup></div><div class="lbl">OF PLAYERS<br>SAID THIS</div></div>
+   <div class="trk" data-trk><div class="trk-uni uni" data-u></div></div><div class="trk-lab" data-tl></div>
+   <div class="res"><div class="tn" data-tn>SCREAMER</div><div class="pt" data-pt>+100</div><div class="sub" data-sub>Rarer than 99.6% of answers</div></div>
+   <button class="nxt" data-nx>NEXT QUESTION ▶</button></div></div>
+ <div class="col"><h2>B · The ladder</h2><p>Your favourite, cleaned up. The unicorn has its own column, so it never covers the text. Each rung shows its tier, its threshold and its points, and the total sits at the bottom.</p><div class="ctrl" data-v="B"></div>
+  <div class="phone" id="B"><div class="hd"><div class="pips"><i class="d"></i><i class="d"></i><i class="n"></i><i></i><i></i></div><small>Q3 OF 5</small></div>
+   <div class="qa"><p class="q">Named in Uruguay's 2010 World Cup squad</p><p class="a" data-a>LUIS SUÁREZ</p></div>
+   <div class="top"><div class="big" data-n>100<sup>%</sup></div><div class="lbl">OF PLAYERS<br>SAID THIS</div></div>
+   <div class="lad"><div class="lad-u"><div class="uni" data-u></div></div><div class="rungs" data-r></div></div>
+   <div class="tot"><span>THIS QUESTION</span><b data-pt>0</b></div></div></div>
+ <div class="col"><h2>C · The scoreboard</h2><p>A stadium scoreboard. The percentage rolls down on mechanical reels and the tier clacks into place on a split-flap board, like an old train station sign.</p><div class="ctrl" data-v="C"></div>
+  <div class="phone" id="C"><div class="hd"><div class="pips"><i class="d"></i><i class="d"></i><i class="n"></i><i></i><i></i></div><small>Q3 OF 5</small></div>
+   <div class="qa"><p class="q">Named in Uruguay's 2010 World Cup squad</p><p class="a" data-a>LUIS SUÁREZ</p></div>
+   <div class="bwrap"><div class="uni-c uni" data-u></div><div class="board"><div class="reels" data-reels></div><div class="lbl blab">OF PLAYERS SAID THIS</div><div class="flap" data-flap></div></div></div>
+   <div class="meta"><div><span class="lbl">TIER</span><b data-tn style="color:var(--mute)">–</b></div><div class="pts"><span class="lbl">POINTS</span><b data-pt>0</b></div></div>
+   <button class="nxt" data-nx>NEXT QUESTION ▶</button></div></div>
+</div>
+<script>
+for(let f=0;f<FRAMES.length;f++)FRAMES[f]=FRAMES[f].map((r,y)=>y>=21?r.slice(0,27)+'.'.repeat(r.length-27):r);
+const KIT=KITS.find(k=>k.id==='inferno');const spr=(m,f=0)=>spriteDraw(m,f,false,KIT);
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const T=[{n:'TAP-IN',p:10,c:'var(--t0)',pct:41,th:'25%+'},{n:'HEADER',p:30,c:'var(--t1)',pct:17,th:'< 25%'},{n:'VOLLEY',p:60,c:'var(--t2)',pct:6.2,th:'< 10%'},{n:'BICYCLE',p:85,c:'var(--t3)',pct:2.3,th:'< 4%'},{n:'SCREAMER',p:100,c:'var(--t4)',pct:.4,th:'< 1%'}];
+const B=[100,25,10,4,1],BOT=.1;
+const wait=ms=>new Promise(r=>setTimeout(r,RM?0:ms));
+const fmt=v=>v>=10?String(Math.round(v)):v.toFixed(1);
+const big=v=>fmt(v)+'<sup>%</sup>';
+const ease=k=>1-Math.pow(1-k,3);
+function tween(from,to,ms,cb,e=ease){return new Promise(res=>{if(RM||ms<=0){cb(to);return res()}const t0=performance.now();(function s(n){const k=Math.min(1,(n-t0)/ms);cb(from+(to-from)*e(k));k<1?requestAnimationFrame(s):res()})(t0)})}
+function shake(el,n){if(RM)return;el.classList.remove('shake1','shake2','shake3');void el.offsetWidth;el.classList.add('shake'+n)}
+function burst(host,x,y,n,cols,spread=110){if(RM)return;for(let i=0;i<n;i++){const d=document.createElement('div');d.className='px';d.style.left=x+'px';d.style.top=y+'px';d.style.background=cols[i%cols.length];if(i%3===0){d.style.width=d.style.height='4px'}host.appendChild(d);
+ const a=Math.random()*Math.PI*2,r=spread*(.35+Math.random()*.65);d.animate([{transform:'translate(0,0)',opacity:1},{transform:`translate(${Math.cos(a)*r}px,${Math.sin(a)*r*.7+50}px)`,opacity:0}],{duration:650+Math.random()*350,easing:'cubic-bezier(.2,.8,.4,1)',fill:'forwards'});setTimeout(()=>d.remove(),1100)}}
+const fadeUp=(el,d=0,ms=240)=>el.animate([{opacity:0,transform:'translateY(8px)'},{opacity:1,transform:'none'}],{duration:ms,delay:d,easing:'cubic-bezier(.23,1,.32,1)',fill:'forwards'});
+const slam=(el,d=0)=>el.animate([{opacity:0,transform:'scale(1.6)'},{opacity:1,transform:'scale(.94)',offset:.65},{opacity:1,transform:'scale(1)'}],{duration:380,delay:d,easing:'cubic-bezier(.3,0,.2,1)',fill:'forwards'});
+// the shared rhythm: walk the value down through each boundary, call onCross(i) at each; stall before Screamer
+async function countdown(tier,set,onCross,ok){let cur=100;onCross(0,cur);
+ for(let i=1;i<=tier;i++){if(!ok())return;
+  if(tier===4&&i===4){await tween(cur,1.3,420,set);cur=1.3;await onStall();if(!ok())return}
+  await tween(cur,B[i]-.001,i===1?420:300,set);cur=B[i];onCross(i,cur);await wait(i===4?100:170)}
+ if(!ok())return;await tween(cur,T[tier].pct,tier===4?260:440,set)
+ async function onStall(){await (countdown.stall||(()=>wait(700)))()}}
+document.querySelectorAll('.ctrl').forEach(c=>T.forEach((t,i)=>{const b=document.createElement('button');b.textContent=t.n;b.onclick=()=>RUN[c.dataset.v](i);c.appendChild(b)}));
+const RUN={},TOK={A:0,B:0,C:0};
+const animUni=(u,list,ms,ok)=>{let f=0;const iv=setInterval(()=>{if(!ok())return clearInterval(iv);const[m,fr]=list[f++%list.length];u.style.backgroundImage=spr(m,fr)},140);setTimeout(()=>clearInterval(iv),ms)};
+
+// ================= A
+(()=>{const ph=document.getElementById('A'),$=s=>ph.querySelector(s),trk=$('[data-trk]'),u=$('[data-u]');
+ const X=p=>Math.min(1,Math.log10(100/Math.max(p,BOT))/3);
+ const edges=[0,X(25),X(10),X(4),X(1),1];
+ T.forEach((t,i)=>{const s=document.createElement('div');s.className='seg';s.style.width=((edges[i+1]-edges[i])*100)+'%';s.innerHTML=`<i style="background:${t.c}"></i>`;trk.insertBefore(s,u)});
+ $('[data-tl]').innerHTML=T.map((t,i)=>`<span style="width:${(edges[i+1]-edges[i])*100}%">${t.n}</span>`).join('');
+ const segs=[...trk.querySelectorAll('.seg i')],labs=[...ph.querySelectorAll('.trk-lab span')];
+ RUN.A=async tier=>{const me=++TOK.A,ok=()=>me===TOK.A,n=$('[data-n]'),t=T[tier];
+  segs.forEach(s=>{s.getAnimations().forEach(a=>a.cancel());s.style.transform='scaleX(0)'});labs.forEach(l=>l.classList.remove('on'));
+  ['[data-tn]','[data-pt]','[data-sub]','[data-nx]','[data-a]'].forEach(s=>{const e=$(s);e.getAnimations().forEach(a=>a.cancel());e.style.opacity=0});
+  n.style.color='';n.innerHTML=big(100);u.style.left='0%';u.style.backgroundImage=spr('happy');
+  fadeUp($('[data-a]'));await wait(420);if(!ok())return;
+  let run=setInterval(()=>{if(!ok())return clearInterval(run);u.style.backgroundImage=spr('happy',Date.now()/120&1)},120);
+  // the segment you are in fills progressively behind the unicorn
+  const set=v=>{n.innerHTML=big(v);const x=X(v);u.style.left=(x*100)+'%';segs.forEach((s,i)=>{const a=edges[i],b=edges[i+1];s.style.transform=`scaleX(${Math.max(0,Math.min(1,(x-a)/(b-a)))})`})};
+  countdown.stall=async()=>{clearInterval(run);u.style.backgroundImage=spr('wow',1);n.animate([{transform:'scale(1)'},{transform:'scale(1.05)'},{transform:'scale(1)'},{transform:'scale(1.05)'},{transform:'scale(1)'}],{duration:720,easing:'ease-in-out'});await wait(760);run=setInterval(()=>{if(!ok())return clearInterval(run);u.style.backgroundImage=spr('happy',Date.now()/120&1)},120)};
+  await countdown(tier,set,(i)=>{labs[i].classList.add('on');if(i>0){shake(ph,i>=3?2:1);labs[i].animate([{transform:'translateY(0)'},{transform:'translateY(-4px)'},{transform:'none'}],{duration:220,easing:'cubic-bezier(.34,1.56,.64,1)'})}},ok);
+  clearInterval(run);if(!ok())return;
+  const tn=$('[data-tn]');tn.textContent=t.n;tn.style.color=t.c;$('[data-pt]').textContent='+'+t.p;$('[data-sub]').textContent=tier===0?'A popular pick':`Rarer than ${(100-t.pct).toFixed(t.pct<1?1:0)}% of answers`;
+  if(tier===4){n.style.color='var(--gold)';shake(ph,3);const r=u.getBoundingClientRect(),pr=ph.getBoundingClientRect();burst(ph,r.left-pr.left+26,r.top-pr.top+10,44,['#f2c230','#fbf6e8','#fff3a0']);slam(tn);animUni(u,[['joy',0],['joy',1]],1600,ok)}
+  else{fadeUp(tn);u.style.backgroundImage=spr(tier>=2?'joy':'happy')}
+  fadeUp($('[data-pt]'),140);fadeUp($('[data-sub]'),240);fadeUp($('[data-nx]'),520)};
+})();
+
+// ================= B
+(()=>{const ph=document.getElementById('B'),$=s=>ph.querySelector(s),R=$('[data-r]'),u=$('[data-u]');
+ R.innerHTML=T.map((t,i)=>`<div class="rg${i===4?' crown':''}" style="--cc:${t.c}"><i class="bg" style="background:${t.c}"></i><i class="ck"></i><span class="nm">${t.n}</span><span class="th">${t.th}</span><span class="pv">${t.p}</span></div>`).join('');
+ const rg=[...R.children];
+ const yOf=i=>{const a=rg[i].getBoundingClientRect(),b=$('.lad-u').getBoundingClientRect();return a.top-b.top+a.height-47};
+ RUN.B=async tier=>{const me=++TOK.B,ok=()=>me===TOK.B,n=$('[data-n]'),pt=$('[data-pt]');
+  rg.forEach(r=>{r.classList.remove('on');const b=r.querySelector('.bg');b.getAnimations().forEach(a=>a.cancel());b.style.transform='scaleX(0)'});$('[data-a]').style.opacity=0;
+  n.style.color='';n.innerHTML=big(100);pt.textContent='0';u.style.transition='none';u.style.top=yOf(0)+'px';u.style.backgroundImage=spr('happy');void u.offsetWidth;u.style.transition='';
+  fadeUp($('[data-a]'));await wait(420);if(!ok())return;let pts=0;
+  countdown.stall=async()=>{u.style.backgroundImage=spr('wow',1);rg[4].animate([{borderColor:'#2e2a40'},{borderColor:'#f2c230'},{borderColor:'#2e2a40'},{borderColor:'#f2c230'},{borderColor:'#2e2a40'}],{duration:720,easing:'steps(4)'});n.animate([{transform:'scale(1)'},{transform:'scale(1.05)'},{transform:'scale(1)'},{transform:'scale(1.05)'},{transform:'scale(1)'}],{duration:720,easing:'ease-in-out'});await wait(760)};
+  await countdown(tier,v=>n.innerHTML=big(v),(i)=>{const r=rg[i];r.classList.add('on');r.querySelector('.bg').animate([{transform:'scaleX(0)'},{transform:'scaleX(1)'}],{duration:200,easing:'steps(8)',fill:'forwards'});
+   r.querySelector('.ck').animate([{transform:'scale(1.8)'},{transform:'scale(1)'}],{duration:220,easing:'cubic-bezier(.3,0,.2,1)'});
+   u.style.top=yOf(i)+'px';u.style.backgroundImage=spr(i>=3?'wow':'happy',i&1);if(i>0)shake(ph,i>=3?2:1);
+   const from=pts;pts=T[i].p;tween(from,pts,200,v=>pt.textContent=Math.round(v))},ok);
+  if(!ok())return;
+  if(tier===4){n.style.color='var(--gold)';shake(ph,3);const r=rg[4].getBoundingClientRect(),pr=ph.getBoundingClientRect();burst(ph,r.left-pr.left+r.width/2,r.top-pr.top+20,50,['#f2c230','#fbf6e8','#fff3a0'],150);
+   pt.animate([{transform:'scale(1.5)'},{transform:'scale(1)'}],{duration:320,easing:'cubic-bezier(.34,1.56,.64,1)'});animUni(u,[['joy',0],['joy',1]],1600,ok)}
+  else u.style.backgroundImage=spr(tier>=2?'joy':'happy')};
+})();
+
+// ================= C
+(()=>{const ph=document.getElementById('C'),$=s=>ph.querySelector(s),u=$('[data-u]');
+ const reel=()=>`<div class="reel"><div class="st">${[...'0123456789'].map(d=>`<span>${d}</span>`).join('')}</div></div>`;
+ $('[data-reels]').innerHTML=reel()+reel()+'<span class="dot">.</span>'+reel()+'<span class="pct">%</span>';
+ const st=[...ph.querySelectorAll('.reel .st')];
+ // reels show ##.# ; 100 shows as 99.9 frame → we cap at 99.9 for the board
+ const rl=[...ph.querySelectorAll('.reel')];const show=v=>{v=Math.min(99.9,v);const t=Math.floor(v/10),o=Math.floor(v%10),d=Math.floor((v*10)%10);rl[0].classList.toggle('off',t===0);[t,o,d].forEach((x,i)=>{st[i].style.transform=`translateY(${-x*96}px)`})};
+ const FL=8,CH='ABCDEFGHIJKLMNOPRSTUVWXYZ-';const flap=$('[data-flap]');flap.innerHTML='<span></span>'.repeat(FL);const cells=[...flap.children];
+ async function flapTo(word,ok){const w=word.padEnd(FL).slice(0,FL);await Promise.all(cells.map((c,i)=>new Promise(res=>{let k=0;const spins=RM?0:4+i*2;const iv=setInterval(()=>{if(!ok()){clearInterval(iv);return res()}
+   if(k>=spins){c.textContent=w[i]===' '?'':w[i];clearInterval(iv);c.animate([{transform:'scaleY(.2)'},{transform:'scaleY(1)'}],{duration:90,easing:'ease-out'});return res()}
+   c.textContent=CH[Math.floor(Math.random()*CH.length)];k++},45)})))}
+ RUN.C=async tier=>{const me=++TOK.C,ok=()=>me===TOK.C,t=T[tier],tn=$('[data-tn]'),pt=$('[data-pt]');
+  st.forEach(s=>s.style.transition='none');show(99.9);void ph.offsetWidth;st.forEach(s=>s.style.transition='transform 90ms linear');
+  cells.forEach(c=>c.textContent='');tn.textContent='–';$('[data-a]').style.opacity=0;fadeUp($('[data-a]'));tn.style.color='var(--mute)';pt.textContent='0';u.style.backgroundImage=spr('happy');['[data-nx]'].forEach(s=>{$(s).getAnimations().forEach(a=>a.cancel());$(s).style.opacity=0});
+  await wait(350);if(!ok())return;
+  countdown.stall=async()=>{u.style.backgroundImage=spr('wow',1);ph.querySelector('.board').animate([{boxShadow:'inset 0 0 0 3px #2a2638'},{boxShadow:'inset 0 0 0 3px #f2c230'},{boxShadow:'inset 0 0 0 3px #2a2638'},{boxShadow:'inset 0 0 0 3px #f2c230'},{boxShadow:'inset 0 0 0 3px #2a2638'}],{duration:720,easing:'steps(4)'});await wait(760)};
+  await countdown(tier,show,(i)=>{if(i>0){shake(ph,i>=3?2:1);tn.textContent=T[i].n;tn.style.color=T[i].c;tn.animate([{transform:'translateY(-6px)',opacity:.4},{transform:'none',opacity:1}],{duration:160,easing:'cubic-bezier(.23,1,.32,1)'})}else{tn.textContent=T[0].n;tn.style.color=T[0].c}},ok);
+  if(!ok())return;await flapTo(t.n==='BICYCLE'?'BICYCLE':t.n,ok);if(!ok())return;
+  tween(0,t.p,420,v=>pt.textContent='+'+Math.round(v));
+  if(tier===4){shake(ph,3);cells.forEach(c=>c.style.color='var(--gold)');const pr=ph.getBoundingClientRect(),r=flap.getBoundingClientRect();burst(ph,r.left-pr.left+r.width/2,r.top-pr.top,48,['#f2c230','#fbf6e8','#fff3a0'],160);animUni(u,[['joy',0],['joy',1]],1600,ok)}
+  else{cells.forEach(c=>c.style.color='');u.style.backgroundImage=spr(tier>=2?'joy':'happy')}
+  fadeUp($('[data-nx]'),400)};
+})();
+RUN.A(4);RUN.B(4);RUN.C(4);
+</script>
+</body></html>
