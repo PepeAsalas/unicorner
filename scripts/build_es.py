@@ -235,3 +235,5 @@ if __name__ == '__main__':
         x = re.sub(r'<(\w+)([^>]*?) data-pt="([^"]*)"([^>]*)>(.*?)</\1>', lambda m: f'<{m.group(1)}{m.group(2)} data-pt="{m.group(3)}"{m.group(4)}>{_h.unescape(m.group(3))}</{m.group(1)}>', x, flags=re.S)
         (SRC.parent / 'pt' / f'{name}.html').write_text(x, encoding='utf-8')
     seo_games()
+    import add_gtag  # Google tag on every page, regenerated ones included
+    add_gtag.main()

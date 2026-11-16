@@ -171,3 +171,6 @@ for slug, *_ in PAGES:
         sm = sm.replace('</urlset>', f'  <url>\n    <loc>{loc}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.5</priority>\n  </url>\n</urlset>')
 open(sm_path, 'w', encoding='utf-8').write(sm)
 print('ok')
+
+import add_gtag  # Google tag on every page, regenerated ones included
+add_gtag.main()

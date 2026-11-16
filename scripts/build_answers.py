@@ -172,3 +172,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+    import add_gtag  # Google tag on every page, regenerated ones included
+    add_gtag.main()
