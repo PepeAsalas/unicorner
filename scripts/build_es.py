@@ -66,6 +66,7 @@ def build():
     s = s.replace('<a class="privacy-link lang-link" href="/es/" hreflang="es">Español</a>', '<a class="privacy-link lang-link" href="/" hreflang="en">English</a>', 1)
     s = s.replace('href="/answers/">Past answers</a>', 'href="/es/respuestas/">Past answers</a>', 1).replace('href="/football-trivia-questions/">Trivia questions</a>', 'href="/es/preguntas-futbol/">Preguntas de fútbol</a>', 1).replace('href="/how-to-play.html">How to play</a>', 'href="/es/como-jugar.html">Cómo se juega</a>', 1).replace('>📲 Get the app</a>', '>📲 Descarga la app</a>', 1).replace('href="/football-trivia-mistakes/">Football trivia mistakes</a>', 'href="/es/errores-futbol/">Errores de fútbol</a>', 1)
     s = s.replace('>Past answers</a>', '>Respuestas anteriores</a>', 1)
+    s = re.sub(r'<a class="privacy-link ft-g" href="/([\w.]*)">', r'<a class="privacy-link ft-g" href="/es/\1">', s)  # footer game links
     s = s.replace('href="/questions/">Question archive</a>', 'href="/es/preguntas/">Archivo de preguntas</a>', 1).replace('href="/duel.html">Duels</a>', 'href="/duel.html">Duelos</a>', 1)
 
     def sub(old, new, count=1):

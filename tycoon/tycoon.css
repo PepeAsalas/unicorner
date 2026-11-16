@@ -231,3 +231,4 @@ button.shop-row.can:active{transform:translateY(2px);box-shadow:0 1px 0 var(--in
 .ph{display:inline-block;margin-top:3px;font:700 10px/1 Silkscreen,monospace;padding:3px 5px;border:2px solid #1a1030;background:#fbf3dc;color:#1a1030}
 .ph.up{background:#d9f2df}.ph.down{background:#f6d5d5}.ph.peak{background:#f2c230}
 .scout-row{border-style:dashed}
+.tabs button{min-height:44px;min-width:44px}
