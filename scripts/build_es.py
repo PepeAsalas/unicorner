@@ -179,6 +179,8 @@ def seo_games():
 
 if __name__ == '__main__':
     build()
+    import build_pt  # the Brazilian Portuguese page is built from the same source
+    build_pt.build()
     import build_sprites  # Duels draws the same kits as the main game
     build_sprites.main()
     # the Rosco: the same page in Spanish (rosco.html switches language by its /es/ path)

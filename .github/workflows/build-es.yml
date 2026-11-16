@@ -8,6 +8,7 @@ on:
     paths:
       - 'index.html'
       - 'scripts/build_es.py'
+      - 'scripts/build_pt.py'
       - '.github/workflows/build-es.yml'
 
 permissions:
@@ -24,9 +25,9 @@ jobs:
       - run: python scripts/build_es.py
       - name: Commit if changed
         run: |
-          git add es/index.html
-          if git diff --cached --quiet; then echo "es/index.html is up to date"; exit 0; fi
+          git add es/index.html pt/index.html
+          if git diff --cached --quiet; then echo "es and pt pages are up to date"; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Rebuild Spanish page from index.html"
+          git commit -m "Rebuild Spanish and Portuguese pages from index.html"
           git push
