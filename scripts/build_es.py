@@ -223,5 +223,8 @@ if __name__ == '__main__':
             x = x.replace('<title>Socials · Rankings, friends and leagues | Unicorner</title>', '<title>Social · Rankings, amigos e ligas | Unicorner</title>', 1)
             x = re.sub(r'<meta name="description" content="[^"]*">', '<meta name="description" content="Todos os rankings do Unicorner num lugar só: Diário 5, Rosco e Milhões, hoje e nesta semana. Adicione amigos e crie ligas privadas.">', x, count=1)
             x = x.replace('<link rel="canonical" href="https://unicornergame.lol/squad.html">', '<link rel="canonical" href="https://unicornergame.lol/pt/squad.html">', 1)
+        # bake the Portuguese static text (data-pt) into the HTML, so search engines read it without running scripts
+        import html as _h
+        x = re.sub(r'<(\w+)([^>]*?) data-pt="([^"]*)"([^>]*)>(.*?)</\1>', lambda m: f'<{m.group(1)}{m.group(2)} data-pt="{m.group(3)}"{m.group(4)}>{_h.unescape(m.group(3))}</{m.group(1)}>', x, flags=re.S)
         (SRC.parent / 'pt' / f'{name}.html').write_text(x, encoding='utf-8')
     seo_games()
