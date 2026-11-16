@@ -1,0 +1,162 @@
+{
+  "day": "2026-11-20",
+  "questions": [
+    {
+      "q": "Which of these players NEVER played for AC Milan?",
+      "q_es": "¿Cuál de estos jugadores NUNCA jugó en el AC Milan?",
+      "q_pt": "Qual destes jogadores NUNCA jogou no Milan?",
+      "o": [
+        "Ronaldinho",
+        "Luís Figo",
+        "David Beckham",
+        "Ronaldo Nazário"
+      ],
+      "a": 1,
+      "why": "Figo's Italian club was Inter; Ronaldinho, Beckham (on loan) and Ronaldo all played for Milan.",
+      "why_es": "El club italiano de Figo fue el Inter; Ronaldinho, Beckham (cedido) y Ronaldo jugaron en el Milan.",
+      "why_pt": "O clube italiano de Figo foi a Inter; Ronaldinho, Beckham (emprestado) e Ronaldo jogaram no Milan.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which club won the 2004-05 UEFA Cup?",
+      "q_es": "¿Qué club ganó la Copa de la UEFA 2004-05?",
+      "q_pt": "Qual clube ganhou a Copa da UEFA de 2004-05?",
+      "o": [
+        "Sporting CP",
+        "Valencia",
+        "CSKA Moscow",
+        "Sevilla"
+      ],
+      "a": 2,
+      "why": "CSKA beat Sporting 3-1 in Lisbon; Valencia won it in 2004, Sevilla in 2006.",
+      "why_es": "El CSKA ganó 3-1 al Sporting en Lisboa; el Valencia la ganó en 2004 y el Sevilla en 2006.",
+      "why_pt": "O CSKA venceu o Sporting por 3 a 1 em Lisboa; o Valencia ganhou em 2004 e o Sevilla em 2006.",
+      "src": "own knowledge",
+      "o_es": [
+        "Sporting de Portugal",
+        "Valencia",
+        "CSKA de Moscú",
+        "Sevilla"
+      ],
+      "o_pt": [
+        "Sporting",
+        "Valencia",
+        "CSKA Moscou",
+        "Sevilla"
+      ],
+      "n": "The old name of the Europa League, until 2009",
+      "n_es": "El antiguo nombre de la Europa League, hasta 2009",
+      "n_pt": "O antigo nome da Liga Europa, até 2009"
+    },
+    {
+      "q": "How many World Cup goals did Miroslav Klose score?",
+      "q_es": "¿Cuántos goles marcó Miroslav Klose en Mundiales?",
+      "q_pt": "Quantos gols Miroslav Klose marcou em Copas do Mundo?",
+      "o": [
+        "14",
+        "15",
+        "17",
+        "16"
+      ],
+      "a": 3,
+      "why": "16, the record, one more than Ronaldo's 15.",
+      "why_es": "16, el récord, uno más que los 15 de Ronaldo.",
+      "why_pt": "16, o recorde, um a mais que os 15 de Ronaldo.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which Brazilian club did Ronaldo Nazário leave for PSV in 1994?",
+      "q_es": "¿De qué club brasileño salió Ronaldo Nazário rumbo al PSV en 1994?",
+      "q_pt": "De qual clube brasileiro Ronaldo Nazário saiu para o PSV em 1994?",
+      "o": [
+        "Flamengo",
+        "São Paulo",
+        "Cruzeiro"
+      ],
+      "a": 2,
+      "why": "Ronaldo broke through at Cruzeiro; he was turned down by Flamengo as a boy.",
+      "why_es": "Ronaldo se dio a conocer en el Cruzeiro; de niño el Flamengo lo rechazó.",
+      "why_pt": "Ronaldo despontou no Cruzeiro; quando garoto, foi recusado pelo Flamengo.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "In which year did Johan Cruyff join Barcelona as a player?",
+      "q_es": "¿En qué año fichó Johan Cruyff por el Barcelona como jugador?",
+      "q_pt": "Em que ano Johan Cruyff foi para o Barcelona como jogador?",
+      "o": [
+        "1971",
+        "1973",
+        "1975"
+      ],
+      "a": 1,
+      "why": "He arrived from Ajax in August 1973 and won La Liga that season.",
+      "why_es": "Llegó desde el Ajax en agosto de 1973 y ganó la Liga esa temporada.",
+      "why_pt": "Chegou do Ajax em agosto de 1973 e ganhou La Liga naquela temporada.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which of these countries has NEVER won the Copa América?",
+      "q_es": "¿Cuál de estos países NUNCA ha ganado la Copa América?",
+      "q_pt": "Qual destes países NUNCA ganhou a Copa América?",
+      "o": [
+        "Ecuador",
+        "Bolivia",
+        "Paraguay"
+      ],
+      "a": 0,
+      "why": "Bolivia won it in 1963 and Paraguay in 1953 and 1979; Ecuador never has.",
+      "why_es": "Bolivia la ganó en 1963 y Paraguay en 1953 y 1979; Ecuador nunca.",
+      "why_pt": "A Bolívia ganhou em 1963 e o Paraguai em 1953 e 1979; o Equador nunca.",
+      "src": "own knowledge",
+      "o_es": [
+        "Ecuador",
+        "Bolivia",
+        "Paraguay"
+      ],
+      "o_pt": [
+        "Equador",
+        "Bolívia",
+        "Paraguai"
+      ]
+    },
+    {
+      "q": "Which club did Lev Yashin play for his whole career?",
+      "q_es": "¿En qué club jugó Lev Yashin toda su carrera?",
+      "q_pt": "Em qual clube Lev Yashin jogou a carreira inteira?",
+      "o": [
+        "Spartak Moscow",
+        "CSKA Moscow",
+        "Dynamo Moscow"
+      ],
+      "a": 2,
+      "why": "Yashin spent his entire career, 1950-1970, at Dynamo Moscow.",
+      "why_es": "Yashin pasó toda su carrera, de 1950 a 1970, en el Dinamo de Moscú.",
+      "why_pt": "Yashin passou toda a carreira, de 1950 a 1970, no Dínamo de Moscou.",
+      "src": "own knowledge",
+      "o_es": [
+        "Spartak de Moscú",
+        "CSKA de Moscú",
+        "Dinamo de Moscú"
+      ],
+      "o_pt": [
+        "Spartak Moscou",
+        "CSKA Moscou",
+        "Dínamo de Moscou"
+      ]
+    },
+    {
+      "q": "Who scored more Bundesliga goals: Klaus Fischer or Jupp Heynckes?",
+      "q_es": "¿Quién marcó más goles en la Bundesliga: Klaus Fischer o Jupp Heynckes?",
+      "q_pt": "Quem marcou mais gols na Bundesliga: Klaus Fischer ou Jupp Heynckes?",
+      "o": [
+        "Jupp Heynckes",
+        "Klaus Fischer"
+      ],
+      "a": 1,
+      "why": "Fischer scored 268, third all-time; Heynckes 220.",
+      "why_es": "Fischer marcó 268, tercero de la historia; Heynckes 220.",
+      "why_pt": "Fischer marcou 268, terceiro da história; Heynckes, 220.",
+      "src": "https://www.bundesliga.com/en/faq/10-things-on-the-bundesliga/the-bundesligas-all-time-top-scorers-10552"
+    }
+  ]
+}

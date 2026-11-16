@@ -1,0 +1,152 @@
+{
+  "day": "2026-11-17",
+  "questions": [
+    {
+      "q": "Which of these players NEVER played for Chelsea?",
+      "q_es": "¿Cuál de estos jugadores NUNCA jugó en el Chelsea?",
+      "q_pt": "Qual destes jogadores NUNCA jogou no Chelsea?",
+      "o": [
+        "Hernán Crespo",
+        "Gabriel Batistuta",
+        "Juan Sebastián Verón",
+        "Andriy Shevchenko"
+      ],
+      "a": 1,
+      "why": "Batistuta played for Newell's, River, Boca, Fiorentina, Roma, Inter and Al-Arabi, never Chelsea.",
+      "why_es": "Batistuta jugó en Newell's, River, Boca, Fiorentina, Roma, Inter y Al-Arabi, nunca en el Chelsea.",
+      "why_pt": "Batistuta jogou no Newell's, River, Boca, Fiorentina, Roma, Inter e Al-Arabi, nunca no Chelsea.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Who was top scorer at Euro 1996?",
+      "q_es": "¿Quién fue el máximo goleador de la Eurocopa 1996?",
+      "q_pt": "Quem foi o artilheiro da Eurocopa de 1996?",
+      "o": [
+        "Jürgen Klinsmann",
+        "Davor Šuker",
+        "Hristo Stoichkov",
+        "Alan Shearer"
+      ],
+      "a": 3,
+      "why": "Shearer scored 5; Klinsmann, Šuker and Stoichkov 3 each.",
+      "why_es": "Shearer marcó 5; Klinsmann, Šuker y Stoichkov, 3 cada uno.",
+      "why_pt": "Shearer marcou 5; Klinsmann, Šuker e Stoichkov, 3 cada um.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "How many goals did Ronaldo Nazário score at the 2002 World Cup?",
+      "q_es": "¿Cuántos goles marcó Ronaldo Nazário en el Mundial de 2002?",
+      "q_pt": "Quantos gols Ronaldo Nazário marcou na Copa de 2002?",
+      "o": [
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "a": 2,
+      "why": "Eight, including both goals in the final against Germany.",
+      "why_es": "Ocho, incluidos los dos de la final contra Alemania.",
+      "why_pt": "Oito, incluindo os dois da final contra a Alemanha.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which club did Arsenal sign Thierry Henry from in 1999?",
+      "q_es": "¿De qué club fichó el Arsenal a Thierry Henry en 1999?",
+      "q_pt": "De qual clube o Arsenal contratou Thierry Henry em 1999?",
+      "o": [
+        "Monaco",
+        "Juventus",
+        "Barcelona"
+      ],
+      "a": 1,
+      "why": "Henry left Monaco for Juventus in January 1999 and joined Arsenal that August.",
+      "why_es": "Henry dejó el Mónaco por la Juventus en enero de 1999 y llegó al Arsenal en agosto.",
+      "why_pt": "Henry trocou o Monaco pela Juventus em janeiro de 1999 e chegou ao Arsenal em agosto.",
+      "src": "own knowledge",
+      "o_es": [
+        "Mónaco",
+        "Juventus",
+        "Barcelona"
+      ]
+    },
+    {
+      "q": "In which year did Arsenal move into the Emirates Stadium?",
+      "q_es": "¿En qué año se mudó el Arsenal al Emirates Stadium?",
+      "q_pt": "Em que ano o Arsenal se mudou para o Emirates Stadium?",
+      "o": [
+        "2006",
+        "2004",
+        "2008"
+      ],
+      "a": 0,
+      "why": "They left Highbury after 2005-06 and opened the Emirates in July 2006.",
+      "why_es": "Dejaron Highbury tras la 2005-06 y estrenaron el Emirates en julio de 2006.",
+      "why_pt": "Deixaram Highbury após 2005-06 e inauguraram o Emirates em julho de 2006.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which of these countries has NEVER played in a World Cup final?",
+      "q_es": "¿Cuál de estos países NUNCA ha jugado una final del Mundial?",
+      "q_pt": "Qual destes países NUNCA jogou uma final de Copa do Mundo?",
+      "o": [
+        "Sweden",
+        "Czechoslovakia",
+        "Portugal"
+      ],
+      "a": 2,
+      "why": "Sweden lost the 1958 final, Czechoslovakia those of 1934 and 1962; Portugal's best is third in 1966.",
+      "why_es": "Suecia perdió la final de 1958 y Checoslovaquia las de 1934 y 1962; lo mejor de Portugal es el tercer puesto de 1966.",
+      "why_pt": "A Suécia perdeu a final de 1958 e a Tchecoslováquia as de 1934 e 1962; o melhor de Portugal é o terceiro lugar em 1966.",
+      "src": "own knowledge",
+      "o_es": [
+        "Suecia",
+        "Checoslovaquia",
+        "Portugal"
+      ],
+      "o_pt": [
+        "Suécia",
+        "Tchecoslováquia",
+        "Portugal"
+      ]
+    },
+    {
+      "q": "Which club did Jürgen Klopp manage before Borussia Dortmund?",
+      "q_es": "¿Qué club entrenó Jürgen Klopp antes del Borussia Dortmund?",
+      "q_pt": "Qual clube Jürgen Klopp treinou antes do Borussia Dortmund?",
+      "o": [
+        "Hamburg",
+        "Mainz 05",
+        "Schalke 04"
+      ],
+      "a": 1,
+      "why": "Klopp managed Mainz from 2001 to 2008, then went to Dortmund.",
+      "why_es": "Klopp dirigió al Mainz de 2001 a 2008 y luego fue al Dortmund.",
+      "why_pt": "Klopp treinou o Mainz de 2001 a 2008 e depois foi para o Dortmund.",
+      "src": "own knowledge",
+      "o_es": [
+        "Hamburgo",
+        "Mainz 05",
+        "Schalke 04"
+      ],
+      "o_pt": [
+        "Hamburgo",
+        "Mainz 05",
+        "Schalke 04"
+      ]
+    },
+    {
+      "q": "Who scored more Champions League goals: Thierry Henry or Andriy Shevchenko?",
+      "q_es": "¿Quién marcó más goles en la Champions: Thierry Henry o Andriy Shevchenko?",
+      "q_pt": "Quem marcou mais gols na Champions League: Thierry Henry ou Andriy Shevchenko?",
+      "o": [
+        "Andriy Shevchenko",
+        "Thierry Henry"
+      ],
+      "a": 1,
+      "why": "Henry scored 50 (Monaco, Arsenal, Barcelona); Shevchenko 48 (Dynamo Kyiv, Milan, Chelsea).",
+      "why_es": "Henry marcó 50 (Mónaco, Arsenal, Barcelona); Shevchenko 48 (Dinamo de Kiev, Milan, Chelsea).",
+      "why_pt": "Henry marcou 50 (Monaco, Arsenal, Barcelona); Shevchenko, 48 (Dínamo de Kiev, Milan, Chelsea).",
+      "src": "https://en.wikipedia.org/wiki/List_of_UEFA_Champions_League_top_scorers"
+    }
+  ]
+}
