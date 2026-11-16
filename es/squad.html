@@ -418,7 +418,7 @@ async function playerCard(nick,kitHint){let d=$('pc');if(!d){document.body.inser
  if(!d.open)d.showModal();track('squad_card',{});
  let p;try{p=await call('sq_profile',{p_nick:nick})}catch(x){if(seq===pcSeq)d.querySelector('.inner').innerHTML=`<p class="empty">${esc(x.message)}</p>`;return}
  if(seq!==pcSeq)return;
- const k=(typeof KITS!=='undefined'&&KITS.find(x=>x.id===(p.kit||'classic')))||null,kitName=k?(ES&&k.es||k.en):'';
+ const k=(typeof KITS!=='undefined'&&KITS.find(x=>x.id===(p.kit||'classic')))||null,kitName=k?(PT&&k.pt||ES&&k.es||k.en):'';
  const signed=sess()&&S.me?.profile,rel=signed?p.relation:'out',td=p.today||{};
  const act=rel==='me'?`<p class="note" style="text-align:center">${L("That's you!",'¡Eres tú!',"Esse é você!")}</p><button type="button" class="btn full" onclick="window.ucChangeNick&&ucChangeNick()">${L('✎ Change nickname','✎ Cambiar apodo',"✎ Trocar apelido")}</button>`
   :rel==='out'?`<a class="btn full" data-signin href="${signinUrl()}">${L('Sign in to add friends','Inicia sesión para añadir amigos',"Entre para adicionar amigos")}</a>`

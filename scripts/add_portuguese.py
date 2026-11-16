@@ -39,6 +39,15 @@ COUNTRY_PT = {
 EXTRA = {'Netherlands': ['Países Baixos', 'Paises Baixos'], 'United States': ['EUA'], 'USA': ['EUA'], 'Wales': ['Gales'],
          'Republic of Ireland': ['República da Irlanda'], 'Czech Republic': ['Tchéquia', 'Chéquia'], 'Ivory Coast': ['Costa do Marfim'],
          'Moldova': ['Moldova'], 'Belarus': ['Bielorrússia', 'Bielorrussia'], 'Iran': ['Irão']}
+# clubs whose usual Brazilian name differs from the English one (shown in the game, and typed by players)
+CLUB_PT = {'Bayern Munich': 'Bayern de Munique', 'Inter Milan': 'Inter de Milão', 'Red Star Belgrade': 'Estrela Vermelha',
+           'Marseille': 'Olympique de Marselha', 'Olympique Marseille': 'Olympique de Marselha', 'Lyon': 'Lyon',
+           'Sporting CP': 'Sporting', 'Sporting Lisbon': 'Sporting', 'Atlético Madrid': 'Atlético de Madrid',
+           'Hamburg': 'Hamburgo', 'Hamburger SV': 'Hamburgo', 'Cologne': 'Colônia', '1. FC Köln': 'Colônia',
+           'Steaua Bucharest': 'Steaua Bucareste', 'Dynamo Kyiv': 'Dínamo de Kiev', 'Dynamo Kiev': 'Dínamo de Kiev',
+           'Spartak Moscow': 'Spartak Moscou', 'CSKA Moscow': 'CSKA Moscou', 'Zenit Saint Petersburg': 'Zenit São Petersburgo',
+           'Bayer Leverkusen': 'Bayer Leverkusen', 'Monaco': 'Monaco', 'Seville': 'Sevilla', 'Barcelona': 'Barcelona',
+           'São Paulo': 'São Paulo', 'Fluminense': 'Fluminense', 'Grêmio': 'Grêmio', 'Atlético Mineiro': 'Atlético Mineiro'}
 fold = lambda s: ''.join(c for c in unicodedata.normalize('NFD', s.lower()) if unicodedata.category(c) != 'Mn')
 
 
@@ -53,6 +62,17 @@ def add_country(a):
         for v in {x, ''.join(c for c in unicodedata.normalize('NFD', x) if unicodedata.category(c) != 'Mn')}:
             if fold(v) not in have:
                 a.setdefault('aliases', []).append(v); have.add(fold(v))
+
+
+def add_club(a):
+    pt = CLUB_PT.get(a['name'])
+    if not pt or pt == a['name']:
+        return
+    a['name_pt'] = pt
+    have = {fold(x) for x in [a['name'], *a.get('aliases', [])]}
+    for v in {pt, ''.join(c for c in unicodedata.normalize('NFD', pt) if unicodedata.category(c) != 'Mn')}:
+        if fold(v) not in have:
+            a.setdefault('aliases', []).append(v); have.add(fold(v))
 
 
 def main():
@@ -72,6 +92,9 @@ def main():
             if q.get('answer_type') == 'country':
                 for a in q['answers'] + q.get('traps', []):
                     add_country(a)
+            if q.get('answer_type') == 'club':
+                for a in q['answers'] + q.get('traps', []):
+                    add_club(a)
         if d == json.loads(raw):
             continue
         pretty = raw.lstrip().startswith('{\n')
@@ -86,6 +109,9 @@ def main():
         if q.get('answer_type') == 'country':
             for a in q['answers'] + q.get('traps', []):
                 add_country(a)
+        if q.get('answer_type') == 'club':
+            for a in q['answers'] + q.get('traps', []):
+                add_club(a)
     if bank != json.loads(raw):
         json.dump(bank, open(bp, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
     print('prompts translated:', n)
