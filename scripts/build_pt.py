@@ -67,6 +67,8 @@ def build():
     sub('<a class="privacy-link lang-link" href="/es/" hreflang="es">Español</a>', '<a class="privacy-link lang-link" href="/" hreflang="en">English</a>')
 
     s = bake(s, pt)
+    for en_href, pt_href in (('/answers/', '/pt/respostas/'), ('/football-trivia-questions/', '/pt/perguntas-futebol/'), ('/football-trivia-mistakes/', '/pt/erros-futebol/')):
+        s = s.replace(f'<a class="privacy-link" href="{en_href}">', f'<a class="privacy-link" href="{pt_href}">', 1)
     body = s
     q = re.findall(r'<details><summary>(.*?)</summary><p>(.*?)</p></details>', body)
     q = [x for x in q if '${' not in x[0]]

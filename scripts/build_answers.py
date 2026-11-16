@@ -23,11 +23,19 @@ MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto
 
 
 def fecha(d, weekday=True, year=True):
-    t = f'{d.day} de {MESES[d.month - 1]}' + (f' de {d.year}' if year else '')
-    return (DIAS[d.weekday()].capitalize() + ' ' + t) if weekday else t
+    t = f'{d.day} de {(MESES_PT if PT else MESES)[d.month - 1]}' + (f' de {d.year}' if year else '')
+    return ((DIAS_PT if PT else DIAS)[d.weekday()].capitalize() + (', ' if PT else ' ') + t) if weekday else t
+
+
+PT = False  # set while building the Portuguese page (it reuses the Spanish layout)
+TIER_PT = {'Screamer': 'Golaço', 'Bicycle kick': 'Bicicleta', 'Volley': 'Voleio', 'Header': 'Cabeçada', 'Tap-in': 'Empurrãozinho'}
+DIAS_PT = ['segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado', 'domingo']
+MESES_PT = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro']
 
 
 def tx(q, k, es):
+    if es and PT:
+        return q.get(k + '_pt') or q.get(k) or ''
     return (q.get(k + '_es') or q.get(k) or '') if es else (q.get(k) or '')
 
 
@@ -45,14 +53,14 @@ def day_html(day, qs, es=False):
     for i, q in enumerate(qs, 1):
         groups = {}
         for a in q['answers']:
-            groups.setdefault(TIERS.get(a.get('fame'), 'Volley'), []).append(a['name'])
+            groups.setdefault(TIERS.get(a.get('fame'), 'Volley'), []).append((a.get('name_pt' if PT else 'name_es') if es else None) or a['name'])
         sub = f'<p class="sub">{e(tx(q, "subtitle", es))}</p>' if q.get('subtitle') else ''
         out.append(f'<article class="q"><h3><span>{"P" if es else "Q"}{i}</span> {e(tx(q, "prompt", es))}</h3>{sub}'
-                   f'<p class="n">{len(q["answers"])} {"respuestas válidas" if es else "valid answers"}</p>')
+                   f'<p class="n">{len(q["answers"])} {("respostas válidas" if PT else "respuestas válidas") if es else "valid answers"}</p>')
         for t in TIER_ORDER:
             names = sorted(groups.get(t, []))
             if names:
-                out.append(f'<p class="tier {TIER_CLASS[t]}"><b>{TIER_ES[t] if es else t}</b> {", ".join(e(n) for n in names)}</p>')
+                out.append(f'<p class="tier {TIER_CLASS[t]}"><b>{(TIER_PT if PT else TIER_ES)[t] if es else t}</b> {", ".join(e(n) for n in names)}</p>')
         out.append('</article>')
     out.append('</section>')
     return '\n'.join(out)
@@ -65,9 +73,16 @@ def build(days, es):
     if len(topics) > 70:
         topics = topics[:67].rsplit(' ', 1)[0] + '…'
     body = '\n'.join(day_html(d, q, es) for d, q in days)
-    nav = ' · '.join(f'<a href="#{d.isoformat()}">{(DIAS[d.weekday()][:3] + " " + str(d.day)) if es else d.strftime("%a %-d %b")}</a>' for d, _ in days)
+    nav = ' · '.join(f'<a href="#{d.isoformat()}">{((DIAS_PT if PT else DIAS)[d.weekday()][:3] + " " + str(d.day)) if es else d.strftime("%a %-d %b")}</a>' for d, _ in days)
     page = (es_page if es else en_page)(latest, topics, prompts, days, body, nav)
-    out = os.path.join(ROOT, 'es', 'respuestas') if es else os.path.join(ROOT, 'answers')
+    page = page.replace('<link rel="alternate" hreflang="es" href="https://unicornergame.lol/es/respuestas/">',
+                        '<link rel="alternate" hreflang="es" href="https://unicornergame.lol/es/respuestas/"><link rel="alternate" hreflang="pt-BR" href="https://unicornergame.lol/pt/respostas/">')
+    if PT:
+        for a, b in PT_TEXT:
+            if a not in page:
+                raise SystemExit(f'build_answers: Portuguese text not found: {a[:60]}')
+            page = page.replace(a, b)
+    out = os.path.join(ROOT, 'pt', 'respostas') if PT else os.path.join(ROOT, 'es', 'respuestas') if es else os.path.join(ROOT, 'answers')
     os.makedirs(out, exist_ok=True)
     open(os.path.join(out, 'index.html'), 'w', encoding='utf-8').write(page)
 
@@ -107,6 +122,28 @@ footer{{margin-top:30px;color:#e9dfc2;font-size:14px}}
 <div class="bar"><span>Think you know ball? Five new questions every day.</span><a class="play" href="/">Play ▶</a></div>
 </main></body></html>
 '''
+
+
+PT_TEXT = [
+    ('<html lang="es">', '<html lang="pt-BR">'),
+    ('<title>Respuestas de Unicorner', '<title>Respostas do Unicorner'),
+    ('content="Todas las respuestas de Unicorner del', 'content="Todas as respostas do Unicorner de'),
+    ('Cada respuesta válida de los últimos', 'Cada resposta válida dos últimos'),
+    ('días del juego diario de preguntas de fútbol.">', 'dias do quiz diário de futebol.">'),
+    ('<link rel="canonical" href="https://unicornergame.lol/es/respuestas/">', '<link rel="canonical" href="https://unicornergame.lol/pt/respostas/">'),
+    ('href="/es/">', 'href="/pt/">'),
+    ('trivia de fútbol diaria y gratis ▶ juega ya', 'quiz diário e grátis de futebol ▶ jogue agora'),
+    ('<h1>Respuestas de Unicorner</h1>', '<h1>Respostas do Unicorner</h1>'),
+    ('Todas las respuestas válidas de los últimos', 'Todas as respostas válidas dos últimos'),
+    ('días de Unicorner, el juego diario y gratis de preguntas de fútbol. Las respuestas más raras puntúan más: un «Qué chicharro» es una respuesta que casi nadie da.',
+     'dias do Unicorner, o quiz diário e grátis de futebol. Respostas mais raras valem mais: um Golaço é uma resposta que quase ninguém dá.'),
+    ('Juega el partido de hoy ▶', 'Jogar o jogo de hoje ▶'),
+    ('Las respuestas de hoy aparecen aquí después de medianoche (hora de Madrid). Preguntas anteriores: <a href="/es/preguntas/">archivo de preguntas</a>.',
+     'As respostas de hoje aparecem aqui depois da meia-noite (horário de Amsterdã). Perguntas anteriores: <a href="/pt/perguntas/">arquivo de perguntas</a>.'),
+    ('Volver a Unicorner', 'Voltar ao Unicorner'),
+    ('¿Sabes de fútbol? Cinco preguntas nuevas cada día.', 'Entende de bola? Cinco perguntas novas todo dia.'),
+    ('>Jugar ▶<', '>Jogar ▶<'),
+]
 
 
 def es_page(latest, topics, prompts, days, body, nav):
@@ -151,8 +188,12 @@ def main():
     days = [(d, q) for d, q in days if q]
     if not days:
         return
+    global PT
     for es in (False, True):
         build(days, es)
+    PT = True
+    build(days, True)
+    PT = False
 
     sm = os.path.join(ROOT, 'sitemap.xml')
     s = open(sm, encoding='utf-8').read()
@@ -162,7 +203,7 @@ def main():
         s = re.sub(r'(<loc>https://unicornergame\.lol/answers/</loc>\s*<lastmod>)[^<]*', r'\g<1>' + today.isoformat(), s)
     else:
         s = s.replace('</urlset>', entry + '</urlset>')
-    for loc in ('https://unicornergame.lol/es/respuestas/',):
+    for loc in ('https://unicornergame.lol/es/respuestas/', 'https://unicornergame.lol/pt/respostas/'):
         if f'<loc>{loc}</loc>' in s:
             s = re.sub(r'(<loc>' + re.escape(loc) + r'</loc>\s*<lastmod>)[^<]*', r'\g<1>' + today.isoformat(), s)
         else:

@@ -166,4 +166,21 @@
     <loc>https://unicornergame.lol/pt/como-jogar.html</loc>
     <lastmod>2026-11-16</lastmod>
   </url>
+  <url>
+    <loc>https://unicornergame.lol/pt/perguntas-futebol/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://unicornergame.lol/pt/erros-futebol/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://unicornergame.lol/pt/respostas/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
