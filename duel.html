@@ -671,7 +671,7 @@ function findInit(signed){const box=$('find'),q=$('find-q'),res=$('find-res'),no
    track('duel_search',{len:v.length,found:r.length})},250)};
  res.onclick=e=>{const b=e.target.closest('button[data-nick]');if(!b)return;track('duel_search_pick',{});location.href='duel.html?vs='+encodeURIComponent(b.dataset.nick)}}
 // duel notifications: same web push as the daily streak reminder (sw.js, push.sql), tied to the account (push_duels.sql)
-const VAPID_PUB='BJEpwgfhvJQ6swBMTtNNy8GAjdiYDkMkzIj8F4KHl2wsm62rNk7IBR9dIkfMI2fA1PEWWWtQMfddNWqpn7aL4AI';
+const VAPID_PUB='BIG5duI0j0b5b4RUpH3wWykr7o4Vjuj_YODo_KMln2eTBTLBdOu-0fklDNE3K_n2SaKawC3SKgC0NMx1LOJ-aAk';
 const pushOK=()=>'serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window&&Notification.permission!=='denied';
 const pushEP=()=>ls('uc-push-ep')||'';
 const b64u=x=>{const p='='.repeat((4-x.length%4)%4),b=atob((x+p).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(b,c=>c.charCodeAt(0))};

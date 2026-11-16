@@ -1835,6 +1835,13 @@ body.playing #screen .card .prompt{font-size:56px!important;line-height:1.02!imp
 body.playing #screen .card .mute{font-size:22px!important;padding:12px 16px!important}
 body.playing #screen .card #in{font-size:32px!important;height:76px!important}
 body.playing #screen .card .submitbtn{font-size:28px!important;height:76px!important;padding:0 34px!important}}</style>
+<style>/* first-time 'come back tomorrow' card (experiment B) */
+.tmrw{margin:14px 0;padding:16px;background:#1d1a2b;color:#fbf6e8;border:4px solid #f2c230;box-shadow:5px 5px 0 rgba(0,0,0,.35);text-align:center}
+.tmrw-h{font:400 30px/1.05 'Jersey 10',sans-serif;color:#f2c230;letter-spacing:.02em}
+.tmrw p{margin:8px 0 12px;font:400 20px/1.25 VT323,monospace;color:#fbf6e8}
+.tmrw-d{display:inline-flex;flex-direction:column;gap:2px;padding:10px 18px;background:#fbf6e8;color:#1d1a2b;border:3px solid #000;margin-bottom:12px}
+.tmrw-d b{font:400 26px/1 'Jersey 10',sans-serif}.tmrw-d small{font:400 16px/1 VT323,monospace;color:#6b6480}
+.tmrw .tmrw-r{display:block;margin:0;background:none;border:0;padding:0}.tmrw button{width:100%;padding:12px;background:#f2c230;color:#1d1a2b;border:3px solid #000;box-shadow:0 4px 0 #000;font:400 22px/1 'Jersey 10',sans-serif;cursor:pointer}</style>
 </head><body><div class="sp" id="sp" aria-hidden="true"><div class="sp-s"></div><div class="sp-t">UNICORNER</div><div class="sp-run"><div class="sp-bar"><div class="sp-fill"><i class="sp-u"></i></div></div></div><div class="sp-m"><span class="sp-en">Warming up on the touchline…</span><span class="sp-es">Calentando en la banda…</span></div></div>
 <script>
 // loading screen: always shown, lifts once the page and its fonts are ready (at least ~1s so it never just flickers), then the landing intro plays
@@ -2669,8 +2676,7 @@ www.unicornergame.lol`};
   <div class="hero"><div class="sprite big-sprite bob" data-mood="${results.some(r=>r.pts===100)?'scream':score/MAX>=.44?'wow':score/MAX>=.15?'happy':'sad'}"></div><div><div class="mute">${L('Final whistle','Pitido final',"Apito final")}</div><div class="tier" id="fs">0</div></div><div class="motm" id="motm" hidden><div class="ribbon-img" id="ribbonImg"></div><span>${L('Man of the Match','Jugador del partido',"Craque do jogo")}</span></div></div>
   <div class="pts">${L('You reached:','Has llegado a:',"Você chegou a:")} ${zl(zoneOf(score))}</div>
   ${spicyResult()}
-  ${streakStrip(streakInfo(),'rs')}
-  ${remindHTML()}
+  ${firstGameAB()==='B'?tomorrowCard():streakStrip(streakInfo(),'rs')+remindHTML()}
   <div class="dist" id="dist"><div class="mute">${L("Comparing with today's players…",'Comparando con los jugadores de hoy…',"Comparando com os jogadores de hoje…")}</div></div>
   ${CHAL&&!CHAL.old?`<div class="chal-vs ${score>CHAL.s?'won':score===CHAL.s?'draw':'lost'}">${score>CHAL.s?L(`🏆 You beat ${chalWho()}! <b>${score}</b> vs ${CHAL.s}`,`🏆 ¡Has ganado a ${chalWho()}! <b>${score}</b> a ${CHAL.s}`,`🏆 Você venceu ${chalWho()}! <b>${score}</b> a ${CHAL.s}`):score===CHAL.s?L(`🤝 A draw with ${chalWho()}: <b>${score}</b> each`,`🤝 Empate con ${chalWho()}: <b>${score}</b> cada uno`,`🤝 Empate com ${chalWho()}: <b>${score}</b> cada`):L(`${chalWho()} wins this one: <b>${CHAL.s}</b> vs your ${score}`,`${chalWho()} gana esta: <b>${CHAL.s}</b> a tus ${score}`,`${chalWho()} levou essa: <b>${CHAL.s}</b> a ${score}`)}</div>`:''}
   <div class="chal-box"><button type="button" class="cta chal-go" id="chal-go">${SEND_SVG}<span>${chalMob()?L(`Challenge a friend to beat ${score}`,`Reta a un amigo a superar tus ${score}`,`Desafie um amigo a passar de ${score}`):L(`Copy a challenge link · beat my ${score}`,`Copiar enlace de reto · supera mis ${score}`,`Copiar link de desafio · supere meus ${score}`)}</span></button>
@@ -2740,11 +2746,26 @@ function appStrip(){if(standalone()||document.getElementById('app-strip'))return
 addEventListener('load',()=>setTimeout(appStrip,2500));
 document.addEventListener('click',e=>{if(e.target.closest('[data-app-install]')){e.preventDefault();appInstall('footer')}});
 // ── streak reminders (web push, supabase/push.sql, sent by scripts/send_streak_push.py): off until VAPID_PUB is set ──
-const VAPID_PUB='BJEpwgfhvJQ6swBMTtNNy8GAjdiYDkMkzIj8F4KHl2wsm62rNk7IBR9dIkfMI2fA1PEWWWtQMfddNWqpn7aL4AI';
+const VAPID_PUB='BIG5duI0j0b5b4RUpH3wWykr7o4Vjuj_YODo_KMln2eTBTLBdOu-0fklDNE3K_n2SaKawC3SKgC0NMx1LOJ-aAk';
 const pushOK=()=>!!VAPID_PUB&&'serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window;
 const pushEP=()=>{try{return localStorage.getItem('uc-push-ep')||''}catch{return''}};
 async function pushRpc(fn,args){return fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify(args)}).then(r=>{if(!r.ok)throw new Error('push '+r.status)})}
 function pushPlayed(){const ep=pushEP();if(!ep||!pushOK())return;pushRpc('push_played',{p_endpoint:ep,p_streak:currentStreak(),p_day:amsterdamDay()}).catch(()=>{})}
+// Experiment (Nov 2026): first-time players see a "come back tomorrow" card instead of the streak strip.
+// Half of first-time browsers get it (B), half the old screen (A); fixed per browser. Compare D1/D7 return by variant.
+const firstGame=()=>{try{return Object.keys(localStorage).filter(k=>k.startsWith('unicorner-played-')).length<=1}catch{return false}};
+function firstGameAB(){if(!firstGame()||document.body.classList.contains('inf-mode'))return '';let v='A';
+ try{v=localStorage.getItem('uc-ab-tmrw');if(v!=='A'&&v!=='B'){v=Math.random()<.5?'A':'B';localStorage.setItem('uc-ab-tmrw',v)}
+  if(!localStorage.getItem('uc-ab-tmrw-seen')){localStorage.setItem('uc-ab-tmrw-seen','1');track('ab_tomorrow',{variant:v})}}catch{}
+ return v}
+function tomorrowCard(){const t=new Date(amsterdamDay()+'T12:00:00Z');t.setUTCDate(t.getUTCDate()+1);
+ const day=t.toLocaleDateString(LOC,{weekday:'long',day:'numeric',month:'long',timeZone:'UTC'});
+ const push=pushOK()&&Notification.permission!=='denied'&&!(pushEP()&&Notification.permission==='granted');
+ const home=!push&&typeof iosSafari==='function'&&iosSafari()&&!matchMedia('(display-mode: standalone)').matches;
+ return`<div class="tmrw"><div class="tmrw-h">🔥 ${L('Your streak starts today!','¡Tu racha empieza hoy!',"Sua sequência começa hoje!")}</div>
+ <p>${L('Come back tomorrow for 5 new football questions and make it 2 days in a row.','Vuelve mañana: 5 preguntas nuevas de fútbol y llevarás 2 días seguidos.',"Volte amanhã para 5 perguntas novas de futebol e chegue a 2 dias seguidos.")}</p>
+ <div class="tmrw-d"><small>${L("Tomorrow's game",'El partido de mañana',"O jogo de amanhã")}</small><b>${day}</b><small>${L('New questions at midnight','Preguntas nuevas a medianoche',"Perguntas novas à meia-noite")}</small></div>
+ ${push?`<div class="remind tmrw-r" id="remind"><button type="button" id="remind-btn">🔔 ${L('Remind me tomorrow','Avísame mañana',"Me lembre amanhã")}</button></div>`:home?`<button type="button" class="tmrw-r" data-app-install>📲 ${L('Add Unicorner to your home screen','Añade Unicorner a tu pantalla de inicio',"Adicione o Unicorner à tela inicial")}</button>`:''}</div>`}
 function remindHTML(){if(!pushOK()||Notification.permission==='denied')return'';const on=!!pushEP()&&Notification.permission==='granted';if(on)return'';
  return`<div class="remind${on?' on':''}" id="remind"><span>🔔 ${on?L("We'll remind you in the evening if you haven't played, so your streak doesn't end.",'Te avisaremos por la tarde si aún no has jugado, para que no pierdas la racha.',"Vamos te lembrar à noite se você não tiver jogado, pra sua sequência não acabar."):L('Get a reminder in the evening if you haven\'t played yet, so your streak never ends.','Recibe un aviso por la tarde si aún no has jugado, para que tu racha no se corte.',"Receba um lembrete à noite se ainda não jogou, pra sua sequência nunca acabar.")}</span><button type="button" id="remind-btn">${on?L('Turn off','Desactivar',"Desativar"):L('Remind me','Avísame',"Me lembre")}</button></div>`}
 // key change: a sign-up made with an older key is renewed with the current one, keeping its streak and day
