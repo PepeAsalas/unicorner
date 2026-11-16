@@ -120,46 +120,56 @@ SEO = {
                'Stable Hand'),
         'es': ('Mano de Cuadra – El blackjack diario de fútbol | Unicorner',
                'El blackjack futbolero diario de Horacio. Cada respuesta es una carta que vale según su rareza: las obvias 10, las rebuscadas 100. Acércate al objetivo, gánale a la casa y no te pases. Gratis y nuevo cada día.',
-               'Mano de Cuadra')},
+               'Mano de Cuadra'),
+        'pt': ('Stable Hand – O vinte-e-um diário do futebol | Unicorner',
+               'O vinte-e-um diário de futebol do Horacio. Cada resposta é uma carta que vale pela raridade: as óbvias 10, as raras 100. Chegue perto do alvo, vença a banca e não estoure. Grátis e novo todo dia.',
+               'Stable Hand')},
     'rosco': {
         'en': ('Football Rosco – Daily A–Z Football Quiz | Unicorner',
                'One football clue for every letter of the alphabet, against the clock: players, clubs and managers from A to Z. Free, new every day, in English and Spanish.',
                'Football Rosco'),
         'es': ('Rosco de fútbol – El rosco diario de preguntas | Unicorner',
                'Una pista de fútbol por cada letra del abecedario, contra el reloj: jugadores, clubes y entrenadores de la A a la Z. Gratis y nuevo cada día.',
-               'Rosco de fútbol')},
+               'Rosco de fútbol'),
+        'pt': ('Rosco de futebol – O quiz diário de A a Z | Unicorner',
+               'Uma pista de futebol para cada letra do alfabeto, contra o relógio: jogadores, clubes e técnicos de A a Z. Grátis e novo todo dia.',
+               'Rosco de futebol')},
     'millon': {
         'en': ('Millions – Daily Football Money Drop Quiz | Unicorner',
                'Start with 1,000,000 and spread it over the answers to 8 football questions. You keep only what lands on the right one. A free football quiz, new every day.',
                'Millions'),
         'es': ('Millones – El quiz diario de fútbol con un millón en juego | Unicorner',
                'Empiezas con 1.000.000 y lo repartes entre las respuestas de 8 preguntas de fútbol. Solo te llevas lo que caiga en la correcta. Gratis y nuevo cada día.',
-               'Millones')}}
+               'Millones'),
+        'pt': ('Milhões – O quiz diário de futebol com um milhão em jogo | Unicorner',
+               'Você começa com 1.000.000 e divide entre as respostas de 8 perguntas de futebol. Só fica com o que cair na certa. Grátis e novo todo dia.',
+               'Milhões')}}
 
 
 def seo_block(game, lang):
     import json as _j
     base = 'https://unicornergame.lol'
-    url = {l: f'{base}{"/es" if l == "es" else ""}/{game}.html' for l in ('en', 'es')}
+    url = {l: f'{base}{"" if l == "en" else "/" + l}/{game}.html' for l in ('en', 'es', 'pt')}
     title, desc, name = SEO[game][lang]
     img = f'{base}/og-{game}{"-es" if lang == "es" else ""}.jpg'
+    inlang = 'pt-BR' if lang == 'pt' else lang
     esc = lambda t: t.replace('&', '&amp;').replace('"', '&quot;')
     ld = {'@context': 'https://schema.org', '@graph': [
-        {'@type': 'VideoGame', 'name': name, 'url': url[lang], 'description': desc, 'inLanguage': lang,
+        {'@type': 'VideoGame', 'name': name, 'url': url[lang], 'description': desc, 'inLanguage': inlang,
          'genre': ['Trivia', 'Quiz', 'Sports'], 'gamePlatform': 'Web browser', 'applicationCategory': 'Game', 'operatingSystem': 'Any',
          'isAccessibleForFree': True, 'image': img, 'publisher': {'@id': base + '/#org'}, 'isPartOf': {'@id': base + '/#website'},
          'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'EUR'}},
         {'@type': 'BreadcrumbList', 'itemListElement': [
-            {'@type': 'ListItem', 'position': 1, 'name': 'Unicorner', 'item': base + ('/es/' if lang == 'es' else '/')},
+            {'@type': 'ListItem', 'position': 1, 'name': 'Unicorner', 'item': base + ('/' if lang == 'en' else f'/{lang}/')},
             {'@type': 'ListItem', 'position': 2, 'name': name, 'item': url[lang]}]}]}
     return ('<!--seo-->'
             f'<title>{esc(title)}</title>\n<meta name="description" content="{esc(desc)}">\n'
             f'<link rel="canonical" href="{url[lang]}">\n'
-            f'<link rel="alternate" hreflang="en" href="{url["en"]}">\n<link rel="alternate" hreflang="es" href="{url["es"]}">\n<link rel="alternate" hreflang="x-default" href="{url["en"]}">\n'
+            f'<link rel="alternate" hreflang="en" href="{url["en"]}">\n<link rel="alternate" hreflang="es" href="{url["es"]}">\n<link rel="alternate" hreflang="pt-BR" href="{url["pt"]}">\n<link rel="alternate" hreflang="x-default" href="{url["en"]}">\n'
             f'<meta property="og:type" content="website">\n<meta property="og:site_name" content="Unicorner">\n<meta property="og:url" content="{url[lang]}">\n'
             f'<meta property="og:title" content="{esc(title)}">\n<meta property="og:description" content="{esc(desc)}">\n'
             f'<meta property="og:image" content="{img}">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n'
-            f'<meta property="og:locale" content="{"es_ES" if lang == "es" else "en_GB"}">\n'
+            f'<meta property="og:locale" content="{ {"es": "es_ES", "pt": "pt_BR"}.get(lang, "en_GB") }">\n'
             f'<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:title" content="{esc(title)}">\n<meta name="twitter:description" content="{esc(desc)}">\n<meta name="twitter:image" content="{img}">\n'
             f'<script type="application/ld+json">{_j.dumps(ld, ensure_ascii=False, separators=(",", ":"))}</script>'
             '<!--/seo-->')
@@ -167,7 +177,7 @@ def seo_block(game, lang):
 
 def seo_games():
     for game in ('rosco', 'millon', 'stablehand'):
-        for lang, path in (('en', SRC.parent / f'{game}.html'), ('es', SRC.parent / 'es' / f'{game}.html')):
+        for lang, path in (('en', SRC.parent / f'{game}.html'), ('es', SRC.parent / 'es' / f'{game}.html'), ('pt', SRC.parent / 'pt' / f'{game}.html')):
             h = path.read_text(encoding='utf-8')
             if '<!--seo-->' in h:
                 h = re.sub(r'<!--seo-->.*?<!--/seo-->', lambda m: seo_block(game, lang), h, count=1, flags=re.S)
@@ -206,4 +216,12 @@ if __name__ == '__main__':
     h = re.sub(r'<meta name="description" content="[^"]*">', '<meta name="description" content="Mano de Cuadra: el blackjack futbolero diario de Horacio Herradura. Cada respuesta es una carta que vale según su rareza. Acércate al objetivo, gánale a la casa y no te pases.">', h, count=1)
     h = h.replace('<link rel="canonical" href="https://unicornergame.lol/stablehand.html">', '<link rel="canonical" href="https://unicornergame.lol/es/stablehand.html">', 1)
     (SRC.parent / 'es' / 'stablehand.html').write_text(h, encoding='utf-8')
+    # the same pages in Brazilian Portuguese (each switches language by its /pt/ path)
+    for name in ('rosco', 'millon', 'squad', 'stablehand'):
+        x = (SRC.parent / f'{name}.html').read_text(encoding='utf-8').replace('<html lang="en">', '<html lang="pt-BR">', 1)
+        if name == 'squad':
+            x = x.replace('<title>Socials · Rankings, friends and leagues | Unicorner</title>', '<title>Social · Rankings, amigos e ligas | Unicorner</title>', 1)
+            x = re.sub(r'<meta name="description" content="[^"]*">', '<meta name="description" content="Todos os rankings do Unicorner num lugar só: Diário 5, Rosco e Milhões, hoje e nesta semana. Adicione amigos e crie ligas privadas.">', x, count=1)
+            x = x.replace('<link rel="canonical" href="https://unicornergame.lol/squad.html">', '<link rel="canonical" href="https://unicornergame.lol/pt/squad.html">', 1)
+        (SRC.parent / 'pt' / f'{name}.html').write_text(x, encoding='utf-8')
     seo_games()

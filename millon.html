@@ -4,6 +4,7 @@
 <link rel="canonical" href="https://unicornergame.lol/millon.html">
 <link rel="alternate" hreflang="en" href="https://unicornergame.lol/millon.html">
 <link rel="alternate" hreflang="es" href="https://unicornergame.lol/es/millon.html">
+<link rel="alternate" hreflang="pt-BR" href="https://unicornergame.lol/pt/millon.html">
 <link rel="alternate" hreflang="x-default" href="https://unicornergame.lol/millon.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Unicorner">
@@ -122,66 +123,67 @@ main,.card,.q,.say{image-rendering:auto}
 /* sound switch: the same pixel speaker as the home page */#snd{font-size:0!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 2h2v3H0zM2 1h1v5H2zM3 0h1v7H3zM5 2h1v3H5zM6 1h1v1H6zM6 5h1v1H6zM7 2h1v3H7z' fill='%231a1030'/%3E%3C/svg%3E")!important;background-position:center!important;background-size:18px auto!important;background-repeat:no-repeat!important;image-rendering:pixelated}#snd[data-on="0"]{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 2h2v3H0zM2 1h1v5H2zM3 0h1v7H3z' fill='%231a1030'/%3E%3Cpath d='M5 2h1v1H5zM7 2h1v1H7zM6 3h1v1H6zM5 4h1v1H5zM7 4h1v1H7z' fill='%23e3262f'/%3E%3C/svg%3E")!important}
 </style><link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#1d1a2b"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Unicorner"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="apple-touch-icon" href="/favicon-180.png">
 </head><body><main>
-<div class="top"><a class="logo" href="/">UNICORNER</a><span class="top-r"><span class="tag" data-es="MILLONES">MILLIONS</span><button type="button" class="snd" id="snd" aria-label="Sound" title="Sound"></button><a class="snd x-out" id="x-out" href="/" aria-label="Back to Unicorner" title="Back to Unicorner">✕</a></span></div>
+<div class="top"><a class="logo" href="/">UNICORNER</a><span class="top-r"><span class="tag" data-es="MILLONES" data-pt="MILHÕES">MILLIONS</span><button type="button" class="snd" id="snd" aria-label="Sound" title="Sound"></button><a class="snd x-out" id="x-out" href="/" aria-label="Back to Unicorner" title="Back to Unicorner">✕</a></span></div>
 <div class="host"><div class="face"><img id="face" alt="" src="/rosco/host/happy-talk.png"></div><p class="say"><span class="who">Horacio Herradura</span><span id="say"></span></p></div>
 
-<section id="s-intro" hidden><div class="mq"><h1 data-es="Millones">Millions</h1></div><div class="card">
- <ol class="rules"><li data-es="Empiezas con <b>1.000.000</b>.">You start with <b>1,000,000</b>.</li>
- <li data-es="En cada pregunta reparte el dinero entre las respuestas. Solo te quedas lo que esté en la correcta.">Each question, spread your money over the answers. You only keep what sits on the right one.</li>
- <li data-es="Deja siempre al menos una respuesta vacía. En la última, todo a una.">Always leave at least one answer empty. On the last one, it's all on one.</li>
- <li data-es="Tienes que colocarlo todo. 60 segundos por pregunta: si se acaba el tiempo, lo que no hayas colocado va a la respuesta con más dinero.">You have to place it all. 60 seconds per question: if time runs out, whatever you haven't placed goes on the answer with the most money.</li></ol></div>
+<section id="s-intro" hidden><div class="mq"><h1 data-es="Millones" data-pt="Milhões">Millions</h1></div><div class="card">
+ <ol class="rules"><li data-es="Empiezas con <b>1.000.000</b>." data-pt="Você começa com <b>1.000.000</b>.">You start with <b>1,000,000</b>.</li>
+ <li data-es="En cada pregunta reparte el dinero entre las respuestas. Solo te quedas lo que esté en la correcta." data-pt="Em cada pergunta, divida o dinheiro entre as respostas. Você só fica com o que estiver na certa.">Each question, spread your money over the answers. You only keep what sits on the right one.</li>
+ <li data-es="Deja siempre al menos una respuesta vacía. En la última, todo a una." data-pt="Deixe sempre pelo menos uma resposta vazia. Na última, tudo numa só.">Always leave at least one answer empty. On the last one, it's all on one.</li>
+ <li data-es="Tienes que colocarlo todo. 60 segundos por pregunta: si se acaba el tiempo, lo que no hayas colocado va a la respuesta con más dinero." data-pt="Você tem que colocar tudo. 60 segundos por pergunta: se o tempo acabar, o que você não colocou vai para a resposta com mais dinheiro.">You have to place it all. 60 seconds per question: if time runs out, whatever you haven't placed goes on the answer with the most money.</li></ol></div>
  <div id="chal0"></div>
  <p class="msg-note" id="avg0"></p>
- <button class="btn grass" id="go" data-es="Empezar">Start</button></section>
+ <button class="btn grass" id="go" data-es="Empezar" data-pt="Começar">Start</button></section>
 
 <section id="s-play" hidden>
  <div class="steps" id="steps"></div>
- <div class="hud"><span><span data-es="Sin colocar">To place</span> <b class="bank" id="left"></b></span><span><i class="watch" id="watch"></i><span class="clock" id="clock">60</span></span></div>
+ <div class="hud"><span><span data-es="Sin colocar" data-pt="A colocar">To place</span> <b class="bank" id="left"></b></span><span><i class="watch" id="watch"></i><span class="clock" id="clock">60</span></span></div>
  <div class="q" id="q"></div>
- <p class="help" data-es="<b>+</b> / <b>−</b> mueven dinero (mantén pulsado para ir más rápido) · <b>TODO</b> pone aquí todo lo que te queda · <b>NADA</b> lo quita todo"><b>+</b> / <b>−</b> move money (hold to go faster) · <b>ALL</b> puts all your remaining money here · <b>CLEAR</b> takes it all off</p>
+ <p class="help" data-es="<b>+</b> / <b>−</b> mueven dinero (mantén pulsado para ir más rápido) · <b>TODO</b> pone aquí todo lo que te queda · <b>NADA</b> lo quita todo" data-pt="<b>+</b> / <b>−</b> movem dinheiro (segure para ir mais rápido) · <b>TUDO</b> põe aqui tudo o que sobrou · <b>LIMPAR</b> tira tudo"><b>+</b> / <b>−</b> move money (hold to go faster) · <b>ALL</b> puts all your remaining money here · <b>CLEAR</b> takes it all off</p>
  <div class="opts" id="opts"></div>
- <button class="btn gold" id="lock" data-es="¡Cerrar apuesta!">Lock it in!</button>
- <button class="btn grass" id="next" hidden data-es="Siguiente">Next</button>
+ <button class="btn gold" id="lock" data-es="¡Cerrar apuesta!" data-pt="Confirmar!">Lock it in!</button>
+ <button class="btn grass" id="next" hidden data-es="Siguiente" data-pt="Próxima">Next</button>
 </section>
 
-<section id="s-end" hidden><div class="card"><p class="msg-note" data-es="Te llevas">You keep</p><div class="big" id="final"></div><div class="grid" id="grid"></div><p class="msg-note" id="avg2" style="margin-top:8px"></p></div>
+<section id="s-end" hidden><div class="card"><p class="msg-note" data-es="Te llevas" data-pt="Você fica com">You keep</p><div class="big" id="final"></div><div class="grid" id="grid"></div><p class="msg-note" id="avg2" style="margin-top:8px"></p></div>
  <div id="chal2"></div>
  <div class="card lb" id="lb" hidden></div>
- <div class="ek"><p class="ek-h" data-es="Comparte tu resultado">Share your result</p><div class="ek-tiles"><button class="ek-t ek-img" id="shareimg" data-es="Compartir imagen">Share image</button><button class="ek-t ek-dl" id="dlimg" data-es="Guardar imagen">Save image</button><button class="ek-t ek-cp" id="copy" data-es="Copiar texto">Copy text</button></div></div>
- <div class="ek-links"><a class="ek-l ek-rk" id="rklink" href="/#ranking-millon" data-es="Ranking de hoy">Today's ranking</a></div>
- <a class="btn gold" id="archback" href="/?inf=open" hidden data-es="Volver al archivo">Back to the archive</a>
- <div class="card fb" id="fb" hidden><p class="fb-q" data-es="<b>¿Qué tal Millones hoy?</b> Es nuevo, así que cuéntanos."><b>How was Millions today?</b> It's brand new, so tell us.</p>
+ <div class="ek"><p class="ek-h" data-es="Comparte tu resultado" data-pt="Compartilhe seu resultado">Share your result</p><div class="ek-tiles"><button class="ek-t ek-img" id="shareimg" data-es="Compartir imagen" data-pt="Compartilhar imagem">Share image</button><button class="ek-t ek-dl" id="dlimg" data-es="Guardar imagen" data-pt="Salvar imagem">Save image</button><button class="ek-t ek-cp" id="copy" data-es="Copiar texto" data-pt="Copiar texto">Copy text</button></div></div>
+ <div class="ek-links"><a class="ek-l ek-rk" id="rklink" href="/#ranking-millon" data-es="Ranking de hoy" data-pt="Ranking de hoje">Today's ranking</a></div>
+ <a class="btn gold" id="archback" href="/?inf=open" hidden data-es="Volver al archivo" data-pt="Voltar ao arquivo">Back to the archive</a>
+ <div class="card fb" id="fb" hidden><p class="fb-q" data-es="<b>¿Qué tal Millones hoy?</b> Es nuevo, así que cuéntanos." data-pt="<b>O que achou do Milhões hoje?</b> É novo, então conte pra gente."><b>How was Millions today?</b> It's brand new, so tell us.</p>
   <div class="r10" id="r10"></div>
-  <textarea id="fb-t" maxlength="500" rows="2" placeholder="Too hard? Too easy? A wrong answer? (optional)" data-es-ph="¿Muy difícil? ¿Muy fácil? ¿Alguna respuesta mal? (opcional)"></textarea>
-  <button class="btn gold" id="fb-send" disabled data-es="Enviar">Send</button><p class="fb-ok" id="fb-ok" hidden data-es="¡Gracias! Horacio lo ha apuntado.">Thanks! Horacio has noted it down.</p></div></section>
+  <textarea id="fb-t" maxlength="500" rows="2" placeholder="Too hard? Too easy? A wrong answer? (optional)" data-es-ph="¿Muy difícil? ¿Muy fácil? ¿Alguna respuesta mal? (opcional)" data-pt-ph="Difícil demais? Fácil demais? Alguma resposta errada? (opcional)"></textarea>
+  <button class="btn gold" id="fb-send" disabled data-es="Enviar" data-pt="Enviar">Send</button><p class="fb-ok" id="fb-ok" hidden data-es="¡Gracias! Horacio lo ha apuntado." data-pt="Valeu! O Horacio anotou.">Thanks! Horacio has noted it down.</p></div></section>
 <p class="msg-note" id="msg" hidden></p>
-<section class="about"><h2 data-es="Sobre Millones">About Millions</h2><p data-es="Millones es un quiz diario y gratis de fútbol de Unicorner, presentado por Horacio Herradura. Empiezas con 1.000.000 y tienes 8 preguntas de fútbol. Reparte el dinero entre las respuestas: solo te llevas lo que esté en la correcta, así que si dudas, divídelo. Un juego nuevo cada día a medianoche, las mismas preguntas para todos y con ranking diario.">Millions is a free daily football quiz from Unicorner, hosted by Horacio Herradura. You start with 1,000,000 and get 8 football questions. Spread your money over the answers: you keep only what sits on the right one, so when you are not sure, split it. A new game every day at midnight, the same questions for everyone, with a daily ranking.</p><p data-es="Más juegos diarios de fútbol: <a href=&quot;/es/&quot;>el Diario 5</a> y <a href=&quot;/es/rosco.html&quot;>el Rosco de fútbol</a>.">More daily football games: <a href="/">the Daily 5</a> and <a href="/rosco.html">the football Rosco</a>.</p></section>
+<section class="about"><h2 data-es="Sobre Millones" data-pt="Sobre o Milhões">About Millions</h2><p data-es="Millones es un quiz diario y gratis de fútbol de Unicorner, presentado por Horacio Herradura. Empiezas con 1.000.000 y tienes 8 preguntas de fútbol. Reparte el dinero entre las respuestas: solo te llevas lo que esté en la correcta, así que si dudas, divídelo. Un juego nuevo cada día a medianoche, las mismas preguntas para todos y con ranking diario." data-pt="Milhões é um quiz diário e grátis de futebol do Unicorner, apresentado por Horacio Herradura. Você começa com 1.000.000 e tem 8 perguntas de futebol. Divida o dinheiro entre as respostas: você só leva o que estiver na certa, então se estiver em dúvida, divida. Um jogo novo todo dia à meia-noite, as mesmas perguntas para todos e com ranking diário.">Millions is a free daily football quiz from Unicorner, hosted by Horacio Herradura. You start with 1,000,000 and get 8 football questions. Spread your money over the answers: you keep only what sits on the right one, so when you are not sure, split it. A new game every day at midnight, the same questions for everyone, with a daily ranking.</p><p data-es="Más juegos diarios de fútbol: <a href=&quot;/es/&quot;>el Diario 5</a> y <a href=&quot;/es/rosco.html&quot;>el Rosco de fútbol</a>." data-pt="Mais jogos diários de futebol: <a href=&quot;/pt/&quot;>o Diário 5</a> e <a href=&quot;/pt/rosco.html&quot;>o Rosco de futebol</a>.">More daily football games: <a href="/">the Daily 5</a> and <a href="/rosco.html">the football Rosco</a>.</p></section>
 </main>
 <script src="/challenge.js"></script>
 <script>
 const SB_URL="https://yujhjepukzdahsppntua.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1amhqZXB1a3pkYWhzcHBudHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2NDMzNDcsImV4cCI6MjEwNTIxOTM0N30.YIOdtL7tJnNLPFPy19QuXe6w3Dcnz6Xedw0tFGdV_CE";
-const ES=location.pathname.startsWith('/es/'),L=(en,es)=>ES?es:en;
+const ES=location.pathname.startsWith('/es/'),PT=location.pathname.startsWith('/pt/'),L=(en,es,pt)=>PT?(pt??en):ES?es:en;
 const TODAY=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
 // ?day=YYYY-MM-DD plays a past Millions from the Infinity archive: no ranking, no saved score, no challenge
 const ARCH=(d=>/^\d{4}-\d{2}-\d{2}$/.test(d||'')&&d>='2026-11-03'&&d<TODAY?d:null)(new URLSearchParams(location.search).get('day')),DAY=ARCH||TODAY;
 // Spanish at /es/millon.html (build_es.py copies it)
+if(PT){const xo=document.getElementById('x-out');if(xo){xo.href='/pt/';xo.title=xo.ariaLabel='Voltar ao Unicorner'}document.documentElement.lang='pt-BR';document.querySelectorAll('[data-pt]').forEach(e=>e.innerHTML=e.dataset.pt);document.querySelectorAll('[data-pt-ph]').forEach(e=>e.placeholder=e.dataset.ptPh)}
 if(ES){const xo=document.getElementById('x-out');if(xo){xo.href='/es/';xo.title=xo.ariaLabel='Volver a Unicorner'}document.querySelectorAll('[data-es]').forEach(e=>e.innerHTML=e.dataset.es);document.querySelectorAll('[data-es-ph]').forEach(e=>e.placeholder=e.dataset.esPh)}
 const $=id=>document.getElementById(id),START=1000000,SECS=60,KEY='millon-'+DAY+(DAY==='2026-11-03'?'-r1':'');
-const fmt=n=>n.toLocaleString(ES?'es-ES':'en-GB');
+const fmt=n=>n.toLocaleString(PT?'pt-BR':ES?'es-ES':'en-GB');
 const say=(t,pose)=>{$('say').textContent=t;if(pose)$('face').src='/rosco/host/'+pose+'.png'};
 const VISITOR=(()=>{try{let v=localStorage.getItem('uc-visitor');if(!v){v=crypto.randomUUID();localStorage.setItem('uc-visitor',v)}return v}catch{return null}})();
-function track(name,data){try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,visitor:VISITOR,seconds:0,game_day:DAY,event_version:2,data:{language:ES?'es':'en',page:'millon',...(ARCH?{archive:true}:{}),...(data||{})}})}).catch(()=>{})}catch{}}
+function track(name,data){try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,visitor:VISITOR,seconds:0,game_day:DAY,event_version:2,data:{language:PT?'pt':ES?'es':'en',page:'millon',...(ARCH?{archive:true}:{}),...(data||{})}})}).catch(()=>{})}catch{}}
 // signed-in players: one result per account per day, today's ranking (supabase/millon.sql)
 async function tok(){try{let s=JSON.parse(localStorage.getItem('uc-player-session')||'null');if(!s||!s.access_token)return null;
  if(s.exp<Date.now()+60000){const r=await fetch(SB_URL+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:s.refresh_token})});const j=await r.json();if(!r.ok||!j.access_token)return null;
   s={...s,access_token:j.access_token,refresh_token:j.refresh_token||s.refresh_token,exp:Date.now()+Math.max(60,(+j.expires_in||3600))*1000};localStorage.setItem('uc-player-session',JSON.stringify(s))}return s.access_token}catch{return null}}
 async function rpc(fn,body){const t=await tok();if(!t)return undefined;const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+t,'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok)throw 0;return r.json()}
 async function pub(fn,body){const t=await tok();const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+(t||SB_KEY),'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok)throw 0;return r.json()}
-async function dayAvg(){try{const j=await pub('millon_day_stats',{p_day:DAY});const t=ARCH?(j&&j.players>=3?L(`Average that day: ${fmt(j.avg)} (${j.players} players)`,`Media de ese día: ${fmt(j.avg)} (${j.players} jugadores)`):''):j&&j.players>=3?L(`Today's average: ${fmt(j.avg)} (${j.players} players)`,`Media de hoy: ${fmt(j.avg)} (${j.players} jugadores)`):L("Be one of the first to play today.",'Sé de los primeros en jugar hoy.');['avg0','avg2'].forEach(id=>$(id).textContent=t)}catch{}}
+async function dayAvg(){try{const j=await pub('millon_day_stats',{p_day:DAY});const t=ARCH?(j&&j.players>=3?L(`Average that day: ${fmt(j.avg)} (${j.players} players)`,`Media de ese día: ${fmt(j.avg)} (${j.players} jugadores)`,`Média naquele dia: ${fmt(j.avg)} (${j.players} jogadores)`):''):j&&j.players>=3?L(`Today's average: ${fmt(j.avg)} (${j.players} players)`,`Media de hoy: ${fmt(j.avg)} (${j.players} jugadores)`,`Média de hoje: ${fmt(j.avg)} (${j.players} jogadores)`):L("Be one of the first to play today.",'Sé de los primeros en jugar hoy.',"Seja um dos primeiros a jogar hoje.");['avg0','avg2'].forEach(id=>$(id).textContent=t)}catch{}}
 async function board(){try{const g=await pub('millon_board',{p_day:DAY}),signed=!!(await tok());const rows=(g.rows||[]).slice(0,5);
- $('lb').innerHTML=`<h2>${L("Today's ranking","Ranking de hoy")}</h2>`+(rows.length?`<ol>${rows.map(r=>`<li class="${r.me?'me':''}"><b>${r.rank}</b><span>${String(r.nickname).replace(/[<&>"]/g,'')}</span><b>${fmt(r.score)}</b></li>`).join('')}</ol>`:'')
-  +(g.me&&!rows.some(r=>r.me)?`<p>${L('You','Tú')}: #${g.me.rank} · ${fmt(g.me.score)}</p>`:'')+(signed?'':`<p><a href="${ES?'/es/':'/'}#signin">${L('Sign in','Inicia sesión')}</a> ${L('to get on the ranking.','para entrar en el ranking.')}</p>`)
-  +(g.players?`<p>${g.players} ${L('players on the ranking today','jugadores en el ranking hoy')}</p>`:'');$('lb').hidden=false}catch{}}
+ $('lb').innerHTML=`<h2>${L("Today's ranking","Ranking de hoy","Ranking de hoje")}</h2>`+(rows.length?`<ol>${rows.map(r=>`<li class="${r.me?'me':''}"><b>${r.rank}</b><span>${String(r.nickname).replace(/[<&>"]/g,'')}</span><b>${fmt(r.score)}</b></li>`).join('')}</ol>`:'')
+  +(g.me&&!rows.some(r=>r.me)?`<p>${L('You','Tú',"Você")}: #${g.me.rank} · ${fmt(g.me.score)}</p>`:'')+(signed?'':`<p><a href="${PT?'/pt/':ES?'/es/':'/'}#signin">${L('Sign in','Inicia sesión',"Entre")}</a> ${L('to get on the ranking.','para entrar en el ranking.',"para aparecer no ranking.")}</p>`)
+  +(g.players?`<p>${g.players} ${L('players on the ranking today','jugadores en el ranking hoy',"jogadores no ranking hoje")}</p>`:'');$('lb').hidden=false}catch{}}
 // 8-bit sounds made live (no files), following the site's sound switch (localStorage 'unicorner-sound').
 // Tiers: small = chip ticks, medium = lock thunk / trapdoor, large = keeping the whole pile.
 const sndOn=()=>{try{return localStorage.getItem('unicorner-sound')!=='off'}catch{return true}};let actx=null;
@@ -206,10 +208,10 @@ function maxOn(n){return n-1}
 // smart steps: about 10% of the pile you start the question with (1M -> 100K, 400K -> 25K/50K, 80K -> 5K)
 const stepNow=()=>[100000,50000,25000,10000,5000,1000].find(v=>v<=bank*.1)||1000;
 const K=n=>n>=1e6?(n/1e6)+'M':n>=1e3?(n/1e3)+'K':String(n); // answers that may hold money: always leave one empty
-function render(){const Q=D.questions[i],opts=ES&&Q.o_es?Q.o_es:Q.o,placed=bets.reduce((a,b)=>a+b,0),left=bank-placed,used=bets.filter(b=>b>0).length,last=i===D.questions.length-1;
+function render(){const Q=D.questions[i],opts=PT&&Q.o_pt?Q.o_pt:ES&&Q.o_es?Q.o_es:Q.o,placed=bets.reduce((a,b)=>a+b,0),left=bank-placed,used=bets.filter(b=>b>0).length,last=i===D.questions.length-1;
  $('left').textContent=fmt(left);
- $('opts').innerHTML=opts.map((o,k)=>`<div class="opt" id="o${k}"><span class="door">${bets[k]?`<i class="spr" style="background-position:${-40*Math.min(5,Math.ceil(bets[k]/START*6)-1)}px -40px"></i>`:''}</span><span class="t">${String.fromCharCode(65+k)}. ${o}</span><b class="amt">${fmt(bets[k])}</b><div class="m"><button data-k="${k}" data-d="none" ${bets[k]?'':'disabled'} aria-label="${L('Take all off','Quitar todo')}">${L('CLEAR','NADA')}</button><button data-k="${k}" data-d="-1" ${bets[k]?'':'disabled'} aria-label="${L('Take off ','Quitar ')+fmt(stepNow())}">−${K(stepNow())}</button><button data-k="${k}" data-d="1" ${left&&(bets[k]||used<maxOn(opts.length))?'':'disabled'} aria-label="${L('Add ','Añadir ')+fmt(stepNow())}">+${K(stepNow())}</button><button data-k="${k}" data-d="all" ${left&&(bets[k]||used<maxOn(opts.length))?'':'disabled'} aria-label="${L('Put all the rest here','Poner aquí todo lo que queda')}">${L('ALL','TODO')}</button></div><div class="bar"><i style="width:${bank?bets[k]/bank*100:0}%"></i></div></div>`).join('');
- $('lock').disabled=left>0;$('lock').textContent=left>0?L(`Place ${fmt(left)} more`,`Coloca ${fmt(left)} más`):L('Lock it in!','¡Cerrar apuesta!');}
+ $('opts').innerHTML=opts.map((o,k)=>`<div class="opt" id="o${k}"><span class="door">${bets[k]?`<i class="spr" style="background-position:${-40*Math.min(5,Math.ceil(bets[k]/START*6)-1)}px -40px"></i>`:''}</span><span class="t">${String.fromCharCode(65+k)}. ${o}</span><b class="amt">${fmt(bets[k])}</b><div class="m"><button data-k="${k}" data-d="none" ${bets[k]?'':'disabled'} aria-label="${L('Take all off','Quitar todo',"Tirar tudo")}">${L('CLEAR','NADA',"LIMPAR")}</button><button data-k="${k}" data-d="-1" ${bets[k]?'':'disabled'} aria-label="${L('Take off ','Quitar ',"Tirar ")+fmt(stepNow())}">−${K(stepNow())}</button><button data-k="${k}" data-d="1" ${left&&(bets[k]||used<maxOn(opts.length))?'':'disabled'} aria-label="${L('Add ','Añadir ',"Pôr ")+fmt(stepNow())}">+${K(stepNow())}</button><button data-k="${k}" data-d="all" ${left&&(bets[k]||used<maxOn(opts.length))?'':'disabled'} aria-label="${L('Put all the rest here','Poner aquí todo lo que queda',"Pôr todo o resto aqui")}">${L('ALL','TODO',"TUDO")}</button></div><div class="bar"><i style="width:${bank?bets[k]/bank*100:0}%"></i></div></div>`).join('');
+ $('lock').disabled=left>0;$('lock').textContent=left>0?L(`Place ${fmt(left)} more`,`Coloca ${fmt(left)} más`,`Coloque mais ${fmt(left)}`):L('Lock it in!','¡Cerrar apuesta!',"Confirmar!");}
 // one change to answer k; returns true if anything moved
 function bump(k,d,mult=1){const n=bets.length,left=bank-bets.reduce((a,c)=>a+c,0),was=bets[k],st=stepNow()*mult;
  const open=bets[k]>0||bets.filter((v,j)=>j!==k&&v>0).length<maxOn(n);
@@ -226,14 +228,14 @@ $('opts').onclick=e=>{const b=e.target.closest('button[data-k]');if(!b||timer===
  if(bump(k,b.dataset.d))SFX[{none:'clear',all:'all','1':'add','-1':'sub'}[b.dataset.d]]();render()};
 function ask(){const Q=D.questions[i],n=Q.o.length;bets=Array(n).fill(0);t=SECS;
  $('steps').innerHTML=D.questions.map((_,j)=>`<i class="${j<i?'done':j===i?'on':''}"></i>`).join('');
- const note=ES?(Q.n_es||''):(Q.n||'');$('q').innerHTML=`<small>${L('Question','Pregunta')} ${i+1}/${D.questions.length} · ${n} ${L('answers','respuestas')}</small>${ES&&Q.q_es?Q.q_es:Q.q}${note?`<span class="qn">ⓘ ${note}</span>`:''}`;
+ const note=PT?(Q.n_pt||Q.n||''):ES?(Q.n_es||''):(Q.n||'');$('q').innerHTML=`<small>${L('Question','Pregunta',"Pergunta")} ${i+1}/${D.questions.length} · ${n} ${L('answers','respuestas',"respostas")}</small>${PT&&Q.q_pt?Q.q_pt:ES&&Q.q_es?Q.q_es:Q.q}${note?`<span class="qn">ⓘ ${note}</span>`:''}`;
  $('lock').hidden=false;$('next').hidden=true;$('clock').textContent=t;$('clock').classList.remove('low');
- say(i===D.questions.length-1?L('Last question. Everything on one answer. No pressure!','Última pregunta. Todo a una respuesta. ¡Sin presión!'):n===4?L('Four answers. Leave at least one empty.','Cuatro respuestas. Deja al menos una vacía.'):L('Three answers now. Leave one empty.','Ahora tres respuestas. Deja una vacía.'),'talk-1');
+ say(i===D.questions.length-1?L('Last question. Everything on one answer. No pressure!','Última pregunta. Todo a una respuesta. ¡Sin presión!',"Última pergunta. Tudo numa resposta só. Sem pressão!"):n===4?L('Four answers. Leave at least one empty.','Cuatro respuestas. Deja al menos una vacía.',"Quatro respostas. Deixe pelo menos uma vazia."):L('Three answers now. Leave one empty.','Ahora tres respuestas. Deja una vacía.',"Três respostas agora. Deixe uma vazia."),'talk-1');
  render();clearInterval(timer);timer=setInterval(()=>{t--;$('clock').textContent=t;$('watch').style.backgroundPosition=`${-32*((SECS-t)%4)}px 0`;$('clock').classList.toggle('low',t<=10);if(t<=10&&t>0)SFX.tick();if(t<=0)lock()},1000)}
 function lock(){clearInterval(timer);timer=null;let pre='';
  // time ran out with money still unplaced: it goes on the answer holding the most (a random one of them on a tie)
  const rest=bank-bets.reduce((a,b)=>a+b,0);if(rest>0){const top=Math.max(...bets),c=bets.map((v,k)=>v===top?k:-1).filter(k=>k>=0),k=c[Math.floor(Math.random()*c.length)];bets[k]+=rest;render();
-  pre=L(`Time! The ${fmt(rest)} you didn't place went on ${String.fromCharCode(65+k)}. `,`¡Tiempo! Los ${fmt(rest)} sin colocar fueron a la ${String.fromCharCode(65+k)}. `)}
+  pre=L(`Time! The ${fmt(rest)} you didn't place went on ${String.fromCharCode(65+k)}. `,`¡Tiempo! Los ${fmt(rest)} sin colocar fueron a la ${String.fromCharCode(65+k)}. `,`Tempo! Os ${fmt(rest)} que você não colocou foram para a ${String.fromCharCode(65+k)}. `)}
  const Q=D.questions[i],kept=bets[Q.a],lost=bank-kept;
  hist.push(kept>0?(kept===bank?'🟩':'🟨'):'🟥');bank=kept;
  $('opts').querySelectorAll('button').forEach(b=>b.disabled=true);$('lock').hidden=true;
@@ -242,15 +244,15 @@ function lock(){clearInterval(timer);timer=null;let pre='';
  all.forEach((v,k)=>{if(k!==Q.a&&!v)$('o'+k).classList.add('x')});
  const openDoor=k=>{const o=$('o'+k);if(o.classList.contains('lose'))return;o.classList.add('lose');SFX.door();drop(o)};
  if(pre)say(pre,'nervous');
- if(wrong.length){t=pre?900:350;say(pre+L('Opening the doors…','Abriendo las trampillas…'),'nervous');
-  wrong.forEach((k,j)=>{if(j===wrong.length-1&&kept){const kk=k;ts.push(setTimeout(()=>say(L(`Two left. ${fmt(kept)} or ${fmt(all[kk])}…`,`Quedan dos. ¿${fmt(kept)} o ${fmt(all[kk])}…?`),'nervous'),t));t+=1000}
+ if(wrong.length){t=pre?900:350;say(pre+L('Opening the doors…','Abriendo las trampillas…',"Abrindo os alçapões…"),'nervous');
+  wrong.forEach((k,j)=>{if(j===wrong.length-1&&kept){const kk=k;ts.push(setTimeout(()=>say(L(`Two left. ${fmt(kept)} or ${fmt(all[kk])}…`,`Quedan dos. ¿${fmt(kept)} o ${fmt(all[kk])}…?`,`Faltam duas. ${fmt(kept)} ou ${fmt(all[kk])}…`),'nervous'),t));t+=1000}
    ts.push(setTimeout(()=>openDoor(k),t));t+=520})}
  else t=pre?900:600;
  const finish=()=>{if(fin)return;fin=true;ts.forEach(clearTimeout);document.removeEventListener('pointerdown',skip,true);wrong.forEach(openDoor);
  $('o'+Q.a).classList.add('win');$('left').textContent=fmt(bank);
- const opts=ES&&Q.o_es?Q.o_es:Q.o,wy=ES?Q.why_es:Q.why;$('q').insertAdjacentHTML('beforeend',`<span class="why">${L('Answer','Respuesta')}: <b>${opts[Q.a]}</b>${wy?' · '+wy:''}</span>`);
+ const opts=PT&&Q.o_pt?Q.o_pt:ES&&Q.o_es?Q.o_es:Q.o,wy=PT?(Q.why_pt||Q.why):ES?Q.why_es:Q.why;$('q').insertAdjacentHTML('beforeend',`<span class="why">${L('Answer','Respuesta',"Resposta")}: <b>${opts[Q.a]}</b>${wy?' · '+wy:''}</span>`);
  if(!wrong.length)SFX.door();setTimeout(()=>(kept===bank&&lost===0&&kept?SFX.jackpot:kept?SFX.keep:SFX.bust)(),wrong.length?60:420);if(!lost&&kept)shower(18);
- say(pre+(!kept?L('Ay, ay, ay... it all falls through the trapdoor.','Ay, ay, ay... todo se va por la trampilla.'):lost?L(`Right answer! But ${fmt(lost)} drops away.`,`¡Correcta! Pero ${fmt(lost)} se van por la trampilla.`):L('All of it on the right one. Bravo!','Todo en la correcta. ¡Bravo!')),!kept?'facepalm':lost?'nervous':'celebrate');
+ say(pre+(!kept?L('Ay, ay, ay... it all falls through the trapdoor.','Ay, ay, ay... todo se va por la trampilla.',"Ai, ai, ai... tudo cai pelo alçapão."):lost?L(`Right answer! But ${fmt(lost)} drops away.`,`¡Correcta! Pero ${fmt(lost)} se van por la trampilla.`,`Resposta certa! Mas ${fmt(lost)} vão embora.`):L('All of it on the right one. Bravo!','Todo en la correcta. ¡Bravo!',"Tudo na certa. Bravo!")),!kept?'facepalm':lost?'nervous':'celebrate');
  if(!kept||i===D.questions.length-1){save();setTimeout(end,3200)}else $('next').hidden=false}
  const skip=e=>{if(e.target.closest&&e.target.closest('.snd'))return;finish()};setTimeout(()=>document.addEventListener('pointerdown',skip,true),50);ts.push(setTimeout(finish,t))}
 // banknotes: flutter frames are row 3 of the money sheet; short, rare moments so they can be a little showy
@@ -259,12 +261,12 @@ function note(x,y,dist,dur){if(matchMedia('(prefers-reduced-motion:reduce)').mat
  n.animate([{transform:'translate(0,0) rotate(0)',opacity:1},{transform:`translate(${sway}px,${dist}px) rotate(${sway*2}deg)`,opacity:0}],{duration:dur,easing:'cubic-bezier(.55,0,1,.45)',fill:'forwards'}).onfinish=()=>n.remove()}
 function drop(el){const r=el.querySelector('.door').getBoundingClientRect();for(let j=0;j<4;j++)setTimeout(()=>note(r.left+12+Math.random()*16,r.top+8,90,600),120+j*70)}
 function shower(n){for(let j=0;j<n;j++)setTimeout(()=>note(Math.random()*(innerWidth-40),-40,innerHeight*.9,1100+Math.random()*500),j*45)}
-function end(restored){show('end');$('rklink').href=(ES?'/es/':'/')+'#ranking-millon';$('rklink').parentNode.hidden=!!ARCH;if(ARCH){$('archback').hidden=false;$('archback').href=(ES?'/es/':'/')+'?inf=open';$('final').textContent=fmt(bank);$('grid').textContent=hist.join('');dayAvg();if(!restored)track('millon_finish',{score:bank,steps:hist.length});return say(bank?L(`You walk away with ${fmt(bank)}. Try another day from the archive!`,`Te llevas ${fmt(bank)}. ¡Prueba otro día del archivo!`):L('Nothing left. Try another day from the archive!','Te quedas a cero. ¡Prueba otro día del archivo!'),bank?'happy-talk':'sad-talk')}
+function end(restored){show('end');$('rklink').href=(PT?'/pt/':ES?'/es/':'/')+'#ranking-millon';$('rklink').parentNode.hidden=!!ARCH;if(ARCH){$('archback').hidden=false;$('archback').href=(PT?'/pt/':ES?'/es/':'/')+'?inf=open';$('final').textContent=fmt(bank);$('grid').textContent=hist.join('');dayAvg();if(!restored)track('millon_finish',{score:bank,steps:hist.length});return say(bank?L(`You walk away with ${fmt(bank)}. Try another day from the archive!`,`Te llevas ${fmt(bank)}. ¡Prueba otro día del archivo!`,`Você sai com ${fmt(bank)}. Tente outro dia do arquivo!`):L('Nothing left. Try another day from the archive!','Te quedas a cero. ¡Prueba otro día del archivo!',"Não sobrou nada. Tente outro dia do arquivo!"),bank?'happy-talk':'sad-talk')}
  CH&&CH.end($('chal2'),bank,!restored);feedback();if(!restored)rpc('millon_save',{p_day:DAY,p_score:bank,p_hist:hist.join('')}).catch(()=>{}).finally(()=>board());else board();dayAvg();$('final').textContent=fmt(bank);$('grid').textContent=hist.join('');if(!restored)track('millon_finish',{score:bank,steps:hist.length});
- say(bank?L(`You walk away with ${fmt(bank)}. Same game tomorrow, new questions!`,`Te llevas ${fmt(bank)}. ¡Mañana, preguntas nuevas!`):L('Nothing left today. Come back tomorrow!','Hoy te quedas a cero. ¡Vuelve mañana!'),bank?'happy-talk':'sad-talk')}
+ say(bank?L(`You walk away with ${fmt(bank)}. Same game tomorrow, new questions!`,`Te llevas ${fmt(bank)}. ¡Mañana, preguntas nuevas!`,`Você sai com ${fmt(bank)}. Mesmo jogo amanhã, perguntas novas!`):L('Nothing left today. Come back tomorrow!','Hoy te quedas a cero. ¡Vuelve mañana!',"Não sobrou nada hoje. Volte amanhã!"),bank?'happy-talk':'sad-talk')}
 $('lock').onclick=()=>{if(timer===null)return;clearInterval(timer);const b=$('lock');b.classList.add('press');SFX.press();setTimeout(()=>{b.classList.remove('press');lock()},450)};$('next').onclick=()=>{i++;ask()};
 $('go').onclick=()=>{show('play');ask();track('millon_start')};
-const resultText=()=>`Unicorner ${L('Millions','Millones')} ${DAY}\n${hist.join('')}\n💰 ${fmt(bank)}\nhttps://unicornergame.lol${ES?'/es':''}/millon.html`;
+const resultText=()=>`Unicorner ${L('Millions','Millones',"Milhões")} ${DAY}\n${hist.join('')}\n💰 ${fmt(bank)}\nhttps://unicornergame.lol${PT?'/pt':ES?'/es':''}/millon.html`;
 {const b=$('snd'),paint=()=>{b.dataset.on=sndOn()?'1':'0';b.setAttribute('aria-pressed',String(sndOn()))};paint();b.onclick=()=>{try{localStorage.setItem('unicorner-sound',sndOn()?'off':'on')}catch{}paint();if(sndOn())SFX.keep()}}
 // feedback after the game: 1-10 and an optional note, once per day (event millon_feedback, read by the weekly feedback digest)
 function feedback(){const k='uc-millon-fb-'+DAY;try{if(localStorage.getItem(k))return}catch{}let rating=0;$('fb').hidden=false;
@@ -279,36 +281,36 @@ async function millonImage(){const W=1080,H=1350,c=document.createElement('canva
  try{g.drawImage(await img('/millon/art/studio-portrait.png'),0,-200,W,1920)}catch{g.fillStyle=ink;g.fillRect(0,0,W,H)}
  g.fillStyle='rgba(29,26,43,.55)';g.fillRect(0,0,W,H);
  g.fillStyle=ink;g.fillRect(0,0,W,120);g.fillStyle=gold;g.font='64px "Jersey 10",monospace';g.textBaseline='middle';g.fillText('UNICORNER',48,64);
- g.fillStyle=cr;g.textAlign='right';g.font='44px VT323,monospace';g.fillText(`${L('MILLIONS','MILLONES')} · ${DAY}`,W-48,64);g.textAlign='center';
+ g.fillStyle=cr;g.textAlign='right';g.font='44px VT323,monospace';g.fillText(`${L('MILLIONS','MILLONES',"MILHÕES")} · ${DAY}`,W-48,64);g.textAlign='center';
  try{g.drawImage(await img('/millon/art/marquee.png'),90,170,900,300)}catch{}
- g.fillStyle=gold;g.font='120px "Jersey 10",monospace';g.fillText(L('MILLIONS','MILLONES'),W/2,322);
- g.fillStyle=cr;g.font='56px VT323,monospace';g.fillText(L('I KEPT','ME LLEVO'),W/2,560);
+ g.fillStyle=gold;g.font='120px "Jersey 10",monospace';g.fillText(L('MILLIONS','MILLONES',"MILHÕES"),W/2,322);
+ g.fillStyle=cr;g.font='56px VT323,monospace';g.fillText(L('I KEPT','ME LLEVO',"EU FIQUEI COM"),W/2,560);
  g.fillStyle=ink;g.font='170px "Jersey 10",monospace';g.fillText(fmt(bank),W/2+8,690+8);g.fillStyle=bank?gold:'#f0a097';g.fillText(fmt(bank),W/2,690);
  const cols={'🟩':'#2fbf71','🟨':gold,'🟥':'#c8473b'},sz=86,gap=16,tot=8*sz+7*gap;
  for(let k=0;k<8;k++){const x=W/2-tot/2+k*(sz+gap),y=810;g.fillStyle=ink;g.fillRect(x-5,y-5,sz+10,sz+10);g.fillStyle=cols[hist[k]]||'#3a3450';g.fillRect(x,y,sz,sz);g.fillStyle=hist[k]?ink:'#6b6878';g.font='48px "Jersey 10",monospace';g.fillText(String(k+1),x+sz/2,y+sz/2+4)}
  try{g.drawImage(await img('/rosco/host/'+(bank>=500000?'celebrate':bank?'happy-1':'facepalm')+'.png'),W/2-110,930,220,220)}catch{}
- g.fillStyle=ink;g.fillRect(0,H-130,W,130);g.fillStyle=cr;g.font='52px "Jersey 10",monospace';g.fillText(L('Can you keep more?','¿Te llevas más que yo?'),W/2,H-84);g.fillStyle=gold;g.font='40px VT323,monospace';g.fillText(ES?'unicornergame.lol/es/millon':'unicornergame.lol/millon',W/2,H-36);
+ g.fillStyle=ink;g.fillRect(0,H-130,W,130);g.fillStyle=cr;g.font='52px "Jersey 10",monospace';g.fillText(L('Can you keep more?','¿Te llevas más que yo?',"Consegue ficar com mais?"),W/2,H-84);g.fillStyle=gold;g.font='40px VT323,monospace';g.fillText(PT?'unicornergame.lol/pt/millon':ES?'unicornergame.lol/es/millon':'unicornergame.lol/millon',W/2,H-36);
  return new Promise(res=>c.toBlob(res,'image/png'))}
 const dlImg=blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`millions-${DAY}.png`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)};
-$('dlimg').onclick=async()=>{const b=$('dlimg');b.disabled=true;track('millon_download_image',{score:bank});try{dlImg(await millonImage());b.textContent=L('Saved ✓','Guardada ✓');setTimeout(()=>b.textContent=L('Save image','Guardar imagen'),2000)}catch{}b.disabled=false};
+$('dlimg').onclick=async()=>{const b=$('dlimg');b.disabled=true;track('millon_download_image',{score:bank});try{dlImg(await millonImage());b.textContent=L('Saved ✓','Guardada ✓',"Salvo ✓");setTimeout(()=>b.textContent=L('Save image','Guardar imagen',"Salvar imagem"),2000)}catch{}b.disabled=false};
 $('shareimg').onclick=async()=>{const b=$('shareimg');b.disabled=true;track('millon_share_image',{score:bank});
  try{const blob=await millonImage(),f=new File([blob],`millions-${DAY}.png`,{type:'image/png'});
   if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],text:resultText()})}catch{}}
-  else{dlImg(blob);b.textContent=L('Saved! Post it anywhere','¡Guardada! Publícala donde quieras');setTimeout(()=>b.textContent=L('Share image','Compartir imagen'),2200)}}catch{}
+  else{dlImg(blob);b.textContent=L('Saved! Post it anywhere','¡Guardada! Publícala donde quieras',"Salvo! Poste onde quiser");setTimeout(()=>b.textContent=L('Share image','Compartir imagen',"Compartilhar imagem"),2200)}}catch{}
  b.disabled=false};
-$('copy').onclick=()=>{navigator.clipboard.writeText(resultText()).then(()=>{$('copy').textContent=L('Copied!','¡Copiado!');setTimeout(()=>$('copy').textContent=L('Copy text','Copiar texto'),1600)}).catch(()=>{})};
-(async()=>{if(ARCH&&(()=>{try{return localStorage.getItem('uc-inf-sub')!=='1'}catch{return true}})()){say(L('Past games are part of Infinity mode.','Los juegos anteriores son parte del Modo Infinito.'),'nervous');document.querySelector('main')?.insertAdjacentHTML('beforeend',`<a class="btn gold" style="margin-top:12px" href="${ES?'/es/':'/'}?inf=open">${L('See Infinity','Ver el Infinito')}</a>`);track('millon_archive_locked',{});return}
- try{const r=await fetch(`/millon/${DAY}.json`,{cache:'no-cache'});if(!r.ok)throw 0;D=await r.json()}catch{say(L('No game today yet. Come back soon!','Aún no hay juego hoy. ¡Vuelve pronto!'),'sad');return}
+$('copy').onclick=()=>{navigator.clipboard.writeText(resultText()).then(()=>{$('copy').textContent=L('Copied!','¡Copiado!',"Copiado!");setTimeout(()=>$('copy').textContent=L('Copy text','Copiar texto',"Copiar texto"),1600)}).catch(()=>{})};
+(async()=>{if(ARCH&&(()=>{try{return localStorage.getItem('uc-inf-sub')!=='1'}catch{return true}})()){say(L('Past games are part of Infinity mode.','Los juegos anteriores son parte del Modo Infinito.',"Os jogos anteriores fazem parte do Modo Infinito."),'nervous');document.querySelector('main')?.insertAdjacentHTML('beforeend',`<a class="btn gold" style="margin-top:12px" href="${PT?'/pt/':ES?'/es/':'/'}?inf=open">${L('See Infinity','Ver el Infinito',"Ver o Infinito")}</a>`);track('millon_archive_locked',{});return}
+ try{const r=await fetch(`/millon/${DAY}.json`,{cache:'no-cache'});if(!r.ok)throw 0;D=await r.json()}catch{say(L('No game today yet. Come back soon!','Aún no hay juego hoy. ¡Vuelve pronto!',"Ainda não tem jogo hoje. Volte daqui a pouco!"),'sad');return}
  let s=null;try{s=JSON.parse(localStorage.getItem(KEY))}catch{}
  if(!(s&&s.done)&&!ARCH){try{const m=await rpc('millon_mine',{p_day:DAY});if(m&&m.score!=null)s={bank:m.score,hist:[...m.hist],done:true}}catch{}}
  // friend challenge (challenge.js): "keep more than me on today's Millions"
  CH=window.ucChallenge&&!ARCH?ucChallenge({game:'millon',day:DAY,max:START,es:ES,track,played:()=>s&&s.done?s.bank:null,fmt:v=>fmt(v),
   banner:(who,v)=>({en:`<strong>${who} kept ${fmt(v)} on today's Millions.</strong> Same 8 questions. Can you keep more?`,es:`<strong>${who} se llevó ${fmt(v)} en Millones de hoy.</strong> Las mismas 8 preguntas. ¿Te llevas más?`}),
-  share:(v,u)=>`Unicorner ${L('Millions','Millones')} ${DAY}\n${hist.join('')}\n💰 ${fmt(v)}\n${L('Can you keep more?','¿Te llevas más?')}\n${u}`,
-  url:code=>`https://unicornergame.lol${ES?'/es':''}/millon.html?c=${code}`}):null;
+  share:(v,u)=>`Unicorner ${L('Millions','Millones',"Milhões")} ${DAY}\n${hist.join('')}\n💰 ${fmt(v)}\n${L('Can you keep more?','¿Te llevas más?',"Consegue ficar com mais?")}\n${u}`,
+  url:code=>`https://unicornergame.lol${PT?'/pt':ES?'/es':''}/millon.html?c=${code}`}):null;
  if(s&&s.done){bank=s.bank;hist=s.hist;save();end(true);return}
  CH&&CH.intro($('chal0'));
  dayAvg();
- say(ARCH?L(`From the archive: the game of ${new Date(DAY+'T12:00:00Z').toLocaleDateString('en-GB',{day:'numeric',month:'long',timeZone:'UTC'})}. Here is a million. Let's see how much of it you keep.`,`Del archivo: el juego del ${new Date(DAY+'T12:00:00Z').toLocaleDateString('es-ES',{day:'numeric',month:'long',timeZone:'UTC'})}. Aquí tienes un millón. A ver cuánto te llevas.`):L('Welcome! Here is a million. Let\'s see how much of it you keep.','¡Bienvenido! Aquí tienes un millón. A ver cuánto te llevas.'),'happy-talk');show('intro')})();
+ say(ARCH?L(`From the archive: the game of ${new Date(DAY+'T12:00:00Z').toLocaleDateString('en-GB',{day:'numeric',month:'long',timeZone:'UTC'})}. Here is a million. Let's see how much of it you keep.`,`Del archivo: el juego del ${new Date(DAY+'T12:00:00Z').toLocaleDateString('es-ES',{day:'numeric',month:'long',timeZone:'UTC'})}. Aquí tienes un millón. A ver cuánto te llevas.`,`Do arquivo: o jogo de ${new Date(DAY+'T12:00:00Z').toLocaleDateString('pt-BR',{day:'numeric',month:'long',timeZone:'UTC'})}. Aqui está um milhão. Vamos ver com quanto você fica.`):L('Welcome! Here is a million. Let\'s see how much of it you keep.','¡Bienvenido! Aquí tienes un millón. A ver cuánto te llevas.',"Bem-vindo! Aqui está um milhão. Vamos ver com quanto você fica."),'happy-talk');show('intro')})();
 </script><script src="/chat.js" defer></script>
 </body></html>

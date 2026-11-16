@@ -78,6 +78,16 @@ def main():
         out = json.dumps(d, ensure_ascii=False, indent=2 if pretty else None, separators=None if pretty else (',', ':')) + ('\n' if raw.endswith('\n') else '')
         if out != raw:
             open(f, 'w', encoding='utf-8').write(out)
+    # the Duels / Stable Hand bank: the same country names
+    bp = os.path.join(ROOT, 'duel', 'bank.json')
+    raw = open(bp, encoding='utf-8').read()
+    bank = json.loads(raw)
+    for q in bank:
+        if q.get('answer_type') == 'country':
+            for a in q['answers'] + q.get('traps', []):
+                add_country(a)
+    if bank != json.loads(raw):
+        json.dump(bank, open(bp, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
     print('prompts translated:', n)
 
 

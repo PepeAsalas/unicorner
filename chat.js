@@ -4,7 +4,7 @@
 (()=>{
 if(window.__ucChat)return;window.__ucChat=1;
 const SB_URL="https://yujhjepukzdahsppntua.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1amhqZXB1a3pkYWhzcHBudHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2NDMzNDcsImV4cCI6MjEwNTIxOTM0N30.YIOdtL7tJnNLPFPy19QuXe6w3Dcnz6Xedw0tFGdV_CE";
-const ES=location.pathname.startsWith('/es/'),L=(en,es)=>ES?es:en,HOME=ES?'/es/':'/';
+const ES=location.pathname.startsWith('/es/'),PT=location.pathname.startsWith('/pt/'),L=(en,es,pt)=>PT?(pt??en):ES?es:en,HOME=PT?'/pt/':ES?'/es/':'/';
 const ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch{return null}};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let ROOT=null;const $=id=>ROOT?ROOT.getElementById(id):null;
@@ -14,7 +14,7 @@ async function token(){let s=sess();if(!s)return null;
   s={...s,access_token:j.access_token,refresh_token:j.refresh_token||s.refresh_token,exp:Date.now()+Math.max(60,(+j.expires_in||3600))*1000};ls('uc-player-session',JSON.stringify(s))}catch{return null}}
  return s.access_token}
 async function call(fn,args){const t=await token();const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+(t||SB_KEY),'Content-Type':'application/json'},body:JSON.stringify(args||{})});
- const j=await r.json().catch(()=>null);if(!r.ok)throw new Error((j&&(j.message||j.hint))||L('Something went wrong. Try again.','Algo ha fallado. Inténtalo de nuevo.'));return j}
+ const j=await r.json().catch(()=>null);if(!r.ok)throw new Error((j&&(j.message||j.hint))||L('Something went wrong. Try again.','Algo ha fallado. Inténtalo de nuevo.',"Algo deu errado. Tente de novo."));return j}
 const track=(name,data)=>{try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,session:'c'+Math.random().toString(36).slice(2,8),visitor:ls('uc-visitor'),seconds:0,game_day:DAY,event_version:2,data:{page:location.pathname,...(data||{})}})}).catch(()=>{})}catch{}};
 const DAY=new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Amsterdam'});
 
@@ -37,7 +37,7 @@ function spoil(text){if(!SPOIL)return esc(text);
  const re=/[a-z0-9]+/g;let m;while((m=re.exec(n))){const w=m[0];if(w.length<3)continue;let bad=SPOIL.words.has(w);
   if(!bad&&w.length>=5){const tol=w.length>=9?2:1;for(const t of SPOIL.words){if(t.length>=5&&Math.abs(t.length-w.length)<=tol&&lev(w,t)<=tol){bad=true;break}}}
   if(bad)hit.fill(1,m.index,m.index+w.length)}
- let out='',i=0;while(i<src.length){if(hit[i]){let j=i;while(j<src.length&&(hit[j]||(src[j]===' '&&hit[j+1])))j++;out+=`<mark class="ucc-sp" title="${L("Today's Daily 5 answer",'Respuesta del Daily 5 de hoy')}">SPOILER</mark>`;i=j}else{let j=i;while(j<src.length&&!hit[j])j++;out+=esc(src.slice(i,j));i=j}}
+ let out='',i=0;while(i<src.length){if(hit[i]){let j=i;while(j<src.length&&(hit[j]||(src[j]===' '&&hit[j+1])))j++;out+=`<mark class="ucc-sp" title="${L("Today's Daily 5 answer",'Respuesta del Daily 5 de hoy',"Resposta do Diário 5 de hoje")}">SPOILER</mark>`;i=j}else{let j=i;while(j<src.length&&!hit[j])j++;out+=esc(src.slice(i,j));i=j}}
  return out}
 
 // ── the unicorn next to each name: whichever sprite helper this page has ──
@@ -87,19 +87,19 @@ const CSS=`
 .ucc.kb .ucc-rules,.ucc.kb .ucc-h small{display:none}.ucc.kb .ucc-h{padding-top:8px;padding-bottom:8px}`;
 
 const C={rows:[],last:0,me:null,open:null,loaded:false,busy:false,isOpen:false,unread:0,seen:+(ls('uc-chat-seen')||0)};
-const tm=at=>new Date(at).toLocaleTimeString(ES?'es-ES':'en-GB',{hour:'2-digit',minute:'2-digit'});
+const tm=at=>new Date(at).toLocaleTimeString(PT?'pt-BR':ES?'es-ES':'en-GB',{hour:'2-digit',minute:'2-digit'});
 function row(m){const open=C.open===m.id,me=C.me;
- const menu=open?`<div class="ucc-menu">${m.mine?`<button type="button" data-c="del" data-id="${m.id}">${L('Delete','Borrar')}</button>`:`<button type="button" data-c="report" data-id="${m.id}">${L('Report','Denunciar')}</button><button type="button" data-c="block" data-nick="${esc(m.nick)}">${L('Block','Bloquear')} ${esc(m.nick)}</button>`}${me?.mod&&!m.mine?`<button type="button" class="danger" data-c="del" data-id="${m.id}">${L('Delete','Borrar')}</button><button type="button" class="danger" data-c="mute" data-nick="${esc(m.nick)}" data-h="24">${L('Mute 24h','Silenciar 24h')}</button><button type="button" class="danger" data-c="mute" data-nick="${esc(m.nick)}" data-h="9999">${L('Mute for good','Silenciar siempre')}</button>`:''}</div>`:'';
- return`<div class="ucc-m${m.mine?' mine':''}"><i class="ucc-av" style="background-image:${uni(m.kit)}"></i><div class="ucc-hd"><button type="button" class="ucc-n" data-nick="${esc(m.nick)}" data-kit="${esc(m.kit)}">${esc(m.nick)}</button>${m.mod?'<span class="ucc-mod">MOD</span>':''}<span class="ucc-t">${tm(m.at)}</span></div>${sess()?`<button type="button" class="ucc-more" data-c="menu" data-id="${m.id}" aria-label="${L('Options','Opciones')}" aria-expanded="${open}">⋯</button>`:''}<div class="ucc-b">${spoil(m.body)}</div>${menu}</div>`}
+ const menu=open?`<div class="ucc-menu">${m.mine?`<button type="button" data-c="del" data-id="${m.id}">${L('Delete','Borrar',"Apagar")}</button>`:`<button type="button" data-c="report" data-id="${m.id}">${L('Report','Denunciar',"Denunciar")}</button><button type="button" data-c="block" data-nick="${esc(m.nick)}">${L('Block','Bloquear',"Bloquear")} ${esc(m.nick)}</button>`}${me?.mod&&!m.mine?`<button type="button" class="danger" data-c="del" data-id="${m.id}">${L('Delete','Borrar',"Apagar")}</button><button type="button" class="danger" data-c="mute" data-nick="${esc(m.nick)}" data-h="24">${L('Mute 24h','Silenciar 24h',"Silenciar 24h")}</button><button type="button" class="danger" data-c="mute" data-nick="${esc(m.nick)}" data-h="9999">${L('Mute for good','Silenciar siempre',"Silenciar para sempre")}</button>`:''}</div>`:'';
+ return`<div class="ucc-m${m.mine?' mine':''}"><i class="ucc-av" style="background-image:${uni(m.kit)}"></i><div class="ucc-hd"><button type="button" class="ucc-n" data-nick="${esc(m.nick)}" data-kit="${esc(m.kit)}">${esc(m.nick)}</button>${m.mod?'<span class="ucc-mod">MOD</span>':''}<span class="ucc-t">${tm(m.at)}</span></div>${sess()?`<button type="button" class="ucc-more" data-c="menu" data-id="${m.id}" aria-label="${L('Options','Opciones',"Opções")}" aria-expanded="${open}">⋯</button>`:''}<div class="ucc-b">${spoil(m.body)}</div>${menu}</div>`}
 function draw(keep){const el=$('ucc-list');if(!el)return;const near=el.scrollHeight-el.scrollTop-el.clientHeight<80;
- el.innerHTML=C.rows.length?C.rows.map(row).join(''):`<p class="ucc-empty">${C.loaded?L('No messages yet. Say hello!','Aún no hay mensajes. ¡Saluda!'):L('Loading the chat…','Cargando el chat…')}</p>`;
+ el.innerHTML=C.rows.length?C.rows.map(row).join(''):`<p class="ucc-empty">${C.loaded?L('No messages yet. Say hello!','Aún no hay mensajes. ¡Saluda!',"Nenhuma mensagem ainda. Diga oi!"):L('Loading the chat…','Cargando el chat…',"Carregando o chat…")}</p>`;
  if(!keep||near)el.scrollTop=el.scrollHeight}
 function compose(){const box=$('ucc-c');if(!box)return;const me=C.me;
- if(!sess()){box.innerHTML=`<p class="ucc-info"><a href="${HOME}#signin" data-uc-signin>${L('Sign in','Inicia sesión')}</a> ${L('to chat with everyone. It\'s free.','para chatear con todos. Es gratis.')}</p>`;return}
- if(!me?.nick){box.innerHTML=`<p class="ucc-info">${L('Pick a nickname on the','Elige un apodo en la')} <a href="${HOME}">${L('home page','página principal')}</a> ${L('to start chatting.','para chatear.')}</p>`;return}
- if(me.muted_until){box.innerHTML=`<p class="ucc-info bad">${L('A moderator muted you until','Un moderador te ha silenciado hasta')} ${new Date(me.muted_until).toLocaleString(ES?'es-ES':'en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}.</p>`;return}
+ if(!sess()){box.innerHTML=`<p class="ucc-info"><a href="${HOME}#signin" data-uc-signin>${L('Sign in','Inicia sesión',"Entre")}</a> ${L('to chat with everyone. It\'s free.','para chatear con todos. Es gratis.',"para conversar com todo mundo. É grátis.")}</p>`;return}
+ if(!me?.nick){box.innerHTML=`<p class="ucc-info">${L('Pick a nickname on the','Elige un apodo en la',"Escolha um apelido na")} <a href="${HOME}">${L('home page','página principal',"página inicial")}</a> ${L('to start chatting.','para chatear.',"para começar a conversar.")}</p>`;return}
+ if(me.muted_until){box.innerHTML=`<p class="ucc-info bad">${L('A moderator muted you until','Un moderador te ha silenciado hasta',"Um moderador te silenciou até")} ${new Date(me.muted_until).toLocaleString(PT?'pt-BR':ES?'es-ES':'en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}.</p>`;return}
  if($('ucc-in'))return;
- box.innerHTML=`<p class="ucc-as">${L('Chatting as','Chateas como')} <b>${esc(me.nick)}</b> · <button type="button" class="ucc-cn" data-c="nick">${L('Change','Cambiar')}</button></p><p class="ucc-err" id="ucc-err" hidden></p><form class="ucc-f" id="ucc-f"><input id="ucc-in" maxlength="280" autocomplete="off" enterkeyhint="send" placeholder="${L('Message as','Escribe como')} ${esc(me.nick)}" aria-label="${L('Message','Mensaje')}"><button type="submit" id="ucc-send">${L('Send','Enviar')}</button></form>`;
+ box.innerHTML=`<p class="ucc-as">${L('Chatting as','Chateas como',"Conversando como")} <b>${esc(me.nick)}</b> · <button type="button" class="ucc-cn" data-c="nick">${L('Change','Cambiar',"Trocar")}</button></p><p class="ucc-err" id="ucc-err" hidden></p><form class="ucc-f" id="ucc-f"><input id="ucc-in" maxlength="280" autocomplete="off" enterkeyhint="send" placeholder="${L('Message as','Escribe como',"Mensagem como")} ${esc(me.nick)}" aria-label="${L('Message','Mensaje',"Mensagem")}"><button type="submit" id="ucc-send">${L('Send','Enviar',"Enviar")}</button></form>`;
  $('ucc-f').onsubmit=async e=>{e.preventDefault();const v=$('ucc-in').value.trim();if(!v)return;$('ucc-send').disabled=true;$('ucc-err').hidden=true;
   try{const m=await call('chat_send',{p_body:v});$('ucc-in').value='';if(m&&!C.rows.some(r=>r.id===m.id)){C.rows.push(m);C.last=Math.max(C.last,m.id);draw()}track('chat_send',{len:v.length})}
   catch(err){$('ucc-err').textContent=err.message;$('ucc-err').hidden=false}finally{$('ucc-send').disabled=false;$('ucc-in').focus()}}}
@@ -116,10 +116,10 @@ function setOpen(on,how){C.isOpen=on;if(matchMedia('(max-width:700px)').matches)
  if(on){markSeen();draw();if(how)track('chat_open',{how})}badge()}
 function playerOpen(nick,kit){if(typeof window.ucPlayerCard==='function'){if(matchMedia('(max-width:700px)').matches)setOpen(false);window.ucPlayerCard(nick,kit);return}location.href=HOME+'squad.html#player='+encodeURIComponent(nick)}
 function build(){const host=document.createElement('div');host.id='ucc-host';document.body.appendChild(host);ROOT=host.attachShadow({mode:'open'});const st=document.createElement('style');st.textContent=CSS;ROOT.appendChild(st);
- const tab=document.createElement('button');tab.type='button';tab.id='ucc-tab';tab.className='ucc-tab';tab.textContent=L('CHAT','CHAT');tab.setAttribute('aria-controls','ucc');tab.setAttribute('aria-expanded','false');
- const p=document.createElement('aside');p.id='ucc';p.className='ucc';p.setAttribute('aria-label',L('Global chat','Chat global'));p.dataset.open='0';p.inert=true;
- p.innerHTML=`<div class="ucc-h"><div><b>${L('GLOBAL CHAT','CHAT GLOBAL')}</b><small>${L("Keep it football. Today's Daily 5 answers show as SPOILER.",'De fútbol. Las respuestas del Daily 5 de hoy salen como SPOILER.')}</small></div><button type="button" class="ucc-x" id="ucc-x" aria-label="${L('Close chat','Cerrar chat')}"><svg viewBox="0 0 9 8" width="18" height="16" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M0 0h1v1H0zM0 7h1v1H0zM1 0h1v1H1zM1 1h1v1H1zM1 6h1v1H1zM1 7h1v1H1zM2 1h1v1H2zM2 2h1v1H2zM2 5h1v1H2zM2 6h1v1H2zM3 2h1v1H3zM3 3h1v1H3zM3 4h1v1H3zM3 5h1v1H3zM4 3h1v1H4zM4 4h1v1H4zM5 2h1v1H5zM5 3h1v1H5zM5 4h1v1H5zM5 5h1v1H5zM6 1h1v1H6zM6 2h1v1H6zM6 5h1v1H6zM6 6h1v1H6zM7 0h1v1H7zM7 1h1v1H7zM7 6h1v1H7zM7 7h1v1H7zM8 0h1v1H8zM8 7h1v1H8z"/></svg></button></div>
-  <p class="ucc-rules">${L("Say what you want. Anything nasty: tap ⋯ and report it. Three reports and it's gone.",'Di lo que quieras. Si algo es ofensivo: toca ⋯ y denúncialo. Con tres denuncias desaparece.')}</p>
+ const tab=document.createElement('button');tab.type='button';tab.id='ucc-tab';tab.className='ucc-tab';tab.textContent=L('CHAT','CHAT',"CHAT");tab.setAttribute('aria-controls','ucc');tab.setAttribute('aria-expanded','false');
+ const p=document.createElement('aside');p.id='ucc';p.className='ucc';p.setAttribute('aria-label',L('Global chat','Chat global',"Chat geral"));p.dataset.open='0';p.inert=true;
+ p.innerHTML=`<div class="ucc-h"><div><b>${L('GLOBAL CHAT','CHAT GLOBAL',"CHAT GERAL")}</b><small>${L("Keep it football. Today's Daily 5 answers show as SPOILER.",'De fútbol. Las respuestas del Daily 5 de hoy salen como SPOILER.',"Só futebol. As respostas do Diário 5 de hoje aparecem como SPOILER.")}</small></div><button type="button" class="ucc-x" id="ucc-x" aria-label="${L('Close chat','Cerrar chat',"Fechar chat")}"><svg viewBox="0 0 9 8" width="18" height="16" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M0 0h1v1H0zM0 7h1v1H0zM1 0h1v1H1zM1 1h1v1H1zM1 6h1v1H1zM1 7h1v1H1zM2 1h1v1H2zM2 2h1v1H2zM2 5h1v1H2zM2 6h1v1H2zM3 2h1v1H3zM3 3h1v1H3zM3 4h1v1H3zM3 5h1v1H3zM4 3h1v1H4zM4 4h1v1H4zM5 2h1v1H5zM5 3h1v1H5zM5 4h1v1H5zM5 5h1v1H5zM6 1h1v1H6zM6 2h1v1H6zM6 5h1v1H6zM6 6h1v1H6zM7 0h1v1H7zM7 1h1v1H7zM7 6h1v1H7zM7 7h1v1H7zM8 0h1v1H8zM8 7h1v1H8z"/></svg></button></div>
+  <p class="ucc-rules">${L("Say what you want. Anything nasty: tap ⋯ and report it. Three reports and it's gone.",'Di lo que quieras. Si algo es ofensivo: toca ⋯ y denúncialo. Con tres denuncias desaparece.',"Fale o que quiser. Algo ofensivo: toque em ⋯ e denuncie. Três denúncias e some.")}</p>
   <div class="ucc-list" id="ucc-list" aria-live="polite"></div><div id="ucc-c"></div>`;
  ROOT.append(tab,p);
  tab.onclick=()=>setOpen(true,'tab');$('ucc-x').onclick=()=>{setOpen(false);tab.focus()};
@@ -128,10 +128,10 @@ function build(){const host=document.createElement('div');host.id='ucc-host';doc
  $('ucc-list').addEventListener('click',async e=>{const n=e.target.closest('.ucc-n');if(n){playerOpen(n.dataset.nick,n.dataset.kit);return}
   const b=e.target.closest('[data-c]');if(!b)return;const k=b.dataset.c,id=+b.dataset.id;
   if(k==='menu'){C.open=C.open===id?null:id;draw(true);return}
-  try{if(k==='report'){const r=await call('chat_report',{p_id:id});toast(r==='hidden'?L('Removed. Thanks for reporting.','Eliminado. Gracias por avisar.'):L('Reported. Thanks.','Denunciado. Gracias.'));if(r==='hidden')C.rows=C.rows.filter(m=>m.id!==id);track('chat_report',{})}
-   else if(k==='del'){await call('chat_delete',{p_id:id});C.rows=C.rows.filter(m=>m.id!==id);toast(L('Deleted','Borrado'))}
-   else if(k==='block'){await call('chat_block',{p_nick:b.dataset.nick,p_on:true});C.rows=C.rows.filter(m=>m.nick!==b.dataset.nick);toast(L("You won't see them in the chat any more.",'Ya no lo verás en el chat.'));track('chat_block',{})}
-   else if(k==='mute'){await call('chat_mute',{p_nick:b.dataset.nick,p_hours:+b.dataset.h});C.rows=C.rows.filter(m=>m.nick!==b.dataset.nick);toast(b.dataset.nick+L(' is muted',' está silenciado'))}
+  try{if(k==='report'){const r=await call('chat_report',{p_id:id});toast(r==='hidden'?L('Removed. Thanks for reporting.','Eliminado. Gracias por avisar.',"Removido. Obrigado por denunciar."):L('Reported. Thanks.','Denunciado. Gracias.',"Denunciado. Obrigado."));if(r==='hidden')C.rows=C.rows.filter(m=>m.id!==id);track('chat_report',{})}
+   else if(k==='del'){await call('chat_delete',{p_id:id});C.rows=C.rows.filter(m=>m.id!==id);toast(L('Deleted','Borrado',"Apagado"))}
+   else if(k==='block'){await call('chat_block',{p_nick:b.dataset.nick,p_on:true});C.rows=C.rows.filter(m=>m.nick!==b.dataset.nick);toast(L("You won't see them in the chat any more.",'Ya no lo verás en el chat.',"Você não vai mais ver essa pessoa no chat."));track('chat_block',{})}
+   else if(k==='mute'){await call('chat_mute',{p_nick:b.dataset.nick,p_hours:+b.dataset.h});C.rows=C.rows.filter(m=>m.nick!==b.dataset.nick);toast(b.dataset.nick+L(' is muted',' está silenciado'," está silenciado"))}
    C.open=null;draw(true)}catch(err){toast(err.message)}});
 // phones: the keyboard covers the page instead of shrinking it, so size the chat to the space that's actually visible
  // (above the keyboard) and keep the newest messages and the text box in view
@@ -161,21 +161,21 @@ const NCSS=`.ucn-bg{position:fixed;inset:0;z-index:9500;background:rgba(10,8,20,
 .ucn .e{color:#c8473b;margin:8px 0 0}.ucn .ok{color:#2f8f5b}`;
 window.ucChangeNick=async()=>{if(!sess()){location.href=HOME+'#signin';return}
  const host=document.createElement('div');document.body.appendChild(host);const R=host.attachShadow({mode:'open'});
- R.innerHTML=`<style>${NCSS}</style><div class="ucn-bg"><form class="ucn" role="dialog" aria-modal="true" aria-labelledby="ucn-h"><h3 id="ucn-h">${L('Change your nickname','Cambia tu apodo')}</h3><p id="ucn-p">${L('Loading…','Cargando…')}</p><input id="ucn-i" maxlength="16" autocomplete="nickname" aria-label="${L('New nickname','Nuevo apodo')}" disabled><p class="e" id="ucn-e" hidden></p><div class="r"><button type="button" id="ucn-x">${L('Cancel','Cancelar')}</button><button type="submit" class="y" id="ucn-s" disabled>${L('Save','Guardar')}</button></div></form></div>`;
+ R.innerHTML=`<style>${NCSS}</style><div class="ucn-bg"><form class="ucn" role="dialog" aria-modal="true" aria-labelledby="ucn-h"><h3 id="ucn-h">${L('Change your nickname','Cambia tu apodo',"Trocar seu apelido")}</h3><p id="ucn-p">${L('Loading…','Cargando…',"Carregando…")}</p><input id="ucn-i" maxlength="16" autocomplete="nickname" aria-label="${L('New nickname','Nuevo apodo',"Novo apelido")}" disabled><p class="e" id="ucn-e" hidden></p><div class="r"><button type="button" id="ucn-x">${L('Cancel','Cancelar',"Cancelar")}</button><button type="submit" class="y" id="ucn-s" disabled>${L('Save','Guardar',"Salvar")}</button></div></form></div>`;
  const q=id=>R.getElementById(id),close=()=>host.remove();
  q('ucn-x').onclick=close;R.querySelector('.ucn-bg').onclick=e=>{if(e.target.classList.contains('ucn-bg'))close()};
  R.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
  let st=null;try{st=await call('lg_nick_status',{})}catch(e){q('ucn-p').textContent=e.message;return}
- if(!st){q('ucn-p').textContent=L('Pick a nickname on the home page first.','Elige primero un apodo en la página principal.');return}
- const when=st.next_change&&new Date(st.next_change).toLocaleDateString(ES?'es-ES':'en-GB',{day:'numeric',month:'long'});
+ if(!st){q('ucn-p').textContent=L('Pick a nickname on the home page first.','Elige primero un apodo en la página principal.',"Escolha um apelido na página inicial primeiro.");return}
+ const when=st.next_change&&new Date(st.next_change).toLocaleDateString(PT?'pt-BR':ES?'es-ES':'en-GB',{day:'numeric',month:'long'});
  q('ucn-i').value=st.nickname;
- if(when){q('ucn-p').innerHTML=`${L("You're",'Eres')} <b>${esc(st.nickname)}</b>. ${L('You can change your nickname once a week: next time on','Puedes cambiar tu apodo una vez por semana: la próxima el')} <b>${esc(when)}</b>.`;return}
- q('ucn-p').innerHTML=`${L('2–16 letters or numbers. You can only change it once a week, so pick a good one.','De 2 a 16 letras o números. Solo puedes cambiarlo una vez por semana, así que elige bien.')}`;
+ if(when){q('ucn-p').innerHTML=`${L("You're",'Eres',"Você é")} <b>${esc(st.nickname)}</b>. ${L('You can change your nickname once a week: next time on','Puedes cambiar tu apodo una vez por semana: la próxima el',"Você pode trocar o apelido uma vez por semana: a próxima vez é em")} <b>${esc(when)}</b>.`;return}
+ q('ucn-p').innerHTML=`${L('2–16 letters or numbers. You can only change it once a week, so pick a good one.','De 2 a 16 letras o números. Solo puedes cambiarlo una vez por semana, así que elige bien.',"De 2 a 16 letras ou números. Só dá para trocar uma vez por semana, então escolha bem.")}`;
  q('ucn-i').disabled=false;q('ucn-s').disabled=false;q('ucn-i').focus();q('ucn-i').select();
  R.querySelector('form').onsubmit=async e=>{e.preventDefault();const v=q('ucn-i').value.trim();if(!v||v===st.nickname){close();return}
   q('ucn-s').disabled=true;q('ucn-e').hidden=true;
   try{const r=await call('lg_rename',{p_nickname:v});ls('uc-nick',r.nickname);track('nickname_change',{});
-   q('ucn-p').innerHTML=`<span class="ok">✓ ${L("You're now",'Ahora eres')} <b>${esc(r.nickname)}</b></span>`;R.querySelector('.r').innerHTML='';setTimeout(()=>location.reload(),1100)}
+   q('ucn-p').innerHTML=`<span class="ok">✓ ${L("You're now",'Ahora eres',"Agora você é")} <b>${esc(r.nickname)}</b></span>`;R.querySelector('.r').innerHTML='';setTimeout(()=>location.reload(),1100)}
   catch(err){q('ucn-e').textContent=err.message;q('ucn-e').hidden=false;q('ucn-s').disabled=false}}};
 async function start(){build();await Promise.all([loadSpoilers(),ensureSprites()]);await load();setInterval(()=>{if(C.isOpen||Date.now()%30000<4000)poll()},4000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)poll()})}
 document.readyState==='loading'?addEventListener('DOMContentLoaded',start,{once:true}):start();
