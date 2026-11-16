@@ -16,6 +16,21 @@ OG_TITLE = 'Unicorner – Quiz diário de futebol'
 OG_DESC = '5 perguntas de futebol por dia, 30 segundos cada. A resposta óbvia vale menos — quanto você entende de bola?'
 
 
+def bake(s, table):
+    """Swap visible English text (and placeholder/title/aria-label values) for the translation, in HTML only,
+    never inside scripts or styles, so search engines read the translated page without running scripts."""
+    parts = re.split(r'(<script\b.*?</script>|<style\b.*?</style>)', s, flags=re.S)
+    items = sorted(table.items(), key=lambda kv: -len(kv[0]))
+    for i in range(0, len(parts), 2):
+        for en, tr in items:
+            if not en.strip():
+                continue
+            parts[i] = parts[i].replace(f'>{en}<', f'>{tr}<')
+            for a in ('placeholder', 'title', 'aria-label'):
+                parts[i] = parts[i].replace(f'{a}="{en}"', f'{a}="{tr}"')
+    return ''.join(parts)
+
+
 def build():
     s = SRC.read_text(encoding='utf-8')
     m = re.search(r'const PT_TEXT=(\{.*?\});', s)
@@ -47,15 +62,10 @@ def build():
         sub_re(rf'<meta name="{k}" content="[^"]*">', f'<meta name="{k}" content="{v}">')
     sub('<meta property="og:locale" content="en_GB">', '<meta property="og:locale" content="pt_BR">')
     sub('<meta property="og:locale:alternate" content="pt_BR">', '<meta property="og:locale:alternate" content="en_GB">')
+    sub('<a class="privacy-link" href="/how-to-play.html">How to play</a>', '<a class="privacy-link" href="/pt/como-jogar.html">Como jogar</a>')
     sub('<a class="privacy-link lang-link" href="/es/" hreflang="es">Español</a>', '<a class="privacy-link lang-link" href="/" hreflang="en">English</a>')
 
-    # visible about/FAQ text, so the Portuguese words are in the page itself (HTML only, never inside scripts)
-    parts = re.split(r'(<script\b.*?</script>|<style\b.*?</style>)', s, flags=re.S)
-    items = sorted(pt.items(), key=lambda kv: -len(kv[0]))
-    for i in range(0, len(parts), 2):
-        for en, tr in items:
-            parts[i] = parts[i].replace(f'>{en}<', f'>{tr}<')
-    s = ''.join(parts)
+    s = bake(s, pt)
     body = s
     q = re.findall(r'<details><summary>(.*?)</summary><p>(.*?)</p></details>', body)
     q = [x for x in q if '${' not in x[0]]
