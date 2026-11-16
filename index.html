@@ -706,7 +706,7 @@ body:not(.playing):not(.results-view) footer.site{margin-top:0!important;border-
 body:not(.playing):not(.results-view) footer.site::before{display:none}
 footer.site::before{content:'';position:absolute;left:-100vmax;right:-100vmax;top:0;height:8px;background:repeating-linear-gradient(90deg,#c8473b 0 120px,#1d4486 120px 240px,#f2c230 240px 360px,#7c4dff 360px 480px);border-bottom:3px solid #000}
 /* footer: four groups instead of one block of links */
-footer.site{display:block!important;text-align:left}
+footer.site{display:block!important;text-align:left}body.playing footer.site{display:none!important}
 footer.site .ft-play{display:block;width:100%;max-width:420px;margin:0 auto 22px;padding:14px!important;background:#f2c230!important;color:#1d1a2b!important;border:3px solid #000!important;box-shadow:0 4px 0 #000!important;font:400 24px/1 var(--px),sans-serif!important;text-decoration:none!important;cursor:pointer}
 footer.site .ft-play:active{transform:translateY(2px)!important;box-shadow:0 2px 0 #000!important}
 .ft-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px 20px;max-width:760px;margin:0 auto}
