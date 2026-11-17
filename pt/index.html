@@ -111,28 +111,28 @@ body.playing .climb{display:block}
 .climb .tick{position:absolute;background:#000}
 .climb .me{position:absolute;background:#1d1a2b;border:3px solid #f2c230;box-shadow:0 0 10px rgba(242,194,48,.7);display:grid;place-items:center;transition:bottom 900ms cubic-bezier(.23,1,.32,1),left 900ms cubic-bezier(.23,1,.32,1)}
 .climb.pop .me{animation:climbpop .6s cubic-bezier(.34,1.56,.64,1)}@keyframes climbpop{40%{transform:scale(1.5)}}
-@media (min-width:1180px){
- .climb{position:fixed;z-index:20;left:calc(50vw - 452px - 210px);top:50%;transform:translateY(-50%);height:min(66vh,560px);width:24px}
- .climb .track{height:100%}
- .climb .fill{right:0;height:var(--f)}
- .climb .tick{left:-3px;right:-3px;height:3px;bottom:var(--v)}
- .climb .me{left:50%;bottom:var(--f);width:44px;height:44px;margin:0 0 -22px -22px}.climb .me .lvl-px{width:28px;height:28px}
- .climb .now{display:none}
- .climb .labs{position:absolute;left:40px;top:0;bottom:0;width:170px}
- .climb .labs span{position:absolute;left:0;bottom:var(--v);transform:translateY(50%);font:400 19px/1.05 var(--px),sans-serif;color:rgba(251,246,232,.55);text-shadow:2px 2px 0 #000;white-space:nowrap}
- .climb .labs span.on{color:#f2c230;font-size:24px}.climb .labs span.done{color:rgba(251,246,232,.85)}
- .climb .cap{position:absolute;left:-6px;bottom:calc(100% + 16px);font:400 17px/1 var(--px),sans-serif;letter-spacing:1.4px;color:#fbf6e8;white-space:nowrap;text-shadow:2px 2px 0 #000}
-}
-@media (max-width:1179px){
- body.playing .climb{display:flex;align-items:center;gap:10px;margin:0 0 12px;padding:0 2px}
- .climb .cap,.climb .labs{display:none}
- .climb .now{flex:none;font:400 15px/1 var(--px),sans-serif;color:#1d1a2b;background:#f2c230;border:2px solid #000;box-shadow:2px 2px 0 #000;padding:5px 7px 3px;white-space:nowrap}
- .climb.pop .now{animation:climbpop .6s cubic-bezier(.34,1.56,.64,1)}
- .climb .track{flex:1;height:14px;margin-right:12px}
- .climb .rail{border-width:2px}
- .climb .fill{top:0;width:var(--f);background:repeating-linear-gradient(90deg,#f2c230 0 6px,#e0a000 6px 8px)}
- .climb .tick{top:-2px;bottom:-2px;width:2px;left:var(--v)}
- .climb .me{top:50%;left:var(--f);width:26px;height:26px;margin:-13px 0 0 -13px;border-width:2px}.climb .me .lvl-px{width:16px;height:16px}
+
+ .climb.side{position:fixed;z-index:20;left:var(--cl,16px);top:50%;transform:translateY(-50%);height:min(66vh,560px);width:24px}
+ .climb.side .track{height:100%}
+ .climb.side .fill{right:0;height:var(--f)}
+ .climb.side .tick{left:-3px;right:-3px;height:3px;bottom:var(--v)}
+ .climb.side .me{left:50%;bottom:var(--f);width:44px;height:44px;margin:0 0 -22px -22px}.climb.side .me .lvl-px{width:28px;height:28px}
+ .climb.side .now{display:none}
+ .climb.side .labs{position:absolute;left:40px;top:0;bottom:0;width:170px}
+ .climb.side .labs span{position:absolute;left:0;bottom:var(--v);transform:translateY(50%);font:400 19px/1.05 var(--px),sans-serif;color:rgba(251,246,232,.55);text-shadow:2px 2px 0 #000;white-space:nowrap}
+ .climb.side .labs span.on{color:#f2c230;font-size:24px}.climb.side .labs span.done{color:rgba(251,246,232,.85)}
+ .climb.side .cap{position:absolute;left:-6px;bottom:calc(100% + 16px);font:400 17px/1 var(--px),sans-serif;letter-spacing:1.4px;color:#fbf6e8;white-space:nowrap;text-shadow:2px 2px 0 #000}
+
+
+body.playing .climb.flat{display:flex;align-items:center;gap:10px;margin:0 0 12px;padding:0 2px}
+.climb.flat .cap,.climb.flat .labs{display:none}
+.climb.flat .now{flex:none;font:400 15px/1 var(--px),sans-serif;color:#1d1a2b;background:#f2c230;border:2px solid #000;box-shadow:2px 2px 0 #000;padding:5px 7px 3px;white-space:nowrap}
+ .climb.flat.pop .now{animation:climbpop .6s cubic-bezier(.34,1.56,.64,1)}
+.climb.flat .track{flex:1;height:14px;margin-right:12px}
+.climb.flat .rail{border-width:2px}
+.climb.flat .fill{top:0;width:var(--f);background:repeating-linear-gradient(90deg,#f2c230 0 6px,#e0a000 6px 8px)}
+.climb.flat .tick{top:-2px;bottom:-2px;width:2px;left:var(--v)}
+.climb.flat .me{top:50%;left:var(--f);width:26px;height:26px;margin:-13px 0 0 -13px;border-width:2px}.climb.flat .me .lvl-px{width:16px;height:16px
 }
 </style>
 <link rel="preload" href="/fonts/jersey10.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/fonts/vt323.woff2" as="font" type="font/woff2" crossorigin>
@@ -2366,7 +2366,10 @@ let lvlLast=-1;
 function climb(){let c=document.getElementById('climb');const z=zoneOf(score),i=ZONES.findIndex(x=>x[1]===z),f=Math.max(0,Math.min(1,score/MAX)),y=v=>(v*100).toFixed(2)+'%';
  if(!c){c=document.createElement('div');c.id='climb';c.className='climb';c.setAttribute('aria-hidden','true');
   c.innerHTML=`<span class="cap">${L('YOUR LEVEL','TU NIVEL',"SEU NÍVEL")}</span><span class="now"></span><div class="track"><i class="rail"><i class="fill"></i>${ZONES.slice(1).map(([v])=>`<i class="tick" style="--v:${y(v)}"></i>`).join('')}</i><div class="labs">${ZONES.map(([v,n])=>`<span style="--v:${y(v)}">${zl(n)}</span>`).join('')}</div><i class="me"></i></div>`;
-  const mq=matchMedia('(min-width:1180px)'),place=()=>{const sc=document.getElementById('screen');if(mq.matches||!sc)document.body.appendChild(c);else sc.before(c)};place();mq.addEventListener?.('change',place)}
+  const place=()=>{const sc=document.getElementById('screen');if(!sc)return;const w=sc.closest('.wrap')||sc,l=w.getBoundingClientRect().left,side=innerWidth>=1100&&l>=200;
+   c.classList.toggle('side',side);c.classList.toggle('flat',!side);if(side){c.style.setProperty('--cl',Math.max(16,l-200)+'px');if(c.parentNode!==document.body)document.body.appendChild(c)}else if(c.nextSibling!==sc)sc.before(c)};
+  place();addEventListener('resize',place);c._place=place}
+ c._place?.();
  c.style.setProperty('--f',y(f));if(+c.dataset.lvl!==i)c.querySelector('.me').innerHTML=lvlSvg(LVL_ART[i]);
  c.querySelectorAll('.labs span').forEach((sp,k)=>{sp.classList.toggle('on',k===i);sp.classList.toggle('done',k<i)});c.querySelector('.now').textContent=zl(z);
  if(c.dataset.lvl!=null&&+c.dataset.lvl<i){c.classList.remove('pop');void c.offsetWidth;c.classList.add('pop');setTimeout(()=>c.classList.remove('pop'),2200)}c.dataset.lvl=i}
