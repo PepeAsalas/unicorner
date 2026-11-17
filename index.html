@@ -2291,6 +2291,12 @@ const DAYKEY='unicorner-played-'+new Intl.DateTimeFormat('en-CA',{timeZone:'Euro
 // a tab left open past midnight still holds yesterday's game: reload so it never passes yesterday's score off as today's
 {const chk=()=>{if(!DAYKEY.endsWith(amsterdamDay())&&!document.body.classList.contains('playing'))location.reload()};document.addEventListener('visibilitychange',()=>{if(!document.hidden)chk()});addEventListener('focus',chk);setInterval(chk,60000)}
 const getPlayed=()=>{try{return JSON.parse(localStorage.getItem(DAYKEY))}catch{return null}};
+// 17 Nov 2026: question f100 changed from Peter Odemwingie to David Beckham after people had played it.
+// Answers already given keep their points; the club shown is swapped for a Beckham club in the same tier.
+(()=>{const k='unicorner-played-2026-11-17',M={'West Bromwich Albion':'Manchester United','Lokomotiv Moscow':'LA Galaxy','Lille':'AC Milan','Stoke City':'LA Galaxy','Cardiff City':'AC Milan','Bristol City':'Paris Saint-Germain','Rotherham United':'Paris Saint-Germain','RAAL La Louvière':'Preston North End','Bendel Insurance':'Preston North End','Madura United':'Preston North End'};
+ try{const r=JSON.parse(localStorage.getItem(k));if(!r||!Array.isArray(r.picks))return;let ch=false;
+  r.picks=r.picks.map(x=>Array.isArray(x)&&(x[3]==='f100'||(x[3]==null&&x[0]===4))&&M[x[1]]?(ch=true,[x[0],M[x[1]],...x.slice(2)]):x);
+  if(ch){localStorage.setItem(k,JSON.stringify(r));localStorage.removeItem('uc-league-picks-2026-11-17')}}catch{}})();
 // today's game was first scored 10·25·40·70·100; anyone who played it before the switch gets their answers re-scored
 (()=>{if(PTS!==PTS_NEW)return;try{const r=getPlayed();if(!r||!Array.isArray(r.picks)||!r.picks.some(x=>Array.isArray(x)&&[25,40,70].includes(x[2])))return;
  const picks=r.picks.map(x=>Array.isArray(x)?[x[0],x[1],newPts(x[2]),...x.slice(3)]:x);localStorage.setItem(DAYKEY,JSON.stringify({...r,picks,score:picks.reduce((a,x)=>a+(Array.isArray(x)?x[2]:0),0)}))}catch{}})();
