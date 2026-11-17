@@ -1,0 +1,204 @@
+{
+  "date": "2026-11-17",
+  "baseline_commit": "3cbb32db02d50c83a1140d8e67d5273ec5786251",
+  "correction_commit": "f7fac98060cd782426d4a00bf35f6a0ad99418af",
+  "previous_checkpoint": 1598062,
+  "last_scanned_event_id": 1669263,
+  "scanned_events": 4853,
+  "scan_pages": [
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    53
+  ],
+  "prior_pending_count": 38795,
+  "pending_count": 40772,
+  "excluded_records": {
+    "ambiguous": 173,
+    "duplicate": 161
+  },
+  "decision_counts": {
+    "pending": 40772,
+    "ignore_wrong": 1,
+    "add_alias": 4,
+    "already_handled": 2
+  },
+  "corrections": [
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-ajax-and-barcelona",
+      "submitted_text": [
+        "Franky Dejong"
+      ],
+      "event_count": 9,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Frenkie de Jong",
+        "added_aliases": [
+          "Franky Dejong"
+        ]
+      },
+      "evidence": "FC Barcelona documents competitive first-team appearances for Barcelona and Ajax before the 2025–26 cutoff.",
+      "evidence_urls": [
+        "https://www.fcbarcelona.com/en/players/16291",
+        "https://players.fcbarcelona.com/en/player/2745-de"
+      ]
+    },
+    {
+      "question_id": "d10-name-a-spanish-striker",
+      "submitted_text": [
+        "iglesias"
+      ],
+      "event_count": 6,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Borja Iglesias Quintás",
+        "added_aliases": [
+          "Iglesias"
+        ]
+      },
+      "evidence": "The Spanish federation records senior Spain appearances and Bayer Leverkusen identifies him as a centre-forward. The surname is unambiguous among the eligible bank entries.",
+      "evidence_urls": [
+        "https://rfef.es/es/selecciones/jugadores/borja-iglesias",
+        "https://www.bayer04.de/en-us/news/bayer04/profile-of-new-signing-borja-iglesias"
+      ]
+    },
+    {
+      "question_id": "d9-name-a-player-with-100-bundesliga-goals",
+      "submitted_text": [
+        "pizzaro"
+      ],
+      "event_count": 6,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Claudio Pizarro",
+        "added_aliases": [
+          "Pizzaro"
+        ]
+      },
+      "evidence": "The Bundesliga records 197 league goals before retirement in 2020 and also uses this spelling in its appearances article.",
+      "evidence_urls": [
+        "https://www.bundesliga.com/en/bundesliga/news/when-claudio-pizarro-finally-called-it-a-day-bayern-munich-werder-bremen-cologne-24339",
+        "https://www.bundesliga.com/en/bundesliga/news/most-appearances-by-country-lewandowski-alaba-yeboah-pizarro-31384"
+      ]
+    },
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-juventus-and-milan",
+      "submitted_text": [
+        "bonnuci"
+      ],
+      "event_count": 3,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Leonardo Bonucci",
+        "added_aliases": [
+          "Bonnuci"
+        ]
+      },
+      "evidence": "Juventus documents competitive first-team appearances for Juventus and 51 matches for Milan in 2017–18.",
+      "evidence_urls": [
+        "https://www.juventus.com/en/news/articles/thanks-for-everything-leo-bonucci",
+        "https://www.juventus.com/en/news/articles/milan-vs-juventus-match-preview"
+      ]
+    }
+  ],
+  "validation": {
+    "questions": 411,
+    "baseline_errors": 0,
+    "final_errors": 0,
+    "baseline_warnings": 568,
+    "final_warnings": 568,
+    "warning_output_unchanged": true,
+    "previous_matcher_forms_checked": 832,
+    "observed_groups_checked_on_changed_questions": 463,
+    "new_events_covered_by_aliases": 15
+  },
+  "review_limit": "Grouped rejections and retried pending candidates against the current matcher. Researched selected plausible omissions against official records. Other unresolved groups are kept in state for future verification.",
+  "decisions": [
+    {
+      "question_id": "d6-name-a-player-who-played-for-germany-at-a-world-cup-since-2006",
+      "input": "Tah",
+      "event_count": 16,
+      "new_events": 7,
+      "decision": "ignore_wrong",
+      "reason": "The DFB records all four of Tah’s finals appearances at the 2026 World Cup. The question ends at the 2022 edition.",
+      "evidence_urls": [
+        "https://datencenter.dfb.de/en/data-center/people/jonathan-tah/player",
+        "https://www.dfb.de/news/germany-open-world-cup-with-emphatic-7-1-win-over-curacao"
+      ]
+    },
+    {
+      "question_id": "d9-name-a-player-with-100-bundesliga-goals",
+      "input": "pizzaro",
+      "event_count": 6,
+      "new_events": 1,
+      "decision": "add_alias",
+      "reason": "The Bundesliga records 197 league goals before retirement in 2020 and also uses this spelling in its appearances article.",
+      "evidence_urls": [
+        "https://www.bundesliga.com/en/bundesliga/news/when-claudio-pizarro-finally-called-it-a-day-bayern-munich-werder-bremen-cologne-24339",
+        "https://www.bundesliga.com/en/bundesliga/news/most-appearances-by-country-lewandowski-alaba-yeboah-pizarro-31384"
+      ]
+    },
+    {
+      "question_id": "d10-name-a-spanish-striker",
+      "input": "iglesias",
+      "event_count": 6,
+      "new_events": 4,
+      "decision": "add_alias",
+      "reason": "The Spanish federation records senior Spain appearances and Bayer Leverkusen identifies him as a centre-forward. The surname is unambiguous among the eligible bank entries.",
+      "evidence_urls": [
+        "https://rfef.es/es/selecciones/jugadores/borja-iglesias",
+        "https://www.bayer04.de/en-us/news/bayer04/profile-of-new-signing-borja-iglesias"
+      ]
+    },
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-juventus-and-milan",
+      "input": "bonnuci",
+      "event_count": 3,
+      "new_events": 1,
+      "decision": "add_alias",
+      "reason": "Juventus documents competitive first-team appearances for Juventus and 51 matches for Milan in 2017–18.",
+      "evidence_urls": [
+        "https://www.juventus.com/en/news/articles/thanks-for-everything-leo-bonucci",
+        "https://www.juventus.com/en/news/articles/milan-vs-juventus-match-preview"
+      ]
+    },
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-ajax-and-barcelona",
+      "input": "Franky Dejong",
+      "event_count": 9,
+      "new_events": 9,
+      "decision": "add_alias",
+      "reason": "FC Barcelona documents competitive first-team appearances for Barcelona and Ajax before the 2025–26 cutoff.",
+      "evidence_urls": [
+        "https://www.fcbarcelona.com/en/players/16291",
+        "https://players.fcbarcelona.com/en/player/2745-de"
+      ]
+    },
+    {
+      "question_id": "d8-name-a-winger-who-played-in-the-bundesliga-since-2010",
+      "input": "Wirtz",
+      "event_count": 6,
+      "reason": "The Bundesliga documents a central playmaking role with movement into wide areas. Verify that he played as a winger in Bundesliga matches under the question’s position rules.",
+      "evidence_urls": [
+        "https://www.bundesliga.com/en/bundesliga/news/florian-wirtz-bayer-leverkusen-majestic-number-10-tactical-analysis-30148"
+      ],
+      "decision": "pending"
+    },
+    {
+      "question_id": "d11-name-a-french-defender-who-played-in-la-liga",
+      "input": "Da Silva",
+      "event_count": 14,
+      "reason": "The surname does not identify one player. Need a full name and records of senior La Liga appearances as a French defender.",
+      "decision": "pending"
+    }
+  ]
+}
