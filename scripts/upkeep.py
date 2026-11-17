@@ -90,11 +90,18 @@ def health():
 
 
 def rejections():
+    # every day: answers players typed that did not count, in every game (outcome = rosco, duel or stablehand; else the daily game).
+    # 'rejections N' looks back N days (default 2); 'rejections N --print' only prints them (the feedback routine uses this).
     t = today()
-    rows = supabase_rpc('upkeep_daily_rejections', {'days': 7})
+    args = sys.argv[2:]
+    days = int(next((a for a in args if a.isdigit()), 2))
+    rows = supabase_rpc('upkeep_daily_rejections', {'days': days})
+    if '--print' in args:
+        print(json.dumps({'generated': str(t), 'days': days, 'rows': rows}, ensure_ascii=False, indent=1))
+        return 0
     out = os.path.join(ROOT, 'daily', 'rejections', f'{t}.json')
     os.makedirs(os.path.dirname(out), exist_ok=True)
-    json.dump({'generated': str(t), 'days': 7, 'rows': rows}, open(out, 'w'), ensure_ascii=False, indent=1)
+    json.dump({'generated': str(t), 'days': days, 'rows': rows}, open(out, 'w'), ensure_ascii=False, indent=1)
     print(f'{len(rows)} rejected answers saved to daily/rejections/{t}.json')
     return 0
 

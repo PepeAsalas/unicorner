@@ -1,7 +1,7 @@
 name: Upkeep
 
 # Daily: health check of the schedule and live site, and fresh sitemap dates.
-# Friday: saves the week's rejected daily-game answers for the Saturday routine to review.
+# Every evening: saves the last 2 days of rejected answers from every game for the daily feedback routine.
 # Monday: weekly report as a GitHub issue (GitHub emails it to the owner).
 # Sunday night: moves events older than 21 days to private Supabase Storage (bucket events-archive) and
 # deletes them from the database. Needs the repository secret SUPABASE_SERVICE_ROLE_KEY.
@@ -14,7 +14,7 @@ on:
   schedule:
     - cron: '7 23 * * *'   # answers page, just after midnight Amsterdam (GitHub often starts it hours late)
     - cron: '41 4 * * *'   # health, every day
-    - cron: '13 20 * * 5'  # rejections, Friday evening
+    - cron: '13 20 * * *'  # rejections, every evening
     - cron: '13 6 * * 1'   # report, Monday morning
     - cron: '27 2 * * 0'   # archive, Sunday night
 
@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
-      JOB: ${{ github.event.inputs.job || (github.event.schedule == '13 20 * * 5' && 'rejections') || (github.event.schedule == '13 6 * * 1' && 'report') || (github.event.schedule == '27 2 * * 0' && 'archive') || (github.event.schedule == '7 23 * * *' && 'answers') || 'health' }}
+      JOB: ${{ github.event.inputs.job || (github.event.schedule == '13 20 * * *' && 'rejections') || (github.event.schedule == '13 6 * * 1' && 'report') || (github.event.schedule == '27 2 * * 0' && 'archive') || (github.event.schedule == '7 23 * * *' && 'answers') || 'health' }}
     steps:
       - uses: actions/checkout@v4
         with:

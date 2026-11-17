@@ -450,7 +450,7 @@ function play(q){if(lock)return;const inp=$('a'),v=inp.value.trim();if(!v){shake
  const r=match(v,q.answers,q.answer_type);
  if(r==='ambiguous'){$('m').className='msg bad';$('m').textContent=L('More than one fits. Add more of the name.','Encaja más de uno. Escribe más del nombre.',"Mais de um se encaixa. Escreva mais do nome.");shake(inp,6);return}
  lock=true;stopClock();$('f').inert=true;inp.blur();
- if(!r){const tr=trapOf(v,q);return foul(q,v,tr?(PT?`${tr.name}? Não conta.`:ES?`¿${tr.name}? No cuenta.`:`${tr.name}? No: ${tr.why.replace(/\.$/,'')}.`):L('Not on the list!','¡No está en la lista!',"Não está na lista!"))}
+ if(!r){const tr=trapOf(v,q);track('stablehand_reject',{question_id:q.id,prompt:q.prompt.slice(0,200),input:v.slice(0,120),trap:tr?tr.name:null});return foul(q,v,tr?(PT?`${tr.name}? Não conta.`:ES?`¿${tr.name}? No cuenta.`:`${tr.name}? No: ${tr.why.replace(/\.$/,'')}.`):L('Not on the list!','¡No está en la lista!',"Não está na lista!"))}
  const p=FAME[r.fame]||10,before=total();S.hand.push({a:shortName(r),p,q:q.id});S.qi++;S.cur=null;save();
  drawHand(true);into($('meter'),'start');
  if(HARD()){setTimeout(()=>{popPts(-1);SFX.card(10)},200);host(pick(['think','wink','happy-talk']),pick(L(['Face down. We will see when you stand…','Is that a Tap-in or a Screamer? Only the cards know.','Noted. No peeking!'],['Boca abajo. Ya veremos cuando te plantes…','¿Empujarla o chicharro? Solo las cartas lo saben.','Anotado. ¡Sin mirar!'],['Virada para baixo. Veremos quando você parar…','Empurrãozinho ou Golaço? Só as cartas sabem.','Anotado. Sem espiar!'])));if(S.hand.length>=MAXC)return setTimeout(()=>reveal(),900);return setTimeout(decide,REDUCE?0:450)}
