@@ -1081,6 +1081,7 @@ body.results-view .meter{display:none!important}
 .pixel-flame{position:relative;display:inline-block;width:22px;height:28px;flex:0 0 22px;background:#ff5a2e;clip-path:polygon(45% 0,64% 0,64% 18%,82% 18%,82% 36%,100% 36%,100% 82%,82% 82%,82% 100%,18% 100%,18% 82%,0 82%,0 45%,18% 45%,18% 27%,36% 27%,36% 9%,45% 9%);filter:drop-shadow(2px 2px 0 #000)}
 .pixel-flame:after{content:'';position:absolute;left:7px;bottom:4px;width:9px;height:13px;background:#ffd84d;clip-path:polygon(34% 0,67% 0,67% 25%,100% 25%,100% 100%,0 100%,0 50%,34% 50%)}
 .played-result-streak>b .pixel-flame{margin-right:2px}
+.tmrw-h .pixel-flame{vertical-align:-4px;margin-right:6px}
 .pixel-flame{transform-origin:50% 100%}
 .pixel-flame.flicker{animation:pf-flicker 1.8s steps(6) infinite}
 @keyframes pf-flicker{0%,100%{transform:scaleY(1) scaleX(1)}15%{transform:scaleY(1.05) scaleX(.96)}35%{transform:scaleY(.94) scaleX(1.03)}55%{transform:scaleY(1.03) scaleX(.98)}75%{transform:scaleY(.97) scaleX(1.02)}}
@@ -3008,7 +3009,7 @@ function tomorrowCard(){const t=new Date(amsterdamDay()+'T12:00:00Z');t.setUTCDa
  const day=t.toLocaleDateString(LOC,{weekday:'long',day:'numeric',month:'long',timeZone:'UTC'});
  const push=pushOK()&&Notification.permission!=='denied'&&!(pushEP()&&Notification.permission==='granted');
  const home=!push&&typeof iosSafari==='function'&&iosSafari()&&!matchMedia('(display-mode: standalone)').matches;
- return`<div class="tmrw"><div class="tmrw-h">🔥 ${L('Your streak starts today!','¡Tu racha empieza hoy!',"Sua sequência começa hoje!")}</div>
+ return`<div class="tmrw"><div class="tmrw-h"><i class="pixel-flame flicker" aria-hidden="true"></i> ${L('Your streak starts today!','¡Tu racha empieza hoy!',"Sua sequência começa hoje!")}</div>
  <p>${L('Come back tomorrow for 5 new football questions and make it 2 days in a row.','Vuelve mañana: 5 preguntas nuevas de fútbol y llevarás 2 días seguidos.',"Volte amanhã para 5 perguntas novas de futebol e chegue a 2 dias seguidos.")}</p>
  <div class="tmrw-d"><small>${L("Tomorrow's game",'El partido de mañana',"O jogo de amanhã")}</small><b>${day}</b><small>${L('New questions at midnight','Preguntas nuevas a medianoche',"Perguntas novas à meia-noite")}</small></div>
  ${push?`<div class="remind tmrw-r" id="remind"><button type="button" id="remind-btn">🔔 ${L('Remind me tomorrow','Avísame mañana',"Me lembre amanhã")}</button></div>`:home?`<button type="button" class="tmrw-r" data-app-install>📲 ${L('Add Unicorner to your home screen','Añade Unicorner a tu pantalla de inicio',"Adicione o Unicorner à tela inicial")}</button>`:''}</div>`}
