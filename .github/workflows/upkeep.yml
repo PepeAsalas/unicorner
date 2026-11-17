@@ -50,7 +50,7 @@ jobs:
         run: python scripts/upkeep.py health | tee health.txt
       - name: Build the past answers page
         if: env.JOB == 'health' || env.JOB == 'answers'
-        run: python scripts/build_answers.py && python scripts/build_trivia.py && python scripts/build_myths.py && python scripts/translate_bank_es.py && python scripts/translate_bank_pt.py && python scripts/build_rosco.py 3 && python scripts/explain_questions.py && python scripts/build_archive.py
+        run: python scripts/build_answers.py && python scripts/build_trivia.py && python scripts/build_myths.py && python scripts/translate_bank_es.py && python scripts/translate_bank_pt.py && python scripts/build_rosco.py 3 && (python scripts/check_rosco.py --fix || true) && python scripts/explain_questions.py && python scripts/build_archive.py
       - name: Commit sitemap dates and answers page
         if: env.JOB == 'health' || env.JOB == 'answers'
         run: |
