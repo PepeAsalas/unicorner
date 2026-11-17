@@ -2760,11 +2760,11 @@ function crowdReveal(q,ans,pts,before,after){
  const ePush=bez(.77,0,.175,1),eOut=bez(.23,1,.32,1);
  nx.style.visibility='hidden';stage.addEventListener('pointerdown',()=>{SKIP=true},{once:true});
  // world: 100 unicorns, yours in the middle with a clear ring around it
- const SW=stage.clientWidth,SH=stage.clientHeight,UW=Math.round(Math.max(56,Math.min(76,SW*.17))),UH=Math.round(UW*30/36),WW=Math.round(SW*2.1),WH=Math.round(SH*1.25);
+ const SW=stage.clientWidth,SH=stage.clientHeight,UW=Math.round(Math.max(56,Math.min(76,SW*.17))),UH=Math.round(UW*30/36),WW=Math.round(SW*2.1),WH=Math.round(WW*SH/SW);
  world.style.width=WW+'px';world.style.height=WH+'px';
  let seed=(q.id||'x').split('').reduce((a,c)=>a*31+c.charCodeAt(0)|0,7)>>>0||7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
  const POOL=KITS.filter(k=>!k.myth&&!k.crew&&k.id!=='classic'&&k.id!==(UC_KIT?.id));
- const P=[];for(let r=0;r<10;r++)for(let c=0;c<10;c++)P.push({x:30+c*(WW-60-UW)/9+(rnd()-.5)*26+(r%2?18:-6),y:20+r*(WH-40-UH)/9+(rnd()-.5)*14,s:.8+r*.025,kit:POOL.length?POOL[Math.floor(rnd()*POOL.length)]:null});
+ const P=[];const NC=Math.max(6,Math.round(Math.sqrt(100*WW/WH))),NR=Math.ceil(100/NC),cw=(WW-UW*.6)/NC,rh=(WH-UH*.5)/NR;for(let n=0;n<100;n++){const r=Math.floor(n/NC),c=n%NC;P.push({x:UW*.3+c*cw+(cw-UW)/2+(rnd()-.5)*cw*.5+(r%2?cw*.25:-cw*.15),y:UH*.15+r*rh+(rh-UH)/2+(rnd()-.5)*rh*.35,s:.8+r/NR*.25,kit:POOL.length?POOL[Math.floor(rnd()*POOL.length)]:null})};
  const ME=55,me=P[ME];me.x=WW/2-UW/2;me.y=WH*.5-UH/2;me.s=1.03;me.kit=UC_KIT;
  P.forEach((p,i)=>{if(i===ME)return;const dx=p.x-me.x,dy=(p.y-me.y)*1.35,d=Math.hypot(dx,dy),R=UW*1.45;if(d<R){const a=d?Math.atan2(dy,dx):(i%2?0:Math.PI);p.x=me.x+Math.cos(a)*R;p.y=me.y+Math.sin(a)*R/1.35}});
  const EL=P.map((p,i)=>{const w=UW*p.s,h=UH*p.s,z=Math.round(p.y),sh=document.createElement('i'),u=document.createElement('i');sh.className='cz-sh';u.className='cz-u'+(i===ME?' mine':'');
@@ -2773,7 +2773,7 @@ function crowdReveal(q,ans,pts,before,after){
  rays.style.cssText=`left:${MX-SW*.8}px;top:${MY-SW*.8}px;width:${SW*1.6}px;height:${SW*1.6}px;z-index:${Math.round(me.y)-3}`;pool.style.cssText=`left:${MX}px;top:${me.y+UH*me.s-12}px;width:${UW*1.5}px;height:${UW*.48}px;z-index:${Math.round(me.y)-2}`;world.append(rays,pool);
  const byDist=P.map((p,i)=>({i,d:Math.hypot(p.x-me.x,(p.y-me.y)*1.2)})).filter(o=>o.i!==ME).sort((a,b)=>b.d-a.d).map(o=>o.i);
  // camera
- const S0=SW/WW,C0={x:WW/2,y:WH/2},A0={x:SW/2,y:SH*.5},AF={x:SW/2,y:SH*.52};
+ const S0=SW/WW,C0={x:WW/2,y:WH/2},A0={x:SW/2,y:SH/2},AF={x:SW/2,y:SH*.52};
  {const bw=bg.offsetWidth,bh=bg.offsetHeight,f=Math.max(1,(bh/2)/(.315*bw*1672/941))*1.04,iw=bw*f,ih=iw*1672/941;bg.style.backgroundSize=`${iw}px ${ih}px`;bg.style.backgroundPosition=`${(bw-iw)/2}px ${bh/2-.315*ih}px`}
  const depthOf=p=>Math.max(0,Math.min(1,Math.log10(100/Math.max(p,.4))/Math.log10(250)));
  const KZ=k=>innerWidth>=860?.32+.68*k:.12+.88*k;
