@@ -1902,6 +1902,7 @@ html:root:root body .modes .mode.mode.mode.mode:is(.m-inf,.m-duel) .m-go{grid-ar
  html:root:root body .modes .mode.mode.mode.mode:is(.m-inf,.m-duel) .m-txt{padding-top:10px!important}}
 </style><link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#1d1a2b"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Unicorner"><meta name="apple-mobile-web-app-status-bar-style" content="black">
 <style>/* phone: tighter question screen while playing */
+body.playing .meter.lvl{display:none!important}
 @media (max-width:760px){body.playing .meter.lvl,body.playing .app-strip{display:none!important}
 body.playing #screen .card{padding:14px 14px 12px!important}
 body.playing #screen .card .q-progress{transform:scale(.85);transform-origin:left center;margin-bottom:4px!important}
@@ -2692,7 +2693,7 @@ function crowdReveal(q,ans,pts,before,after){
  const tier=tierIdx(pts),scr=pts===100,share=czShare(q,ans);
  const tierTxt=scr?L('SCREAMER!','¡CHICHARRO!',"GOLAÇO!"):tl(tierName(pts)).toUpperCase(),TC=['#c9cde0','#3fd17f','#3fb1ff','#a070ff','#f2c230'][Math.max(0,tier)];
  swap(`<div class="card cz" id="czCard" style="--czg:${TC}"><div class="cz-grid">
-  <div class="cz-stage" id="czStage" role="img" aria-label="${L('Your answer among today\'s players','Tu respuesta entre los jugadores de hoy',"Sua resposta entre os jogadores de hoje")}"><div class="cz-bg" id="czBg" style="${window.ucStageBg?.()||''}"></div><div class="cz-world" id="czWorld"></div><div class="cz-speed" id="czSpeed"></div><i class="cz-lb t" id="czLbt"></i><i class="cz-lb b" id="czLbb"></i><i class="cz-flash" id="czFlash"></i></div>
+  <div class="cz-stage" id="czStage" role="img" aria-label="${L('Your answer among today\'s players','Tu respuesta entre los jugadores de hoy',"Sua resposta entre os jogadores de hoje")}"><div class="cz-bg" id="czBg" style="--t:url(/bg/pitch-tall.webp)"></div><div class="cz-world" id="czWorld"></div><div class="cz-speed" id="czSpeed"></div><i class="cz-lb t" id="czLbt"></i><i class="cz-lb b" id="czLbb"></i><i class="cz-flash" id="czFlash"></i></div>
   <div class="cz-side">
    <div class="cz-hud" id="czHud"><b id="czPct">100<small>%</small></b><span id="czHudL">${L('SAID THIS','LO DIJERON',"DISSERAM ISSO")}</span></div>
    <div class="cz-stamp" id="czStamp" style="background:${TC}">${tierTxt}</div>
@@ -2733,9 +2734,9 @@ function crowdReveal(q,ans,pts,before,after){
   const [sh]=await Promise.all([share,wait(420)]);
   const real=sh&&!sh.early?sh.pct:null,pct=real??CZ_TIER_PCT[pts]??41,k=depthOf(pct),keep=Math.max(0,Math.min(99,Math.ceil(pct)-1));
   if(real==null){document.getElementById('czHudL').textContent=sh&&sh.early?L('EARLY DAYS','AÚN ES PRONTO',"AINDA É CEDO"):L('RARITY','RAREZA',"RARIDADE")}
-  await tw(160,e=>cam(-.05*e,k),eOut);
+  await tw(220,e=>cam(-.05*e,k),eOut);
   // the whoosh
-  const ms=SKIP?0:Math.round(600+k*600);clearInterval(idle);playSfx('whoosh');EL[ME].u.style.backgroundImage=sprite('wow',1,false,UC_KIT);
+  const ms=SKIP?0:Math.round(1000+k*800);clearInterval(idle);if(!SKIP&&soundOn())try{sfxNoise(ms/1000+.12,{vol:.1+k*.08,sweepFrom:280,sweepTo:1800+k*2400})}catch{}EL[ME].u.style.backgroundImage=sprite('wow',1,false,UC_KIT);
   byDist.slice(0,99-keep).forEach((i,n,arr)=>{const e=EL[i],p=P[i],a=Math.atan2(p.y-me.y,p.x-me.x),dx=Math.cos(a)*140,dy=Math.sin(a)*60,dl=SKIP?0:ms*.08+ms*.72*(n/Math.max(1,arr.length));
    const an=e.u.animate([{transform:'none',opacity:1},{transform:`translate(${dx*.35}px,${dy*.35-38}px) rotate(${dx>0?12:-12}deg)`,opacity:1,offset:.45},{transform:`translate(${dx}px,${dy}px) rotate(${dx>0?20:-20}deg) scale(.9)`,opacity:0}],{duration:SKIP?1:380,delay:dl,easing:'cubic-bezier(.45,0,.55,1)'});
    an.onfinish=()=>{e.u.style.visibility='hidden';e.sh.style.visibility='hidden'};if(SKIP)an.finish()});
