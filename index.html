@@ -2364,7 +2364,7 @@ let lvlLast=-1;
 function climb(){let c=document.getElementById('climb');const z=zoneOf(score),i=ZONES.findIndex(x=>x[1]===z),f=Math.max(0,Math.min(1,score/MAX)),y=v=>(v*100).toFixed(2)+'%';
  if(!c){c=document.createElement('div');c.id='climb';c.className='climb';c.setAttribute('aria-hidden','true');
   c.innerHTML=`<span class="cap">${L('YOUR LEVEL','TU NIVEL',"SEU NÍVEL")}</span><span class="now"></span><div class="track"><i class="rail"><i class="fill"></i>${ZONES.slice(1).map(([v])=>`<i class="tick" style="--v:${y(v)}"></i>`).join('')}</i><div class="labs">${ZONES.map(([v,n])=>`<span style="--v:${y(v)}">${zl(n)}</span>`).join('')}</div><i class="me"></i></div>`;
-  const place=()=>{const sc=document.getElementById('screen');if(!sc)return;const w=sc.closest('.wrap')||sc,l=w.getBoundingClientRect().left,side=innerWidth>=1100&&l>=200;
+  const place=()=>{const sc=document.getElementById('screen');if(!sc)return;const w=sc.closest('.wrap')||sc,l=w.getBoundingClientRect().left,side=false;
    c.classList.toggle('side',side);c.classList.toggle('flat',!side);if(side){c.style.setProperty('--cl',Math.max(16,l-200)+'px');if(c.parentNode!==document.body)document.body.appendChild(c)}else if(c.nextSibling!==sc)sc.before(c)};
   place();addEventListener('resize',place);c._place=place}
  c._place?.();
@@ -2760,7 +2760,7 @@ function crowdReveal(q,ans,pts,before,after){
  let seed=(q.id||'x').split('').reduce((a,c)=>a*31+c.charCodeAt(0)|0,7)>>>0||7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
  const POOL=KITS.filter(k=>!k.myth&&!k.crew&&k.id!=='classic'&&k.id!==(UC_KIT?.id));
  const P=[];for(let r=0;r<10;r++)for(let c=0;c<10;c++)P.push({x:30+c*(WW-60-UW)/9+(rnd()-.5)*26+(r%2?18:-6),y:20+r*(WH-40-UH)/9+(rnd()-.5)*14,s:.8+r*.025,kit:POOL.length?POOL[Math.floor(rnd()*POOL.length)]:null});
- const ME=55,me=P[ME];me.x=WW/2-UW/2;me.y=WH*.56-UH/2;me.s=1.03;me.kit=UC_KIT;
+ const ME=55,me=P[ME];me.x=WW/2-UW/2;me.y=WH*.5-UH/2;me.s=1.03;me.kit=UC_KIT;
  P.forEach((p,i)=>{if(i===ME)return;const dx=p.x-me.x,dy=(p.y-me.y)*1.35,d=Math.hypot(dx,dy),R=UW*1.45;if(d<R){const a=d?Math.atan2(dy,dx):(i%2?0:Math.PI);p.x=me.x+Math.cos(a)*R;p.y=me.y+Math.sin(a)*R/1.35}});
  const EL=P.map((p,i)=>{const w=UW*p.s,h=UH*p.s,z=Math.round(p.y),sh=document.createElement('i'),u=document.createElement('i');sh.className='cz-sh';u.className='cz-u'+(i===ME?' mine':'');
   u.style.cssText=`left:${p.x}px;top:${p.y}px;width:${w}px;height:${h}px;z-index:${z};background-image:${sprite('happy',i&1,false,p.kit)}`;sh.style.cssText=`left:${p.x+w/2}px;top:${p.y+h-6}px;width:${w*.62}px;z-index:${z-1}`;world.append(sh,u);return{u,sh}});
@@ -2768,7 +2768,8 @@ function crowdReveal(q,ans,pts,before,after){
  rays.style.cssText=`left:${MX-SW*.8}px;top:${MY-SW*.8}px;width:${SW*1.6}px;height:${SW*1.6}px;z-index:${Math.round(me.y)-3}`;pool.style.cssText=`left:${MX}px;top:${me.y+UH*me.s-12}px;width:${UW*1.5}px;height:${UW*.48}px;z-index:${Math.round(me.y)-2}`;world.append(rays,pool);
  const byDist=P.map((p,i)=>({i,d:Math.hypot(p.x-me.x,(p.y-me.y)*1.2)})).filter(o=>o.i!==ME).sort((a,b)=>b.d-a.d).map(o=>o.i);
  // camera
- const S0=SW/WW,C0={x:WW/2,y:WH/2},A0={x:SW/2,y:SH*.66},AF={x:SW/2,y:SH*.52};
+ const S0=SW/WW,C0={x:WW/2,y:WH/2},A0={x:SW/2,y:SH*.5},AF={x:SW/2,y:SH*.52};
+ {const bw=bg.offsetWidth,bh=bg.offsetHeight,f=Math.max(1,(bh/2)/(.315*bw*1672/941))*1.04,iw=bw*f,ih=iw*1672/941;bg.style.backgroundSize=`${iw}px ${ih}px`;bg.style.backgroundPosition=`${(bw-iw)/2}px ${bh/2-.315*ih}px`}
  const depthOf=p=>Math.max(0,Math.min(1,Math.log10(100/Math.max(p,.4))/Math.log10(250)));
  const KZ=k=>innerWidth>=860?.32+.68*k:.12+.88*k;
  const cam=(u,k)=>{const sf=S0*Math.pow(2.6/S0,KZ(k)),s=S0*Math.pow(sf/S0,u),f=Math.max(0,Math.min(1.05,u));
