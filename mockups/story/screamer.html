@@ -1,0 +1,46 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Screamer story</title>
+<style>
+@font-face{font-family:'Jersey 10';src:url(/fonts/jersey10.woff2) format('woff2')}
+@font-face{font-family:'VT323';src:url(/fonts/vt323.woff2) format('woff2')}
+html,body{margin:0;background:#000}
+#s{position:relative;width:1080px;height:1920px;overflow:hidden;background:#13204a;font-family:'VT323',monospace;color:#fff6dc}
+#rays{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
+.grain{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 46%,transparent 30%,rgba(5,8,25,.75) 100%)}
+.top{position:absolute;top:150px;left:0;right:0;text-align:center}
+.brand{display:inline-block;font:400 44px/1 'Jersey 10';letter-spacing:4px;background:#fff6dc;color:#13204a;border:5px solid #000;box-shadow:8px 8px 0 #000;padding:12px 26px 6px}
+.tag{margin-top:26px;font-size:40px;letter-spacing:6px;color:#ffd23f}
+h1{position:absolute;top:330px;left:0;right:0;margin:0;text-align:center;font:400 250px/1 'Jersey 10';color:#ffd23f;letter-spacing:4px;
+ text-shadow:10px 10px 0 #000,0 0 60px rgba(255,210,63,.55);-webkit-text-stroke:6px #000;paint-order:stroke fill;transform:rotate(-4deg)}
+#uni{position:absolute;top:600px;left:150px;width:780px;height:650px;background:center/contain no-repeat;image-rendering:pixelated;filter:drop-shadow(14px 14px 0 rgba(0,0,0,.55))}
+.bub{position:absolute;top:548px;right:48px;background:#fff6dc;color:#000;border:6px solid #000;box-shadow:10px 10px 0 #000;font:400 78px/1 'Jersey 10';padding:18px 28px 10px;transform:rotate(6deg)}
+.bub:after{content:"";position:absolute;left:40px;bottom:-34px;width:34px;height:34px;background:#fff6dc;border:6px solid #000;border-top:0;border-left:0;transform:skewX(30deg)}
+.card{position:absolute;left:90px;right:90px;top:1235px;background:#fff6dc;color:#13204a;border:6px solid #000;box-shadow:14px 14px 0 #000;text-align:center;padding:34px 30px 30px}
+.card .k{font-size:44px;letter-spacing:8px;color:#c8336d}
+.card .n{font:400 120px/1 'Jersey 10';margin:10px 0 8px;color:#13204a;word-break:break-all}
+.card .d{font-size:44px;line-height:1.15}
+.card .pts{position:absolute;top:-46px;right:-26px;background:#ffd23f;border:6px solid #000;box-shadow:8px 8px 0 #000;font:400 64px/1 'Jersey 10';padding:12px 18px 4px;transform:rotate(8deg);color:#000}
+.foot{position:absolute;bottom:175px;left:0;right:0;text-align:center;font-size:46px}
+.foot b{display:block;font:400 72px/1 'Jersey 10';color:#ffd23f;margin-top:10px;text-shadow:5px 5px 0 #000}
+</style></head><body>
+<div id="s">
+ <canvas id="rays" width="270" height="480"></canvas><div class="grain"></div>
+ <div class="top"><span class="brand">UNICORNER</span><div class="tag">DAILY 5 · SCREAMER ALERT</div></div>
+ <h1>SCREAMER!</h1>
+ <div id="uni"></div>
+ <div class="bub">AAAAAH!</div>
+ <div class="card"><span class="pts">+100</span>
+  <div class="k">CONGRATS TO</div>
+  <div class="n">james_gs_iay</div>
+  <div class="d">for landing a Screamer: the rarest answer there is, worth the full 100 points.</div></div>
+ <div class="foot">Can you find one today?<b>unicornergame.lol</b></div>
+</div>
+<script src="/duel/sprites.js"></script>
+<script>
+// pixel sunburst in gold
+const r=document.getElementById('rays').getContext('2d'),W=270,H=480,cx=135,cy=230;
+for(let y=0;y<H;y++)for(let x=0;x<W;x++){const a=Math.atan2(y-cy,x-cx),k=Math.floor((a+Math.PI)/(Math.PI*2)*24)%2;
+ r.fillStyle=k?'#1a2a63':'#13204a';r.fillRect(x,y,1,1)}
+r.globalAlpha=.9;for(let i=0;i<60;i++){r.fillStyle=i%3?'#ffd23f':'#fff6dc';const x=Math.floor(Math.random()*W),y=Math.floor(Math.random()*H);r.fillRect(x,y,1,1)}
+document.getElementById('uni').style.backgroundImage=spriteDraw('scream',1,false,null);
+document.fonts.ready.then(()=>document.body.dataset.ready=1);
+</script></body></html>
