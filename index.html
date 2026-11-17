@@ -96,6 +96,39 @@
  .cz-side .row button{min-width:240px;min-height:54px;font-size:18px}
 }
 @media (prefers-reduced-motion:reduce){.cz-pool,.cz-stage.scr .cz-rays{animation:none}.cz-stamp,.cz-lb{transition:none}}
+
+.cz-bubble{position:absolute;z-index:10;font:400 30px/1 var(--px),sans-serif;color:#1d1a2b;background:#fff27a;border:3px solid #000;padding:6px 10px 2px;white-space:nowrap;box-shadow:4px 4px 0 #000;transform-origin:0 100%;animation:czbub .5s cubic-bezier(.34,1.56,.64,1) both}
+.cz-bubble::after{content:'';position:absolute;left:10px;bottom:-11px;border:8px solid transparent;border-top-color:#000;border-bottom:0}
+@keyframes czbub{from{opacity:0;transform:scale(.4) rotate(-10deg)}to{opacity:1;transform:scale(1) rotate(-4deg)}}
+/* level climb: bottom (Sunday league) to top (Ballon d'Or), beside the game */
+.climb{display:none;position:fixed;z-index:20;pointer-events:none}
+body.playing .climb{display:block}
+.climb .rail{position:absolute;left:0;top:0;bottom:0;width:100%;background:#14121f;border:3px solid #000;box-shadow:3px 3px 0 rgba(0,0,0,.4)}
+.climb .fill{position:absolute;left:0;right:0;bottom:0;background:repeating-linear-gradient(0deg,#f2c230 0 6px,#e0a000 6px 8px);transition:height 900ms cubic-bezier(.23,1,.32,1)}
+.climb .tick{position:absolute;left:-3px;right:-3px;height:3px;background:#000}
+.climb .me{position:absolute;left:50%;width:34px;height:34px;margin:0 0 -17px -17px;transition:bottom 900ms cubic-bezier(.23,1,.32,1);background:#1d1a2b;border:3px solid #f2c230;box-shadow:0 0 10px rgba(242,194,48,.7);display:grid;place-items:center}
+.climb .me .lvl-px{width:22px;height:22px}
+.climb .labs{display:none}
+.climb.pop .me{animation:climbpop .6s cubic-bezier(.34,1.56,.64,1)}@keyframes climbpop{40%{transform:scale(1.5)}}
+@media (min-width:1180px){
+ .climb{left:calc(50vw - 452px - 210px);top:50%;transform:translateY(-50%);height:min(66vh,560px);width:24px}
+ .climb .me{width:44px;height:44px;margin:0 0 -22px -22px}.climb .me .lvl-px{width:28px;height:28px}
+ .climb .labs{display:block;position:absolute;left:40px;top:0;bottom:0;width:170px}
+ .climb .labs span{position:absolute;left:0;transform:translateY(50%);font:400 19px/1.05 var(--px),sans-serif;color:rgba(251,246,232,.55);text-shadow:2px 2px 0 #000;white-space:nowrap}
+ .climb .labs span.on{color:#f2c230;font-size:24px}
+ .climb .labs span.done{color:rgba(251,246,232,.85)}
+ .climb .cap{position:absolute;left:-6px;bottom:calc(100% + 16px);font:400 17px/1 var(--px),sans-serif;letter-spacing:1.4px;color:#fbf6e8;white-space:nowrap;text-shadow:2px 2px 0 #000}
+}
+@media (max-width:1179px){
+ .climb{right:7px;top:50%;transform:translateY(-50%);height:min(56vh,420px);width:8px}
+ body.playing #screen{margin-right:16px}
+ .climb .rail{border-width:2px}.climb .tick{height:2px}
+ .climb .me{width:20px;height:20px;margin:0 0 -10px -10px;border-width:2px}.climb .me .lvl-px{width:13px;height:13px}
+ .climb .cap{display:none}
+ .climb .now{position:absolute;right:calc(100% + 10px);transform:translateY(50%);font:400 13px/1 var(--px),sans-serif;color:#1d1a2b;background:#f2c230;border:2px solid #000;padding:4px 6px 2px;white-space:nowrap;opacity:0;transition:opacity 200ms}
+ .climb.pop .now{opacity:1}
+}
+@media (min-width:1180px){.climb .now{display:none}}
 </style>
 <link rel="preload" href="/fonts/jersey10.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/fonts/vt323.woff2" as="font" type="font/woff2" crossorigin>
 <style>.sp{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:radial-gradient(ellipse at 50% 40%,#fbf5e4 0%,#f6eed8 55%,#e6d9b4 100%);color:#1d1a2b;transition:opacity .45s ease,transform .45s ease}
@@ -2325,7 +2358,14 @@ function flipScoreTo(el,to,ms=2000){const digits=String(to).length;el.innerHTML=
 
 function pos(sc){const f=Math.min(1,sc/MAX),n=ZONES.length-1;if(f>=ZONES[n][0])return 100;let i=0;while(f>=ZONES[i+1][0])i++;return(i+(f-ZONES[i][0])/(ZONES[i+1][0]-ZONES[i][0]))/n*100}
 let lvlLast=-1;
-function setMeter(){const z=zoneOf(score),i=ZONES.findIndex(x=>x[1]===z),top=i===ZONES.length-1,m=document.querySelector('.meter.lvl');if(!m)return;
+function climb(){let c=document.getElementById('climb');const z=zoneOf(score),i=ZONES.findIndex(x=>x[1]===z),f=Math.max(0,Math.min(1,score/MAX)),y=v=>(v*100).toFixed(2)+'%';
+ if(!c){c=document.createElement('div');c.id='climb';c.className='climb';c.setAttribute('aria-hidden','true');
+  c.innerHTML=`<span class="cap">${L('YOUR LEVEL','TU NIVEL',"SEU NÍVEL")}</span><i class="rail"><i class="fill"></i>${ZONES.slice(1).map(([v])=>`<i class="tick" style="bottom:${y(v)}"></i>`).join('')}</i><div class="labs">${ZONES.map(([v,n])=>`<span style="bottom:${y(v)}">${zl(n)}</span>`).join('')}</div><i class="me"></i><span class="now"></span>`;document.body.appendChild(c);c.dataset.i=i}
+ c.querySelector('.fill').style.height=y(f);const me=c.querySelector('.me');me.style.bottom=y(f);if(+c.dataset.lvl!==i)me.innerHTML=lvlSvg(LVL_ART[i]);
+ c.querySelectorAll('.labs span').forEach((sp,k)=>{sp.classList.toggle('on',k===i);sp.classList.toggle('done',k<i)});
+ const now=c.querySelector('.now');now.textContent=zl(z);now.style.bottom=y(f);
+ if(c.dataset.lvl!=null&&+c.dataset.lvl<i){c.classList.remove('pop');void c.offsetWidth;c.classList.add('pop');setTimeout(()=>c.classList.remove('pop'),2200)}c.dataset.lvl=i}
+function setMeter(){const z=zoneOf(score),i=ZONES.findIndex(x=>x[1]===z),top=i===ZONES.length-1,m=document.querySelector('.meter.lvl');climb();if(!m)return;
  const within=top?1:(score/MAX-ZONES[i][0])/(ZONES[i+1][0]-ZONES[i][0]),toGo=top?0:Math.ceil(ZONES[i+1][0]*MAX-score);
  document.getElementById('fill').style.width=Math.max(0,Math.min(1,within))*100+'%';
  document.getElementById('lvlName').textContent=zl(z);
@@ -2724,7 +2764,8 @@ function crowdReveal(q,ans,pts,before,after){
  // camera
  const S0=SW/WW,C0={x:WW/2,y:WH/2},A0={x:SW/2,y:SH*.66},AF={x:SW/2,y:SH*.52};
  const depthOf=p=>Math.max(0,Math.min(1,Math.log10(100/Math.max(p,.4))/Math.log10(250)));
- const cam=(u,k)=>{const sf=S0*Math.pow(2.6/S0,k),s=S0*Math.pow(sf/S0,u),f=Math.max(0,Math.min(1.05,u));
+ const KZ=k=>innerWidth>=860?.32+.68*k:.12+.88*k;
+ const cam=(u,k)=>{const sf=S0*Math.pow(2.6/S0,KZ(k)),s=S0*Math.pow(sf/S0,u),f=Math.max(0,Math.min(1.05,u));
   world.style.transform=`translate(${A0.x+(AF.x-A0.x)*f-s*(C0.x+(MX-C0.x)*f)}px,${A0.y+(AF.y-A0.y)*f-s*(C0.y+(MY-C0.y)*f)}px) scale(${s})`;bg.style.transform=`scale(${1+.16*k*Math.max(0,u)})`};
  const fmt=v=>(v>=9.95?Math.round(v):v.toFixed(1))+'<small>%</small>';
  cam(0,0);
@@ -2756,7 +2797,8 @@ function crowdReveal(q,ans,pts,before,after){
     const r=mu.getBoundingClientRect(),s=stage.getBoundingClientRect(),cols=['#f2c230','#fbf6e8','#fff3a0','#ffb000'];
     for(let i=0;i<60;i++){const d=document.createElement('i');d.className='cz-px';d.style.left=(r.left-s.left+r.width/2)+'px';d.style.top=(r.top-s.top+r.height/2)+'px';d.style.background=cols[i%4];stage.appendChild(d);const a=Math.random()*Math.PI*2,rr=70+Math.random()*150;
      d.animate([{transform:'translate(0,0)',opacity:1},{transform:`translate(${Math.cos(a)*rr}px,${Math.sin(a)*rr*.75+60}px) rotate(${Math.random()*360}deg)`,opacity:0}],{duration:800+Math.random()*400,easing:'cubic-bezier(.2,.8,.4,1)'}).onfinish=()=>d.remove()}}
-   let f=0;const iv=setInterval(()=>{if(!mu.isConnected)return clearInterval(iv);mu.style.backgroundImage=sprite('joy',f++%2,false,UC_KIT)},150);setTimeout(()=>clearInterval(iv),2400)}
+   const bub=document.createElement('i');bub.className='cz-bubble';bub.textContent=L('AAAAAH!','¡AAAAAH!',"AAAAAH!");stage.appendChild(bub);{const r=mu.getBoundingClientRect(),s=stage.getBoundingClientRect();bub.style.left=(r.left-s.left+r.width*.62)+'px';bub.style.top=Math.max(8,r.top-s.top-34)+'px'}
+   let f=0;const iv=setInterval(()=>{if(!mu.isConnected)return clearInterval(iv);mu.style.backgroundImage=sprite(f<12?'scream':'joy',f++%2,false,UC_KIT);if(!SKIP&&f<12&&f%2)mu.animate([{transform:'none'},{transform:'translate(2px,-3px)'},{transform:'translate(-2px,1px)'},{transform:'none'}],{duration:140,easing:'steps(3)'})},140);setTimeout(()=>clearInterval(iv),3000)}
   else mu.style.backgroundImage=sprite(tier>=2?'joy':'happy',0,false,UC_KIT);
   setTimeout(()=>{setMeter();if(after!==before){playSfx('levelup');document.getElementById('promo')?.classList.remove('hold')}},SKIP?0:500);
   setTimeout(()=>{nx.style.visibility='visible';nx.focus({preventScroll:true})},SKIP?0:(after!==before?800:450))})();
