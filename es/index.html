@@ -69,7 +69,7 @@
 .cz-stage.scr .cz-u.mine{filter:drop-shadow(2px 0 0 #f2c230) drop-shadow(-2px 0 0 #f2c230) drop-shadow(0 2px 0 #f2c230) drop-shadow(0 -2px 0 #f2c230) drop-shadow(0 0 16px #ffd65a)}
 .cz-speed{position:absolute;inset:-30%;opacity:0;pointer-events:none;z-index:5;background:repeating-conic-gradient(from 0deg at 50% 60%,rgba(255,255,255,.55) 0 .6deg,transparent .6deg 7deg);-webkit-mask:radial-gradient(circle at 50% 60%,transparent 26%,#000 58%);mask:radial-gradient(circle at 50% 60%,transparent 26%,#000 58%)}
 .cz-lb{position:absolute;left:0;right:0;height:9%;background:#000;z-index:6;transform:scaleY(0);transition:transform 420ms cubic-bezier(.23,1,.32,1)}.cz-lb.t{top:0;transform-origin:50% 0}.cz-lb.b{bottom:0;transform-origin:50% 100%}
-.cz-stage.scr .cz-lb{transform:scaleY(1)}
+
 .cz-flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:7;pointer-events:none}
 .cz-px{position:absolute;width:7px;height:7px;z-index:8;pointer-events:none}
 .cz-hud{position:absolute;left:12px;top:12px;z-index:9;background:rgba(13,12,19,.9);border:3px solid #000;box-shadow:0 3px 0 rgba(0,0,0,.4);padding:6px 10px}
@@ -2800,7 +2800,7 @@ function crowdReveal(q,ans,pts,before,after){
   if(tier>=3)await wait(90);
   stage.classList.add('landed');const st=document.getElementById('czStamp');st.classList.add('in');
   countUp(document.getElementById('czPts'),pts,500,'+');
-  line.textContent=scr?L("Nobody else saw it. You're the unicorn.",'Nadie más lo vio. Eres el unicornio.',"Ninguém mais viu. Você é o unicórnio."):'';line.hidden=!scr;
+  const alone=scr&&keep===0;line.textContent=alone?L("Nobody else saw it. You're the unicorn.",'Nadie más lo vio. Eres el unicornio.',"Ninguém mais viu. Você é o unicórnio."):'';line.hidden=!alone;
   if(scr){pctEl.style.color='var(--gold)';stage.classList.add('scr');
    if(!SKIP&&!RMo){document.getElementById('czFlash').animate([{opacity:0},{opacity:.75,offset:.1},{opacity:0}],{duration:500,easing:'ease-out'});
     const r=mu.getBoundingClientRect(),s=stage.getBoundingClientRect(),cols=['#f2c230','#fbf6e8','#fff3a0','#ffb000'];
