@@ -152,6 +152,24 @@ body.playing .climb.flat{display:flex;align-items:center;gap:10px;margin:0 0 12p
 .g-claim .cta{border-radius:0!important;min-height:48px;font-size:17px}
 .g-claim .g-small{margin:8px 0 0!important;font-size:13px!important;text-align:left}
 .g-claim .g-check{justify-content:flex-start;font-size:13px}
+
+.aw-side{display:grid;gap:12px}
+@media (min-width:860px){
+ #uc-awards .aw{grid-template-columns:minmax(0,1.25fr) minmax(280px,1fr);column-gap:28px;row-gap:0;padding-bottom:20px}
+ #uc-awards .aw>.aw-h{grid-column:1/-1;margin-bottom:18px}
+ #uc-awards .aw>.aw-pod{margin:0 0 0 20px;align-self:end}
+ #uc-awards .aw>.aw-side{margin:0 20px 0 0;align-content:center;gap:14px}
+ #uc-awards .aw-pod{gap:6px}
+ #uc-awards .aw-pod .spr{width:112px;height:94px}
+ #uc-awards .aw-pod b{font-size:24px}#uc-awards .aw-pod small{font-size:13px}
+ #uc-awards .aw-pod i{font-size:20px}
+ #uc-awards .aw-pod .g i{height:96px}#uc-awards .aw-pod .s i{height:68px}#uc-awards .aw-pod .bz i{height:48px}
+ #uc-awards .aw-note{font-size:17px;line-height:1.35;margin:0}
+ #uc-awards .aw .aw-btn{font-size:12px!important;padding:14px 16px!important}
+ #uc-awards .aw-foot{font-size:14px;border:0;background:none;padding:0;color:#5a5070;text-align:center}
+ #uc-awards .aw-note{text-align:center}
+ #uc-awards .aw-me .k{font-size:10px}
+}
 </style>
 <link rel="preload" href="/fonts/jersey10.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/fonts/vt323.woff2" as="font" type="font/woff2" crossorigin>
 <style>.sp{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:radial-gradient(ellipse at 50% 40%,#fbf5e4 0%,#f6eed8 55%,#e6d9b4 100%);color:#1d1a2b;transition:opacity .45s ease,transform .45s ease}
@@ -4640,9 +4658,9 @@ window.ucAwards=async()=>{const el=document.getElementById('uc-awards');if(!el||
  const P=a.podium,cell=(p,c,r)=>p?`<div class="${c}"><span class="spr" style="background-image:${spr(p,r===1?'scream':'wow')}"></span><b>${esc(p.nickname)}</b><small>${p.total} ${L('pts','pts',"pts")}</small><i>${r}</i></div>`:'<div></div>';
  el.innerHTML=`<section class="aw" aria-label="${L("Last week's awards",'Premios de la semana pasada',"Prêmios da semana passada")}"><div class="aw-h"><h3>${L("Last week's awards",'Premios semana pasada',"Prêmios da semana passada")}</h3><small>${wk(a.week_no)} · ${a.players} ${L('players','jugadores',"jogadores")}</small></div>${isNew?`<span class="aw-new">${L('NEW','NUEVO',"NOVO")}</span>`:''}
   <div class="aw-pod">${cell(P[1],'s',2)}${cell(P[0],'g',1)}${cell(P[2],'bz',3)}</div>
-  ${mine.length?`<div class="aw-me"><div class="k">${L('YOU WON','HAS GANADO',"VOCÊ GANHOU")}</div>${mine.map(t=>`<div class="aw-row">${icoHtml(t.trophy)}<span><b>${esc(trName(t.trophy))}</b><span>${esc(why(t.trophy,t.detail))}</span></span></div>`).join('')}</div>`
+  <div class="aw-side">${mine.length?`<div class="aw-me"><div class="k">${L('YOU WON','HAS GANADO',"VOCÊ GANHOU")}</div>${mine.map(t=>`<div class="aw-row">${icoHtml(t.trophy)}<span><b>${esc(trName(t.trophy))}</b><span>${esc(why(t.trophy,t.detail))}</span></span></div>`).join('')}</div>`
    :`<p class="aw-note">${signed?L('No trophy for you last week. A new week has started.','La semana pasada no hubo trofeo para ti. Ya ha empezado una nueva semana.',"Nenhum troféu pra você na semana passada. Uma nova semana começou."):L('Get a nickname to win trophies every week.','Elige un apodo para ganar trofeos cada semana.',"Escolha um apelido para ganhar troféus toda semana.")}</p>`}
-  <button type="button" class="aw-btn" data-aw="cab">${L('Open the trophy cabinet','Abrir la vitrina de trofeos',"Abrir a galeria de troféus")}</button><p class="aw-foot">${L('New trophies every Monday at midnight','Nuevos trofeos cada lunes a medianoche',"Troféus novos toda segunda à meia-noite")}</p></section>`;
+  <button type="button" class="aw-btn" data-aw="cab">${L('Open the trophy cabinet','Abrir la vitrina de trofeos',"Abrir a galeria de troféus")}</button><p class="aw-foot">${L('New trophies every Monday at midnight','Nuevos trofeos cada lunes a medianoche',"Troféus novos toda segunda à meia-noite")}</p></div></section>`;
  el.hidden=false;st('uc-aw-seen',a.week);
  el.onclick=e=>{if(e.target.closest('[data-aw="cab"]')){track('awards_cabinet_click',{won:mine.length});window.ucOpenTrophies?.()}};
  track('awards_view',{week:a.week,won:mine.length,signed})};
