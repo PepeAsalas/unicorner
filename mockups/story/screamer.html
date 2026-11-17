@@ -1,46 +1,82 @@
 <!doctype html><html><head><meta charset="utf-8"><title>Screamer story</title>
+<!-- Instagram story, 1080x1920. Change the name with ?n=nickname. Render: screenshot #s at 1080x1920. -->
 <style>
 @font-face{font-family:'Jersey 10';src:url(/fonts/jersey10.woff2) format('woff2')}
 @font-face{font-family:'VT323';src:url(/fonts/vt323.woff2) format('woff2')}
+:root{--gold:#ffd23f;--gold2:#e0a000;--cream:#fff6dc;--navy:#0f1a3d;--ink:#0a0f24;--pink:#ff6fb5}
 html,body{margin:0;background:#000}
-#s{position:relative;width:1080px;height:1920px;overflow:hidden;background:#13204a;font-family:'VT323',monospace;color:#fff6dc}
-#rays{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
-.grain{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 46%,transparent 30%,rgba(5,8,25,.75) 100%)}
-.top{position:absolute;top:150px;left:0;right:0;text-align:center}
-.brand{display:inline-block;font:400 44px/1 'Jersey 10';letter-spacing:4px;background:#fff6dc;color:#13204a;border:5px solid #000;box-shadow:8px 8px 0 #000;padding:12px 26px 6px}
-.tag{margin-top:26px;font-size:40px;letter-spacing:6px;color:#ffd23f}
-h1{position:absolute;top:330px;left:0;right:0;margin:0;text-align:center;font:400 250px/1 'Jersey 10';color:#ffd23f;letter-spacing:4px;
- text-shadow:10px 10px 0 #000,0 0 60px rgba(255,210,63,.55);-webkit-text-stroke:6px #000;paint-order:stroke fill;transform:rotate(-4deg)}
-#uni{position:absolute;top:600px;left:150px;width:780px;height:650px;background:center/contain no-repeat;image-rendering:pixelated;filter:drop-shadow(14px 14px 0 rgba(0,0,0,.55))}
-.bub{position:absolute;top:548px;right:48px;background:#fff6dc;color:#000;border:6px solid #000;box-shadow:10px 10px 0 #000;font:400 78px/1 'Jersey 10';padding:18px 28px 10px;transform:rotate(6deg)}
-.bub:after{content:"";position:absolute;left:40px;bottom:-34px;width:34px;height:34px;background:#fff6dc;border:6px solid #000;border-top:0;border-left:0;transform:skewX(30deg)}
-.card{position:absolute;left:90px;right:90px;top:1235px;background:#fff6dc;color:#13204a;border:6px solid #000;box-shadow:14px 14px 0 #000;text-align:center;padding:34px 30px 30px}
-.card .k{font-size:44px;letter-spacing:8px;color:#c8336d}
-.card .n{font:400 120px/1 'Jersey 10';margin:10px 0 8px;color:#13204a;word-break:break-all}
-.card .d{font-size:44px;line-height:1.15}
-.card .pts{position:absolute;top:-46px;right:-26px;background:#ffd23f;border:6px solid #000;box-shadow:8px 8px 0 #000;font:400 64px/1 'Jersey 10';padding:12px 18px 4px;transform:rotate(8deg);color:#000}
-.foot{position:absolute;bottom:175px;left:0;right:0;text-align:center;font-size:46px}
-.foot b{display:block;font:400 72px/1 'Jersey 10';color:#ffd23f;margin-top:10px;text-shadow:5px 5px 0 #000}
+#s{position:relative;width:1080px;height:1920px;overflow:hidden;background:var(--ink) url(/bg/floodlit-tall.webp) center 38%/cover;font-family:'VT323',monospace;color:var(--cream)}
+/* darken the sky so type reads; keep the floodlights and the pitch */
+#s:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,9,26,.88) 0%,rgba(6,9,26,.55) 30%,rgba(6,9,26,.15) 52%,rgba(6,9,26,.35) 70%,rgba(6,9,26,.92) 100%)}
+.fx{position:absolute;inset:0;pointer-events:none}
+/* one gold spotlight from above onto the hero */
+.beam{position:absolute;left:50%;top:330px;width:1100px;height:1000px;transform:translateX(-50%);background:linear-gradient(180deg,rgba(255,210,63,.0),rgba(255,210,63,.22) 55%,rgba(255,210,63,.0));clip-path:polygon(44% 0,56% 0,92% 100%,8% 100%);mix-blend-mode:screen}
+.pool{position:absolute;left:50%;top:1165px;width:820px;height:150px;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(255,210,63,.55),rgba(255,210,63,.12) 55%,transparent 72%)}
+
+/* brand */
+.brand{position:absolute;top:150px;left:0;right:0;text-align:center}
+.brand span{display:inline-block;font:400 40px/1 'Jersey 10';letter-spacing:5px;background:var(--cream);color:var(--navy);border:5px solid #000;box-shadow:7px 7px 0 #000;padding:12px 24px 6px}
+
+/* stadium LED board */
+.board{position:absolute;top:270px;left:80px;right:80px;background:#05070f;border:6px solid #000;outline:6px solid #2a2f45;box-shadow:0 0 0 12px #000,0 30px 60px rgba(0,0,0,.6);padding:26px 0 22px;text-align:center}
+.board:before,.board:after{content:"";position:absolute;bottom:-70px;width:22px;height:64px;background:#1a1f33;border:5px solid #000}
+.board:before{left:120px}.board:after{right:120px}
+.led{font:400 236px/0.82 'Jersey 10';color:var(--gold);letter-spacing:6px;
+ text-shadow:0 0 18px rgba(255,210,63,.75),0 0 46px rgba(255,170,0,.45);
+ -webkit-mask:radial-gradient(circle,#000 58%,transparent 62%) 0 0/9px 9px;mask:radial-gradient(circle,#000 58%,transparent 62%) 0 0/9px 9px}
+.sub{display:flex;justify-content:center;gap:26px;margin-top:14px;font:400 46px/1 'Jersey 10';letter-spacing:4px;color:#ff9a3c;
+ text-shadow:0 0 14px rgba(255,140,40,.6)}
+.sub i{font-style:normal;color:#4a4f66}
+
+/* hero + crowd */
+.hero{position:absolute;left:50%;top:700px;width:700px;height:584px;transform:translateX(-50%);background:center/contain no-repeat;image-rendering:pixelated;filter:drop-shadow(0 0 28px rgba(255,210,63,.55)) drop-shadow(12px 14px 0 rgba(0,0,0,.45))}
+.fan{position:absolute;width:250px;height:208px;background:center/contain no-repeat;image-rendering:pixelated;opacity:.85;filter:brightness(.45) saturate(.5) drop-shadow(6px 8px 0 rgba(0,0,0,.4))}
+.fan.l{transform:scaleX(1)}.fan.r{transform:scaleX(-1)}
+.spark{position:absolute;width:12px;height:12px;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+.spark.w{background:var(--cream);box-shadow:0 0 12px var(--cream)}
+.spark.x:before,.spark.x:after{content:"";position:absolute;background:inherit}
+.spark.x{width:10px;height:10px}.spark.x:before{left:-12px;top:0;width:34px;height:10px}.spark.x:after{left:0;top:-12px;width:10px;height:34px}
+
+/* broadcast lower third */
+.lt{position:absolute;left:70px;right:70px;top:1300px}
+.lt .tab{display:inline-block;background:var(--gold);color:#000;font:400 48px/1 'Jersey 10';letter-spacing:4px;padding:14px 26px 8px;border:5px solid #000;border-bottom:0}
+.lt .bar{background:var(--cream);color:var(--navy);border:5px solid #000;box-shadow:12px 12px 0 #000;display:flex;align-items:center;min-height:170px}
+.lt .nm{flex:1;font:400 132px/1 'Jersey 10';padding:20px 30px 8px;letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lt .pts{align-self:stretch;display:grid;place-items:center;background:var(--navy);color:var(--gold);border-left:5px solid #000;padding:0 30px;font:400 92px/1 'Jersey 10'}
+.lt .pts small{display:block;font:400 30px/1 VT323,monospace;color:var(--cream);letter-spacing:4px;text-align:center;margin-top:-6px}
+.lt .line{margin:26px 4px 0;font-size:44px;line-height:1.2;color:var(--cream);text-shadow:3px 3px 0 #000}
+.lt .line b{color:var(--gold);font-weight:400}
+
+.foot{position:absolute;left:0;right:0;bottom:205px;text-align:center}
+.foot span{display:inline-block;font:400 60px/1 'Jersey 10';color:var(--gold);letter-spacing:2px;text-shadow:5px 5px 0 #000}
+.foot small{display:block;font-size:38px;color:var(--cream);margin-bottom:12px;text-shadow:3px 3px 0 #000}
 </style></head><body>
 <div id="s">
- <canvas id="rays" width="270" height="480"></canvas><div class="grain"></div>
- <div class="top"><span class="brand">UNICORNER</span><div class="tag">DAILY 5 · SCREAMER ALERT</div></div>
- <h1>SCREAMER!</h1>
- <div id="uni"></div>
- <div class="bub">AAAAAH!</div>
- <div class="card"><span class="pts">+100</span>
-  <div class="k">CONGRATS TO</div>
-  <div class="n">james_gs_iay</div>
-  <div class="d">for landing a Screamer: the rarest answer there is, worth the full 100 points.</div></div>
- <div class="foot">Can you find one today?<b>unicornergame.lol</b></div>
+ <div class="fx"><div class="beam"></div><div class="pool"></div></div>
+ <div class="brand"><span>UNICORNER · DAILY 5</span></div>
+ <div class="board"><div class="led">SCREAMER</div><div class="sub"><span>RAREST ANSWER</span><i>·</i><span>+100</span></div></div>
+ <div class="fan l" style="left:-10px;top:1090px"></div>
+ <div class="fan r" style="right:-10px;top:1090px"></div>
+ <div class="hero"></div>
+ <div class="spark x" style="left:236px;top:760px"></div>
+ <div class="spark w" style="left:300px;top:690px"></div>
+ <div class="spark x w" style="left:860px;top:690px"></div>
+ <div class="spark" style="left:900px;top:800px"></div>
+ <div class="spark" style="left:180px;top:930px"></div>
+ <div class="spark x" style="left:930px;top:960px"></div>
+ <div class="lt">
+  <div class="tab">SCREAMER OF THE DAY</div>
+  <div class="bar"><div class="nm" id="nm">james_gs_iay</div><div class="pts">100<small>PTS</small></div></div>
+  <p class="line">Almost nobody else thought of it. <b>Find yours today.</b></p>
+ </div>
+ <div class="foot"><span>unicornergame.lol</span></div>
 </div>
 <script src="/duel/sprites.js"></script>
 <script>
-// pixel sunburst in gold
-const r=document.getElementById('rays').getContext('2d'),W=270,H=480,cx=135,cy=230;
-for(let y=0;y<H;y++)for(let x=0;x<W;x++){const a=Math.atan2(y-cy,x-cx),k=Math.floor((a+Math.PI)/(Math.PI*2)*24)%2;
- r.fillStyle=k?'#1a2a63':'#13204a';r.fillRect(x,y,1,1)}
-r.globalAlpha=.9;for(let i=0;i<60;i++){r.fillStyle=i%3?'#ffd23f':'#fff6dc';const x=Math.floor(Math.random()*W),y=Math.floor(Math.random()*H);r.fillRect(x,y,1,1)}
-document.getElementById('uni').style.backgroundImage=spriteDraw('scream',1,false,null);
-document.fonts.ready.then(()=>document.body.dataset.ready=1);
+const q=new URLSearchParams(location.search).get('n');if(q)document.getElementById('nm').textContent=q;
+document.querySelector('.hero').style.backgroundImage=spriteDraw('scream',1,false,null);
+document.querySelectorAll('.fan').forEach((f,i)=>f.style.backgroundImage=spriteDraw('wow',i%2,false,null));
+// shrink a long name to fit the bar
+const nm=document.getElementById('nm');
+document.fonts.ready.then(()=>{let s=132;while(nm.scrollWidth>nm.clientWidth&&s>60){s-=4;nm.style.fontSize=s+'px'}document.body.dataset.ready=1});
 </script></body></html>
