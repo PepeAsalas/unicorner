@@ -56,12 +56,14 @@
 .cz-bg{position:absolute;inset:-6%;background:#2a6b43 var(--t) center/cover no-repeat;image-rendering:pixelated;will-change:transform}
 .cz-world{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
 .cz-u{position:absolute;background-size:contain;background-repeat:no-repeat;background-position:bottom center;image-rendering:pixelated;transform-origin:50% 100%;clip-path:polygon(0 0,100% 0,100% 68%,76% 68%,76% 100%,0 100%)}
-.cz-u.mine{filter:drop-shadow(2px 0 0 #f2c230) drop-shadow(-2px 0 0 #f2c230) drop-shadow(0 2px 0 #f2c230) drop-shadow(0 -2px 0 #f2c230) drop-shadow(0 0 10px rgba(255,214,90,.85));clip-path:none}
+.cz-u.mine{filter:drop-shadow(2px 0 0 #fbf6e8) drop-shadow(-2px 0 0 #fbf6e8) drop-shadow(0 2px 0 #fbf6e8) drop-shadow(0 -2px 0 #fbf6e8) drop-shadow(0 0 8px rgba(255,255,255,.6));clip-path:none;transition:filter 300ms ease}
+.cz-stage.landed .cz-u.mine{filter:drop-shadow(2px 0 0 var(--czg)) drop-shadow(-2px 0 0 var(--czg)) drop-shadow(0 2px 0 var(--czg)) drop-shadow(0 -2px 0 var(--czg)) drop-shadow(0 0 12px var(--czg))}
 .cz-sh{position:absolute;height:8px;border-radius:50%;background:rgba(0,0,0,.32);transform:translateX(-50%)}
-.cz-pool{position:absolute;border-radius:50%;background:radial-gradient(ellipse,rgba(255,214,90,.55),rgba(255,214,90,0) 70%);transform:translateX(-50%);animation:czpool 1.4s ease-in-out infinite alternate}
+.cz-pool{position:absolute;border-radius:50%;background:radial-gradient(ellipse,rgba(255,255,255,.4),rgba(255,255,255,0) 70%);transform:translateX(-50%);animation:czpool 1.4s ease-in-out infinite alternate}
 @keyframes czpool{from{opacity:.55;transform:translateX(-50%) scale(.92)}to{opacity:1;transform:translateX(-50%) scale(1.06)}}
 .cz-rays{position:absolute;border-radius:50%;opacity:0;pointer-events:none;background:repeating-conic-gradient(from 0deg,rgba(255,214,90,.55) 0 6deg,transparent 6deg 18deg);-webkit-mask:radial-gradient(circle,#000 18%,transparent 62%);mask:radial-gradient(circle,#000 18%,transparent 62%)}
 .cz-stage.scr .cz-rays{opacity:1;animation:czrays 9s linear infinite}@keyframes czrays{to{transform:rotate(360deg)}}
+.cz-stage.landed .cz-pool{background:radial-gradient(ellipse,color-mix(in srgb,var(--czg) 65%,transparent),transparent 70%)}
 .cz-stage.scr .cz-u.mine{filter:drop-shadow(2px 0 0 #f2c230) drop-shadow(-2px 0 0 #f2c230) drop-shadow(0 2px 0 #f2c230) drop-shadow(0 -2px 0 #f2c230) drop-shadow(0 0 16px #ffd65a)}
 .cz-speed{position:absolute;inset:-30%;opacity:0;pointer-events:none;z-index:5;background:repeating-conic-gradient(from 0deg at 50% 60%,rgba(255,255,255,.55) 0 .6deg,transparent .6deg 7deg);-webkit-mask:radial-gradient(circle at 50% 60%,transparent 26%,#000 58%);mask:radial-gradient(circle at 50% 60%,transparent 26%,#000 58%)}
 .cz-lb{position:absolute;left:0;right:0;height:9%;background:#000;z-index:6;transform:scaleY(0);transition:transform 420ms cubic-bezier(.23,1,.32,1)}.cz-lb.t{top:0;transform-origin:50% 0}.cz-lb.b{bottom:0;transform-origin:50% 100%}
@@ -73,19 +75,23 @@
 .cz-hud span{font:400 13px/1 var(--px),sans-serif;letter-spacing:1.2px;color:#b9c5e6}
 .cz-stamp{position:absolute;left:50%;top:calc(clamp(300px,47vh,400px) - 70px);z-index:9;font:400 40px/1 var(--px),sans-serif;padding:6px 16px 2px;border:4px solid #000;color:#1d1a2b;white-space:nowrap;box-shadow:0 6px 0 rgba(0,0,0,.45);opacity:0;transform:translateX(-50%) scale(2) rotate(-10deg);transition:opacity 320ms cubic-bezier(.3,0,.2,1),transform 320ms cubic-bezier(.34,1.56,.64,1);pointer-events:none}
 .cz-stamp.in{opacity:1;transform:translateX(-50%) scale(1) rotate(-4deg)}
-.cz-q{margin:0;font-size:15px;line-height:1.25;color:var(--mute)}.cz-a{margin:4px 0 0;font:700 22px/1.1 var(--px),sans-serif}.cz-a b{color:var(--gold)}
+.cz-q{margin:0;font-size:15px;line-height:1.25;color:var(--mute)}.cz-a{margin:4px 0 0;font:700 24px/1.1 var(--px),sans-serif}.cz-p{margin:2px 0 0;font:400 18px/1 var(--px),sans-serif;color:var(--mute)}.cz-p b{color:var(--gold);font-size:26px;font-weight:400}.cz-a b{color:var(--gold)}
 .cz-line{margin:4px 0 0;font-size:16px;color:var(--mute);min-height:1.2em}.cz-lvl{margin:6px 0 10px!important;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}.cz-lvl .promo{margin:0}
-.cz-side .row{margin:0}
+.cz-side .row{margin:12px 0 0}.cz-lvl{margin:10px 0 0!important}
 /* desktop: stage on the left, the result on the right */
 @media (min-width:860px){
  .card.cz{padding:18px}
  .cz-grid{grid-template-columns:minmax(0,1.35fr) minmax(280px,1fr);gap:22px;align-items:stretch}
  .cz-stage{height:min(520px,62vh)}
  .cz-side{display:flex;flex-direction:column;justify-content:center;gap:18px;min-width:0;padding:10px 6px}
+ .cz-side{align-items:center;text-align:center}
  .cz-hud,.cz-stamp{position:static;transform:none}
+ .cz-hud{align-self:center!important}.cz-stamp{align-self:center!important}
+ .cz-info{display:flex;flex-direction:column;align-items:center;width:100%}
+ .cz-side .row{justify-content:center;width:100%}
  .cz-hud{align-self:flex-start;padding:10px 16px}.cz-hud b{font-size:96px}.cz-hud b small{font-size:40px}.cz-hud span{font-size:15px}
  .cz-stamp{align-self:flex-start;font-size:52px;transform:scale(1.6) rotate(-8deg)}.cz-stamp.in{transform:rotate(-3deg)}
- .cz-q{font-size:24px;line-height:1.15}.cz-a{font-size:44px;line-height:1}.cz-line{font-size:24px}.cz-lvl{font-size:20px}
+ .cz-q{font-size:22px;line-height:1.2;max-width:26ch}.cz-a{font-size:44px;line-height:1;margin-top:10px}.cz-p{font-size:22px;margin-top:6px}.cz-p b{font-size:36px}.cz-line{font-size:24px}.cz-lvl{font-size:20px}
  .cz-hud b{font-size:120px!important}.cz-hud b small{font-size:48px!important}.cz-hud span{font-size:18px}.cz-stamp{font-size:64px}
  .cz-side .row button{min-width:240px;min-height:54px;font-size:18px}
 }
@@ -2685,13 +2691,13 @@ function czShare(q,ans){if(INF||!window.ucPubRpc)return Promise.resolve(null);
 function crowdReveal(q,ans,pts,before,after){
  const tier=tierIdx(pts),scr=pts===100,share=czShare(q,ans);
  const tierTxt=scr?L('SCREAMER!','¡CHICHARRO!',"GOLAÇO!"):tl(tierName(pts)).toUpperCase(),TC=['#c9cde0','#3fd17f','#3fb1ff','#a070ff','#f2c230'][Math.max(0,tier)];
- swap(`<div class="card cz" id="czCard"><div class="cz-grid">
+ swap(`<div class="card cz" id="czCard" style="--czg:${TC}"><div class="cz-grid">
   <div class="cz-stage" id="czStage" role="img" aria-label="${L('Your answer among today\'s players','Tu respuesta entre los jugadores de hoy',"Sua resposta entre os jogadores de hoje")}"><div class="cz-bg" id="czBg" style="${window.ucStageBg?.()||''}"></div><div class="cz-world" id="czWorld"></div><div class="cz-speed" id="czSpeed"></div><i class="cz-lb t" id="czLbt"></i><i class="cz-lb b" id="czLbb"></i><i class="cz-flash" id="czFlash"></i></div>
   <div class="cz-side">
    <div class="cz-hud" id="czHud"><b id="czPct">100<small>%</small></b><span id="czHudL">${L('SAID THIS','LO DIJERON',"DISSERAM ISSO")}</span></div>
    <div class="cz-stamp" id="czStamp" style="background:${TC}">${tierTxt}</div>
-   <div class="cz-info"><p class="cz-q">${qt(q,'prompt')}</p><p class="cz-a">${an(ans)} <b id="czPts">+0</b></p><p class="cz-line" id="czLine">&nbsp;</p>
-    <p class="mute cz-lvl">${L('Level:','Nivel:',"Nível:")} <b style="color:var(--ink)">${zl(after)}</b>${after!==before?` <span class="promo hold" id="promo">${L('Promoted to','Asciendes a',"Promovido para")} ${zl(after)}</span>`:''}</p>
+   <div class="cz-info"><p class="cz-q">${qt(q,'prompt')}</p><p class="cz-a">${an(ans)}</p><p class="cz-p"><b id="czPts">+0</b> ${L('points','puntos',"pontos")}</p><p class="cz-line" id="czLine" hidden></p>
+    ${after!==before?`<p class="cz-lvl"><span class="promo hold" id="promo">▲ ${L('Promoted to','Asciendes a',"Promovido para")} ${zl(after)}</span></p>`:''}
     <div class="row">${INF?`<button type="button" class="ghost inf-exit" data-inf-exit>← ${L('Home','Inicio',"Início")}</button>`:''}<button id="next">${qi<Q.length-1||INF?L('Keep going','Siguiente',"Continuar"):L('See full time','Ver el final',"Ver o resultado final")}</button></div></div>
   </div></div></div>`,()=>{
  const stage=document.getElementById('czStage'),world=document.getElementById('czWorld'),bg=document.getElementById('czBg'),sp=document.getElementById('czSpeed'),nx=document.getElementById('next'),pctEl=document.getElementById('czPct'),line=document.getElementById('czLine');
@@ -2741,9 +2747,9 @@ function crowdReveal(q,ans,pts,before,after){
   tw(220,e=>cam(1.03-.03*e,k),eOut);
   if(tier>=1&&!SKIP&&!RMo){const n=tier>=3?6:3;stage.animate([{transform:'none'},{transform:`translate(${n}px,-${n*.6}px)`},{transform:`translate(-${n*.8}px,${n*.5}px)`},{transform:'none'}],{duration:240,easing:'steps(3)'})}
   if(tier>=3)await wait(90);
-  const st=document.getElementById('czStamp');st.classList.add('in');
+  stage.classList.add('landed');const st=document.getElementById('czStamp');st.classList.add('in');
   countUp(document.getElementById('czPts'),pts,500,'+');
-  line.textContent=scr?L("Nobody else saw it. You're the unicorn.",'Nadie más lo vio. Eres el unicornio.',"Ninguém mais viu. Você é o unicórnio."):sh&&!sh.early?L(`${sh.k} of ${sh.n} players said the same as you.`,`${sh.k} de ${sh.n} jugadores dijeron lo mismo.`,`${sh.k} de ${sh.n} jogadores disseram o mesmo.`):sh&&sh.early?L(`One of the first ${sh.n} players today.`,`Uno de los primeros ${sh.n} jugadores de hoy.`,`Um dos primeiros ${sh.n} jogadores de hoje.`):L('A rare pick.','Una respuesta rara.',"Uma resposta rara.");
+  line.textContent=scr?L("Nobody else saw it. You're the unicorn.",'Nadie más lo vio. Eres el unicornio.',"Ninguém mais viu. Você é o unicórnio."):'';line.hidden=!scr;
   if(scr){pctEl.style.color='var(--gold)';stage.classList.add('scr');
    if(!SKIP&&!RMo){document.getElementById('czFlash').animate([{opacity:0},{opacity:.75,offset:.1},{opacity:0}],{duration:500,easing:'ease-out'});
     const r=mu.getBoundingClientRect(),s=stage.getBoundingClientRect(),cols=['#f2c230','#fbf6e8','#fff3a0','#ffb000'];
@@ -4148,7 +4154,7 @@ const bgxCss=c=>c.startsWith('img:')?`--w:url(/bg/${c.slice(4)}-wide.webp);--t:u
 const bgxSw=c=>c.startsWith('img:')?`background:#111 url(/bg/${c.slice(4)}-wide.webp) center/cover`:'background:'+c;
 const bgxReq=r=>!r||(r[0]==='games'?kitStats().games:bestStreak())>=r[1];
 const bgxNeed=r=>r[0]==='games'?L(`🎮 ${r[1]} games`,`🎮 ${r[1]} partidas`,`🎮 ${r[1]} jogos`):L(`🔥 ${r[1]} days`,`🔥 ${r[1]} días`,`🔥 ${r[1]} dias`);
-window.ucStageBg=()=>{let k='d-pitch';try{k=new URLSearchParams(location.search).get('bg')||ls('uc-bg')||'d-pitch'}catch{}const x=BGX.find(b=>b[0]===k)||BGX[0];return bgxCss(x[5])};
+window.ucStageBg=()=>{if(window.__czBg)return `--t:url(${window.__czBg})`;let k='d-pitch';try{k=new URLSearchParams(location.search).get('bg')||ls('uc-bg')||'d-pitch'}catch{}const x=BGX.find(b=>b[0]===k)||BGX[0];return bgxCss(x[5])};
 const bgxEl=document.createElement('div');bgxEl.className='bgx';bgxEl.setAttribute('aria-hidden','true');document.querySelector('.scene').after(bgxEl);
 const ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);v==null?localStorage.removeItem(k):localStorage.setItem(k,String(v))}catch{return null}};
 const scene=document.querySelector('.scene'),btn=document.getElementById('stadiumToggle');
