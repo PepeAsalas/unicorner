@@ -170,6 +170,22 @@ body.playing .climb.flat{display:flex;align-items:center;gap:10px;margin:0 0 12p
  #uc-awards .aw-note{text-align:center}
  #uc-awards .aw-me .k{font-size:10px}
 }
+
+#uc-awards .aw .aw-btn{display:flex!important;align-items:center;gap:12px;text-align:left;text-transform:none;letter-spacing:0}
+#uc-awards .aw-bt{flex:1;min-width:0;display:grid;gap:4px}
+#uc-awards .aw-bt b{font:10px/1.4 "Press Start 2P",monospace;text-transform:uppercase}
+#uc-awards .aw-bt small{font:13px var(--lab);color:#5a5070}
+#uc-awards .aw-arr{font-size:14px}
+@media (hover:hover){#uc-awards .aw .aw-btn:hover .aw-bt small{color:#c9d3ff}}
+#uc-awards .aw-ig{display:flex;align-items:center;gap:10px;color:#1d1a2b;text-decoration:none;font:13px/1.3 var(--lab);padding:8px 10px;border:2px dashed #c9b98f}
+#uc-awards .aw-ig img{image-rendering:pixelated;flex:none}
+#uc-awards .aw-ig b{color:#c8336d;font-weight:400}
+@media (hover:hover){#uc-awards .aw-ig:hover{border-color:#c8336d}}
+@media (min-width:860px){
+ #uc-awards .aw .aw-btn{padding:18px 18px!important;min-height:96px}
+ #uc-awards .aw-bt b{font-size:13px}#uc-awards .aw-bt small{font-size:15px}
+ #uc-awards .aw-ig{font-size:15px;padding:10px 12px}
+}
 </style>
 <link rel="preload" href="/fonts/jersey10.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/fonts/vt323.woff2" as="font" type="font/woff2" crossorigin>
 <style>.sp{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:radial-gradient(ellipse at 50% 40%,#fbf5e4 0%,#f6eed8 55%,#e6d9b4 100%);color:#1d1a2b;transition:opacity .45s ease,transform .45s ease}
@@ -4659,8 +4675,9 @@ window.ucAwards=async()=>{const el=document.getElementById('uc-awards');if(!el||
  el.innerHTML=`<section class="aw" aria-label="${L("Last week's awards",'Premios de la semana pasada',"Prêmios da semana passada")}"><div class="aw-h"><h3>${L("Last week's awards",'Premios semana pasada',"Prêmios da semana passada")}</h3><small>${wk(a.week_no)} · ${a.players} ${L('players','jugadores',"jogadores")}</small></div>${isNew?`<span class="aw-new">${L('NEW','NUEVO',"NOVO")}</span>`:''}
   <div class="aw-pod">${cell(P[1],'s',2)}${cell(P[0],'g',1)}${cell(P[2],'bz',3)}</div>
   <div class="aw-side">${mine.length?`<div class="aw-me"><div class="k">${L('YOU WON','HAS GANADO',"VOCÊ GANHOU")}</div>${mine.map(t=>`<div class="aw-row">${icoHtml(t.trophy)}<span><b>${esc(trName(t.trophy))}</b><span>${esc(why(t.trophy,t.detail))}</span></span></div>`).join('')}</div>`
-   :`<p class="aw-note">${signed?L('No trophy for you last week. A new week has started.','La semana pasada no hubo trofeo para ti. Ya ha empezado una nueva semana.',"Nenhum troféu pra você na semana passada. Uma nova semana começou."):L('Get a nickname to win trophies every week.','Elige un apodo para ganar trofeos cada semana.',"Escolha um apelido para ganhar troféus toda semana.")}</p>`}
-  <button type="button" class="aw-btn" data-aw="cab">${L('Open the trophy cabinet','Abrir la vitrina de trofeos',"Abrir a galeria de troféus")}</button><p class="aw-foot">${L('New trophies every Monday at midnight','Nuevos trofeos cada lunes a medianoche',"Troféus novos toda segunda à meia-noite")}</p></div></section>`;
+   :''}
+  <button type="button" class="aw-btn" data-aw="cab">${icoHtml('champion','width:44px;height:44px;flex:none')}<span class="aw-bt"><b>${L('Open the trophy cabinet','Abrir la vitrina de trofeos',"Abrir a galeria de troféus")}</b><small>${L('New trophies every Monday at midnight','Nuevos trofeos cada lunes a medianoche',"Troféus novos toda segunda à meia-noite")}</small></span><span class="aw-arr" aria-hidden="true">▶</span></button>
+  <a class="aw-ig" href="https://www.instagram.com/unicornergame.lol/" target="_blank" rel="noopener"><img src="/banners/instagram-logo.png" alt="" width="28" height="28"><span>${L("We post the week's top 3 on Instagram",'Publicamos el top 3 de la semana en Instagram',"Postamos o top 3 da semana no Instagram")} <b>@unicornergame.lol</b></span></a></div></section>`;
  el.hidden=false;st('uc-aw-seen',a.week);
  el.onclick=e=>{if(e.target.closest('[data-aw="cab"]')){track('awards_cabinet_click',{won:mine.length});window.ucOpenTrophies?.()}};
  track('awards_view',{week:a.week,won:mine.length,signed})};
