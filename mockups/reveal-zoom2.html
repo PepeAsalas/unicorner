@@ -25,6 +25,10 @@ h1{font:400 42px/1 'Jersey 10',sans-serif;color:var(--gold);margin:0 0 6px;text-
 .bg{position:absolute;inset:-6%;background-size:cover;background-position:50% 70%;will-change:transform,filter}
 .world{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
 .u{position:absolute;background-size:contain;background-repeat:no-repeat;background-position:bottom center;image-rendering:pixelated;transform-origin:50% 100%}
+.mine{filter:drop-shadow(2px 0 0 #f2c230) drop-shadow(-2px 0 0 #f2c230) drop-shadow(0 2px 0 #f2c230) drop-shadow(0 -2px 0 #f2c230) drop-shadow(0 0 10px rgba(255,214,90,.85))}
+.pool{position:absolute;border-radius:50%;background:radial-gradient(ellipse,rgba(255,214,90,.55),rgba(255,214,90,0) 70%);transform:translateX(-50%);animation:pool 1.4s ease-in-out infinite alternate}
+@keyframes pool{from{opacity:.55;transform:translateX(-50%) scale(.92)}to{opacity:1;transform:translateX(-50%) scale(1.06)}}
+@media (prefers-reduced-motion:reduce){.pool{animation:none}}
 .shadow{position:absolute;height:8px;border-radius:50%;background:rgba(0,0,0,.35);transform:translateX(-50%)}
 .rays{position:absolute;width:520px;height:520px;border-radius:50%;opacity:0;pointer-events:none;background:repeating-conic-gradient(from 0deg,rgba(255,214,90,.55) 0 6deg,transparent 6deg 18deg);-webkit-mask:radial-gradient(circle,#000 18%,transparent 62%);mask:radial-gradient(circle,#000 18%,transparent 62%)}
 .speed{position:absolute;inset:-30%;opacity:0;pointer-events:none;z-index:5;background:repeating-conic-gradient(from 0deg at 50% 60%,rgba(255,255,255,.55) 0 .6deg,transparent .6deg 7deg);-webkit-mask:radial-gradient(circle at 50% 60%,transparent 26%,#000 58%);mask:radial-gradient(circle at 50% 60%,transparent 26%,#000 58%)}
@@ -69,7 +73,7 @@ h1{font:400 42px/1 'Jersey 10',sans-serif;color:var(--gold);margin:0 0 6px;text-
   <li><b>Whoosh (0.6 to 1.2 s):</b> one fast push-in that speeds up and then brakes. Speed lines and a little blur only during the fastest part. Everyone who said something else jumps out of shot, from the edges inwards.</li>
   <li><b>Landing:</b> the camera overshoots slightly and settles, and your unicorn squashes on impact. Bicycle and Screamer get a short freeze-frame before the stamp.</li>
   <li><b>Screamer only:</b> black bars slide in like a film, golden rays turn behind you, then a flash, confetti and a roar.</li>
-  <li>Unicorns about 2× bigger than v1: around 40 px in the crowd and 170 px close up.</li>
+  <li>Your unicorn always has a gold outline and a light pool under it, so you can spot yourself in the crowd before the zoom.</li><li>Unicorns about 2× bigger than v1: around 40 px in the crowd and 170 px close up.</li>
  </ul></div>
 </div>
 <script>
@@ -92,12 +96,16 @@ const UW=64,UH=53,WW=Math.round(SW*2.1),WH=Math.round(SH*1.25);world.style.width
 const rnd=(s=>()=>(s=(s*16807)%2147483647)/2147483647)(11);
 const P=[];for(let r=0;r<10;r++)for(let c=0;c<10;c++){const depth=.78+r*.03;P.push({x:30+c*(WW-60-UW)/9+(rnd()-.5)*26+(r%2?18:-6),y:20+r*(WH-40-UH)/9+(rnd()-.5)*14,s:depth})}
 const ME=55;P[ME].x=WW/2-UW/2;P[ME].y=WH*.56-UH/2;P[ME].s=1.02;
+// nobody stands on top of you: push anyone too close out to a clear ring
+P.forEach((q,i)=>{if(i===ME)return;const dx=q.x-P[ME].x,dy=(q.y-P[ME].y)*1.35,d=Math.hypot(dx,dy),R=92;if(d<R){const a=d?Math.atan2(dy,dx):(i%2?0:Math.PI);q.x=P[ME].x+Math.cos(a)*R;q.y=P[ME].y+Math.sin(a)*R/1.35}});
 const EL=P.map((q,i)=>{const sh=document.createElement('i');sh.className='shadow';const u=document.createElement('i');u.className='u';
  const w=UW*q.s,h=UH*q.s;u.style.cssText=`left:${q.x}px;top:${q.y}px;width:${w}px;height:${h}px;z-index:${Math.round(q.y)}`;sh.style.cssText=`left:${q.x+w/2}px;top:${q.y+h-5}px;width:${w*.7}px;z-index:${Math.round(q.y)-1}`;
  world.appendChild(sh);world.appendChild(u);return{u,sh,kit:CROWD[(i*7+3)%CROWD.length]}});
 const rays=document.createElement('i');rays.className='rays';world.appendChild(rays);
+EL[ME].u.classList.add('mine');const pool=document.createElement('i');pool.className='pool';world.appendChild(pool);
 const me=P[ME],MX=me.x+UW*me.s/2,MY=me.y+UH*me.s*.55;
 rays.style.left=(MX-260)+'px';rays.style.top=(MY-260)+'px';rays.style.zIndex=Math.round(me.y)-2;
+{const w=UW*me.s*1.5;pool.style.cssText=`left:${MX}px;top:${me.y+UH*me.s-12}px;width:${w}px;height:${w*.32}px;z-index:${Math.round(me.y)-1}`}
 const byDist=P.map((q,i)=>({i,d:Math.hypot(q.x-me.x,(q.y-me.y)*1.2)})).filter(o=>o.i!==ME).sort((a,b)=>b.d-a.d).map(o=>o.i);
 // ---- camera
 const S0=SW/WW, C0={x:WW/2,y:WH/2}, A0={x:SW/2,y:SH*.62};
@@ -168,10 +176,10 @@ async function run(tier){CUR=tier;const id=++TOK,ok=()=>id===TOK,t=T[tier],k=dep
   [$('lbt'),$('lbb')].forEach(b=>b.animate([{transform:'scaleY(0)'},{transform:'scaleY(1)'}],{duration:RM?1:420,easing:'cubic-bezier(.23,1,.32,1)'}).onfinish=()=>{if(ok())b.style.transform='scaleY(1)'});
   $('flash').animate([{opacity:0},{opacity:.75,offset:.1},{opacity:0}],{duration:500,easing:'ease-out'});
   rays.style.opacity=1;rays.animate([{transform:'rotate(0) scale(.6)',opacity:0},{transform:'rotate(40deg) scale(1)',opacity:1,offset:.3},{transform:'rotate(180deg) scale(1.05)',opacity:1}],{duration:RM?1:6000,easing:'linear'}).onfinish=()=>{if(ok())rays.style.transform='rotate(180deg) scale(1.05)'};
-  mu.style.filter='drop-shadow(0 0 6px rgba(255,210,80,.9))';burst(mx,my+mr.height*.5,64);
+  mu.style.filter='drop-shadow(2px 0 0 #f2c230) drop-shadow(-2px 0 0 #f2c230) drop-shadow(0 2px 0 #f2c230) drop-shadow(0 -2px 0 #f2c230) drop-shadow(0 0 16px rgba(255,214,90,1))';burst(mx,my+mr.height*.5,64);
   let f=0;const iv=setInterval(()=>{if(!ok())return clearInterval(iv);mu.style.backgroundImage=spr(MYKIT,'joy',f++%2);if(f%4===1&&!RM)mu.animate([{transform:'none'},{transform:'translateY(-14px)'},{transform:'none'}],{duration:280,easing:'cubic-bezier(.3,0,.3,1)'})},150);setTimeout(()=>clearInterval(iv),2400)}
  else{mu.style.backgroundImage=spr(MYKIT,tier>=2?'joy':'happy',0);$('line').textContent=`${Math.round(t.pct)} in 100 players said the same as you.`;
-  const y=$('you');y.style.left=(mx-20)+'px';y.style.top=(my-26)+'px';play(y,[{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{duration:220,delay:140,easing:'cubic-bezier(.23,1,.32,1)'},ok)}
+  const y=$('you');y.style.display='none';play(y,[{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{duration:220,delay:140,easing:'cubic-bezier(.23,1,.32,1)'},ok)}
  play($('nxt'),[{opacity:0,transform:'translateY(8px)'},{opacity:1,transform:'none'}],{duration:240,delay:500,easing:'cubic-bezier(.23,1,.32,1)'},ok)}
 $('replay').onclick=()=>run(CUR);
 window.RUN=run;run(4);
