@@ -16,6 +16,7 @@ TYPES = {'player', 'club', 'country', 'manager', 'stadium'}
 REQUIRED = ('id', '_id', 'prompt', 'subtitle', 'difficulty', 'answer_type', 'scoring_version', 'answer_count', 'answers')
 NEW = ('prompt_es', 'subtitle_es', 'format_family')
 FIRST = '2026-10-29'  # earlier days predate daily/QUESTIONS.md
+SHORT_OK = {'f100'}  # past questions allowed fewer than 10 answers (see the note in check())
 OPEN_ENDED = re.compile(r'\b(ever|all-time|to date|so far|present|now)\b', re.I)
 
 
@@ -63,7 +64,8 @@ def check_question(q, e, w, day=''):
     ans = q['answers']
     if q.get('answer_count') != len(ans):
         e(f"answer_count {q.get('answer_count')} but {len(ans)} answers")
-    if not 10 <= len(ans) <= 80:
+    # 2026-11-17 #5 (f100) was swapped on the day to David Beckham, who only played for 6 clubs; already played, so allowed
+    if not 10 <= len(ans) <= 80 and q.get('id') not in SHORT_OK:
         e(f'{len(ans)} answers (need 10-80; aim for 20 or more)')
     elif len(ans) < 12 and q.get('format_family') != 'player_club_history':
         w(f'only {len(ans)} answers: need 12 or more (10 is only for a journeyman\'s clubs)')
