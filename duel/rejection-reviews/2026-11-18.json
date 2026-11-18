@@ -1,0 +1,457 @@
+{
+  "date": "2026-11-18",
+  "baseline_commit": "936ac9ee0711be3454ad54e0d6ecefd8a55bff94",
+  "correction_commit": "d63c4e28c1dd552155934bfa060df183bdea5d71",
+  "previous_checkpoint": 1669263,
+  "last_scanned_event_id": 1753374,
+  "scanned_events": 7719,
+  "scan_pages": [
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    119
+  ],
+  "prior_pending_count": 40772,
+  "pending_count": 43818,
+  "excluded_records": {
+    "ambiguous": 189,
+    "duplicate": 503,
+    "blank": 4,
+    "private_or_malformed": 1
+  },
+  "decision_counts": {
+    "ignore_wrong": 12,
+    "pending": 43818,
+    "add_missing_player": 1,
+    "add_alias": 15
+  },
+  "corrections": [
+    {
+      "question_id": "d8-name-a-winger-who-played-in-the-premier-league-since-2010",
+      "submitted_text": [
+        "estevao"
+      ],
+      "event_count": 9,
+      "decision": "add_missing_player",
+      "correction": {
+        "name": "Estêvão Willian Almeida de Oliveira Gonçalves",
+        "aliases": [
+          "Estêvão",
+          "Estêvão Willian"
+        ],
+        "fame": 4
+      },
+      "evidence": "Chelsea identifies Estêvão as a winger and records his competitive Premier League debut against Crystal Palace on 17 August 2025, within the stated seasons. The CBF records his full name.",
+      "evidence_urls": [
+        "https://www.chelseafc.com/en/news/article/duo-make-chelsea-debuts-in-palace-draw",
+        "https://www.cbf.com.br/futebol-brasileiro/atletas/copa-do-brasil/masculino/2025/610706"
+      ]
+    },
+    {
+      "question_id": "d17-name-an-english-club-that-won-the-top-flight-league-title-between-1960-61-and-2024-25",
+      "submitted_text": [
+        "Lester City"
+      ],
+      "event_count": 6,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Leicester City",
+        "added_aliases": [
+          "Lester City"
+        ]
+      },
+      "evidence": "Leicester City records its 2015–16 English top-flight title. The observed phonetic spelling identifies the existing club.",
+      "evidence_urls": [
+        "https://www.lcfc.com/history-honours-men-premierleague"
+      ]
+    },
+    {
+      "question_id": "d17-name-an-english-club-that-won-the-league-cup-between-1990-91-and-2024-25",
+      "submitted_text": [
+        "Lester City"
+      ],
+      "event_count": 5,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Leicester City",
+        "added_aliases": [
+          "Lester City"
+        ]
+      },
+      "evidence": "Leicester City records its 1997 and 2000 League Cup wins, both within scope.",
+      "evidence_urls": [
+        "https://www.lcfc.com/history-honours-men-leaguecup"
+      ]
+    },
+    {
+      "question_id": "d18-name-an-english-club-that-played-in-the-champions-league-group-or-league-phase-since-2000-01",
+      "submitted_text": [
+        "Lester City"
+      ],
+      "event_count": 2,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Leicester City",
+        "added_aliases": [
+          "Lester City"
+        ]
+      },
+      "evidence": "UEFA records Leicester City's competitive Group G appearance against Club Brugge in the 2016–17 Champions League.",
+      "evidence_urls": [
+        "https://www.uefa.com/uefachampionsleague/news/0231-0e950374a05f-c5e59842d8c6-1000--mahrez-double-helps-leicester-see-off-club-brugge/"
+      ]
+    },
+    {
+      "question_id": "d2-name-a-goalkeeper-who-played-for-barcelona",
+      "submitted_text": [
+        "sczezncy"
+      ],
+      "event_count": 4,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Wojciech Szczęsny",
+        "added_aliases": [
+          "Sczezncy"
+        ]
+      },
+      "evidence": "FC Barcelona identifies Szczęsny as a goalkeeper and records 30 official first-team appearances in 2024–25.",
+      "evidence_urls": [
+        "https://www.fcbarcelona.com/en/football/first-team/squad/3543/wojciech-szczesny"
+      ]
+    },
+    {
+      "question_id": "d7-name-a-player-who-played-for-liverpool-in-the-2010s",
+      "submitted_text": [
+        "Frminio"
+      ],
+      "event_count": 4,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Roberto Firmino",
+        "added_aliases": [
+          "Frminio"
+        ]
+      },
+      "evidence": "Liverpool records Firmino joining in 2015 and playing and scoring for its first team in the 2019 Club World Cup semi-final and final.",
+      "evidence_urls": [
+        "https://www.liverpoolfc.com/roberto-firmino",
+        "https://www.liverpoolfc.com/news/liverpools-greatest-no22-roberto-firmino/"
+      ]
+    }
+  ],
+  "validation": {
+    "questions": 411,
+    "baseline_errors": 0,
+    "final_errors": 0,
+    "baseline_warnings": 568,
+    "final_warnings": 568,
+    "warning_multiset_unchanged": true,
+    "existing_matcher_forms_checked": 939,
+    "observed_groups_checked_on_changed_questions": 676,
+    "new_events_covered_by_corrections": 25
+  },
+  "review_limit": "Grouped all fetched events and retried prior pending candidates against the current browser matcher. Researched selected plausible corrections and frequent rejections against authoritative records. Remaining unverified combinations are preserved for future evidence review.",
+  "decisions": [
+    {
+      "question_id": "d18-name-an-italian-club-that-played-in-the-champions-league-group-or-league-phase-between-2001-02-and-2025-26",
+      "input": "Como",
+      "event_count": 87,
+      "new_events": 19,
+      "decision": "ignore_wrong",
+      "reason": "UEFA dates Como’s European debut to the 2026–27 Champions League, after the cutoff.",
+      "evidence_urls": [
+        "https://www.uefa.com/uefachampionsleague/news/02a9-218385af5ecb-a1aea0238122-1000--champions-league-matchday-1-como-vs-leipzig-facts/"
+      ]
+    },
+    {
+      "question_id": "d5-name-a-croatian-who-played-in-the-bundesliga-since-2000",
+      "input": "Modric",
+      "event_count": 63,
+      "new_events": 1,
+      "decision": "ignore_wrong",
+      "reason": "AC Milan lists Modrić’s playing career through the cutoff with no German club.",
+      "evidence_urls": [
+        "https://www.acmilan.com/en/news/articles/focus/2025-07-15/luka-modric-focus-and-fun-facts",
+        "https://www.acmilan.com/en/news/articles/media/2026-07-23/official-statement-luka-modric"
+      ]
+    },
+    {
+      "question_id": "d21-name-a-club-relegated-from-ligue-1-between-2014-15-and-2024-25-relegation-play-off-losers-included",
+      "input": "paris fc",
+      "event_count": 66,
+      "new_events": 13,
+      "decision": "ignore_wrong",
+      "reason": "The league records Paris FC’s return to the top flight in 2025–26 after 46 years away.",
+      "evidence_urls": [
+        "https://ligue1.com/en/articles/l1_article_5692-"
+      ]
+    },
+    {
+      "question_id": "d9-name-a-player-who-scored-20-bundesliga-goals-in-a-single-season-since-2000",
+      "input": "Muller",
+      "event_count": 37,
+      "new_events": 2,
+      "decision": "pending",
+      "reason": "Bundesliga verifies Thomas Müller scored 20 league goals in 2015–16. The bank explicitly lists him as a trap, so adding his canonical entry requires removing the contradictory trap to pass validation. Retain for a correction that can modify that trap.",
+      "evidence_urls": [
+        "https://www.bundesliga.com/en/bundesliga/videos/watch/muller-s-2015-16-goals-d7tKIQQp"
+      ]
+    },
+    {
+      "question_id": "d2-name-a-left-back-who-played-for-barcelona",
+      "input": "cancelo",
+      "event_count": 36,
+      "new_events": 1,
+      "decision": "pending",
+      "reason": "Barcelona records Cancelo coming on at left-back on his competitive debut. The bank explicitly uses a primary-position interpretation and lists him as a trap. Needs a scope decision on whether to include a player with substantial appearances in a secondary position.",
+      "evidence_urls": [
+        "https://www.fcbarcelona.com/en/football/first-team/news/3670196/three-debuts-at-el-sadar"
+      ]
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2017-fifa-confederations-cup",
+      "input": "usa",
+      "event_count": 21,
+      "new_events": 6,
+      "decision": "ignore_wrong",
+      "reason": "FIFA’s official draw lists Russia, New Zealand, Portugal, Mexico, Cameroon, Chile, Australia and Germany as the eight participants.",
+      "evidence_urls": [
+        "https://inside.fifa.com/tournaments/mens/confederationscup/russia2017/news/draw-made-for-tournament-of-champions-2855232",
+        "https://inside.fifa.com/tournaments/mens/confederationscup/russia2017/news/group-b-germany-chile-teams-to-beat-2855325-2855451"
+      ]
+    },
+    {
+      "question_id": "d11-name-a-french-defender-who-played-in-la-liga",
+      "input": "Upamecano",
+      "event_count": 31,
+      "new_events": 21,
+      "decision": "ignore_wrong",
+      "reason": "FFF records his club career through the cutoff without a La Liga club.",
+      "evidence_urls": [
+        "https://www.fff.fr/equipe-nationale/joueur/9009-upamecano-dayot/fiche.html"
+      ]
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2017-fifa-confederations-cup",
+      "input": "Argentina",
+      "event_count": 15,
+      "new_events": 5,
+      "decision": "ignore_wrong",
+      "reason": "FIFA’s official draw lists Russia, New Zealand, Portugal, Mexico, Cameroon, Chile, Australia and Germany as the eight participants.",
+      "evidence_urls": [
+        "https://inside.fifa.com/tournaments/mens/confederationscup/russia2017/news/draw-made-for-tournament-of-champions-2855232",
+        "https://inside.fifa.com/tournaments/mens/confederationscup/russia2017/news/group-b-germany-chile-teams-to-beat-2855325-2855451"
+      ]
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2017-fifa-confederations-cup",
+      "input": "Brasil",
+      "event_count": 8,
+      "new_events": 0,
+      "decision": "ignore_wrong",
+      "reason": "FIFA’s official draw lists Russia, New Zealand, Portugal, Mexico, Cameroon, Chile, Australia and Germany as the eight participants.",
+      "evidence_urls": [
+        "https://inside.fifa.com/tournaments/mens/confederationscup/russia2017/news/draw-made-for-tournament-of-champions-2855232",
+        "https://inside.fifa.com/tournaments/mens/confederationscup/russia2017/news/group-b-germany-chile-teams-to-beat-2855325-2855451"
+      ]
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2017-fifa-confederations-cup",
+      "input": "spain",
+      "event_count": 16,
+      "new_events": 4,
+      "decision": "ignore_wrong",
+      "reason": "FIFA’s official draw lists Russia, New Zealand, Portugal, Mexico, Cameroon, Chile, Australia and Germany as the eight participants.",
+      "evidence_urls": [
+        "https://inside.fifa.com/tournaments/mens/confederationscup/russia2017/news/draw-made-for-tournament-of-champions-2855232",
+        "https://inside.fifa.com/tournaments/mens/confederationscup/russia2017/news/group-b-germany-chile-teams-to-beat-2855325-2855451"
+      ]
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2017-fifa-confederations-cup",
+      "input": "Brazil",
+      "event_count": 24,
+      "new_events": 17,
+      "decision": "ignore_wrong",
+      "reason": "FIFA’s official draw lists Russia, New Zealand, Portugal, Mexico, Cameroon, Chile, Australia and Germany as the eight participants.",
+      "evidence_urls": [
+        "https://inside.fifa.com/tournaments/mens/confederationscup/russia2017/news/draw-made-for-tournament-of-champions-2855232",
+        "https://inside.fifa.com/tournaments/mens/confederationscup/russia2017/news/group-b-germany-chile-teams-to-beat-2855325-2855451"
+      ]
+    },
+    {
+      "question_id": "d8-name-a-winger-who-played-in-the-premier-league-since-2010",
+      "input": "estevao",
+      "event_count": 9,
+      "new_events": 5,
+      "decision": "add_missing_player",
+      "reason": "Chelsea identifies Estêvão as a winger and records his competitive Premier League debut against Crystal Palace on 17 August 2025, within the stated seasons. The CBF records his full name.",
+      "evidence_urls": [
+        "https://www.chelseafc.com/en/news/article/duo-make-chelsea-debuts-in-palace-draw",
+        "https://www.cbf.com.br/futebol-brasileiro/atletas/copa-do-brasil/masculino/2025/610706"
+      ]
+    },
+    {
+      "question_id": "d17-name-an-english-club-that-won-the-league-cup-between-1990-91-and-2024-25",
+      "input": "Lester City",
+      "event_count": 5,
+      "new_events": 2,
+      "decision": "add_alias",
+      "reason": "Leicester City records its 1997 and 2000 League Cup wins, both within scope.",
+      "evidence_urls": [
+        "https://www.lcfc.com/history-honours-men-leaguecup"
+      ]
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1934-world-cup",
+      "input": "england",
+      "event_count": 16,
+      "new_events": 10,
+      "decision": "ignore_wrong",
+      "reason": "FIFA records that England did not enter the first three World Cups, which include 1934.",
+      "evidence_urls": [
+        "https://inside.fifa.com/tournaments/mens/worldcup/qatar2022/news/are-england-s-years-of-hurt-about-to-come-to-an-end"
+      ]
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2017-fifa-confederations-cup",
+      "input": "Us",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_wrong",
+      "reason": "FIFA’s official draw lists Russia, New Zealand, Portugal, Mexico, Cameroon, Chile, Australia and Germany as the eight participants.",
+      "evidence_urls": [
+        "https://inside.fifa.com/tournaments/mens/confederationscup/russia2017/news/draw-made-for-tournament-of-champions-2855232",
+        "https://inside.fifa.com/tournaments/mens/confederationscup/russia2017/news/group-b-germany-chile-teams-to-beat-2855325-2855451"
+      ]
+    },
+    {
+      "question_id": "d17-name-an-english-club-that-won-the-top-flight-league-title-between-1960-61-and-2024-25",
+      "input": "Lester City",
+      "event_count": 6,
+      "new_events": 5,
+      "decision": "add_alias",
+      "reason": "Leicester City records its 2015–16 English top-flight title. The observed phonetic spelling identifies the existing club.",
+      "evidence_urls": [
+        "https://www.lcfc.com/history-honours-men-premierleague"
+      ]
+    },
+    {
+      "question_id": "d18-name-an-english-club-that-played-in-the-champions-league-group-or-league-phase-since-2000-01",
+      "input": "Liecter City",
+      "event_count": 2,
+      "new_events": 1,
+      "decision": "add_alias",
+      "reason": "UEFA records Leicester City's competitive Group G appearance against Club Brugge in the 2016–17 Champions League.",
+      "evidence_urls": [
+        "https://www.uefa.com/uefachampionsleague/news/0231-0e950374a05f-c5e59842d8c6-1000--mahrez-double-helps-leicester-see-off-club-brugge/"
+      ]
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2017-fifa-confederations-cup",
+      "input": "Sweden",
+      "event_count": 3,
+      "new_events": 1,
+      "decision": "ignore_wrong",
+      "reason": "FIFA’s official draw lists Russia, New Zealand, Portugal, Mexico, Cameroon, Chile, Australia and Germany as the eight participants.",
+      "evidence_urls": [
+        "https://inside.fifa.com/tournaments/mens/confederationscup/russia2017/news/draw-made-for-tournament-of-champions-2855232",
+        "https://inside.fifa.com/tournaments/mens/confederationscup/russia2017/news/group-b-germany-chile-teams-to-beat-2855325-2855451"
+      ]
+    },
+    {
+      "question_id": "d18-name-an-english-club-that-played-in-the-champions-league-group-or-league-phase-since-2000-01",
+      "input": "Lester City",
+      "event_count": 2,
+      "new_events": 2,
+      "decision": "add_alias",
+      "reason": "UEFA records Leicester City's competitive Group G appearance against Club Brugge in the 2016–17 Champions League.",
+      "evidence_urls": [
+        "https://www.uefa.com/uefachampionsleague/news/0231-0e950374a05f-c5e59842d8c6-1000--mahrez-double-helps-leicester-see-off-club-brugge/"
+      ]
+    },
+    {
+      "question_id": "d18-name-an-english-club-that-played-in-the-champions-league-group-or-league-phase-since-2000-01",
+      "input": "Liescter City",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "add_alias",
+      "reason": "UEFA records Leicester City's competitive Group G appearance against Club Brugge in the 2016–17 Champions League.",
+      "evidence_urls": [
+        "https://www.uefa.com/uefachampionsleague/news/0231-0e950374a05f-c5e59842d8c6-1000--mahrez-double-helps-leicester-see-off-club-brugge/"
+      ]
+    },
+    {
+      "question_id": "d8-name-a-winger-who-played-in-the-bundesliga-since-2010",
+      "input": "terrier",
+      "event_count": 5,
+      "new_events": 5,
+      "decision": "pending",
+      "reason": "Leverkusen verifies Bundesliga appearances from 2024–25 but its player profile classifies Martin Terrier as a striker. Need evidence that winger is a qualifying position for him, beyond an individual move down the flank.",
+      "evidence_urls": [
+        "https://www.bayer04.de/en-us/player/werkself/bayer-04-leverkusen/martin-terrier",
+        "https://www.bayer04.de/en-us/news/bundesliga/werkself-review-bmgb04-spectacular-opening-with-late-madness"
+      ]
+    },
+    {
+      "question_id": "d2-name-a-goalkeeper-who-played-for-barcelona",
+      "input": "sczezncy",
+      "event_count": 4,
+      "new_events": 4,
+      "decision": "add_alias",
+      "reason": "FC Barcelona identifies Szczęsny as a goalkeeper and records 30 official first-team appearances in 2024–25.",
+      "evidence_urls": [
+        "https://www.fcbarcelona.com/en/football/first-team/squad/3543/wojciech-szczesny"
+      ]
+    },
+    {
+      "question_id": "d7-name-a-player-who-played-for-liverpool-in-the-2010s",
+      "input": "Frmini",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "add_alias",
+      "reason": "Liverpool records Firmino joining in 2015 and playing and scoring for its first team in the 2019 Club World Cup semi-final and final.",
+      "evidence_urls": [
+        "https://www.liverpoolfc.com/roberto-firmino",
+        "https://www.liverpoolfc.com/news/liverpools-greatest-no22-roberto-firmino/"
+      ]
+    },
+    {
+      "question_id": "d7-name-a-player-who-played-for-liverpool-in-the-2010s",
+      "input": "Frminio",
+      "event_count": 4,
+      "new_events": 4,
+      "decision": "add_alias",
+      "reason": "Liverpool records Firmino joining in 2015 and playing and scoring for its first team in the 2019 Club World Cup semi-final and final.",
+      "evidence_urls": [
+        "https://www.liverpoolfc.com/roberto-firmino",
+        "https://www.liverpoolfc.com/news/liverpools-greatest-no22-roberto-firmino/"
+      ]
+    },
+    {
+      "question_id": "d10-name-a-french-centre-back",
+      "input": "Lacruy",
+      "event_count": 10,
+      "new_events": 10,
+      "decision": "pending",
+      "reason": "Maxence Lacroix is already accepted as Lacroix. The observed string is materially different from the canonical surname. Need evidence that it identifies him before adding an alias.",
+      "evidence_urls": []
+    }
+  ]
+}
