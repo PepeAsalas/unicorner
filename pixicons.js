@@ -14,7 +14,7 @@ function closeBtn(el){const t=el.textContent.trim();if(!t||el.querySelector('svg
  if(CLOSE.test(t)){el.innerHTML=X;if(!el.getAttribute('aria-label'))el.setAttribute('aria-label','Close')}
  else if(LEAD.test(t)&&el.children.length===0){const rest=t.replace(LEAD,'');el.innerHTML=X+' ';el.append(rest)}}
 // emoji -> pixel icon (/icons/*.png); 🔥 is the CSS pixel flame
-const EMO={'⚔':'swords','👑':'crown','🚀':'rocket','🛠':'tools','🎁':'gift','🔒':'lock','💰':'money','✅':'check','⚠':'warning','⏰':'alarm','⚡':'bolt','👍':'thumbs-up','👎':'thumbs-down','🔔':'bell','⚽':'ball','🌍':'globe','🏟':'stadium','🤖':'robot','👀':'eyes','💩':'mud','🔊':'sound-on','🔇':'sound-off','🦄':'unicorn','🔥':'flame'};
+const EMO={'⚔':'swords','👑':'crown','🚀':'rocket','🛠':'tools','🎁':'gift','🔒':'lock','💰':'money','✅':'check','⚠':'warning','⏰':'alarm','⚡':'bolt','👍':'thumbs-up','👎':'thumbs-down','🔔':'bell','⚽':'ball','🌍':'globe','🏟':'stadium','🤖':'robot','👀':'eyes','💩':'mud','🔊':'sound-on','🔇':'sound-off','🦄':'unicorn','🏆':'trophy','🥇':'medal-gold','🥈':'medal-silver','🥉':'medal-bronze','📬':'envelope','🔗':'link','🤝':'handshake','📖':'book','🎮':'controller','📲':'phone','☕':'coffee','🔥':'flame'};
 const ERE=new RegExp('('+Object.keys(EMO).join('|')+')\uFE0F?','g'),HAS=new RegExp(Object.keys(EMO).join('|'));
 function flames(root){const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>HAS.test(n.nodeValue)&&!(n.parentNode&&SKIP.has(n.parentNode.nodeName.toUpperCase()))?1:2});
  const hits=[];while(w.nextNode())hits.push(w.currentNode);
