@@ -34,3 +34,4 @@ User-agent: Applebot-Extended
 Allow: /
 
 Sitemap: https://unicornergame.lol/sitemap.xml
+Sitemap: https://unicornergame.lol/sitemap-archive.xml

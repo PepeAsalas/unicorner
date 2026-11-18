@@ -35,6 +35,9 @@ def text(lang, streak):
     if lang == 'es':
         return ('🔥 Tu racha de %d días se acaba a medianoche' % streak if streak >= 2 else '⚽ El Daily 5 de hoy te espera',
                 'Cinco preguntas, tres minutos. Juega antes de medianoche para no perder la racha.')
+    if lang == 'pt':
+        return ('🔥 Sua sequência de %d dias acaba à meia-noite' % streak if streak >= 2 else '⚽ O Diário 5 de hoje está te esperando',
+                'Cinco perguntas, três minutos. Jogue antes da meia-noite para não perder a sequência.')
     return ('🔥 Your %d-day streak ends at midnight' % streak if streak >= 2 else "⚽ Today's Daily 5 is waiting",
             "Five questions, three minutes. Play before midnight to keep it going.")
 
@@ -44,6 +47,9 @@ def main():
         print('Set SUPABASE_SERVICE_ROLE_KEY and VAPID_PRIVATE_KEY (GitHub secrets).')
         sys.exit(1)
     now = datetime.now(ZoneInfo('Europe/Amsterdam'))
+    if not DRY and not 15 <= now.hour < 23 and os.environ.get('GITHUB_EVENT_NAME') != 'workflow_dispatch':
+        print(f'{now:%H:%M} Amsterdam: outside the 15:00-23:00 reminder window (GitHub started this run late), skipping.')
+        return
     today = now.date().isoformat()
     yday = (now.date() - timedelta(days=1)).isoformat()
     rows = sb('GET', 'push_subs?select=endpoint,sub,lang,streak,last_day,last_sent'
@@ -57,7 +63,7 @@ def main():
     sent = gone = failed = 0
     for r in rows:
         title, body = text(r['lang'], r['streak'])
-        url = '/es/' if r['lang'] == 'es' else '/'
+        url = {'es': '/es/', 'pt': '/pt/'}.get(r['lang'], '/')
         ep = urllib.parse.quote(r['endpoint'], safe='')
         try:
             webpush(subscription_info=r['sub'], data=json.dumps({'title': title, 'body': body, 'url': url, 'tag': 'streak-' + today}),

@@ -1,116 +1,137 @@
 {
- "day": "2026-11-04",
- "questions": [
-  {
-   "q": "Which of these goalkeepers NEVER won the Champions League?",
-   "q_es": "¿Cuál de estos porteros NUNCA ganó la Champions?",
-   "o": [
-    "Gianluigi Buffon",
-    "Iker Casillas",
-    "Edwin van der Sar",
-    "Oliver Kahn"
-   ],
-   "a": 0,
-   "why": "Buffon lost three finals with Juventus and never won it.",
-   "why_es": "Buffon perdió tres finales con la Juventus y nunca la ganó.",
-   "src": "own knowledge"
-  },
-  {
-   "q": "Who was top scorer at Euro 2004?",
-   "q_es": "¿Quién fue el máximo goleador de la Euro 2004?",
-   "o": [
-    "Wayne Rooney",
-    "Ruud van Nistelrooy",
-    "Henrik Larsson",
-    "Milan Baroš"
-   ],
-   "a": 3,
-   "why": "Baroš scored 5; Rooney and Van Nistelrooy scored 4.",
-   "why_es": "Baroš marcó 5; Rooney y Van Nistelrooy marcaron 4.",
-   "src": "own knowledge"
-  },
-  {
-   "q": "Which club did Luís Figo NEVER play for?",
-   "q_es": "¿En qué club NUNCA jugó Luís Figo?",
-   "o": [
-    "Sporting CP",
-    "Inter",
-    "Benfica",
-    "Barcelona"
-   ],
-   "a": 2,
-   "why": "Figo came through at Sporting, Benfica's rivals.",
-   "why_es": "Figo se formó en el Sporting, el rival del Benfica.",
-   "src": "own knowledge"
-  },
-  {
-   "q": "In which season did Leicester City win the Premier League?",
-   "q_es": "¿En qué temporada ganó el Leicester City la Premier League?",
-   "o": [
-    "2014-15",
-    "2015-16",
-    "2016-17"
-   ],
-   "a": 1,
-   "why": "Ranieri's Leicester won it in 2015-16 at 5000-1.",
-   "why_es": "El Leicester de Ranieri la ganó en 2015-16, pagándose 5000 a 1.",
-   "src": "own knowledge"
-  },
-  {
-   "q": "Who did Manchester United beat in the 1999 Champions League final?",
-   "q_es": "¿A quién ganó el Manchester United en la final de la Champions de 1999?",
-   "o": [
-    "Juventus",
-    "Bayern Munich",
-    "Valencia"
-   ],
-   "a": 1,
-   "why": "2-1 against Bayern in Barcelona, both goals in stoppage time.",
-   "why_es": "2-1 al Bayern en Barcelona, con los dos goles en el descuento.",
-   "src": "own knowledge",
-   "o_es": [
-    "Juventus",
-    "Bayern de Múnich",
-    "Valencia"
-   ]
-  },
-  {
-   "q": "Which goalkeeper scored the most career goals?",
-   "q_es": "¿Qué portero marcó más goles en su carrera?",
-   "o": [
-    "Rogério Ceni",
-    "José Luis Chilavert",
-    "Jorge Campos"
-   ],
-   "a": 0,
-   "why": "Ceni scored over 130 for São Paulo, about double Chilavert.",
-   "why_es": "Ceni marcó más de 130 con el São Paulo, el doble que Chilavert.",
-   "src": "own knowledge"
-  },
-  {
-   "q": "At which club did Gabriel Batistuta end his career?",
-   "q_es": "¿En qué club terminó su carrera Gabriel Batistuta?",
-   "o": [
-    "Roma",
-    "Inter",
-    "Al-Arabi"
-   ],
-   "a": 2,
-   "why": "After Inter in 2003 he finished at Al-Arabi in Qatar.",
-   "why_es": "Tras el Inter en 2003, se retiró en el Al-Arabi de Catar.",
-   "src": "own knowledge"
-  },
-  {
-   "q": "Who scored more World Cup goals: Miroslav Klose or Ronaldo Nazário?",
-   "q_es": "¿Quién marcó más goles en Mundiales: Miroslav Klose o Ronaldo Nazário?",
-   "o": [
-    "Miroslav Klose",
-    "Ronaldo Nazário"
-   ],
-   "a": 0,
-   "why": "Klose 16, Ronaldo 15.",
-   "why_es": "Klose 16, Ronaldo 15.",
-   "src": "own knowledge"
-  }
- ]
+  "day": "2026-11-04",
+  "questions": [
+    {
+      "q": "Which of these goalkeepers NEVER won the Champions League?",
+      "q_es": "¿Cuál de estos porteros NUNCA ganó la Champions?",
+      "o": [
+        "Gianluigi Buffon",
+        "Iker Casillas",
+        "Edwin van der Sar",
+        "Oliver Kahn"
+      ],
+      "a": 0,
+      "why": "Buffon lost three finals with Juventus and never won it.",
+      "why_es": "Buffon perdió tres finales con la Juventus y nunca la ganó.",
+      "src": "own knowledge",
+      "q_pt": "Qual destes goleiros NUNCA ganhou a Champions League?",
+      "why_pt": "Buffon perdeu três finais com a Juventus e nunca ganhou."
+    },
+    {
+      "q": "Who was top scorer at Euro 2004?",
+      "q_es": "¿Quién fue el máximo goleador de la Euro 2004?",
+      "o": [
+        "Wayne Rooney",
+        "Ruud van Nistelrooy",
+        "Henrik Larsson",
+        "Milan Baroš"
+      ],
+      "a": 3,
+      "why": "Baroš scored 5; Rooney and Van Nistelrooy scored 4.",
+      "why_es": "Baroš marcó 5; Rooney y Van Nistelrooy marcaron 4.",
+      "src": "own knowledge",
+      "q_pt": "Quem foi o artilheiro da Euro 2004?",
+      "why_pt": "Baroš marcou 5; Rooney e Van Nistelrooy, 4."
+    },
+    {
+      "q": "Which club did Luís Figo NEVER play for?",
+      "q_es": "¿En qué club NUNCA jugó Luís Figo?",
+      "o": [
+        "Sporting CP",
+        "Inter",
+        "Benfica",
+        "Barcelona"
+      ],
+      "a": 2,
+      "why": "Figo came through at Sporting, Benfica's rivals.",
+      "why_es": "Figo se formó en el Sporting, el rival del Benfica.",
+      "src": "own knowledge",
+      "q_pt": "Em qual clube Luís Figo NUNCA jogou?",
+      "why_pt": "Figo foi revelado pelo Sporting, rival do Benfica."
+    },
+    {
+      "q": "In which season did Leicester City win the Premier League?",
+      "q_es": "¿En qué temporada ganó el Leicester City la Premier League?",
+      "o": [
+        "2014-15",
+        "2015-16",
+        "2016-17"
+      ],
+      "a": 1,
+      "why": "Ranieri's Leicester won it in 2015-16 at 5000-1.",
+      "why_es": "El Leicester de Ranieri la ganó en 2015-16, pagándose 5000 a 1.",
+      "src": "own knowledge",
+      "q_pt": "Em que temporada o Leicester City ganhou a Premier League?",
+      "why_pt": "O Leicester de Ranieri ganhou em 2015-16, com cotação de 5000 para 1."
+    },
+    {
+      "q": "Who did Manchester United beat in the 1999 Champions League final?",
+      "q_es": "¿A quién ganó el Manchester United en la final de la Champions de 1999?",
+      "o": [
+        "Juventus",
+        "Bayern Munich",
+        "Valencia"
+      ],
+      "a": 1,
+      "why": "2-1 against Bayern in Barcelona, both goals in stoppage time.",
+      "why_es": "2-1 al Bayern en Barcelona, con los dos goles en el descuento.",
+      "src": "own knowledge",
+      "o_es": [
+        "Juventus",
+        "Bayern de Múnich",
+        "Valencia"
+      ],
+      "q_pt": "Quem o Manchester United venceu na final da Champions de 1999?",
+      "why_pt": "2-1 no Bayern, em Barcelona, com os dois gols nos acréscimos.",
+      "o_pt": [
+        "Juventus",
+        "Bayern de Munique",
+        "Valencia"
+      ]
+    },
+    {
+      "q": "Which goalkeeper scored the most career goals?",
+      "q_es": "¿Qué portero marcó más goles en su carrera?",
+      "o": [
+        "Rogério Ceni",
+        "José Luis Chilavert",
+        "Jorge Campos"
+      ],
+      "a": 0,
+      "why": "Ceni scored over 130 for São Paulo, about double Chilavert.",
+      "why_es": "Ceni marcó más de 130 con el São Paulo, el doble que Chilavert.",
+      "src": "own knowledge",
+      "q_pt": "Qual goleiro marcou mais gols na carreira?",
+      "why_pt": "Rogério Ceni marcou mais de 130 pelo São Paulo, cerca do dobro de Chilavert."
+    },
+    {
+      "q": "At which club did Gabriel Batistuta end his career?",
+      "q_es": "¿En qué club terminó su carrera Gabriel Batistuta?",
+      "o": [
+        "Roma",
+        "Inter",
+        "Al-Arabi"
+      ],
+      "a": 2,
+      "why": "After Inter in 2003 he finished at Al-Arabi in Qatar.",
+      "why_es": "Tras el Inter en 2003, se retiró en el Al-Arabi de Catar.",
+      "src": "own knowledge",
+      "q_pt": "Em qual clube Gabriel Batistuta encerrou a carreira?",
+      "why_pt": "Depois da Inter, em 2003, ele terminou no Al-Arabi, do Catar."
+    },
+    {
+      "q": "Who scored more World Cup goals: Miroslav Klose or Ronaldo Nazário?",
+      "q_es": "¿Quién marcó más goles en Mundiales: Miroslav Klose o Ronaldo Nazário?",
+      "o": [
+        "Miroslav Klose",
+        "Ronaldo Nazário"
+      ],
+      "a": 0,
+      "why": "Klose 16, Ronaldo 15.",
+      "why_es": "Klose 16, Ronaldo 15.",
+      "src": "own knowledge",
+      "q_pt": "Quem marcou mais gols em Copas: Miroslav Klose ou Ronaldo Fenômeno?",
+      "why_pt": "Klose 16, Ronaldo 15."
+    }
+  ]
 }

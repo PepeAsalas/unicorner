@@ -153,7 +153,7 @@ def build(day, questions, recent):
                     if al:
                         answers.append({**a, 'name': al, 'aliases': [a['name']] + [x for x in a['aliases'] if x != al]})
             items.append({'letter': letter, 'mode': 'contains', 'prompt': q['prompt'], 'subtitle': q.get('subtitle') or '',
-                          'prompt_es': q.get('prompt_es') or '', 'subtitle_es': q.get('subtitle_es') or '', 'answer_type': q.get('answer_type', 'player'),
+                          'prompt_es': q.get('prompt_es') or '', 'subtitle_es': q.get('subtitle_es') or '', 'prompt_pt': q.get('prompt_pt') or '', 'subtitle_pt': q.get('subtitle_pt') or '', 'answer_type': q.get('answer_type', 'player'),
                           'answers': [{'name': a['name'], 'aliases': a.get('aliases') or []} for a in answers],
                           'others': [n for n in (a['name'] for a in q['answers']) if n not in {x['name'] for x in answers} and n not in {y for x in answers for y in x.get('aliases', [])}][:400]})
             continue
@@ -177,6 +177,8 @@ def build(day, questions, recent):
             'subtitle': q.get('subtitle') or '',
             'prompt_es': q.get('prompt_es') or '',
             'subtitle_es': q.get('subtitle_es') or '',
+            'prompt_pt': q.get('prompt_pt') or '',
+            'subtitle_pt': q.get('subtitle_pt') or '',
             'answer_type': kind,
             'answers': [{'name': a['name'], 'aliases': a.get('aliases') or []} for a in answers],
             # every other valid answer to the question: typed one of these and it's right, just the wrong letter

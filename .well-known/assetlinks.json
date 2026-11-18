@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "lol.unicornergame.twa",
+        "sha256_cert_fingerprints": ["75:AA:2F:AC:CF:87:90:87:5F:DF:78:BA:E5:F9:E9:12:4C:6F:0A:43:6E:37:72:70:F5:8A:39:01:DD:94:A0:82"]
+      }
+    }]

@@ -8,7 +8,7 @@
 import { createClient } from "npm:@supabase/supabase-js@2.45.4";
 import webpush from "npm:web-push@3.6.7";
 
-const VAPID_PUB = "BJEpwgfhvJQ6swBMTtNNy8GAjdiYDkMkzIj8F4KHl2wsm62rNk7IBR9dIkfMI2fA1PEWWWtQMfddNWqpn7aL4AI";
+const VAPID_PUB = "BIG5duI0j0b5b4RUpH3wWykr7o4Vjuj_YODo_KMln2eTBTLBdOu-0fklDNE3K_n2SaKawC3SKgC0NMx1LOJ-aAk";
 const db = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, { auth: { persistSession: false } });
 webpush.setVapidDetails("mailto:joseasalasnl@gmail.com", VAPID_PUB, Deno.env.get("VAPID_PRIVATE_KEY")!);
 

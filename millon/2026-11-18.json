@@ -1,0 +1,140 @@
+{
+  "day": "2026-11-18",
+  "questions": [
+    {
+      "q": "Which of these players NEVER played for Manchester United?",
+      "q_es": "¿Cuál de estos jugadores NUNCA jugó en el Manchester United?",
+      "q_pt": "Qual destes jogadores NUNCA jogou no Manchester United?",
+      "o": [
+        "Hernán Crespo",
+        "Diego Forlán",
+        "Gabriel Heinze",
+        "Juan Sebastián Verón"
+      ],
+      "a": 0,
+      "why": "Forlán, Heinze and Verón all played for United; Crespo went to Chelsea, not United.",
+      "why_es": "Forlán, Heinze y Verón jugaron en el United; Crespo fue al Chelsea, no al United.",
+      "why_pt": "Forlán, Heinze e Verón jogaram no United; Crespo foi para o Chelsea, não para o United.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Who was the first manager from outside Britain and Ireland to win the Premier League?",
+      "q_es": "¿Quién fue el primer entrenador no británico ni irlandés en ganar la Premier League?",
+      "q_pt": "Quem foi o primeiro técnico de fora do Reino Unido e da Irlanda a ganhar a Premier League?",
+      "o": [
+        "Ruud Gullit",
+        "José Mourinho",
+        "Claudio Ranieri",
+        "Arsène Wenger"
+      ],
+      "a": 3,
+      "why": "Wenger won it with Arsenal in 1997-98; Gullit never won it, Mourinho first did in 2004-05.",
+      "why_es": "Wenger la ganó con el Arsenal en 1997-98; Gullit nunca la ganó y Mourinho lo hizo por primera vez en 2004-05.",
+      "why_pt": "Wenger ganhou com o Arsenal em 1997-98; Gullit nunca ganhou e Mourinho ganhou pela primeira vez em 2004-05.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "How many World Cup goals did Gary Lineker score in total?",
+      "q_es": "¿Cuántos goles marcó Gary Lineker en Mundiales en total?",
+      "q_pt": "Quantos gols Gary Lineker marcou em Copas do Mundo no total?",
+      "o": [
+        "8",
+        "10",
+        "11",
+        "12"
+      ],
+      "a": 1,
+      "why": "Ten: 6 in 1986 and 4 in 1990.",
+      "why_es": "Diez: 6 en 1986 y 4 en 1990.",
+      "why_pt": "Dez: 6 em 1986 e 4 em 1990.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which club did Zinedine Zidane leave to join Juventus in 1996?",
+      "q_es": "¿De qué club salió Zinedine Zidane para fichar por la Juventus en 1996?",
+      "q_pt": "De qual clube Zinedine Zidane saiu para ir para a Juventus em 1996?",
+      "o": [
+        "Cannes",
+        "Marseille",
+        "Bordeaux"
+      ],
+      "a": 2,
+      "why": "Zidane came through at Cannes, then played four years at Bordeaux before Juventus; he never played for Marseille.",
+      "why_es": "Zidane se formó en el Cannes y jugó cuatro años en el Burdeos antes de la Juventus; nunca jugó en el Marsella.",
+      "why_pt": "Zidane surgiu no Cannes e jogou quatro anos no Bordeaux antes da Juventus; nunca jogou no Olympique de Marseille.",
+      "src": "own knowledge",
+      "o_es": [
+        "Cannes",
+        "Marsella",
+        "Burdeos"
+      ],
+      "o_pt": [
+        "Cannes",
+        "Olympique de Marseille",
+        "Bordeaux"
+      ]
+    },
+    {
+      "q": "In which year did Real Madrid win their seventh European Cup/Champions League?",
+      "q_es": "¿En qué año ganó el Real Madrid su séptima Copa de Europa/Champions?",
+      "q_pt": "Em que ano o Real Madrid ganhou sua sétima Copa dos Campeões/Champions League?",
+      "o": [
+        "2000",
+        "1998",
+        "2002"
+      ],
+      "a": 1,
+      "why": "La Séptima came in 1998 against Juventus; 2000 was the eighth and 2002 the ninth.",
+      "why_es": "La Séptima llegó en 1998 ante la Juventus; 2000 fue la octava y 2002 la novena.",
+      "why_pt": "A sétima veio em 1998 contra a Juventus; 2000 foi a oitava e 2002 a nona.",
+      "src": "own knowledge",
+      "n": "The Champions League's name until 1992",
+      "n_es": "El nombre de la Champions hasta 1992",
+      "n_pt": "O nome da Champions League até 1992"
+    },
+    {
+      "q": "Which of these players NEVER won the Ballon d'Or?",
+      "q_es": "¿Cuál de estos jugadores NUNCA ganó el Balón de Oro?",
+      "q_pt": "Qual destes jogadores NUNCA ganhou a Bola de Ouro?",
+      "o": [
+        "Franco Baresi",
+        "Matthias Sammer",
+        "Igor Belanov"
+      ],
+      "a": 0,
+      "why": "Sammer won it in 1996 and Belanov in 1986; Baresi's best was second in 1989.",
+      "why_es": "Sammer lo ganó en 1996 y Belanov en 1986; lo mejor de Baresi fue ser segundo en 1989.",
+      "why_pt": "Sammer ganhou em 1996 e Belanov em 1986; o melhor de Baresi foi o segundo lugar em 1989.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which of these Argentine clubs did Gabriel Batistuta NEVER play for?",
+      "q_es": "¿En cuál de estos clubes argentinos NUNCA jugó Gabriel Batistuta?",
+      "q_pt": "Em qual destes clubes argentinos Gabriel Batistuta NUNCA jogou?",
+      "o": [
+        "River Plate",
+        "Independiente",
+        "Boca Juniors"
+      ],
+      "a": 1,
+      "why": "Batistuta played for Newell's Old Boys, River Plate and Boca Juniors before Fiorentina, never Independiente.",
+      "why_es": "Batistuta jugó en Newell's Old Boys, River Plate y Boca Juniors antes de la Fiorentina, nunca en Independiente.",
+      "why_pt": "Batistuta jogou no Newell's Old Boys, River Plate e Boca Juniors antes da Fiorentina, nunca no Independiente.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Who scored more La Liga goals: Hugo Sánchez or Raúl?",
+      "q_es": "¿Quién marcó más goles en LaLiga: Hugo Sánchez o Raúl?",
+      "q_pt": "Quem marcou mais gols em La Liga: Hugo Sánchez ou Raúl?",
+      "o": [
+        "Raúl",
+        "Hugo Sánchez"
+      ],
+      "a": 1,
+      "why": "Hugo Sánchez scored 234 in 347 games; Raúl 228 in 550.",
+      "why_es": "Hugo Sánchez marcó 234 en 347 partidos; Raúl 228 en 550.",
+      "why_pt": "Hugo Sánchez marcou 234 em 347 jogos; Raúl, 228 em 550.",
+      "src": "https://en.wikipedia.org/wiki/List_of_La_Liga_top_scorers"
+    }
+  ]
+}

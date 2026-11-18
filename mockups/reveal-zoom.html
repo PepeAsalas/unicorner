@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zoom reveal</title>
+<link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=VT323&display=swap" rel="stylesheet">
+<script src="/duel/sprites.js"></script>
+<style>
+:root{--blue:#1d4486;--blue2:#173a75;--ink:#1d1a2b;--cream:#fbf6e8;--mute:#b9c5e6;--gold:#f2c230;
+ --t0:#c9cde0;--t1:#3fd17f;--t2:#3fb1ff;--t3:#a070ff;--t4:#f2c230;
+ --cam:cubic-bezier(.7,0,.12,1);--out:cubic-bezier(.23,1,.32,1)}
+*{box-sizing:border-box}
+body{margin:0;background:#2a6b3a;color:var(--cream);font:400 20px/1.25 VT323,monospace;padding:20px 16px 60px}
+h1{font:400 42px/1 'Jersey 10',sans-serif;color:var(--gold);margin:0 0 6px;text-shadow:3px 3px 0 #000}
+.lead{color:#e3f3e7;max-width:860px;margin:0 0 16px;font-size:19px}
+.wrap{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}
+.ctrl{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:0 0 10px;width:390px;max-width:100%}
+.ctrl button,.snd{font:400 15px/1 'Jersey 10',sans-serif;min-height:44px;border:2px solid #000;background:var(--cream);color:var(--ink);box-shadow:0 3px 0 #000;cursor:pointer;padding:0}
+.ctrl button:active,.snd:active{transform:translateY(2px);box-shadow:0 1px 0 #000}.ctrl button:last-child{background:var(--gold)}
+.snd{width:390px;max-width:100%;margin:0 0 10px}
+.phone{position:relative;display:flex;flex-direction:column;width:390px;max-width:100%;height:680px;border:4px solid #000;box-shadow:8px 8px 0 rgba(0,0,0,.35);overflow:hidden;background:var(--blue)}
+.qh{padding:16px 16px 0}
+.chip{display:inline-flex;align-items:center;gap:8px;background:#000;border:3px solid var(--gold);padding:6px 10px 4px;font:400 18px/1 'Jersey 10',sans-serif}
+.chip small{font-size:13px;color:var(--gold);letter-spacing:1px}
+.q{margin:12px 0 0;font:400 22px/1.05 'Jersey 10',sans-serif}
+.a{margin:6px 0 0;font-size:17px;color:var(--mute)}.a b{color:var(--cream);font-weight:400;font-size:20px}
+
+/* the stage: a camera over the pitch */
+.stage{position:relative;margin:14px 16px 0;height:390px;border:4px solid #000;overflow:hidden;background:#2f7a4f}
+.cam{position:absolute;inset:-12%;background:url(/bg/pitch-tall.webp) center/cover;image-rendering:pixelated;will-change:transform,filter}
+.hz{position:absolute;width:26px;height:22px;background-size:contain;background-repeat:no-repeat;image-rendering:pixelated}
+.hz.me{z-index:20}
+.vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 56%,transparent 55%,rgba(0,0,0,.45));opacity:.6;transition:opacity 300ms}
+/* broadcast-style % readout */
+.hud{position:absolute;left:10px;top:10px;z-index:30;background:rgba(13,12,19,.88);border:3px solid #000;box-shadow:0 3px 0 rgba(0,0,0,.4);padding:6px 10px 6px;min-width:120px}
+.hud b{display:block;font:400 54px/.85 'Jersey 10',sans-serif;font-weight:400;color:var(--cream);font-variant-numeric:tabular-nums;letter-spacing:-1px}
+.hud b small{font-size:26px;margin-left:2px}
+.hud span{font:400 13px/1 'Jersey 10',sans-serif;letter-spacing:1.2px;color:var(--mute)}
+.stamp{position:absolute;left:50%;bottom:18px;z-index:31;font:400 46px/1 'Jersey 10',sans-serif;padding:6px 14px 2px;border:4px solid #000;color:var(--ink);opacity:0;white-space:nowrap;box-shadow:0 5px 0 rgba(0,0,0,.4)}
+.you{position:absolute;z-index:32;font:400 14px/1 'Jersey 10',sans-serif;color:#000;background:var(--gold);padding:3px 6px 1px;border:2px solid #000;opacity:0;white-space:nowrap}
+.flash{position:absolute;inset:0;z-index:29;background:#fff;opacity:0;pointer-events:none}
+.px{position:absolute;width:6px;height:6px;pointer-events:none;z-index:33}
+.bar{display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px;margin:12px 16px 0;min-height:48px}
+.line{font-size:18px;color:var(--mute);line-height:1.2}
+.pts{border:3px solid #000;background:var(--blue2);height:48px;display:flex;align-items:center;gap:10px;padding:0 12px}
+.pts span{font:400 14px/1 'Jersey 10',sans-serif;letter-spacing:1.5px;color:var(--mute)}.pts b{font:400 30px/1 'Jersey 10',sans-serif;color:var(--gold);font-weight:400}
+.nxt{margin:auto 16px 16px;height:52px;border:3px solid #000;background:var(--gold);box-shadow:0 4px 0 #000;font:400 24px/1 'Jersey 10',sans-serif;color:var(--ink);opacity:0}
+.shake{animation:sh .34s steps(4)}@keyframes sh{25%{transform:translate(5px,-3px)}50%{transform:translate(-4px,3px)}75%{transform:translate(3px,2px)}}
+.side{max-width:400px}.side h3{font:400 26px/1 'Jersey 10',sans-serif;color:var(--gold);margin:0 0 8px;text-shadow:2px 2px 0 #000}.side li{margin:0 0 8px}
+@media (prefers-reduced-motion:reduce){.shake{animation:none}}
+</style></head><body>
+<h1>Zoom reveal · the crowd</h1>
+<p class="lead">100 horses on the pitch, one for every 1% of players. <b>Whoosh</b>: the camera rushes in on your unicorn, and the deeper it goes, the fewer horses are left. Tap-in stays wide, a Volley ends with a handful, a Screamer ends close up on you, alone. Turn sound on for the whoosh.</p>
+<div class="wrap">
+ <div>
+  <button class="snd" id="snd">🔇 Sound off: tap to turn on</button>
+  <div class="ctrl" id="ctrl"></div>
+  <div class="phone" id="ph">
+   <div class="qh"><div class="chip"><small>QUESTION</small>3 OF 5</div><p class="q">Named in Uruguay's 2010 World Cup squad</p><p class="a">You said <b>Luis Suárez</b></p></div>
+   <div class="stage" id="stage"><div class="cam" id="cam"></div><div class="vig"></div><div class="flash" id="flash"></div>
+    <div class="hud"><b id="pct">100<small>%</small></b><span>SAID THIS</span></div><div class="stamp" id="stamp">VOLLEY</div><span class="you" id="you">YOU</span></div>
+   <div class="bar"><div class="line" id="line">100 players. Who else said it?</div><div class="pts"><span>POINTS</span><b id="pts">0</b></div></div>
+   <button class="nxt" id="nxt">NEXT QUESTION ▶</button>
+  </div>
+ </div>
+ <div class="side"><h3>How it plays</h3><ul>
+  <li><b>0.0 s</b> The crowd: wide shot of 100 horses on the pitch, your unicorn somewhere in the middle.</li>
+  <li><b>0.5 s</b> <b>Whoosh.</b> The camera rushes in on you, with a little motion blur during the fastest part. Horses peel away from the edges inwards, and the % drops with the zoom.</li>
+  <li><b>~1.4 s</b> Impact. The camera lands, the tier stamps in and the points count up.</li>
+  <li><b>Tier sets the depth:</b> Tap-in 41% barely moves, Header 17%, Volley 6% ends with your little group, Bicycle 2% is nearly alone, Screamer 0.4% is the full push-in on you alone, with a flash, a gold stamp and a crowd roar.</li>
+  <li>About 2 seconds per question, and a tap skips straight to the result.</li>
+ </ul></div>
+</div>
+<script>
+for(let f=0;f<FRAMES.length;f++)FRAMES[f]=FRAMES[f].map((r,y)=>y>=21?r.slice(0,27)+'.'.repeat(r.length-27):r);
+const KIT=KITS.find(k=>k.id==='inferno');const spr=(m,f=0)=>spriteDraw(m,f,false,KIT);
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const T=[{n:'TAP-IN',p:10,c:'#c9cde0',pct:41},{n:'HEADER',p:30,c:'#3fd17f',pct:17},{n:'VOLLEY',p:60,c:'#3fb1ff',pct:6.2},{n:'BICYCLE',p:85,c:'#a070ff',pct:2.3},{n:'SCREAMER',p:100,c:'#f2c230',pct:.4}];
+const horse=(b,d,m)=>({id:'horse',pal:{W:b,L:d,P:m,V:m,B:m,G:'none',g:'none',E:'#1a1030',w:b,N:m}});
+const HS=[horse('#8a5a34','#6b4428','#2b1d14'),horse('#b9b4ad','#8f8a84','#4a4540'),horse('#3a2c26','#261c18','#120c0a'),horse('#a8642e','#83491f','#4a2810'),horse('#d8cbb5','#b5a78f','#6a5a40')];
+const $=id=>document.getElementById(id);
+const ph=$('ph'),stage=$('stage'),cam=$('cam');
+const W=stage.clientWidth,H=stage.clientHeight,cw=cam.offsetWidth,ch=cam.offsetHeight,ox=(cw-W)/2,oy=(ch-H)/2;
+// crowd: jittered grid filling the pitch; you near the middle
+const rnd=(s=>()=>(s=(s*16807)%2147483647)/2147483647)(7);
+const P=[];for(let r=0;r<10;r++)for(let c=0;c<10;c++)P.push({x:ox+8+c*(W-40)/9+(rnd()-.5)*14,y:oy+8+r*(H-36)/9+(rnd()-.5)*12});
+const ME=54;const me=P[ME];me.x=ox+W/2-13;me.y=oy+H*.56-11;
+const H_=P.map((q,i)=>{const d=document.createElement('i');d.className='hz'+(i===ME?' me':'');d.style.left=q.x+'px';d.style.top=q.y+'px';d.style.zIndex=Math.round(q.y);cam.appendChild(d);return d});
+const ux=me.x+13,uy=me.y+11;cam.style.transformOrigin=`${ux}px ${uy}px`;
+// leaving order: farthest from you first, so the zoom "pushes past" them
+const dist=P.map((q,i)=>({i,d:Math.hypot(q.x-me.x,q.y-me.y)})).filter(o=>o.i!==ME).sort((a,b)=>b.d-a.d).map(o=>o.i);
+const ZMAX=4.4,zoomFor=p=>{const k=Math.max(0,Math.min(1,Math.log10(100/Math.max(p,.4))/Math.log10(250)));return{k,z:1+(ZMAX-1)*Math.pow(k,1.15)}};
+// ---- sound (Web Audio, made on the fly: no files)
+let AC=null,soundOn=false;
+$('snd').onclick=()=>{soundOn=!soundOn;if(soundOn&&!AC)AC=new (window.AudioContext||window.webkitAudioContext)();$('snd').textContent=soundOn?'🔊 Sound on':'🔇 Sound off: tap to turn on'};
+function noise(sec){const b=AC.createBuffer(1,AC.sampleRate*sec,AC.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;const s=AC.createBufferSource();s.buffer=b;return s}
+function whoosh(ms,depth){if(!soundOn||!AC)return;const t=AC.currentTime,s=noise(ms/1000+.3),bp=AC.createBiquadFilter(),g=AC.createGain();bp.type='bandpass';bp.Q.value=1.4;
+ bp.frequency.setValueAtTime(260,t);bp.frequency.exponentialRampToValueAtTime(900+depth*2600,t+ms/1000*.85);bp.frequency.exponentialRampToValueAtTime(400,t+ms/1000+.2);
+ g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.5+depth*.4,t+ms/1000*.7);g.gain.exponentialRampToValueAtTime(.0001,t+ms/1000+.25);s.connect(bp).connect(g).connect(AC.destination);s.start(t);s.stop(t+ms/1000+.3)}
+function thud(big){if(!soundOn||!AC)return;const t=AC.currentTime,o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.setValueAtTime(big?120:95,t);o.frequency.exponentialRampToValueAtTime(42,t+.22);g.gain.setValueAtTime(big?.9:.55,t);g.gain.exponentialRampToValueAtTime(.0001,t+.28);o.connect(g).connect(AC.destination);o.start(t);o.stop(t+.3)}
+function roar(){if(!soundOn||!AC)return;const t=AC.currentTime,s=noise(2.2),lp=AC.createBiquadFilter(),g=AC.createGain();lp.type='lowpass';lp.frequency.value=1400;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.35,t+.25);g.gain.exponentialRampToValueAtTime(.0001,t+2.1);s.connect(lp).connect(g).connect(AC.destination);s.start(t);s.stop(t+2.2);
+ [660,880,1320].forEach((f,i)=>{const o=AC.createOscillator(),gg=AC.createGain();o.type='square';o.frequency.value=f;gg.gain.setValueAtTime(.0001,t+i*.08);gg.gain.exponentialRampToValueAtTime(.08,t+i*.08+.02);gg.gain.exponentialRampToValueAtTime(.0001,t+i*.08+.3);o.connect(gg).connect(AC.destination);o.start(t+i*.08);o.stop(t+i*.08+.32)})}
+// ---- helpers
+const wait=ms=>new Promise(r=>setTimeout(r,RM?0:ms));
+const fmt=v=>(v>=9.95?Math.round(v):v.toFixed(1))+'<small>%</small>';
+function burst(x,y,n){if(RM)return;const cols=['#f2c230','#fbf6e8','#fff3a0'];for(let i=0;i<n;i++){const d=document.createElement('div');d.className='px';d.style.left=x+'px';d.style.top=y+'px';d.style.background=cols[i%3];if(i%3===0)d.style.width=d.style.height='4px';stage.appendChild(d);
+ const a=Math.random()*Math.PI*2,r=60+Math.random()*120;d.animate([{transform:'translate(0,0)',opacity:1},{transform:`translate(${Math.cos(a)*r}px,${Math.sin(a)*r*.8+40}px)`,opacity:0}],{duration:700+Math.random()*300,easing:'cubic-bezier(.2,.8,.4,1)',fill:'forwards'});setTimeout(()=>d.remove(),1100)}}
+let TOK=0;
+async function run(tier){const me_=++TOK,ok=()=>me_===TOK,t=T[tier],{k,z}=zoomFor(t.pct),keep=Math.max(0,Math.ceil(t.pct)-1);
+ // reset to the wide shot
+ cam.getAnimations().forEach(a=>a.cancel());cam.style.transform='';cam.style.filter='';stage.querySelectorAll('.px').forEach(e=>e.remove());
+ H_.forEach((h,i)=>{h.getAnimations().forEach(a=>a.cancel());h.style.visibility='';h.style.backgroundImage=i===ME?spr('happy',0):spriteDraw('happy',i&1,false,HS[(i*7)%5])});
+ ['stamp','you','nxt','flash'].forEach(id=>{const e=$(id);e.getAnimations().forEach(a=>a.cancel());e.style.opacity=0});
+ $('pct').innerHTML=fmt(100);$('pct').style.color='';$('pts').textContent='0';$('line').textContent='100 players. Who else said it?';
+ let fr=0;const idle=setInterval(()=>{if(!ok())return clearInterval(idle);fr++;H_.forEach((h,i)=>{if(i!==ME&&(i+fr)%5===0)h.style.backgroundImage=spriteDraw('happy',fr&1,false,HS[(i*7)%5])})},160);
+ await wait(500);if(!ok())return;
+ // WHOOSH: one camera move; its length grows a little with depth
+ const ms=RM?1:Math.round(650+k*550),tx=(W/2+ox)-ux,ty=(H*.56+oy)-uy;
+ whoosh(ms,k);(window.EV=window.EV||[]).push({type:'whoosh',t:Date.now(),ms,k});clearInterval(idle);H_[ME].style.backgroundImage=spr('wow',1);
+ cam.animate([{transform:'translate(0,0) scale(1)',filter:'blur(0)'},{filter:`blur(${k>.3?1.6:.6}px)`,offset:.55},{transform:`translate(${tx*k}px,${ty*k}px) scale(${z})`,filter:'blur(0)'}],{duration:ms,easing:'cubic-bezier(.7,0,.12,1)'}).onfinish=()=>{if(ok())cam.style.transform=`translate(${tx*k}px,${ty*k}px) scale(${z})`};
+ // horses peel away from the outside in, timed across the push
+ const go=dist.slice(0,99-keep);go.forEach((i,n)=>{const h=H_[i],d=RM?0:ms*.15+ms*.7*(n/Math.max(1,go.length)),q=P[i],ang=Math.atan2(q.y-me.y,q.x-me.x);
+  h.animate([{transform:'translate(0,0) scale(1)',opacity:1},{transform:`translate(${Math.cos(ang)*40}px,${Math.sin(ang)*40}px) scale(.6)`,opacity:0}],{duration:RM?1:260,delay:d,easing:'cubic-bezier(.5,0,1,1)'}).onfinish=()=>{if(ok())h.style.visibility='hidden'}});
+ // the number rides the same curve
+ const t0=performance.now(),ease=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;(function step(nw){if(!ok())return;const x=Math.min(1,(nw-t0)/ms),e=ease(x),v=100*Math.pow(t.pct/100,e);$('pct').innerHTML=fmt(v);if(x<1)requestAnimationFrame(step)})(t0);
+ await wait(ms);if(!ok())return;
+ // impact
+ thud(tier===4);window.EV.push({type:'thud',t:Date.now(),big:tier===4});if(tier===4)window.EV.push({type:'roar',t:Date.now()});ph.classList.remove('shake');void ph.offsetWidth;if(tier>=2&&!RM)ph.classList.add('shake');$('pct').innerHTML=fmt(t.pct);
+ const st=$('stamp');st.textContent=tier===3?'BICYCLE KICK':t.n;st.style.background=t.c;
+ st.animate([{opacity:0,transform:'translateX(-50%) scale(1.8) rotate(-6deg)'},{opacity:1,transform:'translateX(-50%) scale(.92) rotate(-3deg)',offset:.6},{opacity:1,transform:'translateX(-50%) scale(1) rotate(-3deg)'}],{duration:300,easing:'cubic-bezier(.3,0,.2,1)',fill:'forwards'});
+ const pt=$('pts'),t1=performance.now();(function s(n){if(!ok())return;const x=Math.min(1,(n-t1)/450);pt.textContent='+'+Math.round(t.p*(1-Math.pow(1-x,3)));if(x<1)requestAnimationFrame(s)})(t1);
+ const mr=H_[ME].getBoundingClientRect(),sr=stage.getBoundingClientRect();
+ if(tier===4){$('pct').style.color='var(--gold)';$('line').textContent="Nobody else saw it. You're the unicorn.";roar();
+  $('flash').animate([{opacity:0},{opacity:.7,offset:.12},{opacity:0}],{duration:450,easing:'ease-out'});burst(mr.left-sr.left+mr.width/2,mr.top-sr.top+mr.height/2,56);
+  let f=0;const iv=setInterval(()=>{if(!ok())return clearInterval(iv);H_[ME].style.backgroundImage=spr('joy',f++%2)},140);setTimeout(()=>clearInterval(iv),1800)}
+ else{H_[ME].style.backgroundImage=spr(tier>=2?'joy':'happy');$('line').textContent=`${Math.round(t.pct)} in 100 players said the same as you.`;
+  const y=$('you');y.style.left=(mr.left-sr.left+mr.width/2-19)+'px';y.style.top=(mr.top-sr.top-22)+'px';y.animate([{opacity:0,transform:'translateY(4px)'},{opacity:1,transform:'none'}],{duration:200,delay:120,easing:'cubic-bezier(.23,1,.32,1)',fill:'forwards'})}
+ $('nxt').animate([{opacity:0,transform:'translateY(8px)'},{opacity:1,transform:'none'}],{duration:240,delay:450,easing:'cubic-bezier(.23,1,.32,1)',fill:'forwards'})}
+T.forEach((t,i)=>{const b=document.createElement('button');b.textContent=t.n;b.onclick=()=>run(i);$('ctrl').appendChild(b)});
+stage.onclick=()=>{};// (tap to skip in the real build)
+window.RUN=run;run(4);
+</script></body></html>

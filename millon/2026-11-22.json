@@ -1,0 +1,139 @@
+{
+  "day": "2026-11-22",
+  "questions": [
+    {
+      "q": "Which of these players NEVER played for Paris Saint-Germain?",
+      "q_es": "¿Cuál de estos jugadores NUNCA jugó en el París Saint-Germain?",
+      "q_pt": "Qual destes jogadores NUNCA jogou no Paris Saint-Germain?",
+      "o": [
+        "Ronaldinho",
+        "George Weah",
+        "Eric Cantona",
+        "David Beckham"
+      ],
+      "a": 2,
+      "why": "Cantona played for Auxerre, Marseille, Bordeaux, Montpellier, Nîmes, Leeds and United, never PSG.",
+      "why_es": "Cantona jugó en Auxerre, Marsella, Burdeos, Montpellier, Nîmes, Leeds y United, nunca en el PSG.",
+      "why_pt": "Cantona jogou no Auxerre, Olympique de Marseille, Bordeaux, Montpellier, Nîmes, Leeds e United, nunca no PSG.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which country won the 2004 Copa América?",
+      "q_es": "¿Qué país ganó la Copa América 2004?",
+      "q_pt": "Qual país ganhou a Copa América de 2004?",
+      "o": [
+        "Argentina",
+        "Brazil",
+        "Uruguay",
+        "Colombia"
+      ],
+      "a": 1,
+      "why": "Brazil beat Argentina on penalties in the final in Lima.",
+      "why_es": "Brasil ganó a Argentina en los penaltis de la final en Lima.",
+      "why_pt": "O Brasil venceu a Argentina nos pênaltis na final em Lima.",
+      "src": "own knowledge",
+      "o_es": [
+        "Argentina",
+        "Brasil",
+        "Uruguay",
+        "Colombia"
+      ],
+      "o_pt": [
+        "Argentina",
+        "Brasil",
+        "Uruguai",
+        "Colômbia"
+      ]
+    },
+    {
+      "q": "How many goals did Alan Shearer score for England?",
+      "q_es": "¿Cuántos goles marcó Alan Shearer con Inglaterra?",
+      "q_pt": "Quantos gols Alan Shearer marcou pela Inglaterra?",
+      "o": [
+        "30",
+        "26",
+        "28",
+        "32"
+      ],
+      "a": 0,
+      "why": "30 goals in 63 caps.",
+      "why_es": "30 goles en 63 partidos.",
+      "why_pt": "30 gols em 63 jogos.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which club did Arjen Robben join Chelsea from in 2004?",
+      "q_es": "¿De qué club llegó Arjen Robben al Chelsea en 2004?",
+      "q_pt": "De qual clube Arjen Robben chegou ao Chelsea em 2004?",
+      "o": [
+        "Groningen",
+        "Feyenoord",
+        "PSV"
+      ],
+      "a": 2,
+      "why": "Robben started at Groningen, then moved to PSV, who sold him to Chelsea.",
+      "why_es": "Robben empezó en el Groningen y pasó al PSV, que lo vendió al Chelsea.",
+      "why_pt": "Robben começou no Groningen e foi para o PSV, que o vendeu ao Chelsea.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "In which year was the back-pass rule introduced, banning keepers from handling a deliberate pass from a teammate's foot?",
+      "q_es": "¿En qué año se introdujo la regla de la cesión, que prohíbe al portero coger con la mano un pase con el pie de un compañero?",
+      "q_pt": "Em que ano foi criada a regra do recuo, que proíbe o goleiro de pegar com a mão um passe com o pé de um companheiro?",
+      "o": [
+        "1990",
+        "1992",
+        "1994"
+      ],
+      "a": 1,
+      "why": "It came in for 1992, after the defensive 1990 World Cup.",
+      "why_es": "Entró en vigor en 1992, tras el defensivo Mundial de 1990.",
+      "why_pt": "Entrou em vigor em 1992, depois da defensiva Copa de 1990.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which of these players NEVER won the World Cup?",
+      "q_es": "¿Cuál de estos jugadores NUNCA ganó el Mundial?",
+      "q_pt": "Qual destes jogadores NUNCA ganhou a Copa do Mundo?",
+      "o": [
+        "Christian Karembeu",
+        "Fernando Hierro",
+        "Andrea Barzagli"
+      ],
+      "a": 1,
+      "why": "Karembeu won it with France in 1998 and Barzagli with Italy in 2006; Hierro retired from Spain in 2002.",
+      "why_es": "Karembeu lo ganó con Francia en 1998 y Barzagli con Italia en 2006; Hierro dejó la selección en 2002.",
+      "why_pt": "Karembeu ganhou com a França em 1998 e Barzagli com a Itália em 2006; Hierro deixou a seleção espanhola em 2002.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Who was the first player to win the Champions League with three different clubs?",
+      "q_es": "¿Quién fue el primer jugador en ganar la Champions con tres clubes distintos?",
+      "q_pt": "Quem foi o primeiro jogador a ganhar a Champions League com três clubes diferentes?",
+      "o": [
+        "Samuel Eto'o",
+        "Cristiano Ronaldo",
+        "Clarence Seedorf"
+      ],
+      "a": 2,
+      "why": "Seedorf won it with Ajax (1995), Real Madrid (1998) and Milan (2003, 2007); Eto'o and Ronaldo won with two clubs.",
+      "why_es": "Seedorf la ganó con el Ajax (1995), el Real Madrid (1998) y el Milan (2003, 2007); Eto'o y Cristiano, con dos clubes.",
+      "why_pt": "Seedorf ganhou com Ajax (1995), Real Madrid (1998) e Milan (2003, 2007); Eto'o e Cristiano, com dois clubes.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Who scored more Premier League goals: Michael Owen or Les Ferdinand?",
+      "q_es": "¿Quién marcó más goles en la Premier League: Michael Owen o Les Ferdinand?",
+      "q_pt": "Quem marcou mais gols na Premier League: Michael Owen ou Les Ferdinand?",
+      "o": [
+        "Les Ferdinand",
+        "Michael Owen"
+      ],
+      "a": 1,
+      "why": "Owen scored 150, just one more than Ferdinand's 149.",
+      "why_es": "Owen marcó 150, solo uno más que los 149 de Ferdinand.",
+      "why_pt": "Owen marcou 150, só um a mais que os 149 de Ferdinand.",
+      "src": "https://en.wikipedia.org/wiki/Premier_League_100_Club"
+    }
+  ]
+}

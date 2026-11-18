@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-PPT4FJC4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Social · Rankings, amigos e ligas | Unicorner</title>
+<meta name="description" content="Todos os rankings do Unicorner num lugar só: Diário 5, Rosco e Milhões, hoje e nesta semana. Adicione amigos e crie ligas privadas.">
+<link rel="canonical" href="https://unicornergame.lol/pt/squad.html">
+<link rel="alternate" hreflang="en" href="https://unicornergame.lol/squad.html">
+<link rel="alternate" hreflang="es" href="https://unicornergame.lol/es/squad.html">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/favicon-180.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#1f5e39">
+<style>
+@font-face{font-family:'Jersey 10';src:url(/fonts/jersey10.woff2) format('woff2');font-display:swap}
+@font-face{font-family:'VT323';src:url(/fonts/vt323.woff2) format('woff2');font-display:swap}
+/* Socials: the game's pitch background, and the same beveled "window" look as the ranking on the home page */
+:root{--ink:#1d1a2b;--paper:#fbf6e8;--w0:#f6eed8;--wl:#fffaf0;--wd:#b8ac8a;--navy:#1d4486;--gold:#f2c230;--grass:#2f9a62;--clay:#c8473b;
+ --rosco:#1d4486;--millon:#2f9a62;--sh:#b8860b;--marl:#2d5aa0;--daily:#c8473b;--mut:#6b6480;--line:#e3d9bd;
+ --disp:'Jersey 10',monospace;--px:'VT323',monospace;--ease:cubic-bezier(.23,1,.32,1)}
+*{box-sizing:border-box}
+html{background:#1f5e39}
+body{margin:0;min-height:100vh;color:var(--ink);font:400 19px/1.25 var(--px);background:#1f5e39 url(/bg/pitch-tall.webp) center top/cover fixed;image-rendering:pixelated;
+ padding:max(10px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(28px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left))}
+@media (min-width:760px){body{background-image:url(/bg/pitch-wide.webp)}}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* top bar: same logo chip as the game */
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 0 14px}
+.logo{font:400 26px/1 var(--disp);text-transform:uppercase;text-decoration:none;color:var(--ink);background:var(--paper);border:3px solid #000;box-shadow:4px 4px 0 #000;padding:5px 10px 3px}
+.chipbtn{font:400 20px/1 var(--disp);text-decoration:none;color:var(--ink);background:var(--paper);border:3px solid #000;box-shadow:3px 3px 0 #000;padding:8px 12px 5px;display:inline-flex;gap:6px;align-items:center;min-height:44px}
+.topr{display:flex;gap:10px}.xbtn{width:44px;justify-content:center;padding:6px 0 3px;font-size:24px}
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:2px 0 14px}
+.hero h1{margin:0;font:400 54px/.9 var(--disp);color:var(--paper);text-shadow:0 4px 0 #000,3px 0 0 #000,-3px 0 0 #000,0 -3px 0 #000;letter-spacing:.02em}
+.hero p{margin:6px 0 0;color:#fff;font-size:21px;text-shadow:0 2px 0 #000}
+@media (min-width:760px){.hero h1{font-size:72px}}
+
+/* windows (copied look from the home ranking) */
+.win{--st:4px;background:var(--w0);padding:4px;box-shadow:inset 2px 2px 0 var(--wl),inset -2px -2px 0 var(--wd),6px 6px 0 rgba(0,0,0,.35);margin-bottom:16px;min-width:0}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--navy);color:var(--paper);padding:6px 9px;font:400 20px/1 var(--disp);letter-spacing:.04em}
+.bar small{font:400 17px var(--px);opacity:.85;letter-spacing:0}
+.inner{padding:10px 8px 8px}
+.well{background:var(--paper);box-shadow:inset 2px 2px 0 var(--wd),inset -2px -2px 0 var(--wl);padding:4px}
+
+/* mobile tabs: the three panels; on desktop all three are on screen */
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:0 0 14px;border:3px solid #000;background:var(--paper);box-shadow:4px 4px 0 #000;position:sticky;top:max(6px,env(safe-area-inset-top));z-index:5}
+.tabs button{border:0;background:none;padding:10px 4px 7px;font:400 21px/1 var(--disp);display:flex;align-items:center;justify-content:center;gap:6px;min-height:46px;position:relative}
+.tabs button+button{border-left:3px solid #000}
+.tabs button[aria-selected=true]{background:var(--gold)}
+.pip{font:400 15px/1 var(--px);background:var(--clay);color:#fff;border:2px solid #000;padding:1px 5px;min-width:22px}
+.pip[hidden]{display:none}
+svg.i{width:18px;height:18px;shape-rendering:crispEdges;flex:none}
+/* the pixel-art set: tab icons at exactly half size so the pixels stay crisp, the team emblem by the title, the duel boots */
+.tabs img.ti{width:32px;height:32px;image-rendering:pixelated;flex:none;margin:-6px 0 -5px}
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+.hero .emb{width:150px;height:auto;flex:none;margin:-8px -4px -6px 0;filter:drop-shadow(3px 3px 0 rgba(0,0,0,.45))}
+@media (max-width:420px){.hero .emb{width:112px}}@media (max-width:370px){.tabs img.ti{width:24px;height:24px;image-rendering:auto}}
+img.di{width:22px;height:22px;flex:none}
+.grid{display:block}
+@media (max-width:899px){.panel[data-hidden=true]{display:none}}
+@media (min-width:900px){.tabs{display:none}.grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:18px;align-items:start}}
+
+/* game picker: three big, obvious buttons */
+.games{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}@media (max-width:520px){.games{grid-template-columns:repeat(2,1fr)}}
+.game{border:3px solid #000;background:var(--paper);padding:9px 6px 7px;text-align:left;display:grid;gap:3px;box-shadow:3px 3px 0 #000;min-height:72px;transition:transform 140ms var(--ease)}
+.game b{font:400 22px/1 var(--disp);display:flex;align-items:center;gap:6px}
+.game b i{width:12px;height:12px;border:2px solid #000;flex:none;background:var(--c)}
+.game span{font-size:16px;color:var(--mut);line-height:1.05}
+.game[aria-pressed=true]{background:var(--c);color:#fff}
+.game[aria-pressed=true] span{color:#fff;opacity:.9}
+.game[aria-pressed=true] b i{background:#fff}
+.ctrls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin:12px 0 8px}
+.seg{display:inline-flex;border:3px solid #000;background:var(--paper)}
+.seg button{border:0;background:none;padding:7px 12px 5px;font:400 19px/1 var(--disp);min-height:40px}
+.seg button+button{border-left:3px solid #000}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--gold)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+.fchip{border:2px solid #000;background:#fff;padding:5px 10px 4px;font-size:18px;line-height:1;min-height:36px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fchip[aria-pressed=true]{background:var(--gold)}
+
+/* ranking rows */
+.list{max-height:min(62vh,640px);overflow:auto;overscroll-behavior:contain;position:relative}
+.row{display:grid;grid-template-columns:34px 40px minmax(0,1fr) auto;gap:8px;align-items:center;padding:5px 6px;border-top:2px dashed var(--line)}
+.row:first-child{border-top:0}
+.rk{font:400 22px/1 var(--disp);text-align:center}
+.r1 .rk,.r2 .rk,.r3 .rk{color:#000;border:2px solid #000;padding:3px 0 1px}
+.r1 .rk{background:var(--gold)}.r2 .rk{background:#dfe5ee}.r3 .rk{background:#e3a36b}
+.u{width:40px;height:33px;background:center bottom/contain no-repeat;image-rendering:pixelated}
+.nm{min-width:0;font-size:20px;line-height:1.05;overflow:hidden}
+.nm b{font-weight:400;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nm small{display:block;font-size:15px;color:var(--mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tag{font-size:14px;line-height:1;padding:1px 4px;margin-left:5px;vertical-align:2px;color:#fff;background:var(--grass)}
+.tag.you{background:var(--navy)}
+.sc{font:400 22px/1 var(--px);text-align:right;white-space:nowrap}
+.row.me{background:#fff0b8}
+.pin{margin-top:6px;background:var(--gold);box-shadow:inset 2px 2px 0 #ffe27a,inset -2px -2px 0 #b8860f}
+.pin .row{border:0}
+.foot{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:8px 2px 0;color:var(--mut);font-size:17px;flex-wrap:wrap}
+.foot a{color:var(--navy)}
+.empty{padding:22px 10px;text-align:center;color:var(--mut);font-size:19px}
+.skel{height:38px;margin:6px;background:linear-gradient(90deg,#efe6cc 0 40%,#f7f0db 50%,#efe6cc 60%) 0 0/300% 100%;animation:sk 1.1s linear infinite}
+@keyframes sk{to{background-position:-100% 0}}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:3px solid #000;box-shadow:3px 3px 0 #000;background:var(--gold);padding:9px 14px 6px;font:400 20px/1 var(--disp);min-height:44px;text-decoration:none;color:var(--ink);transition:transform 140ms var(--ease)}
+.btn.w{background:#fff}.btn.g{background:var(--grass);color:#fff}.btn.s{padding:6px 10px 4px;min-height:36px;font-size:17px;box-shadow:2px 2px 0 #000}
+.btn[disabled]{opacity:.55;cursor:default}
+.full{width:100%}
+.btn:active,.game:active,.chipbtn:active,.fchip:active,.seg button:active{transform:scale(.97)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* friends and leagues */
+.sec{font:400 19px/1 var(--disp);letter-spacing:.04em;margin:12px 2px 6px;display:flex;justify-content:space-between;align-items:center}
+.sec:first-child{margin-top:2px}
+.sec small{font:400 16px var(--px);color:var(--mut);letter-spacing:0}
+.invite{background:var(--navy);color:var(--paper);padding:12px;box-shadow:inset 2px 2px 0 var(--marl),inset -2px -2px 0 #102a5a}
+.invite p{margin:0 0 8px;font-size:18px;color:#e9dfc2}
+.invite b{color:var(--gold);font-weight:400}
+.invite .two{display:grid;grid-template-columns:1fr auto;gap:8px}
+.field{width:100%;border:3px solid #000;background:#fff;padding:9px 10px 7px;font-size:20px;min-height:44px}
+.field::placeholder{color:#8a83a0}
+.field[readonly]{color:var(--ink);font-size:17px;text-overflow:ellipsis}
+.frow{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:8px;align-items:center;padding:6px;border-top:2px dashed var(--line)}
+.frow:first-child{border:0}
+.frow .acts{display:flex;gap:6px}
+.frow.me{background:#fff0b8}
+.gl{display:flex;flex-wrap:wrap;gap:4px 8px;font-size:15px;color:var(--mut)}
+.gl em{font-style:normal;color:var(--ink)}
+.gl .no{color:#a39cb5}
+.more{border:2px solid #000;background:#fff;width:36px;height:36px;font:400 20px/1 var(--disp);padding:0}
+.drop{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap;padding:4px 0 2px}
+.req{background:#fff3c4;box-shadow:inset 2px 2px 0 var(--wd),inset -2px -2px 0 var(--wl);padding:4px;margin-bottom:8px}
+.lrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;padding:8px 6px;border-top:2px dashed var(--line)}
+.lrow:first-child{border:0}
+.lrow b{font-weight:400;font-size:20px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lrow small{font-size:15px;color:var(--mut)}
+.lrow .acts{display:flex;gap:6px}
+.signin{text-align:center;padding:16px 10px}
+.signin p{margin:0 0 12px;font-size:19px}
+.form2{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:8px}
+.note{font-size:15px;color:var(--mut);margin:8px 2px 0}
+
+.row[data-i]{cursor:pointer}
+@media (hover:hover) and (pointer:fine){.row[data-i]:hover{background:#fff6d6}}
+.pc{padding:4px;border:0;background:var(--w0);width:min(340px,calc(100vw - 32px));box-shadow:inset 2px 2px 0 var(--wl),inset -2px -2px 0 var(--wd),8px 8px 0 rgba(0,0,0,.4);color:var(--ink);opacity:1;transform:none;transition:opacity 180ms var(--ease),transform 180ms var(--ease)}
+@starting-style{.pc[open]{opacity:0;transform:scale(.96)}}
+.pc::backdrop{background:rgba(29,26,43,.55)}
+.pcg{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
+.pcs{background:var(--paper);box-shadow:inset 2px 2px 0 var(--wd),inset -2px -2px 0 var(--wl);padding:8px 4px 6px}
+.pcs b{display:block;font:400 30px/1 var(--disp)}.pcs span{font-size:15px;color:var(--mut)}
+[data-nick]{cursor:pointer}
+@media (hover:hover) and (pointer:fine){[data-nick]:hover{background:#fff6d6}}
+.pc .bar .more{color:var(--ink);background:var(--paper)}
+.lrow{grid-template-columns:minmax(0,1fr)}
+.lrow .acts{flex-wrap:wrap}
+.lrow b{white-space:normal}
+.acts{align-items:center}
+.acts .tag{padding:3px 6px 2px}
+/* toast */
+.toast{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translate(-50%,0);background:var(--ink);color:var(--paper);border:3px solid #000;box-shadow:4px 4px 0 #000;padding:10px 14px 8px;font-size:19px;z-index:20;max-width:calc(100vw - 32px);
+ transition:opacity 180ms var(--ease),transform 180ms var(--ease)}
+.toast[hidden]{display:block;opacity:0;transform:translate(-50%,8px);pointer-events:none}
+@media (hover:hover) and (pointer:fine){.btn:hover,.game:hover,.chipbtn:hover{filter:brightness(1.05)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+.as{margin:4px 0 0;font:400 17px VT323,monospace;color:var(--paper)}.as b{color:var(--gold)}.as button{all:unset;cursor:pointer;text-decoration:underline;color:var(--paper);font:inherit}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+ <symbol id="i-cup" viewBox="0 0 10 10"><path d="M2 1h6v1h2v3H8v1H7v1H6v1h1v1H3V8h1V7H3V6H2V5H0V2h2zM1 3v1h1V3zm7 0v1h1V3z" fill="currentColor"/></symbol>
+ <symbol id="i-ppl" viewBox="0 0 10 10"><path d="M2 1h2v3H2zM6 1h2v3H6zM1 5h4v4H1zM5 5h4v4H5z" fill="currentColor"/></symbol>
+ <symbol id="i-shd" viewBox="0 0 10 10"><path d="M1 1h8v5H8v1H7v1H6v1H4V8H3V7H2V6H1z" fill="currentColor"/><path d="M4 3h2v3H4z" fill="#fbf6e8"/></symbol>
+</defs></svg>
+<div class="wrap">
+ <header class="top"><a class="logo" id="home" href="/">Unicorner</a><span class="topr"><a class="chipbtn" id="playLink" href="/">▶ <span data-t="play">Play</span></a><a class="chipbtn xbtn" id="closeX" href="/" aria-label="Close">✕</a></span></header>
+ <div class="hero"><div><h1 data-t="h1">SOCIALS</h1><p data-t="sub">Rankings, friends and leagues</p><p class="as" id="as-me" hidden></p></div><img class="emb" src="/social/socials-emblem.png" alt="" width="256" height="160"></div>
+
+ <div class="tabs" role="tablist" aria-label="Socials">
+  <button role="tab" id="t-rank" data-tab="rank" aria-selected="true" aria-controls="p-rank"><img class="ti" src="/social/icon-rankings.png" alt="" width="32" height="32"><span data-t="t_rank">Rankings</span></button>
+  <button role="tab" id="t-friends" data-tab="friends" aria-selected="false" aria-controls="p-friends"><span data-t="t_friends">Friends</span><span class="pip" id="pip" hidden></span></button>
+  <button role="tab" id="t-leagues" data-tab="leagues" aria-selected="false" aria-controls="p-leagues"><span data-t="t_leagues">Leagues</span></button>
+ </div>
+
+ <div class="grid">
+  <section class="win panel" id="p-rank" role="tabpanel" aria-labelledby="t-rank">
+   <div class="bar"><span data-t="t_rank_bar">RANKINGS</span><small id="rk-date"></small></div>
+   <div class="inner">
+    <div class="games" role="group" aria-label="Game">
+     <button class="game" data-game="daily" aria-pressed="true" style="--c:var(--daily)"><b><i></i>Daily 5</b><span id="gs-daily">&nbsp;</span></button>
+     <button class="game" data-game="rosco" aria-pressed="false" style="--c:var(--rosco)"><b><i></i>Rosco</b><span id="gs-rosco">&nbsp;</span></button>
+     <button class="game" data-game="millon" aria-pressed="false" style="--c:var(--millon)"><b><i></i><span data-t="millions" style="color:inherit;font:inherit">Millions</span></b><span id="gs-millon">&nbsp;</span></button>
+     <button class="game" data-game="stablehand" aria-pressed="false" style="--c:var(--sh)"><b><i></i><span class="shn" style="color:inherit;font:inherit">Stable Hand</span></b><span id="gs-stablehand">&nbsp;</span></button>
+    </div>
+    <div class="ctrls">
+     <div class="seg" role="group" aria-label="When"><button data-scope="day" aria-pressed="true" data-t="today">Today</button><button data-scope="week" aria-pressed="false" data-t="week">This week</button></div>
+    </div>
+    <div class="filters" id="filters" role="group" aria-label="Who"></div>
+    <div class="well"><div class="list" id="list" aria-live="polite"></div></div>
+    <div class="pin" id="pin" hidden></div>
+    <div class="foot"><span id="count"></span><a id="playGame" href="/"></a></div>
+   </div>
+  </section>
+
+  <div class="side">
+   <section class="win panel" id="p-friends" role="tabpanel" aria-labelledby="t-friends" data-hidden="true">
+    <div class="bar"><span data-t="t_friends_bar">FRIENDS</span><small id="fr-count"></small></div>
+    <div class="inner" id="friends"></div>
+   </section>
+   <section class="win panel" id="p-leagues" role="tabpanel" aria-labelledby="t-leagues" data-hidden="true">
+    <div class="bar"><span data-t="t_leagues_bar">LEAGUES</span><small id="lg-count"></small></div>
+    <div class="inner" id="leagues"></div>
+   </section>
+  </div>
+ </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="/duel/sprites.js"></script>
+<script>
+(()=>{
+const ES=location.pathname.startsWith('/es/'),PT=location.pathname.startsWith('/pt/'),L=(en,es,pt)=>PT?(pt??en):ES?es:en,HOME=PT?'/pt/':ES?'/es/':'/';
+const SB_URL="https://yujhjepukzdahsppntua.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1amhqZXB1a3pkYWhzcHBudHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2NDMzNDcsImV4cCI6MjEwNTIxOTM0N30.YIOdtL7tJnNLPFPy19QuXe6w3Dcnz6Xedw0tFGdV_CE";
+const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch{return null}};
+
+// ── words ──
+const T={h1:['SOCIALS','SOCIAL','SOCIAL'],play:['Play','Jugar','Jogar'],sub:['Rankings, friends and leagues','Rankings, amigos y ligas','Rankings, amigos e ligas'],t_rank:['Rankings','Rankings'],t_friends:['Friends','Amigos','Amigos'],t_leagues:['Leagues','Ligas','Ligas'],
+ t_chat:['Chat','Chat'],t_chat_bar:['GLOBAL CHAT','CHAT GLOBAL','CHAT GERAL'],ch_rules:["Say what you want, keep it football. Anything nasty: tap ⋯ and report it. Three reports and it's gone.",'Di lo que quieras, pero de fútbol. Si algo es ofensivo: toca ⋯ y denúncialo. Con tres denuncias desaparece.','Fale o que quiser, mas de futebol. Algo ofensivo: toque em ⋯ e denuncie. Três denúncias e some.'],t_rank_bar:['RANKINGS','RANKINGS'],t_friends_bar:['FRIENDS','AMIGOS','AMIGOS'],t_leagues_bar:['LEAGUES','LIGAS','LIGAS'],millions:['Millions','Millones','Milhões'],today:['Today','Hoy','Hoje'],week:['This week','Esta semana','Esta semana']};
+if(ES||PT){document.documentElement.lang=PT?'pt-BR':'es';document.querySelectorAll('[data-t]').forEach(e=>{const t=T[e.dataset.t];if(t)e.textContent=t[PT?2:1]??t[0]})}
+$('home').href=HOME;$('playLink').href=HOME;$('closeX').href=HOME;$('closeX').setAttribute('aria-label',L('Close','Cerrar',"Fechar"));
+const GAMES={daily:{name:'Daily 5',url:HOME,play:L("Play today's Daily 5",'Jugar el Daily 5 de hoy',"Jogar o Diário 5 de hoje")},
+ rosco:{name:'Rosco',url:PT?'/pt/rosco.html':ES?'/es/rosco.html':'/rosco.html',play:L("Play today's Rosco",'Jugar el Rosco de hoy',"Jogar o Rosco de hoje")},
+ millon:{name:L('Millions','Millones',"Milhões"),url:PT?'/pt/millon.html':ES?'/es/millon.html':'/millon.html',play:L("Play today's Millions",'Jugar a Millones hoy',"Jogar o Milhões de hoje")},
+ stablehand:{name:L('Stable Hand','Mano de Cuadra',"Stable Hand"),url:PT?'/pt/stablehand.html':ES?'/es/stablehand.html':'/stablehand.html',play:L("Play today's Stable Hand",'Jugar a Mano de Cuadra hoy',"Jogar o Stable Hand de hoje")}};
+
+// ── Supabase: same session the game keeps in localStorage ──
+const sessionOf=()=>{try{const s=JSON.parse(ls('uc-player-session')||'null');return s&&s.access_token?s:null}catch{return null}};
+async function tok(){let s=sessionOf();if(!s)return null;
+ if(s.exp<Date.now()+60000){try{const r=await fetch(SB_URL+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:s.refresh_token})});const j=await r.json();if(!r.ok||!j.access_token)return null;
+  s={...s,access_token:j.access_token,refresh_token:j.refresh_token||s.refresh_token,exp:Date.now()+Math.max(60,(+j.expires_in||3600))*1000};ls('uc-player-session',JSON.stringify(s))}catch{return null}}
+ return s.access_token}
+async function call(fn,body,needAuth){const t=await tok();if(needAuth&&!t)throw new Error(L('Sign in first','Inicia sesión primero',"Entre primeiro"));
+ const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+(t||SB_KEY),'Content-Type':'application/json'},body:JSON.stringify(body||{})});
+ const j=await r.json().catch(()=>null);if(!r.ok)throw new Error((j&&(j.message||j.hint))||L('Something went wrong. Try again.','Algo ha fallado. Inténtalo de nuevo.',"Algo deu errado. Tente de novo."));
+ if(fn==='sq_request'&&j==='sent')window.ucFriendPush?.(body.p_nick);if(fn==='sq_respond')window.ucInboxCheck?.();return j}
+const track=(name,data)=>{try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},
+ body:JSON.stringify({name,session:SID,visitor:ls('uc-visitor'),seconds:0,game_day:new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Amsterdam'}),event_version:2,data:{page:'squad',language:PT?'pt':ES?'es':'en',...(data||{})}})}).catch(()=>{})}catch{}};
+const SID=Math.random().toString(36).slice(2);
+
+// ── little helpers ──
+let toastT;function toast(m){const e=$('toast');e.textContent=m;e.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>e.hidden=true,2600)}
+document.querySelectorAll('.shn').forEach(e=>e.textContent=L('Stable Hand','Mano de Cuadra',"Stable Hand"));
+const uni=(kit,mood='happy')=>{try{const k=(typeof KITS!=='undefined'&&KITS.find(x=>x.id===kit))||null;return spriteDraw(mood,0,false,k&&k.id!=='classic'?k:null).replace(/"/g,"'")}catch{return'none'}};
+const K=n=>n>=1e6?(n/1e6).toFixed(n%1e6?1:0).replace('.0','')+'M':n>=1e3?Math.round(n/1e3)+'K':String(n);
+const fmt=(g,s)=>g==='stablehand'?s+' '+L('pts','pts',"pts"):g==='rosco'?s+' '+L('letters','letras',"letras"):g==='millon'?K(s)+' €':s+' '+L('pts','pts',"pts");
+const short=(g,s)=>g==='millon'?K(s):String(s);
+const ord=n=>(ES||PT)?n+'º':n+(n%100>=11&&n%100<=13?'th':['th','st','nd','rd'][n%10]||'th');
+const signinUrl=()=>HOME+'#signin';
+// remember to come back here only when the player actually taps "Sign in"
+document.addEventListener('click',e=>{if(e.target.closest('[data-signin]'))ls('uc-return',location.pathname+location.search+location.hash)});
+
+// ── state ──
+const S={game:'daily',scope:'day',filter:'all',me:null,home:null,tab:'rank',open:null};
+const sess=()=>!!sessionOf();
+try{const q=JSON.parse(ls('uc-squad-view')||'{}');if(GAMES[q.game])S.game=q.game;if(q.scope==='week')S.scope='week'}catch{}
+
+// ── tabs (mobile) ──
+function setTab(t){S.tab=t;document.querySelectorAll('.tabs [role=tab]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.tab===t)));
+ document.querySelectorAll('.panel').forEach(p=>p.dataset.hidden=String(p.id!=='p-'+t));try{history.replaceState(null,'','#'+t)}catch{}}
+document.querySelector('.tabs').addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(b){setTab(b.dataset.tab);window.scrollTo({top:0})}});
+document.querySelector('.tabs').addEventListener('keydown',e=>{if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;const o=['rank','friends','leagues'],i=o.indexOf(S.tab),n=o[(i+(e.key==='ArrowRight'?1:2))%3];setTab(n);$('t-'+n).focus()});
+setTab(['friends','leagues'].includes(location.hash.slice(1))?location.hash.slice(1):'rank');
+
+// ── rankings ──
+const dayLabel=()=>new Date().toLocaleDateString(PT?'pt-BR':ES?'es-ES':'en-GB',{weekday:'short',day:'numeric',month:'short',timeZone:'Europe/Amsterdam'});
+$('rk-date').textContent=dayLabel();
+function drawControls(){document.querySelectorAll('[data-game]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.game===S.game)));
+ document.querySelectorAll('[data-scope]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.scope===S.scope)));
+ const lgs=S.me?.leagues||[],chips=[['all',L('Everyone','Todos',"Todos")]];if(sess())chips.push(['friends',L('Friends','Amigos',"Amigos")]);lgs.forEach(l=>chips.push([l.id,l.name]));
+ if(!chips.some(c=>c[0]===S.filter))S.filter='all';
+ $('filters').innerHTML=chips.map(([v,n])=>`<button class="fchip" data-filter="${esc(v)}" aria-pressed="${v===S.filter}">${esc(n)}</button>`).join('');
+ const g=GAMES[S.game];$('playGame').href=g.url;$('playGame').textContent=g.play+' ▸'}
+let boardSeq=0,lastBoard=null;
+async function loadBoard(){const seq=++boardSeq;drawControls();ls('uc-squad-view',JSON.stringify({game:S.game,scope:S.scope}));
+ $('list').innerHTML='<div class="skel"></div><div class="skel"></div><div class="skel"></div>';$('pin').hidden=true;$('count').textContent='';
+ let d;try{d=await call('sq_board',{p_game:S.game,p_scope:S.scope,p_filter:S.filter},S.filter!=='all')}catch(e){if(seq!==boardSeq)return;$('list').innerHTML=`<p class="empty">${esc(e.message)}</p>`;return}
+ if(seq!==boardSeq)return;lastBoard=d;drawBoard(d)}
+function rowHtml(r,g,i){const cls='row'+(r.rank<=3?' r'+r.rank:'')+(r.me?' me':'');
+ const tag=r.me?`<span class="tag you">${L('YOU','TÚ',"VOCÊ")}</span>`:r.friend?`<span class="tag">${L('FRIEND','AMIGO',"AMIGO")}</span>`:'';
+ const sub=S.scope==='week'&&r.played?`<small>${r.played} ${r.played===1?L('day','día',"dia"):L('days','días',"dias")}</small>`:'';
+ return`<div class="${cls}"${r.me?' id="mine"':''}${i!=null?` data-i="${i}" tabindex="0" role="button" aria-label="${esc(r.nickname)}"`:''}><span class="rk">${r.rank}</span><span class="u" style="background-image:${uni(r.kit)}"></span><span class="nm"><b>${esc(r.nickname)}${tag}</b>${sub}</span><span class="sc">${esc(fmt(g,r.score))}</span></div>`}
+function drawBoard(d){const g=d.game,rows=d.rows||[];
+ if(!rows.length){const who=S.filter==='friends'?L('None of your friends has played yet.','Ninguno de tus amigos ha jugado todavía.',"Nenhum amigo seu jogou ainda."):L('No one on this board yet. Be the first!','Aún no hay nadie aquí. ¡Sé el primero!',"Ninguém neste ranking ainda. Seja o primeiro!");
+  $('list').innerHTML=`<p class="empty">${who}<br><br><a class="btn s" href="${GAMES[g].url}">${esc(GAMES[g].play)} ▶</a></p>`}
+ else $('list').innerHTML=rows.map((r,i)=>rowHtml(r,g,i)).join('');
+ $('count').textContent=d.players?`${d.players} ${d.players===1?L('player','jugador',"jogador"):L('players','jugadores',"jogadores")}`:'';
+ const mine=d.me&&!rows.some(r=>r.me);const meRow=d.me?{rank:d.me.rank,score:d.me.score,nickname:S.me?.profile?.nickname||L('You','Tú',"Você"),kit:S.me?.profile?.kit,me:true}:null;
+ $('pin').hidden=!meRow;if(meRow)$('pin').innerHTML=rowHtml(meRow,g);pinState();
+ // summary on the game button (today, everyone), so it matches the other tiles whatever filter is picked
+ const gs=$('gs-'+g);if(gs&&S.scope==='day'&&S.filter==='all')gs.textContent=d.me?L('You: ','Tú: ',"Você: ")+ord(d.me.rank):d.players?d.players+' '+L('playing','jugando',"jogando"):L('No one yet','Aún nadie',"Ninguém ainda")}
+function pinState(){const m=$('mine'),l=$('list');if(!m||$('pin').hidden)return;const a=m.getBoundingClientRect(),b=l.getBoundingClientRect();$('pin').style.visibility=a.top>=b.top&&a.bottom<=b.bottom?'hidden':'visible'}
+$('list').addEventListener('scroll',pinState,{passive:true});
+$('pin').addEventListener('click',()=>{const m=$('mine');if(m)m.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})});
+document.querySelector('.games').addEventListener('click',e=>{const b=e.target.closest('[data-game]');if(!b||b.dataset.game===S.game)return;S.game=b.dataset.game;track('squad_game',{game:S.game});loadBoard()});
+document.querySelector('.seg').addEventListener('click',e=>{const b=e.target.closest('[data-scope]');if(!b||b.dataset.scope===S.scope)return;S.scope=b.dataset.scope;loadBoard()});
+$('filters').addEventListener('click',e=>{const b=e.target.closest('[data-filter]');if(!b||b.dataset.filter===S.filter)return;S.filter=b.dataset.filter;track('squad_filter',{f:S.filter==='all'||S.filter==='friends'?S.filter:'league'});loadBoard()});
+// fill the little "you: 3rd" line under the other two games
+async function gameHints(){for(const g of Object.keys(GAMES)){try{const d=await call('sq_board',{p_game:g,p_scope:'day',p_filter:'all'});const el=$('gs-'+g);if(el)el.textContent=d.me?L('You: ','Tú: ',"Você: ")+ord(d.me.rank):d.players?d.players+' '+L('playing','jugando',"jogando"):L('No one yet','Aún nadie',"Ninguém ainda")}catch{}}}
+
+// ── friends ──
+function signInCard(what){return`<div class="signin"><p>${what}</p><a class="btn full" data-signin href="${signinUrl()}">${L('Sign in · free','Inicia sesión · gratis',"Entrar · grátis")}</a><p class="note">${L('With Google or an email code. Your score today comes with you.','Con Google o un código por email. Tu puntuación de hoy se queda contigo.',"Com Google ou um código por email. Sua pontuação de hoje vem junto.")}</p></div>`}
+function line(f){const p=[],n='<span class="no">·</span>';
+ p.push(f.daily!=null?`<span>Daily 5 <em>${f.daily}</em></span>`:`<span class="no">Daily 5 –</span>`);
+ p.push(f.rosco!=null?`<span>Rosco <em>${f.rosco}/${f.rosco_total||24}</em></span>`:`<span class="no">Rosco –</span>`);
+ p.push(f.millon!=null?`<span>${L('Millions','Millones',"Milhões")} <em>${K(f.millon)}</em></span>`:`<span class="no">${L('Millions','Millones',"Milhões")} –</span>`);
+ p.push(f.stablehand!=null?`<span>${L('Stable Hand','Mano de Cuadra',"Stable Hand")} <em>${f.stablehand}/${f.stablehand_target||'?'}</em></span>`:`<span class="no">${L('Stable Hand','Mano de Cuadra',"Stable Hand")} –</span>`);return p.join(n)}
+function drawFriends(){const box=$('friends');
+ if(!sess()){box.innerHTML=signInCard(L('Sign in to add friends and see how they did today.','Inicia sesión para añadir amigos y ver cómo les ha ido hoy.',"Entre para adicionar amigos e ver como eles foram hoje."));$('fr-count').textContent='';return}
+ if(S.me&&!S.me.profile){box.innerHTML=signInCard(L('Pick a nickname first, then you can add friends.','Elige un apodo primero y luego podrás añadir amigos.',"Escolha um apelido primeiro, depois você pode adicionar amigos."));return}
+ const h=S.home;if(!h){box.innerHTML='<div class="skel"></div><div class="skel"></div>';return}
+ const fr=(h.friends||[]),others=fr.filter(f=>!f.me),inc=h.incoming||[],out=h.outgoing||[];
+ $('fr-count').textContent=others.length?others.length+'':'';$('pip').hidden=!inc.length;$('pip').textContent=inc.length;
+ const link=location.origin+(PT?'/pt/':ES?'/es/':'/')+'squad.html?add='+h.code;
+ const sorted=fr.slice().sort((a,b)=>(b.daily??-1)-(a.daily??-1)||(b.week||0)-(a.week||0));
+ let html='';
+ if(inc.length)html+=`<p class="sec">${L('Friend requests','Solicitudes',"Pedidos de amizade")}<small>${inc.length}</small></p><div class="req">${inc.map(r=>`<div class="frow" data-nick="${esc(r.nickname)}" data-kit="${esc(r.kit||'')}" tabindex="0" role="button"><span class="u" style="background-image:${uni(r.kit)}"></span><span class="nm"><b>${esc(r.nickname)}</b><small>${r.games||0} ${L('games played','partidos',"jogos")}</small></span><span class="acts"><button class="btn g s" data-acc="${esc(r.nickname)}">${L('Accept','Aceptar',"Aceitar")}</button><button class="more" data-dec="${esc(r.nickname)}" aria-label="${L('Decline','Rechazar',"Recusar")} ${esc(r.nickname)}">✕</button></span></div>`).join('')}</div>`;
+ html+=`<p class="sec">${L('Today','Hoy',"Hoje")}<small>${L('sorted by Daily 5','por Daily 5',"ordenado pelo Diário 5")}</small></p><div class="well">`;
+ html+=sorted.map(f=>{const open=S.open===f.nickname&&!f.me;
+  return`<div class="frow${f.me?' me':''}" data-nick="${esc(f.nickname)}" data-kit="${esc(f.kit||'')}" tabindex="0" role="button"><span class="u" style="background-image:${uni(f.kit)}"></span><span class="nm"><b>${esc(f.me?L('You','Tú',"Você"):f.nickname)}${f.streak>=3?` <small style="display:inline;color:var(--clay)">🔥${f.streak}</small>`:''}</b><span class="gl">${line(f)}</span></span>
+  <span class="acts">${f.me?`<span class="sc" title="${L('This week','Esta semana',"Esta semana")}">${f.week||0}</span>`:`<span class="sc" title="${L('This week','Esta semana',"Esta semana")}">${f.week||0}</span><button class="more" data-more="${esc(f.nickname)}" aria-expanded="${open}" aria-label="${L('More for','Más para',"Mais para")} ${esc(f.nickname)}">⋯</button>`}</span>
+  ${open?`<div class="drop"><a class="btn s w" href="/duel.html"><img class="di" src="/social/icon-duel.png" alt="" width="64" height="64"> ${L('Duel','Duelo',"Duelo")}</a><button class="btn s w" data-rm="${esc(f.nickname)}">${L('Remove friend','Quitar amigo',"Remover amigo")}</button></div>`:''}</div>`}).join('');
+ if(!others.length)html+=`<p class="empty" style="padding:14px 8px">${L('No friends yet. Send your link below: whoever opens it becomes your friend.','Aún no tienes amigos. Manda tu enlace: quien lo abra será tu amigo.',"Ainda sem amigos. Mande seu link abaixo: quem abrir vira seu amigo.")}</p>`;
+ html+=`</div><p class="note" style="text-align:right">${L('Big number = points this week','Número grande = puntos esta semana',"Número grande = pontos nesta semana")}</p>`;
+ html+=`<p class="sec">${L('Add friends','Añadir amigos',"Adicionar amigos")}</p><div class="invite"><p>${L('Send your link. Whoever opens it and signs in is <b>your friend straight away</b>.','Manda tu enlace. Quien lo abra e inicie sesión es <b>tu amigo al momento</b>.',"Mande seu link. Quem abrir e entrar vira <b>seu amigo na hora</b>.")}</p>
+  <div class="two"><input class="field" id="inv" readonly value="${esc(link)}" aria-label="${L('Your invite link','Tu enlace',"Seu link de convite")}"><button class="btn" id="share">${navigator.share?L('Share','Compartir',"Compartilhar"):L('Copy','Copiar',"Copiar")}</button></div></div>
+  <div class="form2" style="grid-template-columns:1fr"><label class="sr" for="find">${L('Search a nickname','Busca un apodo',"Buscar um apelido")}</label><input class="field" id="find" type="search" autocomplete="off" placeholder="${L('…or search a nickname','…o busca un apodo',"…ou busque um apelido")}"></div><div id="found"></div>
+  ${out.length?`<p class="note">${L('Waiting for','Esperando a',"Esperando")}: ${out.map(n=>`${esc(n)} <button class="more" style="width:auto;height:auto;padding:0 4px;font-size:15px" data-cancel="${esc(n)}">${L('cancel','cancelar',"cancelar")}</button>`).join(', ')}</p>`:''}`;
+ box.innerHTML=html}
+window.addEventListener('uc-friends-changed',()=>{loadHome()});
+function showMe(){const n=S.me?.profile?.nickname,e=$('as-me');if(!n||!e)return;e.innerHTML=`${L('Playing as','Juegas como',"Jogando como")} <b>${esc(n)}</b> · <button type="button" onclick="window.ucChangeNick&&ucChangeNick()">${L('Change nickname','Cambiar apodo',"Trocar apelido")}</button>`;e.hidden=false}
+async function loadHome(){if(!sess()||!S.me?.profile)return drawFriends();try{S.home=await call('sq_home',{},true)}catch(e){$('friends').innerHTML=`<p class="empty">${esc(e.message)}</p>`;return}drawFriends()}
+let findT;$('friends').addEventListener('input',e=>{if(e.target.id!=='find')return;clearTimeout(findT);const q=e.target.value.trim();if(q.length<2){$('found').innerHTML='';return}
+ findT=setTimeout(async()=>{let r=[];try{r=await call('player_search',{p_q:q},true)||[]}catch{}const known=new Set((S.home?.friends||[]).map(f=>f.nickname.toLowerCase()));
+  $('found').innerHTML=r.length?`<div class="well" style="margin-top:6px">${r.map(p=>`<div class="frow" data-nick="${esc(p.nick)}" data-kit="${esc(p.kit||'')}" tabindex="0" role="button"><span class="u" style="background-image:${uni(p.kit)}"></span><span class="nm"><b>${esc(p.nick)}</b><small>${p.games||0} ${L('games played','partidos',"jogos")}</small></span><span class="acts">${known.has(p.nick.toLowerCase())?`<span class="tag">${L('FRIEND','AMIGO',"AMIGO")}</span>`:`<button class="btn s" data-add="${esc(p.nick)}">+ ${L('Add','Añadir',"Adicionar")}</button>`}</span></div>`).join('')}</div>`:`<p class="note">${L('No player with that name.','Ningún jugador con ese nombre.',"Nenhum jogador com esse nome.")}</p>`},250)});
+$('friends').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;
+ if(b.id==='share'){const link=$('inv').value,text=L("Add me on Unicorner, the daily football trivia game:",'Agrégame en Unicorner, el juego diario de trivia de fútbol:',"Me adicione no Unicorner, o quiz diário de futebol:");
+  if(navigator.share){try{await navigator.share({title:'Unicorner',text,url:link});track('squad_invite',{how:'share'})}catch{}return}
+  try{await navigator.clipboard.writeText(link);toast(L('Link copied. Send it to your friends!','Enlace copiado. ¡Mándaselo a tus amigos!',"Link copiado. Mande para seus amigos!"));track('squad_invite',{how:'copy'})}catch{$('inv').select()}return}
+ const act=async(fn,body,msg)=>{b.disabled=true;try{const r=await call(fn,body,true);if(msg)toast(typeof msg==='function'?msg(r):msg);S.open=null;await loadHome();if(S.filter==='friends')loadBoard()}catch(x){toast(x.message);b.disabled=false}};
+ if(b.dataset.add)return act('sq_request',{p_nick:b.dataset.add},r=>r==='friends'?L('You are friends now!','¡Ya sois amigos!',"Vocês agora são amigos!"):L('Request sent','Solicitud enviada',"Pedido enviado"));
+ if(b.dataset.acc)return act('sq_respond',{p_nick:b.dataset.acc,p_accept:true},L('You are friends now!','¡Ya sois amigos!',"Vocês agora são amigos!"));
+ if(b.dataset.dec)return act('sq_respond',{p_nick:b.dataset.dec,p_accept:false});
+ if(b.dataset.cancel)return act('sq_remove',{p_nick:b.dataset.cancel},L('Request cancelled','Solicitud cancelada',"Pedido cancelado"));
+ if(b.dataset.rm){if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent=L('Tap again to remove','Pulsa otra vez para quitar',"Toque de novo para remover");return}return act('sq_remove',{p_nick:b.dataset.rm},L('Removed','Quitado',"Removido"))}
+ if(b.dataset.more){S.open=S.open===b.dataset.more?null:b.dataset.more;drawFriends()}});
+
+// ── leagues (the existing private leagues; one per player for now, like on the home page) ──
+const LG_MAX=1;let lgOpen=null,lgData={};
+async function loadLeague(id){try{lgData[id]=await call('sq_league',{p_league:id},true)}catch(e){lgData[id]={error:e.message}}drawLeagues()}
+function leagueManage(l){const d=lgData[l.id];if(!d)return'<div class="skel"></div>';if(d.error)return`<p class="note">${esc(d.error)}</p>`;
+ const known=new Set((S.home?.friends||[]).map(f=>f.nickname.toLowerCase())),sent=new Set((S.home?.outgoing||[]).map(n=>n.toLowerCase()));
+ let h=`<p class="sec">${L('Members','Miembros',"Membros")}<small>${d.members.length}</small></p><div class="well">`+d.members.map(m=>{
+  const rel=m.me?'':m.friend||known.has(m.nickname.toLowerCase())?`<span class="tag">${L('FRIEND','AMIGO',"AMIGO")}</span>`:sent.has(m.nickname.toLowerCase())?`<span class="note" style="margin:0">${L('sent','enviada',"enviado")}</span>`:`<button class="btn s w" data-add="${esc(m.nickname)}">+ ${L('Friend','Amigo',"Amigo")}</button>`;
+  const kick=d.is_owner&&!m.me?`<button class="more" data-kick="${esc(m.nickname)}" aria-label="${L('Remove','Quitar',"Remover")} ${esc(m.nickname)}">✕</button>`:'';
+  return`<div class="frow${m.me?' me':''}" data-nick="${esc(m.nickname)}" data-kit="${esc(m.kit||'')}" tabindex="0" role="button"><span class="u" style="background-image:${uni(m.kit)}"></span><span class="nm"><b>${esc(m.me?L('You','Tú',"Você"):m.nickname)}${m.owner?` <small style="display:inline;color:#b8860f">★ ${L('owner','creador',"dono")}</small>`:''}</b></span><span class="acts">${rel}${kick}</span></div>`}).join('')+'</div>';
+ if(d.is_owner)h+=`<p class="sec">${L('Rename','Cambiar nombre',"Renomear")}</p><form class="form2" data-rename="${esc(l.id)}"><label class="sr" for="rn">${L('League name','Nombre de la liga',"Nome da liga")}</label><input class="field" id="rn" maxlength="30" minlength="2" required value="${esc(d.name)}"><button class="btn">${L('Save','Guardar',"Salvar")}</button></form>`;
+ h+=`<div class="drop" style="margin-top:12px"><button class="btn s w" data-leave="${esc(l.id)}">${L('Leave league','Salir de la liga',"Sair da liga")}</button>${d.is_owner?`<button class="btn s w" style="color:var(--clay)" data-del="${esc(l.id)}">${L('Delete league','Borrar liga',"Apagar liga")}</button>`:''}</div>`;
+ return h}
+function drawLeagues(){const box=$('leagues');
+ if(!sess()){box.innerHTML=signInCard(L('Sign in to create a private league with your mates.','Inicia sesión para crear una liga privada con tus amigos.',"Entre para criar uma liga privada com seus amigos."));$('lg-count').textContent='';return}
+ if(S.me&&!S.me.profile){box.innerHTML=signInCard(L('Pick a nickname first, then you can make a league.','Elige un apodo primero y luego podrás crear una liga.',"Escolha um apelido primeiro, depois você pode criar uma liga."));return}
+ if(!S.me){box.innerHTML='<div class="skel"></div>';return}
+ const lgs=S.me.leagues||[];$('lg-count').textContent=lgs.length?lgs.length+'':'';
+ let html=lgs.length?lgs.map(l=>{const open=lgOpen===l.id;return`<div class="well" style="margin-bottom:8px"><div class="lrow"><span><b>${esc(l.name)}</b><small>${l.members} ${l.members===1?L('player','jugador',"jogador"):L('players','jugadores',"jogadores")} · ${L('code','código',"código")} ${esc(l.code)}${l.is_owner?' · ★ '+L('yours','tuya',"sua"):''}</small></span>
+  <span class="acts"><button class="btn s" data-view="${esc(l.id)}">${L('Table','Tabla',"Tabela")}</button><button class="btn s w" data-inv="${esc(l.code)}">${L('Invite','Invitar',"Convidar")}</button><button class="more" data-manage="${esc(l.id)}" aria-expanded="${open}" aria-label="${L('Manage','Gestionar',"Gerenciar")} ${esc(l.name)}">⋯</button></span></div>
+  ${open?`<div style="padding:0 6px 8px">${leagueManage(l)}</div>`:''}</div>`}).join('')
+  :`<p class="empty" style="padding:12px 8px">${L('Make a league for your group chat, your office or your 5-a-side team. Everyone plays the same games and you get your own table.','Crea una liga para tu grupo, tu oficina o tu equipo de fútbol 5. Todos jugáis lo mismo y tenéis vuestra propia tabla.',"Crie uma liga para o grupo do zap, o trabalho ou o time da pelada. Todo mundo joga os mesmos jogos e vocês têm a própria tabela.")}</p>`;
+ if(lgs.length>=LG_MAX)html+=`<p class="note">${L('You can be in one league at a time. Leave yours to create or join another.','Puedes estar en una liga a la vez. Sal de la tuya para crear o unirte a otra.',"Você pode estar em uma liga por vez. Saia da sua para criar ou entrar em outra.")}</p>`;
+ else html+=`<p class="sec">${L('New league','Nueva liga',"Nova liga")}</p><form class="form2" id="mk"><label class="sr" for="mkn">${L('League name','Nombre de la liga',"Nome da liga")}</label><input class="field" id="mkn" maxlength="30" minlength="2" required placeholder="${L('League name','Nombre de la liga',"Nome da liga")}"><button class="btn">${L('Create','Crear',"Criar")}</button></form>
+  <p class="sec">${L('Got a code?','¿Tienes un código?',"Tem um código?")}</p><form class="form2" id="jn"><label class="sr" for="jnc">${L('League code','Código de liga',"Código da liga")}</label><input class="field" id="jnc" maxlength="12" required placeholder="${L('League code','Código de liga',"Código da liga")}" style="text-transform:uppercase"><button class="btn w">${L('Join','Unirme',"Entrar")}</button></form>`;
+ box.innerHTML=html}
+async function leaguesChanged(){await loadMe();lgData={};if(lgOpen&&!(S.me?.leagues||[]).some(l=>l.id===lgOpen))lgOpen=null;if(lgOpen)loadLeague(lgOpen);drawControls();drawLeagues();loadBoard()}
+$('leagues').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b||b.closest('form'))return;
+ if(b.dataset.view){S.filter=b.dataset.view;S.scope='week';setTab('rank');loadBoard();$('p-rank').scrollIntoView({block:'start'});return}
+ if(b.dataset.manage){lgOpen=lgOpen===b.dataset.manage?null:b.dataset.manage;drawLeagues();if(lgOpen)loadLeague(lgOpen);return}
+ if(b.dataset.inv){const link=location.origin+HOME+'?league='+b.dataset.inv;if(navigator.share){try{await navigator.share({title:'Unicorner',text:L('Join my Unicorner league:','Únete a mi liga de Unicorner:',"Entre na minha liga do Unicorner:"),url:link})}catch{}return}
+  try{await navigator.clipboard.writeText(link);toast(L('League link copied','Enlace de la liga copiado',"Link da liga copiado"))}catch{toast(link)}return}
+ const twice=msg=>{if(b.dataset.sure==='1')return true;b.dataset.sure='1';b.textContent=msg;return false};
+ const go=async(fn,body,msg,after)=>{b.disabled=true;try{await call(fn,body,true);toast(msg);track('squad_league',{a:fn});await (after||leaguesChanged)()}catch(x){toast(x.message);b.disabled=false}};
+ if(b.dataset.add)return go('sq_request',{p_nick:b.dataset.add},L('Request sent','Solicitud enviada',"Pedido enviado"),async()=>{await loadHome();drawLeagues()});
+ if(b.dataset.kick){if(!twice(L('Sure?','¿Seguro?',"Certeza?")))return;return go('sq_league_kick',{p_league:lgOpen,p_nick:b.dataset.kick},L('Removed from the league','Quitado de la liga',"Removido da liga"))}
+ if(b.dataset.leave){if(!twice(L('Tap again to leave','Pulsa otra vez para salir',"Toque de novo para sair")))return;return go('sq_league_leave',{p_league:b.dataset.leave},L('You left the league','Has salido de la liga',"Você saiu da liga"))}
+ if(b.dataset.del){if(!twice(L('Tap again: deletes it for everyone','Pulsa otra vez: se borra para todos',"Toque de novo: apaga para todo mundo")))return;return go('sq_league_delete',{p_league:b.dataset.del},L('League deleted','Liga borrada',"Liga apagada"))}});
+$('leagues').addEventListener('submit',async e=>{e.preventDefault();const f=e.target,btn=f.querySelector('button');btn.disabled=true;
+ try{if(f.dataset.rename){await call('sq_league_rename',{p_league:f.dataset.rename,p_name:$('rn').value},true);toast(L('Name saved','Nombre guardado',"Nome salvo"))}
+  else if(f.id==='mk'){const l=await call('lg_create_league',{p_name:$('mkn').value},true);toast(L('League created. Now invite your mates!','Liga creada. ¡Ahora invita a tus amigos!',"Liga criada. Agora convide seus amigos!"));track('squad_league',{a:'create'});if(l?.id)S.filter=l.id}
+  else{await call('lg_join_league',{p_code:$('jnc').value.trim().toUpperCase()},true);toast(L('You joined the league!','¡Te has unido a la liga!',"Você entrou na liga!"));track('squad_league',{a:'join'})}
+  await leaguesChanged()}catch(x){toast(x.message);btn.disabled=false}});
+
+// ── tap anyone in a ranking: their unicorn, and add them as a friend ──
+function relation(nick){const n=nick.toLowerCase(),h=S.home;if(!h)return'none';if((h.friends||[]).some(f=>!f.me&&f.nickname.toLowerCase()===n))return'friend';
+ if((h.incoming||[]).some(r=>r.nickname.toLowerCase()===n))return'incoming';if((h.outgoing||[]).some(x=>x.toLowerCase()===n))return'sent';return'none'}
+// the player card: always loads the player's real numbers from the database (sq_profile)
+let pcSeq=0;
+function pcStat(v,l){return`<div class="pcs"><b>${v}</b><span>${l}</span></div>`}
+async function playerCard(nick,kitHint){let d=$('pc');if(!d){document.body.insertAdjacentHTML('beforeend','<dialog id="pc" class="pc" aria-labelledby="pc-n"></dialog>');d=$('pc');
+  d.addEventListener('click',async e=>{if(e.target===d||e.target.closest('[data-pc=close]'))return d.close();const b=e.target.closest('[data-pcadd],[data-pcacc]');if(!b)return;b.disabled=true;
+   try{const acc=!!b.dataset.pcacc,res=acc?await call('sq_respond',{p_nick:b.dataset.pcacc,p_accept:true},true):await call('sq_request',{p_nick:b.dataset.pcadd},true);
+    toast(acc||res==='friends'?L('You are friends now!','¡Ya sois amigos!',"Vocês agora são amigos!"):L('Request sent','Solicitud enviada',"Pedido enviado"));track('squad_card_add',{});await loadHome();if(lastBoard)drawBoard(lastBoard);playerCard(b.dataset.pcacc||b.dataset.pcadd)}catch(x){toast(x.message);b.disabled=false}})}
+ const seq=++pcSeq,head=`<div class="bar"><span id="pc-n">${esc(nick)}</span><button class="more" data-pc="close" aria-label="${L('Close','Cerrar',"Fechar")}" style="width:30px;height:30px">✕</button></div>`;
+ d.innerHTML=head+`<div class="inner" style="text-align:center"><div class="u" style="width:150px;height:125px;margin:6px auto;background-image:${uni(kitHint,'wow')}"></div><div class="skel"></div><div class="skel"></div></div>`;
+ if(!d.open)d.showModal();track('squad_card',{});
+ let p;try{p=await call('sq_profile',{p_nick:nick})}catch(x){if(seq===pcSeq)d.querySelector('.inner').innerHTML=`<p class="empty">${esc(x.message)}</p>`;return}
+ if(seq!==pcSeq)return;
+ const k=(typeof KITS!=='undefined'&&KITS.find(x=>x.id===(p.kit||'classic')))||null,kitName=k?(PT&&k.pt||ES&&k.es||k.en):'';
+ const signed=sess()&&S.me?.profile,rel=signed?p.relation:'out',td=p.today||{};
+ const act=rel==='me'?`<p class="note" style="text-align:center">${L("That's you!",'¡Eres tú!',"Esse é você!")}</p><button type="button" class="btn full" onclick="window.ucChangeNick&&ucChangeNick()">${L('✎ Change nickname','✎ Cambiar apodo',"✎ Trocar apelido")}</button>`
+  :rel==='out'?`<a class="btn full" data-signin href="${signinUrl()}">${L('Sign in to add friends','Inicia sesión para añadir amigos',"Entre para adicionar amigos")}</a>`
+  :rel==='friend'?`<p class="note" style="text-align:center;margin-top:10px"><span class="tag">${L('FRIEND','AMIGO',"AMIGO")}</span></p>`
+  :rel==='sent'?`<p class="note" style="text-align:center;margin-top:10px">${L('Friend request sent','Solicitud enviada',"Pedido de amizade enviado")}</p>`
+  :rel==='incoming'?`<button class="btn g full" data-pcacc="${esc(p.nickname)}">${L('Accept friend request','Aceptar solicitud',"Aceitar pedido de amizade")}</button>`
+  :`<button class="btn full" data-pcadd="${esc(p.nickname)}">+ ${L('Add friend','Añadir amigo',"Adicionar amigo")}</button>`;
+ const since=p.since?new Date(p.since+'T12:00:00Z').toLocaleDateString(PT?'pt-BR':ES?'es-ES':'en-GB',{month:'short',year:'numeric',timeZone:'UTC'}):'';
+ d.innerHTML=head+`<div class="inner" style="text-align:center">
+  <div class="u" style="width:150px;height:125px;margin:6px auto 2px;background-image:${uni(p.kit,'wow')}"></div>
+  <p style="margin:0 0 10px;font-size:18px;color:var(--mut)">${esc(kitName)}${since?' · '+L('playing since ','juega desde ',"jogando desde ")+esc(since):''}<br>${L('Kits','Equipaciones',"Uniformes")}: <b style="font-weight:400;color:var(--ink)">${(()=>{const own=new Set(Array.isArray(p.kits)?p.kits:[]),day=new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Amsterdam'}),all=KITS.filter(x=>x.req&&(own.has(x.id)||(!x.crew&&!(x.until&&day>x.until))));return all.filter(x=>own.has(x.id)).length+'/'+all.length})()}</b></p>
+  <div class="pcg">${pcStat(p.games,L('games played','partidos jugados',"jogos"))}${pcStat((p.streak?'🔥':'')+p.streak,L('day streak','racha actual',"dias seguidos"))}${pcStat(p.best_streak,L('best streak','mejor racha',"melhor sequência"))}${pcStat(p.trophies,L('trophies','trofeos',"troféus"))}</div>
+  <p class="sec" style="justify-content:center;margin-top:12px">${L('Today','Hoy',"Hoje")}</p><p class="gl" style="justify-content:center;font-size:17px;margin:0 0 10px">${line({daily:td.daily,rosco:td.rosco,rosco_total:td.rosco_total,millon:td.millon,stablehand:td.stablehand,stablehand_target:td.stablehand_target})}</p>
+  ${act}</div>`}
+$('list').addEventListener('click',e=>{const row=e.target.closest('.row[data-i]');if(row&&lastBoard){const r=lastBoard.rows[+row.dataset.i];if(r)playerCard(r.nickname,r.kit)}});
+window.ucPlayerCard=(n,k)=>playerCard(n,k);
+{const m=location.hash.match(/^#player=(.+)$/);if(m)setTimeout(()=>playerCard(decodeURIComponent(m[1])),600)}
+// friends, requests and league members open the same card (but not when a button in the row was tapped)
+for(const id of ['friends','leagues'])$(id).addEventListener('click',e=>{if(e.target.closest('button,a,input,form'))return;const row=e.target.closest('[data-nick]');if(row)playerCard(row.dataset.nick,row.dataset.kit)});
+for(const id of ['friends','leagues'])$(id).addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('[data-nick]')){e.preventDefault();playerCard(e.target.dataset.nick,e.target.dataset.kit)}});
+$('list').addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('.row[data-i]')){e.preventDefault();e.target.click()}});
+
+// ── start ──
+async function loadMe(){if(!sess()){S.me=null;return}try{S.me=await call('lg_me',{},true)}catch{S.me=null}showMe()}
+async function inviteFromLink(){const q=new URLSearchParams(location.search),code=q.get('add')||ls('uc-squad-add');if(!code)return;
+ if(!sess()||!S.me?.profile){ls('uc-squad-add',code);setTab('friends');
+  $('friends').insertAdjacentHTML('afterbegin',`<div class="invite" style="margin-bottom:10px"><p><b>${L('A friend wants to add you on Unicorner.','Un amigo quiere agregarte en Unicorner.',"Um amigo quer te adicionar no Unicorner.")}</b> ${L('Sign in to accept, it takes a few seconds.','Inicia sesión para aceptar, son unos segundos.',"Entre para aceitar, leva só alguns segundos.")}</p></div>`);return}
+ ls('uc-squad-add',null);try{history.replaceState(null,'',location.pathname+location.hash)}catch{}
+ try{const nick=await call('sq_add_by_code',{p_code:code},true);toast(L('You and ','Tú y ',"Você e ")+nick+L(' are friends now!',' ya sois amigos!'," agora são amigos!"));track('squad_invite_accept',{});setTab('friends');await loadHome()}catch(x){toast(x.message)}}
+(async()=>{drawControls();loadBoard();drawFriends();drawLeagues();
+ await loadMe();drawControls();drawLeagues();await loadHome();await inviteFromLink();if(S.filter!=='all')loadBoard();gameHints();track('squad_open',{signed:sess(),tab:S.tab})})();
+})();
+</script>
+<script src="/notify.js" defer></script>
+<script src="/chat.js" defer></script>
+<script src="/pixicons.js" defer></script>
+</body>
+</html>

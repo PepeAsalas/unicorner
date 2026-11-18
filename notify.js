@@ -4,7 +4,7 @@
 (()=>{
 if(window.__ucNotify)return;window.__ucNotify=1;
 const SB_URL="https://yujhjepukzdahsppntua.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1amhqZXB1a3pkYWhzcHBudHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2NDMzNDcsImV4cCI6MjEwNTIxOTM0N30.YIOdtL7tJnNLPFPy19QuXe6w3Dcnz6Xedw0tFGdV_CE";
-const ES=location.pathname.startsWith('/es/'),L=(en,es)=>ES?es:en;
+const ES=location.pathname.startsWith('/es/'),PT=location.pathname.startsWith('/pt/'),L=(en,es,pt)=>PT?(pt??en):ES?es:en;
 const ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch{return null}};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let busy=false,last=0;
@@ -40,15 +40,15 @@ function card(list){let el=document.getElementById('ucfr');
  const r=fresh[0],more=fresh.length-1;
  if(!document.getElementById('ucfr-css')){const st=document.createElement('style');st.id='ucfr-css';st.textContent=CSS;document.head.appendChild(st)}
  if(!el){el=document.createElement('div');el.id='ucfr';el.className='ucfr';el.setAttribute('role','status');el.dataset.in='0';document.body.appendChild(el);requestAnimationFrame(()=>requestAnimationFrame(()=>el.dataset.in='1'))}
- const social=(ES?'/es/':'/')+'squad.html#friends';
- el.innerHTML=`<button type="button" class="x" data-fr="close" aria-label="${L('Close','Cerrar')}">✕</button><h4><em>${esc(r.nick)}</em> ${L('wants to be your friend','quiere ser tu amigo')}</h4><p>${L('Friends see each other on the rankings and can challenge each other to duels.','Los amigos se ven en los rankings y pueden retarse a duelos.')}</p>
-  <div class="r"><button type="button" class="y" data-fr="yes">${L('Accept','Aceptar')}</button><button type="button" data-fr="no">${L('Decline','Rechazar')}</button>${more?`<a class="more" href="${social}">+${more} ${L('more','más')}</a>`:''}</div>`;
+ const social=(PT?'/pt/':ES?'/es/':'/')+'squad.html#friends';
+ el.innerHTML=`<button type="button" class="x" data-fr="close" aria-label="${L('Close','Cerrar',"Fechar")}">✕</button><h4><em>${esc(r.nick)}</em> ${L('wants to be your friend','quiere ser tu amigo',"quer ser seu amigo")}</h4><p>${L('Friends see each other on the rankings and can challenge each other to duels.','Los amigos se ven en los rankings y pueden retarse a duelos.',"Amigos se veem nos rankings e podem se desafiar para duelos.")}</p>
+  <div class="r"><button type="button" class="y" data-fr="yes">${L('Accept','Aceptar',"Aceitar")}</button><button type="button" data-fr="no">${L('Decline','Rechazar',"Recusar")}</button>${more?`<a class="more" href="${social}">+${more} ${L('more','más',"mais")}</a>`:''}</div>`;
  const done=()=>{seen.add(r.nick+'|'+r.at);ls('uc-fr-seen',JSON.stringify([...seen].slice(-200)))};
  el.onclick=async e=>{const b=e.target.closest('[data-fr]');if(!b)return;const k=b.dataset.fr;
   if(k==='close'){done();track('friend_popup_close',{});el.dataset.in='0';setTimeout(()=>{el.remove();card(list)},220);return}
   el.querySelectorAll('button').forEach(x=>x.disabled=true);
   try{await rpc('sq_respond',{p_nick:r.nick,p_accept:k==='yes'});track('friend_popup_'+(k==='yes'?'accept':'decline'),{});
-   el.querySelector('h4').innerHTML=k==='yes'?`${L('You and','Tú y')} <em>${esc(r.nick)}</em> ${L('are friends now!','ya sois amigos!')}`:L('Request declined','Solicitud rechazada');el.querySelector('p').textContent='';el.querySelector('.r').innerHTML='';
+   el.querySelector('h4').innerHTML=k==='yes'?`${L('You and','Tú y',"Você e")} <em>${esc(r.nick)}</em> ${L('are friends now!','ya sois amigos!',"agora são amigos!")}`:L('Request declined','Solicitud rechazada',"Pedido recusado");el.querySelector('p').textContent='';el.querySelector('.r').innerHTML='';
    done();window.dispatchEvent(new Event('uc-friends-changed'));setTimeout(()=>{el.dataset.in='0';setTimeout(()=>{el.remove();check(true)},220)},1600)}
   catch(err){el.querySelector('p').textContent=err.message;el.querySelectorAll('button').forEach(x=>x.disabled=false)}}}
 

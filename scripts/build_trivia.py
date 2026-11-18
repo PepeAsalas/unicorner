@@ -48,15 +48,43 @@ def questions():
     return good
 
 
+ROUNDS_PT = {'Premier League & England': 'Premier League e Inglaterra', 'La Liga & Spain': 'LaLiga e Espanha', 'World Cup & Euros': 'Copas do Mundo e Eurocopas',
+             'Champions League & Europe': 'Champions e Europa', 'Italy, Germany & France': 'Itália, Alemanha e França', 'Managers & mixed bag': 'Técnicos e variadas'}
+# the Spanish page, turned into Brazilian Portuguese (same layout; the questions come from the _pt fields)
+PT_TEXT = [
+    ('<html lang="es">', '<html lang="pt-BR">'),
+    ('preguntas de fútbol con respuestas para un quiz con amigos', 'perguntas de futebol com respostas para um quiz com amigos'),
+    ('preguntas de fútbol con todas las respuestas válidas, en', 'perguntas de futebol com todas as respostas válidas, em'),
+    ('rondas: LaLiga, Premier League, Mundiales, Champions y más. Pon a prueba a tus amigos en una fiesta, en el bar o en el coche.', 'rodadas: Premier League, LaLiga, Copas do Mundo, Champions e mais. Teste seus amigos numa festa, no bar ou no carro.'),
+    ('https://unicornergame.lol/es/preguntas-futbol/">\n', 'https://unicornergame.lol/pt/perguntas-futebol/">\n'),
+    ('href="/es/">', 'href="/pt/">'),
+    ('trivia de fútbol diaria y gratis ▶ juega ya', 'quiz diário e grátis de futebol ▶ jogue agora'),
+    ('<h1>Preguntas de fútbol con respuestas</h1>', '<h1>Perguntas de futebol com respostas</h1>'),
+    ('preguntas de fútbol en', 'perguntas de futebol em'),
+    ('rondas, sacadas de partidas reales de Unicorner. Cada pregunta tiene muchas respuestas correctas, así que es perfecto para una fiesta, el bar o un viaje largo en coche.', 'rodadas, tiradas de jogos reais do Unicorner. Cada pergunta tem muitas respostas certas, então é perfeito para uma festa, o bar ou uma viagem longa de carro.'),
+    ('<b>Cómo jugar con amigos:</b> lee una pregunta en voz alta y id por turnos. Cada uno dice una respuesta válida, sin repetir. Si fallas o te quedas en blanco 5 segundos, quedas eliminado. El último en pie gana la ronda. Punto extra por un <b>«Qué chicharro»</b> (en rojo): una respuesta que casi a nadie se le ocurre.',
+     '<b>Como jogar com amigos:</b> leia uma pergunta em voz alta e vão se revezando. Cada um diz uma resposta válida, sem repetir. Errou ou travou por 5 segundos, está fora. O último que sobrar vence a rodada. Ponto extra por um <b>Golaço</b> (em vermelho): uma resposta em que quase ninguém pensa.'),
+    ('Juega el partido de hoy ▶', 'Jogar o jogo de hoje ▶'),
+    ('Añadimos preguntas nuevas a medida que Unicorner crece. ¿Quieres las respuestas de ayer? Mira las <a href="/es/respuestas/">respuestas anteriores</a>. <a href="/pt/">Volver a Unicorner</a>',
+     'Adicionamos perguntas novas conforme o Unicorner cresce. Quer as respostas anteriores? Veja o <a href="/pt/perguntas/">arquivo de perguntas</a>. <a href="/pt/">Voltar ao Unicorner</a>'),
+    ('¿Sabes de fútbol? Cinco preguntas nuevas cada día.', 'Entende de bola? Cinco perguntas novas todo dia.'),
+    ('>Jugar ▶<', '>Jogar ▶<'),
+]
+ALT = ('<link rel="alternate" hreflang="es" href="https://unicornergame.lol/es/preguntas-futbol/">',
+       '<link rel="alternate" hreflang="es" href="https://unicornergame.lol/es/preguntas-futbol/"><link rel="alternate" hreflang="pt-BR" href="https://unicornergame.lol/pt/perguntas-futebol/">')
+
+
 def main():
-    for es in (False, True):
-        build(es)
+    for lang in ('en', 'es', 'pt'):
+        build(lang)
 
 
-def build(es):
+def build(lang):
+    es = lang != 'en'
+    sx = '_pt' if lang == 'pt' else '_es'
     qs = questions()
     if es:
-        qs = [q for q in qs if q.get('prompt_es')]
+        qs = [q for q in qs if q.get('prompt' + sx)]
     rounds, used = [], set()
     for name, pat in ROUNDS:
         rx = re.compile(pat, re.I)
@@ -71,18 +99,18 @@ def build(es):
     parts, toc = [], []
     for r, (name, pick) in enumerate(rounds, 1):
         slug = f'round-{r}'
-        nm = ROUNDS_ES[name] if es else name
-        rl = 'Ronda' if es else 'Round'
+        nm = (ROUNDS_PT if lang == 'pt' else ROUNDS_ES)[name] if es else name
+        rl = ('Rodada' if lang == 'pt' else 'Ronda') if es else 'Round'
         toc.append(f'<a href="#{slug}">{rl} {r}: {e(nm)}</a>')
         parts.append(f'<section id="{slug}"><h2>{rl} {r}: {e(nm)}</h2>')
         for q in pick:
             n += 1
             ans = sorted(q['answers'], key=lambda a: (-(a.get('fame') or 3), a['name']))
-            st = (q.get('subtitle_es') or q.get('subtitle')) if es else q.get('subtitle')
+            st = (q.get('subtitle' + sx) or q.get('subtitle')) if es else q.get('subtitle')
             sub = f'<p class="sub">{e(st)}</p>' if st else ''
-            names = ''.join(f'<li class="{TIERS.get(a.get("fame"), "v")}">{e(a["name"])}</li>' for a in ans)
-            pr = q['prompt_es'] if es else q['prompt']
-            show = f'Ver las {len(ans)} respuestas' if es else f'Show the {len(ans)} answers'
+            names = ''.join(f'<li class="{TIERS.get(a.get("fame"), "v")}">{e((a.get("name" + sx) if es else None) or a["name"])}</li>' for a in ans)
+            pr = q['prompt' + sx] if es else q['prompt']
+            show = (f'Ver as {len(ans)} respostas' if lang == 'pt' else f'Ver las {len(ans)} respuestas') if es else f'Show the {len(ans)} answers'
             parts.append(f'<article class="q"><h3><span>{n}</span> {e(pr)}</h3>{sub}'
                          f'<details><summary>{show}</summary><ul>{names}</ul></details></article>')
         parts.append('</section>')
@@ -158,13 +186,19 @@ def build(es):
     <div class="bar"><span>Think you know ball? Five new questions every day.</span><a class="play" href="/">Play ▶</a></div>
     </main></body></html>
     '''
-    out = os.path.join(ROOT, 'es', 'preguntas-futbol') if es else os.path.join(ROOT, 'football-trivia-questions')
+    if lang == 'pt':
+        for a, b in PT_TEXT:
+            if a not in page:
+                raise SystemExit(f'build_trivia: Portuguese text not found: {a[:60]}')
+            page = page.replace(a, b)
+    page = page.replace(ALT[0], ALT[1])
+    out = os.path.join(ROOT, 'pt', 'perguntas-futebol') if lang == 'pt' else os.path.join(ROOT, 'es', 'preguntas-futbol') if es else os.path.join(ROOT, 'football-trivia-questions')
     os.makedirs(out, exist_ok=True)
     open(os.path.join(out, 'index.html'), 'w', encoding='utf-8').write(page)
     if es:
         sm = os.path.join(ROOT, 'sitemap.xml')
         t = open(sm, encoding='utf-8').read()
-        loc = 'https://unicornergame.lol/es/preguntas-futbol/'
+        loc = 'https://unicornergame.lol/pt/perguntas-futebol/' if lang == 'pt' else 'https://unicornergame.lol/es/preguntas-futbol/'
         if f'<loc>{loc}</loc>' not in t:
             t = t.replace('</urlset>', f'  <url>\n    <loc>{loc}</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.7</priority>\n  </url>\n</urlset>')
             open(sm, 'w', encoding='utf-8').write(t)
@@ -172,3 +206,5 @@ def build(es):
 
 if __name__ == '__main__':
     main()
+    import add_gtag  # Google tag on every page, regenerated ones included
+    add_gtag.main()

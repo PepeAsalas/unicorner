@@ -1,0 +1,140 @@
+{
+  "day": "2026-11-21",
+  "questions": [
+    {
+      "q": "Which of these players NEVER played for Tottenham?",
+      "q_es": "¿Cuál de estos jugadores NUNCA jugó en el Tottenham?",
+      "q_pt": "Qual destes jogadores NUNCA jogou no Tottenham?",
+      "o": [
+        "Ian Wright",
+        "Jürgen Klinsmann",
+        "Teddy Sheringham",
+        "Robbie Keane"
+      ],
+      "a": 0,
+      "why": "Wright played for Crystal Palace, Arsenal, West Ham, Forest, Celtic and Burnley, never Spurs.",
+      "why_es": "Wright jugó en Crystal Palace, Arsenal, West Ham, Forest, Celtic y Burnley, nunca en el Tottenham.",
+      "why_pt": "Wright jogou no Crystal Palace, Arsenal, West Ham, Forest, Celtic e Burnley, nunca no Tottenham.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Who won the first Ballon d'Or, in 1956?",
+      "q_es": "¿Quién ganó el primer Balón de Oro, en 1956?",
+      "q_pt": "Quem ganhou a primeira Bola de Ouro, em 1956?",
+      "o": [
+        "Alfredo Di Stéfano",
+        "Raymond Kopa",
+        "Stanley Matthews",
+        "Ferenc Puskás"
+      ],
+      "a": 2,
+      "why": "Matthews won it ahead of Di Stéfano and Kopa; Puskás never won it.",
+      "why_es": "Matthews lo ganó por delante de Di Stéfano y Kopa; Puskás nunca lo ganó.",
+      "why_pt": "Matthews ganhou à frente de Di Stéfano e Kopa; Puskás nunca ganhou.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "How many Premier League titles did Arsenal win under Arsène Wenger?",
+      "q_es": "¿Cuántas Premier League ganó el Arsenal con Arsène Wenger?",
+      "q_pt": "Quantas Premier Leagues o Arsenal ganhou com Arsène Wenger?",
+      "o": [
+        "2",
+        "4",
+        "5",
+        "3"
+      ],
+      "a": 3,
+      "why": "Three: 1997-98, 2001-02 and 2003-04.",
+      "why_es": "Tres: 1997-98, 2001-02 y 2003-04.",
+      "why_pt": "Três: 1997-98, 2001-02 e 2003-04.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which club did José Mourinho manage just before Porto?",
+      "q_es": "¿Qué club dirigió José Mourinho justo antes del Oporto?",
+      "q_pt": "Qual clube José Mourinho treinou logo antes do Porto?",
+      "o": [
+        "Benfica",
+        "União de Leiria",
+        "Sporting CP"
+      ],
+      "a": 1,
+      "why": "Mourinho left Benfica in 2000, managed União de Leiria and joined Porto in January 2002.",
+      "why_es": "Mourinho dejó el Benfica en 2000, dirigió al União de Leiria y llegó al Oporto en enero de 2002.",
+      "why_pt": "Mourinho deixou o Benfica em 2000, treinou o União de Leiria e chegou ao Porto em janeiro de 2002.",
+      "src": "own knowledge",
+      "o_es": [
+        "Benfica",
+        "União de Leiria",
+        "Sporting de Portugal"
+      ],
+      "o_pt": [
+        "Benfica",
+        "União de Leiria",
+        "Sporting"
+      ]
+    },
+    {
+      "q": "How many World Cup goals did Pelé score?",
+      "q_es": "¿Cuántos goles marcó Pelé en Mundiales?",
+      "q_pt": "Quantos gols Pelé marcou em Copas do Mundo?",
+      "o": [
+        "10",
+        "14",
+        "12"
+      ],
+      "a": 2,
+      "why": "Twelve in four World Cups (1958-1970).",
+      "why_es": "Doce en cuatro Mundiales (1958-1970).",
+      "why_pt": "Doze em quatro Copas (1958-1970).",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which of these clubs has NEVER won the UEFA Cup/Europa League?",
+      "q_es": "¿Cuál de estos clubes NUNCA ha ganado la Copa de la UEFA/Europa League?",
+      "q_pt": "Qual destes clubes NUNCA ganhou a Copa da UEFA/Liga Europa?",
+      "o": [
+        "Ipswich Town",
+        "Aston Villa",
+        "Tottenham"
+      ],
+      "a": 1,
+      "why": "Ipswich won it in 1981 and Spurs in 1972, 1984 and 2025; Villa won the European Cup but never this one.",
+      "why_es": "El Ipswich la ganó en 1981 y el Tottenham en 1972, 1984 y 2025; el Villa ganó la Copa de Europa, pero nunca esta.",
+      "why_pt": "O Ipswich ganhou em 1981 e o Tottenham em 1972, 1984 e 2025; o Villa ganhou a Copa dos Campeões, mas nunca esta.",
+      "src": "own knowledge",
+      "n": "The old name of the Europa League, until 2009",
+      "n_es": "El antiguo nombre de la Europa League, hasta 2009",
+      "n_pt": "O antigo nome da Liga Europa, até 2009"
+    },
+    {
+      "q": "Which of these players NEVER played for Ajax?",
+      "q_es": "¿Cuál de estos jugadores NUNCA jugó en el Ajax?",
+      "q_pt": "Qual destes jogadores NUNCA jogou no Ajax?",
+      "o": [
+        "Zlatan Ibrahimović",
+        "Luis Suárez",
+        "Romário"
+      ],
+      "a": 2,
+      "why": "Romário's Dutch club was PSV; Zlatan and Suárez both played for Ajax.",
+      "why_es": "El club neerlandés de Romário fue el PSV; Zlatan y Suárez jugaron en el Ajax.",
+      "why_pt": "O clube holandês de Romário foi o PSV; Zlatan e Suárez jogaram no Ajax.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Who won more Serie A titles as a player: Paolo Maldini or Gianluigi Buffon?",
+      "q_es": "¿Quién ganó más Serie A como jugador: Paolo Maldini o Gianluigi Buffon?",
+      "q_pt": "Quem ganhou mais títulos da Serie A como jogador: Paolo Maldini ou Gianluigi Buffon?",
+      "o": [
+        "Gianluigi Buffon",
+        "Paolo Maldini"
+      ],
+      "a": 0,
+      "why": "Buffon won a record 10 (not counting the two revoked in Calciopoli); Maldini won 7.",
+      "why_es": "Buffon ganó un récord de 10 (sin contar las dos retiradas por el Calciopoli); Maldini 7.",
+      "why_pt": "Buffon ganhou um recorde de 10 (sem contar os dois cassados no Calciopoli); Maldini, 7.",
+      "src": "https://en.wikipedia.org/wiki/Gianluigi_Buffon"
+    }
+  ]
+}

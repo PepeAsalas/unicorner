@@ -16,12 +16,14 @@ from zoneinfo import ZoneInfo
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 e = html.escape
 MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
-TOPICS = [  # (en, es, pattern on the English prompt)
-    ('Awards', 'Premios', r'golden|ballon|award|best player|top scorer|boot|golden boy'),
-    ('World Cup & Euros', 'Mundiales y Eurocopas', r'world cup|euro|copa am[eé]rica|nations'),
-    ('Clubs & leagues', 'Clubes y ligas', r'club|league|premier|liga|serie a|bundesliga|ligue|cup'),
-    ('Players & managers', 'Jugadores y entrenadores', r'.'),
+MESES_PT = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro']
+TOPICS = [  # (en, es, pt, pattern on the English prompt)
+    ('Awards', 'Premios', 'Prêmios', r'golden|ballon|award|best player|top scorer|boot|golden boy'),
+    ('World Cup & Euros', 'Mundiales y Eurocopas', 'Copas do Mundo e Eurocopas', r'world cup|euro|copa am[eé]rica|nations'),
+    ('Clubs & leagues', 'Clubes y ligas', 'Clubes e ligas', r'club|league|premier|liga|serie a|bundesliga|ligue|cup'),
+    ('Players & managers', 'Jugadores y entrenadores', 'Jogadores e técnicos', r'.'),
 ]
+SX = {'en': '', 'es': '_es', 'pt': '_pt'}
 
 
 def entries(today):
@@ -38,37 +40,46 @@ def entries(today):
     return out
 
 
-def page(es, items, today):
+def page(lang, items, today):
+    es, pt = lang != 'en', lang == 'pt'
+    sx = SX[lang]
+    tw = lambda en, es_, pt_: pt_ if pt else es_ if es else en
     n_q, n_t = len(items), sum(len(t) for _, _, t in items)
     groups = {}
     for day, q, traps in items:
-        for en_name, es_name, pat in TOPICS:
+        for en_name, es_name, pt_name, pat in TOPICS:
             if re.search(pat, q['prompt'], re.I):
-                groups.setdefault(es_name if es else en_name, []).append((day, q, traps))
+                groups.setdefault(tw(en_name, es_name, pt_name), []).append((day, q, traps))
                 break
-    order = [(t[1] if es else t[0]) for t in TOPICS]
-    nice = (lambda d: f'{int(d[8:])} de {MESES[int(d[5:7]) - 1]} de {d[:4]}') if es else (lambda d: date.fromisoformat(d).strftime('%-d %B %Y'))
+    order = [tw(t[0], t[1], t[2]) for t in TOPICS]
+    nice = (lambda d: f'{int(d[8:])} de {(MESES_PT if pt else MESES)[int(d[5:7]) - 1]} de {d[:4]}') if es else (lambda d: date.fromisoformat(d).strftime('%-d %B %Y'))
     parts, toc = [], []
     for gi, g in enumerate([g for g in order if g in groups], 1):
         slug = f'g{gi}'
         toc.append(f'<a href="#{slug}">{e(g)} ({sum(len(t) for _, _, t in groups[g])})</a>')
         parts.append(f'<section id="{slug}"><h2>{e(g)}</h2>')
         for day, q, traps in groups[g]:
-            prompt = (q.get('prompt_es') or q['prompt']) if es else q['prompt']
-            sub = (q.get('subtitle_es') or q.get('subtitle')) if es else q.get('subtitle')
+            prompt = q.get('prompt' + sx) or q['prompt']
+            sub = q.get('subtitle' + sx) or q.get('subtitle')
             lis = ''.join(
-                f'<li><b>✗ {e(t["name"])}</b> {e((t.get("why_es") or t["why"]) if es else t["why"])}</li>' for t in traps)
+                f'<li><b>✗ {e(t.get("name" + sx) or t["name"])}</b> {e(t.get("why" + sx) or t["why"])}</li>' for t in traps)
             parts.append(
                 f'<article class="q"><h3>{e(prompt)}</h3>'
                 + (f'<p class="sub">{e(sub)}</p>' if sub else '')
-                + f'<p class="meta">{"Partido del" if es else "Played on"} {nice(day)} · {q.get("answer_count") or len(q["answers"])} {"respuestas válidas" if es else "valid answers"}</p>'
-                + f'<p class="wl">{"Respuestas que la gente da y no valen:" if es else "Answers people give that are wrong:"}</p><ul>{lis}</ul></article>')
+                + f'<p class="meta">{tw("Played on", "Partido del", "Jogo de")} {nice(day)} · {q.get("answer_count") or len(q["answers"])} {tw("valid answers", "respuestas válidas", "respostas válidas")}</p>'
+                + f'<p class="wl">{tw("Answers people give that are wrong:", "Respuestas que la gente da y no valen:", "Respostas que a gente dá e não valem:")}</p><ul>{lis}</ul></article>')
         parts.append('</section>')
-    home = '/es/' if es else '/'
-    canon = 'https://unicornergame.lol/es/errores-futbol/' if es else 'https://unicornergame.lol/football-trivia-mistakes/'
+    home = tw('/', '/es/', '/pt/')
+    canon = tw('https://unicornergame.lol/football-trivia-mistakes/', 'https://unicornergame.lol/es/errores-futbol/', 'https://unicornergame.lol/pt/erros-futebol/')
     alt = ('<link rel="alternate" hreflang="en" href="https://unicornergame.lol/football-trivia-mistakes/">'
-           '<link rel="alternate" hreflang="es" href="https://unicornergame.lol/es/errores-futbol/">')
-    if es:
+           '<link rel="alternate" hreflang="es" href="https://unicornergame.lol/es/errores-futbol/">'
+           '<link rel="alternate" hreflang="pt-BR" href="https://unicornergame.lol/pt/erros-futebol/">')
+    if pt:
+        title = f'Erros de futebol: {n_t} respostas que a gente acha certas e não são | Unicorner'
+        desc = f'{n_t} respostas de futebol que muita gente jura que estão certas e estão erradas, com a explicação de cada uma. Tiradas de {n_q} perguntas do Unicorner.'
+        h1, lead = 'Erros de futebol que quase todo mundo comete', f'No Unicorner cada pergunta tem muitas respostas válidas, e algumas armadilhas. Aqui estão {n_t} respostas que a gente dá com toda a certeza e que estão erradas, com o porquê de cada uma. As respostas certas não estão aqui: para isso, jogue.'
+        play, bar, foot = 'Jogar o jogo de hoje ▶', 'Entende de bola? Cinco perguntas novas todo dia.', 'Novos erros são adicionados conforme mais jogos acontecem.'
+    elif es:
         title = f'Errores de fútbol: {n_t} respuestas que la gente cree correctas y no lo son | Unicorner'
         desc = f'{n_t} respuestas de fútbol que mucha gente da por buenas y son falsas, con la explicación de cada una. Sacadas de {n_q} preguntas de Unicorner.'
         h1, lead = 'Errores de fútbol que casi todo el mundo comete', f'En Unicorner cada pregunta tiene muchas respuestas válidas, y algunas trampas. Aquí tienes {n_t} respuestas que la gente da muy convencida y no son correctas, con el porqué de cada una. No te damos las respuestas buenas: para eso, juega.'
@@ -79,7 +90,7 @@ def page(es, items, today):
         h1, lead = 'Football trivia mistakes almost everyone makes', f'Every Unicorner question has many right answers, and a few traps. These are {n_t} answers people give with total confidence that are wrong, with the reason for each. We don\'t list the right answers here: for those, you have to play.'
         play, bar, foot = 'Play today\'s game ▶', 'Think you know ball? Five new questions every day.', 'New mistakes are added as more games are played.'
     return f'''<!doctype html>
-<html lang="{'es' if es else 'en'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="{tw('en', 'es', 'pt-BR')}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(title)}</title>
 <meta name="description" content="{e(desc)}">
 <link rel="canonical" href="{canon}">{alt}
@@ -101,14 +112,14 @@ footer{{margin-top:30px;color:#e9dfc2;font-size:14px}}
 .hero{{display:flex;align-items:center;gap:14px;margin:-24px -16px 18px;padding:22px 16px;background:linear-gradient(rgba(27,21,48,.35),#1d1a2b),url(/bg/floodlit-wide.webp) center/cover;border-bottom:3px solid #000;text-decoration:none}}.hero img{{width:72px;height:72px;image-rendering:pixelated;border:3px solid #000}}.hero b{{font:400 34px/1 'Jersey 10',monospace;color:#f2c230}}.hero small{{display:block;font:18px VT323,monospace;color:#fff}}
 .bar{{position:sticky;bottom:0;display:flex;align-items:center;justify-content:space-between;gap:10px;margin:24px -16px -48px;padding:10px 16px;background:#fbf6e8;color:#1d1a2b;border-top:3px solid #000;font:700 15px Barlow,sans-serif}}.bar .play{{white-space:nowrap;margin:0;font-size:20px;padding:8px 14px}}
 </style></head><body><main>
-<a class="hero" href="{home}"><img src="/favicon-512.png" alt="Unicorner"><span><b>Unicorner</b><small>{'trivia de fútbol diaria y gratis ▶ juega ya' if es else 'free daily football trivia ▶ play now'}</small></span></a>
+<a class="hero" href="{home}"><img src="/favicon-512.png" alt="Unicorner"><span><b>Unicorner</b><small>{tw('free daily football trivia ▶ play now', 'trivia de fútbol diaria y gratis ▶ juega ya', 'quiz diário e grátis de futebol ▶ jogue agora')}</small></span></a>
 <h1>{e(h1)}</h1>
 <p class="lead">{e(lead)}</p>
 <a class="play" href="{home}">{play}</a>
 <nav>{''.join(toc)}</nav>
 {''.join(parts)}
-<footer>{foot} <a href="{home}">Unicorner</a> · <a href="{'/es/preguntas-futbol/' if es else '/football-trivia-questions/'}">{'Preguntas de fútbol' if es else 'Trivia questions'}</a> · <a href="/how-to-play.html">{'Cómo se juega' if es else 'How to play'}</a></footer>
-<div class="bar"><span>{bar}</span><a class="play" href="{home}">{'Jugar ▶' if es else 'Play ▶'}</a></div>
+<footer>{foot} <a href="{home}">Unicorner</a> · <a href="{tw('/football-trivia-questions/', '/es/preguntas-futbol/', '/pt/perguntas-futebol/')}">{tw('Trivia questions', 'Preguntas de fútbol', 'Perguntas de futebol')}</a> · <a href="{tw('/how-to-play.html', '/es/como-jugar.html', '/pt/como-jogar.html')}">{tw('How to play', 'Cómo se juega', 'Como se joga')}</a></footer>
+<div class="bar"><span>{bar}</span><a class="play" href="{home}">{tw('Play ▶', 'Jugar ▶', 'Jogar ▶')}</a></div>
 </main></body></html>
 '''
 
@@ -118,12 +129,12 @@ def main():
     items = entries(today)
     if not items:
         return
-    for es, out in ((False, 'football-trivia-mistakes'), (True, os.path.join('es', 'errores-futbol'))):
+    for lang, out in (('en', 'football-trivia-mistakes'), ('es', os.path.join('es', 'errores-futbol')), ('pt', os.path.join('pt', 'erros-futebol'))):
         os.makedirs(os.path.join(ROOT, out), exist_ok=True)
-        open(os.path.join(ROOT, out, 'index.html'), 'w', encoding='utf-8').write(page(es, items, today))
+        open(os.path.join(ROOT, out, 'index.html'), 'w', encoding='utf-8').write(page(lang, items, today))
     sm = os.path.join(ROOT, 'sitemap.xml')
     s = open(sm, encoding='utf-8').read()
-    for loc in ('https://unicornergame.lol/football-trivia-mistakes/', 'https://unicornergame.lol/es/errores-futbol/'):
+    for loc in ('https://unicornergame.lol/football-trivia-mistakes/', 'https://unicornergame.lol/es/errores-futbol/', 'https://unicornergame.lol/pt/erros-futebol/'):
         if f'<loc>{loc}</loc>' in s:
             s = re.sub(r'(<loc>' + re.escape(loc) + r'</loc>\s*<lastmod>)[^<]*', r'\g<1>' + today, s)
         else:
@@ -134,3 +145,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+    import add_gtag  # Google tag on every page, regenerated ones included
+    add_gtag.main()
