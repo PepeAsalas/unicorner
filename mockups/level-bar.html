@@ -1,0 +1,88 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Level bar options</title>
+<style>
+@font-face{font-family:'Jersey 10';src:url(/fonts/jersey10.woff2) format('woff2')}
+@font-face{font-family:'VT323';src:url(/fonts/vt323.woff2) format('woff2')}
+:root{--gold:#f2c230;--gold2:#e0a000;--dark:#1d1a2b;--cream:#fff6dc;--mute:#b9c6ea}
+*{box-sizing:border-box}
+body{margin:0;background:#0d1226;color:#fff;font-family:'VT323',monospace;padding:28px}
+h1{font:400 44px/1 'Jersey 10';margin:0 0 6px;color:var(--gold)}
+.intro{font-size:22px;color:var(--mute);margin:0 0 22px;max-width:1100px}
+.opt{margin:0 0 26px}
+.opt h2{font:400 30px/1 'Jersey 10';margin:0 0 2px}.opt p{font-size:19px;color:var(--mute);margin:0 0 10px;max-width:900px}
+.pair{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
+.pitch{background:repeating-linear-gradient(90deg,#2e8a45 0 48px,#2a8040 48px 96px);border:3px solid #000;padding:22px 16px}
+.ph{width:390px}.dk{width:1040px}
+.lab{font-size:16px;color:var(--mute);margin:0 0 4px}
+.chip{flex:none;font:400 16px/1 'Jersey 10';color:var(--dark);background:var(--gold);border:2px solid #000;box-shadow:2px 2px 0 #000;padding:6px 8px 3px;white-space:nowrap}
+img{display:block;image-rendering:auto}
+.row{display:flex;align-items:center;gap:10px}
+.track{position:relative;flex:1}
+/* shared rail */
+.rail{position:relative;height:14px;background:var(--dark);border:2px solid #000}
+.fill{position:absolute;left:0;top:0;bottom:0;background:repeating-linear-gradient(90deg,var(--gold) 0 6px,var(--gold2) 6px 8px)}
+
+/* 1 live */
+.o1 .rail{height:16px}
+.o1 .st{position:absolute;top:50%;width:24px;height:24px;margin:-12px 0 0 -12px;background:var(--dark);border:2px solid #000;display:grid;place-items:center}
+.o1 .st img{width:18px;height:18px;filter:grayscale(1) brightness(.55)}.o1 .st.nx img{filter:grayscale(.4) brightness(.9)}
+.o1 .me{position:absolute;top:50%;width:36px;height:36px;margin:-18px 0 0 -18px;background:var(--cream);border:3px solid var(--gold);box-shadow:0 0 10px rgba(242,194,48,.7);display:grid;place-items:center}.o1 .me img{width:28px;height:28px}
+
+/* 2 silhouettes: no boxes, locked levels are black shapes */
+.o2 .rail{height:10px}
+.o2 .st{position:absolute;bottom:8px;width:30px;height:30px;margin-left:-15px}
+.o2 .st img{width:30px;height:30px;filter:brightness(0) drop-shadow(0 0 0 rgba(0,0,0,.4));opacity:.55}
+.o2 .st.dn img{filter:drop-shadow(2px 2px 0 rgba(0,0,0,.45));opacity:1}
+.o2 .st.nx img{filter:brightness(0) drop-shadow(0 0 4px #fff);opacity:.9}
+.o2 .me{position:absolute;bottom:4px;width:44px;height:44px;margin-left:-22px;filter:drop-shadow(0 0 8px rgba(242,194,48,.9)) drop-shadow(2px 3px 0 rgba(0,0,0,.5))}
+.o2 .me img{width:44px;height:44px}
+.o2 .pin{position:absolute;top:-2px;width:4px;height:14px;margin-left:-2px;background:#fff;border:1px solid #000}
+.o2 .track{padding-top:40px}
+
+/* 3 now + next */
+.o3 .badge{flex:none;width:44px;height:44px;background:var(--cream);border:3px solid #000;box-shadow:3px 3px 0 #000;display:grid;place-items:center}.o3 .badge img{width:34px;height:34px}
+.o3 .badge.next{background:var(--dark);border-color:#000}.o3 .badge.next img{filter:grayscale(1) brightness(.75)}
+.o3 .mid{flex:1;min-width:0}
+.o3 .top{display:flex;justify-content:space-between;font:400 17px/1 'Jersey 10';margin-bottom:5px;text-shadow:2px 2px 0 #000}
+.o3 .top span:last-child{color:var(--cream);opacity:.85}
+.o3 .rail{height:16px}
+.o3 .togo{font-size:16px;margin-top:4px;color:var(--cream);text-shadow:2px 2px 0 #000}.o3 .togo b{color:var(--gold);font-weight:400}
+.o3 .pips{display:flex;gap:4px;margin-top:6px}.o3 .pips i{width:10px;height:10px;border:2px solid #000;background:var(--dark)}.o3 .pips i.on{background:var(--gold)}
+
+/* 4 staircase blocks */
+.o4 .steps{display:flex;gap:4px;flex:1}
+.o4 .blk{position:relative;flex:1;height:34px;background:var(--dark);border:2px solid #000;display:flex;align-items:center;justify-content:center}
+.o4 .blk img{width:24px;height:24px;filter:grayscale(1) brightness(.5)}
+.o4 .blk.dn{background:var(--gold)}.o4 .blk.dn img{filter:none}
+.o4 .blk.now{background:var(--cream);outline:3px solid var(--gold);z-index:1}.o4 .blk.now img{filter:none;width:28px;height:28px}
+.o4 .blk.now .in{position:absolute;left:0;top:0;bottom:0;background:rgba(242,194,48,.45)}
+.o4 .blk.now img{position:relative}
+
+/* 5 trophy shelf: icons above, numbered rail below */
+.o5 .shelf{display:flex;justify-content:space-between;margin-bottom:6px}
+.o5 .shelf div{width:13%;display:grid;place-items:center;padding:4px 0;border:2px solid transparent}
+.o5 .shelf img{width:30px;height:30px;filter:grayscale(1) brightness(.45)}
+.o5 .shelf .dn img{filter:none}.o5 .shelf .now{background:var(--cream);border-color:#000;box-shadow:3px 3px 0 #000}.o5 .shelf .now img{filter:none}
+.o5 .rail{height:12px}
+@media (max-width:0){}
+</style></head><body>
+<h1>Level bar: other ways to show it</h1>
+<p class="intro">All use the new icons from ChatGPT. Example player: 20% of the way, on Second tier (floodlight), heading to Top flight (stadium). Phone on the left, desktop on the right.</p>
+<div id="opts"></div>
+<script>
+const Z=[0,.06,.15,.28,.44,.62,.8],NAMES=['Sunday league','Non-league','Second tier','Top flight','Champions League','World Cup final',"Ballon d'Or"],F=.2,CUR=2,src=k=>`/levels/${k}.png`;
+const pct=v=>(v*100).toFixed(2)+'%';
+const V={
+ o1:()=>`<div class="row"><span class="chip">${NAMES[CUR]}</span><div class="track"><div class="rail"><i class="fill" style="width:${pct(F)}"></i></div>${Z.slice(1).map((v,k)=>k+1===CUR?'':`<i class="st ${k+1===CUR+1?'nx':''} ${k+1<CUR?'dn':''}" style="left:${pct(v)};${k+1<CUR?'background:#fff6dc':''}"><img src="${src(k+1)}"></i>`).join('')}<i class="me" style="left:${pct(F)}"><img src="${src(CUR)}"></i></div></div>`,
+ o2:()=>`<div class="row"><span class="chip">${NAMES[CUR]}</span><div class="track">${Z.slice(1).map((v,k)=>k+1===CUR?'':`<i class="st ${k+1<CUR?'dn':k+1===CUR+1?'nx':''}" style="left:${pct(v)}"><img src="${src(k+1)}"></i>`).join('')}<i class="me" style="left:${pct(F)}"><img src="${src(CUR)}"></i><div class="rail"><i class="fill" style="width:${pct(F)}"></i>${Z.slice(1).map(v=>`<i class="pin" style="left:${pct(v)}"></i>`).join('')}</div></div></div>`,
+ o3:()=>{const lo=Z[CUR],hi=Z[CUR+1],w=(F-lo)/(hi-lo);return`<div class="row"><span class="badge"><img src="${src(CUR)}"></span><div class="mid"><div class="top"><span>${NAMES[CUR]}</span><span>${NAMES[CUR+1]}</span></div><div class="rail"><i class="fill" style="width:${pct(w)}"></i></div><div class="pips">${Z.map((_,k)=>`<i class="${k<=CUR?'on':''}"></i>`).join('')}</div></div><span class="badge next"><img src="${src(CUR+1)}"></span></div>`},
+ o4:()=>{const lo=Z[CUR],hi=Z[CUR+1];return`<div class="row"><span class="chip">${NAMES[CUR]}</span><div class="steps">${Z.map((v,k)=>`<div class="blk ${k<CUR?'dn':k===CUR?'now':''}">${k===CUR?`<i class="in" style="width:${pct((F-lo)/(hi-lo))}"></i>`:''}<img src="${src(k)}"></div>`).join('')}</div></div>`},
+ o5:()=>`<div class="shelf">${Z.map((v,k)=>`<div class="${k<CUR?'dn':k===CUR?'now':''}"><img src="${src(k)}"></div>`).join('')}</div><div class="rail"><i class="fill" style="width:${pct(F)}"></i></div>`
+};
+const INFO={o1:['1 · Live now','Icons sit on the bar in dark boxes; your box is bigger and cream.'],
+ o2:['2 · Silhouettes','No boxes. Levels you have not reached are black shapes, like locked items in a game; reached ones in colour. Your icon glows above the bar.'],
+ o3:['3 · Now and next','Only your level and the next one, with the bar showing progress between them, plus 7 small pips for the whole journey. Cleanest on a phone.'],
+ o4:['4 · Staircase','7 blocks, one per level, each with its icon. Passed ones gold, yours cream and filling up, the rest dark.'],
+ o5:['5 · Trophy shelf','All 7 icons in a row above a thin bar, like a shelf you fill up. Yours in a cream frame.']};
+document.getElementById('opts').innerHTML=Object.keys(V).map(k=>`<div class="opt ${k}"><h2>${INFO[k][0]}</h2><p>${INFO[k][1]}</p><div class="pair"><div><div class="lab">Phone</div><div class="pitch ph">${V[k]()}</div></div><div><div class="lab">Desktop</div><div class="pitch dk">${V[k]()}</div></div></div></div>`).join('');
+Promise.all([...document.images].map(i=>i.decode().catch(()=>{}))).then(()=>document.fonts.ready).then(()=>document.body.dataset.ready=1);
+</script></body></html>
