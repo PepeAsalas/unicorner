@@ -191,7 +191,7 @@ body.playing .climb.flat{display:flex;align-items:center;gap:10px;margin:0 0 12p
 
 /* answer reveal, tidy layout: tier names in the bar, one result row, the share gets a small bar */
 .rv .qk{display:inline-block;font:400 15px/1 var(--px);letter-spacing:2px;color:#000;background:var(--gold);padding:4px 6px 1px;margin-right:8px;vertical-align:2px}
-.rv .gname{position:absolute;top:0;bottom:0;display:flex;align-items:center;justify-content:center;font:400 12px/1 var(--px);letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.28);white-space:nowrap;overflow:hidden;pointer-events:none}
+.rv .gname{position:absolute;top:0;bottom:0;display:flex;align-items:center;justify-content:center;font:400 12px/1 var(--px);letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.55);white-space:nowrap;overflow:hidden;pointer-events:none;padding:0 2px}
 .rv .gtrail{z-index:1}
 .rv #tn{margin-top:18px;padding-top:14px;border-top:3px dashed rgba(255,255,255,.22);line-height:.95!important}
 .rv .rlv{line-height:1.3}
@@ -2954,13 +2954,15 @@ function reveal(ans){if(results[qi])return;const q=Q[qi];const pts=ans?ans.pts:0
   setTimeout(()=>{setMeter();if(after!==before){playSfx('levelup');const m=document.querySelector('.meter');m.classList.remove('flash');void m.offsetWidth;m.classList.add('flash');const pr=document.getElementById('promo');const prow=document.getElementById('promoRow');if(pr){pr.classList.remove('hold')}
   if(prow){const offs=[[-46,-6],[46,-8],[-34,-22],[36,-24],[0,-30],[-16,16],[20,16],[0,20]];offs.forEach(([dx,dy])=>{const s=document.createElement('span');s.className='spark';s.style.setProperty('--dx',dx+'px');s.style.setProperty('--dy',dy+'px');prow.appendChild(s)});prow.classList.remove('spark-burst');void prow.offsetWidth;prow.classList.add('spark-burst')}}},600);
   setTimeout(()=>{nx.style.visibility='visible';nx.focus()},after!==before?900:500)};
+ // tier names in the bar: shrink a name that doesn't fit its section (Screamer is the narrowest), hide it if it still doesn't
+ document.querySelectorAll('#gauge .gname').forEach(el=>{let f=12;el.style.fontSize='';while(el.scrollWidth>el.clientWidth+1&&f>7){f--;el.style.fontSize=f+'px'}if(el.scrollWidth>el.clientWidth+1)el.style.visibility='hidden'});
  const lab=document.getElementById('glabel'),segs=[...document.querySelectorAll('#gauge .gpts span')];const COLS=['#cfd8e6','#7fe0a8','#b48cff','#ff7ac8','#f2c230'];
  if(target<0){const gauge=document.getElementById('gauge'),bar=gauge.querySelector('.gbar'),uni=document.getElementById('guni');gauge.classList.add('empty');
   // a miss: your unicorn just sits sadly at the start of the empty bar
   const H=bar.clientHeight,uh=Math.round(H/.44),uw=Math.round(uh*1.2);uni.style.width=uw+'px';uni.style.height=uh+'px';uni.style.backgroundImage=sprite('sad',0,false,UC_KIT);uni.style.transform=`translate(${Math.round(-uw*.14)}px,${Math.round(H/2-uh*.6)}px)`;uni.classList.remove('hold');setTimeout(land,500)}else{
   // one continuous run: your unicorn races to your score, its trail filling the bar behind it; a Screamer fills the bar and the unicorn loops off
   const gauge=document.getElementById('gauge'),bar=gauge.querySelector('.gbar'),cv=document.getElementById('gtrail'),fx=document.getElementById('gfx'),uni=document.getElementById('guni');
-  const N=TIERS.length,end=pts/100,dur=600+target*260,t0=performance.now()+150,scr=target===N-1;let shown=-1,lockAt=0,whooshed=false,bg='';
+  const N=TIERS.length,end=pts/100,dur=(600+target*260)*(window.UC_RUN||1),t0=performance.now()+150,scr=target===N-1;let shown=-1,lockAt=0,whooshed=false,bg='';
   const W=bar.clientWidth,H=bar.clientHeight,dpr=Math.min(2,window.devicePixelRatio||1),paint=ucTrail(UC_KIT);
   cv.width=W*dpr;cv.height=H*dpr;const g=cv.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);g.imageSmoothingEnabled=false;
   // the effects layer covers the gauge and the space above it; bar coordinates are offset by (ox,oy)
