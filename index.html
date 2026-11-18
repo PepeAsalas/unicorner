@@ -184,6 +184,8 @@ body.playing .climb.flat{display:flex;align-items:center;gap:10px;margin:0 0 12p
  #uc-awards .aw-bt b{font-size:13px}#uc-awards .aw-bt small{font-size:15px}
  #uc-awards .aw-ig{font-size:15px;padding:10px 12px}
 }
+
+.shr{margin:6px 0 0;min-height:1.3em;font-size:20px;color:var(--mute,#c9d3ff);opacity:0;transform:translateY(4px);transition:opacity .3s cubic-bezier(.23,1,.32,1),transform .3s cubic-bezier(.23,1,.32,1)}.shr.on{opacity:1;transform:none}.shr b{color:var(--gold,#f2c230);font-weight:400}
 </style>
 <link rel="preload" href="/fonts/jersey10.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/fonts/vt323.woff2" as="font" type="font/woff2" crossorigin>
 <style>.sp{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:radial-gradient(ellipse at 50% 40%,#fbf5e4 0%,#f6eed8 55%,#e6d9b4 100%);color:#1d1a2b;transition:opacity .45s ease,transform .45s ease}
@@ -2875,11 +2877,11 @@ function crowdReveal(q,ans,pts,before,after){
  if(INF&&INF.endless&&(qi+1)%5===0&&qi+1<Q.length)nx.textContent=L('See your batch','Ver tu tanda',"Ver sua rodada");
  nx.onclick=()=>{if(INF&&INF.endless&&(qi+1)%5===0&&qi+1<Q.length)return infBatch();qi++;if(qi<Q.length){playSfx('whoosh');ask(true)}else if(INF)infEnd();else end()}})}
 
-function reveal(ans){if(results[qi])return;const q=Q[qi];const pts=ans?ans.pts:0;const before=zoneOf(score);score+=pts;results[qi]={q,ans,pts};if(INF&&INF.endless)infStatAdd(q,pts);const after=zoneOf(score);
- return crowdReveal(q,ans,pts,before,after);
+function reveal(ans){if(results[qi])return;const q=Q[qi];const pts=ans?ans.pts:0;const shareP=ans?czShare(q,ans):Promise.resolve(null);const before=zoneOf(score);score+=pts;results[qi]={q,ans,pts};if(INF&&INF.endless)infStatAdd(q,pts);const after=zoneOf(score);
+ // the crowd zoom (crowdReveal) is switched off: players preferred the slider bar
  swap(`<div class="card"><div class="reveal-top"><div class="mute">${qt(q,'prompt')}</div><div class="sprite mid-sprite hold" id="mascot" data-mood="${!ans?'sad':pts>=64?'wow':'happy'}"></div><div class="scream-bubble${ans?'':' stink'}" id="bubble">${ans?'AAAAAH!':L('What a stinker!','¡Qué fallo!',"Que fiasco!")}</div></div>
  <div class="gauge trailg" id="gauge"><canvas class="gfx" id="gfx" aria-hidden="true"></canvas><div class="gbar"><canvas class="gtrail" id="gtrail" aria-hidden="true"></canvas>${TIERS.slice(0,-1).map(t=>`<i class="gdiv" style="left:${t[0]}%"></i>`).join('')}<span class="glab hold" id="glabel">${tl('Tap-in')}</span><i class="guni hold" id="guni" aria-hidden="true"></i></div><div class="gpts">${TIERS.map((t,i)=>`<span data-i="${i}" style="left:${t[0]}%">${t[0]}</span>`).join('')}</div></div>
- ${ans?`<div class="tier hold" id="tn">${pts===100?L("SCREAMER!!!",'¡QUÉ CHICHARRO!',"GOLAÇO!!!"):tl(tierName(pts))}</div><div class="pts hold" id="pl">${an(ans)} · <span id="pc">+0</span> ${L('points','puntos',"pontos")}</div>`:`<div class="tier wipe" style="color:var(--mute)">${L('Missed','Fallada',"Errou")}</div><div class="pts">${L('No answer','Sin respuesta',"Sem resposta")} · +0</div>`}
+ ${ans?`<div class="tier hold" id="tn">${pts===100?L("SCREAMER!!!",'¡QUÉ CHICHARRO!',"GOLAÇO!!!"):tl(tierName(pts))}</div><div class="pts hold" id="pl">${an(ans)} · <span id="pc">+0</span> ${L('points','puntos',"pontos")}</div><p class="shr" id="shr" aria-live="polite"></p>`:`<div class="tier wipe" style="color:var(--mute)">${L('Missed','Fallada',"Errou")}</div><div class="pts">${L('No answer','Sin respuesta',"Sem resposta")} · +0</div>`}
  <p class="mute">${L('Level:','Nivel:',"Nível:")} <b style="color:var(--ink)">${zl(after)}</b>${after!==before?`<br><span class="promo-row" id="promoRow"><span class="promo hold" id="promo">${L('Promoted to','Asciendes a',"Promovido para")} ${zl(after)}</span></span>`:''}</p>
  
  ${INF?infAll(q,ans,L(`See all ${q.answers.length} answers`,`Ver las ${q.answers.length} respuestas`,`Ver todas as ${q.answers.length} respostas`)):''}
@@ -2891,6 +2893,9 @@ function reveal(ans){if(results[qi])return;const q=Q[qi];const pts=ans?ans.pts:0
    const rt=document.querySelector('.reveal-top');if(rt){const cols=['#cfd8e6','#7fe0a8','#4fd7ff','#b48cff','#ff7ac8','#f2c230'];for(let i=0;i<14;i++){const ang=(i/14)*Math.PI*2+(i%2?.15:-.1),dist=70+Math.random()*50,dx=Math.cos(ang)*dist,dy=Math.sin(ang)*dist-20;const el=document.createElement('span');el.className='confetti-pc';el.style.background=cols[i%cols.length];el.style.setProperty('--cx',dx+'px');el.style.setProperty('--cy',dy+'px');el.style.setProperty('--cr',(Math.random()*360|0)+'deg');el.style.animationDelay=Math.random()*.08+'s';rt.appendChild(el)}rt.classList.remove('confetti-burst');void rt.offsetWidth;rt.classList.add('confetti-burst')}
    paint()}else if(ans)ms.classList.add(pts>=64?'jump':'land');
   setTimeout(()=>{if(pl){pl.style.animationDuration='.55s';pl.classList.remove('hold');pl.classList.add('wipe');countUp(document.getElementById('pc'),pts,600,'+')}},200);
+  // what share of today's players gave the same answer (the bit players liked from the crowd reveal)
+  if(ans)shareP.then(r=>{const el=document.getElementById('shr');if(!el||!r)return;const p=r.pct,f=p==null?'':p<1?'<1':p<10?p.toFixed(1).replace(/\.0$/,''):Math.round(p);
+   el.innerHTML=r.early?L("You're one of the first to answer today",'Eres de los primeros en responder hoy',"Você é um dos primeiros a responder hoje"):L(`<b>${f}%</b> of players said this`,`El <b>${f}%</b> de los jugadores dijo esto`,`<b>${f}%</b> dos jogadores disseram isso`);setTimeout(()=>el.classList.add('on'),450)});
   setTimeout(()=>{setMeter();if(after!==before){playSfx('levelup');const m=document.querySelector('.meter');m.classList.remove('flash');void m.offsetWidth;m.classList.add('flash');const pr=document.getElementById('promo');const prow=document.getElementById('promoRow');if(pr){pr.classList.remove('hold')}
   if(prow){const offs=[[-46,-6],[46,-8],[-34,-22],[36,-24],[0,-30],[-16,16],[20,16],[0,20]];offs.forEach(([dx,dy])=>{const s=document.createElement('span');s.className='spark';s.style.setProperty('--dx',dx+'px');s.style.setProperty('--dy',dy+'px');prow.appendChild(s)});prow.classList.remove('spark-burst');void prow.offsetWidth;prow.classList.add('spark-burst')}}},600);
   setTimeout(()=>{nx.style.visibility='visible';nx.focus()},after!==before?900:500)};
