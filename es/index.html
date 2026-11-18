@@ -203,6 +203,19 @@ body.playing .climb.flat{display:flex;align-items:center;gap:10px;margin:0 0 12p
 .rv .shr .mini u{position:absolute;left:0;top:0;bottom:0;background:var(--gold);text-decoration:none}
 .rv .rlv{margin-top:14px}
 .rv .row{display:flex}.rv #next{flex:1;width:100%}
+
+/* level bar: the pixel icon for every level sits on the bar; reached ones in colour, the next one brighter */
+.lvl-img{image-rendering:auto;object-fit:contain}
+.climb .stop{display:none}
+.climb.flat .stop{display:grid;place-items:center;position:absolute;top:50%;left:var(--v);width:24px;height:24px;margin:-12px 0 0 -12px;background:#1d1a2b;border:2px solid #000;z-index:1}
+.climb.flat .stop img{width:18px;height:18px;filter:grayscale(1) brightness(.55);opacity:.8}
+.climb.flat .stop.next img{filter:grayscale(.4) brightness(.9);opacity:1}
+.climb.flat .stop.done{background:#fff6dc}.climb.flat .stop.done img{filter:none;opacity:1}
+.climb.flat .stop.cur{visibility:hidden}
+@media (max-width:600px){.climb.flat .stop.done{visibility:hidden}.climb.flat .stop{width:22px;height:22px;margin:-11px 0 0 -11px}.climb.flat .stop img{width:16px;height:16px}}
+.climb.flat .me{width:36px;height:36px;margin:-18px 0 0 -18px;background:#fff6dc;border:3px solid #f2c230;z-index:2}
+.climb.flat .me .lvl-px{width:28px;height:28px}
+.climb.flat .track{height:16px}
 </style>
 <link rel="preload" href="/fonts/jersey10.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/fonts/vt323.woff2" as="font" type="font/woff2" crossorigin>
 <style>.sp{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:radial-gradient(ellipse at 50% 40%,#fbf5e4 0%,#f6eed8 55%,#e6d9b4 100%);color:#1d1a2b;transition:opacity .45s ease,transform .45s ease}
@@ -2228,7 +2241,9 @@ const LVL_ART=[
  [".....kk.....",".....kk.....","....kcck....","....kcck....","kkkkkcckkkkk","kcccccccccck",".kcccccccck.","..kcccccck..","..kcckkcck..",".kcck..kcck.",".kck....kck.",".kk......kk."],
  ["..kkkkkkkk..","kkkggggggkkk","kgkggggggkgk","kgkggggggkgk",".kkggggggkk.","...kggggk...","....kggk....","....kGGk....","...kggggk...","..kkkkkkkk..","..knnnnnnk..","..kkkkkkkk.."],
  LVL_BALL.map((r,ri)=>{const a=r.search(/[^.]/),b=r.length-1-[...r].reverse().join('').search(/[^.]/);return[...r].map((ch,i)=>ch==='.'?'.':(i===a||i===b||ri===0||ri===11)?'k':ch==='k'?'G':(ri<5&&i<6?'y':'g')).join('')})];
-const lvlSvg=m=>`<svg class="lvl-px" viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true">${m.flatMap((r,y)=>[...r].map((ch,x)=>ch==='.'?'':`<rect x="${x}" y="${y}" width="1.02" height="1.02" fill="${LVL_PAL[ch]}"/>`)).join('')}</svg>`;
+// the level icons are pixel PNGs in /levels (0 Sunday league ... 6 Ballon d'Or); the 12x12 maps stay as a fallback
+const lvlSvg=m=>{const k=LVL_ART.indexOf(m);return k>=0?`<img class="lvl-px lvl-img" src="/levels/${k}.png" alt="" width="96" height="96" decoding="async">`:lvlMap(m)};
+const lvlMap=m=>`<svg class="lvl-px" viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true">${m.flatMap((r,y)=>[...r].map((ch,x)=>ch==='.'?'':`<rect x="${x}" y="${y}" width="1.02" height="1.02" fill="${LVL_PAL[ch]}"/>`)).join('')}</svg>`;
 document.getElementById('zones').innerHTML=ZONES.map(([f,n],i)=>`<span class="lvl-tick" title="${zl(n)}">${lvlSvg(LVL_ART[i])}</span>`).join('');
 document.getElementById('lvlLabel').textContent=L('Your level','Tu nivel',"Seu nível");
 const zoneOf=s=>[...ZONES].reverse().find(([f])=>s/MAX>=f)[1];
@@ -2436,13 +2451,13 @@ function pos(sc){const f=Math.min(1,sc/MAX),n=ZONES.length-1;if(f>=ZONES[n][0])r
 let lvlLast=-1;
 function climb(){let c=document.getElementById('climb');const z=zoneOf(score),i=ZONES.findIndex(x=>x[1]===z),f=Math.max(0,Math.min(1,score/MAX)),y=v=>(v*100).toFixed(2)+'%';
  if(!c){c=document.createElement('div');c.id='climb';c.className='climb';c.setAttribute('aria-hidden','true');
-  c.innerHTML=`<span class="cap">${L('YOUR LEVEL','TU NIVEL',"SEU NÍVEL")}</span><span class="now"></span><div class="track"><i class="rail"><i class="fill"></i>${ZONES.slice(1).map(([v])=>`<i class="tick" style="--v:${y(v)}"></i>`).join('')}</i><div class="labs">${ZONES.map(([v,n])=>`<span style="--v:${y(v)}">${zl(n)}</span>`).join('')}</div><i class="me"></i></div>`;
+  c.innerHTML=`<span class="cap">${L('YOUR LEVEL','TU NIVEL',"SEU NÍVEL")}</span><span class="now"></span><div class="track"><i class="rail"><i class="fill"></i>${ZONES.slice(1).map(([v])=>`<i class="tick" style="--v:${y(v)}"></i>`).join('')}</i>${ZONES.slice(1).map(([v],k)=>`<i class="stop" data-k="${k+1}" style="--v:${y(v)}"><img src="/levels/${k+1}.png" alt="" width="96" height="96" decoding="async"></i>`).join('')}<div class="labs">${ZONES.map(([v,n])=>`<span style="--v:${y(v)}">${zl(n)}</span>`).join('')}</div><i class="me"></i></div>`;
   const place=()=>{const sc=document.getElementById('screen');if(!sc)return;const w=sc.closest('.wrap')||sc,l=w.getBoundingClientRect().left,side=false;
    c.classList.toggle('side',side);c.classList.toggle('flat',!side);if(side){c.style.setProperty('--cl',Math.max(16,l-200)+'px');if(c.parentNode!==document.body)document.body.appendChild(c)}else if(c.nextSibling!==sc)sc.before(c)};
   place();addEventListener('resize',place);c._place=place}
  c._place?.();
  c.style.setProperty('--f',y(f));if(+c.dataset.lvl!==i)c.querySelector('.me').innerHTML=lvlSvg(LVL_ART[i]);
- c.querySelectorAll('.labs span').forEach((sp,k)=>{sp.classList.toggle('on',k===i);sp.classList.toggle('done',k<i)});c.querySelector('.now').textContent=zl(z);
+ c.querySelectorAll('.stop').forEach(st=>{st.classList.toggle('done',+st.dataset.k<=i);st.classList.toggle('next',+st.dataset.k===i+1);st.classList.toggle('cur',+st.dataset.k===i)});c.querySelectorAll('.labs span').forEach((sp,k)=>{sp.classList.toggle('on',k===i);sp.classList.toggle('done',k<i)});c.querySelector('.now').textContent=zl(z);
  if(c.dataset.lvl!=null&&+c.dataset.lvl<i){c.classList.remove('pop');void c.offsetWidth;c.classList.add('pop');setTimeout(()=>c.classList.remove('pop'),2200)}c.dataset.lvl=i}
 function setMeter(){const z=zoneOf(score),i=ZONES.findIndex(x=>x[1]===z),top=i===ZONES.length-1,m=document.querySelector('.meter.lvl');climb();if(!m)return;
  const within=top?1:(score/MAX-ZONES[i][0])/(ZONES[i+1][0]-ZONES[i][0]),toGo=top?0:Math.ceil(ZONES[i+1][0]*MAX-score);
