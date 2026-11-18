@@ -214,6 +214,24 @@ body.playing .climb.flat{display:flex;align-items:center;gap:10px;margin:0 0 12p
 .climb.flat .me{width:36px;height:36px;margin:-18px 0 0 -18px;background:#fff6dc;border:3px solid #f2c230;z-index:2}
 .climb.flat .me .lvl-px{width:28px;height:28px}
 .climb.flat .track{height:16px}
+
+/* phone: just your level, the bar to the next level and the next level's icon (desktop keeps the full bar) */
+.climb .nn{display:none}
+@media (max-width:600px){
+ .climb.flat .now,.climb.flat .track{display:none}
+ .climb.flat .nn{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+ .climb.flat .nb{flex:none;width:42px;height:42px;background:#fff6dc;border:3px solid #000;box-shadow:3px 3px 0 #000;display:grid;place-items:center}
+ .climb.flat .nb .lvl-px{width:32px;height:32px}
+ .climb.flat .nb.nxt{background:#1d1a2b}.climb.flat .nb.nxt .lvl-px{filter:grayscale(1) brightness(.8)}
+ .climb.flat .nn.top .nb.nxt{display:none}
+ .climb.flat .nm{flex:1;min-width:0}
+ .climb.flat .nt{display:flex;justify-content:space-between;gap:8px;font:400 16px/1 var(--px),sans-serif;color:#fff;text-shadow:2px 2px 0 #000;margin-bottom:5px;white-space:nowrap}
+ .climb.flat .nt .n2{color:#fff6dc;opacity:.85;overflow:hidden;text-overflow:ellipsis}
+ .climb.flat .nr{display:block;position:relative;height:14px;background:#1d1a2b;border:2px solid #000}
+ .climb.flat .nf{position:absolute;left:0;top:0;bottom:0;background:repeating-linear-gradient(90deg,#f2c230 0 6px,#e0a000 6px 8px);transition:width 900ms cubic-bezier(.23,1,.32,1)}
+ .climb.flat .np{display:flex;gap:4px;margin-top:5px}.climb.flat .np i{width:9px;height:9px;border:2px solid #000;background:#1d1a2b}.climb.flat .np i.on{background:#f2c230}
+ .climb.flat.pop .nb.cur{animation:climbpop .6s cubic-bezier(.34,1.56,.64,1)}
+}
 </style>
 <link rel="preload" href="/fonts/jersey10.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/fonts/vt323.woff2" as="font" type="font/woff2" crossorigin>
 <style>.sp{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:radial-gradient(ellipse at 50% 40%,#fbf5e4 0%,#f6eed8 55%,#e6d9b4 100%);color:#1d1a2b;transition:opacity .45s ease,transform .45s ease}
@@ -2449,12 +2467,15 @@ function pos(sc){const f=Math.min(1,sc/MAX),n=ZONES.length-1;if(f>=ZONES[n][0])r
 let lvlLast=-1;
 function climb(){let c=document.getElementById('climb');const z=zoneOf(score),i=ZONES.findIndex(x=>x[1]===z),f=Math.max(0,Math.min(1,score/MAX)),y=v=>(v*100).toFixed(2)+'%';
  if(!c){c=document.createElement('div');c.id='climb';c.className='climb';c.setAttribute('aria-hidden','true');
-  c.innerHTML=`<span class="cap">${L('YOUR LEVEL','TU NIVEL',"SEU NÍVEL")}</span><span class="now"></span><div class="track"><i class="rail"><i class="fill"></i>${ZONES.slice(1).map(([v])=>`<i class="tick" style="--v:${y(v)}"></i>`).join('')}</i>${ZONES.slice(1).map(([v],k)=>`<i class="stop" data-k="${k+1}" style="--v:${y(v)}"><img src="/levels/${k+1}.png" alt="" width="96" height="96" decoding="async"></i>`).join('')}<div class="labs">${ZONES.map(([v,n])=>`<span style="--v:${y(v)}">${zl(n)}</span>`).join('')}</div><i class="me"></i></div>`;
+  c.innerHTML=`<span class="cap">${L('YOUR LEVEL','TU NIVEL',"SEU NÍVEL")}</span><span class="now"></span><div class="track"><i class="rail"><i class="fill"></i>${ZONES.slice(1).map(([v])=>`<i class="tick" style="--v:${y(v)}"></i>`).join('')}</i>${ZONES.slice(1).map(([v],k)=>`<i class="stop" data-k="${k+1}" style="--v:${y(v)}"><img src="/levels/${k+1}.png" alt="" width="96" height="96" decoding="async"></i>`).join('')}<div class="labs">${ZONES.map(([v,n])=>`<span style="--v:${y(v)}">${zl(n)}</span>`).join('')}</div><i class="me"></i></div><div class="nn"><span class="nb cur"></span><div class="nm"><div class="nt"><span class="n1"></span><span class="n2"></span></div><i class="nr"><i class="nf"></i></i><div class="np">${ZONES.map(()=>'<i></i>').join('')}</div></div><span class="nb nxt"></span></div>`;
   const place=()=>{const sc=document.getElementById('screen');if(!sc)return;const w=sc.closest('.wrap')||sc,l=w.getBoundingClientRect().left,side=false;
    c.classList.toggle('side',side);c.classList.toggle('flat',!side);if(side){c.style.setProperty('--cl',Math.max(16,l-200)+'px');if(c.parentNode!==document.body)document.body.appendChild(c)}else if(c.nextSibling!==sc)sc.before(c)};
   place();addEventListener('resize',place);c._place=place}
  c._place?.();
  c.style.setProperty('--f',y(f));if(+c.dataset.lvl!==i)c.querySelector('.me').innerHTML=lvlSvg(LVL_ART[i]);
+ {const top=i===ZONES.length-1,w=top?1:(f-ZONES[i][0])/(ZONES[i+1][0]-ZONES[i][0]),nn=c.querySelector('.nn');nn.classList.toggle('top',top);
+  if(+c.dataset.lvl!==i){nn.querySelector('.cur').innerHTML=lvlSvg(LVL_ART[i]);nn.querySelector('.nxt').innerHTML=top?'':lvlSvg(LVL_ART[i+1]);nn.querySelector('.n1').textContent=zl(z);nn.querySelector('.n2').textContent=top?L('Top level','Nivel máximo',"Nível máximo"):zl(ZONES[i+1][1])}
+  nn.querySelector('.nf').style.width=(Math.max(0,Math.min(1,w))*100).toFixed(1)+'%';nn.querySelectorAll('.np i').forEach((d,k)=>d.classList.toggle('on',k<=i))}
  c.querySelectorAll('.stop').forEach(st=>{st.classList.toggle('done',+st.dataset.k<=i);st.classList.toggle('next',+st.dataset.k===i+1);st.classList.toggle('cur',+st.dataset.k===i)});c.querySelectorAll('.labs span').forEach((sp,k)=>{sp.classList.toggle('on',k===i);sp.classList.toggle('done',k<i)});c.querySelector('.now').textContent=zl(z);
  if(c.dataset.lvl!=null&&+c.dataset.lvl<i){c.classList.remove('pop');void c.offsetWidth;c.classList.add('pop');setTimeout(()=>c.classList.remove('pop'),2200)}c.dataset.lvl=i}
 function setMeter(){const z=zoneOf(score),i=ZONES.findIndex(x=>x[1]===z),top=i===ZONES.length-1,m=document.querySelector('.meter.lvl');climb();if(!m)return;
