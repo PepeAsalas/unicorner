@@ -3826,7 +3826,7 @@ function viewProfile(note){const p=me?.profile;const guess=p?.nickname||pendingN
  ${p?`<label class="check"><input type="checkbox" id="lea-optout" ${p.news_opt_out?'checked':''}> <span>I don't want reminders or Unicorner news</span></label>`:''}
  <div class="lg-row"><button type="submit">${p?'Save':'Continue'}</button>${p?'<button type="button" class="ghost" data-lg="home">Back</button>':''}</div></form>
  <p class="lg-err" id="lea-err" role="status">${esc(note||'')}</p>
- ${p?`<p class="mute lg-small">${L('Signed in as','Sesión iniciada como',"Conectado como")} ${esc(sess?.email||'')} · <a href="#" data-lg="logout">${L('Sign out','Cerrar sesión',"Sair")}</a></p>`:''}`)}
+ ${p?`<p class="mute lg-small">${L('Signed in as','Sesión iniciada como',"Conectado como")} ${esc(sess?.email||'')} · <a href="#" data-lg="logout">${L('Sign out','Cerrar sesión',"Sair")}</a> · <a href="#" data-lg="delacct">${L('Delete my account','Borrar mi cuenta',"Excluir minha conta")}</a></p>`:''}`)}
 function viewCreate(){show(`<h2>Create a league</h2>
  <p class="mute">Give it a name, then share the invite link with your mates.</p>
  <form id="lea-create-form"><label for="lea-name">League name</label><input id="lea-name" required minlength="2" maxlength="30" placeholder="e.g. Sunday League Legends">
@@ -3880,7 +3880,7 @@ async function viewHome(){
  <div class="lg-row"><button type="button" data-lg="copy" data-code="${esc(board.code)}">🔗 Copy invite link</button>${navigator.share?`<button type="button" class="ghost" data-lg="invite" data-code="${esc(board.code)}" data-name="${esc(board.name)}">Share</button>`:''}</div>
  <div class="lg-row"><button type="button" class="ghost" data-lg="create">+ New league</button></div>
  <p class="lg-err" id="lea-err" role="status"></p>
- <p class="mute lg-small"><a href="#" data-lg="profile">${esc(me.profile?.nickname||'Profile')}</a> · <a href="#" data-lg="leave" data-id="${id}">Leave this league</a> · <a href="#" data-lg="logout">Sign out</a></p>`)}
+ <p class="mute lg-small"><a href="#" data-lg="profile">${esc(me.profile?.nickname||'Profile')}</a> · <a href="#" data-lg="leave" data-id="${id}">Leave this league</a> · <a href="#" data-lg="logout">Sign out</a> · <a href="#" data-lg="delacct">${L('Delete my account','Borrar mi cuenta',"Excluir minha conta")}</a></p>`)}
 
 // Decide which view to show for the current state
 async function open(from){track('league_open',{from:from||'unknown'});backMode=from==='back';
@@ -4280,6 +4280,9 @@ document.addEventListener('click',async e=>{const b=e.target.closest('[data-lg]'
  if(a==='gwrong'){const x=claimSent();if(x){draft.email=x.email;draft.nick=x.nick}lsSet(LG_SENT,null);await renderGlobal();document.querySelector('.g-claim [name=email]')?.focus();return}
  if(a==='gresend'){const x=claimSent();if(!x)return renderGlobal();b.disabled=true;try{await sendLink(x.email,lsGet(LG_OPTOUT)==='1',x.nick);track('league_login_start',{method:'email',from:'board_resend'});showToast('Sent again 📬 Check spam too')}catch(y){showToast(y.message)}finally{b.disabled=false}return}
  if(a==='logout'){dropSess();dlg.close();renderSlots();return showToast('Signed out')}
+ if(a==='delacct'){if(!confirm(L('Delete your Unicorner account? Your nickname, scores, leagues, friends and chats are removed for good. This cannot be undone.','¿Borrar tu cuenta de Unicorner? Tu apodo, puntuaciones, ligas, amigos y chats se eliminan para siempre. No se puede deshacer.',"Excluir sua conta do Unicorner? Seu apelido, pontuações, ligas, amigos e chats serão apagados para sempre. Não dá para desfazer.")))return;
+  try{await rpc('delete_my_account');track('account_deleted',{})}catch(e){return showToast(L('Could not delete the account. Try again or contact us.','No se pudo borrar la cuenta. Inténtalo de nuevo o escríbenos.',"Não foi possível excluir a conta. Tente de novo ou fale conosco."))}
+  dropSess();dlg.close();renderSlots();return showToast(L('Account deleted','Cuenta borrada',"Conta excluída"))}
  if(busy)return;busy=true;b.disabled=true;
  try{
   if(a==='join'){await rpc('lg_join_league',{p_code:b.dataset.code});lsSet(LG_PENDING,null);track('league_join',{});await loadMe();const l=me.leagues.find(x=>x.code===b.dataset.code);if(l)lsSet(LG_ACTIVE,l.id);board=null;await viewHome();renderSlots();showToast('You\'re in! 🏆')}
