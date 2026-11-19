@@ -16,6 +16,15 @@ TYPES = {'player', 'club', 'country', 'manager', 'stadium'}
 REQUIRED = ('id', '_id', 'prompt', 'subtitle', 'difficulty', 'answer_type', 'scoring_version', 'answer_count', 'answers')
 NEW = ('prompt_es', 'subtitle_es', 'format_family')
 FIRST = '2026-10-29'  # earlier days predate daily/QUESTIONS.md
+# Reusing old questions: copy the question with a new id (old id + "r1", "r2"...), add "reuse_of" (the original id)
+# and "first_used" (its first date). The same question can only come back REUSE_GAP days or more after its last use.
+REUSE_GAP = 30
+
+
+def reused(q, d_old, d_new):
+    return bool(q.get('reuse_of')) and (datetime.date.fromisoformat(d_new) - datetime.date.fromisoformat(d_old)).days >= REUSE_GAP
+
+
 SHORT_OK = {'f100'}  # past questions allowed fewer than 10 answers (see the note in check())
 OPEN_ENDED = re.compile(r'\b(ever|all-time|to date|so far|present|now)\b', re.I)
 
@@ -127,7 +136,7 @@ def main(argv):
             a = topic(q.get('prompt', ''))
             for d2, q2 in earlier:
                 b = topic(q2.get('prompt', ''))
-                if d2 < name[:10] and a and len(a & b) / len(a | b) >= 0.8:
+                if d2 < name[:10] and a and len(a & b) / len(a | b) >= 0.8 and not reused(q, d2, name[:10]):
                     errors.append(f'{name} {q.get("prompt")}: repeats {d2} "{q2.get("prompt")}"; pick a different topic')
         d = json.load(open(f))
         if d.get('date') != name[:10]:
@@ -145,8 +154,12 @@ def main(argv):
             if len(seen_ids.get(q.get('id'), [])) > 1:
                 errors.append(f'{tag}: id {q.get("id")} used more than once')
             k = norm(q.get('prompt', '')) + '|' + norm(q.get('subtitle', ''))
-            if len(seen_prompts.get(k, [])) > 1:
-                errors.append(f'{tag}: same prompt and scope also on {[os.path.basename(x) for x in seen_prompts[k] if x != f]}')
+            others = [os.path.basename(x)[:10] for x in seen_prompts.get(k, []) if x != f]
+            close = [o for o in others if abs((datetime.date.fromisoformat(o) - datetime.date.fromisoformat(name[:10])).days) < REUSE_GAP]
+            if close:
+                errors.append(f'{tag}: same prompt and scope also on {close}; a question can only come back {REUSE_GAP}+ days after it was last used')
+            elif others and not q.get('reuse_of') and not any(x for x in others if x > name[:10]):
+                errors.append(f'{tag}: same prompt and scope also on {others}; mark a reused question with "reuse_of" (the original id)')
     for m in warns:
         print('warn ', m)
     for m in errors:
