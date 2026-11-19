@@ -2663,7 +2663,8 @@ const infDone=()=>{try{return localStorage.getItem(infKey())!==null}catch{return
 // monthly: the Payment Link for the $2.99/month price (price_1UXl2FDFAbPfdyNHwhCMKLuq); empty = only the one-time option shows
 // Inside the Android app (Play Store, Trusted Web Activity) Infinity can't be bought: Play's rules need Google billing for that.
 // Members who bought it on the website keep it after signing in. The flag lasts for the app session only.
-const IN_APP=(()=>{try{if(document.referrer.startsWith('android-app://')||/[?&]source=twa\b/.test(location.search))sessionStorage.setItem('uc-twa','1');return sessionStorage.getItem('uc-twa')==='1'}catch{return false}})();
+// inside the Android (source=twa) or iPhone (source=ios) app: no web purchases, tips or app banners (store rules). The iPhone app keeps its own storage, so remember it there
+const IN_APP=(()=>{try{if(document.referrer.startsWith('android-app://')||/[?&]source=twa\b/.test(location.search))sessionStorage.setItem('uc-twa','1');if(/[?&]source=ios\b/.test(location.search))localStorage.setItem('uc-ios-app','1');return sessionStorage.getItem('uc-twa')==='1'||localStorage.getItem('uc-ios-app')==='1'}catch{return false}})();
 if(IN_APP)document.documentElement.classList.add('in-app');
 const INF_PAY={paused:false,link:'https://buy.stripe.com/00w8wP4mTcOv3lU02j83C01',monthly:'https://buy.stripe.com/5kQ5kD4mT4hZcWuaGX83C02',portal:'https://billing.stripe.com/p/login/28E7sL06DeWD09IdT983C00',price:'$4.99',priceM:'$2.99'};
 let infPlan='once';
