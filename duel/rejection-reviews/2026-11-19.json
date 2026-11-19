@@ -1,0 +1,235 @@
+{
+  "date": "2026-11-19",
+  "baseline_commit": "d7504b2c56ada195bb722d73f08cdb22bc8b7801",
+  "correction_commit": "63802b3fd44da05cb9937e4888126d89b2702687",
+  "previous_checkpoint": 1753374,
+  "last_scanned_event_id": 1836404,
+  "scanned_events": 6686,
+  "scan_pages": [
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    286
+  ],
+  "prior_pending_count": 43818,
+  "pending_count": 46452,
+  "excluded_records": {
+    "ambiguous": 238,
+    "duplicate": 389,
+    "blank": 4
+  },
+  "decision_counts": {
+    "pending": 46452,
+    "ignore_wrong": 2,
+    "add_alias": 9,
+    "add_missing_player": 1
+  },
+  "corrections": [
+    {
+      "question_id": "d1-name-a-french-player-who-played-for-chelsea",
+      "submitted_text": [
+        "petit"
+      ],
+      "event_count": 8,
+      "decision": "add_missing_player",
+      "correction": {
+        "name": "Emmanuel Petit",
+        "aliases": [
+          "Petit"
+        ],
+        "fame": 5
+      },
+      "evidence": "Chelsea records 76 competitive appearances including the 2002 FA Cup final, after signing in 2001. The FFF confirms his France senior international identity. All qualifying appearances predate the 2025-26 cutoff.",
+      "evidence_urls": [
+        "https://www.chelseafc.com/en/news/article/from-fabregas-to-fernandez-world-cup-winners-chelsea-have-signed",
+        "https://www.fff.fr/equipe-nationale/joueur/8605-petit-emmanuel/fiche.html"
+      ]
+    },
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-valencia-and-barcelona",
+      "submitted_text": [
+        "torres"
+      ],
+      "event_count": 16,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Ferran Torres García",
+        "added_aliases": [
+          "Torres"
+        ]
+      },
+      "evidence": "FC Barcelona identifies Ferran Torres Garcia, records 97 Valencia first-team appearances, his December 2017 LaLiga debut and January 2022 competitive Barcelona debut. Torres identifies only this eligible answer within this question.",
+      "evidence_urls": [
+        "https://www.fcbarcelona.com/en/football/first-team/news/2463268/present-and-future-ferran-torres-64c9-418c-8ded-7baf15ddb3c0"
+      ]
+    },
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-man-city-and-barcelona",
+      "submitted_text": [
+        "Torres"
+      ],
+      "event_count": 9,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Ferran Torres García",
+        "added_aliases": [
+          "Torres"
+        ]
+      },
+      "evidence": "FC Barcelona records Ferran Torres Garcia's 30 Manchester City appearances and competitive Barcelona debut in the January 2022 Spanish Super Cup. Both precede the 2025-26 cutoff; no other eligible Torres collides.",
+      "evidence_urls": [
+        "https://www.fcbarcelona.com/en/football/first-team/news/2463268/present-and-future-ferran-torres-64c9-418c-8ded-7baf15ddb3c0"
+      ]
+    },
+    {
+      "question_id": "d9-name-a-player-who-scored-10-goals-for-argentina-since-2000",
+      "submitted_text": [
+        "Lautaro"
+      ],
+      "event_count": 17,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Lautaro Martínez",
+        "added_aliases": [
+          "Lautaro"
+        ]
+      },
+      "evidence": "AFA's 17 November 2022 profile identifies Lautaro Martinez and records 21 senior Argentina goals after a March 2018 debut, meeting the threshold within the stated interval.",
+      "evidence_urls": [
+        "https://www.afa.com.ar/es/posts/lautaro-martinez"
+      ]
+    },
+    {
+      "question_id": "d6-name-a-player-who-played-for-argentina-at-a-copa-america-since-2015",
+      "submitted_text": [
+        "Lautaro"
+      ],
+      "event_count": 2,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Lautaro Martínez",
+        "added_aliases": [
+          "Lautaro"
+        ]
+      },
+      "evidence": "AFA's 2022 profile explicitly records Lautaro Martinez participating in Copa America 2019 and winning in 2021, inside the 2015-16 to 2025-26 interval. This adds only a short name for the existing accepted entry.",
+      "evidence_urls": [
+        "https://www.afa.com.ar/es/posts/lautaro-martinez"
+      ]
+    },
+    {
+      "question_id": "d8-name-a-striker-who-played-in-la-liga-since-2010",
+      "submitted_text": [
+        "Mariano"
+      ],
+      "event_count": 10,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Mariano Díaz",
+        "added_aliases": [
+          "Mariano"
+        ]
+      },
+      "evidence": "Real Madrid's official 1 August 2022 profile calls the player Mariano, identifies him as a forward and dates his first-team debut against Celta Vigo to 27 August 2016. Its official historical profile connects the short name to Mariano Diaz Mejia and the forward position. Existing eligibility and fame preserved.",
+      "evidence_urls": [
+        "https://www.realmadrid.com/en-US/news/football/first-team/personalities/mariano-turns-29",
+        "https://www.realmadrid.com/es-ES/el-club/historia/leyendas-futbol/mariano-diaz-mejia"
+      ]
+    }
+  ],
+  "validation": {
+    "questions": 429,
+    "baseline_errors": 0,
+    "final_errors": 0,
+    "baseline_warnings": 568,
+    "final_warnings": 568,
+    "warning_multiset_unchanged": true,
+    "existing_matcher_forms_checked": 767,
+    "observed_groups_checked_on_changed_questions": 849,
+    "new_events_covered_by_corrections": 5
+  },
+  "review_limit": "Grouped all fetched events and retried prior pending candidates against the current browser matcher. Researched selected plausible corrections and frequent rejections against authoritative records. Remaining unverified combinations are preserved for future evidence review.",
+  "decisions": [
+    {
+      "question_id": "d9-name-a-player-with-100-serie-a-goals",
+      "input": "Ronaldo",
+      "event_count": 37,
+      "new_events": 2,
+      "decision": "ignore_wrong",
+      "reason": "Both Ronaldo Nazario (already a trap) and Cristiano Ronaldo fail the 100 Serie A goal threshold. Juventus' 31 August 2021 farewell explicitly records Cristiano's 81 Serie A goals, distinct from 101 in all competitions.",
+      "evidence_urls": [
+        "https://www.juventus.com/en/news/articles/juventus-says-goodbye-to-cristiano-ronaldo"
+      ]
+    },
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-valencia-and-barcelona",
+      "input": "torres",
+      "event_count": 16,
+      "new_events": 2,
+      "decision": "add_alias",
+      "reason": "FC Barcelona identifies Ferran Torres Garcia, records 97 Valencia first-team appearances, his December 2017 LaLiga debut and January 2022 competitive Barcelona debut. Torres identifies only this eligible answer within this question.",
+      "evidence_urls": [
+        "https://www.fcbarcelona.com/en/football/first-team/news/2463268/present-and-future-ferran-torres-64c9-418c-8ded-7baf15ddb3c0"
+      ]
+    },
+    {
+      "question_id": "d9-name-a-player-who-scored-10-goals-for-argentina-since-2000",
+      "input": "Lautaro",
+      "event_count": 17,
+      "new_events": 1,
+      "decision": "add_alias",
+      "reason": "AFA's 17 November 2022 profile identifies Lautaro Martinez and records 21 senior Argentina goals after a March 2018 debut, meeting the threshold within the stated interval.",
+      "evidence_urls": [
+        "https://www.afa.com.ar/es/posts/lautaro-martinez"
+      ]
+    },
+    {
+      "question_id": "d8-name-a-striker-who-played-in-la-liga-since-2010",
+      "input": "Mariano",
+      "event_count": 10,
+      "new_events": 1,
+      "decision": "add_alias",
+      "reason": "Real Madrid's official 1 August 2022 profile calls the player Mariano, identifies him as a forward and dates his first-team debut against Celta Vigo to 27 August 2016. Its official historical profile connects the short name to Mariano Diaz Mejia and the forward position. Existing eligibility and fame preserved.",
+      "evidence_urls": [
+        "https://www.realmadrid.com/en-US/news/football/first-team/personalities/mariano-turns-29",
+        "https://www.realmadrid.com/es-ES/el-club/historia/leyendas-futbol/mariano-diaz-mejia"
+      ]
+    },
+    {
+      "question_id": "d9-name-a-player-with-100-serie-a-goals",
+      "input": "Cristiano Ronaldo",
+      "event_count": 9,
+      "new_events": 2,
+      "decision": "ignore_wrong",
+      "reason": "Juventus records 81 Serie A goals at his departure in August 2021; his 101 goals were across all competitions.",
+      "evidence_urls": [
+        "https://www.juventus.com/en/news/articles/juventus-says-goodbye-to-cristiano-ronaldo"
+      ]
+    },
+    {
+      "question_id": "d1-name-a-french-player-who-played-for-chelsea",
+      "input": "petit",
+      "event_count": 8,
+      "new_events": 1,
+      "decision": "add_missing_player",
+      "reason": "Chelsea records 76 competitive appearances including the 2002 FA Cup final, after signing in 2001. The FFF confirms his France senior international identity. All qualifying appearances predate the 2025-26 cutoff.",
+      "evidence_urls": [
+        "https://www.chelseafc.com/en/news/article/from-fabregas-to-fernandez-world-cup-winners-chelsea-have-signed",
+        "https://www.fff.fr/equipe-nationale/joueur/8605-petit-emmanuel/fiche.html"
+      ]
+    }
+  ]
+}
