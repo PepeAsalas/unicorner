@@ -60,9 +60,11 @@ def check_question(q, e, w, day=''):
         e('difficulty must be easy, medium or hard')
     if q.get('answer_type') not in TYPES:
         e(f"answer_type must be one of {sorted(TYPES)}")
-    if q.get('scoring_version') != 2:
+    # a reused question keeps its original scoring and fields, so its measured average still holds
+    old = bool(q.get('reuse_of'))
+    if q.get('scoring_version') != 2 and not old:
         e('new questions use scoring_version 2')
-    for k in NEW:
+    for k in ([] if old else NEW):
         if not q.get(k):
             e(f'missing "{k}"')
     if OPEN_ENDED.search(q.get('subtitle', '')) or not re.search(r'\b(19|20)\d\d\b', q.get('subtitle', '') + q['prompt']):

@@ -1,1 +1,1111 @@
-{"date":"2026-11-26","timezone":"Europe/Amsterdam","questions":[{"id":"f141","_id":"f141","prompt":"Name a country at the 2023 Women's World Cup","subtitle":"The 32 teams at the finals in Australia and New Zealand","prompt_es":"Nombra una selección del Mundial femenino 2023","subtitle_es":"Las 32 selecciones de la fase final en Australia y Nueva Zelanda","difficulty":"easy","answer_type":"country","format_family":"tournament_country","scoring_version":2,"answer_count":32,"clash_note":"","answers":[{"name":"Spain","aliases":["España","Espanha"],"fame":6,"name_es":"España","name_pt":"Espanha"},{"name":"England","aliases":["Inglaterra"],"fame":6,"name_es":"Inglaterra","name_pt":"Inglaterra"},{"name":"United States","aliases":["USA","US","EEUU","Estados Unidos","EUA"],"fame":6,"name_es":"Estados Unidos","name_pt":"Estados Unidos"},{"name":"Australia","aliases":[],"fame":5},{"name":"Sweden","aliases":["Suecia"],"fame":4,"name_es":"Suecia","name_pt":"Suécia"},{"name":"Germany","aliases":["Alemania","Alemanha"],"fame":5,"name_es":"Alemania","name_pt":"Alemanha"},{"name":"France","aliases":["Francia","Franca"],"fame":5,"name_es":"Francia","name_pt":"França"},{"name":"Brazil","aliases":["Brasil"],"fame":5,"name_es":"Brasil","name_pt":"Brasil"},{"name":"Netherlands","aliases":["Holland","Holanda","Países Bajos","Países Baixos"],"fame":4,"name_es":"Países Bajos","name_pt":"Holanda"},{"name":"Japan","aliases":["Japón","Japão"],"fame":4,"name_es":"Japón","name_pt":"Japão"},{"name":"Canada","aliases":["Canadá"],"fame":4,"name_es":"Canadá","name_pt":"Canadá"},{"name":"New Zealand","aliases":["Nueva Zelanda","Nova Zelândia"],"fame":4,"name_es":"Nueva Zelanda","name_pt":"Nova Zelândia"},{"name":"Norway","aliases":["Noruega"],"fame":3,"name_es":"Noruega","name_pt":"Noruega"},{"name":"Denmark","aliases":["Dinamarca"],"fame":3,"name_es":"Dinamarca","name_pt":"Dinamarca"},{"name":"Italy","aliases":["Italia"],"fame":3,"name_es":"Italia","name_pt":"Itália"},{"name":"Argentina","aliases":[],"fame":3},{"name":"Colombia","aliases":[],"fame":3,"name_pt":"Colômbia"},{"name":"Nigeria","aliases":[],"fame":3,"name_pt":"Nigéria"},{"name":"Jamaica","aliases":[],"fame":3},{"name":"Morocco","aliases":["Marruecos","Marrocos"],"fame":3,"name_es":"Marruecos","name_pt":"Marrocos"},{"name":"China","aliases":[],"fame":3},{"name":"South Korea","aliases":["Korea","Korea Republic","Corea","Corea del Sur","Coreia do Sul"],"fame":2,"name_es":"Corea del Sur","name_pt":"Coreia do Sul"},{"name":"Republic of Ireland","aliases":["Ireland","Irlanda","Republica da Irlanda"],"fame":3,"name_es":"Irlanda","name_pt":"Irlanda"},{"name":"Switzerland","aliases":["Suiza","Suíça"],"fame":2,"name_es":"Suiza","name_pt":"Suíça"},{"name":"Portugal","aliases":[],"fame":2},{"name":"South Africa","aliases":["Sudáfrica","África do Sul"],"fame":2,"name_es":"Sudáfrica","name_pt":"África do Sul"},{"name":"Costa Rica","aliases":[],"fame":2},{"name":"Zambia","aliases":[],"fame":1,"name_pt":"Zâmbia"},{"name":"Philippines","aliases":["Filipinas"],"fame":1,"name_es":"Filipinas","name_pt":"Filipinas"},{"name":"Vietnam","aliases":["Vietnã"],"fame":1,"name_pt":"Vietnã"},{"name":"Haiti","aliases":["Haití"],"fame":1,"name_es":"Haití"},{"name":"Panama","aliases":["Panamá"],"fame":1,"name_es":"Panamá","name_pt":"Panamá"}],"traps":[{"name":"Scotland","aliases":["Escocia"],"why":"Scotland did not qualify for the 2023 Women's World Cup.","why_es":"Escocia no se clasificó para el Mundial femenino 2023.","name_pt":"Escócia","why_pt":"A Escócia não se classificou para a Copa do Mundo Feminina de 2023."},{"name":"Wales","aliases":["Gales","País de Gales"],"why":"Wales lost in the play-offs and missed the 2023 finals.","why_es":"Gales perdió en el play-off y se quedó fuera del Mundial 2023.","name_pt":"País de Gales","why_pt":"O País de Gales perdeu no playoff e ficou fora da fase final de 2023."},{"name":"Iceland","aliases":["Islandia"],"why":"Iceland lost their play-off and missed the 2023 finals.","why_es":"Islandia perdió su play-off y se quedó fuera del Mundial 2023.","name_pt":"Islândia","why_pt":"A Islândia perdeu o playoff e ficou fora da fase final de 2023."},{"name":"Mexico","aliases":["México"],"why":"Mexico did not qualify for the 2023 Women's World Cup.","why_es":"México no se clasificó para el Mundial femenino 2023.","name_pt":"México","why_pt":"O México não se classificou para a Copa do Mundo Feminina de 2023."}],"prompt_pt":"Cite um país da Copa do Mundo Feminina de 2023","subtitle_pt":"As 32 seleções da fase final na Austrália e na Nova Zelândia"},{"id":"f142","_id":"f142","prompt":"Name a manager who won Ligue 1","subtitle":"Title-winning head coaches, 1999-2000 to 2024-25","prompt_es":"Nombra un entrenador que ganó la Ligue 1","subtitle_es":"Entrenadores campeones, de la 1999-2000 a la 2024-25","difficulty":"medium","answer_type":"manager","format_family":"league_winner_manager","scoring_version":2,"answer_count":17,"clash_note":"","answers":[{"name":"Claude Puel","aliases":["Puel"],"fame":2},{"name":"Raynald Denoueix","aliases":["Denoueix"],"fame":1},{"name":"Jacques Santini","aliases":["Santini"],"fame":2},{"name":"Paul Le Guen","aliases":["Le Guen"],"fame":3},{"name":"Gérard Houllier","aliases":["Houllier","Gerard Houllier"],"fame":3},{"name":"Alain Perrin","aliases":["Perrin"],"fame":1},{"name":"Laurent Blanc","aliases":["Blanc"],"fame":4},{"name":"Didier Deschamps","aliases":["Deschamps"],"fame":4},{"name":"Rudi Garcia","aliases":["Garcia"],"fame":3},{"name":"René Girard","aliases":["Girard","Rene Girard"],"fame":1},{"name":"Carlo Ancelotti","aliases":["Ancelotti"],"fame":4},{"name":"Leonardo Jardim","aliases":["Jardim"],"fame":3},{"name":"Unai Emery","aliases":["Emery"],"fame":4},{"name":"Thomas Tuchel","aliases":["Tuchel"],"fame":5},{"name":"Christophe Galtier","aliases":["Galtier"],"fame":3},{"name":"Mauricio Pochettino","aliases":["Pochettino","Poch"],"fame":4},{"name":"Luis Enrique","aliases":["Lucho","Enrique"],"fame":6}],"traps":[{"name":"Jean Tigana","aliases":["Tigana"],"why":"Tigana won Ligue 1 with Monaco in 1997, before this range.","why_es":"Tigana ganó la Ligue 1 con el Mónaco en 1997, antes de este rango.","why_pt":"Tigana ganhou a Ligue 1 com o Monaco em 1997, antes deste período."},{"name":"Arsène Wenger","aliases":["Wenger","Arsene Wenger"],"why":"Wenger won the French title with Monaco in 1988, before this range.","why_es":"Wenger ganó la liga francesa con el Mónaco en 1988, antes de este rango.","why_pt":"Wenger foi campeão francês com o Monaco em 1988, antes deste período."},{"name":"Marcelo Bielsa","aliases":["Bielsa"],"why":"Bielsa's Marseille never won Ligue 1.","why_es":"El Marsella de Bielsa nunca ganó la Ligue 1.","why_pt":"O Olympique de Marseille de Bielsa nunca ganhou a Ligue 1."}],"prompt_pt":"Cite um técnico que ganhou a Ligue 1","subtitle_pt":"Técnicos campeões, de 1999-2000 a 2024-25"},{"id":"r020r1","_id":"r020r1","prompt":"Played for Man United in the 1998–99 treble season","subtitle":"1998/99 competitive first-team appearances","difficulty":"easy","answer_type":"player","scoring_version":2,"clash_note":"Gary Neville and Phil Neville are separate answers.","answers":[{"name":"David Beckham","aliases":[],"fame":5},{"name":"Ryan Giggs","aliases":[],"fame":5},{"name":"Paul Scholes","aliases":[],"fame":5},{"name":"Roy Keane","aliases":[],"fame":5},{"name":"Peter Schmeichel","aliases":[],"fame":5},{"name":"Ole Gunnar Solskjær","aliases":[],"fame":5},{"name":"Dwight Yorke","aliases":[],"fame":5},{"name":"Andy Cole","aliases":[],"fame":5},{"name":"Jaap Stam","aliases":[],"fame":5},{"name":"Gary Neville","aliases":[],"fame":4},{"name":"Teddy Sheringham","aliases":[],"fame":4},{"name":"Phil Neville","aliases":[],"fame":4},{"name":"Nicky Butt","aliases":[],"fame":4},{"name":"Denis Irwin","aliases":[],"fame":4},{"name":"Ronny Johnsen","aliases":[],"fame":3},{"name":"Henning Berg","aliases":[],"fame":3},{"name":"Jesper Blomqvist","aliases":[],"fame":3},{"name":"Jordi Cruyff","aliases":[],"fame":3},{"name":"David May","aliases":[],"fame":3},{"name":"Wes Brown","aliases":[],"fame":3},{"name":"Raimond van der Gouw","aliases":[],"fame":2},{"name":"John Curtis","aliases":[],"fame":2},{"name":"Jonathan Greening","aliases":[],"fame":2},{"name":"Erik Nevland","aliases":[],"fame":1},{"name":"Michael Clegg","aliases":[],"fame":1},{"name":"Philip Mulryne","aliases":[],"fame":1},{"name":"Alex Notman","aliases":[],"fame":1},{"name":"Ronnie Wallwork","aliases":[],"fame":1},{"name":"Mark Wilson","aliases":[],"fame":1}],"answer_count":29,"format_family":"club_season_appearance","era":"retro","prompt_pt":"Jogou pelo Man United na temporada da tríplice coroa 1998–99","subtitle_pt":"Jogos oficiais pelo time principal em 1998/99","reuse_of":"r020","first_used":"2026-10-03","prompt_es":"Jugó en el Man United del triplete 1998–99","subtitle_es":"Partidos oficiales con el primer equipo en 1998/99"},{"id":"f144","_id":"f144","prompt":"Scored in a Copa América final","subtitle":"Finals from 1993 to 2024; normal or extra time, no shootouts or own goals","prompt_es":"Marcó en una final de la Copa América","subtitle_es":"Finales de 1993 a 2024; en tiempo reglamentario o prórroga, sin tandas ni goles en propia","difficulty":"hard","answer_type":"player","format_family":"final_scorer","scoring_version":2,"answer_count":24,"clash_note":"","answers":[{"name":"Gabriel Batistuta","aliases":["Batistuta","Batigol"],"fame":5},{"name":"Benjamín Galindo","aliases":["Galindo","Benjamin Galindo"],"fame":1},{"name":"Túlio","aliases":["Tulio","Túlio Maravilha"],"fame":1},{"name":"Pablo Bengoechea","aliases":["Bengoechea"],"fame":1},{"name":"Edmundo","aliases":[],"fame":2},{"name":"Erwin Sánchez","aliases":["Erwin Sanchez","Platini Sánchez"],"fame":1},{"name":"Ronaldo","aliases":["Ronaldo Nazário","Ronaldo Nazario","R9"],"fame":5},{"name":"Zé Roberto","aliases":["Ze Roberto"],"fame":2},{"name":"Rivaldo","aliases":[],"fame":4},{"name":"Iván Córdoba","aliases":["Ivan Cordoba","Córdoba","Cordoba"],"fame":2},{"name":"Kily González","aliases":["Kily Gonzalez","Cristian González","González","Gonzalez"],"fame":2},{"name":"César Delgado","aliases":["Cesar Delgado","Delgado"],"fame":1},{"name":"Luisão","aliases":["Luisao"],"fame":1},{"name":"Adriano","aliases":[],"fame":4},{"name":"Júlio Baptista","aliases":["Julio Baptista","Baptista"],"fame":2},{"name":"Dani Alves","aliases":["Daniel Alves","Alves"],"fame":3},{"name":"Luis Suárez","aliases":["Suarez","Suárez","Luis Suarez"],"fame":5},{"name":"Diego Forlán","aliases":["Forlan","Forlán"],"fame":4},{"name":"Everton","aliases":["Everton Soares","Cebolinha"],"fame":2},{"name":"Gabriel Jesus","aliases":["Jesus"],"fame":3},{"name":"Richarlison","aliases":[],"fame":3},{"name":"Paolo Guerrero","aliases":["Guerrero"],"fame":3},{"name":"Ángel Di María","aliases":["Di Maria","Di María","Angel Di Maria","Fideo"],"fame":6},{"name":"Lautaro Martínez","aliases":["Lautaro","Lautaro Martinez","Martinez","Martínez"],"fame":5}],"traps":[{"name":"Lionel Messi","aliases":["Messi","Leo Messi"],"why":"Messi won two Copas but never scored in a final.","why_es":"Messi ganó dos Copas, pero nunca marcó en una final.","why_pt":"Messi ganhou duas Copas América, mas nunca marcou numa final."},{"name":"Alexis Sánchez","aliases":["Alexis","Alexis Sanchez"],"why":"Alexis scored the winning penalty in the 2015 shootout, which doesn't count.","why_es":"Alexis marcó el penalti decisivo en la tanda de 2015, que no cuenta.","why_pt":"Alexis bateu o pênalti decisivo na disputa de 2015, que não conta."},{"name":"Neymar","aliases":["Neymar Jr"],"why":"Neymar missed the 2019 Copa through injury and lost the 2021 final.","why_es":"Neymar se perdió la Copa 2019 por lesión y perdió la final de 2021.","why_pt":"Neymar perdeu a Copa de 2019 por lesão e perdeu a final de 2021."}],"prompt_pt":"Marcou numa final de Copa América","subtitle_pt":"Finais de 1993 a 2024; tempo normal ou prorrogação, sem pênaltis nem gols contra"},{"id":"r016r1","_id":"r016r1","prompt":"Played for Liverpool in the 2004–05 Champions League-winning season","subtitle":"2004/05 competitive first-team appearances","difficulty":"easy","answer_type":"player","scoring_version":2,"clash_note":"","answers":[{"name":"Steven Gerrard","aliases":[],"fame":5},{"name":"Xabi Alonso","aliases":[],"fame":5},{"name":"Jamie Carragher","aliases":[],"fame":5},{"name":"Jerzy Dudek","aliases":[],"fame":5},{"name":"Luis García","aliases":[],"fame":5},{"name":"John Arne Riise","aliases":[],"fame":5},{"name":"Sami Hyypiä","aliases":[],"fame":4},{"name":"Harry Kewell","aliases":[],"fame":4},{"name":"Djibril Cissé","aliases":[],"fame":4},{"name":"Milan Baroš","aliases":[],"fame":4},{"name":"Fernando Morientes","aliases":[],"fame":4},{"name":"Didi Hamann","aliases":["Dietmar Hamann"],"fame":4},{"name":"Vladimír Šmicer","aliases":[],"fame":4},{"name":"Djimi Traoré","aliases":[],"fame":3},{"name":"Florent Sinama-Pongolle","aliases":[],"fame":3},{"name":"Stephen Warnock","aliases":[],"fame":3},{"name":"Chris Kirkland","aliases":[],"fame":3},{"name":"Neil Mellor","aliases":[],"fame":3},{"name":"Anthony Le Tallec","aliases":[],"fame":3},{"name":"Scott Carson","aliases":[],"fame":3},{"name":"Antonio Núñez","aliases":[],"fame":2},{"name":"Josemi","aliases":[],"fame":2},{"name":"Salif Diao","aliases":[],"fame":2},{"name":"Mauricio Pellegrino","aliases":[],"fame":2},{"name":"Stéphane Henchoz","aliases":[],"fame":2},{"name":"Darren Potter","aliases":[],"fame":2},{"name":"John Welsh","aliases":[],"fame":1},{"name":"Zak Whitbread","aliases":[],"fame":1},{"name":"David Raven","aliases":[],"fame":1},{"name":"Richie Partridge","aliases":[],"fame":1},{"name":"Mark Smyth","aliases":[],"fame":1},{"name":"Igor Bišćan","aliases":[],"fame":3},{"name":"Steve Finnan","aliases":[],"fame":4}],"answer_count":33,"format_family":"club_season_appearance","era":"retro","prompt_es":"Jugó en el Liverpool campeón de Champions de 2004–05","subtitle_es":"Partidos oficiales con el primer equipo en 2004/05","traps":[{"name":"Luis Suárez","aliases":[],"why":"Suárez joined Liverpool in 2011, years after its 2004–05 Champions League-winning season.","why_es":"Suárez llegó al Liverpool en 2011, años después de la temporada en la que ganó la Champions 2004-05.","why_pt":"Suárez chegou ao Liverpool em 2011, anos depois da temporada do título da Champions de 2004–05."},{"name":"Fernando Torres","aliases":[],"why":"Torres joined Liverpool in 2007 and did not play for the club in 2004–05.","why_es":"Torres llegó al Liverpool en 2007 y no jugó en el club en la temporada 2004-05.","why_pt":"Torres chegou ao Liverpool em 2007 e não jogou pelo clube em 2004–05."},{"name":"Daniel Agger","aliases":[],"why":"Agger joined Liverpool in January 2006, after the 2004–05 season.","why_es":"Agger llegó al Liverpool en enero de 2006, después de la temporada 2004-05.","why_pt":"Agger chegou ao Liverpool em janeiro de 2006, depois da temporada 2004–05."},{"name":"Peter Crouch","aliases":[],"why":"Crouch joined Liverpool in July 2005, after its Champions League-winning season.","why_es":"Crouch llegó al Liverpool en julio de 2005, después de la temporada en la que ganó la Champions.","why_pt":"Crouch chegou ao Liverpool em julho de 2005, depois da temporada do título da Champions."},{"name":"Pepe Reina","aliases":["Jose Reina","José Manuel Reina"],"why":"Reina joined Liverpool in July 2005 and did not play for it during the 2004–05 season.","why_es":"Reina llegó al Liverpool en julio de 2005 y no jugó en el club durante la temporada 2004-05.","why_pt":"Reina chegou ao Liverpool em julho de 2005 e não jogou pelo clube em 2004–05."}],"prompt_pt":"Jogou pelo Liverpool na temporada do título da Champions 2004–05","subtitle_pt":"Jogos oficiais pelo time principal em 2004/05","reuse_of":"r016","first_used":"2026-10-15"}]}
+{
+  "date": "2026-11-26",
+  "timezone": "Europe/Amsterdam",
+  "questions": [
+    {
+      "id": "f141",
+      "_id": "f141",
+      "prompt": "Name a country at the 2023 Women's World Cup",
+      "subtitle": "The 32 teams at the finals in Australia and New Zealand",
+      "prompt_es": "Nombra una selección del Mundial femenino 2023",
+      "subtitle_es": "Las 32 selecciones de la fase final en Australia y Nueva Zelanda",
+      "difficulty": "easy",
+      "answer_type": "country",
+      "format_family": "tournament_country",
+      "scoring_version": 2,
+      "answer_count": 32,
+      "clash_note": "",
+      "answers": [
+        {
+          "name": "Spain",
+          "aliases": [
+            "España",
+            "Espanha"
+          ],
+          "fame": 6,
+          "name_es": "España",
+          "name_pt": "Espanha"
+        },
+        {
+          "name": "England",
+          "aliases": [
+            "Inglaterra"
+          ],
+          "fame": 6,
+          "name_es": "Inglaterra",
+          "name_pt": "Inglaterra"
+        },
+        {
+          "name": "United States",
+          "aliases": [
+            "USA",
+            "US",
+            "EEUU",
+            "Estados Unidos",
+            "EUA"
+          ],
+          "fame": 6,
+          "name_es": "Estados Unidos",
+          "name_pt": "Estados Unidos"
+        },
+        {
+          "name": "Australia",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Sweden",
+          "aliases": [
+            "Suecia"
+          ],
+          "fame": 4,
+          "name_es": "Suecia",
+          "name_pt": "Suécia"
+        },
+        {
+          "name": "Germany",
+          "aliases": [
+            "Alemania",
+            "Alemanha"
+          ],
+          "fame": 5,
+          "name_es": "Alemania",
+          "name_pt": "Alemanha"
+        },
+        {
+          "name": "France",
+          "aliases": [
+            "Francia",
+            "Franca"
+          ],
+          "fame": 5,
+          "name_es": "Francia",
+          "name_pt": "França"
+        },
+        {
+          "name": "Brazil",
+          "aliases": [
+            "Brasil"
+          ],
+          "fame": 5,
+          "name_es": "Brasil",
+          "name_pt": "Brasil"
+        },
+        {
+          "name": "Netherlands",
+          "aliases": [
+            "Holland",
+            "Holanda",
+            "Países Bajos",
+            "Países Baixos"
+          ],
+          "fame": 4,
+          "name_es": "Países Bajos",
+          "name_pt": "Holanda"
+        },
+        {
+          "name": "Japan",
+          "aliases": [
+            "Japón",
+            "Japão"
+          ],
+          "fame": 4,
+          "name_es": "Japón",
+          "name_pt": "Japão"
+        },
+        {
+          "name": "Canada",
+          "aliases": [
+            "Canadá"
+          ],
+          "fame": 4,
+          "name_es": "Canadá",
+          "name_pt": "Canadá"
+        },
+        {
+          "name": "New Zealand",
+          "aliases": [
+            "Nueva Zelanda",
+            "Nova Zelândia"
+          ],
+          "fame": 4,
+          "name_es": "Nueva Zelanda",
+          "name_pt": "Nova Zelândia"
+        },
+        {
+          "name": "Norway",
+          "aliases": [
+            "Noruega"
+          ],
+          "fame": 3,
+          "name_es": "Noruega",
+          "name_pt": "Noruega"
+        },
+        {
+          "name": "Denmark",
+          "aliases": [
+            "Dinamarca"
+          ],
+          "fame": 3,
+          "name_es": "Dinamarca",
+          "name_pt": "Dinamarca"
+        },
+        {
+          "name": "Italy",
+          "aliases": [
+            "Italia"
+          ],
+          "fame": 3,
+          "name_es": "Italia",
+          "name_pt": "Itália"
+        },
+        {
+          "name": "Argentina",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Colombia",
+          "aliases": [],
+          "fame": 3,
+          "name_pt": "Colômbia"
+        },
+        {
+          "name": "Nigeria",
+          "aliases": [],
+          "fame": 3,
+          "name_pt": "Nigéria"
+        },
+        {
+          "name": "Jamaica",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Morocco",
+          "aliases": [
+            "Marruecos",
+            "Marrocos"
+          ],
+          "fame": 3,
+          "name_es": "Marruecos",
+          "name_pt": "Marrocos"
+        },
+        {
+          "name": "China",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "South Korea",
+          "aliases": [
+            "Korea",
+            "Korea Republic",
+            "Corea",
+            "Corea del Sur",
+            "Coreia do Sul"
+          ],
+          "fame": 2,
+          "name_es": "Corea del Sur",
+          "name_pt": "Coreia do Sul"
+        },
+        {
+          "name": "Republic of Ireland",
+          "aliases": [
+            "Ireland",
+            "Irlanda",
+            "Republica da Irlanda"
+          ],
+          "fame": 3,
+          "name_es": "Irlanda",
+          "name_pt": "Irlanda"
+        },
+        {
+          "name": "Switzerland",
+          "aliases": [
+            "Suiza",
+            "Suíça"
+          ],
+          "fame": 2,
+          "name_es": "Suiza",
+          "name_pt": "Suíça"
+        },
+        {
+          "name": "Portugal",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "South Africa",
+          "aliases": [
+            "Sudáfrica",
+            "África do Sul"
+          ],
+          "fame": 2,
+          "name_es": "Sudáfrica",
+          "name_pt": "África do Sul"
+        },
+        {
+          "name": "Costa Rica",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "Zambia",
+          "aliases": [],
+          "fame": 1,
+          "name_pt": "Zâmbia"
+        },
+        {
+          "name": "Philippines",
+          "aliases": [
+            "Filipinas"
+          ],
+          "fame": 1,
+          "name_es": "Filipinas",
+          "name_pt": "Filipinas"
+        },
+        {
+          "name": "Vietnam",
+          "aliases": [
+            "Vietnã"
+          ],
+          "fame": 1,
+          "name_pt": "Vietnã"
+        },
+        {
+          "name": "Haiti",
+          "aliases": [
+            "Haití"
+          ],
+          "fame": 1,
+          "name_es": "Haití"
+        },
+        {
+          "name": "Panama",
+          "aliases": [
+            "Panamá"
+          ],
+          "fame": 1,
+          "name_es": "Panamá",
+          "name_pt": "Panamá"
+        }
+      ],
+      "traps": [
+        {
+          "name": "Scotland",
+          "aliases": [
+            "Escocia"
+          ],
+          "why": "Scotland did not qualify for the 2023 Women's World Cup.",
+          "why_es": "Escocia no se clasificó para el Mundial femenino 2023.",
+          "name_pt": "Escócia",
+          "why_pt": "A Escócia não se classificou para a Copa do Mundo Feminina de 2023."
+        },
+        {
+          "name": "Wales",
+          "aliases": [
+            "Gales",
+            "País de Gales"
+          ],
+          "why": "Wales lost in the play-offs and missed the 2023 finals.",
+          "why_es": "Gales perdió en el play-off y se quedó fuera del Mundial 2023.",
+          "name_pt": "País de Gales",
+          "why_pt": "O País de Gales perdeu no playoff e ficou fora da fase final de 2023."
+        },
+        {
+          "name": "Iceland",
+          "aliases": [
+            "Islandia"
+          ],
+          "why": "Iceland lost their play-off and missed the 2023 finals.",
+          "why_es": "Islandia perdió su play-off y se quedó fuera del Mundial 2023.",
+          "name_pt": "Islândia",
+          "why_pt": "A Islândia perdeu o playoff e ficou fora da fase final de 2023."
+        },
+        {
+          "name": "Mexico",
+          "aliases": [
+            "México"
+          ],
+          "why": "Mexico did not qualify for the 2023 Women's World Cup.",
+          "why_es": "México no se clasificó para el Mundial femenino 2023.",
+          "name_pt": "México",
+          "why_pt": "O México não se classificou para a Copa do Mundo Feminina de 2023."
+        }
+      ],
+      "prompt_pt": "Cite um país da Copa do Mundo Feminina de 2023",
+      "subtitle_pt": "As 32 seleções da fase final na Austrália e na Nova Zelândia"
+    },
+    {
+      "prompt": "Name a country that has reached a men's World Cup final",
+      "subtitle": "1930 to 2026",
+      "prompt_es": "Nombra una selección que haya jugado una final del Mundial masculino",
+      "subtitle_es": "De 1930 a 2026",
+      "difficulty": "easy",
+      "answer_type": "country",
+      "format_family": "tournament_history",
+      "clash_note": "West Germany counts as Germany. Uruguay v Brazil in 1950 was the deciding match and counts as the final.",
+      "answers": [
+        {
+          "name": "Argentina",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Brazil",
+          "aliases": [
+            "Brasil"
+          ],
+          "fame": 5,
+          "name_es": "Brasil",
+          "name_pt": "Brasil"
+        },
+        {
+          "name": "Germany",
+          "aliases": [
+            "Alemania",
+            "West Germany",
+            "Alemania Occidental",
+            "Alemanha"
+          ],
+          "fame": 5,
+          "name_es": "Alemania",
+          "name_pt": "Alemanha"
+        },
+        {
+          "name": "Italy",
+          "aliases": [
+            "Italia"
+          ],
+          "fame": 5,
+          "name_es": "Italia",
+          "name_pt": "Itália"
+        },
+        {
+          "name": "France",
+          "aliases": [
+            "Francia",
+            "Franca"
+          ],
+          "fame": 5,
+          "name_es": "Francia",
+          "name_pt": "França"
+        },
+        {
+          "name": "Netherlands",
+          "aliases": [
+            "Holland",
+            "Países Bajos",
+            "Holanda",
+            "Países Baixos"
+          ],
+          "fame": 4,
+          "name_es": "Países Bajos",
+          "name_pt": "Holanda"
+        },
+        {
+          "name": "Spain",
+          "aliases": [
+            "España",
+            "Espanha"
+          ],
+          "fame": 4,
+          "name_es": "España",
+          "name_pt": "Espanha"
+        },
+        {
+          "name": "England",
+          "aliases": [
+            "Inglaterra"
+          ],
+          "fame": 4,
+          "name_es": "Inglaterra",
+          "name_pt": "Inglaterra"
+        },
+        {
+          "name": "Croatia",
+          "aliases": [
+            "Croacia"
+          ],
+          "fame": 3,
+          "name_es": "Croacia",
+          "name_pt": "Croácia"
+        },
+        {
+          "name": "Uruguay",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Hungary",
+          "aliases": [
+            "Hungría"
+          ],
+          "fame": 2,
+          "name_es": "Hungría",
+          "name_pt": "Hungria"
+        },
+        {
+          "name": "Sweden",
+          "aliases": [
+            "Suecia"
+          ],
+          "fame": 2,
+          "name_es": "Suecia",
+          "name_pt": "Suécia"
+        },
+        {
+          "name": "Czechoslovakia",
+          "aliases": [
+            "Checoslovaquia",
+            "Tchecoslovaquia"
+          ],
+          "fame": 1,
+          "name_es": "Checoslovaquia",
+          "name_pt": "Tchecoslováquia"
+        }
+      ],
+      "id": "w018r1",
+      "_id": "w018r1",
+      "scoring_version": 1,
+      "answer_count": 13,
+      "prompt_pt": "Cite uma seleção que chegou a uma final de Copa do Mundo masculina",
+      "subtitle_pt": "1930 a 2026",
+      "reuse_of": "w018",
+      "first_used": "2026-10-26"
+    },
+    {
+      "id": "f144",
+      "_id": "f144",
+      "prompt": "Scored in a Copa América final",
+      "subtitle": "Finals from 1993 to 2024; normal or extra time, no shootouts or own goals",
+      "prompt_es": "Marcó en una final de la Copa América",
+      "subtitle_es": "Finales de 1993 a 2024; en tiempo reglamentario o prórroga, sin tandas ni goles en propia",
+      "difficulty": "hard",
+      "answer_type": "player",
+      "format_family": "final_scorer",
+      "scoring_version": 2,
+      "answer_count": 24,
+      "clash_note": "",
+      "answers": [
+        {
+          "name": "Gabriel Batistuta",
+          "aliases": [
+            "Batistuta",
+            "Batigol"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Benjamín Galindo",
+          "aliases": [
+            "Galindo",
+            "Benjamin Galindo"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Túlio",
+          "aliases": [
+            "Tulio",
+            "Túlio Maravilha"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Pablo Bengoechea",
+          "aliases": [
+            "Bengoechea"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Edmundo",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "Erwin Sánchez",
+          "aliases": [
+            "Erwin Sanchez",
+            "Platini Sánchez"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Ronaldo",
+          "aliases": [
+            "Ronaldo Nazário",
+            "Ronaldo Nazario",
+            "R9"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Zé Roberto",
+          "aliases": [
+            "Ze Roberto"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Rivaldo",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Iván Córdoba",
+          "aliases": [
+            "Ivan Cordoba",
+            "Córdoba",
+            "Cordoba"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Kily González",
+          "aliases": [
+            "Kily Gonzalez",
+            "Cristian González",
+            "González",
+            "Gonzalez"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "César Delgado",
+          "aliases": [
+            "Cesar Delgado",
+            "Delgado"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Luisão",
+          "aliases": [
+            "Luisao"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Adriano",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Júlio Baptista",
+          "aliases": [
+            "Julio Baptista",
+            "Baptista"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Dani Alves",
+          "aliases": [
+            "Daniel Alves",
+            "Alves"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Luis Suárez",
+          "aliases": [
+            "Suarez",
+            "Suárez",
+            "Luis Suarez"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Diego Forlán",
+          "aliases": [
+            "Forlan",
+            "Forlán"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Everton",
+          "aliases": [
+            "Everton Soares",
+            "Cebolinha"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Gabriel Jesus",
+          "aliases": [
+            "Jesus"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Richarlison",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Paolo Guerrero",
+          "aliases": [
+            "Guerrero"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Ángel Di María",
+          "aliases": [
+            "Di Maria",
+            "Di María",
+            "Angel Di Maria",
+            "Fideo"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Lautaro Martínez",
+          "aliases": [
+            "Lautaro",
+            "Lautaro Martinez",
+            "Martinez",
+            "Martínez"
+          ],
+          "fame": 5
+        }
+      ],
+      "traps": [
+        {
+          "name": "Lionel Messi",
+          "aliases": [
+            "Messi",
+            "Leo Messi"
+          ],
+          "why": "Messi won two Copas but never scored in a final.",
+          "why_es": "Messi ganó dos Copas, pero nunca marcó en una final.",
+          "why_pt": "Messi ganhou duas Copas América, mas nunca marcou numa final."
+        },
+        {
+          "name": "Alexis Sánchez",
+          "aliases": [
+            "Alexis",
+            "Alexis Sanchez"
+          ],
+          "why": "Alexis scored the winning penalty in the 2015 shootout, which doesn't count.",
+          "why_es": "Alexis marcó el penalti decisivo en la tanda de 2015, que no cuenta.",
+          "why_pt": "Alexis bateu o pênalti decisivo na disputa de 2015, que não conta."
+        },
+        {
+          "name": "Neymar",
+          "aliases": [
+            "Neymar Jr"
+          ],
+          "why": "Neymar missed the 2019 Copa through injury and lost the 2021 final.",
+          "why_es": "Neymar se perdió la Copa 2019 por lesión y perdió la final de 2021.",
+          "why_pt": "Neymar perdeu a Copa de 2019 por lesão e perdeu a final de 2021."
+        }
+      ],
+      "prompt_pt": "Marcou numa final de Copa América",
+      "subtitle_pt": "Finais de 1993 a 2024; tempo normal ou prorrogação, sem pênaltis nem gols contra"
+    },
+    {
+      "id": "r016r1",
+      "_id": "r016r1",
+      "prompt": "Played for Liverpool in the 2004–05 Champions League-winning season",
+      "subtitle": "2004/05 competitive first-team appearances",
+      "difficulty": "easy",
+      "answer_type": "player",
+      "scoring_version": 2,
+      "clash_note": "",
+      "answers": [
+        {
+          "name": "Steven Gerrard",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Xabi Alonso",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Jamie Carragher",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Jerzy Dudek",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Luis García",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "John Arne Riise",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Sami Hyypiä",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Harry Kewell",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Djibril Cissé",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Milan Baroš",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Fernando Morientes",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Didi Hamann",
+          "aliases": [
+            "Dietmar Hamann"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Vladimír Šmicer",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Djimi Traoré",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Florent Sinama-Pongolle",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Stephen Warnock",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Chris Kirkland",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Neil Mellor",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Anthony Le Tallec",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Scott Carson",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Antonio Núñez",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "Josemi",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "Salif Diao",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "Mauricio Pellegrino",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "Stéphane Henchoz",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "Darren Potter",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "John Welsh",
+          "aliases": [],
+          "fame": 1
+        },
+        {
+          "name": "Zak Whitbread",
+          "aliases": [],
+          "fame": 1
+        },
+        {
+          "name": "David Raven",
+          "aliases": [],
+          "fame": 1
+        },
+        {
+          "name": "Richie Partridge",
+          "aliases": [],
+          "fame": 1
+        },
+        {
+          "name": "Mark Smyth",
+          "aliases": [],
+          "fame": 1
+        },
+        {
+          "name": "Igor Bišćan",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Steve Finnan",
+          "aliases": [],
+          "fame": 4
+        }
+      ],
+      "answer_count": 33,
+      "format_family": "club_season_appearance",
+      "era": "retro",
+      "prompt_es": "Jugó en el Liverpool campeón de Champions de 2004–05",
+      "subtitle_es": "Partidos oficiales con el primer equipo en 2004/05",
+      "traps": [
+        {
+          "name": "Luis Suárez",
+          "aliases": [],
+          "why": "Suárez joined Liverpool in 2011, years after its 2004–05 Champions League-winning season.",
+          "why_es": "Suárez llegó al Liverpool en 2011, años después de la temporada en la que ganó la Champions 2004-05.",
+          "why_pt": "Suárez chegou ao Liverpool em 2011, anos depois da temporada do título da Champions de 2004–05."
+        },
+        {
+          "name": "Fernando Torres",
+          "aliases": [],
+          "why": "Torres joined Liverpool in 2007 and did not play for the club in 2004–05.",
+          "why_es": "Torres llegó al Liverpool en 2007 y no jugó en el club en la temporada 2004-05.",
+          "why_pt": "Torres chegou ao Liverpool em 2007 e não jogou pelo clube em 2004–05."
+        },
+        {
+          "name": "Daniel Agger",
+          "aliases": [],
+          "why": "Agger joined Liverpool in January 2006, after the 2004–05 season.",
+          "why_es": "Agger llegó al Liverpool en enero de 2006, después de la temporada 2004-05.",
+          "why_pt": "Agger chegou ao Liverpool em janeiro de 2006, depois da temporada 2004–05."
+        },
+        {
+          "name": "Peter Crouch",
+          "aliases": [],
+          "why": "Crouch joined Liverpool in July 2005, after its Champions League-winning season.",
+          "why_es": "Crouch llegó al Liverpool en julio de 2005, después de la temporada en la que ganó la Champions.",
+          "why_pt": "Crouch chegou ao Liverpool em julho de 2005, depois da temporada do título da Champions."
+        },
+        {
+          "name": "Pepe Reina",
+          "aliases": [
+            "Jose Reina",
+            "José Manuel Reina"
+          ],
+          "why": "Reina joined Liverpool in July 2005 and did not play for it during the 2004–05 season.",
+          "why_es": "Reina llegó al Liverpool en julio de 2005 y no jugó en el club durante la temporada 2004-05.",
+          "why_pt": "Reina chegou ao Liverpool em julho de 2005 e não jogou pelo clube em 2004–05."
+        }
+      ],
+      "prompt_pt": "Jogou pelo Liverpool na temporada do título da Champions 2004–05",
+      "subtitle_pt": "Jogos oficiais pelo time principal em 2004/05",
+      "reuse_of": "r016",
+      "first_used": "2026-10-15"
+    },
+    {
+      "id": "f142",
+      "_id": "f142",
+      "prompt": "Name a manager who won Ligue 1",
+      "subtitle": "Title-winning head coaches, 1999-2000 to 2024-25",
+      "prompt_es": "Nombra un entrenador que ganó la Ligue 1",
+      "subtitle_es": "Entrenadores campeones, de la 1999-2000 a la 2024-25",
+      "difficulty": "medium",
+      "answer_type": "manager",
+      "format_family": "league_winner_manager",
+      "scoring_version": 2,
+      "answer_count": 17,
+      "clash_note": "",
+      "answers": [
+        {
+          "name": "Claude Puel",
+          "aliases": [
+            "Puel"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Raynald Denoueix",
+          "aliases": [
+            "Denoueix"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Jacques Santini",
+          "aliases": [
+            "Santini"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Paul Le Guen",
+          "aliases": [
+            "Le Guen"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Gérard Houllier",
+          "aliases": [
+            "Houllier",
+            "Gerard Houllier"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Alain Perrin",
+          "aliases": [
+            "Perrin"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Laurent Blanc",
+          "aliases": [
+            "Blanc"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Didier Deschamps",
+          "aliases": [
+            "Deschamps"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Rudi Garcia",
+          "aliases": [
+            "Garcia"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "René Girard",
+          "aliases": [
+            "Girard",
+            "Rene Girard"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Carlo Ancelotti",
+          "aliases": [
+            "Ancelotti"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Leonardo Jardim",
+          "aliases": [
+            "Jardim"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Unai Emery",
+          "aliases": [
+            "Emery"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Thomas Tuchel",
+          "aliases": [
+            "Tuchel"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Christophe Galtier",
+          "aliases": [
+            "Galtier"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Mauricio Pochettino",
+          "aliases": [
+            "Pochettino",
+            "Poch"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Luis Enrique",
+          "aliases": [
+            "Lucho",
+            "Enrique"
+          ],
+          "fame": 6
+        }
+      ],
+      "traps": [
+        {
+          "name": "Jean Tigana",
+          "aliases": [
+            "Tigana"
+          ],
+          "why": "Tigana won Ligue 1 with Monaco in 1997, before this range.",
+          "why_es": "Tigana ganó la Ligue 1 con el Mónaco en 1997, antes de este rango.",
+          "why_pt": "Tigana ganhou a Ligue 1 com o Monaco em 1997, antes deste período."
+        },
+        {
+          "name": "Arsène Wenger",
+          "aliases": [
+            "Wenger",
+            "Arsene Wenger"
+          ],
+          "why": "Wenger won the French title with Monaco in 1988, before this range.",
+          "why_es": "Wenger ganó la liga francesa con el Mónaco en 1988, antes de este rango.",
+          "why_pt": "Wenger foi campeão francês com o Monaco em 1988, antes deste período."
+        },
+        {
+          "name": "Marcelo Bielsa",
+          "aliases": [
+            "Bielsa"
+          ],
+          "why": "Bielsa's Marseille never won Ligue 1.",
+          "why_es": "El Marsella de Bielsa nunca ganó la Ligue 1.",
+          "why_pt": "O Olympique de Marseille de Bielsa nunca ganhou a Ligue 1."
+        }
+      ],
+      "prompt_pt": "Cite um técnico que ganhou a Ligue 1",
+      "subtitle_pt": "Técnicos campeões, de 1999-2000 a 2024-25"
+    }
+  ]
+}

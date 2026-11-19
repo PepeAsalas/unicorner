@@ -1,1 +1,1116 @@
-{"date":"2026-11-28","timezone":"Europe/Amsterdam","questions":[{"id":"f151","_id":"f151","prompt":"Won the Zamora Trophy","subtitle":"LaLiga's award for the goalkeeper who concedes the fewest goals per game, 1990-91 to 2024-25","prompt_es":"Ganó el Trofeo Zamora","subtitle_es":"El premio al portero menos goleado de LaLiga, de la 1990-91 a la 2024-25","difficulty":"medium","answer_type":"player","format_family":"award_winner_player","scoring_version":2,"answer_count":21,"clash_note":"","answers":[{"name":"Abel Resino","aliases":["Resino","Abel"],"fame":2},{"name":"Francisco Buyo","aliases":["Buyo","Paco Buyo"],"fame":3},{"name":"Francisco Liaño","aliases":["Liaño","Liano","Paco Liaño"],"fame":1},{"name":"Santiago Cañizares","aliases":["Cañizares","Canizares","Santiago Canizares"],"fame":4},{"name":"Pedro Jaro","aliases":["Jaro"],"fame":1},{"name":"José Francisco Molina","aliases":["Molina","Jose Francisco Molina"],"fame":2},{"name":"Jacques Songo'o","aliases":["Songo'o","Songoo"],"fame":1},{"name":"Toni Jiménez","aliases":["Toni Jimenez","Jiménez","Jimenez"],"fame":1},{"name":"Carlos Roa","aliases":["Roa"],"fame":2},{"name":"Martín Herrera","aliases":["Martin Herrera","Herrera"],"fame":1},{"name":"Pablo Cavallero","aliases":["Cavallero"],"fame":2},{"name":"Víctor Valdés","aliases":["Victor Valdes","Valdes","Valdés"],"fame":5},{"name":"José Manuel Pinto","aliases":["Pinto","Jose Manuel Pinto"],"fame":3},{"name":"Roberto Abbondanzieri","aliases":["Abbondanzieri","Pato Abbondanzieri"],"fame":2},{"name":"Iker Casillas","aliases":["Casillas"],"fame":6},{"name":"Thibaut Courtois","aliases":["Courtois"],"fame":5},{"name":"Claudio Bravo","aliases":["Bravo"],"fame":4},{"name":"Jan Oblak","aliases":["Oblak"],"fame":6},{"name":"Yassine Bounou","aliases":["Bounou","Bono"],"fame":4},{"name":"Marc-André ter Stegen","aliases":["Ter Stegen","Marc-Andre ter Stegen","Stegen"],"fame":5},{"name":"Unai Simón","aliases":["Unai Simon","Simón","Simon"],"fame":4}],"traps":[{"name":"Keylor Navas","aliases":["Navas","Keylor"],"why":"Keylor won three Champions Leagues with Madrid but never the Zamora.","why_es":"Keylor ganó tres Champions con el Madrid, pero nunca el Zamora.","why_pt":"Keylor ganhou três Champions com o Real, mas nunca o Zamora."},{"name":"David de Gea","aliases":["De Gea"],"why":"De Gea's LaLiga spell at Atlético ended in 2011 without a Zamora.","why_es":"La etapa de De Gea en el Atlético terminó en 2011 sin ningún Zamora.","why_pt":"A passagem de De Gea por LaLiga no Atlético terminou em 2011 sem um Zamora."}],"prompt_pt":"Ganhou o Troféu Zamora","subtitle_pt":"O prêmio de LaLiga para o goleiro com menos gols sofridos por jogo, de 1990-91 a 2024-25"},{"id":"f152","_id":"f152","prompt":"Name a club that lost a UEFA Cup or Europa League final","subtitle":"Single-match finals from 1998 to 2025 · Europe's second club competition","prompt_es":"Nombra un club que perdió una final de la Copa de la UEFA o la Europa League","subtitle_es":"Finales a partido único de 1998 a 2025 · la segunda competición europea","difficulty":"easy","answer_type":"club","format_family":"final_loser_club","scoring_version":2,"answer_count":22,"clash_note":"","answers":[{"name":"Lazio","aliases":["SS Lazio"],"fame":3},{"name":"Marseille","aliases":["OM","Olympique de Marseille","Olympique Marseille","Olympique de Marsella","Olympique de Marselha"],"fame":4,"name_es":"Olympique de Marsella","name_pt":"Olympique de Marselha"},{"name":"Arsenal","aliases":[],"fame":6},{"name":"Alavés","aliases":["Alaves","Deportivo Alavés"],"fame":3},{"name":"Borussia Dortmund","aliases":["Dortmund","BVB"],"fame":3},{"name":"Celtic","aliases":[],"fame":4},{"name":"Sporting CP","aliases":["Sporting","Sporting Lisbon","Sporting de Lisboa"],"fame":2,"name_pt":"Sporting"},{"name":"Middlesbrough","aliases":["Boro"],"fame":3},{"name":"Espanyol","aliases":["RCD Espanyol"],"fame":3},{"name":"Rangers","aliases":[],"fame":4},{"name":"Werder Bremen","aliases":["Werder","Bremen"],"fame":2},{"name":"Fulham","aliases":[],"fame":3},{"name":"Braga","aliases":["SC Braga","Sporting Braga"],"fame":2},{"name":"Athletic Bilbao","aliases":["Athletic","Athletic Club","Bilbao"],"fame":3},{"name":"Benfica","aliases":["SL Benfica"],"fame":4},{"name":"Dnipro","aliases":["Dnipro Dnipropetrovsk"],"fame":1},{"name":"Liverpool","aliases":[],"fame":5},{"name":"Ajax","aliases":["AFC Ajax"],"fame":4},{"name":"Inter Milan","aliases":["Inter","Internazionale","Inter de Milao"],"fame":3,"name_pt":"Inter de Milão"},{"name":"Manchester United","aliases":["Man United","Man Utd","Man U","United"],"fame":6},{"name":"Roma","aliases":["AS Roma"],"fame":4},{"name":"Bayer Leverkusen","aliases":["Leverkusen"],"fame":3}],"traps":[{"name":"Sevilla","aliases":["Sevilla FC"],"why":"Sevilla have won all seven of their UEFA Cup and Europa League finals.","why_es":"El Sevilla ha ganado sus siete finales de la Copa de la UEFA y la Europa League.","why_pt":"O Sevilla ganhou todas as suas sete finais de Copa da UEFA e Europa League."},{"name":"Atlético Madrid","aliases":["Atletico","Atleti","Atletico Madrid","Atlético de Madrid"],"why":"Atlético won all three of their Europa League finals (2010, 2012, 2018).","why_es":"El Atlético ganó sus tres finales de la Europa League (2010, 2012 y 2018).","why_pt":"O Atlético ganhou suas três finais de Europa League (2010, 2012, 2018).","name_pt":"Atlético de Madrid"},{"name":"Chelsea","aliases":[],"why":"Chelsea won both of their Europa League finals (2013 and 2019).","why_es":"El Chelsea ganó sus dos finales de la Europa League (2013 y 2019).","why_pt":"O Chelsea ganhou suas duas finais de Europa League (2013 e 2019)."}],"prompt_pt":"Cite um clube que perdeu uma final da Copa da UEFA ou da Europa League","subtitle_pt":"Finais em jogo único de 1998 a 2025 · A segunda competição de clubes da Europa"},{"id":"h016r1","_id":"h016r1","prompt":"Name a country that played at Euro 2024","subtitle":"All 24 teams at the finals in Germany","difficulty":"easy","answer_type":"country","format_family":"tournament_participant_country","scoring_version":2,"clash_note":"Czech Republic is also accepted as Czechia; Turkey as Türkiye.","answers":[{"name":"Germany","aliases":["Deutschland","Alemania","Alemania Occidental","Alemanha"],"fame":5,"name_es":"Alemania","name_pt":"Alemanha"},{"name":"England","aliases":["Inglaterra"],"fame":5,"name_es":"Inglaterra","name_pt":"Inglaterra"},{"name":"France","aliases":["Francia","Franca"],"fame":5,"name_es":"Francia","name_pt":"França"},{"name":"Spain","aliases":["España","Espanha"],"fame":5,"name_es":"España","name_pt":"Espanha"},{"name":"Portugal","aliases":[],"fame":5},{"name":"Italy","aliases":["Italia"],"fame":4,"name_es":"Italia","name_pt":"Itália"},{"name":"Netherlands","aliases":["Holland","Países Bajos","Holanda","Países Baixos"],"fame":4,"name_es":"Países Bajos","name_pt":"Holanda"},{"name":"Belgium","aliases":["Bélgica"],"fame":4,"name_es":"Bélgica","name_pt":"Bélgica"},{"name":"Croatia","aliases":["Croacia"],"fame":4,"name_es":"Croacia","name_pt":"Croácia"},{"name":"Denmark","aliases":["Dinamarca"],"fame":3,"name_es":"Dinamarca","name_pt":"Dinamarca"},{"name":"Switzerland","aliases":["Suiza","Suíça"],"fame":3,"name_es":"Suiza","name_pt":"Suíça"},{"name":"Austria","aliases":[],"fame":3,"name_pt":"Áustria"},{"name":"Poland","aliases":["Polonia"],"fame":3,"name_es":"Polonia","name_pt":"Polônia"},{"name":"Scotland","aliases":["Escocia"],"fame":3,"name_es":"Escocia","name_pt":"Escócia"},{"name":"Turkey","aliases":["Türkiye","Turkiye","Turquía"],"fame":3,"name_es":"Turquía","name_pt":"Turquia"},{"name":"Ukraine","aliases":["Ucrania"],"fame":2,"name_es":"Ucrania","name_pt":"Ucrânia"},{"name":"Serbia","aliases":["Sérvia"],"fame":2,"name_pt":"Sérvia"},{"name":"Hungary","aliases":["Hungría"],"fame":2,"name_es":"Hungría","name_pt":"Hungria"},{"name":"Czech Republic","aliases":["Czechia","República Checa","Chequia","República Tcheca","Tchequia"],"fame":2,"name_es":"República Checa","name_pt":"República Tcheca"},{"name":"Romania","aliases":["Rumanía","Rumania","Romenia"],"fame":2,"name_es":"Rumanía","name_pt":"Romênia"},{"name":"Slovakia","aliases":["Eslovaquia"],"fame":1,"name_es":"Eslovaquia","name_pt":"Eslováquia"},{"name":"Slovenia","aliases":["Eslovenia"],"fame":1,"name_es":"Eslovenia","name_pt":"Eslovênia"},{"name":"Albania","aliases":[],"fame":1,"name_pt":"Albânia"},{"name":"Georgia","aliases":[],"fame":1,"name_pt":"Geórgia"}],"answer_count":24,"prompt_es":"Nombra una selección que jugó la Euro 2024","subtitle_es":"Las 24 selecciones de la fase final en Alemania","traps":[{"name":"Bosnia and Herzegovina","aliases":["bosnia","Bosnia-Herzegovina"],"why":"Bosnia and Herzegovina lost its playoff to Ukraine and did not reach the Euro 2024 finals.","why_es":"Bosnia y Herzegovina perdió la repesca ante Ucrania y no llegó a la fase final de la Eurocopa 2024.","why_pt":"A Bósnia e Herzegovina perdeu o playoff para a Ucrânia e não chegou à fase final da Euro 2024."},{"name":"Greece","aliases":["Grécia"],"why":"Greece lost its playoff final to Georgia and did not play at Euro 2024.","why_es":"Grecia perdió la final de la repesca ante Georgia y no jugó la Eurocopa 2024.","name_pt":"Grécia","why_pt":"A Grécia perdeu a final do playoff para a Geórgia e não jogou a Euro 2024."},{"name":"North Macedonia","aliases":["macedonia","Macedônia do Norte"],"why":"North Macedonia played in qualifying but did not reach the Euro 2024 finals.","why_es":"Macedonia del Norte disputó la clasificación, pero no llegó a la fase final de la Eurocopa 2024.","name_pt":"Macedônia do Norte","why_pt":"A Macedônia do Norte jogou as eliminatórias, mas não chegou à fase final da Euro 2024."},{"name":"Finland","aliases":["Finlândia"],"why":"Finland lost its playoff to Wales and did not reach the Euro 2024 finals.","why_es":"Finlandia perdió la repesca ante Gales y no llegó a la fase final de la Eurocopa 2024.","name_pt":"Finlândia","why_pt":"A Finlândia perdeu o playoff para o País de Gales e não chegou à fase final da Euro 2024."},{"name":"Israel","aliases":[],"why":"Israel lost its playoff to Iceland and did not reach the Euro 2024 finals.","why_es":"Israel perdió la repesca ante Islandia y no llegó a la fase final de la Eurocopa 2024.","why_pt":"Israel perdeu o playoff para a Islândia e não chegou à fase final da Euro 2024."},{"name":"Iceland","aliases":["Islandia"],"why":"Iceland lost its playoff final to Ukraine and did not play at Euro 2024.","why_es":"Islandia perdió la final de la repesca ante Ucrania y no jugó la Eurocopa 2024.","name_pt":"Islândia","why_pt":"A Islândia perdeu a final do playoff para a Ucrânia e não jogou a Euro 2024."},{"name":"Bulgaria","aliases":[],"why":"Bulgaria did not qualify for the Euro 2024 finals.","why_es":"Bulgaria no se clasificó para la fase final de la Eurocopa 2024.","name_pt":"Bulgária","why_pt":"A Bulgária não se classificou para a fase final da Euro 2024."},{"name":"Wales","aliases":["País de Gales","Gales"],"why":"Wales lost its playoff final to Poland on penalties and did not play at Euro 2024.","why_es":"Gales perdió la final de la repesca ante Polonia en los penaltis y no jugó la Eurocopa 2024.","name_pt":"País de Gales","why_pt":"O País de Gales perdeu a final do playoff para a Polônia nos pênaltis e não jogou a Euro 2024."}],"prompt_pt":"Cite uma seleção que jogou a Euro 2024","subtitle_pt":"As 24 seleções da fase final na Alemanha","reuse_of":"h016","first_used":"2026-10-15"},{"id":"f154","_id":"f154","prompt":"Name a manager who won the Copa Libertadores","subtitle":"Winning coaches from 2000 to 2025 · South America's Champions League","prompt_es":"Nombra un entrenador que ganó la Copa Libertadores","subtitle_es":"Entrenadores campeones de 2000 a 2025 · la Champions de Sudamérica","difficulty":"hard","answer_type":"manager","format_family":"cup_winner_manager","scoring_version":2,"answer_count":21,"clash_note":"","answers":[{"name":"Carlos Bianchi","aliases":["Bianchi","Virrey"],"fame":4},{"name":"Nery Pumpido","aliases":["Pumpido"],"fame":2},{"name":"Luis Fernando Montoya","aliases":["Montoya"],"fame":1},{"name":"Paulo Autuori","aliases":["Autuori"],"fame":1},{"name":"Abel Braga","aliases":["Braga"],"fame":2},{"name":"Miguel Ángel Russo","aliases":["Russo","Miguel Angel Russo"],"fame":2},{"name":"Edgardo Bauza","aliases":["Bauza","Patón Bauza"],"fame":2},{"name":"Alejandro Sabella","aliases":["Sabella"],"fame":3},{"name":"Celso Roth","aliases":["Roth"],"fame":1},{"name":"Muricy Ramalho","aliases":["Muricy","Ramalho"],"fame":2},{"name":"Tite","aliases":[],"fame":5},{"name":"Cuca","aliases":[],"fame":2},{"name":"Marcelo Gallardo","aliases":["Gallardo","Muñeco Gallardo"],"fame":6},{"name":"Reinaldo Rueda","aliases":["Rueda"],"fame":2},{"name":"Renato Gaúcho","aliases":["Renato Gaucho","Renato Portaluppi","Portaluppi"],"fame":3},{"name":"Jorge Jesus","aliases":["Jesus"],"fame":5},{"name":"Abel Ferreira","aliases":["Ferreira"],"fame":4},{"name":"Dorival Júnior","aliases":["Dorival","Dorival Junior"],"fame":3},{"name":"Fernando Diniz","aliases":["Diniz"],"fame":3},{"name":"Artur Jorge","aliases":[],"fame":2},{"name":"Filipe Luís","aliases":["Filipe Luis","Felipe Luis"],"fame":4}],"traps":[{"name":"Jorge Sampaoli","aliases":["Sampaoli"],"why":"Sampaoli won the Copa Sudamericana and the Copa América, never the Libertadores.","why_es":"Sampaoli ganó la Sudamericana y la Copa América, nunca la Libertadores.","why_pt":"Sampaoli ganhou a Copa Sul-Americana e a Copa América, nunca a Libertadores."},{"name":"Marcelo Bielsa","aliases":["Bielsa"],"why":"Bielsa never won the Libertadores.","why_es":"Bielsa nunca ganó la Libertadores.","why_pt":"Bielsa nunca ganhou a Libertadores."}],"prompt_pt":"Cite um técnico que ganhou a Copa Libertadores","subtitle_pt":"Técnicos campeões de 2000 a 2025 · A Champions League da América do Sul"},{"id":"g002r1","_id":"g002r1","prompt":"Name a Frenchman who played for Arsenal","subtitle":"Premier League, 1992–2025","difficulty":"easy","answer_type":"player","format_family":"club_nationality","scoring_version":2,"clash_note":"Only Premier League appearances count. Jérémie Aliadière qualifies; Jeff Reine-Adélaïde and Rémi Garde-era goalkeeper Guillaume Warmuz do not. Kaba Diawara is excluded because he represented Guinea at senior level.","answer_count":28,"answers":[{"name":"Thierry Henry","aliases":["Titi"],"fame":5},{"name":"Patrick Vieira","aliases":[],"fame":5},{"name":"Olivier Giroud","aliases":[],"fame":5},{"name":"Nicolas Anelka","aliases":[],"fame":4},{"name":"Gaël Clichy","aliases":["Gael Clichy"],"fame":4},{"name":"William Gallas","aliases":[],"fame":4},{"name":"Laurent Koscielny","aliases":["Kos"],"fame":4},{"name":"Alexandre Lacazette","aliases":["Laca"],"fame":4},{"name":"Samir Nasri","aliases":[],"fame":4},{"name":"Emmanuel Petit","aliases":[],"fame":4},{"name":"Robert Pires","aliases":["Robert Pirès"],"fame":4},{"name":"Bacary Sagna","aliases":[],"fame":4},{"name":"William Saliba","aliases":[],"fame":4},{"name":"Sylvain Wiltord","aliases":[],"fame":4},{"name":"Francis Coquelin","aliases":[],"fame":3},{"name":"Mathieu Debuchy","aliases":[],"fame":3},{"name":"Abou Diaby","aliases":["Abou Vassiriki Diaby"],"fame":3},{"name":"Lassana Diarra","aliases":["Lass Diarra"],"fame":3},{"name":"Mathieu Flamini","aliases":[],"fame":3},{"name":"Matteo Guendouzi","aliases":["Mattéo Guendouzi"],"fame":3},{"name":"Mikaël Silvestre","aliases":["Mikael Silvestre"],"fame":3},{"name":"Jérémie Aliadière","aliases":["Jeremie Aliadiere"],"fame":2},{"name":"Gilles Grimandi","aliases":[],"fame":2},{"name":"Pascal Cygan","aliases":[],"fame":1},{"name":"Rémi Garde","aliases":["Remi Garde"],"fame":1},{"name":"David Grondin","aliases":[],"fame":1},{"name":"Yaya Sanogo","aliases":[],"fame":1},{"name":"Sébastien Squillaci","aliases":["Sebastien Squillaci"],"fame":1}],"prompt_es":"Nombra un francés que haya jugado en el Arsenal","subtitle_es":"Premier League, 1992–2025","prompt_pt":"Cite um francês que jogou no Arsenal","subtitle_pt":"Premier League, 1992–2025","reuse_of":"g002","first_used":"2026-10-12"}]}
+{
+  "date": "2026-11-28",
+  "timezone": "Europe/Amsterdam",
+  "questions": [
+    {
+      "id": "h016r1",
+      "_id": "h016r1",
+      "prompt": "Name a country that played at Euro 2024",
+      "subtitle": "All 24 teams at the finals in Germany",
+      "difficulty": "easy",
+      "answer_type": "country",
+      "format_family": "tournament_participant_country",
+      "scoring_version": 2,
+      "clash_note": "Czech Republic is also accepted as Czechia; Turkey as Türkiye.",
+      "answers": [
+        {
+          "name": "Germany",
+          "aliases": [
+            "Deutschland",
+            "Alemania",
+            "Alemania Occidental",
+            "Alemanha"
+          ],
+          "fame": 5,
+          "name_es": "Alemania",
+          "name_pt": "Alemanha"
+        },
+        {
+          "name": "England",
+          "aliases": [
+            "Inglaterra"
+          ],
+          "fame": 5,
+          "name_es": "Inglaterra",
+          "name_pt": "Inglaterra"
+        },
+        {
+          "name": "France",
+          "aliases": [
+            "Francia",
+            "Franca"
+          ],
+          "fame": 5,
+          "name_es": "Francia",
+          "name_pt": "França"
+        },
+        {
+          "name": "Spain",
+          "aliases": [
+            "España",
+            "Espanha"
+          ],
+          "fame": 5,
+          "name_es": "España",
+          "name_pt": "Espanha"
+        },
+        {
+          "name": "Portugal",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Italy",
+          "aliases": [
+            "Italia"
+          ],
+          "fame": 4,
+          "name_es": "Italia",
+          "name_pt": "Itália"
+        },
+        {
+          "name": "Netherlands",
+          "aliases": [
+            "Holland",
+            "Países Bajos",
+            "Holanda",
+            "Países Baixos"
+          ],
+          "fame": 4,
+          "name_es": "Países Bajos",
+          "name_pt": "Holanda"
+        },
+        {
+          "name": "Belgium",
+          "aliases": [
+            "Bélgica"
+          ],
+          "fame": 4,
+          "name_es": "Bélgica",
+          "name_pt": "Bélgica"
+        },
+        {
+          "name": "Croatia",
+          "aliases": [
+            "Croacia"
+          ],
+          "fame": 4,
+          "name_es": "Croacia",
+          "name_pt": "Croácia"
+        },
+        {
+          "name": "Denmark",
+          "aliases": [
+            "Dinamarca"
+          ],
+          "fame": 3,
+          "name_es": "Dinamarca",
+          "name_pt": "Dinamarca"
+        },
+        {
+          "name": "Switzerland",
+          "aliases": [
+            "Suiza",
+            "Suíça"
+          ],
+          "fame": 3,
+          "name_es": "Suiza",
+          "name_pt": "Suíça"
+        },
+        {
+          "name": "Austria",
+          "aliases": [],
+          "fame": 3,
+          "name_pt": "Áustria"
+        },
+        {
+          "name": "Poland",
+          "aliases": [
+            "Polonia"
+          ],
+          "fame": 3,
+          "name_es": "Polonia",
+          "name_pt": "Polônia"
+        },
+        {
+          "name": "Scotland",
+          "aliases": [
+            "Escocia"
+          ],
+          "fame": 3,
+          "name_es": "Escocia",
+          "name_pt": "Escócia"
+        },
+        {
+          "name": "Turkey",
+          "aliases": [
+            "Türkiye",
+            "Turkiye",
+            "Turquía"
+          ],
+          "fame": 3,
+          "name_es": "Turquía",
+          "name_pt": "Turquia"
+        },
+        {
+          "name": "Ukraine",
+          "aliases": [
+            "Ucrania"
+          ],
+          "fame": 2,
+          "name_es": "Ucrania",
+          "name_pt": "Ucrânia"
+        },
+        {
+          "name": "Serbia",
+          "aliases": [
+            "Sérvia"
+          ],
+          "fame": 2,
+          "name_pt": "Sérvia"
+        },
+        {
+          "name": "Hungary",
+          "aliases": [
+            "Hungría"
+          ],
+          "fame": 2,
+          "name_es": "Hungría",
+          "name_pt": "Hungria"
+        },
+        {
+          "name": "Czech Republic",
+          "aliases": [
+            "Czechia",
+            "República Checa",
+            "Chequia",
+            "República Tcheca",
+            "Tchequia"
+          ],
+          "fame": 2,
+          "name_es": "República Checa",
+          "name_pt": "República Tcheca"
+        },
+        {
+          "name": "Romania",
+          "aliases": [
+            "Rumanía",
+            "Rumania",
+            "Romenia"
+          ],
+          "fame": 2,
+          "name_es": "Rumanía",
+          "name_pt": "Romênia"
+        },
+        {
+          "name": "Slovakia",
+          "aliases": [
+            "Eslovaquia"
+          ],
+          "fame": 1,
+          "name_es": "Eslovaquia",
+          "name_pt": "Eslováquia"
+        },
+        {
+          "name": "Slovenia",
+          "aliases": [
+            "Eslovenia"
+          ],
+          "fame": 1,
+          "name_es": "Eslovenia",
+          "name_pt": "Eslovênia"
+        },
+        {
+          "name": "Albania",
+          "aliases": [],
+          "fame": 1,
+          "name_pt": "Albânia"
+        },
+        {
+          "name": "Georgia",
+          "aliases": [],
+          "fame": 1,
+          "name_pt": "Geórgia"
+        }
+      ],
+      "answer_count": 24,
+      "prompt_es": "Nombra una selección que jugó la Euro 2024",
+      "subtitle_es": "Las 24 selecciones de la fase final en Alemania",
+      "traps": [
+        {
+          "name": "Bosnia and Herzegovina",
+          "aliases": [
+            "bosnia",
+            "Bosnia-Herzegovina"
+          ],
+          "why": "Bosnia and Herzegovina lost its playoff to Ukraine and did not reach the Euro 2024 finals.",
+          "why_es": "Bosnia y Herzegovina perdió la repesca ante Ucrania y no llegó a la fase final de la Eurocopa 2024.",
+          "why_pt": "A Bósnia e Herzegovina perdeu o playoff para a Ucrânia e não chegou à fase final da Euro 2024."
+        },
+        {
+          "name": "Greece",
+          "aliases": [
+            "Grécia"
+          ],
+          "why": "Greece lost its playoff final to Georgia and did not play at Euro 2024.",
+          "why_es": "Grecia perdió la final de la repesca ante Georgia y no jugó la Eurocopa 2024.",
+          "name_pt": "Grécia",
+          "why_pt": "A Grécia perdeu a final do playoff para a Geórgia e não jogou a Euro 2024."
+        },
+        {
+          "name": "North Macedonia",
+          "aliases": [
+            "macedonia",
+            "Macedônia do Norte"
+          ],
+          "why": "North Macedonia played in qualifying but did not reach the Euro 2024 finals.",
+          "why_es": "Macedonia del Norte disputó la clasificación, pero no llegó a la fase final de la Eurocopa 2024.",
+          "name_pt": "Macedônia do Norte",
+          "why_pt": "A Macedônia do Norte jogou as eliminatórias, mas não chegou à fase final da Euro 2024."
+        },
+        {
+          "name": "Finland",
+          "aliases": [
+            "Finlândia"
+          ],
+          "why": "Finland lost its playoff to Wales and did not reach the Euro 2024 finals.",
+          "why_es": "Finlandia perdió la repesca ante Gales y no llegó a la fase final de la Eurocopa 2024.",
+          "name_pt": "Finlândia",
+          "why_pt": "A Finlândia perdeu o playoff para o País de Gales e não chegou à fase final da Euro 2024."
+        },
+        {
+          "name": "Israel",
+          "aliases": [],
+          "why": "Israel lost its playoff to Iceland and did not reach the Euro 2024 finals.",
+          "why_es": "Israel perdió la repesca ante Islandia y no llegó a la fase final de la Eurocopa 2024.",
+          "why_pt": "Israel perdeu o playoff para a Islândia e não chegou à fase final da Euro 2024."
+        },
+        {
+          "name": "Iceland",
+          "aliases": [
+            "Islandia"
+          ],
+          "why": "Iceland lost its playoff final to Ukraine and did not play at Euro 2024.",
+          "why_es": "Islandia perdió la final de la repesca ante Ucrania y no jugó la Eurocopa 2024.",
+          "name_pt": "Islândia",
+          "why_pt": "A Islândia perdeu a final do playoff para a Ucrânia e não jogou a Euro 2024."
+        },
+        {
+          "name": "Bulgaria",
+          "aliases": [],
+          "why": "Bulgaria did not qualify for the Euro 2024 finals.",
+          "why_es": "Bulgaria no se clasificó para la fase final de la Eurocopa 2024.",
+          "name_pt": "Bulgária",
+          "why_pt": "A Bulgária não se classificou para a fase final da Euro 2024."
+        },
+        {
+          "name": "Wales",
+          "aliases": [
+            "País de Gales",
+            "Gales"
+          ],
+          "why": "Wales lost its playoff final to Poland on penalties and did not play at Euro 2024.",
+          "why_es": "Gales perdió la final de la repesca ante Polonia en los penaltis y no jugó la Eurocopa 2024.",
+          "name_pt": "País de Gales",
+          "why_pt": "O País de Gales perdeu a final do playoff para a Polônia nos pênaltis e não jogou a Euro 2024."
+        }
+      ],
+      "prompt_pt": "Cite uma seleção que jogou a Euro 2024",
+      "subtitle_pt": "As 24 seleções da fase final na Alemanha",
+      "reuse_of": "h016",
+      "first_used": "2026-10-15"
+    },
+    {
+      "id": "f152",
+      "_id": "f152",
+      "prompt": "Name a club that lost a UEFA Cup or Europa League final",
+      "subtitle": "Single-match finals from 1998 to 2025 · Europe's second club competition",
+      "prompt_es": "Nombra un club que perdió una final de la Copa de la UEFA o la Europa League",
+      "subtitle_es": "Finales a partido único de 1998 a 2025 · la segunda competición europea",
+      "difficulty": "easy",
+      "answer_type": "club",
+      "format_family": "final_loser_club",
+      "scoring_version": 2,
+      "answer_count": 22,
+      "clash_note": "",
+      "answers": [
+        {
+          "name": "Lazio",
+          "aliases": [
+            "SS Lazio"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Marseille",
+          "aliases": [
+            "OM",
+            "Olympique de Marseille",
+            "Olympique Marseille",
+            "Olympique de Marsella",
+            "Olympique de Marselha"
+          ],
+          "fame": 4,
+          "name_es": "Olympique de Marsella",
+          "name_pt": "Olympique de Marselha"
+        },
+        {
+          "name": "Arsenal",
+          "aliases": [],
+          "fame": 6
+        },
+        {
+          "name": "Alavés",
+          "aliases": [
+            "Alaves",
+            "Deportivo Alavés"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Borussia Dortmund",
+          "aliases": [
+            "Dortmund",
+            "BVB"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Celtic",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Sporting CP",
+          "aliases": [
+            "Sporting",
+            "Sporting Lisbon",
+            "Sporting de Lisboa"
+          ],
+          "fame": 2,
+          "name_pt": "Sporting"
+        },
+        {
+          "name": "Middlesbrough",
+          "aliases": [
+            "Boro"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Espanyol",
+          "aliases": [
+            "RCD Espanyol"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Rangers",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Werder Bremen",
+          "aliases": [
+            "Werder",
+            "Bremen"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Fulham",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Braga",
+          "aliases": [
+            "SC Braga",
+            "Sporting Braga"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Athletic Bilbao",
+          "aliases": [
+            "Athletic",
+            "Athletic Club",
+            "Bilbao"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Benfica",
+          "aliases": [
+            "SL Benfica"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Dnipro",
+          "aliases": [
+            "Dnipro Dnipropetrovsk"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Liverpool",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Ajax",
+          "aliases": [
+            "AFC Ajax"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Inter Milan",
+          "aliases": [
+            "Inter",
+            "Internazionale",
+            "Inter de Milao"
+          ],
+          "fame": 3,
+          "name_pt": "Inter de Milão"
+        },
+        {
+          "name": "Manchester United",
+          "aliases": [
+            "Man United",
+            "Man Utd",
+            "Man U",
+            "United"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Roma",
+          "aliases": [
+            "AS Roma"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Bayer Leverkusen",
+          "aliases": [
+            "Leverkusen"
+          ],
+          "fame": 3
+        }
+      ],
+      "traps": [
+        {
+          "name": "Sevilla",
+          "aliases": [
+            "Sevilla FC"
+          ],
+          "why": "Sevilla have won all seven of their UEFA Cup and Europa League finals.",
+          "why_es": "El Sevilla ha ganado sus siete finales de la Copa de la UEFA y la Europa League.",
+          "why_pt": "O Sevilla ganhou todas as suas sete finais de Copa da UEFA e Europa League."
+        },
+        {
+          "name": "Atlético Madrid",
+          "aliases": [
+            "Atletico",
+            "Atleti",
+            "Atletico Madrid",
+            "Atlético de Madrid"
+          ],
+          "why": "Atlético won all three of their Europa League finals (2010, 2012, 2018).",
+          "why_es": "El Atlético ganó sus tres finales de la Europa League (2010, 2012 y 2018).",
+          "why_pt": "O Atlético ganhou suas três finais de Europa League (2010, 2012, 2018).",
+          "name_pt": "Atlético de Madrid"
+        },
+        {
+          "name": "Chelsea",
+          "aliases": [],
+          "why": "Chelsea won both of their Europa League finals (2013 and 2019).",
+          "why_es": "El Chelsea ganó sus dos finales de la Europa League (2013 y 2019).",
+          "why_pt": "O Chelsea ganhou suas duas finais de Europa League (2013 e 2019)."
+        }
+      ],
+      "prompt_pt": "Cite um clube que perdeu uma final da Copa da UEFA ou da Europa League",
+      "subtitle_pt": "Finais em jogo único de 1998 a 2025 · A segunda competição de clubes da Europa"
+    },
+    {
+      "id": "f151",
+      "_id": "f151",
+      "prompt": "Won the Zamora Trophy",
+      "subtitle": "LaLiga's award for the goalkeeper who concedes the fewest goals per game, 1990-91 to 2024-25",
+      "prompt_es": "Ganó el Trofeo Zamora",
+      "subtitle_es": "El premio al portero menos goleado de LaLiga, de la 1990-91 a la 2024-25",
+      "difficulty": "medium",
+      "answer_type": "player",
+      "format_family": "award_winner_player",
+      "scoring_version": 2,
+      "answer_count": 21,
+      "clash_note": "",
+      "answers": [
+        {
+          "name": "Abel Resino",
+          "aliases": [
+            "Resino",
+            "Abel"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Francisco Buyo",
+          "aliases": [
+            "Buyo",
+            "Paco Buyo"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Francisco Liaño",
+          "aliases": [
+            "Liaño",
+            "Liano",
+            "Paco Liaño"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Santiago Cañizares",
+          "aliases": [
+            "Cañizares",
+            "Canizares",
+            "Santiago Canizares"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Pedro Jaro",
+          "aliases": [
+            "Jaro"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "José Francisco Molina",
+          "aliases": [
+            "Molina",
+            "Jose Francisco Molina"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Jacques Songo'o",
+          "aliases": [
+            "Songo'o",
+            "Songoo"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Toni Jiménez",
+          "aliases": [
+            "Toni Jimenez",
+            "Jiménez",
+            "Jimenez"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Carlos Roa",
+          "aliases": [
+            "Roa"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Martín Herrera",
+          "aliases": [
+            "Martin Herrera",
+            "Herrera"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Pablo Cavallero",
+          "aliases": [
+            "Cavallero"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Víctor Valdés",
+          "aliases": [
+            "Victor Valdes",
+            "Valdes",
+            "Valdés"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "José Manuel Pinto",
+          "aliases": [
+            "Pinto",
+            "Jose Manuel Pinto"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Roberto Abbondanzieri",
+          "aliases": [
+            "Abbondanzieri",
+            "Pato Abbondanzieri"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Iker Casillas",
+          "aliases": [
+            "Casillas"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Thibaut Courtois",
+          "aliases": [
+            "Courtois"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Claudio Bravo",
+          "aliases": [
+            "Bravo"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Jan Oblak",
+          "aliases": [
+            "Oblak"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Yassine Bounou",
+          "aliases": [
+            "Bounou",
+            "Bono"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Marc-André ter Stegen",
+          "aliases": [
+            "Ter Stegen",
+            "Marc-Andre ter Stegen",
+            "Stegen"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Unai Simón",
+          "aliases": [
+            "Unai Simon",
+            "Simón",
+            "Simon"
+          ],
+          "fame": 4
+        }
+      ],
+      "traps": [
+        {
+          "name": "Keylor Navas",
+          "aliases": [
+            "Navas",
+            "Keylor"
+          ],
+          "why": "Keylor won three Champions Leagues with Madrid but never the Zamora.",
+          "why_es": "Keylor ganó tres Champions con el Madrid, pero nunca el Zamora.",
+          "why_pt": "Keylor ganhou três Champions com o Real, mas nunca o Zamora."
+        },
+        {
+          "name": "David de Gea",
+          "aliases": [
+            "De Gea"
+          ],
+          "why": "De Gea's LaLiga spell at Atlético ended in 2011 without a Zamora.",
+          "why_es": "La etapa de De Gea en el Atlético terminó en 2011 sin ningún Zamora.",
+          "why_pt": "A passagem de De Gea por LaLiga no Atlético terminou em 2011 sem um Zamora."
+        }
+      ],
+      "prompt_pt": "Ganhou o Troféu Zamora",
+      "subtitle_pt": "O prêmio de LaLiga para o goleiro com menos gols sofridos por jogo, de 1990-91 a 2024-25"
+    },
+    {
+      "id": "f154",
+      "_id": "f154",
+      "prompt": "Name a manager who won the Copa Libertadores",
+      "subtitle": "Winning coaches from 2000 to 2025 · South America's Champions League",
+      "prompt_es": "Nombra un entrenador que ganó la Copa Libertadores",
+      "subtitle_es": "Entrenadores campeones de 2000 a 2025 · la Champions de Sudamérica",
+      "difficulty": "hard",
+      "answer_type": "manager",
+      "format_family": "cup_winner_manager",
+      "scoring_version": 2,
+      "answer_count": 21,
+      "clash_note": "",
+      "answers": [
+        {
+          "name": "Carlos Bianchi",
+          "aliases": [
+            "Bianchi",
+            "Virrey"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Nery Pumpido",
+          "aliases": [
+            "Pumpido"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Luis Fernando Montoya",
+          "aliases": [
+            "Montoya"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Paulo Autuori",
+          "aliases": [
+            "Autuori"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Abel Braga",
+          "aliases": [
+            "Braga"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Miguel Ángel Russo",
+          "aliases": [
+            "Russo",
+            "Miguel Angel Russo"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Edgardo Bauza",
+          "aliases": [
+            "Bauza",
+            "Patón Bauza"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Alejandro Sabella",
+          "aliases": [
+            "Sabella"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Celso Roth",
+          "aliases": [
+            "Roth"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Muricy Ramalho",
+          "aliases": [
+            "Muricy",
+            "Ramalho"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Tite",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Cuca",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "Marcelo Gallardo",
+          "aliases": [
+            "Gallardo",
+            "Muñeco Gallardo"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Reinaldo Rueda",
+          "aliases": [
+            "Rueda"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Renato Gaúcho",
+          "aliases": [
+            "Renato Gaucho",
+            "Renato Portaluppi",
+            "Portaluppi"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Jorge Jesus",
+          "aliases": [
+            "Jesus"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Abel Ferreira",
+          "aliases": [
+            "Ferreira"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Dorival Júnior",
+          "aliases": [
+            "Dorival",
+            "Dorival Junior"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Fernando Diniz",
+          "aliases": [
+            "Diniz"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Artur Jorge",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "Filipe Luís",
+          "aliases": [
+            "Filipe Luis",
+            "Felipe Luis"
+          ],
+          "fame": 4
+        }
+      ],
+      "traps": [
+        {
+          "name": "Jorge Sampaoli",
+          "aliases": [
+            "Sampaoli"
+          ],
+          "why": "Sampaoli won the Copa Sudamericana and the Copa América, never the Libertadores.",
+          "why_es": "Sampaoli ganó la Sudamericana y la Copa América, nunca la Libertadores.",
+          "why_pt": "Sampaoli ganhou a Copa Sul-Americana e a Copa América, nunca a Libertadores."
+        },
+        {
+          "name": "Marcelo Bielsa",
+          "aliases": [
+            "Bielsa"
+          ],
+          "why": "Bielsa never won the Libertadores.",
+          "why_es": "Bielsa nunca ganó la Libertadores.",
+          "why_pt": "Bielsa nunca ganhou a Libertadores."
+        }
+      ],
+      "prompt_pt": "Cite um técnico que ganhou a Copa Libertadores",
+      "subtitle_pt": "Técnicos campeões de 2000 a 2025 · A Champions League da América do Sul"
+    },
+    {
+      "id": "g002r1",
+      "_id": "g002r1",
+      "prompt": "Name a Frenchman who played for Arsenal",
+      "subtitle": "Premier League, 1992–2025",
+      "difficulty": "easy",
+      "answer_type": "player",
+      "format_family": "club_nationality",
+      "scoring_version": 2,
+      "clash_note": "Only Premier League appearances count. Jérémie Aliadière qualifies; Jeff Reine-Adélaïde and Rémi Garde-era goalkeeper Guillaume Warmuz do not. Kaba Diawara is excluded because he represented Guinea at senior level.",
+      "answer_count": 28,
+      "answers": [
+        {
+          "name": "Thierry Henry",
+          "aliases": [
+            "Titi"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Patrick Vieira",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Olivier Giroud",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Nicolas Anelka",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Gaël Clichy",
+          "aliases": [
+            "Gael Clichy"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "William Gallas",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Laurent Koscielny",
+          "aliases": [
+            "Kos"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Alexandre Lacazette",
+          "aliases": [
+            "Laca"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Samir Nasri",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Emmanuel Petit",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Robert Pires",
+          "aliases": [
+            "Robert Pirès"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Bacary Sagna",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "William Saliba",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Sylvain Wiltord",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Francis Coquelin",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Mathieu Debuchy",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Abou Diaby",
+          "aliases": [
+            "Abou Vassiriki Diaby"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Lassana Diarra",
+          "aliases": [
+            "Lass Diarra"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Mathieu Flamini",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Matteo Guendouzi",
+          "aliases": [
+            "Mattéo Guendouzi"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Mikaël Silvestre",
+          "aliases": [
+            "Mikael Silvestre"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Jérémie Aliadière",
+          "aliases": [
+            "Jeremie Aliadiere"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Gilles Grimandi",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "Pascal Cygan",
+          "aliases": [],
+          "fame": 1
+        },
+        {
+          "name": "Rémi Garde",
+          "aliases": [
+            "Remi Garde"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "David Grondin",
+          "aliases": [],
+          "fame": 1
+        },
+        {
+          "name": "Yaya Sanogo",
+          "aliases": [],
+          "fame": 1
+        },
+        {
+          "name": "Sébastien Squillaci",
+          "aliases": [
+            "Sebastien Squillaci"
+          ],
+          "fame": 1
+        }
+      ],
+      "prompt_es": "Nombra un francés que haya jugado en el Arsenal",
+      "subtitle_es": "Premier League, 1992–2025",
+      "prompt_pt": "Cite um francês que jogou no Arsenal",
+      "subtitle_pt": "Premier League, 1992–2025",
+      "reuse_of": "g002",
+      "first_used": "2026-10-12"
+    }
+  ]
+}
