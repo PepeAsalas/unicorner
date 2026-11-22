@@ -1,0 +1,3470 @@
+[
+ {
+  "id": "d18-name-a-club-that-won-the-european-cup-winners-cup-1960-61-to-1998-99",
+  "template": 18,
+  "prompt": "Name a club that won the European Cup Winners' Cup (1960-61 to 1998-99)",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "FC Barcelona",
+    "aliases": [
+     "Barcelona",
+     "Barça",
+     "Barca"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Chelsea",
+    "aliases": [
+     "Chelsea FC"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "AC Milan",
+    "aliases": [
+     "Milan"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Arsenal",
+    "aliases": [
+     "Arsenal FC"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Manchester United",
+    "aliases": [
+     "Man United",
+     "Man Utd",
+     "Manchester Utd"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Atlético Madrid",
+    "aliases": [
+     "Atletico Madrid",
+     "Atlético",
+     "Atletico",
+     "Atleti"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Tottenham Hotspur",
+    "aliases": [
+     "Tottenham",
+     "Spurs"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "West Ham United",
+    "aliases": [
+     "West Ham"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Borussia Dortmund",
+    "aliases": [
+     "Dortmund",
+     "BVB"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Bayern Munich",
+    "aliases": [
+     "Bayern",
+     "Bayern München",
+     "FC Bayern"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Manchester City",
+    "aliases": [
+     "Man City"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Juventus",
+    "aliases": [
+     "Juve"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Paris Saint-Germain",
+    "aliases": [
+     "PSG",
+     "Paris SG"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "SS Lazio",
+    "aliases": [
+     "Lazio"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Parma",
+    "aliases": [
+     "Parma Calcio",
+     "Parma AC"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Valencia CF",
+    "aliases": [
+     "Valencia"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Everton",
+    "aliases": [
+     "Everton FC"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Rangers",
+    "aliases": [
+     "Glasgow Rangers",
+     "Rangers FC"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Ajax",
+    "aliases": [
+     "AFC Ajax",
+     "Ajax Amsterdam"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Dynamo Kyiv",
+    "aliases": [
+     "Dynamo Kiev",
+     "Dinamo Kiev",
+     "Dinamo Kyiv"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Anderlecht",
+    "aliases": [
+     "RSC Anderlecht"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Hamburger SV",
+    "aliases": [
+     "Hamburg",
+     "HSV"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Real Zaragoza",
+    "aliases": [
+     "Zaragoza"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Werder Bremen",
+    "aliases": [
+     "Werder",
+     "Bremen"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "UC Sampdoria",
+    "aliases": [
+     "Sampdoria",
+     "Samp"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "ACF Fiorentina",
+    "aliases": [
+     "Fiorentina"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Sporting CP",
+    "aliases": [
+     "Sporting Lisbon",
+     "Sporting"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Aberdeen",
+    "aliases": [
+     "Aberdeen FC"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "KV Mechelen",
+    "aliases": [
+     "Mechelen",
+     "Malines"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Slovan Bratislava",
+    "aliases": [
+     "Slovan"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "1. FC Magdeburg",
+    "aliases": [
+     "Magdeburg"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Dinamo Tbilisi",
+    "aliases": [
+     "Dynamo Tbilisi"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Real Madrid",
+    "why": "Lost the 1971 and 1983 finals and never won the Cup Winners' Cup."
+   },
+   {
+    "name": "Liverpool",
+    "why": "Lost the 1966 final to Borussia Dortmund; never won it."
+   },
+   {
+    "name": "Leeds United",
+    "why": "Lost the 1973 final to Milan."
+   },
+   {
+    "name": "Rapid Wien",
+    "why": "Lost the 1985 and 1996 finals."
+   },
+   {
+    "name": "VfB Stuttgart",
+    "why": "Lost the 1998 final to Chelsea."
+   },
+   {
+    "name": "RCD Mallorca",
+    "why": "Lost the last final, in 1999, to Lazio."
+   },
+   {
+    "name": "FC Porto",
+    "why": "Lost the 1984 final to Juventus."
+   }
+  ],
+  "prompt_es": "Nombra un club que ganó la Recopa de Europa (de 1960-61 a 1998-99)",
+  "prompt_pt": "Cite um clube que venceu a Recopa Europeia (de 1960-61 a 1998-99)"
+ },
+ {
+  "id": "d18-name-a-club-that-played-in-a-european-cup-winners-cup-final-1960-61-to-1998-99",
+  "template": 18,
+  "prompt": "Name a club that played in a European Cup Winners' Cup final (1960-61 to 1998-99)",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "FC Barcelona",
+    "aliases": [
+     "Barcelona",
+     "Barça",
+     "Barca"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Real Madrid",
+    "aliases": [
+     "Real Madrid CF",
+     "Madrid"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Chelsea",
+    "aliases": [
+     "Chelsea FC"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "AC Milan",
+    "aliases": [
+     "Milan"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Arsenal",
+    "aliases": [
+     "Arsenal FC"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Manchester United",
+    "aliases": [
+     "Man United",
+     "Man Utd",
+     "Manchester Utd"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Liverpool",
+    "aliases": [
+     "Liverpool FC"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Atlético Madrid",
+    "aliases": [
+     "Atletico Madrid",
+     "Atlético",
+     "Atletico",
+     "Atleti"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Tottenham Hotspur",
+    "aliases": [
+     "Tottenham",
+     "Spurs"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "West Ham United",
+    "aliases": [
+     "West Ham"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Borussia Dortmund",
+    "aliases": [
+     "Dortmund",
+     "BVB"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Bayern Munich",
+    "aliases": [
+     "Bayern",
+     "Bayern München",
+     "FC Bayern"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Manchester City",
+    "aliases": [
+     "Man City"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Juventus",
+    "aliases": [
+     "Juve"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Paris Saint-Germain",
+    "aliases": [
+     "PSG",
+     "Paris SG"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "SS Lazio",
+    "aliases": [
+     "Lazio"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Parma",
+    "aliases": [
+     "Parma Calcio",
+     "Parma AC"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Valencia CF",
+    "aliases": [
+     "Valencia"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Leeds United",
+    "aliases": [
+     "Leeds"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "FC Porto",
+    "aliases": [
+     "Porto"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "AS Monaco",
+    "aliases": [
+     "Monaco"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "VfB Stuttgart",
+    "aliases": [
+     "Stuttgart"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Everton",
+    "aliases": [
+     "Everton FC"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Rangers",
+    "aliases": [
+     "Glasgow Rangers",
+     "Rangers FC"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Ajax",
+    "aliases": [
+     "AFC Ajax",
+     "Ajax Amsterdam"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Dynamo Kyiv",
+    "aliases": [
+     "Dynamo Kiev",
+     "Dinamo Kiev",
+     "Dinamo Kyiv"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Anderlecht",
+    "aliases": [
+     "RSC Anderlecht"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Hamburger SV",
+    "aliases": [
+     "Hamburg",
+     "HSV"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Real Zaragoza",
+    "aliases": [
+     "Zaragoza"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Werder Bremen",
+    "aliases": [
+     "Werder",
+     "Bremen"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "UC Sampdoria",
+    "aliases": [
+     "Sampdoria",
+     "Samp"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "ACF Fiorentina",
+    "aliases": [
+     "Fiorentina"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Sporting CP",
+    "aliases": [
+     "Sporting Lisbon",
+     "Sporting"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Aberdeen",
+    "aliases": [
+     "Aberdeen FC"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "RCD Mallorca",
+    "aliases": [
+     "Mallorca"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "KV Mechelen",
+    "aliases": [
+     "Mechelen",
+     "Malines"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Slovan Bratislava",
+    "aliases": [
+     "Slovan"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "TSV 1860 Munich",
+    "aliases": [
+     "1860 Munich",
+     "1860 München",
+     "1860"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Fortuna Düsseldorf",
+    "aliases": [
+     "Düsseldorf",
+     "Dusseldorf",
+     "Fortuna Dusseldorf"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Standard Liège",
+    "aliases": [
+     "Standard Liege",
+     "Standard"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Rapid Wien",
+    "aliases": [
+     "Rapid Vienna",
+     "Rapid"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Austria Wien",
+    "aliases": [
+     "Austria Vienna"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Ferencváros",
+    "aliases": [
+     "Ferencvaros",
+     "Fradi"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Royal Antwerp",
+    "aliases": [
+     "Antwerp"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Dynamo Moscow",
+    "aliases": [
+     "Dinamo Moscow"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "1. FC Magdeburg",
+    "aliases": [
+     "Magdeburg"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Dinamo Tbilisi",
+    "aliases": [
+     "Dynamo Tbilisi"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "MTK Budapest",
+    "aliases": [
+     "MTK"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Górnik Zabrze",
+    "aliases": [
+     "Gornik Zabrze",
+     "Górnik",
+     "Gornik"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "FC Carl Zeiss Jena",
+    "aliases": [
+     "Carl Zeiss Jena",
+     "Jena"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "1. FC Lokomotive Leipzig",
+    "aliases": [
+     "Lokomotive Leipzig",
+     "Lok Leipzig"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Inter Milan",
+    "why": "Never reached a Cup Winners' Cup final."
+   },
+   {
+    "name": "Celtic",
+    "why": "Reached semi-finals but never a Cup Winners' Cup final."
+   },
+   {
+    "name": "Benfica",
+    "why": "Never reached a Cup Winners' Cup final."
+   },
+   {
+    "name": "Feyenoord",
+    "why": "Never reached a Cup Winners' Cup final."
+   }
+  ],
+  "prompt_es": "Nombra un club que jugó una final de la Recopa de Europa (de 1960-61 a 1998-99)",
+  "prompt_pt": "Cite um clube que jogou uma final da Recopa Europeia (de 1960-61 a 1998-99)"
+ },
+ {
+  "id": "d18-name-a-club-that-won-the-uefa-super-cup-between-1973-and-2025",
+  "template": 18,
+  "prompt": "Name a club that won the UEFA Super Cup between 1973 and 2025",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Real Madrid",
+    "aliases": [
+     "Real Madrid CF",
+     "Madrid"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "FC Barcelona",
+    "aliases": [
+     "Barcelona",
+     "Barça",
+     "Barca"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "AC Milan",
+    "aliases": [
+     "Milan"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Liverpool",
+    "aliases": [
+     "Liverpool FC"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Atlético Madrid",
+    "aliases": [
+     "Atletico Madrid",
+     "Atlético",
+     "Atletico",
+     "Atleti"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Bayern Munich",
+    "aliases": [
+     "Bayern",
+     "Bayern München",
+     "FC Bayern"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Chelsea",
+    "aliases": [
+     "Chelsea FC"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Manchester United",
+    "aliases": [
+     "Man United",
+     "Man Utd",
+     "Manchester Utd"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Manchester City",
+    "aliases": [
+     "Man City"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Juventus",
+    "aliases": [
+     "Juve"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Paris Saint-Germain",
+    "aliases": [
+     "PSG",
+     "Paris SG"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Sevilla FC",
+    "aliases": [
+     "Sevilla",
+     "Seville"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Valencia CF",
+    "aliases": [
+     "Valencia"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Ajax",
+    "aliases": [
+     "AFC Ajax",
+     "Ajax Amsterdam"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "FC Porto",
+    "aliases": [
+     "Porto"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "SS Lazio",
+    "aliases": [
+     "Lazio"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Parma",
+    "aliases": [
+     "Parma Calcio",
+     "Parma AC"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Galatasaray",
+    "aliases": [
+     "Galatasaray SK",
+     "Gala"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Zenit Saint Petersburg",
+    "aliases": [
+     "Zenit",
+     "Zenit St Petersburg"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Aston Villa",
+    "aliases": [
+     "Villa"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Nottingham Forest",
+    "aliases": [
+     "Forest",
+     "Nottm Forest"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Anderlecht",
+    "aliases": [
+     "RSC Anderlecht"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Dynamo Kyiv",
+    "aliases": [
+     "Dynamo Kiev",
+     "Dinamo Kiev",
+     "Dinamo Kyiv"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Aberdeen",
+    "aliases": [
+     "Aberdeen FC"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "KV Mechelen",
+    "aliases": [
+     "Mechelen",
+     "Malines"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Steaua București",
+    "aliases": [
+     "Steaua Bucharest",
+     "Steaua Bucuresti",
+     "Steaua",
+     "FCSB"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Rangers",
+    "why": "Lost the unofficial 1972 match to Ajax and never won the Super Cup."
+   },
+   {
+    "name": "Inter Milan",
+    "why": "Lost the 2010 Super Cup to Atlético Madrid; never won it."
+   },
+   {
+    "name": "Tottenham Hotspur",
+    "why": "Lost the 2025 Super Cup to PSG on penalties."
+   },
+   {
+    "name": "Hamburger SV",
+    "why": "Lost the 1977 and 1983 Super Cups."
+   },
+   {
+    "name": "Borussia Dortmund",
+    "why": "Lost the 1997 Super Cup to Barcelona."
+   },
+   {
+    "name": "Arsenal",
+    "why": "Lost the 1994 Super Cup to Milan."
+   },
+   {
+    "name": "Villarreal",
+    "why": "Lost the 2021 Super Cup to Chelsea."
+   },
+   {
+    "name": "Eintracht Frankfurt",
+    "why": "Lost the 2022 Super Cup to Real Madrid."
+   },
+   {
+    "name": "Shakhtar Donetsk",
+    "why": "Lost the 2009 Super Cup to Barcelona."
+   }
+  ],
+  "prompt_es": "Nombra un club que ganó la Supercopa de Europa entre 1973 y 2025",
+  "prompt_pt": "Cite um clube que venceu a Supercopa da UEFA entre 1973 e 2025"
+ },
+ {
+  "id": "d18-name-a-club-that-played-in-a-european-cup-final-between-1955-56-and-1991-92",
+  "template": 18,
+  "prompt": "Name a club that played in a European Cup final between 1955-56 and 1991-92",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Real Madrid",
+    "aliases": [
+     "Real Madrid CF",
+     "Madrid"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "AC Milan",
+    "aliases": [
+     "Milan"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Liverpool",
+    "aliases": [
+     "Liverpool FC"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Benfica",
+    "aliases": [
+     "SL Benfica"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Inter Milan",
+    "aliases": [
+     "Inter",
+     "Internazionale"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Ajax",
+    "aliases": [
+     "AFC Ajax",
+     "Ajax Amsterdam"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Bayern Munich",
+    "aliases": [
+     "Bayern",
+     "Bayern München",
+     "FC Bayern"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Manchester United",
+    "aliases": [
+     "Man United",
+     "Man Utd",
+     "Manchester Utd"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "FC Barcelona",
+    "aliases": [
+     "Barcelona",
+     "Barça",
+     "Barca"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Juventus",
+    "aliases": [
+     "Juve"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Nottingham Forest",
+    "aliases": [
+     "Forest",
+     "Nottm Forest"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Celtic",
+    "aliases": [
+     "Celtic FC",
+     "Glasgow Celtic"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Aston Villa",
+    "aliases": [
+     "Villa"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Leeds United",
+    "aliases": [
+     "Leeds"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "FC Porto",
+    "aliases": [
+     "Porto"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "PSV Eindhoven",
+    "aliases": [
+     "PSV"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Olympique de Marseille",
+    "aliases": [
+     "Marseille",
+     "OM"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Hamburger SV",
+    "aliases": [
+     "Hamburg",
+     "HSV"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "AS Roma",
+    "aliases": [
+     "Roma"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Atlético Madrid",
+    "aliases": [
+     "Atletico Madrid",
+     "Atlético",
+     "Atletico",
+     "Atleti"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Feyenoord",
+    "aliases": [
+     "Feyenoord Rotterdam"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Red Star Belgrade",
+    "aliases": [
+     "Red Star",
+     "Crvena Zvezda"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Steaua București",
+    "aliases": [
+     "Steaua Bucharest",
+     "Steaua Bucuresti",
+     "Steaua",
+     "FCSB"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "UC Sampdoria",
+    "aliases": [
+     "Sampdoria",
+     "Samp"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Borussia Mönchengladbach",
+    "aliases": [
+     "Gladbach",
+     "Mönchengladbach",
+     "Monchengladbach"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Eintracht Frankfurt",
+    "aliases": [
+     "Frankfurt",
+     "Eintracht"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "ACF Fiorentina",
+    "aliases": [
+     "Fiorentina"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "AS Saint-Étienne",
+    "aliases": [
+     "Saint-Étienne",
+     "Saint-Etienne",
+     "St Etienne"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Club Brugge",
+    "aliases": [
+     "Brugge",
+     "Club Bruges",
+     "Bruges"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Malmö FF",
+    "aliases": [
+     "Malmö",
+     "Malmo",
+     "Malmo FF"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Panathinaikos",
+    "aliases": [
+     "Panathinaikos FC"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Stade de Reims",
+    "aliases": [
+     "Reims"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Partizan",
+    "aliases": [
+     "Partizan Belgrade"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Arsenal",
+    "why": "Reached its first European Cup or Champions League final in 2006."
+   },
+   {
+    "name": "Chelsea",
+    "why": "Reached its first Champions League final in 2008."
+   },
+   {
+    "name": "Borussia Dortmund",
+    "why": "Reached its first final in 1997."
+   },
+   {
+    "name": "Valencia CF",
+    "why": "Reached its first final in 2000."
+   },
+   {
+    "name": "Dynamo Kyiv",
+    "why": "Never reached a European Cup final."
+   },
+   {
+    "name": "Tottenham Hotspur",
+    "why": "Reached its first final in 2019."
+   }
+  ],
+  "prompt_es": "Nombra un club que jugó una final de la Copa de Europa entre 1955-56 y 1991-92",
+  "prompt_pt": "Cite um clube que jogou uma final da Taça dos Campeões Europeus entre 1955-56 e 1991-92"
+ },
+ {
+  "id": "d18-name-a-club-that-won-the-uefa-cup-between-1971-72-and-1999-2000",
+  "template": 18,
+  "prompt": "Name a club that won the UEFA Cup between 1971-72 and 1999-2000",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Inter Milan",
+    "aliases": [
+     "Inter",
+     "Internazionale"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Juventus",
+    "aliases": [
+     "Juve"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Liverpool",
+    "aliases": [
+     "Liverpool FC"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Real Madrid",
+    "aliases": [
+     "Real Madrid CF",
+     "Madrid"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Tottenham Hotspur",
+    "aliases": [
+     "Tottenham",
+     "Spurs"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Parma",
+    "aliases": [
+     "Parma Calcio",
+     "Parma AC"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Bayern Munich",
+    "aliases": [
+     "Bayern",
+     "Bayern München",
+     "FC Bayern"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Ajax",
+    "aliases": [
+     "AFC Ajax",
+     "Ajax Amsterdam"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "SSC Napoli",
+    "aliases": [
+     "Napoli"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Galatasaray",
+    "aliases": [
+     "Galatasaray SK",
+     "Gala"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Borussia Mönchengladbach",
+    "aliases": [
+     "Gladbach",
+     "Mönchengladbach",
+     "Monchengladbach"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "FC Schalke 04",
+    "aliases": [
+     "Schalke",
+     "Schalke 04"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Feyenoord",
+    "aliases": [
+     "Feyenoord Rotterdam"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "PSV Eindhoven",
+    "aliases": [
+     "PSV"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Bayer Leverkusen",
+    "aliases": [
+     "Leverkusen",
+     "Bayer 04 Leverkusen"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Eintracht Frankfurt",
+    "aliases": [
+     "Frankfurt",
+     "Eintracht"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Anderlecht",
+    "aliases": [
+     "RSC Anderlecht"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Ipswich Town",
+    "aliases": [
+     "Ipswich"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "IFK Göteborg",
+    "aliases": [
+     "Göteborg",
+     "Goteborg",
+     "IFK Goteborg",
+     "Gothenburg",
+     "IFK Gothenburg"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Sevilla FC",
+    "why": "Won its first UEFA Cup in 2006."
+   },
+   {
+    "name": "Arsenal",
+    "why": "Lost the 2000 final to Galatasaray."
+   },
+   {
+    "name": "Leeds United",
+    "why": "Won the Inter-Cities Fairs Cup (1968, 1971), not the UEFA Cup."
+   },
+   {
+    "name": "Wolverhampton Wanderers",
+    "why": "Lost the first UEFA Cup final, in 1972, to Tottenham."
+   },
+   {
+    "name": "Borussia Dortmund",
+    "why": "Lost the 1993 final to Juventus."
+   },
+   {
+    "name": "SS Lazio",
+    "why": "Lost the 1998 final to Inter."
+   },
+   {
+    "name": "Olympique de Marseille",
+    "why": "Lost the 1999 final to Parma."
+   },
+   {
+    "name": "FC Porto",
+    "why": "Won the UEFA Cup only from 2003 on."
+   },
+   {
+    "name": "Valencia CF",
+    "why": "Won the UEFA Cup only in 2004 (and the Fairs Cup earlier)."
+   }
+  ],
+  "prompt_es": "Nombra un club que ganó la Copa de la UEFA entre 1971-72 y 1999-2000",
+  "prompt_pt": "Cite um clube que venceu a Taça UEFA entre 1971-72 e 1999-2000"
+ },
+ {
+  "id": "d18-name-a-club-that-won-the-inter-cities-fairs-cup-1955-58-to-1970-71",
+  "template": 18,
+  "prompt": "Name a club that won the Inter-Cities Fairs Cup (1955-58 to 1970-71)",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "FC Barcelona",
+    "aliases": [
+     "Barcelona",
+     "Barça",
+     "Barca"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Leeds United",
+    "aliases": [
+     "Leeds"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Valencia CF",
+    "aliases": [
+     "Valencia"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Arsenal",
+    "aliases": [
+     "Arsenal FC"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Newcastle United",
+    "aliases": [
+     "Newcastle"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "AS Roma",
+    "aliases": [
+     "Roma"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Real Zaragoza",
+    "aliases": [
+     "Zaragoza"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Dinamo Zagreb",
+    "aliases": [
+     "Dynamo Zagreb"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Ferencváros",
+    "aliases": [
+     "Ferencvaros",
+     "Fradi"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "London XI",
+    "why": "Lost the first final (1955-58) to Barcelona."
+   },
+   {
+    "name": "Birmingham City",
+    "why": "Lost the 1960 and 1961 finals."
+   },
+   {
+    "name": "Juventus",
+    "why": "Lost the 1965 and 1971 finals."
+   },
+   {
+    "name": "Tottenham Hotspur",
+    "why": "Won the first UEFA Cup in 1972, which replaced the Fairs Cup."
+   },
+   {
+    "name": "Újpest",
+    "why": "Lost the 1969 final to Newcastle."
+   },
+   {
+    "name": "Anderlecht",
+    "why": "Lost the 1970 final to Arsenal."
+   }
+  ],
+  "prompt_es": "Nombra un club que ganó la Copa de Ferias (de 1955-58 a 1970-71)",
+  "prompt_pt": "Cite um clube que venceu a Taça das Cidades com Feiras (de 1955-58 a 1970-71)"
+ },
+ {
+  "id": "d19-name-a-club-from-baden-wurttemberg-that-played-in-the-bundesliga-up-to-2025-26",
+  "template": 19,
+  "prompt": "Name a club from Baden-Württemberg that played in the Bundesliga up to 2025-26",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "VfB Stuttgart",
+    "aliases": [
+     "Stuttgart"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "SC Freiburg",
+    "aliases": [
+     "Freiburg"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "TSG 1899 Hoffenheim",
+    "aliases": [
+     "Hoffenheim",
+     "TSG Hoffenheim"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Karlsruher SC",
+    "aliases": [
+     "Karlsruhe",
+     "KSC"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "1. FC Heidenheim",
+    "aliases": [
+     "Heidenheim",
+     "FC Heidenheim"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "SV Waldhof Mannheim",
+    "aliases": [
+     "Waldhof Mannheim",
+     "Waldhof",
+     "Mannheim"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Stuttgarter Kickers",
+    "aliases": [
+     "Kickers Stuttgart"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "SSV Ulm 1846",
+    "aliases": [
+     "Ulm",
+     "SSV Ulm"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Bayern Munich",
+    "why": "From Bavaria, not Baden-Württemberg."
+   },
+   {
+    "name": "1. FC Kaiserslautern",
+    "why": "From Rhineland-Palatinate."
+   },
+   {
+    "name": "1. FSV Mainz 05",
+    "why": "From Rhineland-Palatinate."
+   },
+   {
+    "name": "FC Augsburg",
+    "why": "From Bavaria."
+   },
+   {
+    "name": "SV Sandhausen",
+    "why": "From Baden-Württemberg, but has never played in the Bundesliga."
+   },
+   {
+    "name": "Kickers Offenbach",
+    "why": "From Hesse, not Baden-Württemberg."
+   },
+   {
+    "name": "VfR Mannheim",
+    "why": "Has never played in the Bundesliga."
+   }
+  ],
+  "prompt_es": "Nombra un club de Baden-Wurtemberg que haya jugado en la Bundesliga hasta 2025-26",
+  "prompt_pt": "Cite um clube de Baden-Württemberg que jogou na Bundesliga até 2025-26"
+ },
+ {
+  "id": "d19-name-a-club-from-istanbul-that-played-in-the-turkish-super-lig-up-to-2025-26",
+  "template": 19,
+  "prompt": "Name a club from Istanbul that played in the Turkish Süper Lig up to 2025-26",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Galatasaray",
+    "aliases": [
+     "Galatasaray SK",
+     "Gala"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Fenerbahçe",
+    "aliases": [
+     "Fenerbahce",
+     "Fener"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Beşiktaş",
+    "aliases": [
+     "Besiktas",
+     "BJK"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "İstanbul Başakşehir",
+    "aliases": [
+     "Başakşehir",
+     "Basaksehir",
+     "Istanbul Basaksehir",
+     "Istanbul BB",
+     "İstanbul Büyükşehir Belediyespor"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Kasımpaşa",
+    "aliases": [
+     "Kasimpasa"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Fatih Karagümrük",
+    "aliases": [
+     "Karagümrük",
+     "Karagumruk",
+     "Fatih Karagumruk"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Eyüpspor",
+    "aliases": [
+     "Eyupspor",
+     "Eyup"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "İstanbulspor",
+    "aliases": [
+     "Istanbulspor"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Pendikspor",
+    "aliases": [
+     "Pendik"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Ümraniyespor",
+    "aliases": [
+     "Umraniyespor",
+     "Ümraniye",
+     "Umraniye"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Sarıyer",
+    "aliases": [
+     "Sariyer",
+     "Sarıyer SK"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Zeytinburnuspor",
+    "aliases": [
+     "Zeytinburnu"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Vefa",
+    "aliases": [
+     "Vefa SK"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Feriköy",
+    "aliases": [
+     "Ferikoy"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Beykozspor",
+    "aliases": [
+     "Beykoz"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Bakırköyspor",
+    "aliases": [
+     "Bakirkoyspor",
+     "Bakırköy",
+     "Bakirkoy"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Adalet",
+    "aliases": [
+     "Adalet SK"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Beyoğluspor",
+    "aliases": [
+     "Beyogluspor",
+     "Beyoğlu",
+     "Beyoglu"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Yeşildirek",
+    "aliases": [
+     "Yesildirek"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Trabzonspor",
+    "why": "From Trabzon, not Istanbul."
+   },
+   {
+    "name": "Kocaelispor",
+    "why": "From İzmit (Kocaeli), not Istanbul."
+   },
+   {
+    "name": "Bursaspor",
+    "why": "From Bursa."
+   },
+   {
+    "name": "Göztepe",
+    "why": "From İzmir."
+   },
+   {
+    "name": "Kartalspor",
+    "why": "From Istanbul, but has never played in the Süper Lig."
+   },
+   {
+    "name": "Tuzlaspor",
+    "why": "From Istanbul, but has never played in the Süper Lig."
+   }
+  ],
+  "prompt_es": "Nombra un club de Estambul que haya jugado en la Süper Lig turca hasta 2025-26",
+  "prompt_pt": "Cite um clube de Istambul que jogou na Süper Lig turca até 2025-26"
+ },
+ {
+  "id": "d21-name-a-club-promoted-to-the-premier-league-in-the-summers-of-1993-to-2014-automatic-promotion-or-play-offs",
+  "template": 21,
+  "prompt": "Name a club promoted to the Premier League in the summers of 1993 to 2014 (automatic promotion or play-offs)",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Newcastle United",
+    "aliases": [
+     "Newcastle"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Manchester City",
+    "aliases": [
+     "Man City"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "West Ham United",
+    "aliases": [
+     "West Ham"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Leicester City",
+    "aliases": [
+     "Leicester"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Sunderland",
+    "aliases": [
+     "Sunderland AFC"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Crystal Palace",
+    "aliases": [
+     "Palace"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Nottingham Forest",
+    "aliases": [
+     "Forest",
+     "Nottm Forest"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "West Bromwich Albion",
+    "aliases": [
+     "West Brom",
+     "WBA"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Southampton",
+    "aliases": [
+     "Saints"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Fulham",
+    "aliases": [
+     "Fulham FC"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Blackburn Rovers",
+    "aliases": [
+     "Blackburn"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Middlesbrough",
+    "aliases": [
+     "Boro"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Bolton Wanderers",
+    "aliases": [
+     "Bolton"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Norwich City",
+    "aliases": [
+     "Norwich"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Birmingham City",
+    "aliases": [
+     "Birmingham"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Wolverhampton Wanderers",
+    "aliases": [
+     "Wolves",
+     "Wolverhampton"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Stoke City",
+    "aliases": [
+     "Stoke"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Hull City",
+    "aliases": [
+     "Hull"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Burnley",
+    "aliases": [
+     "Burnley FC"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Swansea City",
+    "aliases": [
+     "Swansea"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Queens Park Rangers",
+    "aliases": [
+     "QPR"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Portsmouth",
+    "aliases": [
+     "Pompey"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Wigan Athletic",
+    "aliases": [
+     "Wigan"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Watford",
+    "aliases": [
+     "Watford FC"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Reading",
+    "aliases": [
+     "Reading FC"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Cardiff City",
+    "aliases": [
+     "Cardiff"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Derby County",
+    "aliases": [
+     "Derby"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Charlton Athletic",
+    "aliases": [
+     "Charlton"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Ipswich Town",
+    "aliases": [
+     "Ipswich"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Sheffield United",
+    "aliases": [
+     "Sheff Utd",
+     "Sheffield Utd"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Blackpool",
+    "aliases": [
+     "Blackpool FC"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Bradford City",
+    "aliases": [
+     "Bradford"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Barnsley",
+    "aliases": [
+     "Barnsley FC"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Swindon Town",
+    "aliases": [
+     "Swindon"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Leeds United",
+    "why": "Was in the Premier League from 1992 to 2004 and was next promoted in 2020."
+   },
+   {
+    "name": "Brighton & Hove Albion",
+    "why": "First promoted to the Premier League in 2017."
+   },
+   {
+    "name": "AFC Bournemouth",
+    "why": "First promoted to the Premier League in 2015."
+   },
+   {
+    "name": "Aston Villa",
+    "why": "A founder member; relegated in 2016 and promoted back in 2019."
+   },
+   {
+    "name": "Coventry City",
+    "why": "A founder member in 1992 that was not promoted to the Premier League in this period."
+   },
+   {
+    "name": "Sheffield Wednesday",
+    "why": "A founder member in 1992 that was not promoted to the Premier League in this period."
+   },
+   {
+    "name": "Oldham Athletic",
+    "why": "A founder member in 1992 that was not promoted to the Premier League in this period."
+   },
+   {
+    "name": "Huddersfield Town",
+    "why": "First promoted to the Premier League in 2017."
+   }
+  ],
+  "prompt_es": "Nombra un club que ascendió a la Premier League en los veranos de 1993 a 2014 (ascenso directo o play-off)",
+  "prompt_pt": "Cite um clube promovido à Premier League nos verões de 1993 a 2014 (acesso direto ou play-off)"
+ },
+ {
+  "id": "d21-name-a-club-relegated-from-la-liga-between-2004-05-and-2013-14",
+  "template": 21,
+  "prompt": "Name a club relegated from La Liga between 2004-05 and 2013-14",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Villarreal",
+    "aliases": [
+     "Villarreal CF"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Real Betis",
+    "aliases": [
+     "Betis"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Deportivo de La Coruña",
+    "aliases": [
+     "Deportivo",
+     "Depor",
+     "Deportivo La Coruna"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Real Sociedad",
+    "aliases": [
+     "La Real",
+     "Sociedad"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Celta de Vigo",
+    "aliases": [
+     "Celta",
+     "Celta Vigo"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Real Zaragoza",
+    "aliases": [
+     "Zaragoza"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "RCD Mallorca",
+    "aliases": [
+     "Mallorca"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Málaga CF",
+    "aliases": [
+     "Malaga",
+     "Málaga"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Levante UD",
+    "aliases": [
+     "Levante"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Osasuna",
+    "aliases": [
+     "CA Osasuna"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Real Valladolid",
+    "aliases": [
+     "Valladolid"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Racing de Santander",
+    "aliases": [
+     "Racing Santander",
+     "Racing"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Sporting de Gijón",
+    "aliases": [
+     "Sporting Gijon",
+     "Sporting Gijón",
+     "Sporting"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Deportivo Alavés",
+    "aliases": [
+     "Alaves",
+     "Alavés"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Cádiz CF",
+    "aliases": [
+     "Cadiz",
+     "Cádiz"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "UD Almería",
+    "aliases": [
+     "Almeria",
+     "Almería"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Real Murcia",
+    "aliases": [
+     "Murcia"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Recreativo de Huelva",
+    "aliases": [
+     "Recreativo",
+     "Recre"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Hércules CF",
+    "aliases": [
+     "Hercules",
+     "Hércules"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "CD Tenerife",
+    "aliases": [
+     "Tenerife"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "CD Numancia",
+    "aliases": [
+     "Numancia"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Albacete Balompié",
+    "aliases": [
+     "Albacete"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Gimnàstic de Tarragona",
+    "aliases": [
+     "Gimnastic",
+     "Nàstic",
+     "Nastic"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Xerez CD",
+    "aliases": [
+     "Xerez"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Espanyol",
+    "why": "Not relegated from La Liga in this period (it went down in 2019-20)."
+   },
+   {
+    "name": "Getafe",
+    "why": "Not relegated from La Liga in this period (it went down in 2015-16)."
+   },
+   {
+    "name": "Rayo Vallecano",
+    "why": "Not relegated in this period (relegated in 2002-03 and 2015-16)."
+   },
+   {
+    "name": "Las Palmas",
+    "why": "Relegated in 2001-02, before this period."
+   },
+   {
+    "name": "Granada",
+    "why": "Not relegated from La Liga in this period (it went down in 2016-17)."
+   },
+   {
+    "name": "Elche",
+    "why": "Played in La Liga from 2013-14 and was not relegated in this period."
+   },
+   {
+    "name": "Córdoba",
+    "why": "Played in La Liga in 2014-15, after this period."
+   }
+  ],
+  "prompt_es": "Nombra un club que descendió de LaLiga entre 2004-05 y 2013-14",
+  "prompt_pt": "Cite um clube rebaixado de LaLiga entre 2004-05 e 2013-14"
+ },
+ {
+  "id": "d21-name-a-club-relegated-from-the-bundesliga-between-2004-05-and-2013-14-relegation-play-off-losers-included",
+  "template": 21,
+  "prompt": "Name a club relegated from the Bundesliga between 2004-05 and 2013-14 (relegation play-off losers included)",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Hertha BSC",
+    "aliases": [
+     "Hertha",
+     "Hertha Berlin"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Eintracht Frankfurt",
+    "aliases": [
+     "Frankfurt",
+     "Eintracht"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "1. FC Köln",
+    "aliases": [
+     "Köln",
+     "Koln",
+     "Cologne",
+     "FC Koln"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Borussia Mönchengladbach",
+    "aliases": [
+     "Gladbach",
+     "Mönchengladbach",
+     "Monchengladbach"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "1. FC Kaiserslautern",
+    "aliases": [
+     "Kaiserslautern",
+     "Lautern"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "1. FC Nürnberg",
+    "aliases": [
+     "Nürnberg",
+     "Nurnberg",
+     "Nuremberg"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "1. FSV Mainz 05",
+    "aliases": [
+     "Mainz",
+     "Mainz 05"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "SC Freiburg",
+    "aliases": [
+     "Freiburg"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "VfL Bochum",
+    "aliases": [
+     "Bochum"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "FC St. Pauli",
+    "aliases": [
+     "St. Pauli",
+     "St Pauli"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Fortuna Düsseldorf",
+    "aliases": [
+     "Düsseldorf",
+     "Dusseldorf",
+     "Fortuna Dusseldorf"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Arminia Bielefeld",
+    "aliases": [
+     "Bielefeld",
+     "Arminia"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Karlsruher SC",
+    "aliases": [
+     "Karlsruhe",
+     "KSC"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Hansa Rostock",
+    "aliases": [
+     "Rostock",
+     "Hansa"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "MSV Duisburg",
+    "aliases": [
+     "Duisburg"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Energie Cottbus",
+    "aliases": [
+     "Cottbus",
+     "FC Energie Cottbus"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Alemannia Aachen",
+    "aliases": [
+     "Aachen",
+     "Alemannia"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "SpVgg Greuther Fürth",
+    "aliases": [
+     "Greuther Fürth",
+     "Greuther Furth",
+     "Fürth",
+     "Furth"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Eintracht Braunschweig",
+    "aliases": [
+     "Braunschweig"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "Hamburger SV",
+    "why": "Survived the 2013-14 play-off against Greuther Fürth; first relegated in 2017-18."
+   },
+   {
+    "name": "TSG Hoffenheim",
+    "why": "Survived the 2012-13 play-off against Kaiserslautern."
+   },
+   {
+    "name": "FC Augsburg",
+    "why": "Lost the 2009-10 play-off as a 2. Bundesliga club, so it was not relegated; it was promoted in 2011."
+   },
+   {
+    "name": "Hannover 96",
+    "why": "Not relegated in this period (it went down in 2015-16)."
+   },
+   {
+    "name": "VfB Stuttgart",
+    "why": "Not relegated in this period (it went down in 2015-16)."
+   },
+   {
+    "name": "Werder Bremen",
+    "why": "Not relegated in this period."
+   },
+   {
+    "name": "FC Schalke 04",
+    "why": "Not relegated in this period."
+   }
+  ],
+  "prompt_es": "Nombra un club que descendió de la Bundesliga entre 2004-05 y 2013-14 (incluidos los perdedores del play-off)",
+  "prompt_pt": "Cite um clube rebaixado da Bundesliga entre 2004-05 e 2013-14 (perdedores do play-off incluídos)"
+ },
+ {
+  "id": "d21-name-a-club-promoted-to-la-liga-in-the-summers-of-2000-to-2010",
+  "template": 21,
+  "prompt": "Name a club promoted to La Liga in the summers of 2000 to 2010",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Atlético Madrid",
+    "aliases": [
+     "Atletico Madrid",
+     "Atlético",
+     "Atletico",
+     "Atleti"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "Sevilla FC",
+    "aliases": [
+     "Sevilla",
+     "Seville"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Villarreal",
+    "aliases": [
+     "Villarreal CF"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Real Betis",
+    "aliases": [
+     "Betis"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Real Sociedad",
+    "aliases": [
+     "La Real",
+     "Sociedad"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Celta de Vigo",
+    "aliases": [
+     "Celta",
+     "Celta Vigo"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Real Zaragoza",
+    "aliases": [
+     "Zaragoza"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Málaga CF",
+    "aliases": [
+     "Malaga",
+     "Málaga"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Levante UD",
+    "aliases": [
+     "Levante"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Getafe CF",
+    "aliases": [
+     "Getafe"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Osasuna",
+    "aliases": [
+     "CA Osasuna"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Real Valladolid",
+    "aliases": [
+     "Valladolid"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "UD Las Palmas",
+    "aliases": [
+     "Las Palmas"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Racing de Santander",
+    "aliases": [
+     "Racing Santander",
+     "Racing"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Sporting de Gijón",
+    "aliases": [
+     "Sporting Gijon",
+     "Sporting Gijón",
+     "Sporting"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Deportivo Alavés",
+    "aliases": [
+     "Alaves",
+     "Alavés"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Cádiz CF",
+    "aliases": [
+     "Cadiz",
+     "Cádiz"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "UD Almería",
+    "aliases": [
+     "Almeria",
+     "Almería"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "CD Tenerife",
+    "aliases": [
+     "Tenerife"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Real Murcia",
+    "aliases": [
+     "Murcia"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Recreativo de Huelva",
+    "aliases": [
+     "Recreativo",
+     "Recre"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Hércules CF",
+    "aliases": [
+     "Hercules",
+     "Hércules"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "CD Numancia",
+    "aliases": [
+     "Numancia"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Albacete Balompié",
+    "aliases": [
+     "Albacete"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Gimnàstic de Tarragona",
+    "aliases": [
+     "Gimnastic",
+     "Nàstic",
+     "Nastic"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Xerez CD",
+    "aliases": [
+     "Xerez"
+    ],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Deportivo de La Coruña",
+    "why": "Stayed in La Liga throughout this period (relegated in 2011)."
+   },
+   {
+    "name": "Espanyol",
+    "why": "Stayed in La Liga throughout this period."
+   },
+   {
+    "name": "Rayo Vallecano",
+    "why": "Promoted in 2011, after this period."
+   },
+   {
+    "name": "Granada",
+    "why": "Promoted in 2011, after this period."
+   },
+   {
+    "name": "Mallorca",
+    "why": "Stayed in La Liga throughout this period."
+   },
+   {
+    "name": "Elche",
+    "why": "Promoted in 2013, after this period."
+   }
+  ],
+  "prompt_es": "Nombra un club que ascendió a LaLiga en los veranos de 2000 a 2010",
+  "prompt_pt": "Cite um clube promovido a LaLiga nos verões de 2000 a 2010"
+ },
+ {
+  "id": "d21-name-a-club-promoted-to-the-bundesliga-in-the-summers-of-2000-to-2010-automatic-promotion-or-play-offs",
+  "template": 21,
+  "prompt": "Name a club promoted to the Bundesliga in the summers of 2000 to 2010 (automatic promotion or play-offs)",
+  "time": 15,
+  "answer_type": "club",
+  "answers": [
+   {
+    "name": "Borussia Mönchengladbach",
+    "aliases": [
+     "Gladbach",
+     "Mönchengladbach",
+     "Monchengladbach"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Eintracht Frankfurt",
+    "aliases": [
+     "Frankfurt",
+     "Eintracht"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "1. FC Köln",
+    "aliases": [
+     "Köln",
+     "Koln",
+     "Cologne",
+     "FC Koln"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "TSG 1899 Hoffenheim",
+    "aliases": [
+     "Hoffenheim",
+     "TSG Hoffenheim"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "1. FC Kaiserslautern",
+    "aliases": [
+     "Kaiserslautern",
+     "Lautern"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "1. FC Nürnberg",
+    "aliases": [
+     "Nürnberg",
+     "Nurnberg",
+     "Nuremberg"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "1. FSV Mainz 05",
+    "aliases": [
+     "Mainz",
+     "Mainz 05"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "SC Freiburg",
+    "aliases": [
+     "Freiburg"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Hannover 96",
+    "aliases": [
+     "Hannover",
+     "Hanover"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "VfL Bochum",
+    "aliases": [
+     "Bochum"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "FC St. Pauli",
+    "aliases": [
+     "St. Pauli",
+     "St Pauli"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Arminia Bielefeld",
+    "aliases": [
+     "Bielefeld",
+     "Arminia"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Karlsruher SC",
+    "aliases": [
+     "Karlsruhe",
+     "KSC"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Hansa Rostock",
+    "aliases": [
+     "Rostock",
+     "Hansa"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "MSV Duisburg",
+    "aliases": [
+     "Duisburg"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Energie Cottbus",
+    "aliases": [
+     "Cottbus",
+     "FC Energie Cottbus"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Alemannia Aachen",
+    "aliases": [
+     "Aachen",
+     "Alemannia"
+    ],
+    "fame": 2
+   }
+  ],
+  "traps": [
+   {
+    "name": "FC Augsburg",
+    "why": "Lost the 2010 play-off to Nürnberg; first promoted in 2011."
+   },
+   {
+    "name": "Hertha BSC",
+    "why": "Relegated in 2010 and promoted back in 2011, after this period."
+   },
+   {
+    "name": "Fortuna Düsseldorf",
+    "why": "Promoted in 2012, after this period."
+   },
+   {
+    "name": "SpVgg Greuther Fürth",
+    "why": "Promoted in 2012, after this period."
+   },
+   {
+    "name": "RB Leipzig",
+    "why": "Promoted in 2016."
+   },
+   {
+    "name": "SpVgg Unterhaching",
+    "why": "Promoted in 1999, before this period."
+   }
+  ],
+  "prompt_es": "Nombra un club que ascendió a la Bundesliga en los veranos de 2000 a 2010 (ascenso directo o play-off)",
+  "prompt_pt": "Cite um clube promovido à Bundesliga nos verões de 2000 a 2010 (acesso direto ou play-off)"
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2026-world-cup",
+  "template": 22,
+  "prompt": "Name a country that played at the 2026 World Cup",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Argentina",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Brazil",
+    "aliases": [
+     "Brasil"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "France",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Spain",
+    "aliases": [
+     "España",
+     "Espana"
+    ],
+    "fame": 6
+   },
+   {
+    "name": "England",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Germany",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Portugal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Netherlands",
+    "aliases": [
+     "Holland"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "United States",
+    "aliases": [
+     "USA",
+     "US",
+     "United States of America"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Mexico",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Canada",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Belgium",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Croatia",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Uruguay",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Colombia",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Japan",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Switzerland",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Senegal",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Norway",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "South Korea",
+    "aliases": [
+     "Korea Republic",
+     "Korea"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Australia",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Ecuador",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Austria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Turkey",
+    "aliases": [
+     "Türkiye",
+     "Turkiye"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Scotland",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Sweden",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Egypt",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Ivory Coast",
+    "aliases": [
+     "Côte d'Ivoire",
+     "Cote d'Ivoire"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Ghana",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Iran",
+    "aliases": [
+     "IR Iran"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Saudi Arabia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Paraguay",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Algeria",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Tunisia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Qatar",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Czech Republic",
+    "aliases": [
+     "Czechia"
+    ],
+    "fame": 3
+   },
+   {
+    "name": "Bosnia and Herzegovina",
+    "aliases": [
+     "Bosnia",
+     "Bosnia-Herzegovina"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "South Africa",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Iraq",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "DR Congo",
+    "aliases": [
+     "Congo DR",
+     "Democratic Republic of the Congo",
+     "DRC"
+    ],
+    "fame": 2
+   },
+   {
+    "name": "Panama",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "New Zealand",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Jordan",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Uzbekistan",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Cape Verde",
+    "aliases": [
+     "Cabo Verde"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Curaçao",
+    "aliases": [
+     "Curacao"
+    ],
+    "fame": 1
+   },
+   {
+    "name": "Haiti",
+    "aliases": [],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Italy",
+    "why": "Did not qualify for the 2026 World Cup."
+   },
+   {
+    "name": "Nigeria",
+    "why": "Did not qualify for the 2026 World Cup."
+   },
+   {
+    "name": "Denmark",
+    "why": "Did not qualify for the 2026 World Cup."
+   },
+   {
+    "name": "Poland",
+    "why": "Did not qualify for the 2026 World Cup."
+   },
+   {
+    "name": "Cameroon",
+    "why": "Did not qualify for the 2026 World Cup."
+   },
+   {
+    "name": "Chile",
+    "why": "Did not qualify for the 2026 World Cup."
+   },
+   {
+    "name": "Peru",
+    "why": "Did not qualify for the 2026 World Cup."
+   },
+   {
+    "name": "Serbia",
+    "why": "Did not qualify for the 2026 World Cup."
+   },
+   {
+    "name": "Wales",
+    "why": "Did not qualify for the 2026 World Cup."
+   },
+   {
+    "name": "Bolivia",
+    "why": "Did not qualify for the 2026 World Cup."
+   },
+   {
+    "name": "Jamaica",
+    "why": "Did not qualify for the 2026 World Cup."
+   },
+   {
+    "name": "Costa Rica",
+    "why": "Did not qualify for the 2026 World Cup."
+   }
+  ],
+  "prompt_es": "Nombra una selección que jugó el Mundial 2026",
+  "prompt_pt": "Cite uma seleção que jogou a Copa do Mundo de 2026"
+ },
+ {
+  "id": "d22-name-a-country-that-played-at-the-2025-africa-cup-of-nations",
+  "template": 22,
+  "prompt": "Name a country that played at the 2025 Africa Cup of Nations",
+  "time": 15,
+  "answer_type": "country",
+  "answers": [
+   {
+    "name": "Morocco",
+    "aliases": [],
+    "fame": 6
+   },
+   {
+    "name": "Senegal",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Egypt",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Nigeria",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Ivory Coast",
+    "aliases": [
+     "Côte d'Ivoire",
+     "Cote d'Ivoire"
+    ],
+    "fame": 5
+   },
+   {
+    "name": "Cameroon",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Algeria",
+    "aliases": [],
+    "fame": 5
+   },
+   {
+    "name": "Tunisia",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "Mali",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "South Africa",
+    "aliases": [],
+    "fame": 4
+   },
+   {
+    "name": "DR Congo",
+    "aliases": [
+     "Congo DR",
+     "Democratic Republic of the Congo",
+     "DRC"
+    ],
+    "fame": 4
+   },
+   {
+    "name": "Burkina Faso",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Gabon",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Angola",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Zambia",
+    "aliases": [],
+    "fame": 3
+   },
+   {
+    "name": "Equatorial Guinea",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Uganda",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Zimbabwe",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Benin",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Mozambique",
+    "aliases": [],
+    "fame": 2
+   },
+   {
+    "name": "Comoros",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Sudan",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Tanzania",
+    "aliases": [],
+    "fame": 1
+   },
+   {
+    "name": "Botswana",
+    "aliases": [],
+    "fame": 1
+   }
+  ],
+  "traps": [
+   {
+    "name": "Ghana",
+    "why": "Failed to qualify for the 2025 Africa Cup of Nations."
+   },
+   {
+    "name": "Cape Verde",
+    "why": "Did not play at the 2025 Africa Cup of Nations."
+   },
+   {
+    "name": "Guinea",
+    "why": "Did not play at the 2025 Africa Cup of Nations."
+   },
+   {
+    "name": "Kenya",
+    "why": "Did not play at the 2025 Africa Cup of Nations."
+   },
+   {
+    "name": "Mauritania",
+    "why": "Did not play at the 2025 Africa Cup of Nations."
+   },
+   {
+    "name": "Namibia",
+    "why": "Did not play at the 2025 Africa Cup of Nations."
+   }
+  ],
+  "prompt_es": "Nombra una selección que jugó la Copa Africana de Naciones 2025",
+  "prompt_pt": "Cite uma seleção que jogou a Copa Africana de Nações de 2025"
+ }
+]
