@@ -3250,14 +3250,15 @@ let toastTimer;function showToast(msg,icon){const t=document.getElementById('toa
 const SRC=(()=>{const clean=v=>String(v||'').toLowerCase().replace(/[^a-z0-9._-]/g,'').slice(0,40);
  const MAP=[[/tiktok/,'tiktok'],[/reddit|redd\.it/,'reddit'],[/instagram/,'instagram'],[/facebook|fb\.(com|me)/,'facebook'],[/^t\.co$|twitter|^x\.com$/,'x'],[/linkedin|lnkd/,'linkedin'],[/youtube|youtu\.be/,'youtube'],[/whatsapp/,'whatsapp'],[/chatgpt|openai/,'chatgpt'],[/perplexity/,'perplexity'],[/google\./,'google'],[/bing\./,'bing'],[/duckduckgo/,'duckduckgo']];
  const name=v=>v?(MAP.find(([r])=>r.test(v))||[0,v])[1]:'';
- let p=null,utm='',ref='';try{p=new URLSearchParams(location.search);utm=name(clean(p.get('utm_source')))||(p.get('c')?'challenge':'')}catch{}
- try{const h=new URL(document.referrer).hostname.replace(/^(www|m|l|lm|out)\./,'');if(h&&!/(^|\.)unicornergame\.lol$/.test(h))ref=name(clean(h))}catch{}
+ let p=null,utm='',ref='',refHost='',med='',camp='';try{p=new URLSearchParams(location.search);utm=name(clean(p.get('utm_source')))||(p.get('c')?'challenge':'');med=clean(p.get('utm_medium'));camp=clean(p.get('utm_campaign'))}catch{}
+ try{const h=new URL(document.referrer).hostname.replace(/^(www|m|l|lm|out)\./,'');if(h&&!/(^|\.)unicornergame\.lol$/.test(h)){refHost=clean(h);ref=name(refHost)}}catch{}
  const now=utm||ref;let first='',last='',sess='';
  try{first=localStorage.getItem('uc-src-first')||'';if(!first&&now){first=now;localStorage.setItem('uc-src-first',now)}if(now)localStorage.setItem('uc-src',now);last=localStorage.getItem('uc-src')||''}catch{last=now}
  try{sess=sessionStorage.getItem('uc-src-s')||'';if(!sess||now){sess=now||last||'direct';sessionStorage.setItem('uc-src-s',sess)}}catch{sess=now||last||'direct'}
  // tidy the address bar so a shared link doesn't carry our tag
  if(p&&p.has('utm_source'))try{for(const k of ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'])p.delete(k);const q=p.toString();history.replaceState(history.state,'',location.pathname+(q?'?'+q:'')+location.hash)}catch{}
- return{src:sess,src_first:first||sess,src_how:utm?'tag':ref?'referrer':'none'}})();
+ // the real referring site and the link's tags are kept apart too (a playlin-tagged link shared on Instagram stays visible as Instagram)
+ return{src:sess,src_first:first||sess,src_how:utm?'tag':ref?'referrer':'none',ref:refHost,utm,med,camp}})();
 // 1v1 duels (English only for now): a slim strip on the results screen once today's game is done
 const duelPending=()=>{try{return localStorage.getItem('uc-duel-pending')}catch{return null}};
 function duelStrip(){if(ES||document.body.classList.contains('inf-mode'))return'';const code=duelPending(),kit=(()=>{try{return KITS.find(k=>k.id===localStorage.getItem('uc-kit'))}catch{return null}})();
@@ -3291,7 +3292,7 @@ async function duelInboxStrip(){const el=document.getElementById('duel-strip');i
  el.querySelector('.duel-txt').innerHTML=n?`<b>${urg?'⏰ ':''}${n} duel${n>1?'s':''} waiting for you</b><small>${urg?'Under 4 hours left · play or you lose!':'Your turn · open your duels'}</small>`:`<b>1v1 duels</b><small>Challenge a mate · My duels</small>`;el.querySelector('.duel-go').textContent=n?'GO →':'OPEN →'}catch{}}
 // noisy events we never look at: not logged, to save database Disk IO (game_finish, question_result, rejected etc. still are)
 const NO_LOG=new Set(['answer_attempt','question_view','leave','banner_view','awards_view','crowd_share_shown','howto_step','rosco_answer','rosco_pass']);
-function track(name,data){if(NO_LOG.has(name))return;try{if(document.body.classList.contains('inf-mode'))data={...(data||{}),mode:'infinity'};let language=null;try{language=LANG}catch{}const body=JSON.stringify({name,session:SID,visitor:VISITOR,seconds:Math.round((Date.now()-T0)/1000),game_day:amsterdamDay(),event_version:2,data:{language,browser_language:(navigator.language||'').slice(0,12),src:SRC.src,src_first:SRC.src_first,...(data||{})}});fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body}).catch(()=>{})}catch{}}
+function track(name,data){if(NO_LOG.has(name))return;try{if(document.body.classList.contains('inf-mode'))data={...(data||{}),mode:'infinity'};let language=null;try{language=LANG}catch{}const body=JSON.stringify({name,session:SID,visitor:VISITOR,seconds:Math.round((Date.now()-T0)/1000),game_day:amsterdamDay(),event_version:2,data:{language,browser_language:(navigator.language||'').slice(0,12),src:SRC.src,src_ref:SRC.ref||undefined,src_utm:SRC.utm||undefined,src_med:SRC.med||undefined,src_camp:SRC.camp||undefined,src_first:SRC.src_first,...(data||{})}});fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body}).catch(()=>{})}catch{}}
 track('view',{ref:(document.referrer||'').slice(0,120),path:location.pathname,src_how:SRC.src_how,...DEVICE});
 // ---- friend challenge: "beat my score on today's game" links (?c=…, made on the results screen).
 // Funnel, tied by the link id (cid): challenge_sent → challenge_open → challenge_finish. A challenge counts for the day it was made.
