@@ -313,7 +313,18 @@
       "prompt_pt": "Cite um técnico do Real Madrid",
       "subtitle_pt": "Desde 2000, interinos incluídos",
       "reuse_of": "k004",
-      "first_used": "2026-10-18"
+      "first_used": "2026-10-18",
+      "traps": [
+        {
+          "name": "Raúl",
+          "aliases": [
+            "Raul",
+            "Raúl González"
+          ],
+          "why": "Raúl coached Real Madrid Castilla, the reserve team, never the first team.",
+          "why_es": "Raúl entrenó al Castilla, el filial, nunca al primer equipo."
+        }
+      ]
     },
     {
       "id": "f125",

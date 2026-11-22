@@ -1,0 +1,1101 @@
+{
+  "date": "2026-12-03",
+  "timezone": "Europe/Amsterdam",
+  "questions": [
+    {
+      "id": "f184",
+      "_id": "f184",
+      "prompt": "Name a country that reached the last 16 of the 2026 World Cup",
+      "subtitle": "The 16 teams in the round of 16 in Canada, Mexico and the USA (Spain won)",
+      "prompt_es": "Nombra una selección que llegó a octavos del Mundial 2026",
+      "subtitle_es": "Las 16 selecciones en octavos en Canadá, México y Estados Unidos (ganó España)",
+      "prompt_pt": "Cite uma seleção que chegou às oitavas da Copa do Mundo de 2026",
+      "subtitle_pt": "As 16 seleções nas oitavas no Canadá, México e Estados Unidos (a Espanha foi campeã)",
+      "difficulty": "easy",
+      "answer_type": "country",
+      "format_family": "tournament_history",
+      "scoring_version": 2,
+      "answer_count": 16,
+      "clash_note": "",
+      "answers": [
+        {
+          "name": "Spain",
+          "aliases": [
+            "España",
+            "Espana",
+            "Espanha"
+          ],
+          "fame": 6,
+          "name_es": "España",
+          "name_pt": "Espanha"
+        },
+        {
+          "name": "Argentina",
+          "aliases": [],
+          "fame": 6
+        },
+        {
+          "name": "France",
+          "aliases": [
+            "Francia",
+            "França"
+          ],
+          "fame": 6,
+          "name_es": "Francia",
+          "name_pt": "França"
+        },
+        {
+          "name": "England",
+          "aliases": [
+            "Inglaterra"
+          ],
+          "fame": 5,
+          "name_es": "Inglaterra",
+          "name_pt": "Inglaterra"
+        },
+        {
+          "name": "Brazil",
+          "aliases": [
+            "Brasil"
+          ],
+          "fame": 5,
+          "name_es": "Brasil",
+          "name_pt": "Brasil"
+        },
+        {
+          "name": "Portugal",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Morocco",
+          "aliases": [
+            "Marruecos",
+            "Marrocos"
+          ],
+          "fame": 4,
+          "name_es": "Marruecos",
+          "name_pt": "Marrocos"
+        },
+        {
+          "name": "Belgium",
+          "aliases": [
+            "Bélgica",
+            "Belgica"
+          ],
+          "fame": 3,
+          "name_es": "Bélgica",
+          "name_pt": "Bélgica"
+        },
+        {
+          "name": "Norway",
+          "aliases": [
+            "Noruega"
+          ],
+          "fame": 3,
+          "name_es": "Noruega",
+          "name_pt": "Noruega"
+        },
+        {
+          "name": "Switzerland",
+          "aliases": [
+            "Suiza",
+            "Suíça"
+          ],
+          "fame": 2,
+          "name_es": "Suiza",
+          "name_pt": "Suíça"
+        },
+        {
+          "name": "Mexico",
+          "aliases": [
+            "México"
+          ],
+          "fame": 4,
+          "name_es": "México",
+          "name_pt": "México"
+        },
+        {
+          "name": "United States",
+          "aliases": [
+            "USA",
+            "US",
+            "Estados Unidos",
+            "EEUU",
+            "EE. UU.",
+            "EUA"
+          ],
+          "fame": 4,
+          "name_es": "Estados Unidos",
+          "name_pt": "Estados Unidos"
+        },
+        {
+          "name": "Canada",
+          "aliases": [
+            "Canadá"
+          ],
+          "fame": 3,
+          "name_es": "Canadá",
+          "name_pt": "Canadá"
+        },
+        {
+          "name": "Colombia",
+          "aliases": [],
+          "fame": 3,
+          "name_pt": "Colômbia"
+        },
+        {
+          "name": "Paraguay",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "Egypt",
+          "aliases": [
+            "Egipto",
+            "Egito"
+          ],
+          "fame": 1,
+          "name_es": "Egipto",
+          "name_pt": "Egito"
+        }
+      ],
+      "traps": [
+        {
+          "name": "Germany",
+          "aliases": [
+            "Alemania",
+            "Alemanha"
+          ],
+          "why": "Germany went out in the round of 32, on penalties to Paraguay.",
+          "why_es": "Alemania cayó en dieciseisavos, en los penaltis ante Paraguay.",
+          "name_pt": "Alemanha"
+        },
+        {
+          "name": "Netherlands",
+          "aliases": [
+            "Holland",
+            "Holanda",
+            "Países Bajos",
+            "Países Baixos"
+          ],
+          "why": "The Netherlands went out in the round of 32, on penalties to Morocco.",
+          "why_es": "Países Bajos cayó en dieciseisavos, en los penaltis ante Marruecos.",
+          "name_pt": "Holanda"
+        },
+        {
+          "name": "Australia",
+          "aliases": [],
+          "why": "Australia went out in the round of 32, on penalties to Egypt.",
+          "why_es": "Australia cayó en dieciseisavos, en los penaltis ante Egipto."
+        },
+        {
+          "name": "Italy",
+          "aliases": [
+            "Italia"
+          ],
+          "why": "Italy did not qualify: they lost their play-off final to Bosnia and Herzegovina.",
+          "why_es": "Italia no se clasificó: perdió la final de la repesca ante Bosnia y Herzegovina.",
+          "name_pt": "Itália"
+        }
+      ]
+    },
+    {
+      "id": "f177",
+      "_id": "f177",
+      "prompt": "Name a club that played in MLS in 2025",
+      "subtitle": "The 30 clubs of the 2025 Major League Soccer season (USA and Canada)",
+      "prompt_es": "Nombra un club que jugó la MLS en 2025",
+      "subtitle_es": "Los 30 clubes de la temporada 2025 de la MLS (EE. UU. y Canadá)",
+      "prompt_pt": "Cite um clube que disputou a MLS em 2025",
+      "subtitle_pt": "Os 30 clubes da temporada 2025 da MLS (EUA e Canadá)",
+      "difficulty": "medium",
+      "answer_type": "club",
+      "format_family": "league_clubs",
+      "scoring_version": 2,
+      "answer_count": 30,
+      "clash_note": "Inter Miami is accepted as Inter Miami or Miami. San Diego FC joined in 2025.",
+      "answers": [
+        {
+          "name": "Inter Miami",
+          "aliases": [
+            "Inter Miami CF",
+            "Miami"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "LA Galaxy",
+          "aliases": [
+            "Galaxy",
+            "Los Angeles Galaxy"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Los Angeles FC",
+          "aliases": [
+            "LAFC"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Seattle Sounders",
+          "aliases": [
+            "Seattle",
+            "Sounders"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "New York City FC",
+          "aliases": [
+            "NYCFC",
+            "New York City"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "New York Red Bulls",
+          "aliases": [
+            "NY Red Bulls",
+            "Red Bulls"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Toronto FC",
+          "aliases": [
+            "Toronto"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Atlanta United",
+          "aliases": [
+            "Atlanta"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Orlando City",
+          "aliases": [
+            "Orlando"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Portland Timbers",
+          "aliases": [
+            "Portland",
+            "Timbers"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Columbus Crew",
+          "aliases": [
+            "Columbus",
+            "Crew"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "D.C. United",
+          "aliases": [
+            "DC United"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Chicago Fire",
+          "aliases": [
+            "Chicago"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "FC Cincinnati",
+          "aliases": [
+            "Cincinnati"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Philadelphia Union",
+          "aliases": [
+            "Philadelphia"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Nashville SC",
+          "aliases": [
+            "Nashville"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Austin FC",
+          "aliases": [
+            "Austin"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Charlotte FC",
+          "aliases": [
+            "Charlotte"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Colorado Rapids",
+          "aliases": [
+            "Colorado",
+            "Rapids"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "FC Dallas",
+          "aliases": [
+            "Dallas"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Houston Dynamo",
+          "aliases": [
+            "Houston",
+            "Dynamo"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Minnesota United",
+          "aliases": [
+            "Minnesota"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "CF Montréal",
+          "aliases": [
+            "CF Montreal",
+            "Montreal",
+            "Montréal",
+            "Montreal Impact"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "New England Revolution",
+          "aliases": [
+            "New England",
+            "Revolution",
+            "Revs"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Real Salt Lake",
+          "aliases": [
+            "Salt Lake",
+            "RSL"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "San Jose Earthquakes",
+          "aliases": [
+            "San Jose",
+            "Earthquakes"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Sporting Kansas City",
+          "aliases": [
+            "Sporting KC",
+            "Kansas City",
+            "SKC"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "St. Louis City SC",
+          "aliases": [
+            "St Louis City",
+            "St. Louis",
+            "St Louis"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Vancouver Whitecaps",
+          "aliases": [
+            "Vancouver",
+            "Whitecaps"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "San Diego FC",
+          "aliases": [
+            "San Diego"
+          ],
+          "fame": 1
+        }
+      ],
+      "traps": [
+        {
+          "name": "New York Cosmos",
+          "aliases": [
+            "Cosmos"
+          ],
+          "why": "The Cosmos were a NASL club and have never played in MLS.",
+          "why_es": "El Cosmos fue un club de la NASL y nunca ha jugado la MLS."
+        },
+        {
+          "name": "Chivas USA",
+          "aliases": [],
+          "why": "Chivas USA folded in 2014.",
+          "why_es": "El Chivas USA desapareció en 2014."
+        }
+      ]
+    },
+    {
+      "id": "f029r1",
+      "_id": "f029r1",
+      "prompt": "Name a club that won the Cup Winners' Cup",
+      "subtitle": "European Cup Winners' Cup finals, 1961 to 1999",
+      "prompt_es": "Nombra un club que ganó la Recopa de Europa",
+      "subtitle_es": "Finales de la Recopa de Europa, de 1961 a 1999",
+      "difficulty": "hard",
+      "answer_type": "club",
+      "format_family": "trophy_winner",
+      "scoring_version": 2,
+      "answer_count": 32,
+      "clash_note": "",
+      "answers": [
+        {
+          "name": "Barcelona",
+          "name_es": "Barcelona",
+          "aliases": [
+            "Barca",
+            "FC Barcelona",
+            "Barça",
+            "Barcelona"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Chelsea",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Manchester United",
+          "name_es": "Manchester United",
+          "aliases": [
+            "Man Utd",
+            "Man United",
+            "United",
+            "Manchester United"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Arsenal",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "AC Milan",
+          "name_es": "Milan",
+          "aliases": [
+            "Milan",
+            "Milán"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Juventus",
+          "aliases": [
+            "Juve"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Bayern Munich",
+          "name_es": "Bayern Múnich",
+          "aliases": [
+            "Bayern",
+            "Bayern München",
+            "Bayern Munchen",
+            "Bayern Múnich",
+            "Bayern de Munique"
+          ],
+          "fame": 5,
+          "name_pt": "Bayern de Munique"
+        },
+        {
+          "name": "Ajax",
+          "aliases": [
+            "Ajax Amsterdam"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Tottenham Hotspur",
+          "aliases": [
+            "Tottenham",
+            "Spurs"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Atlético Madrid",
+          "name_es": "Atlético de Madrid",
+          "aliases": [
+            "Atletico Madrid",
+            "Atletico",
+            "Atleti",
+            "Atlético",
+            "Atlético de Madrid"
+          ],
+          "fame": 4,
+          "name_pt": "Atlético de Madrid"
+        },
+        {
+          "name": "Borussia Dortmund",
+          "aliases": [
+            "Dortmund",
+            "BVB"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Lazio",
+          "aliases": [
+            "SS Lazio"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Paris Saint-Germain",
+          "aliases": [
+            "PSG",
+            "Paris SG",
+            "Paris Saint Germain"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Valencia",
+          "aliases": [
+            "Valencia CF"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Manchester City",
+          "name_es": "Manchester City",
+          "aliases": [
+            "Man City",
+            "City",
+            "Manchester City"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "West Ham United",
+          "aliases": [
+            "West Ham",
+            "Hammers"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Everton",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Parma",
+          "aliases": [
+            "Parma Calcio"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Sampdoria",
+          "aliases": [
+            "UC Sampdoria"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Werder Bremen",
+          "aliases": [
+            "Bremen",
+            "Werder"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Fiorentina",
+          "aliases": [
+            "ACF Fiorentina",
+            "Viola"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Sporting CP",
+          "name_es": "Sporting de Portugal",
+          "aliases": [
+            "Sporting",
+            "Sporting Lisbon",
+            "Sporting de Lisboa",
+            "Sporting de Portugal"
+          ],
+          "fame": 3,
+          "name_pt": "Sporting"
+        },
+        {
+          "name": "Rangers",
+          "aliases": [
+            "Glasgow Rangers",
+            "Rangers FC"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Aberdeen",
+          "aliases": [
+            "Aberdeen FC"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Anderlecht",
+          "aliases": [
+            "RSC Anderlecht"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Dynamo Kyiv",
+          "name_es": "Dinamo de Kiev",
+          "aliases": [
+            "Dynamo Kiev",
+            "Dinamo Kiev",
+            "Dynamo Kyev",
+            "Dinamo Kyiv",
+            "Dinamo de Kiev"
+          ],
+          "fame": 3,
+          "name_pt": "Dínamo de Kiev"
+        },
+        {
+          "name": "Hamburg",
+          "name_es": "Hamburgo",
+          "aliases": [
+            "Hamburger SV",
+            "HSV",
+            "Hamburgo"
+          ],
+          "fame": 3,
+          "name_pt": "Hamburgo"
+        },
+        {
+          "name": "Real Zaragoza",
+          "aliases": [
+            "Zaragoza"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Dinamo Tbilisi",
+          "aliases": [
+            "Dynamo Tbilisi",
+            "Tbilisi"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Slovan Bratislava",
+          "aliases": [
+            "Slovan"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Magdeburg",
+          "aliases": [
+            "1. FC Magdeburg",
+            "FC Magdeburg"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Mechelen",
+          "aliases": [
+            "KV Mechelen",
+            "Malines",
+            "Mechelen"
+          ],
+          "fame": 1
+        }
+      ],
+      "traps": [
+        {
+          "name": "Real Madrid",
+          "aliases": [
+            "Madrid",
+            "Real"
+          ],
+          "why": "Real Madrid lost two Cup Winners' Cup finals, to Chelsea in 1971 and Aberdeen in 1983.",
+          "why_es": "El Real Madrid perdió dos finales de la Recopa: ante el Chelsea en 1971 y ante el Aberdeen en 1983.",
+          "why_pt": "O Real Madrid perdeu duas finais da Recopa, para o Chelsea em 1971 e o Aberdeen em 1983."
+        },
+        {
+          "name": "Liverpool",
+          "aliases": [
+            "LFC"
+          ],
+          "why": "Liverpool lost the 1966 final to Borussia Dortmund and never won the competition.",
+          "why_es": "El Liverpool perdió la final de 1966 ante el Borussia Dortmund y nunca ganó la Recopa.",
+          "why_pt": "O Liverpool perdeu a final de 1966 para o Borussia Dortmund e nunca ganhou a competição."
+        },
+        {
+          "name": "Standard Liège",
+          "aliases": [
+            "Standard Liege",
+            "Standard"
+          ],
+          "why": "Standard lost the 1982 final to Barcelona.",
+          "why_es": "El Standard de Lieja perdió la final de 1982 ante el Barcelona.",
+          "why_pt": "O Standard perdeu a final de 1982 para o Barcelona."
+        },
+        {
+          "name": "Monaco",
+          "aliases": [
+            "AS Monaco"
+          ],
+          "why": "Monaco lost the 1992 final to Werder Bremen.",
+          "why_es": "El Mónaco perdió la final de 1992 ante el Werder Bremen.",
+          "why_pt": "O Monaco perdeu a final de 1992 para o Werder Bremen."
+        }
+      ],
+      "prompt_pt": "Cite um clube que ganhou a Recopa Europeia",
+      "subtitle_pt": "Finais da Recopa Europeia, 1961 a 1999",
+      "reuse_of": "f029",
+      "first_used": "2026-11-03"
+    },
+    {
+      "id": "f172",
+      "_id": "f172",
+      "prompt": "Name a club Fabio Cannavaro played for or managed",
+      "subtitle": "Senior clubs as player (retired 2011) or head coach up to 2025; national teams do not count",
+      "prompt_es": "Nombra un club en el que Cannavaro jugó o entrenó",
+      "subtitle_es": "Clubes como jugador (se retiró en 2011) o entrenador hasta 2025; las selecciones no cuentan",
+      "prompt_pt": "Cite um clube que Cannavaro defendeu ou treinou",
+      "subtitle_pt": "Clubes como jogador (aposentou-se em 2011) ou técnico até 2025; seleções não contam",
+      "difficulty": "hard",
+      "answer_type": "club",
+      "format_family": "player_club_history",
+      "scoring_version": 2,
+      "answer_count": 12,
+      "clash_note": "",
+      "answers": [
+        {
+          "name": "Juventus",
+          "aliases": [
+            "Juve"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Real Madrid",
+          "aliases": [],
+          "fame": 6
+        },
+        {
+          "name": "Napoli",
+          "aliases": [
+            "Nápoles",
+            "SSC Napoli"
+          ],
+          "fame": 5,
+          "name_es": "Nápoles"
+        },
+        {
+          "name": "Parma",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Inter Milan",
+          "aliases": [
+            "Inter",
+            "Internazionale",
+            "Inter de Milán",
+            "Inter de Milan",
+            "Inter de Milão"
+          ],
+          "fame": 5,
+          "name_es": "Inter de Milán",
+          "name_pt": "Inter de Milão"
+        },
+        {
+          "name": "Shabab Al Ahli",
+          "aliases": [
+            "Al Ahli",
+            "Al-Ahli",
+            "Al Ahli Dubai"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Guangzhou Evergrande",
+          "aliases": [
+            "Guangzhou",
+            "Guangzhou FC",
+            "Evergrande"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Al Nassr",
+          "aliases": [
+            "Al-Nassr"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Tianjin Quanjian",
+          "aliases": [
+            "Tianjin",
+            "Tianjin Tianhai"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Benevento",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "Udinese",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "Dinamo Zagreb",
+          "aliases": [
+            "Dinamo"
+          ],
+          "fame": 2
+        }
+      ],
+      "traps": [
+        {
+          "name": "AC Milan",
+          "aliases": [
+            "Milan"
+          ],
+          "why": "Cannavaro played for Inter and Juventus, never AC Milan.",
+          "why_es": "Cannavaro jugó en el Inter y la Juventus, nunca en el Milan."
+        },
+        {
+          "name": "Italy",
+          "aliases": [
+            "Italia"
+          ],
+          "why": "Cannavaro captained Italy, but national teams do not count here.",
+          "why_es": "Cannavaro fue capitán de Italia, pero aquí no cuentan las selecciones."
+        },
+        {
+          "name": "Uzbekistan",
+          "aliases": [
+            "Uzbekistán"
+          ],
+          "why": "Cannavaro became Uzbekistan's coach in 2025, but national teams do not count here.",
+          "why_es": "Cannavaro llegó a la selección de Uzbekistán en 2025, pero aquí no cuentan las selecciones."
+        }
+      ]
+    },
+    {
+      "id": "f030r1",
+      "_id": "f030r1",
+      "prompt": "Name a manager of the England men's team",
+      "subtitle": "Since Graham Taylor in 1990, caretakers and interims included, up to 2025",
+      "prompt_es": "Nombra un seleccionador de Inglaterra masculina",
+      "subtitle_es": "Desde Graham Taylor en 1990, interinos incluidos, hasta 2025",
+      "difficulty": "medium",
+      "answer_type": "manager",
+      "format_family": "national_manager",
+      "scoring_version": 2,
+      "answer_count": 15,
+      "clash_note": "Taylor is ambiguous: type the full name, Graham Taylor (1990-93) or Peter Taylor (2000). Caretakers: Wilkinson (1999), Taylor (2000), Pearce (2012), Carsley (2024).",
+      "answers": [
+        {
+          "name": "Gareth Southgate",
+          "aliases": [
+            "Southgate"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Sven-Göran Eriksson",
+          "aliases": [
+            "Eriksson",
+            "Sven Goran Eriksson",
+            "Sven",
+            "Sven-Goran Eriksson"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Fabio Capello",
+          "aliases": [
+            "Capello"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Roy Hodgson",
+          "aliases": [
+            "Hodgson"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Terry Venables",
+          "aliases": [
+            "Venables"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Kevin Keegan",
+          "aliases": [
+            "Keegan"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Steve McClaren",
+          "aliases": [
+            "McClaren"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Glenn Hoddle",
+          "aliases": [
+            "Hoddle"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Sam Allardyce",
+          "aliases": [
+            "Allardyce",
+            "Big Sam"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Thomas Tuchel",
+          "aliases": [
+            "Tuchel"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Graham Taylor",
+          "aliases": [
+            "Graham Taylor"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Lee Carsley",
+          "aliases": [
+            "Carsley"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Stuart Pearce",
+          "aliases": [
+            "Pearce"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Howard Wilkinson",
+          "aliases": [
+            "Wilkinson"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Peter Taylor",
+          "aliases": [
+            "Peter Taylor"
+          ],
+          "fame": 1
+        }
+      ],
+      "traps": [
+        {
+          "name": "Bobby Robson",
+          "aliases": [
+            "Robson",
+            "Sir Bobby Robson"
+          ],
+          "why": "Robson left after the 1990 World Cup, before Graham Taylor took over.",
+          "why_es": "Robson se marchó tras el Mundial de 1990, antes de que llegara Graham Taylor.",
+          "why_pt": "Robson saiu depois da Copa de 1990, antes de Graham Taylor assumir."
+        },
+        {
+          "name": "Harry Redknapp",
+          "aliases": [
+            "Redknapp"
+          ],
+          "why": "Redknapp was the favourite in 2012 but the FA picked Hodgson.",
+          "why_es": "Redknapp era el favorito en 2012, pero la federación eligió a Hodgson.",
+          "why_pt": "Redknapp era o favorito em 2012, mas a FA escolheu Hodgson."
+        },
+        {
+          "name": "Alf Ramsey",
+          "aliases": [
+            "Ramsey",
+            "Sir Alf Ramsey"
+          ],
+          "why": "Ramsey won the 1966 World Cup but left in 1974, well before the cut-off.",
+          "why_es": "Ramsey ganó el Mundial de 1966, pero se fue en 1974, mucho antes del año de corte.",
+          "why_pt": "Ramsey ganhou a Copa de 1966, mas saiu em 1974, bem antes do corte."
+        },
+        {
+          "name": "Mauricio Pochettino",
+          "aliases": [
+            "Pochettino"
+          ],
+          "why": "Pochettino coaches the USA, not England.",
+          "why_es": "Pochettino dirige a Estados Unidos, no a Inglaterra.",
+          "why_pt": "Pochettino treina os EUA, não a Inglaterra."
+        }
+      ],
+      "prompt_pt": "Cite um técnico da seleção inglesa masculina",
+      "subtitle_pt": "Desde Graham Taylor em 1990, interinos incluídos, até 2025",
+      "reuse_of": "f030",
+      "first_used": "2026-11-03"
+    }
+  ]
+}

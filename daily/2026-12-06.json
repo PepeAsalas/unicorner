@@ -1,0 +1,840 @@
+{
+  "date": "2026-12-06",
+  "timezone": "Europe/Amsterdam",
+  "questions": [
+    {
+      "id": "f179",
+      "_id": "f179",
+      "prompt": "Name a country that played at Women's Euro 2025",
+      "subtitle": "The 16 teams at the finals in Switzerland (England won)",
+      "prompt_es": "Nombra una selección que jugó la Eurocopa femenina 2025",
+      "subtitle_es": "Las 16 selecciones de la fase final en Suiza (ganó Inglaterra)",
+      "prompt_pt": "Cite uma seleção que disputou a Eurocopa feminina de 2025",
+      "subtitle_pt": "As 16 seleções da fase final na Suíça (a Inglaterra foi campeã)",
+      "difficulty": "easy",
+      "answer_type": "country",
+      "format_family": "tournament_participant_country",
+      "scoring_version": 2,
+      "answer_count": 16,
+      "clash_note": "Poland and Wales made their major-tournament debuts.",
+      "answers": [
+        {
+          "name": "England",
+          "aliases": [
+            "Inglaterra"
+          ],
+          "fame": 6,
+          "name_es": "Inglaterra",
+          "name_pt": "Inglaterra"
+        },
+        {
+          "name": "Spain",
+          "aliases": [
+            "España",
+            "Espana",
+            "Espanha"
+          ],
+          "fame": 6,
+          "name_es": "España",
+          "name_pt": "Espanha"
+        },
+        {
+          "name": "Germany",
+          "aliases": [
+            "Alemania",
+            "Alemanha"
+          ],
+          "fame": 5,
+          "name_es": "Alemania",
+          "name_pt": "Alemanha"
+        },
+        {
+          "name": "France",
+          "aliases": [
+            "Francia",
+            "França"
+          ],
+          "fame": 5,
+          "name_es": "Francia",
+          "name_pt": "França"
+        },
+        {
+          "name": "Netherlands",
+          "aliases": [
+            "Holland",
+            "Holanda",
+            "Países Bajos",
+            "Paises Bajos",
+            "Países Baixos"
+          ],
+          "fame": 4,
+          "name_es": "Países Bajos",
+          "name_pt": "Holanda"
+        },
+        {
+          "name": "Sweden",
+          "aliases": [
+            "Suecia",
+            "Suécia"
+          ],
+          "fame": 4,
+          "name_es": "Suecia",
+          "name_pt": "Suécia"
+        },
+        {
+          "name": "Norway",
+          "aliases": [
+            "Noruega"
+          ],
+          "fame": 4,
+          "name_es": "Noruega",
+          "name_pt": "Noruega"
+        },
+        {
+          "name": "Italy",
+          "aliases": [
+            "Italia",
+            "Itália"
+          ],
+          "fame": 4,
+          "name_es": "Italia",
+          "name_pt": "Itália"
+        },
+        {
+          "name": "Switzerland",
+          "aliases": [
+            "Suiza",
+            "Suíça"
+          ],
+          "fame": 4,
+          "name_es": "Suiza",
+          "name_pt": "Suíça"
+        },
+        {
+          "name": "Iceland",
+          "aliases": [
+            "Islandia",
+            "Islândia"
+          ],
+          "fame": 3,
+          "name_es": "Islandia",
+          "name_pt": "Islândia"
+        },
+        {
+          "name": "Denmark",
+          "aliases": [
+            "Dinamarca"
+          ],
+          "fame": 3,
+          "name_es": "Dinamarca",
+          "name_pt": "Dinamarca"
+        },
+        {
+          "name": "Portugal",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Belgium",
+          "aliases": [
+            "Bélgica",
+            "Belgica"
+          ],
+          "fame": 3,
+          "name_es": "Bélgica",
+          "name_pt": "Bélgica"
+        },
+        {
+          "name": "Finland",
+          "aliases": [
+            "Finlandia",
+            "Finlândia"
+          ],
+          "fame": 1,
+          "name_es": "Finlandia",
+          "name_pt": "Finlândia"
+        },
+        {
+          "name": "Poland",
+          "aliases": [
+            "Polonia",
+            "Polônia"
+          ],
+          "fame": 1,
+          "name_es": "Polonia",
+          "name_pt": "Polônia"
+        },
+        {
+          "name": "Wales",
+          "aliases": [
+            "Gales",
+            "País de Gales"
+          ],
+          "fame": 2,
+          "name_es": "Gales",
+          "name_pt": "País de Gales"
+        }
+      ],
+      "traps": [
+        {
+          "name": "Austria",
+          "aliases": [],
+          "why": "Austria played at Euro 2022 but missed the 2025 finals.",
+          "why_es": "Austria jugó la Eurocopa 2022, pero no la de 2025.",
+          "name_pt": "Áustria"
+        },
+        {
+          "name": "Northern Ireland",
+          "aliases": [
+            "Irlanda del Norte",
+            "Irlanda do Norte"
+          ],
+          "why": "Northern Ireland played at Euro 2022 but missed the 2025 finals.",
+          "why_es": "Irlanda del Norte jugó la Eurocopa 2022, pero no la de 2025.",
+          "name_pt": "Irlanda do Norte"
+        },
+        {
+          "name": "Republic of Ireland",
+          "aliases": [
+            "Ireland",
+            "Irlanda",
+            "Republica da Irlanda"
+          ],
+          "why": "Ireland lost their qualifying play-off to Wales.",
+          "why_es": "Irlanda perdió la eliminatoria de clasificación ante Gales.",
+          "name_pt": "Irlanda"
+        },
+        {
+          "name": "Scotland",
+          "aliases": [
+            "Escocia"
+          ],
+          "why": "Scotland did not qualify for the 2025 finals.",
+          "why_es": "Escocia no se clasificó para la fase final de 2025.",
+          "name_pt": "Escócia"
+        }
+      ]
+    },
+    {
+      "id": "f180",
+      "_id": "f180",
+      "prompt": "Name a club that played in Turkey's Süper Lig in 2024-25",
+      "subtitle": "The 19 clubs of the Turkish top flight that season",
+      "prompt_es": "Nombra un club que jugó la liga turca en la 2024-25",
+      "subtitle_es": "Los 19 clubes de la primera división turca esa temporada",
+      "prompt_pt": "Cite um clube que disputou a Süper Lig turca em 2024-25",
+      "subtitle_pt": "Os 19 clubes da primeira divisão turca naquela temporada",
+      "difficulty": "medium",
+      "answer_type": "club",
+      "format_family": "league_clubs",
+      "scoring_version": 2,
+      "answer_count": 19,
+      "clash_note": "",
+      "answers": [
+        {
+          "name": "Galatasaray",
+          "aliases": [
+            "Gala"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Fenerbahçe",
+          "aliases": [
+            "Fenerbahce",
+            "Fener"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Beşiktaş",
+          "aliases": [
+            "Besiktas"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Trabzonspor",
+          "aliases": [
+            "Trabzon"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "İstanbul Başakşehir",
+          "aliases": [
+            "Istanbul Basaksehir",
+            "Basaksehir",
+            "Başakşehir"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Adana Demirspor",
+          "aliases": [
+            "Adana"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Alanyaspor",
+          "aliases": [
+            "Alanya"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Antalyaspor",
+          "aliases": [
+            "Antalya"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Bodrum FK",
+          "aliases": [
+            "Bodrum",
+            "Bodrumspor"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Eyüpspor",
+          "aliases": [
+            "Eyupspor",
+            "Eyüp"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Gaziantep FK",
+          "aliases": [
+            "Gaziantep"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Göztepe",
+          "aliases": [
+            "Goztepe"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Hatayspor",
+          "aliases": [
+            "Hatay"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Kasımpaşa",
+          "aliases": [
+            "Kasimpasa"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Kayserispor",
+          "aliases": [
+            "Kayseri"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Konyaspor",
+          "aliases": [
+            "Konya"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Çaykur Rizespor",
+          "aliases": [
+            "Caykur Rizespor",
+            "Rizespor"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Samsunspor",
+          "aliases": [
+            "Samsun"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Sivasspor",
+          "aliases": [
+            "Sivas"
+          ],
+          "fame": 2
+        }
+      ],
+      "traps": [
+        {
+          "name": "Ankaragücü",
+          "aliases": [
+            "Ankaragucu",
+            "MKE Ankaragücü"
+          ],
+          "why": "Ankaragücü were relegated in 2024.",
+          "why_es": "El Ankaragücü descendió en 2024."
+        },
+        {
+          "name": "Fatih Karagümrük",
+          "aliases": [
+            "Karagumruk",
+            "Karagümrük"
+          ],
+          "why": "Karagümrük were relegated in 2024.",
+          "why_es": "El Karagümrük descendió en 2024."
+        },
+        {
+          "name": "Bursaspor",
+          "aliases": [
+            "Bursa"
+          ],
+          "why": "Bursaspor were in the lower leagues in 2024-25.",
+          "why_es": "El Bursaspor estaba en categorías inferiores en la 2024-25."
+        }
+      ]
+    },
+    {
+      "id": "f018r1",
+      "_id": "f018r1",
+      "prompt": "Name a club Nicolas Anelka played for",
+      "subtitle": "Senior first teams, loans included (retired 2015)",
+      "clash_note": "",
+      "difficulty": "medium",
+      "scoring_version": 2,
+      "answer_type": "club",
+      "format_family": "player_club_history",
+      "prompt_es": "Nombra un club en el que jugó Nicolas Anelka",
+      "subtitle_es": "Primeros equipos, cesiones incluidas (se retiró en 2015)",
+      "answers": [
+        {
+          "name": "Arsenal",
+          "aliases": [],
+          "fame": 6
+        },
+        {
+          "name": "Chelsea",
+          "aliases": [],
+          "fame": 6
+        },
+        {
+          "name": "Real Madrid",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Paris Saint-Germain",
+          "aliases": [
+            "PSG",
+            "Paris SG"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Liverpool",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Manchester City",
+          "aliases": [
+            "Man City"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Bolton Wanderers",
+          "aliases": [
+            "Bolton"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Juventus",
+          "aliases": [
+            "Juve"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "West Bromwich Albion",
+          "aliases": [
+            "West Brom",
+            "WBA"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Fenerbahçe",
+          "aliases": [
+            "Fenerbahce"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Shanghai Shenhua",
+          "aliases": [
+            "Shenhua"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Mumbai City",
+          "aliases": [
+            "Mumbai"
+          ],
+          "fame": 1
+        }
+      ],
+      "answer_count": 12,
+      "prompt_pt": "Cite um clube em que Nicolas Anelka jogou",
+      "subtitle_pt": "Times principais, empréstimos incluídos (aposentou-se em 2015)",
+      "reuse_of": "f018",
+      "first_used": "2026-11-01"
+    },
+    {
+      "id": "f178",
+      "_id": "f178",
+      "prompt": "Name a club Gennaro Gattuso played for or managed",
+      "subtitle": "Senior clubs as player (retired 2013) or appointed head coach, up to his Lazio appointment in June 2026",
+      "prompt_es": "Nombra un club en el que Gattuso jugó o entrenó",
+      "subtitle_es": "Clubes como jugador (se retiró en 2013) o entrenador, hasta su fichaje por la Lazio en junio de 2026",
+      "prompt_pt": "Cite um clube que Gattuso defendeu ou treinou",
+      "subtitle_pt": "Clubes como jogador (aposentou-se em 2013) ou técnico, até sua contratação pela Lazio em junho de 2026",
+      "difficulty": "hard",
+      "answer_type": "club",
+      "format_family": "player_club_history",
+      "scoring_version": 2,
+      "answer_count": 14,
+      "clash_note": "Fiorentina counts: he was appointed in 2021 but left after 23 days, before a match.",
+      "answers": [
+        {
+          "name": "AC Milan",
+          "aliases": [
+            "Milan",
+            "AC Milán"
+          ],
+          "fame": 6,
+          "name_es": "AC Milán"
+        },
+        {
+          "name": "Napoli",
+          "aliases": [
+            "Nápoles",
+            "SSC Napoli"
+          ],
+          "fame": 5,
+          "name_es": "Nápoles"
+        },
+        {
+          "name": "Valencia",
+          "aliases": [
+            "Valencia CF"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Marseille",
+          "aliases": [
+            "Olympique de Marseille",
+            "OM",
+            "Marsella",
+            "Olympique de Marselha"
+          ],
+          "fame": 4,
+          "name_es": "Marsella",
+          "name_pt": "Olympique de Marselha"
+        },
+        {
+          "name": "Rangers",
+          "aliases": [
+            "Glasgow Rangers"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Lazio",
+          "aliases": [
+            "SS Lazio"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Perugia",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "Salernitana",
+          "aliases": [],
+          "fame": 1
+        },
+        {
+          "name": "Sion",
+          "aliases": [
+            "FC Sion"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Palermo",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "OFI Crete",
+          "aliases": [
+            "OFI",
+            "OFI Creta"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Pisa",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "Fiorentina",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "Hajduk Split",
+          "aliases": [
+            "Hajduk"
+          ],
+          "fame": 2
+        }
+      ],
+      "traps": [
+        {
+          "name": "Italy",
+          "aliases": [
+            "Italia"
+          ],
+          "why": "Gattuso coached Italy in 2025-26, but national teams do not count here.",
+          "why_es": "Gattuso entrenó a Italia en 2025-26, pero aquí no cuentan las selecciones."
+        },
+        {
+          "name": "Juventus",
+          "aliases": [
+            "Juve"
+          ],
+          "why": "Gattuso never played for or coached Juventus.",
+          "why_es": "Gattuso nunca jugó ni entrenó en la Juventus."
+        },
+        {
+          "name": "Inter Milan",
+          "aliases": [
+            "Inter",
+            "Inter de Milão"
+          ],
+          "why": "Gattuso spent his playing peak at AC Milan, never Inter.",
+          "why_es": "Gattuso vivió su mejor etapa en el Milan, nunca en el Inter.",
+          "name_pt": "Inter de Milão"
+        }
+      ]
+    },
+    {
+      "id": "f162",
+      "_id": "f162",
+      "prompt": "Won the World Cup Best Young Player award",
+      "subtitle": "Official award 2006-2026, plus FIFA's retrospective picks for 1958-2002",
+      "prompt_es": "Ganó el premio al Mejor Jugador Joven del Mundial",
+      "subtitle_es": "Premio oficial 2006-2026, más las elecciones retrospectivas de la FIFA para 1958-2002",
+      "prompt_pt": "Ganhou o prêmio de Melhor Jogador Jovem da Copa do Mundo",
+      "subtitle_pt": "Prêmio oficial de 2006 a 2026, mais as escolhas retroativas da FIFA para 1958-2002",
+      "difficulty": "medium",
+      "answer_type": "player",
+      "format_family": "award_winner_player",
+      "scoring_version": 2,
+      "answer_count": 18,
+      "clash_note": "",
+      "answers": [
+        {
+          "name": "Pelé",
+          "aliases": [
+            "Pele"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Flórián Albert",
+          "aliases": [
+            "Florian Albert",
+            "Albert"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Franz Beckenbauer",
+          "aliases": [
+            "Beckenbauer",
+            "Kaiser"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Teófilo Cubillas",
+          "aliases": [
+            "Teofilo Cubillas",
+            "Cubillas"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Władysław Żmuda",
+          "aliases": [
+            "Wladyslaw Zmuda",
+            "Zmuda",
+            "Żmuda"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Antonio Cabrini",
+          "aliases": [
+            "Cabrini"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Manuel Amoros",
+          "aliases": [
+            "Amoros"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Enzo Scifo",
+          "aliases": [
+            "Scifo"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Robert Prosinečki",
+          "aliases": [
+            "Robert Prosinecki",
+            "Prosinecki",
+            "Prosinečki"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Marc Overmars",
+          "aliases": [
+            "Overmars"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Michael Owen",
+          "aliases": [
+            "Owen"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Landon Donovan",
+          "aliases": [
+            "Donovan"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Lukas Podolski",
+          "aliases": [
+            "Podolski",
+            "Poldi"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Thomas Müller",
+          "aliases": [
+            "Thomas Muller",
+            "Muller",
+            "Müller"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Paul Pogba",
+          "aliases": [
+            "Pogba"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Kylian Mbappé",
+          "aliases": [
+            "Kylian Mbappe",
+            "Mbappe",
+            "Mbappé"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Enzo Fernández",
+          "aliases": [
+            "Enzo Fernandez",
+            "Enzo"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Pau Cubarsí",
+          "aliases": [
+            "Pau Cubarsi",
+            "Cubarsi",
+            "Cubarsí"
+          ],
+          "fame": 4
+        }
+      ],
+      "traps": [
+        {
+          "name": "Lionel Messi",
+          "aliases": [
+            "Messi"
+          ],
+          "why": "Messi won the Golden Ball in 2014 and 2022; the 2006 young player award went to Podolski.",
+          "why_es": "Messi ganó el Balón de Oro del Mundial en 2014 y 2022; el premio al mejor joven de 2006 fue para Podolski."
+        },
+        {
+          "name": "Lamine Yamal",
+          "aliases": [
+            "Yamal"
+          ],
+          "why": "The 2026 award went to his Spain teammate Pau Cubarsí.",
+          "why_es": "El premio de 2026 fue para su compañero en España Pau Cubarsí."
+        },
+        {
+          "name": "Jude Bellingham",
+          "aliases": [
+            "Bellingham"
+          ],
+          "why": "The 2022 award went to Enzo Fernández.",
+          "why_es": "El premio de 2022 fue para Enzo Fernández."
+        },
+        {
+          "name": "Ronaldo Nazário",
+          "aliases": [
+            "Ronaldo",
+            "R9"
+          ],
+          "why": "FIFA's retrospective picks were Overmars for 1994 and Owen for 1998.",
+          "why_es": "Las elecciones retrospectivas de la FIFA fueron Overmars en 1994 y Owen en 1998."
+        }
+      ]
+    }
+  ]
+}

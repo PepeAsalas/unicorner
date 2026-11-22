@@ -569,150 +569,6 @@
       "first_used": "2026-10-25"
     },
     {
-      "id": "e012r1",
-      "_id": "e012r1",
-      "prompt": "Played for Argentina at the 2022 World Cup",
-      "subtitle": "Appeared in at least one match at the 2022 FIFA World Cup",
-      "difficulty": "easy",
-      "scoring_version": 2,
-      "clash_note": "",
-      "answers": [
-        {
-          "name": "Rodrigo de Paul",
-          "aliases": [],
-          "fame": 5
-        },
-        {
-          "name": "Nicolás Otamendi",
-          "aliases": [],
-          "fame": 5
-        },
-        {
-          "name": "Emiliano Martínez",
-          "aliases": [
-            "Emi Martínez"
-          ],
-          "fame": 6
-        },
-        {
-          "name": "Lionel Messi",
-          "aliases": [],
-          "fame": 6
-        },
-        {
-          "name": "Cristian Romero",
-          "aliases": [],
-          "fame": 5
-        },
-        {
-          "name": "Nahuel Molina",
-          "aliases": [],
-          "fame": 5
-        },
-        {
-          "name": "Julián Álvarez",
-          "aliases": [],
-          "fame": 6
-        },
-        {
-          "name": "Enzo Fernández",
-          "aliases": [],
-          "fame": 6
-        },
-        {
-          "name": "Alexis Mac Allister",
-          "aliases": [],
-          "fame": 5
-        },
-        {
-          "name": "Marcos Acuña",
-          "aliases": [],
-          "fame": 4
-        },
-        {
-          "name": "Nicolás Tagliafico",
-          "aliases": [],
-          "fame": 5
-        },
-        {
-          "name": "Lautaro Martínez",
-          "aliases": [],
-          "fame": 6
-        },
-        {
-          "name": "Ángel Di María",
-          "aliases": [],
-          "fame": 6
-        },
-        {
-          "name": "Lisandro Martínez",
-          "aliases": [],
-          "fame": 5
-        },
-        {
-          "name": "Leandro Paredes",
-          "aliases": [],
-          "fame": 5
-        },
-        {
-          "name": "Gonzalo Montiel",
-          "aliases": [],
-          "fame": 4
-        },
-        {
-          "name": "Exequiel Palacios",
-          "aliases": [],
-          "fame": 3
-        },
-        {
-          "name": "Germán Pezzella",
-          "aliases": [],
-          "fame": 3
-        },
-        {
-          "name": "Papu Gómez",
-          "aliases": [
-            "Alejandro Gómez"
-          ],
-          "fame": 4
-        },
-        {
-          "name": "Paulo Dybala",
-          "aliases": [],
-          "fame": 6
-        },
-        {
-          "name": "Guido Rodríguez",
-          "aliases": [],
-          "fame": 3
-        },
-        {
-          "name": "Ángel Correa",
-          "aliases": [],
-          "fame": 4
-        },
-        {
-          "name": "Juan Foyth",
-          "aliases": [],
-          "fame": 2
-        },
-        {
-          "name": "Thiago Almada",
-          "aliases": [],
-          "fame": 1
-        }
-      ],
-      "format_family": "tournament_appearance",
-      "answer_count": 24,
-      "prompt_pt": "Jogou pela Argentina na Copa de 2022",
-      "subtitle_pt": "Entrou em campo em pelo menos um jogo da Copa do Mundo de 2022",
-      "reuse_of": "e012",
-      "first_used": "2026-09-20",
-      "answer_type": "player",
-      "prompt_es": "Jugó con Argentina en el Mundial 2022",
-      "subtitle_es": "Jugó al menos un partido del Mundial de Catar 2022"
-    },
-    {
       "id": "f147",
       "_id": "f147",
       "prompt": "Scored in a Europa League final",
@@ -990,153 +846,6 @@
       "subtitle_pt": "Finais de 2010 a 2025; tempo normal ou prorrogação, sem pênaltis nem gols contra"
     },
     {
-      "id": "f148",
-      "_id": "f148",
-      "prompt": "Name a manager of the Netherlands national team",
-      "subtitle": "Permanent head coaches appointed from 1985 to 2025; caretakers not counted",
-      "prompt_es": "Nombra un seleccionador de los Países Bajos",
-      "subtitle_es": "Seleccionadores fijos nombrados de 1985 a 2025; los interinos no cuentan",
-      "difficulty": "medium",
-      "answer_type": "manager",
-      "format_family": "national_team_managers",
-      "scoring_version": 2,
-      "answer_count": 12,
-      "clash_note": "",
-      "answers": [
-        {
-          "name": "Leo Beenhakker",
-          "aliases": [
-            "Beenhakker"
-          ],
-          "fame": 3
-        },
-        {
-          "name": "Rinus Michels",
-          "aliases": [
-            "Michels"
-          ],
-          "fame": 4
-        },
-        {
-          "name": "Thijs Libregts",
-          "aliases": [
-            "Libregts"
-          ],
-          "fame": 1
-        },
-        {
-          "name": "Dick Advocaat",
-          "aliases": [
-            "Advocaat"
-          ],
-          "fame": 5
-        },
-        {
-          "name": "Guus Hiddink",
-          "aliases": [
-            "Hiddink"
-          ],
-          "fame": 5
-        },
-        {
-          "name": "Frank Rijkaard",
-          "aliases": [
-            "Rijkaard"
-          ],
-          "fame": 4
-        },
-        {
-          "name": "Louis van Gaal",
-          "aliases": [
-            "Van Gaal",
-            "Gaal",
-            "LVG"
-          ],
-          "fame": 6
-        },
-        {
-          "name": "Marco van Basten",
-          "aliases": [
-            "Van Basten",
-            "Basten"
-          ],
-          "fame": 5
-        },
-        {
-          "name": "Bert van Marwijk",
-          "aliases": [
-            "Van Marwijk",
-            "Marwijk"
-          ],
-          "fame": 4
-        },
-        {
-          "name": "Danny Blind",
-          "aliases": [
-            "Blind"
-          ],
-          "fame": 3
-        },
-        {
-          "name": "Ronald Koeman",
-          "aliases": [
-            "Koeman"
-          ],
-          "fame": 6
-        },
-        {
-          "name": "Frank de Boer",
-          "aliases": [
-            "De Boer",
-            "Boer"
-          ],
-          "fame": 4
-        }
-      ],
-      "traps": [
-        {
-          "name": "Xavi",
-          "aliases": [
-            "Xavi Hernández",
-            "Xavi Hernandez"
-          ],
-          "why": "Xavi was appointed in 2026, after this range.",
-          "why_es": "Xavi fue nombrado en 2026, fuera de este rango.",
-          "why_pt": "Xavi foi contratado em 2026, depois deste período."
-        },
-        {
-          "name": "Johan Cruyff",
-          "aliases": [
-            "Cruyff",
-            "Cruijff"
-          ],
-          "why": "Cruyff never coached the Dutch national team.",
-          "why_es": "Cruyff nunca fue seleccionador de los Países Bajos.",
-          "why_pt": "Cruyff nunca treinou a seleção holandesa."
-        },
-        {
-          "name": "Fred Grim",
-          "aliases": [
-            "Grim"
-          ],
-          "why": "Grim was only a caretaker in 2017.",
-          "why_es": "Grim solo fue seleccionador interino en 2017.",
-          "why_pt": "Grim foi só interino em 2017."
-        },
-        {
-          "name": "Dwight Lodeweges",
-          "aliases": [
-            "Lodeweges"
-          ],
-          "why": "Lodeweges was only a caretaker in 2020.",
-          "why_es": "Lodeweges solo fue seleccionador interino en 2020.",
-          "why_pt": "Lodeweges foi só interino em 2020."
-        }
-      ],
-      "prompt_pt": "Cite um técnico da seleção holandesa",
-      "subtitle_pt": "Técnicos efetivos contratados de 1985 a 2025; interinos não contam"
-    },
-    {
       "id": "u032r1",
       "_id": "u032r1",
       "prompt": "Nominated for the Ballon d'Or in 2023 or 2024",
@@ -1408,6 +1117,297 @@
       "answer_type": "player",
       "prompt_es": "Nominado al Balón de Oro en 2023 o 2024",
       "subtitle_es": "Listas de 30 nominados del Balón de Oro masculino"
+    },
+    {
+      "id": "e012r1",
+      "_id": "e012r1",
+      "prompt": "Played for Argentina at the 2022 World Cup",
+      "subtitle": "Appeared in at least one match at the 2022 FIFA World Cup",
+      "difficulty": "easy",
+      "scoring_version": 2,
+      "clash_note": "",
+      "answers": [
+        {
+          "name": "Rodrigo de Paul",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Nicolás Otamendi",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Emiliano Martínez",
+          "aliases": [
+            "Emi Martínez"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Lionel Messi",
+          "aliases": [],
+          "fame": 6
+        },
+        {
+          "name": "Cristian Romero",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Nahuel Molina",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Julián Álvarez",
+          "aliases": [],
+          "fame": 6
+        },
+        {
+          "name": "Enzo Fernández",
+          "aliases": [],
+          "fame": 6
+        },
+        {
+          "name": "Alexis Mac Allister",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Marcos Acuña",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Nicolás Tagliafico",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Lautaro Martínez",
+          "aliases": [],
+          "fame": 6
+        },
+        {
+          "name": "Ángel Di María",
+          "aliases": [],
+          "fame": 6
+        },
+        {
+          "name": "Lisandro Martínez",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Leandro Paredes",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Gonzalo Montiel",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Exequiel Palacios",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Germán Pezzella",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Papu Gómez",
+          "aliases": [
+            "Alejandro Gómez"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Paulo Dybala",
+          "aliases": [],
+          "fame": 6
+        },
+        {
+          "name": "Guido Rodríguez",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Ángel Correa",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Juan Foyth",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "Thiago Almada",
+          "aliases": [],
+          "fame": 1
+        }
+      ],
+      "format_family": "tournament_appearance",
+      "answer_count": 24,
+      "prompt_pt": "Jogou pela Argentina na Copa de 2022",
+      "subtitle_pt": "Entrou em campo em pelo menos um jogo da Copa do Mundo de 2022",
+      "reuse_of": "e012",
+      "first_used": "2026-09-20",
+      "answer_type": "player",
+      "prompt_es": "Jugó con Argentina en el Mundial 2022",
+      "subtitle_es": "Jugó al menos un partido del Mundial de Catar 2022"
+    },
+    {
+      "id": "f148",
+      "_id": "f148",
+      "prompt": "Name a manager of the Netherlands national team",
+      "subtitle": "Permanent head coaches appointed from 1985 to 2025; caretakers not counted",
+      "prompt_es": "Nombra un seleccionador de los Países Bajos",
+      "subtitle_es": "Seleccionadores fijos nombrados de 1985 a 2025; los interinos no cuentan",
+      "difficulty": "medium",
+      "answer_type": "manager",
+      "format_family": "national_team_managers",
+      "scoring_version": 2,
+      "answer_count": 12,
+      "clash_note": "",
+      "answers": [
+        {
+          "name": "Leo Beenhakker",
+          "aliases": [
+            "Beenhakker"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Rinus Michels",
+          "aliases": [
+            "Michels"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Thijs Libregts",
+          "aliases": [
+            "Libregts"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Dick Advocaat",
+          "aliases": [
+            "Advocaat"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Guus Hiddink",
+          "aliases": [
+            "Hiddink"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Frank Rijkaard",
+          "aliases": [
+            "Rijkaard"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Louis van Gaal",
+          "aliases": [
+            "Van Gaal",
+            "Gaal",
+            "LVG"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Marco van Basten",
+          "aliases": [
+            "Van Basten",
+            "Basten"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Bert van Marwijk",
+          "aliases": [
+            "Van Marwijk",
+            "Marwijk"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Danny Blind",
+          "aliases": [
+            "Blind"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Ronald Koeman",
+          "aliases": [
+            "Koeman"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Frank de Boer",
+          "aliases": [
+            "De Boer",
+            "Boer"
+          ],
+          "fame": 4
+        }
+      ],
+      "traps": [
+        {
+          "name": "Xavi",
+          "aliases": [
+            "Xavi Hernández",
+            "Xavi Hernandez"
+          ],
+          "why": "Xavi was appointed in 2026, after this range.",
+          "why_es": "Xavi fue nombrado en 2026, fuera de este rango.",
+          "why_pt": "Xavi foi contratado em 2026, depois deste período."
+        },
+        {
+          "name": "Johan Cruyff",
+          "aliases": [
+            "Cruyff",
+            "Cruijff"
+          ],
+          "why": "Cruyff never coached the Dutch national team.",
+          "why_es": "Cruyff nunca fue seleccionador de los Países Bajos.",
+          "why_pt": "Cruyff nunca treinou a seleção holandesa."
+        },
+        {
+          "name": "Fred Grim",
+          "aliases": [
+            "Grim"
+          ],
+          "why": "Grim was only a caretaker in 2017.",
+          "why_es": "Grim solo fue seleccionador interino en 2017.",
+          "why_pt": "Grim foi só interino em 2017."
+        },
+        {
+          "name": "Dwight Lodeweges",
+          "aliases": [
+            "Lodeweges"
+          ],
+          "why": "Lodeweges was only a caretaker in 2020.",
+          "why_es": "Lodeweges solo fue seleccionador interino en 2020.",
+          "why_pt": "Lodeweges foi só interino em 2020."
+        }
+      ],
+      "prompt_pt": "Cite um técnico da seleção holandesa",
+      "subtitle_pt": "Técnicos efetivos contratados de 1985 a 2025; interinos não contam"
     }
   ]
 }

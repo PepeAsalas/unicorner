@@ -1,0 +1,915 @@
+{
+  "date": "2026-12-05",
+  "timezone": "Europe/Amsterdam",
+  "questions": [
+    {
+      "id": "f038r1",
+      "_id": "f038r1",
+      "prompt": "Name a country from the Americas at a men's World Cup",
+      "subtitle": "North, Central and South America, finals tournaments 1930 to 2022",
+      "prompt_es": "Nombra un país de América que jugó un Mundial masculino",
+      "subtitle_es": "Norteamérica, Centroamérica, Caribe y Sudamérica, fases finales de 1930 a 2022",
+      "difficulty": "easy",
+      "answer_type": "country",
+      "format_family": "tournament_squad",
+      "scoring_version": 2,
+      "answer_count": 20,
+      "clash_note": "",
+      "answers": [
+        {
+          "name": "Brazil",
+          "name_es": "Brasil",
+          "aliases": [
+            "Brasil"
+          ],
+          "fame": 6,
+          "name_pt": "Brasil"
+        },
+        {
+          "name": "Argentina",
+          "name_es": "Argentina",
+          "aliases": [
+            "Argentina"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Mexico",
+          "name_es": "México",
+          "aliases": [
+            "México"
+          ],
+          "fame": 5,
+          "name_pt": "México"
+        },
+        {
+          "name": "United States",
+          "name_es": "Estados Unidos",
+          "aliases": [
+            "USA",
+            "US",
+            "America",
+            "EEUU",
+            "Estados Unidos",
+            "EUA"
+          ],
+          "fame": 5,
+          "name_pt": "Estados Unidos"
+        },
+        {
+          "name": "Uruguay",
+          "name_es": "Uruguay",
+          "aliases": [
+            "Uruguay"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Colombia",
+          "name_es": "Colombia",
+          "aliases": [
+            "Colombia"
+          ],
+          "fame": 5,
+          "name_pt": "Colômbia"
+        },
+        {
+          "name": "Chile",
+          "name_es": "Chile",
+          "aliases": [
+            "Chile"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Peru",
+          "name_es": "Perú",
+          "aliases": [
+            "Perú"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Paraguay",
+          "name_es": "Paraguay",
+          "aliases": [
+            "Paraguay"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Costa Rica",
+          "name_es": "Costa Rica",
+          "aliases": [
+            "Costa Rica"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Ecuador",
+          "name_es": "Ecuador",
+          "aliases": [
+            "Ecuador",
+            "Equador"
+          ],
+          "fame": 4,
+          "name_pt": "Equador"
+        },
+        {
+          "name": "Canada",
+          "name_es": "Canadá",
+          "aliases": [
+            "Canadá"
+          ],
+          "fame": 4,
+          "name_pt": "Canadá"
+        },
+        {
+          "name": "Jamaica",
+          "name_es": "Jamaica",
+          "aliases": [
+            "Jamaica"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Honduras",
+          "name_es": "Honduras",
+          "aliases": [
+            "Honduras"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Panama",
+          "name_es": "Panamá",
+          "aliases": [
+            "Panamá"
+          ],
+          "fame": 3,
+          "name_pt": "Panamá"
+        },
+        {
+          "name": "Bolivia",
+          "name_es": "Bolivia",
+          "aliases": [
+            "Bolivia"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Trinidad and Tobago",
+          "name_es": "Trinidad y Tobago",
+          "aliases": [
+            "Trinidad",
+            "Trinidad y Tobago",
+            "T&T",
+            "Trinidad e Tobago"
+          ],
+          "fame": 2,
+          "name_pt": "Trinidad e Tobago"
+        },
+        {
+          "name": "El Salvador",
+          "name_es": "El Salvador",
+          "aliases": [
+            "El Salvador"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Haiti",
+          "name_es": "Haití",
+          "aliases": [
+            "Haití"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Cuba",
+          "name_es": "Cuba",
+          "aliases": [
+            "Cuba"
+          ],
+          "fame": 1
+        }
+      ],
+      "traps": [
+        {
+          "name": "Venezuela",
+          "aliases": [],
+          "why": "Venezuela is the one CONMEBOL country that has never reached a World Cup.",
+          "why_es": "Venezuela es la única selección de la CONMEBOL que nunca ha llegado a un Mundial.",
+          "why_pt": "A Venezuela é a única seleção da CONMEBOL que nunca foi a uma Copa do Mundo."
+        },
+        {
+          "name": "Guatemala",
+          "aliases": [],
+          "why": "Guatemala has never qualified for a World Cup finals.",
+          "why_es": "Guatemala nunca se ha clasificado para una fase final de un Mundial.",
+          "why_pt": "A Guatemala nunca se classificou para uma Copa do Mundo."
+        }
+      ],
+      "prompt_pt": "Cite um país das Américas que jogou uma Copa do Mundo masculina",
+      "subtitle_pt": "Américas do Norte, Central e do Sul, fases finais de 1930 a 2022",
+      "reuse_of": "f038",
+      "first_used": "2026-11-05"
+    },
+    {
+      "id": "f170",
+      "_id": "f170",
+      "prompt": "Name a country that won the U-20 World Cup",
+      "subtitle": "FIFA's under-20 men's world championship (once the World Youth Championship), 1977 to 2025",
+      "prompt_es": "Nombra una selección que ganó el Mundial sub-20",
+      "subtitle_es": "El campeonato mundial masculino sub-20 de la FIFA (antes Mundial Juvenil), de 1977 a 2025",
+      "prompt_pt": "Cite uma seleção que venceu o Mundial Sub-20",
+      "subtitle_pt": "O campeonato mundial masculino sub-20 da FIFA (antigo Mundial de Juniores), de 1977 a 2025",
+      "difficulty": "easy",
+      "answer_type": "country",
+      "format_family": "trophy_winner",
+      "scoring_version": 2,
+      "answer_count": 14,
+      "clash_note": "Serbia (2015) and Yugoslavia (1987) are separate answers; West Germany (1981) counts as Germany.",
+      "answers": [
+        {
+          "name": "Argentina",
+          "aliases": [],
+          "fame": 6
+        },
+        {
+          "name": "Brazil",
+          "aliases": [
+            "Brasil"
+          ],
+          "fame": 6,
+          "name_es": "Brasil",
+          "name_pt": "Brasil"
+        },
+        {
+          "name": "Spain",
+          "aliases": [
+            "España",
+            "Espana",
+            "Espanha"
+          ],
+          "fame": 4,
+          "name_es": "España",
+          "name_pt": "Espanha"
+        },
+        {
+          "name": "Portugal",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "France",
+          "aliases": [
+            "Francia",
+            "França"
+          ],
+          "fame": 3,
+          "name_es": "Francia",
+          "name_pt": "França"
+        },
+        {
+          "name": "England",
+          "aliases": [
+            "Inglaterra"
+          ],
+          "fame": 3,
+          "name_es": "Inglaterra",
+          "name_pt": "Inglaterra"
+        },
+        {
+          "name": "Uruguay",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Morocco",
+          "aliases": [
+            "Marruecos",
+            "Marrocos"
+          ],
+          "fame": 3,
+          "name_es": "Marruecos",
+          "name_pt": "Marrocos"
+        },
+        {
+          "name": "Ghana",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "Ukraine",
+          "aliases": [
+            "Ucrania",
+            "Ucrânia"
+          ],
+          "fame": 2,
+          "name_es": "Ucrania",
+          "name_pt": "Ucrânia"
+        },
+        {
+          "name": "Germany",
+          "aliases": [
+            "West Germany",
+            "Alemania",
+            "Alemanha"
+          ],
+          "fame": 2,
+          "name_es": "Alemania",
+          "name_pt": "Alemanha"
+        },
+        {
+          "name": "Serbia",
+          "aliases": [
+            "Sérvia"
+          ],
+          "fame": 1,
+          "name_pt": "Sérvia"
+        },
+        {
+          "name": "Yugoslavia",
+          "aliases": [
+            "Iugoslávia"
+          ],
+          "fame": 1,
+          "name_pt": "Iugoslávia"
+        },
+        {
+          "name": "Soviet Union",
+          "aliases": [
+            "USSR",
+            "URSS",
+            "Unión Soviética",
+            "Union Sovietica",
+            "União Soviética"
+          ],
+          "fame": 1,
+          "name_es": "Unión Soviética",
+          "name_pt": "União Soviética"
+        }
+      ],
+      "traps": [
+        {
+          "name": "Italy",
+          "aliases": [
+            "Italia"
+          ],
+          "why": "Italy's best was the 2023 final, lost to Uruguay.",
+          "why_es": "Lo mejor de Italia fue la final de 2023, perdida ante Uruguay.",
+          "name_pt": "Itália"
+        },
+        {
+          "name": "Nigeria",
+          "aliases": [],
+          "why": "Nigeria were runners-up in 1989 and 2005.",
+          "why_es": "Nigeria fue subcampeona en 1989 y 2005.",
+          "name_pt": "Nigéria"
+        },
+        {
+          "name": "Mexico",
+          "aliases": [
+            "México"
+          ],
+          "why": "Mexico were runners-up in 1977.",
+          "why_es": "México fue subcampeón en 1977.",
+          "name_pt": "México"
+        },
+        {
+          "name": "Chile",
+          "aliases": [],
+          "why": "Chile hosted the 2025 tournament but have never won it.",
+          "why_es": "Chile organizó el torneo de 2025, pero nunca lo ha ganado."
+        }
+      ]
+    },
+    {
+      "id": "f171",
+      "_id": "f171",
+      "prompt": "Reached double figures in career World Cup goals",
+      "subtitle": "Career totals at men's World Cups, 1930 to 2026",
+      "prompt_es": "Llegó a 10 goles en Mundiales en su carrera",
+      "subtitle_es": "Total de su carrera en Mundiales masculinos, de 1930 a 2026",
+      "prompt_pt": "Chegou a 10 gols em Copas do Mundo na carreira",
+      "subtitle_pt": "Total na carreira em Copas masculinas, de 1930 a 2026",
+      "difficulty": "medium",
+      "answer_type": "player",
+      "format_family": "stat_threshold",
+      "scoring_version": 2,
+      "answer_count": 17,
+      "clash_note": "Ronaldo alone could be Ronaldo Nazário or Cristiano Ronaldo, and Müller could be Gerd or Thomas: type the full name.",
+      "answers": [
+        {
+          "name": "Kylian Mbappé",
+          "aliases": [
+            "Kylian Mbappe",
+            "Mbappe",
+            "Mbappé"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Lionel Messi",
+          "aliases": [
+            "Messi",
+            "Leo Messi"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Miroslav Klose",
+          "aliases": [
+            "Klose"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Ronaldo Nazário",
+          "aliases": [
+            "Ronaldo Nazario",
+            "R9",
+            "Ronaldo Fenómeno"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Gerd Müller",
+          "aliases": [
+            "Gerd Muller"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Harry Kane",
+          "aliases": [
+            "Kane"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Just Fontaine",
+          "aliases": [
+            "Fontaine"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Pelé",
+          "aliases": [
+            "Pele"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Sándor Kocsis",
+          "aliases": [
+            "Sandor Kocsis",
+            "Kocsis"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Jürgen Klinsmann",
+          "aliases": [
+            "Jurgen Klinsmann",
+            "Klinsmann"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Cristiano Ronaldo",
+          "aliases": [
+            "Cristiano",
+            "CR7"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Helmut Rahn",
+          "aliases": [
+            "Rahn"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Gary Lineker",
+          "aliases": [
+            "Lineker"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Gabriel Batistuta",
+          "aliases": [
+            "Batistuta",
+            "Batigol"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Teófilo Cubillas",
+          "aliases": [
+            "Teofilo Cubillas",
+            "Cubillas"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Thomas Müller",
+          "aliases": [
+            "Thomas Muller"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Grzegorz Lato",
+          "aliases": [
+            "Lato"
+          ],
+          "fame": 1
+        }
+      ],
+      "traps": [
+        {
+          "name": "Neymar",
+          "aliases": [
+            "Neymar Jr"
+          ],
+          "why": "Neymar finished on 9 World Cup goals.",
+          "why_es": "Neymar se quedó en 9 goles en Mundiales."
+        },
+        {
+          "name": "Eusébio",
+          "aliases": [
+            "Eusebio"
+          ],
+          "why": "Eusébio scored all 9 of his World Cup goals in 1966.",
+          "why_es": "Eusébio marcó sus 9 goles mundialistas en 1966."
+        },
+        {
+          "name": "Roberto Baggio",
+          "aliases": [
+            "Baggio"
+          ],
+          "why": "Baggio scored 9 World Cup goals.",
+          "why_es": "Baggio marcó 9 goles en Mundiales."
+        },
+        {
+          "name": "David Villa",
+          "aliases": [
+            "Villa"
+          ],
+          "why": "Villa scored 9 World Cup goals.",
+          "why_es": "Villa marcó 9 goles en Mundiales."
+        },
+        {
+          "name": "Diego Maradona",
+          "aliases": [
+            "Maradona"
+          ],
+          "why": "Maradona scored 8 World Cup goals.",
+          "why_es": "Maradona marcó 8 goles en Mundiales."
+        },
+        {
+          "name": "Erling Haaland",
+          "aliases": [
+            "Haaland"
+          ],
+          "why": "Haaland scored 7 at his first World Cup in 2026.",
+          "why_es": "Haaland marcó 7 en su primer Mundial, en 2026."
+        }
+      ]
+    },
+    {
+      "id": "f036r1",
+      "_id": "f036r1",
+      "prompt": "Finished as Serie A top scorer",
+      "subtitle": "Capocannoniere, 1999-2000 to 2024-25, shared titles count",
+      "prompt_es": "Fue máximo goleador de la Serie A",
+      "subtitle_es": "Capocannoniere, de la 1999-2000 a la 2024-25, cuentan los compartidos",
+      "difficulty": "medium",
+      "answer_type": "player",
+      "format_family": "season_top_scorer",
+      "scoring_version": 2,
+      "clash_note": "",
+      "answers": [
+        {
+          "name": "Cristiano Ronaldo",
+          "aliases": [
+            "Ronaldo",
+            "CR7",
+            "Cristiano"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Zlatan Ibrahimović",
+          "aliases": [
+            "Ibrahimovic",
+            "Zlatan",
+            "Ibra"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Francesco Totti",
+          "aliases": [
+            "Totti"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Andriy Shevchenko",
+          "aliases": [
+            "Shevchenko",
+            "Sheva"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Gonzalo Higuaín",
+          "aliases": [
+            "Higuain",
+            "Pipita"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Ciro Immobile",
+          "aliases": [
+            "Immobile"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Hernán Crespo",
+          "aliases": [
+            "Crespo"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "David Trezeguet",
+          "aliases": [
+            "Trezeguet"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Christian Vieri",
+          "aliases": [
+            "Vieri",
+            "Bobo Vieri"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Alessandro Del Piero",
+          "aliases": [
+            "Del Piero"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Edinson Cavani",
+          "aliases": [
+            "Cavani"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Victor Osimhen",
+          "aliases": [
+            "Osimhen"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Lautaro Martínez",
+          "aliases": [
+            "Lautaro",
+            "Lautaro Martinez"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Mauro Icardi",
+          "aliases": [
+            "Icardi"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Luca Toni",
+          "aliases": [
+            "Toni"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Antonio Di Natale",
+          "aliases": [
+            "Di Natale",
+            "Totò Di Natale",
+            "Toto Di Natale"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Edin Džeko",
+          "aliases": [
+            "Dzeko"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Fabio Quagliarella",
+          "aliases": [
+            "Quagliarella"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Mateo Retegui",
+          "aliases": [
+            "Retegui"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Cristiano Lucarelli",
+          "aliases": [
+            "Lucarelli"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Dario Hübner",
+          "aliases": [
+            "Hubner",
+            "Hübner"
+          ],
+          "fame": 1
+        }
+      ],
+      "traps": [
+        {
+          "name": "Romelu Lukaku",
+          "aliases": [
+            "Lukaku"
+          ],
+          "why": "Lukaku scored 24 for Inter in 2020-21, five behind Ronaldo.",
+          "why_es": "Lukaku marcó 24 con el Inter en la 2020-21, cinco menos que Cristiano.",
+          "why_pt": "Lukaku marcou 24 pela Inter em 2020-21, cinco atrás de Cristiano."
+        },
+        {
+          "name": "Dušan Vlahović",
+          "aliases": [
+            "Vlahovic"
+          ],
+          "why": "Vlahović scored 24 in 2021-22, three behind Immobile.",
+          "why_es": "Vlahović marcó 24 en la 2021-22, tres menos que Immobile.",
+          "why_pt": "Vlahović marcou 24 em 2021-22, três atrás de Immobile."
+        }
+      ],
+      "answer_count": 21,
+      "prompt_pt": "Foi artilheiro da Serie A italiana",
+      "subtitle_pt": "Capocannoniere, de 1999-2000 a 2024-25, artilharias divididas contam",
+      "reuse_of": "f036",
+      "first_used": "2026-11-05"
+    },
+    {
+      "id": "f181",
+      "_id": "f181",
+      "prompt": "Name a club or national team Marcelo Bielsa managed",
+      "subtitle": "Head coach appointments 1990 to 2026, national teams included (Lazio counts though he quit after two days)",
+      "prompt_es": "Nombra un club o selección que entrenó Marcelo Bielsa",
+      "subtitle_es": "Nombramientos como primer entrenador de 1990 a 2026, selecciones incluidas (la Lazio cuenta aunque se fue a los dos días)",
+      "prompt_pt": "Cite um clube ou seleção que Marcelo Bielsa treinou",
+      "subtitle_pt": "Nomeações como técnico de 1990 a 2026, seleções incluídas (a Lazio conta, embora ele tenha saído após dois dias)",
+      "difficulty": "hard",
+      "answer_type": "club",
+      "format_family": "club_manager",
+      "scoring_version": 2,
+      "answer_count": 13,
+      "clash_note": "Argentina includes the under-23 side he led to Olympic gold in 2004.",
+      "answers": [
+        {
+          "name": "Newell's Old Boys",
+          "aliases": [
+            "Newell's",
+            "Newells",
+            "Newells Old Boys"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Atlas",
+          "aliases": [
+            "Atlas FC"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Club América",
+          "aliases": [
+            "América",
+            "America"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Vélez Sarsfield",
+          "aliases": [
+            "Velez Sarsfield",
+            "Vélez",
+            "Velez"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Espanyol",
+          "aliases": [
+            "RCD Espanyol"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Athletic Bilbao",
+          "aliases": [
+            "Athletic",
+            "Athletic Club"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Marseille",
+          "aliases": [
+            "Olympique de Marseille",
+            "OM",
+            "Marsella",
+            "Olympique de Marselha"
+          ],
+          "fame": 5,
+          "name_es": "Marsella",
+          "name_pt": "Olympique de Marselha"
+        },
+        {
+          "name": "Lazio",
+          "aliases": [
+            "SS Lazio"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Lille",
+          "aliases": [
+            "LOSC",
+            "Lille OSC"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Leeds United",
+          "aliases": [
+            "Leeds"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Argentina",
+          "aliases": [],
+          "fame": 6
+        },
+        {
+          "name": "Chile",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Uruguay",
+          "aliases": [],
+          "fame": 5
+        }
+      ],
+      "traps": [
+        {
+          "name": "Rosario Central",
+          "aliases": [
+            "Central"
+          ],
+          "why": "Bielsa is a Newell's man and never coached their Rosario rivals Central.",
+          "why_es": "Bielsa es de Newell's y nunca entrenó a su rival de Rosario, Central."
+        },
+        {
+          "name": "Real Madrid",
+          "aliases": [],
+          "why": "Bielsa's Spanish clubs were Espanyol and Athletic.",
+          "why_es": "Los clubes españoles de Bielsa fueron el Espanyol y el Athletic."
+        }
+      ]
+    }
+  ]
+}

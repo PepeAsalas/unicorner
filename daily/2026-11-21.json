@@ -92,7 +92,23 @@
       "prompt_pt": "Cite um clube campeão da Premier League ou de LaLiga, 1995–2012",
       "subtitle_pt": "Campeões de 1995 a 2012, inclusive",
       "reuse_of": "r013",
-      "first_used": "2026-10-19"
+      "first_used": "2026-10-19",
+      "traps": [
+        {
+          "name": "Leicester City",
+          "aliases": [
+            "Leicester"
+          ],
+          "why": "Leicester's Premier League title came in 2016, after this scope.",
+          "why_es": "El título de Premier del Leicester llegó en 2016, fuera de este periodo."
+        },
+        {
+          "name": "Liverpool",
+          "aliases": [],
+          "why": "Liverpool's next league title after 1990 came only in 2020.",
+          "why_es": "El siguiente título de liga del Liverpool tras 1990 no llegó hasta 2020."
+        }
+      ]
     },
     {
       "id": "k025r1",
@@ -798,6 +814,14 @@
           "why": "Lippi never managed Roma.",
           "why_es": "Lippi nunca dirigió a la Roma.",
           "why_pt": "Lippi nunca treinou a Roma."
+        },
+        {
+          "name": "Sampdoria",
+          "aliases": [
+            "Samp"
+          ],
+          "why": "Lippi played for Sampdoria and coached their youth team, never the first team.",
+          "why_es": "Lippi jugó en la Sampdoria y entrenó a su juvenil, nunca al primer equipo."
         }
       ],
       "prompt_pt": "Cite um clube que Marcello Lippi treinou",
@@ -1066,12 +1090,16 @@
         },
         {
           "name": "Marc Guéhi",
-          "aliases": [],
+          "aliases": [
+            "Guehi"
+          ],
           "fame": 5
         },
         {
           "name": "Kobbie Mainoo",
-          "aliases": [],
+          "aliases": [
+            "Mainoo"
+          ],
           "fame": 5
         },
         {
@@ -1086,7 +1114,11 @@
         },
         {
           "name": "Trent Alexander-Arnold",
-          "aliases": [],
+          "aliases": [
+            "Trent",
+            "TAA",
+            "Alexander Arnold"
+          ],
           "fame": 6
         },
         {
@@ -1133,7 +1165,42 @@
       "first_used": "2026-09-19",
       "answer_type": "player",
       "prompt_es": "Jugó con Inglaterra en la Euro 2024",
-      "subtitle_es": "Jugó al menos un partido de la Euro 2024"
+      "subtitle_es": "Jugó al menos un partido de la Euro 2024",
+      "traps": [
+        {
+          "name": "Dean Henderson",
+          "aliases": [
+            "Henderson",
+            "Jordan Henderson"
+          ],
+          "why": "Dean Henderson was the third goalkeeper and never played; Jordan Henderson was not picked.",
+          "why_es": "Dean Henderson fue el tercer portero y no jugó; Jordan Henderson no fue convocado."
+        },
+        {
+          "name": "Aaron Ramsdale",
+          "aliases": [
+            "Ramsdale"
+          ],
+          "why": "Ramsdale was in the squad but never played.",
+          "why_es": "Ramsdale estaba en la convocatoria pero no jugó."
+        },
+        {
+          "name": "Harry Maguire",
+          "aliases": [
+            "Maguire"
+          ],
+          "why": "Maguire missed Euro 2024 with a calf injury.",
+          "why_es": "Maguire se perdió la Eurocopa 2024 por una lesión en el gemelo."
+        },
+        {
+          "name": "Jack Grealish",
+          "aliases": [
+            "Grealish"
+          ],
+          "why": "Grealish was cut from the provisional squad before the tournament.",
+          "why_es": "Grealish fue descartado de la lista provisional antes del torneo."
+        }
+      ]
     }
   ]
 }
