@@ -1,0 +1,137 @@
+{
+  "day": "2026-11-23",
+  "questions": [
+    {
+      "q": "Which of these clubs did Romário NEVER play for?",
+      "q_es": "¿En cuál de estos clubes NUNCA jugó Romário?",
+      "q_pt": "Em qual destes clubes Romário NUNCA jogou?",
+      "o": [
+        "Valencia",
+        "São Paulo",
+        "Fluminense",
+        "Adelaide United"
+      ],
+      "a": 1,
+      "why": "Romário played for Valencia, Fluminense and even Adelaide United, but never São Paulo.",
+      "why_es": "Romário jugó en el Valencia, el Fluminense y hasta el Adelaide United, pero nunca en el São Paulo.",
+      "why_pt": "Romário jogou no Valencia, no Fluminense e até no Adelaide United, mas nunca no São Paulo.",
+      "src": "https://en.wikipedia.org/wiki/Rom%C3%A1rio"
+    },
+    {
+      "q": "Who coached Greece to the Euro 2004 title?",
+      "q_es": "¿Quién era el seleccionador de Grecia que ganó la Eurocopa 2004?",
+      "q_pt": "Quem era o técnico da Grécia campeã da Eurocopa de 2004?",
+      "o": [
+        "Guus Hiddink",
+        "Berti Vogts",
+        "Ottmar Hitzfeld",
+        "Otto Rehhagel"
+      ],
+      "a": 3,
+      "why": "Otto Rehhagel, the German who coached Greece from 2001 to 2010.",
+      "why_es": "Otto Rehhagel, el alemán que dirigió a Grecia de 2001 a 2010.",
+      "why_pt": "Otto Rehhagel, o alemão que treinou a Grécia de 2001 a 2010.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "How many goals did Lionel Messi score in the calendar year 2012, his world record?",
+      "q_es": "¿Cuántos goles marcó Lionel Messi en el año natural 2012, su récord mundial?",
+      "q_pt": "Quantos gols Lionel Messi marcou no ano de 2012, seu recorde mundial?",
+      "o": [
+        "85",
+        "91",
+        "88",
+        "94"
+      ],
+      "a": 1,
+      "why": "91 for Barcelona and Argentina, beating Gerd Müller's 85 from 1972.",
+      "why_es": "91 entre Barcelona y Argentina, superando los 85 de Gerd Müller en 1972.",
+      "why_pt": "91 entre Barcelona e Argentina, superando os 85 de Gerd Müller em 1972.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which club did Fabio Cannavaro leave to join Real Madrid in 2006?",
+      "q_es": "¿De qué club salió Fabio Cannavaro para fichar por el Real Madrid en 2006?",
+      "q_pt": "De qual clube Fabio Cannavaro saiu para ir para o Real Madrid em 2006?",
+      "o": [
+        "Inter",
+        "Parma",
+        "Juventus"
+      ],
+      "a": 2,
+      "why": "He moved from Juventus after Calciopoli; he had left Parma for Inter in 2002 and Inter for Juve in 2004.",
+      "why_es": "Llegó desde la Juventus tras el Calciopoli; había dejado el Parma por el Inter en 2002 y el Inter por la Juve en 2004.",
+      "why_pt": "Veio da Juventus após o Calciopoli; tinha trocado o Parma pela Inter em 2002 e a Inter pela Juve em 2004.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which was the first World Cup with 32 teams?",
+      "q_es": "¿Cuál fue el primer Mundial con 32 selecciones?",
+      "q_pt": "Qual foi a primeira Copa do Mundo com 32 seleções?",
+      "o": [
+        "1998",
+        "1994",
+        "2002"
+      ],
+      "a": 0,
+      "why": "France 1998; USA 1994 had 24 teams.",
+      "why_es": "Francia 1998; Estados Unidos 1994 tuvo 24 selecciones.",
+      "why_pt": "França 1998; a dos EUA em 1994 teve 24 seleções.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which of these players NEVER played for Valencia?",
+      "q_es": "¿Cuál de estos jugadores NUNCA jugó en el Valencia?",
+      "q_pt": "Qual destes jogadores NUNCA jogou no Valencia?",
+      "o": [
+        "Fernando Morientes",
+        "Juan Román Riquelme",
+        "Roberto Ayala"
+      ],
+      "a": 1,
+      "why": "Riquelme's Spanish clubs were Barcelona and Villarreal; Morientes and Ayala both played for Valencia.",
+      "why_es": "Los clubes españoles de Riquelme fueron el Barcelona y el Villarreal; Morientes y Ayala jugaron en el Valencia.",
+      "why_pt": "Os clubes espanhóis de Riquelme foram Barcelona e Villarreal; Morientes e Ayala jogaram no Valencia.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which of these countries has NEVER played at a World Cup (up to 2022)?",
+      "q_es": "¿Cuál de estos países NUNCA ha jugado un Mundial (hasta 2022)?",
+      "q_pt": "Qual destes países NUNCA jogou uma Copa do Mundo (até 2022)?",
+      "o": [
+        "Israel",
+        "Iceland",
+        "Finland"
+      ],
+      "a": 2,
+      "why": "Israel played in 1970 and Iceland in 2018; Finland has never qualified.",
+      "why_es": "Israel jugó en 1970 e Islandia en 2018; Finlandia nunca se ha clasificado.",
+      "why_pt": "Israel jogou em 1970 e a Islândia em 2018; a Finlândia nunca se classificou.",
+      "src": "own knowledge",
+      "o_es": [
+        "Israel",
+        "Islandia",
+        "Finlandia"
+      ],
+      "o_pt": [
+        "Israel",
+        "Islândia",
+        "Finlândia"
+      ]
+    },
+    {
+      "q": "Who won more caps for Spain: Iker Casillas or Sergio Ramos?",
+      "q_es": "¿Quién jugó más partidos con España: Iker Casillas o Sergio Ramos?",
+      "q_pt": "Quem jogou mais partidas pela Espanha: Iker Casillas ou Sergio Ramos?",
+      "o": [
+        "Sergio Ramos",
+        "Iker Casillas"
+      ],
+      "a": 0,
+      "why": "Ramos won 180 caps, the Spanish record; Casillas 167.",
+      "why_es": "Ramos jugó 180 partidos, récord de España; Casillas 167.",
+      "why_pt": "Ramos jogou 180 partidas, recorde da Espanha; Casillas, 167.",
+      "src": "own knowledge"
+    }
+  ]
+}

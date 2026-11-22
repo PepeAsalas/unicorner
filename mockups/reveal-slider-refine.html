@@ -1,0 +1,114 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Slider reveal refinements</title>
+<style>
+@font-face{font-family:'Jersey 10';src:url(/fonts/jersey10.woff2) format('woff2')}
+@font-face{font-family:'VT323';src:url(/fonts/vt323.woff2) format('woff2')}
+:root{--card:#1e3f8a;--card2:#183372;--ink:#fff;--cream:#fff6dc;--mute:#b9c6ea;--gold:#f2c230;--t1:#cfd8e6;--t2:#7fe0a8;--t3:#b48cff;--t4:#ff7ac8;--t5:#f2c230;--dark:#141a33;--ease:cubic-bezier(.23,1,.32,1)}
+*{box-sizing:border-box}
+body{margin:0;background:#0d1226;color:var(--ink);font-family:'VT323',monospace;padding:28px}
+h1{font:400 44px/1 'Jersey 10';margin:0 0 6px;color:var(--gold)}
+.intro{font-size:22px;color:var(--mute);margin:0 0 26px;max-width:1100px}
+.row{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start}
+.col{width:390px}
+.col h2{font:400 30px/1 'Jersey 10';margin:0 0 4px}
+.col p.why{font-size:19px;color:var(--mute);margin:0 0 12px;min-height:66px}
+.phone{width:390px;height:780px;border:4px solid #000;background:repeating-linear-gradient(90deg,#2e8a45 0 48px,#2a8040 48px 96px);position:relative;overflow:hidden;padding:18px 14px}
+.card{background:var(--card);border:4px solid #000;box-shadow:6px 6px 0 rgba(0,0,0,.45);padding:18px 16px 16px;position:relative}
+.q{font-size:20px;line-height:1.15;color:var(--mute);margin:0 0 14px}
+.qk{display:inline-block;font:400 15px/1 'Jersey 10';letter-spacing:2px;color:#000;background:var(--gold);padding:4px 6px 1px;margin-right:6px;vertical-align:2px}
+/* the bar */
+.bar{position:relative;height:30px;border:4px solid #fff;background:var(--dark);margin-top:92px}
+.bar .seg{position:absolute;top:0;bottom:0;border-right:3px solid #fff}
+.bar .fill{position:absolute;left:0;top:0;bottom:0;background:repeating-linear-gradient(180deg,#ff4d4d 0 4px,#ff9a3c 4px 8px,#ffd23f 8px 12px,#39d36a 12px 16px,#4fc3ff 16px 20px,#b07cff 20px 24px)}
+.uni{position:absolute;width:78px;height:65px;background:center/contain no-repeat;image-rendering:pixelated}
+.bub{position:absolute;font:400 20px/1 'Jersey 10';background:var(--t3);color:#000;border:3px solid #000;padding:6px 8px 2px;white-space:nowrap}
+.bub:after{content:"";position:absolute;left:50%;bottom:-9px;width:10px;height:10px;background:inherit;border:3px solid #000;border-top:0;border-left:0;transform:translateX(-50%) rotate(45deg)}
+.nums{position:relative;height:20px;margin-top:6px;font-size:17px;color:var(--mute)}
+.nums span{position:absolute;transform:translateX(-100%)}
+.nums span.on{color:#fff}
+.btn{display:block;width:100%;margin-top:18px;background:#fff;color:#000;border:4px solid #000;box-shadow:4px 4px 0 #000;font:400 24px/1 'Jersey 10';letter-spacing:2px;padding:14px 0 10px;text-align:center}
+.lvl{font-size:19px;color:var(--mute);margin-top:12px}.lvl b{color:#fff;font-weight:400}
+
+/* A: tidy */
+.A .names{position:absolute;inset:0;display:flex}
+.A .names i{font:400 12px/26px 'Jersey 10';letter-spacing:1px;color:rgba(255,255,255,.22);font-style:normal;text-align:center;overflow:hidden}
+.A .res{display:grid;grid-template-columns:1fr auto;align-items:end;margin-top:20px;border-top:3px dashed rgba(255,255,255,.25);padding-top:14px}
+.A .tn{font:400 56px/.9 'Jersey 10';color:var(--t3);text-shadow:4px 4px 0 #000;letter-spacing:1px}
+.A .pp{font:400 64px/.9 'Jersey 10';color:var(--gold);text-shadow:4px 4px 0 #000}
+.A .ans{font:400 30px/1 'Jersey 10';margin-top:8px}
+.A .share{margin-top:12px;display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center;font-size:19px;color:var(--mute)}
+.A .share b{color:var(--gold);font-weight:400;font-size:24px}
+.A .mini{height:10px;background:var(--dark);border:2px solid #000;position:relative}.A .mini i{position:absolute;left:0;top:0;bottom:0;background:var(--gold)}
+
+/* B: rarity crowd */
+.B .res{margin-top:22px;display:grid;grid-template-columns:1fr 1fr;border:4px solid #000;background:var(--dark)}
+.B .res div{padding:10px 12px 8px}.B .res div+div{border-left:4px solid #000;text-align:right}
+.B .res small{display:block;font:400 14px/1 'Jersey 10';letter-spacing:2px;color:var(--mute)}
+.B .res b{display:block;font:400 34px/1.05 'Jersey 10';font-weight:400;margin-top:4px}
+.B .res .p b{color:var(--gold);font-size:44px}
+.B .tn{font:400 50px/1 'Jersey 10';color:var(--t3);text-shadow:4px 4px 0 #000;margin-top:16px;text-align:center}
+.B .crowd{margin-top:14px;display:grid;grid-template-columns:repeat(10,1fr);gap:2px}
+.B .crowd i{aspect-ratio:1.2;background:center/contain no-repeat;image-rendering:pixelated;opacity:.35;filter:grayscale(1)}
+.B .crowd i.me{opacity:1;filter:drop-shadow(0 0 6px var(--gold))}
+.B .cap{text-align:center;font-size:20px;color:var(--mute);margin-top:6px}.B .cap b{color:var(--gold);font-weight:400}
+
+/* C: centred, commentary */
+.C .card{text-align:center}
+.C .say{display:inline-block;margin:2px 0 0;background:var(--cream);color:#000;border:3px solid #000;font:400 22px/1 'Jersey 10';padding:8px 12px 4px;position:relative}
+.C .pp{font:400 104px/.85 'Jersey 10';color:var(--gold);text-shadow:6px 6px 0 #000;margin-top:24px}
+.C .tn{font:400 34px/1 'Jersey 10';letter-spacing:6px;color:var(--t3);margin-top:6px}
+.C .ans{display:inline-block;margin-top:14px;font:400 26px/1 'Jersey 10';background:rgba(0,0,0,.25);border:3px solid #000;padding:8px 14px 4px}
+.C .pill{display:inline-flex;gap:8px;align-items:center;margin-top:12px;font-size:20px;color:var(--mute)}
+.C .pill b{background:var(--gold);color:#000;font:400 22px/1 'Jersey 10';padding:5px 8px 1px;border:3px solid #000;font-weight:400}
+</style></head><body>
+<h1>Slider reveal: three ways to refine it</h1>
+<p class="intro">Same slider, unicorn and rainbow trail players like, same "% of players said this". What changes is the layout under it: less empty space, clearer hierarchy, and the percentage made more visual. Example: answer "Benfica", a Volley worth 60, said by 18% of players.</p>
+<div class="row">
+
+<div class="col"><h2>Now (live)</h2><p class="why">For reference. Big empty gaps, small left-aligned text floating on the card, the percentage is just a line of text.</p>
+<div class="phone"><img src="/mockups/reveal-slider-now.png" style="display:block;margin:-18px -14px;width:390px" alt=""></div></div>
+
+<div class="col A"><h2>A · Tidy</h2><p class="why">Same layout, cleaned up. Tier names shown faintly inside the bar, the result as one row (tier left, points right), and the percentage gets its own little bar.</p>
+<div class="phone"><div class="card">
+ <p class="q"><span class="qk">Q2</span>Name a club that lost a European Cup or Champions League final</p>
+ <div class="bar" data-p="60"><div class="names"></div></div><div class="nums"></div>
+ <div class="res"><div><div class="tn">VOLLEY</div><div class="ans">Benfica</div></div><div class="pp">+60</div></div>
+ <div class="share"><b>18%</b><span>of players said this</span><div class="mini" style="grid-column:1/-1"><i style="width:18%"></i></div></div>
+ <div class="lvl">Level: <b>Second tier</b></div>
+ <div class="btn">KEEP GOING</div>
+</div></div></div>
+
+<div class="col B"><h2>B · Rarity crowd</h2><p class="why">The percentage becomes a row of unicorns: you glow, everyone who said the same is lit, the rest are grey. Answer and points sit in a scoreboard.</p>
+<div class="phone"><div class="card">
+ <p class="q"><span class="qk">Q2</span>Name a club that lost a European Cup or Champions League final</p>
+ <div class="bar" data-p="60"></div><div class="nums"></div>
+ <div class="tn">VOLLEY!</div>
+ <div class="res"><div><small>YOUR ANSWER</small><b>Benfica</b></div><div class="p"><small>POINTS</small><b>+60</b></div></div>
+ <div class="crowd"></div><div class="cap">About <b>1 in 5</b> players said Benfica</div>
+ <div class="btn">KEEP GOING</div>
+</div></div></div>
+
+<div class="col C"><h2>C · Big moment</h2><p class="why">Centred. Your unicorn comments on the answer, the points are the hero number, and the percentage is a gold pill. Feels like a goal replay.</p>
+<div class="phone"><div class="card">
+ <p class="q"><span class="qk">Q2</span>Name a club that lost a European Cup or Champions League final</p>
+ <div class="say">What a volley!</div>
+ <div class="bar" data-p="60" style="margin-top:46px"></div><div class="nums"></div>
+ <div class="pp">+60</div><div class="tn">VOLLEY</div>
+ <div class="ans">Benfica</div><br>
+ <div class="pill"><b>18%</b> of players said this</div>
+ <div class="btn">KEEP GOING</div>
+</div></div></div>
+</div>
+<script src="/duel/sprites.js"></script>
+<script>
+const T=[[10,'TAP-IN'],[30,'HEADER'],[60,'VOLLEY'],[85,'BICYCLE'],[100,'SCREAMER']];
+document.querySelectorAll('.bar').forEach(bar=>{const p=+bar.dataset.p,W=bar.clientWidth-8;
+ const f=document.createElement('div');f.className='fill';f.style.width=p+'%';bar.appendChild(f);
+ T.slice(0,-1).forEach(([v])=>{const s=document.createElement('div');s.className='seg';s.style.left=0;s.style.width=v+'%';bar.appendChild(s)});
+ const nm=bar.querySelector('.names');if(nm){let prev=0;T.forEach(([v,n])=>{const i=document.createElement('i');i.style.width=(v-prev)+'%';i.textContent=v<=p?'':n;prev=v;nm.appendChild(i)})}
+ const u=document.createElement('div');u.className='uni';u.style.backgroundImage=spriteDraw('joy',0,false,null);u.style.left=`calc(${p}% - 62px)`;u.style.top='-44px';bar.appendChild(u);
+ if(!bar.closest('.C')){const b=document.createElement('div');b.className='bub';b.textContent='Volley';b.style.left=`calc(${p}% - 52px)`;b.style.top='-82px';bar.appendChild(b)}
+ const nums=bar.nextElementSibling;T.forEach(([v])=>{const s=document.createElement('span');s.textContent=v;s.style.left=v+'%';if(v<=p)s.className='on';nums.appendChild(s)})});
+// B crowd: 30 unicorns, 18% lit, you glow
+document.querySelectorAll('.B .crowd').forEach(c=>{const img=spriteDraw('happy',0,false,null);for(let i=0;i<30;i++){const e=document.createElement('i');e.style.backgroundImage=img;if(i<5){e.style.opacity=1;e.style.filter='none'}if(i===0)e.className='me';c.appendChild(e)}});
+document.fonts.ready.then(()=>document.body.dataset.ready=1);
+</script></body></html>

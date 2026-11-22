@@ -1,0 +1,478 @@
+<!doctype html><html lang="en"><head>
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-PPT4FJC4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+<meta charset="utf-8"><title>Unicorner on the App Store: step-by-step guide</title>
+<style>
+@font-face{font-family:'Jersey 10';src:url(/fonts/jersey10.woff2) format('woff2')}
+@page{size:A4;margin:16mm 15mm 18mm}
+*{box-sizing:border-box}
+body{font:10.5pt/1.5 -apple-system,"Segoe UI",Helvetica,Arial,sans-serif;color:#1d1a2b;margin:0}
+h1,h2,h3{font-family:'Jersey 10',Helvetica,sans-serif;font-weight:400;letter-spacing:.5px;line-height:1.05}
+h1{font-size:44pt;color:#1e3f8a;margin:0 0 6px}
+h2{font-size:24pt;color:#1e3f8a;margin:0 0 10px;padding-top:4px;border-bottom:3px solid #f2c230;page-break-after:avoid}
+h3{font-size:15pt;margin:16px 0 6px;color:#1d1a2b;page-break-after:avoid}
+.part{page-break-before:always}
+p{margin:0 0 8px}
+ol,ul{margin:0 0 10px;padding-left:22px}
+li{margin:0 0 5px}
+ol.steps>li{margin-bottom:8px}
+code,.v{font:9.5pt/1.3 "SF Mono",Menlo,Consolas,monospace;background:#fff6dc;border:1px solid #e0d6b8;padding:1px 5px;border-radius:2px;word-break:break-all}
+.box{border:2px solid #1d1a2b;padding:9px 12px;margin:10px 0;page-break-inside:avoid}
+.you{background:#eef3ff;border-color:#1e3f8a}
+.me{background:#fff6dc;border-color:#c99a10}
+.warn{background:#fff0ee;border-color:#e04848}
+.tip{background:#eefaf1;border-color:#2e8a45}
+.box b.t{display:block;font-family:'Jersey 10',Helvetica,sans-serif;font-weight:400;font-size:13pt;margin-bottom:3px;letter-spacing:.5px}
+.tag{display:inline-block;font:700 8pt/1 Helvetica,Arial,sans-serif;padding:3px 6px;border-radius:2px;vertical-align:1px;margin-right:4px;color:#fff}
+.tag.y{background:#1e3f8a}.tag.c{background:#c99a10}.tag.w{background:#2e8a45}
+table{border-collapse:collapse;width:100%;margin:8px 0 12px;font-size:9.5pt;page-break-inside:avoid}
+th,td{border:1px solid #c9c2ad;padding:5px 7px;text-align:left;vertical-align:top}
+th{background:#1e3f8a;color:#fff;font-weight:600}
+.cover{height:250mm;display:flex;flex-direction:column;justify-content:center}
+.cover .sub{font-size:15pt;color:#555;margin-bottom:26px}
+.logo{display:inline-block;font:400 30pt/1 'Jersey 10';letter-spacing:3px;background:#fff6dc;border:4px solid #000;box-shadow:6px 6px 0 #000;padding:10px 18px 4px;margin-bottom:28px;align-self:flex-start}
+.toc li{margin:3px 0}
+.check li{list-style:none;margin-left:-18px}
+.check li:before{content:"\2610  ";font-size:12pt}
+.small{font-size:9pt;color:#555}
+.path{font-weight:600;color:#1e3f8a}
+</style></head><body>
+
+<div class="cover">
+ <span class="logo">UNICORNER</span>
+ <h1>Getting Unicorner on the App Store</h1>
+ <p class="sub">A complete step-by-step guide, from zero to live on iPhones, with Infinity sold through Apple's payments.</p>
+ <table>
+  <tr><th style="width:34%">What it costs</th><td>$99 a year (Apple Developer Program). Apple keeps 15% of Infinity sales once you join the Small Business Program (30% if you don't).</td></tr>
+  <tr><th>How long it takes</th><td>About 1 to 2 weeks in total. Most of it is waiting for Apple: account approval (1–2 days), banking and tax (a few days), app review (1–3 days).</td></tr>
+  <tr><th>What you need</th><td>Your Mac, your iPhone and its charging cable, an Apple ID, a bank account, your ID (passport or ID card) and about 3–4 hours of your own time spread over the two weeks.</td></tr>
+  <tr><th>How to read this</th><td><span class="tag y">YOU</span> steps you do. <span class="tag c">CLAUDE</span> things Claude builds or prepares (just tell Claude you're at that step). <span class="tag w">WAIT</span> waiting for Apple. Do the parts in order.</td></tr>
+ </table>
+ <p class="small">Prepared 19 November 2026. Apple sometimes renames buttons; if a button has a slightly different name, look for the closest match, or send Claude a screenshot.</p>
+</div>
+
+<div class="part">
+<h2>Contents</h2>
+<ol class="toc">
+ <li>The big picture: what we're building and how money flows</li>
+ <li>Part 1: Your Apple ID (5 minutes)</li>
+ <li>Part 2: Join the Apple Developer Program ($99, 1–2 days of waiting)</li>
+ <li>Part 3: Install Xcode and the tools on your Mac (1 hour, mostly downloading)</li>
+ <li>Part 4: Paid Apps agreement, bank and tax (do early: it takes days)</li>
+ <li>Part 5: The Small Business Program (15% instead of 30%)</li>
+ <li>Part 6: Create the app in App Store Connect</li>
+ <li>Part 7: Create the two Infinity products</li>
+ <li>Part 8: The In-App Purchase key and Apple's purchase notifications</li>
+ <li>Part 9: Make the app with PWABuilder</li>
+ <li>Part 10: What Claude builds (site changes, payment code, server)</li>
+ <li>Part 11: Open the app in Xcode and run it on your iPhone</li>
+ <li>Part 12: Test buying with a free Sandbox account</li>
+ <li>Part 13: Upload the app to Apple</li>
+ <li>Part 14: The App Store page (text, screenshots, privacy, age rating)</li>
+ <li>Part 15: Submit for review, and what to do if Apple says no</li>
+ <li>Part 16: After you're live</li>
+ <li>Checklist, glossary and the exact values to type</li>
+</ol>
+
+<h3>The big picture</h3>
+<p>The iPhone app is a small "shell" app that opens unicornergame.lol inside it, made with the same free tool we used for Android (PWABuilder). Everything you change on the website shows up in the app straight away, with no new app version needed.</p>
+<p>The one thing the website can't do inside an iPhone app is take payments with Stripe: Apple's rules say digital things bought in an app must be bought with Apple's payments. So inside the app:</p>
+<ul>
+ <li>The Stripe buttons are hidden (already done for Android and iPhone).</li>
+ <li>Apple's own buy buttons appear instead. Tapping one shows Apple's payment sheet (Face ID, one tap).</li>
+ <li>Apple tells our server (Supabase) "this person paid", and our server unlocks Infinity on their Unicorner account. So it also works on the website and on Android.</li>
+</ul>
+<div class="box tip"><b class="t">Money flow</b>Player pays Apple → Apple keeps 15% (Small Business Program) → Apple pays you monthly, about 45 days after the end of each month, into the bank account you add in Part 4.</div>
+</div>
+
+<div class="part">
+<h2>Part 1: Your Apple ID</h2>
+<p>You need an Apple ID (the account you use for the App Store and iCloud) with <b>two-factor authentication</b> switched on. Apple requires it for developers.</p>
+<ol class="steps">
+ <li><span class="tag y">YOU</span> On your Mac, click the <b>Apple menu</b> (the apple logo, top-left of the screen) → <b>System Settings</b>.</li>
+ <li>Click your name at the top of the left sidebar. If you're not signed in, click <b>Sign in</b> and sign in with your Apple ID (or create one).</li>
+ <li>Click <b>Sign-In &amp; Security</b>. Check that <b>Two-Factor Authentication</b> says <b>On</b>. If it doesn't, click it and follow the steps (it texts a code to your phone).</li>
+</ol>
+<div class="box tip"><b class="t">Which Apple ID?</b>Use the Apple ID you want to own the app for years. Your name (as the "seller") appears on the App Store page as the developer, for example "Developer: Pepe Asalas". You can't easily change this later. If you set up a company one day, the app can be transferred to it.</div>
+
+<h2 style="margin-top:22px">Part 2: Join the Apple Developer Program</h2>
+<ol class="steps">
+ <li><span class="tag y">YOU</span> On your Mac, open <b>Safari</b> and go to <code>developer.apple.com/programs/enroll</code>.</li>
+ <li>Click <b>Start Your Enrollment</b> and sign in with your Apple ID.</li>
+ <li>The easiest way is the <b>Apple Developer app</b>: if the page suggests it, install "Apple Developer" from the App Store on your iPhone or Mac, open it, tap <b>Account</b> → <b>Enroll Now</b>. It scans your ID and is usually approved faster.</li>
+ <li>When asked for the entity type, choose <b>Individual / Sole Proprietor</b>. (Only choose "Organization" if you have a registered company. That needs a "D-U-N-S number" and takes weeks.)</li>
+ <li>Fill in your legal name and address exactly as on your ID.</li>
+ <li>Accept the Apple Developer Agreement.</li>
+ <li>Pay the <b>$99</b> (or the price in your currency). It renews every year; if you stop paying, the app disappears from the store.</li>
+ <li><span class="tag w">WAIT</span> Apple checks your identity. You get an email "Welcome to the Apple Developer Program" (usually within 48 hours). If Apple asks for a photo of your ID, send it from the Apple Developer app.</li>
+</ol>
+<div class="box you"><b class="t">While you wait</b>Do Part 3 (install Xcode). Parts 4 onwards need the approved account.</div>
+</div>
+
+<div class="part">
+<h2>Part 3: Install Xcode and the tools</h2>
+<p>Xcode is Apple's free program for making apps. It's big (about 10–15 GB), so start the download early.</p>
+<ol class="steps">
+ <li><span class="tag y">YOU</span> Check your Mac's macOS version: Apple menu → <b>About This Mac</b>. Xcode needs a recent macOS. If it's old, first do Apple menu → <b>System Settings</b> → <b>General</b> → <b>Software Update</b>.</li>
+ <li>Open the <b>App Store</b> app on your Mac, search for <b>Xcode</b>, click <b>Get</b> then <b>Install</b>. Make sure you have at least 40 GB of free space.</li>
+ <li>When it finishes, open <b>Xcode</b> (it's in your Applications folder). The first time, it asks to install extra components: click <b>Install</b> and enter your Mac password. If it asks which platforms to download, tick <b>iOS</b>.</li>
+ <li>In Xcode, click <b>Xcode</b> (top menu bar) → <b>Settings…</b> → <b>Accounts</b> tab → the <b>+</b> button at the bottom left → <b>Apple ID</b> → sign in with your developer Apple ID. Close the window.</li>
+</ol>
+<h3>CocoaPods (a helper the PWABuilder project uses)</h3>
+<p>The PWABuilder iPhone project uses a helper called CocoaPods. You install it once by typing a command in <b>Terminal</b>:</p>
+<ol class="steps">
+ <li><span class="tag y">YOU</span> Press <b>Cmd + Space</b>, type <b>Terminal</b>, press Enter. A window with text opens: that's Terminal.</li>
+ <li>Copy this line, paste it in Terminal and press Enter. It installs Homebrew (a free installer for developer tools). It asks for your Mac password: type it (nothing appears as you type, that's normal) and press Enter. It takes a few minutes.
+  <p><code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></p>
+  At the end, Homebrew prints a "Next steps" section with two or three lines starting with <code>echo</code> and <code>eval</code>: copy and run those too (one at a time).</li>
+ <li>Then run: <code>brew install cocoapods</code></li>
+ <li>Check it worked: <code>pod --version</code> should print a number like <code>1.16.2</code>.</li>
+</ol>
+<div class="box warn"><b class="t">If something errors</b>Copy the whole Terminal window text (Cmd + A, Cmd + C) and paste it to Claude. Don't worry about breaking anything: these commands only install tools.</div>
+</div>
+
+<div class="part">
+<h2>Part 4: Paid Apps agreement, bank and tax</h2>
+<p>Apple won't let you sell anything (not even test it properly) until this part is finished, and Apple takes a few days to approve it. Do it as soon as your developer account is approved.</p>
+<ol class="steps">
+ <li><span class="tag y">YOU</span> Go to <code>appstoreconnect.apple.com</code> and sign in. This website is <b>App Store Connect</b>: where you manage the app, prices and sales.</li>
+ <li>Click <b>Business</b> (on the home screen; in some versions it's called <b>Agreements, Tax, and Banking</b>).</li>
+ <li>You'll see a <b>Paid Apps</b> agreement. Click <b>View and Agree to Terms</b>, read, tick, <b>Agree</b>. (The "Free Apps" one is already active.)</li>
+ <li><b>Bank account:</b> click <b>Add Bank Account</b> (or <b>Set Up</b> next to Banking). Choose your bank's country, enter the account holder name exactly as at the bank, and your <b>IBAN</b> (European banks) or account and routing numbers. Apple may ask for the bank's SWIFT/BIC code: it's on your bank's website or app.</li>
+ <li><b>Tax forms:</b> click <b>Set Up Tax Forms</b> (or <b>Tax Forms</b> → <b>Add</b>). Apple asks if you're a US person:
+  <ul>
+   <li>If you're <b>not</b> a US citizen or resident: fill in the <b>W-8BEN</b>. It asks your country of residence and, if available, your tax number (in Spain your NIF/DNI; in the Netherlands your BSN). Claiming "treaty benefits" for your country reduces the US tax withheld on US sales: Apple's form guides you; for most European countries the royalty rate is 0%.</li>
+   <li>If you are a US person: fill in the <b>W-9</b>.</li>
+  </ul>
+  Apple may also ask for tax forms for other countries (for example Australia, Brazil, Japan): follow the prompts, most are a few ticks.</li>
+ <li><b>Contact info:</b> add yourself as the Senior Management, Finance, Technical and Legal contact (you can be all of them).</li>
+ <li><span class="tag w">WAIT</span> The Paid Apps status changes from "Processing" to <b>Active</b>, usually in 1–3 days. You can carry on with Parts 5 to 9 meanwhile.</li>
+</ol>
+<div class="box tip"><b class="t">Is this safe?</b>Yes: this is how every app developer gets paid. Apple sends you a payment each month (if you earned at least the minimum, about $10–150 depending on the country), with a sales report.</div>
+
+<h2 style="margin-top:22px">Part 5: The Small Business Program</h2>
+<p>Normally Apple keeps 30% of sales. If you earn under $1 million a year from the App Store, you can pay just 15%. You must <b>apply</b>: it isn't automatic.</p>
+<ol class="steps">
+ <li><span class="tag y">YOU</span> Go to <code>developer.apple.com/app-store/small-business-program</code>.</li>
+ <li>Click <b>Enroll</b> / <b>Apply now</b>, sign in, and fill in the short form (it asks if you have other developer accounts: answer No, unless you do).</li>
+ <li><span class="tag w">WAIT</span> Apple confirms by email. The 15% applies from the date you're accepted, so apply before you start selling.</li>
+</ol>
+</div>
+
+<div class="part">
+<h2>Part 6: Create the app in App Store Connect</h2>
+<h3>6a. Register the app's ID (the "Bundle ID")</h3>
+<p>Every app has a unique ID that looks like a reversed web address. Ours is: <span class="v">lol.unicornergame.ios</span></p>
+<ol class="steps">
+ <li><span class="tag y">YOU</span> Go to <code>developer.apple.com/account</code> → <b>Certificates, IDs &amp; Profiles</b> → <b>Identifiers</b> → the blue <b>+</b>.</li>
+ <li>Choose <b>App IDs</b> → <b>Continue</b> → <b>App</b> → <b>Continue</b>.</li>
+ <li><b>Description:</b> <span class="v">Unicorner</span>. <b>Bundle ID:</b> choose <b>Explicit</b> and type <span class="v">lol.unicornergame.ios</span>.</li>
+ <li>In the Capabilities list, make sure <b>In-App Purchase</b> is ticked (it usually is by default). Tick <b>Push Notifications</b> too (for streak reminders later).</li>
+ <li><b>Continue</b> → <b>Register</b>.</li>
+</ol>
+<h3>6b. Create the app record</h3>
+<ol class="steps">
+ <li><span class="tag y">YOU</span> In <code>appstoreconnect.apple.com</code> click <b>Apps</b> → the blue <b>+</b> (top left) → <b>New App</b>.</li>
+ <li>Fill in:
+  <table><tr><th style="width:30%">Field</th><th>What to enter</th></tr>
+   <tr><td>Platforms</td><td>Tick <b>iOS</b> only</td></tr>
+   <tr><td>Name</td><td><span class="v">Unicorner: Football Trivia</span> (the name on the App Store, max 30 characters; if it's taken, try <span class="v">Unicorner Football Quiz</span>)</td></tr>
+   <tr><td>Primary Language</td><td>English (U.K.) or English (U.S.)</td></tr>
+   <tr><td>Bundle ID</td><td>pick <span class="v">lol.unicornergame.ios</span> from the list</td></tr>
+   <tr><td>SKU</td><td><span class="v">unicorner-ios</span> (any private code for you)</td></tr>
+   <tr><td>User Access</td><td>Full Access</td></tr>
+  </table></li>
+ <li>Click <b>Create</b>. The app now has a page in App Store Connect. You'll fill it in Part 14.</li>
+</ol>
+</div>
+
+<div class="part">
+<h2>Part 7: Create the two Infinity products</h2>
+<p>These match what the website sells. Product IDs must be typed exactly as below, because the app and the server use them.</p>
+<table><tr><th style="width:24%">Product</th><th style="width:18%">Type</th><th>Product ID</th><th style="width:12%">Price</th></tr>
+ <tr><td>Infinity forever</td><td>Non-Consumable</td><td><span class="v">lol.unicornergame.infinity.forever</span></td><td>$4.99</td></tr>
+ <tr><td>Infinity monthly</td><td>Auto-Renewable Subscription</td><td><span class="v">lol.unicornergame.infinity.monthly</span></td><td>$2.99 / month</td></tr>
+</table>
+<h3>7a. Infinity forever (one-time)</h3>
+<ol class="steps">
+ <li><span class="tag y">YOU</span> In App Store Connect, open your app → in the left sidebar under <b>Monetization</b> click <b>In-App Purchases</b> → <b>+</b> (or <b>Create</b>).</li>
+ <li><b>Type:</b> Non-Consumable. <b>Reference Name:</b> <span class="v">Infinity forever</span> (private). <b>Product ID:</b> <span class="v">lol.unicornergame.infinity.forever</span>. Click <b>Create</b>.</li>
+ <li><b>Availability:</b> all countries (default).</li>
+ <li><b>Price Schedule</b> → <b>Add Pricing</b> → choose your main country's price closest to $4.99 (e.g. 4,99 € / $4.99). Apple fills in the other countries automatically. Confirm.</li>
+ <li><b>App Store Localization</b> → <b>+</b> → English: <b>Display Name</b> <span class="v">Infinity forever</span>, <b>Description</b> <span class="v">Unlimited games and every past day, forever.</span> Add Spanish too: <span class="v">Infinito para siempre</span> / <span class="v">Partidas ilimitadas y todos los días anteriores, para siempre.</span></li>
+ <li><b>Review Information:</b> a <b>screenshot</b> of the Infinity screen in the app (Claude makes this for you: ask for "the IAP review screenshot") and a <b>Review Note</b>: <span class="v">Unlocks Infinity mode (unlimited extra games and the archive of past days) on the player's Unicorner account.</span></li>
+ <li>Click <b>Save</b>. The status should become <b>Ready to Submit</b>.</li>
+</ol>
+<h3>7b. Infinity monthly (subscription)</h3>
+<ol class="steps">
+ <li><span class="tag y">YOU</span> Left sidebar → <b>Subscriptions</b> → under Subscription Groups click <b>+</b> / <b>Create</b>. <b>Reference Name:</b> <span class="v">Infinity</span>. Create.</li>
+ <li>Inside the group, click <b>+</b> next to Subscriptions. <b>Reference Name:</b> <span class="v">Infinity monthly</span>. <b>Product ID:</b> <span class="v">lol.unicornergame.infinity.monthly</span>. Create.</li>
+ <li><b>Subscription Duration:</b> 1 Month. <b>Subscription Prices</b> → <b>Add Subscription Price</b> → closest to $2.99 → confirm the other countries.</li>
+ <li><b>Localization:</b> <span class="v">Infinity monthly</span> / <span class="v">Unlimited games and every past day. Renews every month, cancel any time.</span> (Spanish: <span class="v">Infinito mensual</span> / <span class="v">Partidas ilimitadas y todos los días anteriores. Se renueva cada mes, cancela cuando quieras.</span>)</li>
+ <li>Back on the <b>group</b> page, add a group localization: <b>Subscription Group Display Name</b> <span class="v">Unicorner Infinity</span>.</li>
+ <li><b>Review Information:</b> same screenshot and note as 7a. Save. Status: <b>Ready to Submit</b>.</li>
+</ol>
+<div class="box warn"><b class="t">Important</b>The first time, in-app purchases must be submitted <b>together with an app version</b> (Part 15 shows where to tick them). They can't be approved on their own the first time.</div>
+</div>
+
+<div class="part">
+<h2>Part 8: The In-App Purchase key and purchase notifications</h2>
+<p>Our server needs a key to ask Apple "did this person really pay?". You create it, download it once, and store it in Supabase. <b>Never paste the key into a chat or email</b>: it's like a password.</p>
+<h3>8a. Create the key</h3>
+<ol class="steps">
+ <li><span class="tag y">YOU</span> App Store Connect → <b>Users and Access</b> (top menu) → <b>Integrations</b> tab → <b>In-App Purchase</b> (left list) → <b>Generate In-App Purchase Key</b> (or the <b>+</b>).</li>
+ <li><b>Name:</b> <span class="v">Unicorner server</span> → <b>Generate</b>.</li>
+ <li>Write down two values shown on that page (they're not secret, you can send these to Claude):
+  <ul><li><b>Key ID</b> (10 characters, e.g. <code>2X9R4HXF34</code>)</li><li><b>Issuer ID</b> (a long code with dashes, shown above the list)</li></ul></li>
+ <li>Click <b>Download</b>. You get a file like <code>SubscriptionKey_2X9R4HXF34.p8</code>. <b>You can only download it once.</b> Keep it somewhere safe (e.g. a "Unicorner keys" folder, and a backup).</li>
+</ol>
+<h3>8b. Put the key in Supabase</h3>
+<ol class="steps">
+ <li><span class="tag y">YOU</span> Go to <code>supabase.com/dashboard</code> → your Unicorner project → <b>Edge Functions</b> (left sidebar) → <b>Secrets</b> (or <b>Manage secrets</b>).</li>
+ <li>Add three secrets (name exactly as written, value as described):
+  <table><tr><th style="width:38%">Name</th><th>Value</th></tr>
+   <tr><td><code>APPLE_IAP_KEY_ID</code></td><td>the Key ID</td></tr>
+   <tr><td><code>APPLE_IAP_ISSUER_ID</code></td><td>the Issuer ID</td></tr>
+   <tr><td><code>APPLE_IAP_PRIVATE_KEY</code></td><td>open the .p8 file with <b>TextEdit</b> (right-click → Open With → TextEdit), select all, copy, paste. It starts with <code>-----BEGIN PRIVATE KEY-----</code>.</td></tr>
+  </table></li>
+ <li>Click <b>Save</b>. Then tell Claude "the Apple secrets are in Supabase" (don't send the values).</li>
+</ol>
+<h3>8c. Turn on purchase notifications</h3>
+<p>Apple tells our server when a subscription renews, is cancelled or refunded, so Infinity stays correct.</p>
+<ol class="steps">
+ <li><span class="tag y">YOU</span> App Store Connect → your app → <b>App Information</b> (left sidebar, under General) → scroll to <b>App Store Server Notifications</b>.</li>
+ <li><b>Production Server URL</b> and <b>Sandbox Server URL</b> → <b>Set Up URL</b> → paste: <span class="v">https://yujhjepukzdahsppntua.supabase.co/functions/v1/apple-iap</span> and choose <b>Version 2</b>. Save both.</li>
+</ol>
+<div class="box me"><span class="tag c">CLAUDE</span> builds the <code>apple-iap</code> server function that lives at that address before you test (Part 10).</div>
+</div>
+
+<div class="part">
+<h2>Part 9: Make the app with PWABuilder</h2>
+<ol class="steps">
+ <li><span class="tag y">YOU</span> On your Mac, go to <code>pwabuilder.com</code>. Type <span class="v">https://unicornergame.lol</span> in the box → <b>Start</b>. Wait for the report card.</li>
+ <li>Click <b>Package For Stores</b> → under <b>iOS</b> click <b>Generate Package</b>.</li>
+ <li>Fill in the options (click "All settings" or similar if some are hidden):
+  <table><tr><th style="width:32%">Option</th><th>Value</th></tr>
+   <tr><td>Bundle ID</td><td><span class="v">lol.unicornergame.ios</span></td></tr>
+   <tr><td>App name</td><td><span class="v">Unicorner</span> (the name under the icon on the home screen)</td></tr>
+   <tr><td>URL / Start URL</td><td><span class="v">https://unicornergame.lol/?source=ios</span> (the <code>?source=ios</code> part matters: it tells the site it's inside the iPhone app)</td></tr>
+   <tr><td>Image / icon</td><td><span class="v">https://unicornergame.lol/icon-ios-540.png</span> (leave as is if already filled)</td></tr>
+   <tr><td>Status bar / theme / splash colour</td><td><span class="v">#1e3f8a</span> (our blue)</td></tr>
+   <tr><td>Permitted URLs</td><td><span class="v">unicornergame.lol</span>, <span class="v">yujhjepukzdahsppntua.supabase.co</span></td></tr>
+  </table></li>
+ <li>Click <b>Download Package</b>. You get a .zip file in Downloads.</li>
+ <li><b>Send the zip to Claude</b> (drag it into the chat). Claude adds the payment code and sends it back, ready for Xcode (Part 10).</li>
+</ol>
+</div>
+
+<div class="part">
+<h2>Part 10: What Claude builds</h2>
+<p>When you reach this point, tell Claude "I'm at Part 10". Claude does all of this; you just test it afterwards.</p>
+<div class="box me"><b class="t">1. Apple payments in the app</b>A small piece of native iPhone code (Apple's "StoreKit 2") added to the PWABuilder project: it loads the two products with Apple's local prices, shows Apple's payment sheet, and hands the receipt to the website. Plus a <b>Restore purchases</b> button, which Apple requires.</div>
+<div class="box me"><b class="t">2. The server function (apple-iap)</b>In Supabase: receives the purchase from the app, double-checks it with Apple using your key (Part 8), and unlocks Infinity on the player's account, the same way Stripe does today. It also receives Apple's notifications (renewals, cancellations, refunds).</div>
+<div class="box me"><b class="t">3. Website changes for the iPhone app</b>
+<ul style="margin:4px 0 0">
+ <li>Inside the app, the Infinity screen shows Apple's buy buttons and prices instead of Stripe (Stripe stays on the website).</li>
+ <li><b>Google sign-in is hidden in the app</b>: Google blocks it inside iPhone apps. Players sign in with email (a code or password), which works.</li>
+ <li><b>"Delete my account" button</b>: Apple requires apps with accounts to let people delete them from inside the app.</li>
+ <li>A short line on the Infinity screen: "Already bought Infinity on the website? Sign in and it's unlocked here too."</li>
+</ul></div>
+<div class="box tip"><b class="t">Why sign-in is required to buy</b>Infinity is tied to the Unicorner account, so it works on the website, Android and iPhone. Apple allows asking people to sign in before buying when the purchase is linked to an account.</div>
+</div>
+
+<div class="part">
+<h2>Part 11: Open the app in Xcode and run it on your iPhone</h2>
+<h3>11a. Open the project</h3>
+<ol class="steps">
+ <li><span class="tag y">YOU</span> Double-click the zip Claude sent back to unzip it. Inside there's a folder (e.g. <code>src</code>) with a file ending in <code>.xcworkspace</code>.</li>
+ <li>Open <b>Terminal</b>, type <code>cd </code> (with a space after), then drag the folder that contains the <code>Podfile</code> from Finder into the Terminal window, and press Enter.</li>
+ <li>Run <code>pod install</code> and wait until it says "Pod installation complete".</li>
+ <li>In Finder, double-click the <b>.xcworkspace</b> file (the white icon, <b>not</b> the .xcodeproj). Xcode opens the project.</li>
+</ol>
+<h3>11b. Signing (tells Apple the app is yours)</h3>
+<ol class="steps">
+ <li>In Xcode's left column, click the top item (the blue project icon with the app's name).</li>
+ <li>In the middle, under <b>TARGETS</b>, click the app (e.g. "Unicorner"). Open the <b>Signing &amp; Capabilities</b> tab.</li>
+ <li>Tick <b>Automatically manage signing</b>. <b>Team:</b> choose your name (Personal Team won't work; it must say your name with "(Individual)" or similar, from the developer account). <b>Bundle Identifier:</b> <span class="v">lol.unicornergame.ios</span>.</li>
+ <li>Click <b>+ Capability</b> (top left of that tab) and add <b>In-App Purchase</b> (if it isn't there already).</li>
+ <li>Open the <b>General</b> tab: <b>Display Name</b> <span class="v">Unicorner</span>, <b>Version</b> <span class="v">1.0</span>, <b>Build</b> <span class="v">1</span>. Under <b>Supported Destinations</b>, keep <b>iPhone</b> only (remove iPad and Mac if listed: otherwise Apple wants iPad screenshots too).</li>
+</ol>
+<h3>11c. Run it on your iPhone</h3>
+<ol class="steps">
+ <li>Plug your iPhone into the Mac with the cable. On the iPhone tap <b>Trust This Computer</b> and enter your passcode.</li>
+ <li>On the iPhone: <b>Settings</b> → <b>Privacy &amp; Security</b> → scroll to the bottom → <b>Developer Mode</b> → turn on → restart when asked → confirm <b>Turn On</b> after restarting. (This option appears only after the iPhone has been connected to Xcode once.)</li>
+ <li>In Xcode, at the top centre, click the device menu and choose your iPhone. Then press the <b>▶ Run</b> button (top left), or Cmd + R.</li>
+ <li>The first time, the iPhone may say "Untrusted Developer": on the iPhone go to <b>Settings</b> → <b>General</b> → <b>VPN &amp; Device Management</b> → your developer name → <b>Trust</b>. Press ▶ again.</li>
+ <li>Unicorner opens on your iPhone. Play a game, check sign-in works, and check there are no Stripe buttons.</li>
+</ol>
+<div class="box warn"><b class="t">Red errors in Xcode?</b>Take a screenshot (Cmd + Shift + 4, then drag over the error) and send it to Claude. Most first-time errors are signing settings and take one click to fix.</div>
+</div>
+
+<div class="part">
+<h2>Part 12: Test buying with a free Sandbox account</h2>
+<p>Apple has a test mode called <b>Sandbox</b>: you "buy" with a fake test account and no money is charged. Subscriptions renew every few minutes instead of every month, so you can test renewals quickly.</p>
+<ol class="steps">
+ <li><span class="tag y">YOU</span> App Store Connect → <b>Users and Access</b> → <b>Sandbox</b> tab (or "Sandbox Testers") → <b>+</b>.</li>
+ <li>Fill in a name and an email address that is <b>not</b> already an Apple ID. A trick: if your email is name@gmail.com, use <code>name+sandbox1@gmail.com</code> (it still arrives in your inbox). Choose a password and your country. <b>Create</b>.</li>
+ <li>On your iPhone: <b>Settings</b> → <b>Developer</b> (appears after Part 11) → <b>Sandbox Apple Account</b> → sign in with the test account. (On some versions it's under <b>Settings</b> → <b>App Store</b> → <b>Sandbox Account</b>.)</li>
+ <li>Run the app from Xcode (▶). Sign in to Unicorner with your normal Unicorner email. Open Infinity and tap <b>Infinity forever</b>. Apple's sheet appears with "[Environment: Sandbox]". Confirm.</li>
+ <li>Infinity should unlock within a few seconds. Then also check it shows as unlocked on the website (same Unicorner account) on your computer.</li>
+ <li>Test <b>Restore purchases</b>: delete the app from the iPhone, run it again from Xcode, sign in, tap Restore purchases.</li>
+ <li>Test the monthly one with a second sandbox account (or after cancelling): it should renew every ~5 minutes for a few cycles, then stop.</li>
+</ol>
+<div class="box tip"><b class="t">Note</b>Purchases only work once the <b>Paid Apps</b> agreement (Part 4) is <b>Active</b>. If the buy buttons say "unavailable", that's usually the reason.</div>
+</div>
+
+<div class="part">
+<h2>Part 13: Upload the app to Apple</h2>
+<ol class="steps">
+ <li><span class="tag y">YOU</span> In Xcode, at the top, change the device menu from your iPhone to <b>Any iOS Device (arm64)</b>.</li>
+ <li>Menu bar: <b>Product</b> → <b>Archive</b>. It builds for a minute or two, then the <b>Organizer</b> window opens with your archive.</li>
+ <li>Click <b>Distribute App</b> → <b>App Store Connect</b> → <b>Upload</b> (or "Distribute") → keep the default options → <b>Next</b> until <b>Upload</b>.</li>
+ <li><span class="tag w">WAIT</span> 10–30 minutes. Apple emails you when the build has finished "processing". In App Store Connect → your app → <b>TestFlight</b> tab you'll see build 1.0 (1).</li>
+ <li>If asked about <b>Export Compliance</b> (encryption): answer that the app uses only standard encryption (HTTPS) → it's exempt. Usually: "None of the algorithms mentioned above" / "Standard encryption".</li>
+</ol>
+<h3>Optional: TestFlight (let friends test before launch)</h3>
+<ol class="steps">
+ <li>TestFlight tab → <b>Internal Testing</b> → <b>+</b> → add yourself. Install the <b>TestFlight</b> app on your iPhone; you get an invite to install Unicorner from there. Good for checking the real downloaded app.</li>
+</ol>
+<div class="box tip"><b class="t">Every new upload needs a higher Build number</b>Next time: General tab → Build <span class="v">2</span>, then 3, and so on. Version stays 1.0 until you release it.</div>
+</div>
+
+<div class="part">
+<h2>Part 14: The App Store page</h2>
+<p>In App Store Connect → your app → the version under <b>iOS App</b> (e.g. "1.0 Prepare for Submission"). Fill in every field. <span class="tag c">CLAUDE</span> writes the texts and makes the screenshots: ask "write the App Store texts" and "make the App Store screenshots".</p>
+<h3>14a. Screenshots</h3>
+<ul>
+ <li>Apple needs iPhone screenshots for the <b>6.9-inch</b> size: <b>1320 × 2868</b> pixels (portrait). 3 to 10 images. Claude makes them from the real game.</li>
+ <li>Drag them into the <b>iPhone</b> screenshot box. Order matters: the first two are what people see in search.</li>
+</ul>
+<h3>14b. Texts</h3>
+<table><tr><th style="width:27%">Field</th><th>What goes there</th></tr>
+ <tr><td>Promotional Text</td><td>Short line you can change any time (170 characters)</td></tr>
+ <tr><td>Description</td><td>The full description (Claude writes it)</td></tr>
+ <tr><td>Keywords</td><td>Comma-separated, 100 characters, e.g. <span class="v">football,soccer,quiz,trivia,daily,premier league,world cup,players,rosco,puzzle</span></td></tr>
+ <tr><td>Support URL</td><td><span class="v">https://unicornergame.lol/contact.html</span></td></tr>
+ <tr><td>Marketing URL</td><td><span class="v">https://unicornergame.lol</span></td></tr>
+ <tr><td>Version / Copyright</td><td><span class="v">2026 Unicorner</span> (or your name)</td></tr>
+ <tr><td>Subtitle (App Information)</td><td><span class="v">Daily football quiz</span> (30 characters)</td></tr>
+ <tr><td>Category (App Information)</td><td>Primary: <b>Games</b> → <b>Trivia</b>. Secondary: <b>Sports</b></td></tr>
+</table>
+<h3>14c. In-App Purchases on the version</h3>
+<ol class="steps"><li>On the version page, scroll to <b>In-App Purchases and Subscriptions</b> → <b>Select In-App Purchases or Subscriptions</b> → tick both Infinity products → Done.</li></ol>
+<h3>14d. App Review Information</h3>
+<ul>
+ <li><b>Sign-in required:</b> tick it, and give Apple a test Unicorner account: email and password of an account you create just for Apple (e.g. <code>appreview@…</code>). Claude can create it for you with a password.</li>
+ <li><b>Notes:</b> <span class="v">Unicorner is a daily football trivia game. Sign in with the account above to see Infinity mode. Infinity is sold with In-App Purchase (one-time or monthly) and unlocks extra games on the player's account. Account deletion: Profile, then Delete my account.</span></li>
+ <li><b>Contact:</b> your name, phone and email (Apple only uses it if they have questions).</li>
+</ul>
+<h3>14e. Age rating</h3>
+<p>App Information → <b>Age Rating</b> → <b>Edit</b>. Answer honestly. For Unicorner: no violence, no gambling with real money, no mature content. Two questions to think about: <b>"User-generated content"</b>: <b>Yes</b> (there's a chat and nicknames; mention there's moderation and a report option). <b>"Unrestricted web access"</b>: <b>No</b> (the app only opens our own site). Expected result: 9+ or 12+.</p>
+<h3>14f. App Privacy ("privacy nutrition label")</h3>
+<p>Left sidebar → <b>App Privacy</b> → <b>Get Started</b>. Privacy policy URL: <span class="v">https://unicornergame.lol/privacy.html</span>. Then: "Do you collect data?" → <b>Yes</b>. Tick:</p>
+<ul>
+ <li><b>Contact Info → Email Address</b>: used for App Functionality (account), linked to the user, not used for tracking.</li>
+ <li><b>Identifiers → User ID</b>: App Functionality, linked, not tracking.</li>
+ <li><b>Purchases → Purchase History</b>: App Functionality, linked, not tracking.</li>
+ <li><b>Usage Data → Product Interaction</b>: Analytics and App Functionality, not tracking (game events, scores).</li>
+ <li><b>User Content → Other User Content</b> (chat messages, nicknames): App Functionality, linked.</li>
+</ul>
+<p class="small">"Tracking" means sharing data with other companies for ads. Unicorner doesn't do that in the app, so answer No to tracking. If that changes (for example ads), this must be updated.</p>
+<h3>14g. Pricing and availability</h3>
+<p>Left sidebar → <b>Pricing and Availability</b> → Price: <b>Free</b> (USD 0). Availability: all countries.</p>
+</div>
+
+<div class="part">
+<h2>Part 15: Submit for review</h2>
+<ol class="steps">
+ <li><span class="tag y">YOU</span> On the version page, in the <b>Build</b> section click <b>+</b> / <b>Add Build</b> and choose the build you uploaded in Part 13.</li>
+ <li>Check every section has no red warnings. Click <b>Add for Review</b> (top right) → <b>Submit to App Review</b>.</li>
+ <li><span class="tag w">WAIT</span> Status goes "Waiting for Review" → "In Review" → "Pending Developer Release" or "Ready for Distribution". Usually 1–3 days. You get emails at each step.</li>
+</ol>
+<h3>If Apple rejects it (it's common the first time, don't worry)</h3>
+<p>You get a message in App Store Connect → <b>App Review</b> (or "Resolution Center") explaining the reason and the guideline number. Copy the whole message and send it to Claude. The most likely ones:</p>
+<table><tr><th style="width:24%">Guideline</th><th>What it means</th><th style="width:34%">What we do</th></tr>
+ <tr><td>4.2 Minimum functionality</td><td>"It's just a website"</td><td>Reply explaining it's a daily game with accounts, leagues, chat and purchases; Claude adds more native touches if needed (push reminders, offline screen).</td></tr>
+ <tr><td>3.1.1 In-App Purchase</td><td>A link or mention of buying outside the app</td><td>Claude removes the mention; resubmit.</td></tr>
+ <tr><td>5.1.1(v) Account deletion</td><td>Can't find how to delete an account</td><td>Point them to the button in the review notes.</td></tr>
+ <tr><td>2.1 App completeness</td><td>Something didn't work for the reviewer (e.g. sign-in)</td><td>Check the test account works; Claude fixes the bug.</td></tr>
+ <tr><td>2.3 Metadata</td><td>Screenshots or text don't match the app</td><td>Claude remakes them.</td></tr>
+</table>
+<p>After fixing, reply in the same message thread (if it was explained) or upload a new build (Build number +1) and submit again.</p>
+</div>
+
+<div class="part">
+<h2>Part 16: After you're live</h2>
+<ul>
+ <li><b>Release:</b> if you chose manual release, click <b>Release This Version</b>. The app appears on the App Store within a few hours.</li>
+ <li><b>Share the link:</b> App Store Connect → your app → <b>App Information</b> → <b>View on App Store</b>. Claude adds an "App Store" button next to the Google Play one on the website.</li>
+ <li><b>Website updates</b> appear in the app straight away. You only need a new app version for native changes (icon, payment code, push notifications).</li>
+ <li><b>Money:</b> App Store Connect → <b>Payments and Financial Reports</b>. Sales: <b>Sales and Trends</b>.</li>
+ <li><b>Reviews:</b> reply to App Store reviews from App Store Connect → your app → <b>Ratings and Reviews</b>.</li>
+ <li><b>Every year:</b> renew the developer membership ($99), otherwise the app is removed.</li>
+</ul>
+
+<h2 style="margin-top:22px">Checklist</h2>
+<ul class="check">
+ <li>Apple ID with two-factor authentication (Part 1)</li>
+ <li>Apple Developer Program approved (Part 2)</li>
+ <li>Xcode installed and signed in; CocoaPods installed (Part 3)</li>
+ <li>Paid Apps agreement Active, bank and tax added (Part 4)</li>
+ <li>Small Business Program applied (Part 5)</li>
+ <li>Bundle ID registered; app created in App Store Connect (Part 6)</li>
+ <li>Infinity forever and Infinity monthly created, Ready to Submit (Part 7)</li>
+ <li>In-App Purchase key created, 3 secrets in Supabase, notification URLs set (Part 8)</li>
+ <li>PWABuilder zip sent to Claude (Part 9)</li>
+ <li>Claude: payment code, server function, site changes done (Part 10)</li>
+ <li>App runs on your iPhone (Part 11)</li>
+ <li>Sandbox purchase, restore and renewal tested (Part 12)</li>
+ <li>Build uploaded (Part 13)</li>
+ <li>Screenshots, texts, privacy, age rating, review account filled in (Part 14)</li>
+ <li>Submitted (Part 15)</li>
+</ul>
+</div>
+
+<div class="part">
+<h2>Exact values to type</h2>
+<table>
+ <tr><th style="width:36%">What</th><th>Value</th></tr>
+ <tr><td>Bundle ID</td><td><span class="v">lol.unicornergame.ios</span></td></tr>
+ <tr><td>App Store name</td><td><span class="v">Unicorner: Football Trivia</span></td></tr>
+ <tr><td>Home screen name</td><td><span class="v">Unicorner</span></td></tr>
+ <tr><td>SKU</td><td><span class="v">unicorner-ios</span></td></tr>
+ <tr><td>Start URL (PWABuilder)</td><td><span class="v">https://unicornergame.lol/?source=ios</span></td></tr>
+ <tr><td>One-time product ID</td><td><span class="v">lol.unicornergame.infinity.forever</span> ($4.99)</td></tr>
+ <tr><td>Subscription product ID</td><td><span class="v">lol.unicornergame.infinity.monthly</span> ($2.99/month)</td></tr>
+ <tr><td>Subscription group</td><td><span class="v">Infinity</span> (display name <span class="v">Unicorner Infinity</span>)</td></tr>
+ <tr><td>Notification URL (both)</td><td><span class="v">https://yujhjepukzdahsppntua.supabase.co/functions/v1/apple-iap</span>, Version 2</td></tr>
+ <tr><td>Supabase secrets</td><td><code>APPLE_IAP_KEY_ID</code>, <code>APPLE_IAP_ISSUER_ID</code>, <code>APPLE_IAP_PRIVATE_KEY</code></td></tr>
+ <tr><td>Privacy policy</td><td><span class="v">https://unicornergame.lol/privacy.html</span></td></tr>
+ <tr><td>Support URL</td><td><span class="v">https://unicornergame.lol/contact.html</span></td></tr>
+ <tr><td>Category</td><td>Games → Trivia (secondary: Sports)</td></tr>
+ <tr><td>Brand blue</td><td><span class="v">#1e3f8a</span></td></tr>
+</table>
+
+<h2 style="margin-top:22px">Glossary</h2>
+<table>
+ <tr><td style="width:30%"><b>App Store Connect</b></td><td>Apple's website for managing your app, prices, sales and review (appstoreconnect.apple.com).</td></tr>
+ <tr><td><b>Apple Developer account</b></td><td>The $99/year membership that lets you publish apps (developer.apple.com).</td></tr>
+ <tr><td><b>Xcode</b></td><td>Apple's free Mac program to build apps and send them to Apple.</td></tr>
+ <tr><td><b>Bundle ID</b></td><td>The app's unique ID, written like a reversed web address.</td></tr>
+ <tr><td><b>Build / Archive</b></td><td>A packaged copy of the app ready to upload. Each upload needs a new build number.</td></tr>
+ <tr><td><b>In-App Purchase (IAP)</b></td><td>Buying something inside the app with Apple's payments.</td></tr>
+ <tr><td><b>Non-consumable</b></td><td>A one-time purchase you keep forever (Infinity forever).</td></tr>
+ <tr><td><b>Auto-renewable subscription</b></td><td>Charges every month until cancelled (Infinity monthly).</td></tr>
+ <tr><td><b>Sandbox</b></td><td>Apple's free test mode for purchases: no real money.</td></tr>
+ <tr><td><b>TestFlight</b></td><td>Apple's app for installing test versions before release.</td></tr>
+ <tr><td><b>PWABuilder</b></td><td>The free tool that turns the website into an app (we used it for Android).</td></tr>
+ <tr><td><b>Supabase</b></td><td>Unicorner's database and server, where accounts and Infinity live.</td></tr>
+ <tr><td><b>Terminal</b></td><td>The Mac app where you type commands (Cmd + Space, type Terminal).</td></tr>
+ <tr><td><b>.p8 key</b></td><td>The secret key file that lets our server check purchases with Apple. Treat like a password.</td></tr>
+</table>
+<div class="box you"><b class="t">Stuck anywhere?</b>Send Claude a screenshot (Cmd + Shift + 4 and drag over the area; the picture appears on your Desktop) and say which Part and step you're on.</div>
+</div>
+</body></html>

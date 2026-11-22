@@ -6,13 +6,16 @@
 const me=document.currentScript,cfg={input:me?.dataset.input,top:me?.dataset.top,clock:me?.dataset.clock};
 if(!cfg.input||!window.visualViewport)return;
 const vv=window.visualViewport,phone=()=>matchMedia('(max-width:760px) and (pointer:coarse)').matches;
-let pill=null,tick=0,raf=0;
+let pill=null,tick=0,raf=0,placedH=0,touching=false,lastTouch=0;
+addEventListener('touchstart',()=>{touching=true},{passive:true});addEventListener('touchend',()=>{touching=false;lastTouch=Date.now()},{passive:true});addEventListener('touchcancel',()=>{touching=false;lastTouch=Date.now()},{passive:true});
 const input=()=>document.querySelector(cfg.input),focused=()=>{const i=input();return i&&document.activeElement===i};
 const kbUp=()=>vv.height<window.innerHeight*.85;
 
 // temporary room under the page, so a question near the bottom can still be scrolled up to the top
 let pad=null;function room(px){if(!pad){pad=document.createElement('div');pad.setAttribute('aria-hidden','true');pad.style.cssText='height:0;pointer-events:none'}if(!pad.isConnected)document.body.appendChild(pad);pad.style.height=Math.max(0,px)+'px'}
-function place(){if(!phone()||!focused()||!kbUp()){showPill(false);room(0);return}
+function place(force){if(!phone()||!focused()||!kbUp()){showPill(false);room(0);placedH=0;return}
+ if(!force&&placedH&&(touching||Date.now()-lastTouch<600||Math.abs(vv.height-placedH)<120)){showPill(true);return}   // the player is scrolling, or it's just Safari's address bar: leave the page alone
+ placedH=vv.height;
  room(window.innerHeight-vv.height);
  const i=input(),top=(cfg.top&&document.querySelector(cfg.top))||i,vTop=vv.offsetTop,vBot=vTop+vv.height;
  const tr=top.getBoundingClientRect(),ir=i.getBoundingClientRect();
@@ -31,6 +34,6 @@ function showPill(on){if(!cfg.clock)return;const c=document.querySelector(cfg.cl
  upd();if(!tick)tick=setInterval(upd,250)}
 const later=()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>setTimeout(place,60))};
 vv.addEventListener('resize',later);vv.addEventListener('scroll',()=>{if(pill&&!pill.hidden)pill.style.top=(vv.offsetTop+8)+'px'});
-document.addEventListener('focusin',e=>{if(e.target.matches?.(cfg.input)){setTimeout(place,350);setTimeout(place,700)}});
-document.addEventListener('focusout',e=>{if(e.target.matches?.(cfg.input))setTimeout(()=>{if(!focused()){showPill(false);room(0)}},100)});
+document.addEventListener('focusin',e=>{if(e.target.matches?.(cfg.input)){placedH=0;setTimeout(()=>place(true),350)}});
+document.addEventListener('focusout',e=>{if(e.target.matches?.(cfg.input))setTimeout(()=>{if(!focused()){showPill(false);room(0);placedH=0}},100)});
 })();

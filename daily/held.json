@@ -1,0 +1,153 @@
+[
+  {
+    "id": "f150",
+    "_id": "f150",
+    "prompt": "Name a stadium used at the 2025 Club World Cup in the USA",
+    "subtitle": "The 12 venues of the 32-team tournament in the United States · The FIFA tournament between the best clubs of each continent",
+    "prompt_es": "Nombra un estadio del Mundial de Clubes 2025 en Estados Unidos",
+    "subtitle_es": "Las 12 sedes del torneo de 32 equipos en Estados Unidos · El torneo de la FIFA entre los mejores clubes de cada continente",
+    "difficulty": "medium",
+    "answer_type": "stadium",
+    "format_family": "venues",
+    "scoring_version": 2,
+    "answer_count": 12,
+    "clash_note": "Orlando had two venues (Camping World Stadium and Inter&Co Stadium), so the city name alone is not accepted.",
+    "answers": [
+      {
+        "name": "MetLife Stadium",
+        "aliases": [
+          "MetLife",
+          "Metlife",
+          "East Rutherford",
+          "New Jersey"
+        ],
+        "fame": 6
+      },
+      {
+        "name": "Hard Rock Stadium",
+        "aliases": [
+          "Hard Rock",
+          "Miami",
+          "Miami Gardens"
+        ],
+        "fame": 5
+      },
+      {
+        "name": "Rose Bowl",
+        "aliases": [
+          "Pasadena"
+        ],
+        "fame": 4
+      },
+      {
+        "name": "Mercedes-Benz Stadium",
+        "aliases": [
+          "Mercedes Benz Stadium",
+          "Mercedes-Benz",
+          "Atlanta"
+        ],
+        "fame": 4
+      },
+      {
+        "name": "Lincoln Financial Field",
+        "aliases": [
+          "Lincoln Financial",
+          "The Linc",
+          "Philadelphia"
+        ],
+        "fame": 3
+      },
+      {
+        "name": "Lumen Field",
+        "aliases": [
+          "Lumen",
+          "Seattle"
+        ],
+        "fame": 3
+      },
+      {
+        "name": "Bank of America Stadium",
+        "aliases": [
+          "Bank of America",
+          "Charlotte"
+        ],
+        "fame": 3
+      },
+      {
+        "name": "Camping World Stadium",
+        "aliases": [
+          "Camping World"
+        ],
+        "fame": 2
+      },
+      {
+        "name": "Inter&Co Stadium",
+        "aliases": [
+          "Inter and Co Stadium",
+          "Inter&Co",
+          "Exploria Stadium"
+        ],
+        "fame": 2
+      },
+      {
+        "name": "TQL Stadium",
+        "aliases": [
+          "TQL",
+          "Cincinnati"
+        ],
+        "fame": 1
+      },
+      {
+        "name": "Geodis Park",
+        "aliases": [
+          "GEODIS Park",
+          "Nashville"
+        ],
+        "fame": 1
+      },
+      {
+        "name": "Audi Field",
+        "aliases": [
+          "Audi",
+          "Washington"
+        ],
+        "fame": 1
+      }
+    ],
+    "traps": [
+      {
+        "name": "SoFi Stadium",
+        "aliases": [
+          "SoFi",
+          "Los Angeles"
+        ],
+        "why": "SoFi was not a Club World Cup venue; the Los Angeles games were at the Rose Bowl.",
+        "why_es": "El SoFi no fue sede del Mundial de Clubes; los partidos de Los Ángeles se jugaron en el Rose Bowl.",
+        "why_pt": "O SoFi não foi sede do Mundial de Clubes; os jogos de Los Angeles foram no Rose Bowl."
+      },
+      {
+        "name": "AT&T Stadium",
+        "aliases": [
+          "AT&T",
+          "Dallas",
+          "Arlington"
+        ],
+        "why": "Dallas was not a 2025 Club World Cup venue.",
+        "why_es": "Dallas no fue sede del Mundial de Clubes 2025.",
+        "why_pt": "Dallas não foi sede do Mundial de Clubes de 2025."
+      },
+      {
+        "name": "Gillette Stadium",
+        "aliases": [
+          "Gillette",
+          "Boston"
+        ],
+        "why": "Boston was not a 2025 Club World Cup venue.",
+        "why_es": "Boston no fue sede del Mundial de Clubes 2025.",
+        "why_pt": "Boston não foi sede do Mundial de Clubes de 2025."
+      }
+    ],
+    "prompt_pt": "Cite um estádio usado no Mundial de Clubes de 2025 nos EUA",
+    "subtitle_pt": "As 12 sedes do torneio de 32 clubes nos Estados Unidos · O torneio da FIFA entre os melhores clubes de cada continente"
+  }
+]

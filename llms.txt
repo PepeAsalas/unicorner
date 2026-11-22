@@ -22,7 +22,7 @@
 - Kits: 40 outfits for your pixel-art unicorn, unlocked by playing (games played, streaks, Screamers, high scores). The rarest, the Cosmic GOAT, is only for players who win a day.
 - Weekly trophies: every Monday at midnight the past week is wrapped up and trophies are handed out, such as Champion (most points), Golden Boot (most Screamers), Ever-present (played all seven days) and Hat-trick (three Screamers in one game). They live in a trophy cabinet and show as badges next to names on the leaderboard.
 - Streaks for playing on consecutive days.
-- Infinity mode: endless practice with the same rules and no ranking (a short trial run is available now; the full version is coming soon).
+- Infinity mode: endless practice with every past Daily 5 question, plus every past Rosco and Millions game, same rules and no ranking. A short run is free; the full mode is an optional one-time or monthly purchase.
 - Retro pixel-art, arcade style.
 
 ## More daily games, hosted by Horacio Herradura

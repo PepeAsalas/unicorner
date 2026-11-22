@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Crowd zoom reveal</title>
+<link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=VT323&display=swap" rel="stylesheet">
+<script src="/duel/sprites.js"></script>
+<style>
+:root{--blue:#1d4486;--blue2:#173a75;--ink:#1d1a2b;--cream:#fbf6e8;--mute:#b9c5e6;--gold:#f2c230;--out:cubic-bezier(.23,1,.32,1)}
+*{box-sizing:border-box}
+body{margin:0;background:#2a6b3a;color:var(--cream);font:400 20px/1.25 VT323,monospace;padding:20px 16px 60px}
+h1{font:400 42px/1 'Jersey 10',sans-serif;color:var(--gold);margin:0 0 6px;text-shadow:3px 3px 0 #000}
+.lead{color:#e3f3e7;max-width:880px;margin:0 0 14px;font-size:19px}
+.wrap{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}
+.tools{width:390px;max-width:100%;display:grid;gap:6px;margin:0 0 10px}
+.seg{display:grid;gap:4px}.seg.t{grid-template-columns:repeat(5,1fr)}.seg.b{grid-template-columns:repeat(3,1fr)}
+.tools button,.tools select{font:400 15px/1 'Jersey 10',sans-serif;min-height:42px;border:2px solid #000;background:var(--cream);color:var(--ink);box-shadow:0 3px 0 #000;cursor:pointer;padding:0 6px}
+.tools button:active{transform:translateY(2px);box-shadow:0 1px 0 #000}.tools button.on{background:var(--gold)}
+.phone{position:relative;display:flex;flex-direction:column;width:390px;max-width:100%;height:720px;border:4px solid #000;box-shadow:8px 8px 0 rgba(0,0,0,.35);overflow:hidden;background:var(--blue)}
+.qh{padding:14px 16px 0}
+.chip{display:inline-flex;align-items:center;gap:8px;background:#000;border:3px solid var(--gold);padding:5px 10px 3px;font:400 17px/1 'Jersey 10',sans-serif}
+.chip small{font-size:12px;color:var(--gold);letter-spacing:1px}
+.q{margin:10px 0 0;font:400 22px/1.05 'Jersey 10',sans-serif}
+.a{margin:4px 0 0;font-size:17px;color:var(--mute)}.a b{color:var(--cream);font-weight:400;font-size:20px}
+/* stage = camera viewport */
+.stage{position:relative;margin:12px 16px 0;height:450px;border:4px solid #000;overflow:hidden;background:#0d0c13;isolation:isolate}
+.bg{position:absolute;inset:-6%;background-size:cover;background-position:50% 70%;will-change:transform,filter}
+.world{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
+.u{position:absolute;background-size:contain;background-repeat:no-repeat;background-position:bottom center;image-rendering:pixelated;transform-origin:50% 100%}
+.mine{filter:drop-shadow(2px 0 0 #f2c230) drop-shadow(-2px 0 0 #f2c230) drop-shadow(0 2px 0 #f2c230) drop-shadow(0 -2px 0 #f2c230) drop-shadow(0 0 10px rgba(255,214,90,.85))}
+.pool{position:absolute;border-radius:50%;background:radial-gradient(ellipse,rgba(255,214,90,.55),rgba(255,214,90,0) 70%);transform:translateX(-50%);animation:pool 1.4s ease-in-out infinite alternate}
+@keyframes pool{from{opacity:.55;transform:translateX(-50%) scale(.92)}to{opacity:1;transform:translateX(-50%) scale(1.06)}}
+@media (prefers-reduced-motion:reduce){.pool{animation:none}}
+.shadow{position:absolute;height:8px;border-radius:50%;background:rgba(0,0,0,.35);transform:translateX(-50%)}
+.rays{position:absolute;width:520px;height:520px;border-radius:50%;opacity:0;pointer-events:none;background:repeating-conic-gradient(from 0deg,rgba(255,214,90,.55) 0 6deg,transparent 6deg 18deg);-webkit-mask:radial-gradient(circle,#000 18%,transparent 62%);mask:radial-gradient(circle,#000 18%,transparent 62%)}
+.speed{position:absolute;inset:-30%;opacity:0;pointer-events:none;z-index:5;background:repeating-conic-gradient(from 0deg at 50% 60%,rgba(255,255,255,.55) 0 .6deg,transparent .6deg 7deg);-webkit-mask:radial-gradient(circle at 50% 60%,transparent 26%,#000 58%);mask:radial-gradient(circle at 50% 60%,transparent 26%,#000 58%)}
+.lb{position:absolute;left:0;right:0;height:34px;background:#000;z-index:6;transform:scaleY(0)}.lb.t{top:0;transform-origin:50% 0}.lb.b{bottom:0;transform-origin:50% 100%}
+.flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:7;pointer-events:none}
+.hud{position:absolute;left:10px;top:10px;z-index:8;background:rgba(13,12,19,.9);border:3px solid #000;box-shadow:0 3px 0 rgba(0,0,0,.4);padding:6px 10px}
+.hud b{display:block;font:400 56px/.85 'Jersey 10',sans-serif;font-weight:400;font-variant-numeric:tabular-nums;letter-spacing:-1px}
+.hud b small{font-size:26px;margin-left:2px}
+.hud span{font:400 13px/1 'Jersey 10',sans-serif;letter-spacing:1.2px;color:var(--mute)}
+.stamp{position:absolute;left:50%;bottom:44px;z-index:9;font:400 50px/1 'Jersey 10',sans-serif;padding:6px 16px 2px;border:4px solid #000;color:var(--ink);opacity:0;white-space:nowrap;box-shadow:0 6px 0 rgba(0,0,0,.45)}
+.you{position:absolute;z-index:8;font:400 15px/1 'Jersey 10',sans-serif;color:#000;background:var(--gold);padding:3px 7px 1px;border:2px solid #000;opacity:0;white-space:nowrap}
+.you::after{content:'';position:absolute;left:50%;bottom:-7px;margin-left:-5px;border:5px solid transparent;border-top-color:#000}
+.px{position:absolute;width:7px;height:7px;pointer-events:none;z-index:9}
+.bar{display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px;margin:10px 16px 0;min-height:48px}
+.line{font-size:18px;color:var(--mute);line-height:1.2}
+.pts{border:3px solid #000;background:var(--blue2);height:48px;display:flex;align-items:center;gap:10px;padding:0 12px}
+.pts span{font:400 14px/1 'Jersey 10',sans-serif;letter-spacing:1.5px;color:var(--mute)}.pts b{font:400 30px/1 'Jersey 10',sans-serif;color:var(--gold);font-weight:400}
+.nxt{margin:auto 16px 14px;height:52px;border:3px solid #000;background:var(--gold);box-shadow:0 4px 0 #000;font:400 24px/1 'Jersey 10',sans-serif;color:var(--ink);opacity:0}
+.side{max-width:420px}.side h3{font:400 26px/1 'Jersey 10',sans-serif;color:var(--gold);margin:0 0 8px;text-shadow:2px 2px 0 #000}.side li{margin:0 0 8px}
+</style></head><body>
+<h1>Crowd zoom · v2</h1>
+<p class="lead">The crowd is other players' unicorns in real kits, one for every 1% of today's players. <b>Whoosh</b>: the camera winds up, rushes in on yours, and the ones who said something else jump out of shot. The deeper it pushes, the rarer your answer. Turn sound on.</p>
+<div class="wrap">
+ <div>
+  <div class="tools">
+   <div class="seg t" id="tiers"></div>
+   <div class="seg b" id="bgs"></div>
+   <div class="seg b"><select id="kit" aria-label="Your kit"></select><button id="snd">🔇 Sound</button><button id="replay">↻ Replay</button></div>
+  </div>
+  <div class="phone" id="ph">
+   <div class="qh"><div class="chip"><small>QUESTION</small>3 OF 5</div><p class="q">Named in Uruguay's 2010 World Cup squad</p><p class="a">You said <b>Luis Suárez</b></p></div>
+   <div class="stage" id="stage"><div class="bg" id="bg"></div><div class="world" id="world"></div><div class="speed" id="speed"></div>
+    <div class="lb t" id="lbt"></div><div class="lb b" id="lbb"></div><div class="flash" id="flash"></div>
+    <div class="hud"><b id="pct">100<small>%</small></b><span>SAID THIS</span></div><div class="stamp" id="stamp"></div><span class="you" id="you">YOU</span></div>
+   <div class="bar"><div class="line" id="line"></div><div class="pts"><span>POINTS</span><b id="pts">0</b></div></div>
+   <button class="nxt" id="nxt">NEXT QUESTION ▶</button>
+  </div>
+ </div>
+ <div class="side"><h3>The beats</h3><ul>
+  <li><b>Crowd (0.4 s):</b> a wide shot of 100 unicorns in real kits, idling and murmuring. Yours sits in the middle in your kit.</li>
+  <li><b>Wind-up (0.16 s):</b> the camera eases back a touch, so the push has somewhere to come from.</li>
+  <li><b>Whoosh (0.6 to 1.2 s):</b> one fast push-in that speeds up and then brakes. Speed lines and a little blur only during the fastest part. Everyone who said something else jumps out of shot, from the edges inwards.</li>
+  <li><b>Landing:</b> the camera overshoots slightly and settles, and your unicorn squashes on impact. Bicycle and Screamer get a short freeze-frame before the stamp.</li>
+  <li><b>Screamer only:</b> black bars slide in like a film, golden rays turn behind you, then a flash, confetti and a roar.</li>
+  <li>Your unicorn always has a gold outline and a light pool under it, so you can spot yourself in the crowd before the zoom.</li><li>Unicorns about 2× bigger than v1: around 40 px in the crowd and 170 px close up.</li>
+ </ul></div>
+</div>
+<script>
+for(let f=0;f<FRAMES.length;f++)FRAMES[f]=FRAMES[f].map((r,y)=>y>=21?r.slice(0,27)+'.'.repeat(r.length-27):r);
+const $=id=>document.getElementById(id);
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const OK_KITS=KITS.filter(k=>k.pat||(k.pal&&k.pal.W));
+const CROWD=['stripes','hoops','sash','checks','ice','leopard','zebra','shadow','ocean','sunset','camo','gold','bee','tartan','retro','straw','matrix','royal','frost','hw-stripes','hw-slime','hw-night'].map(id=>KITS.find(k=>k.id===id)).filter(Boolean);
+let MYKIT=KITS.find(k=>k.id==='inferno');
+OK_KITS.forEach(k=>{const o=document.createElement('option');o.value=k.id;o.textContent='You: '+(k.en||k.id);if(k===MYKIT)o.selected=true;$('kit').appendChild(o)});
+$('kit').onchange=()=>{MYKIT=KITS.find(k=>k.id===$('kit').value);run(CUR)};
+const BGS=[['rooftop','Rooftop night'],['retro','Retro neon'],['beach','Beach sunset']];let BG='rooftop';
+BGS.forEach(([id,n])=>{const b=document.createElement('button');b.textContent=n;b.dataset.bg=id;b.onclick=()=>{BG=id;setBg();run(CUR)};$('bgs').appendChild(b)});
+const setBg=()=>{$('bg').style.backgroundImage=`url(/bg/${BG}-tall.webp)`;document.querySelectorAll('[data-bg]').forEach(b=>b.classList.toggle('on',b.dataset.bg===BG))};setBg();
+const T=[{n:'TAP-IN',p:10,c:'#c9cde0',pct:41},{n:'HEADER',p:30,c:'#3fd17f',pct:17},{n:'VOLLEY',p:60,c:'#3fb1ff',pct:6.2},{n:'BICYCLE KICK',p:85,c:'#a070ff',pct:2.3},{n:'SCREAMER',p:100,c:'#f2c230',pct:.4}];
+T.forEach((t,i)=>{const b=document.createElement('button');b.textContent=t.n.split(' ')[0];b.onclick=()=>run(i);if(i===4)b.style.background='var(--gold)';$('tiers').appendChild(b)});
+// ---- the world: 100 unicorns on the ground plane
+const stage=$('stage'),world=$('world'),SW=stage.clientWidth,SH=stage.clientHeight;
+const UW=64,UH=53,WW=Math.round(SW*2.1),WH=Math.round(SH*1.25);world.style.width=WW+'px';world.style.height=WH+'px';
+const rnd=(s=>()=>(s=(s*16807)%2147483647)/2147483647)(11);
+const P=[];for(let r=0;r<10;r++)for(let c=0;c<10;c++){const depth=.78+r*.03;P.push({x:30+c*(WW-60-UW)/9+(rnd()-.5)*26+(r%2?18:-6),y:20+r*(WH-40-UH)/9+(rnd()-.5)*14,s:depth})}
+const ME=55;P[ME].x=WW/2-UW/2;P[ME].y=WH*.56-UH/2;P[ME].s=1.02;
+// nobody stands on top of you: push anyone too close out to a clear ring
+P.forEach((q,i)=>{if(i===ME)return;const dx=q.x-P[ME].x,dy=(q.y-P[ME].y)*1.35,d=Math.hypot(dx,dy),R=92;if(d<R){const a=d?Math.atan2(dy,dx):(i%2?0:Math.PI);q.x=P[ME].x+Math.cos(a)*R;q.y=P[ME].y+Math.sin(a)*R/1.35}});
+const EL=P.map((q,i)=>{const sh=document.createElement('i');sh.className='shadow';const u=document.createElement('i');u.className='u';
+ const w=UW*q.s,h=UH*q.s;u.style.cssText=`left:${q.x}px;top:${q.y}px;width:${w}px;height:${h}px;z-index:${Math.round(q.y)}`;sh.style.cssText=`left:${q.x+w/2}px;top:${q.y+h-5}px;width:${w*.7}px;z-index:${Math.round(q.y)-1}`;
+ world.appendChild(sh);world.appendChild(u);return{u,sh,kit:CROWD[(i*7+3)%CROWD.length]}});
+const rays=document.createElement('i');rays.className='rays';world.appendChild(rays);
+EL[ME].u.classList.add('mine');const pool=document.createElement('i');pool.className='pool';world.appendChild(pool);
+const me=P[ME],MX=me.x+UW*me.s/2,MY=me.y+UH*me.s*.55;
+rays.style.left=(MX-260)+'px';rays.style.top=(MY-260)+'px';rays.style.zIndex=Math.round(me.y)-2;
+{const w=UW*me.s*1.5;pool.style.cssText=`left:${MX}px;top:${me.y+UH*me.s-12}px;width:${w}px;height:${w*.32}px;z-index:${Math.round(me.y)-1}`}
+const byDist=P.map((q,i)=>({i,d:Math.hypot(q.x-me.x,(q.y-me.y)*1.2)})).filter(o=>o.i!==ME).sort((a,b)=>b.d-a.d).map(o=>o.i);
+// ---- camera
+const S0=SW/WW, C0={x:WW/2,y:WH/2}, A0={x:SW/2,y:SH*.62};
+const depth=pct=>Math.max(0,Math.min(1,Math.log10(100/Math.max(pct,.4))/Math.log10(250)));
+const SF=k=>S0*Math.pow(2.95/S0,k)*1;             // final scale for depth k (Screamer ≈ 2.95)
+function camAt(u,k){// u: 0 = wide, 1 = landed (can dip below 0 / overshoot above 1)
+ const s=S0*Math.pow(SF(k)/S0,u),f=Math.max(0,Math.min(1.05,u));
+ const cx=C0.x+(MX-C0.x)*f,cy=C0.y+(MY-C0.y)*f,ax=A0.x+(SW/2-A0.x)*f,ay=A0.y+(SH*.55-A0.y)*f;
+ world.style.transform=`translate(${ax-s*cx}px,${ay-s*cy}px) scale(${s})`;
+ $('bg').style.transform=`scale(${1+.16*k*Math.max(0,u)})`}
+// cubic-bezier solver (for JS-driven camera with the same curves as CSS)
+function bez(x1,y1,x2,y2){const cx=3*x1,bx=3*(x2-x1)-cx,ax=1-cx-bx,cy=3*y1,by=3*(y2-y1)-cy,ay=1-cy-by;const X=t=>((ax*t+bx)*t+cx)*t,Y=t=>((ay*t+by)*t+cy)*t,dX=t=>(3*ax*t+2*bx)*t+cx;
+ return x=>{let t=x;for(let i=0;i<6;i++){const d=dX(t);if(Math.abs(d)<1e-6)break;t-=(X(t)-x)/d}return Y(Math.max(0,Math.min(1,t)))}}
+const easePush=bez(.77,0,.175,1),easeOut=bez(.23,1,.32,1);
+function tween(ms,fn,ease){return new Promise(res=>{if(RM||ms<=0){fn(1);return res()}const t0=performance.now();(function s(n){const x=Math.min(1,(n-t0)/ms);fn(ease(x),x);if(x<1)requestAnimationFrame(s);else res()})(t0)})}
+// ---- sound (generated live)
+let AC=null,SOUND=false;$('snd').onclick=()=>{SOUND=!SOUND;if(SOUND&&!AC)AC=new (window.AudioContext||window.webkitAudioContext)();$('snd').textContent=SOUND?'🔊 Sound':'🔇 Sound';$('snd').classList.toggle('on',SOUND)};
+const EV=window.EV=[];const log=(type,o={})=>EV.push({type,t:Date.now(),...o});
+function noise(sec){const b=AC.createBuffer(1,AC.sampleRate*sec,AC.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;const s=AC.createBufferSource();s.buffer=b;return s}
+function sWhoosh(ms,k){log('whoosh',{ms,k});if(!SOUND||!AC)return;const t=AC.currentTime,s=noise(ms/1000+.4),bp=AC.createBiquadFilter(),g=AC.createGain();bp.type='bandpass';bp.Q.value=1.3;
+ bp.frequency.setValueAtTime(220,t);bp.frequency.exponentialRampToValueAtTime(800+k*2800,t+ms/1000*.8);bp.frequency.exponentialRampToValueAtTime(350,t+ms/1000+.25);
+ g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.45+k*.45,t+ms/1000*.7);g.gain.exponentialRampToValueAtTime(.0001,t+ms/1000+.3);s.connect(bp).connect(g).connect(AC.destination);s.start(t);s.stop(t+ms/1000+.4)}
+function sThud(big){log('thud',{big});if(!SOUND||!AC)return;const t=AC.currentTime,o=AC.createOscillator(),g=AC.createGain();o.frequency.setValueAtTime(big?125:95,t);o.frequency.exponentialRampToValueAtTime(40,t+.24);g.gain.setValueAtTime(big?.9:.55,t);g.gain.exponentialRampToValueAtTime(.0001,t+.3);o.connect(g).connect(AC.destination);o.start(t);o.stop(t+.32)}
+function sRoar(){log('roar');if(!SOUND||!AC)return;const t=AC.currentTime,s=noise(2.4),lp=AC.createBiquadFilter(),g=AC.createGain();lp.type='lowpass';lp.frequency.value=1500;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.35,t+.25);g.gain.exponentialRampToValueAtTime(.0001,t+2.3);s.connect(lp).connect(g).connect(AC.destination);s.start(t);s.stop(t+2.4);
+ [523,659,784,1047].forEach((f,i)=>{const o=AC.createOscillator(),gg=AC.createGain();o.type='square';o.frequency.value=f;const st=t+.05+i*.07;gg.gain.setValueAtTime(.0001,st);gg.gain.exponentialRampToValueAtTime(.07,st+.02);gg.gain.exponentialRampToValueAtTime(.0001,st+.35);o.connect(gg).connect(AC.destination);o.start(st);o.stop(st+.37)})}
+function sMurmur(ms){log('murmur',{ms});if(!SOUND||!AC)return;const t=AC.currentTime,s=noise(ms/1000+.2),bp=AC.createBiquadFilter(),g=AC.createGain();bp.type='bandpass';bp.frequency.value=500;bp.Q.value=.7;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.12,t+.15);g.gain.exponentialRampToValueAtTime(.0001,t+ms/1000+.15);s.connect(bp).connect(g).connect(AC.destination);s.start(t);s.stop(t+ms/1000+.2)}
+// ---- helpers
+const wait=ms=>new Promise(r=>setTimeout(r,RM?0:ms));
+const fmt=v=>(v>=9.95?Math.round(v):v.toFixed(1))+'<small>%</small>';
+function shake(n){if(RM)return;stage.animate([{transform:'none'},{transform:`translate(${n}px,-${n*.6}px)`},{transform:`translate(-${n*.8}px,${n*.5}px)`},{transform:`translate(${n*.5}px,${n*.4}px)`},{transform:'none'}],{duration:260,easing:'steps(4)'})}
+function burst(x,y,n){if(RM)return;const cols=['#f2c230','#fbf6e8','#fff3a0','#ffb000'];for(let i=0;i<n;i++){const d=document.createElement('div');d.className='px';d.style.left=x+'px';d.style.top=y+'px';d.style.background=cols[i%4];if(i%3===0)d.style.width=d.style.height='4px';stage.appendChild(d);
+ const a=Math.random()*Math.PI*2,r=70+Math.random()*150;d.animate([{transform:'translate(0,0) rotate(0)',opacity:1},{transform:`translate(${Math.cos(a)*r}px,${Math.sin(a)*r*.75+60}px) rotate(${Math.random()*360}deg)`,opacity:0}],{duration:800+Math.random()*400,easing:'cubic-bezier(.2,.8,.4,1)',fill:'forwards'});setTimeout(()=>d.remove(),1300)}}
+const spr=(k,m,f)=>spriteDraw(m,f,false,k);
+function play(el,kf,o,ok){const last=kf[kf.length-1];const a=el.animate(kf,o);a.onfinish=()=>{if(ok())for(const k in last)if(k!=='offset')el.style[k]=last[k]};return a}
+let TOK=0,CUR=4;
+async function run(tier){CUR=tier;const id=++TOK,ok=()=>id===TOK,t=T[tier],k=depth(t.pct),keep=Math.max(0,Math.ceil(t.pct)-1);
+ // reset
+ [stage,world,rays,$('flash'),$('speed'),$('lbt'),$('lbb'),$('stamp'),$('you'),$('nxt'),$('pct'),$('bg')].forEach(e=>e.getAnimations().forEach(a=>a.cancel()));
+ stage.querySelectorAll('.px').forEach(e=>e.remove());$('lbt').style.transform=$('lbb').style.transform='scaleY(0)';['stamp','you','nxt'].forEach(i=>{$(i).style.opacity=0;$(i).style.transform=''});$('speed').style.opacity=0;$('bg').style.filter='';world.style.filter='';rays.style.opacity=0;rays.style.transform='';
+ EL.forEach((e,i)=>{e.u.getAnimations().forEach(a=>a.cancel());e.sh.getAnimations().forEach(a=>a.cancel());e.u.style.visibility=e.sh.style.visibility='';e.sh.style.opacity='';e.u.style.backgroundImage=spr(i===ME?MYKIT:e.kit,'happy',i&1);e.u.style.transform='';e.u.style.filter=''});
+ $('pct').innerHTML=fmt(100);$('pct').style.color='';$('pts').textContent='0';$('line').textContent='100 players today. Who else said it?';camAt(0,k);
+ // 1 the crowd idles
+ let fr=0;const idle=setInterval(()=>{if(!ok())return clearInterval(idle);fr++;EL.forEach((e,i)=>{if(e.u.style.visibility!=='hidden'&&(i*3+fr)%7===0){e.u.style.backgroundImage=spr(i===ME?MYKIT:e.kit,'happy',fr&1);e.u.animate([{transform:'none'},{transform:'translateY(-5px)'},{transform:'none'}],{duration:240,easing:'cubic-bezier(.3,0,.3,1)'})}})},150);
+ sMurmur(420);await wait(420);if(!ok())return;
+ // 2 wind-up: ease back a touch
+ await tween(160,e=>camAt(-.05*e,k),easeOut);if(!ok())return;
+ // 3 WHOOSH
+ const ms=RM?1:Math.round(600+k*600);sWhoosh(ms,k);clearInterval(idle);EL[ME].u.style.backgroundImage=spr(MYKIT,'wow',1);
+ const go=byDist.slice(0,99-keep);
+ go.forEach((i,n)=>{const e=EL[i],q=P[i],ang=Math.atan2(q.y-me.y,q.x-me.x),dx=Math.cos(ang)*140,dy=Math.sin(ang)*60,dl=RM?0:ms*.08+ms*.72*(n/Math.max(1,go.length));
+  e.u.animate([{transform:'translate(0,0)',opacity:1},{transform:`translate(${dx*.35}px,${dy*.35-38}px) rotate(${dx>0?12:-12}deg)`,opacity:1,offset:.45},{transform:`translate(${dx}px,${dy}px) rotate(${dx>0?20:-20}deg) scale(.9)`,opacity:0}],{duration:RM?1:380,delay:dl,easing:'cubic-bezier(.45,0,.55,1)'}).onfinish=()=>{if(ok())e.u.style.visibility='hidden'};
+  play(e.sh,[{opacity:1},{opacity:0}],{duration:RM?1:200,delay:dl},ok)});
+ const sp=$('speed');
+ await tween(ms,(e,x)=>{camAt(-.05+1.08*e,k);const v=100*Math.pow(t.pct/100,Math.max(0,Math.min(1,e)));$('pct').innerHTML=fmt(Math.max(t.pct,v));
+  const spd=Math.sin(Math.PI*x);sp.style.opacity=(k>.15?spd*(.25+.45*k):0).toFixed(3);$('bg').style.filter=`blur(${(spd*k*2.2).toFixed(2)}px)`;world.style.filter=k>.3?`blur(${(spd*k*.9).toFixed(2)}px)`:''},easePush);
+ if(!ok())return;sp.style.opacity=0;$('bg').style.filter='';world.style.filter='';$('pct').innerHTML=fmt(t.pct);
+ // 4 overshoot settle + squash
+ const mu=EL[ME].u;sThud(tier===4);
+ mu.animate([{transform:'scale(1.16,.82)'},{transform:'scale(.93,1.1) translateY(-6px)',offset:.45},{transform:'none'}],{duration:RM?1:340,easing:'cubic-bezier(.23,1,.32,1)'});
+ tween(220,e=>camAt(1.03-.03*e,k),easeOut);if(tier>=1)shake(tier>=3?6:3);
+ if(tier>=3){await wait(90);if(!ok())return}  // hit-stop before the stamp
+ // 5 stamp + points
+ const st=$('stamp');st.textContent=t.n;st.style.background=t.c;
+ play(st,[{opacity:0,transform:'translateX(-50%) scale(2) rotate(-10deg)'},{opacity:1,transform:'translateX(-50%) scale(.93) rotate(-4deg)',offset:.6},{opacity:1,transform:'translateX(-50%) scale(1) rotate(-4deg)'}],{duration:RM?1:320,easing:'cubic-bezier(.3,0,.2,1)'},ok);
+ const t1=performance.now();(function s(n){if(!ok())return;const x=Math.min(1,(n-t1)/450);$('pts').textContent='+'+Math.round(t.p*(1-Math.pow(1-x,3)));if(x<1)requestAnimationFrame(s)})(t1);
+ const mr=mu.getBoundingClientRect(),sr=stage.getBoundingClientRect(),mx=mr.left-sr.left+mr.width/2,my=mr.top-sr.top;
+ if(tier===4){$('pct').style.color='var(--gold)';$('line').textContent="Nobody else saw it. You're the unicorn.";sRoar();
+  [$('lbt'),$('lbb')].forEach(b=>b.animate([{transform:'scaleY(0)'},{transform:'scaleY(1)'}],{duration:RM?1:420,easing:'cubic-bezier(.23,1,.32,1)'}).onfinish=()=>{if(ok())b.style.transform='scaleY(1)'});
+  $('flash').animate([{opacity:0},{opacity:.75,offset:.1},{opacity:0}],{duration:500,easing:'ease-out'});
+  rays.style.opacity=1;rays.animate([{transform:'rotate(0) scale(.6)',opacity:0},{transform:'rotate(40deg) scale(1)',opacity:1,offset:.3},{transform:'rotate(180deg) scale(1.05)',opacity:1}],{duration:RM?1:6000,easing:'linear'}).onfinish=()=>{if(ok())rays.style.transform='rotate(180deg) scale(1.05)'};
+  mu.style.filter='drop-shadow(2px 0 0 #f2c230) drop-shadow(-2px 0 0 #f2c230) drop-shadow(0 2px 0 #f2c230) drop-shadow(0 -2px 0 #f2c230) drop-shadow(0 0 16px rgba(255,214,90,1))';burst(mx,my+mr.height*.5,64);
+  let f=0;const iv=setInterval(()=>{if(!ok())return clearInterval(iv);mu.style.backgroundImage=spr(MYKIT,'joy',f++%2);if(f%4===1&&!RM)mu.animate([{transform:'none'},{transform:'translateY(-14px)'},{transform:'none'}],{duration:280,easing:'cubic-bezier(.3,0,.3,1)'})},150);setTimeout(()=>clearInterval(iv),2400)}
+ else{mu.style.backgroundImage=spr(MYKIT,tier>=2?'joy':'happy',0);$('line').textContent=`${Math.round(t.pct)} in 100 players said the same as you.`;
+  const y=$('you');y.style.display='none';play(y,[{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{duration:220,delay:140,easing:'cubic-bezier(.23,1,.32,1)'},ok)}
+ play($('nxt'),[{opacity:0,transform:'translateY(8px)'},{opacity:1,transform:'none'}],{duration:240,delay:500,easing:'cubic-bezier(.23,1,.32,1)'},ok)}
+$('replay').onclick=()=>run(CUR);
+window.RUN=run;run(4);
+</script></body></html>

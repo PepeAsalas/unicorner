@@ -23,6 +23,7 @@ from football_terms import explain, merge  # noqa: E402
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ORDER = 'ABCDEFGHIJKLMNOPRSTUVWYZ'  # no Q or X: too few fair clues
 MAX_LETTERS = 25
+REPEAT_DAYS = 30  # the same answer on the same letter: not again within this many days if any other clue fits (14 at the least)
 EASY = 11  # letters per Rosco with a better-known answer (was 9; players found it too hard)
 STARS = 4  # letters per Rosco whose answer is a superstar (fame 6): a few gimmes to get going
 CONTAINS = 5  # letters per Rosco that ask 'contains the letter' instead of 'starts with' (easier: more answers fit)
@@ -126,12 +127,26 @@ def candidates(questions):
     return by_letter, contains
 
 
-def build(day, questions, recent):
+def build(day, questions, recent, recent_ans=None):
+    recent_ans = recent_ans or {}
+    # the 'Zidane-Eto'o effect': the same answer on the same letter again and again. A name that was a letter's answer
+    # in the last REPEAT_DAYS days can't be that letter's answer again (players notice 'Z is always Zidane')
+    # recent_ans[letter][name] = days since that name was the letter's answer
+    age = lambda letter, ans: min([recent_ans.get(letter, {}).get(norm(a['name']), 999) for a in ans] or [999])
+    fresh = lambda letter, ans, need=REPEAT_DAYS: age(letter, ans) >= need
+    def freshest(pool, letter):
+        # prefer answers unused on this letter for a month, then two weeks, then whatever was used longest ago
+        for need in (REPEAT_DAYS, 14):
+            p = [c for c in pool if fresh(letter, c[1], need)]
+            if p:
+                return p
+        return sorted(pool, key=lambda c: -age(letter, c[1]))[:3]
     rng = random.Random('rosco-' + day)
     by_letter, contains = candidates(questions)
     used, items = set(), []
     # a few letters ask 'contains' instead: prefer the letters with the fewest 'starts with' clues
-    cl = [l for l in ORDER if contains.get(l)]
+    # only letters that still have a fresh 'contains' clue (no recent clue, no recent answer on that letter)
+    cl = [l for l in ORDER if any(c[0]['prompt'] not in recent and fresh(l, c[1], 14) for c in contains.get(l, []))]
     cl.sort(key=lambda l: (len(by_letter.get(l, [])), rng.random()))
     inside = set(rng.sample(cl[:10], min(CONTAINS, len(cl[:10]))))
     # most letters are hard; EASY of them get a better-known answer (a well-known player, not a superstar)
@@ -139,7 +154,7 @@ def build(day, questions, recent):
     easy = set(rng.sample([l for l in ORDER if by_letter.get(l) and l not in stars], EASY))
     for letter in ORDER:
         if letter in inside:
-            pool = [c for c in contains[letter] if c[0]['prompt'] not in used and c[0]['prompt'] not in recent] or contains[letter]
+            pool = freshest([c for c in contains[letter] if c[0]['prompt'] not in used and c[0]['prompt'] not in recent], letter) or contains[letter]
             q, _, _ = rng.choice(pool)
             used.add(q['prompt'])
             # every valid answer with the letter anywhere in its name counts (Rivaldo for I, Zlatan for Z), not just the picked targets
@@ -153,11 +168,13 @@ def build(day, questions, recent):
                     if al:
                         answers.append({**a, 'name': al, 'aliases': [a['name']] + [x for x in a['aliases'] if x != al]})
             items.append({'letter': letter, 'mode': 'contains', 'prompt': q['prompt'], 'subtitle': q.get('subtitle') or '',
-                          'prompt_es': q.get('prompt_es') or '', 'subtitle_es': q.get('subtitle_es') or '', 'answer_type': q.get('answer_type', 'player'),
+                          'prompt_es': q.get('prompt_es') or '', 'subtitle_es': q.get('subtitle_es') or '', 'prompt_pt': q.get('prompt_pt') or '', 'subtitle_pt': q.get('subtitle_pt') or '', 'answer_type': q.get('answer_type', 'player'),
                           'answers': [{'name': a['name'], 'aliases': a.get('aliases') or []} for a in answers],
                           'others': [n for n in (a['name'] for a in q['answers']) if n not in {x['name'] for x in answers} and n not in {y for x in answers for y in x.get('aliases', [])}][:400]})
             continue
         pool = [c for c in by_letter.get(letter, []) if c[0]['prompt'] not in used and c[0]['prompt'] not in recent]
+        # recently used answers on this letter are out before choosing easy/hard/superstar (stops Z = Zidane every few days)
+        pool = [c for c in pool if fresh(letter, c[1], 14)] or pool
         def known(c):
             return c[0].get('answer_type', 'player') in ('player', 'manager') and 4.5 <= c[2] <= 5.5 or c[0].get('answer_type') in ('club', 'country') and 3 <= c[2] <= 4
         def hard(c):
@@ -165,6 +182,7 @@ def build(day, questions, recent):
         def star(c):
             return c[2] == 6
         pool = [c for c in pool if (star if letter in stars else known if letter in easy else hard)(c)] or [c for c in pool if hard(c)] or [c for c in pool if not star(c)] or pool
+        pool = freshest(pool, letter) if pool else pool
         if not pool:
             continue
         q, answers, _ = rng.choice(pool)
@@ -177,6 +195,8 @@ def build(day, questions, recent):
             'subtitle': q.get('subtitle') or '',
             'prompt_es': q.get('prompt_es') or '',
             'subtitle_es': q.get('subtitle_es') or '',
+            'prompt_pt': q.get('prompt_pt') or '',
+            'subtitle_pt': q.get('subtitle_pt') or '',
             'answer_type': kind,
             'answers': [{'name': a['name'], 'aliases': a.get('aliases') or []} for a in answers],
             # every other valid answer to the question: typed one of these and it's right, just the wrong letter
@@ -203,12 +223,16 @@ def main():
         path = os.path.join(ROOT, 'rosco', day + '.json')
         if os.path.exists(path):
             continue  # a published Rosco never changes
-        recent = set()
-        for back in range(1, 15):  # no clue repeats within two weeks
+        recent, recent_ans = set(), {}
+        for back in range(1, REPEAT_DAYS + 1):  # clues don't repeat within two weeks; a letter's answer not within a month if possible
             p = os.path.join(ROOT, 'rosco', (date.fromisoformat(day) - timedelta(back)).isoformat() + '.json')
             if os.path.exists(p):
-                recent |= {i['prompt'] for i in json.load(open(p, encoding='utf-8'))['letters']}
-        r = build(day, bank(today.isoformat()), recent)
+                for i in json.load(open(p, encoding='utf-8'))['letters']:
+                    if back <= 14:
+                        recent.add(i['prompt'])
+                    for a in i['answers']:
+                        recent_ans.setdefault(i['letter'], {}).setdefault(norm(a['name']), back)
+        r = build(day, bank(today.isoformat()), recent, recent_ans)
         json.dump(r, open(path, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
         print(day, len(r['letters']), 'letters, skipped', ''.join(c for c in ORDER if c not in {i['letter'] for i in r['letters']}) or 'none')
 

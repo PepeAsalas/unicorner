@@ -5,6 +5,8 @@
 // Events to send from Stripe: checkout.session.completed, checkout.session.async_payment_succeeded, charge.refunded,
 // customer.subscription.updated, customer.subscription.deleted.
 // The Payment Link carries the player's account id as client_reference_id, so we know who paid.
+// Without one (paid before signing in) the purchase waits in infinity_pending under the checkout email;
+// infinity_status() moves it onto the account that signs in with that email.
 // Deploy with JWT verification OFF (Stripe can't send a Supabase login); every request is checked against the webhook signing secret instead.
 // Secret: STRIPE_WEBHOOK_SECRET (the whsec_... shown on the webhook endpoint in Stripe). SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are provided by Supabase.
 import { createClient } from "npm:@supabase/supabase-js@2.45.4";
@@ -43,7 +45,20 @@ Deno.serve(async (req) => {
       if (o.payment_status !== "paid") return new Response("ok"); // bank transfers etc. arrive later as async_payment_succeeded
       const uid = o.client_reference_id;
       if (!uid || !UUID.test(uid)) {
-        console.error("paid checkout without an account id", o.id);
+        const email = String(o.customer_details?.email ?? o.customer_email ?? "").trim().toLowerCase();
+        if (!email) { console.error("paid checkout without an account id or email", o.id); return new Response("ok"); }
+        const sub = o.mode === "subscription";
+        const { data: cur } = await db.from("infinity_pending").select("status").eq("email", email).maybeSingle();
+        if (sub && cur?.status === "paid") return new Response("ok");
+        const { error } = await db.from("infinity_pending").upsert({
+          email,
+          stripe_customer: String(o.customer ?? email),
+          stripe_sub: String(sub ? o.subscription : (o.payment_intent ?? o.id)),
+          status: sub ? "active" : "paid",
+          period_end: sub ? new Date(Date.now() + 35 * 864e5).toISOString() : null,
+          updated_at: new Date().toISOString(),
+        }, { onConflict: "email" });
+        if (error) throw error;
         return new Response("ok");
       }
       if (o.mode === "subscription") {
@@ -81,9 +96,11 @@ Deno.serve(async (req) => {
         updated_at: new Date().toISOString(),
       }).eq("stripe_sub", String(o.id)).neq("status", "paid");
       if (error) throw error;
+      await db.from("infinity_pending").update({ status: st, period_end: end ? new Date(end * 1000).toISOString() : new Date().toISOString(), updated_at: new Date().toISOString() }).eq("stripe_sub", String(o.id)).neq("status", "paid");
     } else if (ev.type === "charge.refunded" && o.refunded && o.payment_intent) {
       const { error } = await db.from("infinity_subs").update({ status: "refunded", updated_at: new Date().toISOString() }).eq("stripe_sub", String(o.payment_intent));
       if (error) throw error;
+      await db.from("infinity_pending").update({ status: "refunded", updated_at: new Date().toISOString() }).eq("stripe_sub", String(o.payment_intent));
     }
   } catch (e) {
     console.error(ev.type, e);

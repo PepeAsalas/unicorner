@@ -1,4 +1,11 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!doctype html><html lang="en"><head>
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-PPT4FJC4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Unicorner Duel</title>
 <meta name="robots" content="noindex">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -389,6 +396,8 @@ html[lang=es] .sp-en,html:not([lang=es]) .sp-es{display:none}
 @media (prefers-reduced-motion:reduce){.sp-u,.sp-s{animation:none}}
 </style>
 <link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#1d1a2b"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Unicorner"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="apple-touch-icon" href="/favicon-180.png">
+<style>/* "X CHALLENGED YOU" on the cream card: no dark shadow smearing dark text */
+#j-title,#g-title{text-shadow:none!important;-webkit-text-stroke:0!important;color:#1d1a2b;font-size:clamp(28px,8vw,36px);line-height:1.05;letter-spacing:.03em;overflow-wrap:anywhere}</style>
 </head><body><div class="sp" id="sp" aria-hidden="true"><div class="sp-s"></div><div class="sp-t">UNICORNER</div><div class="sp-run"><div class="sp-bar"><div class="sp-fill"><i class="sp-u"></i></div></div></div><div class="sp-m"><span class="sp-en">Warming up on the touchline…</span><span class="sp-es">Calentando en la banda…</span></div></div>
 <script>
 // loading screen: always shown, lifts once the page and its fonts are ready (at least ~1s so it never just flickers), then the landing intro plays
@@ -669,7 +678,7 @@ function findInit(signed){const box=$('find'),q=$('find-q'),res=$('find-res'),no
    track('duel_search',{len:v.length,found:r.length})},250)};
  res.onclick=e=>{const b=e.target.closest('button[data-nick]');if(!b)return;track('duel_search_pick',{});location.href='duel.html?vs='+encodeURIComponent(b.dataset.nick)}}
 // duel notifications: same web push as the daily streak reminder (sw.js, push.sql), tied to the account (push_duels.sql)
-const VAPID_PUB='BJEpwgfhvJQ6swBMTtNNy8GAjdiYDkMkzIj8F4KHl2wsm62rNk7IBR9dIkfMI2fA1PEWWWtQMfddNWqpn7aL4AI';
+const VAPID_PUB='BIG5duI0j0b5b4RUpH3wWykr7o4Vjuj_YODo_KMln2eTBTLBdOu-0fklDNE3K_n2SaKawC3SKgC0NMx1LOJ-aAk';
 const pushOK=()=>'serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window&&Notification.permission!=='denied';
 const pushEP=()=>ls('uc-push-ep')||'';
 const b64u=x=>{const p='='.repeat((4-x.length%4)%4),b=atob((x+p).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(b,c=>c.charCodeAt(0))};
@@ -734,7 +743,7 @@ async function sides(){if(!matchMedia('(min-width:1200px)').matches)return;
  const signed=!!(await userToken().catch(()=>null));
  const [z,rec,ib]=await Promise.all([rpc('duel_season',{}).catch(()=>null),rpc('duel_record',{p_token:TOKEN}).catch(()=>null),signed?rpc('duel_inbox',{}).catch(()=>null):null]);
  const MON=['January','February','March','April','May','June','July','August','September','October','November','December'];let L='';
- if(z){const[y,m]=z.season.split('-'),days=Math.max(0,Math.ceil((new Date(z.ends)-Date.now())/864e5)),top=(z.top||[]).slice(0,5);
+ if(z&&z.season){const[y,m]=z.season.split('-'),days=Math.max(0,Math.ceil((new Date(z.ends)-Date.now())/864e5)),top=(z.top||[]).slice(0,5);
   L+=`<div class="sp-panel" style="--bc:#b8860b"><span class="sp-band">${MON[+m-1]} table<em>${days} day${days===1?'':'s'} left</em></span>${top.length?top.map(t=>`<div class="sp-row${z.me&&z.me.pos===t.pos?' me':''}"><b>${t.pos}</b><span>${esc(t.nick||'?')}</span><b>${t.r}</b></div>`).join(''):'<span style="font-size:15px">No one has finished placement yet. Play 5 rated duels to get on the table.</span>'}<span class="sp-lbl" style="color:#5a4a2a">TOP 3 GET A SEASON MEDAL</span></div>`;
   const mi=z.mine;if(mi){const T=[900,1000,1100,1200,1400],N=['Non-League','Championship','Premier League','Champions League',"Ballon d'Or"],nx=T.findIndex(t=>mi.r<t);
    L+=`<div class="sp-panel dark" style="--bc:#1d7a45"><span class="sp-band">Your rating</span>${mi.g<5?`<div class="sp-big"><b>${esc(duelTier(mi.r,mi.g))}</b></div><span style="font-size:15px;color:#e9dfc2">Play ${5-mi.g} more rated duel${5-mi.g===1?'':'s'} to get your league</span>`:`<div class="sp-big"><b>${esc(duelTier(mi.r,mi.g))}</b><strong>${mi.r}</strong></div>${nx>=0?`<span style="font-size:15px;color:#e9dfc2">${T[nx]-mi.r} to ${N[nx]}</span>`:''}`}</div>`}}
@@ -742,7 +751,7 @@ async function sides(){if(!matchMedia('(min-width:1200px)').matches)return;
   R+=`<div class="sp-panel" style="--bc:#1d7a45"><span class="sp-band">Your record</span><div class="sp-wdl"><div><b style="color:#1f9a3a">${rec.w}</b><span class="sp-lbl">WON</span></div><div><b>${rec.d}</b><span class="sp-lbl">DRAW</span></div><div><b style="color:#d12a2a">${rec.l}</b><span class="sp-lbl">LOST</span></div></div>${last.length?`<span class="sp-lbl">LAST RESULTS</span><div class="sp-last">${last.map(x=>`<i title="${esc(x.opp)}" style="background:${x.state==='won'?'#2f9a62':x.state==='lost'?'#c8473b':'#e9dfc2'}">${x.state==='won'?'W':x.state==='lost'?'L':'D'}</i>`).join('')}</div>`:''}</div>`}
  R+=`<div class="sp-panel" style="--bc:#d7262e"><span class="sp-band">How duels work</span><span style="font-size:16px;line-height:1.35">${PER===15?'All 15 questions at once':PER+' questions a round'}, ${SECS} s each · rarer answer = bigger hit · 300 HP, first to 0 loses · 24 h per turn</span><button type="button" class="sp-link" id="sp-how">READ THE BOOKLET ▸</button></div>`;
  if(L){$('side-l').innerHTML=L;$('side-l').hidden=false}$('side-r').innerHTML=R;$('side-r').hidden=false;$('sp-how').onclick=()=>openIntro('side')}
-async function season(){let z;try{z=await rpc('duel_season',{})}catch{return}if(!z)return;const[y,m]=z.season.split('-'),MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+async function season(){let z;try{z=await rpc('duel_season',{})}catch{return}if(!z||!z.season)return;const[y,m]=z.season.split('-'),MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
  const days=Math.max(0,Math.ceil((new Date(z.ends)-Date.now())/864e5)),mine=z.mine;
  $('sz-sum').innerHTML=`<b>${MON[+m-1].toUpperCase()} SEASON</b> · ends in ${days} day${days===1?'':'s'}${mine?` · <i>${esc(duelRating(mine))}</i>`:''} ▾`;
  const top=z.top.length?`<ol>${z.top.map(t=>`<li class="${z.me&&t.pos===z.me.pos?'me':''}"><b>${t.pos}</b><span>${esc(t.nick||'?')}</span>${t.r}</li>`).join('')}</ol>`:'<p>No one has finished placement this season yet.</p>';
@@ -774,10 +783,10 @@ function ibDraw(){const all=IBR.items,act=all.filter(x=>!done(x)),arc=all.filter
  $('pr-me').style.backgroundImage=spriteDraw('wow',0,false,myKit()).replace(/"/g,"'");
  for(const id of['lb-me','lb-me2'])$(id).style.backgroundImage=spriteDraw('happy',0,false,myKit()).replace(/"/g,"'");$('lb-rv').style.backgroundImage=spriteDraw('happy',0,false,kitFor('rival')).replace(/"/g,"'");lbRating();
  $('pr-title').textContent=nick==='My'?'My duels':nick+"'s duels";
- if(IBZ){const[y,m]=IBZ.season.split('-'),days=Math.max(0,Math.ceil((new Date(IBZ.ends)-Date.now())/864e5));
+ if(IBZ&&IBZ.season){const[y,m]=IBZ.season.split('-'),days=Math.max(0,Math.ceil((new Date(IBZ.ends)-Date.now())/864e5));
   $('pr-iss').innerHTML=`ISSUE ${all.length||1}<br>${MONS[+m-1].toUpperCase()} SEASON · ${days} DAY${days===1?'':'S'} LEFT`;$('pr-tb-m').textContent=MONS[+m-1];$('pr-left').textContent=days+' day'+(days===1?'':'s')+' left';
   const top=IBZ.top||[];$('pr-table').innerHTML=top.length?top.map(t=>`<tr class="${t.pos<=3?'zone':''}${IBZ.me&&t.pos===IBZ.me.pos?' me':''}"><td>${t.pos}</td><td>${esc(t.nick||'?')}</td><td>${t.r}</td></tr>`).join('')+(IBZ.me&&IBZ.me.pos>10?`<tr class="me"><td>${IBZ.me.pos}</td><td>${esc(nick)}</td><td>${IBZ.me.r}</td></tr>`:''):'<tr><td colspan="3">No one has finished placement yet this month.</td></tr>';
-  const pod=(IBZ.last&&IBZ.last.podium)||[];$('pr-hof-w').hidden=!pod.length;if(pod.length){const[ly,lm]=IBZ.last.season.split('-');$('pr-hof-m').textContent=MONS[+lm-1].toUpperCase();
+  const pod=(IBZ.last&&IBZ.last.podium)||[];$('pr-hof-w').hidden=!pod.length;if(pod.length&&IBZ.last.season){const[ly,lm]=IBZ.last.season.split('-');$('pr-hof-m').textContent=MONS[+lm-1].toUpperCase();
    const by=p=>pod.find(x=>x.pos===p);$('pr-hof').innerHTML=[2,1,3].map(p=>{const x=by(p);return x?`<div class="p${p}">${['','🥇','🥈','🥉'][p]}${uni(kitFor(x.nick))}<em>${esc(x.nick||'?')}</em>${x.r}</div>`:'<div></div>'}).join('')}}
  pyramid();
  const fin=all.filter(x=>x.state==='won'||x.state==='lost'||x.state==='draw');
@@ -928,4 +937,5 @@ Promise.race([document.fonts.ready,new Promise(r=>setTimeout(r,300))]).then(boot
 <script src="/notify.js" defer></script>
 <script src="/chat.js" defer></script>
 <script src="/kb.js" data-input="#q-in" data-top="#s-play .qhead" defer></script>
+<script src="/pixicons.js" defer></script>
 </body></html>

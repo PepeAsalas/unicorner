@@ -38,6 +38,8 @@ Avoid: tiny lists, plain squad lists, "played for club X in season Y", and anyth
   "subtitle": "1992-93 to 2024-25, shared awards count",
   "prompt_es": "Ganó la Bota de Oro de la Premier",
   "subtitle_es": "De la 1992-93 a la 2024-25, cuentan los premios compartidos",
+  "prompt_pt": "Foi artilheiro da Premier League",
+  "subtitle_pt": "De 1992-93 a 2024-25, artilharias divididas contam",
   "difficulty": "easy",
   "answer_type": "player",
   "format_family": "award_winner_player",
@@ -52,6 +54,7 @@ Avoid: tiny lists, plain squad lists, "played for club X in season Y", and anyth
 - `id` and `_id`: the same value, a letter plus three digits, unique across every daily file. The letter `f` is used by these guided questions; continue its numbering (`f021`, `f022`, ...).
 - `prompt`: short, ideally under 60 characters. For any `answer_type` other than player, it must start "Name a" or "Name an" and contain the type word ("club", "country", "manager", "stadium") in its first 60 characters, or a GitHub workflow rewrites it. `subtitle`: the exact scope.
 - `prompt_es` and `subtitle_es`: natural Spanish from Spain ("la Premier", "la Champions", "el Mundial", "la Eurocopa", seasons as "la 2024-25").
+- `prompt_pt` and `subtitle_pt`: natural Brazilian Portuguese ("Cite um clube...", "a Premier League", "a Champions", "a Copa do Mundo", "técnico", "goleiro", seasons as "2024-25"). Countries get Portuguese names automatically: run `python3 scripts/add_portuguese.py` after adding questions.
 - `answer_type`: `player`, `club`, `country`, `manager` or `stadium`. Person types (player, manager) also match on surname, so an answer like `Nico Williams` works with `Williams`.
 - `format_family`: a short snake_case label for the angle (`career_clubs`, `oddity`, `final_scorer`, `letter_challenge`, ...).
 - `answer_count`: the number of answers.
