@@ -3,7 +3,7 @@
 # (question_stats in Supabase: the question itself if it ran before, else its format family, else its answer type),
 # and on a day predicted under 195 swaps the weakest question (up to 3) for a proven old question, 30+ days after
 # its last use, as a reuse copy (id + "r1", reuse_of, first_used). Orders the day easiest first, hardest 4th.
-# New questions taken out go to daily/held.json for later days.  Usage: python3 scripts/tune_daily.py [--apply]
+# New questions taken out go to daily/held/questions.json for later days.  Usage: python3 scripts/tune_daily.py [--apply]
 import json,glob,statistics as st,datetime,copy,sys,os
 from collections import defaultdict
 sys.path.insert(0,os.path.dirname(__file__));import upkeep
@@ -64,5 +64,5 @@ for day in future:
   print(day,round(before),'->',round(sum(P)),'; '.join(changes),'|',' '.join(f"{qs[j]['id']}:{P[j]:.0f}{pred(qs[j])[1][0]}" for j in new))
 if APPLY:
   for day in future:json.dump(D[day],open(files[day],'w'),ensure_ascii=False,indent=2)
-  hp='daily/held.json';h=json.load(open(hp)) if glob.glob(hp) else []
+  hp='daily/held/questions.json';h=json.load(open(hp)) if glob.glob(hp) else []
   json.dump(h+held,open(hp,'w'),ensure_ascii=False,indent=2);print('held',len(held))
