@@ -73,6 +73,12 @@ def check_question(q, e, w, day=''):
     if t != 'player' and not re.match(rf'name an? (\S+ ){{0,6}}?{t}\b', q['prompt'][:60].lower()):
         e(f'a {t} question must start "Name a ..." and say "{t}" in the first 60 characters (the GitHub workflow rewrites it otherwise)')
     ans = q['answers']
+    # the subtitle must not give away an answer (a manager's name, the winner, the host country)
+    if day >= '2026-11-23':
+        for x in ans:
+            last = x['name'].split()[-1]
+            if len(last) > 3 and re.search(r'\b' + re.escape(last) + r'\b', q.get('subtitle', '')):
+                e(f"subtitle gives away the answer \"{x['name']}\": describe the scope with years only")
     if q.get('answer_count') != len(ans):
         e(f"answer_count {q.get('answer_count')} but {len(ans)} answers")
     # 2026-11-17 #5 (f100) was swapped on the day to David Beckham, who only played for 6 clubs; already played, so allowed
