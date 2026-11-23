@@ -105,6 +105,9 @@ h1{margin:2px 0 0;text-align:center;font:400 46px/.9 var(--disp);color:var(--gol
 .card .tier{background:var(--c);font:400 15px/1 var(--disp);padding:5px 6px 3px;border-bottom:3px solid #000;letter-spacing:.04em}
 .card .nm{padding:4px 6px;font-size:15px;line-height:1.05;overflow-wrap:anywhere;flex:1}
 .card .pts{font:400 32px/1 var(--disp);text-align:right;padding:0 6px 4px}
+.card.hid{background:#2a3358;color:#e9dfc2}.card.hid .tier{background:#151a33;color:#e9dfc2}.card.hid .pts{color:#ffd23f}
+.mode{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mode .btn{flex-direction:column;gap:4px;min-height:84px;padding:12px 10px 9px}.mode .btn small{font:16px/1.15 VT323,monospace;opacity:.85}
+.mtag{display:inline-block;margin-left:8px;padding:2px 6px 0;background:var(--clay);color:#fff;border:2px solid #000;font-size:.7em;vertical-align:middle}
 .card.foul{background:#e9dfc2}.card.foul .pts{color:var(--clay)}.card.foul .nm.typed{text-decoration:line-through;text-decoration-thickness:2px}
 .card.over{box-shadow:0 0 0 3px var(--clay),3px 3px 0 rgba(0,0,0,.45)}
 .slot{width:110px;height:132px;border:3px dashed rgba(251,246,232,.3);display:grid;place-items:center;color:rgba(251,246,232,.35);font:400 18px var(--disp)}
@@ -210,7 +213,7 @@ h1{font-size:52px}.sub{margin-bottom:8px}
 .q{font-size:34px}.need{font-size:20px}.choice .btn{min-height:76px;font-size:30px}.field{font-size:24px;min-height:58px}
 }
 @media (max-width:360px){.card,.slot{width:58px}.hand{gap:5px}}
-</style><link rel="stylesheet" href="/endkit.css">
+.about{max-width:640px;margin:22px auto 0;padding:0 4px;font:15px/1.5 Barlow,system-ui,sans-serif;color:rgba(251,246,232,.72);text-align:left}.about h2{font:400 22px/1 "Jersey 10",monospace;color:#f2c230;margin:0 0 6px}.about p{margin:0 0 8px}.about a{color:#f2c230}</style><link rel="stylesheet" href="/endkit.css">
 </head>
 <body class="noart">
 <div class="wrap">
@@ -225,6 +228,7 @@ h1{font-size:52px}.sub{margin-bottom:8px}
  <div class="panel" id="panel"></div>
  <p class="rules"><button type="button" class="btn w s" id="howto">📖 How to play</button></p>
  <p class="note" id="note">Questions and rarities come from the Duels question bank.</p>
+ <section class="about"><h2 data-es="Sobre Mano de Cuadra" data-pt="Sobre o Stable Hand">Sobre o Stable Hand</h2><p data-es="Mano de Cuadra es un blackjack futbolero diario y gratis de Unicorner, repartido por Horacio Herradura. Cada día hay un número objetivo. Cada carta es una pregunta de fútbol con muchas respuestas correctas, y tú eliges cómo de famosa es tu respuesta: las obvias valen 10 puntos, las rebuscadas hasta 100. Juega hasta cinco cartas, 30 segundos cada una, y acércate todo lo que puedas al objetivo sin pasarte. Después plántate y Horacio da la vuelta a las cartas de la casa. Gánale a la casa, empata o clava el objetivo para un Pleno. La misma mesa para todos, nueva cada día a medianoche, con clasificación diaria." data-pt="Stable Hand é um vinte-e-um diário e grátis de futebol do Unicorner, com as cartas dadas por Horacio Herradura. Todo dia há um número alvo. Cada carta é uma pergunta de futebol com muitas respostas certas, e você escolhe o quão famosa é a sua resposta: as óbvias valem 10 pontos, as raras até 100. Jogue até cinco cartas, 30 segundos cada, e chegue o mais perto possível do alvo sem passar. Depois pare, e Horacio vira as cartas da banca. Vença a banca, empate ou acerte o alvo exato para um Full House. A mesma mesa para todos, nova todo dia à meia-noite, com ranking diário.">Stable Hand é um vinte-e-um diário e grátis de futebol do Unicorner, com as cartas dadas por Horacio Herradura. Todo dia há um número alvo. Cada carta é uma pergunta de futebol com muitas respostas certas, e você escolhe o quão famosa é a sua resposta: as óbvias valem 10 pontos, as raras até 100. Jogue até cinco cartas, 30 segundos cada, e chegue o mais perto possível do alvo sem passar. Depois pare, e Horacio vira as cartas da banca. Vença a banca, empate ou acerte o alvo exato para um Full House. A mesma mesa para todos, nova todo dia à meia-noite, com ranking diário.</p><p data-es="Más juegos diarios de fútbol: <a href=&quot;/es/&quot;>el Daily 5</a>, <a href=&quot;/es/rosco.html&quot;>el Rosco</a> y <a href=&quot;/es/millon.html&quot;>Millones</a>. Todas las preguntas anteriores: <a href=&quot;/es/preguntas/&quot;>archivo de preguntas</a>." data-pt="Mais jogos diários de futebol: <a href=&quot;/pt/&quot;>o Diário 5</a>, <a href=&quot;/pt/rosco.html&quot;>o Rosco</a> e <a href=&quot;/pt/millon.html&quot;>Milhões</a>. Todas as perguntas anteriores: <a href=&quot;/pt/perguntas/&quot;>arquivo de perguntas</a>.">Mais jogos diários de futebol: <a href="/pt/">o Diário 5</a>, <a href="/pt/rosco.html">o Rosco</a> e <a href="/pt/millon.html">Milhões</a>. Todas as perguntas anteriores: <a href="/pt/perguntas/">arquivo de perguntas</a>.</p></section>
 </div>
 <div class="bk" id="bk" hidden role="dialog" aria-modal="true" aria-labelledby="bk-h">
  <div class="bk-book" id="bk-book">
@@ -369,12 +373,14 @@ const progress=x=>!x||!Array.isArray(x.hand)?-1:(x.done?1000:0)+x.hand.length*10
 let pushT=0;const push=()=>{if(ARCH)return;clearTimeout(pushT);pushT=setTimeout(()=>rpc('sh_save',{p_day:DAY,p_state:S}).catch(()=>{}),S.done?0:400)};
 const save=()=>{ls(KEY,JSON.stringify(S));push()};
 const total=()=>S.hand.reduce((a,c)=>a+c.p,0);
+// hard mode: your card values stay face down until you stand. openN = how many have been turned over during the reveal
+let openN=null;const HARD=()=>S.mode==='hard',isHid=i=>HARD()&&(openN==null?!S.done:i>=openN),seen=()=>S.hand.reduce((a,c,i)=>a+(isHid(i)?0:c.p),0),veiled=()=>S.hand.some((c,i)=>c.p&&isHid(i));
 $('date').textContent=new Date(DAY+'T12:00:00Z').toLocaleDateString(L('en-GB','es-ES',"pt-BR"),{weekday:'long',day:'numeric',month:'long',timeZone:'UTC'});
 $('target').textContent=TARGET;
 $('legend').innerHTML=TIERS.map(t=>`<span><i style="background:${t.c}"></i>${t.n.replace(' kick','')} ${t.p}</span>`).join('');
 for(const id of['home1','home2'])$(id).href=HOME;
-if(PT){document.documentElement.lang='pt-BR';$('l-house').textContent='A BANCA';$('l-hand').textContent='SUA MÃO';$('bk-t').textContent='COMO SE JOGA';$('note').textContent='As perguntas e as raridades vêm do banco de perguntas dos Duelos.';$('howto').textContent='📖 Como se joga';$('bk-prev').textContent='Voltar';$('snd').setAttribute('aria-label','Som');$('snd').title='Som';$('home2').setAttribute('aria-label','Fechar');$('bk-x').setAttribute('aria-label','Fechar')}
-if(ES){document.documentElement.lang='es';$('h1').textContent='MANO DE CUADRA';$('l-house').textContent='LA CASA';$('l-hand').textContent='TU MANO';$('bk-t').textContent='CÓMO SE JUEGA';
+if(PT){document.documentElement.lang='pt-BR';document.querySelectorAll('[data-pt]').forEach(e=>e.innerHTML=e.dataset.pt);$('l-house').textContent='A BANCA';$('l-hand').textContent='SUA MÃO';$('bk-t').textContent='COMO SE JOGA';$('note').textContent='As perguntas e as raridades vêm do banco de perguntas dos Duelos.';$('howto').textContent='📖 Como se joga';$('bk-prev').textContent='Voltar';$('snd').setAttribute('aria-label','Som');$('snd').title='Som';$('home2').setAttribute('aria-label','Fechar');$('bk-x').setAttribute('aria-label','Fechar')}
+if(ES){document.documentElement.lang='es';document.querySelectorAll('[data-es]').forEach(e=>e.innerHTML=e.dataset.es);$('h1').textContent='MANO DE CUADRA';$('l-house').textContent='LA CASA';$('l-hand').textContent='TU MANO';$('bk-t').textContent='CÓMO SE JUEGA';
  $('note').textContent='Las preguntas y las rarezas salen del banco de preguntas de los Duelos.';$('howto').textContent='📖 Cómo se juega';$('bk-prev').textContent='Atrás';$('snd').setAttribute('aria-label','Sonido');$('snd').title='Sonido';$('home2').setAttribute('aria-label','Cerrar');$('bk-x').setAttribute('aria-label','Cerrar')}
 let lock=false,clockT=null,revealing=false;
 window.__rb={host,TARGET,DEALER,DTOT,DAY,deck:()=>DECK.map(q=>q.id),state:()=>S};
@@ -382,10 +388,10 @@ window.__rb={host,TARGET,DEALER,DTOT,DAY,deck:()=>DECK.map(q=>q.id),state:()=>S}
 const miniCard=(p,up)=>up?`<span class="mc" style="--c:${tierOf(p).c}">${p}</span>`:'<span class="mc down"></span>';
 function drawDealer(open){$('dealer').innerHTML=DEALER.map((p,i)=>miniCard(p,open||i===0)).join('');
  const d=$('dtot');d.textContent=open?DTOT:DEALER[0]+'+?';d.dataset.v=open?DTOT:DEALER[0];d.classList.toggle('over',open&&DTOT>TARGET)}
-function drawMeter(grow){const t=total(),b=$('bar'),tot=$('tot');
+function drawMeter(grow){const t=seen(),b=$('bar'),tot=$('tot');if(veiled()){tot.dataset.v=t;tot.textContent='?'}else if(openN==null){tot.dataset.v=t;tot.textContent=t}
  tot.classList.toggle('over',t>TARGET);tot.classList.toggle('exact',t===TARGET&&!S.done);
  b.querySelectorAll('i').forEach(x=>x.remove());let x=0;const pieces=[];
- S.hand.forEach((c,i)=>{if(!c.p)return;const last=i===S.hand.length-1;
+ S.hand.forEach((c,i)=>{if(!c.p||isHid(i))return;const last=i===S.hand.length-1;
   // the part of a card below the target in its tier colour, the part over it in red
   const under=Math.max(0,Math.min(c.p,TARGET-x)),over=c.p-under;
   if(under)pieces.push({l:x,w:under,col:tierOf(c.p).c,last});if(over)pieces.push({l:x+under,w:over,ov:1,last});x+=c.p});
@@ -394,6 +400,7 @@ function drawMeter(grow){const t=total(),b=$('bar'),tot=$('tot');
   if(grow&&p.last){anim(i,[{transform:'scaleX(0)'},{transform:'scaleX(1)'}],{duration:p.ov?260:420,delay:180+d,easing:EASE,fill:'backwards'});d+=400}}}
 function drawHand(fresh){const h=$('hand'),n=S.hand.length;let over=0,run=0;
  h.innerHTML=S.hand.map((c,i)=>{const t=tierOf(c.p);run+=c.p;const ov=run>TARGET&&c.p&&!over++;
+  if(c.p&&isHid(i))return`<div class="card hid"><span class="tier">???</span><span class="nm">${esc(c.a)}</span><span class="pts">?</span></div>`;
   return c.p?`<div class="card${ov?' over':''}" style="--c:${t.c}"><span class="tier">${short(t).toUpperCase()}</span><span class="nm">${esc(c.a)}</span><span class="pts">+${c.p}</span></div>`
    :`<div class="card foul" style="--c:#e9dfc2"><span class="tier">${L('FOUL','FALTA',"FALTA")}</span><span class="nm${c.a?' typed':''}">${esc(c.a||L('No answer','Sin respuesta',"Sem resposta"))}</span><span class="pts">0</span></div>`}).join('')
   +(S.done?'':Array.from({length:MAXC-n},(_,i)=>`<div class="slot">${n+i+1}</div>`).join(''));
@@ -409,7 +416,7 @@ function dealIn(el){SFX.deal();if(REDUCE||!el.animate)return;el.classList.add('b
  const land=()=>{el.classList.remove('back');el.animate([{transform:mid},{transform:'translateY(3px) rotate(-1deg) rotateY(-10deg) scale(1.05)',offset:.55},{transform:'none'}],{duration:360,easing:EASE})};
  a.onfinish=land;a.oncancel=()=>el.classList.remove('back')}
 // the points float up from your total
-function popPts(p){const s=document.createElement('span');s.className='pop';s.textContent=p?'+'+p:'+0';s.style.color=p?tierOf(p).hex:'#ffb3a8';$('score').append(s);
+function popPts(p){const s=document.createElement('span');s.className='pop';s.textContent=p<0?'+?':p?'+'+p:'+0';s.style.color=p<0?'#e9dfc2':p?tierOf(p).hex:'#ffb3a8';$('score').append(s);
  const a=anim(s,[{opacity:0,transform:'translateY(10px) scale(.7)'},{opacity:1,transform:'translateY(-4px) scale(1.2)',offset:.22},{opacity:1,transform:'translateY(-12px) scale(1)',offset:.65},{opacity:0,transform:'translateY(-26px) scale(1)'}],{duration:1050,easing:'ease-out'});
  if(a)a.onfinish=()=>s.remove();else setTimeout(()=>s.remove(),600)}
 function panelIn(){anim($('panel'),[{opacity:.3,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{duration:220,easing:EASE})}
@@ -423,11 +430,11 @@ function ask(){stopClock();const q=DECK[S.qi];if(!q||S.hand.length>=MAXC)return 
  if(!S.cur||S.cur.qi!==S.qi){S.cur={qi:S.qi,until:Date.now()+SECS*1000};save()}
  lock=false;
  $('panel').innerHTML=`<div class="qhead"><span>${L('Card','Carta',"Carta")} ${S.hand.length+1} ${L('of','de',"de")} ${MAXC}</span><span>${q.answers.length} ${L('right answers','respuestas válidas',"respostas certas")}</span></div>
-  <p class="q">${esc(qText(q))}</p><p class="need">${needLine()}</p><div class="clock" id="clock"><div><i id="clk"></i></div><span id="secs">${SECS}</span></div>
+  <p class="q">${esc(qText(q))}</p><p class="need">${HARD()?'':needLine()}</p><div class="clock" id="clock"><div><i id="clk"></i></div><span id="secs">${SECS}</span></div>
   <form id="f" class="row" autocomplete="off"><label class="sr" for="a">${L('Your answer','Tu respuesta',"Sua resposta")}</label><input class="field" id="a" placeholder="${L('Type a ','Escribe un ',"Digite um ")}${esc(typeName(q.answer_type))}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go" maxlength="60"><button class="btn">${L('Play','Jugar',"Jogar")}</button></form>
   <div class="tools"><span class="msg" id="m" aria-live="polite"></span><button type="button" class="btn w s" id="pass" ${S.passed?'disabled':''}>${L('Pass','Pasar',"Passar")} (${S.passed?0:1} ${L('left','más',"restantes")})</button></div>`;
  panelIn();
- host(pick(['talk-1','talk-2','point']),S.hand.length?pick(L(['Another card, amigo. Do you need a Tap-in or a Screamer?','Careful now. Count before you play.',`${TARGET-total()} to go. Choose wisely…`],['Otra carta, amigo. ¿Necesitas una Empujarla o un Qué chicharro?','Con cuidado. Cuenta antes de jugar.',`Te faltan ${TARGET-total()}. Elige bien…`],['Outra carta, amigo. Precisa de um Empurrãozinho ou de um Golaço?','Calma. Conte antes de jogar.',`Faltam ${TARGET-total()}. Escolha bem…`])):pick(L(['Here is your first card. Choose how famous your answer is…','Think: obvious answers are cheap, deep cuts are expensive.'],['Tu primera carta. Elige lo famosa que es tu respuesta…','Piensa: lo obvio vale poco, lo rebuscado vale mucho.'],['Aqui está sua primeira carta. Escolha o quão famosa é sua resposta…','Pense: respostas óbvias são baratas, as raras são caras.'])));
+ host(pick(['talk-1','talk-2','point']),S.hand.length&&HARD()?pick(L(['Another card, amigo. Only you know what you have… or do you?','Hard mode. Count in your head, amigo.','Feeling lucky?'],['Otra carta, amigo. Solo tú sabes lo que llevas… ¿o no?','Modo difícil. Cuenta de cabeza, amigo.','¿Te sientes con suerte?'],['Outra carta, amigo. Só você sabe o que tem… ou não?','Modo difícil. Conte de cabeça, amigo.','Está com sorte?'])):S.hand.length?pick(L(['Another card, amigo. Do you need a Tap-in or a Screamer?','Careful now. Count before you play.',`${TARGET-total()} to go. Choose wisely…`],['Otra carta, amigo. ¿Necesitas una Empujarla o un Qué chicharro?','Con cuidado. Cuenta antes de jugar.',`Te faltan ${TARGET-total()}. Elige bien…`],['Outra carta, amigo. Precisa de um Empurrãozinho ou de um Golaço?','Calma. Conte antes de jogar.',`Faltam ${TARGET-total()}. Escolha bem…`])):pick(L(['Here is your first card. Choose how famous your answer is…','Think: obvious answers are cheap, deep cuts are expensive.'],['Tu primera carta. Elige lo famosa que es tu respuesta…','Piensa: lo obvio vale poco, lo rebuscado vale mucho.'],['Aqui está sua primeira carta. Escolha o quão famosa é sua resposta…','Pense: respostas óbvias são baratas, as raras são caras.'])));
  const inp=$('a');inp.focus({preventScroll:true});into($('panel'),'end');
  $('f').onsubmit=e=>{e.preventDefault();play(q)};
  $('pass').onclick=()=>{if(lock||S.passed)return;lock=true;stopClock();S.passed=true;S.qi++;S.cur=null;save();SFX.pass();
@@ -443,9 +450,11 @@ function play(q){if(lock)return;const inp=$('a'),v=inp.value.trim();if(!v){shake
  const r=match(v,q.answers,q.answer_type);
  if(r==='ambiguous'){$('m').className='msg bad';$('m').textContent=L('More than one fits. Add more of the name.','Encaja más de uno. Escribe más del nombre.',"Mais de um se encaixa. Escreva mais do nome.");shake(inp,6);return}
  lock=true;stopClock();$('f').inert=true;inp.blur();
- if(!r){const tr=trapOf(v,q);return foul(q,v,tr?(PT?`${tr.name}? Não conta.`:ES?`¿${tr.name}? No cuenta.`:`${tr.name}? No: ${tr.why.replace(/\.$/,'')}.`):L('Not on the list!','¡No está en la lista!',"Não está na lista!"))}
+ if(!r){const tr=trapOf(v,q);track('stablehand_reject',{question_id:q.id,prompt:q.prompt.slice(0,200),input:v.slice(0,120),trap:tr?tr.name:null});return foul(q,v,tr?(PT?`${tr.name}? Não conta.`:ES?`¿${tr.name}? No cuenta.`:`${tr.name}? No: ${tr.why.replace(/\.$/,'')}.`):L('Not on the list!','¡No está en la lista!',"Não está na lista!"))}
  const p=FAME[r.fame]||10,before=total();S.hand.push({a:shortName(r),p,q:q.id});S.qi++;S.cur=null;save();
- drawHand(true);into($('meter'),'start');setTimeout(()=>{popPts(p);countTo($('tot'),before+p);SFX.card(p)},200);
+ drawHand(true);into($('meter'),'start');
+ if(HARD()){setTimeout(()=>{popPts(-1);SFX.card(10)},200);host(pick(['think','wink','happy-talk']),pick(L(['Face down. We will see when you stand…','Is that a Tap-in or a Screamer? Only the cards know.','Noted. No peeking!'],['Boca abajo. Ya veremos cuando te plantes…','¿Empujarla o chicharro? Solo las cartas lo saben.','Anotado. ¡Sin mirar!'],['Virada para baixo. Veremos quando você parar…','Empurrãozinho ou Golaço? Só as cartas sabem.','Anotado. Sem espiar!'])));if(S.hand.length>=MAXC)return setTimeout(()=>reveal(),900);return setTimeout(decide,REDUCE?0:450)}
+ setTimeout(()=>{popPts(p);countTo($('tot'),before+p);SFX.card(p)},200);
  const t=total();
  if(t>TARGET){$('panel').innerHTML=`<div class="res"><p class="need" style="font-size:22px;margin:6px 0">${L(`${t} is over ${TARGET}…`,`${t} se pasa de ${TARGET}…`,`${t} passa de ${TARGET}…`)}</p></div>`;setTimeout(()=>{SFX.bust();flash();shake($('meter'),9);shake($('hand'),6);buzz([60,40,90]);host('laugh',L(`Bust! ${t-TARGET} over…`,`¡Te pasaste! ${t-TARGET} de más…`,`Estourou! ${t-TARGET} a mais…`))},620);return setTimeout(()=>reveal(),1500)}
  if(t===TARGET){setTimeout(()=>{buzz(30);anim(document.querySelector('.goal'),[{boxShadow:'0 0 0 0 rgba(242,194,48,.9)'},{boxShadow:'0 0 0 10px rgba(242,194,48,0)'}],{duration:700,iterations:2,easing:'ease-out'})},600);host('excited',L('EXACTLY ON TARGET! Stand, amigo, stand!','¡CLAVADO! ¡Plántate, amigo, plántate!',"EXATAMENTE NO ALVO! Pare, amigo, pare!"))}
@@ -459,10 +468,10 @@ function foul(q,typed,why){S.hand.push({a:typed||'',p:0,q:q.id});S.qi++;S.cur=nu
 function missed(){const c=S.hand[S.hand.length-1],q=c&&BANK.find(x=>x.id===c.q);if(!q)return'';const me=norm(c.a||'');
  const rows=TIERS.map(tt=>{const ex=q.answers.filter(a=>(FAME[a.fame]||10)===tt.p&&norm(a.name)!==me&&!(a.aliases||[]).some(v=>norm(v)===me)).slice(0,2).map(shortName);return ex.length?`<p><i style="background:${tt.c}"></i>${tt.n}: ${esc(ex.join(', '))}</p>`:''}).join('');
  return rows?`<div class="recap miss"><b>${L('You could also have said','También valía',"Você também podia ter dito")}</b>${rows}</div>`:''}
-function decide(){if(S.done)return;lock=false;const t=total(),exact=t===TARGET;
+function decide(){if(S.done)return;lock=false;const t=total(),exact=!HARD()&&t===TARGET;
  $('panel').innerHTML=`<div class="qhead"><span>${S.hand.length} ${L('of','de',"de")} ${MAXC} ${L('cards','cartas',"cartas")}</span><span>${L('House shows','La casa enseña',"A banca mostra")} ${DEALER[0]}</span></div>
-  <p class="need" style="font-size:19px">${needLine()||L('Right on target! Any card now is a bust.','¡Clavado! Cualquier carta más y te pasas.',"Bem no alvo! Qualquer carta agora estoura.")}</p>
-  <div class="choice"><button class="btn${exact?' w':''}" id="hit">${L('Another card','Otra carta',"Outra carta")}</button><button class="btn${exact?'':' w'}" id="stand">${L('Stand','Me planto',"Parar")}</button></div>${missed()}`;
+  <p class="need" style="font-size:19px">${HARD()?L('Your total stays secret until you stand. Another card?','Tu total es secreto hasta que te plantes. ¿Otra carta?','Seu total fica em segredo até você parar. Outra carta?'):needLine()||L('Right on target! Any card now is a bust.','¡Clavado! Cualquier carta más y te pasas.',"Bem no alvo! Qualquer carta agora estoura.")}</p>
+  <div class="choice"><button class="btn${exact?' w':''}" id="hit">${L('Another card','Otra carta',"Outra carta")}</button><button class="btn${exact?'':' w'}" id="stand">${L('Stand','Me planto',"Parar")}</button></div>${HARD()?'':missed()}`;
  panelIn();
  $('hit').onclick=()=>{if(lock)return;lock=true;ask()};$('stand').onclick=()=>{if(lock)return;lock=true;reveal()};
  $(exact?'stand':'hit').focus({preventScroll:true})}
@@ -473,7 +482,12 @@ function flipMini(i){const el=$('dealer').children[i],p=DEALER[i];if(!el)return;
  const a=anim(el,[{transform:'rotateY(0)'},{transform:'rotateY(90deg) translateY(-4px)'}],{duration:130,easing:'cubic-bezier(.4,0,.8,.6)'});
  if(!a)return up();a.onfinish=()=>{up();anim(el,[{transform:'rotateY(-90deg) translateY(-4px)'},{transform:'rotateY(12deg) scale(1.12)',offset:.6},{transform:'none'}],{duration:300,easing:EASE})}}
 async function reveal(){if(revealing)return;revealing=true;lock=true;stopClock();S.cur=null;if(!S.done){S.done=true;save()}
- const t=total(),bust=t>TARGET;drawHand(false);drawDealer(false);
+ const t=total(),bust=t>TARGET;
+ if(HARD()&&openN==null&&S.hand.length){openN=0;drawHand(false);drawDealer(false);const tot=$('tot');tot.dataset.v=0;tot.textContent=0;host('point',L('Now… let\'s turn your cards over.','Ahora… demos la vuelta a tus cartas.','Agora… vamos virar suas cartas.'));let run=0;
+  for(let i=0;i<S.hand.length;i++){await wait(i?560:700);openN=i+1;drawHand(false);const el=$('hand').children[i],c=S.hand[i];run+=c.p;SFX.flip&&SFX.flip();anim(el,[{transform:'rotateY(90deg) scale(1.05)'},{transform:'none'}],{duration:260,easing:EASE});if(c.p){popPts(c.p);SFX.card(c.p)}countTo(tot,run,300);
+   if(run>TARGET){await wait(500);SFX.bust();flash();shake($('meter'),9);shake($('hand'),6);buzz([60,40,90]);host('laugh',L(`Bust! ${run-TARGET} over…`,`¡Te pasaste! ${run-TARGET} de más…`,`Estourou! ${run-TARGET} a mais…`));await wait(900);break}}
+  openN=null;drawHand(false);await wait(500)}
+ drawHand(false);drawDealer(false);
  $('panel').innerHTML=`<div class="res"><p style="margin:6px 0;color:var(--sand)">${L('Horacio turns his cards…','Horacio da la vuelta a sus cartas…',"Horacio vira as cartas…")}</p></div>`;panelIn();into($('dealer'),'center');
  host('point',bust?L('Bust… but let\'s see what the house had.','Te pasaste… pero veamos qué tenía la casa.',"Estourou… mas vamos ver o que a banca tinha."):L('Let\'s see what the house has…','Veamos qué tiene la casa…',"Vamos ver o que a banca tem…"));
  const d=$('dtot');d.textContent=DEALER[0];d.dataset.v=DEALER[0];let run=DEALER[0];
@@ -502,8 +516,8 @@ function finish(t,live){stopClock();drawDealer(true);drawHand(false);
  const label=(PT?{full:'FULL HOUSE!',win:'VOCÊ VENCEU A BANCA',push:'EMPATE',lose:bust?'ESTOUROU!':'A BANCA VENCE'}:ES?{full:'¡PLENO!',win:'LE GANAS A LA CASA',push:'EMPATE',lose:bust?'¡TE PASASTE!':'GANA LA CASA'}:{full:'FULL HOUSE!',win:'YOU BEAT THE HOUSE',push:'PUSH · A DRAW',lose:bust?'BUST!':'THE HOUSE WINS'})[res];
  host(res==='full'?'celebrate':res==='win'?'excited':res==='push'?'think':bust?'facepalm':'laugh',
   res==='full'?L('Exactly on target! A Full House! The house bows to you!','¡Clavado! ¡Pleno! La casa se rinde ante ti.',"Exatamente no alvo! Full House! A banca se curva para você!"):res==='win'?(dbust?L('I bust! Ay, ay, ay. You win, amigo.','¡Me pasé! Ay, ay, ay. Ganas tú, amigo.',"Estourei! Ai, ai, ai. Você venceu, amigo."):L(`${t} beats ${DTOT}. Well played.`,`${t} gana a ${DTOT}. Bien jugado.`,`${t} vence ${DTOT}. Bem jogado.`)):res==='push'?L('The same total. Nobody wins today.','El mismo total. Hoy no gana nadie.',"O mesmo total. Ninguém vence hoje."):bust?L(`Bust! ${t-TARGET} over. The house always wins…`,`¡Te pasaste por ${t-TARGET}! La casa siempre gana…`,`Estourou! ${t-TARGET} a mais. A banca sempre vence…`):L(`${DTOT} beats ${t}. The house wins!`,`${DTOT} gana a ${t}. ¡Gana la casa!`,`${DTOT} vence ${t}. A banca venceu!`));
- const grid=S.hand.map(c=>c.p?tierOf(c.p).e:'❌').join('');
- $('panel').innerHTML=`<div class="res"><span class="verdict ${res==='lose'?'lose':res==='push'?'push':''}" id="verdict">${label}</span>
+ const grid=S.hand.map(c=>c.p?tierOf(c.p).e:'❌').join(''),HTAG=HARD()?L(' · HARD MODE',' · MODO DIFÍCIL',' · MODO DIFÍCIL'):'';
+ $('panel').innerHTML=`<div class="res"><span class="verdict ${res==='lose'?'lose':res==='push'?'push':''}" id="verdict">${label}</span>${HARD()?`<p class="hint" style="margin:4px 0 0">${L('Hard mode','Modo difícil','Modo difícil')}</p>`:''}
   <div class="vs"><span>${L('YOU','TÚ',"VOCÊ")}<b id="vy" style="${bust?'color:#ffb3a8':''}">${t}</b></span><span>${L('TARGET','OBJETIVO',"ALVO")}<b style="color:var(--gold)">${TARGET}</b></span><span>${L('HOUSE','CASA',"BANCA")}<b id="vh" style="${dbust?'color:#ffb3a8':''}">${DTOT}</b></span></div>
   <p class="hint" id="avg2"></p><div id="chal2"></div>
   <div class="ek"><p class="ek-h">${L('Share your result','Comparte tu resultado',"Compartilhe seu resultado")}</p><div class="ek-tiles"><button class="ek-t ek-img" id="shareimg">${L('Share image','Compartir imagen',"Compartilhar imagem")}</button><button class="ek-t ek-dl" id="dlimg">${L('Save image','Guardar imagen',"Salvar imagem")}</button><button class="ek-t ek-cp" id="copy">${L('Copy text','Copiar texto',"Copiar texto")}</button></div></div>
@@ -512,7 +526,7 @@ function finish(t,live){stopClock();drawDealer(true);drawHand(false);
  // what else you could have played, by rarity: you learn something every hand
  $('recap').innerHTML=S.hand.map(c=>{const q=BANK.find(x=>x.id===c.q);if(!q)return'';const by=TIERS.map(tt=>{const ex=q.answers.filter(a=>(FAME[a.fame]||10)===tt.p).slice(0,3).map(shortName);return ex.length?`<p><i style="background:${tt.c}"></i>${tt.n}: ${esc(ex.join(', '))}</p>`:''}).join('');
   return`<details><summary>${esc(qText(q))} · ${L('you','tú',"você")}: ${esc(c.a||'—')} ${c.p?'+'+c.p:L('(foul)','(falta)',"(falta)")}</summary>${by}</details>`}).join('');
- const txt=`${L('Stable Hand','Mano de Cuadra',"Stable Hand")} 🐴 ${DAY}\n${grid} → ${t}/${TARGET}${res==='full'?L(' FULL HOUSE',' PLENO'," FULL HOUSE"):bust?L(' BUST',' ME PASÉ'," ESTOUROU"):''}\n${res==='win'||res==='full'?L('Beat the house','Le gané a la casa',"Venceu a banca"):res==='push'?L('Push with the house','Empate con la casa',"Empatou com a banca"):L('House ','Casa ',"Banca ")+DTOT}\nhttps://unicornergame.lol${PT?'/pt':ES?'/es':''}/stablehand.html`;
+ const txt=`${L('Stable Hand','Mano de Cuadra',"Stable Hand")} 🐴 ${DAY}${HTAG}\n${grid} → ${t}/${TARGET}${res==='full'?L(' FULL HOUSE',' PLENO'," FULL HOUSE"):bust?L(' BUST',' ME PASÉ'," ESTOUROU"):''}\n${res==='win'||res==='full'?L('Beat the house','Le gané a la casa',"Venceu a banca"):res==='push'?L('Push with the house','Empate con la casa',"Empatou com a banca"):L('House ','Casa ',"Banca ")+DTOT}\nhttps://unicornergame.lol${PT?'/pt':ES?'/es':''}/stablehand.html`;
  const flashT=(id,t,back)=>{$(id).textContent=t;setTimeout(()=>$(id).textContent=back,2000)},fname=`stable-hand-${DAY}.png`;
  const save=blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fname;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)};
  $('copy').onclick=async()=>{track('stablehand_copy',{total:t});try{await navigator.clipboard.writeText(txt);flashT('copy',L('Copied ✓','Copiado ✓',"Copiado ✓"),L('Copy text','Copiar texto',"Copiar texto"))}catch{}};
@@ -522,7 +536,7 @@ function finish(t,live){stopClock();drawDealer(true);drawHand(false);
    if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],text:txt})}catch{}}else{save(blob);flashT('shareimg',L('Saved! Post it anywhere','¡Guardada! Publícala donde quieras',"Salvo! Poste onde quiser"),L('Share image','Compartir imagen',"Compartilhar imagem"))}}catch{}b.disabled=false};
  $('show').onclick=()=>{const r=$('recap');const d=r.querySelector('details');if(d)d.open=true;r.scrollIntoView({behavior:REDUCE?'auto':'smooth',block:'start'})};
 const sc=t<=TARGET?t:0;CH&&CH.end($('chal2'),sc,live);board();dayAvg();
- feedback(res,t);if(live)track('stablehand_finish',{result:res,total:t,target:TARGET,house:DTOT,cards:S.hand.length,fouls:S.hand.filter(c=>!c.p).length,passed:!!S.passed});
+ feedback(res,t);if(live)track('stablehand_finish',{mode:S.mode||'easy',result:res,total:t,target:TARGET,house:DTOT,cards:S.hand.length,fouls:S.hand.filter(c=>!c.p).length,passed:!!S.passed});
  const v=$('verdict');
  if(!live){anim(v,[{opacity:0,transform:'rotate(-2deg) scale(.94)'},{opacity:1,transform:'rotate(-2deg)'}],{duration:220,easing:EASE});return}
  panelIn();into($('panel'),'center');
@@ -654,17 +668,18 @@ async function start(){if(ARCH&&ls('uc-inf-sub')!=='1'){$('panel').innerHTML=`<p
  // a question was on the table when the page closed: if its time has run out it's a foul, otherwise it continues
  if(S.cur&&S.cur.qi===S.qi&&DECK[S.qi]){if(Date.now()>=S.cur.until){lock=true;return foul(DECK[S.qi],'',L('Time ran out while you were away!','¡Se acabó el tiempo mientras no estabas!',"O tempo acabou enquanto você estava fora!"))}return ask()}
  S.cur=null;
- if(S.hand.length>=MAXC||total()>TARGET)return reveal();
+ if(S.hand.length>=MAXC||(!HARD()&&total()>TARGET))return reveal();
  if(S.hand.length)return decide();
  host('excited',L(`Welcome to my table! Target ${TARGET}. Every answer is worth its rarity: obvious ones 10, deep cuts 100. Up to five cards. Go over… and you bust.`,`¡Bienvenido a mi mesa! Objetivo ${TARGET}. Cada respuesta vale según su rareza: las obvias 10, las rebuscadas 100. Hasta cinco cartas. Si te pasas… pierdes.`,`Bem-vindo à minha mesa! Alvo ${TARGET}. Cada resposta vale pela raridade: as óbvias 10, as raras 100. Até cinco cartas. Passou… estourou.`));
- $('panel').innerHTML=`<div class="choice" style="grid-template-columns:1fr"><button class="btn" id="go">${L('Deal me in','Reparte',"Me dá as cartas")}</button></div><div id="chal0"></div><p class="hint" id="avg0"></p><p class="hint">${L('The house shows','La casa enseña',"A banca mostra")} ${DEALER[0]}. ${L(`Beat it without going over ${TARGET}.`,`Gánale sin pasarte de ${TARGET}.`,`Vença sem passar de ${TARGET}.`)}</p>`;panelIn();
+ $('panel').innerHTML=`<p class="need" style="text-align:center;margin-bottom:10px">${L('Choose your table','Elige tu mesa','Escolha sua mesa')}</p><div class="mode"><button class="btn" id="go">${L('Easy','Fácil','Fácil')}<small>${L('See what each card is worth','Ves lo que vale cada carta','Veja quanto vale cada carta')}</small></button><button class="btn w" id="gohard">${L('Hard','Difícil','Difícil')}<small>${L('Values stay hidden until you stand','Los valores se ocultan hasta plantarte','Os valores ficam ocultos até você parar')}</small></button></div><div id="chal0"></div><p class="hint" id="avg0"></p><p class="hint">${L('The house shows','La casa enseña',"A banca mostra")} ${DEALER[0]}. ${L(`Beat it without going over ${TARGET}.`,`Gánale sin pasarte de ${TARGET}.`,`Vença sem passar de ${TARGET}.`)}</p>`;panelIn();
  CH&&CH.intro($('chal0'));dayAvg();
- $('go').onclick=()=>{if(lock||!$('bk').hidden)return;lock=true;track('stablehand_start',{target:TARGET});ask()};
+ const go=m=>{if(lock||!$('bk').hidden)return;lock=true;S.mode=m;save();track('stablehand_start',{target:TARGET,mode:m});ask()};$('go').onclick=()=>go('easy');$('gohard').onclick=()=>go('hard');
  if(!ls('uc-rb-guide'))setTimeout(bkOpen,REDUCE?0:500)}
 start();
 })();
 </script>
 <script src="/chat.js" defer></script>
 <script src="/kb.js" data-input="#a" data-top="#panel .qhead" defer></script>
+<script src="/pixicons.js" defer></script>
 </body>
 </html>

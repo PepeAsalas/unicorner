@@ -743,7 +743,7 @@ async function sides(){if(!matchMedia('(min-width:1200px)').matches)return;
  const signed=!!(await userToken().catch(()=>null));
  const [z,rec,ib]=await Promise.all([rpc('duel_season',{}).catch(()=>null),rpc('duel_record',{p_token:TOKEN}).catch(()=>null),signed?rpc('duel_inbox',{}).catch(()=>null):null]);
  const MON=['January','February','March','April','May','June','July','August','September','October','November','December'];let L='';
- if(z){const[y,m]=z.season.split('-'),days=Math.max(0,Math.ceil((new Date(z.ends)-Date.now())/864e5)),top=(z.top||[]).slice(0,5);
+ if(z&&z.season){const[y,m]=z.season.split('-'),days=Math.max(0,Math.ceil((new Date(z.ends)-Date.now())/864e5)),top=(z.top||[]).slice(0,5);
   L+=`<div class="sp-panel" style="--bc:#b8860b"><span class="sp-band">${MON[+m-1]} table<em>${days} day${days===1?'':'s'} left</em></span>${top.length?top.map(t=>`<div class="sp-row${z.me&&z.me.pos===t.pos?' me':''}"><b>${t.pos}</b><span>${esc(t.nick||'?')}</span><b>${t.r}</b></div>`).join(''):'<span style="font-size:15px">No one has finished placement yet. Play 5 rated duels to get on the table.</span>'}<span class="sp-lbl" style="color:#5a4a2a">TOP 3 GET A SEASON MEDAL</span></div>`;
   const mi=z.mine;if(mi){const T=[900,1000,1100,1200,1400],N=['Non-League','Championship','Premier League','Champions League',"Ballon d'Or"],nx=T.findIndex(t=>mi.r<t);
    L+=`<div class="sp-panel dark" style="--bc:#1d7a45"><span class="sp-band">Your rating</span>${mi.g<5?`<div class="sp-big"><b>${esc(duelTier(mi.r,mi.g))}</b></div><span style="font-size:15px;color:#e9dfc2">Play ${5-mi.g} more rated duel${5-mi.g===1?'':'s'} to get your league</span>`:`<div class="sp-big"><b>${esc(duelTier(mi.r,mi.g))}</b><strong>${mi.r}</strong></div>${nx>=0?`<span style="font-size:15px;color:#e9dfc2">${T[nx]-mi.r} to ${N[nx]}</span>`:''}`}</div>`}}
@@ -751,7 +751,7 @@ async function sides(){if(!matchMedia('(min-width:1200px)').matches)return;
   R+=`<div class="sp-panel" style="--bc:#1d7a45"><span class="sp-band">Your record</span><div class="sp-wdl"><div><b style="color:#1f9a3a">${rec.w}</b><span class="sp-lbl">WON</span></div><div><b>${rec.d}</b><span class="sp-lbl">DRAW</span></div><div><b style="color:#d12a2a">${rec.l}</b><span class="sp-lbl">LOST</span></div></div>${last.length?`<span class="sp-lbl">LAST RESULTS</span><div class="sp-last">${last.map(x=>`<i title="${esc(x.opp)}" style="background:${x.state==='won'?'#2f9a62':x.state==='lost'?'#c8473b':'#e9dfc2'}">${x.state==='won'?'W':x.state==='lost'?'L':'D'}</i>`).join('')}</div>`:''}</div>`}
  R+=`<div class="sp-panel" style="--bc:#d7262e"><span class="sp-band">How duels work</span><span style="font-size:16px;line-height:1.35">${PER===15?'All 15 questions at once':PER+' questions a round'}, ${SECS} s each · rarer answer = bigger hit · 300 HP, first to 0 loses · 24 h per turn</span><button type="button" class="sp-link" id="sp-how">READ THE BOOKLET ▸</button></div>`;
  if(L){$('side-l').innerHTML=L;$('side-l').hidden=false}$('side-r').innerHTML=R;$('side-r').hidden=false;$('sp-how').onclick=()=>openIntro('side')}
-async function season(){let z;try{z=await rpc('duel_season',{})}catch{return}if(!z)return;const[y,m]=z.season.split('-'),MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+async function season(){let z;try{z=await rpc('duel_season',{})}catch{return}if(!z||!z.season)return;const[y,m]=z.season.split('-'),MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
  const days=Math.max(0,Math.ceil((new Date(z.ends)-Date.now())/864e5)),mine=z.mine;
  $('sz-sum').innerHTML=`<b>${MON[+m-1].toUpperCase()} SEASON</b> · ends in ${days} day${days===1?'':'s'}${mine?` · <i>${esc(duelRating(mine))}</i>`:''} ▾`;
  const top=z.top.length?`<ol>${z.top.map(t=>`<li class="${z.me&&t.pos===z.me.pos?'me':''}"><b>${t.pos}</b><span>${esc(t.nick||'?')}</span>${t.r}</li>`).join('')}</ol>`:'<p>No one has finished placement this season yet.</p>';
@@ -783,10 +783,10 @@ function ibDraw(){const all=IBR.items,act=all.filter(x=>!done(x)),arc=all.filter
  $('pr-me').style.backgroundImage=spriteDraw('wow',0,false,myKit()).replace(/"/g,"'");
  for(const id of['lb-me','lb-me2'])$(id).style.backgroundImage=spriteDraw('happy',0,false,myKit()).replace(/"/g,"'");$('lb-rv').style.backgroundImage=spriteDraw('happy',0,false,kitFor('rival')).replace(/"/g,"'");lbRating();
  $('pr-title').textContent=nick==='My'?'My duels':nick+"'s duels";
- if(IBZ){const[y,m]=IBZ.season.split('-'),days=Math.max(0,Math.ceil((new Date(IBZ.ends)-Date.now())/864e5));
+ if(IBZ&&IBZ.season){const[y,m]=IBZ.season.split('-'),days=Math.max(0,Math.ceil((new Date(IBZ.ends)-Date.now())/864e5));
   $('pr-iss').innerHTML=`ISSUE ${all.length||1}<br>${MONS[+m-1].toUpperCase()} SEASON · ${days} DAY${days===1?'':'S'} LEFT`;$('pr-tb-m').textContent=MONS[+m-1];$('pr-left').textContent=days+' day'+(days===1?'':'s')+' left';
   const top=IBZ.top||[];$('pr-table').innerHTML=top.length?top.map(t=>`<tr class="${t.pos<=3?'zone':''}${IBZ.me&&t.pos===IBZ.me.pos?' me':''}"><td>${t.pos}</td><td>${esc(t.nick||'?')}</td><td>${t.r}</td></tr>`).join('')+(IBZ.me&&IBZ.me.pos>10?`<tr class="me"><td>${IBZ.me.pos}</td><td>${esc(nick)}</td><td>${IBZ.me.r}</td></tr>`:''):'<tr><td colspan="3">No one has finished placement yet this month.</td></tr>';
-  const pod=(IBZ.last&&IBZ.last.podium)||[];$('pr-hof-w').hidden=!pod.length;if(pod.length){const[ly,lm]=IBZ.last.season.split('-');$('pr-hof-m').textContent=MONS[+lm-1].toUpperCase();
+  const pod=(IBZ.last&&IBZ.last.podium)||[];$('pr-hof-w').hidden=!pod.length;if(pod.length&&IBZ.last.season){const[ly,lm]=IBZ.last.season.split('-');$('pr-hof-m').textContent=MONS[+lm-1].toUpperCase();
    const by=p=>pod.find(x=>x.pos===p);$('pr-hof').innerHTML=[2,1,3].map(p=>{const x=by(p);return x?`<div class="p${p}">${['','🥇','🥈','🥉'][p]}${uni(kitFor(x.nick))}<em>${esc(x.nick||'?')}</em>${x.r}</div>`:'<div></div>'}).join('')}}
  pyramid();
  const fin=all.filter(x=>x.state==='won'||x.state==='lost'||x.state==='draw');
@@ -937,4 +937,5 @@ Promise.race([document.fonts.ready,new Promise(r=>setTimeout(r,300))]).then(boot
 <script src="/notify.js" defer></script>
 <script src="/chat.js" defer></script>
 <script src="/kb.js" data-input="#q-in" data-top="#s-play .qhead" defer></script>
+<script src="/pixicons.js" defer></script>
 </body></html>

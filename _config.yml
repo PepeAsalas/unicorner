@@ -1,0 +1,2 @@
+# Serve /.well-known/ (GitHub Pages skips dot folders by default). Needed for the Android app link check.
+include: [".well-known"]

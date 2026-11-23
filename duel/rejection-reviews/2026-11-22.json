@@ -1,0 +1,188 @@
+{
+  "date": "2026-11-22",
+  "baseline_commit": "dd7b56c4609a3598030326d2bb146c5c8a9b80a4",
+  "correction_commit": "b5fefcc51b15dc4ddefcd40332634f92f05f21f1",
+  "previous_checkpoint": 1970954,
+  "last_scanned_event_id": 2014923,
+  "scanned_events": 2113,
+  "scan_pages": [
+    700,
+    700,
+    700,
+    13
+  ],
+  "prior_pending_count": 49659,
+  "pending_count": 50547,
+  "excluded_records": {
+    "ambiguous": 69,
+    "duplicate": 87
+  },
+  "decision_counts": {
+    "pending": 50547,
+    "add_alias": 1,
+    "add_missing_player": 4
+  },
+  "corrections": [
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-barcelona-and-milan",
+      "submitted_text": [
+        "emerson royal"
+      ],
+      "event_count": 2,
+      "decision": "add_missing_player",
+      "correction": {
+        "name": "Emerson Royal",
+        "aliases": [
+          "Emerson Aparecido Leite de Souza Junior"
+        ],
+        "fame": 4
+      },
+      "evidence": "Barcelona records three league appearances in 2021; Milan records his start against Lazio in Serie A on 31 August 2024. Both are competitive first-team appearances before the 2025-26 cutoff. Fame 4 follows other established international players in this question.",
+      "evidence_urls": [
+        "https://www.fcbarcelona.com/en/football/first-team/actualites/2240292",
+        "https://www.acmilan.com/en/news/articles/serie-a/2024-08-31/a-point-apiece-at-the-olimpico"
+      ]
+    },
+    {
+      "question_id": "d4-name-a-player-who-won-serie-a-with-inter-since-2000",
+      "submitted_text": [
+        "Vecino"
+      ],
+      "event_count": 2,
+      "decision": "add_missing_player",
+      "correction": {
+        "name": "Matías Vecino",
+        "aliases": [
+          "Matias Vecino",
+          "Vecino"
+        ],
+        "fame": 4
+      },
+      "evidence": "Inter identifies Vecino in its 2020-21 Scudetto-winning squad; its 12 May 2021 Serie A match report records him playing and scoring against Roma, establishing participation in that winning league campaign. Fame 4 follows comparable established squad midfielders.",
+      "evidence_urls": [
+        "https://www.inter.it/en/news/2021-05-02-inter-squad-champions-of-italy-2021",
+        "https://www.inter.it/en/match_center/4629/inter-roma"
+      ]
+    },
+    {
+      "question_id": "d8-name-a-goalkeeper-who-played-in-la-liga-since-2000",
+      "submitted_text": [
+        "serantes"
+      ],
+      "event_count": 2,
+      "decision": "add_missing_player",
+      "correction": {
+        "name": "Jon Ander Serantes",
+        "aliases": [
+          "Serantes"
+        ],
+        "fame": 1
+      },
+      "evidence": "Leganés identifies Jon Ander Serantes as its goalkeeper, describes his La Liga debut in August 2016 and his competitive return against Real Betis in the final match of 2017-18. Fame 1 follows the question’s less widely known goalkeepers.",
+      "evidence_urls": [
+        "https://www.cdleganes.com/en/news/jon-ander-serantes-returns-for-the-first-time-to-butarque-to-face-c-d-leganes"
+      ]
+    },
+    {
+      "question_id": "d8-name-a-goalkeeper-who-played-in-la-liga-since-2000",
+      "submitted_text": [
+        "Bono"
+      ],
+      "event_count": 2,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Yassine Bounou",
+        "added_aliases": [
+          "Bono"
+        ]
+      },
+      "evidence": "Girona explicitly identifies Yassine Bounou as better known as Bono. The canonical player is already accepted; add only the missing common alias and preserve fame 3.",
+      "evidence_urls": [
+        "https://www.gironafc.cat/es/noticias/el-girona-fc-completa-la-porteria-con-el-fichaje-de-bono"
+      ]
+    }
+  ],
+  "validation": {
+    "questions": 429,
+    "baseline_errors": 0,
+    "final_errors": 0,
+    "baseline_warnings": 568,
+    "final_warnings": 568,
+    "warning_multiset_unchanged": true,
+    "existing_matcher_forms_checked": 635,
+    "observed_groups_checked_on_changed_questions": 379,
+    "new_events_covered_by_corrections": 8
+  },
+  "review_limit": "Grouped all fetched events and retried prior pending candidates against the current browser matcher. Researched selected plausible corrections and frequent rejections against authoritative records. Remaining unverified combinations are preserved for future evidence review.",
+  "decisions": [
+    {
+      "question_id": "d8-name-a-goalkeeper-who-played-in-la-liga-since-2000",
+      "input": "Bono",
+      "event_count": 2,
+      "new_events": 1,
+      "decision": "add_alias",
+      "reason": "Girona explicitly identifies Yassine Bounou as better known as Bono. The canonical player is already accepted; add only the missing common alias and preserve fame 3.",
+      "evidence_urls": [
+        "https://www.gironafc.cat/es/noticias/el-girona-fc-completa-la-porteria-con-el-fichaje-de-bono"
+      ]
+    },
+    {
+      "question_id": "d4-name-a-player-who-won-serie-a-with-inter-since-2000",
+      "input": "Vecino",
+      "event_count": 2,
+      "new_events": 2,
+      "decision": "add_missing_player",
+      "reason": "Inter identifies Vecino in its 2020-21 Scudetto-winning squad; its 12 May 2021 Serie A match report records him playing and scoring against Roma, establishing participation in that winning league campaign. Fame 4 follows comparable established squad midfielders.",
+      "evidence_urls": [
+        "https://www.inter.it/en/news/2021-05-02-inter-squad-champions-of-italy-2021",
+        "https://www.inter.it/en/match_center/4629/inter-roma"
+      ]
+    },
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-barcelona-and-milan",
+      "input": "emerson royale",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "add_missing_player",
+      "reason": "Barcelona records three league appearances in 2021; Milan records his start against Lazio in Serie A on 31 August 2024. Both are competitive first-team appearances before the 2025-26 cutoff. Fame 4 follows other established international players in this question.",
+      "evidence_urls": [
+        "https://www.fcbarcelona.com/en/football/first-team/actualites/2240292",
+        "https://www.acmilan.com/en/news/articles/serie-a/2024-08-31/a-point-apiece-at-the-olimpico"
+      ]
+    },
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-barcelona-and-milan",
+      "input": "emerson royal",
+      "event_count": 2,
+      "new_events": 2,
+      "decision": "add_missing_player",
+      "reason": "Barcelona records three league appearances in 2021; Milan records his start against Lazio in Serie A on 31 August 2024. Both are competitive first-team appearances before the 2025-26 cutoff. Fame 4 follows other established international players in this question.",
+      "evidence_urls": [
+        "https://www.fcbarcelona.com/en/football/first-team/actualites/2240292",
+        "https://www.acmilan.com/en/news/articles/serie-a/2024-08-31/a-point-apiece-at-the-olimpico"
+      ]
+    },
+    {
+      "question_id": "d8-name-a-goalkeeper-who-played-in-la-liga-since-2000",
+      "input": "serantes",
+      "event_count": 2,
+      "new_events": 2,
+      "decision": "add_missing_player",
+      "reason": "Leganés identifies Jon Ander Serantes as its goalkeeper, describes his La Liga debut in August 2016 and his competitive return against Real Betis in the final match of 2017-18. Fame 1 follows the question’s less widely known goalkeepers.",
+      "evidence_urls": [
+        "https://www.cdleganes.com/en/news/jon-ander-serantes-returns-for-the-first-time-to-butarque-to-face-c-d-leganes"
+      ]
+    },
+    {
+      "question_id": "d4-name-a-player-who-won-the-eredivisie-with-ajax-since-2000",
+      "input": "Fitz Jim",
+      "event_count": 2,
+      "new_events": 2,
+      "decision": "pending",
+      "reason": "Ajax confirms a first-team Eredivisie debut only in January 2023. That excludes the 2021-22 title; participation in a later title-winning league campaign through 2025-26 remains unverified, so do not add from squad membership alone.",
+      "evidence_urls": [
+        "https://english.ajax.nl/articles/kian-fitz-jim-joins-torino-fc/"
+      ]
+    }
+  ]
+}

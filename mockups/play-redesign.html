@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Matchday redesign</title>
+<link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=VT323&display=swap" rel="stylesheet">
+<script src="/duel/sprites.js"></script>
+<style>
+:root{--ink:#1d1a2b;--ink2:#14121f;--cream:#fbf6e8;--gold:#f2c230;--blue:#1d4486;--red:#c8473b;--grass:#2f7a4f;--grass2:#29704a;--purple:#7c4dff;--mute:#a49cb8;
+ --out:cubic-bezier(.23,1,.32,1);--io:cubic-bezier(.77,0,.175,1);--pop:cubic-bezier(.34,1.56,.64,1)}
+*{box-sizing:border-box}
+body{margin:0;background:#173d29;color:var(--cream);font:400 20px/1.25 VT323,monospace;padding:18px 16px 50px}
+h1{font:400 40px/1 'Jersey 10',sans-serif;color:var(--gold);margin:0 0 4px}
+.note{color:#cfe8d6;max-width:900px;margin:0 0 14px;font-size:19px}
+.ctrl{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.ctrl button,.ctrl select{font:400 20px/1 'Jersey 10',sans-serif;padding:10px 14px;min-height:44px;border:3px solid #000;background:var(--cream);color:var(--ink);box-shadow:0 3px 0 #000;cursor:pointer}
+.ctrl button:active{transform:translateY(2px);box-shadow:0 1px 0 #000}
+.ctrl button.on{background:var(--gold)}
+.stage{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start}
+.phone{width:390px;max-width:100%;border:4px solid #000;box-shadow:8px 8px 0 rgba(0,0,0,.35);background:var(--blue);overflow:hidden;position:relative}
+.side{max-width:420px}
+.side h3{font:400 26px/1 'Jersey 10',sans-serif;color:var(--gold);margin:4px 0 8px}.side li{margin:0 0 6px}
+
+/* scoreboard header */
+.board{background:var(--ink2);border-bottom:4px solid #000;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:10px 12px}
+.pips{display:flex;gap:5px}.pips i{width:14px;height:14px;border:2px solid #000;background:#3b3550}.pips i.done{background:var(--gold)}.pips i.now{background:var(--cream);animation:pip 1s steps(2) infinite}
+@keyframes pip{50%{background:var(--gold)}}
+.qn{font:400 20px/1 'Jersey 10',sans-serif;color:var(--mute);letter-spacing:1px}
+.clock{font:400 40px/1 'Jersey 10',sans-serif;color:var(--gold);background:#000;padding:4px 10px 2px;border:2px solid #3b3550;min-width:88px;text-align:center;text-shadow:0 0 8px rgba(242,194,48,.55);font-variant-numeric:tabular-nums}
+.clock.low{color:#ff5a4a;text-shadow:0 0 10px rgba(255,90,74,.7);animation:tick 1s steps(1) infinite}
+@keyframes tick{50%{transform:scale(1.08)}}
+.body{padding:16px 14px 14px}
+.prompt{font:400 30px/1.05 'Jersey 10',sans-serif;margin:0 0 6px}
+.sub{color:#cdd6f2;font-size:18px;margin:0 0 14px}
+.inp{display:block;width:100%;font:400 24px 'Jersey 10',sans-serif;padding:12px;background:var(--ink);color:var(--cream);border:3px solid var(--gold);outline:0}
+.go{display:block;width:100%;margin-top:10px;min-height:52px;font:400 26px/1 'Jersey 10',sans-serif;background:var(--gold);border:3px solid #000;box-shadow:0 4px 0 #000;color:var(--ink);cursor:pointer;transition:transform 140ms var(--out)}
+.go:active{transform:translateY(3px) scale(.98);box-shadow:0 1px 0 #000}
+
+/* the pitch strip */
+.pitch{position:relative;height:150px;margin:0;border-top:4px solid #000;background:
+ repeating-linear-gradient(90deg,var(--grass) 0 38px,var(--grass2) 38px 76px);overflow:hidden}
+.pitch::before{content:'';position:absolute;left:0;right:0;bottom:24px;height:3px;background:rgba(255,255,255,.55)}
+.box{position:absolute;right:0;bottom:24px;width:96px;height:78px;border:3px solid rgba(255,255,255,.55);border-right:0;border-bottom:0}
+.box6{position:absolute;right:0;bottom:24px;width:40px;height:44px;border:3px solid rgba(255,255,255,.55);border-right:0;border-bottom:0}
+.spot{position:absolute;right:64px;bottom:44px;width:5px;height:5px;background:rgba(255,255,255,.7)}
+.goal{position:absolute;right:0;bottom:24px;width:30px;height:86px;border:5px solid var(--cream);border-right:0;
+ background:repeating-linear-gradient(0deg,transparent 0 6px,rgba(255,255,255,.35) 6px 7px),repeating-linear-gradient(90deg,transparent 0 6px,rgba(255,255,255,.35) 6px 7px);
+ transform-origin:100% 50%;box-shadow:inset -6px 0 0 rgba(0,0,0,.25)}
+.zones{position:absolute;left:0;right:0;top:6px;height:16px;font:400 12px/1 'Jersey 10',sans-serif;color:rgba(255,255,255,.55);letter-spacing:.5px}
+.zones span{position:absolute;transform:translateX(-50%);white-space:nowrap;transition:color 200ms,transform 200ms var(--pop)}
+.zones span.hit{color:var(--gold);transform:translateX(-50%) scale(1.25)}
+.uni{position:absolute;left:0;bottom:20px;width:84px;height:70px;background-size:contain;background-repeat:no-repeat;background-position:bottom center;image-rendering:pixelated;will-change:transform}
+.ball{position:absolute;left:0;bottom:22px;width:14px;height:14px;will-change:transform}
+.ball svg{display:block;width:100%;height:100%}
+.ghost{position:absolute;width:14px;height:14px;border-radius:0;opacity:.5;background:var(--gold);pointer-events:none}
+.dust{position:absolute;width:6px;height:6px;background:rgba(255,255,255,.75);pointer-events:none}
+.flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+.cam{position:absolute;width:5px;height:5px;background:#fff;opacity:0;box-shadow:0 0 6px 3px rgba(255,255,255,.9)}
+
+/* reveal panel */
+.reveal{padding:14px 14px 16px;min-height:150px}
+.tier{font:400 64px/.9 'Jersey 10',sans-serif;letter-spacing:1px;margin:0;opacity:0;text-shadow:4px 4px 0 #000;transform-origin:0 70%}
+.tier.t0{color:#d2d6ec}.tier.t1{color:#7fe0a1}.tier.t2{color:#7dc8ff}.tier.t3{color:#c7a8ff}.tier.t4{color:var(--gold)}.tier.miss{color:#ff6a5a}
+.pts{font:400 30px/1 'Jersey 10',sans-serif;margin:8px 0 0;opacity:0}.pts b{color:var(--gold);font-weight:400}
+.who{color:#cdd6f2;font-size:19px;margin:6px 0 0;opacity:0}
+.next{margin-top:14px;min-height:48px;padding:0 20px;font:400 22px 'Jersey 10',sans-serif;background:var(--cream);border:3px solid #000;box-shadow:0 4px 0 #000;opacity:0;cursor:pointer}
+.shake{animation:shake .32s steps(2) 1}
+@keyframes shake{0%{transform:translate(4px,-3px)}25%{transform:translate(-4px,3px)}50%{transform:translate(3px,2px)}75%{transform:translate(-2px,-2px)}100%{transform:none}}
+@media (prefers-reduced-motion:reduce){.pips i.now,.clock.low{animation:none}.shake{animation:none}}
+</style></head><body>
+<h1>Matchday · Daily 5 redesign</h1>
+<p class="note">Same colours as the site (ink, cream, gold, blue, pitch green). No rainbow trail: the unicorn wears the player's own kit. The idea: <b>the rarer your answer, the further out you shoot from</b>. Tap-in from a yard out, Screamer from 35 yards.</p>
+<div class="ctrl" id="ctrl">
+ <button data-a="q" class="on">Question (keepy-ups)</button>
+ <button data-a="low">Clock under 10s</button>
+ <button data-a="0">Tap-in</button><button data-a="1">Header</button><button data-a="2">Volley</button><button data-a="3">Bicycle kick</button><button data-a="4">Screamer</button><button data-a="miss">Wrong / time up</button>
+ <select id="kit" aria-label="Kit"></select>
+</div>
+<div class="stage">
+ <div class="phone" id="phone">
+  <div class="board"><div class="pips" id="pips"><i class="done"></i><i class="done"></i><i class="now"></i><i></i><i></i></div><span class="qn">Q3 OF 5</span><span class="clock" id="clock">0:30</span></div>
+  <div id="qpane" class="body">
+   <p class="prompt">Named in Uruguay's 2010 World Cup squad</p>
+   <p class="sub">Final 23-player squad, South Africa 2010 (fourth place)</p>
+   <input class="inp" placeholder="Type a player" aria-label="Answer">
+   <button class="go">SHOOT ▶</button>
+  </div>
+  <div class="pitch" id="pitch">
+   <div class="zones" id="zones"></div>
+   <div class="box"></div><div class="box6"></div><div class="spot"></div><div class="goal" id="goal"></div>
+   <div class="uni" id="uni"></div>
+   <div class="ball" id="ball"><svg viewBox="0 0 7 7" shape-rendering="crispEdges"><path d="M2 0h3v1h1v1h1v3h-1v1h-1v1h-3v-1h-1v-1h-1v-3h1v-1h1z" fill="#000"/><path d="M2 1h3v1h1v3h-1v1h-3v-1h-1v-3h1z" fill="#fbf6e8"/><path d="M3 2h1v1h1v1h-1v1h-1v-1h-1v-1h1z" fill="#1d1a2b"/></svg></div>
+   <div class="flash" id="flash"></div>
+  </div>
+  <div id="rpane" class="reveal" hidden>
+   <p class="tier" id="tier">SCREAMER</p>
+   <p class="pts" id="pts"><b>+0</b> points</p>
+   <p class="who" id="who">Luis Suárez</p>
+   <button class="next" id="next">NEXT QUESTION ▶</button>
+  </div>
+ </div>
+ <div class="side">
+  <h3>What happens</h3>
+  <ul>
+   <li><b>While you type:</b> the unicorn juggles the ball on the pitch strip. The clock is a stadium LED board; the 5 squares are your 5 questions.</li>
+   <li><b>Under 10 seconds:</b> clock goes red and ticks, the unicorn panics and starts dropping the ball.</li>
+   <li><b>Submit = SHOOT.</b> The unicorn sprints to the shooting spot for your tier: further out = rarer answer.</li>
+   <li><b>Each tier has its own finish:</b> Tap-in rolls in, Header from a cross, Volley off the bounce, Bicycle kick flips upside down, Screamer rockets into the top corner.</li>
+   <li><b>Screamer only:</b> 90 ms freeze on contact, screen shake, net bulge, camera flashes, gold slam. Big moments get big feedback; Tap-ins stay small.</li>
+   <li><b>Wrong answer:</b> off the post, unicorn hangs its head.</li>
+   <li>Pixel animation runs at 10 frames a second like an old console; all of it is skipped for people with "reduce motion" on.</li>
+  </ul>
+ </div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const pitch=$('pitch'),uni=$('uni'),ball=$('ball'),goal=$('goal');
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+// the sprite carries its own ball at its feet; the animation uses a separate ball, so strip it from the frames
+for(let f=0;f<FRAMES.length;f++)FRAMES[f]=FRAMES[f].map((r,y)=>y>=21?r.slice(0,27)+'.'.repeat(r.length-27):r);
+let KIT=KITS.find(k=>k.id==='inferno')||null;
+const sel=$('kit');KITS.filter(k=>k.pat||(k.pal&&k.pal.W)).forEach(k=>{const o=document.createElement('option');o.value=k.id;o.textContent='Kit: '+(k.en||k.id);if(k.id==='inferno')o.selected=true;sel.appendChild(o)});
+sel.onchange=()=>{KIT=KITS.find(k=>k.id===sel.value);const a=state;state=null;run(a)};
+const spr=(m,f)=>spriteDraw(m,f,false,KIT&&KIT.id!=='classic'?KIT:null);
+// tiers: name, points, colour class, shooting spot (x as fraction of pitch width)
+const T=[['TAP-IN',10,'t0',.80],['HEADER',30,'t1',.67],['VOLLEY',60,'t2',.41],['BICYCLE KICK',85,'t3',.54],['SCREAMER',100,'t4',.18]];
+$('zones').innerHTML=T.map((t,i)=>`<span data-i="${i}" style="left:${(t[3]*100).toFixed(0)}%">${t[0].split(' ')[0]}</span>`).join('');
+let anims=[],timers=[],frameT=null,state=null;
+const W=()=>pitch.clientWidth;
+function stop(){anims.forEach(a=>a.cancel());anims=[];timers.forEach(clearTimeout);timers=[];clearInterval(frameT);frameT=null;
+ pitch.querySelectorAll('.ghost,.dust,.cam').forEach(e=>e.remove());$('phone').classList.remove('shake');document.querySelectorAll('.zones span').forEach(s=>s.classList.remove('hit'))}
+const later=(ms,fn)=>timers.push(setTimeout(fn,ms));
+const A=(el,k,o)=>{const a=el.animate(k,{fill:'forwards',...o});anims.push(a);return a};
+// stepped sprite animation, 10 fps
+function frames(list,fps=10){clearInterval(frameT);let i=0;const set=()=>{const[m,f]=list[i%list.length];uni.style.backgroundImage=spr(m,f);i++};set();if(list.length>1&&!RM)frameT=setInterval(set,1000/fps)}
+const place=(el,x,y=0,r=0,s=1)=>el.style.transform=`translate(${x}px,${-y}px) rotate(${r}deg) scale(${s})`;
+function dust(x){if(RM)return;for(let i=0;i<3;i++){const d=document.createElement('div');d.className='dust';d.style.left=(x+10+i*4)+'px';d.style.bottom='22px';pitch.appendChild(d);
+ A(d,[{transform:'translate(0,0)',opacity:.9},{transform:`translate(${-10-i*6}px,${-8-i*4}px)`,opacity:0}],{duration:360,easing:'ease-out'});later(400,()=>d.remove())}}
+
+// ---- question state: keepy-ups
+function question(low){stop();$('qpane').hidden=false;$('rpane').hidden=true;const c=$('clock');c.classList.toggle('low',!!low);
+ let t=low?9:30;c.textContent='0:'+String(t).padStart(2,'0');timers.push(setInterval(()=>{t=t>0?t-1:(low?9:30);c.textContent='0:'+String(t).padStart(2,'0')},1000));
+ const x=W()*.32;place(uni,x);goal.style.transform='';
+ if(low){frames([['wow',0],['wow',1],['hurt',0]],6);
+  // fumbled keepy-ups: the ball goes up crooked and drops
+  if(!RM)A(ball,[{transform:`translate(${x+52}px,-34px)`},{transform:`translate(${x+64}px,-70px)`,offset:.35},{transform:`translate(${x+86}px,0px)`,offset:.7},{transform:`translate(${x+80}px,-10px)`,offset:.85},{transform:`translate(${x+52}px,-34px)`}],{duration:1400,iterations:Infinity,easing:'ease-in-out'})}
+ else{frames([['juggle',0],['juggle',1]],5);
+  if(!RM)A(ball,[{transform:`translate(${x+52}px,-34px)`},{transform:`translate(${x+52}px,-74px)`,easing:'cubic-bezier(.2,.6,.4,1)'},{transform:`translate(${x+52}px,-34px)`}],{duration:800,iterations:Infinity,easing:'cubic-bezier(.6,0,.8,.4)'})}
+ if(RM)place(ball,x+52,34)}
+
+// ---- the shot
+function shot(i){stop();$('qpane').hidden=true;const rp=$('rpane');rp.hidden=false;['tier','pts','who'].forEach(id=>$(id).style.opacity=0);$('next').style.opacity=0;
+ $('clock').classList.remove('low');
+ const w=W(),miss=i==='miss',t=miss?null:T[i],spotX=(miss?.6:t[3])*w-62,goalX=w-26,start=8;
+ const tr=$('tier');tr.className='tier '+(miss?'miss':t[2]);tr.textContent=miss?'OFF THE POST':t[0];
+ place(uni,start);place(ball,start+58,2);
+ const zs=document.querySelector(`.zones span[data-i="${i}"]`);
+ // 1. run-up: sprint with ball at feet
+ const dist=spotX-start,runMs=RM?0:Math.max(380,dist*1.6);
+ frames([['happy',0],['happy',1]],12);
+ A(uni,[{transform:`translate(${start}px,0)`},{transform:`translate(${spotX}px,0)`}],{duration:runMs,easing:'cubic-bezier(.4,0,.2,1)'});
+ A(ball,[{transform:`translate(${start+58}px,-2px)`},{transform:`translate(${spotX+40}px,-2px)`,offset:.3},{transform:`translate(${spotX+30}px,-2px)`,offset:.6},{transform:`translate(${spotX+62}px,-2px)`}],{duration:runMs,easing:'linear'});
+ if(!RM)for(let k=0;k<runMs;k+=140)later(k,()=>dust(start+(spotX-start)*(k/runMs)));
+ later(runMs,()=>{zs&&zs.classList.add('hit');strike()});
+ function strike(){const bx=spotX+62;
+  if(miss){frames([['wow',0]]);path([[bx,2],[goalX-2,40],[goalX-40,20],[goalX-70,2]],520,'cubic-bezier(.3,.7,.4,1)');later(200,()=>{postHit()});later(560,()=>{frames([['sad',0],['sad',1]],3);reveal(0)});return}
+  if(i===0){// tap-in: little nudge, slow roll
+   frames([['happy',1]]);A(uni,[{transform:`translate(${spotX}px,0)`},{transform:`translate(${spotX+8}px,0)`}],{duration:160,easing:'ease-out'});
+   path([[bx,2],[goalX+6,2]],700,'cubic-bezier(.23,1,.32,1)');later(620,()=>{net(.5);frames([['joy',0],['joy',1]],4);reveal(t[1])})}
+  if(i===1){// header: cross comes in from above, unicorn jumps
+   place(ball,spotX-80,120);A(uni,[{transform:`translate(${spotX}px,0)`},{transform:`translate(${spotX}px,-34px)`,offset:.5},{transform:`translate(${spotX}px,0)`}],{duration:520,easing:'cubic-bezier(.3,0,.3,1)'});frames([['wow',0]]);
+   path([[spotX-80,120],[spotX+50,70]],300,'linear');later(300,()=>{path([[spotX+50,70],[goalX+4,44]],320,'cubic-bezier(.2,.8,.3,1)');later(300,()=>{net(.8);frames([['joy',0],['joy',1]],5);reveal(t[1])})})}
+  if(i===2){// volley: ball pops up, struck mid-air
+   path([[bx,2],[bx+6,46],[bx+10,30]],360,'cubic-bezier(.3,.7,.5,1)');frames([['wow',0]]);
+   later(360,()=>{frames([['happy',1]]);path([[bx+10,30],[goalX+4,30]],260,'cubic-bezier(.1,.9,.2,1)',true);later(250,()=>{net(1);frames([['joy',0],['joy',1]],6);reveal(t[1])})})}
+  if(i===3){// bicycle kick: ball up, unicorn flips overhead
+   path([[bx,2],[spotX+44,78]],380,'cubic-bezier(.2,.8,.4,1)');frames([['wow',0]]);
+   A(uni,[{transform:`translate(${spotX}px,0) rotate(0)`},{transform:`translate(${spotX+6}px,-40px) rotate(-120deg)`,offset:.45},{transform:`translate(${spotX+10}px,-46px) rotate(-200deg)`,offset:.6},{transform:`translate(${spotX}px,0) rotate(-360deg)`}],{duration:820,easing:'cubic-bezier(.4,0,.3,1)'});
+   later(430,()=>{path([[spotX+44,78],[goalX+4,58]],240,'cubic-bezier(.1,.9,.2,1)',true);later(230,()=>{net(1.1);});});later(830,()=>{frames([['joy',0],['joy',1]],7);reveal(t[1])})}
+  if(i===4){// screamer: wind-up, hit-stop, rocket to the top corner
+   frames([['angry',0]]);A(uni,[{transform:`translate(${spotX}px,0)`},{transform:`translate(${spotX-10}px,0)`,offset:.6},{transform:`translate(${spotX+14}px,0)`}],{duration:300,easing:'cubic-bezier(.5,0,.2,1)'});
+   later(300,()=>{frames([['angry',1]]);later(RM?0:90,()=>{// 90ms freeze on contact
+     path([[bx,2],[bx+(goalX-bx)*.5,100],[goalX+2,74]],340,'cubic-bezier(.15,.85,.25,1)',true,true);
+     later(330,()=>{net(1.6);boom();frames([['joy',0],['joy',1],['wow',0]],8);reveal(t[1],true)})})})}
+ }}
+// ball along a polyline; trail = ghost balls behind it
+function path(pts,ms,ease,trail,gold){const kf=pts.map(([x,y],k)=>({transform:`translate(${x}px,${-y}px) rotate(${k*240}deg)`}));A(ball,kf,{duration:RM?1:ms,easing:ease});
+ if(trail&&!RM){const n=5;for(let k=1;k<=n;k++){const g=document.createElement('div');g.className='ghost';g.style.left='0';g.style.bottom='22px';if(!gold)g.style.background='#fbf6e8';g.style.opacity=(.55-k*.09).toFixed(2);pitch.appendChild(g);
+  A(g,kf.map(f=>({transform:f.transform.replace(/rotate\([^)]*\)/,'')})),{duration:ms,easing:ease,delay:k*28});later(ms+k*28+80,()=>g.remove())}}}
+function net(p){if(RM)return;A(goal,[{transform:'scaleX(1)'},{transform:`scaleX(${1+.35*p}) translateX(${4*p}px)`,offset:.25},{transform:'scaleX(.96)',offset:.6},{transform:'scaleX(1)'}],{duration:520,easing:'ease-out'})}
+function postHit(){if(RM)return;A(goal,[{transform:'translateX(0)'},{transform:'translateX(3px)'},{transform:'translateX(-2px)'},{transform:'translateX(0)'}],{duration:220,easing:'linear'})}
+function boom(){if(RM)return;const ph=$('phone');ph.classList.remove('shake');void ph.offsetWidth;ph.classList.add('shake');
+ A($('flash'),[{opacity:.0},{opacity:.55,offset:.15},{opacity:0}],{duration:380,easing:'ease-out'});
+ for(let k=0;k<9;k++){const c=document.createElement('div');c.className='cam';c.style.left=(8+Math.random()*84)+'%';c.style.top=(4+Math.random()*30)+'%';pitch.appendChild(c);A(c,[{opacity:0},{opacity:1,offset:.2},{opacity:0}],{duration:260,delay:k*70+Math.random()*120,easing:'steps(2)'});later(1200,()=>c.remove())}}
+function reveal(p,big){const tr=$('tier'),pt=$('pts'),wh=$('who'),nx=$('next');
+ A(tr,big?[{opacity:0,transform:'scale(1.5)'},{opacity:1,transform:'scale(.94)',offset:.6},{opacity:1,transform:'scale(1)'}]:[{opacity:0,transform:'translateY(10px)'},{opacity:1,transform:'none'}],{duration:big?420:260,easing:big?'cubic-bezier(.2,1.4,.4,1)':'cubic-bezier(.23,1,.32,1)'});
+ later(180,()=>{A(pt,[{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{duration:220,easing:'cubic-bezier(.23,1,.32,1)'});const b=pt.querySelector('b'),t0=performance.now(),d=RM?0:500;(function step(n){const k=d?Math.min(1,(n-t0)/d):1;b.textContent='+'+Math.round(p*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(step)})(t0)});
+ later(320,()=>A(wh,[{opacity:0},{opacity:1}],{duration:200,easing:'ease-out'}));
+ later(560,()=>A(nx,[{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{duration:220,easing:'cubic-bezier(.23,1,.32,1)'}))}
+function run(a){if(a===state)return;state=a;document.querySelectorAll('#ctrl button').forEach(b=>b.classList.toggle('on',b.dataset.a===a));
+ if(a==='q')question(false);else if(a==='low')question(true);else shot(a==='miss'?'miss':+a)}
+document.querySelectorAll('#ctrl button').forEach(b=>b.onclick=()=>{state=null;run(b.dataset.a)});
+$('next').onclick=()=>{state=null;run('q')};
+document.querySelector('.go').onclick=()=>{state=null;run('4')};
+run('q');
+</script>
+</body></html>

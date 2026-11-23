@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clean-ups</title>
+<link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=VT323&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#2a6b3a;color:#fbf6e8;font:400 18px/1.3 VT323,monospace;padding:20px 16px 50px}
+h1{font:400 40px/1 'Jersey 10',sans-serif;color:#f2c230;margin:0 0 6px}h2{font:400 26px/1 'Jersey 10',sans-serif;margin:26px 0 10px}
+.grid{display:flex;flex-wrap:wrap;gap:22px;align-items:flex-start}
+.phone{width:390px;max-width:100%;border:4px solid #000;box-shadow:6px 6px 0 rgba(0,0,0,.35)}
+.lab{font:400 20px/1 'Jersey 10',sans-serif;color:#f2c230;margin:0 0 8px}
+.foot-old{background:#1d1a2b;padding:16px;text-align:center;font-size:15px;line-height:2.1}.foot-old a{color:#fbf6e8;margin:0 6px;text-decoration:underline}
+.foot{background:#1d1a2b;padding:18px 16px}
+.foot .play{display:block;text-align:center;padding:12px;background:#f2c230;color:#1d1a2b;border:3px solid #000;box-shadow:0 4px 0 #000;font:400 22px/1 'Jersey 10',sans-serif;text-decoration:none;margin-bottom:16px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}.cols b{display:block;font:400 18px/1 'Jersey 10',sans-serif;color:#f2c230;margin-bottom:6px}
+.cols a{display:block;color:#fbf6e8;text-decoration:none;padding:6px 0;font-size:18px}
+.soc{display:flex;gap:10px;margin:16px 0 10px}.soc a{flex:1;text-align:center;padding:10px 0;border:2px solid #3b3550;color:#fbf6e8;text-decoration:none}
+.legal{font-size:15px;color:#a49cb8;text-align:center}.legal a{color:#a49cb8;margin:0 6px}
+.board{background:#fbf6e8;color:#1d1a2b;padding:14px}
+.tabs-old{display:flex;gap:4px;flex-wrap:wrap}.tabs-old span{font-size:11px;padding:3px 6px;border:2px solid #000}.tabs-old span.on{background:#f2c230}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);border:3px solid #000}.tabs span{display:flex;align-items:center;justify-content:center;min-height:44px;font:400 17px/1 'Jersey 10',sans-serif;border-right:2px solid #000;text-align:center}.tabs span:last-child{border:0}.tabs span.on{background:#1d1a2b;color:#f2c230}
+.seg{display:flex;margin-top:8px;border:3px solid #000;width:max-content}.seg span{padding:0 16px;min-height:40px;display:flex;align-items:center;font:400 17px 'Jersey 10',sans-serif}.seg span.on{background:#f2c230}
+</style></head><body>
+<h1>Clean-ups</h1>
+<h2>1 · Footer: 26 links in one blob → 4 short groups</h2>
+<div class="grid">
+ <div><div class="lab">Now</div><div class="phone"><div class="foot-old"><a>Submit a question</a><a>Problem with a question</a><a>Contact</a><a>☕ Buy me a coffee</a><a>🎵 TikTok</a><a>📸 Instagram</a><a>in LinkedIn</a><a>r/ Reddit</a><a>We're looking for volunteers! ⚽</a><a>Chairman</a><a>Duels</a><a>Español</a><a>Past answers</a><a>Question archive</a><a>Trivia questions</a><a>Football trivia mistakes</a><a>Games like Football Wordle</a><a>📲 Get the app</a><a>How to play</a><a>About</a><a>Contact page</a><a>Privacy</a><a>Terms</a><a>Supported by relaydle</a></div></div></div>
+ <div><div class="lab">Proposed</div><div class="phone"><div class="foot"><a class="play">Play today's game ▶</a>
+  <div class="cols">
+   <div><b>Games</b><a>Daily 5</a><a>Rosco</a><a>Millions</a><a>Stable Hand</a><a>Duels</a><a>Chairman</a></div>
+   <div><b>Answers & trivia</b><a>Past answers</a><a>Question archive</a><a>Trivia questions</a><a>Common mistakes</a></div>
+   <div><b>Help</b><a>How to play</a><a>Problem with a question</a><a>Submit a question</a><a>Contact</a></div>
+   <div><b>Unicorner</b><a>About</a><a>📲 Get the app</a><a>☕ Buy me a coffee</a><a>Volunteer with us</a></div>
+  </div>
+  <div class="soc"><a>Instagram</a><a>TikTok</a><a>Reddit</a><a>LinkedIn</a></div>
+  <div class="legal"><a>Español</a><a>Português</a>·<a>Privacy</a><a>Terms</a><br>Supported by relaydle</div></div></div></div>
+</div>
+
+<h2>2 · Ranking tabs: 9px text, 20px tall → 44px tap targets</h2>
+<div class="grid">
+ <div><div class="lab">Now</div><div class="phone"><div class="board"><b>UNICORNER LEAGUE</b><div class="tabs-old" style="margin-top:8px"><span class="on">Today</span><span>Week</span><span>Rosco</span><span>Millions</span><span>Stable Hand</span></div></div></div></div>
+ <div><div class="lab">Proposed</div><div class="phone"><div class="board"><b>UNICORNER LEAGUE</b><div class="tabs" style="margin-top:8px"><span class="on">Daily 5</span><span>Rosco</span><span>Millions</span><span>Stable Hand</span><span>Duels</span></div><div class="seg"><span class="on">Today</span><span>Week</span></div></div></div></div>
+</div>
+<p style="max-width:820px">Game picked first (one row, same order as the home page), then Today / Week as a separate switch, like Socials already does. Fixes the mixed list where "Today" and "Week" sat next to game names.</p>
+</body></html>

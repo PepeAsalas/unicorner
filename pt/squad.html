@@ -308,8 +308,8 @@ function drawBoard(d){const g=d.game,rows=d.rows||[];
  $('count').textContent=d.players?`${d.players} ${d.players===1?L('player','jugador',"jogador"):L('players','jugadores',"jogadores")}`:'';
  const mine=d.me&&!rows.some(r=>r.me);const meRow=d.me?{rank:d.me.rank,score:d.me.score,nickname:S.me?.profile?.nickname||L('You','Tú',"Você"),kit:S.me?.profile?.kit,me:true}:null;
  $('pin').hidden=!meRow;if(meRow)$('pin').innerHTML=rowHtml(meRow,g);pinState();
- // summary on the game buttons
- const gs=$('gs-'+g);if(gs)gs.textContent=d.me?L('You: ','Tú: ',"Você: ")+ord(d.me.rank):d.players?d.players+' '+L('playing','jugando',"jogando"):L('No one yet','Aún nadie',"Ninguém ainda")}
+ // summary on the game button (today, everyone), so it matches the other tiles whatever filter is picked
+ const gs=$('gs-'+g);if(gs&&S.scope==='day'&&S.filter==='all')gs.textContent=d.me?L('You: ','Tú: ',"Você: ")+ord(d.me.rank):d.players?d.players+' '+L('playing','jugando',"jogando"):L('No one yet','Aún nadie',"Ninguém ainda")}
 function pinState(){const m=$('mine'),l=$('list');if(!m||$('pin').hidden)return;const a=m.getBoundingClientRect(),b=l.getBoundingClientRect();$('pin').style.visibility=a.top>=b.top&&a.bottom<=b.bottom?'hidden':'visible'}
 $('list').addEventListener('scroll',pinState,{passive:true});
 $('pin').addEventListener('click',()=>{const m=$('mine');if(m)m.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})});
@@ -317,7 +317,7 @@ document.querySelector('.games').addEventListener('click',e=>{const b=e.target.c
 document.querySelector('.seg').addEventListener('click',e=>{const b=e.target.closest('[data-scope]');if(!b||b.dataset.scope===S.scope)return;S.scope=b.dataset.scope;loadBoard()});
 $('filters').addEventListener('click',e=>{const b=e.target.closest('[data-filter]');if(!b||b.dataset.filter===S.filter)return;S.filter=b.dataset.filter;track('squad_filter',{f:S.filter==='all'||S.filter==='friends'?S.filter:'league'});loadBoard()});
 // fill the little "you: 3rd" line under the other two games
-async function gameHints(){for(const g of Object.keys(GAMES)){if(g===S.game)continue;try{const d=await call('sq_board',{p_game:g,p_scope:'day',p_filter:'all'});const el=$('gs-'+g);if(el)el.textContent=d.me?L('You: ','Tú: ',"Você: ")+ord(d.me.rank):d.players?d.players+' '+L('playing','jugando',"jogando"):L('No one yet','Aún nadie',"Ninguém ainda")}catch{}}}
+async function gameHints(){for(const g of Object.keys(GAMES)){try{const d=await call('sq_board',{p_game:g,p_scope:'day',p_filter:'all'});const el=$('gs-'+g);if(el)el.textContent=d.me?L('You: ','Tú: ',"Você: ")+ord(d.me.rank):d.players?d.players+' '+L('playing','jugando',"jogando"):L('No one yet','Aún nadie',"Ninguém ainda")}catch{}}}
 
 // ── friends ──
 function signInCard(what){return`<div class="signin"><p>${what}</p><a class="btn full" data-signin href="${signinUrl()}">${L('Sign in · free','Inicia sesión · gratis',"Entrar · grátis")}</a><p class="note">${L('With Google or an email code. Your score today comes with you.','Con Google o un código por email. Tu puntuación de hoy se queda contigo.',"Com Google ou um código por email. Sua pontuação de hoje vem junto.")}</p></div>`}
@@ -460,5 +460,6 @@ async function inviteFromLink(){const q=new URLSearchParams(location.search),cod
 </script>
 <script src="/notify.js" defer></script>
 <script src="/chat.js" defer></script>
+<script src="/pixicons.js" defer></script>
 </body>
 </html>

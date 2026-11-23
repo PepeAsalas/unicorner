@@ -62,10 +62,15 @@ def build():
         sub_re(rf'<meta name="{k}" content="[^"]*">', f'<meta name="{k}" content="{v}">')
     sub('<meta property="og:locale" content="en_GB">', '<meta property="og:locale" content="pt_BR">')
     sub('<meta property="og:locale:alternate" content="pt_BR">', '<meta property="og:locale:alternate" content="en_GB">')
+    sub('<a class="privacy-link" href="/questions/">Question archive</a>', '<a class="privacy-link" href="/pt/perguntas/">Arquivo de perguntas</a>')
     sub('<a class="privacy-link" href="/how-to-play.html">How to play</a>', '<a class="privacy-link" href="/pt/como-jogar.html">Como jogar</a>')
     sub('<a class="privacy-link lang-link" href="/es/" hreflang="es">Español</a>', '<a class="privacy-link lang-link" href="/" hreflang="en">English</a>')
+    sub('<a class="privacy-link lang-link2" href="/pt/" hreflang="pt-BR">Português</a>', '<a class="privacy-link lang-link2" href="/es/" hreflang="es">Español</a>')
+    s = re.sub(r'<a class="privacy-link ft-g" href="/([\w.]*)">', r'<a class="privacy-link ft-g" href="/pt/\1">', s)  # footer game links
 
     s = bake(s, pt)
+    for en_href, pt_href in (('/answers/', '/pt/respostas/'), ('/football-trivia-questions/', '/pt/perguntas-futebol/'), ('/football-trivia-mistakes/', '/pt/erros-futebol/')):
+        s = s.replace(f'<a class="privacy-link" href="{en_href}">', f'<a class="privacy-link" href="{pt_href}">', 1)
     body = s
     q = re.findall(r'<details><summary>(.*?)</summary><p>(.*?)</p></details>', body)
     q = [x for x in q if '${' not in x[0]]

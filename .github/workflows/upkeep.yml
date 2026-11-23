@@ -1,7 +1,7 @@
 name: Upkeep
 
 # Daily: health check of the schedule and live site, and fresh sitemap dates.
-# Friday: saves the week's rejected daily-game answers for the Saturday routine to review.
+# Every evening: saves the last 2 days of rejected answers from every game for the daily feedback routine.
 # Monday: weekly report as a GitHub issue (GitHub emails it to the owner).
 # Sunday night: moves events older than 21 days to private Supabase Storage (bucket events-archive) and
 # deletes them from the database. Needs the repository secret SUPABASE_SERVICE_ROLE_KEY.
@@ -14,7 +14,7 @@ on:
   schedule:
     - cron: '7 23 * * *'   # answers page, just after midnight Amsterdam (GitHub often starts it hours late)
     - cron: '41 4 * * *'   # health, every day
-    - cron: '13 20 * * 5'  # rejections, Friday evening
+    - cron: '13 20 * * *'  # rejections, every evening
     - cron: '13 6 * * 1'   # report, Monday morning
     - cron: '27 2 * * 0'   # archive, Sunday night
 
@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
-      JOB: ${{ github.event.inputs.job || (github.event.schedule == '13 20 * * 5' && 'rejections') || (github.event.schedule == '13 6 * * 1' && 'report') || (github.event.schedule == '27 2 * * 0' && 'archive') || (github.event.schedule == '7 23 * * *' && 'answers') || 'health' }}
+      JOB: ${{ github.event.inputs.job || (github.event.schedule == '13 20 * * *' && 'rejections') || (github.event.schedule == '13 6 * * 1' && 'report') || (github.event.schedule == '27 2 * * 0' && 'archive') || (github.event.schedule == '7 23 * * *' && 'answers') || 'health' }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -50,11 +50,11 @@ jobs:
         run: python scripts/upkeep.py health | tee health.txt
       - name: Build the past answers page
         if: env.JOB == 'health' || env.JOB == 'answers'
-        run: python scripts/build_answers.py && python scripts/build_trivia.py && python scripts/build_myths.py && python scripts/translate_bank_es.py && python scripts/build_rosco.py 3 && python scripts/explain_questions.py
+        run: python scripts/build_answers.py && python scripts/build_trivia.py && python scripts/build_myths.py && python scripts/translate_bank_es.py && python scripts/translate_bank_pt.py && python scripts/build_rosco.py 3 && (python scripts/check_rosco.py --fix || true) && python scripts/explain_questions.py && python scripts/build_archive.py
       - name: Commit sitemap dates and answers page
         if: env.JOB == 'health' || env.JOB == 'answers'
         run: |
-          git add sitemap.xml daily/ millon/ answers/ football-trivia-questions/ football-trivia-mistakes/ es/respuestas/ es/preguntas-futbol/ es/errores-futbol/ rosco/ duel/bank.json
+          git add sitemap.xml daily/ millon/ answers/ football-trivia-questions/ football-trivia-mistakes/ es/respuestas/ es/preguntas-futbol/ es/errores-futbol/ rosco/ duel/bank.json questions/ es/preguntas/ pt/perguntas/ pt/respostas/ sitemap-archive.xml pt/
           if ! git diff --cached --quiet; then git commit -m 'Refresh sitemap dates and past answers' && git pull --rebase origin main && git push origin HEAD:main; fi
       - name: Report a failed health check
         if: env.JOB == 'health' && steps.health.outcome == 'failure'

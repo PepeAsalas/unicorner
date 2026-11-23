@@ -242,7 +242,9 @@ function forms(name,aliases=[]){const out=new Set([norm(name),...aliases.map(nor
  const full=norm(name).split(' ');if(full.length>1)out.add(full.slice(1).join(' '));return[...out].filter(Boolean)}
 function lev(a,b){if(Math.abs(a.length-b.length)>2)return 3;const d=Array.from({length:a.length+1},(_,i)=>[i,...Array(b.length).fill(0)]);for(let j=1;j<=b.length;j++)d[0][j]=j;
  for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++){d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));if(i>1&&j>1&&a[i-1]===b[j-2]&&a[i-2]===b[j-1])d[i][j]=Math.min(d[i][j],d[i-2][j-2]+1)}return d[a.length][b.length]}
-const tol=f=>f.length>=10?2:1,hit=(typed,fs)=>fs.some(f=>f===typed||(typed.length>=5&&f.length>=5&&lev(typed,f)<=tol(f)));
+// 'Atlético de Madrid' = 'Atlético Madrid'; a short typo counts from 4 letters (sgna = Sagna)
+const dd=s=>s.replace(/\b(de|del|of|the)\b/g,' ').replace(/\s+/g,' ').trim();
+const tol=f=>f.length>=10?2:1,hit=(typed,fs)=>fs.some(f=>f===typed||dd(f)===dd(typed)||(typed.length>=4&&f.length>=5&&lev(typed,f)<=tol(f)));
 
 // ── state ──
 let R=null,S=null,tick=0,CH=null;
@@ -317,6 +319,11 @@ function answer(){const q=cur(),raw=$('in').value.trim();if(!q)return;if(!raw)re
   const near=n=>{const w=fw(n);return w&&(w===t||(t.length>=5&&lev(t,w)<=tol(w)))},inA=q.answers.filter(a=>near(a.name)),inO=(q.others||[]).filter(near);
   if(inA.length+inO.length===1){if(inA.length&&(!con||okf(inA[0]).length&&fw(inA[0].name).includes(L0)))good=inA[0];else firstOther=true}
   else if(inA.length+inO.length>1){$('var').textContent=L('More than one club starts like that. Type the full name!','Hay más de un club que empieza así. ¡Escribe el nombre completo!',"Mais de um clube começa assim. Digite o nome completo!");host.play.set('think');SFX.var();shake();$('in').select();return}}
+ // clubs: 'starts with' also counts the full name (Real Madrid for R, even though we file it under M)
+ if(!good&&!con&&q.answer_type!=='player'&&q.answer_type!=='manager'){const o=(q.others||[]).find(n=>norm(n).startsWith(L0)&&hit(t,forms(n)));if(o)good={name:o}}
+ // the start of a long surname is enough when only one name on the list starts that way (lewa = Lewandowski)
+ if(!good&&!firstOther&&t.length>=4&&!t.includes(' ')){const pre=n=>forms(n.name||n,n.aliases||[]).some(f=>f.split(' ').some(w=>w.length>=t.length+3&&w.startsWith(t)));
+  const inA=q.answers.filter(pre),inO=(q.others||[]).filter(pre);if(inA.length===1&&!inO.length&&(!con||t.includes(L0)&&okf(inA[0]).some(f=>f.includes(L0))))good=inA[0]}
  if(good){S.res[q.letter]='ok';S.typed[q.letter]=good.name;S.run=(S.run||0)+1;S.miss=0;react(S.run>=5&&S.run%5===0?'excited':S.run>=3?'laugh':'happy-1',(S.run>=3?L(S.run+' in a row! ','¡'+S.run+' seguidas! ',S.run+' seguidas! '):'')+pick(LINES.ok)+' '+good.name);popLetter(q.letter);(S.run>=3&&S.run%3===0?SFX.streak:SFX.ok)();track('rosco_answer',{letter:q.letter,ok:true})}
  else if(firstOther||(q.others||[]).some(n=>hit(t,forms(n)))||(con&&q.answers.some(a=>hit(t,forms(a.name,a.aliases))))){$('var').textContent=q.mode==='contains'?L(`VAR: right answer, but there's no ${q.letter} in it. Try the full name or another one!`,`VAR: respuesta válida, pero no lleva la ${q.letter}. ¡Prueba el nombre completo u otra!`,`VAR: resposta certa, mas não tem ${q.letter} nela. Tente o nome completo ou outra!`):L(`VAR: right answer, but it doesn't start with ${q.letter}. Try another!`,`VAR: respuesta válida, pero no empieza por la ${q.letter}. ¡Prueba otra!`,`VAR: resposta certa, mas não começa com ${q.letter}. Tente outra!`);host.play.set('think');SFX.var();shake();$('in').select();return}
  else{S.res[q.letter]='no';S.typed[q.letter]=raw;track('rosco_reject',{letter:q.letter,typed:raw.slice(0,60),prompt:q.prompt.slice(0,120),mode:q.mode});S.run=0;S.miss=(S.miss||0)+1;react(S.miss>=3?'facepalm':S.miss===2?'annoyed':'sad',pick(LINES.no(q.answers[0].name)));shake();SFX.no();track('rosco_answer',{letter:q.letter,ok:false})}
@@ -395,4 +402,5 @@ $('shareimg').onclick=async()=>{const b=$('shareimg');b.disabled=true;track('ros
 load();
 </script><script src="/chat.js" defer></script>
 <script src="/kb.js" data-input="#in" data-top=".host" data-clock="#clock" defer></script>
+<script src="/pixicons.js" defer></script>
 </body></html>

@@ -16,7 +16,7 @@ TAG = '''<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-PPT4F
   gtag('js', new Date());
 </script>
 '''
-SKIP = ('mockups' + os.sep, 'node_modules' + os.sep, '.git' + os.sep)
+SKIP = ('mockups' + os.sep, 'emails' + os.sep, 'node_modules' + os.sep, '.git' + os.sep)  # emails: no scripts in email HTML
 
 
 def main():

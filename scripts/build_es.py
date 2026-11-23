@@ -65,7 +65,9 @@ def build():
     s = SRC.read_text(encoding='utf-8')
     s = s.replace('<a class="privacy-link lang-link" href="/es/" hreflang="es">Español</a>', '<a class="privacy-link lang-link" href="/" hreflang="en">English</a>', 1)
     s = s.replace('href="/answers/">Past answers</a>', 'href="/es/respuestas/">Past answers</a>', 1).replace('href="/football-trivia-questions/">Trivia questions</a>', 'href="/es/preguntas-futbol/">Preguntas de fútbol</a>', 1).replace('href="/how-to-play.html">How to play</a>', 'href="/es/como-jugar.html">Cómo se juega</a>', 1).replace('>📲 Get the app</a>', '>📲 Descarga la app</a>', 1).replace('href="/football-trivia-mistakes/">Football trivia mistakes</a>', 'href="/es/errores-futbol/">Errores de fútbol</a>', 1)
-    s = s.replace('>Past answers</a>', '>Respuestas anteriores</a>', 1).replace('href="/duel.html">Duels</a>', 'href="/duel.html">Duelos</a>', 1)
+    s = s.replace('>Past answers</a>', '>Respuestas anteriores</a>', 1)
+    s = re.sub(r'<a class="privacy-link ft-g" href="/([\w.]*)">', r'<a class="privacy-link ft-g" href="/es/\1">', s)  # footer game links
+    s = s.replace('href="/questions/">Question archive</a>', 'href="/es/preguntas/">Archivo de preguntas</a>', 1).replace('href="/duel.html">Duels</a>', 'href="/duel.html">Duelos</a>', 1)
 
     def sub(old, new, count=1):
         nonlocal s
@@ -223,6 +225,13 @@ if __name__ == '__main__':
     h = re.sub(r'<meta name="description" content="[^"]*">', '<meta name="description" content="Mano de Cuadra: el blackjack futbolero diario de Horacio Herradura. Cada respuesta es una carta que vale según su rareza. Acércate al objetivo, gánale a la casa y no te pases.">', h, count=1)
     h = h.replace('<link rel="canonical" href="https://unicornergame.lol/stablehand.html">', '<link rel="canonical" href="https://unicornergame.lol/es/stablehand.html">', 1)
     (SRC.parent / 'es' / 'stablehand.html').write_text(h, encoding='utf-8')
+    # bake the Spanish static text (data-es) into the Spanish copies, so search engines read it without running scripts
+    import html as _h
+    for name in ('rosco', 'millon', 'stablehand'):
+        f = SRC.parent / 'es' / f'{name}.html'
+        x = f.read_text(encoding='utf-8')
+        x = re.sub(r'<(\w+)((?:\s+[\w-]+="[^"]*")*?) data-es="([^"]*)"((?:\s+[\w-]+="[^"]*")*)\s*>(.*?)</\1>', lambda m: f'<{m.group(1)}{m.group(2)} data-es="{m.group(3)}"{m.group(4)}>{_h.unescape(m.group(3))}</{m.group(1)}>', x, flags=re.S)
+        f.write_text(x, encoding='utf-8')
     # the same pages in Brazilian Portuguese (each switches language by its /pt/ path)
     for name in ('rosco', 'millon', 'squad', 'stablehand'):
         x = (SRC.parent / f'{name}.html').read_text(encoding='utf-8').replace('<html lang="en">', '<html lang="pt-BR">', 1)
@@ -232,7 +241,7 @@ if __name__ == '__main__':
             x = x.replace('<link rel="canonical" href="https://unicornergame.lol/squad.html">', '<link rel="canonical" href="https://unicornergame.lol/pt/squad.html">', 1)
         # bake the Portuguese static text (data-pt) into the HTML, so search engines read it without running scripts
         import html as _h
-        x = re.sub(r'<(\w+)([^>]*?) data-pt="([^"]*)"([^>]*)>(.*?)</\1>', lambda m: f'<{m.group(1)}{m.group(2)} data-pt="{m.group(3)}"{m.group(4)}>{_h.unescape(m.group(3))}</{m.group(1)}>', x, flags=re.S)
+        x = re.sub(r'<(\w+)((?:\s+[\w-]+="[^"]*")*?) data-pt="([^"]*)"((?:\s+[\w-]+="[^"]*")*)\s*>(.*?)</\1>', lambda m: f'<{m.group(1)}{m.group(2)} data-pt="{m.group(3)}"{m.group(4)}>{_h.unescape(m.group(3))}</{m.group(1)}>', x, flags=re.S)
         (SRC.parent / 'pt' / f'{name}.html').write_text(x, encoding='utf-8')
     seo_games()
     import add_gtag  # Google tag on every page, regenerated ones included
