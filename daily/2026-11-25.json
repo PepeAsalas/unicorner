@@ -595,9 +595,9 @@
       "id": "f136",
       "_id": "f136",
       "prompt": "Name a manager of the Argentina national team",
-      "subtitle": "Head coaches appointed from 1974 (Cap) to 2018 (Scaloni)",
+      "subtitle": "Head coaches appointed from 1974 to 2018",
       "prompt_es": "Nombra un seleccionador de Argentina",
-      "subtitle_es": "Seleccionadores nombrados de 1974 (Cap) a 2018 (Scaloni)",
+      "subtitle_es": "Seleccionadores nombrados de 1974 a 2018",
       "difficulty": "easy",
       "answer_type": "manager",
       "format_family": "national_team_managers",
@@ -744,7 +744,7 @@
         }
       ],
       "prompt_pt": "Cite um técnico da seleção argentina",
-      "subtitle_pt": "Técnicos contratados de 1974 (Cap) a 2018 (Scaloni)"
+      "subtitle_pt": "Técnicos contratados de 1974 a 2018"
     },
     {
       "id": "x003r1",

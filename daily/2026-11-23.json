@@ -961,9 +961,9 @@
       "id": "f128",
       "_id": "f128",
       "prompt": "Name a manager of Juventus",
-      "subtitle": "Head coaches appointed from 1990 (Maifredi) to March 2025 (Tudor), caretakers included",
+      "subtitle": "Head coaches appointed from 1990 to March 2025, caretakers included",
       "prompt_es": "Nombra un entrenador de la Juventus",
-      "subtitle_es": "Entrenadores nombrados de 1990 (Maifredi) a marzo de 2025 (Tudor), interinos incluidos",
+      "subtitle_es": "Entrenadores nombrados desde 1990 hasta marzo de 2025, interinos incluidos",
       "difficulty": "easy",
       "answer_type": "manager",
       "format_family": "club_managers",
@@ -1133,7 +1133,7 @@
         }
       ],
       "prompt_pt": "Cite um técnico da Juventus",
-      "subtitle_pt": "Técnicos contratados de 1990 (Maifredi) a março de 2025 (Tudor), interinos incluídos"
+      "subtitle_pt": "Técnicos nomeados de 1990 a março de 2025, interinos incluídos"
     }
   ]
 }

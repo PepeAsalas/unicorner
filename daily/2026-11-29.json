@@ -1047,9 +1047,9 @@
       "id": "f158",
       "_id": "f158",
       "prompt": "Name a manager of Atlético Madrid",
-      "subtitle": "Appointed from 1987 (Aragonés) to 2011 (Simeone), caretakers included",
+      "subtitle": "Appointed from 1987 to 2011, caretakers included",
       "prompt_es": "Nombra un entrenador del Atlético de Madrid",
-      "subtitle_es": "Nombrados de 1987 (Aragonés) a 2011 (Simeone), interinos incluidos",
+      "subtitle_es": "Nombrados de 1987 a 2011, interinos incluidos",
       "difficulty": "hard",
       "answer_type": "manager",
       "format_family": "club_managers",
@@ -1352,7 +1352,7 @@
         }
       ],
       "prompt_pt": "Cite um técnico do Atlético de Madrid",
-      "subtitle_pt": "Contratados de 1987 (Aragonés) a 2011 (Simeone), interinos incluídos"
+      "subtitle_pt": "Contratados de 1987 a 2011, interinos incluídos"
     }
   ]
 }

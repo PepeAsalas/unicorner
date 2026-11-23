@@ -144,9 +144,9 @@
       "id": "f141",
       "_id": "f141",
       "prompt": "Name a country at the 2023 Women's World Cup",
-      "subtitle": "The 32 teams at the finals in Australia and New Zealand",
+      "subtitle": "The 32 teams at the finals",
       "prompt_es": "Nombra una selección del Mundial femenino 2023",
-      "subtitle_es": "Las 32 selecciones de la fase final en Australia y Nueva Zelanda",
+      "subtitle_es": "Las 32 selecciones de la fase final",
       "difficulty": "easy",
       "answer_type": "country",
       "format_family": "tournament_country",
@@ -473,7 +473,7 @@
         }
       ],
       "prompt_pt": "Cite um país da Copa do Mundo Feminina de 2023",
-      "subtitle_pt": "As 32 seleções da fase final na Austrália e na Nova Zelândia"
+      "subtitle_pt": "As 32 seleções da fase final"
     },
     {
       "id": "f144",

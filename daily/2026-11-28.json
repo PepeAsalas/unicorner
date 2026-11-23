@@ -6,7 +6,7 @@
       "id": "h016r1",
       "_id": "h016r1",
       "prompt": "Name a country that played at Euro 2024",
-      "subtitle": "All 24 teams at the finals in Germany",
+      "subtitle": "All 24 teams at the finals",
       "difficulty": "easy",
       "answer_type": "country",
       "format_family": "tournament_participant_country",
@@ -235,7 +235,7 @@
       ],
       "answer_count": 24,
       "prompt_es": "Nombra una selección que jugó la Euro 2024",
-      "subtitle_es": "Las 24 selecciones de la fase final en Alemania",
+      "subtitle_es": "Las 24 selecciones de la fase final",
       "traps": [
         {
           "name": "Bosnia and Herzegovina",
@@ -316,7 +316,7 @@
         }
       ],
       "prompt_pt": "Cite uma seleção que jogou a Euro 2024",
-      "subtitle_pt": "As 24 seleções da fase final na Alemanha",
+      "subtitle_pt": "As 24 seleções da fase final",
       "reuse_of": "h016",
       "first_used": "2026-10-15"
     },
