@@ -746,14 +746,14 @@
       "id": "f133",
       "_id": "f133",
       "prompt": "Name a manager who won the Copa del Rey",
-      "subtitle": "Winning coaches of the finals from 2000 to 2025",
+      "subtitle": "Winning coaches of the finals from 2000 to 2026",
       "prompt_es": "Nombra un entrenador que ganó la Copa del Rey",
-      "subtitle_es": "Entrenadores campeones de las finales de 2000 a 2025",
+      "subtitle_es": "Entrenadores campeones de las finales de 2000 a 2026",
       "difficulty": "medium",
       "answer_type": "manager",
       "format_family": "cup_winner_manager",
       "scoring_version": 2,
-      "answer_count": 20,
+      "answer_count": 21,
       "clash_note": "",
       "answers": [
         {
@@ -912,6 +912,14 @@
             "Flick"
           ],
           "fame": 4
+        },
+        {
+          "name": "Pellegrino Matarazzo",
+          "aliases": [
+            "Matarazzo",
+            "Rino Matarazzo"
+          ],
+          "fame": 2
         }
       ],
       "traps": [
@@ -945,7 +953,7 @@
         }
       ],
       "prompt_pt": "Cite um técnico que ganhou a Copa do Rei",
-      "subtitle_pt": "Técnicos campeões das finais de 2000 a 2025"
+      "subtitle_pt": "Técnicos campeões das finais de 2000 a 2026"
     },
     {
       "id": "h002r1",
