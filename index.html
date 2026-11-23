@@ -2061,12 +2061,19 @@ body.playing #screen .card .mute{font-size:22px!important;padding:12px 16px!impo
 body.playing #screen .card #in{font-size:32px!important;height:76px!important}
 body.playing #screen .card .submitbtn{font-size:28px!important;height:76px!important;padding:0 34px!important}}</style>
 <style>/* first-time 'come back tomorrow' card (experiment B) */
-.tmrw{margin:14px 0;padding:16px;background:#1d1a2b;color:#fbf6e8;border:4px solid #f2c230;box-shadow:5px 5px 0 rgba(0,0,0,.35);text-align:center}
-.tmrw-h{font:400 30px/1.05 'Jersey 10',sans-serif;color:#f2c230;letter-spacing:.02em}
-.tmrw p{margin:8px 0 12px;font:400 20px/1.25 VT323,monospace;color:#fbf6e8}
-.tmrw-d{display:inline-flex;flex-direction:column;gap:2px;padding:10px 18px;background:#fbf6e8;color:#1d1a2b;border:3px solid #000;margin-bottom:12px}
-.tmrw-d b{font:400 26px/1 'Jersey 10',sans-serif}.tmrw-d small{font:400 16px/1 VT323,monospace;color:#6b6480}
-.tmrw .tmrw-r{display:block;margin:0;background:none;border:0;padding:0}.tmrw button{width:100%;padding:12px;background:#f2c230;color:#1d1a2b;border:3px solid #000;box-shadow:0 4px 0 #000;font:400 22px/1 'Jersey 10',sans-serif;cursor:pointer}</style>
+.tmrw{margin:14px 0;padding:18px 16px 16px;background:#1d1a2b;color:#fbf6e8;border:4px solid #000;box-shadow:5px 5px 0 rgba(0,0,0,.35);text-align:center}
+.tmrw-eye{display:block;font:400 14px/1 'Jersey 10',sans-serif;letter-spacing:.2em;color:#9c96b8;margin-bottom:10px}
+.tmrw-track{display:flex;justify-content:center;gap:6px;margin-bottom:14px}
+.tmrw-track>i{width:32px;height:32px;display:grid;place-items:center;border:3px solid #3a3552;color:#5d577a;font:400 18px/1 'Jersey 10',sans-serif;font-style:normal}
+.tmrw-track>i.on{background:#f2c230;border-color:#000}.tmrw-track>i.on .pixel-flame{margin:0}
+.tmrw-track>i.next{border-color:#f2c230;color:#f2c230;animation:tmrwPulse 1.6s ease-in-out infinite}
+@keyframes tmrwPulse{50%{box-shadow:0 0 0 3px rgba(242,194,48,.35)}}
+@media (prefers-reduced-motion:reduce){.tmrw-track>i.next{animation:none}}
+.tmrw .tmrw-h{margin:0;font:400 30px/1.05 'Jersey 10',sans-serif;color:#fbf6e8}
+.tmrw .tmrw-s{margin:6px 0 0;font:400 19px/1.2 VT323,monospace;color:#b9b4cf}
+.tmrw .tmrw-r{display:block;margin:14px 0 0;background:none;border:0;padding:0}
+.tmrw #remind-btn,.tmrw .tmrw-btn{width:100%;padding:12px 0 9px;background:#f2c230;color:#1d1a2b;border:3px solid #000;box-shadow:3px 3px 0 #000;font:400 20px/1 'Jersey 10',sans-serif;letter-spacing:.06em;cursor:pointer;transition:transform 120ms ease-out}
+.tmrw #remind-btn:active,.tmrw .tmrw-btn:active{transform:scale(.97)}
 <style>/* bring a mate */
 .ref-card{margin-top:12px;display:flex;gap:10px;align-items:center;background:#1d1a2b;border:3px dashed #f2c230;padding:10px;text-align:left}
 .ref-card i{flex:none;width:64px;height:64px;background-size:contain;background-repeat:no-repeat;image-rendering:pixelated}
@@ -3119,14 +3126,15 @@ function firstGameAB(){if(!firstGame()||document.body.classList.contains('inf-mo
  try{v=localStorage.getItem('uc-ab-tmrw');if(v!=='A'&&v!=='B'){v=Math.random()<.5?'A':'B';localStorage.setItem('uc-ab-tmrw',v)}
   if(!localStorage.getItem('uc-ab-tmrw-seen')){localStorage.setItem('uc-ab-tmrw-seen','1');track('ab_tomorrow',{variant:v})}}catch{}
  return v}
-function tomorrowCard(){const t=new Date(amsterdamDay()+'T12:00:00Z');t.setUTCDate(t.getUTCDate()+1);
- const day=t.toLocaleDateString(LOC,{weekday:'long',day:'numeric',month:'long',timeZone:'UTC'});
+function tomorrowCard(){
  const push=pushOK()&&Notification.permission!=='denied'&&!(pushEP()&&Notification.permission==='granted');
  const home=!push&&typeof iosSafari==='function'&&iosSafari()&&!matchMedia('(display-mode: standalone)').matches;
- return`<div class="tmrw"><div class="tmrw-h"><i class="pixel-flame flicker" aria-hidden="true"></i> ${L('Your streak starts today!','¡Tu racha empieza hoy!',"Sua sequência começa hoje!")}</div>
- <p>${L('Come back tomorrow for 5 new football questions and make it 2 days in a row.','Vuelve mañana: 5 preguntas nuevas de fútbol y llevarás 2 días seguidos.',"Volte amanhã para 5 perguntas novas de futebol e chegue a 2 dias seguidos.")}</p>
- <div class="tmrw-d"><small>${L("Tomorrow's game",'El partido de mañana',"O jogo de amanhã")}</small><b>${day}</b><small>${L('New questions at midnight','Preguntas nuevas a medianoche',"Perguntas novas à meia-noite")}</small></div>
- ${push?`<div class="remind tmrw-r" id="remind"><button type="button" id="remind-btn">🔔 ${L('Remind me tomorrow','Avísame mañana',"Me lembre amanhã")}</button></div>`:home?`<button type="button" class="tmrw-r" data-app-install>📲 ${L('Add Unicorner to your home screen','Añade Unicorner a tu pantalla de inicio',"Adicione o Unicorner à tela inicial")}</button>`:''}</div>`}
+ // one focal point: the streak track (today lit, tomorrow waiting), one line, one button
+ return`<div class="tmrw"><span class="tmrw-eye">${L('DAY 1','DÍA 1',"DIA 1")}</span>
+ <div class="tmrw-track" aria-hidden="true"><i class="on"><i class="pixel-flame"></i></i><i class="next">2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i></div>
+ <p class="tmrw-h">${L('See you tomorrow','Nos vemos mañana',"Até amanhã")}</p>
+ <p class="tmrw-s">${L('5 new questions at midnight','5 preguntas nuevas a medianoche',"5 perguntas novas à meia-noite")}</p>
+ ${push?`<div class="remind tmrw-r" id="remind"><button type="button" id="remind-btn">${L('Remind me','Avísame',"Me lembre")}</button></div>`:home?`<button type="button" class="tmrw-r tmrw-btn" data-app-install>${L('Add to home screen','Añadir a pantalla de inicio',"Adicionar à tela inicial")}</button>`:''}</div>`}
 function remindHTML(){if(!pushOK()||Notification.permission==='denied')return'';const on=!!pushEP()&&Notification.permission==='granted';if(on)return'';
  return`<div class="remind${on?' on':''}" id="remind"><span>🔔 ${on?L("We'll remind you in the evening if you haven't played, so your streak doesn't end.",'Te avisaremos por la tarde si aún no has jugado, para que no pierdas la racha.',"Vamos te lembrar à noite se você não tiver jogado, pra sua sequência não acabar."):L('Get a reminder in the evening if you haven\'t played yet, so your streak never ends.','Recibe un aviso por la tarde si aún no has jugado, para que tu racha no se corte.',"Receba um lembrete à noite se ainda não jogou, pra sua sequência nunca acabar.")}</span><button type="button" id="remind-btn">${on?L('Turn off','Desactivar',"Desativar"):L('Remind me','Avísame',"Me lembre")}</button></div>`}
 // key change: a sign-up made with an older key is renewed with the current one, keeping its streak and day
