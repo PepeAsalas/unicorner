@@ -255,17 +255,19 @@ html[lang=es] .sp-en,html:not([lang=es]) .sp-es{display:none}
 /* Christmas loading screen: night sky, snow on the logo, Reindeer pulling Horacio's sleigh */
 .sp-sl,.sp-xen,.sp-xes{display:none}
 html.xm .sp-t{position:relative}
-html.xm .sp-t{font-size:0;color:transparent;text-shadow:none;width:min(72vw,440px);aspect-ratio:4/1;background:url(/xmas/logo-xmas.png) center/contain no-repeat;image-rendering:pixelated}
+html.xm .sp-t{opacity:1!important;font-size:0;color:transparent;text-shadow:none;width:min(58vw,330px);aspect-ratio:4/1;background:url(/xmas/logo-xmas.png) center/contain no-repeat;image-rendering:pixelated}
 html.xm .sp-run{height:176px}
 html.xm .sp-fill{background:repeating-linear-gradient(-45deg,#d62828 0 10px,#fff 10px 20px)}
 html.xm .sp-u{background-image:url(/xmas/reindeer-run-0.png);animation:spxrun .36s steps(1) infinite,spxfloat 1.6s ease-in-out -.25s infinite}
 html.xm .sp-sl{display:block;position:absolute;right:26px;bottom:2px;width:176px;height:132px;background:url(/xmas/sleigh-a.png) center/contain no-repeat;image-rendering:pixelated;animation:spxfloat 1.6s ease-in-out infinite}
 html.xm .sp-sl:before,html.xm .sp-sl:after{content:"";position:absolute;right:-40px;bottom:61px;width:44px;height:2px;background:#1d1a2b;transform-origin:left;transform:rotate(-4deg)}
 html.xm .sp-sl:after{bottom:57px;transform:rotate(-1deg)}
-html.xm .sp-fill{animation:spxfill 5s cubic-bezier(.25,.55,.3,1) forwards}
-html.xm .sp.done .sp-fill{transition:width .6s cubic-bezier(.6,0,.15,1)}
+/* moved with transform only (no width changes), so it stays smooth while the page is busy loading */
+html.xm .sp-run{clip-path:inset(-80px -400px -80px 3px)}
+html.xm .sp-fill{width:100%;transform:translateX(-97%);animation:spxmove 5s cubic-bezier(.25,.55,.3,1) forwards;will-change:transform}
+html.xm .sp.done .sp-fill{width:100%;transform:none;transition:transform .6s cubic-bezier(.6,0,.15,1)}
 @keyframes spxrun{50%{background-image:url(/xmas/reindeer-run-1.png)}}
-@keyframes spxfloat{50%{translate:0 -4px}}@keyframes spxfill{from{width:3%}to{width:86%}}
+@keyframes spxfloat{50%{translate:0 -4px}}@keyframes spxmove{from{transform:translateX(-97%)}to{transform:translateX(-14%)}}
 html.xm .sp-en,html.xm .sp-es{display:none}
 html.xm:not([lang=es]) .sp-xen,html.xm[lang=es] .sp-xes{display:inline}
 @media (prefers-reduced-motion:reduce){html.xm .sp-u,html.xm .sp-sl{animation:none}}
@@ -2106,7 +2108,7 @@ body.playing #screen .card .submitbtn{font-size:28px!important;height:76px!impor
 window.ucSplash=new Promise(res=>{const t0=performance.now(),sp=document.getElementById('sp');let gone=false;
  // show the words once the pixel font is in, so they never swap from a plain font
  const fin=()=>sp.classList.add('f');try{Promise.race([Promise.all([document.fonts.load('40px "Jersey 10"'),document.fonts.load('15px "Silkscreen"')]),new Promise(r=>setTimeout(r,1200))]).then(fin,fin)}catch(e){fin()}
- const lift=()=>{if(gone)return;gone=true;const xm=document.documentElement.classList.contains('xm'),fl=sp.querySelector('.sp-fill');if(fl){fl.style.width=getComputedStyle(fl).width;fl.style.animation='none';void fl.offsetWidth;fl.style.width=''}sp.classList.add('done');setTimeout(()=>{sp.classList.add('out');res();setTimeout(()=>sp.remove(),500)},xm?640:320)};
+ const lift=()=>{if(gone)return;gone=true;const xm=document.documentElement.classList.contains('xm'),fl=sp.querySelector('.sp-fill');if(fl){const p=xm?'transform':'width';fl.style[p]=getComputedStyle(fl)[p];fl.style.animation='none';void fl.offsetWidth;fl.style[p]=''}sp.classList.add('done');setTimeout(()=>{sp.classList.add('out');res();setTimeout(()=>sp.remove(),500)},xm?640:320)};
  const ready=()=>{const fonts=document.fonts?Promise.race([document.fonts.ready,new Promise(r=>setTimeout(r,2500))]):Promise.resolve();
   fonts.then(()=>setTimeout(lift,Math.max(0,1100-(performance.now()-t0))))};
  if(document.readyState!=='loading')ready();else addEventListener('DOMContentLoaded',ready,{once:true});
