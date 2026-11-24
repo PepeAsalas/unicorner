@@ -254,8 +254,6 @@ html[lang=es] .sp-en,html:not([lang=es]) .sp-es{display:none}
 @media (prefers-reduced-motion:reduce){.sp-u,.sp-s{animation:none}}
 /* Christmas loading screen: night sky, snow on the logo, Reindeer pulling Horacio's sleigh */
 .sp-sl,.sp-xen,.sp-xes{display:none}
-html.xm .sp{background:radial-gradient(ellipse at 50% 38%,#24407a 0%,#16295a 55%,#0d1838 100%);color:#fff}
-html.xm .sp-s{background-image:radial-gradient(2px 2px at 12% 22%,#fff 50%,transparent 51%),radial-gradient(3px 3px at 82% 18%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 28% 74%,#fff 50%,transparent 51%),radial-gradient(3px 3px at 70% 66%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 46% 12%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 90% 84%,#fff 50%,transparent 51%),radial-gradient(3px 3px at 8% 88%,#fff 50%,transparent 51%)}
 html.xm .sp-t{position:relative}
 html.xm .sp-t:before{content:"";position:absolute;left:-7%;right:-7%;top:-.13em;height:.62em;background:url(/xmas/logo-snow-cap.png) center/100% 100% no-repeat;image-rendering:pixelated;z-index:1}
 html.xm .sp-run{height:176px}
@@ -268,7 +266,6 @@ html.xm .sp-fill{animation:spxfill 5s cubic-bezier(.25,.55,.3,1) forwards}
 html.xm .sp.done .sp-fill{transition:width .6s cubic-bezier(.6,0,.15,1)}
 @keyframes spxrun{50%{background-image:url(/xmas/reindeer-run-1.png)}}
 @keyframes spxfloat{50%{translate:0 -4px}}@keyframes spxfill{from{width:3%}to{width:86%}}
-html.xm .sp-m{color:#cfd8f2}
 html.xm .sp-en,html.xm .sp-es{display:none}
 html.xm:not([lang=es]) .sp-xen,html.xm[lang=es] .sp-xes{display:inline}
 @media (prefers-reduced-motion:reduce){html.xm .sp-u,html.xm .sp-sl{animation:none}}
