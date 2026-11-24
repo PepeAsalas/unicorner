@@ -5197,17 +5197,19 @@ html body .landing-wrap .lp-sprite{width:clamp(130px,19vw,240px)!important;heigh
 .xm-h b{font:400 15px/1 'Jersey 10',var(--px,monospace);letter-spacing:.14em;color:#f2c230}
 .xm-h span{font:400 13px/1 VT323,monospace;color:#e9dfc2}
 .xm-big{font:400 30px/1.05 'Jersey 10',var(--px,monospace);color:#fff;margin:8px 0 10px;text-shadow:3px 3px 0 #000}
-.xm-doors{display:grid;grid-template-columns:repeat(8,1fr);gap:5px}
-.xm-doors i{position:relative;aspect-ratio:1;background:#6b4428;border:2px solid #000;box-shadow:inset 0 0 0 2px #8a5a3a;font:400 13px/1 'Jersey 10',monospace;font-style:normal;color:#f6e7c4;display:grid;place-items:center}
-.xm-doors i.open{background:#f2c230;color:#1d1a2b;box-shadow:inset 0 0 0 2px #fff3a0}
-.xm-doors i.today{outline:3px solid #f2c230;outline-offset:1px;animation:xmPulse 1.4s ease-in-out infinite}
-.xm-doors i.miss{opacity:.45}
+.xm-box{position:relative;width:min(100%,320px);margin:4px auto 0;aspect-ratio:960/1200;background:url(/xmas/advent-closed.png) center/100% 100% no-repeat;image-rendering:pixelated}
+.xm-box i{position:absolute;font-style:normal}
+.xm-box .o{inset:0;background:url(/xmas/advent-open.png) center/100% 100% no-repeat}
+.xm-box .n{transform:translate(-50%,-50%);font:400 13px/1 'Jersey 10',monospace;color:#3a2414}
+.xm-box .n.on{color:#7a4a00}
+.xm-box .m{background:rgba(20,10,4,.55)}
+.xm-box .t{outline:3px solid #f2c230;outline-offset:-1px;animation:xmPulse 1.4s ease-in-out infinite}
 @keyframes xmPulse{50%{outline-color:#fff6c0}}
 .xm-p{margin:10px 0 0;font:400 15px/1.3 VT323,monospace;color:#e9dfc2}.xm-p b{color:#f2c230;font-weight:400}
 .xm-kits{display:flex;gap:8px;margin-top:10px}.xm-kits span{flex:1;text-align:center;font:400 12px/1.1 VT323,monospace;color:#e9dfc2}
 .xm-kits i{display:block;height:46px;background:center/contain no-repeat;image-rendering:pixelated}
 .xm-off{background:none;border:0;padding:0;margin-top:8px;font:400 13px VT323,monospace;color:#b9b0a0;text-decoration:underline;cursor:pointer}
-@media (prefers-reduced-motion:reduce){.xm-doors i.today{animation:none}}
+@media (prefers-reduced-motion:reduce){.xm-box .t{animation:none}}
 </style>
 <script>
 /* Christmas 2026: falling snow (switchable), and the advent card on the home page: a countdown until 1 Dec, then 24 doors that open when you play that day's Daily 5 */
@@ -5233,13 +5235,19 @@ html body .landing-wrap .lp-sprite{width:clamp(130px,19vw,240px)!important;heigh
   const big=before?T(`Advent calendar opens in ${daysTo} day${daysTo===1?'':'s'}`,`El calendario de Adviento abre en ${daysTo} día${daysTo===1?'':'s'}`,`O calendário do Advento abre em ${daysTo} dia${daysTo===1?'':'s'}`)
    :during?(played(today)?T(`Door ${tn} is open. See you tomorrow!`,`Puerta ${tn} abierta. ¡Hasta mañana!`,`Porta ${tn} aberta. Até amanhã!`):T(`Door ${tn} is waiting`,`La puerta ${tn} te espera`,`A porta ${tn} está esperando`))
    :T(`You opened ${n} of 24 doors`,`Abriste ${n} de 24 puertas`,`Você abriu ${n} de 24 portas`);
-  const doors=opened.map((o,i)=>{const d=day(i+1),cls=o?'open':d===today?'today':d<today&&!before?'miss':'';return`<i class="${cls}">${i+1}</i>`}).join('');
+  // drawers on the cabinet art (960x1200): 4 columns x 6 rows; an opened day shows the open drawer from the second image
+  const CX=[150,320,490,660],CY=[300,447,593,740,886,1032],DW=155,DH=132,pc=(v,t)=>(v/t*100).toFixed(2)+'%';
+  const doors=opened.map((o,i)=>{const d=day(i+1),x=CX[i%4],y=CY[i>>2],box=`left:${pc(x,960)};top:${pc(y,1200)};width:${pc(DW,960)};height:${pc(DH,1200)}`;
+   const miss=!o&&d<today&&!before,now=!o&&d===today;
+   return(o?`<i class="o" style="clip-path:inset(${pc(y,1200)} ${pc(960-x-DW,960)} ${pc(1200-y-DH,1200)} ${pc(x,960)})"></i>`:'')
+    +(miss?`<i class="m" style="${box}"></i>`:'')+(now?`<i class="t" style="${box}"></i>`:'')
+    +`<i class="n${o?' on':''}" style="left:${pc(o?x+107:x+77,960)};top:${pc(o?y+66:y+42,1200)}">${i+1}</i>`}).join('');
   const p=before?T('From 1 December, play the Daily 5 each day to open that day\'s door. Open 10 for the Snowman kit, all 24 for Santa.','Desde el 1 de diciembre, juega el Diario 5 cada día para abrir su puerta. Abre 10 para el Muñeco de nieve y las 24 para Papá Noel.','A partir de 1º de dezembro, jogue o Diário 5 todo dia para abrir a porta do dia. Abra 10 para o Boneco de neve e as 24 para o Papai Noel.')
    :during?T(`<b>${n}</b> of 24 open. Play today's Daily 5 to open today's door. 10 doors: Snowman. All 24: Santa.`,`<b>${n}</b> de 24 abiertas. Juega el Diario 5 de hoy para abrir la puerta. 10 puertas: Muñeco de nieve. Las 24: Papá Noel.`,`<b>${n}</b> de 24 abertas. Jogue o Diário 5 de hoje para abrir a porta. 10 portas: Boneco de neve. Todas as 24: Papai Noel.`)
    :T('Merry Christmas from Horacio and the Unicorner crew!','¡Feliz Navidad de parte de Horacio y el equipo de Unicorner!','Feliz Natal do Horacio e da equipe do Unicorner!');
   const kits=[['xm-reindeer',T('Reindeer · free','Reno · gratis','Rena · grátis')],['xm-jumper',T('Jumper · play 1','Jersey · juega 1','Suéter · jogue 1')],['xm-snowman',T('Snowman · 10 doors','Muñeco · 10 puertas','Boneco · 10 portas')],['xm-santa',T('Santa · 24 doors','Papá Noel · 24','Papai Noel · 24')],['xm-tree',T('Tree · 25 Dec','Árbol · 25 dic','Árvore · 25 dez')]];
   return`<section class="xm-cal" id="xm-cal" aria-label="${T('Advent calendar','Calendario de Adviento','Calendário do Advento')}"><div class="xm-h"><b>${T('UNICORNER CHRISTMAS','NAVIDAD UNICORNER','NATAL UNICORNER')}</b><span>${T('Advent 1–24 Dec','Adviento 1–24 dic','Advento 1–24 dez')}</span></div>
-   <div class="xm-big">${big}</div><div class="xm-doors">${doors}</div><p class="xm-p">${p}</p>
+   <div class="xm-big">${big}</div><div class="xm-box" role="img" aria-label="${T(`${n} of 24 doors open`,`${n} de 24 puertas abiertas`,`${n} de 24 portas abertas`)}">${doors}</div><p class="xm-p">${p}</p>
    <div class="xm-kits">${kits.map(([id,t])=>`<span><i style="background-image:${kit(id)}"></i>${t}</span>`).join('')}</div>
    <button type="button" class="xm-off" id="xm-snowbtn">${ls('uc-snow')==='off'?T('Turn the snow on','Activar la nieve','Ligar a neve'):T('Turn the snow off','Quitar la nieve','Desligar a neve')}</button></section>`}
  const put=()=>{const anchor=document.querySelector('.hz3');if(!anchor||document.getElementById('xm-cal'))return;anchor.insertAdjacentHTML('beforebegin',card());

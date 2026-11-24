@@ -325,7 +325,8 @@ const MAP={'idle-1':'idle','talk-1':'deal','talk-2':'deal','point':'show','think
 const FRAMES={idle:{blink:'idle-blink',talk:'idle-talk'},deal:{talk:'deal-talk'},think:{blink:'think-blink'}};
 // Christmas season: Horacio in his rental Santa suit (4 poses)
 const XM=(d=>d>='2026-11-25'&&d<='2027-01-06')(new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10));
-const XMP=n=>/talk|deal/.test(n)?'talking':/laugh|clap/.test(n)?'laughing':n==='wink'?'winking':'idle';
+const XMP=n=>({deal:'talking','deal-talk':'talking','idle-talk':'talking',show:'point',think:'thinking','think-blink':'thinking',wink:'winking',laugh:'laughing',clap:'clap',shock:'shock',nervous:'nervous',sad:'sad'})[n]||'idle';
+if(XM){MAP.nervous='nervous';MAP.facepalm='sad'}
 const artSrc=n=>XM?'/blackjack/art/xmas/horacio-'+XMP(n)+'.png':'/blackjack/art/horacio-'+n+'.png';
 if(XM)$('host').src=artSrc('idle');
 {for(const k in MAP)ART.host[k]=artSrc(MAP[k]);[...new Set(Object.values(MAP)),...Object.values(FRAMES).flatMap(f=>Object.values(f))].forEach(n=>{const i=new Image();i.src=artSrc(n)});document.body.classList.add('art-host')}
