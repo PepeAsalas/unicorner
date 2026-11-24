@@ -1,0 +1,91 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Horacio's Grid (mockup)</title>
+<style>
+@font-face{font-family:'Jersey 10';src:url(/fonts/jersey10.woff2)}@font-face{font-family:VT323;src:url(/fonts/vt323.woff2)}
+:root{--ink:#1d1a2b;--cream:#f6eed8;--paper:#fbf6e8;--gold:#f2c230;--px:'Jersey 10',monospace;--lab:VT323,monospace}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:#1f5e39 url(/bg/pitch-tall.webp) center top/cover fixed;color:var(--ink);font:400 18px/1.3 var(--lab);image-rendering:pixelated}
+@media (min-width:900px){body{background-image:url(/bg/pitch-wide.webp)}}
+.wrap{max-width:1100px;margin:0 auto;padding:18px 14px 40px}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.brand{background:var(--paper);border:3px solid #000;box-shadow:4px 4px 0 #000;padding:6px 12px 4px;font:400 24px/1 var(--px)}
+.tag{background:var(--gold);border:3px solid #000;padding:5px 10px 3px;font:400 16px/1 var(--px);letter-spacing:.08em}
+.stage{display:grid;gap:18px}
+@media (min-width:900px){.stage{grid-template-columns:minmax(0,1fr) 320px;align-items:start}}
+.board{background:var(--cream);border:3px solid #000;box-shadow:6px 6px 0 rgba(0,0,0,.45);padding:14px}
+.bh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.bh h1{margin:0;font:400 32px/1 var(--px)}.bh span{font-size:16px;color:#6b5f86}
+.grid{display:grid;grid-template-columns:minmax(64px,.8fr) repeat(3,minmax(0,1fr));gap:6px}
+.hd{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:4px;padding:6px 2px;font:400 14px/1.05 var(--lab);text-transform:uppercase;letter-spacing:.04em}
+.hd b{font:400 15px/1 var(--px);letter-spacing:.02em;text-transform:none}
+.corner{background:var(--ink);color:var(--gold);border:3px solid #000;font:400 13px/1.1 var(--px);display:grid;place-items:center;text-align:center;padding:4px}
+.crest{width:42px;height:48px}
+.flag{width:46px;height:31px;border:2px solid #000}
+.badge{width:44px;height:44px;display:grid;place-items:center;background:var(--ink);color:var(--gold);border:2px solid #000;font:400 22px/1 var(--px)}
+.cell{position:relative;aspect-ratio:1;border:3px solid #000;background:#fffaf0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:4px;text-align:center;cursor:pointer;overflow:hidden}
+.cell:hover{background:#fff3c4}
+.cell.empty:after{content:"+";position:absolute;inset:0;display:grid;place-items:center;font:400 40px/1 var(--px);color:#c9bea0}
+.cell.sel{outline:4px solid var(--gold);outline-offset:-1px;animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{50%{outline-color:#fff3a0}}
+.cell .u{flex:1;width:100%;background:center/contain no-repeat}
+.cell b{font:400 clamp(12px,1.6vw,17px)/1 var(--px);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.cell .pts{position:absolute;top:0;left:0;right:0;padding:3px 0 2px;font:400 12px/1 var(--lab);letter-spacing:.06em;color:#000}
+.cell .pct{font-size:12px;color:#6b5f86}
+.cell.wrong{background:#f6d6d2}.cell.wrong:after{content:"✕";position:absolute;inset:0;display:grid;place-items:center;font:400 40px/1 var(--px);color:#c8473b}
+.side{display:grid;gap:14px}
+.card{background:var(--paper);border:3px solid #000;box-shadow:5px 5px 0 rgba(0,0,0,.4);padding:12px 14px}
+.card h3{margin:0 0 8px;font:400 15px/1 var(--px);letter-spacing:.12em;color:#c8473b}
+.score{display:flex;gap:6px;align-items:center}.score i{font-style:normal;background:var(--ink);color:var(--gold);border:3px solid #000;padding:6px 8px 4px;font:400 30px/1 var(--px)}
+.lives{display:flex;gap:6px;margin-top:10px}.lives i{width:22px;height:22px;background:var(--gold);border:3px solid #000}.lives i.x{background:#d9cfb4}
+.ask{background:var(--ink);color:var(--paper);border:3px solid #000;padding:12px}
+.ask small{color:#cfc6ae;letter-spacing:.06em;text-transform:uppercase;font-size:14px}
+.ask .q{font:400 21px/1.15 var(--px);margin:4px 0 10px}
+.in{display:flex;border:3px solid #000;background:#fff;color:var(--ink)}.in span{padding:10px;font-size:20px;flex:1}.in button{all:unset;background:var(--gold);padding:0 14px;font:400 18px/1 var(--px);border-left:3px solid #000}
+.sug{margin:6px 0 0;padding:0;list-style:none;background:#fff;color:var(--ink);border:3px solid #000}.sug li{padding:7px 10px;border-bottom:2px dashed #e2d8bd;display:flex;justify-content:space-between}.sug li:first-child{background:#fff3c4}.sug li span{color:#6b5f86;font-size:15px}
+.legend{display:grid;grid-template-columns:auto 1fr auto;gap:5px 8px;font-size:16px;align-items:center}.legend i{width:16px;height:16px;border:2px solid #000}
+.horacio{display:flex;gap:10px;align-items:flex-end}.horacio img{width:84px;height:84px;image-rendering:auto}
+.horacio p{margin:0;background:#fff;border:3px solid #000;padding:8px 10px;font-size:17px;position:relative}
+.foot{margin-top:12px;display:flex;justify-content:space-between;font-size:15px;color:#6b5f86}
+</style></head><body><div class="wrap">
+<div class="top"><span class="brand">UNICORNER</span><span class="tag">HORACIO'S GRID · NO. 1</span></div>
+<div class="stage">
+ <section class="board">
+  <div class="bh"><h1>Horacio's Grid</h1><span>Tue 25 Nov · 9 guesses</span></div>
+  <div class="grid" id="g"></div>
+  <div class="foot"><span>Rarer answer = more points</span><span>Every player can be used once</span></div>
+ </section>
+ <aside class="side">
+  <div class="ask"><small>Row 2 × Column 3</small><div class="q">A Spain international who played for Liverpool</div>
+   <div class="in"><span>Xabi Al▌</span><button>GO</button></div>
+   <ul class="sug"><li>Xabi Alonso <span>Spain · CM</span></li><li>Xabier Etxeita <span>Spain · CB</span></li></ul></div>
+  <div class="card"><h3>YOUR SCORE</h3><div class="score"><i>2</i><i>1</i><i>5</i><span>/ 900</span></div>
+   <div class="lives" title="Guesses left"><i></i><i></i><i></i><i></i><i></i><i class="x"></i><i class="x"></i><i class="x"></i><i class="x"></i></div></div>
+  <div class="card"><h3>HOW POINTS WORK</h3><div class="legend">
+   <i style="background:#cfd8e6"></i><span>Tap-in · everyone said it</span><b>10</b>
+   <i style="background:#7fe0a8"></i><span>Header</span><b>30</b>
+   <i style="background:#b48cff"></i><span>Volley</span><b>60</b>
+   <i style="background:#ff7ac8"></i><span>Bicycle kick</span><b>85</b>
+   <i style="background:#f2c230"></i><span>Screamer · almost nobody</span><b>100</b></div></div>
+  <div class="horacio"><img src="/rosco/host/point.png" alt=""><p>Anyone can name Gerrard. Give me a Screamer.</p></div>
+ </aside>
+</div></div>
+<script src="/duel/sprites.js"></script>
+<script>
+// pixel shields in club colours (no real crests): [top, bottom, short name]
+const crest=(a,b,t)=>`<svg class="crest" viewBox="0 0 14 16" shape-rendering="crispEdges"><path d="M1 0h12v9h-1v2h-1v2h-2v1h-1v1h-2v-1h-1v-1h-2v-2h-1v-2h-1z" fill="#000"/><path d="M2 1h10v8h-1v2h-1v1h-1v1h-2v1h0v-1h-2v-1h-1v-1h-1v-2h-1z" fill="${a}"/><path d="M2 6h10v3h-1v2h-1v1h-1v1h-2v1h0v-1h-2v-1h-1v-1h-1v-2h-1z" fill="${b}"/><text x="7" y="5.2" font-size="3.6" text-anchor="middle" fill="#fff" font-family="monospace">${t}</text></svg>`;
+const flag=c=>({ES:'<svg class="flag" viewBox="0 0 3 2"><rect width="3" height="2" fill="#c60b1e"/><rect y=".5" width="3" height="1" fill="#ffc400"/></svg>',
+ BR:'<svg class="flag" viewBox="0 0 10 7"><rect width="10" height="7" fill="#009c3b"/><path d="M5 1 9 3.5 5 6 1 3.5z" fill="#ffdf00"/><circle cx="5" cy="3.5" r="1.5" fill="#002776"/></svg>',
+ FR:'<svg class="flag" viewBox="0 0 3 2"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ed2939"/></svg>'})[c];
+const COLS=[{h:crest('#d00027','#d00027','LIV'),t:'Liverpool'},{h:crest('#034694','#034694','CHE'),t:'Chelsea'},{h:'<span class="badge">★</span>',t:'Won the<br>Champions League'}];
+const ROWS=[{h:flag('BR'),t:'Brazil'},{h:flag('ES'),t:'Spain'},{h:flag('FR'),t:'France'}];
+const TIER={10:['#cfd8e6','TAP-IN'],30:['#7fe0a8','HEADER'],60:['#b48cff','VOLLEY'],85:['#ff7ac8','BICYCLE'],100:['#f2c230','SCREAMER']};
+// filled cells: [row,col] -> [name, points, % who said it, kit]
+const FILL={'0,0':['Coutinho',10,'41%','hoops'],'0,1':['Willian',30,'18%','sash'],'0,2':['Cafu',30,'15%','retro'],
+ '1,0':null,'1,1':['Pedro',60,'7%','checks'],'1,2':'sel','2,0':['Djibril Cissé',85,'3%','night'],'2,1':'wrong','2,2':null};
+const kit=id=>{try{return KITS.find(k=>k.id===id)||null}catch{return null}};
+const g=document.getElementById('g');
+g.innerHTML='<div class="corner">HORACIO\'S<br>GRID</div>'+COLS.map(c=>`<div class="hd">${c.h}<b>${c.t}</b></div>`).join('')+
+ ROWS.map((r,i)=>`<div class="hd">${r.h}<b>${r.t}</b></div>`+COLS.map((c,j)=>{const f=FILL[i+','+j];
+  if(f==='sel')return '<div class="cell empty sel"></div>';if(f==='wrong')return '<div class="cell wrong"></div>';if(!f)return '<div class="cell empty"></div>';
+  const [n,p,pct,k]=f,t=TIER[p];return `<div class="cell" style="background:${t[0]}33"><span class="pts" style="background:${t[0]}">+${p} ${t[1]}</span><i class="u" style="background-image:${typeof spriteDraw==='function'?spriteDraw('happy',0,false,kit(k)).replace(/"/g,"'"):'none'}"></i><b>${n}</b><span class="pct">${pct} said it</span></div>`}).join('')).join('');
+document.fonts.ready.then(()=>document.body.dataset.ready=1);
+</script></body></html>
