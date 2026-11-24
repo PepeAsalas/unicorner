@@ -255,13 +255,17 @@ html[lang=es] .sp-en,html:not([lang=es]) .sp-es{display:none}
 html.xm .sp{background:radial-gradient(ellipse at 50% 38%,#24407a 0%,#16295a 55%,#0d1838 100%);color:#fff}
 html.xm .sp-s{background-image:radial-gradient(2px 2px at 12% 22%,#fff 50%,transparent 51%),radial-gradient(3px 3px at 82% 18%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 28% 74%,#fff 50%,transparent 51%),radial-gradient(3px 3px at 70% 66%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 46% 12%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 90% 84%,#fff 50%,transparent 51%),radial-gradient(3px 3px at 8% 88%,#fff 50%,transparent 51%)}
 html.xm .sp-t{position:relative}
-html.xm .sp-t:before{content:"";position:absolute;left:-7%;right:-7%;top:-.2em;height:.62em;background:url(/xmas/logo-snow-cap.png) center/100% 100% no-repeat;image-rendering:pixelated;z-index:1}
+html.xm .sp-t:before{content:"";position:absolute;left:-7%;right:-7%;top:-.13em;height:.62em;background:url(/xmas/logo-snow-cap.png) center/100% 100% no-repeat;image-rendering:pixelated;z-index:1}
 html.xm .sp-run{height:176px}
 html.xm .sp-fill{background:repeating-linear-gradient(-45deg,#d62828 0 10px,#fff 10px 20px)}
-html.xm .sp-u{background-image:url(/xmas/reindeer-run-0.png);animation:spxrun .32s steps(1) infinite}
-html.xm .sp-sl{display:block;position:absolute;right:26px;bottom:2px;width:176px;height:132px;background:url(/xmas/sleigh-a.png) center/contain no-repeat;image-rendering:pixelated;animation:spxsl .32s steps(1) infinite}
+html.xm .sp-u{background-image:url(/xmas/reindeer-run-0.png);animation:spxrun .36s steps(1) infinite,spxfloat 1.6s ease-in-out -.25s infinite}
+html.xm .sp-sl{display:block;position:absolute;right:26px;bottom:2px;width:176px;height:132px;background:url(/xmas/sleigh-a.png) center/contain no-repeat;image-rendering:pixelated;animation:spxfloat 1.6s ease-in-out infinite}
+html.xm .sp-sl:before,html.xm .sp-sl:after{content:"";position:absolute;right:-40px;bottom:61px;width:44px;height:2px;background:#1d1a2b;transform-origin:left;transform:rotate(-4deg)}
+html.xm .sp-sl:after{bottom:57px;transform:rotate(-1deg)}
+html.xm .sp-fill{animation:spxfill 5s cubic-bezier(.25,.55,.3,1) forwards}
+html.xm .sp.done .sp-fill{transition:width .6s cubic-bezier(.6,0,.15,1)}
 @keyframes spxrun{50%{background-image:url(/xmas/reindeer-run-1.png)}}
-@keyframes spxsl{50%{background-image:url(/xmas/sleigh-b.png)}}
+@keyframes spxfloat{50%{translate:0 -4px}}@keyframes spxfill{from{width:3%}to{width:86%}}
 html.xm .sp-m{color:#cfd8f2}
 html.xm .sp-en,html.xm .sp-es{display:none}
 html.xm:not([lang=es]) .sp-xen,html.xm[lang=es] .sp-xes{display:inline}
@@ -2102,7 +2106,7 @@ body.playing #screen .card .submitbtn{font-size:28px!important;height:76px!impor
 window.ucSplash=new Promise(res=>{const t0=performance.now(),sp=document.getElementById('sp');let gone=false;
  // show the words once the pixel font is in, so they never swap from a plain font
  const fin=()=>sp.classList.add('f');try{Promise.race([Promise.all([document.fonts.load('40px "Jersey 10"'),document.fonts.load('15px "Silkscreen"')]),new Promise(r=>setTimeout(r,1200))]).then(fin,fin)}catch(e){fin()}
- const lift=()=>{if(gone)return;gone=true;sp.classList.add('done');setTimeout(()=>{sp.classList.add('out');res();setTimeout(()=>sp.remove(),500)},320)};
+ const lift=()=>{if(gone)return;gone=true;const xm=document.documentElement.classList.contains('xm'),fl=sp.querySelector('.sp-fill');if(fl){fl.style.width=getComputedStyle(fl).width;fl.style.animation='none';void fl.offsetWidth;fl.style.width=''}sp.classList.add('done');setTimeout(()=>{sp.classList.add('out');res();setTimeout(()=>sp.remove(),500)},xm?640:320)};
  const ready=()=>{const fonts=document.fonts?Promise.race([document.fonts.ready,new Promise(r=>setTimeout(r,2500))]):Promise.resolve();
   fonts.then(()=>setTimeout(lift,Math.max(0,1100-(performance.now()-t0))))};
  if(document.readyState!=='loading')ready();else addEventListener('DOMContentLoaded',ready,{once:true});
