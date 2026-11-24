@@ -4413,7 +4413,7 @@ const kitPv=k=>`<span class="kit-pv" style="--tc:${kitTc(k)}"><i style="backgrou
 // Classic used to share the id 'rainbow' with the streak kit: a saved 'rainbow' without the 21-day streak was Classic
 try{if(localStorage.getItem('uc-kit')==='rainbow'&&!kitHas(KITS.find(k=>k.id==='rainbow'),kitStats())){localStorage.setItem('uc-kit','og');UC_KIT=KITS.find(k=>k.id==='og')}}catch{}
 function wearKit(k,fromAccount){UC_KIT=k.id==='classic'?null:k;ls('uc-kit',UC_KIT?k.id:(XMAS_ON?'classic':null));buildSprites();paint();if(fromAccount)return;ls('uc-kit-dirty','1');ls('uc-kit-at',String(Date.now()));window.ucLookSync?.()}
-window.ucLook=()=>{const st=kitStats();return{kit:UC_KIT?UC_KIT.id:'classic',kits:KITS.filter(k=>k.req&&kitHas(k,st)).map(k=>k.id),streak:st.streak,games:st.games}};
+window.ucLook=()=>{const st=kitStats();return{kit:UC_KIT?UC_KIT.id:'classic',kits:KITS.filter(k=>k.req?kitHas(k,st):k.id!=='classic'&&k.id!=='og').map(k=>k.id),streak:st.streak,games:st.games}};
 let pTab='kits',pkSame=false;
 // favourite kits show first in the Kits tab (saved on this device)
 const kitFavs=()=>{try{const v=JSON.parse(ls('uc-kit-fav')||'[]');return Array.isArray(v)?v:[]}catch{return[]}};
