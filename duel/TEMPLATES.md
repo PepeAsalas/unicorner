@@ -53,6 +53,9 @@ Duel questions live in `duel/bank.json`. Each one is built from a template below
 | 14 | Club + nationality + era | Name an Argentine who played for Inter in the 2000s | competitive apps in that era |
 | 15 | A well-travelled manager's players | Name a player José Mourinho managed at three or more clubs | players with apps under him at each club |
 | 16 | Champions League + nationality | Name a Dutch player who won the Champions League | in the winning squad and played in that campaign |
+| 25 | Played under a manager at a club | Name a player Jürgen Klopp managed at Liverpool (2015-16 to 2023-24) | at least 1 competitive first-team appearance under him at that club; for big lists add a minimum (10+ apps, or league games) to stay under 200 |
+| 26 | Teammates of a famous player | Name a player who was a teammate of Lionel Messi at Barcelona (2004-05 to 2020-21) | both made at least 1 competitive first-team appearance for the club in the same season; one club only; for big lists add a minimum (e.g. 20+ league apps in a shared season) |
+| 27 | Capped by a national team manager | Name a player Vicente del Bosque capped for Spain | played at least one official match (friendlies count) under him; fixed tenure dates |
 
 ### About clubs (`answer_type: club`)
 

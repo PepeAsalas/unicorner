@@ -12,7 +12,7 @@ import json, re, sys, unicodedata, collections, os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BANK = os.path.join(ROOT, 'duel', 'bank.json')
 TYPES = {'player', 'club', 'country', 'manager'}
-TEMPLATES = range(1, 25)
+TEMPLATES = range(1, 28)
 
 
 def norm(s):
@@ -37,7 +37,7 @@ def check(qs, bank_prompts=frozenset(), bank_ids=frozenset()):
         if errors and errors[-1].startswith(tag) and 'missing' in errors[-1]:
             continue
         if q['template'] not in TEMPLATES:
-            e(f"template {q['template']} is not 1-24")
+            e(f"template {q['template']} is not 1-27")
         if q['answer_type'] not in TYPES:
             e(f"answer_type {q['answer_type']} must be one of {sorted(TYPES)}")
         if q['time'] != 15:
