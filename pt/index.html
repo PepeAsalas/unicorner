@@ -5228,7 +5228,11 @@ html body .landing-wrap .lp-sprite{width:clamp(130px,19vw,240px)!important;heigh
 .xm-kits i{display:block;height:46px;background:center/contain no-repeat;image-rendering:pixelated}
 .xm-off{background:none;border:0;padding:0;margin-top:8px;font:400 13px VT323,monospace;color:#b9b0a0;text-decoration:underline;cursor:pointer}
 @media (prefers-reduced-motion:reduce){.xm-box .t{animation:none}}
-@media (min-width:700px){.xm-cal{display:grid;grid-template-columns:300px 1fr;column-gap:30px;align-items:center;margin:6px 0 22px;padding:16px 22px 18px}.xm-cal>.xm-h,.xm-cal>.xm-big{grid-column:1/-1}.xm-box{width:300px;margin:0}.xm-cal .xm-big{font-size:38px}.xm-cal .xm-p{font-size:21px}.xm-cal .xm-kits{margin-top:18px}.xm-cal .xm-kits span{font-size:15px}.xm-cal .xm-kits i{height:70px}.xm-cal .xm-off{font-size:16px;margin-top:14px}}
+@media (min-width:700px){.xm-cal{display:grid;grid-template-columns:300px 1fr;column-gap:30px;align-items:center;margin:6px 0 22px;padding:16px 22px 18px}.xm-cal>.xm-h,.xm-cal>.xm-big{grid-column:1/-1}.xm-box{width:300px;margin:0}.xm-cal .xm-big{font-size:38px}.xm-cal .xm-cd{grid-column:1/-1}.xm-cal .xm-cd b{font-size:44px;padding:8px 12px 6px}.xm-cal .xm-kits{display:grid;grid-template-columns:repeat(6,1fr);row-gap:22px;margin:0}.xm-cal .xm-kits span{grid-column:span 2;font-size:17px}.xm-cal .xm-kits span:nth-child(4){grid-column:2/span 2}.xm-cal .xm-kits i{height:108px;margin-bottom:6px}.xm-cal .xm-off{font-size:16px;margin-top:22px}}
+.xm-cd{display:flex;gap:8px;margin:0 0 14px}
+.xm-cd span{display:flex;flex-direction:column;align-items:center;gap:4px}
+.xm-cd b{min-width:2ch;padding:6px 8px 4px;background:#1d1a2b;border:3px solid #000;box-shadow:inset 0 0 0 2px #3a2a1f;font:400 30px/1 'Jersey 10',monospace;color:#f2c230;text-align:center;font-variant-numeric:tabular-nums}
+.xm-cd i{font:400 12px/1 VT323,monospace;font-style:normal;color:#e9dfc2;letter-spacing:.08em;text-transform:uppercase}
 /* small decorations around the home page */
 html.xm .brand-home{position:relative}
 html.xm .brand-home:after{content:"";position:absolute;left:-6px;right:-6px;top:-9px;height:16px;background:url(/xmas/logo-snow-cap.png) center/100% 100% no-repeat;image-rendering:pixelated;pointer-events:none}
@@ -5257,7 +5261,8 @@ html.xm .hz3-side:before{content:"";position:absolute;left:50%;top:44px;width:52
  function card(){const before=today<ADV_FROM,during=today>=ADV_FROM&&today<=ADV_TO,opened=[...Array(24)].map((_,i)=>played(day(i+1))),n=opened.filter(Boolean).length;
   const daysTo=Math.max(0,Math.round((Date.parse(ADV_FROM)-Date.parse(today))/864e5)),tn=+today.slice(8);
   const kit=id=>{try{const k=KITS.find(x=>x.id===id);return k?sprite('happy',0,false,k).replace(/"/g,"'"):''}catch{return''}};
-  const big=before?T(`Advent calendar opens in ${daysTo} day${daysTo===1?'':'s'}`,`El calendario de Adviento abre en ${daysTo} día${daysTo===1?'':'s'}`,`O calendário do Advento abre em ${daysTo} dia${daysTo===1?'':'s'}`)
+  const cd=['d','h','m','s'].map(u=>`<span><b data-u="${u}">00</b><i>${{d:T('days','días','dias'),h:T('hrs','h','h'),m:T('min','min','min'),s:T('sec','seg','seg')}[u]}</i></span>`).join('');
+  const big=before?T('Advent calendar opens in','El calendario de Adviento abre en','O calendário do Advento abre em')
    :during?(played(today)?T(`Door ${tn} is open. See you tomorrow!`,`Puerta ${tn} abierta. ¡Hasta mañana!`,`Porta ${tn} aberta. Até amanhã!`):T(`Door ${tn} is waiting`,`La puerta ${tn} te espera`,`A porta ${tn} está esperando`))
    :T(`You opened ${n} of 24 doors`,`Abriste ${n} de 24 puertas`,`Você abriu ${n} de 24 portas`);
   // drawers on the cabinet art (960x1200): 4 columns x 6 rows; an opened day shows the open drawer from the second image
@@ -5272,11 +5277,15 @@ html.xm .hz3-side:before{content:"";position:absolute;left:50%;top:44px;width:52
    :T('Merry Christmas from Horacio and the Unicorner crew!','¡Feliz Navidad de parte de Horacio y el equipo de Unicorner!','Feliz Natal do Horacio e da equipe do Unicorner!');
   const kits=[['xm-reindeer',T('Reindeer · free','Reno · gratis','Rena · grátis')],['xm-jumper',T('Jumper · play 1','Jersey · juega 1','Suéter · jogue 1')],['xm-snowman',T('Snowman · 10 doors','Muñeco · 10 puertas','Boneco · 10 portas')],['xm-santa',T('Santa · 24 doors','Papá Noel · 24','Papai Noel · 24')],['xm-tree',T('Tree · 25 Dec','Árbol · 25 dic','Árvore · 25 dez')]];
   return`<section class="xm-cal" id="xm-cal" aria-label="${T('Advent calendar','Calendario de Adviento','Calendário do Advento')}"><div class="xm-h"><b>${T('UNICORNER CHRISTMAS','NAVIDAD UNICORNER','NATAL UNICORNER')}</b><span>${T('Advent 1–24 Dec','Adviento 1–24 dic','Advento 1–24 dez')}</span></div>
-   <div class="xm-big">${big}</div><div class="xm-box" role="img" aria-label="${T(`${n} of 24 doors open`,`${n} de 24 puertas abiertas`,`${n} de 24 portas abertas`)}">${doors}</div><div class="xm-side"><p class="xm-p">${p}</p>
+   <div class="xm-big">${big}</div>${before?`<div class="xm-cd" id="xm-cd">${cd}</div>`:''}<div class="xm-box" role="img" aria-label="${T(`${n} of 24 doors open`,`${n} de 24 puertas abiertas`,`${n} de 24 portas abertas`)}">${doors}</div><div class="xm-side">
    <div class="xm-kits">${kits.map(([id,t])=>`<span><i style="background-image:${kit(id)}"></i>${t}</span>`).join('')}</div>
    <button type="button" class="xm-off" id="xm-snowbtn">${ls('uc-snow')==='off'?T('Turn the snow on','Activar la nieve','Ligar a neve'):T('Turn the snow off','Quitar la nieve','Desligar a neve')}</button></div></section>`}
  const put=()=>{const m=document.querySelector('section.modes'),anchor=m&&m.previousElementSibling&&m.previousElementSibling.classList.contains('lx-h')?m.previousElementSibling:m;if(!anchor||document.getElementById('xm-cal'))return;anchor.insertAdjacentHTML('beforebegin',card());
   document.getElementById('xm-snowbtn').onclick=e=>{const off=ls('uc-snow')!=='off';ls('uc-snow',off?'off':null);snow(!off);e.target.textContent=off?T('Turn the snow on','Activar la nieve','Ligar a neve'):T('Turn the snow off','Quitar la nieve','Desligar a neve');try{track('xmas_snow',{on:!off})}catch{}}};
+ const OPEN=Date.parse('2026-11-30T23:00:00Z');
+ setInterval(()=>{const el=document.getElementById('xm-cd');if(!el)return;let t=Math.max(0,Math.floor((OPEN-Date.now())/1000));
+  if(!t){document.getElementById('xm-cal')?.remove();location.reload();return}
+  const v={d:Math.floor(t/86400),h:Math.floor(t/3600)%24,m:Math.floor(t/60)%60,s:t%60};for(const b of el.querySelectorAll('b'))b.textContent=String(v[b.dataset.u]).padStart(2,'0')},250);
  const santa=()=>{const im=document.querySelector('.hz3-side img');if(im&&!im.dataset.xm){im.dataset.xm=1;im.src='/blackjack/art/xmas/horacio-point.png'}};
  put();santa();setInterval(()=>{put();santa()},700);
 })();
