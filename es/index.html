@@ -2355,7 +2355,7 @@ const XM_FROM='2026-11-25',XM_TO='2027-01-06',ADV_FROM='2026-12-01',ADV_TO='2026
 const xmToday=()=>{try{return new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())}catch{return''}};
 const XMAS_ON=(()=>{const d=xmToday();return d>=XM_FROM&&d<=XM_TO})();
 const kSantaHat=f=>{const r='#d62828',d='#a51d1d',w='#ffffff';return[[20,5,7,1,w],[20,4,6,1,r],[19,3,6,1,r],[18,2,5,1,d],[17,2,2,1,r],[15,1,3,1,w],[15,2,3,1,w],[16,3,1,1,w]]};
-const kAntler=f=>{const b='#6b4428',l='#8a5a3a';return[[23,0,1,5,b],[22,1,1,1,l],[24,2,2,1,b],[21,0,1,1,b],[25,1,1,1,l],[20,2,2,1,b]]};
+const kAntler=f=>{const d='#a87a4a',b='#c99a5e',l='#e6c690',t='#fff0cc';return[[19,3,2,1,d],[18,2,1,1,d],[17,1,1,1,d],[16,0,1,1,d],[19,1,1,1,d],[19,0,1,1,d],[22,3,2,1,b],[21,2,2,1,b],[20,1,1,1,b],[18,0,2,1,l],[22,1,1,1,l],[22,0,1,1,t],[24,2,1,1,l],[25,1,1,1,t],[20,0,1,1,t]]};
 const kSnowman=f=>{const k='#1a1030',s='#c8473b';return[[21,2,5,3,k],[20,5,7,1,k],[21,4,5,1,s],[20,11,5,2,s],[18,12,3,4,s]]};
 const kTreeStar=f=>{const g='#ffd23f',w='#fff6c0';return[[30,0,1,1,w],[29,1,3,1,g],[30,2,1,1,g],[5,5,1,1,g],[4,6,3,1,g],[5,7,1,1,g]]};
 const KITS=[
@@ -4450,7 +4450,7 @@ dlg.addEventListener('click',e=>{const b=e.target.closest('[data-st]');if(!b){if
  if(b.dataset.st==='pick'){const k=b.dataset.k;if(!unlocked(k)){const x=BGX.find(t=>t[0]===k);showToast(x&&x[3][0]==='games'?L('Keep playing to unlock this one 🎮','Sigue jugando para desbloquear este 🎮',"Continue jogando para desbloquear este 🎮"):L('Keep your streak going to unlock this one 🔥','Mantén tu racha para desbloquear este 🔥',"Mantenha sua sequência para desbloquear este 🔥"));return}
   ls('uc-bg',k==='d-pitch'?null:k);apply();track('stadium_pick',{bg:k});pkSame=true;openPicker()}});
 // Kit unlocks get a card pack on the results screen. Each kit has an answer level (same names and colours as scoring).
-const KLV={'hw-stripes':0,'hw-candy':1,'hw-night':2,'hw-slime':3,'hw-skeleton':3,'hw-lantern':4,stripes:0,hoops:0,ref:0,candy:0,keeper:0,sash:1,halves:1,night:1,pin:1,quarters:1,fire:1,shadow:4,checks:2,hat3:2,dots:2,toxic:2,ice:2,perfect:2,leopard:3,zebra:3,galaxy:3,ocean:3,sunset:3,camo:3,lava:3,chrome:4,rainbow:4,tiedye:4,gold:4,mud:0,bee:0,tartan:1,retro:1,straw:2,aurora:3,matrix:3,glitch:3,royal:4,goat:4};
+const KLV={'xm-reindeer':0,'xm-jumper':1,'xm-snowman':2,'xm-tree':3,'xm-santa':4,'hw-stripes':0,'hw-candy':1,'hw-night':2,'hw-slime':3,'hw-skeleton':3,'hw-lantern':4,stripes:0,hoops:0,ref:0,candy:0,keeper:0,sash:1,halves:1,night:1,pin:1,quarters:1,fire:1,shadow:4,checks:2,hat3:2,dots:2,toxic:2,ice:2,perfect:2,leopard:3,zebra:3,galaxy:3,ocean:3,sunset:3,camo:3,lava:3,chrome:4,rainbow:4,tiedye:4,gold:4,mud:0,bee:0,tartan:1,retro:1,straw:2,aurora:3,matrix:3,glitch:3,royal:4,goat:4};
 const KLC=TIER_COLS.concat('#ff7ac8'),KLN=TIERS.map(t=>t[1]).concat('Mythic');window.ucKitInfo={KLV,KLC,KLN};
 const kitsNow=()=>{const st=kitStats();return KITS.filter(k=>k.req&&kitHas(k,st)).map(k=>k.id)};
 let kitDone=null;try{kitDone=JSON.parse(ls('uc-kit-done')||'null')}catch{}
