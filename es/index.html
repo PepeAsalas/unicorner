@@ -5231,6 +5231,7 @@ html body .landing-wrap .lp-sprite{width:clamp(130px,19vw,240px)!important;heigh
 .xm-kits i{display:block;height:46px;background:center/contain no-repeat;image-rendering:pixelated}
 .xm-off{background:none;border:0;padding:0;margin-top:8px;font:400 13px VT323,monospace;color:#b9b0a0;text-decoration:underline;cursor:pointer}
 @media (prefers-reduced-motion:reduce){.xm-box .t{animation:none}}
+@media (min-width:700px){.xm-cal{display:grid;grid-template-columns:300px 1fr;column-gap:30px;align-items:center;margin:6px 0 22px;padding:16px 22px 18px}.xm-cal>.xm-h,.xm-cal>.xm-big{grid-column:1/-1}.xm-box{width:300px;margin:0}.xm-cal .xm-big{font-size:38px}.xm-cal .xm-p{font-size:21px}.xm-cal .xm-kits{margin-top:18px}.xm-cal .xm-kits span{font-size:15px}.xm-cal .xm-kits i{height:70px}.xm-cal .xm-off{font-size:16px;margin-top:14px}}
 /* small decorations around the home page */
 html.xm .brand-home{position:relative}
 html.xm .brand-home:after{content:"";position:absolute;left:-6px;right:-6px;top:-9px;height:16px;background:url(/xmas/logo-snow-cap.png) center/100% 100% no-repeat;image-rendering:pixelated;pointer-events:none}
@@ -5274,10 +5275,10 @@ html.xm .hz3-side:before{content:"";position:absolute;left:50%;top:44px;width:52
    :T('Merry Christmas from Horacio and the Unicorner crew!','¡Feliz Navidad de parte de Horacio y el equipo de Unicorner!','Feliz Natal do Horacio e da equipe do Unicorner!');
   const kits=[['xm-reindeer',T('Reindeer · free','Reno · gratis','Rena · grátis')],['xm-jumper',T('Jumper · play 1','Jersey · juega 1','Suéter · jogue 1')],['xm-snowman',T('Snowman · 10 doors','Muñeco · 10 puertas','Boneco · 10 portas')],['xm-santa',T('Santa · 24 doors','Papá Noel · 24','Papai Noel · 24')],['xm-tree',T('Tree · 25 Dec','Árbol · 25 dic','Árvore · 25 dez')]];
   return`<section class="xm-cal" id="xm-cal" aria-label="${T('Advent calendar','Calendario de Adviento','Calendário do Advento')}"><div class="xm-h"><b>${T('UNICORNER CHRISTMAS','NAVIDAD UNICORNER','NATAL UNICORNER')}</b><span>${T('Advent 1–24 Dec','Adviento 1–24 dic','Advento 1–24 dez')}</span></div>
-   <div class="xm-big">${big}</div><div class="xm-box" role="img" aria-label="${T(`${n} of 24 doors open`,`${n} de 24 puertas abiertas`,`${n} de 24 portas abertas`)}">${doors}</div><p class="xm-p">${p}</p>
+   <div class="xm-big">${big}</div><div class="xm-box" role="img" aria-label="${T(`${n} of 24 doors open`,`${n} de 24 puertas abiertas`,`${n} de 24 portas abertas`)}">${doors}</div><div class="xm-side"><p class="xm-p">${p}</p>
    <div class="xm-kits">${kits.map(([id,t])=>`<span><i style="background-image:${kit(id)}"></i>${t}</span>`).join('')}</div>
-   <button type="button" class="xm-off" id="xm-snowbtn">${ls('uc-snow')==='off'?T('Turn the snow on','Activar la nieve','Ligar a neve'):T('Turn the snow off','Quitar la nieve','Desligar a neve')}</button></section>`}
- const put=()=>{const anchor=document.querySelector('.hz3');if(!anchor||document.getElementById('xm-cal'))return;anchor.insertAdjacentHTML('beforebegin',card());
+   <button type="button" class="xm-off" id="xm-snowbtn">${ls('uc-snow')==='off'?T('Turn the snow on','Activar la nieve','Ligar a neve'):T('Turn the snow off','Quitar la nieve','Desligar a neve')}</button></div></section>`}
+ const put=()=>{const m=document.querySelector('section.modes'),anchor=m&&m.previousElementSibling&&m.previousElementSibling.classList.contains('lx-h')?m.previousElementSibling:m;if(!anchor||document.getElementById('xm-cal'))return;anchor.insertAdjacentHTML('beforebegin',card());
   document.getElementById('xm-snowbtn').onclick=e=>{const off=ls('uc-snow')!=='off';ls('uc-snow',off?'off':null);snow(!off);e.target.textContent=off?T('Turn the snow on','Activar la nieve','Ligar a neve'):T('Turn the snow off','Quitar la nieve','Desligar a neve');try{track('xmas_snow',{on:!off})}catch{}}};
  const santa=()=>{const im=document.querySelector('.hz3-side img');if(im&&!im.dataset.xm){im.dataset.xm=1;im.src='/blackjack/art/xmas/horacio-point.png'}};
  put();santa();setInterval(()=>{put();santa()},700);
