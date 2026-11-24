@@ -1,0 +1,50 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Christmas kits</title>
+<style>
+@font-face{font-family:'Jersey 10';src:url(/fonts/jersey10.woff2)}@font-face{font-family:VT323;src:url(/fonts/vt323.woff2)}
+body{margin:0;background:#2b1d12;color:#f6e7c4;font-family:VT323,monospace;padding:28px}
+h1{font:400 46px/1 'Jersey 10';color:#f2c230;margin:0 0 6px}.intro{font-size:22px;margin:0 0 22px;color:#e9dfc2}
+.grid{display:grid;grid-template-columns:repeat(3,280px);gap:18px}
+.k{background:#3a2a1f;border:4px solid #000;box-shadow:5px 5px 0 rgba(0,0,0,.45);padding:12px}
+.pv{height:190px;background:linear-gradient(#1d4486,#16336a);border:3px solid #000;display:grid;place-items:center;position:relative;overflow:hidden}
+.pv:before{content:"";position:absolute;inset:0;background-image:radial-gradient(#fff 1.2px,transparent 1.5px);background-size:22px 22px;opacity:.35}
+.pv i{position:relative;width:216px;height:180px;background:center/contain no-repeat;image-rendering:pixelated}
+.k h3{margin:10px 0 2px;font:400 30px/1 'Jersey 10'}.k p{margin:0;font-size:20px;color:#f2c230}
+.tag{display:inline-block;font:400 15px/1 'Jersey 10';letter-spacing:.08em;background:#c8473b;color:#fff;border:2px solid #000;padding:4px 6px 2px;margin-top:8px}
+.tag.r{background:#f2c230;color:#1d1a2b}
+</style></head><body>
+<h1>Christmas kits</h1><p class="intro">Six festive kits for the Christmas season. Drawn the same way as every other kit, so they work everywhere: the game, duels, leaderboards and Socials.</p>
+<div class="grid" id="g"></div>
+<script src="/duel/sprites.js"></script>
+<script>
+
+const R=(arr)=>arr; // addons: [x,y,w,h,colour]
+// Santa hat: red cone flopping back over the mane, white fur trim, pom-pom; leaves the horn free
+const santaHat=f=>{const r='#d62828',d='#a51d1d',w='#ffffff';return[[20,5,7,1,w],[20,4,6,1,r],[19,3,6,1,r],[18,2,5,1,d],[17,2,2,1,r],[15,1,3,1,w],[15,2,3,1,w],[16,3,1,1,w]]};
+// Reindeer antler on the near side of the horn
+const antler=f=>{const b='#6b4428',l='#8a5a3a';return[[23,0,1,5,b],[22,1,1,1,l],[24,2,2,1,b],[21,0,1,1,b],[25,1,1,1,l],[20,2,2,1,b]]};
+// Snowman: black top hat + red scarf
+const snowman=f=>{const k='#1a1030',s='#c8473b';return[[21,2,5,3,k],[20,5,7,1,k],[21,4,5,1,'#c8473b'],[20,11,5,2,s],[18,12,3,4,s]]};
+// Golden Star: a star above the horn
+const star=f=>{const g='#fff27a';return[[33,0,1,3,g],[32,1,3,1,g],[31,5,1,1,'#ffffff'],[5,4,1,1,g],[4,5,3,1,g],[5,6,1,1,g]]};
+const XMAS=[
+ {id:'xm-jumper',en:'Christmas jumper',rule:'Play 1 game in the Christmas season',
+  pal:{P:'#ffffff',V:'#2f9a62',B:'#ffffff',N:'#ff3b30'},
+  pat:kPat((x,y)=>{if(y===15||y===18)return'#ffffff';if(y===16||y===17)return(x+y)%3===0?'#2f9a62':'#ffffff';return(x*7+y*5)%17===0?'#ffffff':'#c8473b'})},
+ {id:'xm-reindeer',en:'Reindeer',rule:'Open 7 advent doors',
+  pal:{W:'#8a5a3a',L:'#6b4428',P:'#3a2414',V:'#5a3a22',B:'#3a2414',w:'#8a5a3a',N:'#ff3b30'},addon:antler},
+ {id:'xm-snowman',en:'Snowman',rule:'Open 15 advent doors',
+  pal:{P:'#e8f6ff',V:'#cfe6f5',B:'#ffffff',N:'#ff8a1f'},
+  pat:kPat((x,y)=>(x===15&&(y===14||y===16||y===18))?'#1a1030':'#f4fbff'),addon:snowman},
+ {id:'xm-candy',en:'Candy cane',rule:'10-day streak in December',
+  pal:{P:'#ffffff',V:'#d62828',B:'#ffffff',N:'#d62828'},
+  pat:kPat((x,y)=>(x+y)%6<3?'#d62828':'#ffffff')},
+ {id:'xm-santa',en:'Santa',rule:'Open all 24 advent doors',
+  pal:{P:'#ffffff',V:'#f1f1f1',B:'#ffffff',N:'#ffb3a7',w:'#d62828'},
+  pat:kPat((x,y)=>y>=19?'#ffffff':y===17?(x>=14&&x<=16?'#f2c230':'#1a1030'):'#d62828'),addon:santaHat},
+ {id:'xm-star',en:'Golden star',rule:'Play on Christmas Day',rare:1,
+  pal:{W:'#ffe27a',L:'#e0b030',P:'#fff3a0',V:'#f2c230',B:'#ffffff',G:'#ffffff',g:'#f2c230',N:'#ff8a1f'},
+  pat:kPat((x,y)=>(x*5+y*3)%13===0?'#ffffff':(x+y)%2?'#ffd84d':'#f2c230'),addon:star},
+];
+document.getElementById('g').innerHTML=XMAS.map(k=>`<div class="k"><div class="pv"><i style="background-image:${spriteDraw('happy',0,false,k).replace(/"/g,"'")}"></i></div><h3>${k.en}</h3><p>${k.rule}</p><span class="tag${k.rare?' r':''}">${k.rare?'RAREST · CHRISTMAS DAY ONLY':'CHRISTMAS 2026'}</span></div>`).join('');
+document.fonts.ready.then(()=>document.body.dataset.ready=1);
+</script></body></html>
