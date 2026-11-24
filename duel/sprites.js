@@ -13,6 +13,12 @@ const kSuit=o=>kPat((x,y)=>{if(kHead(x,y))return '#ffffff';if(y>=21)return o.leg
  if(x===19&&y<=18)return o.lapel||kDk(o.jacket,.6);if(o.pocket&&(x===14||x===15)&&y===15)return o.pocket;return o.jacket});
 // add-ons are drawn on top of the finished sprite: the sunglasses' frame and far lens stick out past the face
 const kShades=f=>{const K='#111111',G='#8fa6d6',R=[],r=(x,y,w,h,c)=>R.push([x,y,w,h,c]);r(19,6,15,1,K);r(24,7,5,2,K);r(25,9,3,1,K);r(29,7,2,1,K);r(31,7,4,2,K);r(32,9,2,1,K);r(25,7,2,1,G);r(32,7,1,1,G);return R};
+// Christmas 2026 kits (season dates + add-ons)
+const XM_TO='2027-01-06';
+const kSantaHat=f=>{const r='#d62828',d='#a51d1d',w='#ffffff';return[[20,5,7,1,w],[20,4,6,1,r],[19,3,6,1,r],[18,2,5,1,d],[17,2,2,1,r],[15,1,3,1,w],[15,2,3,1,w],[16,3,1,1,w]]};
+const kAntler=f=>{const b='#6b4428',l='#8a5a3a';return[[23,0,1,5,b],[22,1,1,1,l],[24,2,2,1,b],[21,0,1,1,b],[25,1,1,1,l],[20,2,2,1,b]]};
+const kSnowman=f=>{const k='#1a1030',s='#c8473b';return[[21,2,5,3,k],[20,5,7,1,k],[21,4,5,1,s],[20,11,5,2,s],[18,12,3,4,s]]};
+const kTreeStar=f=>{const g='#ffd23f',w='#fff6c0';return[[30,0,1,1,w],[29,1,3,1,g],[30,2,1,1,g],[5,5,1,1,g],[4,6,3,1,g],[5,7,1,1,g]]};
 const KITS=[
  {id:'classic',en:'Club',es:'Club',pt:'Clube',req:null,pal:{}},
  {id:'og',en:'Classic',es:'Clásico',pt:'Clássico',req:null,pal:{}},
@@ -66,6 +72,12 @@ const KITS=[
  {id:'hw-slime',en:'Toxic slime',es:'Baba tóxica',pt:'Gosma tóxica',req:['hwscr',2],until:'2026-11-02',pal:{W:'#7dff3b',L:'#4fbf1f',P:'#7c3fb0',V:'#4a1f6a',B:'#7c3fb0',w:'#7dff3b',N:'#7c3fb0',G:'#ffd23f'},pat:kPat((x,y)=>y<Math.sin(x*.9)*1.5+5?'#7c3fb0':'#7dff3b')},
  {id:'hw-skeleton',en:'Skeleton',es:'Esqueleto',pt:'Esqueleto',req:['hwhi',300],until:'2026-11-02',pal:{W:'#1a1030',L:'#000000',P:'#f3ead2',V:'#9a9a9a',B:'#f3ead2',w:'#1a1030',N:'#f3ead2',E:'#7dff3b'},pat:kPat((x,y)=>(y%3===0&&x>8&&x<24)||x===16?'#f3ead2':'#1a1030')},
  {id:'hw-lantern',en:"Jack-o'-lantern",es:'Calabaza',pt:'Abóbora',req:['hw31',1],until:'2026-10-31',pal:{W:'#ff7a1a',L:'#c4501c',P:'#1a1030',V:'#3a2a1a',B:'#1a1030',w:'#ff7a1a',N:'#2fbf71',G:'#2fbf71',g:'#1f8a4c'},pat:kPat((x,y)=>{const f=(y>=8&&y<=10)&&((x>=11&&x<=13)||(x>=19&&x<=21))||(y===15&&x>=11&&x<=21)||(y===16&&x>=12&&x<=20&&x%2===0);return f?'#ffd23f':(x%5===0?'#c4501c':'#ff7a1a')})},
+ // Christmas 2026 (Reindeer is free and everyone's default for the season)
+ {id:'xm-reindeer',en:'Reindeer',es:'Reno',pt:'Rena',req:null,until:XM_TO,pal:{W:'#8a5a3a',L:'#6b4428',P:'#3a2414',V:'#5a3a22',B:'#3a2414',w:'#8a5a3a',N:'#ff3b30'},addon:kAntler},
+ {id:'xm-jumper',en:'Christmas jumper',es:'Jersey navideño',pt:'Suéter de Natal',req:['xm',1],until:XM_TO,pal:{P:'#ffffff',V:'#2f9a62',B:'#ffffff',N:'#ff3b30'},pat:kPat((x,y)=>{if(y===15||y===18)return'#ffffff';if(y===16||y===17)return(x+y)%3===0?'#2f9a62':'#ffffff';return(x*7+y*5)%17===0?'#ffffff':'#c8473b'})},
+ {id:'xm-snowman',en:'Snowman',es:'Muñeco de nieve',pt:'Boneco de neve',req:['adv',10],until:XM_TO,pal:{P:'#e8f6ff',V:'#cfe6f5',B:'#ffffff',N:'#ff8a1f'},pat:kPat((x,y)=>(x===15&&(y===14||y===16||y===18))?'#1a1030':'#f4fbff'),addon:kSnowman},
+ {id:'xm-santa',en:'Santa',es:'Papá Noel',pt:'Papai Noel',req:['adv',24],until:XM_TO,pal:{P:'#ffffff',V:'#f1f1f1',B:'#ffffff',N:'#ffb3a7',w:'#d62828'},pat:kPat((x,y)=>y>=19?'#ffffff':y===17?(x>=14&&x<=16?'#f2c230':'#1a1030'):'#d62828'),addon:kSantaHat},
+ {id:'xm-tree',en:'Christmas tree',es:'Árbol de Navidad',pt:'Árvore de Natal',req:['xm25',1],until:XM_TO,pal:{P:'#1f6b46',V:'#174f34',B:'#2f9a62',N:'#ffd23f',G:'#ffd23f',g:'#e0a000'},pat:kPat((x,y)=>(x*7+y*5)%11===0?'#d62828':(x*3+y*11)%13===0?'#ffd23f':(x+y*2)%9===0?'#fff6c0':(y%3===0?'#1a5a3a':'#1f6b46')),addon:kTreeStar},
 ];
 // kit clear-out (Nov 2026): fewer, rarer kits. Retired kits are gone for everyone (anyone wearing one is back in Club).
 // Infinity takes Galaxy's look; Cosmic GOAT is no longer Mythic.

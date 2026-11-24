@@ -23,7 +23,7 @@ for m in re.finditer(r"\{id:'([a-z0-9-]+)'[^\n]*?req:(null|\['([a-z0-9]+)',(\d+)
     if req != 'null' and kid not in gone:
         rules.append((kid, typ, int(n)))
 
-KNOWN = {'games', 'streak', 'scr', 'scr1', 'best', 'allfive', 'big', 'level', 'win', 'crew', 'inf', 'hw', 'hw31', 'hwscr', 'hwhi', 'ref', 'refd'}
+KNOWN = {'games', 'streak', 'scr', 'scr1', 'best', 'allfive', 'big', 'level', 'win', 'crew', 'inf', 'hw', 'hw31', 'hwscr', 'hwhi', 'ref', 'refd', 'xm', 'xm25', 'adv'}
 unknown = sorted({t for _, t, _ in rules} - KNOWN)
 if unknown:
     raise SystemExit(f'New kit rule type(s) {unknown}: teach lg_server_kits in this script how to count them first.')
@@ -76,6 +76,9 @@ returns text[] language sql stable security definer set search_path = public as 
                 (select count(*) from d where day = date '2026-10-31') as hw31,
                 coalesce((select sum(scr) from ds where day between date '2026-10-27' and date '2026-11-02'), 0) as hwscr,
                 coalesce((select max(sc) from ds where day between date '2026-10-27' and date '2026-11-02'), 0) as hwhi,
+                (select count(*) from d where day between date '2026-11-25' and date '2027-01-06') as xm,
+                (select count(*) from d where day = date '2026-12-25') as xm25,
+                (select count(*) from d where day between date '2026-12-01' and date '2026-12-24') as adv,
                 (select count(*) from referrals rf where rf.inviter = u) as ref,
                 (select count(*) from referrals rf where rf.invitee = u) as refd,
                 lg_wins(u) as win,
@@ -91,6 +94,7 @@ returns text[] language sql stable security definer set search_path = public as 
            when 'win' then st.win when 'crew' then st.crew when 'inf' then st.inf
            when 'ref' then st.ref when 'refd' then st.refd
            when 'hw' then st.hw when 'hw31' then st.hw31 when 'hwscr' then st.hwscr when 'hwhi' then st.hwhi
+           when 'xm' then st.xm when 'xm25' then st.xm25 when 'adv' then st.adv
          end >= r.n
 $$;
 revoke all on function public.lg_kit_rules(), public.lg_server_kits(uuid) from public, anon, authenticated;

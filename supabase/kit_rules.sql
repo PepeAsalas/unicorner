@@ -34,7 +34,11 @@ returns table (id text, t text, n int) language sql immutable as $$
     ('hw-night', 'hw', 5),
     ('hw-slime', 'hwscr', 2),
     ('hw-skeleton', 'hwhi', 300),
-    ('hw-lantern', 'hw31', 1)
+    ('hw-lantern', 'hw31', 1),
+    ('xm-jumper', 'xm', 1),
+    ('xm-snowman', 'adv', 10),
+    ('xm-santa', 'adv', 24),
+    ('xm-tree', 'xm25', 1)
 $$;
 
 -- every kit an account has earned, from the database's own records
@@ -67,6 +71,9 @@ returns text[] language sql stable security definer set search_path = public as 
                 (select count(*) from d where day = date '2026-10-31') as hw31,
                 coalesce((select sum(scr) from ds where day between date '2026-10-27' and date '2026-11-02'), 0) as hwscr,
                 coalesce((select max(sc) from ds where day between date '2026-10-27' and date '2026-11-02'), 0) as hwhi,
+                (select count(*) from d where day between date '2026-11-25' and date '2027-01-06') as xm,
+                (select count(*) from d where day = date '2026-12-25') as xm25,
+                (select count(*) from d where day between date '2026-12-01' and date '2026-12-24') as adv,
                 (select count(*) from referrals rf where rf.inviter = u) as ref,
                 (select count(*) from referrals rf where rf.invitee = u) as refd,
                 lg_wins(u) as win,
@@ -82,6 +89,7 @@ returns text[] language sql stable security definer set search_path = public as 
            when 'win' then st.win when 'crew' then st.crew when 'inf' then st.inf
            when 'ref' then st.ref when 'refd' then st.refd
            when 'hw' then st.hw when 'hw31' then st.hw31 when 'hwscr' then st.hwscr when 'hwhi' then st.hwhi
+           when 'xm' then st.xm when 'xm25' then st.xm25 when 'adv' then st.adv
          end >= r.n
 $$;
 revoke all on function public.lg_kit_rules(), public.lg_server_kits(uuid) from public, anon, authenticated;
