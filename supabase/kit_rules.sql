@@ -71,7 +71,7 @@ returns text[] language sql stable security definer set search_path = public as 
                 (select count(*) from d where day = date '2026-10-31') as hw31,
                 coalesce((select sum(scr) from ds where day between date '2026-10-27' and date '2026-11-02'), 0) as hwscr,
                 coalesce((select max(sc) from ds where day between date '2026-10-27' and date '2026-11-02'), 0) as hwhi,
-                (select count(*) from d where day between date '2026-11-25' and date '2027-01-06') as xm,
+                (select count(*) from d where day between date '2026-11-24' and date '2027-01-06') as xm,
                 (select count(*) from d where day = date '2026-12-25') as xm25,
                 (select count(*) from d where day between date '2026-12-01' and date '2026-12-24') as adv,
                 (select count(*) from referrals rf where rf.inviter = u) as ref,

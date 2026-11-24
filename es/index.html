@@ -7,7 +7,7 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 </script>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="listdle-verification" content="991c0c59-088a-43e4-ade4-599a885632ee"><script>/* pick the background before first paint, so the old stadium never flashes */(function(){try{var k=new URLSearchParams(location.search).get("bg")||"d-pitch";if(/^[cpsd]-/.test(k)){var d=document.documentElement;d.dataset.bgx=k[0];if(k==="d-pitch"){var t=new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Amsterdam",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date()),x=t>="2026-11-25"&&t<="2027-01-06"?"pitch-snow":"pitch";d.style.cssText+=";--w:url(/bg/"+x+"-wide.webp);--t:url(/bg/"+x+"-tall.webp)"}}}catch(e){}})()</script><script>/* Christmas season flag (25 Nov to 6 Jan) */try{var xt=new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Amsterdam",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());if(xt>="2026-11-25"&&xt<="2027-01-06")document.documentElement.classList.add("xm")}catch(e){}</script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="listdle-verification" content="991c0c59-088a-43e4-ade4-599a885632ee"><script>/* pick the background before first paint, so the old stadium never flashes */(function(){try{var k=new URLSearchParams(location.search).get("bg")||"d-pitch";if(/^[cpsd]-/.test(k)){var d=document.documentElement;d.dataset.bgx=k[0];if(k==="d-pitch"){var t=new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Amsterdam",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date()),x=t>="2026-11-24"&&t<="2027-01-06"?"pitch-snow":"pitch";d.style.cssText+=";--w:url(/bg/"+x+"-wide.webp);--t:url(/bg/"+x+"-tall.webp)"}}}catch(e){}})()</script><script>/* Christmas season flag (25 Nov to 6 Jan) */try{var xt=new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Amsterdam",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());if(xt>="2026-11-24"&&xt<="2027-01-06")document.documentElement.classList.add("xm")}catch(e){}</script>
 <title>Unicorner – Juego diario de trivia de fútbol | ¿Cuánto sabes de fútbol?</title>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Unicorner">
@@ -2372,7 +2372,7 @@ const kSuit=o=>kPat((x,y)=>{if(kHead(x,y))return '#ffffff';if(y>=21)return o.leg
 // add-ons are drawn on top of the finished sprite: the sunglasses' frame and far lens stick out past the face
 const kShades=f=>{const K='#111111',G='#8fa6d6',R=[],r=(x,y,w,h,c)=>R.push([x,y,w,h,c]);r(19,6,15,1,K);r(24,7,5,2,K);r(25,9,3,1,K);r(29,7,2,1,K);r(31,7,4,2,K);r(32,9,2,1,K);r(25,7,2,1,G);r(32,7,1,1,G);return R};
 // ── Christmas 2026: the season, the advent calendar (1-24 Dec: play the Daily 5 to open that day's door) and its kits ──
-const XM_FROM='2026-11-25',XM_TO='2027-01-06',ADV_FROM='2026-12-01',ADV_TO='2026-12-24',XM_DAY='2026-12-25';
+const XM_FROM='2026-11-24',XM_TO='2027-01-06',ADV_FROM='2026-12-01',ADV_TO='2026-12-24',XM_DAY='2026-12-25';
 const xmToday=()=>{try{return new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())}catch{return''}};
 const XMAS_ON=(()=>{const d=xmToday();return d>=XM_FROM&&d<=XM_TO})();
 const kSantaHat=f=>{const r='#d62828',d='#a51d1d',w='#ffffff';return[[20,5,7,1,w],[20,4,6,1,r],[19,3,6,1,r],[18,2,5,1,d],[17,2,2,1,r],[15,1,3,1,w],[15,2,3,1,w],[16,3,1,1,w]]};
