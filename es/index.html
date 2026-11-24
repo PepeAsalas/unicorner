@@ -1925,7 +1925,8 @@ body.playing .topbar .tb-split .sound-toggle+.sound-toggle{border-left:0!importa
  #dlg-stadium{width:min(1180px,calc(100vw - 48px));height:min(820px,calc(100dvh - 48px));max-height:none;overflow:hidden}
  #dlg-stadium .st-body{box-sizing:border-box;height:100%;display:grid;grid-template-columns:300px minmax(0,1fr);column-gap:28px;padding:26px 28px}
  #dlg-stadium .st-side{display:flex;flex-direction:column;gap:14px;min-height:0;overflow-y:auto;padding:0 8px 8px 0;border-right:3px solid rgba(0,0,0,.35)}
- #dlg-stadium .st-main{display:block;min-height:0;overflow-y:auto;padding:52px 10px 10px 0}
+ #dlg-stadium .st-main{display:block;min-height:0;overflow-y:auto;padding:10px 10px 10px 0;margin-top:46px}
+ #dlg-stadium .lg-x{z-index:5}
  #dlg-stadium h2{font-size:18px!important;margin:2px 0 4px!important;padding-right:0}
  #dlg-stadium .pk-tabs{display:grid!important;grid-template-columns:1fr!important;gap:10px!important;margin:0!important}
  #dlg-stadium .pk-tabs button{height:54px!important;font-size:22px!important;text-align:left!important;padding:0 16px!important}
@@ -2375,6 +2376,7 @@ const XMAS_ON=(()=>{const d=xmToday();return d>=XM_FROM&&d<=XM_TO})();
 const kSantaHat=f=>{const r='#d62828',d='#a51d1d',w='#ffffff';return[[20,5,7,1,w],[20,4,6,1,r],[19,3,6,1,r],[18,2,5,1,d],[17,2,2,1,r],[15,1,3,1,w],[15,2,3,1,w],[16,3,1,1,w]]};
 const kAntler=f=>{const d='#a87a4a',b='#c99a5e',l='#e6c690',t='#fff0cc';return[[19,3,2,1,d],[18,2,1,1,d],[17,1,1,1,d],[16,0,1,1,d],[19,1,1,1,d],[19,0,1,1,d],[22,3,2,1,b],[21,2,2,1,b],[20,1,1,1,b],[18,0,2,1,l],[22,1,1,1,l],[22,0,1,1,t],[24,2,1,1,l],[25,1,1,1,t],[20,0,1,1,t]]};
 const kSnowman=f=>{const k='#1a1030',s='#c8473b';return[[21,2,5,3,k],[20,5,7,1,k],[21,4,5,1,s],[20,11,5,2,s],[18,12,3,4,s]]};
+const kXStar=f=>{const g='#fff27a';return[[33,0,1,3,g],[32,1,3,1,g],[31,5,1,1,'#ffffff'],[5,4,1,1,g],[4,5,3,1,g],[5,6,1,1,g]]};
 const kTreeStar=f=>{const g='#ffd23f',w='#fff6c0';return[[30,0,1,1,w],[29,1,3,1,g],[30,2,1,1,g],[5,5,1,1,g],[4,6,3,1,g],[5,7,1,1,g]]};
 const KITS=[
  {id:'classic',en:'Club',es:'Club',pt:'Clube',req:null,pal:{}},
@@ -2434,7 +2436,8 @@ const KITS=[
  {id:'xm-jumper',en:'Christmas jumper',es:'Jersey navideño',pt:'Suéter de Natal',req:['xm',1],until:XM_TO,pal:{P:'#ffffff',V:'#2f9a62',B:'#ffffff',N:'#ff3b30'},pat:kPat((x,y)=>{if(y===15||y===18)return'#ffffff';if(y===16||y===17)return(x+y)%3===0?'#2f9a62':'#ffffff';return(x*7+y*5)%17===0?'#ffffff':'#c8473b'})},
  {id:'xm-snowman',en:'Snowman',es:'Muñeco de nieve',pt:'Boneco de neve',req:['adv',10],until:XM_TO,pal:{P:'#e8f6ff',V:'#cfe6f5',B:'#ffffff',N:'#ff8a1f'},pat:kPat((x,y)=>(x===15&&(y===14||y===16||y===18))?'#1a1030':'#f4fbff'),addon:kSnowman},
  {id:'xm-santa',en:'Santa',es:'Papá Noel',pt:'Papai Noel',req:['adv',24],until:XM_TO,pal:{P:'#ffffff',V:'#f1f1f1',B:'#ffffff',N:'#ffb3a7',w:'#d62828'},pat:kPat((x,y)=>y>=19?'#ffffff':y===17?(x>=14&&x<=16?'#f2c230':'#1a1030'):'#d62828'),addon:kSantaHat},
- {id:'xm-tree',en:'Christmas tree',es:'Árbol de Navidad',pt:'Árvore de Natal',req:['xm25',1],until:XM_TO,pal:{P:'#1f6b46',V:'#174f34',B:'#2f9a62',N:'#ffd23f',G:'#ffd23f',g:'#e0a000'},pat:kPat((x,y)=>(x*7+y*5)%11===0?'#d62828':(x*3+y*11)%13===0?'#ffd23f':(x+y*2)%9===0?'#fff6c0':(y%3===0?'#1a5a3a':'#1f6b46')),addon:kTreeStar},
+ {id:'xm-star',en:'Golden star',es:'Estrella dorada',pt:'Estrela dourada',req:['xm25',1],until:XM_TO,pal:{W:'#ffe27a',L:'#e0b030',P:'#fff3a0',V:'#f2c230',B:'#ffffff',G:'#ffffff',g:'#f2c230',N:'#ff8a1f'},pat:kPat((x,y)=>(x*5+y*3)%13===0?'#ffffff':(x+y)%2?'#ffd84d':'#f2c230'),addon:kXStar},
+ {id:'xm-tree',en:'Christmas tree',es:'Árbol de Navidad',pt:'Árvore de Natal',req:['adv',17],until:XM_TO,pal:{P:'#1f6b46',V:'#174f34',B:'#2f9a62',N:'#ffd23f',G:'#ffd23f',g:'#e0a000'},pat:kPat((x,y)=>(x*7+y*5)%11===0?'#d62828':(x*3+y*11)%13===0?'#ffd23f':(x+y*2)%9===0?'#fff6c0':(y%3===0?'#1a5a3a':'#1f6b46')),addon:kTreeStar},
 ];
 // kit clear-out (Nov 2026): fewer, rarer kits. Retired kits are gone for everyone (anyone wearing one is back in Club).
 // Infinity takes Galaxy's look; Cosmic GOAT is no longer Mythic.
@@ -4468,7 +4471,7 @@ dlg.addEventListener('click',e=>{const b=e.target.closest('[data-st]');if(!b){if
  if(b.dataset.st==='pick'){const k=b.dataset.k;if(!unlocked(k)){const x=BGX.find(t=>t[0]===k);showToast(x&&x[3][0]==='games'?L('Keep playing to unlock this one 🎮','Sigue jugando para desbloquear este 🎮',"Continue jogando para desbloquear este 🎮"):L('Keep your streak going to unlock this one 🔥','Mantén tu racha para desbloquear este 🔥',"Mantenha sua sequência para desbloquear este 🔥"));return}
   ls('uc-bg',k==='d-pitch'?null:k);apply();track('stadium_pick',{bg:k});pkSame=true;openPicker()}});
 // Kit unlocks get a card pack on the results screen. Each kit has an answer level (same names and colours as scoring).
-const KLV={'xm-reindeer':0,'xm-jumper':1,'xm-snowman':2,'xm-tree':3,'xm-santa':4,'hw-stripes':0,'hw-candy':1,'hw-night':2,'hw-slime':3,'hw-skeleton':3,'hw-lantern':4,stripes:0,hoops:0,ref:0,candy:0,keeper:0,sash:1,halves:1,night:1,pin:1,quarters:1,fire:1,shadow:4,checks:2,hat3:2,dots:2,toxic:2,ice:2,perfect:2,leopard:3,zebra:3,galaxy:3,ocean:3,sunset:3,camo:3,lava:3,chrome:4,rainbow:4,tiedye:4,gold:4,mud:0,bee:0,tartan:1,retro:1,straw:2,aurora:3,matrix:3,glitch:3,royal:4,goat:4};
+const KLV={'xm-reindeer':0,'xm-jumper':1,'xm-snowman':2,'xm-tree':3,'xm-star':3,'xm-santa':4,'hw-stripes':0,'hw-candy':1,'hw-night':2,'hw-slime':3,'hw-skeleton':3,'hw-lantern':4,stripes:0,hoops:0,ref:0,candy:0,keeper:0,sash:1,halves:1,night:1,pin:1,quarters:1,fire:1,shadow:4,checks:2,hat3:2,dots:2,toxic:2,ice:2,perfect:2,leopard:3,zebra:3,galaxy:3,ocean:3,sunset:3,camo:3,lava:3,chrome:4,rainbow:4,tiedye:4,gold:4,mud:0,bee:0,tartan:1,retro:1,straw:2,aurora:3,matrix:3,glitch:3,royal:4,goat:4};
 const KLC=TIER_COLS.concat('#ff7ac8'),KLN=TIERS.map(t=>t[1]).concat('Mythic');window.ucKitInfo={KLV,KLC,KLN};
 const kitsNow=()=>{const st=kitStats();return KITS.filter(k=>k.req&&kitHas(k,st)).map(k=>k.id)};
 let kitDone=null;try{kitDone=JSON.parse(ls('uc-kit-done')||'null')}catch{}
@@ -5224,11 +5227,11 @@ html body .landing-wrap .lp-sprite{width:clamp(130px,19vw,240px)!important;heigh
 .xm-box .t{outline:3px solid #f2c230;outline-offset:-1px;animation:xmPulse 1.4s ease-in-out infinite}
 @keyframes xmPulse{50%{outline-color:#fff6c0}}
 .xm-p{margin:10px 0 0;font:400 15px/1.3 VT323,monospace;color:#e9dfc2}.xm-p b{color:#f2c230;font-weight:400}
-.xm-kits{display:flex;gap:8px;margin-top:10px}.xm-kits span{flex:1;text-align:center;font:400 12px/1.1 VT323,monospace;color:#e9dfc2}
+.xm-kits{display:grid;grid-template-columns:repeat(6,1fr);gap:10px 4px;margin-top:12px}.xm-kits span{grid-column:span 2}.xm-kits span:nth-child(1){grid-column:3/span 2}.xm-kits span:nth-child(2){grid-column:2/span 2}.xm-kits span:nth-child(3){grid-column:4/span 2}.xm-kits span{flex:1;text-align:center;font:400 12px/1.1 VT323,monospace;color:#e9dfc2}
 .xm-kits i{display:block;height:46px;background:center/contain no-repeat;image-rendering:pixelated}
 .xm-off{background:none;border:0;padding:0;margin-top:8px;font:400 13px VT323,monospace;color:#b9b0a0;text-decoration:underline;cursor:pointer}
 @media (prefers-reduced-motion:reduce){.xm-box .t{animation:none}}
-@media (min-width:700px){.xm-cal{display:grid;grid-template-columns:300px 1fr;column-gap:30px;align-items:center;margin:6px 0 22px;padding:16px 22px 18px}.xm-cal>.xm-h,.xm-cal>.xm-big{grid-column:1/-1}.xm-box{width:300px;margin:0}.xm-cal .xm-big{font-size:38px}.xm-cal .xm-cd{grid-column:1/-1}.xm-cal .xm-cd b{font-size:44px;padding:8px 12px 6px}.xm-cal .xm-kits{display:grid;grid-template-columns:repeat(6,1fr);row-gap:22px;margin:0}.xm-cal .xm-kits span{grid-column:span 2;font-size:17px}.xm-cal .xm-kits span:nth-child(4){grid-column:2/span 2}.xm-cal .xm-kits i{height:108px;margin-bottom:6px}.xm-cal .xm-off{font-size:16px;margin-top:22px}}
+@media (min-width:700px){.xm-cal{display:grid;grid-template-columns:300px 1fr;column-gap:30px;align-items:center;margin:6px 0 22px;padding:16px 22px 18px}.xm-cal>.xm-h,.xm-cal>.xm-big{grid-column:1/-1}.xm-box{width:300px;margin:0}.xm-cal .xm-big{font-size:38px}.xm-cal .xm-cd{grid-column:1/-1}.xm-cal .xm-cd b{font-size:44px;padding:8px 12px 6px}.xm-cal .xm-kits{row-gap:18px;margin:0}.xm-cal .xm-kits span{font-size:17px}.xm-cal .xm-kits i{height:96px;margin-bottom:6px}.xm-cal .xm-off{font-size:16px;margin-top:22px}}
 .xm-cd{display:flex;gap:8px;margin:0 0 14px}
 .xm-cd span{display:flex;flex-direction:column;align-items:center;gap:4px}
 .xm-cd b{min-width:2ch;padding:6px 8px 4px;background:#1d1a2b;border:3px solid #000;box-shadow:inset 0 0 0 2px #3a2a1f;font:400 30px/1 'Jersey 10',monospace;color:#f2c230;text-align:center;font-variant-numeric:tabular-nums}
@@ -5275,7 +5278,8 @@ html.xm .hz3-side:before{content:"";position:absolute;left:50%;top:44px;width:52
   const p=before?T('From 1 December, play the Daily 5 each day to open that day\'s door. Open 10 for the Snowman kit, all 24 for Santa.','Desde el 1 de diciembre, juega el Diario 5 cada día para abrir su puerta. Abre 10 para el Muñeco de nieve y las 24 para Papá Noel.','A partir de 1º de dezembro, jogue o Diário 5 todo dia para abrir a porta do dia. Abra 10 para o Boneco de neve e as 24 para o Papai Noel.')
    :during?T(`<b>${n}</b> of 24 open. Play today's Daily 5 to open today's door. 10 doors: Snowman. All 24: Santa.`,`<b>${n}</b> de 24 abiertas. Juega el Diario 5 de hoy para abrir la puerta. 10 puertas: Muñeco de nieve. Las 24: Papá Noel.`,`<b>${n}</b> de 24 abertas. Jogue o Diário 5 de hoje para abrir a porta. 10 portas: Boneco de neve. Todas as 24: Papai Noel.`)
    :T('Merry Christmas from Horacio and the Unicorner crew!','¡Feliz Navidad de parte de Horacio y el equipo de Unicorner!','Feliz Natal do Horacio e da equipe do Unicorner!');
-  const kits=[['xm-reindeer',T('Reindeer · free','Reno · gratis','Rena · grátis')],['xm-jumper',T('Jumper · play 1','Jersey · juega 1','Suéter · jogue 1')],['xm-snowman',T('Snowman · 10 doors','Muñeco · 10 puertas','Boneco · 10 portas')],['xm-santa',T('Santa · 24 doors','Papá Noel · 24','Papai Noel · 24')],['xm-tree',T('Tree · 25 Dec','Árbol · 25 dic','Árvore · 25 dez')]];
+  // laid out as a Christmas tree: the star on top, the easy ones at the bottom
+  const kits=[['xm-star',T('Golden star · 25 Dec','Estrella dorada · 25 dic','Estrela dourada · 25 dez')],['xm-santa',T('Santa · 24 doors','Papá Noel · 24','Papai Noel · 24')],['xm-tree',T('Tree · 17 doors','Árbol · 17 puertas','Árvore · 17 portas')],['xm-reindeer',T('Reindeer · free','Reno · gratis','Rena · grátis')],['xm-jumper',T('Jumper · play 1','Jersey · juega 1','Suéter · jogue 1')],['xm-snowman',T('Snowman · 10 doors','Muñeco · 10 puertas','Boneco · 10 portas')]];
   return`<section class="xm-cal" id="xm-cal" aria-label="${T('Advent calendar','Calendario de Adviento','Calendário do Advento')}"><div class="xm-h"><b>${T('UNICORNER CHRISTMAS','NAVIDAD UNICORNER','NATAL UNICORNER')}</b><span>${T('Advent 1–24 Dec','Adviento 1–24 dic','Advento 1–24 dez')}</span></div>
    <div class="xm-big">${big}</div>${before?`<div class="xm-cd" id="xm-cd">${cd}</div>`:''}<div class="xm-box" role="img" aria-label="${T(`${n} of 24 doors open`,`${n} de 24 puertas abiertas`,`${n} de 24 portas abertas`)}">${doors}</div><div class="xm-side">
    <div class="xm-kits">${kits.map(([id,t])=>`<span><i style="background-image:${kit(id)}"></i>${t}</span>`).join('')}</div>
