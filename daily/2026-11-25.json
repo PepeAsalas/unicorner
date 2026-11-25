@@ -167,6 +167,17 @@
           "why_es": "Suecia perdió ante Brasil la final de 1958 y la semifinal de 1994.",
           "name_pt": "Suécia",
           "why_pt": "A Suécia perdeu para o Brasil a final de 1958 e a semifinal de 1994."
+        },
+        {
+          "name": "Japan",
+          "aliases": [
+            "Japón",
+            "Japão"
+          ],
+          "why": "Japan have never beaten Brazil at a World Cup: Brazil won their 2006 group game 4-1.",
+          "why_es": "Japón nunca ha ganado a Brasil en un Mundial: Brasil ganó 4-1 su partido de grupos de 2006.",
+          "name_pt": "Japão",
+          "why_pt": "O Japão nunca venceu o Brasil numa Copa do Mundo: o Brasil ganhou por 4-1 o jogo da fase de grupos de 2006."
         }
       ],
       "prompt_pt": "Cite um país que venceu o Brasil numa Copa do Mundo",

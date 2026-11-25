@@ -36,6 +36,9 @@ def norm(s):
     return ''.join(c for c in unicodedata.normalize('NFD', s) if unicodedata.category(c) != 'Mn').upper()
 
 
+# club prefixes: "US Lecce" must not count for U
+CLUB_PRE = {'US','UC','AD','AS','AC','FC','SC','CF','CD','SS','RC','SV','VFB','VFL','TSG','SD','UD','CA','SE','EC','CR','RB','OGC','KV','KSC','SK','FK','NK','HNK','GNK','PFC','AFC','RCD','SSC','ACF','OSC','LOSC','BSC','TSV','FSV','SPVGG','SG','IF','BK','IK','AIK','GD','CS','SL','ACS','SCO'}
+
 PARTICLES = {'van', 'de', 'der', 'den', 'di', 'da', 'dos', 'das', 'del', 'le', 'la', 'von', 'el', 'al', 'ter', 'ten', 'do', 'du', 'des', 'della', 'dei'}
 # particles people say as part of the surname (van Persie, De Bruyne, Di María, Del Piero, Le Saux): those surnames count
 # for the particle's letter too, so van Persie is fine for V and for P (players asked for both)
@@ -188,6 +191,15 @@ def build(day, questions, recent, recent_ans=None):
         q, answers, _ = rng.choice(pool)
         used.add(q['prompt'])
         kind = q.get('answer_type', 'player')
+        # a common name that starts with the letter counts too: Lyon for L (Olympique Lyonnais), Munir for M (Munir El Haddadi).
+        # Only the names that start with the letter are kept, so "OL" doesn't count for L.
+        answers = list(answers)
+        for a in q['answers']:
+            if a in answers:
+                continue
+            al = [x for x in (a.get('aliases') or []) if len(norm(x)) >= 3 and norm(x).startswith(letter) and norm(x).split()[0] not in CLUB_PRE]
+            if al:
+                answers.append({**a, 'name': al[0], 'aliases': al[1:]})
         items.append({
             'letter': letter,
             'mode': 'starts',
@@ -200,7 +212,7 @@ def build(day, questions, recent, recent_ans=None):
             'answer_type': kind,
             'answers': [{'name': a['name'], 'aliases': a.get('aliases') or []} for a in answers],
             # every other valid answer to the question: typed one of these and it's right, just the wrong letter
-            'others': [a['name'] for a in q['answers'] if a not in answers][:400],
+            'others': [a['name'] for a in q['answers'] if a['name'] not in {x['name'] for x in answers} and not any(norm(x).startswith(letter) and norm(x).split()[0] not in CLUB_PRE for x in (a.get('aliases') or []) if len(norm(x)) >= 3)][:400],
         })
     # explain trophies, foreign leagues and cups that many players won't know (scripts/football_terms.py)
     for it in items:
