@@ -129,9 +129,14 @@ main,.card,.q,.say{image-rendering:auto}
 .about{margin-top:auto;padding-top:18px;font:15px/1.45 Barlow,system-ui,sans-serif;color:rgba(251,246,232,.7)}.about h2{font:400 22px/1 "Jersey 10",monospace;color:var(--sand);margin:0 0 6px;font-weight:400}.about p{margin:0 0 8px}.about a{color:var(--gold)}
 /* sound switch: the same pixel speaker as the home page */#snd{font-size:0!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 2h2v3H0zM2 1h1v5H2zM3 0h1v7H3zM5 2h1v3H5zM6 1h1v1H6zM6 5h1v1H6zM7 2h1v3H7z' fill='%231a1030'/%3E%3C/svg%3E")!important;background-position:center!important;background-size:18px auto!important;background-repeat:no-repeat!important;image-rendering:pixelated}#snd[data-on="0"]{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 2h2v3H0zM2 1h1v5H2zM3 0h1v7H3z' fill='%231a1030'/%3E%3Cpath d='M5 2h1v1H5zM7 2h1v1H7zM6 3h1v1H6zM5 4h1v1H5zM7 4h1v1H7z' fill='%23e3262f'/%3E%3C/svg%3E")!important}
 </style><link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#1d1a2b"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Unicorner"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="apple-touch-icon" href="/favicon-180.png">
-</head><body><main>
+<script>/* Christmas: Horacio in his rental Santa suit (stopgap: the big Stable Hand frames until the small Santa set is ready) */
+window.ucHost=(function(){var d=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date()),xm=d>='2026-11-24'&&d<='2027-01-06';
+var M={'talk-1':'talking','talk-2':'talking','talk-3':'talking','happy-talk':'talking','sad-talk':'talking',laugh:'laughing','happy-1':'laughing',celebrate:'clap',excited:'clap',wink:'winking',point:'point',pasapalabra:'point',think:'thinking',nervous:'nervous',surprised:'shock',annoyed:'shock',facepalm:'sad',sad:'sad'};
+if(xm)document.documentElement.classList.add('xm-host');
+return function(n){return xm?'/blackjack/art/xmas/horacio-'+(M[n]||'idle')+'.png':'/rosco/host/'+n+'.png'}})();</script>
+<style>html.xm-host img[src*="/blackjack/art/xmas/"]{image-rendering:auto}</style></head><body><main>
 <div class="top"><a class="logo" href="/">UNICORNER</a><span class="top-r"><span class="tag" data-es="MILLONES" data-pt="MILHÕES">MILLONES</span><button type="button" class="snd" id="snd" aria-label="Sound" title="Sound"></button><a class="snd x-out" id="x-out" href="/" aria-label="Back to Unicorner" title="Back to Unicorner">✕</a></span></div>
-<div class="host"><div class="face"><img id="face" alt="" src="/rosco/host/happy-talk.png"></div><p class="say"><span class="who">Horacio Herradura</span><span id="say"></span></p></div>
+<div class="host"><div class="face"><img id="face" alt="" src="/rosco/host/happy-talk.png"><script>document.getElementById('face').src=ucHost('happy-talk')</script></div><p class="say"><span class="who">Horacio Herradura</span><span id="say"></span></p></div>
 
 <section id="s-intro" hidden><div class="mq"><h1 data-es="Millones" data-pt="Milhões">Millones</h1></div><div class="card">
  <ol class="rules"><li data-es="Empiezas con <b>1.000.000</b>." data-pt="Você começa com <b>1.000.000</b>.">Empiezas con <b>1.000.000</b>.</li>
@@ -177,7 +182,7 @@ if(PT){const xo=document.getElementById('x-out');if(xo){xo.href='/pt/';xo.title=
 if(ES){const xo=document.getElementById('x-out');if(xo){xo.href='/es/';xo.title=xo.ariaLabel='Volver a Unicorner'}document.querySelectorAll('[data-es]').forEach(e=>e.innerHTML=e.dataset.es);document.querySelectorAll('[data-es-ph]').forEach(e=>e.placeholder=e.dataset.esPh)}
 const $=id=>document.getElementById(id),START=1000000,SECS=60,KEY='millon-'+DAY+(DAY==='2026-11-03'?'-r1':'');
 const fmt=n=>n.toLocaleString(PT?'pt-BR':ES?'es-ES':'en-GB');
-const say=(t,pose)=>{$('say').textContent=t;if(pose)$('face').src='/rosco/host/'+pose+'.png'};
+const say=(t,pose)=>{$('say').textContent=t;if(pose)$('face').src=ucHost(pose)};
 const VISITOR=(()=>{try{let v=localStorage.getItem('uc-visitor');if(!v){v=crypto.randomUUID();localStorage.setItem('uc-visitor',v)}return v}catch{return null}})();
 function track(name,data){try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,visitor:VISITOR,seconds:0,game_day:DAY,event_version:2,data:{language:PT?'pt':ES?'es':'en',page:'millon',...(ARCH?{archive:true}:{}),...(data||{})}})}).catch(()=>{})}catch{}}
 // signed-in players: one result per account per day, today's ranking (supabase/millon.sql)
@@ -295,7 +300,7 @@ async function millonImage(){const W=1080,H=1350,c=document.createElement('canva
  g.fillStyle=ink;g.font='170px "Jersey 10",monospace';g.fillText(fmt(bank),W/2+8,690+8);g.fillStyle=bank?gold:'#f0a097';g.fillText(fmt(bank),W/2,690);
  const cols={'🟩':'#2fbf71','🟨':gold,'🟥':'#c8473b'},sz=86,gap=16,tot=8*sz+7*gap;
  for(let k=0;k<8;k++){const x=W/2-tot/2+k*(sz+gap),y=810;g.fillStyle=ink;g.fillRect(x-5,y-5,sz+10,sz+10);g.fillStyle=cols[hist[k]]||'#3a3450';g.fillRect(x,y,sz,sz);g.fillStyle=hist[k]?ink:'#6b6878';g.font='48px "Jersey 10",monospace';g.fillText(String(k+1),x+sz/2,y+sz/2+4)}
- try{g.drawImage(await img('/rosco/host/'+(bank>=500000?'celebrate':bank?'happy-1':'facepalm')+'.png'),W/2-110,930,220,220)}catch{}
+ try{g.drawImage(await img(ucHost(bank>=500000?'celebrate':bank?'happy-1':'facepalm')),W/2-110,930,220,220)}catch{}
  g.fillStyle=ink;g.fillRect(0,H-130,W,130);g.fillStyle=cr;g.font='52px "Jersey 10",monospace';g.fillText(L('Can you keep more?','¿Te llevas más que yo?',"Consegue ficar com mais?"),W/2,H-84);g.fillStyle=gold;g.font='40px VT323,monospace';g.fillText(PT?'unicornergame.lol/pt/millon':ES?'unicornergame.lol/es/millon':'unicornergame.lol/millon',W/2,H-36);
  return new Promise(res=>c.toBlob(res,'image/png'))}
 const dlImg=blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`millions-${DAY}.png`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)};

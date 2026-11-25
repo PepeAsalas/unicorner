@@ -129,7 +129,12 @@ h1{font:400 44px/1 var(--disp);margin:0;color:var(--gold);text-shadow:3px 3px 0 
 .about{margin-top:auto;padding-top:18px;font:15px/1.45 Barlow,system-ui,sans-serif;color:rgba(251,246,232,.7)}.about h2{font:400 22px/1 "Jersey 10",monospace;color:var(--sand);margin:0 0 6px;font-weight:400}.about p{margin:0 0 8px}.about a{color:var(--gold)}
 /* sound switch: the same pixel speaker as the home page */#snd{font-size:0!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 2h2v3H0zM2 1h1v5H2zM3 0h1v7H3zM5 2h1v3H5zM6 1h1v1H6zM6 5h1v1H6zM7 2h1v3H7z' fill='%231a1030'/%3E%3C/svg%3E")!important;background-position:center!important;background-size:18px auto!important;background-repeat:no-repeat!important;image-rendering:pixelated}#snd[data-on="0"]{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 2h2v3H0zM2 1h1v5H2zM3 0h1v7H3z' fill='%231a1030'/%3E%3Cpath d='M5 2h1v1H5zM7 2h1v1H7zM6 3h1v1H6zM5 4h1v1H5zM7 4h1v1H7z' fill='%23e3262f'/%3E%3C/svg%3E")!important}
 </style><link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#1d1a2b"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Unicorner"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="apple-touch-icon" href="/favicon-180.png">
-</head><body><main>
+<script>/* Christmas: Horacio in his rental Santa suit (stopgap: the big Stable Hand frames until the small Santa set is ready) */
+window.ucHost=(function(){var d=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date()),xm=d>='2026-11-24'&&d<='2027-01-06';
+var M={'talk-1':'talking','talk-2':'talking','talk-3':'talking','happy-talk':'talking','sad-talk':'talking',laugh:'laughing','happy-1':'laughing',celebrate:'clap',excited:'clap',wink:'winking',point:'point',pasapalabra:'point',think:'thinking',nervous:'nervous',surprised:'shock',annoyed:'shock',facepalm:'sad',sad:'sad'};
+if(xm)document.documentElement.classList.add('xm-host');
+return function(n){return xm?'/blackjack/art/xmas/horacio-'+(M[n]||'idle')+'.png':'/rosco/host/'+n+'.png'}})();</script>
+<style>html.xm-host img[src*="/blackjack/art/xmas/"]{image-rendering:auto}</style></head><body><main>
 <div class="top"><a class="logo" href="/">UNICORNER</a><span class="top-r"><span class="tag" id="tag">ROSCO</span><button type="button" class="exit snd" id="snd" aria-label="Sound" title="Sound"></button><a class="exit" id="exit" href="/" aria-label="Back to Unicorner" title="Back to Unicorner">✕</a></span></div>
 
 <section id="s-load"><p class="note" data-es="Cargando el Rosco de hoy…" data-pt="Carregando o Rosco de hoje…">Carregando o Rosco de hoje…</p></section>
@@ -204,13 +209,13 @@ function track(name,data){if(NO_LOG.has(name))return;if(ARCH)data={...(data||{})
 
 // ── the presenter: 20 hand-picked 64x64 frames in rosco/host. He blinks when idle and moves his mouth while his text types out ──
 const POSES=['idle-1','idle-2','talk-1','talk-2','talk-3','happy-1','happy-talk','laugh','excited','wink','point','think','surprised','nervous','sad','sad-talk','annoyed','facepalm','pasapalabra','celebrate'];
-POSES.forEach(n=>{const i=new Image();i.src=`/rosco/host/${n}.png`});
+POSES.forEach(n=>{const i=new Image();i.src=ucHost(n)});
 // while talking, a pose flips between its mouth frames; poses without talking frames hold still
 const MOUTH={'idle-1':['idle-1','talk-1','talk-2','talk-3'],'happy-1':['happy-1','happy-talk'],'sad':['sad','sad-talk']};
 const REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const host={};
 function Host(box){const img=box.querySelector('img');let pose='idle-1',talkT=0,blinkT=0;
- const show=n=>{img.src=`/rosco/host/${n}.png`};
+ const show=n=>{img.src=ucHost(n)};
  const blink=()=>{clearTimeout(blinkT);blinkT=setTimeout(()=>{if(pose==='idle-1'&&!talkT){show('idle-2');setTimeout(()=>{if(pose==='idle-1'&&!talkT)show('idle-1')},130)}blink()},2600+Math.random()*2600)};
  const api={set(n){if(n!==pose){box.classList.remove('pop');void box.offsetWidth;if(!REDUCE)box.classList.add('pop')}pose=n;show(n)},
   talk(ms){clearInterval(talkT);talkT=0;const f=MOUTH[pose];if(!f||REDUCE)return;let i=0;
@@ -388,7 +393,7 @@ async function roscoImage(){const W=1080,H=1350,c=document.createElement('canvas
  g.fillStyle=ink;g.font='200px "Jersey 10",monospace';g.fillText(`${c0.ok}`,cx+6,cy-90+8);g.fillStyle=gold;g.fillText(`${c0.ok}`,cx,cy-90);
  g.fillStyle=cr;g.font='56px "Jersey 10",monospace';g.fillText(L(`OUT OF ${n}`,`DE ${n}`,`DE ${n}`),cx,cy+20);
  const pose=c0.ok>=n*.6?'celebrate':c0.ok>=n*.3?'happy-1':'facepalm';
- try{const im=new Image();im.src='/rosco/host/'+pose+'.png';await im.decode();g.drawImage(im,cx-120,cy+60,240,240)}catch{}
+ try{const im=new Image();im.src=ucHost(pose);await im.decode();g.drawImage(im,cx-120,cy+60,240,240)}catch{}
  const line=c0.ok>=n*.6?L('What a Rosco!','¡Qué Rosco!',"Que Rosco!"):c0.ok>=n*.3?L('Not bad at all!','¡Nada mal!',"Nada mal!"):L('Tomorrow is another day…','Mañana será otro día…',"Amanhã é outro dia…");
  g.font='46px VT323,monospace';const bw=g.measureText('"'+line+'" — Horacio Herradura').width+60;g.fillStyle=ink;g.fillRect(cx-bw/2-6,1060-6,bw+12,96);g.fillStyle=cr;g.fillRect(cx-bw/2,1060,bw,84);g.fillStyle=ink;g.fillText('"'+line+'" — Horacio Herradura',cx,1104);
  g.fillStyle=ink;g.fillRect(0,H-130,W,130);g.fillStyle=cr;g.font='52px "Jersey 10",monospace';g.fillText(L(`${c0.ok} ✓  ${c0.no} ✕   Can you beat me?`,`${c0.ok} ✓  ${c0.no} ✕   ¿Me superas?`,`${c0.ok} ✓  ${c0.no} ✕   Consegue me vencer?`),cx,H-84);g.fillStyle=gold;g.font='40px VT323,monospace';g.fillText(PT?'unicornergame.lol/pt/rosco':ES?'unicornergame.lol/es/rosco':'unicornergame.lol/rosco',cx,H-36);
