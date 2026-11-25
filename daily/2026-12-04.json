@@ -1,0 +1,990 @@
+{
+  "date": "2026-12-04",
+  "timezone": "Europe/Amsterdam",
+  "questions": [
+    {
+      "id": "f175",
+      "_id": "f175",
+      "prompt": "Name a club that won the French league title",
+      "subtitle": "Champions of the professional top flight (Ligue 1 and its forerunners), 1932-33 to 2025-26",
+      "prompt_es": "Nombra un club que ganó la liga francesa",
+      "subtitle_es": "Campeones de la primera división profesional (la Ligue 1 y sus predecesoras), de la 1932-33 a la 2025-26",
+      "prompt_pt": "Cite um clube que foi campeão francês",
+      "subtitle_pt": "Campeões da primeira divisão profissional (a Ligue 1 e antecessoras), de 1932-33 a 2025-26",
+      "difficulty": "easy",
+      "answer_type": "club",
+      "format_family": "league_champion_club",
+      "scoring_version": 2,
+      "answer_count": 18,
+      "clash_note": "Olympique Lillois, the 1933 champions, count as Lille.",
+      "answers": [
+        {
+          "name": "Paris Saint-Germain",
+          "aliases": [
+            "PSG",
+            "Paris SG",
+            "Paris"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Marseille",
+          "aliases": [
+            "Olympique de Marseille",
+            "OM",
+            "Marsella",
+            "Olympique de Marselha"
+          ],
+          "fame": 6,
+          "name_es": "Marsella",
+          "name_pt": "Olympique de Marselha"
+        },
+        {
+          "name": "Saint-Étienne",
+          "aliases": [
+            "Saint Etienne",
+            "St Etienne",
+            "St-Étienne",
+            "ASSE"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Lyon",
+          "aliases": [
+            "Olympique Lyonnais",
+            "OL"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Monaco",
+          "aliases": [
+            "AS Monaco",
+            "Mónaco"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Nantes",
+          "aliases": [
+            "FC Nantes"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Bordeaux",
+          "aliases": [
+            "Girondins de Bordeaux",
+            "Burdeos",
+            "Girondins"
+          ],
+          "fame": 4,
+          "name_es": "Burdeos"
+        },
+        {
+          "name": "Lille",
+          "aliases": [
+            "Lille OSC",
+            "LOSC",
+            "Olympique Lillois"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Reims",
+          "aliases": [
+            "Stade de Reims"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Nice",
+          "aliases": [
+            "OGC Nice",
+            "Niza"
+          ],
+          "fame": 3,
+          "name_es": "Niza"
+        },
+        {
+          "name": "Lens",
+          "aliases": [
+            "RC Lens"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Montpellier",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Auxerre",
+          "aliases": [
+            "AJ Auxerre"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Strasbourg",
+          "aliases": [
+            "Estrasburgo",
+            "RC Strasbourg"
+          ],
+          "fame": 2,
+          "name_es": "Estrasburgo"
+        },
+        {
+          "name": "Sochaux",
+          "aliases": [
+            "FC Sochaux"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Sète",
+          "aliases": [
+            "Sete",
+            "FC Sète"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Racing Paris",
+          "aliases": [
+            "RC Paris",
+            "Racing Club de France",
+            "Racing Club de Paris"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Roubaix-Tourcoing",
+          "aliases": [
+            "CO Roubaix-Tourcoing",
+            "Roubaix"
+          ],
+          "fame": 1
+        }
+      ],
+      "traps": [
+        {
+          "name": "Rennes",
+          "aliases": [
+            "Stade Rennais"
+          ],
+          "why": "Rennes have never been French champions; their trophies are cups.",
+          "why_es": "El Rennes nunca ha sido campeón de Francia; sus títulos son copas."
+        },
+        {
+          "name": "Nîmes",
+          "aliases": [
+            "Nimes"
+          ],
+          "why": "Nîmes finished runners-up four times but never won the title.",
+          "why_es": "El Nîmes fue subcampeón cuatro veces, pero nunca ganó la liga."
+        },
+        {
+          "name": "Toulouse",
+          "aliases": [],
+          "why": "Toulouse have never won the French title.",
+          "why_es": "El Toulouse nunca ha ganado la liga francesa."
+        },
+        {
+          "name": "Metz",
+          "aliases": [],
+          "why": "Metz were runners-up in 1998, behind Lens.",
+          "why_es": "El Metz fue subcampeón en 1998, por detrás del Lens."
+        }
+      ]
+    },
+    {
+      "id": "f004r1",
+      "_id": "f004r1",
+      "prompt": "Won the Premier League Golden Boot",
+      "subtitle": "1992-93 to 2024-25, shared awards count",
+      "prompt_es": "Ganó la Bota de Oro de la Premier",
+      "subtitle_es": "De la 1992-93 a la 2024-25, cuentan los premios compartidos",
+      "difficulty": "easy",
+      "answer_type": "player",
+      "format_family": "award_winner_player",
+      "scoring_version": 2,
+      "clash_note": "",
+      "answers": [
+        {
+          "name": "Alan Shearer",
+          "aliases": [
+            "Shearer"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Thierry Henry",
+          "aliases": [
+            "Henry"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Mohamed Salah",
+          "aliases": [
+            "Salah",
+            "Mo Salah"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Erling Haaland",
+          "aliases": [
+            "Haaland"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Harry Kane",
+          "aliases": [
+            "Kane"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Sergio Agüero",
+          "aliases": [
+            "Aguero",
+            "Kun Agüero",
+            "Kun Aguero"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Robin van Persie",
+          "aliases": [
+            "van Persie",
+            "RVP"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Didier Drogba",
+          "aliases": [
+            "Drogba"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Cristiano Ronaldo",
+          "aliases": [
+            "Ronaldo",
+            "CR7",
+            "Cristiano"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Luis Suárez",
+          "aliases": [
+            "Suarez"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Jamie Vardy",
+          "aliases": [
+            "Vardy"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Ruud van Nistelrooy",
+          "aliases": [
+            "van Nistelrooy",
+            "Van Nistelrooij"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Michael Owen",
+          "aliases": [
+            "Owen"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Son Heung-min",
+          "aliases": [
+            "Son",
+            "Heung-min Son"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Jimmy Floyd Hasselbaink",
+          "aliases": [
+            "Hasselbaink"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Andy Cole",
+          "aliases": [
+            "Andrew Cole",
+            "Cole"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Nicolas Anelka",
+          "aliases": [
+            "Anelka"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Sadio Mané",
+          "aliases": [
+            "Mane"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Pierre-Emerick Aubameyang",
+          "aliases": [
+            "Aubameyang",
+            "Auba"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Teddy Sheringham",
+          "aliases": [
+            "Sheringham"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Kevin Phillips",
+          "aliases": [
+            "Phillips"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Dimitar Berbatov",
+          "aliases": [
+            "Berbatov"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Carlos Tevez",
+          "aliases": [
+            "Tevez"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Dwight Yorke",
+          "aliases": [
+            "Yorke"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Chris Sutton",
+          "aliases": [
+            "Sutton"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Dion Dublin",
+          "aliases": [
+            "Dublin"
+          ],
+          "fame": 1
+        }
+      ],
+      "traps": [
+        {
+          "name": "Wayne Rooney",
+          "aliases": [
+            "Rooney"
+          ],
+          "why": "Rooney never won it: his 26 in 2009-10 was three behind Drogba.",
+          "why_es": "Rooney nunca la ganó: sus 26 de la 2009-10 se quedaron a tres de Drogba.",
+          "why_pt": "Rooney nunca foi artilheiro: seus 26 gols em 2009-10 ficaram três atrás de Drogba."
+        }
+      ],
+      "answer_count": 26,
+      "prompt_pt": "Foi artilheiro da Premier League",
+      "subtitle_pt": "De 1992-93 a 2024-25, artilharias divididas contam",
+      "reuse_of": "f004",
+      "first_used": "2026-10-29"
+    },
+    {
+      "id": "f183",
+      "_id": "f183",
+      "prompt": "Name a club that played in the Swiss Super League in 2024-25",
+      "subtitle": "The 12 clubs of Switzerland's top division that season",
+      "prompt_es": "Nombra un club que jugó la liga suiza en la 2024-25",
+      "subtitle_es": "Los 12 clubes de la primera división suiza esa temporada",
+      "prompt_pt": "Cite um clube que disputou o Campeonato Suíço em 2024-25",
+      "subtitle_pt": "Os 12 clubes da primeira divisão suíça naquela temporada",
+      "difficulty": "medium",
+      "answer_type": "club",
+      "format_family": "league_clubs",
+      "scoring_version": 2,
+      "answer_count": 12,
+      "clash_note": "",
+      "answers": [
+        {
+          "name": "Basel",
+          "aliases": [
+            "FC Basel",
+            "Basilea"
+          ],
+          "fame": 6,
+          "name_es": "Basilea"
+        },
+        {
+          "name": "Young Boys",
+          "aliases": [
+            "BSC Young Boys",
+            "YB"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "FC Zürich",
+          "aliases": [
+            "Zurich",
+            "Zürich",
+            "FC Zurich"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Grasshopper",
+          "aliases": [
+            "Grasshoppers",
+            "GC",
+            "Grasshopper Club Zurich"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Servette",
+          "aliases": [
+            "Servette FC"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Lugano",
+          "aliases": [
+            "FC Lugano"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Luzern",
+          "aliases": [
+            "FC Luzern",
+            "Lucerne"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "St. Gallen",
+          "aliases": [
+            "St Gallen",
+            "FC St. Gallen",
+            "Sankt Gallen"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Sion",
+          "aliases": [
+            "FC Sion"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Lausanne-Sport",
+          "aliases": [
+            "Lausanne",
+            "FC Lausanne-Sport",
+            "Lausanne Sport"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Winterthur",
+          "aliases": [
+            "FC Winterthur"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Yverdon-Sport",
+          "aliases": [
+            "Yverdon",
+            "Yverdon Sport"
+          ],
+          "fame": 1
+        }
+      ],
+      "traps": [
+        {
+          "name": "Lausanne-Ouchy",
+          "aliases": [
+            "Stade Lausanne-Ouchy"
+          ],
+          "why": "Lausanne-Ouchy were relegated in 2024.",
+          "why_es": "El Lausanne-Ouchy descendió en 2024."
+        },
+        {
+          "name": "Thun",
+          "aliases": [
+            "FC Thun"
+          ],
+          "why": "Thun were in the second tier in 2024-25.",
+          "why_es": "El Thun estaba en segunda división en la 2024-25."
+        }
+      ]
+    },
+    {
+      "id": "f173",
+      "_id": "f173",
+      "prompt": "Name a manager of Valencia",
+      "subtitle": "Appointed from 1991 to 2024, caretakers included",
+      "prompt_es": "Nombra un entrenador del Valencia",
+      "subtitle_es": "Nombrados de 1991 a 2024, interinos incluidos",
+      "prompt_pt": "Cite um técnico do Valencia",
+      "subtitle_pt": "Nomeados de 1991 a 2024, interinos incluídos",
+      "difficulty": "hard",
+      "answer_type": "manager",
+      "format_family": "club_managers",
+      "scoring_version": 2,
+      "answer_count": 31,
+      "clash_note": "Voro (Salvador González) was caretaker several times between 2008 and 2023.",
+      "answers": [
+        {
+          "name": "Guus Hiddink",
+          "aliases": [
+            "Hiddink"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Paco Real",
+          "aliases": [],
+          "fame": 1
+        },
+        {
+          "name": "Héctor Núñez",
+          "aliases": [
+            "Hector Nunez",
+            "Núñez",
+            "Nunez"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "José Manuel Rielo",
+          "aliases": [
+            "Jose Manuel Rielo",
+            "Rielo"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Carlos Alberto Parreira",
+          "aliases": [
+            "Parreira"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Luis Aragonés",
+          "aliases": [
+            "Luis Aragones",
+            "Aragonés",
+            "Aragones"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Jorge Valdano",
+          "aliases": [
+            "Valdano"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Claudio Ranieri",
+          "aliases": [
+            "Ranieri"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Héctor Cúper",
+          "aliases": [
+            "Hector Cuper",
+            "Cúper",
+            "Cuper"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Rafael Benítez",
+          "aliases": [
+            "Rafa Benitez",
+            "Rafa Benítez",
+            "Rafael Benitez",
+            "Benítez",
+            "Benitez",
+            "Rafa"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Antonio López Habas",
+          "aliases": [
+            "Antonio Lopez Habas",
+            "López Habas",
+            "Lopez Habas",
+            "Antonio López",
+            "Antonio Lopez"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Quique Sánchez Flores",
+          "aliases": [
+            "Quique Sanchez Flores",
+            "Quique",
+            "Sánchez Flores",
+            "Sanchez Flores",
+            "Quique Flores"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Óscar Fernández",
+          "aliases": [
+            "Oscar Fernandez",
+            "Óscar Fernández"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Ronald Koeman",
+          "aliases": [
+            "Koeman"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Voro",
+          "aliases": [
+            "Salvador González",
+            "Salvador Gonzalez"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Unai Emery",
+          "aliases": [
+            "Emery"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Mauricio Pellegrino",
+          "aliases": [
+            "Pellegrino"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Ernesto Valverde",
+          "aliases": [
+            "Valverde"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Miroslav Đukić",
+          "aliases": [
+            "Miroslav Djukic",
+            "Djukic",
+            "Dukic",
+            "Đukić"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Juan Antonio Pizzi",
+          "aliases": [
+            "Pizzi"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Nuno Espírito Santo",
+          "aliases": [
+            "Nuno Espirito Santo",
+            "Nuno"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Gary Neville",
+          "aliases": [
+            "Neville"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Pako Ayestarán",
+          "aliases": [
+            "Pako Ayestaran",
+            "Ayestarán",
+            "Ayestaran"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Cesare Prandelli",
+          "aliases": [
+            "Prandelli"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Marcelino",
+          "aliases": [
+            "Marcelino García Toral",
+            "Marcelino Garcia Toral"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Albert Celades",
+          "aliases": [
+            "Celades"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Javi Gracia",
+          "aliases": [
+            "Gracia"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "José Bordalás",
+          "aliases": [
+            "Jose Bordalas",
+            "Bordalás",
+            "Bordalas"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Gennaro Gattuso",
+          "aliases": [
+            "Gattuso",
+            "Rino Gattuso"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Rubén Baraja",
+          "aliases": [
+            "Ruben Baraja",
+            "Baraja"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Carlos Corberán",
+          "aliases": [
+            "Carlos Corberan",
+            "Corberán",
+            "Corberan"
+          ],
+          "fame": 3
+        }
+      ],
+      "traps": [
+        {
+          "name": "Javier Aguirre",
+          "aliases": [
+            "Aguirre",
+            "Vasco Aguirre"
+          ],
+          "why": "Aguirre arrived in 2026, after this list ends with Corberán's appointment in 2024.",
+          "why_es": "Aguirre llegó en 2026; esta lista termina con el nombramiento de Corberán en 2024."
+        },
+        {
+          "name": "Diego Simeone",
+          "aliases": [
+            "Simeone"
+          ],
+          "why": "Simeone has never coached Valencia.",
+          "why_es": "Simeone nunca ha entrenado al Valencia."
+        },
+        {
+          "name": "Phil Neville",
+          "aliases": [],
+          "why": "Phil Neville was his brother Gary's assistant at Valencia, never the head coach.",
+          "why_es": "Phil Neville fue el ayudante de su hermano Gary en el Valencia, nunca primer entrenador."
+        }
+      ]
+    },
+    {
+      "id": "f176",
+      "_id": "f176",
+      "prompt": "Name a club or national team Bora Milutinović managed",
+      "subtitle": "Head coach spells, 1977 to 2009 (advisory roles do not count)",
+      "prompt_es": "Nombra un club o selección que entrenó Bora Milutinović",
+      "subtitle_es": "Etapas como primer entrenador, de 1977 a 2009 (los cargos de asesor no cuentan)",
+      "prompt_pt": "Cite um clube ou seleção que Bora Milutinović treinou",
+      "subtitle_pt": "Passagens como técnico, de 1977 a 2009 (cargos de assessor não contam)",
+      "difficulty": "medium",
+      "answer_type": "club",
+      "format_family": "club_manager",
+      "scoring_version": 2,
+      "answer_count": 15,
+      "clash_note": "He took five different countries to World Cups: Mexico 1986, Costa Rica 1990, USA 1994, Nigeria 1998 and China 2002.",
+      "answers": [
+        {
+          "name": "Mexico",
+          "aliases": [
+            "México"
+          ],
+          "fame": 6,
+          "name_es": "México"
+        },
+        {
+          "name": "United States",
+          "aliases": [
+            "USA",
+            "US",
+            "Estados Unidos",
+            "EEUU",
+            "EE. UU."
+          ],
+          "fame": 5,
+          "name_es": "Estados Unidos"
+        },
+        {
+          "name": "Costa Rica",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Nigeria",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "China",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Honduras",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Jamaica",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Iraq",
+          "aliases": [
+            "Irak",
+            "Iraque"
+          ],
+          "fame": 3,
+          "name_es": "Irak"
+        },
+        {
+          "name": "Pumas UNAM",
+          "aliases": [
+            "UNAM",
+            "Pumas"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "San Lorenzo",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "Udinese",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "Veracruz",
+          "aliases": [
+            "Tiburones Rojos"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Tecos",
+          "aliases": [
+            "Tecos UAG",
+            "Estudiantes Tecos"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "MetroStars",
+          "aliases": [
+            "NY/NJ MetroStars",
+            "Metrostars"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Al Sadd",
+          "aliases": [
+            "Al-Sadd"
+          ],
+          "fame": 2
+        }
+      ],
+      "traps": [
+        {
+          "name": "Qatar",
+          "aliases": [
+            "Catar"
+          ],
+          "why": "Bora coached the Qatari club Al Sadd, not the Qatar national team.",
+          "why_es": "Bora entrenó al Al Sadd, club catarí, no a la selección de Catar."
+        },
+        {
+          "name": "Yugoslavia",
+          "aliases": [
+            "Serbia"
+          ],
+          "why": "Bora played in Yugoslavia, but never coached its national team.",
+          "why_es": "Bora jugó en Yugoslavia, pero nunca entrenó a su selección."
+        }
+      ]
+    }
+  ]
+}

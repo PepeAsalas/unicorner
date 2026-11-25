@@ -1,0 +1,140 @@
+{
+ "day": "2026-11-24",
+ "questions": [
+  {
+   "q": "Which of these players NEVER played for Atlético Madrid?",
+   "q_es": "¿Cuál de estos jugadores NUNCA jugó en el Atlético de Madrid?",
+   "q_pt": "Qual destes jogadores NUNCA jogou no Atlético de Madrid?",
+   "o": [
+    "Sergio Agüero",
+    "Diego Forlán",
+    "Christian Vieri",
+    "Gonzalo Higuaín"
+   ],
+   "a": 3,
+   "why": "Higuaín played for River, Real Madrid, Napoli, Juventus, Milan and Chelsea, never Atlético; Vieri spent 1997-98 there.",
+   "why_es": "Higuaín jugó en River, Real Madrid, Napoli, Juventus, Milan y Chelsea, nunca en el Atlético; Vieri pasó allí la temporada 1997-98.",
+   "why_pt": "Higuaín jogou no River, Real Madrid, Napoli, Juventus, Milan e Chelsea, nunca no Atlético; Vieri passou lá a temporada 1997-98.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which club did Kaká join AC Milan from in 2003?",
+   "q_es": "¿De qué club llegó Kaká al AC Milan en 2003?",
+   "q_pt": "De qual clube Kaká chegou ao Milan em 2003?",
+   "o": [
+    "São Paulo",
+    "Santos",
+    "Cruzeiro",
+    "Flamengo"
+   ],
+   "a": 0,
+   "why": "Kaká came through at São Paulo and moved to Milan in 2003.",
+   "why_es": "Kaká se formó en el São Paulo y fichó por el Milan en 2003.",
+   "why_pt": "Kaká foi revelado pelo São Paulo e foi para o Milan em 2003.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "How many Premier League goals did Thierry Henry score?",
+   "q_es": "¿Cuántos goles marcó Thierry Henry en la Premier League?",
+   "q_pt": "Quantos gols Thierry Henry marcou na Premier League?",
+   "o": [
+    "164",
+    "175",
+    "186",
+    "192"
+   ],
+   "a": 1,
+   "why": "175, all for Arsenal, including one in his 2012 loan spell.",
+   "why_es": "175, todos con el Arsenal, incluido uno en su cesión de 2012.",
+   "why_pt": "175, todos pelo Arsenal, incluindo um no empréstimo de 2012.",
+   "src": "https://www.premierleague.com/hall-of-fame/inductees/thierry-henry"
+  },
+  {
+   "q": "Who won the Golden Boot at the 2010 World Cup?",
+   "q_es": "¿Quién ganó la Bota de Oro del Mundial 2010?",
+   "q_pt": "Quem ganhou a Chuteira de Ouro da Copa do Mundo de 2010?",
+   "o": [
+    "Thomas Müller",
+    "David Villa",
+    "Wesley Sneijder"
+   ],
+   "a": 0,
+   "why": "All three scored 5; Müller won it on assists.",
+   "why_es": "Los tres marcaron 5; Müller la ganó por asistencias.",
+   "why_pt": "Os três marcaram 5; Müller ganhou pelas assistências.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "In which year did Liverpool win their first European Cup?",
+   "q_es": "¿En qué año ganó el Liverpool su primera Copa de Europa?",
+   "q_pt": "Em que ano o Liverpool ganhou sua primeira Copa dos Campeões?",
+   "o": [
+    "1974",
+    "1977",
+    "1981"
+   ],
+   "a": 1,
+   "why": "1977, beating Borussia Mönchengladbach 3-1 in Rome.",
+   "why_es": "En 1977, ganando 3-1 al Borussia Mönchengladbach en Roma.",
+   "why_pt": "Em 1977, vencendo o Borussia Mönchengladbach por 3 a 1 em Roma.",
+   "src": "own knowledge",
+   "n": "The old name of the Champions League, until 1992 · The Champions League's name until 1992",
+   "n_es": "El antiguo nombre de la Champions League, hasta 1992 · El nombre de la Champions hasta 1992",
+   "n_pt": "O antigo nome da Liga dos Campeões, até 1992"
+  },
+  {
+   "q": "Which of these countries has NEVER won the Africa Cup of Nations?",
+   "q_es": "¿Cuál de estos países NUNCA ha ganado la Copa África?",
+   "q_pt": "Qual destes países NUNCA ganhou a Copa Africana de Nações?",
+   "o": [
+    "Zambia",
+    "Côte d'Ivoire",
+    "Mali"
+   ],
+   "a": 2,
+   "why": "Mali have never won it; Zambia won in 2012 and Côte d'Ivoire in 1992, 2015 and 2023.",
+   "why_es": "Malí nunca la ha ganado; Zambia la ganó en 2012 y Costa de Marfil en 1992, 2015 y 2023.",
+   "why_pt": "Mali nunca ganhou; a Zâmbia venceu em 2012 e a Costa do Marfim em 1992, 2015 e 2023.",
+   "src": "own knowledge",
+   "o_es": [
+    "Zambia",
+    "Costa de Marfil",
+    "Malí"
+   ],
+   "o_pt": [
+    "Zâmbia",
+    "Costa do Marfim",
+    "Mali"
+   ]
+  },
+  {
+   "q": "Who coached Porto to the 2011 Europa League title?",
+   "q_es": "¿Quién entrenaba al Oporto cuando ganó la Europa League 2011?",
+   "q_pt": "Quem era o técnico do Porto campeão da Liga Europa de 2011?",
+   "o": [
+    "André Villas-Boas",
+    "Jesualdo Ferreira",
+    "Vítor Pereira"
+   ],
+   "a": 0,
+   "why": "André Villas-Boas, aged 33, in his only season at Porto; Vítor Pereira was his assistant.",
+   "why_es": "André Villas-Boas, con 33 años, en su única temporada en el Oporto; Vítor Pereira era su ayudante.",
+   "why_pt": "André Villas-Boas, aos 33 anos, em sua única temporada no Porto; Vítor Pereira era seu auxiliar.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who won more caps for Italy: Paolo Maldini or Fabio Cannavaro?",
+   "q_es": "¿Quién jugó más partidos con Italia: Paolo Maldini o Fabio Cannavaro?",
+   "q_pt": "Quem jogou mais partidas pela Itália: Paolo Maldini ou Fabio Cannavaro?",
+   "o": [
+    "Paolo Maldini",
+    "Fabio Cannavaro"
+   ],
+   "a": 1,
+   "why": "Cannavaro won 136 caps, Maldini 126.",
+   "why_es": "Cannavaro jugó 136 partidos y Maldini 126.",
+   "why_pt": "Cannavaro fez 136 jogos e Maldini 126.",
+   "src": "own knowledge"
+  }
+ ]
+}

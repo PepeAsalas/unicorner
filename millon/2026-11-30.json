@@ -1,0 +1,130 @@
+{
+ "day": "2026-11-30",
+ "questions": [
+  {
+   "q": "Which of these clubs did Ronaldinho NEVER play for?",
+   "q_es": "¿En cuál de estos clubes NUNCA jugó Ronaldinho?",
+   "q_pt": "Em qual destes clubes Ronaldinho NUNCA jogou?",
+   "o": [
+    "Paris Saint-Germain",
+    "Flamengo",
+    "Atlético Mineiro",
+    "Santos"
+   ],
+   "a": 3,
+   "why": "Ronaldinho played for Grêmio, PSG, Barcelona, Milan, Flamengo, Atlético Mineiro, Querétaro and Fluminense, never Santos.",
+   "why_es": "Ronaldinho jugó en Grêmio, PSG, Barcelona, Milan, Flamengo, Atlético Mineiro, Querétaro y Fluminense, nunca en el Santos.",
+   "why_pt": "Ronaldinho jogou no Grêmio, PSG, Barcelona, Milan, Flamengo, Atlético Mineiro, Querétaro e Fluminense, nunca no Santos.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who was Brazil's coach when they won the 2002 World Cup?",
+   "q_es": "¿Quién era el seleccionador de Brasil que ganó el Mundial 2002?",
+   "q_pt": "Quem era o técnico do Brasil campeão da Copa do Mundo de 2002?",
+   "o": [
+    "Carlos Alberto Parreira",
+    "Luiz Felipe Scolari",
+    "Dunga",
+    "Mário Zagallo"
+   ],
+   "a": 1,
+   "why": "Luiz Felipe Scolari; Parreira had won the 1994 World Cup.",
+   "why_es": "Luiz Felipe Scolari; Parreira había ganado el Mundial 1994.",
+   "why_pt": "Luiz Felipe Scolari; Parreira tinha ganhado a Copa de 1994.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "How many World Cups did Brazil win with Pelé in the squad?",
+   "q_es": "¿Cuántos Mundiales ganó Brasil con Pelé en la convocatoria?",
+   "q_pt": "Quantas Copas do Mundo o Brasil ganhou com Pelé no elenco?",
+   "o": [
+    "1",
+    "2",
+    "3",
+    "4"
+   ],
+   "a": 2,
+   "why": "Three: 1958, 1962 (he got injured early) and 1970.",
+   "why_es": "Tres: 1958, 1962 (se lesionó pronto) y 1970.",
+   "why_pt": "Três: 1958, 1962 (ele se machucou cedo) e 1970.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who was the last English club to win the Cup Winners' Cup?",
+   "q_es": "¿Cuál fue el último club inglés en ganar la Recopa de Europa?",
+   "q_pt": "Qual foi o último clube inglês a ganhar a Recopa Europeia?",
+   "o": [
+    "Manchester United",
+    "Arsenal",
+    "Chelsea"
+   ],
+   "a": 2,
+   "why": "Chelsea in 1998; Arsenal won it in 1994 and Manchester United in 1991.",
+   "why_es": "El Chelsea en 1998; el Arsenal la ganó en 1994 y el Manchester United en 1991.",
+   "why_pt": "O Chelsea em 1998; o Arsenal ganhou em 1994 e o Manchester United em 1991.",
+   "src": "own knowledge",
+   "n": "A European competition for domestic cup winners, played from 1960-61 to 1998-99 · An old European competition for each country's cup winners",
+   "n_es": "Una competición europea para los campeones de copa nacionales, disputada de 1960-61 a 1998-99 · Un antiguo torneo europeo para los campeones de copa de cada país",
+   "n_pt": "Uma competição europeia para os campeões de copa nacionais, disputada de 1960-61 a 1998-99"
+  },
+  {
+   "q": "How many Serie A titles in a row did Juventus win from 2011-12?",
+   "q_es": "¿Cuántos títulos de Serie A seguidos ganó la Juventus desde la 2011-12?",
+   "q_pt": "Quantos títulos seguidos da Serie A a Juventus ganhou a partir de 2011-12?",
+   "o": [
+    "9",
+    "8",
+    "7"
+   ],
+   "a": 0,
+   "why": "Nine, from 2011-12 to 2019-20; Inter ended the run in 2020-21.",
+   "why_es": "Nueve, de 2011-12 a 2019-20; el Inter cortó la racha en 2020-21.",
+   "why_pt": "Nove, de 2011-12 a 2019-20; a Inter encerrou a sequência em 2020-21.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which of these players NEVER played for Sevilla?",
+   "q_es": "¿Cuál de estos jugadores NUNCA jugó en el Sevilla?",
+   "q_pt": "Qual destes jogadores NUNCA jogou no Sevilla?",
+   "o": [
+    "Ivan Rakitić",
+    "Joaquín",
+    "Dani Alves"
+   ],
+   "a": 1,
+   "why": "Joaquín played for Betis, Valencia, Málaga and Fiorentina, never Sevilla.",
+   "why_es": "Joaquín jugó en Betis, Valencia, Málaga y Fiorentina, nunca en el Sevilla.",
+   "why_pt": "Joaquín jogou no Betis, Valencia, Málaga e Fiorentina, nunca no Sevilla.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which club won the 1996 Champions League?",
+   "q_es": "¿Qué club ganó la Champions League de 1996?",
+   "q_pt": "Qual clube ganhou a Liga dos Campeões de 1996?",
+   "o": [
+    "Ajax",
+    "Borussia Dortmund",
+    "Juventus"
+   ],
+   "a": 2,
+   "why": "Juventus beat Ajax on penalties in Rome; Dortmund beat Juve in the 1997 final.",
+   "why_es": "La Juventus ganó al Ajax en los penaltis en Roma; el Dortmund ganó a la Juve en la final de 1997.",
+   "why_pt": "A Juventus venceu o Ajax nos pênaltis em Roma; o Dortmund venceu a Juve na final de 1997.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who scored more goals for Germany: Miroslav Klose or Gerd Müller?",
+   "q_es": "¿Quién marcó más goles con Alemania: Miroslav Klose o Gerd Müller?",
+   "q_pt": "Quem marcou mais gols pela Alemanha: Miroslav Klose ou Gerd Müller?",
+   "o": [
+    "Gerd Müller",
+    "Miroslav Klose"
+   ],
+   "a": 1,
+   "why": "Klose scored 71, Müller 68 (in only 62 games).",
+   "why_es": "Klose marcó 71 y Müller 68 (en solo 62 partidos).",
+   "why_pt": "Klose marcou 71 e Müller 68 (em apenas 62 jogos).",
+   "src": "own knowledge"
+  }
+ ]
+}

@@ -1,0 +1,150 @@
+{
+ "day": "2026-11-29",
+ "questions": [
+  {
+   "q": "Which of these players NEVER played for Everton?",
+   "q_es": "¿Cuál de estos jugadores NUNCA jugó en el Everton?",
+   "q_pt": "Qual destes jogadores NUNCA jogou no Everton?",
+   "o": [
+    "Gary Lineker",
+    "Peter Beardsley",
+    "Ian Rush",
+    "Andrei Kanchelskis"
+   ],
+   "a": 2,
+   "why": "Rush never played for Everton; Lineker (1985-86), Beardsley and Kanchelskis all did.",
+   "why_es": "Rush nunca jugó en el Everton; Lineker (1985-86), Beardsley y Kanchelskis sí.",
+   "why_pt": "Rush nunca jogou no Everton; Lineker (1985-86), Beardsley e Kanchelskis sim.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who was England's manager at Euro 96?",
+   "q_es": "¿Quién era el seleccionador de Inglaterra en la Euro 96?",
+   "q_pt": "Quem era o técnico da Inglaterra na Eurocopa de 1996?",
+   "o": [
+    "Terry Venables",
+    "Glenn Hoddle",
+    "Graham Taylor",
+    "Kevin Keegan"
+   ],
+   "a": 0,
+   "why": "Terry Venables; Glenn Hoddle took over after the tournament.",
+   "why_es": "Terry Venables; Glenn Hoddle le sucedió tras el torneo.",
+   "why_pt": "Terry Venables; Glenn Hoddle assumiu depois do torneio.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "How many Premier League goals did Mohamed Salah score in 2017-18?",
+   "q_es": "¿Cuántos goles marcó Mohamed Salah en la Premier League 2017-18?",
+   "q_pt": "Quantos gols Mohamed Salah marcou na Premier League 2017-18?",
+   "o": [
+    "34",
+    "32",
+    "31",
+    "29"
+   ],
+   "a": 1,
+   "why": "32, then the record for a 38-game Premier League season.",
+   "why_es": "32, entonces el récord de una Premier League de 38 jornadas.",
+   "why_pt": "32, então o recorde de uma Premier League de 38 rodadas.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which club won the 1988 European Cup?",
+   "q_es": "¿Qué club ganó la Copa de Europa de 1988?",
+   "q_pt": "Qual clube ganhou a Copa dos Campeões de 1988?",
+   "o": [
+    "Benfica",
+    "PSV",
+    "Steaua Bucharest"
+   ],
+   "a": 1,
+   "why": "PSV beat Benfica on penalties in Stuttgart; Steaua had won in 1986.",
+   "why_es": "El PSV ganó al Benfica en los penaltis en Stuttgart; el Steaua la había ganado en 1986.",
+   "why_pt": "O PSV venceu o Benfica nos pênaltis em Stuttgart; o Steaua tinha ganhado em 1986.",
+   "src": "own knowledge",
+   "o_es": [
+    "Benfica",
+    "PSV",
+    "Steaua de Bucarest"
+   ],
+   "o_pt": [
+    "Benfica",
+    "PSV",
+    "Steaua Bucareste"
+   ],
+   "n": "The old name of the Champions League, until 1992 · The Champions League's name until 1992",
+   "n_es": "El antiguo nombre de la Champions League, hasta 1992 · El nombre de la Champions hasta 1992",
+   "n_pt": "O antigo nome da Liga dos Campeões, até 1992"
+  },
+  {
+   "q": "In which year did Ronaldo Nazário join Barcelona?",
+   "q_es": "¿En qué año fichó Ronaldo Nazário por el Barcelona?",
+   "q_pt": "Em que ano Ronaldo Nazário foi para o Barcelona?",
+   "o": [
+    "1995",
+    "1997",
+    "1996"
+   ],
+   "a": 2,
+   "why": "1996 from PSV; he left for Inter a year later.",
+   "why_es": "En 1996 desde el PSV; se fue al Inter un año después.",
+   "why_pt": "Em 1996, vindo do PSV; foi para a Inter um ano depois.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which of these countries has NEVER reached a World Cup semi-final?",
+   "q_es": "¿Cuál de estos países NUNCA ha llegado a semifinales de un Mundial?",
+   "q_pt": "Qual destes países NUNCA chegou a uma semifinal de Copa do Mundo?",
+   "o": [
+    "Romania",
+    "Bulgaria",
+    "Croatia"
+   ],
+   "a": 0,
+   "why": "Romania's best is the 1994 quarter-final; Bulgaria reached the 1994 semis and Croatia the 1998 semis.",
+   "why_es": "Lo mejor de Rumanía son los cuartos de 1994; Bulgaria llegó a semifinales en 1994 y Croacia en 1998.",
+   "why_pt": "O melhor da Romênia são as quartas de 1994; a Bulgária chegou à semifinal em 1994 e a Croácia em 1998.",
+   "src": "own knowledge",
+   "o_es": [
+    "Rumanía",
+    "Bulgaria",
+    "Croacia"
+   ],
+   "o_pt": [
+    "Romênia",
+    "Bulgária",
+    "Croácia"
+   ]
+  },
+  {
+   "q": "Which club did Ruud Gullit join AC Milan from in 1987?",
+   "q_es": "¿De qué club llegó Ruud Gullit al AC Milan en 1987?",
+   "q_pt": "De qual clube Ruud Gullit chegou ao Milan em 1987?",
+   "o": [
+    "Feyenoord",
+    "Ajax",
+    "PSV"
+   ],
+   "a": 2,
+   "why": "PSV, for a world-record fee; he had joined them from Feyenoord in 1985.",
+   "why_es": "Del PSV, por un traspaso récord mundial; había llegado allí desde el Feyenoord en 1985.",
+   "why_pt": "Do PSV, por uma transferência recorde mundial; ele tinha chegado lá vindo do Feyenoord em 1985.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who scored more goals for England: Michael Owen or Jimmy Greaves?",
+   "q_es": "¿Quién marcó más goles con Inglaterra: Michael Owen o Jimmy Greaves?",
+   "q_pt": "Quem marcou mais gols pela Inglaterra: Michael Owen ou Jimmy Greaves?",
+   "o": [
+    "Jimmy Greaves",
+    "Michael Owen"
+   ],
+   "a": 0,
+   "why": "Greaves scored 44 in 57 games, Owen 40 in 89.",
+   "why_es": "Greaves marcó 44 en 57 partidos y Owen 40 en 89.",
+   "why_pt": "Greaves marcou 44 em 57 jogos e Owen 40 em 89.",
+   "src": "own knowledge"
+  }
+ ]
+}

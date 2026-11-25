@@ -1,0 +1,2453 @@
+{
+  "date": "2026-11-23",
+  "baseline_commit": "b7d7d88dc0361d3af2b87b5bb1f7a513b1c044a3",
+  "correction_commit": "56f934f25b6026f60a791626541bbc557b6ccd51",
+  "previous_checkpoint": 2014923,
+  "last_scanned_event_id": 2065150,
+  "scanned_events": 2662,
+  "scan_pages": [
+    700,
+    700,
+    700,
+    562
+  ],
+  "prior_pending_count": 50547,
+  "pending_count": 51419,
+  "excluded_records": {
+    "ambiguous": 73,
+    "duplicate": 59
+  },
+  "decision_counts": {
+    "pending": 51419,
+    "add_alias": 14,
+    "add_missing_player": 6,
+    "require_fuller_name": 2,
+    "ignore_explicit_trap": 265
+  },
+  "corrections": [
+    {
+      "question_id": "d8-name-a-striker-who-played-in-the-premier-league-since-2010",
+      "submitted_text": [
+        "heskey"
+      ],
+      "event_count": 1,
+      "decision": "add_missing_player",
+      "correction": {
+        "name": "Emile Heskey",
+        "aliases": [
+          "Heskey",
+          "Emile William Ivanhoe Heskey"
+        ],
+        "fame": 4
+      },
+      "evidence": "Liverpool identifies Heskey as an England striker. The Premier League career record lists 28 appearances for Aston Villa in 2011/12, inside the unchanged 2010-11 through 2025-26 range. Fame 4 follows comparable established Premier League and England strikers.",
+      "evidence_urls": [
+        "https://www.liverpoolfc.com/info/emile-heskey/",
+        "https://www.premierleague.com/en/players/1765/emile-heskey/career"
+      ]
+    },
+    {
+      "question_id": "d8-name-a-striker-who-played-in-the-premier-league-since-2010",
+      "submitted_text": [
+        "evanilson"
+      ],
+      "event_count": 3,
+      "decision": "add_missing_player",
+      "correction": {
+        "name": "Evanilson",
+        "aliases": [
+          "Francisco Evanilson de Lima Barbosa"
+        ],
+        "fame": 3
+      },
+      "evidence": "The Premier League identifies Evanilson as Bournemouth’s centre-forward. Its 30 November 2024 Wolves-Bournemouth report explicitly records him participating in a Premier League match. Both role and competitive appearance are within 2010-11 through 2025-26. Fame 3 follows the existing Evanilson entry in comparable questions and strikers such as Moise Kean.",
+      "evidence_urls": [
+        "https://www.premierleague.com/en/news/4193999",
+        "https://www.premierleague.com/en/news/4178459"
+      ]
+    },
+    {
+      "question_id": "d4-name-a-player-who-won-the-premier-league-with-chelsea-since-2000",
+      "submitted_text": [
+        "bosingwa"
+      ],
+      "event_count": 6,
+      "decision": "add_missing_player",
+      "correction": {
+        "name": "José Bosingwa",
+        "aliases": [
+          "Jose Bosingwa",
+          "Bosingwa"
+        ],
+        "fame": 4
+      },
+      "evidence": "Chelsea’s own retrospective explicitly identifies 2009/10 as a title-winning Premier League campaign and records Bosingwa in the starting XI against Fulham on 23 August 2009. This establishes participation in the winning league competition rather than mere squad membership. Fame 4 follows comparable Chelsea title-winning defenders.",
+      "evidence_urls": [
+        "https://www.chelseafc.com/en/news/article/when-an-august-victory-at-the-cottage-set-the-tone-for-a-triumphant",
+        "https://www.premierleague.com/en/players/11278/jos%C3%A9-bosingwa/career"
+      ]
+    },
+    {
+      "question_id": "d11-name-a-spanish-midfielder-who-played-in-the-premier-league",
+      "submitted_text": [
+        "thiago"
+      ],
+      "event_count": 22,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Thiago Alcántara",
+        "added_aliases": [
+          "Thiago"
+        ]
+      },
+      "evidence": "The player is already accepted in this exact question. Liverpool and Premier League records use Thiago as his common name, identify him as a Spain international midfielder, describe his 2010-11 Barcelona breakthrough and 2013 Bayern move, and record his 2020 Premier League debut. Add only the unambiguous common alias in these scopes; preserve existing fame.",
+      "evidence_urls": [
+        "https://www.liverpoolfc.com/info/thiago-alcantara/",
+        "https://www.liverpoolfc.com/news/thiago-alcantara-announces-retirement-football?amp=1",
+        "https://www.premierleague.com/en/news/4053174"
+      ]
+    },
+    {
+      "question_id": "d7-name-a-player-who-played-for-bayern-in-the-2010s",
+      "submitted_text": [
+        "Thiago"
+      ],
+      "event_count": 8,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Thiago Alcântara",
+        "added_aliases": [
+          "Thiago"
+        ]
+      },
+      "evidence": "The player is already accepted in this exact question. Liverpool and Premier League records use Thiago as his common name, identify him as a Spain international midfielder, describe his 2010-11 Barcelona breakthrough and 2013 Bayern move, and record his 2020 Premier League debut. Add only the unambiguous common alias in these scopes; preserve existing fame.",
+      "evidence_urls": [
+        "https://www.liverpoolfc.com/info/thiago-alcantara/",
+        "https://www.liverpoolfc.com/news/thiago-alcantara-announces-retirement-football?amp=1",
+        "https://www.premierleague.com/en/news/4053174"
+      ]
+    },
+    {
+      "question_id": "d7-name-a-player-who-played-for-barcelona-in-the-2010s",
+      "submitted_text": [
+        "thiago"
+      ],
+      "event_count": 4,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Thiago Alcântara",
+        "added_aliases": [
+          "Thiago"
+        ]
+      },
+      "evidence": "The player is already accepted in this exact question. Liverpool and Premier League records use Thiago as his common name, identify him as a Spain international midfielder, describe his 2010-11 Barcelona breakthrough and 2013 Bayern move, and record his 2020 Premier League debut. Add only the unambiguous common alias in these scopes; preserve existing fame.",
+      "evidence_urls": [
+        "https://www.liverpoolfc.com/info/thiago-alcantara/",
+        "https://www.liverpoolfc.com/news/thiago-alcantara-announces-retirement-football?amp=1",
+        "https://www.premierleague.com/en/news/4053174"
+      ]
+    },
+    {
+      "question_id": "d24-name-a-manager-who-won-the-champions-league-between-1992-93-and-2024-25",
+      "submitted_text": [
+        "sir alex"
+      ],
+      "event_count": 1,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Alex Ferguson",
+        "added_aliases": [
+          "Sir Alex"
+        ]
+      },
+      "evidence": "Alex Ferguson is already accepted in this exact question. The Scottish FA repeatedly uses Sir Alex and establishes his Scottish identity, permanent Manchester United tenure and trophy record. UEFA dates his United tenure to 1986-2013 and his Champions League wins to 1999 and 2008. Manchester United’s own decade history records the 2004 FA Cup and 2006/2009 League Cups within the respective cutoffs. Add only Sir Alex; preserve existing fame.",
+      "evidence_urls": [
+        "https://150.scottishfa.co.uk/legends/managers/sir-alex-ferguson/",
+        "https://www.uefa.com/uefachampionsleague/news/0253-0d81cb734a50-6f9c9e821390-1000--in-profile-sir-alex-ferguson/",
+        "https://www.manutd.com/en/club/history/history-by-decade/2000-2009"
+      ]
+    },
+    {
+      "question_id": "d24-name-a-scottish-manager-who-was-a-permanent-premier-league-manager-up-to-2025-26",
+      "submitted_text": [
+        "Sir Alex"
+      ],
+      "event_count": 13,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Alex Ferguson",
+        "added_aliases": [
+          "Sir Alex"
+        ]
+      },
+      "evidence": "Alex Ferguson is already accepted in this exact question. The Scottish FA repeatedly uses Sir Alex and establishes his Scottish identity, permanent Manchester United tenure and trophy record. UEFA dates his United tenure to 1986-2013 and his Champions League wins to 1999 and 2008. Manchester United’s own decade history records the 2004 FA Cup and 2006/2009 League Cups within the respective cutoffs. Add only Sir Alex; preserve existing fame.",
+      "evidence_urls": [
+        "https://150.scottishfa.co.uk/legends/managers/sir-alex-ferguson/",
+        "https://www.uefa.com/uefachampionsleague/news/0253-0d81cb734a50-6f9c9e821390-1000--in-profile-sir-alex-ferguson/",
+        "https://www.manutd.com/en/club/history/history-by-decade/2000-2009"
+      ]
+    },
+    {
+      "question_id": "d24-name-a-manager-who-won-the-premier-league-title-between-1992-93-and-2024-25",
+      "submitted_text": [
+        "sir alex"
+      ],
+      "event_count": 3,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Alex Ferguson",
+        "added_aliases": [
+          "Sir Alex"
+        ]
+      },
+      "evidence": "Alex Ferguson is already accepted in this exact question. The Scottish FA repeatedly uses Sir Alex and establishes his Scottish identity, permanent Manchester United tenure and trophy record. UEFA dates his United tenure to 1986-2013 and his Champions League wins to 1999 and 2008. Manchester United’s own decade history records the 2004 FA Cup and 2006/2009 League Cups within the respective cutoffs. Add only Sir Alex; preserve existing fame.",
+      "evidence_urls": [
+        "https://150.scottishfa.co.uk/legends/managers/sir-alex-ferguson/",
+        "https://www.uefa.com/uefachampionsleague/news/0253-0d81cb734a50-6f9c9e821390-1000--in-profile-sir-alex-ferguson/",
+        "https://www.manutd.com/en/club/history/history-by-decade/2000-2009"
+      ]
+    },
+    {
+      "question_id": "d24-name-a-manager-who-won-the-fa-cup-between-2000-01-and-2024-25",
+      "submitted_text": [
+        "sir alex"
+      ],
+      "event_count": 2,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Alex Ferguson",
+        "added_aliases": [
+          "Sir Alex"
+        ]
+      },
+      "evidence": "Alex Ferguson is already accepted in this exact question. The Scottish FA repeatedly uses Sir Alex and establishes his Scottish identity, permanent Manchester United tenure and trophy record. UEFA dates his United tenure to 1986-2013 and his Champions League wins to 1999 and 2008. Manchester United’s own decade history records the 2004 FA Cup and 2006/2009 League Cups within the respective cutoffs. Add only Sir Alex; preserve existing fame.",
+      "evidence_urls": [
+        "https://150.scottishfa.co.uk/legends/managers/sir-alex-ferguson/",
+        "https://www.uefa.com/uefachampionsleague/news/0253-0d81cb734a50-6f9c9e821390-1000--in-profile-sir-alex-ferguson/",
+        "https://www.manutd.com/en/club/history/history-by-decade/2000-2009"
+      ]
+    },
+    {
+      "question_id": "d24-name-a-manager-who-won-the-english-league-cup-between-2000-01-and-2024-25",
+      "submitted_text": [
+        "Sir Alex"
+      ],
+      "event_count": 5,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Alex Ferguson",
+        "added_aliases": [
+          "Sir Alex"
+        ]
+      },
+      "evidence": "Alex Ferguson is already accepted in this exact question. The Scottish FA repeatedly uses Sir Alex and establishes his Scottish identity, permanent Manchester United tenure and trophy record. UEFA dates his United tenure to 1986-2013 and his Champions League wins to 1999 and 2008. Manchester United’s own decade history records the 2004 FA Cup and 2006/2009 League Cups within the respective cutoffs. Add only Sir Alex; preserve existing fame.",
+      "evidence_urls": [
+        "https://150.scottishfa.co.uk/legends/managers/sir-alex-ferguson/",
+        "https://www.uefa.com/uefachampionsleague/news/0253-0d81cb734a50-6f9c9e821390-1000--in-profile-sir-alex-ferguson/",
+        "https://www.manutd.com/en/club/history/history-by-decade/2000-2009"
+      ]
+    }
+  ],
+  "validation": {
+    "questions": 444,
+    "baseline_errors": 0,
+    "final_errors": 0,
+    "baseline_warnings": 570,
+    "final_warnings": 570,
+    "warning_multiset_unchanged": true,
+    "existing_matcher_forms_checked": 1348,
+    "explicit_negative_cases": 8,
+    "observed_groups_checked_on_changed_questions": 1435,
+    "new_events_covered_by_corrections": 8
+  },
+  "review_limit": "Grouped all fetched events and retried prior pending candidates against the current browser matcher. Researched selected plausible corrections and frequent rejections against authoritative records. Remaining unverified combinations are preserved for future evidence review.",
+  "decisions": [
+    {
+      "question_id": "d11-name-a-spanish-midfielder-who-played-in-the-premier-league",
+      "input": "thiago",
+      "event_count": 22,
+      "new_events": 4,
+      "decision": "add_alias",
+      "reason": "The player is already accepted in this exact question. Liverpool and Premier League records use Thiago as his common name, identify him as a Spain international midfielder, describe his 2010-11 Barcelona breakthrough and 2013 Bayern move, and record his 2020 Premier League debut. Add only the unambiguous common alias in these scopes; preserve existing fame.",
+      "evidence_urls": [
+        "https://www.liverpoolfc.com/info/thiago-alcantara/",
+        "https://www.liverpoolfc.com/news/thiago-alcantara-announces-retirement-football?amp=1",
+        "https://www.premierleague.com/en/news/4053174"
+      ]
+    },
+    {
+      "question_id": "d24-name-a-scottish-manager-who-was-a-permanent-premier-league-manager-up-to-2025-26",
+      "input": "Sir Alex",
+      "event_count": 13,
+      "new_events": 2,
+      "decision": "add_alias",
+      "reason": "Alex Ferguson is already accepted in this exact question. The Scottish FA repeatedly uses Sir Alex and establishes his Scottish identity, permanent Manchester United tenure and trophy record. UEFA dates his United tenure to 1986-2013 and his Champions League wins to 1999 and 2008. Manchester United’s own decade history records the 2004 FA Cup and 2006/2009 League Cups within the respective cutoffs. Add only Sir Alex; preserve existing fame.",
+      "evidence_urls": [
+        "https://150.scottishfa.co.uk/legends/managers/sir-alex-ferguson/",
+        "https://www.uefa.com/uefachampionsleague/news/0253-0d81cb734a50-6f9c9e821390-1000--in-profile-sir-alex-ferguson/",
+        "https://www.manutd.com/en/club/history/history-by-decade/2000-2009"
+      ]
+    },
+    {
+      "question_id": "d4-name-a-player-who-won-the-premier-league-with-chelsea-since-2000",
+      "input": "bosingwa",
+      "event_count": 6,
+      "new_events": 2,
+      "decision": "add_missing_player",
+      "reason": "Chelsea’s own retrospective explicitly identifies 2009/10 as a title-winning Premier League campaign and records Bosingwa in the starting XI against Fulham on 23 August 2009. This establishes participation in the winning league competition rather than mere squad membership. Fame 4 follows comparable Chelsea title-winning defenders.",
+      "evidence_urls": [
+        "https://www.chelseafc.com/en/news/article/when-an-august-victory-at-the-cottage-set-the-tone-for-a-triumphant",
+        "https://www.premierleague.com/en/players/11278/jos%C3%A9-bosingwa/career"
+      ]
+    },
+    {
+      "question_id": "d9-name-a-player-who-scored-a-premier-league-hat-trick-since-2015",
+      "input": "evanilson",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "pending",
+      "reason": "The official 30 November 2024 match report says Evanilson won three penalties, while Justin Kluivert scored the hat-trick. This does not establish that Evanilson scored a hat-trick; retain until an actual three-goal league match within 2015-16 through 2025-26 is documented.",
+      "evidence_urls": [
+        "https://www.premierleague.com/en/news/4178459"
+      ]
+    },
+    {
+      "question_id": "d12-name-a-senior-iceland-international-who-played-in-the-premier-league-up-to-2025-26",
+      "input": "Gudmundsson",
+      "event_count": 2,
+      "new_events": 1,
+      "decision": "require_fuller_name",
+      "reason": "The surname cannot identify a unique accepted player: both Jóhann Berg Guðmundsson and Jóhann Birnir Guðmundsson are present in this exact question. Require a fuller name; do not assign the bare surname to one arbitrary person.",
+      "evidence_urls": []
+    },
+    {
+      "question_id": "d12-name-a-senior-iceland-international-who-played-in-the-premier-league-up-to-2025-26",
+      "input": "Gudmundson",
+      "event_count": 5,
+      "new_events": 4,
+      "decision": "require_fuller_name",
+      "reason": "The surname cannot identify a unique accepted player: both Jóhann Berg Guðmundsson and Jóhann Birnir Guðmundsson are present in this exact question. Require a fuller name; do not assign the bare surname to one arbitrary person.",
+      "evidence_urls": []
+    },
+    {
+      "question_id": "d21-name-a-club-promoted-to-la-liga-in-the-summers-of-2011-to-2025-automatic-promotion-or-play-offs",
+      "input": "malaga",
+      "event_count": 4,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Not promoted in this period."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-euro-2024",
+      "input": "sweden",
+      "event_count": 2,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2013-fifa-confederations-cup",
+      "input": "Germany",
+      "event_count": 2,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for 2013."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-euro-2024",
+      "input": "Norway",
+      "event_count": 2,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1934-world-cup",
+      "input": "Uruguay",
+      "event_count": 19,
+      "new_events": 4,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not enter as the holders."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2011-afc-asian-cup",
+      "input": "Vietnam",
+      "event_count": 4,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for 2011."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1970-world-cup",
+      "input": "spain",
+      "event_count": 4,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d22-name-a-country-that-has-won-the-copa-america-up-to-2024",
+      "input": "mexico",
+      "event_count": 4,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Guest team, finalist in 1993 and 2001, never won."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-euro-2016",
+      "input": "Greece",
+      "event_count": 5,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d21-name-a-club-promoted-to-la-liga-in-the-summers-of-2011-to-2025-automatic-promotion-or-play-offs",
+      "input": "sevilla",
+      "event_count": 2,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Not promoted in this period."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-the-scottish-premiership-in-2015-16",
+      "input": "rangers",
+      "event_count": 3,
+      "new_events": 2,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Was in the Championship in 2015-16."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1988",
+      "input": "Belgium",
+      "event_count": 2,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d10-name-a-left-footed-brazilian-player",
+      "input": "Neymar",
+      "event_count": 4,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Right-footed"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2015-afc-asian-cup",
+      "input": "thailand",
+      "event_count": 2,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2024-copa-america",
+      "input": "Haiti",
+      "event_count": 3,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1998-world-cup",
+      "input": "greece",
+      "event_count": 2,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for 1998."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1988",
+      "input": "France",
+      "event_count": 3,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2017-africa-cup-of-nations",
+      "input": "Zambia",
+      "event_count": 2,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2017-fifa-confederations-cup",
+      "input": "Brazil",
+      "event_count": 3,
+      "new_events": 2,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify (hosted and won 2013)."
+    },
+    {
+      "question_id": "d22-name-a-country-that-reached-the-euro-semi-finals-between-1996-and-2024",
+      "input": "poland",
+      "event_count": 2,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Reached the quarter-finals in 2016 only."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-2000",
+      "input": "Greece",
+      "event_count": 12,
+      "new_events": 4,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for Euro 2000."
+    },
+    {
+      "question_id": "d22-name-a-country-that-reached-the-euro-semi-finals-between-1996-and-2024",
+      "input": "croatia",
+      "event_count": 3,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never got past the quarter-finals at a Euro in this range."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1954-world-cup",
+      "input": "sweden",
+      "event_count": 8,
+      "new_events": 4,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d17-name-an-italian-club-that-won-the-coppa-italia-between-2000-01-and-2024-25",
+      "input": "Sampdoria",
+      "event_count": 3,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Last Coppa Italia win was 1994."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-serie-a-in-2025-26",
+      "input": "Venezia",
+      "event_count": 5,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Relegated from Serie A in 2024-25."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2017-fifa-confederations-cup",
+      "input": "Japan",
+      "event_count": 2,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for 2017."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2019-afc-asian-cup",
+      "input": "Indonesia",
+      "event_count": 6,
+      "new_events": 3,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2011-afc-asian-cup",
+      "input": "Thailand",
+      "event_count": 4,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for 2011."
+    },
+    {
+      "question_id": "d22-name-a-country-that-reached-a-world-cup-quarter-final-between-1998-and-2022",
+      "input": "Japan",
+      "event_count": 3,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never went beyond the last 16."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2015-afc-asian-cup",
+      "input": "india",
+      "event_count": 7,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1980",
+      "input": "portugal",
+      "event_count": 4,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d19-name-a-club-from-andalusia-that-played-in-la-liga-between-2000-01-and-2025-26",
+      "input": "Valencia",
+      "event_count": 5,
+      "new_events": 3,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: From Valencia region, not Andalusia."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2009-fifa-confederations-cup",
+      "input": "australia",
+      "event_count": 3,
+      "new_events": 2,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for 2009."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1962-world-cup",
+      "input": "France",
+      "event_count": 2,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d12-name-a-senior-south-korea-international-who-played-in-the-premier-league-up-to-2025-26",
+      "input": "Kim Min Jae",
+      "event_count": 2,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Played for Napoli and Bayern, never in the Premier League."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-2008",
+      "input": "serbia",
+      "event_count": 2,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for Euro 2008."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1980",
+      "input": "France",
+      "event_count": 5,
+      "new_events": 2,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d17-name-a-french-club-that-won-the-coupe-de-france-between-2000-01-and-2024-25",
+      "input": "monaco",
+      "event_count": 3,
+      "new_events": 2,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Last Coupe de France win was 1991."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1966-world-cup",
+      "input": "Belgium",
+      "event_count": 2,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-la-liga-in-2015-16",
+      "input": "almeria",
+      "event_count": 2,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Was in the Segunda División in 2015-16."
+    },
+    {
+      "question_id": "d22-name-a-country-that-has-won-the-afc-asian-cup-up-to-2023",
+      "input": "china",
+      "event_count": 5,
+      "new_events": 2,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Finalist in 1984 and 2004, never champion."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-2012",
+      "input": "Áustria",
+      "event_count": 2,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Qualified as co-hosts only for Euro 2008, not 2012."
+    },
+    {
+      "question_id": "d17-name-a-french-club-that-won-the-coupe-de-france-between-2000-01-and-2024-25",
+      "input": "Lens",
+      "event_count": 2,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never won the Coupe de France."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-la-liga-between-2020-21-and-2025-26",
+      "input": "tenerife",
+      "event_count": 3,
+      "new_events": 2,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Not in La Liga in this period."
+    },
+    {
+      "question_id": "d24-name-a-manager-who-won-the-english-league-cup-between-2000-01-and-2024-25",
+      "input": "arsene wenger",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Lost the 2007 League Cup final with Arsenal; never won the competition."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-la-liga-between-2020-21-and-2025-26",
+      "input": "Malaga",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Last played in La Liga in 2017-18."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-ligue-1-in-2015-16",
+      "input": "Metz",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Promoted in 2016, not in the 2015-16 Ligue 1."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2017-fifa-confederations-cup",
+      "input": "argentina",
+      "event_count": 3,
+      "new_events": 3,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for 2017."
+    },
+    {
+      "question_id": "d9-name-a-player-who-scored-20-serie-a-goals-in-a-single-season-since-2000",
+      "input": "adriano",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: His best Serie A season was below 20."
+    },
+    {
+      "question_id": "d21-name-a-club-promoted-to-ligue-1-in-the-summers-of-2011-to-2025-automatic-promotion-or-play-offs",
+      "input": "lille",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Not promoted in this period."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-euro-2024",
+      "input": "wales",
+      "event_count": 2,
+      "new_events": 2,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Lost the qualifying play-off final to Poland."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-2012",
+      "input": "turkey",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for Euro 2012."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2019-afc-asian-cup",
+      "input": "Kuwait",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify."
+    },
+    {
+      "question_id": "d18-name-an-italian-club-that-played-in-the-champions-league-group-or-league-phase-between-2001-02-and-2025-26",
+      "input": "torino",
+      "event_count": 2,
+      "new_events": 2,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never reached the Champions League group stage in this period."
+    },
+    {
+      "question_id": "d21-name-a-club-relegated-from-serie-a-between-2014-15-and-2024-25",
+      "input": "Torino",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Not relegated from Serie A in this period."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-the-premier-league-between-2020-21-and-2025-26",
+      "input": "cardiff city",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Last played in the Premier League in 2018-19."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-the-premier-league-between-2020-21-and-2025-26",
+      "input": "derby county",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Last played in the Premier League in 2007-08."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2009-fifa-confederations-cup",
+      "input": "germany",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for 2009."
+    },
+    {
+      "question_id": "d21-name-a-club-relegated-from-the-bundesliga-between-2014-15-and-2024-25",
+      "input": "union berlin",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Not relegated from the Bundesliga between 2014-15 and 2024-25."
+    },
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-chelsea-and-liverpool",
+      "input": "xabi alonso",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Played for Liverpool; his Chelsea connection is managerial, not as a player."
+    },
+    {
+      "question_id": "d9-name-a-player-who-scored-10-goals-for-brazil-since-2000",
+      "input": "willian",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Scored nine senior Brazil goals."
+    },
+    {
+      "question_id": "d18-name-a-club-that-reached-the-europa-league-semi-finals-between-2009-10-and-2025-26",
+      "input": "Real Betis",
+      "event_count": 2,
+      "new_events": 2,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Reached the quarter-finals only."
+    },
+    {
+      "question_id": "d22-name-a-country-that-reached-a-world-cup-quarter-final-between-1998-and-2022",
+      "input": "switzerland",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never reached a quarter-final in this period."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2025-africa-cup-of-nations",
+      "input": "Ghana",
+      "event_count": 2,
+      "new_events": 2,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify for the 2025 Africa Cup of Nations."
+    },
+    {
+      "question_id": "d21-name-a-club-promoted-to-la-liga-in-the-summers-of-2000-to-2010",
+      "input": "elche",
+      "event_count": 2,
+      "new_events": 2,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Promoted in 2013, after this period."
+    },
+    {
+      "question_id": "d23-name-a-country-outside-the-uk-that-had-a-player-in-the-premier-league-for-liverpool-up-to-2025-26-his-national-team-or-country-of-birth-if-uncapped",
+      "input": "scotland",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: UK nations do not count in this question."
+    },
+    {
+      "question_id": "d21-name-a-club-promoted-to-la-liga-in-the-summers-of-2000-to-2010",
+      "input": "Granada",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Promoted in 2011, after this period."
+    },
+    {
+      "question_id": "d19-name-a-club-from-emilia-romagna-that-played-in-serie-a-between-2000-01-and-2025-26",
+      "input": "fiorentina",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: From Tuscany, not Emilia-Romagna."
+    },
+    {
+      "question_id": "d17-name-an-italian-club-that-won-the-coppa-italia-between-2000-01-and-2024-25",
+      "input": "udinese",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never won the Coppa Italia."
+    },
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-sevilla-and-real-madrid",
+      "input": "Jesus Navas",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Sevilla legend but never played for Real Madrid."
+    },
+    {
+      "question_id": "d20-name-a-club-that-played-in-la-liga-between-2000-01-and-2025-26-whose-traditional-home-shirt-is-blue-and-white-vertical-stripes",
+      "input": "real oviedo",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Plays in plain blue, without stripes."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2019-africa-cup-of-nations",
+      "input": "zambia",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-la-liga-in-2015-16",
+      "input": "Girona",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Was in the Segunda División in 2015-16."
+    },
+    {
+      "question_id": "d17-name-a-spanish-club-that-won-the-copa-del-rey-between-2000-01-and-2024-25",
+      "input": "getafe",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Lost the 2007 and 2008 finals."
+    },
+    {
+      "question_id": "d7-name-a-player-who-played-for-liverpool-in-the-2010s",
+      "input": "Xabi Alonso",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Left in summer 2009, before the 2009-10 season."
+    },
+    {
+      "question_id": "d24-name-a-manager-who-won-the-serie-a-title-between-2006-07-and-2024-25",
+      "input": "FABIO CAPELLO",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: His last Serie A titles were in 2004-05 and 2005-06, before the range, and were stripped."
+    },
+    {
+      "question_id": "d21-name-a-club-relegated-from-the-premier-league-between-1992-93-and-2013-14",
+      "input": "Stoke City",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Relegated in 2017-18, after this range."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1974-world-cup",
+      "input": "hungary",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2002-world-cup",
+      "input": "Egypt",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for 2002."
+    },
+    {
+      "question_id": "d21-name-a-club-relegated-from-la-liga-between-2004-05-and-2013-14",
+      "input": "Elche",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Played in La Liga from 2013-14 and was not relegated in this period."
+    },
+    {
+      "question_id": "d21-name-a-club-relegated-from-la-liga-between-2004-05-and-2013-14",
+      "input": "Granada",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Not relegated from La Liga in this period (it went down in 2016-17)."
+    },
+    {
+      "question_id": "d23-name-a-country-outside-the-uk-that-had-a-player-in-the-premier-league-for-newcastle-up-to-2025-26-his-national-team-or-country-of-birth-if-uncapped",
+      "input": "wales",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: UK nations do not count in this question."
+    },
+    {
+      "question_id": "d22-name-a-country-that-reached-a-world-cup-semi-final-between-1998-and-2022",
+      "input": "sweden",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Reached the semi-finals in 1994, outside the range."
+    },
+    {
+      "question_id": "d18-name-a-club-that-reached-the-europa-league-quarter-finals-between-2009-10-and-2025-26",
+      "input": "real sociedad",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never reached the Europa League quarter-finals."
+    },
+    {
+      "question_id": "d21-name-a-club-promoted-to-serie-a-in-the-summers-of-2011-to-2025-automatic-promotion-or-play-offs",
+      "input": "udinese",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Not promoted in this period."
+    },
+    {
+      "question_id": "d23-name-a-country-outside-the-uk-that-had-a-player-in-the-premier-league-for-aston-villa-up-to-2025-26-his-national-team-or-country-of-birth-if-uncapped",
+      "input": "wales",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: UK nations do not count in this question."
+    },
+    {
+      "question_id": "d12-name-a-senior-canada-international-who-played-in-the-premier-league-up-to-2025-26",
+      "input": "jonathan david",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never played in the Premier League up to 2025-26."
+    },
+    {
+      "question_id": "d11-name-a-spanish-defender-who-played-in-the-premier-league",
+      "input": "rodri",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: A midfielder, not a defender"
+    },
+    {
+      "question_id": "d2-name-a-left-back-who-played-for-barcelona",
+      "input": "joao cancelo",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Played on the left at times but is primarily a right-back and is not counted in this position template."
+    },
+    {
+      "question_id": "d12-name-a-senior-chile-international-who-played-in-the-premier-league-up-to-2025-26",
+      "input": "arturo vidal",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Played in Germany, Italy and Spain, never in the Premier League."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2015-copa-america",
+      "input": "japan",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Was not invited."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-2012",
+      "input": "serbia",
+      "event_count": 2,
+      "new_events": 2,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for Euro 2012."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2017-africa-cup-of-nations",
+      "input": "south africa",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1990-world-cup",
+      "input": "denmark",
+      "event_count": 2,
+      "new_events": 2,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify for the 1990 World Cup."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2025-africa-cup-of-nations",
+      "input": "Cape Verde",
+      "event_count": 1,
+      "new_events": 1,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not play at the 2025 Africa Cup of Nations."
+    },
+    {
+      "question_id": "d23-name-a-country-outside-the-uk-that-had-a-player-in-the-premier-league-for-man-city-up-to-2025-26-his-national-team-or-country-of-birth-if-uncapped",
+      "input": "Wales",
+      "event_count": 3,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: UK nations do not count in this question."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-ligue-1-in-2025-26",
+      "input": "Montpellier",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Relegated from Ligue 1 in 2024-25."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2013-fifa-confederations-cup",
+      "input": "Argentina",
+      "event_count": 3,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for 2013."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2019-copa-america",
+      "input": "Mexico",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Withdrew and did not play in 2019."
+    },
+    {
+      "question_id": "d9-name-a-player-who-scored-20-serie-a-goals-in-a-single-season-since-2000",
+      "input": "Ronaldo Nazario",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never reached 20 in a Serie A season."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2006-world-cup",
+      "input": "Nigeria",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for 2006."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2023-africa-cup-of-nations",
+      "input": "Congo",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-arsenal-and-barcelona",
+      "input": "Mikel Arteta",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Was developed at Barcelona but never made a competitive Barcelona first-team appearance."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1930-world-cup",
+      "input": "England",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not enter."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1930-world-cup",
+      "input": "Germany",
+      "event_count": 3,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not enter."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1930-world-cup",
+      "input": "Spain",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not enter."
+    },
+    {
+      "question_id": "d21-name-a-club-relegated-from-serie-a-between-2014-15-and-2024-25",
+      "input": "udinese",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Not relegated from Serie A in this period."
+    },
+    {
+      "question_id": "d1-name-a-brazilian-who-played-for-real-madrid",
+      "input": "Reinier",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Was a Real Madrid player but never made a competitive first-team appearance."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-the-premier-league-in-2015-16",
+      "input": "Hull City",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Was in the Championship in 2015-16."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2006-world-cup",
+      "input": "russia",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for 2006."
+    },
+    {
+      "question_id": "d18-name-a-club-that-reached-the-europa-league-quarter-finals-between-2009-10-and-2025-26",
+      "input": "Celtic",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never reached the Europa League quarter-finals in this range."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-2020",
+      "input": "greece",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for Euro 2020."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2009-fifa-confederations-cup",
+      "input": "Argentina",
+      "event_count": 4,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for 2009."
+    },
+    {
+      "question_id": "d22-name-a-country-that-hosted-a-world-cup-up-to-2022",
+      "input": "China",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never hosted a World Cup."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-2008",
+      "input": "denmark",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for Euro 2008."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-2008",
+      "input": "belgium",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for Euro 2008."
+    },
+    {
+      "question_id": "d22-name-a-country-that-has-won-the-european-championship-up-to-euro-2024",
+      "input": "belgium",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Lost the 1980 final."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-the-premier-league-between-2020-21-and-2025-26",
+      "input": "Hull City",
+      "event_count": 5,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Last played in the Premier League in 2016-17."
+    },
+    {
+      "question_id": "d12-name-a-senior-uruguay-international-who-played-in-the-premier-league-up-to-2025-26",
+      "input": "ronald araujo",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Played for Barcelona, never in the Premier League up to 2025-26."
+    },
+    {
+      "question_id": "d18-name-a-spanish-club-that-played-in-the-champions-league-group-or-league-phase-since-2000-01",
+      "input": "osasuna",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Lost in the 2006-07 qualifying round to Hamburg."
+    },
+    {
+      "question_id": "d14-name-a-brazilian-player-who-played-in-the-premier-league-for-man-city-up-to-2025-26",
+      "input": "douglas luiz",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Played in the Premier League for Aston Villa, never for City."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1992",
+      "input": "yugoslavia",
+      "event_count": 4,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Was excluded from the tournament; Denmark replaced them."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-serie-a-in-2025-26",
+      "input": "sampdoria",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Relegated before 2025-26, in Serie B."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-serie-a-in-2025-26",
+      "input": "monza",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Relegated from Serie A in 2024-25."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-serie-a-in-2025-26",
+      "input": "empoli",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Relegated from Serie A in 2024-25."
+    },
+    {
+      "question_id": "d22-name-a-country-that-has-won-the-world-cup-up-to-2022",
+      "input": "netherlands",
+      "event_count": 3,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Three-time finalist, never champion."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1998-world-cup",
+      "input": "russia",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for 1998."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1970-world-cup",
+      "input": "argentina",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-2008",
+      "input": "england",
+      "event_count": 5,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for Euro 2008."
+    },
+    {
+      "question_id": "d22-name-a-country-that-has-won-the-africa-cup-of-nations-up-to-2023",
+      "input": "Mali",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Finalist in 1972, never champion."
+    },
+    {
+      "question_id": "d5-name-a-colombian-who-played-in-serie-a-since-2000",
+      "input": "james rodriguez",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never played a Serie A league match."
+    },
+    {
+      "question_id": "d5-name-a-croatian-who-played-in-the-bundesliga-since-2000",
+      "input": "luka modric",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never played a Bundesliga league match."
+    },
+    {
+      "question_id": "d18-name-an-italian-club-that-played-in-the-champions-league-group-or-league-phase-between-2001-02-and-2025-26",
+      "input": "parma",
+      "event_count": 3,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never reached the Champions League group stage in this period."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1966-world-cup",
+      "input": "peru",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d17-name-an-english-club-that-won-the-league-cup-between-1990-91-and-2024-25",
+      "input": "Everton",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Lost League Cup finals but never won it."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2010-world-cup",
+      "input": "russia",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Lost the qualifying play-off to Slovenia."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2010-world-cup",
+      "input": "croatia",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for the 2010 World Cup."
+    },
+    {
+      "question_id": "d22-name-a-country-that-has-won-the-copa-america-up-to-2024",
+      "input": "Venezuela",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never won the Copa América."
+    },
+    {
+      "question_id": "d24-name-a-dutchman-who-was-a-permanent-premier-league-manager-up-to-2025-26",
+      "input": "guus hiddink",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Only caretaker/interim at Chelsea, never a permanent Premier League manager."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1934-world-cup",
+      "input": "Mexico",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify."
+    },
+    {
+      "question_id": "d16-name-a-brazilian-player-who-played-for-the-winning-team-in-a-champions-league-final-between-1992-93-and-2025-26-starter-or-substitute-who-came-on",
+      "input": "Ronaldo",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never won the Champions League."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2002-world-cup",
+      "input": "scotland",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for 2002."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2002-world-cup",
+      "input": "colombia",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for 2002."
+    },
+    {
+      "question_id": "d21-name-a-club-relegated-from-the-premier-league-between-1992-93-and-2013-14",
+      "input": "arsenal",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never relegated from the Premier League."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1978-world-cup",
+      "input": "Yugoslavia",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1996",
+      "input": "Poland",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for Euro 1996."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1996",
+      "input": "Sweden",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for Euro 1996."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2013-africa-cup-of-nations",
+      "input": "Cameroon",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify for 2013."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2013-africa-cup-of-nations",
+      "input": "Egypt",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify for 2013."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-the-premier-league-between-2020-21-and-2025-26",
+      "input": "middlesbrough",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Last played in the Premier League in 2016-17."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-the-premier-league-in-2015-16",
+      "input": "burnley",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Was in the Championship in 2015-16."
+    },
+    {
+      "question_id": "d16-name-a-portuguese-player-who-played-for-the-winning-team-in-a-champions-league-final-between-1992-93-and-2025-26-starter-or-substitute-who-came-on",
+      "input": "Diogo Jota",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Lost the 2022 final; never won it."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-ligue-1-in-2015-16",
+      "input": "lens",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Relegated in 2015, not in the 2015-16 Ligue 1."
+    },
+    {
+      "question_id": "d23-name-a-country-outside-the-uk-that-had-a-player-in-the-premier-league-for-tottenham-up-to-2025-26-his-national-team-or-country-of-birth-if-uncapped",
+      "input": "scotland",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: UK nations do not count in this question."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2012-africa-cup-of-nations",
+      "input": "egypt",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify for 2012."
+    },
+    {
+      "question_id": "d17-name-a-german-club-that-won-the-dfb-pokal-between-2000-01-and-2024-25",
+      "input": "union berlin",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never won the DFB-Pokal."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1958-world-cup",
+      "input": "italy",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1966-world-cup",
+      "input": "Sweden",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d19-name-a-club-from-lombardy-that-played-in-serie-a-up-to-2025-26",
+      "input": "albinoleffe",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: From Lombardy, but has never played in Serie A."
+    },
+    {
+      "question_id": "d18-name-a-club-that-played-in-a-european-cup-or-champions-league-final-between-1992-93-and-2025-26",
+      "input": "celtic",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never reached a Champions League final in this range."
+    },
+    {
+      "question_id": "d18-name-a-club-that-played-in-a-european-cup-or-champions-league-final-between-1992-93-and-2025-26",
+      "input": "roma",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Lost the 1984 final, before this range."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2010-africa-cup-of-nations",
+      "input": "senegal",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify for 2010."
+    },
+    {
+      "question_id": "d22-name-a-country-that-has-won-the-european-championship-up-to-euro-2024",
+      "input": "Yugoslavia",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Lost the 1960 and 1968 finals."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-la-liga-in-2025-26",
+      "input": "las palmas",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Relegated from La Liga in 2024-25."
+    },
+    {
+      "question_id": "d21-name-a-club-relegated-from-the-premier-league-between-1992-93-and-2013-14",
+      "input": "Everton",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never relegated from the Premier League."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2015-afc-asian-cup",
+      "input": "syria",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify."
+    },
+    {
+      "question_id": "d10-name-a-left-footed-brazilian-player",
+      "input": "ronaldinho",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Right-footed"
+    },
+    {
+      "question_id": "d22-name-a-country-that-has-won-the-world-cup-up-to-2022",
+      "input": "czechoslovakia",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Lost two finals (1934, 1962)."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-the-premier-league-between-2000-01-and-2010-11",
+      "input": "queens park rangers",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: First Premier League season in this era was 2011-12."
+    },
+    {
+      "question_id": "d22-name-a-country-that-has-won-the-european-championship-up-to-euro-2024",
+      "input": "sweden",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never won the Euros."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2015-africa-cup-of-nations",
+      "input": "morocco",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Withdrew as intended hosts and was excluded."
+    },
+    {
+      "question_id": "d18-name-a-club-that-won-the-european-cup-or-champions-league-up-to-2024-25",
+      "input": "valencia",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Lost two finals, never won it."
+    },
+    {
+      "question_id": "d18-name-a-club-that-won-the-european-cup-or-champions-league-up-to-2024-25",
+      "input": "sevilla",
+      "event_count": 3,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Won the Europa League, not the European Cup."
+    },
+    {
+      "question_id": "d19-name-a-club-from-the-midlands-of-england-that-played-in-the-premier-league-up-to-2025-26",
+      "input": "sheffield united",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Based in Yorkshire, not the Midlands."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2008-africa-cup-of-nations",
+      "input": "togo",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify for 2008."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1958-world-cup",
+      "input": "spain",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1988",
+      "input": "portugal",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d9-name-a-player-who-scored-20-serie-a-goals-in-a-single-season-since-2000",
+      "input": "Kaka",
+      "event_count": 3,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never scored 20 Serie A goals in one season."
+    },
+    {
+      "question_id": "d11-name-a-brazilian-midfielder-who-played-in-la-liga",
+      "input": "Neymar",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Mainly a winger/forward, not a midfielder"
+    },
+    {
+      "question_id": "d12-name-a-senior-canada-international-who-played-in-the-premier-league-up-to-2025-26",
+      "input": "Alphonso Davies",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Played for Bayern Munich, never in the Premier League."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2013-africa-cup-of-nations",
+      "input": "senegal",
+      "event_count": 3,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify for 2013."
+    },
+    {
+      "question_id": "d2-name-a-winger-who-played-for-bayern-since-2000",
+      "input": "james rodriguez",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Primarily an attacking midfielder, not a winger."
+    },
+    {
+      "question_id": "d12-name-a-senior-austria-international-who-played-in-the-premier-league-up-to-2025-26",
+      "input": "david alaba",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Played for Bayern and Real Madrid, never in the Premier League."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-the-bundesliga-since-2020-21",
+      "input": "nurnberg",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Not in the Bundesliga since 2018-19."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2011-copa-america",
+      "input": "jamaica",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Was not invited."
+    },
+    {
+      "question_id": "d21-name-a-club-relegated-from-serie-a-between-2014-15-and-2024-25",
+      "input": "Bologna",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Not relegated from Serie A in this period."
+    },
+    {
+      "question_id": "d17-name-a-french-club-that-won-the-coupe-de-france-between-2000-01-and-2024-25",
+      "input": "nice",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Lost finals; last won in 1997."
+    },
+    {
+      "question_id": "d18-name-a-club-that-played-in-a-uefa-cup-or-europa-league-final-between-2000-01-and-2025-26",
+      "input": "lazio",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Last UEFA Cup final was 1997-98."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1984",
+      "input": "Soviet union",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d6-name-a-player-who-played-for-spain-at-a-euro-since-2008",
+      "input": "david raya",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Unused at Euro 2024."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1982-world-cup",
+      "input": "mexico",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d22-name-a-country-that-has-played-in-a-world-cup-final-up-to-2022",
+      "input": "Yugoslavia",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Best result was fourth place in 1930 and 1962."
+    },
+    {
+      "question_id": "d18-name-a-club-that-reached-the-champions-league-semi-finals-between-2000-01-and-2025-26",
+      "input": "Napoli",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Best Champions League result in this range was the quarter-finals."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2010-africa-cup-of-nations",
+      "input": "morocco",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify for 2010."
+    },
+    {
+      "question_id": "d19-name-a-club-from-lombardy-that-played-in-serie-a-up-to-2025-26",
+      "input": "Juventus",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: From Piedmont (Turin), not Lombardy."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1954-world-cup",
+      "input": "spain",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2012-africa-cup-of-nations",
+      "input": "algeria",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify for 2012."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2012-africa-cup-of-nations",
+      "input": "nigeria",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify for 2012."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2015-copa-america",
+      "input": "costa rica",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Was not invited."
+    },
+    {
+      "question_id": "d1-name-an-argentine-who-played-for-atl-tico-madrid",
+      "input": "Nehuen Perez",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Was an Atlético player but never made a competitive first-team appearance."
+    },
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-barcelona-and-milan",
+      "input": "Kaka",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Played for Milan and Real Madrid, never Barcelona."
+    },
+    {
+      "question_id": "d18-name-an-italian-club-that-played-in-the-champions-league-group-or-league-phase-between-2001-02-and-2025-26",
+      "input": "palermo",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Played only in the UEFA Cup, never the Champions League group stage."
+    },
+    {
+      "question_id": "d9-name-a-player-who-scored-20-bundesliga-goals-in-a-single-season-since-2000",
+      "input": "marco reus",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never reached 20 in a Bundesliga season."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2007-copa-america",
+      "input": "costa rica",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Was not in the 2007 tournament (played in 2004)."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2016-copa-america-centenario",
+      "input": "honduras",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2004-copa-america",
+      "input": "honduras",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Was not in the 2004 tournament."
+    },
+    {
+      "question_id": "d14-name-a-portuguese-player-who-played-in-the-premier-league-for-wolves-up-to-2025-26",
+      "input": "Bruno Lage",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Managed Wolves; never played for them."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-the-premier-league-between-2011-12-and-2019-20",
+      "input": "Blackpool",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Last played in the Premier League in 2010-11."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-the-premier-league-between-2000-01-and-2010-11",
+      "input": "barnsley",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Not in the Premier League in this period."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2024-copa-america",
+      "input": "Honduras",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1994-world-cup",
+      "input": "Denmark",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify for the 1994 World Cup."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2023-africa-cup-of-nations",
+      "input": "Benin",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d9-name-a-player-who-scored-20-premier-league-goals-in-a-single-season",
+      "input": "kevin de bruyne",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never scored 20 league goals in one Premier League season."
+    },
+    {
+      "question_id": "d19-name-a-club-from-london-that-played-in-the-premier-league-between-2000-01-and-2025-26",
+      "input": "watford",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Based in Hertfordshire, not London."
+    },
+    {
+      "question_id": "d23-name-a-country-outside-the-uk-that-had-a-player-in-the-premier-league-for-aston-villa-up-to-2025-26-his-national-team-or-country-of-birth-if-uncapped",
+      "input": "scotland",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: UK nations do not count in this question."
+    },
+    {
+      "question_id": "d19-name-a-club-from-catalonia-that-played-in-la-liga-up-to-2025-26",
+      "input": "valencia",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: From the Valencian Community, not Catalonia."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1950-world-cup",
+      "input": "India",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Qualified but withdrew."
+    },
+    {
+      "question_id": "d10-name-a-brazilian-left-back",
+      "input": "cafu",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Brazilian, but a right-back"
+    },
+    {
+      "question_id": "d17-name-an-italian-club-that-won-the-coppa-italia-between-2000-01-and-2024-25",
+      "input": "atalanta",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Lost finals, last won the Coppa Italia in 1963."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1998-world-cup",
+      "input": "sweden",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for 1998."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1994-world-cup",
+      "input": "england",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify for the 1994 World Cup."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1994-world-cup",
+      "input": "france",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify for the 1994 World Cup."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1984",
+      "input": "netherlands",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-arsenal-and-tottenham",
+      "input": "harry kane",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Was in Arsenal's academy as a child but never made a competitive Arsenal first-team appearance."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1980",
+      "input": "Yugoslavia",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-the-premier-league-in-2025-26",
+      "input": "ipswich town",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Relegated in 2024-25."
+    },
+    {
+      "question_id": "d19-name-a-club-from-yorkshire-that-played-in-the-premier-league-up-to-2025-26",
+      "input": "sunderland",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: From Tyne and Wear in North East England, not Yorkshire."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2007-copa-america",
+      "input": "Japan",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Played in 1999, not in 2007."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2010-africa-cup-of-nations",
+      "input": "South Africa",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify for 2010."
+    },
+    {
+      "question_id": "d12-name-a-senior-south-korea-international-who-played-in-the-premier-league-up-to-2025-26",
+      "input": "Lee kang in",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Played in Spain and France, never in the Premier League."
+    },
+    {
+      "question_id": "d24-name-a-spaniard-who-was-a-permanent-premier-league-manager-up-to-2025-26",
+      "input": "xabi alonso",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Has never managed in the Premier League."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1950-world-cup",
+      "input": "turkey",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Qualified but withdrew."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1934-world-cup",
+      "input": "England",
+      "event_count": 3,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not enter."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-la-liga-in-2025-26",
+      "input": "leganes",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Relegated from La Liga in 2024-25."
+    },
+    {
+      "question_id": "d22-name-a-country-that-reached-a-world-cup-semi-final-between-1998-and-2022",
+      "input": "japan",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Never went beyond the last 16."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1930-world-cup",
+      "input": "italy",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not enter."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1958-world-cup",
+      "input": "Portugal",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1962-world-cup",
+      "input": "sweden",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d18-name-an-english-club-that-played-in-the-champions-league-group-or-league-phase-since-2000-01",
+      "input": "Everton",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Reached only the 2005-06 qualifying round, losing to Villarreal."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2021-copa-america",
+      "input": "Mexico",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Not invited to the 2021 edition."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1996",
+      "input": "Belgium",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for Euro 1996."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2002-world-cup",
+      "input": "Chile",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for 2002."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1984",
+      "input": "england",
+      "event_count": 3,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1984",
+      "input": "italy",
+      "event_count": 2,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-2000",
+      "input": "Switzerland",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for Euro 2000."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1974-world-cup",
+      "input": "Belgium",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1978-world-cup",
+      "input": "england",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d7-name-a-player-who-played-for-chelsea-in-the-2020s",
+      "input": "eden hazard",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Left Chelsea before 2019-20."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1990-world-cup",
+      "input": "france",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify for the 1990 World Cup."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-2004",
+      "input": "turkey",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for Euro 2004."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1970-world-cup",
+      "input": "france",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d16-name-a-spanish-player-who-played-for-the-winning-team-in-a-champions-league-final-between-1992-93-and-2025-26-starter-or-substitute-who-came-on",
+      "input": "Guti",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Unused substitute in Real Madrid’s winning 2002 final."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2013-fifa-confederations-cup",
+      "input": "Cameroon",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for 2013."
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-serie-a-between-2020-21-and-2025-26",
+      "input": "Palermo",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Not in Serie A in any season from 2020-21 to 2025-26."
+    },
+    {
+      "question_id": "d21-name-a-club-promoted-to-ligue-1-in-the-summers-of-2011-to-2025-automatic-promotion-or-play-offs",
+      "input": "sochaux",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Not promoted in this period."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2017-africa-cup-of-nations",
+      "input": "nigeria",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Failed to qualify."
+    },
+    {
+      "question_id": "d17-name-an-italian-club-that-won-the-coppa-italia-between-2000-01-and-2024-25",
+      "input": "torino",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Last Coppa Italia win was 1993."
+    },
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-real-madrid-and-psg",
+      "input": "neymar",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Played for PSG but never Real Madrid."
+    },
+    {
+      "question_id": "d23-name-a-country-outside-the-uk-that-had-a-player-in-the-premier-league-for-everton-up-to-2025-26-his-national-team-or-country-of-birth-if-uncapped",
+      "input": "scotland",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: UK nations do not count in this question."
+    },
+    {
+      "question_id": "d23-name-a-country-outside-the-uk-that-had-a-player-in-the-premier-league-for-leeds-up-to-2025-26-his-national-team-or-country-of-birth-if-uncapped",
+      "input": "scotland",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: UK nations do not count in this question."
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1970-world-cup",
+      "input": "Netherlands",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify."
+    },
+    {
+      "question_id": "d19-name-a-club-from-yorkshire-that-played-in-the-premier-league-up-to-2025-26",
+      "input": "york city",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Has never played in the Premier League."
+    },
+    {
+      "question_id": "d11-name-a-brazilian-striker-who-played-in-serie-a",
+      "input": "kaka",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: A midfielder, not a striker"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-2020",
+      "input": "Serbia",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Did not qualify for Euro 2020."
+    },
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-roma-and-inter",
+      "input": "nicolo zaniolo",
+      "event_count": 6,
+      "new_events": 0,
+      "decision": "ignore_explicit_trap",
+      "reason": "The existing question explicitly excludes this entry: Was owned by Inter but made zero competitive first-team appearances before joining Roma."
+    }
+  ]
+}

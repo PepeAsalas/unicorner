@@ -1,0 +1,149 @@
+{
+  "day": "2026-11-27",
+  "questions": [
+    {
+      "q": "Which of these clubs did Thierry Henry NEVER play for?",
+      "q_es": "¿En cuál de estos clubes NUNCA jugó Thierry Henry?",
+      "q_pt": "Em qual destes clubes Thierry Henry NUNCA jogou?",
+      "o": [
+        "Monaco",
+        "Marseille",
+        "Juventus",
+        "New York Red Bulls"
+      ],
+      "a": 1,
+      "why": "Henry played for Monaco, Juventus, Arsenal, Barcelona and New York Red Bulls, never Marseille.",
+      "why_es": "Henry jugó en Mónaco, Juventus, Arsenal, Barcelona y New York Red Bulls, nunca en el Marsella.",
+      "why_pt": "Henry jogou no Monaco, Juventus, Arsenal, Barcelona e New York Red Bulls, nunca no Olympique de Marselha.",
+      "src": "own knowledge",
+      "o_es": [
+        "Mónaco",
+        "Marsella",
+        "Juventus",
+        "New York Red Bulls"
+      ],
+      "o_pt": [
+        "Monaco",
+        "Olympique de Marselha",
+        "Juventus",
+        "New York Red Bulls"
+      ]
+    },
+    {
+      "q": "Who was France's coach when they won the 1998 World Cup?",
+      "q_es": "¿Quién era el seleccionador de Francia que ganó el Mundial 1998?",
+      "q_pt": "Quem era o técnico da França campeã da Copa do Mundo de 1998?",
+      "o": [
+        "Roger Lemerre",
+        "Gérard Houllier",
+        "Aimé Jacquet",
+        "Raymond Domenech"
+      ],
+      "a": 2,
+      "why": "Aimé Jacquet; his assistant Roger Lemerre took over and won Euro 2000.",
+      "why_es": "Aimé Jacquet; su ayudante Roger Lemerre le sucedió y ganó la Euro 2000.",
+      "why_pt": "Aimé Jacquet; seu auxiliar Roger Lemerre o sucedeu e ganhou a Eurocopa de 2000.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "How many Bundesliga goals did Gerd Müller score in 1971-72, the record until 2021?",
+      "q_es": "¿Cuántos goles marcó Gerd Müller en la Bundesliga 1971-72, el récord hasta 2021?",
+      "q_pt": "Quantos gols Gerd Müller marcou na Bundesliga 1971-72, o recorde até 2021?",
+      "o": [
+        "36",
+        "38",
+        "42",
+        "40"
+      ],
+      "a": 3,
+      "why": "40, beaten only by Lewandowski's 41 in 2020-21.",
+      "why_es": "40, superado solo por los 41 de Lewandowski en 2020-21.",
+      "why_pt": "40, superado apenas pelos 41 de Lewandowski em 2020-21.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which country won the first European Championship, in 1960?",
+      "q_es": "¿Qué país ganó la primera Eurocopa, en 1960?",
+      "q_pt": "Qual país ganhou a primeira Eurocopa, em 1960?",
+      "o": [
+        "Soviet Union",
+        "Yugoslavia",
+        "Spain"
+      ],
+      "a": 0,
+      "why": "The Soviet Union beat Yugoslavia 2-1 after extra time in Paris.",
+      "why_es": "La Unión Soviética ganó 2-1 a Yugoslavia en la prórroga en París.",
+      "why_pt": "A União Soviética venceu a Iugoslávia por 2 a 1 na prorrogação em Paris.",
+      "src": "own knowledge",
+      "o_es": [
+        "Unión Soviética",
+        "Yugoslavia",
+        "España"
+      ],
+      "o_pt": [
+        "União Soviética",
+        "Iugoslávia",
+        "Espanha"
+      ]
+    },
+    {
+      "q": "In which year did Alex Ferguson become Manchester United manager?",
+      "q_es": "¿En qué año se convirtió Alex Ferguson en entrenador del Manchester United?",
+      "q_pt": "Em que ano Alex Ferguson se tornou técnico do Manchester United?",
+      "o": [
+        "1984",
+        "1988",
+        "1986"
+      ],
+      "a": 2,
+      "why": "November 1986, arriving from Aberdeen to replace Ron Atkinson.",
+      "why_es": "En noviembre de 1986, llegado del Aberdeen para sustituir a Ron Atkinson.",
+      "why_pt": "Em novembro de 1986, vindo do Aberdeen para substituir Ron Atkinson.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which of these players NEVER played for Newcastle United?",
+      "q_es": "¿Cuál de estos jugadores NUNCA jugó en el Newcastle United?",
+      "q_pt": "Qual destes jogadores NUNCA jogou no Newcastle United?",
+      "o": [
+        "Michael Owen",
+        "Craig Bellamy",
+        "Robbie Fowler"
+      ],
+      "a": 2,
+      "why": "Fowler played for Liverpool, Leeds, Man City, Cardiff and Blackburn, never Newcastle; Owen and Bellamy both did.",
+      "why_es": "Fowler jugó en Liverpool, Leeds, Man City, Cardiff y Blackburn, nunca en el Newcastle; Owen y Bellamy sí.",
+      "why_pt": "Fowler jogou no Liverpool, Leeds, Man City, Cardiff e Blackburn, nunca no Newcastle; Owen e Bellamy sim.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which club did Robin van Persie join Arsenal from in 2004?",
+      "q_es": "¿De qué club llegó Robin van Persie al Arsenal en 2004?",
+      "q_pt": "De qual clube Robin van Persie chegou ao Arsenal em 2004?",
+      "o": [
+        "Ajax",
+        "Feyenoord",
+        "PSV"
+      ],
+      "a": 1,
+      "why": "Van Persie came through at Feyenoord and won the 2002 UEFA Cup there.",
+      "why_es": "Van Persie se formó en el Feyenoord y ganó allí la Copa de la UEFA 2002.",
+      "why_pt": "Van Persie foi revelado pelo Feyenoord e ganhou lá a Copa da UEFA de 2002.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Who has scored more World Cup goals: Thomas Müller or Lionel Messi?",
+      "q_es": "¿Quién ha marcado más goles en los Mundiales: Thomas Müller o Lionel Messi?",
+      "q_pt": "Quem marcou mais gols em Copas do Mundo: Thomas Müller ou Lionel Messi?",
+      "o": [
+        "Thomas Müller",
+        "Lionel Messi"
+      ],
+      "a": 1,
+      "why": "Messi has 13 (7 of them in 2022), Müller 10.",
+      "why_es": "Messi tiene 13 (7 de ellos en 2022) y Müller 10.",
+      "why_pt": "Messi tem 13 (7 deles em 2022) e Müller 10.",
+      "src": "own knowledge"
+    }
+  ]
+}

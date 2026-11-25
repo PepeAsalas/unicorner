@@ -323,7 +323,12 @@ const ART={host:{}};let pose='';
 const MAP={'idle-1':'idle','talk-1':'deal','talk-2':'deal','point':'show','think':'think','nervous':'think','wink':'wink','facepalm':'shock','surprised':'shock','laugh':'laugh','celebrate':'clap','excited':'clap','happy-talk':'wink'};
 // extra frames: he blinks now and then, and moves his mouth while his line appears
 const FRAMES={idle:{blink:'idle-blink',talk:'idle-talk'},deal:{talk:'deal-talk'},think:{blink:'think-blink'}};
-const artSrc=n=>'/blackjack/art/horacio-'+n+'.png';
+// Christmas season: Horacio in his rental Santa suit (4 poses)
+const XM=(d=>d>='2026-11-24'&&d<='2027-01-06')(new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10));
+const XMP=n=>({deal:'talking','deal-talk':'talking','idle-talk':'talking',show:'point',think:'thinking','think-blink':'thinking',wink:'winking',laugh:'laughing',clap:'clap',shock:'shock',nervous:'nervous',sad:'sad'})[n]||'idle';
+if(XM){MAP.nervous='nervous';MAP.facepalm='sad'}
+const artSrc=n=>XM?'/blackjack/art/xmas/horacio-'+XMP(n)+'.png':'/blackjack/art/horacio-'+n+'.png';
+if(XM)$('host').src=artSrc('idle');
 {for(const k in MAP)ART.host[k]=artSrc(MAP[k]);[...new Set(Object.values(MAP)),...Object.values(FRAMES).flatMap(f=>Object.values(f))].forEach(n=>{const i=new Image();i.src=artSrc(n)});document.body.classList.add('art-host')}
 let talkT=0,blinkT=0;
 const frames=()=>ART.host?FRAMES[MAP[pose]]||{}:{};
@@ -339,7 +344,7 @@ function host(p,line){const img=$('host');
 // ── optional art (from the ChatGPT pack): used when the files exist ──
 (async()=>{const ok=u=>new Promise(r=>{const i=new Image();i.onload=()=>r(true);i.onerror=()=>r(false);i.src=u});
  const tall=matchMedia('(max-width:760px)').matches?'/blackjack/art/table-tall.webp':'/blackjack/art/table-wide.webp';
- const [t,b,c,h]=await Promise.all([ok(tall),ok('/blackjack/art/card-back.png'),ok('/blackjack/art/chip.png'),ok('/blackjack/art/horacio-idle.png')]);
+ const [t,b,c,h]=await Promise.all([ok(tall),ok('/blackjack/art/card-back.png'),ok('/blackjack/art/chip.png'),ok(artSrc('idle'))]);
  if(t){document.body.style.setProperty('--table',`url(${tall})`);document.body.classList.remove('noart')}
  if(b){document.documentElement.style.setProperty('--back','url(/blackjack/art/card-back.png)');document.body.classList.add('art-back')}
  if(c)ART.chip=true;
@@ -631,7 +636,7 @@ const PAGES=PT?[
   <p>Closer to the target than me wins. Hit it <b>exactly</b> and it's a…</p><span class="bk-stamp">FULL HOUSE!</span>`}];
 let bkI=0,bkBack=null;
 function bkShow(i,dir){bkI=Math.max(0,Math.min(PAGES.length-1,i));const pg=PAGES[bkI],el=$('bk-page');
- el.innerHTML=`<img src="/blackjack/art/horacio-${pg.pose}.png" alt="" onerror="this.src='/rosco/host/idle-1.png'"><h2 id="bk-h">${pg.h}</h2>${pg.b}`;
+ el.innerHTML=`<img src="${artSrc(pg.pose)}" alt="" onerror="this.src='/rosco/host/idle-1.png'"><h2 id="bk-h">${pg.h}</h2>${pg.b}`;
  $('bk-n').textContent=`${bkI+1} / ${PAGES.length}`;$('bk-dots').innerHTML=PAGES.map((_,j)=>`<i class="${j===bkI?'on':''}"></i>`).join('');
  $('bk-prev').disabled=bkI===0;const last=bkI===PAGES.length-1;$('bk-next').textContent=last?(S.done?L('Got it','Entendido',"Entendi"):L('Deal me in','Reparte',"Me dá as cartas")):L('Next','Siguiente',"Próximo");
  if(dir)anim(el,[{opacity:0,transform:`translateX(${dir*28}px)`},{opacity:1,transform:'none'}],{duration:240,easing:EASE})}
@@ -681,5 +686,5 @@ start();
 <script src="/chat.js" defer></script>
 <script src="/kb.js" data-input="#a" data-top="#panel .qhead" defer></script>
 <script src="/pixicons.js" defer></script>
-</body>
+<script src="/lecture.js" defer></script></body>
 </html>

@@ -1,0 +1,127 @@
+{
+  "day": "2026-11-26",
+  "questions": [
+    {
+      "q": "Which of these players NEVER played for Borussia Dortmund?",
+      "q_es": "¿Cuál de estos jugadores NUNCA jugó en el Borussia Dortmund?",
+      "q_pt": "Qual destes jogadores NUNCA jogou no Borussia Dortmund?",
+      "o": [
+        "Robert Lewandowski",
+        "Toni Kroos",
+        "Mario Götze",
+        "İlkay Gündoğan"
+      ],
+      "a": 1,
+      "why": "Kroos played for Bayern and Leverkusen in Germany, never Dortmund.",
+      "why_es": "Kroos jugó en el Bayern y el Leverkusen en Alemania, nunca en el Dortmund.",
+      "why_pt": "Kroos jogou no Bayern e no Leverkusen na Alemanha, nunca no Dortmund.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which club won the first FIFA Club World Championship, in 2000?",
+      "q_es": "¿Qué club ganó el primer Mundial de Clubes de la FIFA, en 2000?",
+      "q_pt": "Qual clube ganhou o primeiro Mundial de Clubes da FIFA, em 2000?",
+      "o": [
+        "Real Madrid",
+        "Vasco da Gama",
+        "Corinthians",
+        "Manchester United"
+      ],
+      "a": 2,
+      "why": "Corinthians beat Vasco da Gama on penalties in the final at the Maracanã.",
+      "why_es": "El Corinthians ganó al Vasco da Gama en los penaltis de la final en el Maracaná.",
+      "why_pt": "O Corinthians venceu o Vasco da Gama nos pênaltis na final no Maracanã.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "In which year did Uruguay win their second World Cup?",
+      "q_es": "¿En qué año ganó Uruguay su segundo Mundial?",
+      "q_pt": "Em que ano o Uruguai ganhou sua segunda Copa do Mundo?",
+      "o": [
+        "1938",
+        "1954",
+        "1962",
+        "1950"
+      ],
+      "a": 3,
+      "why": "1950, the 'Maracanazo' against Brazil.",
+      "why_es": "En 1950, el 'Maracanazo' ante Brasil.",
+      "why_pt": "Em 1950, o 'Maracanaço' contra o Brasil.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which club sold Gareth Bale to Tottenham in 2007?",
+      "q_es": "¿Qué club vendió a Gareth Bale al Tottenham en 2007?",
+      "q_pt": "Qual clube vendeu Gareth Bale ao Tottenham em 2007?",
+      "o": [
+        "Cardiff City",
+        "Southampton",
+        "Swansea City"
+      ],
+      "a": 1,
+      "why": "Bale was born in Cardiff but came through at Southampton.",
+      "why_es": "Bale nació en Cardiff, pero se formó en el Southampton.",
+      "why_pt": "Bale nasceu em Cardiff, mas foi revelado pelo Southampton.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "How many Premier League titles had Chelsea won up to the end of 2024-25?",
+      "q_es": "¿Cuántas Premier League había ganado el Chelsea hasta el final de la 2024-25?",
+      "q_pt": "Quantas Premier Leagues o Chelsea tinha ganhado até o fim da temporada 2024-25?",
+      "o": [
+        "4",
+        "6",
+        "5"
+      ],
+      "a": 2,
+      "why": "5: 2004-05, 2005-06, 2009-10, 2014-15 and 2016-17.",
+      "why_es": "5: 2004-05, 2005-06, 2009-10, 2014-15 y 2016-17.",
+      "why_pt": "5: 2004-05, 2005-06, 2009-10, 2014-15 e 2016-17.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which of these players NEVER played at a World Cup?",
+      "q_es": "¿Cuál de estos jugadores NUNCA jugó un Mundial?",
+      "q_pt": "Qual destes jogadores NUNCA jogou uma Copa do Mundo?",
+      "o": [
+        "Gheorghe Hagi",
+        "Hristo Stoichkov",
+        "George Weah"
+      ],
+      "a": 2,
+      "why": "Liberia never qualified, so Weah never played at one; Hagi and Stoichkov both starred at USA 94.",
+      "why_es": "Liberia nunca se clasificó, así que Weah nunca jugó uno; Hagi y Stoichkov brillaron en Estados Unidos 94.",
+      "why_pt": "A Libéria nunca se classificou, então Weah nunca jogou uma; Hagi e Stoichkov brilharam nos Estados Unidos em 94.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Who managed Manchester City to their first Premier League title, in 2011-12?",
+      "q_es": "¿Quién entrenaba al Manchester City en su primera Premier League, la 2011-12?",
+      "q_pt": "Quem era o técnico do Manchester City em sua primeira Premier League, a de 2011-12?",
+      "o": [
+        "Manuel Pellegrini",
+        "Roberto Mancini",
+        "Mark Hughes"
+      ],
+      "a": 1,
+      "why": "Roberto Mancini; Pellegrini won City's second, in 2013-14.",
+      "why_es": "Roberto Mancini; Pellegrini ganó la segunda del City, en 2013-14.",
+      "why_pt": "Roberto Mancini; Pellegrini ganou a segunda do City, em 2013-14.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Who scored more La Liga goals: Raúl or Alfredo Di Stéfano?",
+      "q_es": "¿Quién marcó más goles en LaLiga: Raúl o Alfredo Di Stéfano?",
+      "q_pt": "Quem marcou mais gols na La Liga: Raúl ou Alfredo Di Stéfano?",
+      "o": [
+        "Alfredo Di Stéfano",
+        "Raúl"
+      ],
+      "a": 1,
+      "why": "Raúl scored 228, one more than Di Stéfano's 227 for Real Madrid and Espanyol.",
+      "why_es": "Raúl marcó 228, uno más que los 227 de Di Stéfano con Real Madrid y Espanyol.",
+      "why_pt": "Raúl marcou 228, um a mais que os 227 de Di Stéfano por Real Madrid e Espanyol.",
+      "src": "https://en.wikipedia.org/wiki/List_of_La_Liga_top_scorers"
+    }
+  ]
+}

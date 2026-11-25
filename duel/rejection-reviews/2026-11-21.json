@@ -1,0 +1,403 @@
+{
+  "date": "2026-11-21",
+  "baseline_commit": "5082ad2307d585997b01d82b2d2f71b4b80f5979",
+  "correction_commit": "6efc75be575cd29cff19f8fc6263086a679b3ae1",
+  "previous_checkpoint": 1905044,
+  "last_scanned_event_id": 1970954,
+  "scanned_events": 4202,
+  "scan_pages": [
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    202
+  ],
+  "prior_pending_count": 47935,
+  "pending_count": 49659,
+  "excluded_records": {
+    "ambiguous": 109,
+    "duplicate": 212,
+    "blank": 3
+  },
+  "decision_counts": {
+    "pending": 49659,
+    "add_missing_player": 10,
+    "add_alias": 6
+  },
+  "corrections": [
+    {
+      "question_id": "d8-name-a-striker-who-played-in-serie-a-since-2010",
+      "submitted_text": [
+        "André Silva"
+      ],
+      "event_count": 6,
+      "decision": "add_missing_player",
+      "correction": {
+        "name": "André Miguel Valente da Silva",
+        "aliases": [
+          "André Silva",
+          "Andre Silva"
+        ],
+        "fame": 3
+      },
+      "evidence": "AC Milan's official statement identifies Andre Miguel Valente da Silva. Its match history records his substitute appearance and league goal at Genoa on 11 March 2018. Eintracht's 2019 announcement explicitly describes him as a centre-forward/striker and records 40 competitive Milan games. These meet the unchanged 2010-11 through 2025-26 scope. Fame 3 reflects a recognisable former Serie A striker.",
+      "evidence_urls": [
+        "https://www.acmilan.com/en/news/articles/media/2020-09-10/official-statement-andre-silva",
+        "https://www.acmilan.com/en/news/articles/history/2023-10-05/time-machine-andre-silva-in-genoa-v-ac-milan",
+        "https://en.eintracht.de/news/andre-silva-joins-eintracht-from-ac-milan-120454/"
+      ]
+    },
+    {
+      "question_id": "d8-name-a-striker-who-played-in-the-premier-league-since-2010",
+      "submitted_text": [
+        "kean"
+      ],
+      "event_count": 3,
+      "decision": "add_missing_player",
+      "correction": {
+        "name": "Moise Kean",
+        "aliases": [
+          "Kean"
+        ],
+        "fame": 3
+      },
+      "evidence": "The Premier League's 4 August 2019 announcement explicitly identifies Kean as a striker; its 21 January 2020 Everton-Newcastle match summary records his league goal. Both position and a competitive first-team league appearance fall within 2010-11 through 2025-26. Fame 3 follows the existing Serie A Kean entry.",
+      "evidence_urls": [
+        "https://www.premierleague.com/en/news/1300394",
+        "https://www.premierleague.com/en/news/1571766"
+      ]
+    },
+    {
+      "question_id": "d10-name-an-italian-striker",
+      "submitted_text": [
+        "moise kean"
+      ],
+      "event_count": 3,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Moise Bioty Kean",
+        "added_aliases": [
+          "Moise Kean"
+        ]
+      },
+      "evidence": "The Premier League's official 2019 announcement calls Moise Kean an Italy striker and explicitly records his senior Italy international debut in 2018/19. Add only the common two-part name to the existing eligible Moise Bioty Kean entry, preserving fame.",
+      "evidence_urls": [
+        "https://www.premierleague.com/en/news/1300394"
+      ]
+    },
+    {
+      "question_id": "d2-name-a-left-back-who-played-for-real-madrid",
+      "submitted_text": [
+        "Alaba"
+      ],
+      "event_count": 13,
+      "decision": "add_missing_player",
+      "correction": {
+        "name": "David Alaba",
+        "aliases": [
+          "Alaba"
+        ],
+        "fame": 5
+      },
+      "evidence": "Real Madrid's July 2021 profile explicitly identifies Alaba as a left-back as well as centre-back. Its official debut report records a full competitive LaLiga appearance against Alaves on 14 August 2021, before the unchanged 2025-26 cutoff. Fame 5 follows established international left-backs.",
+      "evidence_urls": [
+        "https://www.realmadrid.com/es-ES/noticias/futbol/primer-equipo/fichajes/asi-juega-alaba",
+        "https://www.realmadrid.com/es-ES/noticias/futbol/primer-equipo/actualidad/alaba-debuta-en-partido-oficial-con-el-real-madrid"
+      ]
+    },
+    {
+      "question_id": "d8-name-a-left-back-who-played-in-la-liga-since-2005",
+      "submitted_text": [
+        "Alaba"
+      ],
+      "event_count": 3,
+      "decision": "add_missing_player",
+      "correction": {
+        "name": "David Alaba",
+        "aliases": [
+          "Alaba"
+        ],
+        "fame": 4
+      },
+      "evidence": "Real Madrid's July 2021 profile explicitly identifies Alaba as a left-back; the club's official debut report records his full LaLiga appearance on 14 August 2021. Position and league appearance fit 2005-06 through 2025-26. Fame 4 preserves the scale of the existing LaLiga centre-back entry for Alaba.",
+      "evidence_urls": [
+        "https://www.realmadrid.com/es-ES/noticias/futbol/primer-equipo/fichajes/asi-juega-alaba",
+        "https://www.realmadrid.com/es-ES/noticias/futbol/primer-equipo/actualidad/alaba-debuta-en-partido-oficial-con-el-real-madrid"
+      ]
+    },
+    {
+      "question_id": "d8-name-a-centre-back-who-played-in-la-liga-since-2010",
+      "submitted_text": [
+        "natan"
+      ],
+      "event_count": 3,
+      "decision": "add_missing_player",
+      "correction": {
+        "name": "Natan Bernardo de Souza",
+        "aliases": [
+          "Natan"
+        ],
+        "fame": 3
+      },
+      "evidence": "Real Betis's official presentation identifies Natan Bernardo de Souza and explicitly calls him a Brazilian centre-back. LaLiga's match record lists him among the starters against Leganes on 13 September 2024 and records his match actions, establishing a competitive first-team league appearance within 2010-11 through 2025-26. Fame 3 follows comparable established league defenders.",
+      "evidence_urls": [
+        "https://www.realbetisbalompie.es/noticias/actualidad/el-real-betis-presenta-al-central-brasileno-natan-30479",
+        "https://www.laliga.com/en-GB/match/temporada-2024-2025-laliga-ea-sports-real-betis-cd-leganes-5"
+      ]
+    },
+    {
+      "question_id": "d9-name-a-player-who-scored-20-bundesliga-goals-in-a-single-season-since-2000",
+      "submitted_text": [
+        "Muller"
+      ],
+      "event_count": 46,
+      "decision": "add_missing_player",
+      "correction": {
+        "name": "Thomas Müller",
+        "aliases": [
+          "Thomas Muller",
+          "Müller",
+          "Muller"
+        ],
+        "fame": 5
+      },
+      "evidence": "Bundesliga's official profile explicitly records Thomas Muller's 20 Bundesliga goals in 2015/16; Bayern's official league-season record independently lists Muller with 20 goals. This meets the inclusive 20+ threshold within 2000-01 through 2025-26. Add him as a valid answer and remove only the contradictory trap claiming he never reached 20. Fame 5 follows well-known threshold answers.",
+      "evidence_urls": [
+        "https://www.bundesliga.com/en/bundesliga/news/thomas-muller-mr-bayern-munich-last-homegrown-world-beater-lionel-messi-17537",
+        "https://fcbayern.com/en/club/honours/german-championship/season-2015-2016"
+      ],
+      "removed_traps": [
+        "Thomas Müller"
+      ]
+    },
+    {
+      "question_id": "d9-name-a-player-who-scored-20-bundesliga-goals-in-a-single-season-since-2000",
+      "submitted_text": [
+        "lewa"
+      ],
+      "event_count": 10,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Robert Lewandowski",
+        "added_aliases": [
+          "Lewa"
+        ]
+      },
+      "evidence": "Barcelona's official July 2022 article explicitly uses Lewa for Robert Lewandowski. Bundesliga's official retrospective records multiple 20+ league seasons, including 41 in 2020/21, inside 2000-01 through 2025-26. Add only the needed unambiguous nickname and preserve existing fame.",
+      "evidence_urls": [
+        "https://www.fcbarcelona.com/en/football/first-team/news/2683958/lewandowski-the-star-of-miami/featured",
+        "https://www.bundesliga.com/en/bundesliga/news/robert-lewandowski-bayern-munich-transfer-to-barcelona-legend-20569/"
+      ]
+    },
+    {
+      "question_id": "d8-name-a-striker-who-played-in-la-liga-since-2010",
+      "submitted_text": [
+        "Lewa"
+      ],
+      "event_count": 5,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Robert Lewandowski",
+        "added_aliases": [
+          "Lewa"
+        ]
+      },
+      "evidence": "Barcelona's official July 2022 article explicitly uses Lewa for Robert Lewandowski. Barcelona calls Lewandowski a striker and documents 34 LaLiga appearances and 23 goals in 2022/23, within 2010-11 through 2025-26. Add only the needed unambiguous nickname and preserve existing fame.",
+      "evidence_urls": [
+        "https://www.fcbarcelona.com/en/football/first-team/news/2683958/lewandowski-the-star-of-miami/featured",
+        "https://www.fcbarcelona.com/en/news/3528648"
+      ]
+    },
+    {
+      "question_id": "d9-name-a-player-with-100-bundesliga-goals",
+      "submitted_text": [
+        "lewa"
+      ],
+      "event_count": 11,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Robert Lewandowski",
+        "added_aliases": [
+          "Lewa"
+        ]
+      },
+      "evidence": "Barcelona's official July 2022 article explicitly uses Lewa for Robert Lewandowski. Bundesliga's official career retrospective records 312 Bundesliga goals, all scored between 2010 and 2022, meeting the fixed threshold before 2025-26. Add only the needed unambiguous nickname and preserve existing fame.",
+      "evidence_urls": [
+        "https://www.fcbarcelona.com/en/football/first-team/news/2683958/lewandowski-the-star-of-miami/featured",
+        "https://www.bundesliga.com/en/bundesliga/news/robert-lewandowski-bayern-munich-transfer-to-barcelona-legend-20569/"
+      ]
+    },
+    {
+      "question_id": "d9-name-a-player-who-scored-25-la-liga-goals-in-a-single-season-since-2000",
+      "submitted_text": [
+        "lewa"
+      ],
+      "event_count": 2,
+      "decision": "add_alias",
+      "correction": {
+        "name": "Robert Lewandowski",
+        "added_aliases": [
+          "Lewa"
+        ]
+      },
+      "evidence": "Barcelona's official July 2022 article explicitly uses Lewa for Robert Lewandowski. Barcelona's official 2024/25 season review records 27 league goals, meeting 25+ within 2000-01 through 2025-26. Add only the needed unambiguous nickname and preserve existing fame.",
+      "evidence_urls": [
+        "https://www.fcbarcelona.com/en/football/first-team/news/2683958/lewandowski-the-star-of-miami/featured",
+        "https://www.fcbarcelona.com/en/football/first-team/news/4273671/fc-barcelonas-season-in-10-stats/featured"
+      ]
+    }
+  ],
+  "validation": {
+    "questions": 429,
+    "baseline_errors": 0,
+    "final_errors": 0,
+    "baseline_warnings": 568,
+    "final_warnings": 568,
+    "warning_multiset_unchanged": true,
+    "existing_matcher_forms_checked": 2234,
+    "intentionally_corrected_trap_forms": 1,
+    "explicit_negative_cases": 3,
+    "observed_groups_checked_on_changed_questions": 1657,
+    "new_events_covered_by_corrections": 25
+  },
+  "review_limit": "Grouped all fetched events and retried prior pending candidates against the current browser matcher. Researched selected plausible corrections and frequent rejections against authoritative records. Remaining unverified combinations are preserved for future evidence review.",
+  "decisions": [
+    {
+      "question_id": "d9-name-a-player-who-scored-20-bundesliga-goals-in-a-single-season-since-2000",
+      "input": "Muller",
+      "event_count": 46,
+      "new_events": 6,
+      "decision": "add_missing_player",
+      "reason": "Bundesliga's official profile explicitly records Thomas Muller's 20 Bundesliga goals in 2015/16; Bayern's official league-season record independently lists Muller with 20 goals. This meets the inclusive 20+ threshold within 2000-01 through 2025-26. Add him as a valid answer and remove only the contradictory trap claiming he never reached 20. Fame 5 follows well-known threshold answers.",
+      "evidence_urls": [
+        "https://www.bundesliga.com/en/bundesliga/news/thomas-muller-mr-bayern-munich-last-homegrown-world-beater-lionel-messi-17537",
+        "https://fcbayern.com/en/club/honours/german-championship/season-2015-2016"
+      ]
+    },
+    {
+      "question_id": "d11-name-a-uruguayan-defender-who-played-in-la-liga",
+      "input": "Valverde",
+      "event_count": 31,
+      "new_events": 13,
+      "decision": "pending",
+      "reason": "The submitted surname does not establish an eligible defender. Do not assume Federico Valverde meets the position criterion; retain until identity, defender role and qualifying LaLiga appearances are explicitly documented."
+    },
+    {
+      "question_id": "d2-name-a-left-back-who-played-for-real-madrid",
+      "input": "Alaba",
+      "event_count": 13,
+      "new_events": 2,
+      "decision": "add_missing_player",
+      "reason": "Real Madrid's July 2021 profile explicitly identifies Alaba as a left-back as well as centre-back. Its official debut report records a full competitive LaLiga appearance against Alaves on 14 August 2021, before the unchanged 2025-26 cutoff. Fame 5 follows established international left-backs.",
+      "evidence_urls": [
+        "https://www.realmadrid.com/es-ES/noticias/futbol/primer-equipo/fichajes/asi-juega-alaba",
+        "https://www.realmadrid.com/es-ES/noticias/futbol/primer-equipo/actualidad/alaba-debuta-en-partido-oficial-con-el-real-madrid"
+      ]
+    },
+    {
+      "question_id": "d9-name-a-player-who-scored-20-bundesliga-goals-in-a-single-season-since-2000",
+      "input": "lewa",
+      "event_count": 10,
+      "new_events": 1,
+      "decision": "add_alias",
+      "reason": "Barcelona's official July 2022 article explicitly uses Lewa for Robert Lewandowski. Bundesliga's official retrospective records multiple 20+ league seasons, including 41 in 2020/21, inside 2000-01 through 2025-26. Add only the needed unambiguous nickname and preserve existing fame.",
+      "evidence_urls": [
+        "https://www.fcbarcelona.com/en/football/first-team/news/2683958/lewandowski-the-star-of-miami/featured",
+        "https://www.bundesliga.com/en/bundesliga/news/robert-lewandowski-bayern-munich-transfer-to-barcelona-legend-20569/"
+      ]
+    },
+    {
+      "question_id": "d9-name-a-player-with-100-bundesliga-goals",
+      "input": "lewa",
+      "event_count": 11,
+      "new_events": 1,
+      "decision": "add_alias",
+      "reason": "Barcelona's official July 2022 article explicitly uses Lewa for Robert Lewandowski. Bundesliga's official career retrospective records 312 Bundesliga goals, all scored between 2010 and 2022, meeting the fixed threshold before 2025-26. Add only the needed unambiguous nickname and preserve existing fame.",
+      "evidence_urls": [
+        "https://www.fcbarcelona.com/en/football/first-team/news/2683958/lewandowski-the-star-of-miami/featured",
+        "https://www.bundesliga.com/en/bundesliga/news/robert-lewandowski-bayern-munich-transfer-to-barcelona-legend-20569/"
+      ]
+    },
+    {
+      "question_id": "d8-name-a-striker-who-played-in-la-liga-since-2010",
+      "input": "Lewa",
+      "event_count": 5,
+      "new_events": 3,
+      "decision": "add_alias",
+      "reason": "Barcelona's official July 2022 article explicitly uses Lewa for Robert Lewandowski. Barcelona calls Lewandowski a striker and documents 34 LaLiga appearances and 23 goals in 2022/23, within 2010-11 through 2025-26. Add only the needed unambiguous nickname and preserve existing fame.",
+      "evidence_urls": [
+        "https://www.fcbarcelona.com/en/football/first-team/news/2683958/lewandowski-the-star-of-miami/featured",
+        "https://www.fcbarcelona.com/en/news/3528648"
+      ]
+    },
+    {
+      "question_id": "d2-name-a-left-back-who-played-for-real-madrid",
+      "input": "Alba",
+      "event_count": 3,
+      "new_events": 1,
+      "decision": "add_missing_player",
+      "reason": "Real Madrid's July 2021 profile explicitly identifies Alaba as a left-back as well as centre-back. Its official debut report records a full competitive LaLiga appearance against Alaves on 14 August 2021, before the unchanged 2025-26 cutoff. Fame 5 follows established international left-backs.",
+      "evidence_urls": [
+        "https://www.realmadrid.com/es-ES/noticias/futbol/primer-equipo/fichajes/asi-juega-alaba",
+        "https://www.realmadrid.com/es-ES/noticias/futbol/primer-equipo/actualidad/alaba-debuta-en-partido-oficial-con-el-real-madrid"
+      ]
+    },
+    {
+      "question_id": "d8-name-a-centre-back-who-played-in-la-liga-since-2010",
+      "input": "natan",
+      "event_count": 3,
+      "new_events": 2,
+      "decision": "add_missing_player",
+      "reason": "Real Betis's official presentation identifies Natan Bernardo de Souza and explicitly calls him a Brazilian centre-back. LaLiga's match record lists him among the starters against Leganes on 13 September 2024 and records his match actions, establishing a competitive first-team league appearance within 2010-11 through 2025-26. Fame 3 follows comparable established league defenders.",
+      "evidence_urls": [
+        "https://www.realbetisbalompie.es/noticias/actualidad/el-real-betis-presenta-al-central-brasileno-natan-30479",
+        "https://www.laliga.com/en-GB/match/temporada-2024-2025-laliga-ea-sports-real-betis-cd-leganes-5"
+      ]
+    },
+    {
+      "question_id": "d8-name-a-striker-who-played-in-la-liga-since-2010",
+      "input": "andre silva",
+      "event_count": 1,
+      "new_events": 0,
+      "decision": "pending",
+      "reason": "Plausible Sevilla striker omission, but this run did not verify a dated competitive LaLiga appearance for the identified player. Retain for authoritative league-match evidence."
+    },
+    {
+      "question_id": "d8-name-a-striker-who-played-in-the-premier-league-since-2010",
+      "input": "kean",
+      "event_count": 3,
+      "new_events": 3,
+      "decision": "add_missing_player",
+      "reason": "The Premier League's 4 August 2019 announcement explicitly identifies Kean as a striker; its 21 January 2020 Everton-Newcastle match summary records his league goal. Both position and a competitive first-team league appearance fall within 2010-11 through 2025-26. Fame 3 follows the existing Serie A Kean entry.",
+      "evidence_urls": [
+        "https://www.premierleague.com/en/news/1300394",
+        "https://www.premierleague.com/en/news/1571766"
+      ]
+    },
+    {
+      "question_id": "d10-name-a-dutch-striker",
+      "input": "Simonsen",
+      "event_count": 11,
+      "new_events": 11,
+      "decision": "pending",
+      "reason": "Identity and Dutch senior-international eligibility are not established. The surname alone must not be redirected to a different similarly named player."
+    },
+    {
+      "question_id": "d8-name-a-striker-who-played-in-serie-a-since-2010",
+      "input": "André Silva",
+      "event_count": 6,
+      "new_events": 6,
+      "decision": "add_missing_player",
+      "reason": "AC Milan's official statement identifies Andre Miguel Valente da Silva. Its match history records his substitute appearance and league goal at Genoa on 11 March 2018. Eintracht's 2019 announcement explicitly describes him as a centre-forward/striker and records 40 competitive Milan games. These meet the unchanged 2010-11 through 2025-26 scope. Fame 3 reflects a recognisable former Serie A striker.",
+      "evidence_urls": [
+        "https://www.acmilan.com/en/news/articles/media/2020-09-10/official-statement-andre-silva",
+        "https://www.acmilan.com/en/news/articles/history/2023-10-05/time-machine-andre-silva-in-genoa-v-ac-milan",
+        "https://en.eintracht.de/news/andre-silva-joins-eintracht-from-ac-milan-120454/"
+      ]
+    }
+  ]
+}

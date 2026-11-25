@@ -1,0 +1,148 @@
+{
+ "day": "2026-11-25",
+ "questions": [
+  {
+   "q": "Which of these players NEVER played for Lazio?",
+   "q_es": "¿Cuál de estos jugadores NUNCA jugó en la Lazio?",
+   "q_pt": "Qual destes jogadores NUNCA jogou na Lazio?",
+   "o": [
+    "Alessandro Nesta",
+    "Gabriel Batistuta",
+    "Pavel Nedvěd",
+    "Hernán Crespo"
+   ],
+   "a": 1,
+   "why": "Batistuta played for Fiorentina, Roma and Inter in Italy, never Lazio; Crespo was at Lazio from 2000 to 2002.",
+   "why_es": "Batistuta jugó en Fiorentina, Roma e Inter en Italia, nunca en la Lazio; Crespo estuvo en la Lazio de 2000 a 2002.",
+   "why_pt": "Batistuta jogou na Fiorentina, Roma e Inter na Itália, nunca na Lazio; Crespo esteve na Lazio de 2000 a 2002.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Which club did Luis Suárez join Liverpool from in 2011?",
+   "q_es": "¿De qué club llegó Luis Suárez al Liverpool en 2011?",
+   "q_pt": "De qual clube Luis Suárez chegou ao Liverpool em 2011?",
+   "o": [
+    "Groningen",
+    "PSV",
+    "Nacional",
+    "Ajax"
+   ],
+   "a": 3,
+   "why": "Suárez went Nacional, Groningen, Ajax, then Liverpool in January 2011.",
+   "why_es": "Suárez pasó por Nacional, Groningen y Ajax antes de llegar al Liverpool en enero de 2011.",
+   "why_pt": "Suárez passou por Nacional, Groningen e Ajax antes de chegar ao Liverpool em janeiro de 2011.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "How many goals did Eusébio score at the 1966 World Cup?",
+   "q_es": "¿Cuántos goles marcó Eusébio en el Mundial 1966?",
+   "q_pt": "Quantos gols Eusébio marcou na Copa do Mundo de 1966?",
+   "o": [
+    "7",
+    "8",
+    "9",
+    "11"
+   ],
+   "a": 2,
+   "why": "9, top scorer of the tournament, four of them against North Korea.",
+   "why_es": "9, máximo goleador del torneo, cuatro de ellos a Corea del Norte.",
+   "why_pt": "9, artilheiro do torneio, quatro deles contra a Coreia do Norte.",
+   "src": "own knowledge"
+  },
+  {
+   "q": "Who won the Golden Boot in the first Premier League season, 1992-93?",
+   "q_es": "¿Quién fue el máximo goleador de la primera Premier League, la 1992-93?",
+   "q_pt": "Quem foi o artilheiro da primeira Premier League, a de 1992-93?",
+   "o": [
+    "Alan Shearer",
+    "Teddy Sheringham",
+    "Les Ferdinand"
+   ],
+   "a": 1,
+   "why": "Teddy Sheringham with 22 goals (one for Forest, 21 for Spurs).",
+   "why_es": "Teddy Sheringham con 22 goles (uno con el Forest y 21 con el Tottenham).",
+   "why_pt": "Teddy Sheringham com 22 gols (um pelo Forest e 21 pelo Tottenham).",
+   "src": "own knowledge"
+  },
+  {
+   "q": "In which year did Ajax last win the European Cup/Champions League?",
+   "q_es": "¿En qué año ganó el Ajax su última Copa de Europa/Champions?",
+   "q_pt": "Em que ano o Ajax ganhou sua última Copa dos Campeões/Liga dos Campeões?",
+   "o": [
+    "1992",
+    "1997",
+    "1995"
+   ],
+   "a": 2,
+   "why": "1995, beating Milan 1-0 in Vienna with Kluivert's goal.",
+   "why_es": "En 1995, ganando 1-0 al Milan en Viena con gol de Kluivert.",
+   "why_pt": "Em 1995, vencendo o Milan por 1 a 0 em Viena com gol de Kluivert.",
+   "src": "own knowledge",
+   "n": "The Champions League's name until 1992",
+   "n_es": "El nombre de la Champions hasta 1992",
+   "n_pt": "O nome da Liga dos Campeões até 1992"
+  },
+  {
+   "q": "Which of these clubs has NEVER won the Cup Winners' Cup?",
+   "q_es": "¿Cuál de estos clubes NUNCA ganó la Recopa de Europa?",
+   "q_pt": "Qual destes clubes NUNCA ganhou a Recopa Europeia?",
+   "o": [
+    "Real Madrid",
+    "Barcelona",
+    "Atlético Madrid"
+   ],
+   "a": 0,
+   "why": "Real Madrid lost the 1971 and 1983 finals; Barcelona won it four times and Atlético in 1962.",
+   "why_es": "El Real Madrid perdió las finales de 1971 y 1983; el Barcelona la ganó cuatro veces y el Atlético en 1962.",
+   "why_pt": "O Real Madrid perdeu as finais de 1971 e 1983; o Barcelona ganhou quatro vezes e o Atlético em 1962.",
+   "src": "own knowledge",
+   "o_es": [
+    "Real Madrid",
+    "Barcelona",
+    "Atlético de Madrid"
+   ],
+   "n": "A European competition for domestic cup winners, played from 1960-61 to 1998-99 · An old European competition for each country's cup winners",
+   "n_es": "Una competición europea para los campeones de copa nacionales, disputada de 1960-61 a 1998-99 · Un antiguo torneo europeo para los campeones de copa de cada país",
+   "n_pt": "Uma competição europeia para os campeões de copa nacionais, disputada de 1960-61 a 1998-99"
+  },
+  {
+   "q": "Which club did Didier Deschamps coach to the 2004 Champions League final?",
+   "q_es": "¿Con qué club llegó Didier Deschamps como entrenador a la final de la Champions 2004?",
+   "q_pt": "Com qual clube Didier Deschamps chegou como técnico à final da Liga dos Campeões de 2004?",
+   "o": [
+    "Marseille",
+    "Juventus",
+    "Monaco"
+   ],
+   "a": 2,
+   "why": "Monaco, who lost 3-0 to Porto; he coached Juventus in 2006-07 and Marseille from 2009.",
+   "why_es": "El Mónaco, que perdió 3-0 con el Oporto; entrenó a la Juventus en 2006-07 y al Marsella desde 2009.",
+   "why_pt": "O Monaco, que perdeu por 3 a 0 para o Porto; ele treinou a Juventus em 2006-07 e o Olympique de Marselha a partir de 2009.",
+   "src": "own knowledge",
+   "o_es": [
+    "Marsella",
+    "Juventus",
+    "Mónaco"
+   ],
+   "o_pt": [
+    "Olympique de Marselha",
+    "Juventus",
+    "Monaco"
+   ]
+  },
+  {
+   "q": "Who scored more Premier League goals: Jimmy Floyd Hasselbaink or Robbie Keane?",
+   "q_es": "¿Quién marcó más goles en la Premier League: Jimmy Floyd Hasselbaink o Robbie Keane?",
+   "q_pt": "Quem marcou mais gols na Premier League: Jimmy Floyd Hasselbaink ou Robbie Keane?",
+   "o": [
+    "Robbie Keane",
+    "Jimmy Floyd Hasselbaink"
+   ],
+   "a": 1,
+   "why": "Hasselbaink scored 127, one more than Keane's 126.",
+   "why_es": "Hasselbaink marcó 127, uno más que los 126 de Keane.",
+   "why_pt": "Hasselbaink marcou 127, um a mais que os 126 de Keane.",
+   "src": "https://en.wikipedia.org/wiki/Premier_League_100_Club"
+  }
+ ]
+}

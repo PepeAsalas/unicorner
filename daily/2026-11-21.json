@@ -1,1 +1,1206 @@
-{"date":"2026-11-21","timezone":"Europe/Amsterdam","questions":[{"id":"f116","_id":"f116","prompt":"England's 1966 World Cup winners","subtitle":"Final 22-player squad, England 1966","prompt_es":"Los campeones de Inglaterra en el Mundial 1966","subtitle_es":"Lista final de 22 jugadores, Inglaterra 1966","difficulty":"easy","answer_type":"player","format_family":"world_cup_squad","scoring_version":2,"answer_count":22,"clash_note":"\"Charlton\" could be Jack Charlton or Bobby Charlton, so use the full name","answers":[{"name":"Gordon Banks","aliases":["Banks"],"fame":5},{"name":"George Cohen","aliases":["Cohen"],"fame":4},{"name":"Ray Wilson","aliases":["Wilson"],"fame":4},{"name":"Nobby Stiles","aliases":["Stiles"],"fame":5},{"name":"Jack Charlton","aliases":["Jackie Charlton","Big Jack"],"fame":5},{"name":"Bobby Moore","aliases":["Moore","Robert Moore"],"fame":6},{"name":"Alan Ball","aliases":["Ball"],"fame":4},{"name":"Jimmy Greaves","aliases":["Greaves"],"fame":5},{"name":"Bobby Charlton","aliases":["Sir Bobby Charlton","Bobby"],"fame":6},{"name":"Geoff Hurst","aliases":["Hurst","Sir Geoff Hurst"],"fame":6},{"name":"John Connelly","aliases":["Connelly"],"fame":2},{"name":"Ron Springett","aliases":["Springett"],"fame":2},{"name":"Peter Bonetti","aliases":["Bonetti"],"fame":3},{"name":"Jimmy Armfield","aliases":["Armfield"],"fame":3},{"name":"Gerry Byrne","aliases":["Byrne"],"fame":1},{"name":"Martin Peters","aliases":["Peters"],"fame":5},{"name":"Ron Flowers","aliases":["Flowers"],"fame":2},{"name":"Norman Hunter","aliases":["Hunter"],"fame":3},{"name":"Terry Paine","aliases":["Paine"],"fame":2},{"name":"Ian Callaghan","aliases":["Callaghan"],"fame":3},{"name":"Roger Hunt","aliases":["Hunt"],"fame":4},{"name":"George Eastham","aliases":["Eastham"],"fame":2}],"traps":[{"name":"Alf Ramsey","aliases":["Ramsey","Sir Alf Ramsey"],"why":"Ramsey was the manager, not a player.","why_es":"Ramsey era el seleccionador, no un jugador.","why_pt":"Ramsey era o técnico, não um jogador."},{"name":"Stanley Matthews","aliases":["Matthews","Stan Matthews"],"why":"Matthews was not in the 1966 squad.","why_es":"Matthews no estaba en la lista de 1966.","why_pt":"Matthews não estava no elenco de 1966."},{"name":"Francis Lee","aliases":["Lee"],"why":"Lee was not in the 1966 squad.","why_es":"Lee no estaba en la lista de 1966.","why_pt":"Lee não estava no elenco de 1966."}],"prompt_pt":"Campeão do mundo com a Inglaterra em 1966","subtitle_pt":"Lista final de 22 jogadores, Inglaterra 1966"},{"id":"f117","_id":"f117","prompt":"Name a club Jimmy Floyd Hasselbaink played for","subtitle":"Senior first teams, loans included (retired 2008)","prompt_es":"Nombra un club en el que jugó Jimmy Floyd Hasselbaink","subtitle_es":"Primeros equipos, cesiones incluidas (retirado en 2008)","difficulty":"hard","answer_type":"club","format_family":"player_club_history","scoring_version":2,"answer_count":11,"clash_note":"","answers":[{"name":"Chelsea","aliases":[],"fame":6},{"name":"Leeds United","aliases":["Leeds"],"fame":5},{"name":"Atlético Madrid","aliases":["Atletico Madrid","Atletico","Atlético","Atleti","Atlético de Madrid"],"fame":5,"name_pt":"Atlético de Madrid"},{"name":"Middlesbrough","aliases":["Boro"],"fame":4},{"name":"Charlton Athletic","aliases":["Charlton"],"fame":4},{"name":"Cardiff City","aliases":["Cardiff"],"fame":3},{"name":"Boavista","aliases":[],"fame":3},{"name":"AZ","aliases":["AZ Alkmaar","AZ'67"],"fame":3},{"name":"Telstar","aliases":["SC Telstar"],"fame":2},{"name":"Campomaiorense","aliases":["Campo Maior"],"fame":1},{"name":"Neerlandia","aliases":[],"fame":1}],"traps":[{"name":"Ajax","aliases":["AFC Ajax"],"why":"Hasselbaink never played for Ajax.","why_es":"Hasselbaink nunca jugó en el Ajax.","why_pt":"Hasselbaink nunca jogou pelo Ajax."},{"name":"Newcastle United","aliases":["Newcastle"],"why":"Hasselbaink never played for Newcastle.","why_es":"Hasselbaink nunca jugó en el Newcastle.","why_pt":"Hasselbaink nunca jogou pelo Newcastle."},{"name":"Tottenham Hotspur","aliases":["Tottenham","Spurs"],"why":"Hasselbaink never played for Spurs.","why_es":"Hasselbaink nunca jugó en el Tottenham.","why_pt":"Hasselbaink nunca jogou pelo Tottenham."}],"prompt_pt":"Cite um clube em que Jimmy Floyd Hasselbaink jogou","subtitle_pt":"Times principais, empréstimos incluídos (aposentou-se em 2008)"},{"id":"f118","_id":"f118","prompt":"Name a club Sam Allardyce managed","subtitle":"First-team head coach, club spells only, up to the end of 2024-25","prompt_es":"Nombra un club al que dirigió Sam Allardyce","subtitle_es":"Entrenador del primer equipo, solo clubes, hasta el final de la 2024-25","difficulty":"medium","answer_type":"club","format_family":"player_club_history","scoring_version":2,"answer_count":13,"clash_note":"","answers":[{"name":"Bolton Wanderers","aliases":["Bolton"],"fame":6},{"name":"Newcastle United","aliases":["Newcastle"],"fame":5},{"name":"West Ham United","aliases":["West Ham"],"fame":5},{"name":"Sunderland","aliases":[],"fame":4},{"name":"Everton","aliases":[],"fame":4},{"name":"Blackburn Rovers","aliases":["Blackburn"],"fame":4},{"name":"Crystal Palace","aliases":["Palace"],"fame":4},{"name":"West Bromwich Albion","aliases":["West Brom","WBA"],"fame":4},{"name":"Leeds United","aliases":["Leeds"],"fame":4},{"name":"Notts County","aliases":["Notts Co"],"fame":2},{"name":"Blackpool","aliases":[],"fame":2},{"name":"Preston North End","aliases":["Preston","PNE"],"fame":2},{"name":"Limerick","aliases":["Limerick FC"],"fame":1}],"traps":[{"name":"England","aliases":["England national team"],"why":"England was a national team job; only clubs count here.","why_es":"Inglaterra fue un puesto de selección; aquí solo cuentan los clubes.","why_pt":"A Inglaterra foi trabalho de seleção; aqui só contam clubes."},{"name":"Tampa Bay Rowdies","aliases":["Tampa Bay","Rowdies"],"why":"Allardyce played for Tampa Bay but never managed them.","why_es":"Allardyce jugó en el Tampa Bay, pero nunca lo dirigió.","why_pt":"Allardyce jogou no Tampa Bay, mas nunca o treinou."},{"name":"Wolverhampton Wanderers","aliases":["Wolves"],"why":"Allardyce never managed Wolves.","why_es":"Allardyce nunca dirigió al Wolves.","why_pt":"Allardyce nunca treinou o Wolves."}],"prompt_pt":"Cite um clube que Sam Allardyce treinou","subtitle_pt":"Técnico principal, só clubes, até o fim de 2024-25"},{"id":"f119","_id":"f119","prompt":"France's Euro 1984 champions","subtitle":"Final 20-player squad, France 1984","prompt_es":"Los campeones de Francia en la Eurocopa 1984","subtitle_es":"Lista final de 20 jugadores, Francia 1984","difficulty":"hard","answer_type":"player","format_family":"euro_squad","scoring_version":2,"answer_count":20,"clash_note":"","answers":[{"name":"Joël Bats","aliases":["Bats","Joel Bats"],"fame":4},{"name":"Manuel Amoros","aliases":["Amoros"],"fame":3},{"name":"Jean-François Domergue","aliases":["Domergue","Jean-Francois Domergue","Jean Francois Domergue"],"fame":2},{"name":"Maxime Bossis","aliases":["Bossis"],"fame":3},{"name":"Patrick Battiston","aliases":["Battiston"],"fame":3},{"name":"Luis Fernandez","aliases":["Fernandez"],"fame":4},{"name":"Jean-Marc Ferreri","aliases":["Ferreri"],"fame":2},{"name":"Daniel Bravo","aliases":["Bravo"],"fame":2},{"name":"Bernard Genghini","aliases":["Genghini"],"fame":2},{"name":"Michel Platini","aliases":["Platini"],"fame":6},{"name":"Bruno Bellone","aliases":["Bellone"],"fame":2},{"name":"Alain Giresse","aliases":["Giresse"],"fame":4},{"name":"Didier Six","aliases":["Six"],"fame":3},{"name":"Jean Tigana","aliases":["Tigana"],"fame":4},{"name":"Yvon Le Roux","aliases":["Le Roux"],"fame":1},{"name":"Dominique Rocheteau","aliases":["Rocheteau"],"fame":3},{"name":"Bernard Lacombe","aliases":["Lacombe"],"fame":3},{"name":"Thierry Tusseau","aliases":["Tusseau"],"fame":1},{"name":"Philippe Bergeroo","aliases":["Bergeroo"],"fame":1},{"name":"Albert Rust","aliases":["Rust"],"fame":1}],"traps":[{"name":"Michel Hidalgo","aliases":["Hidalgo"],"why":"Hidalgo was the coach, not a player.","why_es":"Hidalgo era el seleccionador, no un jugador.","why_pt":"Hidalgo era o técnico, não um jogador."},{"name":"Jean-Pierre Papin","aliases":["Papin"],"why":"Papin was not in the 1984 squad.","why_es":"Papin no estaba en la lista de 1984.","why_pt":"Papin não estava no elenco de 1984."},{"name":"Marius Trésor","aliases":["Tresor","Marius Tresor"],"why":"Trésor was not in the Euro 84 squad.","why_es":"Trésor no estaba en la lista de la Eurocopa 84.","why_pt":"Trésor não estava no elenco da Euro 84."}],"prompt_pt":"Campeão europeu com a França em 1984","subtitle_pt":"Lista final de 20 jogadores, França 1984"},{"id":"f120","_id":"f120","prompt":"Name a club Marcello Lippi managed","subtitle":"First-team head coach, club spells only, up to the end of 2024-25","prompt_es":"Nombra un club al que dirigió Marcello Lippi","subtitle_es":"Entrenador del primer equipo, solo clubes, hasta el final de la 2024-25","difficulty":"medium","answer_type":"club","format_family":"player_club_history","scoring_version":2,"answer_count":11,"clash_note":"Inter means Inter Milan, not Inter Miami.","answers":[{"name":"Juventus","aliases":["Juve"],"fame":6},{"name":"Inter Milan","aliases":["Inter","Internazionale","Inter de Milan","Inter de Milán","Inter de Milao"],"fame":5,"name_pt":"Inter de Milão"},{"name":"Napoli","aliases":["SSC Napoli"],"fame":4},{"name":"Atalanta","aliases":["Atalanta BC"],"fame":3},{"name":"Guangzhou Evergrande","aliases":["Guangzhou","Guangzhou FC","Evergrande"],"fame":3},{"name":"Cesena","aliases":["AC Cesena"],"fame":2},{"name":"Siena","aliases":["AC Siena"],"fame":2},{"name":"Lucchese","aliases":["Lucchese 1905"],"fame":1},{"name":"Pistoiese","aliases":["AC Pistoiese"],"fame":1},{"name":"Carrarese","aliases":["Carrarese Calcio"],"fame":1},{"name":"Pontedera","aliases":["US Pontedera"],"fame":1}],"traps":[{"name":"Italy","aliases":["Italia","Italy national team"],"why":"Italy was a national team job; only clubs count here.","why_es":"Italia fue un puesto de selección; aquí solo cuentan los clubes.","why_pt":"A Itália foi trabalho de seleção; aqui só contam clubes."},{"name":"AC Milan","aliases":["Milan"],"why":"Lippi never managed Milan.","why_es":"Lippi nunca dirigió al Milan.","why_pt":"Lippi nunca treinou o Milan."},{"name":"Roma","aliases":["AS Roma"],"why":"Lippi never managed Roma.","why_es":"Lippi nunca dirigió a la Roma.","why_pt":"Lippi nunca treinou a Roma."}],"prompt_pt":"Cite um clube que Marcello Lippi treinou","subtitle_pt":"Técnico principal, só clubes, até o fim de 2024-25"}]}
+{
+  "date": "2026-11-21",
+  "timezone": "Europe/Amsterdam",
+  "questions": [
+    {
+      "id": "r013r1",
+      "_id": "r013r1",
+      "prompt": "Name a club that won the Premier League or LaLiga, 1995–2012",
+      "subtitle": "Champions crowned 1995–2012 inclusive",
+      "difficulty": "easy",
+      "answer_type": "club",
+      "scoring_version": 1,
+      "clash_note": "",
+      "answers": [
+        {
+          "name": "Man United",
+          "aliases": [
+            "Manchester United",
+            "Man Utd",
+            "United",
+            "MUFC"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Arsenal",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Chelsea",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Man City",
+          "aliases": [
+            "Manchester City"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Real Madrid",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Barcelona",
+          "aliases": [
+            "Barca",
+            "FC Barcelona"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Atlético Madrid",
+          "aliases": [
+            "Atlético de Madrid"
+          ],
+          "fame": 4,
+          "name_es": "Atlético de Madrid",
+          "name_pt": "Atlético de Madrid"
+        },
+        {
+          "name": "Valencia",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Blackburn Rovers",
+          "aliases": [
+            "Blackburn"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Deportivo",
+          "aliases": [
+            "Deportivo La Coruña",
+            "Deportivo de La Coruña",
+            "Depor"
+          ],
+          "fame": 1,
+          "name_es": "Deportivo de La Coruña"
+        }
+      ],
+      "answer_count": 10,
+      "format_family": "competition_winner",
+      "era": "retro",
+      "prompt_es": "Nombra un club que ganó la Premier League o LaLiga entre 1995 y 2012",
+      "subtitle_es": "Campeones de 1995 a 2012, ambos incluidos",
+      "prompt_pt": "Cite um clube campeão da Premier League ou de LaLiga, 1995–2012",
+      "subtitle_pt": "Campeões de 1995 a 2012, inclusive",
+      "reuse_of": "r013",
+      "first_used": "2026-10-19",
+      "traps": [
+        {
+          "name": "Leicester City",
+          "aliases": [
+            "Leicester"
+          ],
+          "why": "Leicester's Premier League title came in 2016, after this scope.",
+          "why_es": "El título de Premier del Leicester llegó en 2016, fuera de este periodo."
+        },
+        {
+          "name": "Liverpool",
+          "aliases": [],
+          "why": "Liverpool's next league title after 1990 came only in 2020.",
+          "why_es": "El siguiente título de liga del Liverpool tras 1990 no llegó hasta 2020."
+        }
+      ]
+    },
+    {
+      "id": "k025r1",
+      "_id": "k025r1",
+      "prompt": "Name a player with 50+ Premier League assists",
+      "subtitle": "Official Premier League stats, as of 1 October 2026",
+      "prompt_es": "Nombra un jugador con 50 o más asistencias en la Premier League",
+      "subtitle_es": "Estadísticas oficiales de la Premier League, a 1 de octubre de 2026",
+      "difficulty": "medium",
+      "answer_type": "player",
+      "format_family": "stat_threshold",
+      "scoring_version": 1,
+      "clash_note": "61 answers. Premier League figures preferred; a player at 50+ in Transfermarkt counts too (Yorke, Bowen, Rashford, Valencia, Maddison, Brunt, Anelka, Vardy). Active players are estimates for 1 October 2026. Ward-Prowse (48) and Trippier (39) are out. Plain 'Silva' is not accepted on its own because David and Bernardo both qualify.",
+      "answers": [
+        {
+          "name": "Ryan Giggs",
+          "aliases": [
+            "Giggs"
+          ],
+          "fame": 5,
+          "detail": "162 Premier League assists"
+        },
+        {
+          "name": "Kevin De Bruyne",
+          "aliases": [
+            "De Bruyne",
+            "DeBruyne",
+            "KDB"
+          ],
+          "fame": 5,
+          "detail": "119 Premier League assists"
+        },
+        {
+          "name": "Cesc Fàbregas",
+          "aliases": [
+            "Cesc Fabregas",
+            "Fabregas",
+            "Fàbregas",
+            "Cesc"
+          ],
+          "fame": 5,
+          "detail": "111 Premier League assists"
+        },
+        {
+          "name": "Wayne Rooney",
+          "aliases": [
+            "Rooney",
+            "Wazza"
+          ],
+          "fame": 4,
+          "detail": "103 Premier League assists"
+        },
+        {
+          "name": "Frank Lampard",
+          "aliases": [
+            "Lampard",
+            "Lamps"
+          ],
+          "fame": 4,
+          "detail": "102 Premier League assists"
+        },
+        {
+          "name": "Dennis Bergkamp",
+          "aliases": [
+            "Bergkamp"
+          ],
+          "fame": 4,
+          "detail": "94 Premier League assists"
+        },
+        {
+          "name": "Mohamed Salah",
+          "aliases": [
+            "Salah",
+            "Mo Salah",
+            "Mohammed Salah"
+          ],
+          "fame": 4,
+          "detail": "94 Premier League assists"
+        },
+        {
+          "name": "David Silva",
+          "aliases": [
+            "David Josué Silva",
+            "David Josue Silva",
+            "El Mago"
+          ],
+          "fame": 4,
+          "detail": "93 Premier League assists"
+        },
+        {
+          "name": "Steven Gerrard",
+          "aliases": [
+            "Gerrard",
+            "Stevie G",
+            "Stephen Gerrard"
+          ],
+          "fame": 4,
+          "detail": "92 Premier League assists"
+        },
+        {
+          "name": "James Milner",
+          "aliases": [
+            "Milner"
+          ],
+          "fame": 3,
+          "detail": "90 Premier League assists"
+        },
+        {
+          "name": "David Beckham",
+          "aliases": [
+            "Beckham",
+            "Becks"
+          ],
+          "fame": 5,
+          "detail": "80 Premier League assists"
+        },
+        {
+          "name": "Christian Eriksen",
+          "aliases": [
+            "Eriksen",
+            "Christian Ericksen"
+          ],
+          "fame": 4,
+          "detail": "78 Premier League assists"
+        },
+        {
+          "name": "Teddy Sheringham",
+          "aliases": [
+            "Sheringham",
+            "Edward Sheringham"
+          ],
+          "fame": 3,
+          "detail": "76 Premier League assists"
+        },
+        {
+          "name": "Ashley Young",
+          "aliases": [
+            "Young"
+          ],
+          "fame": 3,
+          "detail": "74 Premier League assists"
+        },
+        {
+          "name": "Thierry Henry",
+          "aliases": [
+            "Henry"
+          ],
+          "fame": 4,
+          "detail": "74 Premier League assists"
+        },
+        {
+          "name": "Andy Cole",
+          "aliases": [
+            "Cole",
+            "Andrew Cole"
+          ],
+          "fame": 3,
+          "detail": "73 Premier League assists"
+        },
+        {
+          "name": "Bruno Fernandes",
+          "aliases": [
+            "Fernandes",
+            "Bruno",
+            "Bruno Borges Fernandes"
+          ],
+          "fame": 4,
+          "detail": "73 Premier League assists"
+        },
+        {
+          "name": "Son Heung-min",
+          "aliases": [
+            "Son",
+            "Heung-min Son",
+            "Son Heung Min",
+            "Sonny"
+          ],
+          "fame": 4,
+          "detail": "71 Premier League assists"
+        },
+        {
+          "name": "Darren Anderton",
+          "aliases": [
+            "Anderton"
+          ],
+          "fame": 2,
+          "detail": "68 Premier League assists"
+        },
+        {
+          "name": "Raheem Sterling",
+          "aliases": [
+            "Sterling"
+          ],
+          "fame": 3,
+          "detail": "65 Premier League assists"
+        },
+        {
+          "name": "Gareth Barry",
+          "aliases": [
+            "Barry"
+          ],
+          "fame": 2,
+          "detail": "64 Premier League assists"
+        },
+        {
+          "name": "Matt Le Tissier",
+          "aliases": [
+            "Le Tissier",
+            "Matthew Le Tissier",
+            "LeTissier",
+            "Le God"
+          ],
+          "fame": 3,
+          "detail": "64 Premier League assists"
+        },
+        {
+          "name": "Alan Shearer",
+          "aliases": [
+            "Shearer"
+          ],
+          "fame": 3,
+          "detail": "64 Premier League assists"
+        },
+        {
+          "name": "Trent Alexander-Arnold",
+          "aliases": [
+            "Alexander-Arnold",
+            "Alexander Arnold",
+            "Trent",
+            "TAA"
+          ],
+          "fame": 4,
+          "detail": "64 Premier League assists"
+        },
+        {
+          "name": "Nolberto Solano",
+          "aliases": [
+            "Solano",
+            "Nobby Solano",
+            "Norberto Solano"
+          ],
+          "fame": 2,
+          "detail": "62 Premier League assists"
+        },
+        {
+          "name": "Riyad Mahrez",
+          "aliases": [
+            "Mahrez"
+          ],
+          "fame": 3,
+          "detail": "61 Premier League assists"
+        },
+        {
+          "name": "Andrew Robertson",
+          "aliases": [
+            "Robertson",
+            "Andy Robertson",
+            "Robbo"
+          ],
+          "fame": 4,
+          "detail": "61 Premier League assists"
+        },
+        {
+          "name": "Stewart Downing",
+          "aliases": [
+            "Downing",
+            "Stuart Downing"
+          ],
+          "fame": 2,
+          "detail": "59 Premier League assists"
+        },
+        {
+          "name": "Steve McManaman",
+          "aliases": [
+            "McManaman",
+            "Steven McManaman",
+            "Macca"
+          ],
+          "fame": 2,
+          "detail": "59 Premier League assists"
+        },
+        {
+          "name": "Peter Crouch",
+          "aliases": [
+            "Crouch",
+            "Crouchy"
+          ],
+          "fame": 2,
+          "detail": "58 Premier League assists"
+        },
+        {
+          "name": "Jimmy Floyd Hasselbaink",
+          "aliases": [
+            "Hasselbaink",
+            "Jimmy Hasselbaink",
+            "JFH"
+          ],
+          "fame": 2,
+          "detail": "58 Premier League assists"
+        },
+        {
+          "name": "Jordan Henderson",
+          "aliases": [
+            "Henderson",
+            "Hendo"
+          ],
+          "fame": 3,
+          "detail": "57 Premier League assists"
+        },
+        {
+          "name": "Dwight Yorke",
+          "aliases": [
+            "Yorke"
+          ],
+          "fame": 3,
+          "detail": "57 Premier League assists"
+        },
+        {
+          "name": "Theo Walcott",
+          "aliases": [
+            "Walcott"
+          ],
+          "fame": 3,
+          "detail": "56 Premier League assists"
+        },
+        {
+          "name": "Eric Cantona",
+          "aliases": [
+            "Cantona",
+            "Éric Cantona",
+            "King Eric"
+          ],
+          "fame": 4,
+          "detail": "56 Premier League assists"
+        },
+        {
+          "name": "Kevin Davies",
+          "aliases": [
+            "Davies"
+          ],
+          "fame": 1,
+          "detail": "55 Premier League assists"
+        },
+        {
+          "name": "Damien Duff",
+          "aliases": [
+            "Duff",
+            "Damian Duff"
+          ],
+          "fame": 2,
+          "detail": "55 Premier League assists"
+        },
+        {
+          "name": "Steed Malbranque",
+          "aliases": [
+            "Malbranque"
+          ],
+          "fame": 1,
+          "detail": "55 Premier League assists"
+        },
+        {
+          "name": "Paul Scholes",
+          "aliases": [
+            "Scholes",
+            "Scholesy"
+          ],
+          "fame": 3,
+          "detail": "55 Premier League assists"
+        },
+        {
+          "name": "Danny Murphy",
+          "aliases": [
+            "Murphy",
+            "Daniel Murphy"
+          ],
+          "fame": 2,
+          "detail": "55 Premier League assists"
+        },
+        {
+          "name": "Juan Mata",
+          "aliases": [
+            "Mata"
+          ],
+          "fame": 3,
+          "detail": "54 Premier League assists"
+        },
+        {
+          "name": "Mesut Özil",
+          "aliases": [
+            "Özil",
+            "Ozil",
+            "Mesut Ozil",
+            "Oezil",
+            "Mesut Oezil"
+          ],
+          "fame": 4,
+          "detail": "54 Premier League assists"
+        },
+        {
+          "name": "Didier Drogba",
+          "aliases": [
+            "Drogba"
+          ],
+          "fame": 3,
+          "detail": "54 Premier League assists"
+        },
+        {
+          "name": "Eden Hazard",
+          "aliases": [
+            "Hazard"
+          ],
+          "fame": 4,
+          "detail": "54 Premier League assists"
+        },
+        {
+          "name": "Jarrod Bowen",
+          "aliases": [
+            "Bowen",
+            "Jared Bowen"
+          ],
+          "fame": 3,
+          "detail": "54 Premier League assists"
+        },
+        {
+          "name": "Leighton Baines",
+          "aliases": [
+            "Baines"
+          ],
+          "fame": 2,
+          "detail": "53 Premier League assists"
+        },
+        {
+          "name": "Emile Heskey",
+          "aliases": [
+            "Heskey"
+          ],
+          "fame": 2,
+          "detail": "53 Premier League assists"
+        },
+        {
+          "name": "Robin van Persie",
+          "aliases": [
+            "Van Persie",
+            "vanPersie",
+            "RVP"
+          ],
+          "fame": 3,
+          "detail": "53 Premier League assists"
+        },
+        {
+          "name": "Marcus Rashford",
+          "aliases": [
+            "Rashford"
+          ],
+          "fame": 3,
+          "detail": "53 Premier League assists"
+        },
+        {
+          "name": "Antonio Valencia",
+          "aliases": [
+            "Valencia",
+            "Luis Antonio Valencia"
+          ],
+          "fame": 2,
+          "detail": "52 Premier League assists"
+        },
+        {
+          "name": "Pascal Groß",
+          "aliases": [
+            "Pascal Gross",
+            "Groß",
+            "Gross",
+            "Gros",
+            "Pascal Gros"
+          ],
+          "fame": 2,
+          "detail": "51 Premier League assists"
+        },
+        {
+          "name": "James Maddison",
+          "aliases": [
+            "Maddison",
+            "Madison",
+            "Madders"
+          ],
+          "fame": 3,
+          "detail": "51 Premier League assists"
+        },
+        {
+          "name": "Chris Brunt",
+          "aliases": [
+            "Brunt",
+            "Christopher Brunt"
+          ],
+          "fame": 1,
+          "detail": "51 Premier League assists"
+        },
+        {
+          "name": "Nicolas Anelka",
+          "aliases": [
+            "Anelka",
+            "Nicolás Anelka",
+            "Nicholas Anelka"
+          ],
+          "fame": 2,
+          "detail": "51 Premier League assists"
+        },
+        {
+          "name": "Bernardo Silva",
+          "aliases": [
+            "Bernardo",
+            "Bernado Silva"
+          ],
+          "fame": 3,
+          "detail": "50 Premier League assists"
+        },
+        {
+          "name": "Roberto Firmino",
+          "aliases": [
+            "Firmino",
+            "Bobby Firmino",
+            "Bobby",
+            "Firminho"
+          ],
+          "fame": 3,
+          "detail": "50 Premier League assists"
+        },
+        {
+          "name": "Gylfi Sigurdsson",
+          "aliases": [
+            "Sigurdsson",
+            "Gylfi Sigurðsson",
+            "Sigurðsson",
+            "Gylfi"
+          ],
+          "fame": 2,
+          "detail": "50 Premier League assists"
+        },
+        {
+          "name": "Aaron Lennon",
+          "aliases": [
+            "Lennon"
+          ],
+          "fame": 2,
+          "detail": "50 Premier League assists"
+        },
+        {
+          "name": "Nick Barmby",
+          "aliases": [
+            "Barmby",
+            "Nicholas Barmby"
+          ],
+          "fame": 1,
+          "detail": "50 Premier League assists"
+        },
+        {
+          "name": "Bukayo Saka",
+          "aliases": [
+            "Saka"
+          ],
+          "fame": 4,
+          "detail": "50 Premier League assists"
+        },
+        {
+          "name": "Jamie Vardy",
+          "aliases": [
+            "Vardy"
+          ],
+          "fame": 3,
+          "detail": "50 Premier League assists"
+        }
+      ],
+      "answer_count": 61,
+      "prompt_pt": "Cite um jogador com 50+ assistências na Premier League",
+      "subtitle_pt": "Estatísticas oficiais da Premier League, até 1º de outubro de 2026",
+      "reuse_of": "k025",
+      "first_used": "2026-10-18"
+    },
+    {
+      "id": "f120",
+      "_id": "f120",
+      "prompt": "Name a club Marcello Lippi managed",
+      "subtitle": "First-team head coach, club spells only, up to the end of 2024-25",
+      "prompt_es": "Nombra un club al que dirigió Marcello Lippi",
+      "subtitle_es": "Entrenador del primer equipo, solo clubes, hasta el final de la 2024-25",
+      "difficulty": "medium",
+      "answer_type": "club",
+      "format_family": "player_club_history",
+      "scoring_version": 2,
+      "answer_count": 11,
+      "clash_note": "Inter means Inter Milan, not Inter Miami.",
+      "answers": [
+        {
+          "name": "Juventus",
+          "aliases": [
+            "Juve"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Inter Milan",
+          "aliases": [
+            "Inter",
+            "Internazionale",
+            "Inter de Milan",
+            "Inter de Milán",
+            "Inter de Milao"
+          ],
+          "fame": 5,
+          "name_pt": "Inter de Milão"
+        },
+        {
+          "name": "Napoli",
+          "aliases": [
+            "SSC Napoli"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Atalanta",
+          "aliases": [
+            "Atalanta BC"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Guangzhou Evergrande",
+          "aliases": [
+            "Guangzhou",
+            "Guangzhou FC",
+            "Evergrande"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Cesena",
+          "aliases": [
+            "AC Cesena"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Siena",
+          "aliases": [
+            "AC Siena"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Lucchese",
+          "aliases": [
+            "Lucchese 1905"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Pistoiese",
+          "aliases": [
+            "AC Pistoiese"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Carrarese",
+          "aliases": [
+            "Carrarese Calcio"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Pontedera",
+          "aliases": [
+            "US Pontedera"
+          ],
+          "fame": 1
+        }
+      ],
+      "traps": [
+        {
+          "name": "Italy",
+          "aliases": [
+            "Italia",
+            "Italy national team"
+          ],
+          "why": "Italy was a national team job; only clubs count here.",
+          "why_es": "Italia fue un puesto de selección; aquí solo cuentan los clubes.",
+          "why_pt": "A Itália foi trabalho de seleção; aqui só contam clubes."
+        },
+        {
+          "name": "AC Milan",
+          "aliases": [
+            "Milan"
+          ],
+          "why": "Lippi never managed Milan.",
+          "why_es": "Lippi nunca dirigió al Milan.",
+          "why_pt": "Lippi nunca treinou o Milan."
+        },
+        {
+          "name": "Roma",
+          "aliases": [
+            "AS Roma"
+          ],
+          "why": "Lippi never managed Roma.",
+          "why_es": "Lippi nunca dirigió a la Roma.",
+          "why_pt": "Lippi nunca treinou a Roma."
+        },
+        {
+          "name": "Sampdoria",
+          "aliases": [
+            "Samp"
+          ],
+          "why": "Lippi played for Sampdoria and coached their youth team, never the first team.",
+          "why_es": "Lippi jugó en la Sampdoria y entrenó a su juvenil, nunca al primer equipo."
+        }
+      ],
+      "prompt_pt": "Cite um clube que Marcello Lippi treinou",
+      "subtitle_pt": "Técnico principal, só clubes, até o fim de 2024-25"
+    },
+    {
+      "id": "f116",
+      "_id": "f116",
+      "prompt": "England's 1966 World Cup winners",
+      "subtitle": "Final 22-player squad, England 1966",
+      "prompt_es": "Los campeones de Inglaterra en el Mundial 1966",
+      "subtitle_es": "Lista final de 22 jugadores, Inglaterra 1966",
+      "difficulty": "easy",
+      "answer_type": "player",
+      "format_family": "world_cup_squad",
+      "scoring_version": 2,
+      "answer_count": 22,
+      "clash_note": "\"Charlton\" could be Jack Charlton or Bobby Charlton, so use the full name",
+      "answers": [
+        {
+          "name": "Gordon Banks",
+          "aliases": [
+            "Banks"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "George Cohen",
+          "aliases": [
+            "Cohen"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Ray Wilson",
+          "aliases": [
+            "Wilson"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Nobby Stiles",
+          "aliases": [
+            "Stiles"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Jack Charlton",
+          "aliases": [
+            "Jackie Charlton",
+            "Big Jack"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Bobby Moore",
+          "aliases": [
+            "Moore",
+            "Robert Moore"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Alan Ball",
+          "aliases": [
+            "Ball"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Jimmy Greaves",
+          "aliases": [
+            "Greaves"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Bobby Charlton",
+          "aliases": [
+            "Sir Bobby Charlton",
+            "Bobby"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Geoff Hurst",
+          "aliases": [
+            "Hurst",
+            "Sir Geoff Hurst"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "John Connelly",
+          "aliases": [
+            "Connelly"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Ron Springett",
+          "aliases": [
+            "Springett"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Peter Bonetti",
+          "aliases": [
+            "Bonetti"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Jimmy Armfield",
+          "aliases": [
+            "Armfield"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Gerry Byrne",
+          "aliases": [
+            "Byrne"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Martin Peters",
+          "aliases": [
+            "Peters"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Ron Flowers",
+          "aliases": [
+            "Flowers"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Norman Hunter",
+          "aliases": [
+            "Hunter"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Terry Paine",
+          "aliases": [
+            "Paine"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Ian Callaghan",
+          "aliases": [
+            "Callaghan"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Roger Hunt",
+          "aliases": [
+            "Hunt"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "George Eastham",
+          "aliases": [
+            "Eastham"
+          ],
+          "fame": 2
+        }
+      ],
+      "traps": [
+        {
+          "name": "Alf Ramsey",
+          "aliases": [
+            "Ramsey",
+            "Sir Alf Ramsey"
+          ],
+          "why": "Ramsey was the manager, not a player.",
+          "why_es": "Ramsey era el seleccionador, no un jugador.",
+          "why_pt": "Ramsey era o técnico, não um jogador."
+        },
+        {
+          "name": "Stanley Matthews",
+          "aliases": [
+            "Matthews",
+            "Stan Matthews"
+          ],
+          "why": "Matthews was not in the 1966 squad.",
+          "why_es": "Matthews no estaba en la lista de 1966.",
+          "why_pt": "Matthews não estava no elenco de 1966."
+        },
+        {
+          "name": "Francis Lee",
+          "aliases": [
+            "Lee"
+          ],
+          "why": "Lee was not in the 1966 squad.",
+          "why_es": "Lee no estaba en la lista de 1966.",
+          "why_pt": "Lee não estava no elenco de 1966."
+        }
+      ],
+      "prompt_pt": "Campeão do mundo com a Inglaterra em 1966",
+      "subtitle_pt": "Lista final de 22 jogadores, Inglaterra 1966"
+    },
+    {
+      "id": "e011r1",
+      "_id": "e011r1",
+      "prompt": "Played for England at Euro 2024",
+      "subtitle": "Appeared in at least one match at UEFA Euro 2024",
+      "difficulty": "easy",
+      "scoring_version": 2,
+      "clash_note": "",
+      "answers": [
+        {
+          "name": "Kyle Walker",
+          "aliases": [],
+          "fame": 6
+        },
+        {
+          "name": "Harry Kane",
+          "aliases": [],
+          "fame": 6
+        },
+        {
+          "name": "Jude Bellingham",
+          "aliases": [],
+          "fame": 6
+        },
+        {
+          "name": "Jordan Pickford",
+          "aliases": [],
+          "fame": 6
+        },
+        {
+          "name": "Declan Rice",
+          "aliases": [],
+          "fame": 6
+        },
+        {
+          "name": "John Stones",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Phil Foden",
+          "aliases": [],
+          "fame": 6
+        },
+        {
+          "name": "Bukayo Saka",
+          "aliases": [],
+          "fame": 6
+        },
+        {
+          "name": "Kieran Trippier",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Marc Guéhi",
+          "aliases": [
+            "Guehi"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Kobbie Mainoo",
+          "aliases": [
+            "Mainoo"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Conor Gallagher",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Cole Palmer",
+          "aliases": [],
+          "fame": 6
+        },
+        {
+          "name": "Trent Alexander-Arnold",
+          "aliases": [
+            "Trent",
+            "TAA",
+            "Alexander Arnold"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Eberechi Eze",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Ivan Toney",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "Ezri Konsa",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Luke Shaw",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Jarrod Bowen",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Ollie Watkins",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Anthony Gordon",
+          "aliases": [],
+          "fame": 1
+        }
+      ],
+      "format_family": "tournament_appearance",
+      "answer_count": 21,
+      "prompt_pt": "Jogou pela Inglaterra na Euro 2024",
+      "subtitle_pt": "Entrou em campo em pelo menos um jogo da Euro 2024",
+      "reuse_of": "e011",
+      "first_used": "2026-09-19",
+      "answer_type": "player",
+      "prompt_es": "Jugó con Inglaterra en la Euro 2024",
+      "subtitle_es": "Jugó al menos un partido de la Euro 2024",
+      "traps": [
+        {
+          "name": "Dean Henderson",
+          "aliases": [
+            "Henderson",
+            "Jordan Henderson"
+          ],
+          "why": "Dean Henderson was the third goalkeeper and never played; Jordan Henderson was not picked.",
+          "why_es": "Dean Henderson fue el tercer portero y no jugó; Jordan Henderson no fue convocado."
+        },
+        {
+          "name": "Aaron Ramsdale",
+          "aliases": [
+            "Ramsdale"
+          ],
+          "why": "Ramsdale was in the squad but never played.",
+          "why_es": "Ramsdale estaba en la convocatoria pero no jugó."
+        },
+        {
+          "name": "Harry Maguire",
+          "aliases": [
+            "Maguire"
+          ],
+          "why": "Maguire missed Euro 2024 with a calf injury.",
+          "why_es": "Maguire se perdió la Eurocopa 2024 por una lesión en el gemelo."
+        },
+        {
+          "name": "Jack Grealish",
+          "aliases": [
+            "Grealish"
+          ],
+          "why": "Grealish was cut from the provisional squad before the tournament.",
+          "why_es": "Grealish fue descartado de la lista provisional antes del torneo."
+        }
+      ]
+    }
+  ]
+}

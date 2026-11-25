@@ -1,0 +1,133 @@
+{
+  "day": "2026-11-28",
+  "questions": [
+    {
+      "q": "Which of these players NEVER played for Napoli?",
+      "q_es": "¿Cuál de estos jugadores NUNCA jugó en el Napoli?",
+      "q_pt": "Qual destes jogadores NUNCA jogou no Napoli?",
+      "o": [
+        "Antonio Di Natale",
+        "Edinson Cavani",
+        "Ezequiel Lavezzi",
+        "Gonzalo Higuaín"
+      ],
+      "a": 0,
+      "why": "Di Natale was born in Naples but played for Empoli and Udinese, never Napoli.",
+      "why_es": "Di Natale nació en Nápoles, pero jugó en el Empoli y el Udinese, nunca en el Napoli.",
+      "why_pt": "Di Natale nasceu em Nápoles, mas jogou no Empoli e na Udinese, nunca no Napoli.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which club did Mohamed Salah join Liverpool from in 2017?",
+      "q_es": "¿De qué club llegó Mohamed Salah al Liverpool en 2017?",
+      "q_pt": "De qual clube Mohamed Salah chegou ao Liverpool em 2017?",
+      "o": [
+        "Chelsea",
+        "Fiorentina",
+        "Roma",
+        "Basel"
+      ],
+      "a": 2,
+      "why": "Salah went Basel, Chelsea, Fiorentina (loan), Roma, then Liverpool.",
+      "why_es": "Salah pasó por Basilea, Chelsea, Fiorentina (cedido) y Roma antes del Liverpool.",
+      "why_pt": "Salah passou por Basel, Chelsea, Fiorentina (emprestado) e Roma antes do Liverpool.",
+      "src": "own knowledge",
+      "o_es": [
+        "Chelsea",
+        "Fiorentina",
+        "Roma",
+        "Basilea"
+      ]
+    },
+    {
+      "q": "How many Champions League titles has Cristiano Ronaldo won?",
+      "q_es": "¿Cuántas Champions League ha ganado Cristiano Ronaldo?",
+      "q_pt": "Quantas Ligas dos Campeões Cristiano Ronaldo ganhou?",
+      "o": [
+        "3",
+        "4",
+        "6",
+        "5"
+      ],
+      "a": 3,
+      "why": "5: 2008 with Manchester United and 2014, 2016, 2017 and 2018 with Real Madrid.",
+      "why_es": "5: 2008 con el Manchester United y 2014, 2016, 2017 y 2018 con el Real Madrid.",
+      "why_pt": "5: 2008 com o Manchester United e 2014, 2016, 2017 e 2018 com o Real Madrid.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Who was the first player to win the Ballon d'Or three times?",
+      "q_es": "¿Quién fue el primer jugador en ganar tres Balones de Oro?",
+      "q_pt": "Quem foi o primeiro jogador a ganhar três Bolas de Ouro?",
+      "o": [
+        "Alfredo Di Stéfano",
+        "Michel Platini",
+        "Johan Cruyff"
+      ],
+      "a": 2,
+      "why": "Cruyff, in 1971, 1973 and 1974; Platini's three came in 1983-85 and Di Stéfano won two.",
+      "why_es": "Cruyff, en 1971, 1973 y 1974; los tres de Platini llegaron en 1983-85 y Di Stéfano ganó dos.",
+      "why_pt": "Cruyff, em 1971, 1973 e 1974; as três de Platini vieram em 1983-85 e Di Stéfano ganhou duas.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "In which year did West Germany host the World Cup?",
+      "q_es": "¿En qué año fue Alemania Occidental sede del Mundial?",
+      "q_pt": "Em que ano a Alemanha Ocidental sediou a Copa do Mundo?",
+      "o": [
+        "1974",
+        "1970",
+        "1978"
+      ],
+      "a": 0,
+      "why": "1974, and West Germany won it, beating the Netherlands 2-1 in Munich.",
+      "why_es": "En 1974, y Alemania Occidental lo ganó, 2-1 a Países Bajos en Múnich.",
+      "why_pt": "Em 1974, e a Alemanha Ocidental foi campeã, vencendo a Holanda por 2 a 1 em Munique.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which of these managers has NEVER won the Champions League?",
+      "q_es": "¿Cuál de estos entrenadores NUNCA ha ganado la Champions League?",
+      "q_pt": "Qual destes técnicos NUNCA ganhou a Liga dos Campeões?",
+      "o": [
+        "Roberto Di Matteo",
+        "Mauricio Pochettino",
+        "Hansi Flick"
+      ],
+      "a": 1,
+      "why": "Pochettino lost the 2019 final with Spurs; Di Matteo won it with Chelsea in 2012 and Flick with Bayern in 2020.",
+      "why_es": "Pochettino perdió la final de 2019 con el Tottenham; Di Matteo la ganó con el Chelsea en 2012 y Flick con el Bayern en 2020.",
+      "why_pt": "Pochettino perdeu a final de 2019 com o Tottenham; Di Matteo ganhou com o Chelsea em 2012 e Flick com o Bayern em 2020.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which club sold Andrea Pirlo to AC Milan in 2001?",
+      "q_es": "¿Qué club vendió a Andrea Pirlo al AC Milan en 2001?",
+      "q_pt": "Qual clube vendeu Andrea Pirlo ao Milan em 2001?",
+      "o": [
+        "Brescia",
+        "Reggina",
+        "Inter"
+      ],
+      "a": 2,
+      "why": "Inter: Pirlo started at Brescia, joined Inter in 1998 and was loaned to Reggina and Brescia before the move.",
+      "why_es": "El Inter: Pirlo empezó en el Brescia, fichó por el Inter en 1998 y fue cedido a Reggina y Brescia antes del traspaso.",
+      "why_pt": "A Inter: Pirlo começou no Brescia, foi para a Inter em 1998 e foi emprestado a Reggina e Brescia antes da transferência.",
+      "src": "own knowledge"
+    },
+    {
+      "q": "Which club was founded first: Barcelona or Real Madrid?",
+      "q_es": "¿Qué club se fundó antes: el Barcelona o el Real Madrid?",
+      "q_pt": "Qual clube foi fundado primeiro: o Barcelona ou o Real Madrid?",
+      "o": [
+        "Real Madrid",
+        "Barcelona"
+      ],
+      "a": 1,
+      "why": "Barcelona in 1899; Real Madrid (as Madrid FC) in 1902.",
+      "why_es": "El Barcelona en 1899; el Real Madrid (como Madrid FC) en 1902.",
+      "why_pt": "O Barcelona em 1899; o Real Madrid (como Madrid FC) em 1902.",
+      "src": "own knowledge"
+    }
+  ]
+}

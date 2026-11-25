@@ -1,0 +1,988 @@
+{
+  "date": "2026-12-02",
+  "timezone": "Europe/Amsterdam",
+  "questions": [
+    {
+      "id": "f167",
+      "_id": "f167",
+      "prompt": "Name a country that lost a World Cup penalty shoot-out",
+      "subtitle": "Men's World Cups, from 1982 (the first shoot-out) to 2026",
+      "prompt_es": "Nombra una selección que perdió una tanda de penaltis en un Mundial",
+      "subtitle_es": "Mundiales masculinos, de 1982 (la primera tanda) a 2026",
+      "prompt_pt": "Cite uma seleção que perdeu uma disputa de pênaltis em Copa do Mundo",
+      "subtitle_pt": "Copas masculinas, de 1982 (a primeira disputa) a 2026",
+      "difficulty": "easy",
+      "answer_type": "country",
+      "format_family": "tournament_history",
+      "scoring_version": 2,
+      "answer_count": 22,
+      "clash_note": "Germany counts for their 2026 defeat to Paraguay; West Germany never lost one.",
+      "answers": [
+        {
+          "name": "England",
+          "aliases": [
+            "Inglaterra"
+          ],
+          "fame": 6,
+          "name_es": "Inglaterra",
+          "name_pt": "Inglaterra"
+        },
+        {
+          "name": "Spain",
+          "aliases": [
+            "España",
+            "Espana",
+            "Espanha"
+          ],
+          "fame": 6,
+          "name_es": "España",
+          "name_pt": "Espanha"
+        },
+        {
+          "name": "Italy",
+          "aliases": [
+            "Italia",
+            "Itália"
+          ],
+          "fame": 5,
+          "name_es": "Italia",
+          "name_pt": "Itália"
+        },
+        {
+          "name": "Netherlands",
+          "aliases": [
+            "Holland",
+            "Holanda",
+            "Países Bajos",
+            "Paises Bajos",
+            "Países Baixos"
+          ],
+          "fame": 5,
+          "name_es": "Países Bajos",
+          "name_pt": "Holanda"
+        },
+        {
+          "name": "France",
+          "aliases": [
+            "Francia",
+            "França"
+          ],
+          "fame": 5,
+          "name_es": "Francia",
+          "name_pt": "França"
+        },
+        {
+          "name": "Brazil",
+          "aliases": [
+            "Brasil"
+          ],
+          "fame": 4,
+          "name_es": "Brasil",
+          "name_pt": "Brasil"
+        },
+        {
+          "name": "Argentina",
+          "aliases": [],
+          "fame": 4
+        },
+        {
+          "name": "Germany",
+          "aliases": [
+            "Alemania",
+            "Alemanha"
+          ],
+          "fame": 2,
+          "name_es": "Alemania",
+          "name_pt": "Alemanha"
+        },
+        {
+          "name": "Mexico",
+          "aliases": [
+            "México"
+          ],
+          "fame": 3,
+          "name_es": "México",
+          "name_pt": "México"
+        },
+        {
+          "name": "Switzerland",
+          "aliases": [
+            "Suiza",
+            "Suíça"
+          ],
+          "fame": 2,
+          "name_es": "Suiza",
+          "name_pt": "Suíça"
+        },
+        {
+          "name": "Japan",
+          "aliases": [
+            "Japón",
+            "Japão"
+          ],
+          "fame": 4,
+          "name_es": "Japón",
+          "name_pt": "Japão"
+        },
+        {
+          "name": "Ghana",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Denmark",
+          "aliases": [
+            "Dinamarca"
+          ],
+          "fame": 2,
+          "name_es": "Dinamarca",
+          "name_pt": "Dinamarca"
+        },
+        {
+          "name": "Colombia",
+          "aliases": [],
+          "fame": 3,
+          "name_pt": "Colômbia"
+        },
+        {
+          "name": "Russia",
+          "aliases": [
+            "Rusia",
+            "Rússia"
+          ],
+          "fame": 3,
+          "name_es": "Rusia",
+          "name_pt": "Rússia"
+        },
+        {
+          "name": "Chile",
+          "aliases": [],
+          "fame": 3
+        },
+        {
+          "name": "Romania",
+          "aliases": [
+            "Rumanía",
+            "Rumania",
+            "Romênia"
+          ],
+          "fame": 2,
+          "name_es": "Rumanía",
+          "name_pt": "Romênia"
+        },
+        {
+          "name": "Republic of Ireland",
+          "aliases": [
+            "Ireland",
+            "Irlanda",
+            "Eire",
+            "Republica da Irlanda"
+          ],
+          "fame": 2,
+          "name_es": "Irlanda",
+          "name_pt": "Irlanda"
+        },
+        {
+          "name": "Greece",
+          "aliases": [
+            "Grecia",
+            "Grécia"
+          ],
+          "fame": 1,
+          "name_es": "Grecia",
+          "name_pt": "Grécia"
+        },
+        {
+          "name": "Costa Rica",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "Yugoslavia",
+          "aliases": [
+            "Iugoslávia"
+          ],
+          "fame": 1,
+          "name_pt": "Iugoslávia"
+        },
+        {
+          "name": "Australia",
+          "aliases": [
+            "Austrália"
+          ],
+          "fame": 1
+        }
+      ],
+      "traps": [
+        {
+          "name": "Portugal",
+          "aliases": [],
+          "why": "Portugal have only won World Cup shoot-outs (England, 2006).",
+          "why_es": "Portugal solo ha ganado tandas en Mundiales (ante Inglaterra, 2006)."
+        },
+        {
+          "name": "Croatia",
+          "aliases": [
+            "Croacia",
+            "Croácia"
+          ],
+          "why": "Croatia won all four of their shoot-outs (2018 and 2022).",
+          "why_es": "Croacia ganó sus cuatro tandas (2018 y 2022).",
+          "name_pt": "Croácia"
+        },
+        {
+          "name": "Morocco",
+          "aliases": [
+            "Marruecos",
+            "Marrocos"
+          ],
+          "why": "Morocco won theirs, against Spain in 2022 and the Netherlands in 2026.",
+          "why_es": "Marruecos ganó las suyas, ante España en 2022 y Países Bajos en 2026.",
+          "name_pt": "Marrocos"
+        },
+        {
+          "name": "Uruguay",
+          "aliases": [],
+          "why": "Uruguay's only World Cup shoot-out was a win over Ghana in 2010.",
+          "why_es": "La única tanda de Uruguay en un Mundial fue una victoria ante Ghana en 2010."
+        },
+        {
+          "name": "Paraguay",
+          "aliases": [],
+          "why": "Paraguay won theirs, against Japan in 2010 and Germany in 2026.",
+          "why_es": "Paraguay ganó las suyas, ante Japón en 2010 y Alemania en 2026."
+        }
+      ]
+    },
+    {
+      "id": "f182",
+      "_id": "f182",
+      "prompt": "Name a club that played in Greece's Super League in 2024-25",
+      "subtitle": "The 14 clubs of the Greek top flight that season",
+      "prompt_es": "Nombra un club que jugó la liga griega en la 2024-25",
+      "subtitle_es": "Los 14 clubes de la primera división griega esa temporada",
+      "prompt_pt": "Cite um clube que disputou o Campeonato Grego em 2024-25",
+      "subtitle_pt": "Os 14 clubes da primeira divisão grega naquela temporada",
+      "difficulty": "medium",
+      "answer_type": "club",
+      "format_family": "league_clubs",
+      "scoring_version": 2,
+      "answer_count": 14,
+      "clash_note": "AEK means AEK Athens here.",
+      "answers": [
+        {
+          "name": "Olympiacos",
+          "aliases": [
+            "Olympiakos",
+            "Olympiacos Piraeus",
+            "Olympiakos Piraeus",
+            "Olympiacos FC"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Panathinaikos",
+          "aliases": [
+            "PAO"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "AEK Athens",
+          "aliases": [
+            "AEK",
+            "AEK Atenas"
+          ],
+          "fame": 5,
+          "name_es": "AEK Atenas"
+        },
+        {
+          "name": "PAOK",
+          "aliases": [
+            "PAOK Thessaloniki",
+            "PAOK Salonica"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Aris Thessaloniki",
+          "aliases": [
+            "Aris"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "OFI Crete",
+          "aliases": [
+            "OFI",
+            "OFI Creta"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Asteras Tripolis",
+          "aliases": [
+            "Asteras"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Atromitos",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "Panetolikos",
+          "aliases": [],
+          "fame": 1
+        },
+        {
+          "name": "Volos",
+          "aliases": [
+            "Volos FC"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Lamia",
+          "aliases": [
+            "PAS Lamia"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Levadiakos",
+          "aliases": [],
+          "fame": 1
+        },
+        {
+          "name": "Panserraikos",
+          "aliases": [],
+          "fame": 1
+        },
+        {
+          "name": "Athens Kallithea",
+          "aliases": [
+            "Kallithea"
+          ],
+          "fame": 1
+        }
+      ],
+      "traps": [
+        {
+          "name": "Kifisia",
+          "aliases": [
+            "Kifisias"
+          ],
+          "why": "Kifisia were relegated in 2024.",
+          "why_es": "El Kifisia descendió en 2024."
+        },
+        {
+          "name": "Larissa",
+          "aliases": [
+            "AEL",
+            "AEL Larissa"
+          ],
+          "why": "Larissa were in the second tier in 2024-25.",
+          "why_es": "El Larissa estaba en segunda división en la 2024-25."
+        }
+      ]
+    },
+    {
+      "id": "f021r1",
+      "_id": "f021r1",
+      "prompt": "Name a club Samuel Eto'o played for",
+      "subtitle": "Senior first teams, loans included (retired 2019)",
+      "prompt_es": "Nombra un club en el que jugó Samuel Eto'o",
+      "subtitle_es": "Primeros equipos, cesiones incluidas (retirado en 2019)",
+      "difficulty": "medium",
+      "answer_type": "club",
+      "format_family": "player_club_history",
+      "scoring_version": 2,
+      "answer_count": 13,
+      "clash_note": "",
+      "answers": [
+        {
+          "name": "Barcelona",
+          "name_es": "Barcelona",
+          "aliases": [
+            "Barca",
+            "FC Barcelona",
+            "Barça",
+            "Barcelona"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Inter Milan",
+          "name_es": "Inter de Milán",
+          "aliases": [
+            "Inter",
+            "Internazionale",
+            "Inter de Milan",
+            "Inter de Milán",
+            "Inter de Milao"
+          ],
+          "fame": 6,
+          "name_pt": "Inter de Milão"
+        },
+        {
+          "name": "Chelsea",
+          "aliases": [
+            "Chelsea FC"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Real Madrid",
+          "aliases": [
+            "Madrid",
+            "Real"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Everton",
+          "aliases": [
+            "Everton FC"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Mallorca",
+          "aliases": [
+            "RCD Mallorca",
+            "Real Mallorca"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Espanyol",
+          "aliases": [
+            "RCD Espanyol",
+            "Espanyol Barcelona"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Sampdoria",
+          "aliases": [
+            "UC Sampdoria",
+            "Samp"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Anzhi Makhachkala",
+          "aliases": [
+            "Anzhi",
+            "Anji",
+            "Anzhi Majachkalá"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Leganés",
+          "aliases": [
+            "CD Leganes",
+            "Leganes",
+            "Legane"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Antalyaspor",
+          "aliases": [
+            "Antalya"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Konyaspor",
+          "aliases": [
+            "Konya"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Qatar SC",
+          "aliases": [
+            "Qatar Sports Club",
+            "Qatar",
+            "Al Qatar"
+          ],
+          "fame": 1
+        }
+      ],
+      "traps": [
+        {
+          "name": "Arsenal",
+          "aliases": [
+            "Arsenal FC",
+            "Gunners"
+          ],
+          "why": "Eto'o scored against Arsenal in the 2006 Champions League final but never played for them.",
+          "why_es": "Eto'o les marcó al Arsenal en la final de la Champions de 2006, pero nunca jugó en él.",
+          "why_pt": "Eto'o marcou contra o Arsenal na final da Champions de 2006, mas nunca jogou por ele."
+        },
+        {
+          "name": "AC Milan",
+          "aliases": [
+            "Milan",
+            "AC Milan",
+            "Milan AC"
+          ],
+          "why": "He won the treble with Inter in 2010, not with their neighbours: he never played for Milan.",
+          "why_es": "Ganó el triplete con el Inter en 2010; nunca jugó en el Milan.",
+          "why_pt": "Ele ganhou a tríplice coroa com a Inter em 2010, não com o vizinho: nunca jogou pelo Milan."
+        },
+        {
+          "name": "Paris Saint-Germain",
+          "aliases": [
+            "PSG",
+            "Paris SG",
+            "Paris Saint Germain"
+          ],
+          "why": "A name linked to him over the years, but he never signed for PSG.",
+          "why_es": "Su nombre sonó mucho, pero nunca fichó por el PSG.",
+          "why_pt": "Um nome ligado a ele por anos, mas ele nunca assinou com o PSG."
+        }
+      ],
+      "prompt_pt": "Cite um clube em que Samuel Eto'o jogou",
+      "subtitle_pt": "Times principais, empréstimos incluídos (aposentou-se em 2019)",
+      "reuse_of": "f021",
+      "first_used": "2026-11-02"
+    },
+    {
+      "id": "f168",
+      "_id": "f168",
+      "prompt": "Finished as Bundesliga top scorer",
+      "subtitle": "Seasons 1990-91 to 2024-25, shared titles count",
+      "prompt_es": "Fue máximo goleador de la Bundesliga",
+      "subtitle_es": "De la 1990-91 a la 2024-25, cuentan los títulos compartidos",
+      "prompt_pt": "Foi artilheiro da Bundesliga",
+      "subtitle_pt": "De 1990-91 a 2024-25, artilharias divididas contam",
+      "difficulty": "medium",
+      "answer_type": "player",
+      "format_family": "season_top_scorer",
+      "scoring_version": 2,
+      "answer_count": 31,
+      "clash_note": "Fritz Walter here is the Stuttgart striker of 1991-92, not the 1954 World Cup captain.",
+      "answers": [
+        {
+          "name": "Roland Wohlfarth",
+          "aliases": [
+            "Wohlfarth"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Fritz Walter",
+          "aliases": [
+            "Walter"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Ulf Kirsten",
+          "aliases": [
+            "Kirsten"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Tony Yeboah",
+          "aliases": [
+            "Anthony Yeboah",
+            "Yeboah"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Stefan Kuntz",
+          "aliases": [
+            "Kuntz"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Mario Basler",
+          "aliases": [
+            "Basler"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Heiko Herrlich",
+          "aliases": [
+            "Herrlich"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Fredi Bobic",
+          "aliases": [
+            "Bobic"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Michael Preetz",
+          "aliases": [
+            "Preetz"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Martin Max",
+          "aliases": [
+            "Max"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Sergej Barbarez",
+          "aliases": [
+            "Barbarez"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Ebbe Sand",
+          "aliases": [
+            "Sand"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Márcio Amoroso",
+          "aliases": [
+            "Marcio Amoroso",
+            "Amoroso"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Thomas Christiansen",
+          "aliases": [
+            "Christiansen"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Giovane Élber",
+          "aliases": [
+            "Giovane Elber",
+            "Elber",
+            "Élber"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Aílton",
+          "aliases": [
+            "Ailton"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Marek Mintál",
+          "aliases": [
+            "Marek Mintal",
+            "Mintal",
+            "Mintál"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Miroslav Klose",
+          "aliases": [
+            "Klose"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Theofanis Gekas",
+          "aliases": [
+            "Fanis Gekas",
+            "Gekas"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Luca Toni",
+          "aliases": [
+            "Toni"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Grafite",
+          "aliases": [],
+          "fame": 2
+        },
+        {
+          "name": "Edin Džeko",
+          "aliases": [
+            "Edin Dzeko",
+            "Dzeko",
+            "Džeko"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Mario Gómez",
+          "aliases": [
+            "Mario Gomez",
+            "Gomez",
+            "Gómez"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Klaas-Jan Huntelaar",
+          "aliases": [
+            "Huntelaar"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Stefan Kießling",
+          "aliases": [
+            "Stefan Kiessling",
+            "Kiessling",
+            "Kießling"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Robert Lewandowski",
+          "aliases": [
+            "Lewandowski",
+            "Lewy"
+          ],
+          "fame": 6
+        },
+        {
+          "name": "Alexander Meier",
+          "aliases": [
+            "Meier"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Pierre-Emerick Aubameyang",
+          "aliases": [
+            "Aubameyang",
+            "Auba"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Niclas Füllkrug",
+          "aliases": [
+            "Niclas Fullkrug",
+            "Fullkrug",
+            "Füllkrug"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Christopher Nkunku",
+          "aliases": [
+            "Nkunku"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Harry Kane",
+          "aliases": [
+            "Kane"
+          ],
+          "fame": 6
+        }
+      ],
+      "traps": [
+        {
+          "name": "Erling Haaland",
+          "aliases": [
+            "Haaland"
+          ],
+          "why": "Haaland never topped the Bundesliga scoring chart; Lewandowski won it in all his Dortmund seasons.",
+          "why_es": "Haaland nunca fue máximo goleador de la Bundesliga; Lewandowski lo fue en todas sus temporadas en el Dortmund."
+        },
+        {
+          "name": "Gerd Müller",
+          "aliases": [
+            "Gerd Muller"
+          ],
+          "why": "Gerd Müller's seven titles all came before 1990.",
+          "why_es": "Los siete títulos de Gerd Müller fueron antes de 1990."
+        },
+        {
+          "name": "Serhou Guirassy",
+          "aliases": [
+            "Guirassy"
+          ],
+          "why": "Guirassy's 28 goals in 2023-24 were second to Kane's 36.",
+          "why_es": "Los 28 goles de Guirassy en la 2023-24 quedaron por detrás de los 36 de Kane."
+        },
+        {
+          "name": "Marco Reus",
+          "aliases": [
+            "Reus"
+          ],
+          "why": "Reus never finished as the league's top scorer.",
+          "why_es": "Reus nunca fue el máximo goleador de la liga."
+        }
+      ]
+    },
+    {
+      "id": "f169",
+      "_id": "f169",
+      "prompt": "Name a club or national team Guus Hiddink managed",
+      "subtitle": "Head coach spells 1987-2021, caretaker and youth national team spells included",
+      "prompt_es": "Nombra un club o selección que entrenó Guus Hiddink",
+      "subtitle_es": "Etapas como primer entrenador de 1987 a 2021, interinatos y selecciones juveniles incluidos",
+      "prompt_pt": "Cite um clube ou seleção que Guus Hiddink treinou",
+      "subtitle_pt": "Passagens como técnico de 1987 a 2021, interinidades e seleções de base incluídas",
+      "difficulty": "hard",
+      "answer_type": "club",
+      "format_family": "club_manager",
+      "scoring_version": 2,
+      "answer_count": 14,
+      "clash_note": "",
+      "answers": [
+        {
+          "name": "PSV Eindhoven",
+          "aliases": [
+            "PSV"
+          ],
+          "fame": 5
+        },
+        {
+          "name": "Real Madrid",
+          "aliases": [],
+          "fame": 6
+        },
+        {
+          "name": "Chelsea",
+          "aliases": [],
+          "fame": 5
+        },
+        {
+          "name": "Valencia",
+          "aliases": [
+            "Valencia CF"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Real Betis",
+          "aliases": [
+            "Betis"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Fenerbahçe",
+          "aliases": [
+            "Fenerbahce",
+            "Fener"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Anzhi Makhachkala",
+          "aliases": [
+            "Anzhi"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Netherlands",
+          "aliases": [
+            "Holland",
+            "Holanda",
+            "Países Bajos",
+            "Paises Bajos",
+            "Países Baixos"
+          ],
+          "fame": 5,
+          "name_es": "Países Bajos"
+        },
+        {
+          "name": "South Korea",
+          "aliases": [
+            "Korea",
+            "Korea Republic",
+            "Corea del Sur",
+            "Coreia do Sul",
+            "Corea"
+          ],
+          "fame": 5,
+          "name_es": "Corea del Sur"
+        },
+        {
+          "name": "Australia",
+          "aliases": [
+            "Austrália"
+          ],
+          "fame": 4
+        },
+        {
+          "name": "Russia",
+          "aliases": [
+            "Rusia",
+            "Rússia"
+          ],
+          "fame": 4,
+          "name_es": "Rusia"
+        },
+        {
+          "name": "Turkey",
+          "aliases": [
+            "Türkiye",
+            "Turkiye",
+            "Turquía",
+            "Turquia"
+          ],
+          "fame": 2,
+          "name_es": "Turquía"
+        },
+        {
+          "name": "China",
+          "aliases": [
+            "China U23",
+            "China U-23"
+          ],
+          "fame": 1
+        },
+        {
+          "name": "Curaçao",
+          "aliases": [
+            "Curacao"
+          ],
+          "fame": 1
+        }
+      ],
+      "traps": [
+        {
+          "name": "De Graafschap",
+          "aliases": [],
+          "why": "Hiddink played for De Graafschap and was assistant coach there, never head coach.",
+          "why_es": "Hiddink jugó en el De Graafschap y fue segundo entrenador allí, nunca primer entrenador."
+        },
+        {
+          "name": "Barcelona",
+          "aliases": [
+            "Barça",
+            "Barca"
+          ],
+          "why": "Hiddink's Spanish clubs were Valencia, Real Madrid and Real Betis.",
+          "why_es": "Los clubes españoles de Hiddink fueron el Valencia, el Real Madrid y el Betis."
+        }
+      ]
+    }
+  ]
+}
