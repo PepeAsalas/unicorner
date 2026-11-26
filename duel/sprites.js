@@ -19,6 +19,13 @@ const kSantaHat=f=>{const r='#d62828',d='#a51d1d',w='#ffffff';return[[20,5,7,1,w
 const kAntler=f=>{const d='#a87a4a',b='#c99a5e',l='#e6c690',t='#fff0cc';return[[19,3,2,1,d],[18,2,1,1,d],[17,1,1,1,d],[16,0,1,1,d],[19,1,1,1,d],[19,0,1,1,d],[22,3,2,1,b],[21,2,2,1,b],[20,1,1,1,b],[18,0,2,1,l],[22,1,1,1,l],[22,0,1,1,t],[24,2,1,1,l],[25,1,1,1,t],[20,0,1,1,t]]};
 const kSnowman=f=>{const k='#1a1030',s='#c8473b';return[[21,2,5,3,k],[20,5,7,1,k],[21,4,5,1,s],[20,11,5,2,s],[18,12,3,4,s]]};
 const kXStar=f=>{const g='#fff27a';return[[33,0,1,3,g],[32,1,3,1,g],[31,5,1,1,'#ffffff'],[5,4,1,1,g],[4,5,3,1,g],[5,6,1,1,g]]};
+// Frost: the advent calendar's secret kit, 4 pieces (crown, scarf, jumper, boots). frostKit(n) is the kit with n pieces on.
+const kFrostCrown=[[19,4,7,1,'#7cc7f0'],[19,3,7,1,'#e8f8ff'],[19,1,1,2,'#bfe6ff'],[21,2,1,1,'#ffffff'],[22,0,1,3,'#bfe6ff'],[24,2,1,1,'#ffffff'],[25,1,1,2,'#bfe6ff']];
+const kFrostScarf=[[20,11,5,2,'#2f7fc4'],[18,12,3,4,'#2f7fc4'],[21,11,1,2,'#bfe6ff'],[19,14,1,1,'#bfe6ff']];
+const frostKit=n=>({id:'xm-frost',en:'Frost',es:'Escarcha',pt:'Geada',req:['advp',4],until:XM_TO,
+ pal:n>=4?{P:'#dff3ff',V:'#a9d8f5',B:'#ffffff',N:'#7cc7f0',W:'#e8f8ff',L:'#9fd6f5'}:n>=3?{P:'#dff3ff',V:'#a9d8f5',B:'#ffffff'}:{},
+ pat:n>=3?kPat((x,y)=>(x*3+y*7)%11===0?'#ffffff':(x+y)%4===0?'#bfe6ff':'#8fd0f5'):undefined,
+ addon:n>=1?(f=>[...kFrostCrown,...(n>=2?kFrostScarf:[])]):undefined});
 const kTreeStar=f=>{const g='#ffd23f',w='#fff6c0';return[[30,0,1,1,w],[29,1,3,1,g],[30,2,1,1,g],[5,5,1,1,g],[4,6,3,1,g],[5,7,1,1,g]]};
 const KITS=[
  {id:'classic',en:'Club',es:'Club',pt:'Clube',req:null,pal:{}},
@@ -79,6 +86,7 @@ const KITS=[
  {id:'xm-snowman',en:'Snowman',es:'Muñeco de nieve',pt:'Boneco de neve',req:['adv',10],until:XM_TO,pal:{P:'#e8f6ff',V:'#cfe6f5',B:'#ffffff',N:'#ff8a1f'},pat:kPat((x,y)=>(x===15&&(y===14||y===16||y===18))?'#1a1030':'#f4fbff'),addon:kSnowman},
  {id:'xm-santa',en:'Santa',es:'Papá Noel',pt:'Papai Noel',req:['adv',24],until:XM_TO,pal:{P:'#ffffff',V:'#f1f1f1',B:'#ffffff',N:'#ffb3a7',w:'#d62828'},pat:kPat((x,y)=>y>=19?'#ffffff':y===17?(x>=14&&x<=16?'#f2c230':'#1a1030'):'#d62828'),addon:kSantaHat},
  {id:'xm-star',en:'Golden star',es:'Estrella dorada',pt:'Estrela dourada',req:['xm25',1],until:XM_TO,pal:{W:'#ffe27a',L:'#e0b030',P:'#fff3a0',V:'#f2c230',B:'#ffffff',G:'#ffffff',g:'#f2c230',N:'#ff8a1f'},pat:kPat((x,y)=>(x*5+y*3)%13===0?'#ffffff':(x+y)%2?'#ffd84d':'#f2c230'),addon:kXStar},
+ frostKit(4),
  {id:'xm-tree',en:'Christmas tree',es:'Árbol de Navidad',pt:'Árvore de Natal',req:['adv',17],until:XM_TO,pal:{P:'#1f6b46',V:'#174f34',B:'#2f9a62',N:'#ffd23f',G:'#ffd23f',g:'#e0a000'},pat:kPat((x,y)=>(x*7+y*5)%11===0?'#d62828':(x*3+y*11)%13===0?'#ffd23f':(x+y*2)%9===0?'#fff6c0':(y%3===0?'#1a5a3a':'#1f6b46')),addon:kTreeStar},
 ];
 // kit clear-out (Nov 2026): fewer, rarer kits. Retired kits are gone for everyone (anyone wearing one is back in Club).

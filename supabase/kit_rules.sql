@@ -75,6 +75,7 @@ returns text[] language sql stable security definer set search_path = public as 
                 (select count(*) from d where day between date '2026-11-24' and date '2027-01-06') as xm,
                 (select count(*) from d where day = date '2026-12-25') as xm25,
                 (select count(*) from d where day between date '2026-12-01' and date '2026-12-24') as adv,
+                (select count(*) from d where day in (date '2026-12-03', date '2026-12-09', date '2026-12-15', date '2026-12-21')) as advp,
                 (select count(*) from referrals rf where rf.inviter = u) as ref,
                 (select count(*) from referrals rf where rf.invitee = u) as refd,
                 lg_wins(u) as win,
@@ -90,7 +91,7 @@ returns text[] language sql stable security definer set search_path = public as 
            when 'win' then st.win when 'crew' then st.crew when 'inf' then st.inf
            when 'ref' then st.ref when 'refd' then st.refd
            when 'hw' then st.hw when 'hw31' then st.hw31 when 'hwscr' then st.hwscr when 'hwhi' then st.hwhi
-           when 'xm' then st.xm when 'xm25' then st.xm25 when 'adv' then st.adv
+           when 'xm' then st.xm when 'xm25' then st.xm25 when 'adv' then st.adv when 'advp' then st.advp
          end >= r.n
 $$;
 revoke all on function public.lg_kit_rules(), public.lg_server_kits(uuid) from public, anon, authenticated;
