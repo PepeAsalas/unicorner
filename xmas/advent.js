@@ -359,7 +359,7 @@
       const gr = goalEl.getBoundingClientRect(), br = ball.getBoundingClientRect();
       ball.style.transform = `translate(${gr.left + gr.width * Z[i][0] / 100 - (br.left + br.width / 2)}px,${gr.top + gr.height * Z[i][1] / 100 - (br.top + br.height / 2)}px) scale(.6) rotate(540deg)`;
       keep.src = GK + DIVE[k] + '.png';
-      keep.style.transform = `translate(${(Z[k][0] - 50) * 1.15}%,${k === 1 ? -14 : Z[k][1] < 50 ? -22 : 6}%)`;
+      keep.style.transform = `translate(${(Z[k][0] - 50) * 1.15}%,${k === 1 ? -14 : Z[k][1] < 50 ? -22 : 0}%)`;
       setTimeout(() => {
         if (goal) {
           goals++; b.querySelector('.pk-g').textContent = '⚽ ' + goals; pk.classList.add('scored'); setTimeout(() => keep.src = GK + 'beaten.png', 250);
@@ -491,7 +491,7 @@ dialog.adv-dlg{border:4px solid #000!important;border-radius:0!important;padding
 #adv-dlg .pk-z{all:unset;box-sizing:border-box;position:absolute;width:30%;height:42%;transform:translate(-50%,-50%);border:2px dashed rgba(29,26,43,.35);cursor:crosshair;z-index:2}
 @media (hover:hover) and (pointer:fine){#adv-dlg .pk-z:not([disabled]):hover{background:rgba(242,194,48,.35)}}
 #adv-dlg .pk-z[disabled]{cursor:default;border-color:transparent}
-.pk-keep{position:absolute;left:50%;bottom:-18px;width:128px;margin-left:-64px;image-rendering:pixelated;transition:transform .36s cubic-bezier(.23,1,.32,1);pointer-events:none;z-index:1}
+.pk-keep{position:absolute;left:50%;bottom:0;width:128px;height:128px;margin-left:-64px;image-rendering:auto;object-fit:contain;transition:transform .36s cubic-bezier(.23,1,.32,1);pointer-events:none;z-index:1}
 .pk-ball{position:absolute;left:50%;bottom:14px;width:22px;height:22px;margin-left:-11px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff 0 40%,#ccc 41%),#fff;border:2px solid #000;transition:transform .46s cubic-bezier(.2,.7,.3,1)}
 .pk.scored .pk-goal{animation:advNet .3s ease-out}@keyframes advNet{40%{transform:scale(1.02,1.03)}}
 .cg{position:relative;height:300px;border:3px solid #000;background:linear-gradient(#16336a,#2a4f92 70%,#e8f2f8 70%);overflow:hidden;margin-bottom:10px;touch-action:none;user-select:none}
