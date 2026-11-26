@@ -389,14 +389,14 @@
   //    3. He remembers your favourite side. One save and the run is over.
   function penalty(b, n, hard, o) {
     const best = flakes()[n];
-    const Z = [[18, 30], [50, 30], [82, 30], [18, 70], [50, 70], [82, 70]];
+    const Z = [[24, 43], [50, 43], [76, 43], [24, 76], [50, 76], [76, 76]];
     const GK = '/xmas/gk/', DIVE = ['dive-left-high', 'jump-middle', 'dive-right-high', 'dive-left-low', 'ready', 'dive-right-low'];
     DIVE.concat(['save', 'beaten']).forEach(f => { const im = new Image(); im.src = GK + f + '.png' });
     let goals = 0, phase = 'aim', aim = -1, lean = 1, genuine = true, raf = 0, pw = 0, dir = 1, lastT = 0, cols = [0, 0, 0];
     b.innerHTML = `<h3>${hard ? T('Shootout in the snow: hard mode', 'Tanda en la nieve: modo difícil', 'Disputa na neve: modo difícil') : T('Shootout in the snow', 'Tanda de penaltis en la nieve', 'Disputa de pênaltis na neve')}</h3>
       <p class="adv-note">${T('Read Horacio, pick a corner, then stop the power bar in the green. Gold is a perfect strike. One save and it\'s over.', 'Lee a Horacio, elige esquina y para la barra en el verde. El dorado es un disparo perfecto. Una parada y se acabó.', 'Leia o Horacio, escolha o canto e pare a barra no verde. O dourado é um chute perfeito. Uma defesa e acabou.')}${best != null ? ' ' + T(`Best: ${best} ❄`, `Mejor: ${best} ❄`, `Melhor: ${best} ❄`) : ''}</p>
       <div class="pk"><div class="cg-hud"><span class="pk-g">⚽ 0</span><span class="pk-tell"></span></div><div class="pk-goal">${Z.map((z, i) => `<button type="button" class="pk-z" data-z="${i}" style="left:${z[0]}%;top:${z[1]}%" aria-label="${T('Aim here', 'Apunta aquí', 'Mire aqui')}"></button>`).join('')}
-        <img class="pk-keep" src="${GK}ready.png" alt="Horacio"></div><i class="pk-ball"></i></div>
+        <img class="pk-keep" src="${GK}ready.png" alt="Horacio"></div><img class="pk-ball" src="/xmas/shootout/ball.png" alt=""></div>
       <div class="pm" hidden><i class="pm-ok"></i><i class="pm-top"></i><i class="pm-n"></i></div>
       <p class="adv-big" aria-live="polite"></p><button type="button" class="adv-btn pk-again" hidden>${T('Again', 'Otra vez', 'De novo')}</button>${missedNote(o)}`;
     const pk = b.querySelector('.pk'), goalEl = b.querySelector('.pk-goal'), ball = b.querySelector('.pk-ball'), keep = b.querySelector('.pk-keep'), msg = b.querySelector('.adv-big');
@@ -441,7 +441,7 @@
       ball.style.transition = `transform ${p < SWEET[0] ? .7 : .42}s cubic-bezier(.2,.7,.3,1)`;
       ball.style.transform = `translate(${gr.left + gr.width * tx - (br.left + br.width / 2)}px,${gr.top + gr.height * ty - (br.top + br.height / 2)}px) scale(.6) rotate(540deg)`;
       keep.style.transition = 'transform .34s cubic-bezier(.23,1,.32,1)'; keep.src = GK + DIVE[k] + '.png';
-      keep.style.transform = `translate(${(Z[k][0] - 50) * 1.15}%,${k === 1 ? -14 : Z[k][1] < 50 ? -22 : 0}%)`;
+      keep.style.transform = `translate(${(Z[k][0] - 50) * 1.7}%,${k === 1 ? -14 : Z[k][1] < 50 ? -22 : 0}%)`;
       meter.hidden = true; tell.textContent = '';
       setTimeout(() => {
         if (result === 'goal') {
@@ -592,9 +592,9 @@ dialog.adv-dlg{border:4px solid #000!important;border-radius:0!important;padding
 .goal{position:relative;height:34px;border:3px solid #000;background:#fff;margin-bottom:10px;overflow:hidden}
 .goal i{position:absolute;inset:0;background:#2ebd6b;transform-origin:left;transition:transform .8s cubic-bezier(.23,1,.32,1)}
 .goal span{position:relative;display:grid;place-items:center;height:100%;font:400 18px/1 'Jersey 10',monospace}
-.pk{position:relative;height:270px;background:linear-gradient(#cfe3f2 0 58%,#e8f2f8 58%);border:3px solid #000;overflow:hidden;margin-bottom:10px}
-.pk-goal{position:absolute;left:8%;right:8%;top:10%;height:58%;border:5px solid #fff;border-bottom:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.35) 0 2px,transparent 2px 12px),repeating-linear-gradient(0deg,rgba(255,255,255,.35) 0 2px,transparent 2px 12px)}
-#adv-dlg .pk-z{all:unset;box-sizing:border-box;position:absolute;width:30%;height:42%;transform:translate(-50%,-50%);border:2px dashed rgba(29,26,43,.35);cursor:crosshair;z-index:2}
+.pk{position:relative;aspect-ratio:800/540;background:#1d2a5a url(/xmas/shootout/bg.webp) center/100% 100%;image-rendering:pixelated;border:3px solid #000;overflow:hidden;margin-bottom:10px}
+.pk-goal{position:absolute;left:6%;width:88%;top:13%;aspect-ratio:2/1;background:url(/xmas/shootout/goal.png) center/100% 100%}
+#adv-dlg .pk-z{all:unset;box-sizing:border-box;position:absolute;width:26%;height:31%;transform:translate(-50%,-50%);border:2px dashed rgba(242,194,48,.75);cursor:crosshair;z-index:2}
 @media (hover:hover) and (pointer:fine){#adv-dlg .pk-z:not([disabled]):hover{background:rgba(242,194,48,.35)}}
 #adv-dlg .pk-z[disabled]{cursor:default;border-color:transparent;pointer-events:none}
 .pm{position:relative;height:30px;border:3px solid #000;margin:-2px 0 10px;overflow:hidden;cursor:pointer;touch-action:manipulation;
@@ -602,8 +602,8 @@ dialog.adv-dlg{border:4px solid #000!important;border-radius:0!important;padding
 .pm-n{position:absolute;left:-2px;top:0;bottom:0;width:100%;pointer-events:none}.pm-n:before{content:"";position:absolute;left:0;top:-2px;bottom:-2px;width:5px;background:#1d1a2b}
 .pk-tell{font:400 17px/1 VT323,monospace!important;text-shadow:none!important;color:#1d1a2b;background:rgba(255,255,255,.75);padding:3px 6px}
 #adv-dlg .pk-z.on{border:3px solid #f2c230!important;background:rgba(242,194,48,.25)!important}
-.pk-keep{position:absolute;left:50%;bottom:0;width:128px;height:128px;margin-left:-64px;image-rendering:auto;object-fit:contain;transition:transform .36s cubic-bezier(.23,1,.32,1);pointer-events:none;z-index:1}
-.pk-ball{position:absolute;left:50%;bottom:14px;width:22px;height:22px;margin-left:-11px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff 0 40%,#ccc 41%),#fff;border:2px solid #000;transition:transform .46s cubic-bezier(.2,.7,.3,1)}
+.pk-keep{position:absolute;left:50%;bottom:4%;width:30%;aspect-ratio:1;margin-left:-15%;image-rendering:auto;object-fit:contain;transition:transform .36s cubic-bezier(.23,1,.32,1);pointer-events:none;z-index:1}
+.pk-ball{position:absolute;left:50%;bottom:6%;width:28px;height:28px;margin-left:-14px;image-rendering:pixelated;pointer-events:none;transition:transform .46s cubic-bezier(.2,.7,.3,1)}
 .pk.scored .pk-goal{animation:advNet .3s ease-out}@keyframes advNet{40%{transform:scale(1.02,1.03)}}
 .cg{position:relative;height:300px;border:3px solid #000;background:linear-gradient(#16336a,#2a4f92 70%,#e8f2f8 70%);overflow:hidden;margin-bottom:10px;touch-action:none;user-select:none}
 .cg-hud{position:absolute;left:8px;right:8px;top:6px;display:flex;justify-content:space-between;font:400 26px/1 'Jersey 10',monospace;color:#fff;text-shadow:2px 2px 0 #000;z-index:3}
