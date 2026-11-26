@@ -607,6 +607,7 @@ dialog.adv-dlg{border:4px solid #000!important;border-radius:0!important;padding
 .pk.scored .pk-goal{animation:advNet .3s ease-out}@keyframes advNet{40%{transform:scale(1.02,1.03)}}
 .cg{position:relative;aspect-ratio:4/3;max-height:340px;margin-inline:auto;border:3px solid #000;background:#1b1f3a url(/xmas/items/village.webp) center bottom/100% 100%;image-rendering:pixelated;overflow:hidden;margin-bottom:10px;touch-action:none;user-select:none}
 .cg-hud{position:absolute;left:8px;right:8px;top:6px;display:flex;justify-content:space-between;font:400 26px/1 'Jersey 10',monospace;color:#fff;text-shadow:2px 2px 0 #000;z-index:3}
+.cg .cg-hud{justify-content:center;gap:36px}
 .cg-s:before{content:"🎁 "}.cg-t:after{content:"s"}.cg-t.low{color:#ff8a80}
 .cg-r{position:absolute;left:0;bottom:8px;width:58px;height:58px;background:center/contain no-repeat;image-rendering:pixelated;z-index:2}
 .cg-r.hit{animation:advBump .2s ease-out}@keyframes advBump{50%{translate:0 -4px}}
