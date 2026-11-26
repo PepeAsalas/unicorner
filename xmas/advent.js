@@ -610,8 +610,8 @@ dialog.adv-dlg{border:4px solid #000!important;border-radius:0!important;padding
 .cg-s:before{content:"🎁 "}.cg-t:after{content:"s"}.cg-t.low{color:#ff8a80}
 .cg-r{position:absolute;left:0;bottom:8px;width:58px;height:58px;background:center/contain no-repeat;image-rendering:pixelated;z-index:2}
 .cg-r.hit{animation:advBump .2s ease-out}@keyframes advBump{50%{translate:0 -4px}}
-.cg-i{position:absolute;left:0;top:0;width:34px;height:34px;background:center/contain no-repeat;image-rendering:pixelated;will-change:transform}
-.cg-i.coal{width:32px;height:30px}.cg-i.gold{width:38px;height:40px;filter:drop-shadow(0 0 6px rgba(255,220,90,.9))}
+.cg-i{position:absolute;left:0;top:0;width:40px;height:40px;background:center/contain no-repeat;image-rendering:pixelated;will-change:transform;filter:drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff) drop-shadow(0 0 8px rgba(255,240,200,.8))}
+.cg-i.coal{width:34px;height:32px;filter:drop-shadow(0 0 5px rgba(255,120,60,.7))}.cg-i.gold{width:44px;height:46px;filter:drop-shadow(2px 0 0 #fff6c0) drop-shadow(-2px 0 0 #fff6c0) drop-shadow(0 2px 0 #fff6c0) drop-shadow(0 -2px 0 #fff6c0) drop-shadow(0 0 10px rgba(255,220,90,1))}
 .cg-pop{position:absolute;width:44px;height:30px;background:center/contain no-repeat;pointer-events:none;z-index:5;animation:cgPop .65s cubic-bezier(.23,1,.32,1) forwards}
 .cg-pop.txt{font:400 28px/1 'Jersey 10',monospace;font-style:normal;color:#f2c230;text-shadow:2px 2px 0 #000;width:auto}
 @keyframes cgPop{from{opacity:1;transform:translateY(0) scale(.85)}to{opacity:0;transform:translateY(-44px) scale(1.1)}}
