@@ -16,6 +16,8 @@
   const visitor = () => { try { return localStorage.getItem('uc-visitor') || '' } catch { return '' } };
   const track = (n, d) => { if (PREVIEW) return; try { window.track?.(n, d) } catch { } };
   const kitById = id => (typeof KITS !== 'undefined' && KITS.find(k => k.id === id)) || (window.KITS_GONE || []).find(k => k.id === id) || null;
+  // the secret kit is shown on top of the season's default kit (Reindeer)
+  const frostOn = n => { const base = kitById('xm-reindeer') || {}; const f = frostKit(n); return n >= 3 ? f : { ...base, id: 'xm-frost', addon: f.addon } };
   const kitImg = k => { try { return (window.sprite || window.spriteDraw)('happy', 0, false, k).replace(/"/g, "'") } catch { return 'none' } };
   const rnd = a => a[Math.floor(Math.random() * a.length)];
 
@@ -53,9 +55,9 @@
          opts: [['xm-elf', T('Elf', 'Elfo', 'Elfo')], ['xm-ginger', T('Gingerbread', 'Jengibre', 'Gengibre')], ['xm-grinch', 'Grinch'], ['xm-nutcracker', T('Nutcracker', 'Cascanueces', 'Quebra-nozes')]],
          after: T('The winner is revealed on door 22, and everyone who voted for it gets it.', 'El ganador se revela en la puerta 22 y se lo llevan quienes lo votaron.', 'O vencedor é revelado na porta 22, e quem votou nele ganha.') },
     5: { t: 'quiz', title: T('Christmas football quiz', 'Quiz navideño de fútbol', 'Quiz de futebol de Natal'), qs: [
-         [T('The famous 1914 Christmas truce match was played during which war?', 'El famoso partido de la tregua de Navidad de 1914 se jugó durante qué guerra?', 'A famosa partida da trégua de Natal de 1914 foi jogada durante qual guerra?'), [T('First World War', 'Primera Guerra Mundial', 'Primeira Guerra Mundial'), T('Second World War', 'Segunda Guerra Mundial', 'Segunda Guerra Mundial'), T('Boer War', 'Guerra de los Bóers', 'Guerra dos Bôeres'), T('Crimean War', 'Guerra de Crimea', 'Guerra da Crimeia')], 0],
-         [T('Who scored a hat-trick in the 2022 World Cup final?', '¿Quién marcó un hat-trick en la final del Mundial 2022?', 'Quem marcou um hat-trick na final da Copa de 2022?'), ['Lionel Messi', 'Kylian Mbappé', 'Ángel Di María', 'Olivier Giroud'], 1],
-         [T('The first World Cup played in November and December was hosted by…', 'El primer Mundial jugado en noviembre y diciembre fue en…', 'A primeira Copa disputada em novembro e dezembro foi no…'), ['Qatar', T('Saudi Arabia', 'Arabia Saudí', 'Arábia Saudita'), T('United Arab Emirates', 'Emiratos Árabes', 'Emirados Árabes'), T('Russia', 'Rusia', 'Rússia')], 0]] },
+         [T('The 2022 World Cup final was played on which date?', '¿En qué fecha se jugó la final del Mundial 2022?', 'Em que data foi a final da Copa de 2022?'), [T('11 December', '11 de diciembre', '11 de dezembro'), T('18 December', '18 de diciembre', '18 de dezembro'), T('20 December', '20 de diciembre', '20 de dezembro'), T('23 December', '23 de diciembre', '23 de dezembro')], 1],
+         [T("Who scored Argentina's winning penalty in the 2022 final shootout?", '¿Quién marcó el penalti ganador de Argentina en la tanda de la final de 2022?', 'Quem marcou o pênalti decisivo da Argentina na final de 2022?'), ['Leandro Paredes', 'Paulo Dybala', 'Gonzalo Montiel', 'Lautaro Martínez'], 2],
+         [T('Who refereed the 2022 World Cup final?', '¿Quién arbitró la final del Mundial 2022?', 'Quem apitou a final da Copa de 2022?'), ['Szymon Marciniak', 'Daniele Orsato', 'Clément Turpin', 'Anthony Taylor'], 0]] },
     6: { t: 'catch', mult: 1 },
     7: { t: 'vote', q: T('Which retired kit should come back?', '¿Qué equipación retirada vuelve?', 'Qual uniforme aposentado deve voltar?'),
          opts: [['rainbow', T('Rainbow', 'Arcoíris', 'Arco-íris')], ['lava', 'Lava'], ['chrome', T('Chrome', 'Cromo', 'Cromo')]],
@@ -63,10 +65,10 @@
     8: { t: 'year' },
     9: { t: 'piece', n: 2, name: T('the scarf', 'la bufanda', 'o cachecol') },
     10: { t: 'quiz', title: T('Clásico crossovers', 'Cruzados del Clásico', 'Atravessaram o Clássico'), qs: [
-         [T('Which of these played for both Real Madrid and Barcelona?', '¿Cuál de estos jugó en el Real Madrid y en el Barcelona?', 'Qual destes jogou no Real Madrid e no Barcelona?'), ['Raúl', 'Luís Figo', 'Xavi', 'Iker Casillas'], 1],
-         [T('And which of these?', '¿Y cuál de estos?', 'E qual destes?'), ['Rivaldo', 'Ronaldinho', 'Ronaldo Nazário', 'Kaká'], 2],
-         [T('One more: which of these?', 'Una más: ¿cuál de estos?', 'Mais uma: qual destes?'), ['Hristo Stoichkov', 'Romário', 'Davor Šuker', 'Michael Laudrup'], 3]] },
-    11: { t: 'emoji', set: [['🦊👑', 'Leicester City', ['Leeds United', 'Norwich City', 'Watford']], ['🐓', 'Tottenham Hotspur', ['Wolves', 'Burnley', 'Chelsea']], ['⚒️⚒️', 'West Ham United', ['Sheffield United', 'Arsenal', 'Everton']], ['🦅🇵🇹', 'Benfica', ['Porto', 'Sporting CP', 'Braga']], ['🐝', 'Brentford', ['Watford', 'Brighton', 'Fulham']]] },
+         [T('Only one of these played for both Real Madrid and Barcelona. Who?', 'Solo uno de estos jugó en el Real Madrid y en el Barcelona. ¿Cuál?', 'Só um destes jogou no Real Madrid e no Barcelona. Qual?'), ['Hristo Stoichkov', 'Romário', 'Gheorghe Hagi', 'Ronald Koeman'], 2],
+         [T('And here?', '¿Y aquí?', 'E aqui?'), ['Diego Maradona', 'Bernd Schuster', 'Gary Lineker', 'Mark Hughes'], 1],
+         [T('Last one: who crossed the divide?', 'La última: ¿quién cruzó la línea?', 'A última: quem atravessou?'), ['Juan Román Riquelme', 'Ivan Rakitić', 'Rafael Márquez', 'Javier Saviola'], 3]] },
+    11: { t: 'emoji', set: [['🦉', 'Sheffield Wednesday', ['Sheffield United', 'Bolton Wanderers', 'Hull City']], ['🍬', 'Everton', ['Liverpool', 'Preston North End', 'Bolton Wanderers']], ['🦢', 'Swansea City', ['Cardiff City', 'Norwich City', 'Reading']], ['🐐', 'FC Köln', ['Hamburger SV', 'Werder Bremen', 'Hertha Berlin']], ['🐍', 'Inter', ['AC Milan', 'Juventus', 'Napoli']]] },
     12: { t: 'vote', q: T('Pick the theme of the Christmas Day Daily 5', 'Elige el tema del Diario 5 de Navidad', 'Escolha o tema do Diário 5 de Natal'),
           opts: [[null, 'Premier League'], [null, T('World Cups', 'Mundiales', 'Copas do Mundo')], [null, 'La Liga'], [null, 'Champions League']],
           after: T('The winning theme is the Daily 5 on 25 December.', 'El tema ganador será el Diario 5 del 25 de diciembre.', 'O tema vencedor será o Diário 5 de 25 de dezembro.') },
@@ -85,7 +87,7 @@
                  [null, T('Rooney overhead kick vs Man City, 2011', 'Chilena de Rooney contra el City, 2011', 'Bicicleta de Rooney contra o City, 2011'), 'Rooney overhead kick vs Manchester City 2011']],
           after: T('Tap ▶ to watch each one. The winner goes on our Instagram.', 'Toca ▶ para verlos. El ganador irá a nuestro Instagram.', 'Toque ▶ para assistir. O vencedor vai para o nosso Instagram.') },
     19: { t: 'penalty', hard: true },
-    20: { t: 'emoji', set: [['🐺', 'Wolves', ['Leicester City', 'Millwall', 'Burnley']], ['🦅', 'Crystal Palace', ['Benfica', 'Lazio', 'Sunderland']], ['🦇', 'Valencia', ['Sevilla', 'Real Betis', 'Villarreal']], ['😈🔴', 'Manchester United', ['Liverpool', 'Arsenal', 'Southampton']], ['🍒', 'Bournemouth', ['Brighton', 'Fulham', 'Crystal Palace']]] },
+    20: { t: 'emoji', set: [['🐏', 'Derby County', ['Leeds United', 'Nottingham Forest', 'Stoke City']], ['🐯', 'Hull City', ['Wolves', 'Leicester City', 'Burnley']], ['🦓', 'Juventus', ['Torino', 'Fiorentina', 'Atalanta']], ['🐺', 'Roma', ['Lazio', 'Napoli', 'Fiorentina']], ['🦇', 'Valencia', ['Sevilla', 'Real Betis', 'Villarreal']]] },
     21: { t: 'piece', n: 4, name: T('the boots', 'las botas', 'as botas') },
     22: { t: 'reveal' },
     23: { t: 'catch', mult: 2 },
@@ -142,12 +144,12 @@
   const R = {
     welcome(b) {
       b.innerHTML = horacio('happy-talk', T("Ho ho ho! Welcome to the Unicorner advent calendar. Play every day to open a door: mini games, votes, quizzes and a secret kit, piece by piece. Collect all 4 pieces (doors 3, 9, 15 and 21) and it's yours.", '¡Jo, jo, jo! Bienvenido al calendario de Adviento de Unicorner. Juega cada día para abrir una puerta: minijuegos, votaciones, quizzes y una equipación secreta, pieza a pieza. Consigue las 4 piezas (puertas 3, 9, 15 y 21) y es tuya.', 'Ho ho ho! Bem-vindo ao calendário do Advento do Unicorner. Jogue todo dia para abrir uma porta: minijogos, votações, quizzes e um uniforme secreto, peça por peça. Junte as 4 peças (portas 3, 9, 15 e 21) e ele é seu.'))
-        + `<div class="adv-kit"><i style="background-image:${kitImg(frostKit(0))}"></i><span class="adv-q">?</span></div>${pieceRow()}`;
+        + `<div class="adv-kit"><i style="background-image:${kitImg(frostOn(0))}"></i><span class="adv-q">?</span></div>${pieceRow()}`;
     },
     piece(b, n, cfg, o) {
       const have = PREVIEW ? cfg.n : pieces(n);
       b.innerHTML = `<h3>${o.missed ? T('You missed this piece', 'Te perdiste esta pieza', 'Você perdeu esta peça') : T(`Secret kit: piece ${cfg.n} of 4`, `Equipación secreta: pieza ${cfg.n} de 4`, `Uniforme secreto: peça ${cfg.n} de 4`)}</h3>
-        <div class="adv-kit adv-pop"><i style="background-image:${kitImg(frostKit(have))}"></i></div>
+        <div class="adv-kit adv-pop"><i style="background-image:${kitImg(frostOn(have))}"></i></div>
         <p>${o.missed ? T('Pieces only count on their own day. There are more to come!', 'Las piezas solo cuentan en su día. ¡Quedan más!', 'As peças só contam no seu dia. Ainda tem mais!')
           : have === 4 ? T(`You got ${cfg.name}! All 4 pieces: the Frost kit is yours. Find it in your kits.`, `¡Conseguiste ${cfg.name}! Las 4 piezas: la equipación Escarcha es tuya. Búscala en tus equipaciones.`, `Você ganhou ${cfg.name}! As 4 peças: o uniforme Geada é seu. Veja nos seus uniformes.`)
           : T(`You got ${cfg.name}! ${have} of 4 collected.`, `¡Conseguiste ${cfg.name}! ${have} de 4.`, `Você ganhou ${cfg.name}! ${have} de 4.`)}</p>${pieceRow(PREVIEW ? cfg.n : null)}`;
@@ -245,10 +247,34 @@
     penalty(b, n, cfg, o) { penalty(b, n, !!cfg.hard, o) },
     catch(b, n, cfg, o) { catchGame(b, n, cfg.mult, o) },
     year(b, n, cfg, o) {
-      let st = null; try { st = PREVIEW ? null : kitStats() } catch { }
-      st = st || { games: 47, best: 412, streak: 12, scr: 9 };
-      const rows = [[T('Daily 5 games played', 'Partidos del Diario 5', 'Jogos do Diário 5'), st.games], [T('Best score', 'Mejor puntuación', 'Melhor pontuação'), st.best], [T('Best streak', 'Mejor racha', 'Melhor sequência'), st.streak], [T('Screamers found', 'Chicharros', 'Golaços'), st.scr]];
-      b.innerHTML = `<h3>${T('Your year in Unicorner', 'Tu año en Unicorner', 'Seu ano no Unicorner')}</h3><div class="yr">${rows.map(([k, v], i) => `<div style="--d:${i * 60}ms"><b>${v}</b><span>${k}</span></div>`).join('')}</div>
+      // everything comes from the games saved on this device
+      const DAYN = [T('Sundays', 'domingos', 'domingos'), T('Mondays', 'lunes', 'segundas'), T('Tuesdays', 'martes', 'terças'), T('Wednesdays', 'miércoles', 'quartas'), T('Thursdays', 'jueves', 'quintas'), T('Fridays', 'viernes', 'sextas'), T('Saturdays', 'sábados', 'sábados')];
+      let g = [];
+      if (!PREVIEW) try {
+        for (const k of Object.keys(localStorage)) {
+          if (!/^unicorner-played-\d{4}-\d\d-\d\d$/.test(k)) continue;
+          const day = k.slice(17); let r = null; try { r = JSON.parse(localStorage.getItem(k)) } catch { }
+          const picks = Array.isArray(r?.picks) ? r.picks.filter(Array.isArray) : [];
+          let sc = 0; try { sc = newScoreOf(r, day) } catch { sc = +r?.score || 0 }
+          g.push({ day, sc, picks });
+        }
+      } catch { }
+      let st = {}; try { st = PREVIEW ? {} : kitStats() } catch { }
+      const S = g.length ? {
+        games: g.length, total: g.reduce((a, x) => a + x.sc, 0), best: g.reduce((a, x) => x.sc > a.sc ? x : a, g[0]),
+        first: g.map(x => x.day).sort()[0], streak: st.streak || 0, scr: st.scr || 0, perfect: st.allfive || 0,
+        wd: (() => { const c = Array(7).fill(0); g.forEach(x => c[new Date(x.day + 'T12:00:00').getDay()]++); return c.indexOf(Math.max(...c)) })(),
+        rare: [...new Set(g.flatMap(x => x.picks.filter(p => +p[2] >= 100 && p[1]).map(p => String(p[1]))))].slice(-3),
+      } : { games: 47, total: 13420, best: { sc: 482, day: '2026-11-14' }, first: '2026-09-21', streak: 12, scr: 9, perfect: 6, wd: 2, rare: ['Ricardo Pereira', 'Marcos Senna', 'Asmir Begović'] };
+      const fmt = d => { try { return new Date(d + 'T12:00:00').toLocaleDateString(undefined, { day: 'numeric', month: 'short' }) } catch { return d } };
+      const tiles = [[S.games, T('Daily 5 games', 'partidos del Diario 5', 'jogos do Diário 5')], [S.total.toLocaleString(), T('points in total', 'puntos en total', 'pontos no total')],
+        [Math.round(S.total / S.games), T('average score', 'puntuación media', 'pontuação média')], [S.best.sc, T(`best score (${fmt(S.best.day)})`, `mejor puntuación (${fmt(S.best.day)})`, `melhor pontuação (${fmt(S.best.day)})`)],
+        [S.streak, T('best streak', 'mejor racha', 'melhor sequência')], [S.scr, T('Screamers found', 'chicharros', 'golaços')],
+        [S.perfect, T('perfect 5/5 games', 'partidos 5/5', 'jogos 5/5')], [fmt(S.first), T('your first game', 'tu primer partido', 'seu primeiro jogo')]];
+      b.innerHTML = `<h3>${T('Your year in Unicorner', 'Tu año en Unicorner', 'Seu ano no Unicorner')}</h3>
+        <div class="yr">${tiles.map(([v, k], i) => `<div style="--d:${i * 45}ms"><b>${esc(v)}</b><span>${k}</span></div>`).join('')}</div>
+        <p class="adv-note">${T(`You play most on ${DAYN[S.wd]}.`, `Juegas sobre todo los ${DAYN[S.wd]}.`, `Você joga mais às ${DAYN[S.wd]}.`)}</p>
+        ${S.rare.length ? `<p class="adv-note">${T('Your rarest answers:', 'Tus respuestas más raras:', 'Suas respostas mais raras:')} <b>${S.rare.map(esc).join(', ')}</b></p>` : ''}
         ${horacio('happy-talk', T('Thanks for playing with us this year. Screenshot it and show your mates!', 'Gracias por jugar con nosotros este año. ¡Haz captura y enséñaselo a tus amigos!', 'Obrigado por jogar com a gente este ano. Tire um print e mostre aos amigos!'))}`;
     },
     goal(b, n, cfg, o) {
@@ -305,46 +331,60 @@
     return `<div class="adv-pcs">${names.map((x, i) => `<span class="${got[i] ? 'on' : ''}"><b>${got[i] ? '✓' : PIECE_DAYS[i]}</b>${x}</span>`).join('')}</div>`;
   }
 
-  // ── mini game: penalty in the snow. One shot; pick a corner, Horacio dives. ──
+  // ── mini game: penalty shootout in the snow. Keep scoring until Horacio saves one; he reads you better with every goal. ──
   function penalty(b, n, hard, o) {
-    const done = flakes()[n];
+    const best = flakes()[n];
     const Z = [[18, 30], [50, 30], [82, 30], [18, 70], [50, 70], [82, 70]];
-    b.innerHTML = `<h3>${hard ? T('Penalty in the snow: hard mode', 'Penalti en la nieve: modo difícil', 'Pênalti na neve: modo difícil') : T('Penalty in the snow', 'Penalti en la nieve', 'Pênalti na neve')}</h3>
-      <p class="adv-note">${done != null ? T("You've taken today's penalty.", 'Ya tiraste el penalti de hoy.', 'Você já cobrou o pênalti de hoje.') : hard ? T('Horacio has been studying your penalties. One shot: pick your corner.', 'Horacio ha estudiado tus penaltis. Un disparo: elige esquina.', 'Horacio estudou seus pênaltis. Um chute: escolha o canto.') : T('One shot. Tap where you want to shoot.', 'Un disparo. Toca donde quieras chutar.', 'Um chute. Toque onde quer chutar.')}</p>
-      <div class="pk"><div class="pk-goal">${Z.map((z, i) => `<button type="button" class="pk-z" data-z="${i}" style="left:${z[0]}%;top:${z[1]}%" aria-label="${T('Shoot here', 'Chuta aquí', 'Chute aqui')}" ${done != null ? 'disabled' : ''}></button>`).join('')}
+    let goals = 0, busy = false, last = [];
+    b.innerHTML = `<h3>${hard ? T('Shootout in the snow: hard mode', 'Tanda en la nieve: modo difícil', 'Disputa na neve: modo difícil') : T('Shootout in the snow', 'Tanda de penaltis en la nieve', 'Disputa de pênaltis na neve')}</h3>
+      <p class="adv-note">${T('Score as many as you can. One save and it\'s over. Horacio learns your favourite corners!', 'Marca todos los que puedas. Una parada y se acabó. ¡Horacio aprende tus esquinas favoritas!', 'Marque o máximo que puder. Uma defesa e acabou. O Horacio aprende seus cantos favoritos!')}${best != null ? ' ' + T(`Your best: ${best} ❄`, `Tu mejor: ${best} ❄`, `Seu melhor: ${best} ❄`) : ''}</p>
+      <div class="pk"><div class="cg-hud"><span class="pk-g">⚽ 0</span></div><div class="pk-goal">${Z.map((z, i) => `<button type="button" class="pk-z" data-z="${i}" style="left:${z[0]}%;top:${z[1]}%" aria-label="${T('Shoot here', 'Chuta aquí', 'Chute aqui')}"></button>`).join('')}
         <img class="pk-keep" src="/rosco/host/xmas/excited.png" alt="Horacio"></div><i class="pk-ball"></i></div>
-      <p class="adv-big" aria-live="polite">${done != null ? (done >= 10 ? T('GOAL! +10 ❄', '¡GOL! +10 ❄', 'GOL! +10 ❄') : T('Saved! +3 ❄', '¡Parada! +3 ❄', 'Defendeu! +3 ❄')) : ''}</p>${missedNote(o)}`;
-    if (done != null) return;
+      <p class="adv-big" aria-live="polite"></p><button type="button" class="adv-btn pk-again" hidden>${T('Again', 'Otra vez', 'De novo')}</button>${missedNote(o)}`;
+    const pk = b.querySelector('.pk'), goalEl = b.querySelector('.pk-goal'), ball = b.querySelector('.pk-ball'), keep = b.querySelector('.pk-keep'), msg = b.querySelector('.adv-big');
+    const reset = () => { ball.style.transition = 'none'; ball.style.transform = ''; keep.style.transform = ''; keep.src = '/rosco/host/xmas/excited.png'; pk.classList.remove('scored'); void ball.offsetWidth; ball.style.transition = ''; b.querySelectorAll('.pk-z').forEach(x => x.disabled = false); busy = false };
+    const guess = i => {
+      // he reads you more as the goals go in, and guesses corners you've used before
+      const read = Math.min(hard ? .62 : .5, (hard ? .2 : .08) + goals * (hard ? .07 : .05));
+      if (Math.random() < read) return i;
+      if (last.length && Math.random() < .35) return rnd(last);
+      return Math.floor(Math.random() * 6);
+    };
     b.querySelectorAll('.pk-z').forEach(z => z.onclick = () => {
+      if (busy) return; busy = true;
       const i = +z.dataset.z; b.querySelectorAll('.pk-z').forEach(x => x.disabled = true);
-      const k = hard && Math.random() < .5 ? i : Math.floor(Math.random() * 6), goal = k !== i;
-      const pk = b.querySelector('.pk'), goalEl = b.querySelector('.pk-goal'), ball = b.querySelector('.pk-ball'), keep = b.querySelector('.pk-keep');
-      const gr = goalEl.getBoundingClientRect(), pr = pk.getBoundingClientRect(), br = ball.getBoundingClientRect();
-      const tx = gr.left + gr.width * Z[i][0] / 100 - (br.left + br.width / 2), ty = gr.top + gr.height * Z[i][1] / 100 - (br.top + br.height / 2);
-      ball.style.transform = `translate(${tx}px,${ty}px) scale(.6) rotate(540deg)`;
+      const k = guess(i), goal = k !== i; last.push(i); if (last.length > 4) last.shift();
+      const gr = goalEl.getBoundingClientRect(), br = ball.getBoundingClientRect();
+      ball.style.transform = `translate(${gr.left + gr.width * Z[i][0] / 100 - (br.left + br.width / 2)}px,${gr.top + gr.height * Z[i][1] / 100 - (br.top + br.height / 2)}px) scale(.6) rotate(540deg)`;
       keep.style.transform = `translate(${(Z[k][0] - 50) * 1.6}%,${Z[k][1] < 50 ? -38 : -6}%) rotate(${(Z[k][0] - 50) * .7}deg)`;
       setTimeout(() => {
-        addFlakes(n, goal ? 10 : 3, o);
-        keep.src = goal ? '/rosco/host/xmas/facepalm.png' : '/rosco/host/xmas/celebrate.png';
-        if (goal) pk.classList.add('scored');
-        b.querySelector('.adv-big').textContent = goal ? T('GOAL!', '¡GOL!', 'GOL!') + (o.missed ? '' : ' +10 ❄') : T('Saved by Horacio!', '¡Parada de Horacio!', 'Horacio defendeu!') + (o.missed ? '' : ' +3 ❄');
-        track('advent_penalty', { n, goal });
+        if (goal) {
+          goals++; b.querySelector('.pk-g').textContent = '⚽ ' + goals; pk.classList.add('scored'); keep.src = '/rosco/host/xmas/facepalm.png';
+          msg.textContent = goals >= 5 ? rnd([T('Unstoppable!', '¡Imparable!', 'Imparável!'), T('Top bins!', '¡A la escuadra!', 'No ângulo!')]) : T('GOAL!', '¡GOL!', 'GOL!');
+          setTimeout(reset, 700);
+        } else {
+          keep.src = '/rosco/host/xmas/celebrate.png';
+          const v = Math.min(25, goals * 2); addFlakes(n, v, o);
+          msg.textContent = T(`Saved! ${goals} goals`, `¡Parada! ${goals} goles`, `Defendeu! ${goals} gols`) + (o.missed ? '' : ` · +${v} ❄`);
+          b.querySelector('.pk-again').hidden = false; track('advent_penalty', { n, goals });
+        }
       }, 480);
     });
+    b.querySelector('.pk-again').onclick = e => { e.currentTarget.hidden = true; goals = 0; last = []; b.querySelector('.pk-g').textContent = '⚽ 0'; msg.textContent = ''; reset() };
   }
 
   // ── mini game: catch the presents. 20 seconds; move the reindeer with your finger, mouse or arrow keys. ──
   function catchGame(b, n, mult, o) {
     const best = flakes()[n];
     b.innerHTML = `<h3>${T('Catch the presents', 'Atrapa los regalos', 'Pegue os presentes')}${mult > 1 ? ' ×2' : ''}</h3>
-      <p class="adv-note">${T('Move the reindeer to catch the presents. Dodge the coal! 20 seconds.', 'Mueve al reno para atrapar los regalos. ¡Esquiva el carbón! 20 segundos.', 'Mova a rena para pegar os presentes. Desvie do carvão! 20 segundos.')}${best != null ? ' ' + T(`Your best: ${best} ❄`, `Tu mejor: ${best} ❄`, `Seu melhor: ${best} ❄`) : ''}</p>
+      <p class="adv-note">${T('Move the reindeer to catch the presents. Coal costs you 3. It gets faster! 20 seconds.', 'Mueve al reno para atrapar los regalos. El carbón resta 3. ¡Cada vez más rápido! 20 segundos.', 'Mova a rena para pegar os presentes. Carvão tira 3. Fica cada vez mais rápido! 20 segundos.')}${best != null ? ' ' + T(`Your best: ${best} ❄`, `Tu mejor: ${best} ❄`, `Seu melhor: ${best} ❄`) : ''}</p>
       <div class="cg"><div class="cg-hud"><span class="cg-s">0</span><span class="cg-t">20</span></div><i class="cg-r"></i>
         <button type="button" class="adv-btn cg-go">${T('Start', 'Empezar', 'Começar')}</button></div>
       <p class="adv-big" aria-live="polite"></p>${missedNote(o)}`;
     const box = b.querySelector('.cg'), deer = b.querySelector('.cg-r');
     try { deer.style.backgroundImage = kitImg(kitById('xm-reindeer')) } catch { }
     let x = .5, items = [], score = 0, t0 = 0, raf = 0, last = 0, spawnAt = 0, running = false, keys = {};
-    const W = () => box.clientWidth, H = () => box.clientHeight, DW = 70;
+    const W = () => box.clientWidth, H = () => box.clientHeight, DW = 58;
     const place = () => deer.style.transform = `translateX(${x * (W() - DW)}px)`;
     place();
     const setX = cx => { const r = box.getBoundingClientRect(); x = Math.max(0, Math.min(1, (cx - r.left - DW / 2) / (r.width - DW))); place() };
@@ -367,16 +407,16 @@
       b.querySelector('.cg-t').textContent = Math.ceil(left);
       if (keys.ArrowLeft) { x = Math.max(0, x - .025 * dt); place() } if (keys.ArrowRight) { x = Math.min(1, x + .025 * dt); place() }
       if (t >= spawnAt) {
-        const coal = Math.random() < .2, it = document.createElement('i');
+        const coal = Math.random() < Math.min(.45, .25 + el * .012), it = document.createElement('i');
         it.className = 'cg-i' + (coal ? ' coal' : ''); if (!coal) it.style.backgroundImage = `url(/xmas/deco/gift-${Math.random() < .5 ? 'red' : 'green'}.png)`;
-        box.appendChild(it); items.push({ el: it, x: Math.random() * (W() - 34), y: -34, v: 2.2 + el * .12 + Math.random() * 1.2, coal });
-        spawnAt = t + Math.max(260, 620 - el * 18);
+        box.appendChild(it); items.push({ el: it, x: Math.random() * (W() - 34), y: -34, v: 3.4 + el * .22 + Math.random() * 1.8, coal });
+        spawnAt = t + Math.max(180, 480 - el * 16);
       }
       const dx = x * (W() - DW), floor = H() - 56;
       items = items.filter(it => {
         it.y += it.v * dt; it.el.style.transform = `translate(${it.x}px,${it.y}px)`;
         if (it.y > floor - 30 && it.y < floor + 10 && it.x + 30 > dx && it.x < dx + DW) {
-          score += it.coal ? -2 : 1; b.querySelector('.cg-s').textContent = score;
+          score += it.coal ? -3 : 1; b.querySelector('.cg-s').textContent = score;
           deer.classList.remove('hit'); void deer.offsetWidth; deer.classList.add(it.coal ? 'hit' : 'hit');
           it.el.remove(); return false;
         }
@@ -433,12 +473,12 @@ dialog.adv-dlg{border:4px solid #000!important;border-radius:0!important;padding
 #adv-dlg .adv-opt.me{box-shadow:inset 0 0 0 3px #2ebd6b}
 #adv-dlg .adv-opt.win{background:#c9f2d8}#adv-dlg .adv-opt.bad{background:#f6d2cd}
 .adv-yt{display:grid;place-items:center;width:44px;flex:none;background:#c8473b;color:#fff;border:3px solid #000;text-decoration:none;font-size:18px}
-.adv-emoji{font-size:64px;line-height:1.2;text-align:center;margin:4px 0 12px}
+.adv-emoji{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;font-size:72px;line-height:1.2;text-align:center;margin:4px 0 12px}
 .hl{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}.hl div{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 8px;background:#1d4486;color:#fff;border:3px solid #000;text-align:center}
 .hl b{font:400 18px/1.1 'Jersey 10',monospace}.hl-n{font:400 44px/1 'Jersey 10',monospace;color:#f2c230}.hl-n.ok{color:#7fe0a8}.hl-n.no{color:#ff8a80}
-.yr{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:12px}
+.yr{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:8px;margin-bottom:12px}
 .yr div{display:flex;flex-direction:column;gap:4px;padding:10px;background:#fff;border:3px solid #000;animation:advRise .35s cubic-bezier(.23,1,.32,1) backwards;animation-delay:var(--d,0ms)}
-.yr b{font:400 34px/1 'Jersey 10',monospace;color:#c8473b}.yr span{font:400 15px/1.1 VT323,monospace;color:#5b5070}
+.yr b{font:400 30px/1 'Jersey 10',monospace;color:#c8473b}.yr span{font:400 15px/1.1 VT323,monospace;color:#5b5070}
 @keyframes advRise{from{opacity:0;transform:translateY(8px)}}
 .goal{position:relative;height:34px;border:3px solid #000;background:#fff;margin-bottom:10px;overflow:hidden}
 .goal i{position:absolute;inset:0;background:#2ebd6b;transform-origin:left;transition:transform .8s cubic-bezier(.23,1,.32,1)}
@@ -454,7 +494,7 @@ dialog.adv-dlg{border:4px solid #000!important;border-radius:0!important;padding
 .cg{position:relative;height:300px;border:3px solid #000;background:linear-gradient(#16336a,#2a4f92 70%,#e8f2f8 70%);overflow:hidden;margin-bottom:10px;touch-action:none;user-select:none}
 .cg-hud{position:absolute;left:8px;right:8px;top:6px;display:flex;justify-content:space-between;font:400 26px/1 'Jersey 10',monospace;color:#fff;text-shadow:2px 2px 0 #000;z-index:3}
 .cg-s:before{content:"🎁 "}.cg-t:after{content:"s"}
-.cg-r{position:absolute;left:0;bottom:8px;width:70px;height:58px;background:center/contain no-repeat;image-rendering:pixelated;z-index:2}
+.cg-r{position:absolute;left:0;bottom:8px;width:58px;height:58px;background:center/contain no-repeat;image-rendering:pixelated;z-index:2}
 .cg-r.hit{animation:advBump .2s ease-out}@keyframes advBump{50%{translate:0 -4px}}
 .cg-i{position:absolute;left:0;top:0;width:34px;height:34px;background:center/contain no-repeat;image-rendering:pixelated;will-change:transform}
 .cg-i.coal{width:26px;height:26px;margin:4px;border-radius:40%;background:#2a2a2a;box-shadow:inset -4px -4px 0 #000,inset 3px 3px 0 #5a5a5a}
