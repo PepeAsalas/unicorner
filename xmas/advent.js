@@ -17,7 +17,7 @@
   const track = (n, d) => { if (PREVIEW) return; try { window.track?.(n, d) } catch { } };
   const kitById = id => (typeof KITS !== 'undefined' && KITS.find(k => k.id === id)) || (window.KITS_GONE || []).find(k => k.id === id) || null;
   // the secret kit is shown on top of the season's default kit (Reindeer)
-  const frostOn = n => { const base = kitById('xm-reindeer') || {}; const f = frostKit(n); return n >= 3 ? f : { ...base, id: 'xm-frost', addon: f.addon } };
+  const frostOn = n => { const base = kitById('xm-reindeer') || {}; const f = frostKit(n); const id = n >= 4 ? 'xm-frost' : 'xm-frost-p' + n; return n >= 3 ? { ...f, id } : { ...base, id, addon: f.addon } };
   const kitImg = k => { try { return (window.sprite || window.spriteDraw)('happy', 0, false, k).replace(/"/g, "'") } catch { return 'none' } };
   const rnd = a => a[Math.floor(Math.random() * a.length)];
 
@@ -59,9 +59,12 @@
          [T("Who scored Argentina's winning penalty in the 2022 final shootout?", '¿Quién marcó el penalti ganador de Argentina en la tanda de la final de 2022?', 'Quem marcou o pênalti decisivo da Argentina na final de 2022?'), ['Leandro Paredes', 'Paulo Dybala', 'Gonzalo Montiel', 'Lautaro Martínez'], 2],
          [T('Who refereed the 2022 World Cup final?', '¿Quién arbitró la final del Mundial 2022?', 'Quem apitou a final da Copa de 2022?'), ['Szymon Marciniak', 'Daniele Orsato', 'Clément Turpin', 'Anthony Taylor'], 0]] },
     6: { t: 'catch', mult: 1 },
-    7: { t: 'vote', q: T('Which retired kit should come back?', '¿Qué equipación retirada vuelve?', 'Qual uniforme aposentado deve voltar?'),
-         opts: [['rainbow', T('Rainbow', 'Arcoíris', 'Arco-íris')], ['lava', 'Lava'], ['chrome', T('Chrome', 'Cromo', 'Cromo')]],
-         after: T('The winner comes back for everyone on door 14.', 'La ganadora vuelve para todos en la puerta 14.', 'O vencedor volta para todos na porta 14.') },
+    7: { t: 'vote', q: T('The greatest save ever?', '¿La mejor parada de la historia?', 'A maior defesa de todos os tempos?'),
+         opts: [[null, T('Gordon Banks vs Pelé, 1970', 'Gordon Banks ante Pelé, 1970', 'Gordon Banks contra Pelé, 1970'), 'Gordon Banks save Pele 1970'],
+                [null, T("Higuita's scorpion kick, 1995", 'El escorpión de Higuita, 1995', 'O escorpião de Higuita, 1995'), 'Higuita scorpion kick Wembley 1995'],
+                [null, T("Dudek's double save, 2005 final", 'Doble parada de Dudek, final 2005', 'Defesa dupla de Dudek, final de 2005'), 'Dudek double save Shevchenko 2005'],
+                [null, T('Casillas vs Robben, 2010 final', 'Casillas ante Robben, final 2010', 'Casillas contra Robben, final de 2010'), 'Casillas save Robben 2010 World Cup final']],
+         after: T('Tap ▶ to watch each one. The winner goes on our Instagram.', 'Toca ▶ para verlas. La ganadora irá a nuestro Instagram.', 'Toque ▶ para assistir. A vencedora vai para o nosso Instagram.') },
     8: { t: 'year' },
     9: { t: 'piece', n: 2, name: T('the scarf', 'la bufanda', 'o cachecol') },
     10: { t: 'quiz', title: T('Clásico crossovers', 'Cruzados del Clásico', 'Atravessaram o Clássico'), qs: [
@@ -73,7 +76,10 @@
           opts: [[null, 'Premier League'], [null, T('World Cups', 'Mundiales', 'Copas do Mundo')], [null, 'La Liga'], [null, 'Champions League']],
           after: T('The winning theme is the Daily 5 on 25 December.', 'El tema ganador será el Diario 5 del 25 de diciembre.', 'O tema vencedor será o Diário 5 de 25 de dezembro.') },
     13: { t: 'goal', target: 3000 },
-    14: { t: 'retro' },
+    14: { t: 'quiz', title: T('World Cup finals', 'Finales del Mundial', 'Finais de Copa'), qs: [
+         [T('Who won the Golden Ball (best player) at the 2002 World Cup?', '¿Quién ganó el Balón de Oro (mejor jugador) del Mundial 2002?', 'Quem ganhou a Bola de Ouro (melhor jogador) da Copa de 2002?'), ['Ronaldo Nazário', 'Rivaldo', 'Oliver Kahn', 'Michael Ballack'], 2],
+         [T('Who scored the winner in the 2014 final?', '¿Quién marcó el gol de la victoria en la final de 2014?', 'Quem marcou o gol da vitória na final de 2014?'), ['Thomas Müller', 'André Schürrle', 'Miroslav Klose', 'Mario Götze'], 3],
+         [T("Who scored Italy's goal in normal time in the 2006 final?", '¿Quién marcó el gol de Italia en el tiempo reglamentario de la final de 2006?', 'Quem marcou o gol da Itália no tempo normal da final de 2006?'), ['Andrea Pirlo', 'Marco Materazzi', 'Luca Toni', 'Alessandro Del Piero'], 1]] },
     15: { t: 'piece', n: 3, name: T('the jumper', 'el jersey', 'o suéter') },
     16: { t: 'hilo' },
     17: { t: 'quiz', title: T('Champions League heartbreak', 'Dolor de Champions', 'Dor de Champions'), qs: [
@@ -109,7 +115,7 @@
     if (!dlg.open) dlg.showModal();
     return dlg.querySelector('.adv-body');
   }
-  let stopGame = null;
+  let stopGame = null; // set by games that run a loop or listen to keys; called when the pop-up closes
   const refreshFlakes = () => { const f = dlg?.querySelector('.adv-fl'); if (f) f.textContent = '❄ ' + total(); if (!PREVIEW) window.ucAdventRedraw?.() };
 
   function open(n) {
@@ -144,7 +150,7 @@
   const R = {
     welcome(b) {
       b.innerHTML = horacio('happy-talk', T("Ho ho ho! Welcome to the Unicorner advent calendar. Play every day to open a door: mini games, votes, quizzes and a secret kit, piece by piece. Collect all 4 pieces (doors 3, 9, 15 and 21) and it's yours.", '¡Jo, jo, jo! Bienvenido al calendario de Adviento de Unicorner. Juega cada día para abrir una puerta: minijuegos, votaciones, quizzes y una equipación secreta, pieza a pieza. Consigue las 4 piezas (puertas 3, 9, 15 y 21) y es tuya.', 'Ho ho ho! Bem-vindo ao calendário do Advento do Unicorner. Jogue todo dia para abrir uma porta: minijogos, votações, quizzes e um uniforme secreto, peça por peça. Junte as 4 peças (portas 3, 9, 15 e 21) e ele é seu.'))
-        + `<div class="adv-kit"><i style="background-image:${kitImg(frostOn(0))}"></i><span class="adv-q">?</span></div>${pieceRow()}`;
+        + `<div class="adv-kit"><i style="background-image:${kitImg(frostKit(4))};filter:brightness(0) opacity(.45)"></i><span class="adv-q">?</span></div>${pieceRow()}`;
     },
     piece(b, n, cfg, o) {
       const have = PREVIEW ? cfg.n : pieces(n);
@@ -222,8 +228,8 @@
       step();
     },
     hilo(b, n, cfg, o) {
-      // Ballon d'Or wins, a chain with no ties
-      const C = [['Zinedine Zidane', 1], ['Lionel Messi', 8], ['Johan Cruyff', 3], ['Ronaldo Nazário', 2], ['Cristiano Ronaldo', 5], ['Luka Modrić', 1], ['Michel Platini', 3]];
+      // World Cup goals (retired players, so the numbers can't change), a chain with no ties
+      const C = [['Zinedine Zidane', 5], ['Miroslav Klose', 16], ['Diego Maradona', 8], ['Gerd Müller', 14], ['Eusébio', 9], ['Ronaldo Nazário', 15], ['Gary Lineker', 10], ['Pelé', 12]];
       let i = 0, right = 0;
       const step = () => {
         if (i >= C.length - 1) {
@@ -232,7 +238,7 @@
           return;
         }
         const [a, av] = C[i], [c, cv] = C[i + 1];
-        b.innerHTML = `<h3>${T('Higher or lower', 'Más o menos', 'Mais ou menos')} <small>${i + 1}/${C.length - 1}</small></h3><p class="adv-note">${T('Ballon d\'Or wins', 'Balones de Oro', 'Bolas de Ouro')}</p>
+        b.innerHTML = `<h3>${T('Higher or lower', 'Más o menos', 'Mais ou menos')} <small>${i + 1}/${C.length - 1}</small></h3><p class="adv-note">${T('Goals scored at World Cups', 'Goles marcados en Mundiales', 'Gols marcados em Copas do Mundo')}</p>
           <div class="hl"><div><b>${esc(a)}</b><span class="hl-n">${av}</span></div><div><b>${esc(c)}</b><span class="hl-n hl-q">?</span></div></div>
           <div class="adv-opts two"><div class="adv-ow"><button type="button" class="adv-opt" data-h="1"><span>▲ ${T('Higher', 'Más', 'Mais')}</span></button></div><div class="adv-ow"><button type="button" class="adv-opt" data-h="0"><span>▼ ${T('Lower', 'Menos', 'Menos')}</span></button></div></div>`;
         b.querySelectorAll('[data-h]').forEach(btn => btn.onclick = () => {
@@ -331,62 +337,108 @@
     return `<div class="adv-pcs">${names.map((x, i) => `<span class="${got[i] ? 'on' : ''}"><b>${got[i] ? '✓' : PIECE_DAYS[i]}</b>${x}</span>`).join('')}</div>`;
   }
 
-  // ── mini game: penalty shootout in the snow. Keep scoring until Horacio saves one; he reads you better with every goal. ──
+  // ── mini game: penalty shootout in the snow. Skill + strategy:
+  //    1. Horacio leans before each shot: usually he dives that way, sometimes it's a bluff (more bluffs in hard mode).
+  //    2. You pick a corner, then stop the power bar. Too soft and he gets to it, too hard and it flies over or wide,
+  //       a perfect strike in a corner beats him even if he guesses right. The bar speeds up with every goal.
+  //    3. He remembers your favourite side. One save and the run is over.
   function penalty(b, n, hard, o) {
     const best = flakes()[n];
     const Z = [[18, 30], [50, 30], [82, 30], [18, 70], [50, 70], [82, 70]];
-    let goals = 0, busy = false, last = [];
     const GK = '/xmas/gk/', DIVE = ['dive-left-high', 'jump-middle', 'dive-right-high', 'dive-left-low', 'ready', 'dive-right-low'];
     DIVE.concat(['save', 'beaten']).forEach(f => { const im = new Image(); im.src = GK + f + '.png' });
+    let goals = 0, phase = 'aim', aim = -1, lean = 1, genuine = true, raf = 0, pw = 0, dir = 1, lastT = 0, cols = [0, 0, 0];
     b.innerHTML = `<h3>${hard ? T('Shootout in the snow: hard mode', 'Tanda en la nieve: modo difícil', 'Disputa na neve: modo difícil') : T('Shootout in the snow', 'Tanda de penaltis en la nieve', 'Disputa de pênaltis na neve')}</h3>
-      <p class="adv-note">${T('Score as many as you can. One save and it\'s over. Horacio learns your favourite corners!', 'Marca todos los que puedas. Una parada y se acabó. ¡Horacio aprende tus esquinas favoritas!', 'Marque o máximo que puder. Uma defesa e acabou. O Horacio aprende seus cantos favoritos!')}${best != null ? ' ' + T(`Your best: ${best} ❄`, `Tu mejor: ${best} ❄`, `Seu melhor: ${best} ❄`) : ''}</p>
-      <div class="pk"><div class="cg-hud"><span class="pk-g">⚽ 0</span></div><div class="pk-goal">${Z.map((z, i) => `<button type="button" class="pk-z" data-z="${i}" style="left:${z[0]}%;top:${z[1]}%" aria-label="${T('Shoot here', 'Chuta aquí', 'Chute aqui')}"></button>`).join('')}
-        <img class="pk-keep" src="/xmas/gk/ready.png" alt="Horacio"></div><i class="pk-ball"></i></div>
+      <p class="adv-note">${T('Read Horacio, pick a corner, then stop the power bar in the green. Gold is a perfect strike. One save and it\'s over.', 'Lee a Horacio, elige esquina y para la barra en el verde. El dorado es un disparo perfecto. Una parada y se acabó.', 'Leia o Horacio, escolha o canto e pare a barra no verde. O dourado é um chute perfeito. Uma defesa e acabou.')}${best != null ? ' ' + T(`Best: ${best} ❄`, `Mejor: ${best} ❄`, `Melhor: ${best} ❄`) : ''}</p>
+      <div class="pk"><div class="cg-hud"><span class="pk-g">⚽ 0</span><span class="pk-tell"></span></div><div class="pk-goal">${Z.map((z, i) => `<button type="button" class="pk-z" data-z="${i}" style="left:${z[0]}%;top:${z[1]}%" aria-label="${T('Aim here', 'Apunta aquí', 'Mire aqui')}"></button>`).join('')}
+        <img class="pk-keep" src="${GK}ready.png" alt="Horacio"></div><i class="pk-ball"></i></div>
+      <div class="pm" hidden><i class="pm-ok"></i><i class="pm-top"></i><i class="pm-n"></i></div>
       <p class="adv-big" aria-live="polite"></p><button type="button" class="adv-btn pk-again" hidden>${T('Again', 'Otra vez', 'De novo')}</button>${missedNote(o)}`;
     const pk = b.querySelector('.pk'), goalEl = b.querySelector('.pk-goal'), ball = b.querySelector('.pk-ball'), keep = b.querySelector('.pk-keep'), msg = b.querySelector('.adv-big');
-    const reset = () => { ball.style.transition = 'none'; ball.style.transform = ''; keep.style.transform = ''; keep.src = GK + 'ready.png'; pk.classList.remove('scored'); void ball.offsetWidth; ball.style.transition = ''; b.querySelectorAll('.pk-z').forEach(x => x.disabled = false); busy = false };
-    const guess = i => {
-      // he reads you more as the goals go in, and guesses corners you've used before
-      const read = Math.min(hard ? .62 : .5, (hard ? .2 : .08) + goals * (hard ? .07 : .05));
-      if (Math.random() < read) return i;
-      if (last.length && Math.random() < .35) return rnd(last);
-      return Math.floor(Math.random() * 6);
+    const meter = b.querySelector('.pm'), needle = b.querySelector('.pm-n'), tell = b.querySelector('.pk-tell');
+    const SWEET = [.5, .82], PERFECT = [.66, .74];
+    const setup = () => {
+      // Horacio shows which way he's leaning
+      lean = [0, 2][Math.floor(Math.random() * 2)]; if (Math.random() < .25) lean = 1;
+      genuine = Math.random() > (hard ? .45 : .3);
+      keep.style.transition = 'transform .25s ease-out'; keep.src = GK + 'ready.png';
+      keep.style.transform = `translateX(${lean === 0 ? -9 : lean === 2 ? 9 : 0}%) rotate(${lean === 0 ? -5 : lean === 2 ? 5 : 0}deg)`;
+      tell.textContent = lean === 1 ? T('Horacio stays big…', 'Horacio se hace grande…', 'Horacio fica grande…') : lean === 0 ? T('Horacio leans left…', 'Horacio se inclina a la izquierda…', 'Horacio inclina à esquerda…') : T('Horacio leans right…', 'Horacio se inclina a la derecha…', 'Horacio inclina à direita…');
+      ball.style.transition = 'none'; ball.style.transform = ''; void ball.offsetWidth; ball.style.transition = '';
+      pk.classList.remove('scored'); b.querySelectorAll('.pk-z').forEach(x => { x.disabled = false; x.classList.remove('on') }); phase = 'aim'; meter.hidden = true;
     };
-    b.querySelectorAll('.pk-z').forEach(z => z.onclick = () => {
-      if (busy) return; busy = true;
-      const i = +z.dataset.z; b.querySelectorAll('.pk-z').forEach(x => x.disabled = true);
-      const k = guess(i), goal = k !== i; last.push(i); if (last.length > 4) last.shift();
+    const keeperZone = () => {
+      // column: follow the lean if it's genuine, else the other way; he also leans on your favourite side
+      let col = genuine ? lean : (lean === 1 ? [0, 2][Math.floor(Math.random() * 2)] : 2 - lean);
+      const fav = cols.indexOf(Math.max(...cols));
+      if (goals >= 2 && Math.random() < Math.min(.35, goals * .05) && cols[fav] > 1) col = fav;
+      return col + (Math.random() < .5 ? 0 : 3);
+    };
+    const runMeter = t => {
+      if (phase !== 'power') return;
+      const dt = Math.min(48, t - lastT); lastT = t;
+      pw += dir * dt * (0.0011 + goals * 0.00016) * (hard ? 1.2 : 1);
+      if (pw >= 1) { pw = 1; dir = -1 } if (pw <= 0) { pw = 0; dir = 1 }
+      needle.style.transform = `translateX(${pw * 100}%)`;
+      raf = requestAnimationFrame(runMeter);
+    };
+    const shoot = () => {
+      if (phase !== 'power') return; phase = 'shot'; cancelAnimationFrame(raf);
+      const k = keeperZone(), top = aim < 3, col = aim % 3, kcol = k % 3, p = pw;
+      const perfect = p >= PERFECT[0] && p <= PERFECT[1] && col !== 1;
+      let result;
+      if (p > (top ? .86 : .93)) result = top ? 'over' : 'wide';
+      else if (p < SWEET[0]) result = kcol === col ? 'save' : 'goal';
+      else result = (k === aim && !perfect) ? 'save' : 'goal';
+      cols[col]++;
       const gr = goalEl.getBoundingClientRect(), br = ball.getBoundingClientRect();
-      ball.style.transform = `translate(${gr.left + gr.width * Z[i][0] / 100 - (br.left + br.width / 2)}px,${gr.top + gr.height * Z[i][1] / 100 - (br.top + br.height / 2)}px) scale(.6) rotate(540deg)`;
-      keep.src = GK + DIVE[k] + '.png';
+      const tx = result === 'wide' ? (col === 0 ? -0.18 : 1.18) : Z[aim][0] / 100, ty = result === 'over' ? -0.25 : Z[aim][1] / 100;
+      ball.style.transition = `transform ${p < SWEET[0] ? .7 : .42}s cubic-bezier(.2,.7,.3,1)`;
+      ball.style.transform = `translate(${gr.left + gr.width * tx - (br.left + br.width / 2)}px,${gr.top + gr.height * ty - (br.top + br.height / 2)}px) scale(.6) rotate(540deg)`;
+      keep.style.transition = 'transform .34s cubic-bezier(.23,1,.32,1)'; keep.src = GK + DIVE[k] + '.png';
       keep.style.transform = `translate(${(Z[k][0] - 50) * 1.15}%,${k === 1 ? -14 : Z[k][1] < 50 ? -22 : 0}%)`;
+      meter.hidden = true; tell.textContent = '';
       setTimeout(() => {
-        if (goal) {
-          goals++; b.querySelector('.pk-g').textContent = '⚽ ' + goals; pk.classList.add('scored'); setTimeout(() => keep.src = GK + 'beaten.png', 250);
-          msg.textContent = goals >= 5 ? rnd([T('Unstoppable!', '¡Imparable!', 'Imparável!'), T('Top bins!', '¡A la escuadra!', 'No ângulo!')]) : T('GOAL!', '¡GOL!', 'GOL!');
-          setTimeout(reset, 700);
+        if (result === 'goal') {
+          goals++; b.querySelector('.pk-g').textContent = '⚽ ' + goals; pk.classList.add('scored'); setTimeout(() => keep.src = GK + 'beaten.png', 200);
+          msg.textContent = perfect ? T('Perfect strike! Top bins!', '¡Disparo perfecto! ¡A la escuadra!', 'Chute perfeito! No ângulo!') : goals >= 5 ? T('Unstoppable!', '¡Imparable!', 'Imparável!') : T('GOAL!', '¡GOL!', 'GOL!');
+          setTimeout(setup, 900);
         } else {
-          setTimeout(() => keep.src = GK + 'save.png', 250);
-          const v = Math.min(25, goals * 2); addFlakes(n, v, o);
-          msg.textContent = T(`Saved! ${goals} goals`, `¡Parada! ${goals} goles`, `Defendeu! ${goals} gols`) + (o.missed ? '' : ` · +${v} ❄`);
+          if (result === 'save') setTimeout(() => keep.src = GK + 'save.png', 200);
+          const v = Math.min(30, goals * 3); addFlakes(n, v, o);
+          msg.textContent = (result === 'over' ? T('Over the bar!', '¡Por encima del larguero!', 'Por cima do travessão!') : result === 'wide' ? T('Wide!', '¡Fuera!', 'Para fora!') : p < SWEET[0] ? T('Too soft, saved!', '¡Muy flojo, parada!', 'Fraco demais, defendeu!') : T('Saved!', '¡Parada!', 'Defendeu!'))
+            + ' ' + T(`${goals} goals`, `${goals} goles`, `${goals} gols`) + (o.missed ? '' : ` · +${v} ❄`);
           b.querySelector('.pk-again').hidden = false; track('advent_penalty', { n, goals });
         }
       }, 480);
+    };
+    b.querySelectorAll('.pk-z').forEach(z => z.onclick = () => {
+      if (phase !== 'aim') return;
+      aim = +z.dataset.z; phase = 'power'; z.classList.add('on'); b.querySelectorAll('.pk-z').forEach(x => x.disabled = true);
+      msg.textContent = T('Tap to shoot!', '¡Toca para chutar!', 'Toque para chutar!');
+      meter.hidden = false; pw = 0; dir = 1; lastT = performance.now(); raf = requestAnimationFrame(runMeter);
     });
-    b.querySelector('.pk-again').onclick = e => { e.currentTarget.hidden = true; goals = 0; last = []; b.querySelector('.pk-g').textContent = '⚽ 0'; msg.textContent = ''; reset() };
+    // stop the bar: tap anywhere in the game, or press space
+    pk.addEventListener('pointerdown', e => { if (phase === 'power' && !e.target.closest('.pk-z')) shoot() });
+    meter.addEventListener('pointerdown', () => shoot());
+    const key = e => { if (e.code === 'Space' && phase === 'power') { e.preventDefault(); shoot() } };
+    addEventListener('keydown', key);
+    stopGame = () => { cancelAnimationFrame(raf); phase = 'done'; removeEventListener('keydown', key) };
+    b.querySelector('.pk-again').onclick = e => { e.currentTarget.hidden = true; goals = 0; cols = [0, 0, 0]; b.querySelector('.pk-g').textContent = '⚽ 0'; msg.textContent = ''; setup() };
+    setup();
   }
 
   // ── mini game: catch the presents. 20 seconds; move the reindeer with your finger, mouse or arrow keys. ──
   function catchGame(b, n, mult, o) {
     const best = flakes()[n];
-    b.innerHTML = `<h3>${T('Catch the presents', 'Atrapa los regalos', 'Pegue os presentes')}${mult > 1 ? ' ×2' : ''}</h3>
+    b.innerHTML = `<h3>${T('Catch the presents', 'Atrapa los regalos', 'Pegue os presentes')}${mult > 1 ? ' ×2' : ''}</h3>${mult > 1 ? `<p class="adv-note"><b>${T('Christmas Eve rules: every present adds time, coal takes 2 seconds away.', 'Reglas de Nochebuena: cada regalo suma tiempo y el carbón quita 2 segundos.', 'Regras da véspera de Natal: cada presente dá mais tempo, o carvão tira 2 segundos.')}</b></p>` : ''}
       <p class="adv-note">${T('Move the reindeer to catch the presents. Coal costs you 3, golden presents are worth 5. It gets faster! 20 seconds.', 'Mueve al reno para atrapar los regalos. El carbón resta 3. ¡Cada vez más rápido! 20 segundos.', 'Mova a rena para pegar os presentes. Carvão tira 3. Fica cada vez mais rápido! 20 segundos.')}${best != null ? ' ' + T(`Your best: ${best} ❄`, `Tu mejor: ${best} ❄`, `Seu melhor: ${best} ❄`) : ''}</p>
       <div class="cg"><div class="cg-hud"><span class="cg-s">0</span><span class="cg-t">20</span></div><i class="cg-r"></i>
         <button type="button" class="adv-btn cg-go">${T('Start', 'Empezar', 'Começar')}</button></div>
       <p class="adv-big" aria-live="polite"></p>${missedNote(o)}`;
     const box = b.querySelector('.cg'), deer = b.querySelector('.cg-r');
     try { deer.style.backgroundImage = kitImg(kitById('xm-reindeer')) } catch { }
-    let x = .5, items = [], score = 0, t0 = 0, raf = 0, last = 0, spawnAt = 0, running = false, keys = {};
+    let bonus = 0, x = .5, items = [], score = 0, t0 = 0, raf = 0, last = 0, spawnAt = 0, running = false, keys = {};
     const IT = '/xmas/items/';
     ['coal', 'coal-hot', 'gift-gold', 'plus1', 'minus3'].forEach(f => { const im = new Image(); im.src = IT + f + '.png' });
     // a +1 / -3 / +5 that floats up from where you caught it
@@ -411,21 +463,21 @@
     const frame = t => {
       if (!running) return;
       const dt = Math.min(48, t - last) / 16.7; last = t;
-      const el = (t - t0) / 1000, left = Math.max(0, 20 - el);
-      b.querySelector('.cg-t').textContent = Math.ceil(left);
+      const el = (t - t0) / 1000, left = Math.max(0, 20 + bonus - el);
+      b.querySelector('.cg-t').textContent = Math.ceil(left); b.querySelector('.cg-t').classList.toggle('low', left < 5);
       if (keys.ArrowLeft) { x = Math.max(0, x - .025 * dt); place() } if (keys.ArrowRight) { x = Math.min(1, x + .025 * dt); place() }
       if (t >= spawnAt) {
         const r = Math.random(), coal = r < Math.min(.45, .25 + el * .012), hot = coal && Math.random() < .3, gold = !coal && Math.random() < .07, it = document.createElement('i');
         it.className = 'cg-i' + (coal ? ' coal' : '') + (gold ? ' gold' : '');
         it.style.backgroundImage = `url(${coal ? (hot ? IT + 'coal-hot.png' : IT + 'coal.png') : gold ? IT + 'gift-gold.png' : `/xmas/deco/gift-${Math.random() < .5 ? 'red' : 'green'}.png`})`;
-        box.appendChild(it); items.push({ el: it, x: Math.random() * (W() - 34), y: -34, v: (3.4 + el * .22 + Math.random() * 1.8) * (hot ? 1.45 : gold ? 1.25 : 1), coal, gold });
-        spawnAt = t + Math.max(180, 480 - el * 16);
+        box.appendChild(it); items.push({ el: it, x: Math.random() * (W() - 34), y: -34, v: (3.2 + el * .11 + Math.random() * 1.4) * (hot ? 1.45 : gold ? 1.25 : 1), coal, gold });
+        spawnAt = t + Math.max(230, 500 - el * 9);
       }
       const dx = x * (W() - DW), floor = H() - 56;
       items = items.filter(it => {
         it.y += it.v * dt; it.el.style.transform = `translate(${it.x}px,${it.y}px)`;
         if (it.y > floor - 30 && it.y < floor + 10 && it.x + 30 > dx && it.x < dx + DW) {
-          const pts = it.coal ? -3 : it.gold ? 5 : 1; score += pts; b.querySelector('.cg-s').textContent = score; pop(pts, it.x, floor - 40);
+          const pts = it.coal ? -3 : it.gold ? 5 : 1; score += pts; if (mult > 1) { bonus += it.coal ? -2 : it.gold ? 2 : .5 } b.querySelector('.cg-s').textContent = score; pop(pts, it.x, floor - 40);
           deer.classList.remove('hit'); void deer.offsetWidth; deer.classList.add(it.coal ? 'hit' : 'hit');
           it.el.remove(); return false;
         }
@@ -436,7 +488,7 @@
       raf = requestAnimationFrame(frame);
     };
     b.querySelector('.cg-go').onclick = e => {
-      e.currentTarget.hidden = true; score = 0; b.querySelector('.cg-s').textContent = 0; b.querySelector('.adv-big').textContent = '';
+      e.currentTarget.hidden = true; score = 0; bonus = 0; b.querySelector('.cg-s').textContent = 0; b.querySelector('.adv-big').textContent = '';
       running = true; t0 = last = performance.now(); spawnAt = t0 + 300; raf = requestAnimationFrame(frame);
     };
   }
@@ -496,13 +548,18 @@ dialog.adv-dlg{border:4px solid #000!important;border-radius:0!important;padding
 .pk-goal{position:absolute;left:8%;right:8%;top:10%;height:58%;border:5px solid #fff;border-bottom:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.35) 0 2px,transparent 2px 12px),repeating-linear-gradient(0deg,rgba(255,255,255,.35) 0 2px,transparent 2px 12px)}
 #adv-dlg .pk-z{all:unset;box-sizing:border-box;position:absolute;width:30%;height:42%;transform:translate(-50%,-50%);border:2px dashed rgba(29,26,43,.35);cursor:crosshair;z-index:2}
 @media (hover:hover) and (pointer:fine){#adv-dlg .pk-z:not([disabled]):hover{background:rgba(242,194,48,.35)}}
-#adv-dlg .pk-z[disabled]{cursor:default;border-color:transparent}
+#adv-dlg .pk-z[disabled]{cursor:default;border-color:transparent;pointer-events:none}
+.pm{position:relative;height:30px;border:3px solid #000;margin:-2px 0 10px;overflow:hidden;cursor:pointer;touch-action:manipulation;
+ background:linear-gradient(90deg,#f6d2cd 0 50%,#c9f2d8 50% 66%,#f2c230 66% 74%,#c9f2d8 74% 82%,#f6d2cd 82%)}
+.pm-n{position:absolute;left:-2px;top:0;bottom:0;width:100%;pointer-events:none}.pm-n:before{content:"";position:absolute;left:0;top:-2px;bottom:-2px;width:5px;background:#1d1a2b}
+.pk-tell{font:400 17px/1 VT323,monospace!important;text-shadow:none!important;color:#1d1a2b;background:rgba(255,255,255,.75);padding:3px 6px}
+#adv-dlg .pk-z.on{border:3px solid #f2c230!important;background:rgba(242,194,48,.25)!important}
 .pk-keep{position:absolute;left:50%;bottom:0;width:128px;height:128px;margin-left:-64px;image-rendering:auto;object-fit:contain;transition:transform .36s cubic-bezier(.23,1,.32,1);pointer-events:none;z-index:1}
 .pk-ball{position:absolute;left:50%;bottom:14px;width:22px;height:22px;margin-left:-11px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff 0 40%,#ccc 41%),#fff;border:2px solid #000;transition:transform .46s cubic-bezier(.2,.7,.3,1)}
 .pk.scored .pk-goal{animation:advNet .3s ease-out}@keyframes advNet{40%{transform:scale(1.02,1.03)}}
 .cg{position:relative;height:300px;border:3px solid #000;background:linear-gradient(#16336a,#2a4f92 70%,#e8f2f8 70%);overflow:hidden;margin-bottom:10px;touch-action:none;user-select:none}
 .cg-hud{position:absolute;left:8px;right:8px;top:6px;display:flex;justify-content:space-between;font:400 26px/1 'Jersey 10',monospace;color:#fff;text-shadow:2px 2px 0 #000;z-index:3}
-.cg-s:before{content:"🎁 "}.cg-t:after{content:"s"}
+.cg-s:before{content:"🎁 "}.cg-t:after{content:"s"}.cg-t.low{color:#ff8a80}
 .cg-r{position:absolute;left:0;bottom:8px;width:58px;height:58px;background:center/contain no-repeat;image-rendering:pixelated;z-index:2}
 .cg-r.hit{animation:advBump .2s ease-out}@keyframes advBump{50%{translate:0 -4px}}
 .cg-i{position:absolute;left:0;top:0;width:34px;height:34px;background:center/contain no-repeat;image-rendering:pixelated;will-change:transform}

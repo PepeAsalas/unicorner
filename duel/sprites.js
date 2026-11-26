@@ -22,10 +22,11 @@ const kXStar=f=>{const g='#fff27a';return[[33,0,1,3,g],[32,1,3,1,g],[31,5,1,1,'#
 // Frost: the advent calendar's secret kit, 4 pieces (crown, scarf, jumper, boots). frostKit(n) is the kit with n pieces on.
 const kFrostCrown=[[19,4,7,1,'#7cc7f0'],[19,3,7,1,'#e8f8ff'],[19,1,1,2,'#bfe6ff'],[21,2,1,1,'#ffffff'],[22,0,1,3,'#bfe6ff'],[24,2,1,1,'#ffffff'],[25,1,1,2,'#bfe6ff']];
 const kFrostScarf=[[20,11,5,2,'#2f7fc4'],[18,12,3,4,'#2f7fc4'],[21,11,1,2,'#bfe6ff'],[19,14,1,1,'#bfe6ff']];
+const kFrostBoots=f=>{const R=[],fr=(typeof FRAMES!=='undefined'&&FRAMES[f])||[];fr.forEach((row,y)=>{if(y<20)return;[...row].forEach((c,x)=>{if(c==='g'||c==='L')R.push([x,y,1,1,c==='g'?'#0e2a4f':'#1d4f8a']);else if(c==='W'&&fr[y+1]&&fr[y+1][x]==='L'){R.push([x,y,1,1,'#ffffff']);if(fr[y-1]&&fr[y-1][x]==='W')R.push([x,y-1,1,1,'#1d4f8a'])}})});return R};
 const frostKit=n=>({id:'xm-frost',en:'Frost',es:'Escarcha',pt:'Geada',req:['advp',4],until:XM_TO,
  pal:n>=4?{P:'#dff3ff',V:'#a9d8f5',B:'#ffffff',N:'#7cc7f0',W:'#e8f8ff',L:'#9fd6f5'}:n>=3?{P:'#dff3ff',V:'#a9d8f5',B:'#ffffff'}:{},
  pat:n>=3?kPat((x,y)=>(x*3+y*7)%11===0?'#ffffff':(x+y)%4===0?'#bfe6ff':'#8fd0f5'):undefined,
- addon:n>=1?(f=>[...kFrostCrown,...(n>=2?kFrostScarf:[])]):undefined});
+ addon:n>=1?(f=>[...kFrostCrown,...(n>=2?kFrostScarf:[]),...(n>=4?kFrostBoots(f):[])]):undefined});
 const kTreeStar=f=>{const g='#ffd23f',w='#fff6c0';return[[30,0,1,1,w],[29,1,3,1,g],[30,2,1,1,g],[5,5,1,1,g],[4,6,3,1,g],[5,7,1,1,g]]};
 // advent calendar kits: the door 4 vote (Elf, Gingerbread, Grinch, Nutcracker) and the door 13 community goal.
 // 'advk' kits are won in the calendar and stay hidden until you have them.
