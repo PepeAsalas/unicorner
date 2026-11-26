@@ -189,10 +189,11 @@
       if (!PREVIEW) rpc('advent_results', { p_day: n, p_visitor: visitor() }).then(r => { if (dlg.open && r) draw(r) }).catch(() => { });
     },
     quiz(b, n, cfg, o) {
+      if (doneBefore(b, n, cfg.title)) return;
       let i = 0, right = 0;
       const step = () => {
         if (i >= cfg.qs.length) {
-          const v = right * 3; addFlakes(n, v, o);
+          const v = right * 3; addFlakes(n, v, o); ls('uc-adv-done-' + n, right + '/' + cfg.qs.length);
           b.innerHTML = `<h3>${esc(cfg.title)}</h3>${horacio(right === 3 ? 'celebrate' : right ? 'happy-1' : 'facepalm', right === 3 ? T('Perfect! Three out of three.', '¡Perfecto! Tres de tres.', 'Perfeito! Três de três.') : T(`${right} out of 3. Not bad!`, `${right} de 3. ¡No está mal!`, `${right} de 3. Nada mal!`))}
             <p class="adv-big">${o.missed ? '' : `+${v} ❄`}</p>${missedNote(o)}`;
           return;
@@ -208,11 +209,12 @@
       step();
     },
     emoji(b, n, cfg, o) {
+      if (doneBefore(b, n, T('Emoji club', 'Club emoji', 'Clube emoji'))) return;
       let i = 0, right = 0;
       const set = cfg.set.map(([e, a, wrong]) => [e, a, [a, ...wrong].sort(() => Math.random() - .5)]);
       const step = () => {
         if (i >= set.length) {
-          const v = right * 2; addFlakes(n, v, o);
+          const v = right * 2; addFlakes(n, v, o); ls('uc-adv-done-' + n, right + '/' + set.length);
           b.innerHTML = `<h3>${T('Emoji club', 'Club emoji', 'Clube emoji')}</h3>${horacio(right >= 4 ? 'celebrate' : 'wink', T(`${right} out of ${set.length} clubs!`, `¡${right} de ${set.length} clubes!`, `${right} de ${set.length} clubes!`))}<p class="adv-big">${o.missed ? '' : `+${v} ❄`}</p>${missedNote(o)}`;
           return;
         }
@@ -228,12 +230,13 @@
       step();
     },
     hilo(b, n, cfg, o) {
+      if (doneBefore(b, n, T('Higher or lower', 'Más o menos', 'Mais ou menos'))) return;
       // World Cup goals (retired players, so the numbers can't change), a chain with no ties
       const C = [['Zinedine Zidane', 5], ['Miroslav Klose', 16], ['Diego Maradona', 8], ['Gerd Müller', 14], ['Eusébio', 9], ['Ronaldo Nazário', 15], ['Gary Lineker', 10], ['Pelé', 12]];
       let i = 0, right = 0;
       const step = () => {
         if (i >= C.length - 1) {
-          const v = right * 2; addFlakes(n, v, o);
+          const v = right * 2; addFlakes(n, v, o); ls('uc-adv-done-' + n, right + '/' + (C.length - 1));
           b.innerHTML = `<h3>${T('Higher or lower', 'Más o menos', 'Mais ou menos')}</h3>${horacio(right >= 5 ? 'celebrate' : 'think', T(`${right} out of ${C.length - 1}!`, `¡${right} de ${C.length - 1}!`, `${right} de ${C.length - 1}!`))}<p class="adv-big">${o.missed ? '' : `+${v} ❄`}</p>${missedNote(o)}`;
           return;
         }
@@ -268,7 +271,11 @@
       let st = {}; try { st = PREVIEW ? {} : kitStats() } catch { }
       const S = g.length ? {
         games: g.length, total: g.reduce((a, x) => a + x.sc, 0), best: g.reduce((a, x) => x.sc > a.sc ? x : a, g[0]),
-        first: g.map(x => x.day).sort()[0], streak: st.streak || 0, scr: st.scr || 0, perfect: st.allfive || 0,
+        first: g.map(x => x.day).sort()[0],
+        // longest run of consecutive days played
+        streak: (() => { const ds = g.map(x => x.day).sort(); let best = 0, run = 0, prev = null; for (const d of ds) { const t = Date.parse(d + 'T12:00:00Z'); run = prev != null && t - prev === 864e5 ? run + 1 : 1; prev = t; best = Math.max(best, run) } return Math.max(best, st.streak || 0) })(),
+        scr: Math.max(st.scr || 0, g.reduce((a, x) => a + x.picks.filter(p => +p[2] >= 100).length, 0)),
+        perfect: Math.max(st.allfive || 0, g.filter(x => x.picks.length === 5 && x.picks.every(p => +p[2] > 0)).length),
         wd: (() => { const c = Array(7).fill(0); g.forEach(x => c[new Date(x.day + 'T12:00:00').getDay()]++); return c.indexOf(Math.max(...c)) })(),
         rare: [...new Set(g.flatMap(x => x.picks.filter(p => +p[2] >= 100 && p[1]).map(p => String(p[1]))))].slice(-3),
       } : { games: 47, total: 13420, best: { sc: 482, day: '2026-11-14' }, first: '2026-09-21', streak: 12, scr: 9, perfect: 6, wd: 2, rare: ['Ricardo Pereira', 'Marcos Senna', 'Asmir Begović'] };
@@ -330,6 +337,13 @@
         <p class="adv-note">${star ? T('20 doors or more: the Golden star kit is yours!', '20 puertas o más: ¡la Estrella dorada es tuya!', '20 portas ou mais: a Estrela dourada é sua!') : T(`Open 20 doors for the Golden star kit (you have ${doors}). Or play on Christmas Day!`, `Abre 20 puertas para la Estrella dorada (llevas ${doors}). ¡O juega el día de Navidad!`, `Abra 20 portas para a Estrela dourada (você tem ${doors}). Ou jogue no dia de Natal!`)}</p>`;
     },
   };
+
+  // one go per quiz: opening it again shows how you did
+  function doneBefore(b, n, title) {
+    const d = ls('uc-adv-done-' + n); if (!d || PREVIEW) return false;
+    b.innerHTML = `<h3>${esc(title)}</h3>${horacio('wink', T(`You already played this one: ${d}. A new door opens tomorrow!`, `Ya jugaste esta: ${d}. ¡Mañana se abre otra puerta!`, `Você já jogou esta: ${d}. Amanhã abre outra porta!`))}<p class="adv-big">❄ ${flakes()[n] || 0}</p>`;
+    return true;
+  }
 
   function pieceRow(upTo) {
     const names = [T('Crown', 'Corona', 'Coroa'), T('Scarf', 'Bufanda', 'Cachecol'), T('Jumper', 'Jersey', 'Suéter'), T('Boots', 'Botas', 'Botas')];
