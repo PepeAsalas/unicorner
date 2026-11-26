@@ -62,3 +62,62 @@ begin
 end $$;
 
 grant execute on function public.advent_vote(int, int, text), public.advent_results(int, text), public.advent_open(int, text) to anon, authenticated;
+
+-- ── Snowflakes on the server (v2): saved per account when signed in, per browser otherwise; signing in claims the
+--    browser's snowflakes. A day's score is the best you got on that door (max 30). Leaderboard: signed-in players.
+create table if not exists public.advent_flakes (
+  owner      text not null,          -- 'u:<user id>' or 'v:<visitor id>'
+  day        int  not null check (day between 1 and 24),
+  flakes     int  not null check (flakes between 0 and 30),
+  updated_at timestamptz not null default now(),
+  primary key (owner, day)
+);
+alter table public.advent_flakes enable row level security;
+revoke all on public.advent_flakes from anon, authenticated;
+
+create or replace function public.advent_owner(p_visitor text)
+returns text language sql stable set search_path = public as $$
+  select case when auth.uid() is not null then 'u:' || auth.uid()
+              when p_visitor is not null and length(p_visitor) between 8 and 80 then 'v:' || p_visitor end
+$$;
+
+-- save a door's snowflakes (keeps your best); only for doors that have opened
+create or replace function public.advent_flakes_save(p_day int, p_flakes int, p_visitor text)
+returns int language plpgsql volatile security definer set search_path = public as $$
+declare o text := advent_owner(p_visitor);
+begin
+  if o is null then raise exception 'no owner'; end if;
+  if p_day < 1 or p_day > coalesce(advent_today(), case when (now() at time zone 'Europe/Amsterdam')::date > date '2026-12-24' then 24 else 0 end) then raise exception 'door not open'; end if;
+  insert into advent_flakes (owner, day, flakes) values (o, p_day, least(30, greatest(0, p_flakes)))
+  on conflict (owner, day) do update set flakes = greatest(advent_flakes.flakes, excluded.flakes), updated_at = now();
+  return (select coalesce(sum(flakes), 0) from advent_flakes where owner = o);
+end $$;
+
+-- your snowflakes per door; when signed in, the browser's snowflakes are moved to the account first
+create or replace function public.advent_flakes_mine(p_visitor text)
+returns jsonb language plpgsql volatile security definer set search_path = public as $$
+declare o text := advent_owner(p_visitor);
+begin
+  if o is null then return '{}'; end if;
+  if auth.uid() is not null and p_visitor is not null and length(p_visitor) between 8 and 80 then
+    insert into advent_flakes (owner, day, flakes)
+      select o, day, flakes from advent_flakes where owner = 'v:' || p_visitor
+    on conflict (owner, day) do update set flakes = greatest(advent_flakes.flakes, excluded.flakes);
+    delete from advent_flakes where owner = 'v:' || p_visitor;
+  end if;
+  return (select coalesce(jsonb_object_agg(day, flakes), '{}') from advent_flakes where owner = o);
+end $$;
+
+-- top 10 signed-in players by snowflakes, plus your own rank
+create or replace function public.advent_flakes_top()
+returns jsonb language sql stable security definer set search_path = public as $$
+  with t as (select substr(f.owner, 3)::uuid as uid, sum(f.flakes) as total from advent_flakes f where f.owner like 'u:%' group by 1),
+       r as (select t.uid, t.total, rank() over (order by t.total desc) as rk from t)
+  select jsonb_build_object(
+    'top', coalesce((select jsonb_agg(jsonb_build_object('nick', p.nickname, 'kit', p.kit, 'total', r.total, 'rank', r.rk) order by r.rk)
+                      from r join player_profiles p on p.user_id = r.uid where r.rk <= 10), '[]'),
+    'me', (select jsonb_build_object('rank', r.rk, 'total', r.total) from r where r.uid = auth.uid()),
+    'players', (select count(*) from t))
+$$;
+
+grant execute on function public.advent_flakes_save(int, int, text), public.advent_flakes_mine(text), public.advent_flakes_top() to anon, authenticated;

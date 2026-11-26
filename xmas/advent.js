@@ -25,11 +25,14 @@
   const rpc = (fn, a) => {
     if (PREVIEW) {
       if (fn === 'advent_vote') return Promise.resolve({ voted: a.p_option });
-      if (fn === 'advent_open') return Promise.resolve(a.p_day === 13 ? 3120 : 900);
+      if (fn === 'advent_open') return Promise.resolve(a.p_day === 13 ? 1040 : 900);
+      if (fn === 'advent_flakes_top') return Promise.resolve({ players: 812, me: { rank: 14, total: 96 }, top: [['brf_1871', 'xm-santa', 212], ['PaddyJ', 'xm-frost', 205], ['JG_gasperin', 'xm-elf', 198], ['Chummers', 'xm-jumper', 187], ['XxCillyWillyxX', 'xm-snowman', 176], ['Pepo', 'xm-reindeer', 160], ['footyfan', 'xm-tree', 151], ['NetBuster', 'xm-reindeer', 140], ['Ollie_9', 'xm-jumper', 133], ['Kopite88', 'xm-snowman', 121]].map(([nick, kit, total], i) => ({ nick, kit, total, rank: i + 1 })) });
+      if (fn.startsWith('advent_flakes')) return Promise.resolve(null);
       if (fn === 'advent_results') { const c = {}; [41, 27, 19, 13].forEach((v, i) => c[i] = v * 31); return Promise.resolve({ closed: true, total: 3100, mine: null, counts: c }) }
     }
     return window.ucPubRpc ? window.ucPubRpc(fn, a) : Promise.reject(new Error('offline'));
   };
+  const srpc = (fn, a) => !PREVIEW && window.ucSignedIn?.() && window.ucRpc ? window.ucRpc(fn, a).catch(() => rpc(fn, a)) : rpc(fn, a);
   const winnerOf = res => { const c = (res && res.counts) || {}; let best = -1, w = null; for (const k in c) if (+c[k] > best) { best = +c[k]; w = +k } return w };
 
   // kits won in the calendar: kept on this device (the account picks them up with your other kits)
@@ -41,7 +44,18 @@
   // ── snowflakes: best score per door ──
   const flakes = () => { try { return JSON.parse(ls('uc-adv-flakes') || '{}') } catch { return {} } };
   const total = () => Object.values(flakes()).reduce((a, b) => a + b, 0);
-  const addFlakes = (n, v, o) => { if (o.missed) return; const f = flakes(); if ((f[n] || 0) < v) { f[n] = v; ls('uc-adv-flakes', JSON.stringify(f)) } refreshFlakes() };
+  const addFlakes = (n, v, o) => { if (o.missed) return; const f = flakes(); if ((f[n] || 0) < v) { f[n] = v; ls('uc-adv-flakes', JSON.stringify(f)); srpc('advent_flakes_save', { p_day: n, p_flakes: Math.min(30, v), p_visitor: visitor() }).catch(() => { }) } refreshFlakes() };
+  // snowflakes live on the server (your account when signed in, this browser otherwise): merge both ways on load
+  const syncFlakes = () => {
+    if (PREVIEW) return;
+    srpc('advent_flakes_mine', { p_visitor: visitor() }).then(srv => {
+      if (!srv || typeof srv !== 'object') return;
+      const f = flakes(); let changed = false;
+      for (const k in srv) if ((f[k] || 0) < +srv[k]) { f[k] = +srv[k]; changed = true }
+      for (const k in f) if ((+srv[k] || 0) < f[k]) srpc('advent_flakes_save', { p_day: +k, p_flakes: Math.min(30, f[k]), p_visitor: visitor() }).catch(() => { });
+      if (changed) { ls('uc-adv-flakes', JSON.stringify(f)); refreshFlakes() }
+    }).catch(() => { });
+  };
   const PIECE_DAYS = [3, 9, 15, 21];
   const pieces = upTo => PIECE_DAYS.filter(n => n <= upTo && played(dateOf(n))).length;
   const doorsOpened = () => { let n = 0; for (let i = 1; i <= 24; i++) if (dateOf(i) <= today() && played(dateOf(i))) n++; return n };
@@ -75,7 +89,7 @@
     12: { t: 'vote', q: T('Pick the theme of the Christmas Day Daily 5', 'Elige el tema del Diario 5 de Navidad', 'Escolha o tema do Diário 5 de Natal'),
           opts: [[null, 'Premier League'], [null, T('World Cups', 'Mundiales', 'Copas do Mundo')], [null, 'La Liga'], [null, 'Champions League']],
           after: T('The winning theme is the Daily 5 on 25 December.', 'El tema ganador será el Diario 5 del 25 de diciembre.', 'O tema vencedor será o Diário 5 de 25 de dezembro.') },
-    13: { t: 'goal', target: 3000 },
+    13: { t: 'goal', target: 1000 },
     14: { t: 'quiz', title: T('World Cup finals', 'Finales del Mundial', 'Finais de Copa'), qs: [
          [T('Who won the Golden Ball (best player) at the 2002 World Cup?', '¿Quién ganó el Balón de Oro (mejor jugador) del Mundial 2002?', 'Quem ganhou a Bola de Ouro (melhor jogador) da Copa de 2002?'), ['Ronaldo Nazário', 'Rivaldo', 'Oliver Kahn', 'Michael Ballack'], 2],
          [T('Who scored the winner in the 2014 final?', '¿Quién marcó el gol de la victoria en la final de 2014?', 'Quem marcou o gol da vitória na final de 2014?'), ['Thomas Müller', 'André Schürrle', 'Miroslav Klose', 'Mario Götze'], 3],
@@ -106,17 +120,17 @@
     if (!dlg) {
       dlg = document.createElement('dialog'); dlg.id = 'adv-dlg'; dlg.className = 'adv-dlg';
       document.body.appendChild(dlg);
-      dlg.addEventListener('click', e => { if (e.target === dlg || e.target.closest('[data-adv-x]')) dlg.close() });
+      dlg.addEventListener('click', e => { if (e.target === dlg || e.target.closest('[data-adv-x]')) dlg.close(); else if (e.target.closest('[data-adv-lb]')) { stopGame?.(); stopGame = null; board(dlg.querySelector('.adv-body')) } });
       dlg.addEventListener('close', () => { stopGame?.(); stopGame = null });
     }
     dlg.innerHTML = `<div class="adv-in"><button type="button" class="adv-x" data-adv-x aria-label="${T('Close', 'Cerrar', 'Fechar')}">✕</button>
-      <div class="adv-top"><span class="adv-no">${n}</span><span>${T('DECEMBER', 'DICIEMBRE', 'DEZEMBRO')}</span><span class="adv-fl" title="${T('Snowflakes', 'Copos', 'Flocos')}">❄ ${total()}</span></div>
+      <div class="adv-top"><span class="adv-no">${n}</span><span>${T('DECEMBER', 'DICIEMBRE', 'DEZEMBRO')}</span><button type="button" class="adv-fl" data-adv-lb title="${T('Snowflake leaderboard', 'Clasificación de copos', 'Ranking de flocos')}">❄ ${total()} ▸</button></div>
       <div class="adv-body"></div></div>`;
     if (!dlg.open) dlg.showModal();
     return dlg.querySelector('.adv-body');
   }
   let stopGame = null; // set by games that run a loop or listen to keys; called when the pop-up closes
-  const refreshFlakes = () => { const f = dlg?.querySelector('.adv-fl'); if (f) f.textContent = '❄ ' + total(); if (!PREVIEW) window.ucAdventRedraw?.() };
+  const refreshFlakes = () => { const f = dlg?.querySelector('.adv-fl'); if (f) f.textContent = '❄ ' + total() + ' ▸'; if (!PREVIEW) window.ucAdventRedraw?.() };
 
   function open(n) {
     if (PREVIEW) previewDay = n;
@@ -334,7 +348,8 @@
         ${horacio('celebrate', T("You made it to door 24! Thank you for playing Unicorner every day. See you tomorrow for the Christmas Day Daily 5.", '¡Llegaste a la puerta 24! Gracias por jugar a Unicorner cada día. Nos vemos mañana en el Diario 5 de Navidad.', 'Você chegou à porta 24! Obrigado por jogar Unicorner todo dia. Até amanhã no Diário 5 de Natal.'))}
         <div class="yr"><div><b>${doors}</b><span>${T('doors opened', 'puertas abiertas', 'portas abertas')}</span></div><div><b>${total()}</b><span>${T('snowflakes', 'copos', 'flocos')}</span></div><div><b>${PREVIEW ? 4 : pieces(24)}/4</b><span>${T('Frost pieces', 'piezas Escarcha', 'peças Geada')}</span></div></div>
         <div class="adv-kit${star ? ' adv-pop' : ''}"><i style="background-image:${kitImg(kitById('xm-star'))}${star ? '' : ';filter:brightness(0) opacity(.35)'}"></i></div>
-        <p class="adv-note">${star ? T('20 doors or more: the Golden star kit is yours!', '20 puertas o más: ¡la Estrella dorada es tuya!', '20 portas ou mais: a Estrela dourada é sua!') : T(`Open 20 doors for the Golden star kit (you have ${doors}). Or play on Christmas Day!`, `Abre 20 puertas para la Estrella dorada (llevas ${doors}). ¡O juega el día de Navidad!`, `Abra 20 portas para a Estrela dourada (você tem ${doors}). Ou jogue no dia de Natal!`)}</p>`;
+        <div class="lb-embed"></div><p class="adv-note">${star ? T('20 doors or more: the Golden star kit is yours!', '20 puertas o más: ¡la Estrella dorada es tuya!', '20 portas ou mais: a Estrela dourada é sua!') : T(`Open 20 doors for the Golden star kit (you have ${doors}). Or play on Christmas Day!`, `Abre 20 puertas para la Estrella dorada (llevas ${doors}). ¡O juega el día de Navidad!`, `Abra 20 portas para a Estrela dourada (você tem ${doors}). Ou jogue no dia de Natal!`)}</p>`;
+      board(b.querySelector('.lb-embed'), true);
     },
   };
 
@@ -343,6 +358,22 @@
     const d = ls('uc-adv-done-' + n); if (!d || PREVIEW) return false;
     b.innerHTML = `<h3>${esc(title)}</h3>${horacio('wink', T(`You already played this one: ${d}. A new door opens tomorrow!`, `Ya jugaste esta: ${d}. ¡Mañana se abre otra puerta!`, `Você já jogou esta: ${d}. Amanhã abre outra porta!`))}<p class="adv-big">❄ ${flakes()[n] || 0}</p>`;
     return true;
+  }
+
+  // the snowflake leaderboard (signed-in players)
+  function board(b, embed) {
+    const el = embed ? document.createElement('div') : b; if (embed) b.appendChild(el);
+    el.innerHTML = `<h3>${T('Snowflake leaderboard', 'Clasificación de copos', 'Ranking de flocos')}</h3><p class="adv-note">…</p>`;
+    srpc('advent_flakes_top', {}).then(r => {
+      if (!r) throw 0;
+      const me = r.me, signed = PREVIEW || window.ucSignedIn?.();
+      el.innerHTML = `<h3>${T('Snowflake leaderboard', 'Clasificación de copos', 'Ranking de flocos')}</h3>
+        <ol class="lb">${(r.top || []).map(x => `<li><b>${x.rank}</b><i style="background-image:${kitImg(kitById(x.kit))}"></i><span>${esc(x.nick)}</span><em>❄ ${x.total}</em></li>`).join('') || `<li class="lb-empty">${T('No one yet. Be the first!', 'Nadie todavía. ¡Sé el primero!', 'Ninguém ainda. Seja o primeiro!')}</li>`}</ol>
+        <p class="adv-note">${signed ? (me ? T(`You're #${me.rank} of ${r.players} with ❄ ${me.total}.`, `Vas #${me.rank} de ${r.players} con ❄ ${me.total}.`, `Você é #${me.rank} de ${r.players} com ❄ ${me.total}.`) : T('Win snowflakes in the mini games and quizzes to get on the board.', 'Gana copos en los minijuegos y quizzes para entrar.', 'Ganhe flocos nos minijogos e quizzes para entrar.'))
+          : T('Sign in to get on the leaderboard and keep your snowflakes on every device.', 'Inicia sesión para entrar en la clasificación y tener tus copos en todos tus dispositivos.', 'Entre para aparecer no ranking e manter seus flocos em todos os aparelhos.')}</p>
+        ${!signed && window.ucOpenLogin ? `<button type="button" class="adv-btn" data-adv-login>${T('Sign in', 'Iniciar sesión', 'Entrar')}</button>` : ''}`;
+      el.querySelector('[data-adv-login]')?.addEventListener('click', () => { dlg.close(); window.ucOpenLogin() });
+    }).catch(() => { el.querySelector('.adv-note').textContent = T('The leaderboard is not available right now.', 'La clasificación no está disponible ahora.', 'O ranking não está disponível agora.') });
   }
 
   function pieceRow(upTo) {
@@ -519,7 +550,10 @@ dialog.adv-dlg{border:4px solid #000!important;border-radius:0!important;padding
 #adv-dlg .adv-x:active{transform:scale(.94)}
 .adv-top{display:flex;align-items:center;gap:10px;margin:0 44px 12px 0;font:400 14px/1 VT323,monospace;letter-spacing:.12em;color:#6b5f86}
 .adv-no{display:grid;place-items:center;width:42px;height:42px;background:#c8473b;color:#fff;border:3px solid #000;font:400 24px/1 'Jersey 10',monospace;letter-spacing:0}
-.adv-fl{margin-left:auto;color:#2f7fc4;font-size:17px;letter-spacing:.04em}
+#adv-dlg .adv-fl{all:unset;cursor:pointer;margin-left:auto;color:#2f7fc4;font:400 17px/1 VT323,monospace;letter-spacing:.04em;padding:4px 6px;border:2px solid transparent}
+@media (hover:hover){#adv-dlg .adv-fl:hover{border-color:#2f7fc4}}
+.lb{list-style:none;margin:0 0 10px;padding:0;display:grid;gap:4px}.lb li{display:grid;grid-template-columns:28px 40px 1fr auto;align-items:center;gap:8px;padding:4px 8px;background:#fff;border:2px solid #000;font:400 17px/1 VT323,monospace}
+.lb li b{font:400 20px/1 'Jersey 10',monospace;color:#c8473b}.lb li i{width:40px;height:32px;background:center/contain no-repeat;image-rendering:pixelated}.lb li em{font-style:normal;color:#2f7fc4}.lb li:nth-child(-n+3){background:#fff3c4}.lb-empty{display:block!important;text-align:center}
 .adv-body h3{margin:0 0 10px;font:400 26px/1.1 'Jersey 10',monospace;color:#1d1a2b;text-shadow:none}.adv-body h3 small{font:400 15px VT323,monospace;color:#6b5f86;margin-left:6px}
 .adv-body p{margin:0 0 12px;font:400 17px/1.35 VT323,monospace}
 .adv-note{color:#5b5070}.adv-qq{font-size:19px!important;color:#1d1a2b}
@@ -587,5 +621,6 @@ dialog.adv-dlg{border:4px solid #000!important;border-radius:0!important;padding
   if (!document.getElementById('adv-css')) { const s = document.createElement('style'); s.id = 'adv-css'; s.textContent = css; document.head.appendChild(s) }
 
   window.ucAdvent = { open, total, flakes };
+  setTimeout(syncFlakes, 1500);
   if (!PREVIEW) window.ucAdventRedraw?.();
 })();
