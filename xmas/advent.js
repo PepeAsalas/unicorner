@@ -380,13 +380,18 @@
   function catchGame(b, n, mult, o) {
     const best = flakes()[n];
     b.innerHTML = `<h3>${T('Catch the presents', 'Atrapa los regalos', 'Pegue os presentes')}${mult > 1 ? ' ×2' : ''}</h3>
-      <p class="adv-note">${T('Move the reindeer to catch the presents. Coal costs you 3. It gets faster! 20 seconds.', 'Mueve al reno para atrapar los regalos. El carbón resta 3. ¡Cada vez más rápido! 20 segundos.', 'Mova a rena para pegar os presentes. Carvão tira 3. Fica cada vez mais rápido! 20 segundos.')}${best != null ? ' ' + T(`Your best: ${best} ❄`, `Tu mejor: ${best} ❄`, `Seu melhor: ${best} ❄`) : ''}</p>
+      <p class="adv-note">${T('Move the reindeer to catch the presents. Coal costs you 3, golden presents are worth 5. It gets faster! 20 seconds.', 'Mueve al reno para atrapar los regalos. El carbón resta 3. ¡Cada vez más rápido! 20 segundos.', 'Mova a rena para pegar os presentes. Carvão tira 3. Fica cada vez mais rápido! 20 segundos.')}${best != null ? ' ' + T(`Your best: ${best} ❄`, `Tu mejor: ${best} ❄`, `Seu melhor: ${best} ❄`) : ''}</p>
       <div class="cg"><div class="cg-hud"><span class="cg-s">0</span><span class="cg-t">20</span></div><i class="cg-r"></i>
         <button type="button" class="adv-btn cg-go">${T('Start', 'Empezar', 'Começar')}</button></div>
       <p class="adv-big" aria-live="polite"></p>${missedNote(o)}`;
     const box = b.querySelector('.cg'), deer = b.querySelector('.cg-r');
     try { deer.style.backgroundImage = kitImg(kitById('xm-reindeer')) } catch { }
     let x = .5, items = [], score = 0, t0 = 0, raf = 0, last = 0, spawnAt = 0, running = false, keys = {};
+    const IT = '/xmas/items/';
+    ['coal', 'coal-hot', 'gift-gold', 'plus1', 'minus3'].forEach(f => { const im = new Image(); im.src = IT + f + '.png' });
+    // a +1 / -3 / +5 that floats up from where you caught it
+    const pop = (pts, px, py) => { const e = document.createElement('i'); e.className = 'cg-pop'; if (pts === 1 || pts === -3) e.style.backgroundImage = `url(${IT}${pts > 0 ? 'plus1' : 'minus3'}.png)`; else { e.textContent = '+' + pts; e.classList.add('txt') }
+      e.style.left = px + 'px'; e.style.top = py + 'px'; box.appendChild(e); setTimeout(() => e.remove(), 650) };
     const W = () => box.clientWidth, H = () => box.clientHeight, DW = 58;
     const place = () => deer.style.transform = `translateX(${x * (W() - DW)}px)`;
     place();
@@ -410,16 +415,17 @@
       b.querySelector('.cg-t').textContent = Math.ceil(left);
       if (keys.ArrowLeft) { x = Math.max(0, x - .025 * dt); place() } if (keys.ArrowRight) { x = Math.min(1, x + .025 * dt); place() }
       if (t >= spawnAt) {
-        const coal = Math.random() < Math.min(.45, .25 + el * .012), it = document.createElement('i');
-        it.className = 'cg-i' + (coal ? ' coal' : ''); if (!coal) it.style.backgroundImage = `url(/xmas/deco/gift-${Math.random() < .5 ? 'red' : 'green'}.png)`;
-        box.appendChild(it); items.push({ el: it, x: Math.random() * (W() - 34), y: -34, v: 3.4 + el * .22 + Math.random() * 1.8, coal });
+        const r = Math.random(), coal = r < Math.min(.45, .25 + el * .012), hot = coal && Math.random() < .3, gold = !coal && Math.random() < .07, it = document.createElement('i');
+        it.className = 'cg-i' + (coal ? ' coal' : '') + (gold ? ' gold' : '');
+        it.style.backgroundImage = `url(${coal ? (hot ? IT + 'coal-hot.png' : IT + 'coal.png') : gold ? IT + 'gift-gold.png' : `/xmas/deco/gift-${Math.random() < .5 ? 'red' : 'green'}.png`})`;
+        box.appendChild(it); items.push({ el: it, x: Math.random() * (W() - 34), y: -34, v: (3.4 + el * .22 + Math.random() * 1.8) * (hot ? 1.45 : gold ? 1.25 : 1), coal, gold });
         spawnAt = t + Math.max(180, 480 - el * 16);
       }
       const dx = x * (W() - DW), floor = H() - 56;
       items = items.filter(it => {
         it.y += it.v * dt; it.el.style.transform = `translate(${it.x}px,${it.y}px)`;
         if (it.y > floor - 30 && it.y < floor + 10 && it.x + 30 > dx && it.x < dx + DW) {
-          score += it.coal ? -3 : 1; b.querySelector('.cg-s').textContent = score;
+          const pts = it.coal ? -3 : it.gold ? 5 : 1; score += pts; b.querySelector('.cg-s').textContent = score; pop(pts, it.x, floor - 40);
           deer.classList.remove('hit'); void deer.offsetWidth; deer.classList.add(it.coal ? 'hit' : 'hit');
           it.el.remove(); return false;
         }
@@ -500,7 +506,10 @@ dialog.adv-dlg{border:4px solid #000!important;border-radius:0!important;padding
 .cg-r{position:absolute;left:0;bottom:8px;width:58px;height:58px;background:center/contain no-repeat;image-rendering:pixelated;z-index:2}
 .cg-r.hit{animation:advBump .2s ease-out}@keyframes advBump{50%{translate:0 -4px}}
 .cg-i{position:absolute;left:0;top:0;width:34px;height:34px;background:center/contain no-repeat;image-rendering:pixelated;will-change:transform}
-.cg-i.coal{width:26px;height:26px;margin:4px;border-radius:40%;background:#2a2a2a;box-shadow:inset -4px -4px 0 #000,inset 3px 3px 0 #5a5a5a}
+.cg-i.coal{width:32px;height:30px}.cg-i.gold{width:38px;height:40px;filter:drop-shadow(0 0 6px rgba(255,220,90,.9))}
+.cg-pop{position:absolute;width:44px;height:30px;background:center/contain no-repeat;pointer-events:none;z-index:5;animation:cgPop .65s cubic-bezier(.23,1,.32,1) forwards}
+.cg-pop.txt{font:400 28px/1 'Jersey 10',monospace;font-style:normal;color:#f2c230;text-shadow:2px 2px 0 #000;width:auto}
+@keyframes cgPop{from{opacity:1;transform:translateY(0) scale(.85)}to{opacity:0;transform:translateY(-44px) scale(1.1)}}
 #adv-dlg .cg-go{position:absolute;left:50%;top:50%;width:auto;padding:12px 28px;transform:translate(-50%,-50%);z-index:4}
 #adv-dlg .cg-go:active{transform:translate(-50%,-50%) scale(.97)}
 @media (prefers-reduced-motion:reduce){.adv-dlg[open],.adv-pop i,.yr div{animation:none}.pk-keep,.pk-ball{transition-duration:0s}}`;
