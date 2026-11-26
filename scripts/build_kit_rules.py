@@ -20,7 +20,8 @@ gone = set(re.findall(r"'([a-z0-9-]+)'", re.search(r"KIT_GONE=new Set\(\[(.*?)\]
 rules = []
 for m in re.finditer(r"\{id:'([a-z0-9-]+)'[^\n]*?req:(null|\['([a-z0-9]+)',(\d+)\])", block):
     kid, req, typ, n = m.group(1), m.group(2), m.group(3), m.group(4)
-    if req != 'null' and kid not in gone:
+    # 'advk': won in the advent calendar (votes, community goal); kept on the device and sent up with the account's kits, not worked out here
+    if req != 'null' and kid not in gone and typ != 'advk':
         rules.append((kid, typ, int(n)))
 
 KNOWN = {'games', 'streak', 'scr', 'scr1', 'best', 'allfive', 'big', 'level', 'win', 'crew', 'inf', 'hw', 'hw31', 'hwscr', 'hwhi', 'ref', 'refd', 'xm', 'xm25', 'adv', 'advp'}

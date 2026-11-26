@@ -27,6 +27,17 @@ const frostKit=n=>({id:'xm-frost',en:'Frost',es:'Escarcha',pt:'Geada',req:['advp
  pat:n>=3?kPat((x,y)=>(x*3+y*7)%11===0?'#ffffff':(x+y)%4===0?'#bfe6ff':'#8fd0f5'):undefined,
  addon:n>=1?(f=>[...kFrostCrown,...(n>=2?kFrostScarf:[])]):undefined});
 const kTreeStar=f=>{const g='#ffd23f',w='#fff6c0';return[[30,0,1,1,w],[29,1,3,1,g],[30,2,1,1,g],[5,5,1,1,g],[4,6,3,1,g],[5,7,1,1,g]]};
+// advent calendar kits: the door 4 vote (Elf, Gingerbread, Grinch, Nutcracker) and the door 13 community goal.
+// 'advk' kits are won in the calendar and stay hidden until you have them.
+const kElfHat=f=>{const r='#2f9a62',d='#1f6b46',w='#f2c230';return[[20,5,7,1,'#d62828'],[20,4,6,1,r],[19,3,6,1,r],[18,2,5,1,d],[17,2,2,1,r],[15,1,3,1,w],[15,2,3,1,w],[16,3,1,1,w]]};
+const kBusby=f=>[[20,0,6,5,'#1a1030'],[20,5,6,1,'#f2c230'],[22,1,1,3,'#3a2a5a']];
+const ADV_KITS=[
+ {id:'xm-elf',en:'Elf',es:'Elfo',pt:'Elfo',req:['advk',1],secret:1,until:XM_TO,pal:{P:'#2f9a62',V:'#1f6b46',B:'#ffffff',N:'#ff3b30'},pat:kPat((x,y)=>y===15?((x%2)?'#d62828':'#ffffff'):y===18?(x>=14&&x<=16?'#f2c230':'#1a1030'):'#2f9a62'),addon:kElfHat},
+ {id:'xm-ginger',en:'Gingerbread',es:'Galleta de jengibre',pt:'Biscoito de gengibre',req:['advk',1],secret:1,until:XM_TO,pal:{P:'#b5712f',V:'#9a5a22',B:'#f6e7c4',N:'#7a3e12',W:'#8a4f1e',L:'#6e3c14',w:'#b5712f'},pat:kPat((x,y)=>(y===15||y===19)&&(x+y)%2?'#ffffff':x===15&&(y===16||y===18)?'#d62828':'#b5712f')},
+ {id:'xm-grinch',en:'Grinch',es:'Grinch',pt:'Grinch',req:['advk',1],secret:1,until:XM_TO,pal:{P:'#7cc242',V:'#5a9a2c',B:'#e8f5d0',N:'#3d6b1a',W:'#5a9a2c',L:'#3d6b1a',w:'#7cc242'},pat:kPat((x,y)=>(x*7+y*3)%9===0?'#5a9a2c':'#7cc242'),addon:kSantaHat},
+ {id:'xm-nutcracker',en:'Nutcracker',es:'Cascanueces',pt:'Quebra-nozes',req:['advk',1],secret:1,until:XM_TO,pal:{P:'#d62828',V:'#a51d1d',B:'#ffffff',N:'#f2c230',W:'#1a1030',L:'#1a1030'},pat:kPat((x,y)=>y===16?'#ffffff':x===15&&(y===14||y===18||y===20)?'#f2c230':'#d62828'),addon:kBusby},
+ {id:'xm-together',en:'Together',es:'Juntos',pt:'Juntos',req:['advk',1],secret:1,until:XM_TO,pal:{B:'#ffffff',N:'#f2c230'},pat:kPat((x,y)=>['#d62828','#ffffff','#2f9a62','#f2c230'][((x+y)>>1)%4]),addon:kTreeStar},
+];
 const KITS=[
  {id:'classic',en:'Club',es:'Club',pt:'Clube',req:null,pal:{}},
  {id:'og',en:'Classic',es:'Clásico',pt:'Clássico',req:null,pal:{}},
@@ -88,12 +99,13 @@ const KITS=[
  {id:'xm-star',en:'Golden star',es:'Estrella dorada',pt:'Estrela dourada',req:['xm25',1],until:XM_TO,pal:{W:'#ffe27a',L:'#e0b030',P:'#fff3a0',V:'#f2c230',B:'#ffffff',G:'#ffffff',g:'#f2c230',N:'#ff8a1f'},pat:kPat((x,y)=>(x*5+y*3)%13===0?'#ffffff':(x+y)%2?'#ffd84d':'#f2c230'),addon:kXStar},
  {id:'xm-frost',...frostKit(4),req:['advp',4]},
  {id:'xm-tree',en:'Christmas tree',es:'Árbol de Navidad',pt:'Árvore de Natal',req:['adv',17],until:XM_TO,pal:{P:'#1f6b46',V:'#174f34',B:'#2f9a62',N:'#ffd23f',G:'#ffd23f',g:'#e0a000'},pat:kPat((x,y)=>(x*7+y*5)%11===0?'#d62828':(x*3+y*11)%13===0?'#ffd23f':(x+y*2)%9===0?'#fff6c0':(y%3===0?'#1a5a3a':'#1f6b46')),addon:kTreeStar},
+ ...ADV_KITS,
 ];
 // kit clear-out (Nov 2026): fewer, rarer kits. Retired kits are gone for everyone (anyone wearing one is back in Club).
 // Infinity takes Galaxy's look; Cosmic GOAT is no longer Mythic.
 const KIT_GONE=new Set(['og','mud','candy','keeper','ref','quarters','night','fire','halves','pin','dots','toxic','hat3','perfect','glitch','aurora','lava','galaxy','rainbow','tiedye','chrome']);
 {const g=KITS.find(k=>k.id==='galaxy'),s=KITS.find(k=>k.id==='shadow');if(g&&s){s.pal=g.pal;s.pat=g.pat}const goat=KITS.find(k=>k.id==='goat');if(goat)delete goat.myth;
- for(let i=KITS.length-1;i>=0;i--)if(KIT_GONE.has(KITS[i].id))KITS.splice(i,1)}
+ window.KITS_GONE=KITS.filter(k=>KIT_GONE.has(k.id));{let back='';try{back=localStorage.getItem('uc-adv-back')||''}catch{}for(let i=KITS.length-1;i>=0;i--)if(KIT_GONE.has(KITS[i].id)&&KITS[i].id!==back)KITS.splice(i,1)}}
 
 const CLUB={P:'#2b2b38',V:'#1d1a2b',v:'#14121e',B:'#2b2b38',N:'#d8cfb8'};
 const kitColor=(c,x,y,kit)=>{if(x>=27&&y>=21)return PAL[c];if(!kit||kit.id==='classic')return CLUB[c]||PAL[c];if(kit.pat&&(c==='W'||c==='L'))return kit.pat(x,y,c==='L');return kit.pal[c]||PAL[c]};
