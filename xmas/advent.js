@@ -26,7 +26,7 @@
     if (PREVIEW) {
       if (fn === 'advent_vote') return Promise.resolve({ voted: a.p_option });
       if (fn === 'advent_open') return Promise.resolve(a.p_day === 13 ? 1040 : 900);
-      if (fn === 'advent_flakes_top') return Promise.resolve({ players: 812, me: { rank: 14, total: 96 }, top: [['brf_1871', 'xm-santa', 212], ['PaddyJ', 'xm-frost', 205], ['JG_gasperin', 'xm-elf', 198], ['Chummers', 'xm-jumper', 187], ['XxCillyWillyxX', 'xm-snowman', 176], ['Pepo', 'xm-reindeer', 160], ['footyfan', 'xm-tree', 151], ['NetBuster', 'xm-reindeer', 140], ['Ollie_9', 'xm-jumper', 133], ['Kopite88', 'xm-snowman', 121]].map(([nick, kit, total], i) => ({ nick, kit, total, rank: i + 1 })) });
+      if (fn === 'advent_flakes_top') return Promise.resolve({ players: 812, me: { rank: 14, total: 96 }, top: [['brf_1871', 'xm-santa', 212], ['PaddyJ', 'xm-frost', 205], ['JG_gasperin', 'xm-elf', 198], ['Chummers', 'xm-jumper', 187], ['XxCillyWillyxX', 'xm-snowman', 176], ['Pepo', 'xm-reindeer', 160], ['footyfan', 'xm-snowman', 151], ['NetBuster', 'xm-reindeer', 140], ['Ollie_9', 'xm-jumper', 133], ['Kopite88', 'xm-snowman', 121]].map(([nick, kit, total], i) => ({ nick, kit, total, rank: i + 1 })) });
       if (fn.startsWith('advent_flakes')) return Promise.resolve(null);
       if (fn === 'advent_results') { const c = {}; [41, 27, 19, 13].forEach((v, i) => c[i] = v * 31); return Promise.resolve({ closed: true, total: 3100, mine: null, counts: c }) }
     }

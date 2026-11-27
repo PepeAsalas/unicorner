@@ -39,8 +39,7 @@ returns table (id text, t text, n int) language sql immutable as $$
     ('xm-snowman', 'adv', 10),
     ('xm-santa', 'adv', 24),
     ('xm-star', 'xm25', 1),
-    ('xm-frost', 'advp', 4),
-    ('xm-tree', 'adv', 17)
+    ('xm-frost', 'advp', 4)
 $$;
 
 -- every kit an account has earned, from the database's own records

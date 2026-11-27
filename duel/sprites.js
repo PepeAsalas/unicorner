@@ -101,7 +101,6 @@ const KITS=[
  {id:'xm-santa',en:'Santa',es:'Papá Noel',pt:'Papai Noel',req:['adv',24],until:XM_TO,pal:{P:'#ffffff',V:'#f1f1f1',B:'#ffffff',N:'#ffb3a7',w:'#d62828'},pat:kPat((x,y)=>y>=19?'#ffffff':y===17?(x>=14&&x<=16?'#f2c230':'#1a1030'):'#d62828'),addon:kSantaHat},
  {id:'xm-star',en:'Golden star',es:'Estrella dorada',pt:'Estrela dourada',req:['xm25',1],until:XM_TO,pal:{W:'#ffe27a',L:'#e0b030',P:'#fff3a0',V:'#f2c230',B:'#ffffff',G:'#ffffff',g:'#f2c230',N:'#ff8a1f'},pat:kPat((x,y)=>(x*5+y*3)%13===0?'#ffffff':(x+y)%2?'#ffd84d':'#f2c230'),addon:kXStar},
  {id:'xm-frost',...frostKit(4),req:['advp',4]},
- {id:'xm-tree',en:'Christmas tree',es:'Árbol de Navidad',pt:'Árvore de Natal',req:['adv',17],until:XM_TO,pal:{P:'#1f6b46',V:'#174f34',B:'#2f9a62',N:'#ffd23f',G:'#ffd23f',g:'#e0a000'},pat:kPat((x,y)=>(x*7+y*5)%11===0?'#d62828':(x*3+y*11)%13===0?'#ffd23f':(x+y*2)%9===0?'#fff6c0':(y%3===0?'#1a5a3a':'#1f6b46')),addon:kTreeStar},
  ...ADV_KITS,
 ];
 // kit clear-out (Nov 2026): fewer, rarer kits. Retired kits are gone for everyone (anyone wearing one is back in Club).
