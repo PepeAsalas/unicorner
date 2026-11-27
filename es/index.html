@@ -2390,13 +2390,15 @@ const kTreeStar=f=>{const g='#ffd23f',w='#fff6c0';return[[30,0,1,1,w],[29,1,3,1,
 // advent calendar kits: the door 4 vote (Elf, Gingerbread, Grinch, Nutcracker) and the door 13 community goal.
 // 'advk' kits are won in the calendar and stay hidden until you have them.
 const kElfHat=f=>{const r='#2f9a62',d='#1f6b46',w='#f2c230';return[[20,5,7,1,'#d62828'],[20,4,6,1,r],[19,3,6,1,r],[18,2,5,1,d],[17,2,2,1,r],[15,1,3,1,w],[15,2,3,1,w],[16,3,1,1,w]]};
+// Together (door 13): après-ski knit, rainbow scarf blowing behind, earmuffs and ski goggles
+const kApres=f=>{const C=['#ff4d4d','#ff8a1f','#ffd23f','#39c46a','#4f9dff','#7c4dff'],o=[];for(let i=0;i<5;i++)o.push([19+i,11,1,2,C[i%6]]);for(let i=0;i<9;i++)o.push([10+i,i<3?10:9,1,2,C[i%6]]);o.push([9,10,1,1,C[1]],[8,11,1,1,C[3]],[9,12,1,1,C[0]],[21,1,5,1,'#d2d6ec'],[20,2,1,2,'#d2d6ec'],[19,4,3,3,'#d62828'],[20,5,1,1,'#ffffff'],[24,6,4,1,'#1a1030'],[25,7,3,2,'#1a1030'],[26,7,1,1,'#ff6fb5'],[28,6,4,1,'#1a1030'],[29,7,3,2,'#1a1030'],[30,7,1,1,'#ff6fb5']);return o};
 const kBusby=f=>[[20,0,6,5,'#1a1030'],[20,5,6,1,'#f2c230'],[22,1,1,3,'#3a2a5a']];
 const ADV_KITS=[
  {id:'xm-elf',en:'Elf',es:'Elfo',pt:'Elfo',req:['advk',1],secret:1,until:XM_TO,pal:{P:'#2f9a62',V:'#1f6b46',B:'#ffffff',N:'#ff3b30'},pat:kPat((x,y)=>y===15?((x%2)?'#d62828':'#ffffff'):y===18?(x>=14&&x<=16?'#f2c230':'#1a1030'):'#2f9a62'),addon:kElfHat},
  {id:'xm-ginger',en:'Gingerbread',es:'Galleta de jengibre',pt:'Biscoito de gengibre',req:['advk',1],secret:1,until:XM_TO,pal:{P:'#b5712f',V:'#9a5a22',B:'#f6e7c4',N:'#7a3e12',W:'#8a4f1e',L:'#6e3c14',w:'#b5712f'},pat:kPat((x,y)=>(y===15||y===19)&&(x+y)%2?'#ffffff':x===15&&(y===16||y===18)?'#d62828':'#b5712f')},
  {id:'xm-grinch',en:'Grinch',es:'Grinch',pt:'Grinch',req:['advk',1],secret:1,until:XM_TO,pal:{P:'#7cc242',V:'#5a9a2c',B:'#e8f5d0',N:'#3d6b1a',W:'#5a9a2c',L:'#3d6b1a',w:'#7cc242'},pat:kPat((x,y)=>(x*7+y*3)%9===0?'#5a9a2c':'#7cc242'),addon:kSantaHat},
  {id:'xm-nutcracker',en:'Nutcracker',es:'Cascanueces',pt:'Quebra-nozes',req:['advk',1],secret:1,until:XM_TO,pal:{P:'#d62828',V:'#a51d1d',B:'#ffffff',N:'#f2c230',W:'#1a1030',L:'#1a1030'},pat:kPat((x,y)=>y===16?'#ffffff':x===15&&(y===14||y===18||y===20)?'#f2c230':'#d62828'),addon:kBusby},
- {id:'xm-together',en:'Together',es:'Juntos',pt:'Juntos',req:['advk',1],secret:1,until:XM_TO,pal:{B:'#ffffff',N:'#f2c230'},pat:kPat((x,y)=>['#d62828','#ffffff','#2f9a62','#f2c230'][((x+y)>>1)%4]),addon:kTreeStar},
+ {id:'xm-together',en:'Together',es:'Juntos',pt:'Juntos',req:['advk',1],secret:1,until:XM_TO,pal:{P:'#f6e7c4',V:'#e2c690',B:'#ffffff',N:'#ff6fb5'},pat:kPat((x,y)=>{const c=x%5===2?'#efe3c8':'#fbf6e8';return (x+(y>>1))%2?c:kDk(c,.9)}),addon:kApres},
 ];
 const KITS=[
  {id:'classic',en:'Club',es:'Club',pt:'Clube',req:null,pal:{}},
