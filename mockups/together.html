@@ -1,0 +1,45 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Together kit mockups</title>
+<style>
+@font-face{font-family:'Jersey 10';src:url(/fonts/jersey10.woff2)}@font-face{font-family:VT323;src:url(/fonts/vt323.woff2)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:#1f5e39 url(/bg/pitch-tall.webp) center top/cover fixed;font:400 18px/1.3 VT323,monospace;color:#1d1a2b}
+.wrap{max-width:900px;margin:0 auto;padding:20px 14px 40px}
+h1{margin:0 0 4px;font:400 34px/1 'Jersey 10',monospace;color:#fff;text-shadow:3px 3px 0 #000}
+.sub{margin:0 0 16px;color:#fff;text-shadow:1px 1px 0 #000}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.k{background:#fbf6e8;border:3px solid #000;box-shadow:4px 4px 0 rgba(0,0,0,.4);padding:10px;text-align:center}
+.k.old{opacity:.75}
+.k i{display:block;height:150px;background:center/contain no-repeat;image-rendering:pixelated;margin-bottom:6px}
+.k b{display:block;font:400 24px/1 'Jersey 10',monospace}
+.k b span{color:#c8473b}
+.k p{margin:4px 0 0;font-size:16px;color:#4a4560}
+</style></head><body><div class="wrap">
+<h1>Together kit: options</h1>
+<p class="sub">The door 13 community goal reward. Pick one (or mix ideas).</p>
+<div class="grid" id="g"></div></div>
+<script src="/duel/sprites.js"></script>
+<script>
+const R=(x,y,w,h,c)=>[x,y,w,h,c];
+const goldStar=kTreeStar;
+// A: patchwork quilt, every patch is someone who opened the door
+const PATCH=['#d62828','#2f9a62','#f2c230','#ffffff','#1d4f8a'];
+const A={id:'t-a',pal:{P:'#f2c230',V:'#d62828',B:'#ffffff',N:'#f2c230'},pat:kPat((x,y)=>(x%4===0||y%4===0)?'#6b3a1e':PATCH[((x>>2)*3+(y>>2)*2)%5]),addon:goldStar};
+// B: fairy lights strung round a dark green body
+const BULB=['#ff4d4d','#ffd23f','#4fd7ff','#39ff6a','#ff6fb5'];
+const B={id:'t-b',pal:{W:'#1f5e39',L:'#164a2c',P:'#ffffff',V:'#d2e8f5',B:'#ffffff',w:'#1f5e39',N:'#f2c230'},
+ pat:kPat((x,y)=>{const wy=15+((x>>2)%2);if(y===wy-1&&x%3===1)return BULB[(x/3|0)%5];if(y===wy)return '#2b2b2b';const wy2=19-((x>>2)%2);if(y===wy2+1&&x%3===2)return BULB[(x/3+2|0)%5];if(y===wy2)return '#2b2b2b';return '#1f5e39'}),addon:goldStar};
+// C: knitted community scarf + bobble hat, one stripe each
+const SC=['#d62828','#ffffff','#2f9a62','#f2c230','#1d4f8a'];
+const kScarf=f=>{const o=[];for(let i=0;i<5;i++)o.push(R(20+i,11,1,2,SC[i]));for(let j=0;j<5;j++)o.push(R(18,12+j,3,1,SC[j]));o.push(R(18,17,1,1,'#f2c230'),R(20,17,1,1,'#f2c230'));
+ o.push(R(20,5,7,1,'#ffffff'),R(20,4,6,1,'#d62828'),R(20,3,6,1,'#2f9a62'),R(21,2,4,1,'#f2c230'),R(22,0,2,2,'#ffffff'));return o};
+const C={id:'t-c',pal:{P:'#f6e7c4',V:'#e2c690',B:'#ffffff'},pat:kPat((x,y)=>(x+y)%2&&y%3===0?'#e8e0cc':'#fbf6e8'),addon:kScarf};
+// D: starry night, navy with gold stars, gold mane
+const D={id:'t-d',pal:{W:'#1d2a5a',L:'#141e44',P:'#f2c230',V:'#e0a000',B:'#fff6c0',w:'#1d2a5a',N:'#f2c230'},
+ pat:kPat((x,y)=>((x*5+y*3)%13===0)?'#ffd23f':((x*3+y*7)%17===0)?'#ffffff':'#1d2a5a'),addon:goldStar};
+// E: half and half, red and green split with a white snowy sash, like a friendship scarf
+const E={id:'t-e',pal:{P:'#ffffff',V:'#d2d6ec',B:'#ffffff',N:'#f2c230'},pat:kPat((x,y)=>x+y>=29&&x+y<=31?'#ffffff':x+y===28||x+y===32?'#f2c230':x<16?'#d62828':'#2f9a62'),addon:goldStar};
+const OLD=ADV_KITS.find(k=>k.id==='xm-together');
+const L=[[OLD,'Current','The one we have now',1],[A,'A · Patchwork','A quilt, each patch is a player who opened the door. Gold star.'],[B,'B · Fairy lights','Dark green with a string of coloured lights round the body.'],
+ [C,'C · Knitted scarf','Cream wool body, a scarf and bobble hat knitted in every kit colour.'],[D,'D · Starry night','Navy with gold and white stars, gold mane.'],[E,'E · Friendship','Red and green halves joined by a white and gold sash.']];
+document.getElementById('g').innerHTML=L.map(([k,n,d,o])=>`<div class="k${o?' old':''}"><i style="background-image:${spriteDraw('happy',0,false,k).replace(/"/g,"'")}"></i><b>${n.replace(/^(\w) ·/,'<span>$1</span> ·')}</b><p>${d}</p></div>`).join('');
+</script></body></html>

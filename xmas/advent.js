@@ -441,7 +441,7 @@
       ball.style.transition = `transform ${p < SWEET[0] ? .7 : .42}s cubic-bezier(.2,.7,.3,1)`;
       ball.style.transform = `translate(${gr.left + gr.width * tx - (br.left + br.width / 2)}px,${gr.top + gr.height * ty - (br.top + br.height / 2)}px) scale(.6) rotate(540deg)`;
       keep.style.transition = 'transform .34s cubic-bezier(.23,1,.32,1)'; keep.src = GK + DIVE[k] + '.png';
-      keep.style.transform = `translate(${(Z[k][0] - 50) * 1.7}%,${k === 1 ? -14 : Z[k][1] < 50 ? -22 : 0}%)`;
+      keep.style.transform = `translate(${(Z[k][0] - 50) * 1.7}%,${k === 1 ? -14 : Z[k][1] < 50 ? -22 : 0}%)${k === 3 || k === 5 ? ' scale(1.3)' : ''}`;
       meter.hidden = true; tell.textContent = '';
       setTimeout(() => {
         if (result === 'goal') {
@@ -476,8 +476,8 @@
   // ── mini game: catch the presents. 20 seconds; move the reindeer with your finger, mouse or arrow keys. ──
   function catchGame(b, n, mult, o) {
     const best = flakes()[n];
-    b.innerHTML = `<h3>${T('Catch the presents', 'Atrapa los regalos', 'Pegue os presentes')}${mult > 1 ? ' ×2' : ''}</h3>${mult > 1 ? `<p class="adv-note"><b>${T('Christmas Eve rules: every present adds time, coal takes 2 seconds away.', 'Reglas de Nochebuena: cada regalo suma tiempo y el carbón quita 2 segundos.', 'Regras da véspera de Natal: cada presente dá mais tempo, o carvão tira 2 segundos.')}</b></p>` : ''}
-      <p class="adv-note">${T('Move the reindeer to catch the presents. Coal costs you 3, golden presents are worth 5. It gets faster! 20 seconds.', 'Mueve al reno para atrapar los regalos. El carbón resta 3. ¡Cada vez más rápido! 20 segundos.', 'Mova a rena para pegar os presentes. Carvão tira 3. Fica cada vez mais rápido! 20 segundos.')}${best != null ? ' ' + T(`Your best: ${best} ❄`, `Tu mejor: ${best} ❄`, `Seu melhor: ${best} ❄`) : ''}</p>
+    b.innerHTML = `<h3>${T('Catch the presents', 'Atrapa los regalos', 'Pegue os presentes')}${mult > 1 ? ' ×2' : ''}</h3><p class="adv-note"><b>${mult > 1 ? T('Christmas Eve: double snowflakes, and it\'s faster. ', 'Nochebuena: copos dobles y más rápido. ', 'Véspera de Natal: flocos em dobro e mais rápido. ') : ''}${T('Every present adds time, coal takes 2 seconds away.', 'Cada regalo suma tiempo y el carbón quita 2 segundos.', 'Cada presente dá mais tempo, o carvão tira 2 segundos.')}</b></p>
+      <p class="adv-note">${T('Move the reindeer to catch the presents. Coal costs you 3, golden presents are worth 5. It gets faster! You start with 20 seconds.', 'Mueve al reno para atrapar los regalos. El carbón resta 3. ¡Cada vez más rápido! Empiezas con 20 segundos.', 'Mova a rena para pegar os presentes. Carvão tira 3. Fica cada vez mais rápido! Você começa com 20 segundos.')}${best != null ? ' ' + T(`Your best: ${best} ❄`, `Tu mejor: ${best} ❄`, `Seu melhor: ${best} ❄`) : ''}</p>
       <div class="cg"><div class="cg-hud"><span class="cg-s">0</span><span class="cg-t">20</span></div><i class="cg-r"></i>
         <button type="button" class="adv-btn cg-go">${T('Start', 'Empezar', 'Começar')}</button></div>
       <p class="adv-big" aria-live="polite"></p>${missedNote(o)}`;
@@ -512,17 +512,17 @@
       b.querySelector('.cg-t').textContent = Math.ceil(left); b.querySelector('.cg-t').classList.toggle('low', left < 5);
       if (keys.ArrowLeft) { x = Math.max(0, x - .025 * dt); place() } if (keys.ArrowRight) { x = Math.min(1, x + .025 * dt); place() }
       if (t >= spawnAt) {
-        const r = Math.random(), coal = r < Math.min(.45, .25 + el * .012), hot = coal && Math.random() < .3, gold = !coal && Math.random() < .07, it = document.createElement('i');
+        const r = Math.random(), coal = r < Math.min(mult > 1 ? .5 : .45, (mult > 1 ? .3 : .25) + el * .012), hot = coal && Math.random() < .3, gold = !coal && Math.random() < .07, it = document.createElement('i');
         it.className = 'cg-i' + (coal ? ' coal' : '') + (gold ? ' gold' : '');
         it.style.backgroundImage = `url(${coal ? (hot ? IT + 'coal-hot.png' : IT + 'coal.png') : gold ? IT + 'gift-gold.png' : `/xmas/deco/gift-${Math.random() < .5 ? 'red' : 'green'}.png`})`;
-        box.appendChild(it); items.push({ el: it, x: Math.random() * (W() - 34), y: -34, v: (3.2 + el * .11 + Math.random() * 1.4) * (hot ? 1.45 : gold ? 1.25 : 1), coal, gold });
+        box.appendChild(it); items.push({ el: it, x: Math.random() * (W() - 34), y: -34, v: (3.2 + el * .11 + Math.random() * 1.4) * (hot ? 1.45 : gold ? 1.25 : 1) * (mult > 1 ? 1.15 : 1), coal, gold });
         spawnAt = t + Math.max(230, 500 - el * 9);
       }
       const dx = x * (W() - DW), floor = H() - 56;
       items = items.filter(it => {
         it.y += it.v * dt; it.el.style.transform = `translate(${it.x}px,${it.y}px)`;
         if (it.y > floor - 30 && it.y < floor + 10 && it.x + 30 > dx && it.x < dx + DW) {
-          const pts = it.coal ? -3 : it.gold ? 5 : 1; score += pts; if (mult > 1) { bonus += it.coal ? -2 : it.gold ? 2 : .5 } b.querySelector('.cg-s').textContent = score; pop(pts, it.x, floor - 40);
+          const pts = it.coal ? -3 : it.gold ? 5 : 1; score += pts; bonus += it.coal ? -2 : it.gold ? 2 : .5; b.querySelector('.cg-s').textContent = score; pop(pts, it.x, floor - 40);
           deer.classList.remove('hit'); void deer.offsetWidth; deer.classList.add(it.coal ? 'hit' : 'hit');
           it.el.remove(); return false;
         }
@@ -602,7 +602,7 @@ dialog.adv-dlg{border:4px solid #000!important;border-radius:0!important;padding
 .pm-n{position:absolute;left:-2px;top:0;bottom:0;width:100%;pointer-events:none}.pm-n:before{content:"";position:absolute;left:0;top:-2px;bottom:-2px;width:5px;background:#1d1a2b}
 .pk-tell{font:400 17px/1 VT323,monospace!important;text-shadow:none!important;color:#1d1a2b;background:rgba(255,255,255,.75);padding:3px 6px}
 #adv-dlg .pk-z.on{border:3px solid #f2c230!important;background:rgba(242,194,48,.25)!important}
-.pk-keep{position:absolute;left:50%;bottom:4%;width:30%;aspect-ratio:1;margin-left:-15%;image-rendering:auto;object-fit:contain;transition:transform .36s cubic-bezier(.23,1,.32,1);pointer-events:none;z-index:1}
+.pk-keep{position:absolute;left:50%;bottom:4%;width:30%;aspect-ratio:1;margin-left:-15%;transform-origin:50% 90%;filter:drop-shadow(2px 0 0 #1d1a2b) drop-shadow(-2px 0 0 #1d1a2b) drop-shadow(0 2px 0 #1d1a2b) drop-shadow(0 -2px 0 #1d1a2b) drop-shadow(0 0 10px rgba(255,236,170,.75));image-rendering:auto;object-fit:contain;transition:transform .36s cubic-bezier(.23,1,.32,1);pointer-events:none;z-index:1}
 .pk-ball{position:absolute;left:50%;bottom:6%;width:28px;height:28px;margin-left:-14px;image-rendering:pixelated;pointer-events:none;transition:transform .46s cubic-bezier(.2,.7,.3,1)}
 .pk.scored .pk-goal{animation:advNet .3s ease-out}@keyframes advNet{40%{transform:scale(1.02,1.03)}}
 .cg{position:relative;aspect-ratio:4/3;max-height:340px;margin-inline:auto;border:3px solid #000;background:#1b1f3a url(/xmas/items/village.webp) center bottom/100% 100%;image-rendering:pixelated;overflow:hidden;margin-bottom:10px;touch-action:none;user-select:none}
