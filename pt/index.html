@@ -2320,12 +2320,14 @@ function trapMatch(input,q){const x=norm(input);if(!x)return null;const person=i
 function match(input,answers,type='player'){const x=norm(input);if(!x)return null;const person=isPersonAnswerType(type);
  const keys=answers.map(a=>{const n=norm(a.name),parts=n.split(' ');const al=(a.aliases||[]).map(a=>a.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim()).filter(v=>v.length>=2);return{a,n,al,last:parts.length>1?parts.slice(1).join(' '):n,lastWord:parts[parts.length-1]}});
  const uniq=arr=>[...new Set(arr.map(k=>k.a))];
- let hit=uniq(keys.filter(k=>k.n===x||k.al.includes(x)));if(hit.length===1)return hit[0];if(hit.length>1)return'ambiguous';
+ // several answers fit (Maldini, Thuram, Simeone): every one is right, so give the best-known one rather than rejecting it
+ const pick=h=>h.length===1?h[0]:h.slice().sort((p,q)=>(p.pts??0)-(q.pts??0)||(q.fame??0)-(p.fame??0))[0];
+ let hit=uniq(keys.filter(k=>k.n===x||k.al.includes(x)));if(hit.length)return pick(hit);
  // Only person-like answers get surname/tail matching. Clubs, countries, stadiums, etc. must use the full name or an explicit alias.
- if(person){hit=uniq(keys.filter(k=>k.last===x||k.lastWord===x));if(hit.length===1)return hit[0];if(hit.length>1)return'ambiguous'}
+ if(person){hit=uniq(keys.filter(k=>k.last===x||k.lastWord===x));if(hit.length)return pick(hit)}
  const t=v=>v.length<6?0:v.length<9?1:2;
- hit=uniq(keys.filter(k=>lev(k.n,x)<=t(k.n)||k.al.some(v=>v.length>=6&&lev(v,x)<=t(v))));if(hit.length===1)return hit[0];if(hit.length>1)return'ambiguous';
- if(person){hit=uniq(keys.filter(k=>k.last!==k.n&&k.last.length>=6&&lev(k.last,x)<=t(k.last)));if(hit.length===1)return hit[0];if(hit.length>1)return'ambiguous'}
+ hit=uniq(keys.filter(k=>lev(k.n,x)<=t(k.n)||k.al.some(v=>v.length>=6&&lev(v,x)<=t(v))));if(hit.length)return pick(hit);
+ if(person){hit=uniq(keys.filter(k=>k.last!==k.n&&k.last.length>=6&&lev(k.last,x)<=t(k.last)));if(hit.length)return pick(hit)}
  return null}
 function registerKnownQuestion(q){const person=isPersonAnswerType(q?.answer_type||'player');for(const a of q?.answers||[]){for(const raw of [a.name,...(a.aliases||[])]){if(raw)known.add(norm(raw))}if(person&&a.name)knownLast.add(norm(a.name).split(' ').pop())}}
 
