@@ -116,14 +116,14 @@ def why(t, lang):
     return t.get('why' + SUFFIX[lang]) or t.get('why') or ''
 
 
-def page(lang, path, title, desc, body, alts, ld=None):
+def page(lang, path, title, desc, body, alts, ld=None, noindex=False):
     c = L[lang]
     alt = ''.join(f'<link rel="alternate" hreflang="{L[k]["html"]}" href="{BASE}/{p}">' for k, p in alts.items())
     alt += f'<link rel="alternate" hreflang="x-default" href="{BASE}/{alts["en"]}">'
     ldj = f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False, separators=(",", ":"))}</script>' if ld else ''
     return f'''<!doctype html>
 <html lang="{c["html"]}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{e(title)}</title>
+<title>{e(title)}</title>{'<meta name="robots" content="noindex,follow">' if noindex else ''}
 <meta name="description" content="{e(desc)}">
 <link rel="canonical" href="{BASE}/{path}">
 {alt}
@@ -214,8 +214,9 @@ def main():
                 out = os.path.join(ROOT, path)
                 os.makedirs(out, exist_ok=True)
                 open(os.path.join(out, 'index.html'), 'w', encoding='utf-8').write(
-                    page(lang, path, c['q_title'].format(p=p.rstrip('.'), n=n), desc, '\n'.join(body), qalts(s), ld))
-                urls.append((path, d))
+                    page(lang, path, c['q_title'].format(p=p.rstrip('.'), n=n), desc, '\n'.join(body), qalts(s), ld, noindex=True))
+                # one short page per question is thin on its own: players can still open it, but Google is asked not to
+                # index it and it stays out of the sitemap (the day pages, which hold all five questions, are indexed)
         # day pages
         for i, (d, qs) in enumerate(days):
             cards = []
