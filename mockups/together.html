@@ -5,41 +5,83 @@
 body{margin:0;min-height:100vh;background:#1f5e39 url(/bg/pitch-tall.webp) center top/cover fixed;font:400 18px/1.3 VT323,monospace;color:#1d1a2b}
 .wrap{max-width:900px;margin:0 auto;padding:20px 14px 40px}
 h1{margin:0 0 4px;font:400 34px/1 'Jersey 10',monospace;color:#fff;text-shadow:3px 3px 0 #000}
-.sub{margin:0 0 16px;color:#fff;text-shadow:1px 1px 0 #000}
+h2{margin:22px 0 10px;font:400 26px/1 'Jersey 10',monospace;color:#fff;text-shadow:2px 2px 0 #000}
+.sub{margin:0 0 6px;color:#fff;text-shadow:1px 1px 0 #000}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
 .k{background:#fbf6e8;border:3px solid #000;box-shadow:4px 4px 0 rgba(0,0,0,.4);padding:10px;text-align:center}
-.k.old{opacity:.75}
-.k i{display:block;height:150px;background:center/contain no-repeat;image-rendering:pixelated;margin-bottom:6px}
+.k.dark{background:#1d2140;color:#f6eed8}.k.dark p{color:#c9c3dc}
+.k i{display:block;height:160px;background:center/contain no-repeat;image-rendering:pixelated;margin-bottom:6px}
 .k b{display:block;font:400 24px/1 'Jersey 10',monospace}
 .k b span{color:#c8473b}
 .k p{margin:4px 0 0;font-size:16px;color:#4a4560}
 </style></head><body><div class="wrap">
-<h1>Together kit: options</h1>
-<p class="sub">The door 13 community goal reward. Pick one (or mix ideas).</p>
-<div class="grid" id="g"></div></div>
+<h1>Together kit: round 2</h1>
+<p class="sub">Variations on the knitted scarf, and fairy lights that change colour like a tree. The lights are animated here.</p>
+<h2>Knitted</h2><div class="grid" id="knit"></div>
+<h2>Fairy lights</h2><div class="grid" id="lights"></div></div>
 <script src="/duel/sprites.js"></script>
 <script>
+let PH=0; // light phase, ticks over so the bulbs change colour
 const R=(x,y,w,h,c)=>[x,y,w,h,c];
-const goldStar=kTreeStar;
-// A: patchwork quilt, every patch is someone who opened the door
-const PATCH=['#d62828','#2f9a62','#f2c230','#ffffff','#1d4f8a'];
-const A={id:'t-a',pal:{P:'#f2c230',V:'#d62828',B:'#ffffff',N:'#f2c230'},pat:kPat((x,y)=>(x%4===0||y%4===0)?'#6b3a1e':PATCH[((x>>2)*3+(y>>2)*2)%5]),addon:goldStar};
-// B: fairy lights strung round a dark green body
-const BULB=['#ff4d4d','#ffd23f','#4fd7ff','#39ff6a','#ff6fb5'];
-const B={id:'t-b',pal:{W:'#1f5e39',L:'#164a2c',P:'#ffffff',V:'#d2e8f5',B:'#ffffff',w:'#1f5e39',N:'#f2c230'},
- pat:kPat((x,y)=>{const wy=15+((x>>2)%2);if(y===wy-1&&x%3===1)return BULB[(x/3|0)%5];if(y===wy)return '#2b2b2b';const wy2=19-((x>>2)%2);if(y===wy2+1&&x%3===2)return BULB[(x/3+2|0)%5];if(y===wy2)return '#2b2b2b';return '#1f5e39'}),addon:goldStar};
-// C: knitted community scarf + bobble hat, one stripe each
-const SC=['#d62828','#ffffff','#2f9a62','#f2c230','#1d4f8a'];
-const kScarf=f=>{const o=[];for(let i=0;i<5;i++)o.push(R(20+i,11,1,2,SC[i]));for(let j=0;j<5;j++)o.push(R(18,12+j,3,1,SC[j]));o.push(R(18,17,1,1,'#f2c230'),R(20,17,1,1,'#f2c230'));
- o.push(R(20,5,7,1,'#ffffff'),R(20,4,6,1,'#d62828'),R(20,3,6,1,'#2f9a62'),R(21,2,4,1,'#f2c230'),R(22,0,2,2,'#ffffff'));return o};
-const C={id:'t-c',pal:{P:'#f6e7c4',V:'#e2c690',B:'#ffffff'},pat:kPat((x,y)=>(x+y)%2&&y%3===0?'#e8e0cc':'#fbf6e8'),addon:kScarf};
-// D: starry night, navy with gold stars, gold mane
-const D={id:'t-d',pal:{W:'#1d2a5a',L:'#141e44',P:'#f2c230',V:'#e0a000',B:'#fff6c0',w:'#1d2a5a',N:'#f2c230'},
- pat:kPat((x,y)=>((x*5+y*3)%13===0)?'#ffd23f':((x*3+y*7)%17===0)?'#ffffff':'#1d2a5a'),addon:goldStar};
-// E: half and half, red and green split with a white snowy sash, like a friendship scarf
-const E={id:'t-e',pal:{P:'#ffffff',V:'#d2d6ec',B:'#ffffff',N:'#f2c230'},pat:kPat((x,y)=>x+y>=29&&x+y<=31?'#ffffff':x+y===28||x+y===32?'#f2c230':x<16?'#d62828':'#2f9a62'),addon:goldStar};
-const OLD=ADV_KITS.find(k=>k.id==='xm-together');
-const L=[[OLD,'Current','The one we have now',1],[A,'A · Patchwork','A quilt, each patch is a player who opened the door. Gold star.'],[B,'B · Fairy lights','Dark green with a string of coloured lights round the body.'],
- [C,'C · Knitted scarf','Cream wool body, a scarf and bobble hat knitted in every kit colour.'],[D,'D · Starry night','Navy with gold and white stars, gold mane.'],[E,'E · Friendship','Red and green halves joined by a white and gold sash.']];
-document.getElementById('g').innerHTML=L.map(([k,n,d,o])=>`<div class="k${o?' old':''}"><i style="background-image:${spriteDraw('happy',0,false,k).replace(/"/g,"'")}"></i><b>${n.replace(/^(\w) ·/,'<span>$1</span> ·')}</b><p>${d}</p></div>`).join('');
+const G='#f2c230',g='#c99a1a',RED='#d62828',RD='#a51d1d',GRN='#2f9a62',GD='#1f6b46',WH='#ffffff',CR='#fbf6e8',NV='#1d2a5a',BL='#2f6bff',K='#1a1030';
+// knit texture: every other stitch a touch darker, so it reads as wool
+const knit=(fn)=>kPat((x,y)=>{const c=fn(x,y);return (x+(y>>1))%2?c:kDk(c,.9)});
+// a striped scarf round the neck with a tail flying back over the body (outside the outline)
+const scarf=(cols,fringe)=>{const o=[],c=i=>cols[i%cols.length];
+ for(let i=0;i<5;i++)o.push(R(19+i,11,1,2,c(i)));
+ for(let i=0;i<9;i++)o.push(R(10+i,9+(i<3?1:0)+(i>6?0:0),1,2,c(i)));
+ if(fringe)o.push(R(9,10,1,1,c(1)),R(8,11,1,1,c(3)),R(9,12,1,1,c(0)));return o};
+const bobble=(a,b,pom)=>[R(20,5,7,1,b),R(20,4,6,1,a),R(20,3,6,1,b),R(21,2,4,1,a),R(22,1,2,1,b),R(21,0,3,1,pom)];
+const longHat=(cols,pom)=>{const o=[R(20,5,7,1,WH)];[[20,4,6],[19,3,6],[18,2,5],[16,1,5],[13,1,3],[11,2,2]].forEach(([x,y,w],i)=>o.push(R(x,y,w,1,cols[i%cols.length])));o.push(R(9,2,2,2,pom),R(10,4,1,1,pom));return o};
+const hoop=(c)=>[R(22,10,1,1,c),R(21,11,1,2,c),R(23,11,1,2,c),R(22,13,1,1,c)];
+const pearls=[R(19,13,1,1,WH),R(20,14,1,1,'#e8e0f0'),R(21,14,1,1,WH),R(22,13,1,1,'#e8e0f0'),R(20,15,2,2,'#ffd23f')];
+const medal=[R(19,12,1,1,RED),R(20,13,1,1,WH),R(21,14,1,1,RED),R(22,13,1,1,WH),R(20,15,3,3,G),R(21,16,1,1,'#fff6c0')];
+const crown=[R(20,4,7,1,G),R(20,3,7,1,'#ffe066'),R(20,1,1,2,G),R(23,0,1,3,G),R(26,1,1,2,G),R(22,3,1,1,RED),R(24,3,1,1,BL)];
+const muffs=[R(21,1,5,1,'#d2d6ec'),R(20,2,1,2,'#d2d6ec'),R(19,4,3,3,RED),R(20,5,1,1,WH)];
+const glasses=[R(24,6,4,1,K),R(25,7,3,2,K),R(26,7,1,1,'#ff6fb5'),R(28,6,4,1,K),R(29,7,3,2,K),R(30,7,1,1,'#ff6fb5')];
+const fairRow=(x,y,base,a,b)=>y===14?a:y===15?((x+y)%3===0?b:base):y===17?((x%4===1)?a:(x%4===3?b:base)):y===19?a:base;
+
+const KNIT=[
+ ['Fair isle jumper','Red knit with a white and green fair isle band, striped scarf flying behind, bobble hat, gold hoop earring.',
+  {id:'tk1',pal:{P:'#ffffff',V:'#d2d6ec',B:'#ffffff',N:G},pat:knit((x,y)=>fairRow(x,y,RED,WH,GRN)),addon:f=>[...scarf([WH,GRN,WH,RED,GRN],1),...bobble(RED,WH,WH),...hoop(G)]}],
+ ['Après-ski','Cream cable knit, rainbow scarf blowing in the wind, red earmuffs and pink ski goggles.',
+  {id:'tk2',pal:{P:'#f6e7c4',V:'#e2c690',B:'#ffffff',N:'#ff6fb5'},pat:knit((x,y)=>x%5===2?'#efe3c8':CR),addon:f=>[...scarf(['#ff4d4d','#ff8a1f','#ffd23f','#39c46a','#4f9dff','#7c4dff'],1),...muffs,...glasses]}],
+ ['Grandma\'s favourite','Every colour of wool she had left: rainbow stripes, a long floppy hat with a pompom, and pearls.',
+  {id:'tk3',pal:{P:'#ff6fb5',V:'#7c4dff',B:'#ffd23f',N:'#ff6fb5'},pat:knit((x,y)=>['#ff6b6b','#ffb347','#ffe066','#7bd389','#6fb7ff','#b48cff'][(y-13+(y<13?60:0))%6]),addon:f=>[...longHat(['#ff6b6b','#ffe066','#6fb7ff','#7bd389','#b48cff','#ffb347'],WH),...pearls]}],
+ ['Terrace scarf','The away-end look: navy knit, red and white bar scarf with tassels, bobble hat and a gold winner\'s medal.',
+  {id:'tk4',pal:{P:'#ffffff',V:RED,B:'#ffffff',N:G},pat:knit((x,y)=>y===16?RED:NV),addon:f=>[...scarf([RED,RED,WH,WH],1),...bobble(RED,WH,RED),...medal]}],
+ ['Knitted royalty','Green and gold knit, a gold crown with jewels, a red scarf and a gold hoop.',
+  {id:'tk5',pal:{P:G,V:g,B:'#fff6c0',N:G},pat:knit((x,y)=>(x+y)%6===0?G:GRN),addon:f=>[...scarf([RED,RD,RED,G],1),...crown,...hoop(G)]}],
+ ['Snow day','White wool with blue snowflakes, a blue scarf and bobble hat, and a carrot... sorry, a gold horn tip.',
+  {id:'tk6',pal:{P:'#bfe6ff',V:'#7cc7f0',B:'#ffffff',N:'#ff8a1f'},pat:knit((x,y)=>((x%6===3&&(y%4===1||y%4===3))||(y%4===2&&x%6>=2&&x%6<=4))?'#6fb7ff':WH),addon:f=>[...scarf(['#2f7fc4','#2f7fc4',WH],1),...bobble('#2f7fc4',WH,WH),R(29,0,1,1,'#ff8a1f')]}],
+];
+
+// fairy lights: bulbs cycle through the colours like tree lights
+const BULB=['#ff4d4d','#ffd23f','#4fd7ff','#39ff6a','#ff6fb5','#ffffff'];
+const bulb=(x,y,i,mode)=>{const c=mode==='chase'?(((i+PH)%3===0)?BULB[(i>>1)%6]:'#3a3550'):mode==='twinkle'?(((i*7+PH*3)%5<2)?'#3a3550':BULB[(i+PH)%6]):BULB[(i+PH)%6];
+ return [R(x,y,1,1,c),...(c!=='#3a3550'?[]:[])]};
+// spiral strand on the body: wire on x - 2y diagonals, bulbs on the wire every 3 px
+const spiralPat=(base,wire)=>kPat((x,y)=>((x+2*y)%9===0)?wire:base);
+const TREE_B=[[9,14],[13,13],[17,14],[21,13],[11,17],[15,16],[19,17],[9,19],[13,19],[17,20],[21,19],[20,10],[23,8],[28,9]];
+const spiralBulbs=mode=>f=>TREE_B.flatMap(([x,y],i)=>bulb(x,y,i,mode).map(p=>(p[2]=2,p[3]=2,p)));
+// garland: a strand looping round the neck and along the back, bulbs hanging just under it
+const garland=mode=>f=>{const pts=[[9,12],[12,12],[15,12],[17,11],[19,10],[21,12],[23,12],[25,13]],o=[];
+ o.push(R(8,12,10,1,'#2a2a2a'),R(18,11,2,1,'#2a2a2a'),R(20,12,5,1,'#2a2a2a'));pts.forEach(([x,y],i)=>o.push(R(x,y+1,1,1,'#2a2a2a'),...bulb(x,y+2,i,mode).map(p=>(p[3]=2,p))));return o};
+const hornLights=mode=>f=>{const pts=[[30,0],[29,1],[28,2],[27,3],[26,4]];return pts.map(([x,y],i)=>bulb(x,y,i+3,mode)[0])};
+const bigStar=[R(30,-1,1,1,'#fff6c0'),R(29,0,3,1,G),R(28,1,5,1,'#ffd23f'),R(29,2,3,1,G),R(29,3,1,1,G),R(31,3,1,1,G)];
+const tinyHat=[R(20,5,6,1,WH),R(20,4,5,1,RED),R(21,3,3,1,RED),R(22,2,2,1,RD),R(23,1,1,1,WH)];
+const LIGHTS=[
+ ['Christmas tree','Dark green, a strand spiralling round the body, every bulb changing colour, big gold star on the horn.',
+  {id:'tl1',pal:{P:GRN,V:GD,B:'#4fbf7f',N:G,W:'#1f6b3c',L:'#164a2c',w:'#1f6b3c'},pat:spiralPat('#1f6b3c','#0f3a20'),addon:f=>[...spiralBulbs('cycle')(f),...bigStar]}],
+ ['Tangled up','White unicorn that got caught in the lights: a strand round the neck and back, lights wound up the horn, all twinkling.',
+  {id:'tl2',pal:{P:'#ffffff',V:'#d2d6ec',B:'#ffffff',N:G},addon:f=>[...garland('twinkle')(f),...hornLights('twinkle')(f)]}],
+ ['Night street','Navy body with a chasing light strand round the neck and a tiny Santa hat.',
+  {id:'tl3',pal:{P:'#4fd7ff',V:'#2f7fc4',B:'#ffffff',N:G,W:NV,L:'#141e44',w:NV},addon:f=>[...garland('chase')(f),...tinyHat]}],
+ ['Lit-up knit','The knitted scarf and bobble hat, with fairy lights knitted into the jumper.',
+  {id:'tl4',pal:{P:'#ffffff',V:'#d2d6ec',B:'#ffffff',N:G},pat:knit((x,y)=>RED),addon:f=>{const o=[...scarf([WH,GRN,WH,RED,GRN],1),...bobble(GRN,WH,WH)];let i=0;for(let y=14;y<=20;y+=3)for(let x=9+(y%2)*2;x<=22;x+=4)o.push(...bulb(x,y,i++,'cycle').map(p=>(p[2]=2,p[3]=2,p)));return o}}],
+];
+function card(el,list,dark){document.getElementById(el).innerHTML=list.map(([n,d,k],i)=>`<div class="k${dark?' dark':''}"><i data-l="${el}:${i}"></i><b><span>${String.fromCharCode(65+i+(el==='lights'?KNIT.length:0))}</span> · ${n}</b><p>${d}</p></div>`).join('')}
+card('knit',KNIT);card('lights',LIGHTS,1);
+const paint=()=>document.querySelectorAll('[data-l]').forEach(e=>{const [s,i]=e.dataset.l.split(':'),k=(s==='knit'?KNIT:LIGHTS)[i][2];e.style.backgroundImage=spriteDraw('happy',0,false,k).replace(/"/g,"'")});
+paint();setInterval(()=>{PH++;document.querySelectorAll('[data-l^="lights"]').forEach(e=>{const k=LIGHTS[e.dataset.l.split(':')[1]][2];e.style.backgroundImage=spriteDraw('happy',0,false,k).replace(/"/g,"'")})},450);
 </script></body></html>
