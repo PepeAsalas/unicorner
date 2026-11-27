@@ -5317,10 +5317,10 @@ html.xm .hz3-side:before{content:"";position:absolute;left:50%;top:44px;width:52
    for(const f of F){f.y+=f.v*dt;f.d+=.012*dt;f.x+=Math.sin(f.d)*.35*dt;if(f.y>H+4){f.y=-4;f.x=Math.random()*W}g.fillRect(Math.round(f.x),Math.round(f.y),f.s,f.s)}
    raf=requestAnimationFrame(step)};raf=requestAnimationFrame(step)}
  snow(ls('uc-snow')!=='off');
- // soft Christmas music (8-bit carols, public domain tunes), off unless the player turns it on; it remembers, and starts on the next tap
+ // soft Christmas music (an original 8-bit winter tune), off unless the player turns it on; it remembers, and starts on the next tap
  window.xmMusicOn=()=>ls('uc-xmas-music')==='on';
  window.xmMusicLabel=()=>xmMusicOn()?T('♪ Music off','♪ Quitar música','♪ Desligar música'):T('♪ Christmas music','♪ Música navideña','♪ Música de Natal');
- let xmAud=null;window.xmMusic=on=>{try{if(on){if(!xmAud){xmAud=new Audio('/xmas/music/carols.mp3');xmAud.loop=true;xmAud.volume=.15}xmAud.play().catch(()=>{})}else if(xmAud)xmAud.pause()}catch{}};
+ let xmAud=null;window.xmMusic=on=>{try{if(on){if(!xmAud){xmAud=new Audio('/xmas/music/winter.mp3');xmAud.loop=true;xmAud.volume=.15}xmAud.play().catch(()=>{})}else if(xmAud)xmAud.pause()}catch{}};
  if(xmMusicOn())addEventListener('pointerdown',()=>{if(xmMusicOn())xmMusic(true)},{once:true});
  document.addEventListener('visibilitychange',()=>{if(xmAud&&xmMusicOn())document.hidden?xmAud.pause():xmAud.play().catch(()=>{})});
  // the advent card
