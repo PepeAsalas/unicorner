@@ -5210,6 +5210,28 @@ body.landing .landing-wrap #hb-home.hb{width:100%!important;max-width:none!impor
  body.landing .landing-wrap #hb-home.hb{height:96px!important}
 }
 </style>
+<style id="modes-scene">/* Anytime cards: the art fills the card, the text sits on its dark side (mockups/modes.html, option B) */
+html:root:root body .modes .mode.mode.mode.mode.mode:is(.m-inf,.m-duel){display:block!important;position:relative!important;height:220px!important;padding:0!important;background:#0d1330!important;border:3px solid #1d1a2b!important;box-shadow:0 5px 0 #1d1a2b!important;overflow:hidden!important;transition:transform 160ms cubic-bezier(.23,1,.32,1)!important}
+html:root:root body .modes .mode.mode.mode.mode.mode:is(.m-inf,.m-duel) .m-pic.lx-thumb.lx-thumb{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;aspect-ratio:auto!important;border:0!important;margin:0!important}
+html:root:root body .modes .mode.mode.mode.mode.mode:is(.m-inf,.m-duel) .m-pic.lx-thumb.lx-thumb img{object-position:78% 50%!important}
+html:root:root body .modes .mode.mode.mode.mode.mode:is(.m-inf,.m-duel) .m-pic.lx-thumb.lx-thumb::before{display:none!important}
+html:root:root body .modes .mode.mode.mode.mode.mode:is(.m-inf,.m-duel) .m-pic.lx-thumb.lx-thumb::after{display:block!important;content:""!important;position:absolute!important;inset:0!important;z-index:2!important;background:linear-gradient(90deg,rgba(13,19,48,.94) 0 28%,rgba(13,19,48,0) 70%)!important}
+html:root:root body .modes .mode.mode.mode.mode.mode:is(.m-inf,.m-duel) .m-txt{position:absolute!important;left:18px!important;top:16px!important;z-index:3!important;max-width:46%!important;padding:0!important;background:none!important;display:flex!important;flex-direction:column!important;gap:6px!important}
+html:root:root body .modes .mode.mode.mode.mode.mode:is(.m-inf,.m-duel) .m-txt b{font:400 44px/1 "Jersey 10",monospace!important;text-shadow:3px 3px 0 #000!important;color:#fff!important}
+html:root:root body .modes .mode.mode.mode.mode.mode:is(.m-inf,.m-duel) .m-txt small{display:block!important;font:400 19px/1.1 VT323,monospace!important;color:#dcd6f0!important;text-shadow:1px 1px 0 #000!important;white-space:normal!important}
+html:root:root body .modes .mode.mode.mode.mode.mode:is(.m-inf,.m-duel) .m-go.m-go{position:absolute!important;z-index:3!important;left:18px!important;right:auto!important;top:auto!important;bottom:18px!important;width:auto!important;margin:0!important;padding:10px 18px 8px!important;font:400 22px/1 "Jersey 10",monospace!important;letter-spacing:.05em!important;transition:transform 140ms cubic-bezier(.23,1,.32,1),box-shadow 140ms cubic-bezier(.23,1,.32,1)}
+html:root:root body .modes .mode.mode.mode.mode.mode:is(.m-inf,.m-duel) .m-go.m-go::after{content:none!important}
+html:root:root body .modes .mode.mode.mode.mode.mode:is(.m-inf,.m-duel):active .m-go{transform:translateY(3px)!important;box-shadow:0 1px 0 #000!important}
+@media (hover:hover) and (pointer:fine){html:root:root body .modes .mode.mode.mode.mode.mode:is(.m-inf,.m-duel):hover{transform:translateY(-2px)!important}}
+@media (max-width:700px){html body.landing .landing-wrap .modes{grid-template-columns:1fr!important}
+ html:root:root body .modes .mode.mode.mode.mode.mode:is(.m-inf,.m-duel){height:180px!important}
+ html:root:root body .modes .mode.mode.mode.mode.mode:is(.m-inf,.m-duel) .m-txt{max-width:56%!important;left:14px!important;top:12px!important}
+ html:root:root body .modes .mode.mode.mode.mode.mode:is(.m-inf,.m-duel) .m-txt b{font-size:36px!important}
+ html:root:root body .modes .mode.mode.mode.mode.mode:is(.m-inf,.m-duel) .m-txt small{font-size:17px!important}
+ html:root:root body .modes .mode.mode.mode.mode.mode:is(.m-inf,.m-duel) .m-go.m-go{left:14px!important;bottom:14px!important;font-size:20px!important}
+ html:root:root body .modes .mode.mode.mode.mode.mode:is(.m-inf,.m-duel) .m-pic.lx-thumb.lx-thumb img{object-position:80% 50%!important}}
+@media (prefers-reduced-motion:reduce){html:root:root body .modes .mode.mode.mode.mode.mode:is(.m-inf,.m-duel),html:root:root body .modes .mode.mode.mode.mode.mode:is(.m-inf,.m-duel) .m-go{transition:none!important}}
+</style>
 <style id="light-labels">html.bg-light .lx-h{color:#1d1a2b!important;text-shadow:none!important}html.bg-light .lx-h small{color:#5b5470!important}html.bg-light .lx-h::after{background:repeating-linear-gradient(90deg,#1d1a2b 0 8px,transparent 8px 14px)!important}</style>
 <style id="rosco-card-v2">/* Rosco card on desktop: stats boxes grow to fill the card, Horacio sits beside them */@media(min-width:701px){
 html body .lx-ro{grid-template-rows:auto 1fr auto}
