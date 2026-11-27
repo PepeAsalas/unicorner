@@ -40,6 +40,12 @@
     let d = []; try { d = JSON.parse(ls('uc-kit-done') || '[]') } catch { }
     if (!d.includes(id)) { d.push(id); ls('uc-kit-done', JSON.stringify(d)); try { window.ucLookSync?.() } catch { } }
   };
+  // backgrounds won in the mini games (permanent, shown in the background picker)
+  const bgWon = () => { try { return JSON.parse(ls('uc-bgwin') || '[]') } catch { return [] } };
+  const grantBg = id => { const d = bgWon(); if (!d.includes(id)) { d.push(id); ls('uc-bgwin', JSON.stringify(d)); return true } return false };
+  // the prize line under a game, and the check at the end of a run
+  const bgNote = (cfg, o) => cfg.bg && !o.missed ? `<p class="adv-note adv-bgp">${bgWon().includes(cfg.bg.id) ? T(`✓ You've won the <b>${cfg.bg.name}</b> background.`, `✓ Ya tienes el fondo <b>${cfg.bg.name}</b>.`, `✓ Você já ganhou o fundo <b>${cfg.bg.name}</b>.`) : T(`Prize: ${cfg.bg.need} to win the <b>${cfg.bg.name}</b> background, yours to keep.`, `Premio: ${cfg.bg.need} y ganas el fondo <b>${cfg.bg.name}</b> para siempre.`, `Prêmio: ${cfg.bg.need} e o fundo <b>${cfg.bg.name}</b> é seu para sempre.`)}</p>` : '';
+  const bgCheck = (cfg, o, val) => (cfg.bg && !o.missed && val >= cfg.bg.min && grantBg(cfg.bg.id)) ? ' ' + T(`New background: ${cfg.bg.name}!`, `¡Nuevo fondo: ${cfg.bg.name}!`, `Novo fundo: ${cfg.bg.name}!`) : '';
 
   // ── snowflakes: best score per door ──
   const flakes = () => { try { return JSON.parse(ls('uc-adv-flakes') || '{}') } catch { return {} } };
@@ -63,7 +69,7 @@
   // ── the 24 doors ──
   const DAYS = {
     1: { t: 'welcome' },
-    2: { t: 'penalty' },
+    2: { t: 'penalty', bg: { id: 'x-stadium', min: 3, name: T('Snowy stadium', 'Estadio nevado', 'Estádio nevado'), need: T('score 3 goals', 'marca 3 goles', 'marque 3 gols') } },
     3: { t: 'piece', n: 1, name: T('the crown', 'la corona', 'a coroa') },
     4: { t: 'vote', q: T('Which Christmas kit should we make?', '¿Qué equipación navideña hacemos?', 'Que uniforme de Natal fazemos?'),
          opts: [['xm-elf', T('Elf', 'Elfo', 'Elfo')], ['xm-ginger', T('Gingerbread', 'Jengibre', 'Gengibre')], ['xm-grinch', 'Grinch'], ['xm-nutcracker', T('Nutcracker', 'Cascanueces', 'Quebra-nozes')]],
@@ -72,7 +78,7 @@
          [T('The 2022 World Cup final was played on which date?', '¿En qué fecha se jugó la final del Mundial 2022?', 'Em que data foi a final da Copa de 2022?'), [T('11 December', '11 de diciembre', '11 de dezembro'), T('18 December', '18 de diciembre', '18 de dezembro'), T('20 December', '20 de diciembre', '20 de dezembro'), T('23 December', '23 de diciembre', '23 de dezembro')], 1],
          [T("Who scored Argentina's winning penalty in the 2022 final shootout?", '¿Quién marcó el penalti ganador de Argentina en la tanda de la final de 2022?', 'Quem marcou o pênalti decisivo da Argentina na final de 2022?'), ['Leandro Paredes', 'Paulo Dybala', 'Gonzalo Montiel', 'Lautaro Martínez'], 2],
          [T('Who refereed the 2022 World Cup final?', '¿Quién arbitró la final del Mundial 2022?', 'Quem apitou a final da Copa de 2022?'), ['Szymon Marciniak', 'Daniele Orsato', 'Clément Turpin', 'Anthony Taylor'], 0]] },
-    6: { t: 'catch', mult: 1 },
+    6: { t: 'catch', mult: 1, bg: { id: 'x-village', min: 15, name: T('Village at night', 'Pueblo de noche', 'Vila à noite'), need: T('catch 15 presents', 'atrapa 15 regalos', 'pegue 15 presentes') } },
     7: { t: 'vote', q: T('The greatest save ever?', '¿La mejor parada de la historia?', 'A maior defesa de todos os tempos?'),
          opts: [[null, T('Gordon Banks vs Pelé, 1970', 'Gordon Banks ante Pelé, 1970', 'Gordon Banks contra Pelé, 1970'), 'Gordon Banks save Pele 1970'],
                 [null, T("Higuita's scorpion kick, 1995", 'El escorpión de Higuita, 1995', 'O escorpião de Higuita, 1995'), 'Higuita scorpion kick Wembley 1995'],
@@ -106,11 +112,11 @@
                  [null, T('Bergkamp vs Newcastle, 2002', 'Bergkamp contra el Newcastle, 2002', 'Bergkamp contra o Newcastle, 2002'), 'Bergkamp goal vs Newcastle 2002'],
                  [null, T('Rooney overhead kick vs Man City, 2011', 'Chilena de Rooney contra el City, 2011', 'Bicicleta de Rooney contra o City, 2011'), 'Rooney overhead kick vs Manchester City 2011']],
           after: T('Tap ▶ to watch each one. The winner goes on our Instagram.', 'Toca ▶ para verlos. El ganador irá a nuestro Instagram.', 'Toque ▶ para assistir. O vencedor vai para o nosso Instagram.') },
-    19: { t: 'penalty', hard: true },
+    19: { t: 'penalty', hard: true, bg: { id: 'x-floodlit', min: 3, name: T('Floodlit Christmas', 'Navidad con focos', 'Natal sob os refletores'), need: T('score 3 goals', 'marca 3 goles', 'marque 3 gols') } },
     20: { t: 'emoji', set: [['🐏', 'Derby County', ['Leeds United', 'Nottingham Forest', 'Stoke City']], ['🐯', 'Hull City', ['Wolves', 'Leicester City', 'Burnley']], ['🦓', 'Juventus', ['Torino', 'Fiorentina', 'Atalanta']], ['🐺', 'Roma', ['Lazio', 'Napoli', 'Fiorentina']], ['🦇', 'Valencia', ['Sevilla', 'Real Betis', 'Villarreal']]] },
     21: { t: 'piece', n: 4, name: T('the boots', 'las botas', 'as botas') },
     22: { t: 'reveal' },
-    23: { t: 'catch', mult: 2 },
+    23: { t: 'catch', mult: 2, bg: { id: 'x-fireside', min: 25, name: T('Christmas Eve by the fire', 'Nochebuena junto al fuego', 'Véspera de Natal na lareira'), need: T('catch 25 presents', 'atrapa 25 regalos', 'pegue 25 presentes') } },
     24: { t: 'finale' },
   };
 
@@ -267,8 +273,8 @@
       };
       step();
     },
-    penalty(b, n, cfg, o) { penalty(b, n, !!cfg.hard, o) },
-    catch(b, n, cfg, o) { catchGame(b, n, cfg.mult, o) },
+    penalty(b, n, cfg, o) { penalty(b, n, !!cfg.hard, o, cfg) },
+    catch(b, n, cfg, o) { catchGame(b, n, cfg.mult, o, cfg) },
     year(b, n, cfg, o) {
       // everything comes from the games saved on this device
       const DAYN = [T('Sundays', 'domingos', 'domingos'), T('Mondays', 'lunes', 'segundas'), T('Tuesdays', 'martes', 'terças'), T('Wednesdays', 'miércoles', 'quartas'), T('Thursdays', 'jueves', 'quintas'), T('Fridays', 'viernes', 'sextas'), T('Saturdays', 'sábados', 'sábados')];
@@ -387,7 +393,7 @@
   //    2. You pick a corner, then stop the power bar. Too soft and he gets to it, too hard and it flies over or wide,
   //       a perfect strike in a corner beats him even if he guesses right. The bar speeds up with every goal.
   //    3. He remembers your favourite side. One save and the run is over.
-  function penalty(b, n, hard, o) {
+  function penalty(b, n, hard, o, cfg = {}) {
     const best = flakes()[n];
     const Z = [[24, 43], [50, 43], [76, 43], [24, 76], [50, 76], [76, 76]];
     const GK = '/xmas/gk/', DIVE = ['dive-left-high', 'jump-middle', 'dive-right-high', 'dive-left-low', 'ready', 'dive-right-low'];
@@ -398,7 +404,7 @@
       <div class="pk"><div class="cg-hud"><span class="pk-g">⚽ 0</span><span class="pk-tell"></span></div><div class="pk-goal">${Z.map((z, i) => `<button type="button" class="pk-z" data-z="${i}" style="left:${z[0]}%;top:${z[1]}%" aria-label="${T('Aim here', 'Apunta aquí', 'Mire aqui')}"></button>`).join('')}
         <img class="pk-keep" src="${GK}ready.png" alt="Horacio"></div><img class="pk-ball" src="/xmas/shootout/ball.png" alt=""></div>
       <div class="pm" hidden><i class="pm-ok"></i><i class="pm-top"></i><i class="pm-n"></i></div>
-      <p class="adv-big" aria-live="polite"></p><button type="button" class="adv-btn pk-again" hidden>${T('Again', 'Otra vez', 'De novo')}</button>${missedNote(o)}`;
+      ${bgNote(cfg, o)}<p class="adv-big" aria-live="polite"></p><button type="button" class="adv-btn pk-again" hidden>${T('Again', 'Otra vez', 'De novo')}</button>${missedNote(o)}`;
     const pk = b.querySelector('.pk'), goalEl = b.querySelector('.pk-goal'), ball = b.querySelector('.pk-ball'), keep = b.querySelector('.pk-keep'), msg = b.querySelector('.adv-big');
     const meter = b.querySelector('.pm'), needle = b.querySelector('.pm-n'), tell = b.querySelector('.pk-tell');
     const SWEET = [.5, .82], PERFECT = [.66, .74];
@@ -452,7 +458,8 @@
           if (result === 'save') setTimeout(() => keep.src = GK + 'save.png', 200);
           const v = Math.min(30, goals * 3); addFlakes(n, v, o);
           msg.textContent = (result === 'over' ? T('Over the bar!', '¡Por encima del larguero!', 'Por cima do travessão!') : result === 'wide' ? T('Wide!', '¡Fuera!', 'Para fora!') : p < SWEET[0] ? T('Too soft, saved!', '¡Muy flojo, parada!', 'Fraco demais, defendeu!') : T('Saved!', '¡Parada!', 'Defendeu!'))
-            + ' ' + T(`${goals} goals`, `${goals} goles`, `${goals} gols`) + (o.missed ? '' : ` · +${v} ❄`);
+            + ' ' + T(`${goals} goals`, `${goals} goles`, `${goals} gols`) + (o.missed ? '' : ` · +${v} ❄`) + bgCheck(cfg, o, goals);
+          b.querySelector('.adv-bgp')?.insertAdjacentHTML('afterend', bgNote(cfg, o)); b.querySelector('.adv-bgp')?.remove();
           b.querySelector('.pk-again').hidden = false; track('advent_penalty', { n, goals });
         }
       }, 480);
@@ -474,13 +481,13 @@
   }
 
   // ── mini game: catch the presents. 20 seconds; move the reindeer with your finger, mouse or arrow keys. ──
-  function catchGame(b, n, mult, o) {
+  function catchGame(b, n, mult, o, cfg = {}) {
     const best = flakes()[n];
     b.innerHTML = `<h3>${T('Catch the presents', 'Atrapa los regalos', 'Pegue os presentes')}${mult > 1 ? ' ×2' : ''}</h3><p class="adv-note"><b>${mult > 1 ? T('Christmas Eve: double snowflakes, and it\'s faster. ', 'Nochebuena: copos dobles y más rápido. ', 'Véspera de Natal: flocos em dobro e mais rápido. ') : ''}${T('Every present adds time, coal takes 2 seconds away.', 'Cada regalo suma tiempo y el carbón quita 2 segundos.', 'Cada presente dá mais tempo, o carvão tira 2 segundos.')}</b></p>
       <p class="adv-note">${T('Move the reindeer to catch the presents. Coal costs you 3, golden presents are worth 5. It gets faster! You start with 20 seconds.', 'Mueve al reno para atrapar los regalos. El carbón resta 3. ¡Cada vez más rápido! Empiezas con 20 segundos.', 'Mova a rena para pegar os presentes. Carvão tira 3. Fica cada vez mais rápido! Você começa com 20 segundos.')}${best != null ? ' ' + T(`Your best: ${best} ❄`, `Tu mejor: ${best} ❄`, `Seu melhor: ${best} ❄`) : ''}</p>
       <div class="cg"><div class="cg-hud"><span class="cg-s">0</span><span class="cg-t">20</span></div><i class="cg-r"></i>
         <button type="button" class="adv-btn cg-go">${T('Start', 'Empezar', 'Começar')}</button></div>
-      <p class="adv-big" aria-live="polite"></p>${missedNote(o)}`;
+      ${bgNote(cfg, o)}<p class="adv-big" aria-live="polite"></p>${missedNote(o)}`;
     const box = b.querySelector('.cg'), deer = b.querySelector('.cg-r');
     try { deer.style.backgroundImage = kitImg(kitById('xm-reindeer')) } catch { }
     let bonus = 0, x = .5, items = [], score = 0, t0 = 0, raf = 0, last = 0, spawnAt = 0, running = false, keys = {};
@@ -500,7 +507,8 @@
     const end = () => {
       running = false; cancelAnimationFrame(raf); items.forEach(it => it.el.remove()); items = [];
       const v = Math.min(30, Math.max(0, score) * mult); addFlakes(n, v, o);
-      b.querySelector('.adv-big').textContent = T(`${score} presents!`, `¡${score} regalos!`, `${score} presentes!`) + (o.missed ? '' : ` +${v} ❄`);
+      b.querySelector('.adv-big').textContent = T(`${score} presents!`, `¡${score} regalos!`, `${score} presentes!`) + (o.missed ? '' : ` +${v} ❄`) + bgCheck(cfg, o, score);
+      b.querySelector('.adv-bgp')?.insertAdjacentHTML('afterend', bgNote(cfg, o)); b.querySelector('.adv-bgp')?.remove();
       const go = b.querySelector('.cg-go'); go.textContent = T('Play again', 'Otra vez', 'De novo'); go.hidden = false;
       track('advent_catch', { n, score });
     };

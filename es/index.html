@@ -4405,7 +4405,7 @@ const BGX=[["d-pitch", "Pitch", "Césped", null, 0, "img:pitch"], ["d-snow", "Sn
 // scenes are ChatGPT pictures (bg/NAME-wide.webp and -tall.webp); everything else is plain CSS
 const bgxCss=c=>c.startsWith('img:')?`--w:url(/bg/${c.slice(4)}-wide.webp);--t:url(/bg/${c.slice(4)}-tall.webp)`:'background:'+c;
 const bgxSw=c=>c.startsWith('img:')?`background:#111 url(/bg/${c.slice(4)}-wide.webp) center/cover`:'background:'+c;
-const bgxReq=r=>!r||(r[0]==='games'?kitStats().games:r[0]==='adv'?kitStats().adv:bestStreak())>=r[1];
+const bgxReq=r=>{if(!r)return true;if(r[0]==='bgwin'){try{return JSON.parse(ls('uc-bgwin')||'[]').includes(r[1])}catch{return false}}return(r[0]==='games'?kitStats().games:r[0]==='adv'?kitStats().adv:bestStreak())>=r[1]};
 const bgxNeed=r=>r[0]==='games'?L(`🎮 ${r[1]} games`,`🎮 ${r[1]} partidas`,`🎮 ${r[1]} jogos`):'<i class="pixel-flame px-inline" aria-hidden="true"></i> '+L(`${r[1]} days`,`${r[1]} días`,`${r[1]} dias`);
 window.ucStageBg=()=>{if(window.__czBg)return `--t:url(${window.__czBg})`;let k='d-pitch';try{k=new URLSearchParams(location.search).get('bg')||ls('uc-bg')||'d-pitch'}catch{}const x=BGX.find(b=>b[0]===k)||BGX[0];return bgxCss(x[5])};
 const bgxEl=document.createElement('div');bgxEl.className='bgx';bgxEl.setAttribute('aria-hidden','true');document.querySelector('.scene').after(bgxEl);
