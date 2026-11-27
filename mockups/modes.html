@@ -1,0 +1,99 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Anytime cards: options</title>
+<style>
+@font-face{font-family:'Jersey 10';src:url(/fonts/jersey10.woff2)}@font-face{font-family:VT323;src:url(/fonts/vt323.woff2)}
+:root{--ink:#1d1a2b;--cream:#fbf6e8;--cream2:#f6eed8;--gold:#f2c230;--red:#c8473b;--ease:cubic-bezier(.23,1,.32,1)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:#1f5e39 url(/bg/pitch-wide.webp) center top/cover fixed;font:400 18px/1.3 VT323,monospace;color:var(--ink)}
+.wrap{max-width:1100px;margin:0 auto;padding:22px 16px 60px}
+h1{margin:0 0 4px;font:400 36px/1 'Jersey 10',monospace;color:#fff;text-shadow:3px 3px 0 #000}
+.sub{margin:0 0 20px;color:#fff;text-shadow:1px 1px 0 #000}
+.opt{margin:0 0 34px}
+.lab{display:flex;align-items:baseline;gap:10px;margin:0 0 10px;color:#fff;text-shadow:2px 2px 0 #000}
+.lab b{font:400 26px/1 'Jersey 10',monospace;color:var(--gold)}.lab span{font-size:18px}
+.lx-h{display:flex;align-items:center;gap:12px;font:400 20px/1 "Jersey 10",monospace;letter-spacing:.08em;text-transform:uppercase;color:#fbf6e8;text-shadow:0 2px 0 #1d1a2b;margin:0 0 10px}
+.lx-h small{font:400 17px/1 VT323,monospace;letter-spacing:.02em;color:rgba(251,246,232,.8);text-transform:none}
+.lx-h::after{content:"";flex:1;height:3px;background:repeating-linear-gradient(90deg,rgba(251,246,232,.55) 0 8px,transparent 8px 14px)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:700px){.two{grid-template-columns:1fr;gap:14px}}
+a,button{all:unset;box-sizing:border-box;cursor:pointer}
+.btn{display:inline-grid;place-items:center;padding:10px 18px 8px;background:var(--gold);border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink);font:400 22px/1 'Jersey 10',monospace;letter-spacing:.05em;text-transform:uppercase;color:var(--ink);transition:transform 140ms var(--ease),box-shadow 140ms var(--ease)}
+.card:active .btn,.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+.rec{display:flex;gap:5px}.rec i{font:400 15px/1 'Jersey 10',monospace;font-style:normal;padding:3px 5px 2px;color:#fff;border:2px solid var(--ink)}
+.rec .w{background:#2f9a62}.rec .d{background:#7a7489}.rec .l{background:var(--red)}
+@media (hover:hover) and (pointer:fine){.card{transition:transform 160ms var(--ease)}.card:hover{transform:translateY(-2px)}}
+
+/* A · cream twins: the same family as the Daily 5 card */
+.A .card{display:grid;grid-template-columns:44% 1fr;background:var(--cream);border:3px solid var(--ink);box-shadow:0 5px 0 var(--ink);min-height:170px;overflow:hidden}
+.A .pic{position:relative;border-right:3px solid var(--ink);background:linear-gradient(rgba(29,26,43,.06) 2px,transparent 2px) 0 0/16px 16px,linear-gradient(90deg,rgba(29,26,43,.06) 2px,transparent 2px) 0 0/16px 16px,var(--cream2)}
+.A .pic img{position:absolute;left:50%;top:50%;width:150%;height:auto;transform:translate(-50%,-42%);image-rendering:pixelated}
+.A .pic .tag{position:absolute;left:0;top:0;background:var(--ink);color:var(--gold);font:400 14px/1 'Jersey 10',monospace;letter-spacing:.1em;padding:5px 8px 4px}
+.A .txt{display:flex;flex-direction:column;gap:6px;padding:16px 16px 14px}
+.A .txt b{font:400 36px/1 'Jersey 10',monospace}.A .txt small{font-size:18px;color:#5b5470;line-height:1.1}
+.A .txt .btn{margin-top:auto;align-self:flex-start}
+.A .duel .pic{background-color:#fde8e2}
+
+/* B · full-bleed scene: the art is the card */
+.B .card{position:relative;display:block;height:220px;border:3px solid var(--ink);box-shadow:0 5px 0 var(--ink);overflow:hidden;background:#0d1330}
+.B .card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:78% 50%;image-rendering:pixelated}
+.B .card::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(13,19,48,.92) 0 30%,rgba(13,19,48,0) 70%)}
+.B .txt{position:absolute;left:18px;top:18px;bottom:16px;z-index:1;display:flex;flex-direction:column;gap:6px;color:#fff;max-width:56%}
+.B .txt b{font:400 44px/1 'Jersey 10',monospace;text-shadow:3px 3px 0 #000}.B .txt small{font-size:19px;color:#dcd6f0;text-shadow:1px 1px 0 #000}
+.B .txt .btn{margin-top:auto;align-self:flex-start}
+
+/* C · arcade cabinet: marquee, screen, control panel */
+.C .card{display:flex;flex-direction:column;border:3px solid var(--ink);box-shadow:0 5px 0 var(--ink);overflow:hidden;background:var(--ink)}
+.C .mq{position:relative;background:var(--gold);border-bottom:3px solid var(--ink);padding:8px 14px 6px;text-align:center;font:400 34px/1 'Jersey 10',monospace;letter-spacing:.12em;text-transform:uppercase}
+.C .mq::before,.C .mq::after{content:"";position:absolute;top:50%;width:10px;height:10px;margin-top:-5px;background:var(--ink);box-shadow:0 0 0 3px #fff6c0}
+.C .mq::before{left:12px}.C .mq::after{right:12px}
+.C .scr{position:relative;height:130px;margin:10px 10px 0;border:3px solid #000;overflow:hidden;background:#0d1330}
+.C .scr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:78% 50%;image-rendering:pixelated}
+.C .scr::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 2px,transparent 2px 4px)}
+.C .cp{display:flex;align-items:center;gap:12px;padding:10px 12px 12px;color:#fbf6e8}
+.C .cp small{flex:1;font-size:18px;line-height:1.1;color:#cfc9e2}
+.C .joy{width:26px;height:26px;border-radius:50%;background:var(--red);border:3px solid #000;box-shadow:inset -3px -3px 0 rgba(0,0,0,.25);flex:none}
+.C .btn{border-radius:0}
+
+/* D · one compact panel, the same rows as Horacio's games */
+.D .panel{display:grid;grid-template-columns:150px 1fr;border:3px solid var(--ink);box-shadow:0 5px 0 var(--ink);background:var(--cream);overflow:hidden}
+.D .side{background:var(--ink);color:var(--gold);display:grid;place-items:center;text-align:center;font:400 22px/1.05 'Jersey 10',monospace;letter-spacing:.06em;padding:10px;border-right:3px solid var(--ink)}
+.D .side span{display:block;font-size:54px;line-height:.9;color:#fff}
+.D .rows{display:grid;grid-template-columns:1fr 1fr}
+.D .row{display:grid;grid-template-columns:128px 1fr auto;align-items:center;gap:12px;padding:12px 16px 12px 8px;min-height:112px}
+.D .row+.row{border-left:3px solid var(--ink)}
+.D .row img{width:128px;height:88px;object-fit:cover;object-position:50% 45%;transform:scale(1.15);image-rendering:pixelated}
+.D .row b{display:block;font:400 32px/1 'Jersey 10',monospace}.D .row small{display:block;font-size:17px;color:#5b5470;line-height:1.1;margin-top:3px}
+@media (max-width:900px){.D .panel{grid-template-columns:1fr}.D .side{display:none}.D .rows{grid-template-columns:1fr}.D .row+.row{border-left:0;border-top:3px solid var(--ink)}}
+@media (prefers-reduced-motion:reduce){.card,.btn{transition:none}}
+</style></head><body><div class="wrap">
+<h1>Infinity and Duels: 4 options</h1>
+<p class="sub">Same games, same art. Tap a card to feel the button press. Resize the window to see phone layouts.</p>
+
+<section class="opt A"><div class="lab"><b>A · Cream twins</b><span>the same look as the Daily 5 card, the unicorns on graph paper</span></div>
+<div class="lx-h">Anytime <small>no daily limit</small></div>
+<div class="two">
+ <a class="card" href="#"><span class="pic"><span class="tag">∞ ENDLESS</span><img src="/bg/mode-inf-cut.png" alt=""></span><span class="txt"><b>Infinity</b><small>Questions until you miss. How far can you go?</small><span class="btn">Play ∞</span></span></a>
+ <a class="card duel" href="#"><span class="pic"><span class="tag">1 V 1</span><img src="/bg/mode-duel-cut.png" alt=""></span><span class="txt"><b>Duels</b><small>Challenge a mate. Rarer answers hit harder.</small><span class="rec"><i class="w">33W</i><i class="d">7D</i><i class="l">16L</i></span><span class="btn">Challenge</span></span></a>
+</div></section>
+
+<section class="opt B"><div class="lab"><b>B · Full scene</b><span>no frame inside the card, the art fills it and the text sits on the dark side</span></div>
+<div class="lx-h">Anytime <small>no daily limit</small></div>
+<div class="two">
+ <a class="card" href="#"><img src="/bg/mode-inf-v3.png" alt=""><span class="txt"><b>Infinity</b><small>Unlimited questions, out in space</small><span class="btn">Press start</span></span></a>
+ <a class="card" href="#"><img src="/bg/mode-duel-v2.webp" alt=""><span class="txt"><b>Duels</b><small>Challenge a mate. Rarer answers hit harder.</small><span class="btn">Challenge</span></span></a>
+</div></section>
+
+<section class="opt C"><div class="lab"><b>C · Arcade cabinet</b><span>a lit marquee, a CRT screen and a control panel</span></div>
+<div class="lx-h">Anytime <small>no daily limit</small></div>
+<div class="two">
+ <a class="card" href="#"><span class="mq">Infinity</span><span class="scr"><img src="/bg/mode-inf-v3.png" alt=""></span><span class="cp"><i class="joy"></i><small>Unlimited questions, out in space</small><span class="btn">1P Start</span></span></a>
+ <a class="card" href="#"><span class="mq">Duels</span><span class="scr"><img src="/bg/mode-duel-v2.webp" alt=""></span><span class="cp"><i class="joy" style="background:#2f6bff"></i><small>Challenge a mate</small><span class="rec"><i class="w">33W</i><i class="l">16L</i></span><span class="btn">2P Start</span></span></a>
+</div></section>
+
+<section class="opt D"><div class="lab"><b>D · One compact panel</b><span>like Horacio's games: smaller, takes half the height</span></div>
+<div class="lx-h">Anytime <small>no daily limit</small></div>
+<div class="panel"><div class="side"><div><span>∞</span>PLAY ANYTIME</div></div><div class="rows">
+ <a class="row card" href="#"><img src="/bg/mode-inf-cut.png" alt=""><span><b>Infinity</b><small>Questions until you miss</small></span><span class="btn">Play</span></a>
+ <a class="row card" href="#"><img src="/bg/mode-duel-cut.png" alt=""><span><b>Duels</b><small>33W · 7D · 16L</small></span><span class="btn">Play</span></a>
+</div></div></section>
+<script>document.querySelectorAll('a[href="#"]').forEach(a=>a.onclick=e=>e.preventDefault())</script>
+</div></body></html>
