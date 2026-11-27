@@ -415,7 +415,9 @@
         },
         {
           "name": "Xabi Alonso",
-          "aliases": [],
+          "aliases": [
+            "Xabi"
+          ],
           "fame": 2
         },
         {
@@ -884,7 +886,13 @@
         {
           "name": "Vinícius Júnior",
           "aliases": [
-            "Vini Jr"
+            "Vini Jr",
+            "Vinícius",
+            "Vinicius",
+            "Vini",
+            "Vinicius Junior",
+            "Vinícius Jr",
+            "Vinicius Jr"
           ],
           "fame": 5
         },
@@ -933,7 +941,11 @@
         {
           "name": "Emiliano Martínez",
           "aliases": [
-            "Dibu Martínez"
+            "Dibu Martínez",
+            "Emi Martínez",
+            "Emi Martinez",
+            "Emiliano Martinez",
+            "Dibu"
           ],
           "fame": 4
         },
@@ -944,7 +956,10 @@
         },
         {
           "name": "Khvicha Kvaratskhelia",
-          "aliases": [],
+          "aliases": [
+            "Kvara",
+            "Kvaratskhelia"
+          ],
           "fame": 4
         },
         {
@@ -959,7 +974,10 @@
         },
         {
           "name": "Lautaro Martínez",
-          "aliases": [],
+          "aliases": [
+            "Lautaro",
+            "Lautaro Martinez"
+          ],
           "fame": 4
         },
         {
@@ -1166,7 +1184,10 @@
         },
         {
           "name": "Enzo Fernández",
-          "aliases": [],
+          "aliases": [
+            "Enzo",
+            "Enzo Fernandez"
+          ],
           "fame": 6
         },
         {
