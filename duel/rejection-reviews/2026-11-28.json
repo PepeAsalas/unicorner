@@ -1,0 +1,1732 @@
+{
+  "date": "2026-11-28",
+  "baseline_commit": "cef902a7feb8798e1e28bbb6e670dabc3118aac9",
+  "correction_commit": "e5851eb948d3ea4fb4d5617b5cbcd422f2d57a45",
+  "previous_checkpoint": 2376273,
+  "last_scanned_event_id": 2452582,
+  "scanned_events": 5973,
+  "scan_pages": [
+    1000,
+    1000,
+    1000,
+    1000,
+    1000,
+    973
+  ],
+  "prior_pending_count": 59088,
+  "pending_count": 61289,
+  "excluded_records": {
+    "duplicate": 305,
+    "ambiguous": 110
+  },
+  "corrections": [
+    {
+      "question_id": "d8-name-a-goalkeeper-who-played-in-ligue-1-since-2000",
+      "submitted_text": [
+        "penders",
+        "Mike Penders"
+      ],
+      "event_count": 6,
+      "new_events": 3,
+      "decision": "add_missing_player",
+      "correction": {
+        "name": "Mike Penders",
+        "aliases": [
+          "Penders"
+        ],
+        "fame": 2
+      },
+      "evidence": "The official Ligue 1 profile dated 28 July 2025 identifies Mike Penders as a goalkeeper. The official 21 September 2025 Paris FC-Strasbourg league match report records his saves during Strasbourg’s 3-2 victory, establishing an actual competitive first-team Ligue 1 appearance inside 2000-01 to 2025-26. No reliance on a transfer or squad place alone. Fame 2 follows established Ligue 1 goalkeeper entries such as Matvey Safonov.",
+      "evidence_urls": [
+        "https://ligue1.com/fr/articles/l1_article_2929-",
+        "https://ligue1.com/en/articles/l1_article_3291-strasbourg-edge-paris-fc-in-thriller"
+      ],
+      "commit_reference": "e5851eb948d3ea4fb4d5617b5cbcd422f2d57a45"
+    },
+    {
+      "question_id": "d8-name-a-winger-who-played-in-the-premier-league-since-2010",
+      "submitted_text": [
+        "forbes",
+        "forbs",
+        "carlos forbs"
+      ],
+      "event_count": 9,
+      "new_events": 5,
+      "decision": "add_missing_player",
+      "correction": {
+        "name": "Carlos Forbs",
+        "aliases": [
+          "Carlos Roberto Forbs Borges",
+          "Carlos Borges"
+        ],
+        "fame": 2
+      },
+      "evidence": "Wolves official 5 September 2024 scout report gives Carlos Roberto Forbs Borges as the full name, identifies him as a winger, and records Carlos Borges as his former playing name. The official 5 October 2024 Brentford-Wolves Premier League match report records Forbs starting on the wing and being substituted in minute 67, establishing competitive first-team league participation inside 2010-11 to 2025-26. Carlos Forbs is the canonical playing name already used elsewhere in this bank; fame 2 matches his existing Portuguese-PL entry. The actual matcher handles Forbes as a one-letter surname typo without a special alias.",
+      "evidence_urls": [
+        "https://www.wolves.co.uk/news/mens-first-team/20240905-scout-report-carlos-forbs/",
+        "https://www.wolves.co.uk/news/mens-first-team/20241005-report-brentford-5-3-wolves/"
+      ],
+      "commit_reference": "e5851eb948d3ea4fb4d5617b5cbcd422f2d57a45"
+    }
+  ],
+  "validation": {
+    "questions": 460,
+    "baseline_errors": 0,
+    "final_errors": 0,
+    "baseline_warnings": 579,
+    "final_warnings": 579,
+    "warning_multiset_unchanged": true,
+    "existing_matcher_forms_checked": 649,
+    "matcher_regressions": 0,
+    "observed_combinations_checked_on_changed_questions": 383,
+    "resolved_groups": 5,
+    "new_events_covered_by_corrections": 8,
+    "json_valid": true,
+    "existing_fields_and_answers_preserved": true,
+    "rejection_handler_and_javascript_syntax_tests": "passed"
+  },
+  "review_limit": "All fetched events and prior pending combinations were grouped and retried against the actual browser matcher. Selected plausible omissions were researched. Retained pending cases have not all been individually researched. No inference of eligibility from frequency and no cross-question propagation. Submitted data is treated only as data; no session, user or duel identifiers are recorded.",
+  "decisions": [
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2004-copa-america",
+      "input": "honduras",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-reached-the-euro-semi-finals-between-1996-and-2024",
+      "input": "Sweden",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-euro-2024",
+      "input": "Sweden",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-serie-a-in-2025-26",
+      "input": "Monza",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-serie-a-in-2025-26",
+      "input": "Venezia",
+      "event_count": 4,
+      "new_events": 4,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2007-copa-america",
+      "input": "honduras",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1988",
+      "input": "Portugal",
+      "event_count": 3,
+      "new_events": 3,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d18-name-an-italian-club-that-played-in-the-champions-league-group-or-league-phase-between-2001-02-and-2025-26",
+      "input": "parma",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-2000",
+      "input": "poland",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-2000",
+      "input": "Greece",
+      "event_count": 6,
+      "new_events": 6,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d19-name-a-club-from-catalonia-that-played-in-la-liga-up-to-2025-26",
+      "input": "valencia",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d5-name-a-colombian-who-played-in-serie-a-since-2000",
+      "input": "James Rodriguez ",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d18-name-a-spanish-club-that-played-in-the-champions-league-group-or-league-phase-since-2000-01",
+      "input": "Espanyol",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-has-won-the-copa-america-up-to-2024",
+      "input": "Ecuador",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-has-won-the-copa-america-up-to-2024",
+      "input": "Venezuela",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1998-world-cup",
+      "input": "Greece",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d6-name-a-player-who-played-for-france-at-a-world-cup-since-2006",
+      "input": "adil rami",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d16-name-a-dutch-player-who-played-for-the-winning-team-in-a-champions-league-final-between-1992-93-and-2025-26-starter-or-substitute-who-came-on",
+      "input": "Frenkie De Jong",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2015-copa-america",
+      "input": "Costa Rica",
+      "event_count": 3,
+      "new_events": 3,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d23-name-a-country-outside-the-uk-that-had-a-player-in-the-premier-league-for-tottenham-up-to-2025-26-his-national-team-or-country-of-birth-if-uncapped",
+      "input": "Wales",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d23-name-a-country-outside-the-uk-that-had-a-player-in-the-premier-league-for-tottenham-up-to-2025-26-his-national-team-or-country-of-birth-if-uncapped",
+      "input": "Scotland",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-2008",
+      "input": "belgium",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-2020",
+      "input": "serbia",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-has-won-the-afc-asian-cup-up-to-2023",
+      "input": "china",
+      "event_count": 4,
+      "new_events": 4,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d12-name-a-senior-canada-international-who-played-in-the-premier-league-up-to-2025-26",
+      "input": "alphonso davies",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2010-africa-cup-of-nations",
+      "input": "south africa",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2010-africa-cup-of-nations",
+      "input": "senegal",
+      "event_count": 5,
+      "new_events": 5,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d16-name-a-player-capped-by-an-african-national-team-who-played-for-the-winning-team-in-a-champions-league-final-between-1992-93-and-2025-26-starter-or-substitute-who-came-on",
+      "input": "brahim diaz",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2015-africa-cup-of-nations",
+      "input": "nigeria",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1982-world-cup",
+      "input": "Sweden",
+      "event_count": 4,
+      "new_events": 4,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d19-name-a-club-from-lombardy-that-played-in-serie-a-up-to-2025-26",
+      "input": "Juventus",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-a-french-club-that-won-the-coupe-de-france-between-2000-01-and-2024-25",
+      "input": "Lens",
+      "event_count": 3,
+      "new_events": 3,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d9-name-a-player-who-scored-10-goals-for-brazil-since-2000",
+      "input": "Roberto Carlos",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2013-fifa-confederations-cup",
+      "input": "Germany",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1982-world-cup",
+      "input": "Mexico",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d24-name-a-spaniard-who-was-a-permanent-premier-league-manager-up-to-2025-26",
+      "input": "xabi alonso",
+      "event_count": 6,
+      "new_events": 6,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2002-world-cup",
+      "input": "Chile",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d23-name-a-country-outside-the-uk-that-had-a-player-in-the-premier-league-for-chelsea-up-to-2025-26-his-national-team-or-country-of-birth-if-uncapped",
+      "input": "wales",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d23-name-a-country-outside-the-uk-that-had-a-player-in-the-premier-league-for-chelsea-up-to-2025-26-his-national-team-or-country-of-birth-if-uncapped",
+      "input": "scotland",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-psg-and-milan",
+      "input": "kaka",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2017-africa-cup-of-nations",
+      "input": "south africa",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-the-premier-league-in-2025-26",
+      "input": "Ipswich Town",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2021-copa-america",
+      "input": "Mexico",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-the-premier-league-between-2000-01-and-2010-11",
+      "input": "Queens Park RAngers",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-an-english-club-that-won-the-fa-cup-between-1990-91-and-2024-25",
+      "input": " Stoke City",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-an-english-club-that-won-the-fa-cup-between-1990-91-and-2024-25",
+      "input": "Aston Villa",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-a-spanish-club-that-won-the-copa-del-rey-between-2000-01-and-2024-25",
+      "input": "Osasuna",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d23-name-a-country-outside-the-uk-that-had-a-player-in-the-premier-league-for-everton-up-to-2025-26-his-national-team-or-country-of-birth-if-uncapped",
+      "input": "Wales",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1980",
+      "input": "yugoslavia",
+      "event_count": 3,
+      "new_events": 3,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d19-name-a-club-from-andalusia-that-played-in-la-liga-between-2000-01-and-2025-26",
+      "input": "Valencia",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-milan-and-inter",
+      "input": "Kaka",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d23-name-a-country-outside-the-uk-that-had-a-player-in-the-premier-league-for-man-city-up-to-2025-26-his-national-team-or-country-of-birth-if-uncapped",
+      "input": "England",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2019-afc-asian-cup",
+      "input": "malaysia",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d24-name-a-scottish-manager-who-was-a-permanent-premier-league-manager-up-to-2025-26",
+      "input": "Brendan Rodgers",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d21-name-a-club-promoted-to-serie-a-in-the-summers-of-2011-to-2025-automatic-promotion-or-play-offs",
+      "input": "udinese",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d11-name-a-brazilian-striker-who-played-in-serie-a",
+      "input": "Kaka",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-an-italian-club-that-won-the-coppa-italia-between-2000-01-and-2024-25",
+      "input": "sampdoria",
+      "event_count": 3,
+      "new_events": 3,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2006-world-cup",
+      "input": "cameroon",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2006-world-cup",
+      "input": "russia",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d21-name-a-club-promoted-to-la-liga-in-the-summers-of-2000-to-2010",
+      "input": "elche",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d18-name-a-club-that-won-the-european-cup-winners-cup-1960-61-to-1998-99",
+      "input": "Liverpool",
+      "event_count": 10,
+      "new_events": 10,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d18-name-a-club-that-won-the-european-cup-winners-cup-1960-61-to-1998-99",
+      "input": "Real Madrid",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1954-world-cup",
+      "input": "Spain",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1954-world-cup",
+      "input": "Argentina",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-has-won-the-world-cup-up-to-2022",
+      "input": "Hungary",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1992",
+      "input": "Spain",
+      "event_count": 3,
+      "new_events": 3,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-ajax-and-barcelona",
+      "input": "Xavi Simons",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d18-name-a-club-that-played-in-a-european-cup-winners-cup-final-1960-61-to-1998-99",
+      "input": "Benfica",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d21-name-a-club-relegated-from-serie-a-between-2014-15-and-2024-25",
+      "input": "torino",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-2020",
+      "input": "greece",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-a-french-club-that-won-the-coupe-de-france-between-2000-01-and-2024-25",
+      "input": "marseille",
+      "event_count": 4,
+      "new_events": 4,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2013-fifa-confederations-cup",
+      "input": "argentina",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d3-name-a-player-who-played-for-both-man-city-and-barcelona",
+      "input": "Pep Guardiola",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d25-name-a-player-who-played-for-barcelona-under-pep-guardiola-2008-09-to-2011-12-competitive-first-team-matches",
+      "input": "Ronaldinho",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-a-french-club-that-won-the-coupe-de-france-between-2000-01-and-2024-25",
+      "input": "Monaco",
+      "event_count": 4,
+      "new_events": 4,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d2-name-a-goalkeeper-who-played-for-chelsea",
+      "input": "Rob green",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2007-copa-america",
+      "input": "Costa Rica",
+      "event_count": 3,
+      "new_events": 3,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-reached-the-euro-semi-finals-between-1996-and-2024",
+      "input": "Ukraine",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d21-name-a-club-promoted-to-la-liga-in-the-summers-of-2000-to-2010",
+      "input": "Mallorca",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1966-world-cup",
+      "input": "netherlands",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1930-world-cup",
+      "input": "italy",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1930-world-cup",
+      "input": "spain",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1930-world-cup",
+      "input": "england",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d5-name-a-german-player-who-played-in-the-premier-league-since-2000",
+      "input": "toni kroos",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2006-world-cup",
+      "input": "denmark",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2012-africa-cup-of-nations",
+      "input": "Egypt",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2012-africa-cup-of-nations",
+      "input": "Nigeria",
+      "event_count": 5,
+      "new_events": 5,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2012-africa-cup-of-nations",
+      "input": "Cameroon",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d16-name-a-brazilian-player-who-played-for-the-winning-team-in-a-champions-league-final-between-1992-93-and-2025-26-starter-or-substitute-who-came-on",
+      "input": "Ronaldo",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2017-fifa-confederations-cup",
+      "input": "Argentina",
+      "event_count": 5,
+      "new_events": 5,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2017-fifa-confederations-cup",
+      "input": "Brasil",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d21-name-a-club-relegated-from-the-premier-league-between-2014-15-and-2024-25",
+      "input": "everton",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d23-name-a-country-outside-the-uk-that-had-a-player-in-the-premier-league-for-newcastle-up-to-2025-26-his-national-team-or-country-of-birth-if-uncapped",
+      "input": "Wales",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d9-name-a-player-with-100-ligue-1-goals",
+      "input": "Neymar",
+      "event_count": 3,
+      "new_events": 3,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1950-world-cup",
+      "input": "Scotland",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1950-world-cup",
+      "input": "West Germany",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1930-world-cup",
+      "input": "germany",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-serie-a-in-2025-26",
+      "input": "spezia",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1998-world-cup",
+      "input": "russia",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1966-world-cup",
+      "input": "sweden",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-the-scottish-premiership-in-2015-16",
+      "input": "rangers",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d21-name-a-club-promoted-to-la-liga-in-the-summers-of-2011-to-2025-automatic-promotion-or-play-offs",
+      "input": "Malaga",
+      "event_count": 3,
+      "new_events": 3,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-serie-a-in-2025-26",
+      "input": "sampdoria",
+      "event_count": 3,
+      "new_events": 3,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2016-copa-america-centenario",
+      "input": "honduras",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1992",
+      "input": "Italy",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-the-bundesliga-in-2015-16",
+      "input": "union berlin",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d9-name-a-player-who-scored-20-bundesliga-goals-in-a-single-season-since-2000",
+      "input": "marco reus",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1934-world-cup",
+      "input": "england",
+      "event_count": 3,
+      "new_events": 3,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1934-world-cup",
+      "input": "uruguay",
+      "event_count": 3,
+      "new_events": 3,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1934-world-cup",
+      "input": "yugoslavia",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1958-world-cup",
+      "input": "italy",
+      "event_count": 3,
+      "new_events": 3,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-2012",
+      "input": "wales",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2023-afc-asian-cup",
+      "input": "Kuwait",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2022-world-cup",
+      "input": "Egypt",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-euro-2016",
+      "input": "greece",
+      "event_count": 3,
+      "new_events": 3,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d10-name-a-left-footed-brazilian-player",
+      "input": "Neymar",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1978-world-cup",
+      "input": "Soviet Union",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-reached-a-world-cup-semi-final-between-1998-and-2022",
+      "input": "Russia",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1996",
+      "input": "Belgium",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-la-liga-in-2025-26",
+      "input": "Granada",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-2008",
+      "input": "Serbia",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-a-spanish-club-that-won-the-copa-del-rey-between-2000-01-and-2024-25",
+      "input": "Getafe",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-the-premier-league-between-2011-12-and-2019-20",
+      "input": "Blackpool",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2021-africa-cup-of-nations",
+      "input": "South Africa",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d27-name-a-player-who-played-for-spain-under-vicente-del-bosque-at-a-major-tournament-2009-confederations-cup-to-euro-2016",
+      "input": "Isco",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2017-africa-cup-of-nations",
+      "input": "Zambia",
+      "event_count": 3,
+      "new_events": 3,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d21-name-a-club-relegated-from-serie-a-between-2014-15-and-2024-25",
+      "input": "udinese",
+      "event_count": 3,
+      "new_events": 3,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d21-name-a-club-relegated-from-la-liga-between-2014-15-and-2024-25",
+      "input": "Villarreal",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1984",
+      "input": "England",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-serie-a-in-2015-16",
+      "input": "parma",
+      "event_count": 3,
+      "new_events": 3,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d18-name-a-club-that-reached-the-champions-league-semi-finals-between-2000-01-and-2025-26",
+      "input": "Sevilla",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2013-africa-cup-of-nations",
+      "input": "senegal",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2013-africa-cup-of-nations",
+      "input": "egypt",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2011-afc-asian-cup",
+      "input": "thailand",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-an-english-club-that-won-the-fa-cup-between-1990-91-and-2024-25",
+      "input": "Hull City",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d19-name-a-club-from-istanbul-that-played-in-the-turkish-super-lig-up-to-2025-26",
+      "input": "trabzonspor",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d21-name-a-club-relegated-from-la-liga-between-2004-05-and-2013-14",
+      "input": "elche",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1970-world-cup",
+      "input": "netherlands",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1996",
+      "input": "poland",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2019-afc-asian-cup",
+      "input": "Indonesia",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2006-world-cup",
+      "input": "scotland",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d21-name-a-club-relegated-from-la-liga-between-2004-05-and-2013-14",
+      "input": "cordoba",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1974-world-cup",
+      "input": "England ",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1974-world-cup",
+      "input": "Spain",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d16-name-a-brazilian-player-who-played-for-the-winning-team-in-a-champions-league-final-between-1992-93-and-2025-26-starter-or-substitute-who-came-on",
+      "input": "cafu",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d18-name-a-club-that-won-the-uefa-super-cup-between-1973-and-2025",
+      "input": "Rangers ",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2008-africa-cup-of-nations",
+      "input": "togo`",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d21-name-a-club-promoted-to-ligue-1-in-the-summers-of-2011-to-2025-automatic-promotion-or-play-offs",
+      "input": "lille",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-2012",
+      "input": "SWITZERLAND",
+      "event_count": 8,
+      "new_events": 8,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d4-name-a-player-who-won-the-europa-league-with-sevilla-since-2000",
+      "input": "sergio ramos",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d7-name-a-player-who-played-for-chelsea-in-the-2000s",
+      "input": "fernando torres",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1990-world-cup",
+      "input": "Denmark",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-an-italian-club-that-won-the-coppa-italia-between-2000-01-and-2024-25",
+      "input": "Torino",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d2-name-a-left-back-who-played-for-barcelona",
+      "input": "Joao Cancelo",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2017-fifa-confederations-cup",
+      "input": "japan",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-has-won-the-africa-cup-of-nations-up-to-2023",
+      "input": "togo",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-the-premier-league-between-2020-21-and-2025-26",
+      "input": "Hull City",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d21-name-a-club-relegated-from-la-liga-between-2004-05-and-2013-14",
+      "input": "Las Palmas",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2011-copa-america",
+      "input": "jamaica",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d18-name-an-italian-club-that-played-in-the-champions-league-group-or-league-phase-between-2001-02-and-2025-26",
+      "input": "torino",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-the-scottish-premiership-in-2015-16",
+      "input": "Hibernian ",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2015-africa-cup-of-nations",
+      "input": "Morocco",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d27-name-a-player-who-played-for-spain-under-vicente-del-bosque-at-a-major-tournament-2009-confederations-cup-to-euro-2016",
+      "input": "Rodri",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1998-world-cup",
+      "input": "Sweden",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1958-world-cup",
+      "input": "Spain",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1934-world-cup",
+      "input": "Mexico",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d18-name-an-italian-club-that-played-in-the-champions-league-group-or-league-phase-between-2001-02-and-2025-26",
+      "input": "Sampdoria",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2011-copa-america",
+      "input": "japan",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1978-world-cup",
+      "input": "Yugoslavia",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2015-afc-asian-cup",
+      "input": "thailand",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d18-name-a-club-that-won-the-uefa-super-cup-between-1973-and-2025",
+      "input": "arsenal",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1954-world-cup",
+      "input": "Sweden",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-la-liga-in-2025-26",
+      "input": "Las Palmas",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d1-name-a-brazilian-who-played-for-real-madrid",
+      "input": "Pepe",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1994-world-cup",
+      "input": "portugal",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1984",
+      "input": "Soviet Union ",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1980",
+      "input": "portugal",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-a-german-club-that-won-the-dfb-pokal-between-2000-01-and-2024-25",
+      "input": "union berlin",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1998-world-cup",
+      "input": "uruguay",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1984",
+      "input": "Itália ",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-has-won-the-world-cup-up-to-2022",
+      "input": "Croacia",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d11-name-a-belgian-defender-who-played-in-the-premier-league",
+      "input": "Kevin de Bruyne",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-la-liga-between-2020-21-and-2025-26",
+      "input": "Málaga ",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d18-name-a-club-that-won-the-uefa-cup-or-europa-league-between-2000-01-and-2024-25",
+      "input": "Roma",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-2012",
+      "input": "Turquia ",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1966-world-cup",
+      "input": "Peru",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-an-english-club-that-won-the-league-cup-between-1990-91-and-2024-25",
+      "input": "Everton ",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2017-fifa-confederations-cup",
+      "input": "Japão ",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d9-name-a-player-with-100-la-liga-goals",
+      "input": "neymar",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1990-world-cup",
+      "input": "Portugal ",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2014-world-cup",
+      "input": "Suécia ",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-2004",
+      "input": "poland",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-2004",
+      "input": "turkey",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-ligue-1-in-2015-16",
+      "input": "Lens",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d9-name-a-player-who-scored-a-champions-league-hat-trick-since-2010",
+      "input": "wayne rooney",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-euro-1984",
+      "input": "Italy",
+      "event_count": 2,
+      "new_events": 2,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-2017-africa-cup-of-nations",
+      "input": "nigeria",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-serie-a-between-2020-21-and-2025-26",
+      "input": "Spal",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d17-name-a-club-that-played-in-la-liga-in-2025-26",
+      "input": "Cadiz",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d25-name-a-player-jose-mourinho-managed-at-real-madrid-2010-11-to-2012-13-competitive-first-team-matches",
+      "input": "Isco",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d22-name-a-country-that-played-at-the-1974-world-cup",
+      "input": "Hungary",
+      "event_count": 1,
+      "new_events": 1,
+      "reason": "Verify all exact question criteria using authoritative sources.",
+      "decision": "ignore_explicit_trap"
+    },
+    {
+      "question_id": "d5-name-a-belgian-who-played-in-serie-a-since-2000",
+      "input": "Witsel",
+      "event_count": 26,
+      "new_events": 0,
+      "reason": "Axel Witsel is not an evidenced Serie A player before the cutoff. Girona official career record enumerates Standard, Benfica, Zenit, Tianjin, Dortmund, Atletico and Girona; a reported Udinese transfer was not a qualifying appearance.",
+      "decision": "ignore_wrong_league",
+      "evidence_urls": [
+        "https://www.gironafc.cat/en/news/axel-witsel-a-highly-valuable-reinforcement-for-girona-fc"
+      ]
+    },
+    {
+      "question_id": "d5-name-a-belgian-who-played-in-serie-a-since-2000",
+      "input": "Axel Witsel",
+      "event_count": 2,
+      "new_events": 0,
+      "reason": "Axel Witsel is not an evidenced Serie A player before the cutoff. Girona official career record enumerates Standard, Benfica, Zenit, Tianjin, Dortmund, Atletico and Girona; a reported Udinese transfer was not a qualifying appearance.",
+      "decision": "ignore_wrong_league",
+      "evidence_urls": [
+        "https://www.gironafc.cat/en/news/axel-witsel-a-highly-valuable-reinforcement-for-girona-fc"
+      ]
+    },
+    {
+      "question_id": "d5-name-a-belgian-who-played-in-serie-a-since-2000",
+      "input": "wissel",
+      "event_count": 4,
+      "new_events": 4,
+      "reason": "Axel Witsel is not an evidenced Serie A player before the cutoff. Girona official career record enumerates Standard, Benfica, Zenit, Tianjin, Dortmund, Atletico and Girona; a reported Udinese transfer was not a qualifying appearance.",
+      "decision": "ignore_wrong_league",
+      "evidence_urls": [
+        "https://www.gironafc.cat/en/news/axel-witsel-a-highly-valuable-reinforcement-for-girona-fc"
+      ]
+    }
+  ]
+}
