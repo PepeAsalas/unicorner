@@ -560,11 +560,18 @@
             "Bartra"
           ],
           "fame": 1
+        },
+        {
+          "name": "David Alaba",
+          "aliases": [
+            "Alaba"
+          ],
+          "fame": 3
         }
       ],
       "prompt_es": "Nombra un jugador que haya marcado en un Clásico",
       "subtitle_es": "Real Madrid–Barcelona, todas las competiciones, 2010–2025",
-      "answer_count": 71,
+      "answer_count": 72,
       "prompt_pt": "Cite um jogador que marcou num El Clásico",
       "subtitle_pt": "Real Madrid x Barcelona, todas as competições, 2010–2025",
       "reuse_of": "w108",
@@ -574,14 +581,14 @@
       "id": "f147",
       "_id": "f147",
       "prompt": "Scored in a Europa League final",
-      "subtitle": "Finals from 2010 to 2025; normal or extra time, no shootouts or own goals",
+      "subtitle": "Finals from 2010 to 2026; normal or extra time, no shootouts or own goals",
       "prompt_es": "Marcó en una final de la Europa League",
-      "subtitle_es": "Finales de 2010 a 2025; en tiempo reglamentario o prórroga, sin tandas ni goles en propia",
+      "subtitle_es": "Finales de 2010 a 2026; en tiempo reglamentario o prórroga, sin tandas ni goles en propia",
       "difficulty": "hard",
       "answer_type": "player",
       "format_family": "final_scorer",
       "scoring_version": 2,
-      "answer_count": 32,
+      "answer_count": 35,
       "clash_note": "",
       "answers": [
         {
@@ -815,6 +822,29 @@
             "Johnson"
           ],
           "fame": 4
+        },
+        {
+          "name": "Youri Tielemans",
+          "aliases": [
+            "Tielemans"
+          ],
+          "fame": 3
+        },
+        {
+          "name": "Emiliano Buendía",
+          "aliases": [
+            "Emiliano Buendia",
+            "Buendía",
+            "Buendia"
+          ],
+          "fame": 2
+        },
+        {
+          "name": "Morgan Rogers",
+          "aliases": [
+            "Rogers"
+          ],
+          "fame": 3
         }
       ],
       "traps": [
@@ -845,7 +875,7 @@
         }
       ],
       "prompt_pt": "Marcou numa final da Europa League",
-      "subtitle_pt": "Finais de 2010 a 2025; tempo normal ou prorrogação, sem pênaltis nem gols contra"
+      "subtitle_pt": "Finais de 2010 a 2026; tempo normal ou prorrogação, sem pênaltis nem gols contra"
     },
     {
       "id": "u032r1",
@@ -1217,7 +1247,10 @@
         },
         {
           "name": "Lisandro Martínez",
-          "aliases": [],
+          "aliases": [
+            "Lisandro",
+            "Lisandro Martinez"
+          ],
           "fame": 5
         },
         {

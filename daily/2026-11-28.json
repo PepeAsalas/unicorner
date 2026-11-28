@@ -324,14 +324,14 @@
       "id": "f152",
       "_id": "f152",
       "prompt": "Name a club that lost a UEFA Cup or Europa League final",
-      "subtitle": "Single-match finals from 1998 to 2025 · Europe's second club competition",
+      "subtitle": "Single-match finals from 1998 to 2026 · Europe's second club competition",
       "prompt_es": "Nombra un club que perdió una final de la Copa de la UEFA o la Europa League",
-      "subtitle_es": "Finales a partido único de 1998 a 2025 · la segunda competición europea",
+      "subtitle_es": "Finales a partido único de 1998 a 2026 · la segunda competición europea",
       "difficulty": "easy",
       "answer_type": "club",
       "format_family": "final_loser_club",
       "scoring_version": 2,
-      "answer_count": 22,
+      "answer_count": 23,
       "clash_note": "",
       "answers": [
         {
@@ -498,6 +498,13 @@
             "Leverkusen"
           ],
           "fame": 3
+        },
+        {
+          "name": "SC Freiburg",
+          "aliases": [
+            "Freiburg"
+          ],
+          "fame": 2
         }
       ],
       "traps": [
@@ -532,20 +539,20 @@
         }
       ],
       "prompt_pt": "Cite um clube que perdeu uma final da Copa da UEFA ou da Europa League",
-      "subtitle_pt": "Finais em jogo único de 1998 a 2025 · A segunda competição de clubes da Europa"
+      "subtitle_pt": "Finais em jogo único de 1998 a 2026 · A segunda competição de clubes da Europa"
     },
     {
       "id": "f151",
       "_id": "f151",
       "prompt": "Won the Zamora Trophy",
-      "subtitle": "LaLiga's award for the goalkeeper who concedes the fewest goals per game, 1990-91 to 2024-25",
+      "subtitle": "LaLiga's award for the goalkeeper who concedes the fewest goals per game, 1990-91 to 2025-26",
       "prompt_es": "Ganó el Trofeo Zamora",
-      "subtitle_es": "El premio al portero menos goleado de LaLiga, de la 1990-91 a la 2024-25",
+      "subtitle_es": "El premio al portero menos goleado de LaLiga, de la 1990-91 a la 2025-26",
       "difficulty": "medium",
       "answer_type": "player",
       "format_family": "award_winner_player",
       "scoring_version": 2,
-      "answer_count": 21,
+      "answer_count": 22,
       "clash_note": "",
       "answers": [
         {
@@ -714,6 +721,13 @@
             "Simon"
           ],
           "fame": 4
+        },
+        {
+          "name": "Joan García",
+          "aliases": [
+            "Joan Garcia"
+          ],
+          "fame": 3
         }
       ],
       "traps": [
@@ -738,7 +752,7 @@
         }
       ],
       "prompt_pt": "Ganhou o Troféu Zamora",
-      "subtitle_pt": "O prêmio de LaLiga para o goleiro com menos gols sofridos por jogo, de 1990-91 a 2024-25"
+      "subtitle_pt": "O prêmio de LaLiga para o goleiro com menos gols sofridos por jogo, de 1990-91 a 2025-26"
     },
     {
       "id": "f154",
